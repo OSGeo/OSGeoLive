@@ -21,15 +21,19 @@
 # =======
 # sudo ./master.sh
 
+# Customisation:
+# =============
+# You can customise the contents of the liveDVD by commenting out install
+# scripts.
 
 
-# Uninstall / Install all the base system packages
+# Uninstall / Install all the base system packages: ssh, java, etc
 # Set up configuration files
-./core.sh
+./setup.sh
 
 # Mapserver
-./mapserver.sh
+./install_mapserver.sh
 
 # Geoserver
-./geoserver.sh
+./install_geoserver.sh
 
