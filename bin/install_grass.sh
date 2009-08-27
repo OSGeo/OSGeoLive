@@ -7,6 +7,11 @@
 # be done in another script.
 
 
+#### install grass ####
+
+# FIXME: what's the live disc's username??
+USERNAME=gis
+
 PACKAGES="grass grass-doc avce00 e00compr gdal-bin gpsbabel more"
 
 MINIMUM_VERSION=6.4
@@ -27,58 +32,86 @@ if [ -n "$TO_INSTALL" ] ; then
    fi
 fi
 
-if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install either first" 
-   exit 1
-fi
-
-GRASS_VERSION=`dpkg -s grass | grep 'Version' | awk '{print $2}' | cut -f1,2 -d.`
-if [ `echo "$GRASS_VERSION $MINIMUM_VERSION" | awk '{if ($1 < $2) {print 1} else {print 0} }'` -eq 1 ] ; then
+GRASS_VERSION=`dpkg -s grass | grep '^Version:' | awk '{print $2}' | cut -f1,2 -d.`
+OLD_VERSION=`echo "$GRASS_VERSION $MINIMUM_VERSION" | awk '{if ($1 < $2) {print 1} else {print 0} }'`
+if [ "$OLD_VERSION" -eq 1 ] ; then
    echo "WARNING: Installed version ($GRASS_VERSION) is older than the recommended version ($MINIMUM_VERSION)."
    echo "         Please fix!"
    #exit 1
 fi
 
 
-# get sample data
-mkdir -p /tmp/grass_downlaods
-cd /tmp/grass_downlaods
+
+#### get sample data ####
+
+if [ ! -x "`which wget`" ] ; then
+   echo "ERROR: wget is required, please install it and try again" 
+   exit 1
+fi
+
+
+# put static data in /usr/local ..
+mkdir -p /usr/local/share/grass
+cd /usr/local/share/grass/
 
 # Spearfish dataset, 20mb .tgz
-wget -nv http://grass.osgeo.org/sampledata/spearfish_grass60data-0.3.tar.gz
 # North Carolina dataset, 135mb .tgz
-wget -nv http://grass.osgeo.org/sampledata/nc_spm_latest.tar.gz
+for FILE in spearfish_grass60data-0.3 nc_spm_latest ; do
+   wget -nv http://grass.osgeo.org/sampledata/$FILE.tar.gz
 
+   tar xzf $FILE.tar.gz
 
+   if [ $? -eq 0 ] ; then
+      \rm $FILE.tar.gz
+   fi
+done
+
+# but link into $HOME for easy access & so user owns mapset
 mkdir ~/grassdata
 cd ~/grassdata/
 
-tar xzf /tmp/grass_downlaods/spearfish_grass60data-0.3.tar.gz   
-tar xzf /tmp/grass_downlaods/nc_spm_latest.tar.gz
+for LOCATION in spearfish60 nc_spm_08 ; do
+   mkdir $LOCATION
+   ln -s /usr/local/share/grass/$LOCATION/PERMANENT PERMANENT
+   mkdir $LOCATION/user1
+   cp /usr/local/share/grass/$LOCATION/user1/* $LOCATION/user1/
 
-if [ $? -eq 0 ] ; then
-   rm -rf /tmp/grass_downlaods/
+   chmod g+rwx /usr/local/share/grass/$LOCATION
+   chown root.users /usr/local/share/grass/$LOCATION
+done
+
+adduser $USERNAME users
+chown -R $USERNAME.$USERNAME ~/grassdata
+
+#### preconfig setup ####
+
+if [ "$OLD_VERSION" -eq 1 ] ; then
+   GRASS_GUI=tcltk
+else
+   GRASS_GUI=wxpython
 fi
 
-# check that $HOME is appropriate to final system!
+# FIXME: check that $HOME is appropriate to final system!
 cat << EOF > ~/.grassrc6
+GISDBASE: $HOME/grassdata
 LOCATION_NAME: spearfish60
 MAPSET: user1
-DIGITIZER: none
-GISDBASE: $HOME/grassdata
-DEBUG: 0
-GRASS_GUI: wxpython
+GRASS_GUI: $GRASS_GUI
 EOF
+chown -R $USERNAME.$USERNAME ~/.grassrc6
 
 
 # setup startup stuff
-mkdir ~/grassdata/addons
-cat << EOF >> ~/.bashrc
+mkdir -p ~/grassdata/addons
+if [ `grep -c 'GRASS_PAGER=' ~/.bashrc` -eq 0 ] ; then
+   cat << EOF >> ~/.bashrc
 
 GRASS_PAGER=more
 GRASS_ADDON_PATH=~/grassdata/addons
 export GRASS_PAGER GRASS_ADDON_PATH
 
 EOF
+fi
 
-echo "Done installing GRASS."
+
+echo "Finished installing GRASS $GRASS_VERSION."
