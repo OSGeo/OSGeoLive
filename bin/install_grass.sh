@@ -14,7 +14,7 @@ USERNAME=gis
 
 PACKAGES="grass grass-doc avce00 e00compr gdal-bin gpsbabel more"
 
-MINIMUM_VERSION=6.4
+MODERN_VERSION="6.4"
 
 TO_INSTALL=""
 for PACKAGE in $PACKAGES ; do
@@ -32,10 +32,10 @@ if [ -n "$TO_INSTALL" ] ; then
    fi
 fi
 
-GRASS_VERSION=`dpkg -s grass | grep '^Version:' | awk '{print $2}' | cut -f1,2 -d.`
-OLD_VERSION=`echo "$GRASS_VERSION $MINIMUM_VERSION" | awk '{if ($1 < $2) {print 1} else {print 0} }'`
-if [ "$OLD_VERSION" -eq 1 ] ; then
-   echo "WARNING: Installed version ($GRASS_VERSION) is older than the recommended version ($MINIMUM_VERSION)."
+INSTALLED_VERSION=`dpkg -s grass | grep '^Version:' | awk '{print $2}' | cut -f1,2 -d.`
+IS_OLD_VERSION=`echo "$INSTALLED_VERSION $MODERN_VERSION" | awk '{if ($1 < $2) {print 1} else {print 0} }'`
+if [ "$IS_OLD_VERSION" -eq 1 ] ; then
+   echo "WARNING: Installed version ($INSTALLED_VERSION) is older than the recommended version ($MODERN_VERSION)."
    echo "         Please fix!"
    #exit 1
 fi
@@ -85,7 +85,7 @@ chown -R $USERNAME.$USERNAME ~/grassdata
 
 #### preconfig setup ####
 
-if [ "$OLD_VERSION" -eq 1 ] ; then
+if [ "$IS_OLD_VERSION" -eq 1 ] ; then
    GRASS_GUI=tcltk
 else
    GRASS_GUI=wxpython
@@ -114,4 +114,4 @@ EOF
 fi
 
 
-echo "Finished installing GRASS $GRASS_VERSION."
+echo "Finished installing GRASS $INSTALLED_VERSION."
