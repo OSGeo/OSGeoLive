@@ -14,40 +14,13 @@
 
 # About:
 # =====
-# This is the master GISVM script which will build a GISVM from a base
-# Xubuntu system, by calling a series of scripts for each package
+# This script will take a raw Xubuntu system and update it ready to run
+# GISVM install scripts.
 
 # Running:
 # =======
-# sudo ./master.sh
+# sudo ./setup.sh
 
-# Customisation:
-# =============
-# You can customise the contents of the liveDVD by commenting out install
-# scripts.
-
-
-# Uninstall / Install all the base system packages: ssh, java, etc
-# Set up configuration files
-./setup.sh
-
-#sun java 6
-./install_sunjre6.sh
-
-# Postgres, Postgis and PGadmin3
-./install_postgres.sh
-
-# Mapserver
-./install_apache2.sh
-#./install_mapserver.sh
-
-# Geoserver
-#./install_tomcat6.sh
-#./install_geoserver.sh
-
-# install udig including sample data
-#./install_udig.sh
-
-#install grass
-#./install_grass.sh
+# Uninstall default applications
+apt-get uninstall gnome-games
 
