@@ -169,7 +169,8 @@ apt-get remove $BUILD_DEPENDS
 #\rm install_makefiles.Lenny.patch mbps_c_gmt431.patch
 cd ..
 rm -rf `basename $LATEST .tar.gz`
-
+cd
+rm -rf /tmp/build_mbsystem
 
 
 # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
