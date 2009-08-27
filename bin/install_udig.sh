@@ -21,7 +21,7 @@
 # udig
 
 cd /usr/lib
-wget
+wget http://udig.refractions.net/files/downloads/branches/udig-1.2-M6.linux.gtk.x86.tar.gz
 gunzip udig-1.2-M6.linux.gtk.x86.tar.gz
 tar -xf udig-1.2-M6.linux.gtk.x86.tar
 
