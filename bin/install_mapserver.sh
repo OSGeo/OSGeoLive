@@ -20,5 +20,11 @@
 # =======
 # sudo ./mapserver.sh
 
+# Requires: Apache2
+
 apt-get install cgi-mapserver
+
+#Add thsi 2 lines to /etc/apache2/httpd.conf
+#EnableSendfile off
+#ScriptAlias /mapserver /usr/lib/cgi-bin/mapserv 
 

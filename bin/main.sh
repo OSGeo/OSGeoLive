@@ -31,9 +31,23 @@
 # Set up configuration files
 ./setup.sh
 
+#sun java 6
+./install_sunjre6.sh
+
+# Postgres, Postgis and PGadmin3
+./install_postgres.sh
+
 # Mapserver
-./install_mapserver.sh
+./install_apache2.sh
+#./install_mapserver.sh
 
 # Geoserver
-./install_geoserver.sh
+#./install_tomcat6.sh
+#./install_geoserver.sh
+
+# install udig including sample data
+#./install_udig.sh
+
+#install grass
+#./install_grass.sh
 
