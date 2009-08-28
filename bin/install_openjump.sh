@@ -44,8 +44,8 @@ ln -s /usr/lib/openjump-1.3/bin/openjump.sh /usr/bin/openjump
 #copy config-files to user's home
 mkdir /home/user/.jump
 cp /usr/lib/openjump-1.3/bin/workbench-properties.xml /home/user/.jump
-chown user /home/user/.jump
-chown user /home/user/.jump/workbench-properties.xml
+chown user:user /home/user/.jump
+chown user:user /home/user/.jump/workbench-properties.xml
 
 # Download desktop icon
 if [ -f "openjump.icon" ]
@@ -66,7 +66,7 @@ else
 fi
 # copy it into the openjump folder
 cp openjump.desktop /home/user/Desktop
-chown user /home/user/Desktop/openjump.desktop
+chown user:user /home/user/Desktop/openjump.desktop
 
 
 ## Sample Data ##

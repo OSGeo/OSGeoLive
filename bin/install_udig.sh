@@ -49,7 +49,7 @@ else
 fi
 # copy it into the udig folder
 cp uDig.desktop /home/user/Desktop
-chown user /home/user/Desktop/uDig.desktop
+chown user:user /home/user/Desktop/uDig.desktop
 
 
 ## Sample Data ##
