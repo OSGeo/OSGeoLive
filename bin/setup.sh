@@ -21,6 +21,15 @@
 # =======
 # sudo ./setup.sh
 
+# Install some useful stuff
+apt-get install wget more less zip unzip bzip2 \
+  cvs cvsutils subversion subversion-tools bzr bzr-tools \
+  openssh-client lftp sl smbclient usbutils wireless-tools \
+  locate diff patch fuseiso \
+  vim emacs nedit nano \
+  evince ghostscript a2ps pdftk netpbm qiv \
+  lynx mutt mc xchat rxvt units
+
 # Uninstall default applications
 apt-get uninstall gnome-games
 
