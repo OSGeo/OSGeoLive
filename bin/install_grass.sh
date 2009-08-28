@@ -63,7 +63,6 @@ if [ "$IS_OLD_VERSION" -eq 1 ] ; then
 fi
 
 
-
 #### get sample data ####
 
 if [ ! -x "`which wget`" ] ; then
@@ -105,6 +104,7 @@ done
 adduser $USER_NAME users
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata"
 
+
 #### preconfig setup ####
 
 if [ "$IS_OLD_VERSION" -eq 1 ] ; then
@@ -121,8 +121,6 @@ GRASS_GUI: $GRASS_GUI
 EOF
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/.grassrc6"
 
-
-#### setup startup stuff ####
 mkdir -p "$USER_HOME/grassdata/addons"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata/addons"
 
@@ -135,6 +133,28 @@ export GRASS_PAGER GRASS_ADDON_PATH
 
 EOF
 fi
+
+
+#### install desktop icon ####
+if [ ! -e "/usr/share/icons/grass-48x48.png" ] ; then
+   wget -nv "http://svn.osgeo.org/grass/grass/trunk/gui/icons/grass-48x48.png"   \mv grass64.xpm /usr/share/icons/
+   \mv grass-48x48.png /usr/share/icons/
+fi
+
+cat << EOF > "$USER_HOME/Desktop/grass.desktop"
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=GRASS GIS
+Comment=GRASS GIS $INSTALLED_VERSION
+Categories=Application
+Exec=/usr/bin/grass
+Icon=/usr/share/icons/grass-48x48.png
+Terminal=true
+EOF
+
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass.desktop"
+
 
 
 echo "Finished installing GRASS $INSTALLED_VERSION."
