@@ -48,7 +48,8 @@ else
    wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/udig-conf/uDig.desktop
 fi
 # copy it into the udig folder
-cp uDig.desktop $HOME/Desktop
+cp uDig.desktop /home/user/Desktop
+chown user /home/user/Desktop/uDig.desktop
 
 
 ## Sample Data ##

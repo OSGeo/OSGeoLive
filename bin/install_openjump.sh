@@ -27,8 +27,25 @@ unzip openjump-v1.3.zip -d /usr/lib
 
 ## Configure Application ##
 
+# Download desktop icon
+if [ -f "openjump.sh" ]
+then
+   echo "openjump.sh has already been downloaded."
+else
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/openjump-conf/openjump.sh
+fi
+# copy it into the openjump folder
+cp openjump.sh /usr/lib/openjump-1.3/bin
+#make startup script executable
+chmod 755 /usr/lib/openjump-1.3/bin/openjump.sh
 # create link to startup script
 ln -s /usr/lib/openjump-1.3/bin/openjump.sh /usr/bin/openjump
+
+#copy config-files to user's home
+mkdir /home/user/.jump
+cp /usr/lib/openjump-1.3/bin/workbench-properties.xml /home/user/.jump
+chown user /home/user/.jump
+chown user /home/user/.jump/workbench-properties.xml
 
 # Download desktop icon
 if [ -f "openjump.icon" ]
@@ -48,7 +65,8 @@ else
    wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/openjump-conf/openjump.desktop
 fi
 # copy it into the openjump folder
-cp openjump.desktop $HOME/Desktop
+cp openjump.desktop /home/user/Desktop
+chown user /home/user/Desktop/openjump.desktop
 
 
 ## Sample Data ##
