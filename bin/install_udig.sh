@@ -94,5 +94,3 @@ mkdir /usr/local/share/udig-docs
 cp udig-1.2-M5.html /usr/local/share/udig-docs
 cp uDigWalkthrough1.pdf /usr/local/share/udig-docs
 cp uDigWalkthrough1.pdf /usr/local/share/udig-docs
-
- 
