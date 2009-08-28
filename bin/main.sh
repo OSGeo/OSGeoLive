@@ -46,8 +46,11 @@
 #./install_geoserver.sh
 
 # install udig including sample data
-#./install_udig.sh
+./install_udig.sh
+
+# install openjump including sample data
+./install_openjump.sh
 
 #install grass
-#./install_grass.sh
+./install_grass.sh
 

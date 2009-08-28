@@ -1,4 +1,41 @@
 #!/bin/sh
+#################################################
+# 
+# Purpose: Installation of udig into Xubuntu
+# Author:  Stefan Hansen <shansen@lisasoft.com>
+#
+#################################################
+# Copyright (c) 2009 Open Geospatial Foundation
+# Copyright (c) 2009 LISAsoft
+#
+# Licensed under the GNU LGPL.
+# 
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation, either version 2.1 of the License,
+# or any later version.  This library is distributed in the hope that
+# it will be useful, but WITHOUT ANY WARRANTY, without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Lesser General Public License for more details, either
+# in the "LICENSE.LGPL.txt" file distributed with this software or at
+# web page "http://www.fsf.org/licenses/lgpl.html".
+##################################################
+
+# About:
+# =====
+# This script will install udig into Xubuntu
+
+# Running:
+# =======
+# sudo ./install_udig.sh
+
+TMP="/tmp/udig_downloads"
+INSTALL_FOLDER="/usr/lib"
+DATA_FOLDER="/usr/local/share"
+UDIG_FOLDER="$INSTALL_FOLDER/udig"
+BIN="/usr/bin"
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
  
 ## Setup things... ##
  
@@ -8,8 +45,8 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 # create tmp folders
-mkdir /tmp/udig_downloads
-cd /tmp/udig_downloads
+mkdir $TMP
+cd $TMP
 
 
 ## Install Application ##
@@ -22,7 +59,7 @@ else
    wget http://udig.refractions.net/files/downloads/branches/udig-1.2-M6.linux.gtk.x86.tar.gz
 fi
 # unpack it and copy it to /usr/lib
-tar -xzf udig-1.2-M6.linux.gtk.x86.tar.gz -C /usr/lib
+tar -xzf udig-1.2-M6.linux.gtk.x86.tar.gz -C $INSTALL_FOLDER
 
 
 ## Configure Application ##
@@ -35,10 +72,10 @@ else
    wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/udig-conf/udig.sh
 fi
 # copy it into the udig folder
-cp udig.sh /usr/lib/udig
+cp udig.sh $UDIG_FOLDER
 
 # create link to startup script
-ln -s /usr/lib/udig/udig.sh /usr/bin/udig
+ln -s $UDIG_FOLDER/udig.sh $BIN/udig
 
 # Download desktop icon
 if [ -f "uDig.desktop" ]
@@ -48,8 +85,8 @@ else
    wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/udig-conf/uDig.desktop
 fi
 # copy it into the udig folder
-cp uDig.desktop /home/user/Desktop
-chown user:user /home/user/Desktop/uDig.desktop
+cp uDig.desktop $USER_HOME/Desktop
+chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/uDig.desktop
 
 
 ## Sample Data ##
@@ -62,8 +99,8 @@ else
    wget http://udig.refractions.net/docs/data-v1_1.zip
 fi
 #unzip the file into /usr/local/share/udig-data
-mkdir /usr/local/share/udig-data
-unzip data-v1_1.zip -d /usr/local/share/udig-data
+mkdir $DATA_FOLDER/udig-data
+unzip data-v1_1.zip -d $DATA_FOLDER/udig-data
 
 
 ## Documentation ##
@@ -91,7 +128,7 @@ else
 fi
 
 #copy into /usr/local/share/udig-docs
-mkdir /usr/local/share/udig-docs
-cp udig-1.2-M5.html /usr/local/share/udig-docs
-cp uDigWalkthrough1.pdf /usr/local/share/udig-docs
-cp uDigWalkthrough1.pdf /usr/local/share/udig-docs
+mkdir $DATA_FOLDER/udig-docs
+cp udig-1.2-M5.html $DATA_FOLDER/udig-docs
+cp uDigWalkthrough1.pdf $DATA_FOLDER/udig-docs
+cp uDigWalkthrough1.pdf $DATA_FOLDER/udig-docs
