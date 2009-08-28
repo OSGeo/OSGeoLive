@@ -1,0 +1,13 @@
+
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=uDig
+Comment=
+Categories=Application;
+Exec=udig
+Icon=/usr/lib/udig/icon.xpm
+Terminal=false
+StartupNotify=false
+GenericName=
