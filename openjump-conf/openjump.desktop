@@ -1,0 +1,13 @@
+
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=uDig
+Comment=
+Categories=Application;
+Exec=openjump
+Icon=/usr/lib/openjump-1.3/icon.xpm
+Terminal=false
+StartupNotify=false
+GenericName=
