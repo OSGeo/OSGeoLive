@@ -22,12 +22,18 @@
 
 #!#!# EXPERIMENTAL #!#!#
 
+### FIXME: install size currently 319 MB. Need to figure out how to build it
+###   using shared libraries.
+
+
+
+# live disc's username is "user"
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+
 
 MB_VERSION="5.1.2beta11"
 LATEST="ftp://ftp.ldeo.columbia.edu/pub/MB-System/mbsystem-$MB_VERSION.tar.gz"
-
-### FIXME: install size currently 319 MB. Need to figure out how to build it
-###   using shared libraries.
 
 
 #### get dependencies ####
@@ -187,9 +193,8 @@ ldconfig
 
 
 #### user config ####
-# FIXME: ~ here is root's home not user's home? what's the user's name?
-if [ `grep -c 'PS_VIEWER=' ~/.bashrc` -eq 0 ] ; then
-   echo "export PS_VIEWER=gv" >> ~/.bashrc
+if [ `grep -c 'PS_VIEWER=' "$USER_HOME/.bashrc"` -eq 0 ] ; then
+   echo "export PS_VIEWER=gv" >> "$USER_HOME/.bashrc"
 fi
 
 

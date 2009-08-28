@@ -24,12 +24,19 @@
 
 #### install grass ####
 
-# FIXME: what's the live disc's username??
-USERNAME=gis
+# live disc's username is "user"
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+
 
 PACKAGES="grass grass-doc avce00 e00compr gdal-bin gpsbabel more"
 
 MODERN_VERSION="6.4"
+
+# For GRASS 6.4 on Ubuntu 9.04 you will need to add Jachym's unofficial
+#  repo to /etc/sources.list.
+# See http://les-ejk.cz/2009/05/grass-64-rc4-for-ubuntu-904/
+
 
 TO_INSTALL=""
 for PACKAGE in $PACKAGES ; do
@@ -82,8 +89,8 @@ for FILE in spearfish_grass60data-0.3 nc_spm_latest ; do
 done
 
 # but link into $HOME for easy access & so user owns mapset
-mkdir ~/grassdata
-cd ~/grassdata/
+mkdir "$USER_HOME/grassdata"
+cd "$USER_HOME/grassdata"
 
 for LOCATION in spearfish60 nc_spm_08 ; do
    mkdir $LOCATION
@@ -95,8 +102,8 @@ for LOCATION in spearfish60 nc_spm_08 ; do
    chown root.users /usr/local/share/grass/$LOCATION
 done
 
-adduser $USERNAME users
-chown -R $USERNAME.$USERNAME ~/grassdata
+adduser $USER_NAME users
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata"
 
 #### preconfig setup ####
 
@@ -106,20 +113,21 @@ else
    GRASS_GUI=wxpython
 fi
 
-# FIXME: check that $HOME is appropriate to final system!
-cat << EOF > ~/.grassrc6
-GISDBASE: $HOME/grassdata
+cat << EOF > "$USER_HOME/.grassrc6"
+GISDBASE: $USER_HOME/grassdata
 LOCATION_NAME: spearfish60
 MAPSET: user1
 GRASS_GUI: $GRASS_GUI
 EOF
-chown -R $USERNAME.$USERNAME ~/.grassrc6
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/.grassrc6"
 
 
-# setup startup stuff
-mkdir -p ~/grassdata/addons
-if [ `grep -c 'GRASS_PAGER=' ~/.bashrc` -eq 0 ] ; then
-   cat << EOF >> ~/.bashrc
+#### setup startup stuff ####
+mkdir -p "$USER_HOME/grassdata/addons"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata/addons"
+
+if [ `grep -c 'GRASS_PAGER=' "$USER_HOME/.bashrc"` -eq 0 ] ; then
+   cat << EOF >> "$USER_HOME/.bashrc"
 
 GRASS_PAGER=more
 GRASS_ADDON_PATH=~/grassdata/addons
