@@ -141,18 +141,21 @@ if [ ! -e "/usr/share/icons/grass-48x48.png" ] ; then
    \mv grass-48x48.png /usr/share/icons/
 fi
 
-cat << EOF > "$USER_HOME/Desktop/grass.desktop"
+if [ ! -e /usr/share/applications/grass.desktop ] ; then
+   cat << EOF > /usr/share/applications/grass.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
 Name=GRASS GIS
 Comment=GRASS GIS $INSTALLED_VERSION
-Categories=Application
+Categories=Application;Education;Geography;
 Exec=/usr/bin/grass
 Icon=/usr/share/icons/grass-48x48.png
 Terminal=true
 EOF
+fi
 
+cp /usr/share/applications/grass.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass.desktop"
 
 
