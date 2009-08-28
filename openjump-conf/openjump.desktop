@@ -3,11 +3,11 @@
 Version=1.0
 Encoding=UTF-8
 Type=Application
-Name=uDig
+Name=Open Jump
 Comment=
 Categories=Application;
 Exec=openjump
-Icon=/usr/lib/openjump-1.3/icon.xpm
+Icon=/usr/lib/openjump-1.3/openjump.ico
 Terminal=false
 StartupNotify=false
 GenericName=
