@@ -22,13 +22,18 @@
 # sudo ./setup.sh
 
 # Install some useful stuff
-apt-get install wget more less zip unzip bzip2 \
-  cvs cvsutils subversion subversion-tools bzr bzr-tools \
+apt-get install wget more less zip unzip bzip2 p7zip \
+  cvs cvsutils subversion subversion-tools bzr bzr-tools git mercurial \
   openssh-client lftp sl smbclient usbutils wireless-tools \
   locate diff patch fuseiso \
   vim emacs nedit nano \
   evince ghostscript a2ps pdftk netpbm qiv \
   lynx mutt mc xchat rxvt units
+
+# Install build stuff (temporarily?)
+apt-get install gcc build-essential devscripts pbuilder fakeroot \
+  cvs-buildpackage svn-buildpackage lintian
+
 
 # Uninstall default applications
 apt-get uninstall gnome-games
