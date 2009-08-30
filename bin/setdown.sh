@@ -14,27 +14,13 @@
 
 # About:
 # =====
-# This script will take a raw Xubuntu system and update it ready to run
-# GISVM install scripts.
+# This script will cleanup the system after running GISVM install scripts.
 
 # Running:
 # =======
-# sudo ./setup.sh
+# sudo ./setdown.sh
 
-# Install some useful stuff
-apt-get install wget more less zip unzip bzip2 p7zip \
-  cvs cvsutils subversion subversion-tools bzr bzr-tools git mercurial \
-  openssh-client lftp sl smbclient usbutils wireless-tools \
-  locate diff patch fuseiso \
-  vim emacs nedit nano \
-  evince ghostscript a2ps pdftk netpbm qiv \
-  lynx mutt mc xchat rxvt units
-
-# Install build stuff (temporarily?)
-apt-get install gcc build-essential devscripts pbuilder fakeroot \
-  cvs-buildpackage svn-buildpackage lintian debhelper pkg-config
-
-
-# Uninstall default applications
-apt-get uninstall gnome-games
-
+# remove build stuff no longer of use
+apt-get remove devscripts pbuilder \
+   cvs-buildpackage svn-buildpackage \
+   lintian debhelper pkg-config
