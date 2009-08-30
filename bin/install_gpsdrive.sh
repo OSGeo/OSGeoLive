@@ -19,62 +19,155 @@
 #
 
 
-#!#!# EXPERIMENTAL #!#!#
-
-
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR=/tmp/build_gpsdrive
 
+
 #### install program ####
 
-PACKAGES="gpsd gpsdrive"
+## packaged version (2.10pre4) is long out of date, so we build 2.10pre7 manually.
+BUILD_LATEST=1
+
+if [ "$BUILD_LATEST" -eq 0 ] ; then
+   # install very old pre-packaged version
+   PACKAGES="gpsd gpsdrive"
+else
+   # important pre-req
+   PACKAGES="gpsd"
+fi
 
 apt-get install $PACKAGES
 
 
-
-
 #######################
-## FIXME: packaged version (2.10pre4) is long out of date. build 2.10pre7.
-##  I'm not sure if pre4 will handle the map tiles in separate subdirs
-if [ 0 -eq 1 ] ; then
-VERSION="2.10pre7"
+## build latest release
+if [ $BUILD_LATEST -eq 1 ] ; then
+  VERSION="2.10pre7"
 
-mkdir "$TMP_DIR"
-cd "$TMP_DIR"
+  mkdir "$TMP_DIR"
+  cd "$TMP_DIR"
 
-wget -nv http://www.gpsdrive.de/packages/gpsdrive-$VERSION.tar.gz
+  wget -nv "http://www.gpsdrive.de/packages/gpsdrive-$VERSION.tar.gz"
 
-tar xzf gpsdrive-$VERSION.tar.gz
-if [ $? -eq 0 ] ; then
-  \rm gpsdrive-$VERSION.tar.gz
-fi
+  tar xzf gpsdrive-$VERSION.tar.gz
+  if [ $? -eq 0 ] ; then
+    \rm gpsdrive-$VERSION.tar.gz
+  fi
 
-cd gpsdrive-$VERSION
+  cd gpsdrive-$VERSION
 
 
-# FIXME:
-# - whatever the command is to install build-depends for a package ...
-#    keep a record, we'll rm the -dev packages later
-# - debuild and friends need to be installed & later removed by main.sh
+  ## --- apply any patches here ---
 
-# - apply any patches
+  # fix package dependencies
+  wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive_fix_deps.patch"
+  patch -p0 < "gpsdrive_fix_deps.patch"
 
-debuild binary
-if [ $? -ne 0 ] ; then
-   echo "An error occurred building package. Aborting install."
-   exit 1
-fi
+  cat << EOF > "gpsdrive_fix_icon.patch"
+--- data/gpsdrive.desktop.ORIG  2009-08-31 01:42:39.000000000 +1200
++++ data/gpsdrive.desktop       2009-08-31 01:43:19.000000000 +1200
+@@ -3,7 +3,7 @@
+ Comment=GPS Navigation
+ Comment[de]=GPS Navigationsprogramm
+ Exec=gpsdrive
+-Icon=gpsicon
++Icon=/usr/share/gpsdrive/pixmaps/gpsicon.png
+ Terminal=false
+ Type=Application
+ Categories=Graphics;Network;Geography;
+EOF
+   patch -p0 < "gpsdrive_fix_icon.patch"
 
-cd ..
 
-# or some such package...
-wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons_16908_all.deb"
+  if [ $? -ne 0 ] ; then
+     echo "An error occurred patching package. Aborting install."
+     exit 1
+  fi
 
-dpkg -i gpsdrive*deb  openstreetmap-map-icons_16908_all.deb
+
+  # install any missing build-dep packages
+  NEEDED_BUILD_PKG=`dpkg-checkbuilddeps 2>&1 | cut -f3 -d: | \
+    sed -e 's/([^)]*)//g' -e 's/| [^ ]*//'`
+
+  if [ -n "$NEEDED_BUILD_PKG" ] ; then
+     apt-get install $NEEDED_BUILD_PKG
+  fi
+
+  # build package
+  # - debuild and co. should already be installed by setup.sh
+  debuild binary
+  if [ $? -ne 0 ] ; then
+     echo "An error occurred building package. Aborting install."
+     exit 1
+  fi
+
+
+  #### install our new custom built packages ####
+  cd "$TMP_DIR"
+ 
+  # not needed, we're a client not a central server
+  \rm gpsdrive-friendsd_2.10svn2414_amd64.deb
+
+  # get+install at least one OSM icon set package
+  #   see http://www.gpsdrive.de/development/map-icons/overview.en.shtml
+  wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.small_16908_all.deb"
+  wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.big_16908_all.deb"
+  wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-classic.small_16908_all.deb"
+  wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons_16908_all.deb"
+
+  # holy cow, mapnik-world-boundaries.deb is 300mb!
+  #wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-mapnik-world-boundaries_16662_all.deb"
+
+
+  CUSTOM_PKGS="gpsdrive*.deb openstreetmap-map*.deb"
+
+  # install package dependencies
+  EXTRA_PKGS=""
+  for PKG in $CUSTOM_PKGS ; do
+     if [ `echo $PKG | cut -f1 -d_` = "openstreetmap-map-icons" ] ; then
+        # skip overenthusiastic recommends
+        continue
+     fi
+     REQ_PKG=`dpkg --info "$PKG" | grep '^ Depends: \|^ Recommends: ' | \
+       cut -f2- -d: | tr ',' '\n' | cut -f1 -d'|' | \
+       sed -e 's/^ //' -e 's/(.*$//' | tr '\n' ' '`
+     EXTRA_PKGS="$EXTRA_PKGS $REQ_PKG"
+  done
+
+
+  EXTRA_PKGS=`echo $EXTRA_PKGS | tr ' ' '\n' | sort -u | \
+     grep -v 'gpsdrive\|gpsdrive-data-maps\|openstreetmap-map-icons\|libgeos'`
+
+  TO_INSTALL=""
+  for PACKAGE in $EXTRA_PKGS ; do
+     if [ `dpkg -l $PACKAGE | grep -c '^ii'` -eq 0 ] ; then
+        TO_INSTALL="$TO_INSTALL $PACKAGE"
+     fi
+  done
+
+  if [ -n "$TO_INSTALL" ] ; then
+     apt-get --assume-yes install $TO_INSTALL
+
+     if [ $? -ne 0 ] ; then
+        echo "ERROR: package install failed: $TO_INSTALL"
+        #exit 1
+     fi
+  fi
+
+
+  dpkg -i gpsdrive_*.deb \
+          gpsdrive-utils_*.deb \
+          openstreetmap-map*.deb
+
+
+  # cleanup
+  if [ -n "$NEEDED_BUILD_PKG" ] ; then
+     apt-get remove $NEEDED_BUILD_PKG
+  fi
+
 fi
 ##
 ## end self-build
@@ -86,20 +179,28 @@ fi
 #### install data ####
 mkdir "$USER_HOME/.gpsdrive"
 
-# minimal icon set
-wget -nv "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/minimal%20icon%20set/openstreetmap-map-icons-minimal.tar.gz?use_mirror=internode"
-cd /
-tar xzf "$TMP_DIR"/openstreetmap-map-icons-minimal.tar.gz
-cd "$TMP_DIR"
 
-#debug dummy copy of geoinfo.db
-#tar xzf openstreetmap-map-icons-minimal.tar.gz usr/share/icons/map-icons/geoinfo.db
-#cp usr/share/icons/map-icons/geoinfo.db "$USER_HOME/.gpsdrive/"
-#  .gpsdrive/gpsdriverc: geoinfofile = $USER_HOME/.gpsdrive/geoinfo.db
+if [ 1 -eq 0 ] ; then
+  ## needed for newer builds if icons were *not* installed via .debs above
+  # minimal icon set
+  wget -nv "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/minimal%20icon%20set/openstreetmap-map-icons-minimal.tar.gz?use_mirror=internode"
+  cd /
+  tar xzf "$TMP_DIR"/openstreetmap-map-icons-minimal.tar.gz
+  cd "$TMP_DIR"
+
+  #debug dummy copy of geoinfo.db
+  #tar xzf openstreetmap-map-icons-minimal.tar.gz usr/share/icons/map-icons/geoinfo.db
+  #cp usr/share/icons/map-icons/geoinfo.db "$USER_HOME/.gpsdrive/"
+  #  .gpsdrive/gpsdriverc: geoinfofile = $USER_HOME/.gpsdrive/geoinfo.db
+fi
+
+
 
 cat << EOF > "$USER_HOME/.gpsdrive/gpsdriverc"
 lastlong = 151.2001
 lastlat = -33.8753
+scalewanted = 50000
+dashboard_3 = 12
 autobestmap = 0
 EOF
 
@@ -109,6 +210,13 @@ wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive_syd_
 
 cd "$USER_HOME/.gpsdrive/"
 tar xzf "$TMP_DIR"/gpsdrive_syd_tileset.tar.gz
+
+echo "Convention_Centre   -33.8750   151.2005   WLAN" > "$USER_HOME/.gpsdrive/way.txt"
+
+
+# bypass Mapnik wanting 300mb World Boundaries DB to be installed
+sed -e 4594,4863d "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" > "$USER_HOME/.gpsdrive/osm.xml"
+
 
 if [ $? -eq 0 ] ; then
    rm -rf "$TMP_DIR"

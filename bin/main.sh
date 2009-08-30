@@ -51,6 +51,16 @@
 # install openjump including sample data
 ./install_openjump.sh
 
-#install grass
+# install grass including sample data
 ./install_grass.sh
+
+# install gpsdrive including LANDSAT maps for Sydney CBD
+./install_gpsdrive
+
+
+
+# remove packages only needed for building the above
+./setdown.sh
+
+echo "Finished."
 
