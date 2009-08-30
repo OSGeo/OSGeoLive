@@ -1,0 +1,12 @@
+--- debian/control.orig	2009-06-15 01:57:25.000000000 +1200
++++ debian/control	2009-08-30 21:56:54.000000000 +1200
+@@ -47,8 +47,7 @@
+ 	libsqlite3-0,
+ 	mapnik-plugins,
+ 	mapnik-utils,
+-	openstreetmap-map-icons (>> 8310),
+-	openstreetmap-utils (>> 8290) | gpsdrive-utils (>> 2299),
++	gpsdrive-utils,
+ 	perlmagick,
+ 	sudo,
+ 	ttf-dejavu
