@@ -11,3 +11,13 @@
  	perlmagick,
  	sudo,
  	ttf-dejavu
+--- data/maps/debian/control.ORIG	2009-08-30 22:39:34.000000000 +1200
++++ data/maps/debian/control	2009-08-30 22:39:49.000000000 +1200
+@@ -10,7 +10,6 @@
+ Depends: 
+ Recommends: gpsdrive
+ Suggests: grass
+-Conflicts: gpsdrive ( << 2322)
+ Description: GpsDrive default continental overview mapset
+  GpsDrive is a car (bike, ship, plane, foot) navigation system.
+  GpsDrive displays your position provided from a GPS on a zoomable map,
