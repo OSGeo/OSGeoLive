@@ -21,6 +21,13 @@
 # =======
 # sudo ./setup.sh
 
+if [ "`uname -m`" != "i686" ] ; then
+   echo "WARNING: Current system is not i686; any binaries built may be tied to current system (`uname -m`)"
+fi
+# look for ./configure --build=BUILD, --host=HOST, --target=TARGET  to try and force build for i686.
+# For .deb package building something like: 'debuild binary-arch i686' ???????
+
+
 # Install some useful stuff
 apt-get install wget more less zip unzip bzip2 p7zip \
   cvs cvsutils subversion subversion-tools bzr bzr-tools git mercurial \
