@@ -63,8 +63,13 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   ## --- apply any patches here ---
 
   # fix package dependencies
-  wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive_fix_deps.patch"
-  patch -p0 < "gpsdrive_fix_deps.patch"
+  PATCHES="gpsdrive_fix_deps  gpsdrive_osm_fixes"
+
+  for PATCH in $PATCHES ; do
+    wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/$PATCH.patch"
+    patch -p0 < "$PATCH.patch"
+  done
+
 
   cat << EOF > "gpsdrive_fix_icon.patch"
 --- data/gpsdrive.desktop.ORIG  2009-08-31 01:42:39.000000000 +1200
@@ -125,7 +130,7 @@ EOF
   CUSTOM_PKGS="gpsdrive*.deb openstreetmap-map*.deb"
 
   # install package dependencies
-  EXTRA_PKGS=""
+  EXTRA_PKGS="osm2pgsql"
   for PKG in $CUSTOM_PKGS ; do
      if [ `echo $PKG | cut -f1 -d_` = "openstreetmap-map-icons" ] ; then
         # skip overenthusiastic recommends
@@ -206,7 +211,7 @@ EOF
 
 
 # Sydney maps
-wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive_syd_tileset.tar.gz"
+wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/gpsdrive_syd_tileset.tar.gz"
 
 cd "$USER_HOME/.gpsdrive/"
 tar xzf "$TMP_DIR"/gpsdrive_syd_tileset.tar.gz
@@ -227,6 +232,18 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/.gpsdrive"
 
 cp /usr/share/applications/gpsdrive.desktop "$USER_HOME/Desktop/"
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/gpsdrive.desktop"
+
+
+
+#### install OSM data for Mapnik Support ####
+# Download OSM planet file from
+# http://www.osmaustralia.org/osmausextract.php
+#   or
+# http://downloads.cloudmade.com/oceania/australia
+
+
+
+
 
 
 echo "Finished installing GpsDrive."
