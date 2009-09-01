@@ -36,5 +36,5 @@ apt-get install gcc build-essential devscripts pbuilder fakeroot \
 
 
 # Uninstall default applications
-apt-get uninstall gnome-games
+apt-get remove gnome-games
 
