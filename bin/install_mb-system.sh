@@ -24,7 +24,12 @@
 
 ### FIXME: install size currently 319 MB. Need to figure out how to build it
 ###   using shared libraries.
-
+# http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html
+#  ???
+# CFLAGS += "-shared -fPIC"
+# LFLAGS += "-shared -Wl,-soname,libmbio.so" ????
+#  ???
+# (but no luck)
 
 
 # live disc's username is "user"
@@ -81,8 +86,19 @@ if [ $? -eq 0 ] ; then
    \rm `basename $LATEST`
 fi
 
-cd `basename $LATEST .tar.gz`
 
+### get the Levitus annual water temperature profile database
+# needed for mblevitus program, uncompressed it is 16mb.
+wget -nv ftp://ftp.ldeo.columbia.edu/pub/MB-System/annual.gz
+
+gzip -d annual.gz
+if [ $? -eq 0 ] ; then
+   \rm annual.gz
+fi
+\mv annual LevitusAnnual82.dat
+
+
+cd `basename $LATEST .tar.gz`
 
 
 #### create patches ####
@@ -167,7 +183,7 @@ for SUBDIR in  html include ps share ; do
    mkdir -p /usr/local/mbsystem/$SUBDIR
    install --mode=644 $SUBDIR/* /usr/local/mbsystem/$SUBDIR
 done
-
+install --mode=644 ../LevitusAnnual82.data /usr/local/mbsystem/share
 
 
 ### cleanup ####
@@ -196,6 +212,19 @@ ldconfig
 if [ `grep -c 'PS_VIEWER=' "$USER_HOME/.bashrc"` -eq 0 ] ; then
    echo "export PS_VIEWER=gv" >> "$USER_HOME/.bashrc"
 fi
+
+
+
+#### sample data ####
+
+# ftp://ftp.ldeo.columbia.edu/pub/MB-System/
+#
+# On 31 Aug 2009, Dave Caress wrote:
+# The cookbook example data tends towards old and deep water - I'll try to
+# assemble samples of current systems covering a range of altitudes, but
+# it won't be available this week.
+# Cheers,
+# Dave
 
 
 echo "Finished installing MB System."
