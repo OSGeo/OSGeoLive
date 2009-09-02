@@ -141,6 +141,9 @@ if [ ! -e "/usr/share/icons/grass-48x48.png" ] ; then
    \mv grass-48x48.png /usr/share/icons/
 fi
 
+
+GVER=`echo "$INSTALLED_VERSION" | sed -e 's/\.//'`
+
 if [ ! -e /usr/share/applications/grass.desktop ] ; then
    cat << EOF > /usr/share/applications/grass.desktop
 [Desktop Entry]
@@ -149,7 +152,7 @@ Encoding=UTF-8
 Name=GRASS GIS
 Comment=GRASS GIS $INSTALLED_VERSION
 Categories=Application;Education;Geography;
-Exec=/usr/bin/grass
+Exec=/usr/bin/grass$GVER
 Icon=/usr/share/icons/grass-48x48.png
 Terminal=true
 EOF
@@ -161,3 +164,28 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass.desktop"
 
 
 echo "Finished installing GRASS $INSTALLED_VERSION."
+
+
+
+cat << EOF
+
+== Testing ==
+
+* Double click on the GRASS desktop icon
+* You should see a slick "Welcome to GRASS" GUI
+* Select Spearfish60 for location, User1 for mapset
+* Click on [Start Grass]
+* In the Layer Manager GUI window add a raster layer
+** On the toolbar click the icon with a + and a checkerboard
+** On map to be displayed pull down the list and select elevation.dem
+from the PERMANENT mapset and click [ok]
+*  In the Layer Manager GUI window add a vector layer
+** On the toolbar click the icon with a + and a "V" line
+** For input map name pull down the list and select roads from the
+PERMANENT mapset and click [ok]
+* Over in the Map Display window toolbar click on the eyeball icon to render
+: You should now see the maps displayed
+
+That's it.
+
+EOF
