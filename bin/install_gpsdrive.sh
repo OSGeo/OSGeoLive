@@ -33,10 +33,10 @@ BUILD_LATEST=1
 
 if [ "$BUILD_LATEST" -eq 0 ] ; then
    # install very old pre-packaged version
-   PACKAGES="gpsd gpsdrive"
+   PACKAGES="gpsd gpsd-clients python-gps gpsdrive"
 else
    # important pre-req
-   PACKAGES="gpsd"
+   PACKAGES="gpsd gpsd-clients python-gps"
 fi
 
 apt-get install $PACKAGES
@@ -236,14 +236,74 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/gpsdrive.desktop"
 
 
 #### install OSM data for Mapnik Support ####
-# Download OSM planet file from
-# http://www.osmaustralia.org/osmausextract.php
-#   or
-# http://downloads.cloudmade.com/oceania/australia
-
-
-
-
-
+#
+# - Download OSM planet file from
+#  http://www.osmaustralia.org/osmausextract.php
+#    or
+#  http://downloads.cloudmade.com/oceania/australia
+#
+# - Set up PostGIS Database and import data
+#  see https://sourceforge.net/apps/mediawiki/gpsdrive/index.php?title=Setting_up_Mapnik
+#
 
 echo "Finished installing GpsDrive."
+
+
+cat << EOF
+
+== Testing ==
+
+=== If no GPS is plugged in ===
+* Double click on the GpsDrive desktop icon
+* You should see a map of downtown Sydney, after about 10 seconds
+a waypoint marker for the Convention Centre should appear.
+* Set the map scale to 1:10,000 either by dragging the slider at the
+bottom or by using the +,- buttons (not magnifying glass)
+* Enter Explore Mode by pressing the "e" key or in the Map Control button.
+* Use the arrow keys or left mouse button to move off screen.
+* Right click to set destination and leave Explore Mode
+
+==== Downloading maps ====
+* Change the scale setting to 1:1,000,000 you should see a continental map 
+* Enter Explore Mode again ("e") and left click on the great barrier reef
+* Options -> Map -> Download
+** Map source: NASA LANDSAT, Scale: 1:500,000, [Download Map]
+** When download is complete click [ok] then change the preferred scale
+slider to 1:500,000
+** This will be of more use in remote areas.
+* Explore to the coast, click on an airport, headland, or some other
+conspicuous feature. You might want to use the magnifying glass buttons
+to zoom in on it better. Use a right click set the target on some other
+conspicuous feature nearby then demagnify back out.
+* Options -> Map -> Download
+** Map source: OpenStreetMap, Scale: 1:150,000, left-click on map to center
+the green preview over your target and what looks like a populated area.
+** [Download Map]
+** When download is complete click [ok] then change the preferred scale
+slider to 1:150,000 and you should see a (rather rural) road map. This will
+be more interesting in built up areas.
+
+==== Overlay a GPX track ====
+* In the ~/.gpsdrive/tracks/ directory you will find australia.gpx
+which is a track line following the coastline.
+* Options -> Import -> GPX track
+* Hidden folders are hidden in the file picker, but just start typing
+~/.gpsdrive and hit enter. You should then see the tracks/ directory
+and be able to load australia.gpx.
+* A red trace should appear along the coastline.
+* Check that it lines up well with the coast as shown in map tiles of
+varying scale.
+
+=== If a GPS is plugged in ===
+* Make sure gpsd is running by starting "xgps" from the command line.
+* The program will automatically detect gpsd and jump to your current
+position. This should bring up a continental map as you won't have any
+map tiles downloaded for your area yet.
+* See the above "Downloading Maps" section to get some local tiles.
+* If you have a local GPX track of some roads try loading that and making
+sure everything lines up, as detailed in the above "Overlay a GPX track"
+section.
+
+That's it.
+
+EOF
