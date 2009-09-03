@@ -104,6 +104,10 @@ EOF
      echo "No new packages needed for build."
   fi
 
+  # ... and if that didn't work, try another way ...
+  /usr/lib/pbuilder/pbuilder-satisfydepends
+
+
   # build package
   # - debuild and co. should already be installed by setup.sh
   debuild binary
