@@ -211,7 +211,7 @@ if [ 1 -eq 0 ] ; then
 fi
 
 
-
+# program defaults
 cat << EOF > "$USER_HOME/.gpsdrive/gpsdriverc"
 lastlong = 151.2001
 lastlat = -33.8753
@@ -223,6 +223,10 @@ minsecmode = 2
 EOF
 
 
+# add any waypoints you want to see displayed
+echo "Convention_Centre   -33.8750   151.2005" > "$USER_HOME/.gpsdrive/way.txt"
+
+
 # Sydney maps
 #  v0.1, 1.1mb LANDSAT tiles
 #wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/gpsdrive_syd_tileset-0.1.tar.gz"
@@ -231,12 +235,13 @@ EOF
 # move to .au mirror once it becomes avail.
 wget -nv "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/gpsdrive_syd_tileset-1.1.tar.gz?use_mirror=internode"
 
+mkdir -p /usr/local/share/gpsdrive
+cd /usr/local/share/gpsdrive/
+
+tar xzf "$TMP_DIR"/gpsdrive_syd_tileset-*.tar.gz
+
 cd "$USER_HOME/.gpsdrive/"
-tar xzf "$TMP_DIR"/gpsdrive_syd_tileset-1.0.tar.gz
-
-
-# add any waypoints you want to see displayed
-echo "Convention_Centre   -33.8750   151.2005" > "$USER_HOME/.gpsdrive/way.txt"
+ln -s /usr/local/share/gpsdrive/maps "$USER_HOME/.gpsdrive/maps"
 
 
 # bypass Mapnik wanting 300mb World Boundaries DB to be installed
