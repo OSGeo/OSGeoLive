@@ -2,6 +2,6 @@
 #  - alphabetical by first name
 #  - remove punctuation from email addresses to stop harvesting for junk mail
 name,email,country,osgeo_id
-Cameron Shorter,Australia,<Cameron.Shorter lisasoft com>,camerons
-Hamish Bowman,New Zealand,<hamish_b yahoo com>,hamish
-Stefan Hansen,Australia,<stefan.hansen lisasoft com>,shansen
+Cameron Shorter,<Cameron.Shorter lisasoft com>,Australia,camerons
+Hamish Bowman,<hamish_b yahoo com>,New Zealand,hamish
+Stefan Hansen,<stefan.hansen lisasoft com>,Australia,shansen
