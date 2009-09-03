@@ -219,12 +219,19 @@ EOF
 
 
 # Sydney maps
-wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/gpsdrive_syd_tileset.tar.gz"
+#  v0.1, 1.1mb LANDSAT tiles
+#wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/gpsdrive_syd_tileset-0.1.tar.gz"
+
+#  v1.0, 70mb LANDSAT + OpenStreetMap tiles
+# move to .au mirror once it becomes avail.
+wget -nv "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/gpsdrive_syd_tileset-1.0.tar.gz?use_mirror=master"
 
 cd "$USER_HOME/.gpsdrive/"
-tar xzf "$TMP_DIR"/gpsdrive_syd_tileset.tar.gz
+tar xzf "$TMP_DIR"/gpsdrive_syd_tileset-1.0.tar.gz
 
-echo "Convention_Centre   -33.8750   151.2005   WLAN" > "$USER_HOME/.gpsdrive/way.txt"
+
+# add any waypoints you want to see displayed
+echo "Convention_Centre   -33.8750   151.2005" > "$USER_HOME/.gpsdrive/way.txt"
 
 
 # bypass Mapnik wanting 300mb World Boundaries DB to be installed
