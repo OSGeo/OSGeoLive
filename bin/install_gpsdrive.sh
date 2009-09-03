@@ -98,7 +98,10 @@ EOF
     sed -e 's/([^)]*)//g' -e 's/| [^ ]*//'`
 
   if [ -n "$NEEDED_BUILD_PKG" ] ; then
-     apt-get install $NEEDED_BUILD_PKG
+     echo "Attempting to (temporarily) install the following packages: $NEEDED_BUILD_PKG"
+     apt-get --assume-yes install $NEEDED_BUILD_PKG
+  else
+     echo "No new packages needed for build."
   fi
 
   # build package
@@ -148,18 +151,22 @@ EOF
 
   TO_INSTALL=""
   for PACKAGE in $EXTRA_PKGS ; do
-     if [ `dpkg -l $PACKAGE | grep -c '^ii'` -eq 0 ] ; then
+     if [ `dpkg -l "$PACKAGE" | grep -c '^ii'` -eq 0 ] ; then
         TO_INSTALL="$TO_INSTALL $PACKAGE"
      fi
   done
 
   if [ -n "$TO_INSTALL" ] ; then
+     echo "Attempting to install the following packages: $TO_INSTALL"
+
      apt-get --assume-yes install $TO_INSTALL
 
      if [ $? -ne 0 ] ; then
         echo "ERROR: package install failed: $TO_INSTALL"
         #exit 1
      fi
+  else
+     echo "No new packages needed for install."
   fi
 
 
