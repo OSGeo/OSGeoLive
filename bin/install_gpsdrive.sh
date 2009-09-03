@@ -219,6 +219,7 @@ scalewanted = 50000
 dashboard_3 = 12
 autobestmap = 0
 mapnik_caching = 0
+minsecmode = 2
 EOF
 
 
