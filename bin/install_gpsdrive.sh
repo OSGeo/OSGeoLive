@@ -63,7 +63,7 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   ## --- apply any patches here ---
 
   # fix package dependencies
-  PATCHES="gpsdrive_fix_deps  gpsdrive_osm_fixes"
+  PATCHES="gpsdrive_fix_deps  gpsdrive_osm_fixes  gpsdrive_blue_mapnik"
 
   for PATCH in $PATCHES ; do
     wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/$PATCH.patch"
@@ -222,9 +222,9 @@ EOF
 #  v0.1, 1.1mb LANDSAT tiles
 #wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/gpsdrive_syd_tileset-0.1.tar.gz"
 
-#  v1.0, 70mb LANDSAT + OpenStreetMap tiles
+#  v1.1, 70mb LANDSAT + OpenStreetMap tiles
 # move to .au mirror once it becomes avail.
-wget -nv "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/gpsdrive_syd_tileset-1.0.tar.gz?use_mirror=master"
+wget -nv "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/gpsdrive_syd_tileset-1.1.tar.gz?use_mirror=internode"
 
 cd "$USER_HOME/.gpsdrive/"
 tar xzf "$TMP_DIR"/gpsdrive_syd_tileset-1.0.tar.gz

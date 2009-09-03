@@ -1,0 +1,15 @@
+--- src/mapnik.cpp.ORIG	2009-09-04 05:08:46.000000000 +1200
++++ src/mapnik.cpp	2009-09-04 05:09:33.000000000 +1200
+@@ -328,9 +328,9 @@
+                 if ( night_color_replace ) {
+                     s.assign(ReplaceString("bgcolor=\"#b5d0d0\"" , "bgcolor=\"#330033\"", s));
+                 }
+-                else {
+-                    s.assign(ReplaceString("bgcolor=\"#b5d0d0\"" , "bgcolor=\"#ffeed4\"", s));
+-                }
++//                else {
++//                    s.assign(ReplaceString("bgcolor=\"#b5d0d0\"" , "bgcolor=\"#ffeed4\"", s));
++//                }
+                 DestXML << s  << endl;
+             }
+         }
