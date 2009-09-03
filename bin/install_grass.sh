@@ -71,19 +71,25 @@ if [ ! -x "`which wget`" ] ; then
 fi
 
 
+TMP_DIR=/tmp/build_grass
+mkdir "$TMP_DIR"
+
 # put static data in /usr/local ..
 mkdir -p /usr/local/share/grass
-cd /usr/local/share/grass/
 
 # Spearfish dataset, 20mb .tgz
 # North Carolina dataset, 135mb .tgz
 for FILE in spearfish_grass60data-0.3 nc_spm_latest ; do
-   wget -nv http://grass.osgeo.org/sampledata/$FILE.tar.gz
+   cd "$TMP_DIR"
+   if [ ! -e "$FILE.tar.gz" ] ; then
+      wget -nv http://grass.osgeo.org/sampledata/$FILE.tar.gz
+   fi
 
-   tar xzf $FILE.tar.gz
+   cd /usr/local/share/grass/
+   tar xzf "$TMP_DIR/$FILE.tar.gz"
 
    if [ $? -eq 0 ] ; then
-      \rm $FILE.tar.gz
+      \rm "$TMP_DIR/$FILE.tar.gz"
    fi
 done
 
@@ -162,6 +168,7 @@ cp /usr/share/applications/grass.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass.desktop"
 
 
+rm -rf "$TMP_DIR"
 
 echo "Finished installing GRASS $INSTALLED_VERSION."
 
