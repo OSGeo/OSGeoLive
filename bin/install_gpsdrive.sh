@@ -214,6 +214,7 @@ lastlat = -33.8753
 scalewanted = 50000
 dashboard_3 = 12
 autobestmap = 0
+mapnik_caching = 0
 EOF
 
 
