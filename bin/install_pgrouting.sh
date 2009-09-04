@@ -131,3 +131,8 @@ psql -U postgres -f $POSTLBS_FOLDER/routing_dd_wrappers.sql sydney
 psql -c "DROP TABLE geometry_columns" -U postgres sydney
 psql -f schema.sql -U postgres sydney
 psql -f sydney.sql -U postgres sydney
+
+# testing pgRouting functions
+psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM dijkstra_sp_delta('sydney', 101, 114, 0.003)" -U postgres sydney
+psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM astar_sp_delta('sydney', 101, 114, 0.003)" -U postgres sydney
+psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM shootingstar_sp('sydney', 8, 24, 0.1, 'length', true, true)" -U postgres sydney
