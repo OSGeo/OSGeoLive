@@ -168,6 +168,19 @@ cp /usr/share/applications/grass.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass.desktop"
 
 
+# add menu item
+if [ ! -e /usr/share/menu/grass ] ; then
+   cat << EOF > /usr/share/menu/grass
+?package(grass):needs="text"\
+  section="Applications/Science/Geoscience"\
+  title="GRASS GIS"\
+  command="/usr/bin/grass$GVER"\
+  icon="/usr/share/icons/grass-48x48.png"
+EOF
+fi
+update-menus
+
+
 rm -rf "$TMP_DIR"
 
 echo "Finished installing GRASS $INSTALLED_VERSION."
