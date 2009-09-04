@@ -74,7 +74,7 @@ make
 sudo make install
 sudo ldconfig
 
-cd ..
+cd $TMP
 
 # get pgRouting
 if [ -f "pgRouting-1.03.tgz" ]
@@ -92,13 +92,11 @@ else
  wget http://files.postlbs.org/foss4g2009/sydney.tar.gz
 fi
 
-mkdir $INSTALL_FOLDER
-
 # unpack sample data
-tar -xzf sydney.tar.gz -C $INSTALL_FOLDER
+tar -xzf sydney.tar.gz -C $TMP
 
 # unpack and compile pgRouting
-tar -xzf pgRouting-1.03.tgz -C $INSTALL_FOLDER
+tar -xzf pgRouting-1.03.tgz -C $TMP
 
 cd $INSTALL_FOLDER
 
@@ -108,11 +106,13 @@ sudo make install
 
 # create routing database
 createdb -U postgres sydney
-psql -f sydney.sql -U postgres sydney
+createlang -U postgres plpgsql sydney
+
+cd ..
 
 # add PostGIS functions
-#psql -U postgres -f $POSTGIS_FOLDER/lwpostgis.sql routing
-#psql -U postgres -f $POSTGIS_FOLDER/spatial_ref_sys.sql routing
+psql -U postgres -f $POSTGIS_FOLDER/lwpostgis.sql sydney
+psql -U postgres -f $POSTGIS_FOLDER/spatial_ref_sys.sql sydney
 
 # add pgRouting functions
 psql -U postgres -f $POSTLBS_FOLDER/routing_core.sql sydney
@@ -126,3 +126,8 @@ psql -U postgres -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql sydney
 # add pgRouting Driving Distance functions
 psql -U postgres -f $POSTLBS_FOLDER/routing_dd.sql sydney
 psql -U postgres -f $POSTLBS_FOLDER/routing_dd_wrappers.sql sydney
+
+# add data to the database
+psql -c "DROP TABLE geometry_columns" -U postgres sydney
+psql -f schema.sql -U postgres sydney
+psql -f sydney.sql -U postgres sydney
