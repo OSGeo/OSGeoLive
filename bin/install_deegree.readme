@@ -1,0 +1,46 @@
+
+
+##
+## installing deegree:
+##
+user@gisvm:~/tmp$ wget http://download.deegree.org/LiveDVD/FOSS4G2009/install_deegree.sh
+user@gisvm:~/tmp$ chmod 755 install_deegree.sh 
+user@gisvm:~/tmp$ sudo ./install_deegree.sh
+
+
+##
+## test installation:
+##
+desktop icon "start deegree" will open a console, running catalina.sh start. 
+desktop icon will also open a new tab in firefox ("http://localhost:8081/")
+
+Click links in top left box ("deegree Web Applications"). 
+The service links should open test pages for WMS, WFS, and WCS with links to "Test WMS", "Test WFS" and "Test WCS". Make sure to get maps or xml fragments. 
+The client link (iGeoPortal) will open in a new tab and should open a full working portal after choosing one of the offered WebMapContexts. 
+
+
+##
+## things to fix in the scripts
+##
+The desktop icon "stop deegree" does not do what it should: it doesn't stop the tomcat process.
+If you can fix the script "/usr/bin/deegree_stop.sh", that would be great. I couldn't figure out how to do it. Sorry :-(
+Otherwise, it's probably best to remove the "stop deegree" desktop icon. Users will simply close the terminal (opened by "start deegree") and thus kill the process. That's what we want anyway.
+
+
+##
+## clean up: remove deegree stuff:
+##
+sudo rm -r /usr/lib/deegree-2.2_tomcat-6.0.20/
+sudo rm -r /usr/bin/deegree_st*
+sudo rm -r /usr/share/applications/deegree-st*
+sudo rm -r /usr/share/icons/deegree*
+sudo rm -r /home/user/Desktop/deegree-st*
+sudo rm -r /home/user/tmp/install_deegree*
+sudo rm /tmp/deegree_downloads/deegree_st*.sh
+## delete only, if you don't want to install again 
+## (not removing will avoid repeated download of large data)
+sudo rm -r /tmp/deegree_downloads/
+
+
+
+
