@@ -20,32 +20,61 @@
 # =======
 # qgis
 
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
 
 #Add repositories
-#echo -e "deb http://ppa.launchpad.net/qgis/stable/ubuntu jaunty main \ndeb-src http://#ppa.launchpad.net/qgis/stable/ubuntu jaunty main" > /etc/apt/sources.list.d/qgis.list
- 
-#alternate method
 wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/qgis.list --output-document=/etc/apt/sources.list.d/qgis.list
 
-#Add signed key for repo
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1024R/68436DDF 
-
-#Latest Dev Release, Mrsid, ECW
-#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  	  1024R/314DF160  
+#Add signed key for repository
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
 
 apt-get update
 
 #Install packages
-apt-get install qgis qgis-common qgis-plugin-grass python-qgis python-qgis-common qgis-plugin-grass-common libgdal1-1.5.0-grass
+apt-get install qgis qgis-common qgis-plugin-grass python-qgis python-qgis-common qgis-plugin-grass-common libgdal1-1.5.0-grass gpsbabel
 
 #Make sure old qt uim isn't installed
 apt-get remove uim-qt uim-qt3
 
-#for unstable version
-#apt-get install qgis qgis-common qgis-plugin-grass python-qgis python-qgis-common #qgis-plugin-grass-common libgdal1-1.6.0-grass
+
+#### install desktop icon ####
+INSTALLED_VERSION=`dpkg -s grass | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
+if [ ! -e /usr/share/applications/qgis.desktop ] ; then
+   cat << EOF > /usr/share/applications/qgis.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Quantum GIS
+Comment=QGIS $INSTALLED_VERSION
+Categories=Application;Education;Geography;
+Exec=/usr/bin/qgis
+Icon=/usr/share/icons/qgis.png
+Terminal=false
+EOF
+fi
+
+cp /usr/share/applications/qgis.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/qgis.desktop"
+
+
+# add menu item
+if [ ! -e /usr/share/menu/qgis ] ; then
+   cat << EOF > /usr/share/menu/qgis
+?package(grass):needs="text"\
+  section="Applications/Science/Geoscience"\
+  title="Quantum GIS"\
+  command="/usr/bin/qgis"\
+  icon="/usr/share/icons/qgis.png"
+EOF
+fi
+update-menus
+
 
 #TODO Install some popular python plugins
 #Use wget to pull them directly into qgis python path?
 
 #TODO Include some sample projects using already installed example data
 #post a sample somewhere on qgis website or launchpad to pull
+
+echo "Finished installing QGIS $INSTALLED_VERSION."
