@@ -60,6 +60,8 @@
 # install pgRouting including sample data
 ./install_pgrouting.sh
 
+# install QGIS including python and GRASS plugins
+./install_qgis.sh
 
 # remove packages only needed for building the above
 ./setdown.sh

@@ -39,7 +39,7 @@ apt-get remove uim-qt uim-qt3
 
 
 #### install desktop icon ####
-INSTALLED_VERSION=`dpkg -s grass | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
+INSTALLED_VERSION=`dpkg -s qgis | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
 if [ ! -e /usr/share/applications/qgis.desktop ] ; then
    cat << EOF > /usr/share/applications/qgis.desktop
 [Desktop Entry]
