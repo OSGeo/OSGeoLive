@@ -57,6 +57,8 @@
 # install gpsdrive including LANDSAT maps for Sydney CBD
 ./install_gpsdrive
 
+# install pgRouting including sample data
+./install_pgrouting.sh
 
 
 # remove packages only needed for building the above
