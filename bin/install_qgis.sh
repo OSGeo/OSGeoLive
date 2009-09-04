@@ -22,22 +22,25 @@
 
 
 #Add repositories
-echo -e "deb http://ppa.launchpad.net/qgis/stable/ubuntu jaunty main \ndeb-src http://ppa.launchpad.net/qgis/stable/ubuntu jaunty main" > /etc/apt/sources.list.d/qgis.list
+#echo -e "deb http://ppa.launchpad.net/qgis/stable/ubuntu jaunty main \ndeb-src http://#ppa.launchpad.net/qgis/stable/ubuntu jaunty main" > /etc/apt/sources.list.d/qgis.list
  
 #alternate method
-#wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/qgis.list --output-document=/etc/apt/sources.list.d/qgis.list
+wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/qgis.list --output-document=/etc/apt/sources.list.d/qgis.list
 
 #Add signed key for repo
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 1024R/68436DDF 
 
 #Latest Dev Release, Mrsid, ECW
-#deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu jaunty main 
-#deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu jaunty main
 #sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys  	  1024R/314DF160  
 
+apt-get update
 
 #Install packages
-apt-get install qgis qgis-common qgis-plugin-grass python-qgis python-qgis-common qgis-plugin-grass-common libgdal-grass
+apt-get install qgis qgis-common qgis-plugin-grass python-qgis python-qgis-common qgis-plugin-grass-common libgdal1-1.5.0-grass
+
+#Make sure old qt uim isn't installed
+apt-get remove uim-qt uim-qt3
+
 #for unstable version
 #apt-get install qgis qgis-common qgis-plugin-grass python-qgis python-qgis-common #qgis-plugin-grass-common libgdal1-1.6.0-grass
 
