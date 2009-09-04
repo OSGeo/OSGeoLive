@@ -48,9 +48,12 @@ Encoding=UTF-8
 Name=Quantum GIS
 Comment=QGIS $INSTALLED_VERSION
 Categories=Application;Education;Geography;
-Exec=/usr/bin/qgis
-Icon=/usr/share/icons/qgis.png
+Exec=/usr/bin/qgis %F
+Icon=/usr/share/icons/qgis-icon.xpm
 Terminal=false
+StartupNotify=false
+Categories=Education;Geography;Qt;
+MimeType=application/x-qgis-project;image/tiff;image/jpeg;image/jp2;application/x-raster-aig;application/x-mapinfo-mif;application/x-esri-shape;
 EOF
 fi
 
@@ -61,11 +64,11 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/qgis.desktop"
 # add menu item
 if [ ! -e /usr/share/menu/qgis ] ; then
    cat << EOF > /usr/share/menu/qgis
-?package(grass):needs="text"\
+?package(qgis):needs="X11"\
   section="Applications/Science/Geoscience"\
   title="Quantum GIS"\
   command="/usr/bin/qgis"\
-  icon="/usr/share/icons/qgis.png"
+  icon="/usr/share/icons/qgis-icon.xpm"
 EOF
 fi
 update-menus
