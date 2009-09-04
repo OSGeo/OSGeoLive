@@ -50,7 +50,7 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   mkdir "$TMP_DIR"
   cd "$TMP_DIR"
 
-  wget -nv "http://www.gpsdrive.de/packages/gpsdrive-$VERSION.tar.gz"
+  wget -c "http://www.gpsdrive.de/packages/gpsdrive-$VERSION.tar.gz"
 
   tar xzf gpsdrive-$VERSION.tar.gz
   if [ $? -eq 0 ] ; then
@@ -125,13 +125,14 @@ EOF
 
   # get+install at least one OSM icon set package
   #   see http://www.gpsdrive.de/development/map-icons/overview.en.shtml
+  echo "Downloading support packages ... (please wait)"
   wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.small_16908_all.deb"
   wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.big_16908_all.deb"
   wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-classic.small_16908_all.deb"
   wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons_16908_all.deb"
 
   # holy cow, mapnik-world-boundaries.deb is 300mb!
-  #wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-mapnik-world-boundaries_16662_all.deb"
+  #wget -c "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-mapnik-world-boundaries_16662_all.deb"
 
 
   CUSTOM_PKGS="gpsdrive*.deb openstreetmap-map*.deb"
@@ -229,11 +230,11 @@ echo "Convention_Centre   -33.8750   151.2005" > "$USER_HOME/.gpsdrive/way.txt"
 
 # Sydney maps
 #  v0.1, 1.1mb LANDSAT tiles
-#wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/gpsdrive_syd_tileset-0.1.tar.gz"
+#wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/gpsdrive_syd_tileset-0.1.tar.gz"
 
 #  v1.1, 70mb LANDSAT + OpenStreetMap tiles
 # move to .au mirror once it becomes avail.
-wget -nv "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/gpsdrive_syd_tileset-1.1.tar.gz?use_mirror=internode"
+wget -c "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/gpsdrive_syd_tileset-1.1.tar.gz?use_mirror=internode"
 
 mkdir -p /usr/local/share/gpsdrive
 cd /usr/local/share/gpsdrive/
