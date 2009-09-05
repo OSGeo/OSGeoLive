@@ -245,6 +245,12 @@ cd "$USER_HOME/.gpsdrive/"
 ln -s /usr/local/share/gpsdrive/maps "$USER_HOME/.gpsdrive/maps"
 
 
+# allow users to download new data to /usr/local/share/gpsdrive
+adduser $USER_NAME users
+chown -R root.users /usr/local/share/gpsdrive/maps
+chmod -R g+rwX /usr/local/share/gpsdrive/maps
+
+
 # bypass Mapnik wanting 300mb World Boundaries DB to be installed
 sed -e 4594,4863d "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" > "$USER_HOME/.gpsdrive/osm.xml"
 
