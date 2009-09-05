@@ -1,8 +1,8 @@
 #Quantum GIS Launchpad Package Archive
-#Stable
-deb http://ppa.launchpad.net/qgis/stable/ubuntu jaunty main 
-deb-src http://ppa.launchpad.net/qgis/stable/ubuntu jaunty main
+#Long Term Support - LTS 1.0.2
+#deb http://ppa.launchpad.net/qgis/stable/ubuntu jaunty main 
+#deb-src http://ppa.launchpad.net/qgis/stable/ubuntu jaunty main
 
-#Unstable from UbuntuGIS
-#deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu jaunty main 
-#deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu jaunty main
+#Non LTS 1.x
+deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu jaunty main 
+deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu jaunty main
