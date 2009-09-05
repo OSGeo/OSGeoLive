@@ -1,0 +1,7 @@
+# requires packages from Quantum GIS Launchpad Package Archive
+# see qgis.list in this dir.
+#deb http://ppa.launchpad.net/qgis/ubuntu jaunty main
+
+# see http://les-ejk.cz/2009/05/grass-64-rc4-for-ubuntu-904/
+deb http://les-ejk.cz/ubuntu jaunty multiverse
+
