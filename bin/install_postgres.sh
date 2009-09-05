@@ -21,3 +21,12 @@
 # sudo /etc/init.d/postgresql-8.3 start
 
 apt-get install postgresql-8.3-postgis pgadmin3
+
+#set default user/password to the system user for easy login
+sudo -u postgres createuser --superuser $USER
+
+#include pgadmin3 profile for connection
+wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/postgis-conf/pgadmin3 \
+  --output-document=~/.pgadmin3
+wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/postgis-conf/pgpass \
+  --output-document=~/.pgpass
