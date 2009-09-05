@@ -1,0 +1,14 @@
+
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=Stop GeoNetwork
+Comment=
+Categories=Application;
+Path=/usr/lib/geonetwork/bin
+Exec=sh ./stop-geonetwork.sh
+Icon=/usr/lib/geonetwork/bin/ico/gnstop.ico
+Terminal=false
+StartupNotify=false
+GenericName=
