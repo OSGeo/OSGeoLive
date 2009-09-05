@@ -51,4 +51,4 @@ apt-get remove gnome-games
 #   awk '{printf "%.3f MB \t %s\n", $2/(1024), $1}'
 
 # Default password list on the desktop to be replaced by html help in the future.
-wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt --output-document=~/Desktop/passwords.txt
+wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt --output-document=/home/user/Desktop/passwords.txt

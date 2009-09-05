@@ -27,6 +27,24 @@ sudo -u postgres createuser --superuser $USER
 
 #include pgadmin3 profile for connection
 wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/postgis-conf/pgadmin3 \
-  --output-document=~/.pgadmin3
+  --output-document=/home/user/.pgadmin3
 wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/postgis-conf/pgpass \
-  --output-document=~/.pgpass
+  --output-document=/home/user/.pgpass
+
+#add a connection for qgis if it's installed
+#TODO leave out the append if the Postgres section already exists
+if [ -e /home/user/.config/QuantumGIS/QGIS.conf ]; then
+	cat >> /home/user/.config/QuantumGIS/QGIS.conf <<EOF
+[PostgreSQL]
+connections\selected=local
+connections\local\host=localhost
+connections\local\database=postgres
+connections\local\port=5432
+connections\local\username=user
+connections\local\password=user
+connections\local\publicOnly=false
+connections\local\geometryColumnsOnly=false
+connections\local\save=true
+EOF
+fi
+
