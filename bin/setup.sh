@@ -45,6 +45,13 @@ apt-get install gcc build-essential devscripts pbuilder fakeroot \
 # Uninstall default applications
 apt-get remove gnome-games
 
+# Remove unused home directories
+rm -fr /home/user/Documents
+rm -fr /home/user/Music
+rm -fr /home/user/Pictures
+rm -fr /home/user/Templates
+rm -fr /home/user/Videos
+
 # Show packages hogging the most space on the disc:
 # dpkg-query --show --showformat='${Package;-50}\t${Installed-Size}\n' \
 #   | sort -k 2 -n | grep -v deinstall | \
