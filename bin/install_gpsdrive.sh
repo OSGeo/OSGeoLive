@@ -75,7 +75,7 @@ if [ $BUILD_LATEST -eq 1 ] ; then
 --- data/gpsdrive.desktop.ORIG  2009-08-31 01:42:39.000000000 +1200
 +++ data/gpsdrive.desktop       2009-08-31 01:43:19.000000000 +1200
 @@ -3,7 +3,7 @@
- Comment=GPS Navigation
+ Comment=GPS Navigation. You need to setup Gpsd manually
  Comment[de]=GPS Navigationsprogramm
  Exec=gpsdrive
 -Icon=gpsicon
