@@ -93,8 +93,6 @@ chmod 755 $BIN/deegree_st*.sh
 
 
 ### install desktop icons ##
-# deleted "\mv grass64.xpm /usr/share/icons/" from "if"
-# hope something like this is not needed...
 if [ ! -e "/usr/share/icons/deegree_desktop_48x48.png" ] ; then
    wget "http://download.deegree.org/LiveDVD/FOSS4G2009/deegree_desktop_48x48.png" 
    \mv deegree_desktop_48x48.png /usr/share/icons/
@@ -111,7 +109,7 @@ Comment=deegree v2.2
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/deegree_start.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
-Terminal=true
+Terminal=false
 EOF
 fi
 
@@ -129,11 +127,10 @@ Comment=deegree v2.2
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/deegree_stop.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
-Terminal=true
+Terminal=false
 EOF
 fi
 
 cp -a /usr/share/applications/deegree-stop.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/deegree-stop.desktop"
-
 
