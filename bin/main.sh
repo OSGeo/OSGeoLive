@@ -34,16 +34,19 @@
 #sun java 6
 ./install_sunjre6.sh
 
+# Documentation
+./install_main_docs.sh
+
 # Postgres, Postgis and PGadmin3
 ./install_postgres.sh
 
 # Mapserver
 ./install_apache2.sh
-#./install_mapserver.sh
+./install_mapserver.sh
 
 # Geoserver
-#./install_tomcat6.sh
-#./install_geoserver.sh
+./install_tomcat6.sh
+./install_geoserver.sh
 
 # install udig including sample data
 ./install_udig.sh
@@ -63,8 +66,11 @@
 # install QGIS including python and GRASS plugins
 ./install_qgis.sh
 
+# install marble which includes KDE
+./install_marble.sh
+
 # remove packages only needed for building the above
 ./setdown.sh
 
-echo "Finished."
+echo "Finished main.sh."
 
