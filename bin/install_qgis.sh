@@ -35,6 +35,14 @@ apt-get update
 #Install packages
 apt-get --assume-yes install qgis=1.2.0-1~jaunty1 qgis-common qgis-plugin-grass python-qgis python-qgis-common qgis-plugin-grass-common libgdal1-1.6.0-grass gpsbabel grass-doc
 
+
+#Turned off assuming the repo conflict will be resolved
+#apt-get --assume-yes --force-yes install libgdal1-1.6.0 
+libgdal1-1.6.0-grass
+
+#Install optional packages that some plugins use
+apt-get --assume-yes python-psycopg2 python-qwt5-qt4
+
 #Make sure old qt uim isn't installed
 apt-get remove uim-qt uim-qt3
 
