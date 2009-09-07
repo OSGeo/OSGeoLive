@@ -25,7 +25,7 @@
 apt-get install cgi-mapserver
 
 # FIXME
-#Add these 2 lines to /etc/apache2/httpd.conf
-#EnableSendfile off
-#ScriptAlias /mapserver /usr/lib/cgi-bin/mapserv 
+echo "install_mapserver FIXME: Add these 2 lines to /etc/apache2/httpd.conf"
+echo "install_mapserver FIXME: EnableSendfile off"
+echo "install_mapserver FIXME: ScriptAlias /mapserver /usr/lib/cgi-bin/mapserv"
 

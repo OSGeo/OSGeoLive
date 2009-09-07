@@ -31,5 +31,5 @@ wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/jquery.js --output-d
 wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/arramagong.css --output-document /usr/share/livedvd-docs/arramagong.css
 
 # FIXME
-# The Firefox home page shoud be file:///usr/share/livedvd-docs/index.html
+echo "install_main_docs.sh FIXME: The Firefox home page shoud be set to file:///usr/share/livedvd-docs/index.html"
 

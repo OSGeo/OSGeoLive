@@ -192,7 +192,7 @@ fi
 update-menus
 
 
-rm -rf "$TMP_DIR"
+#rm -rf "$TMP_DIR"
 
 echo "Finished installing GRASS $INSTALLED_VERSION."
 
