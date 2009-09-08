@@ -58,8 +58,7 @@ apt-get install postgresql-server-dev-8.3
 apt-get install build-essential cmake
 apt-get install libboost-graph-dev
 apt-get install libcgal*
-
-apt-get autoremove
+q
 
 if [ -f "gaul-devel-0.1849-0.tar.gz" ]
 then
