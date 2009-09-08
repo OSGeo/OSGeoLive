@@ -50,30 +50,35 @@ if [ ! -x "`which psql`" ] ; then
 fi
 
 # create tmp folders
-mkdir $TMP
-cd $TMP
+mkdir "$TMP"
+cd "$TMP"
 
 # install libraries
-apt-get install postgresql-server-dev-8.3
-apt-get install build-essential cmake
-apt-get install libboost-graph-dev
-apt-get install libcgal*
-q
+apt-get install \
+   postgresql-server-dev-8.3 \
+   build-essential \
+   cmake \
+   libboost-graph-dev \
+   libcgal*
+
 
 if [ -f "gaul-devel-0.1849-0.tar.gz" ]
 then
  echo "gaul-devel-0.1849-0.tar.gz has already been downloaded."
 else
- wget http://downloads.sourceforge.net/gaul/gaul-devel-0.1849-0.tar.gz?modtime=1114163427&big_mirror=0
+ wget "http://downloads.sourceforge.net/gaul/gaul-devel-0.1849-0.tar.gz?modtime=1114163427&big_mirror=0"
 fi
+
 tar -xzf gaul-devel-0.1849-0.tar.gz
 cd gaul-devel-0.1849-0/
+
 ./configure --disable-slang
+
 make
 sudo make install
 sudo ldconfig
 
-cd $TMP
+cd "$TMP"
 
 # get pgRouting
 if [ -f "pgRouting-1.03.tgz" ]
@@ -92,16 +97,17 @@ else
 fi
 
 # unpack sample data
-tar -xzf sydney.tar.gz -C $TMP
+tar -xzf sydney.tar.gz -C "$TMP"
 
 # unpack and compile pgRouting
-tar -xzf pgRouting-1.03.tgz -C $TMP
+tar -xzf pgRouting-1.03.tgz -C "$TMP"
 
-cd $INSTALL_FOLDER
+cd "$INSTALL_FOLDER"
 
 cmake -DWITH_TSP=ON -DWITH_DD=ON .
 make
-sudo make install
+# we are already root
+make install
 
 # create routing database
 createdb -U postgres sydney
