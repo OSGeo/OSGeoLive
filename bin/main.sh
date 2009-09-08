@@ -41,12 +41,19 @@
 ./install_postgres.sh
 
 # Mapserver
+# Note: Manual steps involved in install process
 ./install_apache2.sh
 ./install_mapserver.sh
 
 # Geoserver
 ./install_tomcat6.sh
 ./install_geoserver.sh
+
+# install GeoNetwork
+./install_geonetwork.sh
+
+# install deegree
+./install_deegree.sh
 
 # install udig including sample data
 ./install_udig.sh
@@ -65,6 +72,12 @@
 
 # install QGIS including python and GRASS plugins
 ./install_qgis.sh
+
+# install MB System - software for mapping the Sea Floor
+./install_mb-system.sh
+
+# install mapnik
+./install_mapnik.sh
 
 # install marble which includes KDE
 ./install_marble.sh
