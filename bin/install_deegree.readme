@@ -8,7 +8,7 @@
 ##
 ## installing deegree
 ##
-user@gisvm:~/tmp$ wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/install_deegree.sh
+user@gisvm:~/tmp$ wget -c https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/install_deegree.sh
 user@gisvm:~/tmp$ chmod 755 install_deegree.sh 
 user@gisvm:~/tmp$ sudo ./install_deegree.sh
 

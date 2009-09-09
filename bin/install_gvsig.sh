@@ -46,7 +46,7 @@ if [ -f $GVSIG_PACKAGE ]
 then
    echo "$GVSIG_PACKAGE has already been downloaded."
 else
-   wget $GVSIG_PATH/$GVSIG_PACKAGE
+   wget -c $GVSIG_PATH/$GVSIG_PACKAGE
 fi
 
 

@@ -42,7 +42,7 @@ fi
 
 # If MapTiler is not installed then download the .deb package and install it
 if [ `dpkg -l maptiler | grep -c '^ii'` -eq 0 ] ; then
-  wget http://maptiler.googlecode.com/files/$MAPTILERDEB
+  wget -c http://maptiler.googlecode.com/files/$MAPTILERDEB
   dpkg -i $MAPTILERDEB
   rm $MAPTILERDEB
 fi

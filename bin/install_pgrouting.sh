@@ -66,7 +66,7 @@ if [ -f "gaul-devel-0.1849-0.tar.gz" ]
 then
  echo "gaul-devel-0.1849-0.tar.gz has already been downloaded."
 else
- wget "http://downloads.sourceforge.net/gaul/gaul-devel-0.1849-0.tar.gz?modtime=1114163427&big_mirror=0"
+ wget -c "http://downloads.sourceforge.net/gaul/gaul-devel-0.1849-0.tar.gz?modtime=1114163427&big_mirror=0"
 fi
 
 tar -xzf gaul-devel-0.1849-0.tar.gz
@@ -85,7 +85,7 @@ if [ -f "pgRouting-1.03.tgz" ]
 then
  echo "pgRouting-1.03.tgz has already been downloaded."
 else
- wget http://files.postlbs.org/pgrouting/source/pgRouting-1.03.tgz
+ wget -c http://files.postlbs.org/pgrouting/source/pgRouting-1.03.tgz
 fi
 
 # get sample data
@@ -93,7 +93,7 @@ if [ -f "sydney.tar.gz" ]
 then
  echo "sydney.tar.gz has already been downloaded."
 else
- wget http://files.postlbs.org/foss4g2009/sydney.tar.gz
+ wget -c http://files.postlbs.org/foss4g2009/sydney.tar.gz
 fi
 
 # unpack sample data

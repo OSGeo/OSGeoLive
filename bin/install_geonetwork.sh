@@ -70,7 +70,7 @@ if [ -f "geonetwork-install-2.4.1-0.jar" ]
 then
    echo "geonetwork-install-2.4.1-0.jar has already been downloaded."
 else
-   wget http://freefr.dl.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.4.1/geonetwork-install-2.4.1-0.jar
+   wget -c http://freefr.dl.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.4.1/geonetwork-install-2.4.1-0.jar
 fi
 
 # get geonetwork doco

@@ -23,7 +23,7 @@ mkdir $TMP
 cd $TMP
 
 # download TileLite sources
-wget http://bitbucket.org/springmeyer/tilelite/get/tip.zip
+wget -c http://bitbucket.org/springmeyer/tilelite/get/tip.zip
 unzip tip.zip
 cd tilelite
 

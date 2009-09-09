@@ -25,7 +25,7 @@
 
 mkdir /tmp/gs-download
 cd /tmp/gs-download
-wget http://downloads.sourceforge.net/geoserver/geoserver-1.7.6-war.zip
+wget -c http://downloads.sourceforge.net/geoserver/geoserver-1.7.6-war.zip
 unzip geoserver-1.7.6-war.zip
 
 #FIXME

@@ -66,7 +66,7 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   PATCHES="gpsdrive_fix_deps  gpsdrive_osm_fixes  gpsdrive_blue_mapnik"
 
   for PATCH in $PATCHES ; do
-    wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/$PATCH.patch"
+    wget -c -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/$PATCH.patch"
     patch -p0 < "$PATCH.patch"
   done
 
@@ -126,10 +126,10 @@ EOF
   # get+install at least one OSM icon set package
   #   see http://www.gpsdrive.de/development/map-icons/overview.en.shtml
   echo "Downloading support packages ... (please wait)"
-  wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.small_16908_all.deb"
-  wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.big_16908_all.deb"
-  wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-classic.small_16908_all.deb"
-  wget -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons_16908_all.deb"
+  wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.small_16908_all.deb"
+  wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.big_16908_all.deb"
+  wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-classic.small_16908_all.deb"
+  wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons_16908_all.deb"
 
   # holy cow, mapnik-world-boundaries.deb is 300mb!
   #wget -c "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-mapnik-world-boundaries_16662_all.deb"
@@ -200,7 +200,7 @@ mkdir "$USER_HOME/.gpsdrive"
 if [ 1 -eq 0 ] ; then
   ## needed for newer builds if icons were *not* installed via .debs above
   # minimal icon set
-  wget -nv "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/minimal%20icon%20set/openstreetmap-map-icons-minimal.tar.gz?use_mirror=internode"
+  wget -c -nv "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/minimal%20icon%20set/openstreetmap-map-icons-minimal.tar.gz?use_mirror=internode"
   cd /
   tar xzf "$TMP_DIR"/openstreetmap-map-icons-minimal.tar.gz
   cd "$TMP_DIR"
