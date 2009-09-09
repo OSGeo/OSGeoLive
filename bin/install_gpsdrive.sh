@@ -66,7 +66,8 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   PATCHES="gpsdrive_fix_deps  gpsdrive_osm_fixes  gpsdrive_blue_mapnik"
 
   for PATCH in $PATCHES ; do
-    wget -c -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/$PATCH.patch"
+    wget -r -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/$PATCH.patch" \
+       -O "$PATCH.patch"
     patch -p0 < "$PATCH.patch"
   done
 
@@ -127,7 +128,7 @@ EOF
   #   see http://www.gpsdrive.de/development/map-icons/overview.en.shtml
   echo "Downloading support packages ... (please wait)"
   wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.small_16908_all.deb"
-  wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.big_16908_all.deb"
+  wget -c     "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.big_16908_all.deb"
   wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-classic.small_16908_all.deb"
   wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons_16908_all.deb"
 
