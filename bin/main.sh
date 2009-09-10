@@ -89,6 +89,7 @@
 ./install_pgrouting.sh
 
 echo "Finished main.sh."
+echo "Run sudo vmware-toolbox, and select shrink, to shrink the image"
 exit
 
 ########################################################
