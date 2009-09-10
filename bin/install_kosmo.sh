@@ -29,8 +29,7 @@
 # =======
 # sudo ./install_kosmo.sh
 
-echo TYPE YOUR USER NAME:
-read USER_NAME
+USER_NAME="user"
 TMP="/tmp/kosmo_downloads"
 INSTALL_FOLDER="/usr/lib"
 KOSMO_FOLDER="$INSTALL_FOLDER/kosmo_1_2_1"
