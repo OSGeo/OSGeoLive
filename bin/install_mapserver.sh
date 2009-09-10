@@ -22,10 +22,27 @@
 
 # Requires: Apache2
 
+HTTPD_CONF="/etc/apache2/httpd.conf"
+TMP="/tmp/install_mapserver_tmp"
+
 apt-get install cgi-mapserver
 
-# FIXME
-echo "install_mapserver FIXME: Add these 2 lines to /etc/apache2/httpd.conf"
-echo "install_mapserver FIXME: EnableSendfile off"
-echo "install_mapserver FIXME: ScriptAlias /mapserver /usr/lib/cgi-bin/mapserv"
+# Adds these 2 lines to /etc/apache2/httpd.conf
+# If the lines already exist, then make sure they are uncommented
+#   EnableSendfile off
+#   ScriptAlias /mapserver /usr/lib/cgi-bin/mapserv
 
+if [ `grep "EnableSendfile off" $HTTPD_CONF | wc -l` -eq 0 ] ; then
+  echo "EnableSendfile off" >> $HTTPD_CONF ; 
+else
+  sed -e 's/^.*EnableSendfile off/EnableSendfile off/' $HTTPD_CONF > $TMP
+  mv $TMP $HTTPD_CONF
+fi
+
+# Uncomment the following line from httpd.conf, otherwise, add to the end
+if [ `grep "ScriptAlias /mapserver /usr/lib/cgi-bin/mapserv" $HTTPD_CONF | wc -l` -eq 0 ] ; then
+  echo "ScriptAlias /mapserver /usr/lib/cgi-bin/mapserv" >> $HTTPD_CONF
+else
+  sed -e 's/^.*ScriptAlias \/mapserver \/usr\/lib\/cgi-bin\/mapserv/ScriptAlias \/mapserver \/usr\/lib\/cgi-bin\/mapserv/' $HTTPD_CONF > $TMP
+  mv $TMP $HTTPD_CONF
+fi
