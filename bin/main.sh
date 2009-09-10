@@ -61,29 +61,48 @@
 # install openjump including sample data
 ./install_openjump.sh
 
+# install install_geokettle.sh
+./install_geokettle.sh
+
 # install grass including sample data
 ./install_grass.sh
-
-# install gpsdrive including LANDSAT maps for Sydney CBD
-./install_gpsdrive
-
-# install pgRouting including sample data
-./install_pgrouting.sh
-
-# install QGIS including python and GRASS plugins
-./install_qgis.sh
-
-# install MB System - software for mapping the Sea Floor
-./install_mb-system.sh
 
 # install mapnik
 ./install_mapnik.sh
 
+./install_kosmo.sh
+# Only installing stable software at the moment.
+#./install_kosmo_2beta.sh
+
+# Run after install_grass.sh
+./install_maptiler.sh
+
 # install marble which includes KDE
 ./install_marble.sh
 
+# install QGIS including python and GRASS plugins
+# Note: this depends upon Posgres and GRASS
+./install_qgis.sh
+
+# install pgRouting including sample data
+# Note: Depends upon Postgres, and seems to load a lot of data
+./install_pgrouting.sh
+
+echo "Finished main.sh."
+exit
+
+########################################################
+# Scripts past here are not installed yet
+########################################################
 # remove packages only needed for building the above
 ./setdown.sh
 
-echo "Finished main.sh."
+# install MB System - software for mapping the Sea Floor
+# This is experimental (according to install script)
+./install_mb-system.sh
+
+# install gpsdrive including LANDSAT maps for Sydney CBD
+# Note: This takes a long time to download. It may have too much data.
+# It then does a  a compile, and seems to cause dependancy problems.
+./install_gpsdrive
 
