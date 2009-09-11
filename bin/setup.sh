@@ -29,7 +29,7 @@ fi
 
 
 # Install some useful stuff
-apt-get install wget more less zip unzip bzip2 p7zip \
+apt-get install --yes wget more less zip unzip bzip2 p7zip \
   cvs cvsutils subversion subversion-tools bzr bzr-tools git mercurial \
   openssh-client lftp sl smbclient usbutils wireless-tools \
   locate diff patch fuseiso \
@@ -38,12 +38,12 @@ apt-get install wget more less zip unzip bzip2 p7zip \
   lynx mutt mc xchat rxvt units
 
 # Install build stuff (temporarily?)
-apt-get install gcc build-essential devscripts pbuilder fakeroot \
+apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
   cvs-buildpackage svn-buildpackage lintian debhelper pkg-config
 
 
 # Uninstall default applications
-apt-get remove gnome-games
+apt-get remove --yes gnome-games
 
 # Remove unused home directories
 rm -fr /home/user/Documents

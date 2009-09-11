@@ -22,5 +22,5 @@
 
 # Requires: 
 
-apt-get install marble marble-data
+apt-get install --yes marble marble-data
 

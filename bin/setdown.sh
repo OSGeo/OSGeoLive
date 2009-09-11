@@ -21,6 +21,17 @@
 # sudo ./setdown.sh
 
 # remove build stuff no longer of use
-apt-get remove devscripts pbuilder \
+apt-get --yes remove devscripts pbuilder \
    cvs-buildpackage svn-buildpackage \
    lintian debhelper pkg-config
+
+rm -fr \
+  /home/user/.bash_history \
+  /home/user/.ssh \
+  /home/user/.subversion \
+  # /tmp/* \
+
+  # Do we need the following:
+  # /home/user/.cache \
+  # /home/user/.config \
+  # /home/user/.dbus \

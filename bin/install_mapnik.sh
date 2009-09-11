@@ -12,7 +12,7 @@
 # sudo ./install_mapnik.sh
 
 # will fetch Mapnik 0.5.1 on Ubuntu 9.04
-apt-get install python-mapnik
+apt-get install --yes python-mapnik
 
 
 # download, install, and setup demo Mapnik tile-serving application

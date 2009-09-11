@@ -23,7 +23,7 @@
 
 # Copy tmp download files for faster downloading
 
-apt-get install subversion
+apt-get install --yes subversion
 cd /usr/local/bin
 svn co http://svn.osgeo.org/osgeo/livedvd/gisvm
 chown -R user:user gisvm

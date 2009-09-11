@@ -16,5 +16,5 @@
 # =====
 # This script will install sun jre 6
 
-apt-get install sun-java6-jre
+apt-get install --yes sun-java6-jre
 

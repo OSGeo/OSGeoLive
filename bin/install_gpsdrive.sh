@@ -39,7 +39,7 @@ else
    PACKAGES="gpsd gpsd-clients python-gps"
 fi
 
-apt-get install $PACKAGES
+apt-get install --yes $PACKAGES
 
 
 #######################
@@ -100,7 +100,7 @@ EOF
 
   if [ -n "$NEEDED_BUILD_PKG" ] ; then
      echo "Attempting to (temporarily) install the following packages: $NEEDED_BUILD_PKG"
-     apt-get --assume-yes install $NEEDED_BUILD_PKG
+     apt-get install --yes $NEEDED_BUILD_PKG
   else
      echo "No new packages needed for build."
   fi
@@ -165,7 +165,7 @@ EOF
   if [ -n "$TO_INSTALL" ] ; then
      echo "Attempting to install the following packages: $TO_INSTALL"
 
-     apt-get --assume-yes install $TO_INSTALL
+     apt-get install --yes $TO_INSTALL
 
      if [ $? -ne 0 ] ; then
         echo "ERROR: package install failed: $TO_INSTALL"

@@ -54,7 +54,7 @@ mkdir "$TMP"
 cd "$TMP"
 
 # install libraries
-apt-get install \
+apt-get install --yes \
    postgresql-server-dev-8.3 \
    build-essential \
    cmake \

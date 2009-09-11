@@ -20,4 +20,4 @@
 # =======
 # sudo /etc/init.d/apache2 start
 
-apt-get install apache2
+apt-get install --yes apache2

@@ -25,7 +25,7 @@
 HTTPD_CONF="/etc/apache2/httpd.conf"
 TMP="/tmp/install_mapserver_tmp"
 
-apt-get install cgi-mapserver
+apt-get install --yes cgi-mapserver
 
 # Adds these 2 lines to /etc/apache2/httpd.conf
 # If the lines already exist, then make sure they are uncommented
