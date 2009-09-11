@@ -45,16 +45,14 @@ fi;
 echo ${1} 
 
 # Pull down synchronisation files from OSGeo server
-sudo rsync -avz ${USER}@download.osgeo.org:/osgeo/download/livedvd/working_livedvd/ /
+sudo rsync -az ${USER}@download.osgeo.org:/osgeo/download/livedvd/working_livedvd/ /
 
 # Push up synchronisation files to OSGeo server
-# sudo rsync -avz /bin camerons@upload.osgeo.org:/osgeo/download/livedvd/working_livedvd/
-# sudo rsync -avz /etc camerons@upload.osgeo.org:/osgeo/download/livedvd/working_livedvd/
-# sudo rsync -avz /lib camerons@upload.osgeo.org:/osgeo/download/livedvd/working_livedvd/
-# sudo rsync -avz /home camerons@upload.osgeo.org:/osgeo/download/livedvd/working_livedvd/
-# sudo rsync -avz /usr camerons@upload.osgeo.org:/osgeo/download/livedvd/working_livedvd/
-
-# Test commands
-#sudo rsync -avz cshorter@127.0.0.1:test/ tmp/
-#sudo rsync -avz ${USER}@127.0.0.1:test/ tmp/
+# sudo rsync -az /bin camerons@upload.osgeo.org:/osgeo/download/livedvd/working_livedvd/
+# sudo rsync -az /boot camerons@upload.osgeo.org:/osgeo/download/livedvd/working_livedvd/
+# sudo rsync -az /etc camerons@upload.osgeo.org:/osgeo/download/livedvd/working_livedvd/
+# sudo rsync -az /lib camerons@upload.osgeo.org:/osgeo/download/livedvd/working_livedvd/
+# sudo rsync -az /home camerons@upload.osgeo.org:/osgeo/download/livedvd/working_livedvd/
+# sudo rsync -az /sbin camerons@upload.osgeo.org:/osgeo/download/livedvd/working_livedvd/
+# sudo rsync -az /usr camerons@upload.osgeo.org:/osgeo/download/livedvd/working_livedvd/
 
