@@ -38,25 +38,16 @@ TMP_DIR=/tmp/build_grass
 mkdir "$TMP_DIR"
 
 
-# For GRASS 6.4 on Ubuntu 9.04 you will need to add Jachym's unofficial
-#  repo to /etc/sources.list.
-# See http://les-ejk.cz/2009/05/grass-64-rc4-for-ubuntu-904/
-
-
 if [ ! -x "`which wget`" ] ; then
    echo "ERROR: wget is required, please install it and try again" 
    exit 1
 fi
 
-#Add repositories
-wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/grass.list \
-  --output-document=/etc/apt/sources.list.d/grass.list
-# install_QGIS.sh is pulling from UbuntuGIS repo but Jachym is pulling from qgis repo. argh.
-#wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/qgis.list \
-#  --output-document=/etc/apt/sources.list.d/qgis.list
+# Add UbuntuGIS repository (same as QGIS)
+wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/qgis.list \
+  --output-document=/etc/apt/sources.list.d/qgis.list
 
 #Add signed key for repository
-# + Jachym's ?
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
 apt-get update
 
