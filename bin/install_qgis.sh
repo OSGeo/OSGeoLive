@@ -24,7 +24,8 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
 #Add repositories
-wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/qgis.list --output-document=/etc/apt/sources.list.d/qgis.list
+wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+     --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 #Add signed key for repositorys LTS and non-LTS
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
@@ -33,12 +34,14 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 apt-get update
 
 #Install packages
-apt-get --assume-yes install qgis=1.2.0-1~jaunty1 qgis-common qgis-plugin-grass python-qgis python-qgis-common qgis-plugin-grass-common libgdal1-1.6.0-grass gpsbabel grass-doc
+apt-get --assume-yes install qgis=1.2.0-1~jaunty1 \
+   qgis-common qgis-plugin-grass python-qgis python-qgis-common \
+   qgis-plugin-grass-common libgdal1-1.6.0-grass gpsbabel grass-doc
 
 
 #Turned off assuming the repo conflict will be resolved
-#apt-get --assume-yes --force-yes install libgdal1-1.6.0 
-libgdal1-1.6.0-grass
+#apt-get --assume-yes install libgdal1-1.6.0 
+##libgdal1-1.6.0-grass
 
 #Install optional packages that some plugins use
 apt-get --assume-yes python-psycopg2 python-qwt5-qt4

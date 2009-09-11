@@ -44,8 +44,8 @@ if [ ! -x "`which wget`" ] ; then
 fi
 
 # Add UbuntuGIS repository (same as QGIS)
-wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/qgis.list \
-     --output-document=/etc/apt/sources.list.d/qgis.list
+wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+     --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 #Add signed key for repository
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
