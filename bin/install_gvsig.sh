@@ -51,7 +51,7 @@ fi
 
 
 # install dependencies
-apt-get install libstdc++5 libgdal1-1.5.0
+apt-get install libstdc++5 libgdal1-1.5.0 sun-java5-jre
 dpkg -i $GVSIG_PACKAGE
 
 # place a gvSIG icon on desktop
