@@ -18,16 +18,15 @@
 #    GRASS homepage: http://grass.osgeo.org/
 
 
-# this does not attempt to install QGIS-plugin infrastructure, that should
-# be done in another script.
+# this does not attempt to install QGIS-plugin infrastructure, that is
+#  done in install_qgis.sh
 
-
-#### install grass ####
 
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
+#### install grass ####
 
 PACKAGES="grass grass-doc python-opengl python-wxgtk2.8 avce00 e00compr gdal-bin gpsbabel more"
 
@@ -38,6 +37,7 @@ TMP_DIR=/tmp/build_grass
 mkdir "$TMP_DIR"
 
 
+
 if [ ! -x "`which wget`" ] ; then
    echo "ERROR: wget is required, please install it and try again" 
    exit 1
@@ -45,28 +45,20 @@ fi
 
 # Add UbuntuGIS repository (same as QGIS)
 wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/qgis.list \
-  --output-document=/etc/apt/sources.list.d/qgis.list
+     --output-document=/etc/apt/sources.list.d/qgis.list
 
 #Add signed key for repository
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
 apt-get update
 
 
-TO_INSTALL=""
-for PACKAGE in $PACKAGES ; do
-   if [ `dpkg -l $PACKAGE | grep -c '^ii'` -eq 0 ] ; then
-      TO_INSTALL="$TO_INSTALL $PACKAGE"
-   fi
-done
+apt-get --assume-yes install $PACKAGES
 
-if [ -n "$TO_INSTALL" ] ; then
-   apt-get --assume-yes install $TO_INSTALL
-
-   if [ $? -ne 0 ] ; then
-      echo "ERROR: package install failed: $TO_INSTALL"
-      #exit 1
-   fi
+if [ $? -ne 0 ] ; then
+   echo 'Package install failed! Aborting.'
+   exit 1
 fi
+
 
 INSTALLED_VERSION=`dpkg -s grass | grep '^Version:' | awk '{print $2}' | cut -f1,2 -d.`
 IS_OLD_VERSION=`echo "$INSTALLED_VERSION $MODERN_VERSION" | awk '{if ($1 < $2) {print 1} else {print 0} }'`
@@ -75,6 +67,8 @@ if [ "$IS_OLD_VERSION" -eq 1 ] ; then
    echo "         Please fix!"
    #exit 1
 fi
+
+
 
 
 #### get sample data ####
@@ -116,6 +110,8 @@ adduser $USER_NAME users
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata"
 
 
+
+
 #### preconfig setup ####
 
 if [ "$IS_OLD_VERSION" -eq 1 ] ; then
@@ -146,6 +142,7 @@ EOF
 fi
 
 
+
 #### install desktop icon ####
 if [ ! -e "/usr/share/icons/grass-48x48.png" ] ; then
    wget -nv "http://svn.osgeo.org/grass/grass/trunk/gui/icons/grass-48x48.png"   \mv grass64.xpm /usr/share/icons/
@@ -155,7 +152,7 @@ fi
 
 GVER=`echo "$INSTALLED_VERSION" | sed -e 's/\.//'`
 
-if [ ! -e /usr/share/applications/grass.desktop ] ; then
+#if [ ! -e /usr/share/applications/grass.desktop ] ; then
    cat << EOF > /usr/share/applications/grass.desktop
 [Desktop Entry]
 Type=Application
@@ -167,7 +164,7 @@ Exec=/usr/bin/grass$GVER
 Icon=/usr/share/icons/grass-48x48.png
 Terminal=true
 EOF
-fi
+#fi
 
 cp /usr/share/applications/grass.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass.desktop"
@@ -182,13 +179,17 @@ if [ ! -e /usr/share/menu/grass ] ; then
   command="/usr/bin/grass$GVER"\
   icon="/usr/share/icons/grass-48x48.png"
 EOF
+
+   update-menus
 fi
-update-menus
 
 
-#rm -rf "$TMP_DIR"
+rm -rf "$TMP_DIR"
+
+
 
 echo "Finished installing GRASS $INSTALLED_VERSION."
+
 
 
 
