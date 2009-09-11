@@ -32,6 +32,9 @@
 # sudo ./install_geokettle.sh
 
 TMP="/tmp/geokettle_downloads"
+GEOKETTLE_BASE_URL="http://downloads.sourceforge.net/project/geokettle/geokettle/3.2.0-20090609"
+GEOKETTLE_BASENAME="geokettle-3.2.0-20090609-bin"
+GEOKETTLE_FILENAME="$GEOKETTLE_BASENAME.zip"
 INSTALL_FOLDER="/opt"
 GEOKETTLE_FOLDER="$INSTALL_FOLDER/geokettle"
 BIN="/usr/bin"
@@ -53,16 +56,16 @@ cd $TMP
 ## Install Application ##
 
 # get udig
-if [ -f "geokettle-3.2.0-20090609-bin.zip" ]
+if [ -f "$GEOKETTLE_FILENAME" ]
 then
-   echo "geokettle-3.2.0-20090609-bin.zip has already been downloaded."
+   echo "$GEOKETTLE_FILENAME has already been downloaded."
 else
-   wget "http://downloads.sourceforge.net/project/geokettle/geokettle/3.2.0-20090609/geokettle-3.2.0-20090609-bin.zip" -O geokettle-3.2.0-20090609-bin.zip
+   wget "$GEOKETTLE_BASE_URL/$GEOKETTLE_FILENAME" -O $GEOKETTLE_FILENAME
 fi
 # unpack it
-unzip geokettle-3.2.0-20090609-bin.zip -d $TMP
+unzip $GEOKETTLE_FILENAME -d $TMP
 # move the contents to /opt/geokettle
-mv $TMP/geokettle-3.2.0-20090609-bin $GEOKETTLE_FOLDER
+mv $TMP/$GEOKETTLE_BASENAME $GEOKETTLE_FOLDER
 
 ## Configure Application ##
 
@@ -70,16 +73,16 @@ mv $TMP/geokettle-3.2.0-20090609-bin $GEOKETTLE_FOLDER
 chmod a+x $GEOKETTLE_FOLDER/*.sh
 
 # Create desktop icon
-# copy it into the udig folder
 # FIXME: Desktop folder may be named differently in localized setups (if the language is not English)
-echo "#!/usr/bin/env xdg-open" > $USER_HOME/Desktop/geokettle.desktop
-echo "[Desktop Entry]" >> $USER_HOME/Desktop/geokettle.desktop
-echo "Name=GeoKettle" >> $USER_HOME/Desktop/geokettle.desktop
-echo "Exec=$GEOKETTLE_FOLDER/spoon.sh" >> $USER_HOME/Desktop/geokettle.desktop
-echo "Path=$GEOKETTLE_FOLDER" >> $USER_HOME/Desktop/geokettle.desktop
-echo "Icon=$GEOKETTLE_FOLDER/spoon.png" >> $USER_HOME/Desktop/geokettle.desktop
-echo "Type=Application" >> $USER_HOME/Desktop/geokettle.desktop
-echo "Categories=Application;" >> $USER_HOME/Desktop/geokettle.desktop
+cat << EOF > $USER_HOME/Desktop/geokettle.desktop
+[Desktop Entry]
+Name=GeoKettle
+Exec=$GEOKETTLE_FOLDER/spoon.sh
+Path=$GEOKETTLE_FOLDER
+Icon=$GEOKETTLE_FOLDER/spoon.png
+Type=Application
+Categories=Application;
+EOF
 
 # make the desktop icon owned by $USER_NAME and executable
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/geokettle.desktop
