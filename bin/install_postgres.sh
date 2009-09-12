@@ -20,6 +20,8 @@
 # =======
 # sudo /etc/init.d/postgresql-8.3 start
 
+USER="user"
+
 apt-get install --yes postgresql-8.3-postgis pgadmin3
 
 #set default user/password to the system user for easy login
