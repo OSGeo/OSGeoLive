@@ -20,23 +20,29 @@
 # =======
 # sudo /etc/init.d/postgresql-8.3 start
 
-USER="user"
+USER_NAME="user"
 
 apt-get install --yes postgresql-8.3-postgis pgadmin3
 
 #set default user/password to the system user for easy login
-sudo -u postgres createuser --superuser $USER
+sudo -u postgres createuser --superuser $USER_NAME
 
 #include pgadmin3 profile for connection
-wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/postgis-conf/pgadmin3 \
-  --output-document=/home/user/.pgadmin3
-wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/postgis-conf/pgpass \
-  --output-document=/home/user/.pgpass
+for FILE in  pgadmin3  pgpass  ; do
+   wget -r "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/postgis-conf/$FILE" \
+      --output-document="/home/$USER_NAME/.$FILE"
+
+    chown $USER_NAME:$USER_NAME "/home/$USER_NAME/.$FILE"
+    chmod 600 "/home/$USER_NAME/.$FILE"
+done
+
 
 #add a connection for qgis if it's installed
-#TODO leave out the append if the Postgres section already exists
-if [ -e /home/user/.config/QuantumGIS/QGIS.conf ]; then
+QGIS_CONFIG="/home/$USER_NAME/.config/QuantumGIS/QGIS.conf"
+if [ -e "$QGIS_CONFIG" ] && \
+   [ `grep -c '\[PostgreSQL\]' "$QGIS_CONFIG"` -eq 0 ] ; then
 	cat >> /home/user/.config/QuantumGIS/QGIS.conf <<EOF
+
 [PostgreSQL]
 connections\selected=local
 connections\local\host=localhost
@@ -49,4 +55,3 @@ connections\local\geometryColumnsOnly=false
 connections\local\save=true
 EOF
 fi
-
