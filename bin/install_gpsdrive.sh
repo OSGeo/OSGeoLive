@@ -121,14 +121,11 @@ EOF
   #### install our new custom built packages ####
   cd "$TMP_DIR"
  
-  # not needed, we're a client not a central server
-  \rm gpsdrive-friendsd_2.10svn2414_amd64.deb
-
   # get+install at least one OSM icon set package
   #   see http://www.gpsdrive.de/development/map-icons/overview.en.shtml
   echo "Downloading support packages ... (please wait)"
   wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.small_16908_all.deb"
-  wget -c     "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.big_16908_all.deb"
+  wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.big_16908_all.deb"
   wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-classic.small_16908_all.deb"
   wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons_16908_all.deb"
 
@@ -168,16 +165,15 @@ EOF
      apt-get install --yes $TO_INSTALL
 
      if [ $? -ne 0 ] ; then
-        echo "ERROR: package install failed: $TO_INSTALL"
-        #exit 1
+        echo "ERROR: packages install failed: $TO_INSTALL"
+        exit 1
      fi
   else
      echo "No new packages needed for install."
   fi
 
 
-  dpkg -i gpsdrive_*.deb \
-          gpsdrive-utils_*.deb \
+  dpkg -i gpsdrive*.deb \
           openstreetmap-map*.deb
 
 
@@ -217,7 +213,7 @@ fi
 cat << EOF > "$USER_HOME/.gpsdrive/gpsdriverc"
 lastlong = 151.2001
 lastlat = -33.8753
-scalewanted = 50000
+scalewanted = 5000
 dashboard_3 = 12
 autobestmap = 0
 mapnik_caching = 0
