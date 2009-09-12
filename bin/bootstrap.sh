@@ -21,12 +21,16 @@
 # =======
 # sudo ./boostrap.sh
 
-# Copy tmp download files for faster downloading
+SCRIPT_DIR=/usr/local/share
 
 apt-get install --yes subversion openssh-server
-cd /var/lib/
+cd $SCRIPT_DIR
 svn co http://svn.osgeo.org/osgeo/livedvd/gisvm
 chown -R user:user gisvm
-cd ~
-ln -s /var/lib/gisvm .
+cd /home/user
+ln -s ${SCRIPT_DIR}/gisvm .
 
+echo "If you have a local copy if the tmp/ directory and wish to"
+echo "save bandwidth, then copy it across to your DVD now, using a"
+echo "command like:"
+echo "  rsync -avz username@hostname.org:/path_to_tmp_dir/ /tmp/"
