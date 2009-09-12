@@ -19,9 +19,6 @@
 #
 
 
-
-#!#!# EXPERIMENTAL #!#!#
-
 ### FIXME: install size currently 319 MB. Need to figure out how to build it
 ###   using shared libraries.
 # http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html

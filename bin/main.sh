@@ -79,11 +79,14 @@ exit
 ./setdown.sh
 
 # install MB System - software for mapping the Sea Floor
-# This is experimental (according to install script)
+# This is disabled until it can be built with shared libraries,
+#   using static libraries it takes up 300mb.
 ./install_mb-system.sh
 
 # install gpsdrive including LANDSAT maps for Sydney CBD
 # Note: This takes a long time to download. It may have too much data.
-# It then does a  a compile, and seems to cause dependancy problems.
+#   -- data download is 70mb; set to use a SourceForge mirror in Adelaide
+# It then does a  a compile, and seems to cause dependency problems.
+#   -- what are they specifically?
 ./install_gpsdrive
 
