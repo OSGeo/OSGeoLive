@@ -26,68 +26,37 @@
 # You can customise the contents of the liveDVD by commenting out install
 # scripts.
 
+for SCRIPT in \
+  ./setup.sh \
+  ./install_sunjre6.sh \
+  ./install_main_docs.sh \
+  ./install_postgres.sh \
+  ./install_apache2.sh \
+  ./install_mapserver.sh \
+  ./install_tomcat6.sh \
+  ./install_geoserver.sh \
+  ./install_geonetwork.sh \
+  ./install_deegree.sh \
+  ./install_udig.sh \
+  ./install_openjump.sh \
+  ./install_geokettle.sh \
+  ./install_grass.sh \
+  ./install_mapnik.sh \
+  ./install_kosmo.sh \
+  ./install_maptiler.sh \
+  ./install_marble.sh \
+  ./install_qgis.sh \
+  ./install_pgrouting.sh \
+; do
+  echo Starting: $SCRIPT
+  sh $SCRIPT
+  echo Finished: $SCRIPT
+  echo 
+  echo Disk Usage1:, $SCRIPT `df | grep "Filesystem" | sed -e "s/  */,/g"`
+  echo Disk Usage2:, $SCRIPT, `df | grep " /$" | sed -e "s/  */,/g"`
+done
 
-# Uninstall / Install all the base system packages: ssh, java, etc
-# Set up configuration files
-./setup.sh
-
-#sun java 6
-./install_sunjre6.sh
-
-# Documentation
-./install_main_docs.sh
-
-# Postgres, Postgis and PGadmin3
-./install_postgres.sh
-
-# Mapserver
-# Note: Manual steps involved in install process
-./install_apache2.sh
-./install_mapserver.sh
-
-# Geoserver
-./install_tomcat6.sh
-./install_geoserver.sh
-
-# install GeoNetwork
-./install_geonetwork.sh
-
-# install deegree
-./install_deegree.sh
-
-# install udig including sample data
-./install_udig.sh
-
-# install openjump including sample data
-./install_openjump.sh
-
-# install install_geokettle.sh
-./install_geokettle.sh
-
-# install grass including sample data
-./install_grass.sh
-
-# install mapnik
-./install_mapnik.sh
-
-./install_kosmo.sh
-# Only installing stable software at the moment.
-#./install_kosmo_2beta.sh
-
-# Run after install_grass.sh
-./install_maptiler.sh
-
-# install marble which includes KDE
-./install_marble.sh
-
-# install QGIS including python and GRASS plugins
-# Note: this depends upon Posgres and GRASS
-./install_qgis.sh
-
-# install pgRouting including sample data
-# Note: Depends upon Postgres, and seems to load a lot of data
-./install_pgrouting.sh
-
+echo
 echo "Finished main.sh."
 echo "Run sudo vmware-toolbox, and select shrink, to shrink the image"
 exit
