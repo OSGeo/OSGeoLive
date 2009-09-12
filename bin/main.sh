@@ -83,7 +83,7 @@ exit
 #   using static libraries it takes up 300mb.
 ./install_mb-system.sh
 
-# install gpsdrive including LANDSAT maps for Sydney CBD
+# install gpsdrive including LANDSAT and local street maps for Sydney CBD
 # Note: This takes a long time to download. It may have too much data.
 #   -- data download is 70mb; set to use a SourceForge mirror in Adelaide
 # It then does a compile, and seems to cause dependency problems.
