@@ -16,16 +16,25 @@
 # =====
 # This is the master GISVM script which will build a GISVM from a base
 # Xubuntu system, by calling a series of scripts for each package
+# For detailed build instructions, refer to:
+#   http://wiki.osgeo.org/wiki/GISVM_Build#Creating_a_fresh_Virtual_Machine
 
 # Running:
 # =======
-# sudo ./master.sh
+# sudo ./main.sh 2>&1 | tee /home/user/main_install.log
 
 # Customisation:
 # =============
-# You can customise the contents of the liveDVD by commenting out install
-# scripts.
+# You can customise the contents of the liveDVD by deleting or adding install
+# scripts to the list below. (I'd prefer to be able to comment the list out,
+# but my scripting skills are not up to that.)
 
+DIR=`dirname $0`
+echo "===================================================================="
+echo "Starting master.sh for version: `cat {$DIR}/../VERSION.txt`"
+echo "===================================================================="
+echo Disk Usage1:, main.sh, `df | grep "Filesystem" | sed -e "s/  */,/g"`
+echo Disk Usage2:, main.sh, `df | grep " /$" | sed -e "s/  */,/g"`
 for SCRIPT in \
   ./setup.sh \
   ./install_sunjre6.sh \
@@ -48,11 +57,13 @@ for SCRIPT in \
   ./install_qgis.sh \
   ./install_pgrouting.sh \
 ; do
+  echo "===================================================================="
   echo Starting: $SCRIPT
+  echo "===================================================================="
   sh $SCRIPT
   echo Finished: $SCRIPT
   echo 
-  echo Disk Usage1:, $SCRIPT `df | grep "Filesystem" | sed -e "s/  */,/g"`
+  echo Disk Usage1:, $SCRIPT, `df | grep "Filesystem" | sed -e "s/  */,/g"`
   echo Disk Usage2:, $SCRIPT, `df | grep " /$" | sed -e "s/  */,/g"`
 done
 

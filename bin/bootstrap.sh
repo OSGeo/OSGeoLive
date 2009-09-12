@@ -16,6 +16,9 @@
 # =====
 # This script provides the steps to be run on the LiveDVD in order to get the
 # install scripts onto the LiveDVD, and start installing.
+# For detailed build instructions, refer to:
+#   http://wiki.osgeo.org/wiki/GISVM_Build#Creating_a_fresh_Virtual_Machine
+
 
 # Running:
 # =======
@@ -23,12 +26,19 @@
 
 SCRIPT_DIR=/usr/local/share
 
+# install subversion and sshd (so you can log into the VM remotely)
 apt-get install --yes subversion openssh-server
+
+# check out the install scripts from subversion
 cd $SCRIPT_DIR
 svn co http://svn.osgeo.org/osgeo/livedvd/gisvm
 chown -R user:user gisvm
 cd /home/user
 ln -s ${SCRIPT_DIR}/gisvm .
+
+# make a directory for the install logs
+mkdir /var/log/arramagong/
+
 
 echo "If you have a local copy if the tmp/ directory and wish to"
 echo "save bandwidth, then copy it across to your DVD now, using a"
