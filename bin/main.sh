@@ -86,7 +86,7 @@ exit
 # install gpsdrive including LANDSAT maps for Sydney CBD
 # Note: This takes a long time to download. It may have too much data.
 #   -- data download is 70mb; set to use a SourceForge mirror in Adelaide
-# It then does a  a compile, and seems to cause dependency problems.
+# It then does a compile, and seems to cause dependency problems.
 #   -- what are they specifically?
 ./install_gpsdrive
 
