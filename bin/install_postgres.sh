@@ -24,8 +24,16 @@ USER_NAME="user"
 
 apt-get install --yes postgresql-8.3-postgis pgadmin3
 
+
+
 #set default user/password to the system user for easy login
 sudo -u postgres createuser --superuser $USER_NAME
+
+echo "alter role \"user\" with password 'user'" > /tmp/build_postgre.sql
+sudo -u postgres pqsl -f /tmp/build_postgre.sql
+\rm /tmp/build_postgre.sql
+
+
 
 #include pgadmin3 profile for connection
 for FILE in  pgadmin3  pgpass  ; do
