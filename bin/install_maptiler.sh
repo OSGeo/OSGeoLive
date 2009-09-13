@@ -7,7 +7,10 @@
 # See: http://les-ejk.cz/2009/05/grass-64-rc4-for-ubuntu-904/
 # Alternativelly ./install_qgis is adding ubuntugis repository, which also contains GDAL 1.6
 
+TMP=/tmp/maptiler_downloads
 MAPTILERDEB="maptiler_1.0.beta1_all.deb"
+
+cd $TMP
 
 # Test if the repository with gdal 1.6 is available 
 

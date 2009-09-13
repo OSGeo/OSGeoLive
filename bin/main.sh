@@ -56,6 +56,7 @@ for SCRIPT in \
   ./install_marble.sh \
   ./install_qgis.sh \
   ./install_pgrouting.sh \
+  ./install_gpsdrive.sh \
 ; do
   echo "===================================================================="
   echo Starting: $SCRIPT
@@ -88,5 +89,4 @@ exit
 #   -- data download is 70mb; set to use a SourceForge mirror in Adelaide
 # It then does a compile, and seems to cause dependency problems.
 #   -- what are they specifically?
-./install_gpsdrive
 

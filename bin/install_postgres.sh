@@ -31,7 +31,7 @@ sudo -u postgres createuser --superuser $USER_NAME
 
 echo "alter role \"user\" with password 'user'" > /tmp/build_postgre.sql
 sudo -u postgres pqsl -f /tmp/build_postgre.sql
-rm /tmp/build_postgre.sql
+# rm /tmp/build_postgre.sql
 
 
 

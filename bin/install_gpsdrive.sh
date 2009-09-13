@@ -53,9 +53,9 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   wget -c "http://www.gpsdrive.de/packages/gpsdrive-$VERSION.tar.gz"
 
   tar xzf gpsdrive-$VERSION.tar.gz
-  if [ $? -eq 0 ] ; then
-    \rm gpsdrive-$VERSION.tar.gz
-  fi
+  #if [ $? -eq 0 ] ; then
+  #  \rm gpsdrive-$VERSION.tar.gz
+  #fi
 
   cd gpsdrive-$VERSION
 
@@ -254,9 +254,9 @@ chmod -R g+rwX /usr/local/share/gpsdrive/maps
 sed -e 4594,4863d "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" > "$USER_HOME/.gpsdrive/osm.xml"
 
 
-if [ $? -eq 0 ] ; then
-   rm -rf "$TMP_DIR"
-fi
+#if [ $? -eq 0 ] ; then
+#   rm -rf "$TMP_DIR"
+#fi
 
 
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/.gpsdrive"

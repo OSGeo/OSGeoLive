@@ -79,9 +79,9 @@ wget -nv "$LATEST"
 
 tar xzf `basename $LATEST`
 
-if [ $? -eq 0 ] ; then
-   \rm `basename $LATEST`
-fi
+#if [ $? -eq 0 ] ; then
+#   \rm `basename $LATEST`
+#fi
 
 
 ### get the Levitus annual water temperature profile database
@@ -89,9 +89,9 @@ fi
 wget -nv ftp://ftp.ldeo.columbia.edu/pub/MB-System/annual.gz
 
 gzip -d annual.gz
-if [ $? -eq 0 ] ; then
-   \rm annual.gz
-fi
+#if [ $? -eq 0 ] ; then
+#   \rm annual.gz
+#fi
 \mv annual LevitusAnnual82.dat
 
 
@@ -187,9 +187,9 @@ install --mode=644 ../LevitusAnnual82.data /usr/local/mbsystem/share
 apt-get remove $BUILD_DEPENDS
 #\rm install_makefiles.Lenny.patch mbps_c_gmt431.patch
 cd ..
-rm -rf `basename $LATEST .tar.gz`
+#rm -rf `basename $LATEST .tar.gz`
 cd
-rm -rf /tmp/build_mbsystem
+#rm -rf /tmp/build_mbsystem
 
 
 # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig

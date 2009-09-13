@@ -87,9 +87,9 @@ for FILE in spearfish_grass60data-0.3 nc_spm_latest ; do
    cd /usr/local/share/grass/
    tar xzf "$TMP_DIR/$FILE.tar.gz"
 
-   if [ $? -eq 0 ] ; then
-      \rm "$TMP_DIR/$FILE.tar.gz"
-   fi
+   #if [ $? -eq 0 ] ; then
+   #   \rm "$TMP_DIR/$FILE.tar.gz"
+   #fi
 done
 
 # but link into $HOME for easy access & so user owns mapset
@@ -184,7 +184,7 @@ EOF
 fi
 
 
-rm -rf "$TMP_DIR"
+# rm -rf "$TMP_DIR"
 
 
 
