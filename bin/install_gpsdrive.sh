@@ -98,6 +98,8 @@ EOF
   NEEDED_BUILD_PKG=`dpkg-checkbuilddeps 2>&1 | cut -f3 -d: | \
     sed -e 's/([^)]*)//g' -e 's/| [^ ]*//'`
 
+  NEEDED_BUILD_PKG="$NEEDED_BUILD_PKG libxml2-dev"
+
   if [ -n "$NEEDED_BUILD_PKG" ] ; then
      echo "Attempting to (temporarily) install the following packages: $NEEDED_BUILD_PKG"
      apt-get install --yes $NEEDED_BUILD_PKG
