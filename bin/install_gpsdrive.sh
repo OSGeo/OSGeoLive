@@ -171,7 +171,7 @@ EOF
      fi
   done
 
-  TO_INSTALL=`echo "$TO_INSTALL" | sed -e 's/|//g' -e 's/libltdl3/libltdl7'`
+  TO_INSTALL=`echo "$TO_INSTALL" | sed -e 's/|//g' -e 's/libltdl3/libltdl7/'`
 
   if [ -n "$TO_INSTALL" ] ; then
      echo "Attempting to install the following packages: $TO_INSTALL"
