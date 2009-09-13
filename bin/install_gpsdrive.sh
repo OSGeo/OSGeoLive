@@ -96,11 +96,11 @@ EOF
 
   ### install any missing build-dep packages
 
-  # these two are potentially problematic for my hack below so do them by hand
-  apt-get install --yes libcurl4-openssl-dev libspeechd-dev
+  # these are potentially problematic for my hack below so do them by hand
+  apt-get install --yes libcurl4-openssl-dev libspeechd-dev libltdl7-dev
 
   NEEDED_BUILD_PKG=`dpkg-checkbuilddeps 2>&1 | cut -f3 -d: | \
-    sed -e 's/([^)]*)//g' -e 's/| [^ ]*//g' -e 's/|//'`
+    sed -e 's/([^)]*)//g' -e 's/| [^ ]*//g' -e 's/|//g'`
 
   NEEDED_BUILD_PKG="$NEEDED_BUILD_PKG libxml2-dev libcurl4-openssl-dev libspeechd-dev"
 
@@ -170,6 +170,8 @@ EOF
         TO_INSTALL="$TO_INSTALL $PACKAGE"
      fi
   done
+
+  TO_INSTALL=`echo "$TO_INSTALL" | sed -e 's/|//g'`
 
   if [ -n "$TO_INSTALL" ] ; then
      echo "Attempting to install the following packages: $TO_INSTALL"
