@@ -8,44 +8,34 @@
 TMP=/tmp/maptiler_downloads
 MAPTILERDEB="maptiler_1.0.beta1_all.deb"
 
-cd $TMP
+cd "$TMP"
 
 #Add repositories
 wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
    --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
-#Add signed key for the repository
+#Add signed key for repositorys LTS and non-LTS
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
-
 apt-get update
 
-# Install dependencies
 
+# Install dependencies
 PACKAGES="python python-wxgtk2.8 python-gdal"
 
-TO_INSTALL=""
-
-for PACKAGE in $PACKAGES ; do
-  if [ `dpkg -l $PACKAGE | grep -c '^ii'` -eq 0 ] ; then
-    TO_INSTALL="$TO_INSTALL $PACKAGE"
-  fi
-done
-
-if [ -n "$TO_INSTALL" ] ; then
-  echo "Installing: $TO_INSTALL"
-  apt-get --assume-yes install $TO_INSTALL
-
-  if [ $? -ne 0 ] ; then
-    echo "ERROR: package install failed"
-    exit 1
-  fi 
+echo "Installing: $PACKAGES"
+apt-get --assume-yes install $PACKAGES
+if [ $? -ne 0 ] ; then
+   echo "ERROR: package install failed"
+   exit 1
 fi
+
 
 # If MapTiler is not installed then download the .deb package and install it
 if [ `dpkg -l maptiler | grep -c '^ii'` -eq 0 ] ; then
-  wget -c http://maptiler.googlecode.com/files/$MAPTILERDEB
-  dpkg -i $MAPTILERDEB
-  rm $MAPTILERDEB
+  wget -c "http://maptiler.googlecode.com/files/$MAPTILERDEB"
+  dpkg -i "$MAPTILERDEB"
+  #rm "$MAPTILERDEB"
 fi
 
 # Test if installation was correct and create the Desktop icon
