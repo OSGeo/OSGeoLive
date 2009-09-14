@@ -28,7 +28,7 @@ USER_HOME="/home/$USER_NAME"
 
 #### install grass ####
 
-PACKAGES="grass grass-doc python-opengl python-wxgtk2.8 avce00 e00compr gdal-bin gpsbabel more"
+PACKAGES="grass grass-doc python-opengl python-wxgtk2.8 avce00 e00compr gdal-bin gpsbabel"
 
 MODERN_VERSION="6.4"
 
