@@ -38,6 +38,11 @@ apt-get --assume-yes install qgis=1.3.0-1~jaunty3 \
    qgis-common qgis-plugin-grass python-qgis python-qgis-common \
    qgis-plugin-grass-common libgdal1-1.6.0-grass gpsbabel grass-doc
 
+if [ $? -ne 0 ] ; then
+   echo 'ERROR: Package install failed! Aborting.'
+   exit 1
+fi
+
 
 #Turned off assuming the repo conflict will be resolved
 #apt-get --assume-yes install libgdal1-1.6.0 

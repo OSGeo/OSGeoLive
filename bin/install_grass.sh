@@ -47,15 +47,17 @@ fi
 wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
-#Add signed key for repository
+#Add signed key for repositorys LTS and non-LTS
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
+
 apt-get update
 
 
 apt-get --assume-yes install $PACKAGES
 
 if [ $? -ne 0 ] ; then
-   echo 'Package install failed! Aborting.'
+   echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
 

@@ -35,6 +35,10 @@ echo "Starting master.sh for version: `cat {$DIR}/../VERSION.txt`"
 echo "===================================================================="
 echo Disk Usage1:, main.sh, `df | grep "Filesystem" | sed -e "s/  */,/g"`
 echo Disk Usage2:, main.sh, `df | grep " /$" | sed -e "s/  */,/g"`
+
+# clear the decks
+rm -rf /tmp/build_gisvm_error.log
+
 for SCRIPT in \
   ./setup.sh \
   ./install_sunjre6.sh \
@@ -62,6 +66,9 @@ for SCRIPT in \
   echo Starting: $SCRIPT
   echo "===================================================================="
   sh $SCRIPT
+  if [ $? -ne 0 ] ; then
+     echo '!!! possible failure in '"$SCRIPT" >> /tmp/build_gisvm_error.log
+  fi
   echo Finished: $SCRIPT
   echo 
   echo Disk Usage1:, $SCRIPT, `df | grep "Filesystem" | sed -e "s/  */,/g"`
@@ -81,6 +88,10 @@ dpkg --get-selections > "$DOC_DIR/package_manifest.txt"
 echo
 echo "Finished main.sh."
 echo "Run sudo vmware-toolbox, and select shrink, to shrink the image"
+if [ -e /tmp/build_gisvm_error.log ] ; then
+   echo
+   cat /tmp/build_gisvm_error.log
+fi
 exit
 
 ########################################################
