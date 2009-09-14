@@ -3,23 +3,21 @@
 #
 # In case anything fails please contact: Klokan Petr Pridal <klokan@klokan.cz>
 #
-# Should be run after the ./install_grass.sh - it is dependent on the same repository:
-# See: http://les-ejk.cz/2009/05/grass-64-rc4-for-ubuntu-904/
-# Alternativelly ./install_qgis is adding ubuntugis repository, which also contains GDAL 1.6
+# UbuntuGIS repository added to the Apt (same like in QGIS and GRASS)
 
 TMP=/tmp/maptiler_downloads
 MAPTILERDEB="maptiler_1.0.beta1_all.deb"
 
 cd $TMP
 
-# Test if the repository with gdal 1.6 is available 
+#Add repositories
+wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+   --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
-if [ ! -n "`grep ubuntugis /etc/apt/sources.list`" ] ; then
-  if [ ! -n "`grep les-ejk /etc/apt/sources.list`" ] ; then
-    echo "Apt is missing the GDAL 1.6 repository: this is added either by GRASS installation script or by QGIS."
-    exit 1
-  fi
-fi
+#Add signed key for the repository
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
+
+apt-get update
 
 # Install dependencies
 
