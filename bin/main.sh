@@ -68,6 +68,16 @@ for SCRIPT in \
   echo Disk Usage2:, $SCRIPT, `df | grep " /$" | sed -e "s/  */,/g"`
 done
 
+
+# write installed package manifest
+## better to write to /usr/local/share/livedvd-docs ?
+DOC_DIR="/usr/share/livedvd-docs"
+if [ ! -d "$DOC_DIR" ] ; then
+   mkdir -p "$DOC_DIR"
+fi
+dpkg --get-selections > "$DOC_DIR/package_manifest.txt"
+
+
 echo
 echo "Finished main.sh."
 echo "Run sudo vmware-toolbox, and select shrink, to shrink the image"

@@ -32,7 +32,7 @@ fi
 apt-get install --yes wget more less zip unzip bzip2 p7zip \
   cvs cvsutils subversion subversion-tools bzr bzr-tools git mercurial \
   openssh-client lftp sl smbclient usbutils wireless-tools \
-  locate diff patch fuseiso \
+  locate diff patch fuseiso menu \
   vim emacs nedit nano \
   evince ghostscript a2ps pdftk netpbm qiv \
   lynx mutt mc xchat rxvt units
@@ -58,4 +58,6 @@ rm -fr /home/user/Videos
 #   awk '{printf "%.3f MB \t %s\n", $2/(1024), $1}'
 
 # Default password list on the desktop to be replaced by html help in the future.
-wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt --output-document=/home/user/Desktop/passwords.txt
+wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
+   --output-document=/home/user/Desktop/passwords.txt
+chown user:user /home/user/Desktop/passwords.txt
