@@ -105,9 +105,10 @@ exit
 #   using static libraries it takes up 300mb.
 ./install_mb-system.sh
 
-# install gpsdrive including LANDSAT and local street maps for Sydney CBD
-# Note: This takes a long time to download. It may have too much data.
-#   -- data download is 70mb; set to use a SourceForge mirror in Adelaide
-# It then does a compile, and seems to cause dependency problems.
-#   -- what are they specifically?
+
+
+# check install sizes
+echo "Package    |Bytes" | tr '|' '\t'
+cat disk_usage.csv | cut -f2,9 -d, | cut -f2- -d_ | \
+   grep -v '^,\|setup.sh' | sed -e 's/\.sh,/    \t/' | sort -nr -k2   
 
