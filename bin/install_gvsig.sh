@@ -22,6 +22,8 @@
 # Go to Applications -> Accesories -> gvSIG or
 # just double-click on Desktop gvSIG Icon file
 
+# install dependencies
+apt-get install libstdc++5 libgdal1-1.5.0 sun-java5-jre
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
@@ -49,9 +51,7 @@ else
    wget -c $GVSIG_PATH/$GVSIG_PACKAGE
 fi
 
-
-# install dependencies
-apt-get install libstdc++5 libgdal1-1.5.0 sun-java5-jre
+# install the deb package
 dpkg -i $GVSIG_PACKAGE
 
 # place a gvSIG icon on desktop
