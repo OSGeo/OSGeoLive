@@ -40,6 +40,8 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
+apt-get -y install python2.5
+
 if [ ! -d $MAPFISH_CONF_DIR ]
 then
     echo "Create $MAPFISH_CONF_DIR directory"
@@ -61,7 +63,7 @@ ln -sf $MAPFISH_INSTALL_DIR/go-mapfish-framework-all.py $BIN/go-mapfish-framewor
 go-mapfish-framework-all.py --python=python2.5 $MAPFISH_VENV_DIR
 
 # install mapfish.app.minimal in mapfish virtualenv
-$MAPFISH_VENV_DIR/bin/easy_install --index-url http://www.mapfish.org/downloads/all/pkg --allow-hosts www.mapfish.org mapfish.app.minimal
+$MAPFISH_VENV_DIR/bin/easy_install --index-url=http://www.mapfish.org/downloads/all/pkg --allow-hosts=www.mapfish.org mapfish.app.minimal
 
 $MAPFISH_VENV_DIR/bin/paster make-config mapfish.app.minimal $MAPFISH_CONF_DIR/minimal.ini
 
