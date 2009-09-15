@@ -88,7 +88,6 @@ fi
 echo "Installing GeoServer styler extension"
 unzip -o -q styler-1.7.3.zip -d $GS_HOME/data_dir/www
 
-
 ### Configure Application ###
 
 ## We need to make sure the scripts use the proper JDK version ##
@@ -99,9 +98,24 @@ sed -i "1 i # Force usage of Sun JDK\nexport JAVA_HOME=/usr/lib/jvm/java-6-sun\n
 ## Make Jetty run on a different port
 sed -i s/8080/$GS_PORT/g $GS_HOME/etc/jetty.xml
 
+## Add a script that will launch the browser after starting GS
+cat << EOF > $GS_HOME/bin/start_admin.sh
+$GS_HOME/bin/startup.sh &
+(echo "25" ; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100";  sleep 2) | zenity --progress --auto-close --text "GeoServer starting"
+firefox "http://localhost:$GS_PORT/geoserver/welcome.do"
+EOF
+
+## Add a script that will stop GS and notify the user graphically
+cat << EOF > $GS_HOME/bin/stop_notify.sh
+$GS_HOME/bin/shutdown.sh
+zenity --info --text "GeoServer stopped"
+EOF
+
 ## Make the scripts executable
 chmod 755 "$GS_HOME/bin/startup.sh"
+chmod 755 "$GS_HOME/bin/start_admin.sh"
 chmod 755 "$GS_HOME/bin/shutdown.sh"
+chmod 755 "$GS_HOME/bin/stop_notify.sh"
 
 ## Allow the user to write in the GeoServer data dir
 chown -R user:user "$GS_HOME/data_dir"
@@ -111,8 +125,14 @@ chown -R user:user "$GS_HOME/logs"
 if [ ! -e "$BIN/geoserver_start.sh" ] ; then
   ln -s $GS_HOME/bin/startup.sh $BIN/geoserver_start.sh
 fi
+if [ ! -e "$BIN/geoserver_start_admin.sh" ] ; then
+  ln -s $GS_HOME/bin/start_admin.sh $BIN/geoserver_start_admin.sh
+fi
 if [ ! -e "$BIN/geoserver_stop.sh" ] ; then
   ln -s $GS_HOME/bin/shutdown.sh $BIN/geoserver_stop.sh
+fi
+if [ ! -e "$BIN/geoserver_stop_notify.sh" ] ; then
+  ln -s $GS_HOME/bin/stop_notify.sh $BIN/geoserver_stop_notify.sh
 fi
 
 ### install desktop icons ##
@@ -123,44 +143,39 @@ if [ ! -e "/usr/share/icons/geoserver_desktop_48x48.png" ] ; then
 fi
 
 ## start icon
-if [ ! -e /usr/share/applications/geoserver-start.desktop ] ; then
-   cat << EOF > /usr/share/applications/geoserver-start.desktop
+cat << EOF > /usr/share/applications/geoserver-start.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
 Name=Start GeoServer
 Comment=GeoServer 1.7.6
 Categories=Application;Geography;Geoscience;Education;
-Exec=$BIN/geoserver_start.sh
+Exec=$BIN/geoserver_start_admin.sh
 Icon=/usr/share/icons/geoserver_desktop_48x48.png
 Terminal=false
 EOF
-fi
 
 cp -a /usr/share/applications/geoserver-start.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-start.desktop"
 
 ## stop icon
-if [ ! -e /usr/share/applications/geoserver-stop.desktop ] ; then
-   cat << EOF > /usr/share/applications/geoserver-stop.desktop
+cat << EOF > /usr/share/applications/geoserver-stop.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
 Name=Stop GeoServer
 Comment=GeoServer 1.7.6
 Categories=Application;Geography;Geoscience;Education;
-Exec=$BIN/geoserver_stop.sh
+Exec=$BIN/geoserver_stop_notify.sh
 Icon=/usr/share/icons/geoserver_desktop_48x48.png
 Terminal=false
 EOF
-fi
 
 cp -a /usr/share/applications/geoserver-stop.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-stop.desktop"
 
 ## admin console icon
-if [ ! -e /usr/share/applications/geoserver-admin.desktop ] ; then
-   cat << EOF > /usr/share/applications/geoserver-admin.desktop
+cat << EOF > /usr/share/applications/geoserver-admin.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -171,14 +186,12 @@ Exec=$BIN/firefox "http://localhost:$GS_PORT/geoserver/welcome.do"
 Icon=/usr/share/icons/geoserver_desktop_48x48.png
 Terminal=false
 EOF
-fi
 
 cp -a /usr/share/applications/geoserver-admin.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-admin.desktop"
 
 ## styler console icon
-if [ ! -e /usr/share/applications/geoserver-styler.desktop ] ; then
-   cat << EOF > /usr/share/applications/geoserver-styler.desktop
+cat << EOF > /usr/share/applications/geoserver-styler.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -189,7 +202,10 @@ Exec=$BIN/firefox "http://localhost:$GS_PORT/geoserver/www/styler"
 Icon=/usr/share/icons/geoserver_desktop_48x48.png
 Terminal=false
 EOF
-fi
 
 cp -a /usr/share/applications/geoserver-styler.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-styler.desktop"
+
+## clean up eventual leftover Jetty cache directory
+echo "Cleaning up Jetty JSP cache in /tmp"
+rm -rf /tmp/Jetty*geoserver*
