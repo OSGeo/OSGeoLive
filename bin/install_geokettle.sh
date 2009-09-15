@@ -49,8 +49,8 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 # create tmp folders
-mkdir $TMP
-cd $TMP
+mkdir "$TMP"
+cd "$TMP"
 
 
 ## Install Application ##
@@ -63,18 +63,18 @@ else
    wget "$GEOKETTLE_BASE_URL/$GEOKETTLE_FILENAME" -O $GEOKETTLE_FILENAME
 fi
 # unpack it
-unzip $GEOKETTLE_FILENAME -d $TMP
+unzip "$GEOKETTLE_FILENAME" -d "$TMP"
 # move the contents to /opt/geokettle
-mv $TMP/$GEOKETTLE_BASENAME $GEOKETTLE_FOLDER
+mv "$TMP/$GEOKETTLE_BASENAME" "$GEOKETTLE_FOLDER"
 
 ## Configure Application ##
 
 # make shell scripts executable
-chmod a+x $GEOKETTLE_FOLDER/*.sh
+chmod a+x "$GEOKETTLE_FOLDER"/*.sh
 
 # Create desktop icon
 # FIXME: Desktop folder may be named differently in localized setups (if the language is not English)
-cat << EOF > $USER_HOME/Desktop/geokettle.desktop
+cat << EOF > "$USER_HOME/Desktop/geokettle.desktop"
 [Desktop Entry]
 Name=GeoKettle
 Exec=$GEOKETTLE_FOLDER/spoon.sh
@@ -85,6 +85,6 @@ Categories=Application;
 EOF
 
 # make the desktop icon owned by $USER_NAME and executable
-chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/geokettle.desktop
-chmod a+x $USER_HOME/Desktop/geokettle.desktop
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geokettle.desktop"
+chmod a+x "$USER_HOME/Desktop/geokettle.desktop"
 
