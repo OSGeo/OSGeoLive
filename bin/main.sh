@@ -41,12 +41,11 @@ rm -rf /tmp/build_gisvm_error.log
 
 for SCRIPT in \
   ./setup.sh \
-  ./install_sunjre6.sh \
+  ./install_java.sh \
   ./install_main_docs.sh \
   ./install_postgres.sh \
   ./install_apache2.sh \
   ./install_mapserver.sh \
-  ./install_tomcat6.sh \
   ./install_geoserver.sh \
   ./install_geonetwork.sh \
   ./install_deegree.sh \
