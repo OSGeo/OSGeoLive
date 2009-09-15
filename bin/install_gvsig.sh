@@ -23,7 +23,7 @@
 # just double-click on Desktop gvSIG Icon file
 
 # install dependencies
-apt-get install libstdc++5 libgdal1-1.5.0 sun-java5-jre
+apt-get install libstdc++5 libgdal1-1.5.0 
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then

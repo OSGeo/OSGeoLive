@@ -59,6 +59,7 @@ for SCRIPT in \
   ./install_marble.sh \
   ./install_qgis.sh \
   ./install_pgrouting.sh \
+  ./install_gvsig.sh \
   ./install_gpsdrive.sh \
 ; do
   echo "===================================================================="
