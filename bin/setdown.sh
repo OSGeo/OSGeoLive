@@ -25,6 +25,9 @@ apt-get --yes remove devscripts pbuilder \
    cvs-buildpackage svn-buildpackage \
    lintian debhelper pkg-config
 
+# remove the apt-get cache
+apt-get clean
+
 rm -fr \
   /home/user/.bash_history \
   /home/user/.ssh \
