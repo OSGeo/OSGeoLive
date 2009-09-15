@@ -34,7 +34,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 apt-get update
 
 #Install packages
-apt-get --assume-yes install qgis=1.3.0-1~jaunty3 \
+apt-get --assume-yes install qgis \
    qgis-common qgis-plugin-grass python-qgis python-qgis-common \
    qgis-plugin-grass-common libgdal1-1.6.0-grass gpsbabel grass-doc
 
