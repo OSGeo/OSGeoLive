@@ -43,6 +43,9 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
+# remove old cruft
+\rm /etc/apt/sources.list.d/grass.list /etc/apt/sources.list.d/qgis.list
+
 # Add UbuntuGIS repository (same as QGIS)
 wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
