@@ -1,11 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 #################################################################################
 # 
 # Purpose: Installation of deegree_2.2-with-tomcat_6.0.20-all-in-one into Xubuntu
 # Author:  Judit Mays <mays@lat-lon.de>
 # Credits: Stefan Hansen <shansen@lisasoft.com>
 #          H.Bowman <hamish_b  yahoo com>
-#
+# Date:    $Date$
+# Revision:$Revision$
+# 
 #################################################################################
 # Copyright (c) 2009 lat/lon GmbH
 # Copyright (c) 2009 Uni Bonn
@@ -26,6 +28,15 @@
 # About:
 # =====
 # This script will install deegree-tomcat-all-in-one into Xubuntu
+#
+# deegree version 2.2 runs with both java-sun-1.5 (preferred) and java-sun-1.6. 
+# It works best with java-sun-1.5.
+#
+# It can be installed into servlet containers: 
+#    Tomcat 5.5.x (but not Tomcat 5.5.26)
+#    Tomcat 6.0.x (but not Tomcat 6.0.16)
+# The preferred servlet container is Tomcat (version as described above) 
+#
 
 # Running:
 # =======
@@ -33,7 +44,7 @@
 
 ###########################
 
-TMP="/tmp/deegree_downloads"
+TMP="/tmp/build_deegree"
 INSTALL_FOLDER="/usr/lib"
 DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-2.2_tomcat-6.0.20"
 BIN="/usr/bin"
@@ -45,46 +56,65 @@ USER_HOME="/home/$USER_NAME"
  
 ## check required tools are installed
 if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install it and try again" 
+   echo "[install_deegree.sh] FIXME: wget is required, please install it and try again." 
    exit 1
 fi
-## create tmp folders
+if [ ! -x "`which java`" ] ; then
+   echo "[install_deegree.sh] FIXME: java is required, please install a SUN version (preferably java-1.5-sun) and try again." 
+   exit 1
+fi
+
+## create tmp folder
 mkdir $TMP
 cd $TMP
+
+function getWithMd5 {
+    rm -f $1.md5
+    wget http://download.deegree.org/LiveDVD/FOSS4G2009/$1.md5
+
+    if (test -f $1) then
+        if(md5sum -c $1.md5) then
+            echo "$1 has already been downloaded."
+            return
+        else
+            echo "md5 hash is not correct. Downloading $1 again."
+            rm -f $1
+            wget -c http://download.deegree.org/LiveDVD/FOSS4G2009/$1
+        fi
+    else
+        wget -c http://download.deegree.org/LiveDVD/FOSS4G2009/$1
+    fi
+
+    if (md5sum -c $1.md5) then
+        echo "md5 hash was ok."
+    else
+        echo "ERROR [install_deegree.sh]: download of $1 failed."
+        exit 1
+    fi
+}
 
 
 ### Install Application ###
 
 ## get deegree-tomcat-all-in-one
-if [ -f "deegree-2.2_tomcat-6.0.20.tar.gz" ]
-then
-   echo "deegree-2.2_tomcat-6.0.20.tar.gz has already been downloaded."
-else
-   wget http://download.deegree.org/LiveDVD/FOSS4G2009/deegree-2.2_tomcat-6.0.20.tar.gz
-fi
-## unpack it to /usr/lib
-tar -xzf deegree-2.2_tomcat-6.0.20.tar.gz -C $INSTALL_FOLDER
+getWithMd5 deegree-2.2_tomcat-6.0.20.tar.gz
+
+## unpack it as "user" to /tmp and move it to /usr/lib as "root"
+## thus ensuring that the unpacked folder/files are owned by "user"
+## (chown to "user" after unpacking would also work but take longer)
+su $USER_NAME -c "tar xzf deegree-2.2_tomcat-6.0.20.tar.gz -C /tmp/"
+mv /tmp/deegree-2.2_tomcat-6.0.20 $INSTALL_FOLDER
 
 
 ### Configure Application ###
 
-## Download startup script for deegree ##
-if [ -f "deegree_start.sh" ]
-then
-   echo "deegree_start.sh has already been downloaded."
-else
-   wget http://download.deegree.org/LiveDVD/FOSS4G2009/deegree_start.sh
-fi
+## Download startup script for deegree
+getWithMd5 deegree_start.sh
 ## copy it into the /usr/bin folder
 cp deegree_start.sh $BIN
 
-## Download shutdown script for deegree ##
-if [ -f "deegree_stop.sh" ]
-then
-   echo "deegree_stop.sh has already been downloaded."
-else
-   wget http://download.deegree.org/LiveDVD/FOSS4G2009/deegree_stop.sh
-fi
+## Download shutdown script for deegree
+getWithMd5 deegree_stop.sh
 ## copy it into the /usr/bin folder
 cp deegree_stop.sh $BIN
 
@@ -94,8 +124,12 @@ chmod 755 $BIN/deegree_st*.sh
 
 ### install desktop icons ##
 if [ ! -e "/usr/share/icons/deegree_desktop_48x48.png" ] ; then
-   wget "http://download.deegree.org/LiveDVD/FOSS4G2009/deegree_desktop_48x48.png" 
-   \mv deegree_desktop_48x48.png /usr/share/icons/
+   wget "http://download.deegree.org/LiveDVD/FOSS4G2009/deegree_desktop_48x48.png"
+   mv deegree_desktop_48x48.png /usr/share/icons/
+fi
+
+if(test ! -d $USER_HOME/Desktop) then
+    mkdir $USER_HOME/Desktop
 fi
 
 ## start icon
