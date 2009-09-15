@@ -4,6 +4,7 @@
 # In case anything fails please contact: Klokan Petr Pridal <klokan@klokan.cz>
 #
 # UbuntuGIS repository added to the Apt (same like in QGIS and GRASS)
+# Hack to start with python2.5
 
 TMP=/tmp/maptiler_downloads
 MAPTILERDEB="maptiler_1.0.beta1_all.deb"
@@ -21,7 +22,7 @@ apt-get update
 
 
 # Install dependencies
-PACKAGES="python python-wxgtk2.8 python-gdal"
+PACKAGES="python2.5 python-wxgtk2.8 python-gdal"
 
 echo "Installing: $PACKAGES"
 apt-get --assume-yes install $PACKAGES
@@ -37,6 +38,9 @@ if [ `dpkg -l maptiler | grep -c '^ii'` -eq 0 ] ; then
   dpkg -i "$MAPTILERDEB"
   #rm "$MAPTILERDEB"
 fi
+
+# Hack to start maptiler with python2.5 :-(
+sed -i 's/env python/env python2.5/g' /usr/lib/maptiler/maptiler.py
 
 # Test if installation was correct and create the Desktop icon
 if [ -e /usr/share/applications/maptiler.desktop ] ; then
