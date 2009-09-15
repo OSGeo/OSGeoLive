@@ -52,6 +52,20 @@ cd $TMP
 ## Install Application ##
 
 # get udig
+# 
+# This download incudes a "jre" folder containing a customized Java Runtime
+# Environment that has been extended with
+# - Java Advanced Imaging
+# - Java ImageIO
+# - Java ImageIO-Ext
+# - GDAL
+# 
+# Notes for future maintainers:
+# - This jre could be removed in the future providing the system JRE was set
+#   up in a similar manner (http://udig.refractions.net/confluence/display/ADMIN/JRE+for+Linux)
+# - GDAL could also be removed if GDAL_DATA environment variable is defined etc..
+#   For specific env requirements please review udig.sh script
+
 if [ -f "udig-1.2-M6.linux.gtk.x86.tar.gz" ]
 then
    echo "udig-1.2-M6.linux.gtk.x86.tar.gz has already been downloaded."
