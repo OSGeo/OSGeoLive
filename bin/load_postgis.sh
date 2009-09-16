@@ -23,7 +23,7 @@
 
 
 
-export postgres_user=mleslie
+export postgres_user=user
 export return_pwd=`pwd`
 wget "ftp://ftp.ardec.com.au/UPLOADS/medford-gisvm.sql.bz2" --output-document="/tmp/medford-gisvm.sql.bz2"
 wget "ftp://ftp.ardec.com.au/UPLOADS/medford-gisvm.sql.bz2.sha1" --output-document="/tmp/medford-gisvm.sql.bz2.sha1"
