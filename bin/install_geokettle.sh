@@ -25,7 +25,11 @@
 # About:
 # =====
 # This script will install GeoKettle into Ubuntu
-# A >=1.5.0 Java runtime (i.e. Sun JRE) is required for GeoKettle
+
+# Java requirements
+# =================
+# GeoKettle can run on either version 5 or 6 of the Sun Java JRE.
+# There's no preference for Java 5 or 6 with the current version (one or the other will do fine), but future versions may rely on features only present in >= 6.
 
 # Running:
 # =======
