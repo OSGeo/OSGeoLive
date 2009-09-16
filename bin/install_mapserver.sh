@@ -47,7 +47,7 @@ apt-get install --yes cgi-mapserver mapserver-bin php5-mapscript python-mapscrip
 [ -f $DATA_DIR/mapserver-gmap-ms54.zip ] || wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-gmap-ms54.zip" -O $DATA_DIR/mapserver-gmap-ms54.zip
 
 # Install docs and demos
-if [ ! -f $MAPSERVER_DATA ]; then
+if [ ! -d $MAPSERVER_DATA ]; then
     mkdir -p $MAPSERVER_DATA/demos
     echo -n "Extracting MapServer html doc in $MAPSERVER_DATA/....."
     unzip -q $DATA_DIR/mapserver-5.4-html-docs.zip -d $MAPSERVER_DATA/
@@ -70,8 +70,6 @@ if [ ! -f $MAPSERVER_DATA ]; then
     ln -s /usr/lib/cgi-bin/mapserv /usr/lib/cgi-bin/mapserv54
 
     # GMap Demo hacks
-    [ -d /tmp/ms_tmp ] || mkdir /tmp/ms_tmp
-    chown www-data:www-data /tmp/ms_tmp
     # disable javascript by default
     sed -e 's/^.*\$gbIsHtmlMode = 0;  \/\/ Start.*/\$gbIsHtmlMode = 1; \/\/ JavaScript off by default/' $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml > /tmp/gmap75-js-hack.phtml
     mv /tmp/gmap75-js-hack.phtml $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml
@@ -79,7 +77,7 @@ if [ ! -f $MAPSERVER_DATA ]; then
     sed -e 's/^.*dl("php_dbase.$dlext");/\/\/dl("php_dbase.$dlext");/' $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml > /tmp/gmap75-dbase-hack.phtml
     mv  /tmp/gmap75-dbase-hack.phtml $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml
     # Modify the IMAGEPATH to point to /tmp
-    sed -e 's/^.*IMAGEPATH \"\/ms4w\/tmp\/ms_tmp\/\"/IMAGEPATH \"\/tmp\/ms_tmp\/\"/' $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.map > /tmp/gmap75-mapfile-hack.phtml
+    sed -e 's/^.*IMAGEPATH \"\/ms4w\/tmp\/ms_tmp\/\"/IMAGEPATH \"\/tmp\/\"/' $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.map > /tmp/gmap75-mapfile-hack.phtml
     mv  /tmp/gmap75-mapfile-hack.phtml $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.map
 fi
 
@@ -88,7 +86,7 @@ cat << EOF > $MS_APACHE_CONF
 EnableSendfile off
 DirectoryIndex index.phtml
 Alias /mapserver "/usr/local/share/mapserver"
-Alias /ms_tmp "/tmp/ms_tmp"
+Alias /ms_tmp "/tmp"
 Alias /tmp "/tmp"
 Alias /mapserver_demos "/usr/local/share/mapserver/demos"
 
