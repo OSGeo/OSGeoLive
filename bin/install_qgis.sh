@@ -90,6 +90,13 @@ EOF
 fi
 update-menus
 
+#Install the Manual and Intro guide locally and link them to the description.html
+mkdir /usr/local/share/qgis
+wget -c http://download.osgeo.org/qgis/doc/manual/qgis-1.0.0_a-gentle-gis-introduction_en.pdf \
+	--output-document=/usr/local/share/qgis/qgis-1.0.0_a-gentle-gis-introduction_en.pdf
+wget -c http://download.osgeo.org/qgis/doc/manual/qgis-1.1.0_user_guide_en.pdf \
+	--output-document=/usr/local/share/qgis/qgis-1.1.0_user_guide_en.pdf
+chmod a+rwx /usr/local/share/qgis/*
 
 #TODO Install some popular python plugins
 #Use wget to pull them directly into qgis python path?

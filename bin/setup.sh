@@ -63,6 +63,7 @@ wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
 chown user:user /home/user/Desktop/passwords.txt
 
 # Setup the desktop background
-cd /usr/share/xfce4/backdrops/
-wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong-desktop.bmp
+wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong-desktop.bmp \
+	--output-document=/usr/share/xfce4/backdrops/arramagong-desktop.bmp
+
 xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor/image-path -s /usr/share/xfce4/backdrops/arramagong-desktop.bmp
