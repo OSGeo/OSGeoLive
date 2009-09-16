@@ -42,6 +42,7 @@ MS_APACHE_CONF="/etc/apache2/conf.d/mapserver"
 apt-get install --yes cgi-mapserver mapserver-bin php5-mapscript python-mapscript
 
 # Download MapServer data
+[ -d $DATA_DIR ] || mkdir $DATA_DIR
 [ -f $DATA_DIR/mapserver-5.4-html-docs.zip ] || wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-5.4-html-docs.zip" -O $DATA_DIR/mapserver-5.4-html-docs.zip
 [ -f $DATA_DIR/mapserver-itasca-ms54.zip ] || wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-itasca-ms54.zip" -O $DATA_DIR/mapserver-itasca-ms54.zip
 [ -f $DATA_DIR/mapserver-gmap-ms54.zip ] || wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-gmap-ms54.zip" -O $DATA_DIR/mapserver-gmap-ms54.zip
