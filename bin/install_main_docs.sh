@@ -38,7 +38,7 @@ for ITEM in $FILES ; do
 done
 # index page start
 wget -q -O - "$OSGEO_SVN/doc/index_pre.html" \
-    >> "$DEST/index.html"
+    > "$DEST/index.html"
 
 
 # apps
