@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>CBE Slide Sequences</title>
+<meta name='author' content='Mike Foster, cross-browser.com'>
+<meta name='description' content='Slide Sequences: A programming example for CBE, a cross-browser DHTML API for IE, Gecko, Opera, Netscape, Konqueror and similar browsers'>
+<link rel='stylesheet' type='text/css' href='../cbe.css'>
+<script type='text/javascript' src='../cbe_core.js'></script>
+<script type='text/javascript'><!--
+if (is.nav4) document.write("<style type='text/css'>.clsCBE {position:absolute; visibility:hidden; overflow:hidden; margin:0; padding:0; width:100px; height:100px; clip:rect(0 100px 100px 0); color:#000000; background:transparent; layer-background-color:transparent;}</style>");
+else document.write("<style type='text/css'>.clsCBE {position:absolute; visibility:hidden; overflow:hidden; margin:0; padding:0; width:100px; height:100px; clip:rect(0 100px 100px 0); color:#000000; background:#ffffff; layer-background-color:#ffffff; border:1px outset;}</style>");
+//--></script>
+<script type='text/javascript' src='../cbe_event.js'></script>
+<script type='text/javascript' src='../cbe_util.js'></script>
+<script type='text/javascript' src='../cbe_debug.js'></script>
+<script type='text/javascript' src='../cbe.js'></script>
+<script type='text/javascript' src='../cbe_slide.js'> </script>
+<script type='text/javascript'><!--
+var e1, e2;
+function windowOnload() {
+  with (e1 = document.getElementById('E1').cbe) {
+    addEventListener('drag');
+    background('#88ff88');
+    moveTo('se',32);
+    show();
+  }
+  e1.sequence = new Array(
+    "slideTo('n',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('ne',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('e',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('se',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('s',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('sw',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('w',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('nw',0,1000)",
+    "slideTo('center',0,1000)"
+  );
+  with (e2 = document.getElementById('E2').cbe) {
+    addEventListener('drag');
+    background('#ff88ff');
+    moveTo('se');
+    show();
+  }
+  e2.sequence = new Array(
+    "slideTo('e', 0, 500)",
+    "ellipse(pw/2-(w/2), ph/2-(h/2), 0, 1000, 0, 90)",
+    "slideTo('n', 0, 500)",
+    "ellipse(pw/2-(w/2), ph/2-(h/2), 0, 1000, -90, -180)",
+    "stopSequence()"
+  );
+}
+
+function example1() {
+  e1.slideTo( 'nw', 0, 1000, "e1.slideTo('ne',0,1000)" );
+}
+function example2() {
+  e2.slideTo( 'nw', 0, 1000, "e2.slideTo('ne',0,1000, 'e2.slideTo(\"se\",0,1000)')" );
+}
+
+function example3() {
+  var e1 = document.getElementById('E1').cbe;
+  e1.addEventListener('slideEnd', mySlideEndListener, false);
+  e1.slideTo('center', 0, 500);
+}
+function mySlideEndListener(cbe) {
+  cbe.ellipse(200, 200, 0, 2000, 0, 360);
+}
+function stopExample3() {
+  e1.stop = true;
+  e1.removeEventListener('slideEnd', mySlideEndListener, false);
+}
+//--></script>
+</head>
+
+<body marginwidth='0' marginheight='0'><a name="topofpage"></a>
+
+<!-- Title and Nav Bar --><script type='text/javascript'>topNavBarEx()</script>
+
+<table width='80%' align='center' cellspacing='10' cellpadding='10'><tr><td bgcolor='#ffffff'><!-- indentation table -->
+
+<h1>Slide Sequences</h1>
+
+<h2>The slideEnd Event</h2>
+
+<p>All slide methods support the <b>slideEnd</b> event.
+This allows you to specify an action that is executed <i>after</i> the current slide has completed
+and makes it easy to <i>sequence</i> a series of slides.
+For slide methods, there are two different ways to specify the slideEnd event listener.</p>
+
+<h3>The Inline slideEnd Event Listener</h3>
+
+<p>The first way is to provide the slideEnd listener as the last argument to the slide method. In this case, the listener is not a function reference, but just a string that will be evaluated. The slideEnd listener will only be evaluated once, at the end of the current slide. For example:</p>
+<pre>
+var e1;
+function windowOnload() {
+  e1 = document.getElementById('E1').cbe;
+  e1.slideTo( 'nw', 0, 1000, "e1.slideTo('ne',0,1000)" );
+}
+</pre>
+<p><a class='example' title='Run Example' href="javascript:example1()">Example 1</a></p>
+<p>This will cause e1 to make a one second slide to the north-west corner of it's container.
+At the completion of this slide, the last argument will be evaluated,
+which will cause e1 to make a one second slide to the north-east corner of it's container. The following CrossBrowserElement methods accept a slideEnd listener as the last argument:</p>
+<ul>
+<li>autoClip()</li>
+<li>moveTo()</li>
+<li>moveBy()</li>
+<li>resizeTo()</li>
+<li>resizeBy()</li>
+<li>slideTo()</li>
+<li>slideBy()</li>
+<li>ellipse()</li>
+<li>parametricEquation()</li>
+<li>slideCornerTo()</li>
+<li>slideCornerBy()</li>
+</ul>
+<p>This feature can be nested, but it gets cumbersome. Here's an example:</p>
+<pre>
+var e2;
+function windowOnload() {
+  e2 = document.getElementById('E2').cbe;
+  e2.slideTo( 'nw', 0, 1000,
+    "e2.slideTo('ne',0,1000,
+    'e2.slideTo(\"se\",0,1000)')"
+  );
+}
+</pre>
+<p><a class='example' title='Run Example' href="javascript:example2()">Example 2</a></p>
+<p>This will cause e2 to slide to the north-west corner, then slide to the north-east corner,
+and then slide to the south-east corner of it's container. As you can see,
+this gets messy because you have to <i>escape</i> the quote characters. However,
+it is convenient for sequences with 2 or 3 slides, and when you don't want the sequence to repeat.</p>
+
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h3>The Formal slideEnd Event Listener</h3>
+
+<p>The second way to specify the slideEnd event listener is to write a function that will serve as the
+slideEnd event listener, then add the listener to the element with the <b>addEventListener</b> method.
+Then after <i>any</i> slide, your listener will be called. This will remain in effect until you
+remove the listener with the <b>removeEventListener</b> method. For example:</p>
+<pre>
+var e1;
+function windowOnload() {
+  e1 = document.getElementById('E1').cbe;
+  e1.addEventListener('slideEnd', mySlideEndListener, false);
+  e1.slideTo('center', 0, 500);
+}
+function mySlideEndListener(cbe) {
+  cbe.ellipse(200, 200, 0, 2000, 0, 360);
+}
+function stopExample3() {
+  e1.stopSlide();
+  e1.removeEventListener('slideEnd', mySlideEndListener, false);
+}
+</pre>
+<p>Example 3: <a class='example' title='Run Example' href="javascript:example3()">Run</a> <a class='example' title='Stop Example' href="javascript:stopExample3()">Stop</a></p>
+
+<p>Wouldn't it be nice if mySlideEndListener would call a <i>different</i> slide method each time?
+Then we would have a nice <i>slide sequence</i>. As I experimented with these ideas,
+I eventually came up with two more CrossBrowserElement methods to support slide sequences.</p>
+
+<h2>The Slide Sequence Methods</h2>
+
+To make a sequence of slides all you have to do is add an array of slide method calls to an element.
+This array must be named <b>sequence</b>. Then use the methods <a target="cbeRefWin" href="../docs/cbe_reference.html#startSequenceLink" title="Reference Link">startSequence([uIndex])</a> and <a target="cbeRefWin" href="../docs/cbe_reference.html#stopSequenceLink" title="Reference Link">stopSequence()</a>. The links that start and stop this example simply call e1.startSequence() and e1.stopSequence().</p>
+<pre>
+var e1;
+function windowOnload() {
+  e1 = document.getElementById('E1').cbe;
+  e1.sequence = new Array(
+    "slideTo('n',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('ne',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('e',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('se',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('s',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('sw',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('w',0,1000)",
+    "slideTo('center',0,1000)",
+    "slideTo('nw',0,1000)",
+    "slideTo('center',0,1000)"
+  );
+}
+</pre>
+<p>Example 4: <a class='example' title='Run Example' href="javascript:e1.startSequence()">Run</a> <a class='example' title='Stop Example' href="javascript:e1.stopSequence()">Stop</a></p>
+
+<p>The method startSequence([uIndex]) takes an optional unsigned integer argument that sets the initial index into the sequence array (starting with cbe_v4b3).</p>
+<p>For convenience, the following variables are <i>in scope</i> during the evaluation of an element of the sequence array.</p>
+<ul>
+<li>cbe - <i>this</i> element</li>
+<li>w - this element's width()</li>
+<li>h - this element's height()</li>
+<li>pw - this element's parent's width</li>
+<li>ph - this element's parent's height</li>
+</ul>
+<p>For example:</p>
+<pre>
+var e2;
+function windowOnload() {
+  e2 = document.getElementById('E2').cbe;
+  e2.sequence = new Array(
+    "slideTo('e', 0, 500)",
+    "ellipse(pw/2-(w/2), ph/2-(h/2), 0, 1000, 0, 90)",
+    "slideTo('n', 0, 500)",
+    "ellipse(pw/2-(w/2), ph/2-(h/2), 0, 1000, -90, -180)"
+  );
+}
+</pre>
+
+<p>An easy way to make the sequence cycle only once is to include a call to stopSequence() as the last entry in the sequence array. For example:</p>
+<pre>
+var e2;
+function windowOnload() {
+  e2 = document.getElementById('E2').cbe;
+  e2.sequence = new Array(
+    "slideTo('e', 0, 500)",
+    "ellipse(pw/2-(w/2), ph/2-(h/2), 0, 1000, 0, 90)",
+    "slideTo('n', 0, 500)",
+    "ellipse(pw/2-(w/2), ph/2-(h/2), 0, 1000, -90, -180)",
+    "stopSequence()"
+  );
+}
+</pre>
+<p>Example 5: <a class='example' title='Run Example' href="javascript:e2.startSequence()">Run</a> <a class='example' title='Stop Example' href="javascript:e2.stopSequence()">Stop</a></p>
+
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>Slide Sequence Implementation</h2>
+
+<h3>In CBE...</h3>
+
+<p>When an object's slide method is called, these events are generated: slideStart, slide, and slideEnd. The objects also have methods: startSequence() and stopSequence(). They assume that the object has a property named <b>sequence</b>, which is an array of slide method calls... something like this:</p>
+<pre>
+var e2 = document.getElementById('E2').cbe;
+e2.sequence = new Array(
+  "slideTo('e', 0, 500)",
+  "ellipse(pw/2-(w/2), ph/2-(h/2), 0, 1000, 0, 90)",
+  "slideTo('n', 0, 500)",
+  "ellipse(pw/2-(w/2), ph/2-(h/2), 0, 1000, -90, -180)"
+);
+</pre>
+
+<p>When an object's startSequence() method is called, the following function is added to the object as its slideEnd event listener, and then the function is called one time to kick it off. After that, the function will be called each time the object completes a slide.</p>
+<pre>
+function cbeSlideSequence(cbe) {
+  var
+    pw = cbe.parentNode.width(),
+    ph = cbe.parentNode.height(),
+    w = cbe.width(),
+    h = cbe.height();
+  if (cbe.seqIndex >= cbe.sequence.length) cbe.seqIndex = 0;
+  eval('cbe.'+cbe.sequence[cbe.seqIndex++]);
+}
+</pre>
+
+<p>Each object has a property named <b>seqIndex</b>, which is used as an index into the <b>sequence</b> array. Each time the slideEnd event listener is called it causes the object to call the method in the current index of the array. It then increments the array index, preparing for the next call.</p>
+
+<h3>Writing Your Own...</h3>
+
+<p>Slide sequences were not too hard to implement since the slideEnd event feature was already in place. If you don't already have something like that in place, your motion loop will probably have some <b>if</b> statement which determines if the object has reached its target point or time. That's where you can call a function similar to cbeSlideSequence().</p>
+
+</td></tr></table><!-- end indentation table -->
+
+<!-- Bottom Nav Bar --><script type='text/javascript'>bottomNavBarEx()</script>
+
+<div id="E1" class="clsCBE">E1<br><br>draggable</div>
+<div id="E2" class="clsCBE">E2<br><br>draggable</div>
+
+</body>
+</html>

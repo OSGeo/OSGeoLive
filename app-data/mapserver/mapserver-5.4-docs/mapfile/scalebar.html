@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SCALEBAR &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Mapfile" href="index.html" />
+    <link rel="next" title="STYLE" href="style.html" />
+    <link rel="prev" title="REFERENCE" href="reference.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="style.html" title="STYLE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="reference.html" title="REFERENCE"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//mapfile/scalebar.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/mapfile/scalebar.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="reference.html"
+                                  title="previous chapter">REFERENCE</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="style.html"
+                                  title="next chapter">STYLE</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/mapfile/scalebar.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="scalebar">
+<span id="id1"></span><h1>SCALEBAR<a class="headerlink" href="#scalebar" title="Permalink to this headline">¶</a></h1>
+<p>Scalebars currently do not make use of TrueType fonts. The size of the
+scalebar image is NOT known prior to rendering, so be careful not to
+hard-code width and height in the &lt;IMG&gt; tag in the template file. Future
+versions will make the image size available.</p>
+<dl class="docutils">
+<dt>ALIGN [left|center|right]</dt>
+<dd><p class="first">Defines how the scalebar is aligned within the scalebar image. Default
+is center. Available in versions 5.2 and higher.</p>
+<p class="last">
+<span class="versionmodified">New in version 5.2.</span></p>
+</dd>
+<dt>BACKGROUNDCOLOR [r] [g] [b]</dt>
+<dd>Color to use for scalebar background, not the image background.</dd>
+<dt>COLOR [r] [g] [b]</dt>
+<dd>Color to use for drawing all features if attribute tables are not used.</dd>
+<dt>IMAGECOLOR [r] [g] [b]</dt>
+<dd>Color to initialize the scalebar with (i.e. background).</dd>
+<dt>INTERLACE [true|false]</dt>
+<dd><p class="first">Should output images be interlaced? Default is [on]. This keyword is
+now deprecated in favour of using the FORMATOPTION &#8220;INTERLACE=ON&#8221; line
+in the <a class="reference external" href="outputformat.html#outputformat"><em>OUTPUTFORMAT</em></a> declaration.</p>
+<p class="last">
+<span class="versionmodified">Deprecated since version 4.6.</span></p>
+</dd>
+<dt>INTERVALS [integer]</dt>
+<dd>Number of intervals to break the scalebar into. Default is 4.</dd>
+<dt>LABEL</dt>
+<dd>Signals the start of a <a class="reference external" href="label.html#label"><em>LABEL</em></a> object</dd>
+<dt>OUTLINECOLOR [r] [g] [b]</dt>
+<dd>Color to use for outlining individual intervals. Set any component
+to -1 for no outline which is the default.</dd>
+<dt>POSITION [ul|uc|ur|ll|lc|lr]</dt>
+<dd>Where to place an embedded scalebar in the image. Default is lr.</dd>
+<dt>POSTLABELCACHE [true|false]</dt>
+<dd>For use with embedded scalebars only. Tells the MapServer to embed the
+scalebar after all labels in the cache have been drawn. Default is false.</dd>
+<dt>SIZE [x][y]</dt>
+<dd>Size in pixels of the scalebar. Labeling is not taken into account.</dd>
+<dt>STATUS [on|off|embed]</dt>
+<dd>Is the scalebar image to be created, and if so should it be embedded into
+the image? Default is off. (Please note that embedding scalebars require
+that you define a markerset. In essence the scalebar becomes a custom
+marker that is handled just like any other annotation.)</dd>
+<dt>STYLE [integer]</dt>
+<dd>Chooses the scalebar style. Valid styles are 0 and 1.</dd>
+<dt>TRANSPARENT [on|off]</dt>
+<dd><p class="first">Should the background color for the scalebar be transparent. This flag is
+now deprecated in favor of declaring transparency within <a class="reference external" href="outputformat.html#outputformat"><em>OUTPUTFORMAT</em></a>
+declarations. Default is off.</p>
+<p class="last">
+<span class="versionmodified">Deprecated since version 4.6.</span></p>
+</dd>
+<dt>UNITS [feet|inches|kilometers|meters|miles]</dt>
+<dd>Output scalebar units, default is miles. Used in conjunction with the
+map&#8217;s units to develop the actual graphic. Note that decimal degrees
+are not valid scalebar units.</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="style.html" title="STYLE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="reference.html" title="REFERENCE"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 31: Loading MapServer Objects from Strings &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 32: Support for Anti-Grain Geometry (AGG) Rendering Engine" href="ms-rfc-32.html" />
+    <link rel="prev" title="MS RFC 30: Support for WMS 1.3.0" href="ms-rfc-30.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-32.html" title="MS RFC 32: Support for Anti-Grain Geometry (AGG) Rendering Engine"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-30.html" title="MS RFC 30: Support for WMS 1.3.0"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-31.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-31.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 31: Loading MapServer Objects from Strings</a><ul>
+<li><a class="reference external" href="#current-state">Current State</a></li>
+<li><a class="reference external" href="#c-api-changes">C API Changes</a></li>
+<li><a class="reference external" href="#mapscript">MapScript</a></li>
+<li><a class="reference external" href="#url">URL</a></li>
+<li><a class="reference external" href="#backwards-compatibility">Backwards Compatibility</a></li>
+<li><a class="reference external" href="#post-implementation-notes">Post Implementation Notes</a></li>
+<li><a class="reference external" href="#bug-ids">Bug IDs</a></li>
+<li><a class="reference external" href="#voting-history">Voting history</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-30.html"
+                                  title="previous chapter">MS RFC 30: Support for WMS 1.3.0</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-32.html"
+                                  title="next chapter">MS RFC 32: Support for Anti-Grain Geometry (AGG) Rendering Engine</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-31.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-31-loading-mapserver-objects-from-strings">
+<span id="rfc31"></span><h1>MS RFC 31: Loading MapServer Objects from Strings<a class="headerlink" href="#ms-rfc-31-loading-mapserver-objects-from-strings" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2007/06/19</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Steve Lime</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">Steve.Lime at DNR.State.MN.US</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">5.0</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Accepted (2007/06/22) Implemented</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-31.txt 8278 2008-12-23 21:34:31Z hobu $</td>
+</tr>
+</tbody>
+</table>
+<p>Description: This RFC addresses the ability of the MapServer tokenizer
+(in maplexer.l and mapfile.c) to work from strings as well as files. A
+mapfile-wide ability was added to 5.0 source and this RFC looks at loading
+MapServer objects (layers, scalebars, etc...) via MapScript and via URLs.</p>
+<div class="section" id="current-state">
+<h2>Current State<a class="headerlink" href="#current-state" title="Permalink to this headline">¶</a></h2>
+<p>Presently MapServer can load entire mapfile&#8217;s from a text block using
+msLoadMapFromString. This is a new capability in 5.0. MapServer has long been
+able to load/modify individual values via URL using a map_object_property
+syntax (e.g. map_scalebar_units).</p>
+<p>The problem with the URL support is that it is cumbersome for the user and
+results in a ton of duplicative code in mapfile.c making maintenance difficult.
+Developers will often add a parameter but forget to add a URL equivalent. This
+proposal removes that redundant code and relies on a single tokenizing function
+for each object.</p>
+</div>
+<div class="section" id="c-api-changes">
+<h2>C API Changes<a class="headerlink" href="#c-api-changes" title="Permalink to this headline">¶</a></h2>
+<p>All major objects would get a new ...LoadFromString function (e.g.
+msLoadLayerFromString and so on). These functions would be very simple and
+would take an existing reference to an object and a string snippet. They would:</p>
+<ol class="arabic simple">
+<li>establish lexer thread locks</li>
+<li>set lexer state to MS_TOKENIZE_STRING</li>
+<li>call loadObject (e.g. loadLayer)</li>
+</ol>
+<p>In effect this would be a way to load an empty object or update a new one.</p>
+<p>The loadObject functions would need minor changes:</p>
+<ol class="arabic simple">
+<li>Each function would need to remove restrictions for duplicate properties.
+That is setting a parameter twice should not generate an error as is
+does now.</li>
+<li>Properties with allocated memory (e.g. char * ) should be free&#8217;d if they
+already have values and are being updated.</li>
+<li>the object main keyword (e.g. LAYER or CLASS) should be allowed as a token
+within that object loader. When parsing a file the object identifier
+(e.g. LAYER) is stripped off with the parent object. For example, a CLASS
+is recognized by loadLayer so that token never is encountered by loadClass.
+It makes the most sense to pass entire object definitions including the
+object identifier for ease of use.</li>
+</ol>
+</div>
+<div class="section" id="mapscript">
+<h2>MapScript<a class="headerlink" href="#mapscript" title="Permalink to this headline">¶</a></h2>
+<p>I&#8217;m open to suggestions but I think the easiest thing to do would be to add an
+updateFromString method to all major objects. It would simply take a string
+snippet and would wrap the ...LoadFromString methods mentioned above. They
+would return MS_SUCCESS or MS_FAILURE. Might consider adding a &#8220;clear&#8221; method
+to (freeObject then initObject) so that users could clean things out and reload
+from a string. I&#8217;m not sure about the effects on reference counting here.</p>
+</div>
+<div class="section" id="url">
+<h2>URL<a class="headerlink" href="#url" title="Permalink to this headline">¶</a></h2>
+<p>I propose removing all the loadObjectValue (e.g. loadLayerValue) functions in
+favor of entire object loading. So, instead of doing something like:</p>
+<blockquote>
+...map_scalebar_units=meters&amp;map_scalebar_intervals=5&amp;map_scalebar_size=300+2...</blockquote>
+<p>You would do:</p>
+<blockquote>
+...map_scalebar=UNITS+METERS+INTERVALS+5+SIZE+300+2...</blockquote>
+<p>The major objects would still be referenced by map_scalebar or map_legend or
+map_layername, but all other properties would be loaded through snippets.</p>
+<p>The function msLoadMapParameter would become msUpdateMapFromURL and it would
+set the lexer state, acquire a thread lock and then call the appropriate
+loadObject function.</p>
+<p>One issue is that the loadObject functions have traditionally worked just
+from files so there are no limitations on what can be altered. Obviously from
+a URL you can&#8217;t allow just anything to be altered (e.g. CONNECTION, DUMP
+and so on). So, we would create a new lexer state, MS_TOKENIZE_URL, that
+would only recognize the parameters that we want. In that state the lexer
+would not return tokens like DUMP or CONNECTION so the loadObject functions
+would not handle those cases. This is a simple addition to the lexer. Any
+parameter exposed to URL modification will have the relevant loading block
+examined so that there are no memory leaks or buffer overflow possibilities.</p>
+<p>In addition, it was pointed out that URL configuration should not be a
+default behavior but should be enabled explicitly. Enabling this feature
+would happen by way of a new parameter within the webObj- URLCONFIG [pattern],
+with a default of NULL. The pattern would be a regular expression that would
+be applied against any map_* variables. So, one could limit changes to just
+the scalebar object with URLCONFIG &#8216;scalebar&#8217; or allow more with
+URLCONFIG &#8216;.&#8217;. The default would not to be allow any URL configuration.</p>
+</div>
+<div class="section" id="backwards-compatibility">
+<h2>Backwards Compatibility<a class="headerlink" href="#backwards-compatibility" title="Permalink to this headline">¶</a></h2>
+<p>The URL change will break backwards compatibility but I feel this is a
+relatively lightly used option and this change will be very beneficial.</p>
+</div>
+<div class="section" id="post-implementation-notes">
+<h2>Post Implementation Notes<a class="headerlink" href="#post-implementation-notes" title="Permalink to this headline">¶</a></h2>
+<p>Apparently a number of folks are having trouble with porting applications to
+use the new url configuration. Below are more examples and lists of supported
+keywords by object type. Rule of thumb one: when there is the opportunity for
+more than one of a particular object (e.g. layers, classes and styles) the
+syntax must uniquely identify the object in question in the variable name
+(e.g. map.layer[lakes]) and then the mapfile snippet to modify the object is
+given as the variable value. We have no way to modify 5 styles at once because
+the mapfile syntax is so freeform. Rule of thumb two: any parameters or
+objects that hang off the mapObj must be referenced in the variable name
+(e.g. map.imagetype).</p>
+<p>Example 1, changing a scalebar object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">...&amp;</span><span class="nb">map</span><span class="o">.</span><span class="n">scalebar</span><span class="o">=</span><span class="n">UNITS</span><span class="o">+</span><span class="n">MILES</span><span class="o">+</span><span class="n">COLOR</span><span class="o">+</span><span class="mi">121</span><span class="o">+</span><span class="mi">121</span><span class="o">+</span><span class="mi">121</span><span class="o">+</span><span class="n">SIZE</span><span class="o">+</span><span class="mi">300</span><span class="o">+</span><span class="mi">2</span><span class="o">&amp;...</span>
+</pre></div>
+</div>
+<p>Example 2, changing a presentation style:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">...&amp;</span><span class="nb">map</span><span class="o">.</span><span class="n">layer</span><span class="p">[</span><span class="n">lakes</span><span class="p">]</span><span class="o">.</span><span class="n">class</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">style</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">SYMBOL</span><span class="o">+</span><span class="n">crosshatch</span><span class="o">+</span><span class="n">COLOR</span><span class="o">+</span><span class="mi">151</span><span class="o">+</span><span class="mi">51</span><span class="o">+</span><span class="mi">151</span><span class="o">+</span><span class="n">SIZE</span><span class="o">+</span><span class="mi">15</span><span class="o">&amp;...</span>
+</pre></div>
+</div>
+<p>Example 3, creating a new feature:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="o">...&amp;</span><span class="n">map_layer</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">=</span><span class="n">FEATURE</span><span class="o">+</span><span class="n">POINTS</span><span class="o">+</span><span class="mi">500000</span><span class="o">+</span><span class="mi">1000000</span><span class="o">+</span><span class="n">END</span><span class="o">+</span><span class="n">TEXT</span><span class="o">+</span><span class="s">&#39;A+test+point&#39;</span><span class="o">+</span><span class="n">END</span><span class="o">&amp;...</span>
+</pre></div>
+</div>
+<p>Changeable objects/keywords by object type.</p>
+<p>mapObj (example - ...&amp;map.angle=50&amp;map.imagecolor=255+0+0&amp;...)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">angle</span><span class="p">,</span><span class="n">config</span><span class="p">,</span><span class="n">extent</span><span class="p">,</span><span class="n">imagecolor</span><span class="p">,</span><span class="n">imagetype</span><span class="p">,</span><span class="n">layer</span><span class="p">,</span><span class="n">legend</span><span class="p">,</span><span class="n">projection</span><span class="p">,</span><span class="n">querymap</span><span class="p">,</span><span class="n">reference</span><span class="p">,</span><span class="n">resolution</span><span class="p">,</span>
+<span class="n">scalebar</span><span class="p">,</span><span class="n">size</span><span class="p">,</span><span class="n">shapepath</span><span class="p">,</span><span class="n">transparent</span><span class="p">,</span><span class="n">units</span><span class="p">,</span><span class="n">web</span>
+</pre></div>
+</div>
+<p>layerObj (example - ...&amp;map.layer[lakes].data=myTempShapefile&amp;...</p>
+<div class="highlight-python"><pre>class,data (subject to DATAPATTERN validation),feature,footer (subject to TEMPLATEPATTERN
+validation),header (subject to TEMPLATEPATTERN validation),labelitem,opacity,projection,status,
+template (subject to TEMPLATEPATTERN validation),tolerance,units</pre>
+</div>
+<p>classObj (example - ...&amp;map.layer[lakes].class[0].style[1]=COLOR+255+0+0...)</p>
+<div class="highlight-python"><pre>color,label,outlinecolor,overlaycolor,overlayoutlinecolor,overlaysize,overlaysymbolsize,size,
+status,style,symbol,text (note that setting of color etc... should really be done through
+a styleObj and not the class shortcuts)</pre>
+</div>
+<p>labelObj (example - ...&amp;map.scalebar=LABEL+COLOR+255+0+0+SIZE+15+END)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">angle</span><span class="p">,</span><span class="n">antialias</span><span class="p">,</span><span class="n">backgroundcolor</span><span class="p">,</span><span class="n">backgroundshadowcolor</span><span class="p">,</span><span class="n">backgroundshadowsize</span><span class="p">,</span><span class="n">color</span><span class="p">,</span><span class="n">font</span><span class="p">,</span>
+<span class="n">outlinecolor</span><span class="p">,</span><span class="n">position</span><span class="p">,</span><span class="n">shadowcolor</span><span class="p">,</span><span class="n">shadowsize</span><span class="p">,</span><span class="n">size</span>
+</pre></div>
+</div>
+<p>styleObj (example - ...&amp;map.layer[lakes].class[0].style[0]=COLOR+255+0+0+ANGLE+50+SIZE+30...)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">angle</span><span class="p">,</span><span class="n">backgroundcolor</span><span class="p">,</span><span class="n">color</span><span class="p">,</span><span class="n">outlinecolor</span><span class="p">,</span><span class="n">size</span><span class="p">,</span><span class="n">symbol</span><span class="p">,</span><span class="n">width</span>
+</pre></div>
+</div>
+<p>featureObj (example - ...&amp;map_layer[3]=FEATURE+POINTS+500000+1000000+END+TEXT+&#8217;A+test+point&#8217;+END&amp;...)</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">points</span><span class="p">,</span><span class="n">text</span><span class="p">,</span><span class="n">wkt</span>
+</pre></div>
+</div>
+<p>More to come...</p>
+</div>
+<div class="section" id="bug-ids">
+<h2>Bug IDs<a class="headerlink" href="#bug-ids" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2143">http://trac.osgeo.org/mapserver/ticket/2143</a></p>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting history<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<p>+1 from SteveL, SteveW, TomK, FrankW, AssefaY, PericlesN</p>
+<p>+0 from JeffM</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-32.html" title="MS RFC 32: Support for Anti-Grain Geometry (AGG) Rendering Engine"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-30.html" title="MS RFC 30: Support for WMS 1.3.0"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

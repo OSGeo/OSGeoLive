@@ -1,0 +1,1035 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>OGR &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Vector Data" href="index.html" />
+    <link rel="next" title="MapInfo" href="mapinfo.html" />
+    <link rel="prev" title="PostGIS/PostgreSQL" href="postgis.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="mapinfo.html" title="MapInfo"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="postgis.html" title="PostGIS/PostgreSQL"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Vector Data</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//input/vector/ogr.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/input/vector/ogr.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">OGR</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a></li>
+<li><a class="reference external" href="#what-is-ogr">What is OGR?</a><ul>
+<li><a class="reference external" href="#what-does-ogr-add-to-mapserver">What Does OGR Add to MapServer?</a></li>
+<li><a class="reference external" href="#what-data-formats-are-supported">What Data Formats are Supported?</a></li>
+<li><a class="reference external" href="#how-to-get-more-information-on-the-ogr-project">How to Get More Information on the OGR Project</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#obtaining-and-compiling-mapserver-with-ogr-support">Obtaining and Compiling MapServer with OGR Support</a></li>
+<li><a class="reference external" href="#integrating-ogr-support-with-mapserver-applications">Integrating OGR Support with MapServer Applications</a><ul>
+<li><a class="reference external" href="#using-ogr-data-sources-in-the-map-file">Using OGR Data Sources in the Map File</a></li>
+<li><a class="reference external" href="#examples-of-layer-definitions-using-ogr">Examples of Layer Definitions Using OGR</a></li>
+<li><a class="reference external" href="#how-to-use-ogrinfo">How to Use &#8220;OGRINFO&#8221;</a></li>
+<li><a class="reference external" href="#queries-through-ogr-format">Queries Through OGR Format</a></li>
+<li><a class="reference external" href="#tileindex-with-ogr">TILEINDEX with OGR</a></li>
+<li><a class="reference external" href="#connection-pooling">Connection Pooling</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#styleitem-auto-rendering-layers-using-style-information-from-the-ogr-file">STYLEITEM &#8220;AUTO&#8221; - Rendering Layers Using Style Information from the OGR File</a><ul>
+<li><a class="reference external" href="#how-to-implement">How to Implement</a></li>
+<li><a class="reference external" href="#examples">Examples</a></li>
+<li><a class="reference external" href="#important-notes">Important Notes</a></li>
+<li><a class="reference external" href="#mapping-of-ogr-style-info-to-the-mapserver-class-members">Mapping of OGR Style Info to the MapServer CLASS Members</a></li>
+<li><a class="reference external" href="#accessing-ogr-styleitemauto-label-styles-through-mapscript">Accessing OGR STYLEITEMAUTO Label Styles Through MapScript</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#sample-sites-using-ogr-mapserver">Sample Sites Using OGR/MapServer</a></li>
+<li><a class="reference external" href="#faq-common-problems">FAQ / Common Problems</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="postgis.html"
+                                  title="previous chapter">PostGIS/PostgreSQL</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="mapinfo.html"
+                                  title="next chapter">MapInfo</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/input/vector/ogr.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ogr">
+<span id="id1"></span><h1><a class="toc-backref" href="#table-of-contents">OGR</a><a class="headerlink" href="#ogr" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Jeff McKenna</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">jmckenna at gatewaygeomatics.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 9192 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2009-07-21 10:50:49 -0300 (Tue, 21 Jul 2009) $</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#ogr" id="id2">OGR</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#what-is-ogr" id="id4">What is OGR?</a></li>
+<li><a class="reference internal" href="#obtaining-and-compiling-mapserver-with-ogr-support" id="id5">Obtaining and Compiling MapServer with OGR Support</a></li>
+<li><a class="reference internal" href="#integrating-ogr-support-with-mapserver-applications" id="id6">Integrating OGR Support with MapServer Applications</a></li>
+<li><a class="reference internal" href="#styleitem-auto-rendering-layers-using-style-information-from-the-ogr-file" id="id7">STYLEITEM &#8220;AUTO&#8221; - Rendering Layers Using Style Information from the OGR File</a></li>
+<li><a class="reference internal" href="#sample-sites-using-ogr-mapserver" id="id8">Sample Sites Using OGR/MapServer</a></li>
+<li><a class="reference internal" href="#faq-common-problems" id="id9">FAQ / Common Problems</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#table-of-contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Starting with version 3.5, MapServer included the ability to access vector
+data sets in formats other than Shapefile in their native format using the OGR
+library. The following document describes the process for implementing OGR
+support within MapServer applications.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Experimental OGR support was included in MapServer version 3.4 but this
+initial implementation had some limitations and is not covered in this
+document.</p>
+</div>
+<p>This document assumes that you are already familiar with certain aspects of
+MapServer:</p>
+<ul class="simple">
+<li>MapServer application development and especially setting up <a class="reference external" href="../../mapfile/index.html#mapfile"><em>.map files</em></a>.</li>
+<li>Some compilation skills if you don&#8217;t have ready access to a pre-compiled
+installation and need to compile your own copy of MapServer with OGR
+support.</li>
+<li>access to OGR utilities, such as <em>ogrinfo</em>, which are available in the
+<a class="reference external" href="http://fwtools.maptools.org/">FWTools</a> and <a class="reference external" href="http://www.maptools.org/ms4w/">MS4W</a> packages.</li>
+</ul>
+<p>Readers should also check out the <a class="reference external" href="index.html#vector"><em>Vector Data Access Guide</em></a>,
+which has lots of examples of how to access specific vector formats.</p>
+</div>
+<div class="section" id="what-is-ogr">
+<h2><a class="toc-backref" href="#table-of-contents">What is OGR?</a><a class="headerlink" href="#what-is-ogr" title="Permalink to this headline">¶</a></h2>
+<p>The OGR Simple Features Library is a C++ open source library (and command-line
+tools) providing read (and sometimes write) access to a variety of vector file
+formats including ESRI Shapefiles, and MapInfo mid/mif and TAB formats.</p>
+<p>OGR is actually part of the GDAL library, so you will notice that some
+references point to GDAL (such as the mailing list).</p>
+<div class="section" id="what-does-ogr-add-to-mapserver">
+<h3>What Does OGR Add to MapServer?<a class="headerlink" href="#what-does-ogr-add-to-mapserver" title="Permalink to this headline">¶</a></h3>
+<p>The OGR Simple Features Library allows MapServer users to display several
+types of vector data files in their native formats. For example, MapInfo
+Mid/Mif and TAB data do not need to be converted to ESRI shapefiles when using
+OGR support with MapServer.</p>
+</div>
+<div class="section" id="what-data-formats-are-supported">
+<h3>What Data Formats are Supported?<a class="headerlink" href="#what-data-formats-are-supported" title="Permalink to this headline">¶</a></h3>
+<p>See <a class="reference external" href="http://www.gdal.org/ogr/ogr_formats.html">http://www.gdal.org/ogr/ogr_formats.html</a> for the latest list of supported
+formats. At the date this document was written, the following formats were
+supported:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_avcbin.html">ArcInfo Binary Coverages</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_avce00.html">ArcInfo E00 Coverages</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_bna.html">Atlas BNA</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_csv.html">Comma Separated Value (.csv)</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_dods.html">DODS/OPeNDAP</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_sde.html">ESRI ArcSDE</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_pgeo.html">ESRI Personal GeoDatabase</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_shapefile.html">ESRI Shapefiles</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_fme.html">FMEObjects Gateway</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_geoconcept.html">Géoconcept Export</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_geojson.html">GeoJSON</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_georss.html">GeoRSS</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_gml.html">GML</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_gmt.html">GMT</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_grass.html">GRASS</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_gpx.html">GPX</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_idb.html">Informix DataBlade</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_ingres.html">INGRES</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_ili.html">INTERLIS</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_kml.html">KML</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_mitab.html">MapInfo files</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_memory.html">Memory</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_dgn.html">Microstation DGN files</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_mysql.html">MySQL</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_odbc.html">ODBC</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_ogdi.html">OGDI Vectors</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_oci.html">Oracle Spatial</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_pg.html">PostgreSQL</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_sdts.html">SDTS</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_sqlite.html">SQLite</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_ntf.html">UK.NTF (National Transfer Format)</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_tiger.html">US Census TIGER/Line</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_vrt.html">VRT - Virtual Datasource</a></li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/drv_xplane.html">X-Plane/Flighgear aeronautical data</a></li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Some of the above formats (e.g. OGDI) have external dependencies and are
+not always included in the pre-compiled binary distributions of MapServer
+with OGR support.*</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Some of the above formats are not well suited for random access by nature,
+that&#8217;s the case of MapInfo MIF/MID files which is a TEXT format and will
+give very poor performance for a web application. On the other hand, some
+binary formats such as MapInfo TAB are better suited for random access and
+will give performance comparable to native shapefile access in MapServer.*</p>
+</div>
+</div>
+<div class="section" id="how-to-get-more-information-on-the-ogr-project">
+<h3>How to Get More Information on the OGR Project<a class="headerlink" href="#how-to-get-more-information-on-the-ogr-project" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>More information on the OGR Simple Features Project can be found at
+<a class="reference external" href="http://www.gdal.org/ogr/">http://www.gdal.org/ogr/</a>.</li>
+<li>The <a class="reference external" href="http://lists.osgeo.org/mailman/listinfo/gdal-dev">GDAL mailing list</a> can be used for OGR related questions. Always
+search the list archives before sending new questions.</li>
+<li>The <a class="reference external" href="http://trac.osgeo.org/gdal/wiki/">GDAL Wiki</a> has lots of good information for users and developers.</li>
+<li>The #gdal IRC channel on irc.freenode.net might also be of help.  For info
+on IRC see the <a class="reference external" href="../../community/irc.html#irc"><em>MapServer IRC page</em></a>.</li>
+</ul>
+<p>The main developer of the OGR library is Frank Warmerdam and the
+integration of OGR within MapServer was done by Daniel Morissette.</p>
+</div>
+</div>
+<div class="section" id="obtaining-and-compiling-mapserver-with-ogr-support">
+<h2><a class="toc-backref" href="#table-of-contents">Obtaining and Compiling MapServer with OGR Support</a><a class="headerlink" href="#obtaining-and-compiling-mapserver-with-ogr-support" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Follow the instructions on the <a class="reference external" href="http://www.gdal.org/ogr/">OGR page</a> to compile/install OGR/GDAL.</li>
+<li>Obtain the MapServer <a class="reference external" href="../../download.html#download"><em>source</em></a>.</li>
+</ul>
+<p>For UNIX users, see the README.CONFIGURE file in the MapServer source, or see
+the <a class="reference external" href="../../installation/unix.html#unix"><em>UNIX Compilation and Installation</em></a>. If GDAL/OGR is normally
+installed it should be sufficient to add &#8211;with-ogr to the configure line
+before (re)building MapServer. Linux users might want to try <a class="reference external" href="http://www.maptools.org/fgs/">FGS</a>, a Linux
+installer for MapServer.</p>
+<p>For Windows users, it is recommended to look for a pre-compiled binary on the
+MapServer site (<a class="reference external" href="http://www.maptools.org/ms4w/">MS4W</a> is recommended). If you want to compile your own
+then see the README.WIN32 file in the MapServer source.</p>
+</div>
+<div class="section" id="integrating-ogr-support-with-mapserver-applications">
+<h2><a class="toc-backref" href="#table-of-contents">Integrating OGR Support with MapServer Applications</a><a class="headerlink" href="#integrating-ogr-support-with-mapserver-applications" title="Permalink to this headline">¶</a></h2>
+<p>The only change that is needed to integrate OGR support with a MapServer
+application is with the .map file. The LAYER&#8217;s DATA parameter is expanded to
+three parameters (CONNECTIONTYPE OGR, CONNECTION and DATA).</p>
+<p>The syntax for this differs depending on the type of data being used (the
+<a class="reference external" href="index.html#vector"><em>Vector Data Access Guide</em></a> is an excellent resource for this).
+In OGR, a data source can be either a set of files that share a common
+basename (e.g. .shp/.shx/.dbf for ArcView Shapefiles, or
+.tab/.map/.dat/.ind/.id for MapInfo TAB files) or a whole directory of files
+(e.g. TIGER).</p>
+<p>Let&#8217;s call the former &#8220;File-based data sources&#8221; and the later &#8220;Directory-based
+data sources&#8221;. When accessing a <strong>file-based data source</strong> you specify the
+filename of one of the files in the set (e.g. roads.shp or roads.tab) and when
+accessing a <strong>directory-based data source</strong> you specify the directory name and
+OGR reads all the files in the directory as a single data source with
+potentially several layers (e.g. TIGER files).</p>
+<p>Some OGR drivers (e.g. SHP, TAB) can have dual behaviors, that is if they&#8217;re
+pointed to a single file then they behave as a file-based data source and if
+they&#8217;re pointed to a directory then they will behave as a directory-based data
+source and then every file in the directory becomes a new layer in the data
+source.</p>
+<p>See the <a class="reference external" href="http://www.gdal.org/ogr/ogr_formats.html">OGR formats page</a> for more info on the specific file format you&#8217;re
+using. (Click on the format name for more specific driver info on that format)</p>
+<div class="section" id="using-ogr-data-sources-in-the-map-file">
+<h3>Using OGR Data Sources in the Map File<a class="headerlink" href="#using-ogr-data-sources-in-the-map-file" title="Permalink to this headline">¶</a></h3>
+<p>The .map file LAYER definition for file-based sources is as follows:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+   <span class="p">...</span>
+   <span class="k">CONNECTIONTYPE</span> <span class="nb">OGR</span>
+   <span class="k">CONNECTION</span> <span class="s">&quot;&lt;datasource_name&gt;&quot;</span>
+   <span class="k">DATA</span> <span class="s">&quot;&lt;layer_definition&gt;&quot;</span>
+   <span class="p">...</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p><strong>&lt;datasource_name&gt;</strong> is the name of the datasource to read from and is
+prefixed by the CONNECTION keyword. The exact organization depends on the
+format driver in use. The format driver to use is automatically selected by
+OGR based on the nature of the string passed as the datasource, and/or the
+format of the file referenced by it.</p>
+<blockquote>
+<ul>
+<li><p class="first">For file based datasources this is the name of the file, including the
+extension, using an absolute path, or a relative path. Relative paths are
+interpreted relative to the SHAPEPATH first, if not found then we try
+again relative to the .map file location.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Before version 4.1 the SHAPEPATH was ignored for OGR datasources.</p>
+</div>
+</li>
+<li><p class="first">For directory based datasources, such as TIGER/Line, or Arc/Info Binary
+Coverages this is the name of the directory containing the files. If the
+path is relative it is interpreted relative to the .map file.</p>
+</li>
+<li><p class="first">For virtual datasources such as database systems, and OGDI this is the
+service connection string and is generally not related to the filesystem.
+For instance, for Oracle Spatial this might be
+&#8220;OCI:warmerda/Password&#64;gdal800.velocet.ca&#8221;.</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>&lt;layer_definition&gt;</strong> is the name, number or SQL definition of the layer to
+use from the datasource. It is indicated via the DATA keyword in the map file.</p>
+<blockquote>
+<ul class="simple">
+<li>Layer Name: The (case insenstive) layer name may be used to select a
+layer.</li>
+<li>Layer Number: The layer number (starting from 0 for the first layer) may
+be used to select a layer. Generally the layer name is preferred to this
+since it is more self describing.</li>
+<li>Omitted: If no DATA keyword is provided, this is equivalent to selecting
+layer 0.</li>
+<li>SQL SELECT: If an SQL SELECT statement is used, it is interpreted in a
+driver specific manner to try and generate a temporary pseudo-layer. For
+some formats this a restricted subset of SQL is interpreted within OGR.
+For RDBMS based drivers (such as PostGIS and Oracle) this is passed
+through to the underlying database.</li>
+</ul>
+</blockquote>
+<p>The OGRINFO utility can be used to find out the list of layers and their names
+in a data source.</p>
+</div>
+<div class="section" id="examples-of-layer-definitions-using-ogr">
+<h3>Examples of Layer Definitions Using OGR<a class="headerlink" href="#examples-of-layer-definitions-using-ogr" title="Permalink to this headline">¶</a></h3>
+<p>Please see the <a class="reference external" href="index.html#vector"><em>Vector Data Access Guide</em></a> for details and
+examples of each data format supported.</p>
+<p><strong>Example 1. MapInfo TAB file</strong></p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+   <span class="k">NAME</span> <span class="s">&quot;Builtup_Areas_tab&quot;</span>
+   <span class="k">TYPE</span> <span class="nb">POLYGON</span>
+   <span class="k">CONNECTIONTYPE</span> <span class="nb">OGR</span>
+   <span class="k">CONNECTION</span> <span class="s">&quot;data/tab/092b06_builtup_a.tab&quot;</span>
+   <span class="k">STATUS</span> <span class="nb">ON</span>
+   <span class="k">CLASS</span>
+     <span class="p">...</span>
+   <span class="k">END</span>
+<span class="p">...</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p><strong>Example 2. Microstation DGN file using &lt;layer_index&gt;</strong></p>
+<p>The entire DGN file is represented in OGR as one layer (see the <a class="reference external" href="http://www.gdal.org/ogr/drv_dgn.html">DGN driver
+page</a> for more details):</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+   <span class="k">NAME</span> <span class="s">&quot;dgn&quot;</span>
+   <span class="k">TYPE</span> <span class="nb">LINE</span>
+   <span class="k">CONNECTIONTYPE</span> <span class="nb">OGR</span>
+   <span class="k">CONNECTION</span> <span class="s">&quot;dgn/santabarbara02.dgn&quot;</span>
+   <span class="k">DATA</span> <span class="s">&quot;0&quot;</span>
+   <span class="k">STATUS</span> <span class="nb">ON</span>
+   <span class="k">STYLEITEM</span> <span class="s">&quot;AUTO&quot;</span>
+   <span class="k">CLASS</span>
+   <span class="k">END</span>
+<span class="k">END</span> <span class="c"># Layer</span>
+</pre></div>
+</div>
+<p><strong>Example 3. TIGER/Line file using &lt;layer_name&gt;</strong></p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+   <span class="k">NAME</span> <span class="s">&quot;Roads_tig&quot;</span>
+   <span class="k">TYPE</span> <span class="nb">line</span>
+   <span class="k">CONNECTIONTYPE</span> <span class="nb">OGR</span>
+   <span class="k">CONNECTION</span> <span class="s">&quot;full/path/to/tiger/TGR25001&quot;</span>
+   <span class="k">DATA</span> <span class="s">&quot;CompleteChain&quot;</span>
+   <span class="k">STATUS</span> <span class="nb">ON</span>
+   <span class="k">CLASS</span>
+     <span class="p">...</span>
+   <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p><strong>Example 4. Directory of Shapefiles using SQL JOIN</strong></p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+   <span class="k">NAME</span> <span class="s">&quot;Parks_cov&quot;</span>
+   <span class="k">TYPE</span> <span class="nb">POLYGON</span>
+   <span class="k">CONNECTIONTYPE</span> <span class="nb">OGR</span>
+   <span class="k">CONNECTION</span> <span class="s">&quot;data/shppoly&quot;</span>
+   <span class="k">DATA</span> <span class="s">&quot;SELECT eas_id, idlink.Name FROM poly LEFT JOIN idlink ON poly.eas_id = idlink.eas_id&quot;</span>
+   <span class="k">STATUS</span> <span class="nb">ON</span>
+   <span class="k">CLASSITEM</span> <span class="s">&quot;idlink.Name&quot;</span>
+   <span class="k">CLASS</span>
+     <span class="p">...</span>
+   <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-to-use-ogrinfo">
+<h3>How to Use &#8220;OGRINFO&#8221;<a class="headerlink" href="#how-to-use-ogrinfo" title="Permalink to this headline">¶</a></h3>
+<p>OGRINFO is part of the GDAL/OGR distribution (it is also included in <a class="reference external" href="http://fwtools.maptools.org/">FWTools</a>
+and <a class="reference external" href="http://www.maptools.org/ms4w/">MS4W</a>). It is an executable that can be used to obtain layer information
+about OGR supported files. The parameters are:</p>
+<blockquote>
+<p><em>ogrinfo</em> [-ro] [-q] datasource_name [layer [layer...]]</p>
+<ul class="simple">
+<li>-ro opens the file as read only (optional)</li>
+<li>-q executes in quiet mode, only the layer idex line will be returned (optional)</li>
+<li>datasource_name is the filename including extension (eg. roads.tab); for
+TIGER/Line files, datasource_name is the directory containing the TIGER
+files (eg. ogrinfo TGR25001)</li>
+</ul>
+</blockquote>
+<p><strong>Example 5. To get the list of layers in a file:</strong></p>
+<div class="highlight-python"><pre>$ ogrinfo  popplace.tab
+
+Had to open data source read-only.
+INFO: Open of `popplace.tab'
+using driver `MapInfo File' successful.
+1: popplace (Point)</pre>
+</div>
+<p>which shows that there is one point layer in the popplace.tab file.</p>
+<p><strong>Example 6. To get a dump of a specific layer, including field names, projection, etc:</strong></p>
+<div class="highlight-python"><pre>$ ogrinfo popplace.tab popplace
+
+Had to open data source read-only.
+INFO: Open of `popplace.tab'
+using driver `MapInfo File' successful.
+
+Layer name: popplace
+Geometry: Point
+Feature Count: 497
+Layer SRS WKT: PROJCS["unnamed",GEOGCS["unnamed",DATUM["North ...snipped...
+AREA: Real (15.3)
+PERIMETER: Real (15.3)
+POPPLACE_: Real (11.0)
+POPPLACE_I: Real (15.0)
+NAME: String (50.0)
+OGRFeature(popplace):1
+  AREA (Real) =           0.000
+  PERIMETER (Real) =           0.000
+  POPPLACE_ (Real) =           1
+  POPPLACE_I (Real) =               1
+  NAME (String) = Port Hope Simpson
+  POINT (2437287.249 1153656.751)
+
+OGRFeature(popplace):2
+  AREA (Real) =           0.000
+  PERIMETER (Real) =           0.000
+  POPPLACE_ (Real) =           2
+  POPPLACE_I (Real) =               1
+  NAME (String) = Hopedale
+
+...
+...</pre>
+</div>
+<p><strong>Example 7. To get a list of layers in a TIGER/Line Directory:</strong></p>
+<div class="highlight-python"><pre>$ ogrinfo TGR25001
+
+Had to open data source read-only.
+INFO: Open of `TGR25001'
+using driver `TIGER' successful.
+1: CompleteChain (Line String)
+2: AltName (None)
+3: FeatureIds (None)
+4: ZipCodes (None)
+5: Landmarks (Point)
+6: AreaLandmarks (None)
+7: KeyFeatures (None)
+8: Polygon (None)
+9: EntityNames (Point)
+10: IDHistory (None)
+11: PolyChainLink (None)
+12: PIP (Point)
+13: TLIDRange (None)
+14: ZipPlus4 (None)</pre>
+</div>
+<p>The above example shows that there are 14 layers in the TGR25001 directory.</p>
+<p><strong>Example 8. To get a summary of a specific TIGER layer, including only field names, projection, and extent</strong></p>
+<div class="highlight-python"><pre>$ ogrinfo TGR25001 Landmarks -summary
+
+Had to open data source read-only.
+INFO: Open of `TGR25001'
+using driver `TIGER' successful.
+
+Layer name: Landmarks
+Geometry: Point
+Feature Count: 777
+Extent: (-70.674324, 41.519817) - (-69.969211, 42.046868)
+Layer SRS WKT: GEOGCS["NAD83",DATUM["North_American_Datum_1983",
+SPHEROID["GRS 1980",6378137,298.257222101]],PRIMEM["Greenwich",0],
+      UNIT["degree",0.0174532925199433]]
+MODULE: String (8.0)
+FILE: String (5.0)
+STATE: Integer (2.0)
+COUNTY: Integer (3.0)
+LAND: Integer (10.0)
+SOURCE: String (1.0)
+CFCC: String (3.0)
+LANAME: String (30.0)</pre>
+</div>
+</div>
+<div class="section" id="queries-through-ogr-format">
+<h3>Queries Through OGR Format<a class="headerlink" href="#queries-through-ogr-format" title="Permalink to this headline">¶</a></h3>
+<p>OGR layers can be queried the same way as regular shapefiles in MapServer.</p>
+</div>
+<div class="section" id="tileindex-with-ogr">
+<h3>TILEINDEX with OGR<a class="headerlink" href="#tileindex-with-ogr" title="Permalink to this headline">¶</a></h3>
+<p>OGR layers can utilize tile indexes in a similar fashion to Shapefile based
+layers. The TILEINDEX keyword should contain the connection string for the tile
+index file. The tile index file may be any supported OGR format, including
+shapefiles.</p>
+<p>The TILEITEM keyword in the LAYER definition indicates what attribute from the
+tile index file should be used as the datasource location. If omitted, the default
+TILEITEM value is &#8220;location&#8221;. The value in the location field should be a connection
+string the same as would have been used in the CONNECTION field for OGR layers.
+The CONNECTION keyword is not needed (and will be ignored) for layers using the
+OGR connection type and having the TILEINDEX keyword.</p>
+<p>Tileindex files can be prepared in an external GIS, or using the OGR utility
+ogrtindex. Details can be found on the <a class="reference external" href="http://www.gdal.org/ogr_utilities.html">OGR Utilities Page</a>.</p>
+<p>The following is a simple example of a point layer using a tile index.</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+  <span class="k">NAME</span> <span class="s">&quot;ogr_points&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">POINT</span>
+  <span class="k">CONNECTIONTYPE</span> <span class="nb">OGR</span>
+  <span class="k">TILEINDEX</span> <span class="s">&quot;PIP_ogr_tiles.shp,0&quot;</span>
+  <span class="k">STATUS</span> <span class="nb">ON</span>
+  <span class="k">CLASS</span>
+     <span class="k">NAME</span> <span class="s">&quot;points&quot;</span>
+     <span class="k">STYLE</span>
+       <span class="k">SYMBOL</span> <span class="s">&quot;default-circle&quot;</span>
+       <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">0</span> <span class="mi">0</span>
+       <span class="k">SIZE</span> <span class="mi">6</span>
+     <span class="k">END</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>OGR tileindex layers should support all normal query and attribute fetching
+mechanisms, including from MapScript; however, this has not been heavily
+tested as of April/2002. Please report problems via the MapServer Trac. If
+auto projection support is used for tileindexed OGR layers, the tileindex is
+read for the projection (not the component tiles). Problems may (or may not)
+be encountered if the component tiles have differing schemas (different sets
+of attributes).</p>
+</div>
+<div class="section" id="connection-pooling">
+<h3>Connection Pooling<a class="headerlink" href="#connection-pooling" title="Permalink to this headline">¶</a></h3>
+<p>For some OGR supported formats, connecting to the dataset is quite expensive
+in terms of CPU use and amount of disk IO. For instance, establishing access
+to an S-57 dataset results in a complete read into memory of the data files.
+Connection pooling control aims at reducing this overhead in situations where
+the same file is used for several different map layers.</p>
+<p>To ensure that an OGR supported dataset is only opened once per map render
+(instead of separately for each map LAYER referencing the dataset, use the
+CLOSE_CONNECTION PROCESSING option. The default value is for CLOSE_CONNECTION
+is NORMAL, but if set to DEFER the dataset will be kept open till the map
+render is complete. It will be reused by any other layers with using the same
+datasource.</p>
+<p><strong>Example 9. Preserve S-57 connection for two layers</strong></p>
+<p>In this example, we are using the same dataset (NO410810.000) for two layers. To
+avoid re-reading the dataset, we mark the first layer to defer closing the connection
+till layer. In the second (or last) layer we request NORMAL connection handling
+(though this could have been left out as normal handling is the default).</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+   <span class="k">NAME</span> <span class="s">&quot;AdminAreas&quot;</span>
+   <span class="k">TYPE</span> <span class="nb">POLYGON</span>
+   <span class="k">CONNECTIONTYPE</span> <span class="nb">OGR</span>
+   <span class="k">CONNECTION</span> <span class="s">&quot;NO410810.000&quot;</span>
+   <span class="k">DATA</span> <span class="s">&quot;ADMARE&quot;</span>
+   <span class="k">PROCESSING</span> <span class="s">&quot;CLOSE_CONNECTION=DEFER&quot;</span>
+   <span class="k">STATUS</span> <span class="nb">ON</span>
+   <span class="p">...</span>
+<span class="k">END</span>
+<span class="k">LAYER</span>
+   <span class="k">NAME</span> <span class="s">&quot;Land Areas&quot;</span>
+   <span class="k">TYPE</span> <span class="nb">POLYGON</span>
+   <span class="k">CONNECTIONTYPE</span> <span class="nb">OGR</span>
+   <span class="k">CONNECTION</span> <span class="s">&quot;NO410810.000&quot;</span>
+   <span class="k">DATA</span> <span class="s">&quot;LNDARE&quot;</span>
+   <span class="k">PROCESSING</span> <span class="s">&quot;CLOSE_CONNECTION=NORMAL&quot;</span>
+   <span class="k">STATUS</span> <span class="nb">ON</span>
+   <span class="p">...</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li>The text of the CONNECTION keyword must match exactly between layers for the
+connection to be reused.</li>
+<li>Some dataset connections are quite memory expensive, and keeping them open
+may result in increased memory use.</li>
+<li>If all layers rendered for a particular connection defer closing the connection,
+it will remain open till MapServer terminates. For normal cgi or MapScript
+use this is likely OK.</li>
+<li>This use of CLOSE_CONNECTION handling is unique to OGR layers, and may be
+changed at some point in the future as part of a broader implementation of
+connection pooling in MapServer.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="styleitem-auto-rendering-layers-using-style-information-from-the-ogr-file">
+<h2><a class="toc-backref" href="#table-of-contents">STYLEITEM &#8220;AUTO&#8221; - Rendering Layers Using Style Information from the OGR File</a><a class="headerlink" href="#styleitem-auto-rendering-layers-using-style-information-from-the-ogr-file" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This feature is only supported with MapInfo TAB and Microstation DGN files
+at the moment, but eventually other formats that carry colors and styles
+at the shape-level may also be supported through OGR.*</p>
+</div>
+<p>In MapServer, ArcView, and other shapefile-based applications, colors and styles
+are usually defined at the layer level. This means that all the shapes in a given
+layer are usually rendered using the same color and styles.</p>
+<p>On the other hand, some formats supported by OGR such as MapInfo TAB do have color
+and style information attached to each shape. OGR adds support for the
+&#8216;STYLEITEM &#8220;AUTO&#8221;&#8217; layer parameter which allows you to request that the shapes in
+a layer be rendered using colors and styles coming from the data source instead of
+being driven by CLASSes as was traditionally done with MapServer.</p>
+<div class="section" id="how-to-implement">
+<h3>How to Implement<a class="headerlink" href="#how-to-implement" title="Permalink to this headline">¶</a></h3>
+<p>In order to have a layer rendered using colours and styles coming from the OGR data
+source, your must do the following:</p>
+<ul class="simple">
+<li>Your layer definition must contain the STYLEITEM &#8220;AUTO&#8221; parameter.</li>
+<li>Your layer definition needs to contain at least one CLASS (which may be empty)
+and optionally a CLASSITEM to match the expressions if your CLASS contains an
+expression. The empty CLASS in the layer will be updated dynamically at runtime
+to contain colours and styles coming from the data source for each shape.</li>
+</ul>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p><strong>Example 10. Layer Definition Using STYLEITEM &#8220;AUTO&#8221; without a CLASSITEM</strong></p>
+<div class="highlight-mapfile"><div class="highlight"><pre> <span class="k">LAYER</span>
+    <span class="k">NAME</span> <span class="s">&quot;test_dgn&quot;</span>
+    <span class="k">STATUS</span> <span class="nb">ON</span>
+    <span class="k">TYPE</span> <span class="nb">POLYGON</span>
+    <span class="k">CONNECTIONTYPE</span> <span class="nb">OGR</span>
+    <span class="k">CONNECTION</span> <span class="s">&quot;../data/dgn/test.dgn&quot;</span>
+
+    <span class="c"># This enables use of colors and styles from the source file.</span>
+    <span class="k">STYLEITEM</span> <span class="s">&quot;AUTO&quot;</span>
+
+    <span class="c"># Define an empty class that will be filled at runtime from the color and</span>
+    <span class="c"># styles read on each shape in the source file.</span>
+    <span class="k">CLASS</span>
+    <span class="k">END</span>
+<span class="k">END</span>  <span class="c"># layer</span>
+</pre></div>
+</div>
+<p><strong>Example 11. Layer Definition Using STYLEITEM &#8220;AUTO&#8221; with a CLASSITEM</strong></p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+   <span class="k">NAME</span> <span class="s">&quot;Builtup_Areas_tab&quot;</span>
+   <span class="k">TYPE</span> <span class="nb">POLYGON</span>
+   <span class="k">CONNECTIONTYPE</span> <span class="nb">OGR</span>
+   <span class="k">CONNECTION</span> <span class="s">&quot;data/tab/092b06_builtup_a.tab&quot;</span>
+   <span class="k">STATUS</span> <span class="nb">ON</span>
+
+   <span class="c"># This enables use of colors and styles from the source file.</span>
+   <span class="k">STYLEITEM</span> <span class="s">&quot;AUTO&quot;</span>
+
+   <span class="c"># Define an empty class that will be filled at runtime from the color and</span>
+   <span class="c"># styles read on each shape in the source file.</span>
+   <span class="k">CLASSITEM</span> <span class="s">&quot;CATEGORY&quot;</span>
+   <span class="k">CLASS</span>
+      <span class="k">EXPRESSION</span> <span class="s">&quot;1&quot;</span>
+   <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p><strong>Please Note:</strong></p>
+<p>CLASS EXPRESSIONs are still working, so it is still possible to query and
+classify layers that are using STYLEITEM &#8220;AUTO&#8221;. The only difference is that instead
+of using static class definitions, the colors and style will be read from the data
+file.</p>
+</div>
+<div class="section" id="important-notes">
+<h3>Important Notes<a class="headerlink" href="#important-notes" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">NOTE 1:</th><td class="field-body">Even though MapInfo and other OGR data sources may support layers with mixed
+geometry types (e.g. points, lines and polygons in the same file) this is
+not yet supported in MapServer. So you still have to define a layer &#8216;TYPE&#8217;
+and make sure that all the shapes in the OGR data source are compatible with
+that layer type, otherwise MapServer may produce an error about incompatible
+geometry types at runtime.</td>
+</tr>
+<tr class="field"><th class="field-name">NOTE 2:</th><td class="field-body">Due to the dynamic nature of this feature, it is not compatible with the
+labelcache, so the labelcache is automatically disabled for layers that make
+use of &#8216;STYLEITEM &#8220;AUTO&#8221;&#8217;.</td>
+</tr>
+<tr class="field"><th class="field-name">NOTE 3:</th><td class="field-body">When you use STYLEITEM AUTO, MapServer tries to match symbol names returned
+by OGR to names in your symbol file. For a quick solution, try using the
+following symbol file:</td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference external" href="http://www2.dmsolutions.ca/msapps/yk_demo/etc/symbols_mapinfo.sym">http://www2.dmsolutions.ca/msapps/yk_demo/etc/symbols_mapinfo.sym</a></p>
+<p>The name of the symbols returned by OGR to MapServer depends on the file format. In the
+case of MapInfo files, it will be:</p>
+<ul class="simple">
+<li>For &#8220;old-style&#8221; symbols (default MapInfo 3.0 symbols numbered 32 to 67) the symbol
+name will be &#8216;mapinfo-sym-##&#8217; where &#8216;##&#8217; is the symbol number, e.g. &#8216;mapinfo-sym-32&#8217;.</li>
+<li>For &#8220;Font Symbols&#8221;, the symbol name is also &#8216;mapinfo-sym-##&#8217; where &#8216;##&#8217; is the
+symbol number in the font. In this case, the name of the font itself is ignored by
+MapServer.</li>
+<li>MapInfo also supports &#8220;custom symbols&#8221; (bitmap symbols)... I&#8217;m not sure what you
+would get from OGR for this, but I&#8217;m pretty sure that MapServer doesn&#8217;t do anything
+useful with them.</li>
+</ul>
+<p>The OGRINFO utility can be used to find out exactly which symbol names OGR will
+return to MapServer. Look at the &#8220;Style&#8221; string in the ogrinfo output for each shape
+that is read.</p>
+</div>
+<div class="section" id="mapping-of-ogr-style-info-to-the-mapserver-class-members">
+<h3>Mapping of OGR Style Info to the MapServer CLASS Members<a class="headerlink" href="#mapping-of-ogr-style-info-to-the-mapserver-class-members" title="Permalink to this headline">¶</a></h3>
+<p>Here is the list of style parameters that are currently supported from OGR data sources
+and how they&#8217;re mapped in MapServer:</p>
+<dl class="docutils">
+<dt>Line color</dt>
+<dd>The line colour is mapped to CLASS.COLOR</dd>
+<dt>Line thickness</dt>
+<dd>The line thickness is mapped to CLASS.STYLE.WIDTH. The default will be 1 pixel line (as
+it always is with MapServer).</dd>
+<dt>Polygon fill color</dt>
+<dd><p class="first">Polygon fill color is mapped directly to CLASS.COLOR</p>
+<p class="last">Note that at this time, transparent polygons are not supported (they&#8217;re always
+opaque).</p>
+</dd>
+<dt>Polygon outline</dt>
+<dd>If a polygon has an outline color and thickness defined in the data source
+then the same rule as for line color and thickness above will apply, except
+that the outline color is mapped to CLASS.OUTLINECOLOR</dd>
+<dt>Point symbols</dt>
+<dd><p class="first">Point symbol color is directly mapped to CLASS.COLOR
+Point symbol size is directly mapped to CLASS.SIZE</p>
+<p>If your symbolset contains a symbol called &#8220;default-marker&#8221; then this symbol
+will be used, otherwise the default will be CLASS.SYMBOL=0 (i.e. a 1 pixel dot)</p>
+<p>It is also possible (with a bit of work) to control which symbol gets used
+in rendering point symbols. OGR provides MapServer with symbol names, and
+if the symbol name returned by OGR to MapServer matches the name of one of
+the symbols in your symbolset then this symbol will be used.</p>
+<p class="last">For MapInfo point symbols (numbered 32 to 67 in the MapInfo MIF spec), the name
+returned by OGR is &#8220;mapinfo-sym-X&#8221; where X should be replaced with the MapInfo
+symbol number (e.g. &#8220;mapinfo-sym-35&#8221; is the star symbol).</p>
+</dd>
+<dt>Text labels</dt>
+<dd><p class="first">The text string is mapped to CLASS.TEXT</p>
+<p>Text color is mapped to CLASS.LABEL.COLOR</p>
+<p>Text background color is mapped to CLASS.LABEL.BACKGROUNDCOLOR</p>
+<p>Text height is mapped to CLASS.LABEL.SIZE</p>
+<p>Text angle is mapped to CLASS.LABEL.ANGLE</p>
+<p>Text font mapping follows the following rules:</p>
+<ol class="last arabic simple">
+<li>If TTF fonts are supported:<ol class="loweralpha">
+<li>If the native font name (e.g. &#8220;Arial&#8221;) is found in your fontset then this
+font will be used.</li>
+<li>If 1a. failed and a font called &#8220;default&#8221; is present in your fontset then
+this &#8220;default&#8221; font will be used.</li>
+</ol>
+</li>
+<li>If TTF fonts are not supported or if all above cases failed, then BITMAP
+MEDIUM font will be used.</li>
+</ol>
+</dd>
+</dl>
+</div>
+<div class="section" id="accessing-ogr-styleitemauto-label-styles-through-mapscript">
+<span id="styleitemauto-label-styles"></span><h3>Accessing OGR STYLEITEMAUTO Label Styles Through MapScript<a class="headerlink" href="#accessing-ogr-styleitemauto-label-styles-through-mapscript" title="Permalink to this headline">¶</a></h3>
+<p>OGR STYLEITEMAUTO label styles can be accessed through MapScript, such as
+PHP/MapScript&#8217;s getshape() or getvalue() methods, by setting the LAYER&#8217;s PROCESSING
+parameter to &#8220;GETSHAPE_STYLE_ITEMS=all&#8221;.  Therefore, the LAYER may contain:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+  <span class="p">...</span>
+  <span class="k">PROCESSING</span> <span class="s">&quot;GETSHAPE_STYLE_ITEMS=all&quot;</span>
+  <span class="p">...</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>The following label styles are supported:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="50%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Label Style</th>
+<th class="head">Description</th>
+<th class="head">MapServer Version
+Implemented</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>OGR:LabelFont</td>
+<td>Comma-delimited list of fonts names</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelSize</td>
+<td>Numeric value with units</td>
+<td>5.2.0</td>
+</tr>
+<tr><td>OGR:LabelText</td>
+<td>Label text string</td>
+<td>5.2.0</td>
+</tr>
+<tr><td>OGR:LabelAngle</td>
+<td>Rotation angle (in degrees)</td>
+<td>5.2.0</td>
+</tr>
+<tr><td>OGR:LabelFColor</td>
+<td>Foreground color</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelBColor</td>
+<td>Background color</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelPlacement</td>
+<td>How is the text drawn
+relative to the feature&#8217;s geometry</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelAnchor</td>
+<td>A value from 1 to 12 defining the
+label&#8217;s position relative to the
+point to which it is attached.</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelDx</td>
+<td>X offset</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelDy</td>
+<td>Y offset</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelPerp</td>
+<td>Perpendicular offset</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelBold</td>
+<td>Bold text</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelItalic</td>
+<td>Italic text</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelUnderline</td>
+<td>Underlined text</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelPriority</td>
+<td>Numeric value defining the order
+in which style parts should be
+drawn.</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelStrikeout</td>
+<td>Strike out text (gdal &gt;= 1.4.0)</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelStretch</td>
+<td>Stretch factor changes the width
+of all characters in the font by
+factor percent. (gdal &gt;= 1.4.0)</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelAdjHor</td>
+<td>Horizontally adjacent text
+(gdal &gt;= 1.4.0)</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelAdjVert</td>
+<td>Vertically adjacent text
+(gdal &gt;= 1.4.0)</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelHColor</td>
+<td>Shadow color (gdal &gt;= 1.4.0)</td>
+<td>5.4</td>
+</tr>
+<tr><td>OGR:LabelOColor</td>
+<td>Outline color (gdal &gt; 1.6.0)</td>
+<td>5.4</td>
+</tr>
+</tbody>
+</table>
+<p>Please see the <a class="reference external" href="http://www.gdal.org/ogr/ogr_feature_style.html">OGR Feature Style Specification</a> document for more details
+on those specific styles.</p>
+</div>
+</div>
+<div class="section" id="sample-sites-using-ogr-mapserver">
+<h2><a class="toc-backref" href="#table-of-contents">Sample Sites Using OGR/MapServer</a><a class="headerlink" href="#sample-sites-using-ogr-mapserver" title="Permalink to this headline">¶</a></h2>
+<p>The following sites use OGR&#8217;s STYLEITEM &#8220;AUTO&#8221; feature:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www2.dmsolutions.ca/msapps/yk_demo/demo_init.html">http://www2.dmsolutions.ca/msapps/yk_demo/demo_init.html</a></li>
+<li><a class="reference external" href="http://www2.dmsolutions.ca/msapps/nfld_demo/demo_init.html">http://www2.dmsolutions.ca/msapps/nfld_demo/demo_init.html</a></li>
+</ul>
+<p>The following site uses OGR, as well as MapInfo&#8217;s &#8216;Seamless Map Layers&#8217; feature:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www2.dmsolutions.ca/msapps/ro_demo/demo_init.html">http://www2.dmsolutions.ca/msapps/ro_demo/demo_init.html</a></li>
+</ul>
+<p>The following site uses OGR to display TIGER 2000 files:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www2.dmsolutions.on.ca/msapps/tig_demo/demo_init.html">http://www2.dmsolutions.on.ca/msapps/tig_demo/demo_init.html</a></li>
+</ul>
+</div>
+<div class="section" id="faq-common-problems">
+<h2><a class="toc-backref" href="#table-of-contents">FAQ / Common Problems</a><a class="headerlink" href="#faq-common-problems" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Q:</th><td class="field-body"><strong>What Does &#8220;OGR&#8221; Stand For?</strong></td>
+</tr>
+<tr class="field"><th class="field-name">A:</th><td class="field-body">Basically, OGR does not stand for anything. For a detailed explanation of how
+OGR was named, see GDAL&#8217;s FAQ at <a class="reference external" href="http://trac.osgeo.org/gdal/wiki/FAQ">http://trac.osgeo.org/gdal/wiki/FAQ</a>.</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Q:</th><td class="field-body"><p class="first"><strong>When using STYLEITEM AUTO, what should I have in my .sym symbols file?</strong></p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">A:</th><td class="field-body"><p class="first">When you use STYLEITEM AUTO, MapServer tries to match symbol names returned
+by OGR to names in your symbol file. For a quick solution, try using the
+following symbol file:</p>
+<p><a class="reference external" href="http://www2.dmsolutions.ca/msapps/yk_demo/etc/symbols_mapinfo.sym">http://www2.dmsolutions.ca/msapps/yk_demo/etc/symbols_mapinfo.sym</a></p>
+<p>The name of the symbols returned by OGR to MapServer depends on the file format.
+In the case of MapInfo files, it will be:</p>
+<ul class="simple">
+<li>For &#8220;old-style&#8221; symbols (default MapInfo 3.0 symbols numbered 32 to 67) the
+symbol name will be &#8216;mapinfo-sym-##&#8217; where &#8216;##&#8217; is the symbol number,
+e.g. &#8216;mapinfo-sym-32&#8217;.</li>
+<li>For &#8220;Font Symbols&#8221;, the symbol name is also &#8216;mapinfo-sym-##&#8217; where &#8216;##&#8217; is
+the symbol number in the font. In this case, the name of the font itself is
+ignored by MapServer.</li>
+<li>MapInfo also supports &#8220;custom symbols&#8221; (bitmap symbols)... I&#8217;m not sure what
+you would get from OGR for this, but I&#8217;m pretty sure that MapServer doesn&#8217;t
+do anything useful with them.</li>
+</ul>
+<p class="last">The OGRINFO utility can be used to find out exactly which symbol names OGR will
+return to MapServer. Look at the &#8220;Style&#8221; string in the ogrinfo output for each
+shape that is read.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="mapinfo.html" title="MapInfo"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="postgis.html" title="PostGIS/PostgreSQL"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li>
+          <li><a href="index.html" >Vector Data</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+
+GMap PHP/MapScript demo installation instructions
+=================================================
+
+REQUIREMENTS FOR PHP/MAPSCRIPT:
+===============================
+
+In addition to the data files and other files in the 'gmap' sub-directory,
+you need the following in order to run this PHP/MapScript application on 
+your server:
+
+  - Apache HTTP server with PHP 3.0.14 or newer must be installed
+  - The PHP/Mapscript extension (php3_mapscript.dll on Windows, or 
+    php_mapscript.so on Unix) must be installed.
+
+Note: The main gmap75.phtml script loads the php_mapscript library using 
+      a dl() call.  If your php.ini file already contains an 
+      extension=php_mapscript.so line to automatically preload the
+      php_mapscript.so/.dll library, then you should remove the dl() call
+      at the top of the gmap75.phtml
+
+INSTALLATION:
+=============
+
+- Install the gmap directory and sub-directories on your system, while making
+  sure that the directory structure is maintained:
+
+     gmap
+       +- data
+       +- htdocs
+       |     +- images
+       +- etc
+       +- docs
+
+- Create the temporary image output directory: /tmp/ms_tmp/
+  On Unix:
+    Simply create it under '/tmp/ms_tmp/'.
+    Make sure the httpd user (usually 'nobody') has write access to that
+    directory.
+  On Windows: Create a 'tmp' directory on the same
+    Create a 'TMP' directory in the root of the drive where the 'gmap'
+    directory was installed, and create 'MS_TMP' under that directory.
+
+- Create aliases in the Apache configuration to make the application
+  directories visible to web users:
+  On Unix:
+    Alias /gmap/   "/path/to/gmap/htdocs/"
+    Alias /ms_tmp/ "/tmp/ms_tmp/"
+  On Windows:
+    Alias /gmap/   "D:/path/to/gmap/htdocs/"
+    Alias /ms_tmp/ "D:/tmp/ms_tmp/"
+
+  Note: Make sure that you replace the /path/to/gmap/ with the value
+        corresponding to your installation.
+
+- Restart Apache for the changes to take effect.
+
+TRY IT OUT:
+===========
+
+- Access the file gmap75.phtml with your web browser and enjoy!
+
+
+----------------
+$Id: INSTALL.TXT,v 1.3 2001/01/04 04:24:38 daniel Exp $
+----------------
+

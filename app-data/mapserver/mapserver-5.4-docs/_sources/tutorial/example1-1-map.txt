@@ -1,0 +1,59 @@
+.. _example1-1-map:
+
+Example1-1.map
+--------------
+
+.. code-block:: mapfile
+
+   # The annotated map file (sort of)
+   # Created by Pericles S. Nacionales for the MapServer tutorial
+   # 20050408
+   #
+   # MapServer map file uses the pound sign (#) to denote the start of a line
+   # comment--each line that needs to be commented has to be prepended with a "#".
+   #
+   # Map files begin with MAP keyword to signify the start of the map object.
+   # Well, the entire map file is THE map object.  Enclosed between MAP and END
+   # at the very bottom of this map file, are keyword/value pairs and other
+   # objects.
+   MAP
+     IMAGETYPE      PNG
+     EXTENT         -97.238976 41.619778 -82.122902 49.385620
+     SIZE           400 300
+     SHAPEPATH      "/ms4w/apps/tutorial/data"
+     IMAGECOLOR     255 255 255
+
+     # Layer objects are defined beneath the map object.  You need at least one
+     # layer defined in your map file before you can display a map...  You can
+     # define as many layers as you'd like although a limit is typically hard-coded
+     # in map.h in the MapServer source.  The default limit is set at 100.  You'd
+     # have to have a very specialized application to need more than 100 layers in
+     # your application.
+
+     # Start of LAYER DEFINITIONS ---------------------------------------------
+     LAYER # States polygon layer begins here
+       NAME         states
+       DATA         states_ugl
+       STATUS       OFF
+       TYPE         POLYGON
+
+       # The class object is defined within the layer object.  You can define as
+       # many classes as you need (well, there are limits as with layers, but it's
+       # senseless to define more than ten on a "normal" layer.  There are
+       # situations, however, where you might have to do it.)
+       CLASS
+         NAME       "The Upper Great Lakes States"
+
+         # There are styles in a class, just like there are classes in a layer,
+         # just like there are layers in a map.  You can define multiple styles in
+         # a class just as you can define multiple classes in a layer and multiple
+         # layers in a map.
+         STYLE
+           COLOR        232 232 232
+           OUTLINECOLOR 32 32 32
+         END
+       END
+     END # States polygon layer ends here
+     # End of LAYER DEFINITIONS -------------------------------
+
+   END # All map files must come to an end just as all other things must come to...

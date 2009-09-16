@@ -1,0 +1,91 @@
+.. _mapcontext_cgi:
+
+*****************************************************************************
+ Map Context Files
+*****************************************************************************
+
+Support for Local Map Context Files
+-----------------------------------
+
+There is a CGI parameter called CONTEXT that is used to specify a local 
+context file. The user can then use MapServer to request a map using the 
+following syntax:
+
+::
+
+    http://localhost/mapserver.cgi?MODE=map&MAP=/path/to/mapfile.map&CONTEXT=
+                         /path/to/contextfile.xml&LAYERS=layer_name1 layers_name2 
+   
+.. note::
+
+    All layers created from a context file have their status set to ON. To be
+    able to display layers, the user needs to add the LAYERS argument in the
+    URL.
+
+Support for Context Files Accessed Through a URL
+------------------------------------------------
+
+The syntax of using a web accessible context file would be similar to 
+accessing a local context file:
+
+::
+
+    http://localhost/mapserver.cgi?MODE=map&MAP=/path/to/mapfile.map&CONTEXT=
+                http://URL/path/to/contextfile.xml&LAYERS=layers_name1 layer_name2 
+
+
+Due to security concerns loading a file from a URL is disabled by default. To 
+enable this functionality, the user needs to set a CONFIG parameter called 
+CGI_CONTEXT_URL in the default map file that will allow this functionality. 
+Here is an example of a map file with the CONFIG parameter:
+
+::
+
+    # Start of map file
+    NAME DEMO
+    STATUS ON
+    SIZE 400 300
+    EXTENT -2200000 -712631 3072800 3840000
+    UNITS METERS
+    IMAGECOLOR 255 255 255
+    IMAGETYPE png
+    CONFIG "CGI_CONTEXT_URL" "1"
+    ...
+
+Default Map File
+----------------
+
+To smoothly run a MapServer CGI application with a Map Context, the 
+application administrator needs to provide a default map file with at least 
+the basic required parameters that will be used with the Context file. This 
+default map file can contain as little information as the imagepath and 
+imageurl or contain a list of layers. Information coming from the context 
+(e.g.: layers, width, height, â€¦) would either be appended or will replace 
+values found in the map file.
+
+Here is an example of a default map file containing the minimum 
+required parameters: 
+
+::
+
+    NAME CGI-CONTEXT-DEMO
+    STATUS ON
+    SIZE 400 300
+    EXTENT -2200000 -712631 3072800 3840000
+    UNITS METERS
+    IMAGECOLOR 255 255 255
+    IMAGETYPE png
+    #
+    # Start of web interface definition
+    #
+    WEB
+      MINSCALE 2000000
+      MAXSCALE 50000000
+    #
+    # On Windows systems, /tmp and /tmp/ms_tmp/ should be created at the root 
+    # of the drive where the .MAP file resides.
+    #
+      IMAGEPATH "/ms4w/tmp/ms_tmp/" 
+      IMAGEURL "/ms_tmp/"
+    END
+    END # Map File                      

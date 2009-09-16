@@ -1,0 +1,325 @@
+.. _pdf:
+
+*****************************************************************************
+ PDF Output
+*****************************************************************************
+
+:Author: Yewondwossen Assefa
+:Contact: yassefa at dmsolutions.ca
+:Revision: $Revision: 8278 $
+:Date: $Date: 2008-12-23 17:34:31 -0400 (Tue, 23 Dec 2008) $
+:Last Updated: 2006/01/12
+
+.. contents:: Table of Contents
+    :depth: 2
+    :backlinks: top
+
+
+Introduction
+============
+
+PDF output support was added to MapServer 3.7.  Previous versions of MapServer 
+had support for pdf output using a utility program (shp2pdf) to output a pdf file 
+given a MapServer mapfile.
+
+The difference in this new version is that the output to PDF can now be directly 
+specified in the mapfile using the :ref:`IMAGETYPE <imagetype>` or the :ref:`OUTPUTFORMAT` parameters in the 
+mapfile.  Additionally, raster layers are now supported for pdf output.
+
+What is currently supported and not supported
+=============================================
+ 
+1. Vector Layers
+
+    * Layer Point: supported
+    * Layer Line: supported
+    * Layer Polygon: supported
+    * Layer Circle : not supported
+    * Layer Annotation: supported
+
+.. note::
+
+    Note: Dashed lines are supported with PDFlib version 6 or greater.
+
+.. note::
+
+    Polygons filled with symbols are not supported.
+    
+2. Raster Layers
+
+     Raster layers are supported. Note that at this point all raster layers are 
+     transformed to jpeg format before being written to the PDF file. 
+
+3. WMS Layers
+
+     Not yet supported
+
+4. Surround components
+
+     Legend, scalebar are not supported.
+     
+5. Fonts
+
+     Standard PostScript fonts are supported.  For use of other fonts (such
+     as truetype), see the pdflib documentation for use of UPR description
+     files (some notes on it are `here`_).
+
+Implementing PDF Output
+=======================
+
+Note that the following instructions were developed for MapServer 3.7 and pdflib 
+4.0.3, but the general steps should be similar for recent versions of both.
+
+Build the PDF Library
+---------------------
+
+In order to have access to the PDF support in MapServer, you should download and 
+build the PDF library from http://www.pdflib.com/products/pdflib/.  Please follow the 
+instructions on the PDFLib site to build on your specific platforms.
+
+Here are some quick notes on how to build on windows:
+
+- download and extract the source code from http://www.pdflib.com/products/pdflib/
+
+- open the project PDFlib.dsw in MS Visual C++
+
+- build the project pdflib_dll
+
+- after a sucessful build, you should have a pdflib.lib and pdblib.dll under the 
+  pdflib directory
+
+- copy the pdflib.dll under your system directory (ex : c:/winnt/system32)
+
+- the pdflib.lib will be used while building mapserver with the PDF support
+
+Build MapServer with PDF support
+--------------------------------
+ 
+**Windows platform**
+ 
+Edit the makefile.vc and uncomment the following lines (make sure that the paths 
+are adapted to your installation):
+
+::
+
+  PDF_LIB=../pdflib-4.0.3/pdflib/pdflib.lib
+
+  PDF_INC=-I../pdflib-4.0.3/pdflib
+
+  PDF=-DUSE_PDF
+
+See the :ref:`Windows Compilation <win32>` document for general MapServer compile instructions.
+
+**Unix platforms**
+ 
+Add *with-pdf* to your configure command line before compiling.
+
+See the :ref:`Unix Compilation <unix>` document for general MapServer compile instructions.
+
+Mapfile definition
+------------------
+ 
+The IMAGETYPE parameter in the :ref:`mapfile` should be set to pdf in order to output 
+to PDF:  
+
+::
+
+  NAME pdf-test
+  STATUS ON
+  ...
+  IMAGETYPE pdf
+  ..
+  
+  WEB
+    ...
+  END 
+  
+  LAYER
+    ...
+  END
+  
+  END
+  
+You can also specify the output using the :ref:`OUTPUTFORMAT` tag (this tag was introduced 
+in mapserver 3.7) :
+
+::
+
+   OUTPUTFORMAT
+     NAME pdf
+     MIMETYPE "application/x-pdf"
+     DRIVER pdf
+     FORMATOPTION "OUTPUT_TYPE=RASTER" ##not mandatory
+   END
+
+If the OUTPUT_TYPE=RASTER all the layers will be rendered as rasters. Note that 
+when WMS layers are included in the mapfile, this option should be set since 
+there is a problem with transparency and wms layers.  See the :ref:`OUTPUTFORMAT` object
+in the :ref:`mapfile` reference for parameter explanations.
+
+Testing
+-------
+
+The easiest way to test your pdf output mapfile is with the MapServer 
+:ref:`shp2img utility <shp2img>`.  Windows users can find this utility in `MS4W`_, as well as
+`FWTools`_.
+
+You simply pass a mapfile to the executable and a name for the output pdf, 
+and a pdf file is generated:
+
+::
+
+   shp2img -m gmap_pdf.map -o test.pdf
+   
+Possible Errors
+---------------
+
+::
+
+  PDFlib I/O error: Resource configuration file 'pdflib.upr' not found
+  
+This is related to fonts.  If you remove the LABEL object from your mapfile
+you will see this error go away.  The pdf error is described `here`_.  Basically, 
+until this issue is 'fixed', if you want to use a font other than the included 
+standard PostScript fonts in pdf output (such as truetype fonts), consult the 
+PDFlib documentation.
+
+PHP/MapScript and PDF Output
+============================
+
+MapServer can render to PDF directly, another option is to render to a PNG and 
+insert that into a PDF document. This is not the only way to create a PDF document
+of course. You will need to have support for `PDFLib`_ compiled into your PHP install.
+
+This example shows the key parts of the process, you will need to furnish parts 
+of the script yourself (depending on your app) and repeat the process for each map 
+element that you want to include. 
+
+Refer to the :ref:`PHP/MapScript Reference <php>` wherever necessary.
+
+How does it work?
+-----------------
+
+In brief, we will pass parameters required to render a map to a PHP script that will:
+
+- create a PDF document
+- render a PNG view at a suitably higher resolution
+- insert the PNG
+- buffer it and send it to the user
+
+Create the PDF document
+-----------------------
+
+Here is an example similiar to the one given on the `PHP website`_ to create a new 
+PDF document: 
+
+::
+
+    $my_pdf = pdf_new();
+    ...
+
+Get this stage and section 4.5 working before you try inserting MapServer elements. 
+
+Render PNG views at a suitable resolution
+--------------------------------------------
+
+Work back from the assumption that you will need no more than 300 dpi on your 
+page for your map to look presentable. For an A4 map, I am using 150 dpi for an 
+8' x 8' main map, which is 1200 x 1200 pixels.
+
+::
+
+    $map->set(width,1200);
+    $map->set(height,1200);
+
+Of course, our map will not be very useful unless it is zoomed in to the extent 
+our user requested, and the layers they selected are switched on. Maintain arrays 
+in your application that record:
+
+::
+
+  - The current extent (say $ext[])
+  - Layer status (say $layer[])
+
+Open your map file and pass these back through to set the map file into the state 
+the user is expecting, something like:
+
+::
+
+    $map->setextent($ext[0], $ext[1], $ext[2], $ext[3]);
+
+    while($layer[]) {
+        $layer=$map->getLayer($n);
+        if($layer[$n]==1) {
+            $layer->set(status,1);
+        } else {
+            $layer->set(status,0);
+        }
+    }
+
+Now you will need to save a rendered view to a PNG file.
+
+::
+
+    $img = $map->draw();
+    $url = $img->saveWebImage(MS_PNG, 0, 0, 0);
+
+Use the same method for all your map elements, such as drawReferenceMap?(), 
+drawScaleBar?() and drawLegend(). 
+
+Insert the PNG elements into your PDF document
+-------------------------------------------------
+
+This is really easy, use the pdf_open_image_file() function to import the map 
+elements into your PDF document:
+
+::
+
+    $element = pdf_open_image_file($my_pdf, "png", "$webroot/$url");
+    pdf_place_image($my_pdf, $element, $xpos, $ypos);
+    pdf_close_image($my_pdf, $element);
+
+Repeat as needed for any map elements you created. 
+
+Buffer the PDF and send it to the user
+--------------------------------------
+
+Assuming we have been creating the document $my_pdf, when we are done, we merely 
+buffer it and send it to the user using echo():
+
+::
+
+    <?php
+    
+    ....
+    pdf_close($my_pdf);
+
+    $data = pdf_get_buffer($my_pdf);
+
+    header('Content-type: application/pdf');
+    header('Content-disposition: inline; filename=my_pdf.pdf');
+    header('Content-length: ' . strlen($data) );
+
+    echo $data;
+
+    ?>
+
+Gotcha: remember that you cannot send headers if you have at any stage outputed 
+text to the browser. 
+
+Additional stuff to try
+--------------------------
+Rendering everything as PNG can look ugly, so I step through the key and extract 
+labels so I can render them using PDF's text functions.
+
+This can be done for other map element, such as map titles, layer descriptions, 
+or anything else that can be read from the mapfile. 
+
+
+.. #### rST Link Section ####
+
+.. _`MS4W`: http://www.maptools.org/ms4w/
+.. _`FWTools`: http://fwtools.maptools.org/
+.. _`here`: http://www.modwest.com/help/kb5-261.html
+.. _`PDFlib`: http://www.pdflib.com/products/pdflib/
+.. _`PHP website`: http://www.php.net/manual/en/ref.pdf.php

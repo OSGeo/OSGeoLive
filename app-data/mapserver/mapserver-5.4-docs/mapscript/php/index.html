@@ -1,0 +1,3252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PHP MapScript &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="MapScript" href="../index.html" />
+    <link rel="next" title="Introduction" href="class-intro.html" />
+    <link rel="prev" title="SWIG MapScript API Reference" href="../mapscript.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="class-intro.html" title="Introduction"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../mapscript.html" title="SWIG MapScript API Reference"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">MapScript</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//mapscript/php/index.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/mapscript/php/index.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PHP MapScript</a><ul>
+<li><a class="reference external" href="#very-important-notes">Very important notes</a></li>
+<li><a class="reference external" href="#constants">Constants</a></li>
+<li><a class="reference external" href="#functions">Functions</a></li>
+<li><a class="reference external" href="#mapobj-class">MapObj Class</a><ul>
+<li><a class="reference external" href="#constructor">Constructor</a></li>
+<li><a class="reference external" href="#members">Members</a></li>
+<li><a class="reference external" href="#methods">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#layerobj-class">LayerObj Class</a><ul>
+<li><a class="reference external" href="#id1">Constructor</a></li>
+<li><a class="reference external" href="#id2">Members</a></li>
+<li><a class="reference external" href="#id3">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#classobj-class">ClassObj Class</a><ul>
+<li><a class="reference external" href="#id4">Constructor</a></li>
+<li><a class="reference external" href="#id5">Members</a></li>
+<li><a class="reference external" href="#id6">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#imageobj-class">ImageObj Class</a><ul>
+<li><a class="reference external" href="#id7">Constructor</a></li>
+<li><a class="reference external" href="#id8">Members</a></li>
+<li><a class="reference external" href="#id9">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#labelobj-class">LabelObj Class</a><ul>
+<li><a class="reference external" href="#id10">Constructor</a></li>
+<li><a class="reference external" href="#id11">Members</a></li>
+<li><a class="reference external" href="#id12">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#webobj-class">webObj Class</a><ul>
+<li><a class="reference external" href="#id13">Constructor</a></li>
+<li><a class="reference external" href="#id14">Members</a></li>
+<li><a class="reference external" href="#id15">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#referencemapobj-class">referenceMapObj Class</a><ul>
+<li><a class="reference external" href="#id16">Constructor</a></li>
+<li><a class="reference external" href="#id17">Members</a></li>
+<li><a class="reference external" href="#id18">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#colorobj-class">ColorObj Class</a><ul>
+<li><a class="reference external" href="#id19">Constructor</a></li>
+<li><a class="reference external" href="#id20">Members</a></li>
+<li><a class="reference external" href="#id21">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#pointobj-class">PointObj Class</a><ul>
+<li><a class="reference external" href="#id22">Constructor</a></li>
+<li><a class="reference external" href="#id23">Members</a></li>
+<li><a class="reference external" href="#id24">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#lineobj-class">LineObj Class</a><ul>
+<li><a class="reference external" href="#id25">Constructor</a></li>
+<li><a class="reference external" href="#id26">Members</a></li>
+<li><a class="reference external" href="#id27">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#shapeobj-class">ShapeObj Class</a><ul>
+<li><a class="reference external" href="#id28">Constructor</a></li>
+<li><a class="reference external" href="#id29">Members</a></li>
+<li><a class="reference external" href="#id30">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#rectobj-class">RectObj Class</a><ul>
+<li><a class="reference external" href="#id31">Constructor</a></li>
+<li><a class="reference external" href="#id32">Members:</a></li>
+<li><a class="reference external" href="#id33">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#shapefileobj-class">ShapefileObj Class</a><ul>
+<li><a class="reference external" href="#id34">Constructor</a></li>
+<li><a class="reference external" href="#id35">Members</a></li>
+<li><a class="reference external" href="#id36">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#resultcachememberobj-class">ResultCacheMemberObj Class</a><ul>
+<li><a class="reference external" href="#id37">Constructor</a></li>
+<li><a class="reference external" href="#id38">Members</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#projectionobj-class">ProjectionObj Class</a><ul>
+<li><a class="reference external" href="#id39">Constructor</a></li>
+<li><a class="reference external" href="#id40">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#scalebarobj-class">ScalebarObj Class</a><ul>
+<li><a class="reference external" href="#id41">Constructor</a></li>
+<li><a class="reference external" href="#id42">Members</a></li>
+<li><a class="reference external" href="#id43">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#legendobj-class">LegendObj Class</a><ul>
+<li><a class="reference external" href="#id44">Constructor</a></li>
+<li><a class="reference external" href="#id45">Members</a></li>
+<li><a class="reference external" href="#id46">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#querymapobj-class">QuerymapObj Class</a><ul>
+<li><a class="reference external" href="#id47">Constructor</a></li>
+<li><a class="reference external" href="#id48">Members</a></li>
+<li><a class="reference external" href="#id49">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#styleobj-class">StyleObj Class</a><ul>
+<li><a class="reference external" href="#id50">Constructor</a></li>
+<li><a class="reference external" href="#id51">Members</a></li>
+<li><a class="reference external" href="#id52">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#outputformatobj-class">OutputformatObj Class</a><ul>
+<li><a class="reference external" href="#id53">Constructor</a></li>
+<li><a class="reference external" href="#id54">Members</a></li>
+<li><a class="reference external" href="#id55">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#gridobj-class">GridObj Class</a><ul>
+<li><a class="reference external" href="#id56">Constructor</a></li>
+<li><a class="reference external" href="#id57">Members</a></li>
+<li><a class="reference external" href="#id58">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#errorobj-class">ErrorObj Class</a><ul>
+<li><a class="reference external" href="#id59">Functions</a></li>
+<li><a class="reference external" href="#id60">Members</a></li>
+<li><a class="reference external" href="#method">Method</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#labelcacheobj-class">LabelcacheObj Class</a><ul>
+<li><a class="reference external" href="#id61">Method</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#symbolobj-class">SymbolObj Class</a><ul>
+<li><a class="reference external" href="#id62">Constructor</a></li>
+<li><a class="reference external" href="#id63">Members</a></li>
+<li><a class="reference external" href="#id64">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#owsrequestobj-class">OwsrequestObj Class</a><ul>
+<li><a class="reference external" href="#id65">Constructor</a></li>
+<li><a class="reference external" href="#id66">Members</a></li>
+<li><a class="reference external" href="#id67">Methods</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#hashtableobj-class">hashTableObj Class</a><ul>
+<li><a class="reference external" href="#id68">Constructor</a></li>
+<li><a class="reference external" href="#id69">Methods</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="../mapscript.html"
+                                  title="previous chapter">SWIG MapScript API Reference</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="class-intro.html"
+                                  title="next chapter">Introduction</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/mapscript/php/index.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="php-mapscript">
+<span id="php"></span><h1><a class="toc-backref" href="#contents">PHP MapScript</a><a class="headerlink" href="#php-mapscript" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Daniel Morissette</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">dmorissette at mapgears.com</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Yewondwossen Assefa</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">yassefa at dmsolutions.ca</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 9158 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2009-07-09 16:17:12 -0300 (Thu, 09 Jul 2009) $</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="class-intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference external" href="class-intro.html#abstract">Abstract</a></li>
+<li class="toctree-l2"><a class="reference external" href="class-intro.html#id1">Introduction</a></li>
+<li class="toctree-l2"><a class="reference external" href="class-intro.html#how-to-get-more-information-on-php-mapscript">How to Get More Information on PHP/MapScript</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="by_example.html">By Example</a><ul>
+<li class="toctree-l2"><a class="reference external" href="by_example.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference external" href="by_example.html#mapscript-overview">MapScript overview</a></li>
+<li class="toctree-l2"><a class="reference external" href="by_example.html#our-first-application">Our first application</a></li>
+<li class="toctree-l2"><a class="reference external" href="by_example.html#conclusions">Conclusions</a></li>
+</ul>
+</li>
+</ul>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#php-mapscript" id="id70">PHP MapScript</a><ul>
+<li><a class="reference internal" href="#very-important-notes" id="id71">Very important notes</a></li>
+<li><a class="reference internal" href="#constants" id="id72">Constants</a></li>
+<li><a class="reference internal" href="#functions" id="id73">Functions</a></li>
+<li><a class="reference internal" href="#mapobj-class" id="id74">MapObj Class</a></li>
+<li><a class="reference internal" href="#layerobj-class" id="id75">LayerObj Class</a></li>
+<li><a class="reference internal" href="#classobj-class" id="id76">ClassObj Class</a></li>
+<li><a class="reference internal" href="#imageobj-class" id="id77">ImageObj Class</a></li>
+<li><a class="reference internal" href="#labelobj-class" id="id78">LabelObj Class</a></li>
+<li><a class="reference internal" href="#webobj-class" id="id79">webObj Class</a></li>
+<li><a class="reference internal" href="#referencemapobj-class" id="id80">referenceMapObj Class</a></li>
+<li><a class="reference internal" href="#colorobj-class" id="id81">ColorObj Class</a></li>
+<li><a class="reference internal" href="#pointobj-class" id="id82">PointObj Class</a></li>
+<li><a class="reference internal" href="#lineobj-class" id="id83">LineObj Class</a></li>
+<li><a class="reference internal" href="#shapeobj-class" id="id84">ShapeObj Class</a></li>
+<li><a class="reference internal" href="#rectobj-class" id="id85">RectObj Class</a></li>
+<li><a class="reference internal" href="#shapefileobj-class" id="id86">ShapefileObj Class</a></li>
+<li><a class="reference internal" href="#resultcachememberobj-class" id="id87">ResultCacheMemberObj Class</a></li>
+<li><a class="reference internal" href="#projectionobj-class" id="id88">ProjectionObj Class</a></li>
+<li><a class="reference internal" href="#scalebarobj-class" id="id89">ScalebarObj Class</a></li>
+<li><a class="reference internal" href="#legendobj-class" id="id90">LegendObj Class</a></li>
+<li><a class="reference internal" href="#querymapobj-class" id="id91">QuerymapObj Class</a></li>
+<li><a class="reference internal" href="#styleobj-class" id="id92">StyleObj Class</a></li>
+<li><a class="reference internal" href="#outputformatobj-class" id="id93">OutputformatObj Class</a></li>
+<li><a class="reference internal" href="#gridobj-class" id="id94">GridObj Class</a></li>
+<li><a class="reference internal" href="#errorobj-class" id="id95">ErrorObj Class</a></li>
+<li><a class="reference internal" href="#labelcacheobj-class" id="id96">LabelcacheObj Class</a></li>
+<li><a class="reference internal" href="#symbolobj-class" id="id97">SymbolObj Class</a></li>
+<li><a class="reference internal" href="#owsrequestobj-class" id="id98">OwsrequestObj Class</a></li>
+<li><a class="reference internal" href="#hashtableobj-class" id="id99">hashTableObj Class</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p id="index-37">This is a PHP module to make MapServer&#8217;s MapScript functionalities
+available in a PHP Dynamically Loadable Library.</p>
+<p>PHP MapScript was originally developed for PHP-3.0.14 but after MapServer
+3.5 support for PHP3 has been dropped and as of the last update of this
+document, PHP 4.1.2 or more recent was required.</p>
+<p>The module has been tested and used on Linux, Solaris, *BSD, and WinNT.</p>
+<p>There are documentation and examples for PHP MapScript available via
+the MapServer <a class="reference external" href="../../documentation.html#documentation"><em>documentation</em></a></p>
+<p>See also the MapServer Wiki for links to more information on this module:
+<a class="reference external" href="http://trac.osgeo.org/mapserver/wiki/PHPMapScript">http://trac.osgeo.org/mapserver/wiki/PHPMapScript</a></p>
+<div class="section" id="very-important-notes">
+<h2><a class="toc-backref" href="#contents">Very important notes</a><a class="headerlink" href="#very-important-notes" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Constant names and class member variable names are case-sensitive in PHP.</li>
+<li>Several MapScript functions (all those that access files in the back end
+such as ms_newMapObj(), drawMap(), etc) will affect the value of the
+current working directory (CWD) in the PHP environment. This will be
+fixed eventually but in the meantime you should be careful about these
+side-effects.</li>
+</ul>
+</div>
+<div class="section" id="constants">
+<span id="index-38"></span><h2><a class="toc-backref" href="#contents">Constants</a><a class="headerlink" href="#constants" title="Permalink to this headline">¶</a></h2>
+<p>The following MapServer constants are available:</p>
+<dl class="docutils">
+<dt>Boolean values</dt>
+<dd>MS_TRUE, MS_FALSE, MS_ON, MS_OFF, MS_YES, MS_NO</dd>
+<dt>Map units</dt>
+<dd>MS_INCHES, MS_FEET, MS_MILES, MS_METERS,
+MS_KILOMETERS, MS_DD, MS_PIXELS</dd>
+<dt>Layer types</dt>
+<dd>MS_LAYER_POINT, MS_LAYER_LINE, MS_LAYER_POLYGON,
+MS_LAYER_RASTER, MS_LAYER_ANNOTATION, MS_LAYER_QUERY,
+MS_LAYER_CIRCLE, MS_LAYER_TILEINDEX, MS_LAYER_CHART</dd>
+<dt>Layer/Legend/Scalebar/Class Status</dt>
+<dd>MS_ON, MS_OFF, MS_DEFAULT, MS_EMBED, MS_DELETE</dd>
+<dt>Layer alpha transparency</dt>
+<dd>allows alpha transparent pixmaps to be used with RGB map images
+MS_GD_ALPHA</dd>
+<dt>Font types</dt>
+<dd>MS_TRUETYPE, MS_BITMAP</dd>
+<dt>Label positions</dt>
+<dd>MS_UL, MS_LR, MS_UR, MS_LL, MS_CR, MS_CL, MS_UC, MS_LC,
+MS_CC, MS_AUTO, MS_XY, MS_FOLLOW</dd>
+<dt>Bitmap font styles</dt>
+<dd>MS_TINY , MS_SMALL, MS_MEDIUM, MS_LARGE, MS_GIANT</dd>
+<dt>Shape types</dt>
+<dd>MS_SHAPE_POINT, MS_SHAPE_LINE, MS_SHAPE_POLYGON, MS_SHAPE_NULL</dd>
+<dt>Shapefile types</dt>
+<dd>MS_SHP_POINT, MS_SHP_ARC, MS_SHP_POLYGON, MS_SHP_MULTIPOINT</dd>
+<dt>Query/join types</dt>
+<dd>MS_SINGLE, MS_MULTIPLE</dd>
+<dt>Querymap styles</dt>
+<dd>MS_NORMAL, MS_HILITE, MS_SELECTED</dd>
+<dt>Connection Types</dt>
+<dd>MS_INLINE, MS_SHAPEFILE, MS_TILED_SHAPEFILE, MS_SDE, MS_OGR,
+MS_TILED_OGR, MS_POSTGIS, MS_WMS, MS_ORACLESPATIAL, MS_WFS,
+MS_GRATICULE, MS_MYGIS, MS_RASTER, MS_PLUGIN</dd>
+<dt>Error codes</dt>
+<dd>MS_NOERR, MS_IOERR, MS_MEMERR, MS_TYPEERR, MS_SYMERR,
+MS_REGEXERR, MS_TTFERR, MS_DBFERR, MS_GDERR, MS_IDENTERR,
+MS_EOFERR, MS_PROJERR, MS_MISCERR, MS_CGIERR, MS_WEBERR,
+MS_IMGERR, MS_HASHERR, MS_JOINERR, MS_NOTFOUND, MS_SHPERR,
+MS_PARSEERR, MS_SDEERR, MS_OGRERR, MS_QUERYERR, MS_WMSERR,
+MS_WMSCONNERR, MS_ORACLESPATIALERR, MS_WFSERR, MS_WFSCONNERR,
+MS_MAPCONTEXTERR, MS_HTTPERR, MS_WCSERR</dd>
+<dt>Symbol types</dt>
+<dd>MS_SYMBOL_SIMPLE,  MS_SYMBOL_VECTOR, MS_SYMBOL_ELLIPSE,
+MS_SYMBOL_PIXMAP, MS_SYMBOL_TRUETYPE, MS_SYMBOL_CARTOLINE</dd>
+<dt>Image Mode types (<a class="reference external" href="../../mapfile/outputformat.html#outputformat"><em>outputFormatObj</em></a>)</dt>
+<dd>MS_IMAGEMODE_PC256, MS_IMAGEMODE_RGB, MS_IMAGEMODE_RGBA,
+MS_IMAGEMODE_INT16, MS_IMAGEMODE_FLOAT32, MS_IMAGEMODE_BYTE,
+MS_IMAGEMODE_NULL</dd>
+<dt>Style/Attribue binding</dt>
+<dd>MS_STYLE_BINDING_SIZE,  MS_STYLE_BINDING_ANGLE, MS_STYLE_BINDING_COLOR,
+MS_STYLE_BINDING_OUTLINECOLOR, MS_STYLE_BINDING_SYMBOL</dd>
+<dt>Label/Attribute binding</dt>
+<dd>MS_LABEL_BINDING_SIZE, MS_LABEL_BINDING_ANGLE, MS_LABEL_BINDING_COLOR,
+MS_LABEL_BINDING_OUTLINECOLOR, MS_LABEL_BINDING_FONT,
+MS_LABEL_BINDING_PRIORITY</dd>
+<dt>Alignment</dt>
+<dd>MS_ALIGN_LEFT, MS_ALIGN_CENTER, MS_ALIGN_RIGHT</dd>
+<dt>OwsRequest</dt>
+<dd>MS_GET_REQUEST, MS_POST_REQUEST</dd>
+</dl>
+</div>
+<div class="section" id="functions">
+<h2><a class="toc-backref" href="#contents">Functions</a><a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>string ms_GetVersion()</dt>
+<dd>Returns the MapServer version and options in a string.  This string
+can be parsed to find out which modules were compiled in, etc.</dd>
+<dt>int ms_GetVersionInt()</dt>
+<dd>Returns the MapServer version number (x.y.z) as an integer
+(x*10000 + y*100 + z). (New in v5.0) e.g. V5.4.3 would return 50403.</dd>
+<dt>array ms_TokenizeMap(string map_file_name)</dt>
+<dd>Preparses a mapfile through the MapServer parser and return an
+array with one item for each token from the mapfile.  Strings,
+logical expressions, regex expressions and comments are returned
+as individual tokens.</dd>
+<dt>void ms_ioinstallstdouttobuffer()</dt>
+<dd>Installs a mapserver IO handler directing future stdout output
+to a memory buffer.</dd>
+<dt>void ms_ioinstallstdinfrombuffer()</dt>
+<dd>Installs a mapserver IO handler directing future stdin reading
+(ie. post request capture) to come from a buffer.</dd>
+<dt>void ms_iogetstdoutbufferstring()</dt>
+<dd>Fetch the current stdout buffer contents as a string.  This method
+does not clear the buffer.</dd>
+<dt>int ms_iogetStdoutBufferBytes()</dt>
+<dd>Writes the current buffer to stdout.  The PHP header() function should be
+used to set the documents&#8217;s content-type prior to calling the function.
+Returns the number of bytes written if output is sent to stdout.
+See <a class="reference external" href="../../ogc/mapscript.html#mapscript-ows"><em>MapScript Wrappers for WxS Services</em></a> for more info.</dd>
+<dt>void ms_ioresethandlers()</dt>
+<dd>Resets the default stdin and stdout handlers in place of &#8220;buffer&#8221; based
+handlers.</dd>
+<dt>void ms_iostripstdoutbuffercontenttype()</dt>
+<dd>Strip the Content-type header off the stdout buffer if it has one, and
+if a content type is found it is return. Otherwise return false.</dd>
+</dl>
+</div>
+<div class="section" id="mapobj-class">
+<h2><a class="toc-backref" href="#contents">MapObj Class</a><a class="headerlink" href="#mapobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="constructor">
+<h3>Constructor<a class="headerlink" href="#constructor" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>mapObj ms_newMapObj(string map_file_name [, string new_map_path])</dt>
+<dd>Returns a new object to deal with a MapServer map file.</dd>
+<dt>mapObj ms_newMapObjFromString(string map_file_string [, string new_map_path])</dt>
+<dd>Construct a new mapObj from a mapfile string. Returns a new object to deal
+with a MapServer map file.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">By default, the SYMBOLSET, FONTSET, and other paths in the mapfile
+are relative to the mapfile location.  If new_map_path is provided
+then this directory will be used as the base path for all the
+relative paths inside the mapfile.</p>
+</div>
+</div>
+<div class="section" id="members">
+<h3>Members<a class="headerlink" href="#members" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>numlayers  (read-only)</td>
+</tr>
+<tr><td>string</td>
+<td>name</td>
+</tr>
+<tr><td>int</td>
+<td>status</td>
+</tr>
+<tr><td>int</td>
+<td>debug</td>
+</tr>
+<tr><td>int</td>
+<td>width           (see setSize())</td>
+</tr>
+<tr><td>int</td>
+<td>height          (see setSize())</td>
+</tr>
+<tr><td>int</td>
+<td>maxsize</td>
+</tr>
+<tr><td>outputformatObj</td>
+<td>outputformat</td>
+</tr>
+<tr><td>double</td>
+<td>resolution      (pixels per inch, defaults to 72)</td>
+</tr>
+<tr><td>rectObj</td>
+<td>extent;</td>
+</tr>
+<tr><td>double</td>
+<td>cellsize</td>
+</tr>
+<tr><td>int</td>
+<td>units (map units type)</td>
+</tr>
+<tr><td>double</td>
+<td>scaledenom (read-only, set by drawMap())</td>
+</tr>
+<tr><td>double</td>
+<td>scale      (Deprecated in v5.0. Use scaledenom instead)</td>
+</tr>
+<tr><td>string</td>
+<td>shapepath</td>
+</tr>
+<tr><td>int</td>
+<td>keysizex</td>
+</tr>
+<tr><td>int</td>
+<td>keysizey</td>
+</tr>
+<tr><td>int</td>
+<td>keyspacingx</td>
+</tr>
+<tr><td>int</td>
+<td>keyspacingy</td>
+</tr>
+<tr><td>webObj</td>
+<td>web</td>
+</tr>
+<tr><td>referenceMapObj</td>
+<td>reference</td>
+</tr>
+<tr><td>colorObj</td>
+<td>imagecolor</td>
+</tr>
+<tr><td>scalebarObj</td>
+<td>scalebar</td>
+</tr>
+<tr><td>legendObj</td>
+<td>legend</td>
+</tr>
+<tr><td>querymapObj</td>
+<td>querymap</td>
+</tr>
+<tr><td>string</td>
+<td>symbolsetfilename (read-only, set by setSymbolSet())</td>
+</tr>
+<tr><td>string</td>
+<td>fontsetfilename (read-only, set by setFontSet())</td>
+</tr>
+<tr><td>labelcacheObj</td>
+<td>labelcache (no members. Used only to be able to free the
+the label cache (ex : map-&gt;labelcache-&gt;free())</td>
+</tr>
+<tr><td>projectionObj</td>
+<td>projection</td>
+</tr>
+<tr><td>int</td>
+<td>transparent   (deprecated, use outputFormatObj)</td>
+</tr>
+<tr><td>int</td>
+<td>interlace     (deprecated, use outputFormatObj)</td>
+</tr>
+<tr><td>int</td>
+<td>imagetype     (deprecated, use outputFormatObj)</td>
+</tr>
+<tr><td>int</td>
+<td>imagequality  (deprecated, use outputFormatObj)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>mapObj clone()</dt>
+<dd>Returns a handle to a new mapObj which is a clone of the current
+mapObj.  All parameters in the current mapObj are copied to the
+new mapObj.  Returns NULL (0) on error.</dd>
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set map object property to new value. Returns -1 on error.</dd>
+<dt>int getsymbolbyname(string symbol_name)</dt>
+<dd>Returns the symbol index using the name.</dd>
+<dt>symbol getsymbolobjectbyid(int symbolid)</dt>
+<dd>Returns the symbol object using a symbol id. Refer to
+the symbol object reference section for more details.</dd>
+<dt>void preparequery()</dt>
+<dd>Calculate the scale of the map and set map-&gt;scaledenom.</dd>
+<dt>imageObj prepareImage()</dt>
+<dd>Return handle on blank image object.</dd>
+<dt>imageObj draw()</dt>
+<dd>Render map and return handle on image object.</dd>
+<dt>imageObj drawQuery()</dt>
+<dd>Render a query map and return handle on image object.</dd>
+<dt>imageObj drawLegend()</dt>
+<dd>Render legend and return handle on image object.</dd>
+<dt>imageObj drawReferenceMap()</dt>
+<dd>Render reference map and return handle on image object.</dd>
+<dt>imageObj drawScaleBar()</dt>
+<dd>Render scale bar and return handle on image object.</dd>
+<dt>int embedlegend(imageObj image)</dt>
+<dd>embeds a legend. Actually the legend is just added to the label
+cache so you must invoke drawLabelCache() to actually do the
+rendering (unless postlabelcache is set in which case it is
+drawn right away).</dd>
+<dt>int embedScalebar(imageObj image)</dt>
+<dd>embeds a scalebar. Actually the scalebar is just added to the label
+cache so you must invoke drawLabelCache() to actually do the rendering
+(unless postlabelcache is set in which case it is drawn right away).</dd>
+<dt>int drawLabelCache(imageObj image)</dt>
+<dd>Renders the labels for a map. Returns -1 on error.</dd>
+<dt>layerObj getLayer(int index)</dt>
+<dd>Returns a layerObj from the map given an index value (0=first layer)</dd>
+<dt>layerObj getLayerByName(string layer_name)</dt>
+<dd>Returns a layerObj from the map given a layer name.
+Returns FALSE if layer doesn&#8217;t exist.</dd>
+</dl>
+<p>colorObj getcolorbyindex(int iCloIndex)
+Returns a colorObj corresponding to the color index in the palette</p>
+<dl class="docutils">
+<dt>void setExtent(double minx, double miny, double maxx, double maxy)</dt>
+<dd>Set the map extents using the georef extents passed in argument.</dd>
+<dt>int setCenter(pointObj center)</dt>
+<dd>Set the map center to the given map point.
+Returns MS_SUCCESS or MS_FAILURE.</dd>
+<dt>int offsetExtent(double x, double y)</dt>
+<dd>Offset the map extent based on the given distances in map coordinates.
+Returns MS_SUCCESS or MS_FAILURE.</dd>
+<dt>int scaleExtent(double zoomfactor, double minscaledenom, double maxscaledenom)</dt>
+<dd>Scale the map extent using the zoomfactor and ensure the extent within the minscaledenom and maxscaledenom domain.
+If minscaledenom and/or maxscaledenom is 0 then the parameter is not taken into account.
+Returns MS_SUCCESS or MS_FAILURE.</dd>
+<dt>int setRotation(double rotation_angle)</dt>
+<dd>Set map rotation angle. The map view rectangle (specified in
+EXTENTS) will be rotated by the indicated angle in the counter-
+clockwise direction. Note that this implies the rendered map
+will be rotated by the angle in the clockwise direction.
+Returns MS_SUCCESS or MS_FAILURE.</dd>
+<dt>int setSize(int width, int height)</dt>
+<dd>Set the map width and height. This method updates the internal
+geotransform and other data structures required for map rotation
+so it should be used instead of setting the width and height members
+directly.
+Returns MS_SUCCESS or MS_FAILURE.</dd>
+<dt>void zoompoint(int nZoomFactor, pointObj oPixelPos, int nImageWidth, int nImageHeight, rectObj oGeorefExt)</dt>
+<dd><p class="first">Zoom to a given XY postion.</p>
+<dl class="last docutils">
+<dt>Parameters are :</dt>
+<dd><ul class="first last simple">
+<li>Zoom factor : positive values do zoom in, negative values
+zoom out. Factor of 1 will recenter.</li>
+<li>Pixel position (pointObj) : x, y coordinates of the click,
+with (0,0) at the top-left</li>
+<li>Width : width in pixel of the current image.</li>
+<li>Height : Height in pixel of the current image.</li>
+<li>Georef extent (rectObj) : current georef extents.</li>
+<li>MaxGeoref extent (rectObj) : (optional) maximum georef extents.
+If provided then it will be impossible to zoom/pan outside of
+those extents.</li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>void zoomrectangle(rectObj oPixelExt, int nImageWidth, int nImageHeight, rectObj oGeorefExt)</dt>
+<dd><p class="first">Set the map extents to a given extents.</p>
+<dl class="last docutils">
+<dt>Parameters are :</dt>
+<dd><ul class="first last">
+<li><p class="first">oPixelExt (rect object) : Pixel Extents, with (0,0) at the top-left
+The rectangle contains the coordinates of the LL and UR coordinates
+in pixel. (the maxy in the rect object should be &lt; miny value)</p>
+<div class="highlight-python"><pre>------- UR (values in the rect object : maxx, maxy)
+|     |
+|     |
+|     |
+------
+LL (values in the rectobject minx, miny)</pre>
+</div>
+</li>
+<li><p class="first">Width : width in pixel of the current image.</p>
+</li>
+<li><p class="first">Height : Height in pixel of the current image.</p>
+</li>
+<li><p class="first">Georef extent (rectObj) : current georef extents.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>void zoomscale(double nScaleDenom, pointObj oPixelPos, int nImageWidth, int nImageHeight, rectObj oGeorefExt [, rectObj oMaxGeorefExt])</dt>
+<dd><p class="first">Zoom in or out to a given XY position so that the map is
+displayed at specified scale.</p>
+<dl class="last docutils">
+<dt>Parameters are :</dt>
+<dd><ul class="first last simple">
+<li>ScaleDenom : Scale denominator of the scale at which the map
+should be displayed.</li>
+<li>Pixel position (pointObj) : x, y coordinates of the click,
+with (0,0) at the top-left</li>
+<li>Width : width in pixel of the current image.</li>
+<li>Height : Height in pixel of the current image.</li>
+<li>Georef extent (rectObj) : current georef extents.</li>
+<li>MaxGeoref extent (rectObj) : (optional) maximum georef extents.
+If provided then it will be impossible to zoom/pan outside of
+those extents.</li>
+</ul>
+</dd>
+</dl>
+</dd>
+<dt>int queryByPoint(pointObj point, int mode, double buffer)</dt>
+<dd>Query all selected layers in map at point location specified in
+georeferenced map coordinates (i.e. not pixels).
+The query is performed on all the shapes that are part of a <a class="reference external" href="../../mapfile/class.html#class"><em>CLASS</em></a>
+that contains a <a class="reference external" href="../../mapfile/template.html#template"><em>Templating</em></a> value or that match any class in a
+layer that contains a <a class="reference external" href="../../mapfile/layer.html#layer"><em>LAYER</em></a> <a class="reference external" href="../../mapfile/template.html#template"><em>TEMPLATE</em></a> value.
+Mode is MS_SINGLE or MS_MULTIPLE depending on number of results
+you want.
+Passing buffer -1 defaults to tolerances set in the map file
+(in pixels) but you can use a constant buffer (specified in
+ground units) instead.
+Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+was found or if some other error happened (note that the error
+message in case nothing was found can be avoided in PHP using
+the &#8216;&#64;&#8217; control operator).</dd>
+<dt>int queryByRect(rectObj rect)</dt>
+<dd>Query all selected layers in map using a rectangle specified in
+georeferenced map coordinates (i.e. not pixels).
+The query is performed on all the shapes that are part of a <a class="reference external" href="../../mapfile/class.html#class"><em>CLASS</em></a>
+that contains a <a class="reference external" href="../../mapfile/template.html#template"><em>Templating</em></a> value or that match any class in a
+layer that contains a <a class="reference external" href="../../mapfile/layer.html#layer"><em>LAYER</em></a> <a class="reference external" href="../../mapfile/template.html#template"><em>TEMPLATE</em></a> value.
+Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+was found or if some other error happened (note that the error
+message in case nothing was found can be avoided in PHP using
+the &#8216;&#64;&#8217; control operator).</dd>
+<dt>int queryByShape(shapeObj shape)</dt>
+<dd>Query all selected layers in map based on a single shape, the
+shape has to be a polygon at this point.
+Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+was found or if some other error happened (note that the error
+message in case nothing was found can be avoided in PHP using
+the &#8216;&#64;&#8217; control operator).</dd>
+<dt>int queryByFeatures(int slayer)</dt>
+<dd>Perform a query based on a previous set of results from
+a layer. At present the results MUST be based on a polygon layer.
+Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+was found or if some other error happened (note that the error
+message in case nothing was found can be avoided in PHP using
+the &#8216;&#64;&#8217; control operator).</dd>
+<dt>int queryByIndex(layerindex, tileindex, shapeindex, addtoquery)</dt>
+<dd>Add a specific shape on a given layer to the query result.
+If addtoquery (which is a non mandatory argument) is set to MS_TRUE,
+the shape will be added to the existing query list. Default behavior
+is to free the existing query list and add only the new shape.</dd>
+<dt>int savequery(filename)</dt>
+<dd>Save the current query in a file. Returns MS_SUCESS or MS_FAILURE.
+Can be used with loadquery</dd>
+<dt>int loadquery(filename)</dt>
+<dd>Loads a query from a file. Returns MS_SUCESS or MS_FAILURE.
+To be used with savequery.</dd>
+<dt>void freequery(layerindex)</dt>
+<dd>Frees the query result on a specified layer. If the layerindex is -1,
+all queries on layers will be freed.</dd>
+<dt>int save(string filename)</dt>
+<dd>Save current map object state to a file. Returns -1 on error.
+Use absolute path. If a relative path is used, then it will be
+relative to the mapfile location.</dd>
+<dt>string getProjection()</dt>
+<dd>Returns a string representation of the projection. If no
+projection is set, MS_FALSE is returned.</dd>
+<dt>int setProjection(string proj_params, boolean bSetUnitsAndExtents)</dt>
+<dd>Set map projection and coordinate system.  Parameters are given as
+a single string of comma-delimited PROJ.4 parameters.
+The argument : bSetUnitsAndExtents is used to automatically update
+the map units and extents based on the new projection. Possible
+values are MS_TRUE and MS_FALSE. By defualt it is set at MS_FALSE</dd>
+<dt>int setWKTProjection(string proj_params, boolean bSetUnitsAndExtents)</dt>
+<dd>Same as setProjection(), but takes an OGC WKT projection
+definition string as input.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">setWKTProjection requires GDAL support</p>
+</div>
+<dl class="docutils">
+<dt>int getMetaData(string name)</dt>
+<dd>Fetch metadata entry by name (stored in the <a class="reference external" href="../../mapfile/web.html#web"><em>WEB</em></a> object in the map
+file).  Returns &#8220;&#8221; if no entry matches the name.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">getMetaData&#8217;s query is case sensitive.</p>
+</div>
+<dl class="docutils">
+<dt>int setMetaData(string name, string value)</dt>
+<dd>Set a metadata entry for the map (stored in the WEB object in the map
+file).  Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int removeMetaData(string name)</dt>
+<dd>Remove a metadata entry for the map (stored in the WEB object in the map
+file).  Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>array getLayersIndexByGroup(string groupname)</dt>
+<dd>Return an array containing all the layer&#8217;s indexes given
+a group name.</dd>
+<dt>array getAllGroupNames()</dt>
+<dd>Return an array containing all the group names used in the
+layers.</dd>
+<dt>array getAllLayerNames()</dt>
+<dd>Return an array containing all the layer names.</dd>
+<dt>boolean moveLayerUp(int layerindex)</dt>
+<dd>Move layer up in the hierarcy of drawing.</dd>
+<dt>boolean moveLayerDown(int layerindex)</dt>
+<dd>Move layer down in the hierarcy of drawing.</dd>
+<dt>array getlayersdrawingorder()</dt>
+<dd>Return an array containing layer&#8217;s index in the order which they
+are drawn.</dd>
+<dt>boolean  setlayersdrawingorder(array layeryindex)</dt>
+<dd>Set the layer&#8217;s order array. The argument passed must be a valid
+array with all the layer&#8217;s index.
+Return TRUE on success or else FALSE.</dd>
+</dl>
+<dl class="docutils" id="processtemplate">
+<dt>string processtemplate(array params, boolean generateimages)</dt>
+<dd><p class="first">Process the template file specified in the web object and return the
+result in a buffer. The processing consists of opening the template
+file and replace all the tags found in it. Only tags that have an
+equivalent element in the map object are replaced (ex [scaledenom]).
+The are two exceptions to the previous statement :</p>
+<ul class="last simple">
+<li>[img], [scalebar], [ref], [legend] would be replaced with the
+appropriate url if the parameter generateimages is set to
+MS_TRUE. (Note :  the images corresponding to the different objects
+are generated if the object is set to MS_ON in the map file)</li>
+<li>the user can use the params parameter to specify tags and
+their values. For example if the user have a specific tag call
+[my_tag] and would like it to be replaced by &#8220;value_of_my_tag&#8221;
+he would do</li>
+</ul>
+</dd>
+</dl>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$tmparray[&quot;my_tag&quot;] = &quot;value_of_my_tag&quot;;</span>
+<span class="x">$map-&gt;processtemplate($tmparray, MS_FALSE);</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>string processquerytemplate(array params, boolean generateimages)</dt>
+<dd>Process query template files and return the result in a buffer.
+Second argument generateimages is not mandatory. If not given
+it will be set to TRUE.</dd>
+</dl>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#processtemplate"><em>processtemplate</em></a></p>
+</div>
+<dl class="docutils">
+<dt>string processlegendtemplate(array params)</dt>
+<dd>Process legend template files and return the result in a buffer.</dd>
+</dl>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#processtemplate"><em>processtemplate</em></a></p>
+</div>
+<dl class="docutils">
+<dt>int setSymbolSet(string fileName)</dt>
+<dd>Load and set a symbol file dynamically.</dd>
+<dt>int getNumSymbols()</dt>
+<dd>Return the number of symbols in map.</dd>
+<dt>int setFontSet(string fileName)</dt>
+<dd>Load and set a new <a class="reference external" href="../../mapfile/fontset.html#fontset"><em>FONTSET</em></a>.</dd>
+<dt>int selectOutputFormat(string type)</dt>
+<dd>Selects the output format to be used in the map.
+Returns MS_SUCCESS/MS_FAILURE.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the type used should correspond to one of the output formats
+declared in the map file.  The type argument passed is compared
+with the mimetype parameter in the output format structure and
+then to the name parameter in the structure.</p>
+</div>
+<dl class="docutils">
+<dt>int saveMapContext(string filename)</dt>
+<dd>Available only if WMS support is enabled.
+Save current map object state in <a class="reference external" href="../../ogc/mapcontext.html#map-context"><em>WMS Map Context</em></a> format.
+Only WMS layers are saved in the WMS Map Context XML file.
+Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int loadMapContext(string filename [, boolean unique_layer_name])</dt>
+<dd>Available only if WMS support is enabled.
+Load a <a class="reference external" href="../../ogc/mapcontext.html#map-context"><em>WMS Map Context</em></a> XML file into the current mapObj.
+If the map already contains some layers then the layers defined
+in the WMS Map context document are added to the current map.
+The 2nd argument unique_layer_name is optional and if set to
+MS_TRUE layers created will have a unique name (unique prefix
+added to the name). If set to MS_FALSE the layer name will be the
+the same name as in the context. The default value is MS_FALSE.
+Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int applySLD(string sldxml)</dt>
+<dd>Apply the <a class="reference external" href="../../ogc/sld.html#sld"><em>SLD</em></a> document to the map file. The matching between the
+sld document and the map file will be done using the layer&#8217;s name.
+See <a class="reference external" href="../../ogc/sld.html#sld"><em>SLD HowTo</em></a> for more information on the SLD support.</dd>
+<dt>int applySLDURL(string sldurl)</dt>
+<dd>Apply the SLD document pointed by the URL to the map file. The
+matching between the sld document and the map file will be done
+using the layer&#8217;s name.
+See <a class="reference external" href="../../ogc/sld.html#sld"><em>SLD HowTo</em></a> for more information on the SLD support.</dd>
+<dt>string generateSLD()</dt>
+<dd>Returns an SLD XML string based on all the classes found in all
+the layers.</dd>
+<dt>string getconfigoption(string key)</dt>
+<dd>Returns the config value associated with the key.
+Returns an empty sting if key not found.</dd>
+<dt>int setconfigoption(string key, string value)</dt>
+<dd>Sets a config parameter using the key and the value passed</dd>
+<dt>int applyconfigoptions()</dt>
+<dd>Applies the config options set in the map file. For example
+setting the PROJ_LIB using the setconfigoption only modifies
+the value in the map object. applyconfigoptions will actually
+change the PROJ_LIB value that will be used when dealing with
+projection.</dd>
+<dt>int loadowsparameters(owsrequest request, string version)</dt>
+<dd>Load OWS request parameters (BBOX, LAYERS, &amp;c.) into map.  Returns
+MS_SUCCESS or MS_FAILURE.  2nd argument version is not mandatory.
+If not given, the version will be set to 1.1.1</dd>
+<dt>int owsdispatch(owsrequest request)</dt>
+<dd>Processes and executes the passed OpenGIS Web Services request on the
+map.  Returns MS_DONE (2) if there is no valid OWS request in the req
+object, MS_SUCCESS (0) if an OWS request was successfully processed and
+MS_FAILURE (1) if an OWS request was not successfully processed.  OWS
+requests include <a class="reference external" href="../../ogc/wms_server.html#wms-server"><em>WMS</em></a>, <a class="reference external" href="../../ogc/wfs_server.html#wfs-server"><em>WFS</em></a>,
+<a class="reference external" href="../../ogc/wcs_server.html#wcs-server"><em>WCS</em></a> and <a class="reference external" href="../../ogc/sos_server.html#sos-server"><em>SOS</em></a> requests supported by MapServer.
+Results of a dispatched request are written to stdout and can be captured
+using the msIO services (ie. ms_ioinstallstdouttobuffer() and
+ms_iogetstdoutbufferstring())</dd>
+<dt>int insertLayer( layerObj layer [, int nIndex=-1 ] )</dt>
+<dd>Insert a copy of <em>layer</em> into the Map at index <em>nIndex</em>.  The default
+value of <em>nIndex</em> is -1, which means the last possible index.  Returns
+the index of the new Layer, or -1 in the case of a failure.</dd>
+<dt>layerObj removeLayer( int nIndex )</dt>
+<dd>Remove a layer from the mapObj. The argument is the index of the layer
+to be removed. Returns the removed layerObj on success, else null.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="layerobj-class">
+<h2><a class="toc-backref" href="#contents">LayerObj Class</a><a class="headerlink" href="#layerobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>Constructor<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Layer Objects can be returned by the MapObj class, or can be created using:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">layerObj ms_newLayerObj(MapObj map [, layerObj layer])</span>
+</pre></div>
+</div>
+<p>A second optional argument can be given to ms_newLayerObj() to create
+the new layer as a copy of an existing layer. If a layer is given as
+argument then all members of a this layer will be copied in the new
+layer created.</p>
+</div>
+<div class="section" id="id2">
+<h3>Members<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>numclasses  (read-only)</td>
+</tr>
+<tr><td>int</td>
+<td>index       (read-only)</td>
+</tr>
+<tr><td>int</td>
+<td>status      (MS_ON, MS_OFF, MS_DEFAULT or MS_DELETE)</td>
+</tr>
+<tr><td>int</td>
+<td>debug</td>
+</tr>
+<tr><td>string</td>
+<td>classitem</td>
+</tr>
+<tr><td>string</td>
+<td>classgroup</td>
+</tr>
+<tr><td>string</td>
+<td>name</td>
+</tr>
+<tr><td>string</td>
+<td>group</td>
+</tr>
+<tr><td>string</td>
+<td>data</td>
+</tr>
+<tr><td>int</td>
+<td>type</td>
+</tr>
+<tr><td>int</td>
+<td>dump</td>
+</tr>
+<tr><td>double</td>
+<td>tolerance</td>
+</tr>
+<tr><td>int</td>
+<td>toleranceunits</td>
+</tr>
+<tr><td>int</td>
+<td>sizeunits</td>
+</tr>
+<tr><td>double</td>
+<td>symbolscaledenom</td>
+</tr>
+<tr><td>double</td>
+<td>minscaledenom</td>
+</tr>
+<tr><td>double</td>
+<td>maxscaledenom</td>
+</tr>
+<tr><td>double</td>
+<td>labelminscaledenom</td>
+</tr>
+<tr><td>double</td>
+<td>labelmaxscaledenom</td>
+</tr>
+<tr><td>double</td>
+<td>symbolscale   (Deprecated in v5.0, use symbolscaledenom instead)</td>
+</tr>
+<tr><td>double</td>
+<td>minscale      (Deprecated in v5.0, use minscaledenom instead)</td>
+</tr>
+<tr><td>double</td>
+<td>maxscale      (Deprecated in v5.0, use maxscaledenom instead)</td>
+</tr>
+<tr><td>double</td>
+<td>labelminscale (Deprecated in v5.0, use labelminscaledenom instead)</td>
+</tr>
+<tr><td>double</td>
+<td>labelmaxscale (Deprecated in v5.0, use labelmaxscaledenom instead)</td>
+</tr>
+<tr><td>int</td>
+<td>maxfeatures</td>
+</tr>
+<tr><td>colorObj</td>
+<td>offsite</td>
+</tr>
+<tr><td>int</td>
+<td>annotate</td>
+</tr>
+<tr><td>int</td>
+<td>transform</td>
+</tr>
+<tr><td>int</td>
+<td>labelcache</td>
+</tr>
+<tr><td>int</td>
+<td>postlabelcache</td>
+</tr>
+<tr><td>string</td>
+<td>labelitem</td>
+</tr>
+<tr><td>string</td>
+<td>labelsizeitem</td>
+</tr>
+<tr><td>string</td>
+<td>labelangleitem</td>
+</tr>
+<tr><td>string</td>
+<td>tileitem</td>
+</tr>
+<tr><td>string</td>
+<td>tileindex</td>
+</tr>
+<tr><td>string</td>
+<td>header</td>
+</tr>
+<tr><td>string</td>
+<td>footer</td>
+</tr>
+<tr><td>string</td>
+<td>connection</td>
+</tr>
+<tr><td>int</td>
+<td>connectiontype  (read-only, use setConnectionType() to set it)</td>
+</tr>
+<tr><td>string</td>
+<td>filteritem</td>
+</tr>
+<tr><td>string</td>
+<td>template</td>
+</tr>
+<tr><td>int</td>
+<td>opacity</td>
+</tr>
+<tr><td>int</td>
+<td>transparency (Deprecated in v5.0. Use opacity instead.)</td>
+</tr>
+<tr><td>string</td>
+<td>styleitem</td>
+</tr>
+<tr><td>gridObj</td>
+<td>grid //only available on a layer defined as grid (MS_GRATICULE)</td>
+</tr>
+<tr><td>int</td>
+<td>num_processing</td>
+</tr>
+<tr><td>string</td>
+<td>requires</td>
+</tr>
+<tr><td>string</td>
+<td>labelrequires</td>
+</tr>
+<tr><td>hashTableObj</td>
+<td>metadata</td>
+</tr>
+<tr><td>projectionObj</td>
+<td>projection</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id3">
+<h3>Methods<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int updateFromString(string snippet)</dt>
+<dd>Update a layer from a string snippet. Returns MS_SUCCESS/MS_FAILURE.</dd>
+</dl>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$oLayer-&gt;updateFromString(&#39;LAYER NAME land_fn2 END&#39;); /*modify the name */</span>
+<span class="x">$oLayer-&gt;updateFromString(&#39;LAYER CLASS STYLE COLOR  255 255 0  END END END&#39;); /*add a new class*/</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value. Returns -1 on error.</dd>
+<dt>int draw(imageObj image)</dt>
+<dd>Draw a single layer, add labels to cache if required.
+Returns -1 on error.</dd>
+<dt>int drawQuery(imageObj image)</dt>
+<dd>Draw query map for a single layer.</dd>
+<dt>classObj getClass(int classIndex)</dt>
+<dd>Returns a classObj from the layer given an index value (0=first class)</dd>
+<dt>int queryByPoint(pointObj point, int mode, double buffer)</dt>
+<dd>Query layer at point location specified in georeferenced map
+coordinates (i.e. not pixels).
+The query is performed on all the shapes that are part of a CLASS
+that contains a TEMPLATE value or that match any class in a
+layer that contains a LAYER TEMPLATE value.
+Mode is MS_SINGLE or MS_MULTIPLE depending on number of results
+you want.
+Passing buffer -1 defaults to tolerances set in the map file
+(in pixels) but you can use a constant buffer (specified in
+ground units) instead.
+Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+was found or if some other error happened (note that the error
+message in case nothing was found can be avoided in PHP using
+the &#8216;&#64;&#8217; control operator).</dd>
+<dt>int queryByRect(rectObj rect)</dt>
+<dd>Query layer using a rectangle specified in georeferenced map
+coordinates (i.e. not pixels).
+The query is performed on all the shapes that are part of a CLASS
+that contains a TEMPLATE value or that match any class in a
+layer that contains a LAYER TEMPLATE value.
+Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+was found or if some other error happened (note that the error
+message in case nothing was found can be avoided in PHP using
+the &#8216;&#64;&#8217; control operator).</dd>
+<dt>int queryByShape(shapeObj shape)</dt>
+<dd>Query layer based on a single shape, the shape has to be a polygon
+at this point.
+Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+was found or if some other error happened (note that the error
+message in case nothing was found can be avoided in PHP using
+the &#8216;&#64;&#8217; control operator).</dd>
+<dt>int queryByFeatures(int slayer)</dt>
+<dd>Perform a query set based on a previous set of results from
+another layer. At present the results MUST be based on a polygon
+layer.
+Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+was found or if some other error happened (note that the error
+message in case nothing was found can be avoided in PHP using
+the &#8216;&#64;&#8217; control operator).</dd>
+<dt>int queryByAttributes(string qitem, string qstring, int mode)</dt>
+<dd>Query layer for shapes that intersect current map extents.
+qitem is the item (attribute) on which the query is performed,
+and qstring is the expression to match.
+The query is performed on all the shapes that are part of a <a class="reference external" href="../../mapfile/class.html#class"><em>CLASS</em></a>
+that contains a <a class="reference external" href="../../mapfile/template.html#template"><em>TEMPLATE</em></a> value or that match any class in a
+layer that contains a <a class="reference external" href="../../mapfile/layer.html#layer"><em>LAYER</em></a> <a class="reference external" href="../../mapfile/template.html#template"><em>TEMPLATE</em></a> value.
+Note that the layer&#8217;s FILTER/FILTERITEM are ignored by this function.
+Mode is MS_SINGLE or MS_MULTIPLE depending on number of results
+you want.
+Returns MS_SUCCESS if shapes were found or MS_FAILURE if nothing
+was found or if some other error happened (note that the error
+message in case nothing was found can be avoided in PHP using
+the &#8216;&#64;&#8217; control operator).</dd>
+<dt>int setFilter(string expression)</dt>
+<dd>Set layer filter <a class="reference external" href="../../mapfile/expressions.html#expressions"><em>expression</em></a>.</dd>
+<dt>string getFilterString()</dt>
+<dd>Returns the <a class="reference external" href="../../mapfile/expressions.html#expressions"><em>expression</em></a> for this layer.</dd>
+<dt>string getFilter()</dt>
+<dd>Deprecated in v5.0, use getFilterString() instead.</dd>
+<dt>string getProjection()</dt>
+<dd>Returns a string representation of the <a class="reference external" href="../../mapfile/projection.html#projection"><em>projection</em></a>. If no
+projection is set, MS_FALSE is returned.</dd>
+<dt>int setProjection(string proj_params)</dt>
+<dd>Set layer <a class="reference external" href="../../mapfile/projection.html#projection"><em>projection</em></a> and coordinate system.  Parameters are given as
+a single string of comma-delimited PROJ.4 parameters.</dd>
+<dt>int setWKTProjection(string proj_params)</dt>
+<dd>Same as setProjection(), but takes an OGC WKT projection
+definition string as input.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">setWKTProjection requires GDAL support</p>
+</div>
+<dl class="docutils">
+<dt>int getNumResults()</dt>
+<dd>Returns the number of results from this layer in the last query.</dd>
+<dt>resultCacheMemberObj getResult(int index)</dt>
+<dd>Returns a resultCacheMemberObj by index from a layer object with
+index in the range 0 to numresults-1.
+Returns a valid object or FALSE(0) if index is invalid.</dd>
+<dt>int open()</dt>
+<dd>Open the layer for use with getShape().
+Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int whichshapes(rectobj)</dt>
+<dd>Performs a spatial, and optionally an attribute based feature search.
+The function basically prepares things so that candidate features can be
+accessed by query or drawing functions (eg using nextshape function).
+Returns MS_SUCCESS or MS_FAILURE.</dd>
+<dt>shapeobj nextShape()</dt>
+<dd>Called after msWhichShapes has been called to actually retrieve shapes
+within a given area
+returns a shape object or MS_FALSE</dd>
+</dl>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$map = ms_newmapobj(&quot;d:/msapps/gmap-ms40/htdocs/gmap75.map&quot;);</span>
+<span class="x">$layer = $map-&gt;getLayerByName(&#39;road&#39;);</span>
+<span class="x">$status = $layer-&gt;open();</span>
+<span class="x">$status = $layer-&gt;whichShapes($map-&gt;extent);</span>
+<span class="x">while ($shape = $layer-&gt;nextShape())</span>
+<span class="x">{</span>
+<span class="x">   echo $shape-&gt;index .&quot;&lt;br&gt;\n&quot;;</span>
+<span class="x">}</span>
+<span class="x">$layer-&gt;close();</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>void close()</dt>
+<dd>Close layer previously opened with open().</dd>
+<dt>shapeObj getFeature(int shapeindex [, int tileindex = -1])</dt>
+<dd>Retrieve shapeObj from a layer by index.
+Tileindex is optional and is used only for tiled shapefiles
+(you get it from the resultCacheMemberObj returned by getResult()
+for instance).
+Simply omit or pass tileindex = -1 for other data sources.</dd>
+<dt>shapeObj getShape(int tileindex, int shapeindex)</dt>
+<dd>Deprecated in v5.0, use getFeature() instead (note that the order
+of the arguments is reversed since tileindex is optional in
+getFeature())</dd>
+<dt>rectObj getExtent()</dt>
+<dd>Returns the layer&#8217;s data extents.
+If the layer&#8217;s EXTENT member is set then this value is used,
+otherwise this call opens/closes the layer to read the
+extents. This is quick on shapefiles, but can be
+an expensive operation on some file formats or data sources.
+This function is safe to use on both opened or closed layers: it
+is not necessary to call open()/close() before/after calling it.</dd>
+<dt>int addFeature(shapeObj shape)</dt>
+<dd>Add a new feature in a layer.  Returns -1 on error.</dd>
+<dt>int getMetaData(string name)</dt>
+<dd>Fetch layer metadata entry by name.  Returns &#8220;&#8221; if no entry
+matches the name.  Note that the search is case sensitive.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">getMetaData&#8217;s query is case sensitive.</p>
+</div>
+<dl class="docutils">
+<dt>int setMetaData(string name, string value)</dt>
+<dd>Set a metadata entry for the layer.  Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int removeMetaData(string name)</dt>
+<dd>Remove a metadata entry for the layer.  Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>string getWMSFeatureInfoURL(int clickX, int clickY, int featureCount, string infoFormat)</dt>
+<dd>Return a WMS GetFeatureInfo URL (works only for WMS layers)
+clickX, clickY is the location of to query in pixel coordinates
+with (0,0) at the top left of the image.
+featureCount is the number of results to return.
+infoFormat is the format the format in which the result should be
+requested.  Depends on remote server&#8217;s capabilities.  MapServer
+WMS servers support only &#8220;MIME&#8221; (and should support &#8220;GML.1&#8221; soon).
+Returns &#8220;&#8221; and outputs a warning if layer is not a WMS layer
+or if it is not queriable.</dd>
+<dt>aString getItems()</dt>
+<dd>return a list of items. Must call open function first.</dd>
+<dt>boolean setProcessing(string)</dt>
+<dd>Add the string to the processing string list for the layer.
+The layer-&gt;num_processing is incremented by 1.</dd>
+</dl>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$oLayer-&gt;setprocessing(&quot;SCALE_1=AUTO&quot;);</span>
+<span class="x">$oLayer-&gt;setprocessing(&quot;SCALE_2=AUTO&quot;);</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>aString getProcessing()</dt>
+<dd>Returns an array containing the processing strings</dd>
+<dt>boolean clearProcessing()</dt>
+<dd>Clears all the processing strings</dd>
+<dt>string   executeWFSGetfeature()</dt>
+<dd>Executes a GetFeature request on a WFS layer and returns the
+name of the temporary GML file created. Returns an empty
+string on error.</dd>
+<dt>int applySLD(string sldxml, string namedlayer)</dt>
+<dd>Apply the <a class="reference external" href="../../ogc/sld.html#sld"><em>SLD</em></a> document to the layer object.
+The matching between the sld document and the layer will be done
+using the layer&#8217;s name.
+If a namedlayer argument is passed (argument is optional),
+the NamedLayer in the sld that matchs it will be used to style
+the layer.
+See <a class="reference external" href="../../ogc/sld.html#sld"><em>SLD HowTo</em></a> for more information on the SLD support.</dd>
+<dt>int applySLDURL(string sldurl, string namedlayer)</dt>
+<dd>Apply the <a class="reference external" href="../../ogc/sld.html#sld"><em>SLD</em></a> document pointed by the URL to the layer object. The
+matching between the sld document and the layer will be done using
+the layer&#8217;s name.
+If a namedlayer argument is passed (argument is optional),
+the NamedLayer in the sld that matchs it will be used to style
+the layer.
+See <a class="reference external" href="../../ogc/sld.html#sld"><em>SLD HowTo</em></a> for more information on the SLD support.</dd>
+<dt>string generateSLD()</dt>
+<dd>Returns an SLD XML string based on all the classes found in the layers.</dd>
+<dt>int moveclassup(int index)</dt>
+<dd>The class specified by the class index will be moved up into
+the array of layers. Returns MS_SUCCESS or MS_FAILURE.
+ex layer-&gt;moveclassup(1) will have the effect of moving class 1
+up to position 0, and the class at position 0 will be moved
+to position 1.</dd>
+<dt>int moveclassdown(int index)</dt>
+<dd>The class specified by the class index will be moved down into
+the array of layers. Returns MS_SUCCESS or MS_FAILURE.
+ex layer-&gt;moveclassdown(0) will have the effect of moving class 0
+up to position 1, and the class at position 1 will be moved
+to position 0.</dd>
+<dt>classObj removeClass(int index)</dt>
+<dd>Removes the class indicated and returns a copy, or NULL in the case
+of a failure.  Note that subsequent classes will be renumbered by
+this operation. The numclasses field contains the number of classes
+available.</dd>
+<dt>boolean isVisible()</dt>
+<dd>Returns MS_TRUE/MS_FALSE depending on whether the layer is
+currently visible in the map (i.e. turned on, in scale, etc.).</dd>
+<dt>int setConenctionType(int connectiontype [,string plugin_library])</dt>
+<dd>Changes the connectiontype of the layer and recreates the vtable
+according to the new connection type. This method should be used
+instead of setting the connectiontype parameter directly.
+In case when the layer.connectiontype = MS_PLUGIN the plugin_library
+parameter should also be specified so as to select the library to
+load by mapserver. For the other connection types this parameter
+is not used.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="classobj-class">
+<h2><a class="toc-backref" href="#contents">ClassObj Class</a><a class="headerlink" href="#classobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3>Constructor<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Class Objects can be returned by the LayerObj class, or can be created using:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">classObj ms_newClassObj(layerObj layer [, classObj class])</span>
+</pre></div>
+</div>
+<p>The second argument class is optional. If given, the new class
+created will be a copy of this class.</p>
+</div>
+<div class="section" id="id5">
+<h3>Members<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>string</td>
+<td>name</td>
+</tr>
+<tr><td>string</td>
+<td>title</td>
+</tr>
+<tr><td>int</td>
+<td>type</td>
+</tr>
+<tr><td>int</td>
+<td>status      (MS_ON, MS_OFF or MS_DELETE)</td>
+</tr>
+<tr><td>double</td>
+<td>minscaledenom</td>
+</tr>
+<tr><td>double</td>
+<td>maxscaledenom</td>
+</tr>
+<tr><td>double</td>
+<td>minscale  (Deprecated in v5.0, use minscaledenom instead)</td>
+</tr>
+<tr><td>double</td>
+<td>maxscale  (Deprecated in v5.0, use maxscaledenom instead)</td>
+</tr>
+<tr><td>string</td>
+<td>template</td>
+</tr>
+<tr><td>labelObj</td>
+<td>label</td>
+</tr>
+<tr><td>int</td>
+<td>numstyles</td>
+</tr>
+<tr><td>string</td>
+<td>keyimage</td>
+</tr>
+<tr><td>string</td>
+<td>group</td>
+</tr>
+<tr><td>hashTableObj</td>
+<td>metadata</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id6">
+<h3>Methods<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int updateFromString(string snippet)</dt>
+<dd>Update a class from a string snippet. Returns MS_SUCCESS/MS_FAILURE.</dd>
+</dl>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$oClass-&gt;updateFromString(&#39;CLASS STYLE COLOR 255 0 255 END END&#39;); /*set the color */</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value. Returns -1 on error.</dd>
+<dt>int setExpression(string expression)</dt>
+<dd>Set the <a class="reference external" href="../../mapfile/expressions.html#expressions"><em>expression</em></a> string for the class object.</dd>
+<dt>string getExpressionString()</dt>
+<dd>Returns the <a class="reference external" href="../../mapfile/expressions.html#expressions"><em>expression</em></a> string for the class object.</dd>
+<dt>string getExpression()</dt>
+<dd>Deprecated in v5.0. Use getExpressionString() instead.</dd>
+<dt>int settext(string text)</dt>
+<dd>Set the text string for the class object.</dd>
+<dt>string getTextString()</dt>
+<dd>Returns the text string for the class object.</dd>
+<dt>int drawLegendIcon(int width, int height, imageObj im, int dstX, int dstY)</dt>
+<dd>Draw the legend icon on im object at dstX, dstY.
+Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>imageObj createLegendIcon(int width, int height)</dt>
+<dd>Draw the legend icon and return a new imageObj.</dd>
+<dt>styleObj getStyle(int index)</dt>
+<dd>Return the style object using an index. index &gt;= 0 &amp;&amp;
+index &lt; class-&gt;numstyles.</dd>
+<dt>classObj clone()</dt>
+<dd>Returns a cloned copy of the class.</dd>
+<dt>int movestyleup(int index)</dt>
+<dd>The style specified by the style index will be moved up into
+the array of classes. Returns MS_SUCCESS or MS_FAILURE.
+ex class-&gt;movestyleup(1) will have the effect of moving style 1
+up to position 0, and the style at position 0 will be moved
+to position 1.</dd>
+<dt>int movestyledown(int index)</dt>
+<dd>The style specified by the style index will be moved down into
+the array of classes. Returns MS_SUCCESS or MS_FAILURE.
+ex class-&gt;movestyledown(0) will have the effect of moving style 0
+up to position 1, and the style at position 1 will be moved
+to position 0.</dd>
+<dt>int deletestyle(int index)</dt>
+<dd>Delete the style specified by the style index. If there are any
+style that follow the deleted style, their index will decrease by 1.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>if you are using the numstyles parameter while using the
+deletestyle function on the class object you need to refetch
+a new class object.</p>
+<p>Example :</p>
+<div class="last highlight-php"><div class="highlight"><pre><span class="x"> //class has 2 styles</span>
+<span class="x">$class = $oLayer-&gt;getclass(0);</span>
+<span class="x">$class-&gt;deletestyle(1);</span>
+<span class="x">echo $class-&gt;numstyles; : will echo 2</span>
+
+<span class="x">$class = $oLayer-&gt;getclass(0);</span>
+<span class="x">echo $class-&gt;numstyles; : will echo 1</span>
+</pre></div>
+</div>
+</div>
+<dl class="docutils">
+<dt>int getMetaData(string name)</dt>
+<dd>Fetch class metadata entry by name.  Returns &#8220;&#8221; if no entry
+matches the name.  Note that the search is case sensitive.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">getMetaData&#8217;s query is case sensitive.</p>
+</div>
+<dl class="docutils">
+<dt>int setMetaData(string name, string value)</dt>
+<dd>Set a metadata entry for the class.  Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int removeMetaData(string name)</dt>
+<dd>Remove a metadata entry for the class.  Returns MS_SUCCESS/MS_FAILURE.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="imageobj-class">
+<h2><a class="toc-backref" href="#contents">ImageObj Class</a><a class="headerlink" href="#imageobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h3>Constructor<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<p>Instances of ImageObj are always created by the map class methods.</p>
+</div>
+<div class="section" id="id8">
+<h3>Members<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>width     (read-only)</td>
+</tr>
+<tr><td>int</td>
+<td>height    (read-only)</td>
+</tr>
+<tr><td>string</td>
+<td>imagepath</td>
+</tr>
+<tr><td>string</td>
+<td>imageurl</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id9">
+<h3>Methods<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>void free()</dt>
+<dd>Destroys resources used by an image object.</dd>
+<dt>int saveImage(string filename, MapObj oMap)</dt>
+<dd>Writes image object to specified filename.
+Passing an empty filename sends output to stdout.  In this case,
+the PHP header() function should be used to set the document&#8217;s
+content-type prior to calling saveImage().
+The output format is the one that is currently selected in the
+map file.
+The second argument oMap is not manadatory. It is usful when
+saving to formats like GTIFF that needs georeference informations
+contained in the map file.
+The function returns -1 on error.  On success, it returns either 0
+if writing to an external file, or the number of bytes written if
+output is sent to stdout.</dd>
+<dt>string saveWebImage()</dt>
+<dd>Writes image to temp directory.  Returns image URL.
+The output format is the one that is currently selected in the
+map file.</dd>
+<dt>void pasteImage(imageObj srcImg, int transparentColorHex [[, int dstX, int dstY], int angle])</dt>
+<dd>Copy srcImg on top of the current imageObj.
+transparentColorHex is the color (in 0xrrggbb format) from srcImg
+that should be considered transparent (i.e. those pixels won&#8217;t
+be copied).  Pass -1 if you don&#8217;t want any transparent color.
+If optional dstx,dsty are provided then it defines the position
+where the image should be copied (dstx,dsty = top-left corner
+position).
+The optional angle is a value between 0 and 360 degrees to rotate
+the source image counterclockwise.  Note that if an angle is specified
+(even if its value is zero) then the dstx and dsty coordinates
+specify the CENTER of the destination area.
+Note: this function works only with 8 bits GD images (PNG or GIF).</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="labelobj-class">
+<h2><a class="toc-backref" href="#contents">LabelObj Class</a><a class="headerlink" href="#labelobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h3>Constructor<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<p>LabelObj are always embedded inside other classes.</p>
+</div>
+<div class="section" id="id11">
+<h3>Members<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>string</td>
+<td>font</td>
+</tr>
+<tr><td>int</td>
+<td>type</td>
+</tr>
+<tr><td>colorObj</td>
+<td>color</td>
+</tr>
+<tr><td>colorObj</td>
+<td>outlinecolor</td>
+</tr>
+<tr><td>int</td>
+<td>outlinewidth</td>
+</tr>
+<tr><td>colorObj</td>
+<td>shadowcolor</td>
+</tr>
+<tr><td>int</td>
+<td>shadowsizex</td>
+</tr>
+<tr><td>int</td>
+<td>shadowsizey</td>
+</tr>
+<tr><td>colorObj</td>
+<td>backgroundcolor</td>
+</tr>
+<tr><td>colorObj</td>
+<td>backgroundshadowcolor</td>
+</tr>
+<tr><td>int</td>
+<td>backgroundshadowsizex</td>
+</tr>
+<tr><td>int</td>
+<td>backgroundshadowsizey</td>
+</tr>
+<tr><td>int</td>
+<td>size</td>
+</tr>
+<tr><td>int</td>
+<td>minsize</td>
+</tr>
+<tr><td>int</td>
+<td>maxsize</td>
+</tr>
+<tr><td>int</td>
+<td>position</td>
+</tr>
+<tr><td>int</td>
+<td>offsetx</td>
+</tr>
+<tr><td>int</td>
+<td>offsety</td>
+</tr>
+<tr><td>double</td>
+<td>angle</td>
+</tr>
+<tr><td>int</td>
+<td>autoangle</td>
+</tr>
+<tr><td>int</td>
+<td>buffer</td>
+</tr>
+<tr><td>int</td>
+<td>antialias</td>
+</tr>
+<tr><td>int</td>
+<td>wrap</td>
+</tr>
+<tr><td>int</td>
+<td>minfeaturesize</td>
+</tr>
+<tr><td>int</td>
+<td>autominfeaturesize</td>
+</tr>
+<tr><td>int</td>
+<td>mindistance</td>
+</tr>
+<tr><td>int</td>
+<td>partials</td>
+</tr>
+<tr><td>int</td>
+<td>force</td>
+</tr>
+<tr><td>string</td>
+<td>encoding</td>
+</tr>
+<tr><td>int</td>
+<td>align</td>
+</tr>
+<tr><td>int</td>
+<td>maxlength</td>
+</tr>
+<tr><td>int</td>
+<td>minlength</td>
+</tr>
+<tr><td>int</td>
+<td>priority</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id12">
+<h3>Methods<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int updateFromString(string snippet)</dt>
+<dd>Update a label from a string snippet. Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value. Returns -1 on error.</dd>
+<dt>int setBinding(const labelbinding, string value)</dt>
+<dd><p class="first">Set the attribute binding for a specified label property. Returns true on success.</p>
+<p>Example:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$oLabel-&gt;setbinding(MS_LABEL_BINDING_COLOR, &quot;FIELD_NAME_COLOR&quot;);</span>
+</pre></div>
+</div>
+<p class="last">This would bind the color parameter with the data (ie will extract
+the value of the color from the field called &#8220;FIELD_NAME_COLOR&#8221;</p>
+</dd>
+<dt>string getBinding(const labelbinding)</dt>
+<dd><p class="first">Get the attribute binding for a specified label property. Returns null if there
+is no binding for this property.</p>
+<p>Example:</p>
+<div class="last highlight-php"><div class="highlight"><pre><span class="x">$oLabel-&gt;setbinding(MS_LABEL_BINDING_COLOR, &quot;FIELD_NAME_COLOR&quot;);</span>
+<span class="x">echo $oLabel-&gt;getbinding(MS_LABEL_BINDING_COLOR); // FIELD_NAME_COLOR</span>
+</pre></div>
+</div>
+</dd>
+<dt>int removeBinding(const labelbinding)</dt>
+<dd><p class="first">Remove the attribute binding for a specfiled style property. Returns true on success.</p>
+<p>Example:</p>
+<div class="last highlight-php"><div class="highlight"><pre><span class="x">$oStyle-&gt;removebinding(MS_LABEL_BINDING_COLOR);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="webobj-class">
+<h2><a class="toc-backref" href="#contents">webObj Class</a><a class="headerlink" href="#webobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h3>Constructor<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h3>
+<p>Instances of webObj are always are always embedded inside the mapObj.</p>
+</div>
+<div class="section" id="id14">
+<h3>Members<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>string</td>
+<td>log</td>
+</tr>
+<tr><td>string</td>
+<td>imagepath</td>
+</tr>
+<tr><td>string</td>
+<td>template</td>
+</tr>
+<tr><td>string</td>
+<td>imageurl</td>
+</tr>
+<tr><td>string</td>
+<td>header</td>
+</tr>
+<tr><td>string</td>
+<td>footer</td>
+</tr>
+<tr><td>string</td>
+<td>empty     (read-only)</td>
+</tr>
+<tr><td>string</td>
+<td>error     (read-only)</td>
+</tr>
+<tr><td>string</td>
+<td>mintemplate</td>
+</tr>
+<tr><td>string</td>
+<td>maxtemplate</td>
+</tr>
+<tr><td>double</td>
+<td>minscaledenom</td>
+</tr>
+<tr><td>double</td>
+<td>maxscaledenom</td>
+</tr>
+<tr><td>double</td>
+<td>minscale  (Deprecated in v5.0, use minscaledenom instead)</td>
+</tr>
+<tr><td>double</td>
+<td>maxscale  (Deprecated in v5.0, use maxscaledenom instead)</td>
+</tr>
+<tr><td>rectObj</td>
+<td>extent   (read-only)</td>
+</tr>
+<tr><td>string</td>
+<td>queryformat</td>
+</tr>
+<tr><td>string</td>
+<td>legendformat</td>
+</tr>
+<tr><td>string</td>
+<td>browseformat</td>
+</tr>
+<tr><td>hashTableObj</td>
+<td>metadata</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id15">
+<h3>Methods<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int updateFromString(string snippet)</dt>
+<dd>Update a web object from a string snippet. Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value. Returns -1 on error.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="referencemapobj-class">
+<h2><a class="toc-backref" href="#contents">referenceMapObj Class</a><a class="headerlink" href="#referencemapobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id16">
+<h3>Constructor<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<p>Instances of referenceMapObj are always embedded inside the mapObj.</p>
+</div>
+<div class="section" id="id17">
+<h3>Members<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>string</td>
+<td>image</td>
+</tr>
+<tr><td>int</td>
+<td>width</td>
+</tr>
+<tr><td>int</td>
+<td>height</td>
+</tr>
+<tr><td>int</td>
+<td>status</td>
+</tr>
+<tr><td>rectObj</td>
+<td>extent</td>
+</tr>
+<tr><td>ColorObj</td>
+<td>color</td>
+</tr>
+<tr><td>ColorObj</td>
+<td>outlinecolor</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id18">
+<h3>Methods<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int updateFromString(string snippet)</dt>
+<dd>Update a referenceMap object from a string snippet.
+Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value. Returns -1 on error.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="colorobj-class">
+<h2><a class="toc-backref" href="#contents">ColorObj Class</a><a class="headerlink" href="#colorobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id19">
+<h3>Constructor<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
+<p>Instances of ColorObj are always embedded inside other classes.</p>
+</div>
+<div class="section" id="id20">
+<h3>Members<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>red</td>
+</tr>
+<tr><td>int</td>
+<td>green</td>
+</tr>
+<tr><td>int</td>
+<td>blue</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id21">
+<h3>Methods<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>void setRGB(int red, int green, int blue)</dt>
+<dd>Set red, green, blue values.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="pointobj-class">
+<h2><a class="toc-backref" href="#contents">PointObj Class</a><a class="headerlink" href="#pointobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id22">
+<h3>Constructor<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">PointObj ms_newPointObj()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id23">
+<h3>Members<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>double</td>
+<td>x</td>
+</tr>
+<tr><td>double</td>
+<td>y</td>
+</tr>
+<tr><td>double</td>
+<td>z (used for 3d shape files. set to 0 for other types)</td>
+</tr>
+<tr><td>double</td>
+<td>m  (used only for measured shape files. set to 0 for other types.)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id24">
+<h3>Methods<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int setXY(double x, double y [, double m])</dt>
+<dd>Set X,Y coordinate values.
+Returns 0 on success, -1 on error.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the 3rd parameter m is used for measured shape files only.
+It is not mandatory.</p>
+</div>
+<dl class="docutils">
+<dt>int setXYZ(double x, double y , double z, [, double m])</dt>
+<dd>Set X,Y,Z coordinate values.
+Returns 0 on success, -1 on error.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the 4th parameter m is used for measured shape files only.
+It is not mandatory.</p>
+</div>
+<dl class="docutils">
+<dt>int draw(mapObj map, layerObj layer, imageObj img, int class_index, string text)</dt>
+<dd>Draws the individual point using layer.  The class_index is used
+to classify the point based on the classes defined for the layer.
+The text string is used to annotate the point.
+Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>double distanceToPoint(pointObj poPoint)</dt>
+<dd>Calculates distance between two points.</dd>
+<dt>double distanceToLine(pointObject p1, pointObject p2)</dt>
+<dd>Calculates distance between a point ad a lined defined by the
+two points passed in argument.</dd>
+<dt>double distanceToShape(shapeObj shape)</dt>
+<dd>Calculates the minimum distance between a point and a shape.</dd>
+<dt>int project(projectionObj in, projectionObj out)</dt>
+<dd>Project the point from &#8220;in&#8221; projection (1st argument) to &#8220;out&#8221;
+projection (2nd argument).  Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>void free()</dt>
+<dd>Releases all resources used by the object.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="lineobj-class">
+<h2><a class="toc-backref" href="#contents">LineObj Class</a><a class="headerlink" href="#lineobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id25">
+<h3>Constructor<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">LineObj ms_newLineObj()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id26">
+<h3>Members<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>numpoints  (read-only)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id27">
+<h3>Methods<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int add(pointObj point)</dt>
+<dd>Add a point to the end of line.</dd>
+<dt>int addXY(double x, double y [, double m])</dt>
+<dd>Add a point to the end of line.
+It is not mandatory.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the 3rd parameter m is used for measured shape files only.
+It is not mandatory.</p>
+</div>
+<dl class="docutils">
+<dt>int addXYZ(double x, double y, double z [, double m])</dt>
+<dd>Add a point to the end of line.</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the 4th parameter m is used for measured shape files only.
+It is not mandatory.</p>
+</div>
+<dl class="docutils">
+<dt>PointObj point(int i)</dt>
+<dd>Returns a reference to point number i.  Reference is valid only
+during the life of the lineObj that contains the point.</dd>
+<dt>int project(projectionObj in, projectionObj out)</dt>
+<dd>Project the line from &#8220;in&#8221; projection (1st argument) to &#8220;out&#8221;
+projection (2nd argument).  Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>void free()</dt>
+<dd>Destroys resources used by a line object.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="shapeobj-class">
+<h2><a class="toc-backref" href="#contents">ShapeObj Class</a><a class="headerlink" href="#shapeobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id28">
+<h3>Constructor<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">ShapeObj ms_newShapeObj(int type)</span>
+</pre></div>
+</div>
+<p>&#8216;type&#8217; is one of MS_SHAPE_POINT, MS_SHAPE_LINE, MS_SHAPE_POLYGON or MS_SHAPE_NULL</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">ShapeObj ms_shapeObjFromWkt(string wkt)</span>
+</pre></div>
+</div>
+<p>Creates new shape object from WKT string.</p>
+</div>
+<div class="section" id="id29">
+<h3>Members<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>string</td>
+<td>text</td>
+</tr>
+<tr><td>int</td>
+<td>classindex</td>
+</tr>
+<tr><td>int</td>
+<td>type      (read-only)</td>
+</tr>
+<tr><td>int</td>
+<td>numlines  (read-only)</td>
+</tr>
+<tr><td>int</td>
+<td>index</td>
+</tr>
+<tr><td>int</td>
+<td>tileindex (read-only)</td>
+</tr>
+<tr><td>rectObj</td>
+<td>bounds    (read-only)</td>
+</tr>
+<tr><td>int</td>
+<td>numvalues (read-only)</td>
+</tr>
+<tr><td>array</td>
+<td>values    (read-only)</td>
+</tr>
+</tbody>
+</table>
+<p>The values array is an associative array with the attribute values for
+this shape.  It is set only on shapes obtained from layer-&gt;getShape().
+The key to the values in the array is the attribute name, e.g.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$population = $shape-&gt;values[&quot;Population&quot;];</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id30">
+<h3>Methods<a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value. Returns -1 on error.</dd>
+<dt>int add(lineObj line)</dt>
+<dd>Add a line (i.e. a part) to the shape.</dd>
+<dt>LineObj line(int i)</dt>
+<dd>Returns a reference to line number i.  Reference is valid only
+during the life of the shapeObj that contains the point.</dd>
+<dt>int draw(mapObj map, layerObj layer, imageObj img)</dt>
+<dd>Draws the individual shape using layer.
+Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>boolean contains(pointObj point)</dt>
+<dd>Returns MS_TRUE if the point is inside the shape, MS_FALSE otherwise.</dd>
+<dt>boolean intersects(shapeObj shape)</dt>
+<dd>Returns MS_TRUE if the two shapes intersect, MS_FALSE otherwise.</dd>
+<dt>int project(projectionObj in, projectionObj out)</dt>
+<dd>Project the shape from &#8220;in&#8221; projection (1st argument) to &#8220;out&#8221;
+projection (2nd argument).  Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>pointObj getpointusingmeasure(double m)</dt>
+<dd>Apply only on Measured shape files. Given a measure m, retun the
+corresponding XY location on the shapeobject.</dd>
+<dt>pointObj  getmeasureusingpoint(pointObject point)</dt>
+<dd>Apply only on Measured shape files. Given an XY Location, find the
+nearest point on the shape object. Return a point object
+of this point with the m value set.</dd>
+<dt>void free()</dt>
+<dd>Destroys resources used by a shape object.</dd>
+<dt>string getvalue(layerObj layer, string filedname)</dt>
+<dd>Returns the value for a given field name.</dd>
+<dt>shapeobj buffer(width)</dt>
+<dd>Returns a new buffered shapeObj based on the supplied distance (given
+in the coordinates of the existing shapeObj).
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>shapeobj convexhull()</dt>
+<dd>Returns a shape object representing the convex hull of shape.
+Only available if php/mapscript is built with GEOS
+library.</dd>
+<dt>shapeobj boundary()</dt>
+<dd>Returns the boundary of the shape.
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>int containsShape(shapeobj shape2)</dt>
+<dd>Returns true if shape2 passed as argument is entirely within the shape.
+Else return false.
+Only available if php/mapscript is built with GEOS
+library.</dd>
+<dt>shapeobj union(shapeobj shape)</dt>
+<dd>Returns a shape object representing the union of the shape object
+with the one passed as parameter.
+Only available if php/mapscript is built with GEOS
+library</dd>
+<dt>shapeobj union_geos(shapeobj shape) <span class="classifier-delimiter">:</span> <span class="classifier">(Deprecated in v5.2. Use union instead)</span></dt>
+<dd>Returns a shape object representing the union of the shape object
+with the one passed as parameter.
+Only available if php/mapscript is built with GEOS
+library.</dd>
+<dt>shapeobj intersection(shapeobj shape)</dt>
+<dd>Returns a shape object representing the intersection of the shape
+object with the one passed as parameter.
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>shapeobj difference(shapeobj shape)</dt>
+<dd>Returns a shape object representing the difference of the
+shape object with the one passed as parameter.
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>shapeobj symdifference(shapeobj shape)</dt>
+<dd>Returns the computed symmetric difference of the supplied and existing
+shape.
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>int overlaps(shapeobj shape)</dt>
+<dd>Returns true if the shape passed as argument overlaps the shape.
+Else returns false.
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>int within(shapeobj shape2)</dt>
+<dd>Returns true if the shape is entirely within the shape2 passed as argument.
+Else returns false.
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>int crosses(shapeobj shape)</dt>
+<dd>Returns true if the shape passed as argument crosses the shape.
+Else return false.
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>int touches(shapeobj shape)</dt>
+<dd>Returns true if the shape passed as argument touches the shape.
+Else return false.
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>int equals(shapeobj shape)</dt>
+<dd>Returns true if the shape passed as argument is equal to the
+shape (geometry only). Else return false.
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>int disjoint(shapeobj shape)</dt>
+<dd>Returns true if the shape passed as argument is disjoint to the
+shape. Else return false.
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>pointObj getCentroid()</dt>
+<dd>Returns a point object representing the centroid of the shape.
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>double getArea()</dt>
+<dd>Returns the area of the shape (if applicable).
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>double getLength()</dt>
+<dd>Returns the length (or perimeter) of the shape.
+Only available if php/mapscript is built with GEOS library.</dd>
+<dt>pointObj getLabelPoint()</dt>
+<dd>Returns a point object with coordinates suitable for labelling
+the shape.</dd>
+<dt>string toWkt()</dt>
+<dd>Returns WKT representation of the shape&#8217;s geometry.</dd>
+<dt>int setBounds()</dt>
+<dd>Updates the bounds property of the shape.
+Must be called to calculate new bounding box after new parts have been
+added.  Returns true if successful, else return false.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="rectobj-class">
+<h2><a class="toc-backref" href="#contents">RectObj Class</a><a class="headerlink" href="#rectobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id31">
+<h3>Constructor<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h3>
+<p>RectObj are sometimes embedded inside other objects.  New ones can
+also be created with:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">RectObj ms_newRectObj()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">the members (minx, miny,maxx,maxy) are initialized to -1;</p>
+</div>
+</div>
+<div class="section" id="id32">
+<h3>Members:<a class="headerlink" href="#id32" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>double</td>
+<td>minx</td>
+</tr>
+<tr><td>double</td>
+<td>miny</td>
+</tr>
+<tr><td>double</td>
+<td>maxx</td>
+</tr>
+<tr><td>double</td>
+<td>maxy</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id33">
+<h3>Methods<a class="headerlink" href="#id33" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value. Returns -1 on error.</dd>
+<dt>void setextent(double minx, double miny, double maxx, double maxy)</dt>
+<dd>Set the rectangle extents.</dd>
+<dt>int draw(mapObj map, layerObj layer, imageObj img, int class_index, string text)</dt>
+<dd>Draws the individual rectangle using layer.  The class_index is used
+to classify the rectangle based on the classes defined for the layer.
+The text string is used to annotate the rectangle.
+Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>double fit(int width, int height)</dt>
+<dd>Adjust extents of the rectangle to fit the width/height specified.</dd>
+<dt>int project(projectionObj in, projectionObj out)</dt>
+<dd>Project the rectangle from &#8220;in&#8221; projection (1st argument) to &#8220;out&#8221;
+projection (2nd argument).  Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>void free()</dt>
+<dd>Destroys resources used by a rect object.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="shapefileobj-class">
+<h2><a class="toc-backref" href="#contents">ShapefileObj Class</a><a class="headerlink" href="#shapefileobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id34">
+<h3>Constructor<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">shapefileObj ms_newShapefileObj(string filename, int type)</span>
+</pre></div>
+</div>
+<p>Opens a shapefile and returns a new object to deal with it. Filename should be
+passed with no extension.  To create a new file (or overwrite an existing
+one), type should be one of MS_SHP_POINT, MS_SHP_ARC, MS_SHP_POLYGON or
+MS_SHP_MULTIPOINT. Pass type as -1 to open an existing file for read-only access,
+and type=-2 to open an existing file for update (append).</p>
+</div>
+<div class="section" id="id35">
+<h3>Members<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>numshapes  (read-only)</td>
+</tr>
+<tr><td>int</td>
+<td>type       (read-only)</td>
+</tr>
+<tr><td>string</td>
+<td>source     (read-only)</td>
+</tr>
+<tr><td>rectObj</td>
+<td>bounds     (read-only)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id36">
+<h3>Methods<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>shapeObj getShape(int i)</dt>
+<dd>Retrieve shape by index.</dd>
+<dt>shapeObj getPoint(int i)</dt>
+<dd>Retrieve point by index.</dd>
+<dt>shapeObj getTransformed(mapObj map, int i)</dt>
+<dd>Retrieve shape by index.</dd>
+<dt>rectObj getExtent(int i)</dt>
+<dd>Retrieve a shape&#8217;s bounding box by index.</dd>
+<dt>int addShape(shapeObj shape)</dt>
+<dd>Appends a shape to an open shapefile.</dd>
+<dt>int addPoint(pointObj point)</dt>
+<dd>Appends a point to an open shapefile.</dd>
+<dt>void free()</dt>
+<dd>Closes a shape file (and commits all changes in write mode) and
+releases all resources used by the object.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="resultcachememberobj-class">
+<h2><a class="toc-backref" href="#contents">ResultCacheMemberObj Class</a><a class="headerlink" href="#resultcachememberobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id37">
+<h3>Constructor<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h3>
+<p>Instances of ResultCacheMemberObj are always obtained through
+layerObj&#8217;s getResult() method.</p>
+</div>
+<div class="section" id="id38">
+<h3>Members<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>shapeindex    (read-only)</td>
+</tr>
+<tr><td>int</td>
+<td>tileindex     (read-only)</td>
+</tr>
+<tr><td>int</td>
+<td>classindex    (read-only)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="projectionobj-class">
+<h2><a class="toc-backref" href="#contents">ProjectionObj Class</a><a class="headerlink" href="#projectionobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id39">
+<h3>Constructor<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">ProjectionObjObj ms_newProjectionObj(string projectionstring)</span>
+</pre></div>
+</div>
+<p>Creates a projection object based on the projection string passed
+as argument.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$projInObj = ms_newprojectionobj(&quot;proj=latlong&quot;)</span>
+</pre></div>
+</div>
+<p>will create a geographic projection class.</p>
+<p>The following example will convert a lat/long point to an LCC
+projection:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$projInObj = ms_newprojectionobj(&quot;proj=latlong&quot;);</span>
+<span class="x">$projOutObj = ms_newprojectionobj(&quot;proj=lcc,ellps=GRS80,lat_0=49,&quot;.</span>
+<span class="x">                                  &quot;lon_0=-95,lat_1=49,lat_2=77&quot;);</span>
+<span class="x">$poPoint = ms_newpointobj();</span>
+<span class="x">$poPoint-&gt;setXY(-92.0, 62.0);</span>
+<span class="x">$poPoint-&gt;project($projInObj, $projOutObj);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id40">
+<h3>Methods<a class="headerlink" href="#id40" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int getUnits()</dt>
+<dd>Returns the units of a projection object. Returns -1 on error.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="scalebarobj-class">
+<h2><a class="toc-backref" href="#contents">ScalebarObj Class</a><a class="headerlink" href="#scalebarobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id41">
+<h3>Constructor<a class="headerlink" href="#id41" title="Permalink to this headline">¶</a></h3>
+<p>Instances of scalebarObj are always are always embedded inside the mapObj.</p>
+</div>
+<div class="section" id="id42">
+<h3>Members<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>height</td>
+</tr>
+<tr><td>int</td>
+<td>width</td>
+</tr>
+<tr><td>int</td>
+<td>style</td>
+</tr>
+<tr><td>int</td>
+<td>intervals</td>
+</tr>
+<tr><td>colorObj</td>
+<td>color</td>
+</tr>
+<tr><td>colorObj</td>
+<td>backgroundcolor</td>
+</tr>
+<tr><td>colorObj</td>
+<td>outlinecolor</td>
+</tr>
+<tr><td>int</td>
+<td>units</td>
+</tr>
+<tr><td>int</td>
+<td>status //MS_ON, MS_OFF, MS_EMBED</td>
+</tr>
+<tr><td>int</td>
+<td>position //for embeded scalebars, MS_UL, MS_UC, ...</td>
+</tr>
+<tr><td>int</td>
+<td>transparent</td>
+</tr>
+<tr><td>int</td>
+<td>interlace</td>
+</tr>
+<tr><td>int</td>
+<td>postlabelcache</td>
+</tr>
+<tr><td>labelObj</td>
+<td>label</td>
+</tr>
+<tr><td>colorObj</td>
+<td>imagecolor</td>
+</tr>
+<tr><td>int</td>
+<td>align</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id43">
+<h3>Methods<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int updateFromString(string snippet)</dt>
+<dd>Update a scalebar from a string snippet. Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value. Returns -1 on error.</dd>
+<dt>int setimagecolor(int red, int green, int blue)</dt>
+<dd>Sets the imagecolor propery (baclground) of the object.
+Returns false on error.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="legendobj-class">
+<h2><a class="toc-backref" href="#contents">LegendObj Class</a><a class="headerlink" href="#legendobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id44">
+<h3>Constructor<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h3>
+<p>Instances of legendObj are always are always embedded inside the mapObj.</p>
+</div>
+<div class="section" id="id45">
+<h3>Members<a class="headerlink" href="#id45" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>height</td>
+</tr>
+<tr><td>int</td>
+<td>width</td>
+</tr>
+<tr><td>int</td>
+<td>keysizex</td>
+</tr>
+<tr><td>int</td>
+<td>keysizey</td>
+</tr>
+<tr><td>int</td>
+<td>keyspacingx</td>
+</tr>
+<tr><td>int</td>
+<td>keyspacingy</td>
+</tr>
+<tr><td>colorObj</td>
+<td>outlinecolor //Color of outline of box, -1 for no outline</td>
+</tr>
+<tr><td>int</td>
+<td>status //MS_ON, MS_OFF, MS_EMBED</td>
+</tr>
+<tr><td>int</td>
+<td>position //for embeded legends, MS_UL, MS_UC, ...</td>
+</tr>
+<tr><td>int</td>
+<td>transparent</td>
+</tr>
+<tr><td>int</td>
+<td>interlace</td>
+</tr>
+<tr><td>int</td>
+<td>postlabelcache //MS_TRUE, MS_FALSE</td>
+</tr>
+<tr><td>labelObj</td>
+<td>label</td>
+</tr>
+<tr><td>colorObj</td>
+<td>imagecolor</td>
+</tr>
+<tr><td>string</td>
+<td>template</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id46">
+<h3>Methods<a class="headerlink" href="#id46" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int updateFromString(string snippet)</dt>
+<dd>Update a legend from a string snippet. Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value. Returns -1 on error.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="querymapobj-class">
+<h2><a class="toc-backref" href="#contents">QuerymapObj Class</a><a class="headerlink" href="#querymapobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id47">
+<h3>Constructor<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h3>
+<p>Instances of querymapObj are always are always embedded inside the mapObj.</p>
+</div>
+<div class="section" id="id48">
+<h3>Members<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>width</td>
+</tr>
+<tr><td>int</td>
+<td>height</td>
+</tr>
+<tr><td>int</td>
+<td>style   (MS_NORMAL, MS_HILITE, MS_SELECTED)</td>
+</tr>
+<tr><td>colorObj</td>
+<td>color</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id49">
+<h3>Methods<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int updateFromString(string snippet)</dt>
+<dd>Update a queryMap object from a string snippet. Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value. Returns -1 on error.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="styleobj-class">
+<h2><a class="toc-backref" href="#contents">StyleObj Class</a><a class="headerlink" href="#styleobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id50">
+<h3>Constructor<a class="headerlink" href="#id50" title="Permalink to this headline">¶</a></h3>
+<p>Instances of styleObj are always embedded inside the classObj.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">styleObj ms_newStyleObj(classObj class [, styleObj style])</span>
+</pre></div>
+</div>
+<p>The second argument &#8216;style&#8217; is optional. If given, the new style
+created will be a copy of the style passed as argument.</p>
+</div>
+<div class="section" id="id51">
+<h3>Members<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>symbol</td>
+</tr>
+<tr><td>string</td>
+<td>symbolname</td>
+</tr>
+<tr><td>double</td>
+<td>size</td>
+</tr>
+<tr><td>double</td>
+<td>minsize</td>
+</tr>
+<tr><td>double</td>
+<td>maxsize</td>
+</tr>
+<tr><td>int</td>
+<td>offsetx</td>
+</tr>
+<tr><td>int</td>
+<td>offsety</td>
+</tr>
+<tr><td>int</td>
+<td>antialias</td>
+</tr>
+<tr><td>colorObj</td>
+<td>color</td>
+</tr>
+<tr><td>colorObj</td>
+<td>backgroundcolor</td>
+</tr>
+<tr><td>colorObj</td>
+<td>outlinecolor</td>
+</tr>
+<tr><td>double</td>
+<td>width</td>
+</tr>
+<tr><td>double</td>
+<td>minwidth</td>
+</tr>
+<tr><td>double</td>
+<td>maxwidth</td>
+</tr>
+<tr><td>double</td>
+<td>angle</td>
+</tr>
+<tr><td>string</td>
+<td>angleitem</td>
+</tr>
+<tr><td>string</td>
+<td>sizeitem</td>
+</tr>
+<tr><td>double</td>
+<td>minvalue</td>
+</tr>
+<tr><td>double</td>
+<td>maxvalue</td>
+</tr>
+<tr><td>string</td>
+<td>rangeitem</td>
+</tr>
+<tr><td>int</td>
+<td>opacity (this parameter is only supported for the AGG driver)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id52">
+<h3>Methods<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int updateFromString(string snippet)</dt>
+<dd>Update a style from a string snippet. Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value. Returns -1 on error.</dd>
+<dt>styleObj clone()</dt>
+<dd>Returns a cloned copy of the style.</dd>
+<dt>int setBinding(const stylebinding, string value)</dt>
+<dd><p class="first">Set the attribute binding for a specfiled style property. Returns true on success.
+Added in MapServer 5.0.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$oStyle-&gt;setbinding(MS_STYLE_BINDING_COLOR, &quot;FIELD_NAME_COLOR&quot;);</span>
+</pre></div>
+</div>
+<p class="last">This would bind the color parameter with the data (ie will extract
+the value of the color from the field called &#8220;FIELD_NAME_COLOR&#8221;</p>
+</dd>
+<dt>string getBinding(const stylebinding)</dt>
+<dd><p class="first">Get the attribute binding for a specfiled style property. Returns null if there
+is no binding for this property.</p>
+<div class="last highlight-php"><div class="highlight"><pre><span class="x">$oStyle-&gt;setbinding(MS_STYLE_BINDING_COLOR, &quot;FIELD_NAME_COLOR&quot;);</span>
+<span class="x">echo $oStyle-&gt;getbinding(MS_STYLE_BINDING_COLOR); // FIELD_NAME_COLOR</span>
+</pre></div>
+</div>
+</dd>
+<dt>int removeBinding(const stylebinding)</dt>
+<dd><p class="first">Remove the attribute binding for a specfiled style property. Returns true on success.
+Added in MapServer 5.0.</p>
+<div class="last highlight-php"><div class="highlight"><pre><span class="x">$oStyle-&gt;removebinding(MS_STYLE_BINDING_COLOR);</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="outputformatobj-class">
+<h2><a class="toc-backref" href="#contents">OutputformatObj Class</a><a class="headerlink" href="#outputformatobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id53">
+<h3>Constructor<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h3>
+<p>Instance of outputformatObj is always embedded inside the mapObj.
+It is uses a read only.</p>
+<p>No constructor available (coming soon, see bug 979)</p>
+</div>
+<div class="section" id="id54">
+<h3>Members<a class="headerlink" href="#id54" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>string</td>
+<td>name</td>
+</tr>
+<tr><td>string</td>
+<td>mimetype</td>
+</tr>
+<tr><td>string</td>
+<td>driver</td>
+</tr>
+<tr><td>string</td>
+<td>extension</td>
+</tr>
+<tr><td>int</td>
+<td>renderer</td>
+</tr>
+<tr><td>int</td>
+<td>imagemode     // MS_IMAGEMODE_* value.</td>
+</tr>
+<tr><td>int</td>
+<td>transparent</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id55">
+<h3>Methods<a class="headerlink" href="#id55" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value.</dd>
+<dt>void setOption(string property_name, string new_value)</dt>
+<dd><p class="first">Add or Modify the format option list. return true on success.</p>
+<div class="last highlight-php"><div class="highlight"><pre><span class="x">$oMap-&gt;outputformat-&gt;setOption(&quot;OUTPUT_TYPE&quot;, &quot;RASTER&quot;);</span>
+</pre></div>
+</div>
+</dd>
+<dt>string getOption(string property_name)</dt>
+<dd>Returns the associated value for the format option property passed
+as argument. Returns an empty string if property not found.</dd>
+<dt>void setFormatOption(string property_name, string new_value)</dt>
+<dd>Deprecated. See setOption().</dd>
+<dt>string  getFormatOption(string property_name)</dt>
+<dd>Deprecated. See getOption().</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="gridobj-class">
+<h2><a class="toc-backref" href="#contents">GridObj Class</a><a class="headerlink" href="#gridobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id56">
+<h3>Constructor<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h3>
+<p>The grid is always embedded inside a layer object defined as
+a grid (layer-&gt;connectiontype = MS_GRATICULE)
+(for more docs : <a class="reference external" href="http://trac.osgeo.org/mapserver/wiki/MapServerGrid">http://trac.osgeo.org/mapserver/wiki/MapServerGrid</a>)</p>
+<p>A layer can become a grid layer by adding a grid object to it using :
+ms_newGridObj(layerObj layer)</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$oLayer = ms_newlayerobj($oMap);</span>
+<span class="x">$oLayer-&gt;set(&quot;name&quot;, &quot;GRID&quot;);</span>
+<span class="x">ms_newgridobj($oLayer);</span>
+<span class="x">$oLayer-&gt;grid-&gt;set(&quot;labelformat&quot;, &quot;DDMMSS&quot;);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id57">
+<h3>Members<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>double</td>
+<td>minsubdivide</td>
+</tr>
+<tr><td>double</td>
+<td>maxsubdivide</td>
+</tr>
+<tr><td>double</td>
+<td>minarcs</td>
+</tr>
+<tr><td>double</td>
+<td>maxacrs</td>
+</tr>
+<tr><td>double</td>
+<td>mininterval</td>
+</tr>
+<tr><td>double</td>
+<td>maxinterval</td>
+</tr>
+<tr><td>string</td>
+<td>labelformat</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id58">
+<h3>Methods<a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="errorobj-class">
+<h2><a class="toc-backref" href="#contents">ErrorObj Class</a><a class="headerlink" href="#errorobj-class" title="Permalink to this headline">¶</a></h2>
+<p>Instances of errorObj are created internally by MapServer as errors
+happen.  Errors are managed as a chained list with the first item being
+the most recent error.  The head of the list can be fetched using
+ms_GetErrorObj(), and the list can be cleared using ms_ResetErrorList()</p>
+<div class="section" id="id59">
+<h3>Functions<a class="headerlink" href="#id59" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>errorObj ms_GetErrorObj()</dt>
+<dd>Returns a reference to the head of the list of errorObj.</dd>
+<dt>void ms_ResetErrorList()</dt>
+<dd>Clear the current error list.
+Note that clearing the list invalidates any errorObj handles obtained
+via the $error-&gt;next() method.</dd>
+</dl>
+</div>
+<div class="section" id="id60">
+<h3>Members<a class="headerlink" href="#id60" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>code      //See error code constants above</td>
+</tr>
+<tr><td>string</td>
+<td>routine</td>
+</tr>
+<tr><td>string</td>
+<td>message</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="method">
+<h3>Method<a class="headerlink" href="#method" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>errorObj next()</dt>
+<dd>Returns the next errorObj in the list, or NULL if we reached the end
+of the list.</dd>
+</dl>
+<p>Example:
+This example draws a map and reports all errors generated during
+the draw() call, errors can potentially come from multiple layers.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">ms_ResetErrorList();</span>
+<span class="x">$img = $map-&gt;draw();</span>
+<span class="x">$error = ms_GetErrorObj();</span>
+<span class="x">while($error &amp;&amp; $error-&gt;code != MS_NOERR)</span>
+<span class="x">{</span>
+<span class="x">    printf(&quot;Error in %s: %s&lt;br&gt;\n&quot;, $error-&gt;routine, $error-&gt;message);</span>
+<span class="x">    $error = $error-&gt;next();</span>
+<span class="x">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="labelcacheobj-class">
+<h2><a class="toc-backref" href="#contents">LabelcacheObj Class</a><a class="headerlink" href="#labelcacheobj-class" title="Permalink to this headline">¶</a></h2>
+<p>Accessible only through the map object (map-&gt;labelcache). This object
+is only used to give the possiblity to free the label cache
+(map-&gt;labelcache-&gt;free())</p>
+<div class="section" id="id61">
+<h3>Method<a class="headerlink" href="#id61" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>boolean free()</dt>
+<dd>Free the label cache. Returns true on success or false if an error
+occurs.
+Ex : (map-&gt;labelcache-&gt;free();</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="symbolobj-class">
+<h2><a class="toc-backref" href="#contents">SymbolObj Class</a><a class="headerlink" href="#symbolobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id62">
+<h3>Constructor<a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">symboldid = ms_newSymbolObj(mapObj map, string symbolname);</span>
+</pre></div>
+</div>
+<p>Creates a new symbol with default values in the symbolist. Returns the Id of
+the new symbol. If a symbol with the same name exists, It&#8217;s id will be returned.</p>
+<p>To get a symbol object, you need to use a method on the map object:</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$oSymbol = $map-&gt;getSymbolObjectById($nId);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id63">
+<h3>Members<a class="headerlink" href="#id63" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="83%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>string</td>
+<td>name</td>
+</tr>
+<tr><td>type</td>
+<td>name  //Please refer to symbol type constants</td>
+</tr>
+<tr><td>int</td>
+<td>inmapfile If set to TRUE, the symbol will be saved inside
+the mapfile.</td>
+</tr>
+<tr><td>double</td>
+<td>sizex</td>
+</tr>
+<tr><td>double</td>
+<td>sizey</td>
+</tr>
+<tr><td>int</td>
+<td>numpoints (Read-Only)</td>
+</tr>
+<tr><td>int</td>
+<td>filled</td>
+</tr>
+<tr><td>int</td>
+<td>patternlength (Read-Only)</td>
+</tr>
+<tr><td>int</td>
+<td>stylelength  (Deprecated in v5.0, use patternlength instead.) (Read-Only)</td>
+</tr>
+<tr><td>string</td>
+<td>imagepath (Read-Only))</td>
+</tr>
+<tr><td>int</td>
+<td>transparent</td>
+</tr>
+<tr><td>int</td>
+<td>transparentcolor</td>
+</tr>
+<tr><td>string</td>
+<td>character</td>
+</tr>
+<tr><td>int</td>
+<td>antialias</td>
+</tr>
+<tr><td>string</td>
+<td>font</td>
+</tr>
+<tr><td>int</td>
+<td>gap</td>
+</tr>
+<tr><td>int</td>
+<td>position</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id64">
+<h3>Methods<a class="headerlink" href="#id64" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int set(string property_name, new_value)</dt>
+<dd>Set object property to a new value.</dd>
+<dt>int setpoints(array double)</dt>
+<dd>Set the points of the symbol. Note that the values passed if an
+array containing the x and y values of the points. Example
+array[0] = 1  : x value of the first point
+array[1] = 0 : y values of the first point
+array[2] = 1 : x value of the 2nd point
+....</dd>
+<dt>int setpattern(array int)</dt>
+<dd>Set the pattern of the symbol (used for dash patterns)</dd>
+<dt>array getpointsarray()</dt>
+<dd>Returns an array containing the points of the symbol. Refer
+to setpoints to see how the array should be interpreted.</dd>
+<dt>array getpatternarray()</dt>
+<dd>Returns an array containing the pattern.</dd>
+<dt>int setimagepath(char filename)</dt>
+<dd>Loads a pixmap symbol specified by the filename.
+The file should be of either  Gif or Png format.</dd>
+<dt>int setstyle(array int)</dt>
+<dd>Deprecated in v5.0, will be removed in a future release.
+Use setpattern() instead.</dd>
+<dt>array getstylearray()</dt>
+<dd>Deprecated in v5.0, will be removed in a future release.
+Use getpatternarray() instead.</dd>
+</dl>
+<p>Example of usage:</p>
+<ol class="arabic simple">
+<li>create a symbol to be used as a dash line</li>
+</ol>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$nId = ms_newsymbolobj($gpoMap, &quot;mydash&quot;);</span>
+<span class="x">$oSymbol = $gpoMap-&gt;getsymbolobjectbyid($nId);</span>
+<span class="x">$oSymbol-&gt;set(&quot;filled&quot;, MS_TRUE);</span>
+<span class="x">$oSymbol-&gt;set(&quot;sizex&quot;, 1);</span>
+<span class="x">$oSymbol-&gt;set(&quot;sizey&quot;, 1);</span>
+<span class="x">$oSymbol-&gt;set(&quot;inmapfile&quot;, MS_TRUE);</span>
+
+<span class="x">$aPoints[0] = 1;</span>
+<span class="x">$aPoints[1] = 1;</span>
+<span class="x">$oSymbol-&gt;setpoints($aPoints);</span>
+
+<span class="x">$aPattern[0] = 10;</span>
+<span class="x">$aPattern[1] = 5;</span>
+<span class="x">$aPattern[2] = 5;</span>
+<span class="x">$aPattern[3] = 10;</span>
+<span class="x">$oSymbol-&gt;setpattern($aPattern);</span>
+
+<span class="x">$style-&gt;set(&quot;symbolname&quot;, &quot;mydash&quot;);</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Create a TrueType symbol</li>
+</ol>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$nId = ms_newSymbolObj($gpoMap, &quot;ttfSymbol&quot;);</span>
+<span class="x">    $oSymbol = $gpoMap-&gt;getSymbolObjectById($nId);</span>
+<span class="x">    $oSymbol-&gt;set(&quot;type&quot;, MS_SYMBOL_TRUETYPE);</span>
+<span class="x">    $oSymbol-&gt;set(&quot;filled&quot;, true);</span>
+<span class="x">    $oSymbol-&gt;set(&quot;character&quot;, &quot;&amp;#68;&quot;);</span>
+<span class="x">$oSymbol-&gt;set(&quot;font&quot;, &quot;ttfFontName&quot;);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="owsrequestobj-class">
+<h2><a class="toc-backref" href="#contents">OwsrequestObj Class</a><a class="headerlink" href="#owsrequestobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id65">
+<h3>Constructor<a class="headerlink" href="#id65" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">request = ms_newOwsrequestObj();</span>
+</pre></div>
+</div>
+<p>Create a new ows request object.</p>
+</div>
+<div class="section" id="id66">
+<h3>Members<a class="headerlink" href="#id66" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Type</th>
+<th class="head">Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>int</td>
+<td>numparams (read-only)</td>
+</tr>
+</tbody>
+</table>
+<p>int             type (read-only): MS_GET_REQUEST or MS_POST_REQUEST
+=============== ====================================================================</p>
+</div>
+<div class="section" id="id67">
+<h3>Methods<a class="headerlink" href="#id67" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>int loadparams()</dt>
+<dd>Initializes the OWSRequest object from the cgi environment variables
+REQUEST_METHOD, QUERY_STRING and HTTP_COOKIE.  Returns the number of
+name/value pairs collected.</dd>
+<dt>int setparameter(string name, string value)</dt>
+<dd><p class="first">Set a request parameter.  For example :</p>
+<div class="last highlight-php"><div class="highlight"><pre><span class="x">$request-&gt;setparameter(&#39;REQUEST&#39;, &#39;GetMap&#39;);</span>
+</pre></div>
+</div>
+</dd>
+<dt>string getname(int index)</dt>
+<dd>Return the name of the parameter at <em>index</em> in the request&#8217;s array
+of parameter names.</dd>
+<dt>string getvalue(int index)</dt>
+<dd>Return the value of the parameter at <em>index</em> in the request&#8217;s array
+of parameter values.</dd>
+<dt>string getvaluebyname(string name)</dt>
+<dd>Return the value associated with the parameter <em>name</em>.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="hashtableobj-class">
+<h2><a class="toc-backref" href="#contents">hashTableObj Class</a><a class="headerlink" href="#hashtableobj-class" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id68">
+<h3>Constructor<a class="headerlink" href="#id68" title="Permalink to this headline">¶</a></h3>
+<p>Instance of hashTableObj is always embedded inside the LayerObj, WebObj
+and ClassObj. It is uses a read only.</p>
+<div class="highlight-php"><div class="highlight"><pre><span class="x">$hashTable = $oLayer-&gt;metadata;</span>
+<span class="x">$key = null;</span>
+<span class="x">while ($key = $hashTable-&gt;nextkey($key))</span>
+<span class="x">    echo &quot;Key: &quot;.$key.&quot; value: &quot;.$hashTable-&gt;get($key).&quot;&lt;br/&gt;&quot;;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id69">
+<h3>Methods<a class="headerlink" href="#id69" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt>string get(string key)</dt>
+<dd>Fetch class metadata entry by name.  Returns &#8220;&#8221; if no entry
+matches the name.  Note that the search is case sensitive.</dd>
+<dt>int set(string key, string value)</dt>
+<dd>Set a metadata entry in the hashTable. Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>int  remove(string key)</dt>
+<dd>Remove a metadata entry in the hashTable.  Returns MS_SUCCESS/MS_FAILURE.</dd>
+<dt>void clear()</dt>
+<dd>Clear all items in the hashTable (To NULL).</dd>
+<dt>string  nextkey(string previousKey)</dt>
+<dd>Return the next key or first key if previousKey = NULL.
+Return NULL if no item is in the hashTable or end of hashTable is reached</dd>
+</dl>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="class-intro.html" title="Introduction"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../mapscript.html" title="SWIG MapScript API Reference"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >MapScript</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

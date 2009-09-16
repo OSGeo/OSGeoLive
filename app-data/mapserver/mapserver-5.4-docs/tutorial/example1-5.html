@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Example 1.5 &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//tutorial/example1-5.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/tutorial/example1-5.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Example 1.5</a><ul>
+<li><a class="reference external" href="#adding-a-raster-layer">Adding a Raster Layer</a><ul>
+<li><a class="reference external" href="#mapfile-structure">MapFile Structure</a></li>
+<li><a class="reference external" href="#parameters">Parameters</a></li>
+<li><a class="reference external" href="#rgb-vs-indexed-color-image">RGB vs Indexed Color Image</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/tutorial/example1-5.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="example-1-5">
+<span id="example1-5"></span><h1>Example 1.5<a class="headerlink" href="#example-1-5" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="adding-a-raster-layer">
+<h2>Adding a Raster Layer<a class="headerlink" href="#adding-a-raster-layer" title="Permalink to this headline">¶</a></h2>
+<img alt="http://demo.mapserver.org/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/example1-5.map&amp;layer=states&amp;layer=states_line&amp;layer=states_label&amp;layer=modis&amp;mode=map" src="http://demo.mapserver.org/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/example1-5.map&amp;layer=states&amp;layer=states_line&amp;layer=states_label&amp;layer=modis&amp;mode=map" />
+<p>In addition to vector data support (point, lines, polygons, and annotations),
+MapServer can also display raster data. Through the use of GDAL library, MapServer
+can input and output multiple raster formats. Whereas in versions prior to 4.x raster
+input is limited to single layer, grayscale or indexed color images, recent MapServer
+versions support RGB and multispectral (multi-layer) images. This example shows how to
+select what layers to display when using multispectral data.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There might be a noticeable performance hit when using RGB and multispectral images.</p>
+</div>
+<p>Because MapServer 5.x uses GD version 2.0.x library to generate output images, it
+supports RGB (24-bit or true color) output as well. So, along with 8-bit (indexed
+color or grayscale) PNG, you can now also use PNG24 (true color) for output. This
+example uses PNG24 as IMAGETYPE.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">As with RGB input, there might be a noticeable performance hit when using PNG24.</p>
+</div>
+<p>MapServer can actually use GDAL to generate output images as well, but that&#8217;s another
+topic. If you want to know more about it, look at the <a class="reference external" href="../mapfile/outputformat.html#outputformat"><em>OUTPUTFORMAT</em></a>
+object in the mapfile reference.</p>
+<div class="section" id="mapfile-structure">
+<h3>MapFile Structure<a class="headerlink" href="#mapfile-structure" title="Permalink to this headline">¶</a></h3>
+<p>This is what the mapfile looks like: <a class="reference external" href="example1-5-map.html#example1-5-map"><em>Example1-5.map</em></a></p>
+<p>The mapfile structure, by objects, looks like this:</p>
+<div class="highlight-python"><pre>                                             MAP
+             LAYER #1-------------LAYER #2----|----LAYER #3--------LAYER #4
+          (states_poly)           (modis)       (states_line)   (states_label)
+             |                                     |               |
+(land) CLASS-|-CLASS (water)                       |-CLASS         |-CLASS
+           |   |                                     |                 |
+     STYLE-|   |-STYLE                               |-STYLE     STYLE-|-LABEL</pre>
+</div>
+<p>When you look at the mapfile, you&#8217;ll see that the new LAYER object is added below
+(after) the state POLYGON layer. Why? MapServer displays layers in reverse order:
+last in, first out (LIFO). The first layer defined in the mapfile is drawn at
+the bottom of the map.</p>
+<p>So, if we have drawn the state POLYGON layer, it would be on the bottom. Since the
+raster layer gets drawn on top of it, we won&#8217;t see it. That&#8217;s why the first layer
+gets the STATUS value of OFF. The state LINE layer is defined below the raster
+layer so it gets drawn on top (and you can see it). This is why we separated the
+state LINE layer from the state POLYGON layer. Of course the labels get drawn
+on top of everything.</p>
+<p>MapServer can automatically turn layers on or off based on the status of other
+layers (say you want the states polygon layer turned off when the raster layer
+is turned on). This is done by using the REQUIRES parameter. Keep this in
+mind as you might want to use it once you start creating your own MapServer
+applications.</p>
+</div>
+<div class="section" id="parameters">
+<h3>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">¶</a></h3>
+<p>Let&#8217;s have a look at the new parameters introduced in the mapfile:</p>
+<dl class="docutils">
+<dt><strong>IMAGETYPE</strong></dt>
+<dd>This is not new but the value &#8220;PNG24&#8221; is. PNG24 is the 24-bit or true-color
+version of the PNG format. Instead of being limited to 256 color combinations
+for our output image, MapServer now have millions. By the way, try changing
+this value back to PNG. Notice the time it takes to generate the image using
+either formats. In choosing between true color and indexed color, take into
+account the time it takes to generate the image.</dd>
+<dt><strong>SYMBOLSET</strong></dt>
+<dd>Points to the path of the symbol definition file. The symbols in this file
+are referenced by the SYMBOL parameter in the <a class="reference external" href="../mapfile/class.html#class"><em>CLASS</em></a> object.
+It&#8217;s not really needed at this point but I thought I&#8217;d throw this here now.
+Please refer to the <a class="reference external" href="../mapfile/symbology/construction.html#sym-construction"><em>Cartographic Symbol Reference</em></a>
+for further information.</dd>
+</dl>
+<p><strong>DATA raster/mod09a12003161_ugl_ll_8bit.tif</strong></p>
+<blockquote>
+In the newly added LAYER object, the DATA parameter points to a GeoTIFF image.
+Like vector datasets, MapServer supports multiple raster file formats. This
+support is accomplished through use of the GDAL library. For more information
+on the different raster formats supported by MapServer and for general
+discussion on the use of rasters in MapServer, please read the
+<a class="reference external" href="../input/raster.html#raster"><em>Raster Data Reference</em></a>.</blockquote>
+<dl class="docutils">
+<dt><strong>TYPE RASTER</strong></dt>
+<dd>When using raster data (images) we use the value RASTER for the parameter
+TYPE, as opposed to the POLYGON, LINE, and POINT values for vector data and
+ANNOTATION for label IDs.</dd>
+<dt><strong>PROCESSING &#8220;BANDS=1,2,3&#8221;</strong></dt>
+<dd>This LAYER object parameter was added in MapServer 4.x. The
+:ref:&lt;PROCESSING&gt; keyword has many values but in this case we are using it to
+select which bands in a multispectral image to display. The values here are
+strings that will be passed to the GDAL library.</dd>
+<dt><strong>OFFSITE</strong></dt>
+<dd>This parameter tells MapServer what pixel values to render as background
+(or ignore). You can get the pixel values using image processing or image
+manipulation programs (i.e. Imagine, Photoshop, Gimp).</dd>
+</dl>
+</div>
+<div class="section" id="rgb-vs-indexed-color-image">
+<h3>RGB vs Indexed Color Image<a class="headerlink" href="#rgb-vs-indexed-color-image" title="Permalink to this headline">¶</a></h3>
+<p>To compare map creation speed when using RGB image as opposed to indexed color
+image, replace the following lines in the mapfile:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">DATA</span> <span class="s">&quot;raster/mod09a12003161_ugl_ll_8bit.tif&quot;</span>
+<span class="k">STATUS</span> <span class="nb">DEFAULT</span>
+<span class="k">TYPE</span> <span class="nb">RASTER</span>
+<span class="k">PROCESSING</span> <span class="s">&quot;BANDS=1,2,3&quot;</span>
+<span class="k">OFFSITE</span> <span class="mi">71</span> <span class="mi">74</span> <span class="mi">65</span>
+</pre></div>
+</div>
+<p>with these:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">DATA</span> <span class="s">&quot;raster/mod09a12003161_ugl_ll_idxa.tif&quot;</span>
+<span class="k">STATUS</span> <span class="nb">DEFAULT</span>
+<span class="k">TYPE</span> <span class="nb">RASTER</span>
+<span class="k">OFFSITE</span> <span class="mi">70</span> <span class="mi">74</span> <span class="mi">66</span>
+</pre></div>
+</div>
+<p>Also, try changing the IMAGETYPE from PNG24 to PNG.</p>
+<hr class="docutils" />
+<p><a class="reference external" href="example1-4.html#example1-4"><em>Back to Example 1.4</em></a> | <a class="reference external" href="example1-6.html#example1-6"><em>Proceed to Example 1.6</em></a></p>
+<hr class="docutils" />
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

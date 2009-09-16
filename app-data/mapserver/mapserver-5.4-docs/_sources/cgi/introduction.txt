@@ -1,0 +1,43 @@
+.. _cgi_introduction:
+
+*****************************************************************************
+ MapServer CGI Introduction
+*****************************************************************************
+
+
+Notes
+=====
+
+*  Variable names are not case sensitive.
+*  In cases where multiple values are associated with a variable (eg. 
+   mapext), the values must be seperated by spaces (or their escaped 
+   equivalents for GET requests).
+*  Variable contents are checked for appropriate data types and magnitude 
+   as they are loaded.
+*  Any CGI Variable not listed below is simply stored and can be 
+   referenced within a template file. 
+
+Changes
+=======
+
+From MapServer version 4.x to version 5.x
+-----------------------------------------
+
+*  Modifying map parameters through a URL has changed to allow for 
+   chunks of a mapfile to be modified at once.  The syntax has changed
+   accordingly, so please see the *Changing map file parameters via a form or a URL*
+   section.
+
+From MapServer version 3.x to version 4.x
+-----------------------------------------
+
+*  New way to perform attribute queries: No longer do you set a layer 
+   filter, but rather you pass a query string (and optionally an query 
+   item) to the query function. To do this 2 new CGI parameters were 
+   added to MapServer: QSTRING and QITEM.
+*  SAVEMAP is switched off: The SAVEMAP functionality is considered 
+   insecure, since the saved files are accessible by everyone.
+*  TEMPLATE has been removed, since the map_web_template syntax can be 
+   used to alter a template file. Simplifies security maintenance by only 
+   having to deal with this option in a single place. Note that the 
+   TEMPLATEPATTERN of the mapfile has to be used to enable this feature. 

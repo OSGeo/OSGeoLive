@@ -1,0 +1,134 @@
+.. _rfc32:
+
+===================================================================
+  MS RFC 32: Support for Anti-Grain Geometry (AGG) Rendering Engine
+===================================================================
+
+:Date: 2007/07/09
+:Author: Steve Lime, John Novak
+:Contact: Steve.Lime at DNR.State.MN.US
+:Status: Pending
+:Id: $Id: ms-rfc-32.txt 8278 2008-12-23 21:34:31Z hobu $
+
+Overview
+~~~~~~~~
+Presently MapServer supports GD (www.libgd.org) as its primary raster
+rendering backend. While GD is sufficient in many instances it is not capable
+of high quality output especially with regards to anti-aliased line work.
+MapServer does support pseudo anti-aliased wide lines using variable opacity
+"fuzzy" buffers, but the results are not as good as they could be.
+
+AGG has emerged as one of the premier software-only rendering solutions and it
+holds the promise of superior output quality with little or no apparent loss
+in performance. In fact, AGG may well be faster than GD in some instances even
+with the higher quality output.
+
+That said, we are still heavily vested in GD for many things. Text positioning
+and raster rendering in particular use GD functions directly. On the other
+hand, AGG does not have built in functions to read or write popular graphics
+formats such as GIF, JPEG or PNG. It makes sense then to consider a hybrid
+solution wherein we can take advantage of aspects of GD that make sense such
+as buffer management and I/O capabilities, and let AGG worry about rendering
+features. That's exactly what is proposed- AGG rendering into a GD managed
+image buffer. A secondary benefit is that AGG functionality can be added
+incrementally as time and resources permit. For example, since an AGG imageObj
+is really just a gdImagePtr we can use current code that renders to a GD image
+along side any AGG routines.
+
+.. note::
+    
+    See :ref:`agg` for more information.
+    
+Technical Solution
+~~~~~~~~~~~~~~~~~~
+
+The goal of this initial implementation is to be able to render the symbol and
+style definitions the same way as GD does. That is, the AGG renderer should
+produce output similar to GD but of a higher quality. No attempts are made at
+this stage to introduce rendering capabilities specific to AGG unless
+otherwise noted. As a result no additions to the MapServer symbolObj or
+styleObj are necessary at this point.
+
+For the most part, the AGG renderer can ingest processed shapeObj's,
+styleObj's and symbolObj's just as GD. That said, since AGG uses sub-pixel
+computations to render features it does not want feature coordinates rounded
+to integer values, so a special AGG-only map to image coordinate conversion
+function msTransformShapeAGG. Note, that it may be that GD could also make use
+of the non-rounded features and could just cast the doubles to ints when
+passing x's and y's to GD (in fact the code already does this), but further
+testing will be necessary.
+
+C API Changes
+~~~~~~~~~~~~~
+
+In reality adding a new renderer has little or no effect on the MapServer
+core. The following files are to be modified to add AGG specific processing
+blocks that are basically straight copies of GD support:
+
+- mapdraw.c
+- mapdrawgdal.c
+- maperror.c
+- maplegend.c
+- mapoutput.c
+- mapraster.c
+- mapresample.c
+- maputil.c
+
+No new functionality is added to these files, rather just else-if blocks.
+
+The bulk of the AGG functionality can be found in a new source file,
+mapagg.cpp. For better or worse it mimics the rendering API found in mapgd.c.
+So, for example msDrawLineSymbolGD has a counter part in msDrawLineSymbolAGG.
+Various helper functions/methods can also be found in that file.
+
+MapScript
+~~~~~~~~~
+
+No changes.
+
+Mapfiles
+~~~~~~~~
+
+An output block like this will trigger AGG rendering:
+
+::
+
+  OUTPUTFORMAT
+    NAME 'AGG_PNG24'
+    DRIVER AGG/PNG
+    IMAGEMODE RGB
+  END
+
+Issues and Caveats
+~~~~~~~~~~~~~~~~~~
+
+- The AGG driver only supports RGB output at this time. A fundamental
+  difference in how GD and AGG interpret alpha channel values (GD is
+  backwards) means that AGG cannot write to a GD alpha channel and have the
+  output interpreted correctly. This really shouldn't be a deal breaker though
+  since vector rendering in MapServer does not write to the alpha channel
+  except when dealing with layer transparency, otherwise alpha blending
+  occurs. In addition, GD is back under active development and there are plans
+  to define a proper RGBA buffer.
+  
+- Text and raster layers are drawn using GD. While text placement could
+  certainly benefit from sub-pixel placement there are not enough resources to
+  complete that support at this time. Hopefully it can be addressed soon.
+  Raster layer rendering doesn't appear to benefit from AGG and will remain a
+  GD function at this time.
+
+- The following symbol, style combinations do not work under AGG: TODO
+
+- The AGG license was changed between versions 2.4 (BSD style) and 2.5 (GPL)
+  (http://www.antigrain.com/license/index.html). MapServer should use version
+  2.4 of the library until all implications of this change are clarified.
+
+Bug ID
+~~~~~~
+
+None assigned
+
+Voting history
+~~~~~~~~~~~~~~
+
+None 

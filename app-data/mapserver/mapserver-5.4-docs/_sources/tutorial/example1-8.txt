@@ -1,0 +1,39 @@
+.. _example1-8:
+
+===========
+Example 1.8
+===========
+Changing the Map's Output Format
+--------------------------------
+
+.. image::  http://demo.mapserver.org/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/example1-8.map&layers=states+states_label+modis&map.imagetype=AGG&mode=map
+
+Depending on the format you choose, the image may not display on your browser.
+If the link fails to display on your browser, right click on the graphic above
+and save the link as whatever format you specified on your mapfile.
+
+The MapFile
+###########
+
+Here's the mapfile: :ref:`Example1-8.map <example1-8-map>`
+
+OUTPUTFORMAT Object
+*******************
+Our mapfile now contains a new object, OUTPUTFORMAT. This object is defined 
+within the MAP object and is used in conjunction with the IMAGETYPE keyword. 
+Depending on the libraries you compiled with MapServer, you can have several
+output format choices--the GD library provides PNG (8- and 24-bit), GIF, JPEG,
+and WBMP; the GDAL library, a source for many of MapServer's input formats, can
+also provide output to PNG, JPEG, TIFF/GeoTIFF, and other raster formats; the 
+PDFLib library provides PDF output; and the MING library provides Flash output. 
+Have a look at the OUTPUTFORMAT object and experiment by changing the IMAGETYPE 
+keyword on you mapfile. The NAME of your OUTPUT format should be used as your 
+IMAGETYPE value ex: IMAGETYPE png or IMAGETYPE png24).
+
+Please consult the :ref:`OUTPUTFORMAT object reference <outputformat>`.
+
+----
+
+:ref:`Back to Example 1.7 <example1-7>` | :ref:`Proceed to Example 1.9 <example1-9>`
+
+----

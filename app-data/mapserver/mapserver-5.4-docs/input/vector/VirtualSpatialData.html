@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Virtual Spatial Data &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Vector Data" href="index.html" />
+    <link rel="next" title="ArcInfo" href="ArcInfo.html" />
+    <link rel="prev" title="GML" href="gml.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ArcInfo.html" title="ArcInfo"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="gml.html" title="GML"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Vector Data</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//input/vector/VirtualSpatialData.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/input/vector/VirtualSpatialData.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Virtual Spatial Data</a><ul>
+<li><a class="reference external" href="#types-of-databases">Types of Databases</a></li>
+<li><a class="reference external" href="#types-of-flat-files">Types of Flat Files</a></li>
+<li><a class="reference external" href="#steps-for-display">Steps for Display</a><ul>
+<li><a class="reference external" href="#create-the-datasource-name-dsn">1. Create the Datasource Name (DSN)</a></li>
+<li><a class="reference external" href="#test-your-connection">2. Test your Connection</a></li>
+<li><a class="reference external" href="#create-a-virtual-data-file">3. Create a Virtual Data File</a></li>
+<li><a class="reference external" href="#test-virtual-data-file-with-ogrinfo">4. Test Virtual Data File with ogrinfo</a></li>
+<li><a class="reference external" href="#mapfile-layer">5. Mapfile Layer</a></li>
+<li><a class="reference external" href="#test-your-mapfile">6. Test your Mapfile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="gml.html"
+                                  title="previous chapter">GML</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ArcInfo.html"
+                                  title="next chapter">ArcInfo</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/input/vector/VirtualSpatialData.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="virtual-spatial-data">
+<span id="virtual-vector"></span><h1><a class="toc-backref" href="#table-of-contents">Virtual Spatial Data</a><a class="headerlink" href="#virtual-spatial-data" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#virtual-spatial-data" id="id1">Virtual Spatial Data</a><ul>
+<li><a class="reference internal" href="#types-of-databases" id="id2">Types of Databases</a></li>
+<li><a class="reference internal" href="#types-of-flat-files" id="id3">Types of Flat Files</a></li>
+<li><a class="reference internal" href="#steps-for-display" id="id4">Steps for Display</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>This is an OGR extension to MapServer.  It allows you to connect to
+databases that do not explicitly hold spatial data, as well as flat
+text files.  Your data must have an X and a Y column, and the data
+may be accessed through an ODBC connection or a direct pointer to a text file.</p>
+<p>The original <a class="reference external" href="http://trac.osgeo.org/mapserver/wiki/VirtualSpatialData">VirtualSpatialData</a> wiki page may contain additional information.</p>
+<div class="section" id="types-of-databases">
+<h2><a class="toc-backref" href="#table-of-contents">Types of Databases</a><a class="headerlink" href="#types-of-databases" title="Permalink to this headline">¶</a></h2>
+<p>The VirtualSpatialData OGR extension has been tested with the
+following databases and should, in theory, support all ODBC
+data sources.</p>
+<ul class="simple">
+<li>Oracle</li>
+<li>MySQL</li>
+<li>SQL Server</li>
+<li>Access</li>
+<li>PostgreSQL</li>
+</ul>
+</div>
+<div class="section" id="types-of-flat-files">
+<h2><a class="toc-backref" href="#table-of-contents">Types of Flat Files</a><a class="headerlink" href="#types-of-flat-files" title="Permalink to this headline">¶</a></h2>
+<p>Comma, tab or custom delimited text/flat files work with VirtualSpatialData.</p>
+</div>
+<div class="section" id="steps-for-display">
+<h2><a class="toc-backref" href="#table-of-contents">Steps for Display</a><a class="headerlink" href="#steps-for-display" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="create-the-datasource-name-dsn">
+<h3>1. Create the Datasource Name (DSN)<a class="headerlink" href="#create-the-datasource-name-dsn" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Specific notes about creating a DSN on Windows and Linux can be found by
+searching the MapServer reference documents site</li>
+<li>On some Windows systems you must create a SYSTEM DSN.</li>
+</ul>
+</div>
+<div class="section" id="test-your-connection">
+<h3>2. Test your Connection<a class="headerlink" href="#test-your-connection" title="Permalink to this headline">¶</a></h3>
+<p>Test your connection with ogrinfo.  The syntax for this command is:</p>
+<div class="highlight-python"><pre>&gt; ogrinfo ODBC:user/pass@DSN table</pre>
+</div>
+<p>Windows users may not be required to specify a user/password, so the syntax would be:</p>
+<div class="highlight-python"><pre>&gt; ogrinfo ODBC:@DSN table</pre>
+</div>
+<p>Example: Accessing a comma separated text file through ODBC using ogrinfo</p>
+<p>The following is a snippet of the flat text file coal_dep.txt containing lat/long points:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">unknown</span><span class="p">,</span><span class="n">na</span><span class="p">,</span><span class="nb">id</span><span class="p">,</span><span class="n">id2</span><span class="p">,</span><span class="n">mark</span><span class="p">,</span><span class="n">coalkey</span><span class="p">,</span><span class="n">coalkey2</span><span class="p">,</span><span class="nb">long</span><span class="p">,</span><span class="n">lat</span>
+<span class="mf">0.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">87</span><span class="p">,</span><span class="mi">87</span><span class="p">,</span><span class="mf">76.90238</span><span class="p">,</span><span class="mf">51.07161</span>
+<span class="mf">0.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="mi">110</span><span class="p">,</span><span class="mf">78.53851</span><span class="p">,</span><span class="mf">50.69403</span>
+<span class="mf">0.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">112</span><span class="p">,</span><span class="mi">112</span><span class="p">,</span><span class="mf">83.22586</span><span class="p">,</span><span class="mf">71.24420</span>
+<span class="mf">0.000</span><span class="p">,</span><span class="mf">0.000</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">114</span><span class="p">,</span><span class="mi">114</span><span class="p">,</span><span class="mf">80.79896</span><span class="p">,</span><span class="mf">73.41175</span>
+</pre></div>
+</div>
+<p>If the DSN name is Data_txt, the ogrinfo command to see a list of applicable files in the directory is:</p>
+<div class="highlight-python"><pre>&gt; ogrinfo ODBC:jeff/test@Data_txt
+INFO: Open of `ODBC:jeff/test@Data_txt'
+using driver `ODBC' successful.
+1: coal_dep.csv
+2: coal_dep.txt
+3: coal_dep_nf.txt
+4: coal_dep_trim.txt
+5: Copy of coal_dep.txt
+6: deposit.csv
+7: maruia.asc
+8: oahuGISbathy.csv
+9: oahuGISbathy.txt
+10: on_pts.txt
+11: on_pts_utm.txt
+12: test.txt
+13: utm_test.txt</pre>
+</div>
+<p>Username and password may be optional, so the following may also be valid:</p>
+<div class="highlight-python"><pre>&gt; ogrinfo ODBC:@Data_txt</pre>
+</div>
+<p>Therefore, the command to see more information about one of the specific layers is:</p>
+<div class="highlight-python"><pre>&gt; ogrinfo ODBC:@Data_txt coal_dep.txt
+INFO: Open of `ODBC:@Data_txt'
+using driver `ODBC' successful.
+
+Layer name: coal_dep.txt
+Geometry: Unknown (any)
+Feature Count: 266
+Layer SRS WKT:
+(unknown)
+UNKNOWN: String (255.0)
+NA: String (255.0)
+ID: String (255.0)
+ID2: String (255.0)
+MARK: String (255.0)
+COALKEY: String (255.0)
+COALKEY2: String (255.0)
+LONG: String (255.0)
+LAT: String (255.0)
+OGRFeature(coal_dep.txt):0
+UNKNOWN (String) = 0.000
+....</pre>
+</div>
+</div>
+<div class="section" id="create-a-virtual-data-file">
+<h3>3. Create a Virtual Data File<a class="headerlink" href="#create-a-virtual-data-file" title="Permalink to this headline">¶</a></h3>
+<p>This is a file with an ovf extension and looks like the following:</p>
+<div class="highlight-python"><pre>&lt;OGRVRTDataSource&gt;
+        &lt;OGRVRTLayer name="mylayer"&gt;
+        &lt;SrcDataSource&gt;ODBC:user/pass@DSN&lt;/SrcDataSource&gt;
+        &lt;SrcLayer&gt;tablename&lt;/SrcLayer&gt;
+        &lt;GeometryType&gt;wkbPoint&lt;/GeometryType&gt;
+        &lt;LayerSRS&gt;WGS84&lt;/LayerSRS&gt;
+        &lt;GeometryField encoding="PointFromColumns" x="x" y="y"/&gt;
+        &lt;/OGRVRTLayer&gt;
+&lt;/OGRVRTDataSource&gt;</pre>
+</div>
+<p>More information on ovf files can be found at: <a class="reference external" href="http://www.gdal.org/ogr/drv_vrt.html">http://www.gdal.org/ogr/drv_vrt.html</a></p>
+<p>Example ovf file for coal_dep.txt:</p>
+<div class="highlight-python"><pre>&lt;OGRVRTDataSource&gt;
+        &lt;OGRVRTLayer  name="coal-test"&gt;
+        &lt;SrcDataSource&gt;ODBC:Data_txt&lt;/SrcDataSource&gt;
+        &lt;SrcLayer&gt;coal_dep.txt&lt;/SrcLayer&gt;
+        &lt;GeometryField encoding="PointFromColumns" x="Long" y="Lat"/&gt;
+        &lt;GeometryType&gt;wkbPoint&lt;/GeometryType&gt;
+        &lt;/OGRVRTLayer&gt;
+&lt;/OGRVRTDataSource&gt;</pre>
+</div>
+</div>
+<div class="section" id="test-virtual-data-file-with-ogrinfo">
+<h3>4. Test Virtual Data File with ogrinfo<a class="headerlink" href="#test-virtual-data-file-with-ogrinfo" title="Permalink to this headline">¶</a></h3>
+<p>Use ogrinfo to test your new ovf file, such as:</p>
+<div class="highlight-python"><pre>&gt; ogrinfo coal.ovf coal-test
+ERROR 4: Update access not supported for VRT datasources.
+Had to open data source read-only.
+INFO: Open of `myfile.ovf'
+using driver `VRT' successful.
+
+Layer name: coal_dep.txt
+Geometry: Unknown (any)
+Feature Count: 266
+Layer SRS WKT:
+(unknown)
+UNKNOWN: String (255.0)
+NA: String (255.0)
+ID: String (255.0)
+ID2: String (255.0)
+MARK: String (255.0)
+...</pre>
+</div>
+</div>
+<div class="section" id="mapfile-layer">
+<h3>5. Mapfile Layer<a class="headerlink" href="#mapfile-layer" title="Permalink to this headline">¶</a></h3>
+<p>Using an ovf file your layer may look like:</p>
+<div class="highlight-python"><pre> LAYER
+  CONNECTION "coal.ovf"
+  CONNECTIONTYPE OGR
+  DATA "coal-test"
+    METADATA
+      "wms_srs"   "4326"
+      "wms_title"   "coal-test"
+    END
+  NAME "coal-test"
+  SIZEUNITS PIXELS
+  STATUS ON
+  TOLERANCE 0
+  TOLERANCEUNITS PIXELS
+  TYPE POINT
+  UNITS METERS
+  CLASS
+    STYLE
+        COLOR 255 0 0
+      MAXSIZE 100
+      MINSIZE 1
+      SIZE 6
+      SYMBOL "star"
+    END
+  END
+END</pre>
+</div>
+<p>Or you may specify the ovf contents inline such as:</p>
+<div class="highlight-python"><pre>LAYER
+        CONNECTION "&lt;OGRVRTDataSource&gt;
+        &lt;OGRVRTLayer  name='coal-test'&gt;
+        &lt;SrcDataSource&gt;ODBC:@Data_txt&lt;/SrcDataSource&gt;
+        &lt;SrcLayer&gt;coal_dep.txt&lt;/SrcLayer&gt;
+        &lt;GeometryField encoding='PointFromColumns' x='Long' y='Lat'/&gt;
+        &lt;GeometryType&gt;wkbPoint&lt;/GeometryType&gt;
+        &lt;/OGRVRTLayer&gt;
+        &lt;/OGRVRTDataSource&gt;"
+        CONNECTIONTYPE OGR
+        DATA "coal-test"
+        METADATA
+                "wms_srs"   "4326"
+                "wms_title"   "coal-test"
+        END
+        NAME "coal-test"
+        SIZEUNITS PIXELS
+        STATUS ON
+        TOLERANCE 0
+        TOLERANCEUNITS PIXELS
+        TYPE POINT
+        UNITS METERS
+        CLASS
+                STYLE
+                        COLOR 255 0 0
+                        MAXSIZE 100
+                        MINSIZE 1
+                        SIZE 6
+                        SYMBOL "star"
+                END
+        END
+END</pre>
+</div>
+</div>
+<div class="section" id="test-your-mapfile">
+<h3>6. Test your Mapfile<a class="headerlink" href="#test-your-mapfile" title="Permalink to this headline">¶</a></h3>
+<p>The first thing you should try is to use the <a class="reference external" href="../../utilities/shp2img.html#shp2img"><em>shp2img</em></a> utility:</p>
+<div class="highlight-python"><pre>shp2img -m mymapfile.map -o test.png</pre>
+</div>
+<p>Once you successfully created a map image, then try your application. Note
+Windows users may come across a problem where shp2img works but their
+application throws an error similar to this:</p>
+<div class="highlight-python"><pre>Warning: [MapServer Error]: msOGRFileOpen(): Open failed for OGR connection `coal.ovf'.
+Unable to initialize ODBC connection to DSN for jeff/test@Data_txt,
+[Microsoft][ODBC Driver Manager] Data source name not found
+and no default driver specified in D:\ms4w\Apache\htdocs\quickmap.php on line 40</pre>
+</div>
+<p>If that happens you should make sure you have created a System DSN.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ArcInfo.html" title="ArcInfo"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="gml.html" title="GML"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li>
+          <li><a href="index.html" >Vector Data</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

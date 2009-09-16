@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>INCLUDE &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Mapfile" href="index.html" />
+    <link rel="next" title="GRID" href="grid.html" />
+    <link rel="prev" title="FONTSET" href="fontset.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="grid.html" title="GRID"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fontset.html" title="FONTSET"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//mapfile/Include.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/mapfile/Include.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">INCLUDE</a><ul>
+<li><a class="reference external" href="#notes">Notes</a></li>
+<li><a class="reference external" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="fontset.html"
+                                  title="previous chapter">FONTSET</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="grid.html"
+                                  title="next chapter">GRID</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/mapfile/Include.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="include">
+<span id="id1"></span><h1>INCLUDE<a class="headerlink" href="#include" title="Permalink to this headline">¶</a></h1>
+<p id="index-5">When this directive is encountered parsing switches to the included file
+immediately. As a result the included file can be comprised of any valid
+mapfile syntax. For example:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">INCLUDE</span> <span class="s">&#39;myLayer.map&#39;</span>
+</pre></div>
+</div>
+<p>Performance does not seem to be seriously impacted with limited use, however
+in high performance instances you may want to use includes in a pre-processing
+step to build a production mapfile. The C pre-processor can also be used
+(albeit with a different syntax) and is far more powerful.</p>
+<div class="section" id="notes">
+<h2>Notes<a class="headerlink" href="#notes" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Supported in versions 4.10 and higher.</p>
+</li>
+<li><p class="first">The name of the file to be included <strong>MUST be quoted</strong> (single or
+double quotes).</p>
+</li>
+<li><p class="first">Includes may be nested, up to 5 deep.</p>
+</li>
+<li><p class="first">File location can be given as a full path to the file, or (in MapServer &gt;=
+4.10.1) as a path relative to the mapfile.</p>
+</li>
+<li><p class="first">Debugging can be problematic because:</p>
+<ol class="arabic">
+<li><p class="first">the file an error occurs in does not get output to the user</p>
+</li>
+<li><p class="first">the line number counter is not reset for each file. Here is one possible
+error that is thrown when the include file cannot be found:</p>
+<div class="highlight-python"><pre>msyylex(): Unable to access file. Error opening included file "parks_include.map"</pre>
+</div>
+</li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>MAP
+ NAME "include_mapfile"
+ EXTENT 0 0 500 500
+ SIZE 250 250
+
+ INCLUDE "test_include_symbols.map"
+ INCLUDE "test_include_layer.map"
+END</pre>
+</div>
+<p>where test_include_symbols.map contains:</p>
+<div class="highlight-python"><pre>SYMBOL
+   NAME 'square'
+   TYPE VECTOR
+   FILLED TRUE
+   POINTS 0 0 0 1 1 1 1 0 0 0 END
+END</pre>
+</div>
+<p>and test_include_layer.map contains:</p>
+<div class="highlight-python"><pre>LAYER
+  TYPE POINT
+  STATUS DEFAULT
+  FEATURE
+    POINTS 10 10 40 20 300 300 400 10 10 400 END
+  END
+  CLASS
+    NAME 'Church'
+    COLOR 0 0 0
+    SYMBOL 'square'
+    SIZE 7
+    STYLE
+      SYMBOL "square"
+      SIZE 5
+      COLOR 255 255 255
+    END
+    STYLE
+      SYMBOL "square"
+      SIZE 3
+      COLOR 0 0 255
+    END
+  END
+END</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="grid.html" title="GRID"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="fontset.html" title="FONTSET"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

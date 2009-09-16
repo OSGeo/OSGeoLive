@@ -1,0 +1,168 @@
+MAP
+
+NAME DEMO
+STATUS ON
+SIZE 120 90
+SHADESET symbols/shade.txt
+MARKERSET symbols/marker.txt
+LINESET symbols/line.txt
+EXTENT -2750560 -936639 3583870 4673130
+UNITS METERS
+SHAPEPATH "../data"
+IMAGECOLOR 255 255 255
+
+#LABELOVERLAP FALSE
+
+#
+# Start of web interface definition
+#
+WEB
+#  HEADER demo_header.html
+#  TEMPLATE demo.html
+  MINSCALE 750000
+  MAXSCALE 30000000
+#
+# On Windows systems, /tmp and /tmp/ms_tmp/ should be created at the root 
+# of the drive where the .MAP file resides.
+#
+  IMAGEPATH "/ms4w/tmp/ms_tmp/" 
+  IMAGEURL "/ms_tmp/"
+#  LOG "/tmp/gmap.log"
+END
+
+#
+# Start of reference map
+#
+REFERENCE
+   IMAGE images/keymap75.gif
+   EXTENT -2771317 -1715475 3633940 4689781
+   STATUS ON
+  COLOR -1 -1 -1
+  OUTLINECOLOR 255 0 0
+END
+
+#
+# Start of legend
+#
+LEGEND
+  KEYSIZE 18 12
+  LABEL
+    TYPE BITMAP
+    SIZE MEDIUM
+    COLOR 0 0 89
+  END
+  STATUS ON
+END
+
+#
+# Start of scalebar
+#
+SCALEBAR
+  IMAGECOLOR 255 255 255
+  LABEL
+    COLOR 0 0 0 
+    SIZE SMALL
+  END
+  SIZE 150 5
+  COLOR 255 255 255
+  BACKGROUNDCOLOR 0 0 0
+  OUTLINECOLOR 0 0 0
+  UNITS kilometers
+  INTERVALS 5
+  STATUS ON
+END
+
+#
+# Start of layer definitions
+#
+
+LAYER
+  NAME province
+  TYPE POLYGON
+  STATUS ON
+  DATA province
+  CLASS
+    NAME "Province"
+    OUTLINECOLOR 0 0 0
+    COLOR 190 190 190
+  END
+END
+
+LAYER
+  NAME land_fn
+  TYPE POLYGON
+  STATUS ON
+  DATA land_fn
+  CLASS
+    NAME "Foreign Lands"
+    COLOR 220 220 220
+  END
+END
+
+LAYER
+  NAME drainage
+  TYPE POLYGON
+  STATUS OFF
+  DATA drainage
+  CLASS
+    NAME "Streams"
+    COLOR 159 209 255
+  END
+END
+
+
+LAYER
+  NAME road
+  TYPE LINE
+  STATUS OFF
+  DATA road
+  CLASS
+    NAME "road"
+    COLOR 255 0 0
+  END
+
+END # Layer
+
+LAYER
+  NAME park
+  TYPE POLYGON
+  STATUS OFF
+  DATA park
+  CLASS
+    NAME "Park"
+    COLOR 0 255 0
+  END
+
+END # Layer
+
+LAYER
+  NAME "grid"
+  TYPE LINE
+  STATUS OFF
+  DATA "grid"
+  CLASS
+    NAME "Grid"
+    COLOR 0 0 0
+  END
+
+END # Layer
+
+LAYER
+  NAME popplace
+  TYPE POINT
+  STATUS OFF
+  DATA popplace
+  LabelItem "Name"  
+  Classitem "Pop_range" 
+  CLASS
+    expression "6"  
+    SYMBOL 7
+    SIZE 5
+    NAME "road"
+    COLOR 0 0 0
+  END
+
+END # Layer
+
+END # Map File
+

@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 21: MapServer Raster Color Correction &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 22a: Feature cache for long running processes and query processing" href="ms-rfc-22a.html" />
+    <link rel="prev" title="MS RFC 19: Style & Label attribute binding" href="ms-rfc-19.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-22a.html" title="MS RFC 22a: Feature cache for long running processes and query processing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-19.html" title="MS RFC 19: Style & Label attribute binding"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-21.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-21.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 21: MapServer Raster Color Correction</a><ul>
+<li><a class="reference external" href="#overview">Overview</a></li>
+<li><a class="reference external" href="#technical-details">Technical Details</a></li>
+<li><a class="reference external" href="#other-curve-formats">Other Curve Formats</a></li>
+<li><a class="reference external" href="#mapfile-implications">Mapfile Implications</a></li>
+<li><a class="reference external" href="#mapscript-implications">MapScript Implications</a></li>
+<li><a class="reference external" href="#documentation-implications">Documentation Implications</a></li>
+<li><a class="reference external" href="#test-plan">Test Plan</a></li>
+<li><a class="reference external" href="#staffing-timeline">Staffing / Timeline</a></li>
+<li><a class="reference external" href="#tracking-bug">Tracking Bug</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-19.html"
+                                  title="previous chapter">MS RFC 19: Style &amp; Label attribute binding</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-22a.html"
+                                  title="next chapter">MS RFC 22a: Feature cache for long running processes and query processing</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-21.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-21-mapserver-raster-color-correction">
+<span id="rfc21"></span><h1>MS RFC 21: MapServer Raster Color Correction<a class="headerlink" href="#ms-rfc-21-mapserver-raster-color-correction" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2006/10/13</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Frank Warmerdam</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">warmerdam at pobox.com</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">adopted</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">MapServer 5.0</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-21.txt 8278 2008-12-23 21:34:31Z hobu $</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>To add support to MapServer to apply color correction curves (aka lookup
+tables) to raster images on the fly.</p>
+</div>
+<div class="section" id="technical-details">
+<h2>Technical Details<a class="headerlink" href="#technical-details" title="Permalink to this headline">¶</a></h2>
+<p>MapServer&#8217;s raster rendering engine (mapgdaldraw.c) will be extended to
+support a PROCESSING option indicating a color correction file to be
+applied on the fly when raster data is being read from disk.  The PROCESSING
+option would take the form:</p>
+<div class="highlight-python"><pre>PROCESSING "LUT=&lt;lut_specification&gt;"</pre>
+</div>
+<p>for a single LUT applied to all bands equally or:</p>
+<div class="highlight-python"><pre>PROCESSING "LUT_&lt;color#&gt;=&lt;lut_specification&gt;"</pre>
+</div>
+<p>for a LUT applied only to one band.  The &lt;lut_specification&gt; can be
+the name of a file containing a LUT, or an inline lut definition.  The inline
+lut definition looks like:</p>
+<div class="highlight-python"><pre>&lt;lut_specification&gt;=&lt;in_value&gt;:&lt;out_value&gt;,&lt;in_value&gt;:&lt;out_value&gt;[,&lt;in_value&gt;:&lt;out_value&gt;]*</pre>
+</div>
+<p>The text file takes the same form, except that it may be multiline (lines will
+be implicitly joined by commas).  So some common forms would be:</p>
+<div class="highlight-python"><pre>PROCESSING "LUT=0:0,128:150,255:255"
+
+PROCESSING "LUT_2=green_lut.txt"</pre>
+</div>
+<p>Note that the LUT specification files will be searched for relative to the
+map file if a relative path is provided.</p>
+<p>The LUT will be applied in LoadGDALImage(), after any scaling to 8bit.  So
+currently only 8bit (0-255) input and output values are supported.  Optionally
+we could consider non-8bit inputs, and allow the LUT to apply scaling to 8bit
+but this would be somewhat complicated to do in a computationally efficient
+manner.</p>
+<p>A 256 entry LUT will be created by linear interpolation between the LUT
+control points.  Note this is different than a true &#8220;curve&#8221; based approach
+where some form of curve fitting is done to the control points.  For a
+significant number of control points the difference will be very slight,
+but it could be noticable for LUTs with only a few control points (ie. 3).
+Optionally we could compute a proper curve fit, but this will require extra
+research and development.</p>
+<p>If no control points exist for input values 0 and 255 a mapping of &#8220;0:0&#8221; and
+&#8220;255:255&#8221; will be assumed.</p>
+</div>
+<div class="section" id="other-curve-formats">
+<h2>Other Curve Formats<a class="headerlink" href="#other-curve-formats" title="Permalink to this headline">¶</a></h2>
+<p>The GIMP&#8217;s ascii curve format will also be supported directly.  Exact
+details of this are to be determined, and since a GIMP curve file contains
+several curves (for different bands) it may be necessary to select which
+is to be used in the PROCESSING statement.  Perhaps something like:</p>
+<div class="highlight-python"><pre>PROCESSING "LUT_2=GIMP_red:gimp.crv"</pre>
+</div>
+</div>
+<div class="section" id="mapfile-implications">
+<h2>Mapfile Implications<a class="headerlink" href="#mapfile-implications" title="Permalink to this headline">¶</a></h2>
+<p>All new options are selected via new PROCESSING options.   There is
+no change in the mapfile syntax.  There should be no compatibility problems
+with old mapfiles.</p>
+</div>
+<div class="section" id="mapscript-implications">
+<h2>MapScript Implications<a class="headerlink" href="#mapscript-implications" title="Permalink to this headline">¶</a></h2>
+<p>There are no additions or changes to the MapScript API.  The new
+options are controlled via PROCESSING information on the layers which I
+believe is already manipulatable from MapScript.</p>
+</div>
+<div class="section" id="documentation-implications">
+<h2>Documentation Implications<a class="headerlink" href="#documentation-implications" title="Permalink to this headline">¶</a></h2>
+<p>The new processing options will need to be documented in the Raster Access
+HOWTO (and possibly the mapfile reference).</p>
+</div>
+<div class="section" id="test-plan">
+<h2>Test Plan<a class="headerlink" href="#test-plan" title="Permalink to this headline">¶</a></h2>
+<p>New test cases for each mode will be incorporated in msautotest/gdal.</p>
+</div>
+<div class="section" id="staffing-timeline">
+<h2>Staffing / Timeline<a class="headerlink" href="#staffing-timeline" title="Permalink to this headline">¶</a></h2>
+<p>The new feature will be implemented by Frank Warmerdam and completed
+by November 30th, 2006, for inclusion in the MapServer 5.0 release.
+Funding provided by the Information Center of the Ministry of Agriculture
+and Forestry (Finland).</p>
+</div>
+<div class="section" id="tracking-bug">
+<h2>Tracking Bug<a class="headerlink" href="#tracking-bug" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/1943">http://trac.osgeo.org/mapserver/ticket/1943</a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-22a.html" title="MS RFC 22a: Feature cache for long running processes and query processing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-19.html" title="MS RFC 19: Style & Label attribute binding"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

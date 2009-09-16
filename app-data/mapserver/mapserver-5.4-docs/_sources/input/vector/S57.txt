@@ -1,0 +1,142 @@
+.. _s57:
+
+*****************************************************************************
+ S57
+*****************************************************************************
+
+Also known as S57.  The IHO S-57 format is a vector interchange 
+format used for maritime charts. It was developed by the International Hydrographic Organisation (IHO).  For more information about the IHO see: http://www.iho.shom.fr/
+
+File listing
+-------------
+
+Individual S57 data files have an extension of \*.000. For example:
+
+::
+	
+	US1BS02M.000
+
+Data Access / Connection Method
+-----------------------------------
+
+*  S57 access in MapServer occurs through OGR, CONNECTIONTYPE OGR 
+   must be used.
+*  Specify a full path or a relative path from the SHAPEPATH 
+   to the .000 file for the CONNECTION
+*  Use the DATA parameter to specify the s57 layer name
+
+Special Notes
+~~~~~~~~~~~~~~
+
+The underlying OGR code requires two files from your GDAL/OGR 
+installation when reading S57 data in MapServer : s57objectclasses.csv and s57attributes.csv.  These files can be found in the /GDAL/data/ folder (unix: /usr/local/share/gdal windows: /ms4w/gdaldata).  If you receive an error in MapServer such as:
+
+::
+
+	msDrawMap(): Image handling error. Failed to draw layer named 's57'.
+	msOGRFileOpen(): OGR error. xxx failed for OGR connection
+
+you may have to point MapServer to these files using the CONFIG parameter in the main section of your map file:
+
+::
+
+	CONFIG GDAL_DATA "C:\ms4w\gdaldata"
+
+OGRINFO Examples
+-------------------
+Using ogrinfo on an S57 file to get the layer name:
+
+::
+
+	> ogrinfo us1bs02m.000
+	ERROR 4: S57 Driver doesn't support update.
+	Had to open data source read-only.
+	INFO: Open of `us1bs02m.000'
+	using driver `IHO S-57 (ENC)' successful.
+	1: ADMARE (Polygon)
+	2: CBLSUB (Line String)
+	3: CTNARE
+	4: COALNE (Line String)
+	5: DEPARE
+	6: DEPCNT (Line String)
+	7: LNDARE
+	8: LNDELV
+	9: LNDRGN
+	10: LNDMRK
+	11: LIGHTS (Point)
+	12: OBSTRN
+	13: RDOSTA (Point)
+	14: SEAARE
+	15: SBDARE
+	16: SLCONS
+	17: SOUNDG (Multi Point)
+	18: UWTROC (Point)
+	19: WATTUR
+	20: WRECKS
+	21: M_COVR (Polygon)
+	22: M_NPUB (Polygon)
+	23: M_NSYS (Polygon)
+	24: M_QUAL (Polygon)
+	25: C_ASSO (None)
+
+Using ogrinfo to examine the structure of an S57 layer:
+
+::
+
+	> ogrinfo us1bs02m.000 DEPARE -summary
+	ERROR 4: S57 Driver doesn't support update.
+	Had to open data source read-only.
+	INFO: Open of `us1bs02m.000'
+	using driver `IHO S-57 (ENC)' successful.
+
+	Layer name: DEPARE
+	Geometry: Unknown (any)
+	Feature Count: 297
+	Extent: (165.666667, 48.500000) - (180.000000, 60.750000)
+	Layer SRS WKT:
+	GEOGCS["WGS 84",
+    DATUM["WGS_1984",
+        SPHEROID["WGS 84",6378137,298.257223563]],
+    PRIMEM["Greenwich",0],
+    UNIT["degree",0.0174532925199433]]
+	GRUP: Integer (3.0)
+	OBJL: Integer (5.0)
+	RVER: Integer (3.0)
+	AGEN: Integer (2.0)
+	FIDN: Integer (10.0)
+	FIDS: Integer (5.0)
+	LNAM: String (16.0)
+	LNAM_REFS: StringList (16.0)
+	DRVAL1: Real (0.0)
+	DRVAL2: Real (0.0)
+	QUASOU: String (0.0)
+	SOUACC: Real (0.0)
+	VERDAT: Integer (0.0)
+	INFORM: String (0.0)
+	NINFOM: String (0.0)
+	NTXTDS: String (0.0)
+	SCAMAX: Integer (0.0)
+	SCAMIN: Integer (0.0)
+	TXTDSC: String (0.0)
+	RECDAT: String (0.0)
+	RECIND: String (0.0)
+	...
+
+Map File Example:
+
+::
+
+	LAYER
+	  NAME s57
+	  TYPE POLYGON
+	  STATUS DEFAULT
+	  CONNECTIONTYPE OGR
+	  CONNECTION "./s57/us1bs02m.000"
+          DATA "DEPARE" 
+	  CLASS
+           STYLE
+	     COLOR 247 237 219
+	     OUTLINECOLOR 120 120 120
+           END
+	  END
+	END # Layer

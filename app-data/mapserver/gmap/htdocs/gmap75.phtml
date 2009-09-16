@@ -1,0 +1,593 @@
+<HTML>
+<?php
+/**********************************************************************
+ * $Id: gmap75.phtml,v 1.33 2005/04/26 23:04:44 daniel Exp $
+ **********************************************************************
+ * Copyright (c) 2000-2003, DM Solutions Group
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ * 
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software.
+ * 
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+ * DEALINGS IN THE SOFTWARE.
+ **********************************************************************/
+
+/************************************************************************/
+/*               GMap mapping engine (PHP/MapScript version)            */
+/*                                                                      */
+/*      This application uses the PHP/MapScript MapServer extension     */
+/*      to navigate through a dataset.                                  */
+/*                                                                      */
+/*      See Also:                                                       */
+/*        http://mapserver.gis.umn.edu/                                 */
+/*        http://www.maptools.org/php_mapscript/                        */
+/*        http://www.maptools.org/rosa/                                 */
+/*        http://www.mapsherpa.com/gmap/gmap75.phtml                    */
+/************************************************************************/
+
+/* -------------------------------------------------------------------- */
+/*      Load required modules                                           */
+/* -------------------------------------------------------------------- */
+if (PHP_OS == "WINNT" || PHP_OS == "WIN32")
+{
+    $dlext = "dll";
+}
+else
+{
+    $dlext = "so";
+}
+
+if (!extension_loaded("MapScript"))
+{
+    dl("php_mapscript.$dlext");
+}
+if (!extension_loaded("dbase"))
+{
+    dl("php_dbase.$dlext");
+}
+
+include("gmap75.inc.php");
+
+if ($HTTP_FORM_VARS["MAP_NAME"])
+    $gpoMap = ms_newMapObj(strval($HTTP_FORM_VARS["MAP_NAME"]));
+else
+   $gpoMap = ms_newMapObj("gmap75.map");
+
+//$gpoMap = ms_newMapObj("gmap75_key.map");
+
+/* -------------------------------------------------------------------- */
+/*      extents set in the .map file.                                   */
+/*                                                                      */
+/*      max extents are 10% of the map.                                 */
+/* -------------------------------------------------------------------- */
+$dfTmpDeltaX = ($gpoMap->extent->maxx - $gpoMap->extent->minx)/10;
+$dfTmpDeltaY = ($gpoMap->extent->maxy - $gpoMap->extent->miny)/10;
+// For now, we disable the 10% buffer until we get new data
+$dfTmpDeltaX = 0;
+$dfTmpDeltaY = 0;
+
+$dfMapExtMinX = $gpoMap->extent->minx;
+$dfMapExtMinY = $gpoMap->extent->miny;
+$dfMapExtMaxX = $gpoMap->extent->maxx;
+$dfMapExtMaxY = $gpoMap->extent->maxy;
+
+$dfMaxExtMinX = $gpoMap->extent->minx - $dfTmpDeltaX;
+$dfMaxExtMinY = $gpoMap->extent->miny - $dfTmpDeltaY;
+$dfMaxExtMaxX = $gpoMap->extent->maxx + $dfTmpDeltaX;
+$dfMaxExtMaxY = $gpoMap->extent->maxy + $dfTmpDeltaY;
+
+
+GMap75CheckClick();
+
+$gszCommand = $HTTP_FORM_VARS["CMD"];
+if ( sizeof($gszCommand) == 0)
+{
+    $gszCommand = "ZOOM_IN";
+}
+
+/* -------------------------------------------------------------------- */
+/*      swich between the rosa java applet and simple html for          */
+/*      zooming and querying.                                           */
+/* -------------------------------------------------------------------- */
+
+if (strlen($HTTP_FORM_VARS["PREVIOUS_MODE"])==0)
+    $gbIsHtmlMode = 0;  // Start with Java On by default
+else
+    $gbIsHtmlMode = intval($HTTP_FORM_VARS["PREVIOUS_MODE"]);
+
+if ($HTTP_FORM_VARS[JavaOn_x])
+  $gbIsHtmlMode = 0;
+
+if ($HTTP_FORM_VARS[JavaOff_x])
+  $gbIsHtmlMode = 1;
+
+
+function IsHtmlMode()
+{
+    GLOBAL $gbIsHtmlMode;
+    return $gbIsHtmlMode;
+}
+?>
+<HEAD>
+
+<SCRIPT LANGUAGE="JavaScript">
+
+function ProvinceSelected()
+{
+    if (document.forms[0].ViewRegion.selectedIndex != 0 &&
+        document.forms[0].ViewRegion.selectedIndex !=1)
+    document.forms[0].submit();
+}
+function MapSizeSelected()
+{
+    if (document.forms[0].MapSize.selectedIndex != 0 &&
+        document.forms[0].MapSize.selectedIndex !=1)
+    document.forms[0].submit();
+}
+</SCRIPT>
+
+
+<TITLE>MapServer Atlas</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+</HEAD>
+
+<BODY BGCOLOR="#FFFFFF">
+<!-- <?php echo ms_getVersion(); ?> -->
+<FORM METHOD=GET NAME="myform">
+  <TABLE BORDER="0" CELLSPACING="5" CELLPADDING="0">
+    <TR>
+      <TD VALIGN="TOP" ALIGN="CENTER">
+
+        <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+          <TR>
+            <TD><IMG SRC="images/corner_TL_LB.jpg" WIDTH="4" HEIGHT="4"></TD>
+            <TD BGCOLOR="#E2EFF5"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD><IMG SRC="images/corner_TR_LB.jpg" WIDTH="4" HEIGHT="4"></TD>
+          </TR>
+          <TR ALIGN="CENTER">
+            <TD BGCOLOR="#E2EFF5">&nbsp;</TD>
+            <TD BGCOLOR="#E2EFF5"><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2"><B>Legend</B></FONT></TD>
+            <TD BGCOLOR="#E2EFF5">&nbsp;</TD>
+          </TR>
+           <TR>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+           </TR>
+            <TR>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+          </TR>
+          <TR>
+            <TD BGCOLOR="#C1D8E3">&nbsp;</TD>
+            <TD BGCOLOR="#C1D8E3">
+              <TABLE WIDTH="100%" BORDER="0" CELLSPACING="1" CELLPADDING="2">
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER"><IMG SRC="images/icon_eye.gif" WIDTH="17" HEIGHT="11"></TD>
+                  <TD ALIGN="CENTER">&nbsp;</TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2"><B>Layer</B></FONT></TD>
+                </TR>
+
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER">
+                    <INPUT TYPE="checkbox" NAME="road" VALUE="Y"
+       <?php if (GMapGetStatus("road") == 1) echo "CHECKED"; ?>>
+                  </TD>
+                  <TD ALIGN="CENTER"><IMG SRC="images/leg_road.gif" WIDTH="20" HEIGHT="15"></TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Roads</FONT></TD>
+                </TR>
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER">
+                    <INPUT TYPE="checkbox" NAME="rail" VALUE="Y"
+       <?php if (GMapGetStatus("rail") == 1) echo "CHECKED"; ?>>
+                  </TD>
+                  <TD ALIGN="CENTER"><IMG SRC="images/leg_rail.gif" WIDTH="20" HEIGHT="15"></TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Railroads</FONT></TD>
+                </TR>
+
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER">
+                    <INPUT TYPE="checkbox" NAME="drainage" VALUE="Y"
+        <?php if (GMapGetStatus("drainage") == 1) echo "CHECKED"; ?>>
+                  </TD>
+                  <TD ALIGN="CENTER"><IMG SRC="images/leg_drain.gif" WIDTH="20" HEIGHT="15"></TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Drainage </FONT></TD>
+                </TR>
+
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER">
+                    <INPUT TYPE="checkbox" NAME="drain_fn" VALUE="Y"
+        <?php if (GMapGetStatus("drain_fn") == 1) echo "CHECKED"; ?>>
+                  </TD>
+                  <TD ALIGN="CENTER"><IMG SRC="images/leg_drain.gif" WIDTH="20" HEIGHT="15"></TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Water </FONT></TD>
+                </TR>
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER">
+                    <INPUT TYPE="checkbox" NAME="park" VALUE="Y"
+         <?php if (GMapGetStatus("park") == 1) echo "CHECKED"; ?>>
+                  </TD>
+                  <TD ALIGN="CENTER"><IMG SRC="images/leg_park.gif" WIDTH="20" HEIGHT="15"></TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Parks</FONT></TD>
+                </TR>
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER">
+                    <INPUT TYPE="checkbox" NAME="bathymetry" VALUE="Y"
+         <?php if (GMapGetStatus("bathymetry") == 1) echo "CHECKED"; ?>>
+                  </TD>
+                  <TD ALIGN="CENTER"><IMG SRC="images/leg_elevation.gif" WIDTH="20" HEIGHT="15"></TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Elevation/Bathymetry</FONT></TD>
+                </TR>
+
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER">
+                    <INPUT TYPE="checkbox" NAME="popplace" VALUE="Y"
+          <?php if (GMapGetStatus("popplace") == 1) echo "CHECKED"; ?>>
+                  </TD>
+                  <TD ALIGN="CENTER"><IMG SRC="images/leg_popplace.gif" WIDTH="20" HEIGHT="15"></TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Pop. Place</FONT></TD>
+                </TR>
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER">
+                    <INPUT TYPE="checkbox" NAME="prov_bound" VALUE="Y"
+       <?php if (GMapGetStatus("prov_bound") == 1) echo "CHECKED"; ?>>
+                  </TD>
+                  <TD ALIGN="CENTER"><IMG SRC="images/leg_grid.gif" WIDTH="20" HEIGHT="15"></TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Province Boundary</FONT></TD>
+                </TR>
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER">
+                    <INPUT TYPE="checkbox" NAME="fedlimit" VALUE="Y"
+       <?php if (GMapGetStatus("fedlimit") == 1) echo "CHECKED"; ?>>
+                  </TD>
+                  <TD ALIGN="CENTER"><IMG SRC="images/leg_fedlimit.gif" WIDTH="20" HEIGHT="15"></TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Federal Limit</FONT></TD>
+                </TR>
+
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER">
+                    <INPUT TYPE="checkbox" NAME="land_fn" VALUE="Y"
+       <?php if (GMapGetStatus("land_fn") == 1) echo "CHECKED"; ?>>
+
+                  </TD>
+                  <TD ALIGN="CENTER"><IMG SRC="images/leg_land_fn.gif" WIDTH="20" HEIGHT="15"></TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Foreign Land</FONT></TD>
+                </TR>
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER">
+                    <INPUT TYPE="checkbox" NAME="grid" VALUE="Y"
+       <?php if (GMapGetStatus("grid") == 1) echo "CHECKED"; ?>>
+                  </TD>
+                  <TD ALIGN="CENTER"><IMG SRC="images/leg_grid.gif" WIDTH="20" HEIGHT="15"></TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Grid</FONT></TD>
+                </TR>
+                <TR BGCOLOR="#FFFFFF">
+                  <TD ALIGN="CENTER">
+                    <INPUT TYPE=IMAGE SRC="images/icon_redraw.gif" WIDTH="19" HEIGHT="19" NAME=redraw BORDER=0>
+                  </TD>
+                  <TD COLSPAN="2"><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">Redraw Map</FONT></TD>
+                </TR>
+              </TABLE>
+
+            </TD>
+            <TD BGCOLOR="#C1D8E3">&nbsp;</TD>
+          </TR>
+            <TR>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+          </TR>
+           <TR>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+           </TR>
+            <TR>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+          </TR>
+          <TR>
+            <TD BGCOLOR="#C1D8E3">&nbsp;</TD>
+            <TD BGCOLOR="#C1D8E3" ALIGN="CENTER">
+              <FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">
+              <SELECT NAME="ViewRegion"  onChange="ProvinceSelected()">
+
+                <OPTION>Quick View</OPTION>
+
+                <OPTION>- - - - - - - - - - - - - - -</OPTION>
+
+                <OPTION VALUE="-2200000,-712631,3072800,3840000">Canada </OPTION>
+
+                <OPTION VALUE="-2430000,222000,-1280000,2031000">British Columbia </OPTION>
+
+                <OPTION VALUE="-1617000,131540,-731000,1506340">Alberta</OPTION>
+
+                <OPTION VALUE="-1245000,16751,-323000,1295000">Saskatchewan</OPTION>
+
+                <OPTION VALUE="-555000,-207000,456400,1291278">Manitoba </OPTION>
+
+                <OPTION VALUE="-201000,-779000,1766000,941000">Ontario </OPTION>
+
+                <OPTION VALUE="727689,-204354,2000229,1688524">Quebec </OPTION>
+
+                <OPTION VALUE="1876700,35800,2366000,404700">New Brunswick</OPTION>
+
+                <OPTION VALUE="2218000,-73300,2610396,327400">Nova Scotia </OPTION>
+
+                <OPTION VALUE="2261000,262700,2456000,379200">Prince Edward Island </OPTION>
+
+                <OPTION VALUE="1533000,586000,3041900,1597000">Newfoundland </OPTION>
+
+                <OPTION VALUE="-2392000,1542700,-1356000,2857000">Yukon </OPTION>
+
+                <OPTION VALUE="-2423500,1223700,1450000,3830000">Northwest Territories </OPTION>
+
+                <OPTION VALUE="-474700,1109000,431500,2292700">Nunavut </OPTION>
+
+              </SELECT >
+
+              </FONT>
+            </TD>
+            <TD BGCOLOR="#C1D8E3">&nbsp;</TD>
+          </TR>
+          <TR>
+            <TD><IMG SRC="images/corner_BL_DB.jpg" WIDTH="4" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD><IMG SRC="images/corner_BR_DB.jpg" WIDTH="4" HEIGHT="4"></TD>
+          </TR>
+
+        </TABLE>
+
+      </TD>
+      <TD VALIGN=TOP ALIGN="RIGHT">
+        <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+          <TR>
+            <TD><IMG SRC="images/corner_TL_LB.jpg" WIDTH="4" HEIGHT="4"></TD>
+            <TD BGCOLOR="#E2EFF5"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD><IMG SRC="images/corner_TR_LB.jpg" WIDTH="4" HEIGHT="4"></TD>
+          </TR>
+          <TR ALIGN="CENTER">
+            <TD BGCOLOR="#E2EFF5">&nbsp;</TD>
+            <TD BGCOLOR="#E2EFF5"><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2"><B>CANADA</B></FONT></TD>
+            <TD BGCOLOR="#E2EFF5">&nbsp;</TD>
+          </TR>
+           <TR>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+           </TR>
+          <TR>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+          </TR>
+          <TR>
+            <TD BGCOLOR="#C1D8E3">&nbsp;</TD>
+            <TD BGCOLOR="#999999">
+              <TABLE WIDTH="400" BORDER="0" CELLSPACING="1" CELLPADDING="0" HEIGHT="300">
+                <TR BGCOLOR="FFFFFF" ALIGN="CENTER">
+                  <TD><?php GMapDrawMap() ?></TD>
+                </TR>
+              </TABLE>
+            </TD>
+            <TD BGCOLOR="#C1D8E3">&nbsp;</TD>
+          </TR>
+          <TR>
+            <TD BGCOLOR="#C1D8E3">&nbsp;</TD>
+            <TD BGCOLOR="#FFFFFF" ALIGN="CENTER"><?php GMapDrawScaleBar() ?></TD>
+            <TD BGCOLOR="#C1D8E3">&nbsp;</TD>
+          </TR>
+          <TR>
+            <TD><IMG SRC="images/corner_BL_DB.jpg" WIDTH="4" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD><IMG SRC="images/corner_BR_DB.jpg" WIDTH="4" HEIGHT="4"></TD>
+          </TR>
+        </TABLE>
+
+      </TD>
+      <TD VALIGN="TOP">
+
+        <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+          <TR>
+            <TD><IMG SRC="images/corner_TL_LB.jpg" WIDTH="4" HEIGHT="4"></TD>
+            <TD BGCOLOR="#E2EFF5"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD><IMG SRC="images/corner_TR_LB.jpg" WIDTH="4" HEIGHT="4"></TD>
+          </TR>
+          <TR ALIGN="CENTER">
+            <TD BGCOLOR="#E2EFF5">&nbsp;</TD>
+            <TD BGCOLOR="#E2EFF5"><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2"><B>Keymap</B></FONT></TD>
+            <TD BGCOLOR="#E2EFF5">&nbsp;</TD>
+          </TR>
+           <TR>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+           </TR>
+            <TR>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+          </TR>
+          <TR>
+            <TD BGCOLOR="#C1D8E3">&nbsp;</TD>
+            <TD><?php GMapDrawKeyMap() ?></TD>
+            <TD BGCOLOR="#C1D8E3">&nbsp;</TD>
+          </TR>
+          <TR>
+            <TD><IMG SRC="images/corner_BL_DB.jpg" WIDTH="4" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD><IMG SRC="images/corner_BR_DB.jpg" WIDTH="4" HEIGHT="4"></TD>
+          </TR>
+        </TABLE>
+
+
+        <FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">
+        <BR>
+        <SELECT NAME="MapSize" onChange="MapSizeSelected()">
+
+          <OPTION>Map Size</OPTION>
+
+          <OPTION>---------------</OPTION>
+
+          <OPTION VALUE="400,300"
+                <?php if (($gpoMap->width == 400) && ($gpoMap->height == 300))
+                 echo "SELECTED";?>> 400 x 300</OPTION>
+
+          <OPTION VALUE="600,450"
+                 <?php if (($gpoMap->width == 600) && ($gpoMap->height == 450))
+                 echo "SELECTED";?>> 600 x 450</OPTION>
+
+          <OPTION VALUE="800,600"
+                 <?php if (($gpoMap->width == 800) && ($gpoMap->height == 600))
+                 echo "SELECTED";?>> 800 x 600</OPTION>
+
+        </SELECT>
+        </FONT><BR>
+        <BR>
+  <?php if (!IsHtmlMode()) echo "<!--" ?>
+        <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+
+          <TR>
+
+            <TD>
+
+              <INPUT TYPE="radio" NAME="CMD" VALUE="ZOOM_IN"
+         <?php if ($gszCommand == "ZOOM_IN") echo "CHECKED"; ?> >
+    </TD>
+            <TD><IMG SRC="images/icon_zoomin.gif" WIDTH="25" HEIGHT="25"></TD>
+          </TR>
+
+          <TR>
+
+            <TD>
+
+              <INPUT TYPE="radio" NAME="CMD" VALUE="ZOOM_OUT"
+        <?php if ($gszCommand == "ZOOM_OUT") echo "CHECKED"; ?> >
+    </TD>
+            <TD><IMG SRC="images/icon_zoomout.gif" WIDTH="25" HEIGHT="25"></TD>
+          </TR>
+
+          <TR>
+
+            <TD>
+
+              <INPUT TYPE="radio" NAME="CMD" VALUE="RECENTER"
+             <?php if ($gszCommand == "RECENTER") echo "CHECKED"; ?> >
+    </TD>
+            <TD><IMG SRC="images/icon_recentre.gif" WIDTH="25" HEIGHT="25"></TD>
+          </TR>
+
+          <TR>
+
+            <TD>
+
+              <INPUT TYPE="radio" NAME="CMD" VALUE="QUERY_POINT"
+               <?php if ($gszCommand == "QUERY_POINT") echo "CHECKED"; ?>>
+    </TD>
+            <TD><IMG SRC="images/icon_info.gif" WIDTH="25" HEIGHT="25"></TD>
+          </TR>
+
+        </TABLE>
+        <?php if (!IsHtmlMode()) echo "-->" ?>
+        <FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">
+
+        </FONT></TD>
+    </TR>
+    <TR>
+      <TD VALIGN="TOP" ALIGN="CENTER">
+        <TABLE CELLPADDING="2" CELLSPACING="0">
+          <TR>
+            <TD><INPUT TYPE="image" BORDER="0"  <?php if (IsHtmlMode()) printf("NAME=\"JavaOn\" SRC=\"images/java_on.gif\""); else printf("NAME=\"JavaOff\" SRC=\"images/java_off.gif\"");?> WIDTH="24" HEIGHT="25"></TD>
+            <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2"><?php if (IsHtmlMode()) printf("Java Mode Disabled<BR>Click to Enable"); else printf("Java Mode Enabled<BR>Click to Disable");?></FONT>
+            <INPUT TYPE=HIDDEN NAME=PREVIOUS_MODE VALUE=<?php echo IsHtmlMode(); ?>></TD>
+          </TR>
+        </TABLE>
+      </TD>
+      <TD ALIGN="CENTER">
+
+        <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+          <TR>
+            <TD><IMG SRC="images/corner_TL_LB.jpg" WIDTH="4" HEIGHT="4"></TD>
+            <TD BGCOLOR="#E2EFF5"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD><IMG SRC="images/corner_TR_LB.jpg" WIDTH="4" HEIGHT="4"></TD>
+          </TR>
+          <TR ALIGN="CENTER">
+            <TD BGCOLOR="#E2EFF5">&nbsp;</TD>
+                    <TD BGCOLOR="#E2EFF5"><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2"><B>Information</B></FONT></TD>
+            <TD BGCOLOR="#E2EFF5">&nbsp;</TD>
+          </TR>
+           <TR>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+             <TD BGCOLOR="#999999"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="1"></TD>
+           </TR>
+            <TR>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+          </TR>
+          <TR>
+            <TD BGCOLOR="#C1D8E3">&nbsp;</TD>
+            <TD WIDTH=<?php echo $gpoMap->width; ?>><?php GMapDumpQueryResults(); ?></TD>
+            <TD BGCOLOR="#C1D8E3">&nbsp;</TD>
+          </TR>
+          <TR>
+            <TD><IMG SRC="images/corner_BL_DB.jpg" WIDTH="4" HEIGHT="4"></TD>
+            <TD BGCOLOR="#C1D8E3"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="4"></TD>
+            <TD><IMG SRC="images/corner_BR_DB.jpg" WIDTH="4" HEIGHT="4"></TD>
+          </TR>
+        </TABLE>
+
+      </TD>
+    </TR>
+    <TR>
+      <TD COLSPAN="3">&nbsp;</TD>
+    </TR>
+    <TR>
+      <TD COLSPAN="3" BGCOLOR="#E2EFF5"><IMG SRC="images/pixel.gif" WIDTH="1" HEIGHT="2"></TD>
+    </TR>
+    <TR>
+      <TD COLSPAN="3">&nbsp;</TD>
+    </TR>
+    <TR>
+      <TD COLSPAN="3">
+        <TABLE WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="0">
+          <TR ALIGN="CENTER">
+            <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2"><A HREF="http://www.dmsolutions.ca"><IMG SRC="images/dmsg_design.gif" WIDTH="100" HEIGHT="36" BORDER="0"></A></FONT></TD>
+            <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2"><A HREF="http://mapserver.gis.umn.edu/"><IMG SRC="images/powered_mapserver.jpg" WIDTH="96" HEIGHT="58" BORDER="0"></A></FONT></TD>
+            <TD>
+              <TABLE BORDER="0" CELLSPACING="0" CELLPADDING="0">
+                <TR>
+                  <TD><A HREF="http://php.net"><IMG SRC="images/logo_php.gif" WIDTH="34" HEIGHT="19" BORDER="0"></A></TD>
+                  <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2">/ <A HREF="http://www.maptools.org/php_mapscript/">MapScript</A></FONT></TD>
+                </TR>
+              </TABLE>
+            </TD>
+            <TD>
+                <FONT FACE="Arial, Helvetica, sans-serif" SIZE="2"><A HREF="http://www.maptools.org/rosa/"><IMG SRC="images/powered_rosa.jpg" WIDTH="100" HEIGHT="36" BORDER="0"></A></FONT></TD>
+            <TD><FONT FACE="Arial, Helvetica, sans-serif" SIZE="2"><A HREF="http://geogratis.cgdi.gc.ca/"><IMG SRC="images/logo_geogratis.gif" WIDTH="85" HEIGHT="36" BORDER="0"></A></FONT></TD>
+          </TR>
+        </TABLE>
+      </TD>
+    </TR>
+
+  </TABLE>
+      <?php if ($HTTP_FORM_VARS["MAP_NAME"])
+        printf("<INPUT TYPE=HIDDEN NAME=MAP_NAME VALUE=\"%s\">",strval($HTTP_FORM_VARS["MAP_NAME"])); ?>
+</FORM>
+</BODY>
+</HTML>

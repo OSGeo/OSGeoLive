@@ -1,0 +1,715 @@
+.. _sld:
+
+*****************************************************************************
+ SLD
+*****************************************************************************
+
+:Author: Jeff McKenna
+:Contact: jmckenna atgatewaygeomatics.com
+:Author: Yewondwossen Assefa
+:Contact: assefa at dmsolutions.ca
+:Last Updated: 2008/07/18
+:Revision: $Revision: 9032 $
+:Date: $Date: 2009-05-20 17:37:07 -0300 (Wed, 20 May 2009) $
+
+.. contents::
+    :depth: 2
+    :backlinks: top
+
+Introduction
+============
+
+This document describes the procedures for taking advantage of the Styled 
+Layer Descriptor (SLD) support in WMS GetMap requests with MapServer.
+SLD support exists for the server side (ability to 
+read an SLD and apply it with a GetMap request) and for the client side 
+(includes sending SLD requests to server and generate SLD files on the fly 
+from MapServer map file). SLD support was added to MapServer in version 4.2.
+
+This document assumes that you are already familiar with the following 
+aspects of MapServer:
+
+- MapServer application development and setting up *.map* files.
+- Familiarity with the WMS specification would be an asset. Links to the 
+  MapServer WMS documents are included in the next section.
+
+Links to SLD-related Information
+--------------------------------
+
+- `Styled Layer Descriptor Implementation Specification`_.
+- :ref:`MapServer WMS Client HowTo <wms_client>`.
+- :ref:`MapServer WMS Server HowTo <wms_server>`.
+- `MapServer OGC Web Services Workshop`_.
+- `Open GIS Consortium (OGC) home page`_.
+
+.. _`Styled Layer Descriptor Implementation Specification`: http://www.opengeospatial.org/docs/02-070.pdf
+.. _`MapServer OGC Web Services Workshop`: http://ms-ogc-workshop.maptools.org/
+.. _`Open GIS Consortium (OGC) home page`: http://www.opengeospatial.org
+
+Server Side Support
+===================
+
+General Information
+-------------------
+
+There are two ways a WMS request can pass an SLD document with a GetMap 
+request to MapServer:
+
+- SLD parameter pointing to remote SLD (SLD=http://URL_TO_SLD).
+- SLD_BODY parameter to send the SLD definition in the URL.
+
+These two methods are both available through MapServer. An example of a request 
+would be:
+
+::
+
+   http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VERSION=1.1.1&Request=GetMap
+   &LAYERS=WorldGen_Outline&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests
+   /sld_tests/sld_line_simple.xml
+   
+Test the `remote SLD request`_.
+
+.. _`remote SLD request`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldGen_Outline&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&BBOX=-180.0,-90.0,180.0,90.0&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_simple.xml
+
+The SLD in the above request follows:
+
+.. code-block:: guess
+
+        <?xml version="1.0" encoding="UTF-8"?>
+        <StyledLayerDescriptor version="1.0.0"
+          xmlns="http://www.opengis.net/sld"
+          xmlns:ogc="http://www.opengis.net/ogc"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.opengis.net/sld
+          http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd">
+          <NamedLayer>
+            <Name>WorldGen_Outline</Name>
+            <UserStyle>
+              <Title>xxx</Title>
+              <FeatureTypeStyle>
+                <Rule>
+                  <LineSymbolizer>
+                    <Geometry>
+                      <ogc:PropertyName>center-line</ogc:PropertyName>
+                    </Geometry>
+                    <Stroke>
+                      <CssParameter name="stroke">#0000ff</CssParameter>
+                    </Stroke>
+                  </LineSymbolizer>
+                </Rule>
+              </FeatureTypeStyle>
+            </UserStyle>
+          </NamedLayer>
+        </StyledLayerDescriptor> 
+
+
+Version 1.1.0 of the same SLD
+
+.. code-block:: guess
+
+        <?xml version="1.0" encoding="UTF-8"?>
+        <StyledLayerDescriptor version="1.1.0"
+          xmlns="http://www.opengis.net/sld"
+          xmlns:se="http://www.opengis.net/se"
+          xmlns:ogc="http://www.opengis.net/ogc"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.opengis.net/sld
+          http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd">
+        <NamedLayer>
+          <se:Name>WorldGen_Outline</se:Name>
+            <UserStyle>
+              <se:Name>xxx</se:Name>
+              <se:FeatureTypeStyle>
+                <se:Rule>
+                  <se:LineSymbolizer>
+                    <se:Geometry>
+                      <ogc:PropertyName>center-line</ogc:PropertyName>
+                    </se:Geometry>
+                    <se:Stroke>
+                      <se:SvgParameter name="stroke">#0000ff</se:SvgParameter>
+                    </se:Stroke>
+                  </se:LineSymbolizer>
+                </se:Rule>
+              </se:FeatureTypeStyle>
+            </UserStyle>
+          </NamedLayer>
+        </StyledLayerDescriptor>
+        
+When MapServer gets a valid SLD through a request, it parses this SLD to extract 
+all the styles attached to the NamedLayers, and then it applies these styles to 
+the map before it is returned to the client.  When applying the SLD, MapServer compares the <Name> parameter of the NamedLayers in the SLD document to the WMS layer names (WMS layer names are available in a :ref:`GetCapabilities <wms_capabilities>` request).
+
+
+.. note::
+
+    All the examples given in this document are live uses of valid SLDs 
+    and a MapServer installation with SLD support.
+
+Additional WMS features related to SLDs have also been developed:
+
+**Table1. Additional WMS Features**
+
+=====================  ========= =============================
+Features               Supported Notes
+=====================  ========= =============================
+Method GET : SLD URL   Yes
+Method GET : SLD_BODY  Yes       Additional item
+Describer Layer        Yes
+GetLegendGraphic       Yes
+GetStyles              Yes       Uses MapScript to get the SLD
+=====================  ========= =============================
+
+.. note::
+
+    As of MapServer version 4.2.3, the GetLegendGraphic request (see section 12 of 
+    the `Styled Layer Descriptor Implementation Specification`_) works as follows: 
+    if the RULE keyword is absent from the request, an image containing the 
+    entire legend for the specified layer will be returned. This image consists 
+    of the layer name and a symbolization graphic and label for each class.  
+
+Specific SLD Elements Supported
+-------------------------------
+
+The following tables give a lot of additional details about SLD support in MapServer.
+
+**Table2. Named Layers and User Layers**
+
+============ ========= =====
+Features     Supported Notes
+============ ========= =====
+Named Layers Yes  
+User Layers  No   
+============ ========= =====
+
+**Table3. Named Styles and User Styles**
+
+============ ========= =====
+Features     Supported Notes
+============ ========= =====
+Named Styles Yes 
+User Styles  Yes  
+============ ========= =====
+
+**Table 4. User Styles**
+
+================ ========= =====================================================================================================
+Features         Supported Notes
+================ ========= =====================================================================================================
+Name             No        This was removed at implementation time, since it does not fit with MapServer
+Title            No        No use in the MapServer environment
+Abstract         No        No use in the MapServer environment
+IsDefault        No        Only one style is available per layer
+FeatureTypeStyle Yes       MapServer has a concept of one feature type style per layer (either point, line, polygon, or raster)
+================ ========= =====================================================================================================
+
+**Table 5. FeatureTypeStyle**
+
+====================== ========= ========================================================
+Features               Supported Notes
+====================== ========= ========================================================
+Name                   No        No use in the MapServer environment
+Title                  No        No use in the MapServer environment
+Abstract               No        No use in the MapServer environment
+FeatureTypeName        No        No use in the MapServer environment
+SemanticTypeIdentifier No        Still an experimental element in the SLD specifications
+Rule                   Yes 
+====================== ========= ======================================================== 
+
+**Table 6. Rule**
+
+=================== ========= ===================================
+Features            Supported               Notes
+=================== ========= ===================================
+Name                Yes  
+Title               Yes  
+Abstract            No        No use in the MapServer environment 
+LegendGraphic       Yes  
+Filter              Yes  
+ElseFilter          Yes  
+MinScaleDenominator Yes  
+MaxScaleDenominator Yes  
+LineSymbolizer      Yes  
+PolygonSymbolizer   Yes  
+PointSymbolizer     Yes  
+TextSymbolizer      Yes  
+RasterSymbolizer    Yes       Applies for 8-bit rasters
+=================== ========= ===================================
+
+- Filter and ElseFilter
+
+  For each rule containing a filter, there is a class created with the class 
+  expression set to reflect that filter. Available filters that can be used 
+  are Comparison Filters and Logical Filters (see the :ref:`Filter Encoding HowTo <filter_encoding>`).
+  The ElseFilter parameters are converted into a class in MapServer and placed 
+  at the end of the class list with no expression set. They are used to render 
+  elements that did not fit into any other classes.
+  
+- MinScaleDenomibator and MaxScaleDenominator are translated in minscale and 
+  maxscale in MapServer.
+  
+The following are examples of valid requests using the Filters:
+ 
+- line with one filter: `sld 6a`_ / `full request 6a`_
+
+.. _`sld 6a`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_one_filter.xml
+.. _`full request 6a`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldGen_Outline&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&BBOX=-180.0,-90.0,180.0,90.0&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_one_filter.xml
+
+- line with multiple filters: `sld 6b`_ / `full request 6b`_
+
+.. _`sld 6b`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_multi_filter.xml
+.. _`full request 6b`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldGen_Outline&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&BBOX=-180.0,-90.0,180.0,90.0&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_multi_filter.xml
+
+- line with one filter and an else filter: `sld 6c`_ / `full request 6c`_
+
+.. _`sld 6c`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_one_filter_and_else.xml
+.. _`full request 6c`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldGen_Outline&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&BBOX=-180.0,-90.0,180.0,90.0&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_one_filter_and_else.xml
+
+- spatial filter using BBOX: `sld 6d`_/ `full request 6d`_
+
+.. _`sld 6d`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_simple_spatial3.xml
+.. _`full request 6d`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldGen_Outline&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&BBOX=-180.0,-90.0,180.0,90.0&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_simple_spatial3.xml
+
+  - The above example enables spatial filtering using the BBOX parameter as a 
+    Filter for a selected area (Africa). Note that an ElseFilter will not work 
+    with a spatial filter.
+    
+**Table 7. LineSymbolizer**
+
+=========================================== ========= ====================================================
+Features                                    Supported Notes
+=========================================== ========= ====================================================
+Geometry                                    No        MapServer uses the data geometry to do the rendering
+Stroke: GraphicFill                         No        Solid color is used
+Stroke: GraphicStroke                       Yes       Draws the symbol along the line
+Stroke (CssParameter): stroke               Yes       RGB colors are supported
+Stroke (CssParameter): width                Yes  
+Stroke (CssParameter): opacity              No        Not supported in MapServer
+Stroke (CssParameter): linejoin and linecap No        Not supported in MapServer
+Stroke (CssParameter): dasharray            Yes  
+Stroke (CssParameter): dashoffset           No 
+PerperdicularOffset (only in SLD 1.1.0)     Yes        Offset values of the style object will be set
+InitialGap(GraphicStroke SLD 1.1.0)         No        
+Gap (GraphicStroke parameter SLD 1.1.0)     No        
+=========================================== ========= ====================================================
+
+Note that SvgParameter instead of CssParameter are required for SLD 1.1.0.
+
+The following are examples of valid requests using the LineSymbolizer:
+
+- simple line: `sld 7a`_ / `full request 7a`_
+
+.. _`sld 7a`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_simple.xml
+.. _`full request 7a`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldGen_Outline&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&BBOX=-180.0,-90.0,180.0,90.0&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_simple.xml
+
+- line with width: `sld 7b`_ / `full request 7b`_
+
+.. _`sld 7b`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_width.xml
+.. _`full request 7b`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldGen_Outline&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&BBOX=-180.0,-90.0,180.0,90.0&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_width.xml
+
+- dashed line: `sld 7c`_ / `full request 7c`_
+
+.. _`sld 7c`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_dash.xml
+.. _`full request 7c`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldGen_Outline&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&BBOX=-180.0,-90.0,180.0,90.0&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_line_dash.xml
+
+**Table 8. PolygonSymbolizer**
+
+==================== ========= =======================================================================
+Features             Supported Notes
+==================== ========= =======================================================================
+Geometry             No   
+Stroke               Yes       Strokes are the same as for the LineSymbolizer
+Fill                 Yes       Was developed to support symbol fill polygons in addition to solid fill
+PerperdicularOffset  No        SLD 1.1.0 parameter
+Displacement         Yes       SLD 1.1.0 parameter. Sets offsetx/y in MapServer       
+==================== ========= =======================================================================
+
+A Fill can be a solid fill or be a Graphic Fill, which is either a well-known 
+Mark symbol (e.g., square, circle, triangle, star, cross, x) or an 
+ExternalGraphic element (e.g., gif, png) available through a URL.  When a Mark 
+symbol is used in an SLD, MapServer creates a corresponding symbol in the map 
+file and uses it to render the symbols.  When a ExternalGraphic is used, the 
+file is saved locally and a pixmap symbol is created in the mapfile referring 
+to the this file. Note that the Web object IMAGEPATH is used to save the file. 
+
+The following are examples of valid requests using the PolygonSymbolizer:
+
+- simple solid fill: `sld 8a`_ / `full request 8a`_
+
+.. _`sld 8a`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_polygon_solid_fill.xml
+.. _`full request 8a`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldGen&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&BBOX=-180.0,-90.0,180.0,90.0&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_polygon_solid_fill.xml
+
+- solid fill with outline: `sld 8b`_ / `full request 8b`_
+
+.. _`sld 8b`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_polygon_solid_fill_outline.xml
+.. _`full request 8b`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldGen&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&BBOX=-180.0,-90.0,180.0,90.0&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_polygon_solid_fill_outline.xml
+
+- fill with mark symbol: `sld 8c`_ / `full request 8c`_
+
+.. _`sld 8c`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_polygon_fill_symbol.xml
+.. _`full request 8c`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldGen&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&BBOX=-180.0,-90.0,180.0,90.0&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_polygon_fill_symbol.xml
+
+- fill with external symbol: `sld 8d`_/ `full request 8d`_
+
+.. _`sld 8d`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_polygon_fill_symbol_external.xml
+.. _`full request 8d`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldGen&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&BBOX=-180.0,-90.0,180.0,90.0&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_polygon_fill_symbol_external.xml
+
+**Table 9. PointSymbolizer**
+
+======================== ========= ========================================================================= 
+Features                 Supported Notes
+======================== ========= ========================================================================= 
+Geometry                 No   
+Graphic: Mark symbol     Yes       Well-known names (square, circle, triangle, star, cross, X) are supported
+Graphic: ExternalGraphic Yes       Was developed to support symbol fill polygons in addition to solid fill
+Opacity                  Yes       Support added in Mapserver 5.4
+Size                     Yes       
+Rotation                 Yes       Support added in MapServer 5.4
+Displacement             Yes       SLD 1.1.0 Paramater.  Support added in MapServer 5.4
+AnchorPoint              No
+======================== ========= ========================================================================= 
+
+Note: refer to the PolygonSymbolizer notes for how the Mark and ExternalGraphic symbols are applied in MapServer.
+
+The following are examples of valid requests using the PointSymbolizer:
+
+- filled mark symbol: `sld 9a`_ / `full request 9a`_
+
+.. _`sld 9a`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_symbol.xml
+.. _`full request 9a`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldPOI&BBOX=-84.7978536015,41.440374,-75.737539764,45.97524&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_symbol.xml
+
+- default settings (square, size 6, color 128/128/128): `sld 9b`_ / `full request 9b`_
+
+.. _`sld 9b`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_symbol_default_settings.xml
+.. _`full request 9b`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldPOI&BBOX=-84.7978536015,41.440374,-75.737539764,45.97524&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_symbol_default_settings.xml
+
+- external symbol: `sld 9c`_ / `full request 9c`_
+
+.. _`sld 9c`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_symbol_external.xml
+.. _`full request 9c`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldPOI&BBOX=-84.7978536015,41.440374,-75.737539764,45.97524&http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldPOI&BBOX=-84.7978536015,41.440374,-75.737539764,45.97524&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_symbol_external.xml
+
+**Table 10. TextSymbolizer**
+
+======================== ========= ==========================================================================================================================
+Features                 Supported Notes
+======================== ========= ==========================================================================================================================
+Geometry                 No   
+Label                    Yes  
+Font(font-family)        Yes       Font names used are those available in MapServer font file. If no fonts are available there, default bitmap fonts are used
+Font-style (Italic, ...) Yes  
+Font-weight              Yes  
+Font-size                Yes       If true-type fonts are not used, default bitmap sizes are given
+LabelPlacement           Yes       PointPlacement is supported. LinePlacement is supported for versions >=5.2.1. Only PerperdicularOffset and IsAligned are suported for LinePlacement.
+Halo                     Yes        Supported (fill converted to outlinecolor, and radius is converted to outlinewidth. Note that outlinewidth is only available for AGG in >=5.2)
+Fill                     Yes        Only solid color is available
+======================== ========= ==========================================================================================================================
+
+Notes on the TextSymbolizer:
+
+- *Font names*: when converting Font parameters to MapServer, the following rule
+  is applied to get the font name: FontFamily-FontStyle-FontWeight.
+  For example, if there is an SLD with a Font Family of arial, a Font Style of 
+  italic, and a Font weight equal to bold, the resulting MapServer font name is 
+  arial-bold-italic.  Font Style and Weight are not mandatory and, if not 
+  available, they are not used in building the font name.  When a Font Style or 
+  a Font Weight is set to normal in an SLD, it is also ignored in building 
+  the name. For example, if there is an SLD with a Font Family of arial, a Font 
+  Style of normal and a Font weight equals to bold, the resulting MapServer font 
+  name is arial-bold.
+
+- A TextSymbolizer can be used in MapServer either on an Annotation layer or on a 
+  Point, Line, or Polygon layer - in addition to other symbolizers used for these 
+  layers.
+
+- PointPacement: a point placement includes AnchorPoint (which is translated to 
+  Position in MapServer) Displacement (which is translated to Offset) and Angle 
+  (which is translated to Angle). 
+
+- Angle setting: by default the angle parameter is set to AUTO. For point features,
+  users can use the PointPlacement to alter the value. For line features, the user can
+  add a LinePlacement: If an 'empty' LinePlacement is part of the SLD, the angle will be 
+  set to  FOLLOW, If a LinePlacement contains the PerpendicualarOffset parameter, the 
+  angle will be set to 0 and the PerpendicualarOffset will be used to set the offset values 
+  in the label object. SLD 1.1.0 introduces the IsAligned parameter for LinePlacement: if 
+  this parameter is set to false, the angle will be set to 0.  
+
+The following are examples of valid requests using the TextSymbolizer:
+
+- annotation layer : test for label, font, point placement, color, angle: `sld 10a`_ / `full request 10a`_
+
+.. _`sld 10a`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_text_annotation.xml
+.. _`full request 10a`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldPlaces&BBOX=-81.366241839,42.39269586,-77.8780568047,44.13861927&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_text_annotation.xml
+
+- annotation layer with text and symbols using 2 symbolizers: `sld 10b`_ / `full request 10b`_
+
+.. _`sld 10b`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_text_with_symbols.xml
+.. _`full request 10b`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldPlaces&BBOX=-81.366241839,42.39269586,-77.8780568047,44.13861927&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_text_with_symbols.xml
+
+
+- line layer with text using 2 symbolizers: `sld 10c`_ / `full request 10c`_
+
+.. _`sld 10c`: http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_text_line.xml
+.. _`full request 10c`: http://www2.dmsolutions.ca/cgi-bin/mswms_world?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=WorldRoads&BBOX=-81.366241839,42.39269586,-77.8780568047,44.13861927&FORMAT=png&WIDTH=400&HEIGHT=300&SRS=EPSG:4326&STYLES=&TRANSPARENT=TRUE&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_text_line.xml
+
+**Table 11. RasterSymbolizer**
+
+=================== ========= =====
+Features            Supported Notes
+=================== ========= =====
+Geometry            No   
+Opacity             Yes  
+ChannelSelection    No   
+OverlapBehaviour    No   
+ColorMap            Yes  
+ContrastEnhancement No   
+ShadedRelief        No   
+ImageOutline        No  
+=================== ========= =====
+
+The current support in MapServer includes only ColorMap parameter support. It 
+can be used to classify 8-bit rasters. Inside the ColorMap parameters, the 
+color and quantity parameters are extracted and used to do the classification. 
+
+**Table 12. ColorMap**
+
+The following Features are available in SLD 1.0
+
+======== ========= =====
+Features Supported Notes
+======== ========= =====
+Color    Yes  
+Opacity  No   
+Quantity Yes  
+Label    No 
+======== ========= =====
+
+The following is an example of ColorMap usage for SLD 1.0.
+
+If we have following ColorMap in an SLD:
+
+.. code-block:: guess
+
+    <ColorMap>
+      <ColorMapEntry color="#00ff00" quantity="22"/> 
+      <ColorMapEntry color="#00bf3f" quantity="30"/> 
+      <ColorMapEntry color="#007f7f" quantity="37"/> 
+      <ColorMapEntry color="#003fbf" quantity="45"/> 
+      <ColorMapEntry color="#0000ff" quantity="52"/>
+      <ColorMapEntry color="#000000" quantity="60"/>
+    </ColorMap>
+          
+The six classes that are created are:
+
+::
+
+    class 1: [pixel] >= 22 AND [pixel] < 30 with color 00ff00
+    class 2: [pixel] >= 30 AND [pixel] < 37 with color 00bf3f 
+    class 3: [pixel] >= 37 AND [pixel] < 45 with color 007f7f
+    class 4: [pixel] >= 45 AND [pixel] < 52 with color 003fbf
+    class 5: [pixel] >= 52 AND [pixel] < 60 with color 0000ff
+    class 6: [pixel] = 60 with color 000000 
+
+Note that the ColorMapEntry quantity parameters should be in increasing order.
+
+
+The following Features are available in SLD 1.1
+
+========== ========= =====
+Features   Supported Notes
+========== ========= =====
+Categorize Yes  
+========== ========= =====
+
+The following is an example of and SLD 1.1.0 with a raster symbolizer
+
+.. code-block:: guess
+
+   <StyledLayerDescriptor version="1.1.0" xsi:schemaLocation="http://www.opengis.net/sld http://schemas.opengis.net/sld/1.1.0/StyledLayerDescriptor.xsd" xmlns="http://www.opengis.net/sld" xmlns:ogc="http://www.opengis.net/ogc" xmlns:se="http://www.opengis.net/se" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <NamedLayer>
+   <se:Name>landsat</se:Name>
+   <UserStyle>
+   <se:Name>xxx</se:Name>
+   <se:FeatureTypeStyle>
+   <se:Rule>
+   <se:RasterSymbolizer>
+   <se:Opacity>0.7</se:Opacity>
+   <se:ColorMap>
+   <se:Categorize fallbackValue="#78c818">
+   <se:LookupValue>Rasterdata</se:LookupValue>
+   <se:Value>#ffffff</se:Value>
+   <se:Threshold>22</se:Threshold>
+   <se:Value>#00ff00</se:Value>
+   <se:Threshold>30</se:Threshold>
+   <se:Value>#00bf3f</se:Value>
+   <se:Threshold>37</se:Threshold>
+   <se:Value>#007f7f</se:Value>
+   <se:Threshold>45</se:Threshold>
+   <se:Value>#003fbf</se:Value>
+   <se:Threshold>52</se:Threshold>
+   <se:Value>#0000ff</se:Value>
+   <se:Threshold>60</se:Threshold>
+   <se:Value>#000000</se:Value>
+   </se:Categorize>
+   </se:ColorMap>
+   </se:RasterSymbolizer>
+   </se:Rule>
+   </se:FeatureTypeStyle>
+   </UserStyle>
+   </NamedLayer>
+   </StyledLayerDescriptor>
+
+
+The classes that are created are:
+
+::
+
+    class 1: [pixel] < 22 with color ffffff
+    class 2: [pixel] >= 22 AND [pixel] < 30 with color 00ff00
+    class 3: [pixel] >= 30 AND [pixel] < 37 with color 00bf3f 
+    class 4: [pixel] >= 37 AND [pixel] < 45 with color 007f7f
+    class 5: [pixel] >= 45 AND [pixel] < 52 with color 003fbf
+    class 6: [pixel] >= 52 AND [pixel] < 60 with color 0000ff
+    class 7: [pixel] >= 60 with color 000000 
+
+Examples using 8 bits and 16 bits rasters can be seen at:
+
+- `example 1`_ 
+
+- `example 2`_
+
+.. _`example 1`: http://www2.dmsolutions.ca/cgi-bin/mswms_landsat?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=landsat&BBOX=302100,5029281,530271,5166822&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_raster.xml
+.. _`example 2`: http://www2.dmsolutions.ca/cgi-bin/mswms_landsat2?SERVICE=WMS&VeRsIoN=1.1.1&Request=GetMap&LAYERS=golden_CO&SLD=http://www2.dmsolutions.ca/msapps/world_testdata/tests/sld_tests/sld_raster_16bits.xml
+
+Client Side Support
+===================
+
+Client side support of the SLD consists of two parts:
+
+- The first part is using MapServer as a WMS client to send a GetMap request 
+  with an SLD. This is done using two metadata that can be placed at a layer 
+  level in a MapServer mapfile. These two metadata are:
+
+  - ``wms_sld_url``, which takes a valid URL as a value and appends SLD=xxx to the 
+    GetMap request.
+
+  - ``wms_sld_body``, which takes a valid SLD string and appends SLD_BODY=xxx to 
+    the GetMap request. If the value of wms_sld_body is set to AUTO, MapServer 
+    generates an SLD based on the classes found in the layer and send this SLD 
+    as the value of the SLD_BODY parameter in the GetMap request. 
+
+- The other major item is the generation of an SLD document from MapServer 
+  classes. These functions are currently available through MapServer/MapScript 
+  interface. Here are the functions available:
+  
+  - on a map object: ``generatesld``
+
+  - on a layer object: ``generatesld``
+
+  Additional MapScript functions have been added or will be added to complement these functions:
+
+  - on a map object: ``applysld``
+ 
+  - on a layer object: ``applysld`` 
+
+.. note::
+    
+    When generating an SLD from MapServer classes, if there is a pixmap symbol 
+    you need to have this symbol available through a URL so it can be converted 
+    as an ExternalGraphic symbol in the SLD. To do this, you need to define 
+    the URL through a web object level metadata called WMS_SLD_SYMBOL_URL in 
+    your map file. The SLD generated uses this URL and concatenates the 
+    name of the pixmap symbol file to get the value that is generated as 
+    the ExternaGraphic URL. 
+
+PHP/MapScript Example that Generates an SLD from a Mapfile
+----------------------------------------------------------
+
+The following is a small script that calls the generateSLD() function 
+to create an SLD for a specific layer in a mapfile:
+
+.. code-block:: php
+    :linenos:
+    
+    <?php
+
+    // define variables
+    define( "MAPFILE", "D:/ms4w/apps/cadastra/map/cadastra.map" );
+    define( "MODULE", "php_mapscript.dll" );
+
+    // load the mapscript module
+    if (!extension_loaded("MapScript")) dl(MODULE);
+
+    // open map
+    $oMap = ms_newMapObj( MAPFILE );
+
+    // get the parcel layer
+    $oLayer = $oMap->getLayerByName("parcel");
+
+    // generate the sld for that layer
+    $SLD = $oLayer->generateSLD();
+
+    // save sld to a file
+    $fp = fopen("parcel-sld.xml", "a");
+    fputs( $fp, $SLD );
+    fclose($fp);
+
+    ?>
+
+Named Styles support
+====================
+
+Named styles support are introduced in MapServer 5.2. The support is base on :ref:`rfc39` 
+
+MapServer 5.2 introduces the possibility to assign a group to a series of classes 
+defined on a layer object using two new non-mandatory keywords
+CLASSGROUP (at the layer level) and GROUP at the class level:
+
+.. code-block:: mapfile
+
+    LAYER
+        ...
+        CLASSGROUP "group1"
+        ...
+        CLASS
+            NAME "name1"
+            GROUP "group1"
+            ...
+        END
+        CLASS
+            NAME "name2"
+            GROUP "group2"
+            ...
+        END
+        CLASS
+            NAME "name3"
+            GROUP "group1"
+            ...
+        END
+        ...
+
+
+At rendering time, if the CLASSGROUP is defined, only classes that have the same group name would be used. 
+Based on this concept, WMS/SLD support uses the class groups as named styles. Each group of classes is considered equivalent to a named style: 
+   
+- The GetCapbilities request will output all the styles that are available
+- The GetMap request can use the STYLES parameter to specify a named style
+- The GetLegendGraphic can use the STYLES parameter to specify a named style
+
+
+Other Items Implemented
+=======================
+
+- Support of filled polygons with Mark and ExternalGraphic symbols.
+
+- MapScript functions to parse and apply SLD.
+
+- SLD_BODY request support on client and server side. 
+
+Issues Found During Implementation
+==================================
+
+- Limitation of the FilterEncoding to comparison and logical filters. The 
+  spatial filters were not made available since it required major changes in 
+  MapServer WMS support. 
+

@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 55: Improve control of output resolution &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 56: Tighten control of access to mapfiles and templates" href="ms-rfc-56.html" />
+    <link rel="prev" title="MS RFC 54: Rendering Interface API" href="ms-rfc-54.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-56.html" title="MS RFC 56: Tighten control of access to mapfiles and templates"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-54.html" title="MS RFC 54: Rendering Interface API"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-55.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-55.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 55: Improve control of output resolution</a><ul>
+<li><a class="reference external" href="#overview">Overview</a></li>
+<li><a class="reference external" href="#technical-solution">Technical Solution</a></li>
+<li><a class="reference external" href="#usage-example">Usage example</a></li>
+<li><a class="reference external" href="#backwards-compatibility-issues">Backwards Compatibility Issues</a></li>
+<li><a class="reference external" href="#documentation-notes">Documentation notes</a></li>
+<li><a class="reference external" href="#files-impacted">Files Impacted</a></li>
+<li><a class="reference external" href="#ticket-id">Ticket Id</a></li>
+<li><a class="reference external" href="#voting-history">Voting History</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-54.html"
+                                  title="previous chapter">MS RFC 54: Rendering Interface API</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-56.html"
+                                  title="next chapter">MS RFC 56: Tighten control of access to mapfiles and templates</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-55.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-55-improve-control-of-output-resolution">
+<span id="rfc55"></span><h1>MS RFC 55: Improve control of output resolution<a class="headerlink" href="#ms-rfc-55-improve-control-of-output-resolution" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2009/03/09</td>
+</tr>
+<tr class="field"><th class="field-name">Authors:</th><td class="field-body">Daniel Morissette</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">dmorissette at mapgears.com</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">2009/04/03</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Adopted (2009/03/16) and Implemented.</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">MapServer 6.0</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-55.txt 8875 2009-04-03 12:45:00Z dmorissette $</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>MapServer is often used to produce a printable map corresponding to the
+map currently being displayed in the Web interface.</p>
+<p>Printed maps will usually require a resolution higher than the default 72
+pixels per inch which is commonly used for the screen (e.g. 150 or 300 dpi).
+In general printing is done by setting the map.resolution and requesting a
+larger size image for the same map extents. Setting map.resolution to a higher
+value ensures that the layers minscaledenom/maxscaledenom are properly
+evaluated for the larger image, but one thing is missing: symbology (line
+widths, symbol and font sizes, etc) is not adjusted to reflect the resolution
+change and the result is a map in which symbology looks smaller than what it
+looked on screen.</p>
+<p>This RFC proposes a mechanism to fix this by automatically scaling the
+symbology when resolution changes so that the map maintains the same look
+at each resolution.</p>
+</div>
+<div class="section" id="technical-solution">
+<h2>Technical Solution<a class="headerlink" href="#technical-solution" title="Permalink to this headline">¶</a></h2>
+<p>A new optional DEFRESOLUTION keyword will be added in the mapObj with
+a default value if 72 if not set. DEFRESOLUTION is the reference or default
+resolution for which all symbology sizes are defined in the mapfile.</p>
+<p>At rendering time, if RESOLUTION is set to something different from
+DEFRESOLUTION, then the symbology in the layer definitions will be
+adjusted by a factor corresponding to RESOLUTION/DEFRESOLUTION.
+More specifically, this is done by multiplying the layer-&gt;scalefactor value
+by the resolution/defresolution ratio in msPrepareImage().</p>
+<p>The following rendering parameters will be affected:</p>
+<ul class="simple">
+<li>size (symbols and labels)</li>
+<li>width (lines)</li>
+</ul>
+<p>The following rendering parameters which were not impacted by scaling in
+the past will also be fixed to follow the scaling from now on:</p>
+<ul class="simple">
+<li>offsets (line, point, polygon)</li>
+<li>pattern (line)</li>
+<li>gap (line)</li>
+<li>outlinewidth (labels)</li>
+<li>shadowsize, background-shadow-size (labels)</li>
+<li>buffer around labels (collision)</li>
+<li>minfeaturesize, mindistance (labels)</li>
+</ul>
+<p>The case of outlinewidth for line styles is a bit different: it ignores
+the scalefactor so that we get a fixed outline width no matter what we use
+for size units, but we want it to follow the resolution/defresolution factor.
+For this case the line drawing code will need to have a reference to the
+mapObj passed to msDrawLineSymbol() so that it can access the resolution
+and defresolution parameters and do the right thing.</p>
+<p>In the case of pixmap symbols, they will be scaled only if a size is set.
+If no size is set then no scaling happens.</p>
+</div>
+<div class="section" id="usage-example">
+<h2>Usage example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h2>
+<p>Example 1:</p>
+<p>Let&#8217;s say we&#8217;ve got a mapfile that we use to produce a 400x400 pixels
+image for use on the Web, with both defresolution and resolution set to 72.</p>
+<div class="highlight-python"><pre>MAP
+  ...
+  RESOLUTION 72
+  DEFRESOLUTION 72
+  SIZE 400 400
+  ...
+END</pre>
+</div>
+<p>In order to produce a 300dpi image for printing, the application code
+should request an image of 1667 x 1667 pixels (400*300/72=1667) and set
+resolution=300. MapServer will automagically scale all symbology sizes
+by a factor of 300/72=4.1667.</p>
+<p>The new values of size and resolution for printing will likely be passed
+as URL parameters or set via MapScript in most applications, but for the
+purpose of this example, expressed in mapfile syntax then we&#8217;d use the
+following mapObj settings for printing:</p>
+<div class="highlight-python"><pre>MAP
+  ...
+  RESOLUTION 300
+  DEFRESOLUTION 72
+  SIZE 1667 1667
+  ...
+END</pre>
+</div>
+<p>Example 2:</p>
+<p>An application is using a mapfile developed for map.resolution=96 with
+MapServer 5.x. In order to take advantage of the new feature, one should
+set DEFRESOLUTION=96 in the mapfile, and at rendering time, setting
+RESOLUTION=300 will result in all symbology being scaled by a factor
+of 300/96=3.125.</p>
+</div>
+<div class="section" id="backwards-compatibility-issues">
+<h2>Backwards Compatibility Issues<a class="headerlink" href="#backwards-compatibility-issues" title="Permalink to this headline">¶</a></h2>
+<p>Existing apps or mapfiles that set RESOLUTION to a value other than 72
+<strong>without</strong> setting DEFRESOLUTION will end up with their symbology scaled.
+This change in behavior is more likely to be considered as a feature
+than as a bug in most cases, but in case this is a problem for an
+existing app then the fix will be to simply add a DEFRESOLUTION to the
+mapfile which matches the resolution for which all mapfile classes
+and styles are defined.</p>
+<p>The rendering parameters listed above that did not follow scaling in the
+past will be fixed to follow the scaling.</p>
+</div>
+<div class="section" id="documentation-notes">
+<h2>Documentation notes<a class="headerlink" href="#documentation-notes" title="Permalink to this headline">¶</a></h2>
+<p>In addition to documenting the new feature, a note should be added
+somewhere in the mapserver docs that as of this change, the size values
+will reflect valid sizes (according to the SIZEUNITS settings, MS_PIXELS
+by default) only when the RESOLUTION is set to the default 72 or equal
+to the DEFRESOLUTION setting.</p>
+</div>
+<div class="section" id="files-impacted">
+<h2>Files Impacted<a class="headerlink" href="#files-impacted" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>mapserver.h: new defresolution member in mapObj</li>
+<li>mapfile.c, maplexer.l, etc: new DEFRESOLUTION mapfile keyword</li>
+<li>mapdraw.c: adjust scalefactor as needed in msPrepareImage()</li>
+<li>mapscript/php3/php_mapscript.c: expose new defresolution member</li>
+</ul>
+</div>
+<div class="section" id="ticket-id">
+<h2>Ticket Id<a class="headerlink" href="#ticket-id" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2948">http://trac.osgeo.org/mapserver/ticket/2948</a></li>
+</ul>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting History<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<p>Adopted on 2009/03/16 with +1 from DanielM, HowardB, SteveW, TamasS, PericlesN and AssefaY.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-56.html" title="MS RFC 56: Tighten control of access to mapfiles and templates"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-54.html" title="MS RFC 54: Rendering Interface API"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

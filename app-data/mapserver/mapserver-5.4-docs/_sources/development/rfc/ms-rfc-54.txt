@@ -1,0 +1,584 @@
+.. _rfc54:
+
+======================================================================
+MS RFC 54: Rendering Interface API
+======================================================================
+
+:Date: 2009/03/01
+:Authors: Thomas Bonfort
+:Contact: Thomas.Bonfort at camptocamp.com
+:Status: Planning
+:Version: MapServer 6.0
+:Id: $Id: ms-rfc-54.txt 8900 2009-04-11 08:56:50Z tbonfort $
+
+Purpose
+-------------------------------------------------------------------------------
+
+This RFC proposes the refactoring of MapServer's rendering backends, following
+an approach similar to the vtable architecture used by the input drivers. 
+
+The motivation for this refactoring is that in the current code, each renderer
+is responsible both for low-level drawing functionality (eg. strokes, fills,
+symbology) and for higher level interpretation of the combination of mapfile
+keywords (eg. scale-dependant size adjustments, line-folowing orientation for
+symbols ...). This leads to alot of code duplication and difficult
+maintainance.
+
+In a first phase, a cairo (http://cairograhpics.org) renderer will be added
+following this architecture,, and will support traditional raster formats (png,
+jpeg) as well as vector formats (pdf, svg).  Support for openGL and KML
+rendering backends will also be added similarly. During this phase, the new
+renderers will live alongside the older ones, and the functionality of the
+existing renderers should not be affected.
+
+In a second phase, the existing renderers will be ported to the new
+architecture. Idealy all renderers should be ported to the new architecture,
+although this task might take more time and/or financing. The current PDF and
+SVG renderers could be phased out and replaced by the ones natively provided by
+cairo.
+
+.. note::
+
+    While the current GD renderer could be ported to the API architecture, it
+    probably isn't something we want to do as we  would be losing some
+    performance induced by the switching from GD's internal pixel representation
+    to the generic one used by this API.
+
+Low Level Rendering API
+--------------------------------------------------------------------------------
+
+A new *renderObj* structure is defined and is attached to each outputformat
+depending on which driver is configured. A renderObj contains function pointers
+to the low-level functionality that each renderer should implement, and
+configuration options which can tell the higher level calling code what is
+supported or implemented by the renderer.
+
+Adding a new output driver to mapserver therefore consists in two steps:
+ 
+- implementing the low-level rendering functions (depending on the renderer's
+  capabilities and configuration options, not all functions need be implemented)
+- creating and registering a new outputformat driver, by making the
+  renderObj function pointers point to the low-level functions
+
+.. code-block:: c
+
+    struct renderer{
+        // configuration parameters
+
+        // image creation functions
+
+        // raster handling functions (input and output)
+
+        // image saving functions (only for the renderers that cannot export a
+        // raster format)
+
+        // low level rendering functions lines and polygons symbology vector
+        // ellipse pixmap truetype text handling label size calculation label
+        // rendering
+
+        // support for using an image cache for symbology creation of a tile
+        // representing a cached symbol vector ellipse ...  placement of a
+        // cached tile at a point using a tile as a fill pattern on lines and
+        // polygons
+
+        // freeing functions (main imageObj and caches)
+    }
+
+
+Configuration parameters
+=========================
+
+Each renderer can inform the higher level calling code of what functionality it
+supports or implements. This will primarily allow us to support vector and
+raster renderers. More details on each configuration parameter will be given
+when appropriate in the rest of this document.
+
+Image Creation Functions
+=========================
+   
+Each renderer must provide a function to create a new image. MapServer's
+imageObj structure will have an additional void* member that will be used by
+the renderer to store a structure containing any usefull information it may
+need.
+
+.. code-block:: c
+    
+    imageObj* (*createImage)(int width, int height, outputFormatObj *format,
+                colorObj* bg);
+
+.. note::
+
+    Renderer specific creation options would be extracted by each renderer from the
+    outputFormatObj passed to it. (This would be used eg by the PDF renderer for page
+    layout options).
+
+Raster Handling Functions
+==========================
+
+Raster handling will follow different code paths depending on wether the
+underlying renderer is already natively a raster renderer (eg. PNG, JPEG) , or if
+it is a vector one (eg. PDF, SVG).
+
+Raster Buffer Structure
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+A new structure defining a raster object in memory is defined, and is used to
+replace the current code that uses a gdImage as a common format.
+
+.. code-block:: c
+
+    typedef struct {
+        
+        unsigned int width,height;
+        
+        // pointers to the start of each band in the pixel buffer 
+        unsigned char *a,*r,*g,*b;
+        
+        // step between one component and its successor (inside the same band)
+        unsigned int pixel_step
+        
+        //step between the beginning of each row in the image
+        unsigned int row_step;
+        
+        // pointer to the actual pixels (should not be used by the high-level
+        // code)
+        // TODO: as this memeber is actually private, it should probably be
+        // a void* so that any internal representation can be used
+        unsigned char *pixelbuffer;
+
+    } rasterBufferObj;
+
+A renderer must provide a function to initialize a rasterBuffer where the pixel
+alignment and the order of the bands best fits its internal representation of a
+raster array.
+
+.. code-block:: c
+
+  void (*initializeRasterBuffer)(rasterBufferObj *buffer, int width, int height);
+  
+    
+
+Handling Raster Layers
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Depending on the renderer's capabilities, there are two possibilities here,
+that are determined by the *supports_pixel_buffer* parameter:
+
+- if the renderer supports a pixel buffer, then the raster layer code is
+  given a handle to the memory buffer used by the renderer, and direclty
+  sets individual pixels where needed. Such a renderer will thus implement
+  a function to export a rasterBufferObj pointing to its internal pixel
+  buffer:
+
+  .. code-block:: c
+
+    void (*getRasterBuffer)(imageObj *img,rasterBufferObj *rb);
+
+- if the renderer does not use an internal representation that can be
+  directly filled by the raster layer code, it must provide two functions
+  that will allow the higher level code to merge the created raster:
+
+  .. code-block:: c
+    
+    void (*mergeRasterBuffer)(imageObj *dest, rasterBufferObj *overlay,
+                double opacity, int dstX, int dstY)
+
+
+
+Image Saving Functions
+=======================
+
+Similarly to raster layers, there are two code paths for saving a created image
+to a stream or to a buffer, depending also on the *supports_pixel_buffer*
+configuration paramter:
+
+- if the renderer supports a pixel buffer, the exported rasterBufferObj
+  will be treated by some new image writing code (relying on
+  libpng/libjpeg/libgif) This will allow each renderer to not have to
+  implement image saving and will allow us to treat all the formatoptions
+  in a single place.
+
+- if the renderer does not support exproting to a rasterBuffer, it should
+  provide a function for writing itself to a given stream:
+
+  .. code-block:: c
+    
+    int (*saveImage)(imageObj *img, FILE *fp, outputFormatObj *format);
+
+TODO: exporting to a buffer for mapscript getBytes()
+
+
+
+Low Level Functions to be Implemented by a renderer
+====================================================
+
+Polygons
+~~~~~~~~~
+    
+- solid filled: The simplest case, needs only be passed a color
+- pattern filled: is passed a tile. The size of the tile (i.e. the amount of 
+  transparent space around the actual marker inside the tile allows to tweak
+  the spacing between markers insde the polygon)
+- hatch fill: TBD - probably by drawing individual lines at a higher level
+
+.. code-block:: c
+
+        void (*renderPolygon)(imageObj *img, shapeObj *p, colorObj *color);
+        void (*renderPolygonTiled)(imageObj *img, shapeObj *p, void *tile);
+
+Lines
+~~~~~~
+
+- simple stroke: is passed a pattern (dashes) and line style (caps, joins)
+- pattern fill: is passed a tile
+
+.. code-block:: c
+
+    void (*renderLine)(imageObj *img, shapeObj *p, strokeStyleObj *style);
+    void (*renderLineTiled)(imageObj *img, shapeObj *p, void *tile);
+    
+Markers
+~~~~~~~~
+
+.. code-block:: c
+
+    void (*renderVectorSymbol)(imageObj *img, double x, double y,
+    		symbolObj *symbol, symbolStyleObj *style);
+    
+    void (*renderPixmapSymbol)(imageObj *img, double x, double y,
+        	symbolObj *symbol, symbolStyleObj *style);
+    
+    void (*renderEllipseSymbol)(imageObj *image, double x, double y, 
+    		symbolObj *symbol, symbolStyleObj *style);
+    
+    void (*renderTruetypeSymbol)(imageObj *img, double x, double y,
+            symbolObj *symbol, symbolStyleObj *style);
+
+
+.. code-block:: c
+
+    void (*renderTile)(imageObj *img, void *tile, double x, double y, double angle);
+
+
+Labels and Text
+~~~~~~~~~~~~~~~~
+
+- label size calculation: If passed an "advances pointer", also calculates individual
+  advances for each glyphs (for anlge foloow text)
+  
+  .. code-block:: c
+
+    int (*getTruetypeTextBBox)(imageObj *img,char *font, double size, char *string,
+    		rectObj *rect, double **advances);
+
+- glyph rendering: no real change
+
+  .. code-block:: c
+    
+    void (*renderGlyphs)(imageObj *img, double x, double y, labelStyleObj
+            *style, char *text);
+ 
+    void (*renderGlyphsLine)(imageObj *img,labelPathObj *labelpath,
+            labelStyleObj *style, char *text);
+    
+
+Tiles and Caches
+~~~~~~~~~~~~~~~~~
+
+For some symbols and renderer combinations, it might be benficial to use a cache so
+as not to have to render a complicated symbol over and over again. This behavior would
+probably have to be deactivated when using attribute binding (on size, angle, color...)
+as there would be too many cache misses and no real gain.
+
+TBD: use a renderer specific format for a tile (passed back as a void*), or would
+a simple imageObj created by normally by the renderer suffice ? Second solution is much
+simpler as we'd use the same functions for rendering a symbol than for rendering a tile.
+First solution is more flexible, as the renderer can cache anything.
+
+Miscelaneous functions
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: c
+    
+    void (*transformShape)(shapeObj *shape, rectObj extend, double cellsize);
+
+These functions might be needed by some renderers. TBD
+
+.. code-block:: c
+    
+    void (*startNewLayer)(imageObj *img, double opacity);
+    void (*closeNewLayer)(imageObj *img, double opacity);
+    
+
+Cleanup functions
+~~~~~~~~~~~~~~~~~
+
+.. code-block:: c
+        
+    void (*freeImage)(imageObj *image);
+    void (*freeSymbol)(symbolObj *symbol);
+    void (*freeShape)(shapeObj *shape);
+
+.. note::
+    The freeSymbol and freeShape functions are added here as we will be adding a void*
+    pointer to the symbolObj and shapeObj objects where a renderer can store a private
+    cache containing an implementation specific representation of the object.
+
+
+High Level Usage of the rendering API
+--------------------------------------------------------------------------------
+
+Image Creation
+===============
+
+nothing special. just pass on to the renderer.
+
+Image Saving
+=============
+
+Depending on whether the renderer can export a raster buffer or not:
+
+- supported: get a raster buffer, eventually apply formatoptions (quantization)
+  and pass the buffer to the MapServer's saving functions
+- unsupported: call the renderer's saving function
+
+Raster Layers
+==============
+
+MapServer's Raster layer handling will be modified so that it can write to a
+rasterBufferObj and not only to a gdImage.
+
+.. note::
+    
+    TODO (FrankW) add some detail here about the changes induced here
+
+.. code-block:: c
+    
+    if(renderer->supports_pixel_buffer) {
+        rasterBufferObj buffer;
+        renderer->getRasterBuffer(img,&buffer);
+        msDrawRasterLayer(map,layer,&buffer);
+    }
+    else {
+        rasterBufferObj buffer;
+        renderer->initializeRasterBuffer(&buffer,width,height);
+        msDrawRasterLayer(map,layer,&buffer);
+        renderer->mergeRasterBuffer(img,&buffer,0,0);
+        renderer->freeRasterBuffer(&buffer);
+    }
+
+Symbol Cache and Marker Rendering
+==================================
+
+A symbol cache similar to the actual mapgd.c imagecache will be implemented in
+mapimagecache.c .
+
+.. note::
+
+    As pointed out earlier, it is yet to be decided if the cache will store
+    plain imageOjbs or if we allow renderers to store a specific structure.
+    This could also be a configuration option, with each renderer specifying if
+    it can treat it's own created imageObj as a cache, or if it needs a void*
+    cache. This would keep the code simple for most renderers, while allowing
+    more flexibility for others (the openGL renderer will probably be needing
+    this)
+
+The use of an image cache would be configurable by each renderer via the
+supports_imagecache configuration option, as its use isn't necessarily useful
+depending on the format.
+
+.. code-block:: c
+
+    if(renderer->supports_imagecache) {
+        // this function looks in the global image cache if it finds a tile 
+        // corresponding to the current symbol and styling and returns it. If
+        // it wasn't found, it calls the renderer functions to create a new 
+        // cache tile and adds it to the global cache.
+        imageObj *tile = getTile(img, symbol, symbolstyle);
+        renderer->renderTile(img, tile, x, y);
+    }
+    else {
+        switch(symbol->type) {
+            case VECTOR:
+                renderer->renderVectorSymbol(img, params...);
+                break;
+            case ELLIPSE:
+                /* ... */
+        }
+    }
+
+Line Rendering
+===============
+
+- simple stroke: call the renderer directly
+- marker symbols:
+    
+    - compute positions and orientations along the geometry
+    - render a marker symbol with the renderer's marker functions for each of
+      these positions. It probably isn't a good idea to use a tile cache if the
+      symbols have to follow line orientation, as rotating a cached tile will
+      produce poor results.
+- pattern:
+    
+    - create the pattern's tile (with the renderer's marker functions)
+    - pass the tile to the renderer
+
+Polygon Rendering
+==================
+
+- simple fill
+- pattern fill:
+
+  - create the pattern tile
+  - eventually cache the tile for future use on another geometry
+  - pass the tile to the renderer
+
+- hatch fill:
+  - compute the lines corresponding to the hatch
+  - use the renderer's simple stroking function
+
+Text Rendering
+===============
+
+Nothing special to add here, except that the basic preliminary tests (if the
+font is defined, or if the string to render is NULL) and the lookup of the 
+system path of the truetype font file will be done once by the high level code
+before calling the renderer drawing function.
+
+.. note::
+  Raster fonts will not be supported (at least in a first phase) by this
+  rendering API. Only truetype fonts are implemented.
+
+Image I/O
+--------------------------------------------------------------------------------
+
+Currently all image I/O is done through the GD library. To raise this dependency,
+the RFC proposes to have mapserver implement image loading and saving by directly
+interfacing the libpng / libjpeg / giflib libraries. The corresponding code will
+be added to a new file "mapimageio.c", and will produce or read rasterBufferObj's.
+
+These functions will implement the formatoptions that are currently supported. 
+Adding new formatoptions would be done by adding the code to these i/o functions,
+and would thus add the support for all the renderers that use this rendering API
+architecture:
+
+- jpeg:
+  
+  - quality: 0 - 100
+- png:
+
+  - interlacing: will be set to OFF by default, as the creation is costlier, 
+    produces heavier images, and is incompatible with TileCache's
+    metatiling functionality.
+  - compression: could be added to select the quality of zlib compression
+  - quantization: produce palette-based pngs from rgb or rgba imagemodes.
+  - palette: produce palette-based pngs given a precomputed palette. Further
+    enhancements could include automatically producing a palette by looping
+    through the input mapfile to extract the colors and ensure they end up
+    in the final image (this would only be supported for RGB, not RGBA)
+- gif: TBD
+
+.. note::
+
+    The initial implementation of this RFC will not include support for writing
+    GIF images.
+
+.. note::
+
+    The initial implementation of this RFC will not include image loading functions
+    by direct usage of the libjpeg/libpng/giflib libraries. It will instead fallback
+    to GD loading and convert the created gdImage to a rasterBuffer. This can be added
+    in a second phase as it is lower priority, and does not induce a major architectural
+    change.
+
+Miscelaneous
+--------------------------------------------------------------------------------
+
+Drawing some layers as rasters in vector renderers
+===================================================
+
+The current pdf (and SVG?) renderers have the option of switching over to GD for
+some layers, that are then incorporated as a raster image in the final map rather
+than adding each feature in the usual way.
+
+This functionality could probably be kept with this API with the mergeRasterBuffer
+function. 
+
+.. note:: 
+
+    A renderer using this functionality will have to take care as the rasterBuffer
+    that it will be passed will be in the native format of the delegated renderer, 
+    and may not be in the exact same format it would have created with a call to
+    initializeRasterBuffer.
+
+Legend
+=======
+
+The legend rendering code will have to be refactored, as it currently produces a
+gdImage. Legend rendering will be handled like a normal imageObj.
+
+.. note::
+    
+    TODO: "embed" mode is problematic.
+    
+    If postlabelcache is on, then the created
+    imageObj can easily be added to the main image using the renderTile function
+    (for the renderers that support it. the others will probably have noe embedded
+    legend support)
+
+    If postlabelcache is off we have a problem, as the created legend is passed as
+    a pixmap symbol to the main map rendering. This is incompatible with the vector
+    renderers, as the imageObj they have created isn't an array of pixels.
+
+Scalebar
+=========
+
+TBD
+
+Reference Map
+==============
+
+TBD. Should we even still be supporting this ?
+
+
+Affected Files
+--------------------------------------------------------------------------------
+- maprendering.c , mapimageio.c, mapcairo.c (added) 
+- mapfile.c (defaults, and keywords moved from symbolObj to styleObj)
+- mapoutput.c (renderObj creation)
+- mapdraw.c (msDrawXXX functions moved to maprendering.c)
+- mapserver.h
+- .... lots more
+
+
+Documentation
+--------------------------------------------------------------------------------
+
+No end documentation needed aside from the migration guide.
+
+Mapscript
+--------------------------------------------------------------------------------
+
+TBD
+
+Backwards Incompatibility
+--------------------------------------------------------------------------------
+
+Symbology should be better behaved between renderers, but does imply some backwards
+incompatible changes in how some symbols can be rendered (although this can probably
+seen as fixing bugs rather than backwards incompatibilities)
+
+- reverse orientation of rotation for vector symbols. currently vector symbols are
+  rotated in the opposite direction of the other symbols.
+
+- for line geometries , the given pattern (dashes...) will be scaled by the actual width
+  of the line. A dotted line will therefore be defined as PATTERN 1 1 END whatever the
+  width of the line.
+
+- More to come ?
+
+Comments from Review period
+--------------------------------------------------------------------------------
+
+Voting History
+--------------------------------------------------------------------------------

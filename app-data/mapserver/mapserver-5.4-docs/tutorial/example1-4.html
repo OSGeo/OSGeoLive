@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Example 1.4 &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//tutorial/example1-4.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/tutorial/example1-4.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Example 1.4</a><ul>
+<li><a class="reference external" href="#labeling-the-map">Labeling the Map</a><ul>
+<li><a class="reference external" href="#mapfile-structure">MapFile Structure</a><ul>
+<li><a class="reference external" href="#the-label-object-and-keywords">The LABEL Object and Keywords</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/tutorial/example1-4.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="example-1-4">
+<span id="example1-4"></span><h1>Example 1.4<a class="headerlink" href="#example-1-4" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="labeling-the-map">
+<h2>Labeling the Map<a class="headerlink" href="#labeling-the-map" title="Permalink to this headline">¶</a></h2>
+<p>We can also add labels to our map...</p>
+<img alt="http://demo.mapserver.org/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/example1-4.map&amp;layer=states_poly&amp;layer=states_line&amp;mode=map" src="http://demo.mapserver.org/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/example1-4.map&amp;layer=states_poly&amp;layer=states_line&amp;mode=map" />
+<p>MapServer has a very flexible labeling engine.  It supports native bitmap as
+well as truetype fonts.  Font scaling is supported with truetype. The labeling
+angles and placements can be customized...  If you take the time to learn the
+many parameters involved in creating good labels, you will be rewarded with
+informative and aesthetically pleasing maps.</p>
+<p>This is what the map file looks like: <a class="reference external" href="example1-4-map.html#example1-4-map"><em>Example1-4.map</em></a>.</p>
+<div class="section" id="mapfile-structure">
+<h3>MapFile Structure<a class="headerlink" href="#mapfile-structure" title="Permalink to this headline">¶</a></h3>
+<p>The map file structure, by objects, looks like this:</p>
+<div class="highlight-python"><pre>                             MAP
+ (states_poly) LAYER----------|---------LAYER (states_line)
+(land) CLASS-----|-CLASS (water)        |-CLASS
+   STYLE-|-LABEL   |-STYLE                |-STYLE&lt;/pre&gt;</pre>
+</div>
+<div class="section" id="the-label-object-and-keywords">
+<h4>The LABEL Object and Keywords<a class="headerlink" href="#the-label-object-and-keywords" title="Permalink to this headline">¶</a></h4>
+<p>Here we introduce a few more parameters along with the LABEL object:</p>
+<dl class="docutils">
+<dt><strong>FONTSET</strong></dt>
+<dd>Here we specify the full path to our truetype fonts list (or fontset)
+file. This file lists each of the available fonts. See the file
+itself and the <a class="reference external" href="http://mapserver.gis.umn.edu/doc/fontset.html">MapServer font set documentation</a> for more info.
+FONTSET is a parameter of the MAP object.</dd>
+<dt><strong>LABELITEM</strong></dt>
+<dd>This specifies which data attribute to use for labeling, in this
+case &#8220;STATE&#8221;. LABELITEM is a parameter of the LAYER object.</dd>
+<dt><strong>LABEL</strong></dt>
+<dd>Marks the beginning of the LABEL object. The label object can be used
+under other objects (i.e. the SCALEBAR object).</dd>
+<dt><strong>COLOR</strong></dt>
+<dd>Within the LABEL object, COLOR specifies the color of the label text.</dd>
+<dt><strong>SHADOWCOLOR</strong></dt>
+<dd>This specifies the shadow color of the label text.</dd>
+<dt><strong>SHADOWSIZE</strong></dt>
+<dd>Specifies the shadow size. The value corresponds to the X and the Y
+shifts in pixels. So, &#8220;2 2&#8221; means two pixels wide by two pixels high.</dd>
+<dt><strong>TYPE</strong></dt>
+<dd>Within the LABEL object, TYPE specifies what type of font to use. We
+have the choice of TRUETYPE or BITMAP (the built-in fonts). We choose
+TRUETYPE.</dd>
+<dt><strong>FONT</strong></dt>
+<dd>If you specify TYPE as TRUETYPE, you need to specify what font to use.
+The value here is the &#8220;alias&#8221; in the font list file.</dd>
+<dt><strong>SIZE</strong></dt>
+<dd>If using truetype fonts, the value is size in pixels. If bitmap, you
+can say something like &#8220;small&#8221; or &#8220;large&#8221;.</dd>
+<dt><strong>ANTIALIAS</strong></dt>
+<dd>This turns truetype antialiasing on or off. Remember the value isn&#8217;t
+on or off but TRUE or FALSE.</dd>
+<dt><strong>POSITION</strong></dt>
+<dd>Where to position the label text in relation to the label points.
+The value is a combination of vertical and horizontal positions. You
+have the following choices for vertical alignment: C for center, U
+for upper, and L for lower. For horizontal alignment you have the
+following choices: C for center, L for left, and R for right. So, to
+align the label text to the center of label ID you&#8217;d use the value
+&#8220;CC&#8221; (center-center). Or if you&#8217;d like it to be on the
+lower left of the ID, you&#8217;d use LL. Another way is to let MapServer
+decide the best position for your labels. For this you would use
+the value &#8220;AUTO&#8221;.</dd>
+<dt><strong>PARTIALS</strong></dt>
+<dd>Tells MapServer whether to generate incomplete label texts or not.
+The default here is not to generate fragments of a label text. The
+value is either TRUE or FALSE.</dd>
+<dt><strong>MINDISTANCE</strong></dt>
+<dd>This is the minimum distance in pixels between duplicate labels. See
+what happens if you increase or decrease this value.</dd>
+<dt><strong>BUFFER</strong></dt>
+<dd><p class="first">The padding (in pixels) for each label. This is used to enhance
+readability. A BUFFER of 4 pixels mean that no label will be drawn
+within four pixels of each other. Again, change to see how it works.</p>
+<p class="last">You can also create labels separate from a POLYGON layer. You do
+this with the ANNOTATION data type. Have a look at the next example&#8217;s
+map file to see how you&#8217;d implement this kind of labeling.  You will
+notice that the CLASS object within the &#8220;label&#8221; layer has a COLOR
+parameter value of &#8220;-1 -1 -1&#8221;. The negative number tells MapServer to
+give this CLASS a transparent color (the label IDs don&#8217;t show up).
+Once again, play with the values to understand how it affects the map.</p>
+</dd>
+</dl>
+<hr class="docutils" />
+<p><a class="reference external" href="example1-3.html#example1-3"><em>Back to Example 1.3</em></a> | <a class="reference external" href="example1-5.html#example1-5"><em>Proceed to Example 1.5</em></a></p>
+<hr class="docutils" />
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,261 @@
+.. _oci_install:
+
+*****************************************************************************
+ Oracle Installation
+*****************************************************************************
+
+:Author: Till Adams
+:Last Updated: 2007/02/16
+
+.. contents:: Table of Contents
+    :depth: 2
+    :backlinks: top
+
+
+.. index:: 
+    pair: Oracle; install
+
+
+Preface
+------------------------------------------------------------------------------
+
+This document explains the whole configuration needed to get the connect
+between MapServer :ref:`cgi` and an Oracle database server on a linux (Ubuntu)
+box. The aim of this document is just to put a lot of googled knowledge in ONE
+place. Hopefully it will preserve many of people spending analog amount of
+time than I did!
+
+This manual was written, because I spent several days googling around to get
+my UMN having access to an oracle database. I'm NOT an oracle expert, so the
+aim of this document is just to put a lot of googled knowledge in ONE place.
+Hopefully it will preserve many of people spending analog amount of time than
+I did! (Or: If you have the choice: Try :ref:`PostGIS <input_postgis>` ;-))
+
+Before we start, some basic knowledge, I didn't know before:
+
+* MapServer can access oracle spatial as well as geodata from any oracle
+  locator installation! Oracle locator comes with every oracle instance, there
+  is no need for an extra license.
+	
+* There is no need for further installation of any packages beside
+  oracle/oracle OCI
+
+System Assumptions
+------------------------------------------------------------------------------
+
+We assume that Oracle is already installed, there is a database and there is
+some geodata in the database. The following paths should be known by the
+reader:
+
+* ORACLE_HOME
+* ORACLE_SID
+* ORACLE_BASE
+* LD_LIBRARY_PATH
+
+We also assume that you have installed **apache2** (our version was 2.0.49)
+and you are used to work with Linux/UNIX systems. We also think you are able
+to handle the editor :ref:`vi/vim <vim>`.
+
+We ensure that the Oracle user who later accesses the database has
+write-access to the oracle_home directory.
+
+We also assume, that you already have setup the tnsnames.ora file. It should
+look like that:
+
+::
+
+    MY_ORACLE = 
+        (DESCRIPTION = 
+            (ADDRESS = (PROTOCOL = TCP)(HOST = host)(PORT = 1521))
+            (CONNECT_DATA =
+                (SERVICE_NAME = your_name) 
+            ) 
+        ) 
+
+It is important that you know the NAME of the datasource, in this example this
+is "MY_ORACLE" and will be used further on. Done that, you're fine using
+``User/Password@MY_ORACLE`` in your mapfile to connect to the oracle database.
+But first we have to do some more stuff.
+
+Compile MapServer
+------------------------------------------------------------------------------
+
+Compile as normal compilation and set this flag:
+
+::
+
+
+    --with-oraclespatial=/path/to/oracle/home/</p>
+
+If MapServer configure and make runs well, try
+
+::
+
+    ./mapserv -v
+    
+This should at least give this output:
+
+::
+
+    INPUT=ORACLESPATIAL
+
+If you got that, you're fine from the MapServer point of view.
+
+Set Environment Variables
+------------------------------------------------------------------------------
+
+It is important to set all environment variables correctly. There are one the
+one hand system-wide environment variables to be set, on the other hand there
+should be set some for the cgi-directory in your Apache configuration.
+
+System Variables
+..............................................................................
+
+On Ubuntu (and on many other systems) there is the file "/etc/profile" which
+sets environment variables for all users on the system (you may also dedicate
+user-specific environment variables by editing the users ".profile" file in
+their home directory, but usually the oracle database users are not users of
+the system with their own home)
+
+Set the following variables:
+
+::
+
+    $ cd /etc
+
+
+    $ echo export ORACLE_HOME=/path/to/oracle/home >> /etc/profile 
+
+    # **(e.g. ORACLE_HOME=/app/oracle/ora10g)
+
+    $ echo export ORACLE_BASE=path/to/oracle >> /etc/profile 
+
+    # **(e.g. ORACLE_HOME=/app/oracle)
+
+    $ echo export ORACLE_SID=MY_ORACLE >> /etc/profile 
+
+    $ echo export LD_LIBRARY_PATH=path/to/oracle/home/lib >> /etc/profile 
+
+    # **(e.g. ORACLE_HOME=/app/oracle/ora10g/lib)
+
+The command comes silent, so there is no system output if you didn't mistype
+anything!
+
+
+
+Setting the Apache Environment
+..............................................................................
+
+
+Sometimes it is confusing WHERE to set WHAT in the splitted
+apache2.conf-files. In the folder "/etc/apache2/sites_available" you find your
+sites-file. If you did not do sth. Special e.g. installing virtual hosts, the
+file is named "default". In this file, the apache cgi-directory is defined.
+Our file looks like this:
+
+::
+
+    ScriptAlias /cgi-bin/ /var/www/cgi-bin/ 
+    <Directory "/var/www/cgi-bin">
+           AllowOverride None
+           Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
+           Order allow,deny
+           Allow from all
+    </Directory></p>
+
+In this file, the local apache
+environment variables must be set. We did it within a location-block
+like this:
+
+::
+
+    <Location "/cgi-bin/">
+        SetEnv ORACLE_HOME "/path/to/oracle/home"
+    </Location></p>
+
+Where /cgi-bin/ in the opening location block refers to the script alias
+/cgi-bin/ and the TNS_ADMIN directory point to the location of the
+tnsnames.ora file.
+
+Then restart apache:
+
+::
+
+    $ /etc/init.d/apache2 force-reload
+
+Create mapfile
+..............................................................................
+
+Before we start creating our mapfile ensure that you have a your access data
+(User/Password) and that you know the Oracle SRID, which could be different
+from the proj-:term:`EPSG`!
+
+The data access parameters:
+
+* CONNECTIONTYPE oraclespatial
+* CONNECTION 'user/password@MY_ORACLE'
+* DATA 'GEOM FROM MY_LAYER USING SRID 82032'
+
+[...]
+
+Where:
+
+* GEOM is the name of the geometry column
+* MY_LAYER the name of the table
+* 82032 is equivalent to the EPSG code 31468 (German projection system)
+
+
+Testing & Error handling
+..............................................................................
+
+So you are fine now. Load the mapfile in your application and try it. If
+everything goes well: Great, if not, possibly this ugly error-emssage occurs
+(this one cmae by querying MapServer through the WMS interface as a
+GetMap-request):
+
+::
+
+    <ServiceExceptionReport version="1.0.1">
+        <ServiceException>
+            msDrawMap(): Image handling error. Failed to draw layer named 'test1'.
+            msOracleSpatialLayerOpen(): OracleSpatial error. Cannot create OCI Handlers.         
+            Connection failure. Check the connection string. Error: .
+        </ServiceException>
+    </ServiceExceptionReport>
+
+This points us towards, that there might be a problem with the connection to
+the database. First of all, let's check, if the mapfile is all right.
+Therefore we use the MapServer utility program :ref:`shp2img`.
+
+Let's assume you are in the directory, where you compiled MapServer and run
+shp2img:
+
+::
+
+    $ cd /var/src/mapserver_version/
+
+    $ shp2img -m /path/to/mapfile/mapfile.map -i png -o /path/to/output/output.png
+    
+
+The output of the command should look like this:
+
+::
+
+[Fri Feb  2 14:32:17 2007].522395 msDrawMap(): Layer 0 (test1), 0.074s
+[Fri Feb  2 14:32:17 2007].522578 msDrawMap(): Drawing Label Cache, 0.000s
+[Fri Feb  2 14:32:17 2007].522635 msDrawMap() total time: 0.075s
+
+If not, this possibly points you towards any error in your mapfile or in the
+way to access the data directly. In this case, take a look at :ref:`oci`. If
+there is a problem with your oracle connect, the same message as above
+(MsDrawMap() ...) occurs. Check your mapfile syntax and/or the environment
+settings for Oracle.
+
+For Debian/Ubuntu it's worth also checking the file "/etc/environment" and
+test-wise to add the system variables comparable to `System Variables`_
+
+If the output is OK, you may have a look at the generated image (output.png).
+Then your problem reduces to the access of apache to oracle home directory.
+Carefully check your apache configuration. Please note, that the apache.config
+file differs in several linux-distributions. For this paper we talk about
+Ubuntu, which should be the same as Debian.

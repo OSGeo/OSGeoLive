@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>HTML Imagemaps &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Output Generation" href="index.html" />
+    <link rel="next" title="PDF Output" href="pdf.html" />
+    <link rel="prev" title="HTML Legends with MapServer" href="html_legend.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="pdf.html" title="PDF Output"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="html_legend.html" title="HTML Legends with MapServer"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Output Generation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//output/imagemaps.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/output/imagemaps.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">HTML Imagemaps</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a></li>
+<li><a class="reference external" href="#mapfile-layer-definition">Mapfile Layer Definition</a></li>
+<li><a class="reference external" href="#templates">Templates</a><ul>
+<li><a class="reference external" href="#point-layers">Point Layers</a></li>
+<li><a class="reference external" href="#polygon-layers">Polygon Layers</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#request-url">Request URL</a></li>
+<li><a class="reference external" href="#additional-notes">Additional Notes</a></li>
+<li><a class="reference external" href="#more-information">More Information</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="html_legend.html"
+                                  title="previous chapter">HTML Legends with MapServer</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="pdf.html"
+                                  title="next chapter">PDF Output</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/output/imagemaps.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="html-imagemaps">
+<span id="imagemaps"></span><h1><a class="toc-backref" href="#contents">HTML Imagemaps</a><a class="headerlink" href="#html-imagemaps" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">David Fawcett</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">david.fawcett at gmail.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8370 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2008-12-31 16:32:02 -0400 (Wed, 31 Dec 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Last Updated:</th><td class="field-body">2008/10/08</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#html-imagemaps" id="id1">HTML Imagemaps</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference internal" href="#mapfile-layer-definition" id="id3">Mapfile Layer Definition</a></li>
+<li><a class="reference internal" href="#templates" id="id4">Templates</a></li>
+<li><a class="reference internal" href="#request-url" id="id5">Request URL</a></li>
+<li><a class="reference internal" href="#additional-notes" id="id6">Additional Notes</a></li>
+<li><a class="reference internal" href="#more-information" id="id7">More Information</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The shpxy method of creating imagemaps uses MapServer query functionality to
+build a html imagemap.  Just like a regular MapServer query, you send a query
+request and MapServer uses the templates to build a block of html that it sends
+back to the browser.  The first example shows you how to build an imagemap
+based on a point layer.  An example template for a polygon layer is also
+included.</p>
+<p><strong>Components</strong></p>
+<ul class="simple">
+<li>MapServer mapfile</li>
+<li>query template file</li>
+<li>query header template</li>
+<li>query footer template</li>
+</ul>
+</div>
+<div class="section" id="mapfile-layer-definition">
+<h2><a class="toc-backref" href="#contents">Mapfile Layer Definition</a><a class="headerlink" href="#mapfile-layer-definition" title="Permalink to this headline">¶</a></h2>
+<p>Here is a simple mapfile for our example</p>
+<div class="highlight-python"><pre>MAP
+NAME "myMapFile
+STATUS ON
+SIZE 200 200
+EXTENT 178784 4804000 772653 5483346
+
+UNITS METERS
+STATUS ON
+SHAPEPATH "/web/maps/data"
+IMAGECOLOR 255 255 255
+
+WEB
+  IMAGEPATH "/web/maps/tmp/"
+  IMAGEURL "/maps/tmp/"
+END
+
+QUERYMAP
+  STATUS ON
+  STYLE NORMAL
+END
+
+LAYER
+  NAME "sites"
+  STATUS DEFAULT
+  TYPE point
+  DATA 'aqiAreas'
+      TEMPLATE "bodytemplate.html"
+      HEADER "imapheader.html"
+      FOOTER "imapfooter.html"
+END
+END</pre>
+</div>
+<p>You can see that we have a mapfile with one point layer, and that it
+contains references to three query templates.</p>
+</div>
+<div class="section" id="templates">
+<h2><a class="toc-backref" href="#contents">Templates</a><a class="headerlink" href="#templates" title="Permalink to this headline">¶</a></h2>
+<p>In MapServer, the query header and footers get processed only once.  The
+main query template, &#8216;bodytemplate.html&#8217; in this example, gets processed
+once for each record in the record set returned by the query.</p>
+<div class="section" id="point-layers">
+<h3>Point Layers<a class="headerlink" href="#point-layers" title="Permalink to this headline">¶</a></h3>
+<p>Here is the query header, &#8216;imapheader.html&#8217;.  It creates the opening tag
+for your html imagemap.</p>
+<div class="highlight-python"><pre>&lt;map id="mymap" name="mymap"&gt;</pre>
+</div>
+<p>Here is the query template, &#8216;bodytemplate.html&#8217;.  It creates the body of
+the html imagemap.</p>
+<div class="highlight-python"><pre>&lt;area shape="circle" coords="[shpxy precision=0 proj=image yf=",7" xf=","]" href="http://my.url/mypage.cfm?region=[NAME]" title="[NAME]" alt="[NAME]"&gt;</pre>
+</div>
+<p>This template is used to create circular imagemap elements for a point layer.
+NAME is a fieldname in the data source, the value for NAME for each
+individual record gets substituted as the template is processed.  The
+href specifies the URL link if the element is clicked.  Title and alt will
+display the value when an element is moused over.</p>
+<p>The resulting html element looks like</p>
+<div class="highlight-python"><pre>&lt;area shape="circle" coords="80,103,7" href="http://my.url/mypage.cfm?region=Northern" &gt;</pre>
+</div>
+<p>The key part here is</p>
+<div class="highlight-python"><pre>coords="[shpxy precision=0 proj=image xf="," yf=",7"]"</pre>
+</div>
+<p>This is where MapServer will substitute the image coordinates for that
+query record.  With Precision=0, the coordinates will be integers.</p>
+<p>You also see shpxy template formatting options &#8216;xf&#8217; and &#8216;yf&#8217;.  &#8216;xf=&#8221;,&#8221;
+tells MapServer to place a comma after the x coordinate.  &#8216;yf=&#8221;,7&#8221; after
+the y coordinate.  This is done to specify a radius of 7 pixels for the
+circle.  More options can be found in the <a class="reference external" href="../mapfile/template.html#template"><em>Template Reference</em></a>.</p>
+<p>The query footer template simply adds the closing tag for the html imagemap</p>
+<div class="highlight-python"><pre>&lt;/map&gt;</pre>
+</div>
+</div>
+<div class="section" id="polygon-layers">
+<h3>Polygon Layers<a class="headerlink" href="#polygon-layers" title="Permalink to this headline">¶</a></h3>
+<p>Here is a query template for a polygon layer</p>
+<div class="highlight-python"><pre>&lt;area shape="poly" coords="[shpxy precision=0 proj=image]" href="http://my.url/mypage.cfm?ID=[SITE_ID]" title="[NAME]" alt="[NAME]"&gt;</pre>
+</div>
+</div>
+</div>
+<div class="section" id="request-url">
+<h2><a class="toc-backref" href="#contents">Request URL</a><a class="headerlink" href="#request-url" title="Permalink to this headline">¶</a></h2>
+<p>To get the imagemap, you need to send a GET or POST request to MapServer
+with several URL variables defined.  The below URL tells MapServer where
+the mapfile is located, what layer we are querying, and that we are
+using nquery mode to return multiple results.</p>
+<div class="highlight-python"><pre>http://myurl/cgi-bin/mapserv?map=/web/maps/demoimap.map&amp;qlayer=sites&amp;mode=nquery&amp;searchmap=true</pre>
+</div>
+</div>
+<div class="section" id="additional-notes">
+<h2><a class="toc-backref" href="#contents">Additional Notes</a><a class="headerlink" href="#additional-notes" title="Permalink to this headline">¶</a></h2>
+<p>If you use separate map files to generate your imagemap and your map
+image, make sure that the EXTENT and SIZE specified in both mapfiles
+are identical.  If they are not, your features will not align properly.</p>
+</div>
+<div class="section" id="more-information">
+<h2><a class="toc-backref" href="#contents">More Information</a><a class="headerlink" href="#more-information" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<a class="reference external" href="http://maps.dnr.state.mn.us/cgi-bin/mapserv48?map=/usr/local/www/docs_maps/eco/rsg/search/search_example.map&amp;qlayer=county&amp;mode=nquery&amp;searchmap=true">Steve Lime&#8217;s SHPXY Example</a></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="pdf.html" title="PDF Output"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="html_legend.html" title="HTML Legends with MapServer"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Output Generation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

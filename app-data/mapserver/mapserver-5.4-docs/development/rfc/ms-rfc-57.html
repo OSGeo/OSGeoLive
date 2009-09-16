@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 57: Labeling enhancements: ability to repeat labels along a line/multiline &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="Mapfile Editing" href="../editing/index.html" />
+    <link rel="prev" title="MS RFC 56: Tighten control of access to mapfiles and templates" href="ms-rfc-56.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../editing/index.html" title="Mapfile Editing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-56.html" title="MS RFC 56: Tighten control of access to mapfiles and templates"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-57.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-57.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 57: Labeling enhancements: ability to repeat labels along a line/multiline</a><ul>
+<li><a class="reference external" href="#overview">Overview</a></li>
+<li><a class="reference external" href="#enhancement-1-label-all-the-lines-in-multiline-shape">Enhancement 1: Label all the lines in MultiLine shape</a></li>
+<li><a class="reference external" href="#enhancement-2-ability-to-repeat-labels-along-a-line">Enhancement 2: Ability to repeat labels along a line</a></li>
+<li><a class="reference external" href="#technical-solution">Technical Solution</a></li>
+<li><a class="reference external" href="#usage-example">Usage example</a></li>
+<li><a class="reference external" href="#backwards-compatibility-issues">Backwards Compatibility Issues</a></li>
+<li><a class="reference external" href="#files-impacted">Files Impacted</a></li>
+<li><a class="reference external" href="#ticket-id">Ticket Id</a></li>
+<li><a class="reference external" href="#images">Images</a></li>
+<li><a class="reference external" href="#voting-history">Voting History</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-56.html"
+                                  title="previous chapter">MS RFC 56: Tighten control of access to mapfiles and templates</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="../editing/index.html"
+                                  title="next chapter">Mapfile Editing</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-57.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-57-labeling-enhancements-ability-to-repeat-labels-along-a-line-multiline">
+<span id="rfc57"></span><h1>MS RFC 57: Labeling enhancements: ability to repeat labels along a line/multiline<a class="headerlink" href="#ms-rfc-57-labeling-enhancements-ability-to-repeat-labels-along-a-line-multiline" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2009/06/26</td>
+</tr>
+<tr class="field"><th class="field-name">Authors:</th><td class="field-body">Alan Boudreault</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">aboudreault at mapgears.com</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">2009/06/29</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Adopted (2009/07/21) and Implemented.</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">MapServer 6.0</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: $</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Currently, MapServer draws labels on the longest segment of a linear
+shape. Even if the shape is a long line or a multiline shape, only one
+label is drawn. In some cases, the map quality could be highly improved
+with more labels.</p>
+<p>This RFC proposes a mechanism to fix this by adding the ability to add more
+labels along long lines or multiline shapes. There are two major
+enhancements that are proposed.</p>
+<p>See the Images section to visualize the current and new behaviors.</p>
+</div>
+<div class="section" id="enhancement-1-label-all-the-lines-in-multiline-shape">
+<h2>Enhancement 1: Label all the lines in MultiLine shape<a class="headerlink" href="#enhancement-1-label-all-the-lines-in-multiline-shape" title="Permalink to this headline">¶</a></h2>
+<p>At the moment, if you&#8217;ve got a MultiLine shape (i.e. a shapeObj with
+numlines &gt; 1) then only the longest of the Lines is labelled. This is fine
+in most cases, but in some cases, we may want each individual Line in the
+MultiLine to get a label. That&#8217;s the first proposed enhancement: make it
+possible to label all lines in a MultiLine shape.</p>
+</div>
+<div class="section" id="enhancement-2-ability-to-repeat-labels-along-a-line">
+<h2>Enhancement 2: Ability to repeat labels along a line<a class="headerlink" href="#enhancement-2-ability-to-repeat-labels-along-a-line" title="Permalink to this headline">¶</a></h2>
+<p>At the moment, the label is placed at the center of a line in the case of
+ANGLE FOLLOW, and at the center of the longest segment of a line in the
+case of ANGLE AUTO|constant. In the case of very long lines (roads), and
+especially when using metatiles to render a tile cache, we may want to
+repeat the label at some interval along the line. That&#8217;s the second
+enhancement: make it possible to repeat the label at a given interval along
+a line.</p>
+</div>
+<div class="section" id="technical-solution">
+<h2>Technical Solution<a class="headerlink" href="#technical-solution" title="Permalink to this headline">¶</a></h2>
+<p>The way to control this in the mapfile is to add a LABEL.REPEATDISTANCE
+parameter. By default this would be turned off and we would keep the
+current behavior. If REPEATDISTANCE is set to any value &gt; 0 then the labels
+would be repeated on every line of a multiline shape (enhancement 1 above),
+and would be repeated multiple times along a given line at an interval of
+REPEATDISTANCE pixels (item 2 above). In all cases the MINDISTANCE value
+would still be handled by the label cache so that multiple labels ending up
+too close to each other for various reasons would be eliminated by the
+label cache.</p>
+<p>To achieve better visual effect, here is an outline of the algorithm that
+applies when REPEATDISTANCE is set:</p>
+<blockquote>
+<ol class="arabic simple">
+<li>Calculate the number of labels candidates (N) that can fit in the
+length of the line.</li>
+<li>Ensure that N is an odd number. If it&#8217;s even then subtract one to get
+an odd number. We want an odd number of label candidates along a given
+line so that there is always one candidate that falls at the center of
+the line and which will remain in case of collisions. With an even
+number of candidates, when collisions happen along a line, the
+remaining labels are usually shifted one way or the other along the
+line instead of being centered which does not look as good.</li>
+<li>Calculate the offset between labels and the position of candidates
+along the line.</li>
+<li>Insert labels candidates into the label cache in an order that will
+ensure that the label cache will eliminate the right labels in case of
+collisions (keep in mind that collisions are still possible since
+MINDISTANCE remains in effect). We want to give higher priority to the
+label candidate at the center of the line and lower priority to other
+candidates as they get further away from the center. Since the label
+cache order is last in first out (LIFO), we start by inserting the
+labels candidates at the extremities of the line into the cache end end
+with the one at the center, giving it the highest priority.</li>
+</ol>
+</blockquote>
+</div>
+<div class="section" id="usage-example">
+<h2>Usage example<a class="headerlink" href="#usage-example" title="Permalink to this headline">¶</a></h2>
+<p>This example will repeat the labels every 80 pixels on each line of a
+multiline shape.</p>
+<div class="highlight-python"><pre>MAP
+  ...
+  LABEL
+     REPEATDISTANCE 80
+  END
+  ...
+END</pre>
+</div>
+</div>
+<div class="section" id="backwards-compatibility-issues">
+<h2>Backwards Compatibility Issues<a class="headerlink" href="#backwards-compatibility-issues" title="Permalink to this headline">¶</a></h2>
+<p>There is no backwards compatibility issues. By default the
+LABEL.REPEATDISTANCE parameter is set to 0, so not applied.</p>
+</div>
+<div class="section" id="files-impacted">
+<h2>Files Impacted<a class="headerlink" href="#files-impacted" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>mapprimitive.c: Modify the labels placement algorithm</li>
+<li>mapfile.c, maplexer.l: new LABEL.REPEATDISTANCE mapfile keyword</li>
+<li>mapdraw.c: Modify the way how msPolylineLabel* calls are handled</li>
+</ul>
+</div>
+<div class="section" id="ticket-id">
+<h2>Ticket Id<a class="headerlink" href="#ticket-id" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/3030">http://trac.osgeo.org/mapserver/ticket/3030</a></li>
+</ul>
+</div>
+<div class="section" id="images">
+<h2>Images<a class="headerlink" href="#images" title="Permalink to this headline">¶</a></h2>
+<p>Since a picture is worth a thousand words:</p>
+<ul class="simple">
+<li>Repeat distance, visual explanation:
+<a class="reference external" href="http://trac.osgeo.org/mapserver/attachment/ticket/3030/repeat_label.gif">http://trac.osgeo.org/mapserver/attachment/ticket/3030/repeat_label.gif</a></li>
+<li>Label placement algorithm:
+<a class="reference external" href="http://trac.osgeo.org/mapserver/attachment/ticket/3030/label_algorithm.gif">http://trac.osgeo.org/mapserver/attachment/ticket/3030/label_algorithm.gif</a></li>
+<li>Labels comparison:
+<a class="reference external" href="http://trac.osgeo.org/mapserver/attachment/ticket/3030/label-comparison.jpg">http://trac.osgeo.org/mapserver/attachment/ticket/3030/label-comparison.jpg</a></li>
+<li>Shields comparison:
+<a class="reference external" href="http://trac.osgeo.org/mapserver/attachment/ticket/3030/shield-comparison.jpg">http://trac.osgeo.org/mapserver/attachment/ticket/3030/shield-comparison.jpg</a></li>
+</ul>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting History<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<p>Adopted on 2009/07/21 with +1 from SteveW, DanielM, SteveL, AssefaY, ThomasB and PericlesN.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../editing/index.html" title="Mapfile Editing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-56.html" title="MS RFC 56: Tighten control of access to mapfiles and templates"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

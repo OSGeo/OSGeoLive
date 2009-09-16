@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tile Indexes &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Optimization" href="index.html" />
+    <link rel="next" title="Utilities" href="../utilities/index.html" />
+    <link rel="prev" title="FastCGI" href="fastcgi.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../utilities/index.html" title="Utilities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fastcgi.html" title="FastCGI"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Optimization</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//optimization/tileindex.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/optimization/tileindex.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Tile Indexes</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a></li>
+<li><a class="reference external" href="#what-is-a-tileindex-and-how-do-i-make-one">What is a tileindex and how do I make one?</a></li>
+<li><a class="reference external" href="#using-the-tileindex-in-your-mapfile">Using the tileindex in your mapfile</a></li>
+<li><a class="reference external" href="#tileindexes-may-make-your-map-faster">Tileindexes may make your map faster</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="fastcgi.html"
+                                  title="previous chapter">FastCGI</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="../utilities/index.html"
+                                  title="next chapter">Utilities</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/optimization/tileindex.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tile-indexes">
+<span id="tileindex"></span><h1><a class="toc-backref" href="#table-of-contents">Tile Indexes</a><a class="headerlink" href="#tile-indexes" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">HostGIS</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8365 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2008-12-31 11:49:02 -0400 (Wed, 31 Dec 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Last Updated:</th><td class="field-body">2007/08/03</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#tile-indexes" id="id1">Tile Indexes</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference internal" href="#what-is-a-tileindex-and-how-do-i-make-one" id="id3">What is a tileindex and how do I make one?</a></li>
+<li><a class="reference internal" href="#using-the-tileindex-in-your-mapfile" id="id4">Using the tileindex in your mapfile</a></li>
+<li><a class="reference internal" href="#tileindexes-may-make-your-map-faster" id="id5">Tileindexes may make your map faster</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#table-of-contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>An introduction to tileindexes, MapServer&#8217;s method for doing on-the-fly mosaicing.</p>
+</div>
+<div class="section" id="what-is-a-tileindex-and-how-do-i-make-one">
+<h2><a class="toc-backref" href="#table-of-contents">What is a tileindex and how do I make one?</a><a class="headerlink" href="#what-is-a-tileindex-and-how-do-i-make-one" title="Permalink to this headline">¶</a></h2>
+<p>A tileindex is a shapefile that ties together several datasets into a single
+layer. Therefore, you don&#8217;t need to create separate layers for each piece of
+imagery or each county&#8217;s road data; make a tileindex and let MapServer piece
+the mosaic together on the fly.</p>
+<p>Making a tileindex is easy using &#8216;gdaltindex&#8217; for GDAL data sources (rasters)
+and &#8216;ogrtindex&#8217; for OGR data sources (vectors). You just run them, specifying
+the index file to create and the list of data sources to add to the index.</p>
+<p>For example, to make a mosaic of several TIFFs:</p>
+<div class="highlight-python"><pre>gdaltindex imagery.shp imagery/*.tif</pre>
+</div>
+<p>And to make a mosaic of vectors:</p>
+<div class="highlight-python"><pre>ogrtindex strees.shp tiger/CA/*.shp tiger/NV/*.shp</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">ogrtindex and gdaltindex <strong>add</strong> the specified files to the index.
+Sometimes you&#8217;ll have to delete the index file to avoid creating duplicate
+entries.</p>
+</div>
+</div>
+<div class="section" id="using-the-tileindex-in-your-mapfile">
+<h2><a class="toc-backref" href="#table-of-contents">Using the tileindex in your mapfile</a><a class="headerlink" href="#using-the-tileindex-in-your-mapfile" title="Permalink to this headline">¶</a></h2>
+<p>Using a tileindex as a layer is best explained by an example:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+    <span class="k">NAME</span> <span class="s">&quot;Roads&quot;</span>
+    <span class="k">STATUS</span> <span class="nb">ON</span>
+    <span class="k">TYPE</span> <span class="nb">LINE</span>
+    <span class="k">TILEINDEX</span> <span class="s">&quot;tiger/index.shp&quot;</span>
+    <span class="k">TILEITEM</span> <span class="s">&quot;LOCATION&quot;</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>There are two items of note here: TILEINDEX and TILEITEM. TILEINDEX is simply
+the path to the index file, and TILEITEM specifies the field in the shapefile
+which contains the filenames referenced by the index. The TILEITEM will
+usually be &#8220;LOCATION&#8221; unless you specified the <em>-tileindex</em> option when
+running gdaltindex or ogrtindex.</p>
+<p>Two important notes about the pathnames:</p>
+<blockquote>
+<ul class="simple">
+<li>The path to TILEINDEX follows the same conventions as for any other data
+source, e.g. using the SHAPEPATH or else being relative to the location of
+the mapfile.</li>
+<li>The filenames specified on the command line to gdaltindex or ogrtindex will
+be used with the same conventions as well, following the SHAPEPATH or else
+being relative to the mapfile&#8217;s location. I find it very useful to change
+into the SHAPEPATH directory and then run ogrtindex/gdaltindex from there;
+this ensures that I specify the correct pathnames.</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="tileindexes-may-make-your-map-faster">
+<h2><a class="toc-backref" href="#table-of-contents">Tileindexes may make your map faster</a><a class="headerlink" href="#tileindexes-may-make-your-map-faster" title="Permalink to this headline">¶</a></h2>
+<p>A tileindex is often a performance boost for two reasons:</p>
+<blockquote>
+<ul class="simple">
+<li>It&#8217;s more efficient than having several separate layers.</li>
+<li>MapServer will examine the tileindex to determine which datasets fall into
+the map&#8217;s view, and will open only those datasets. This can result in a
+great savings for a large dataset, especially for use cases where most of
+the time only a very small spatial region of the data is being used. (for
+example, citywide maps with nationwide street imagery)</li>
+</ul>
+</blockquote>
+<p>A tileindex will not help in the case where all/most of the data sources will
+usually be opened anyway (e.g. street data by county, showing states or larger
+regions). In that case, it may even result in a decrease in performance, since
+it may be slower to open 100 files than to open one giant file.</p>
+<p>The ideal case for a tileindex is when the most typically requested map areas
+fall into very few tiles. For example, if you&#8217;re showing state and larger
+regions, try fitting your data into state-sized blocks instead of county-sized
+blocks; and if you&#8217;re showing cities and counties, go for county-sized blocks.</p>
+<p>You&#8217;ll just have to experiment with it and see what works best for your use
+cases.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../utilities/index.html" title="Utilities"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="fastcgi.html" title="FastCGI"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Optimization</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

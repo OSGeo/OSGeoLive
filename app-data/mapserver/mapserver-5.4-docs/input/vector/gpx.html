@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GPS Exchange Format (GPX) &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Vector Data" href="index.html" />
+    <link rel="next" title="Raster Data" href="../raster.html" />
+    <link rel="prev" title="USGS TIGER" href="tiger.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../raster.html" title="Raster Data"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tiger.html" title="USGS TIGER"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Vector Data</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//input/vector/gpx.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/input/vector/gpx.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">GPS Exchange Format (GPX)</a><ul>
+<li><a class="reference external" href="#file-listing">File listing</a></li>
+<li><a class="reference external" href="#data-access-connection-method">Data Access / Connection Method</a></li>
+<li><a class="reference external" href="#ogrinfo-examples">OGRINFO Examples</a></li>
+<li><a class="reference external" href="#mapfile-example">Mapfile Example</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="tiger.html"
+                                  title="previous chapter">USGS TIGER</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="../raster.html"
+                                  title="next chapter">Raster Data</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/input/vector/gpx.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gps-exchange-format-gpx">
+<span id="gpx"></span><h1>GPS Exchange Format (GPX)<a class="headerlink" href="#gps-exchange-format-gpx" title="Permalink to this headline">¶</a></h1>
+<p>GPX (the GPS Exchange Format) is a light-weight XML data format containing
+GPS data (waypoints, routes, and tracks).  For more information see the
+official <a class="reference external" href="http://www.topografix.com/gpx.asp">GPX site</a>.</p>
+<div class="section" id="file-listing">
+<h2>File listing<a class="headerlink" href="#file-listing" title="Permalink to this headline">¶</a></h2>
+<p>All waypoints, routes, and tracks are stored in a single .gpx file.</p>
+</div>
+<div class="section" id="data-access-connection-method">
+<h2>Data Access / Connection Method<a class="headerlink" href="#data-access-connection-method" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">GPX access is available through OGR. See the OGR <a class="reference external" href="http://www.gdal.org/ogr/drv_gpx.html">driver page</a>
+for specific driver information.</p>
+</li>
+<li><p class="first">A relative path to the .gpx file can be used in the mapfile LAYER&#8217;s
+CONNECTION string.</p>
+</li>
+<li><dl class="first docutils">
+<dt>The feature type is specified in the DATA parameter</dt>
+<dd><ul class="first last simple">
+<li>the &#8220;tracks&#8221; feature type will usually be the track line</li>
+<li>the &#8220;track_points&#8221; feature type will usually be the points that make up
+the track line</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="ogrinfo-examples">
+<h2>OGRINFO Examples<a class="headerlink" href="#ogrinfo-examples" title="Permalink to this headline">¶</a></h2>
+<p>First you should make sure that your GDAL/OGR build contains the
+&#8220;GPX&#8221; driver, by using the &#8216;&#8211;formats&#8217; command:</p>
+<div class="highlight-python"><pre>&gt;ogrinfo --formats
+   Loaded OGR Format Drivers:
+   ...
+   -&gt; "CSV" (read/write)
+   -&gt; "GML" (read/write)
+   -&gt; "GPX" (read/write)
+   -&gt; "KML" (read/write)
+   ...</pre>
+</div>
+<p>If you don&#8217;t have the driver, you might want to try the <a class="reference external" href="http://fwtools.maptools.org/">FWTools</a> or <a class="reference external" href="http://www.maptools.org/ms4w/">MS4W</a>
+packages, which include the driver.</p>
+<p>Once you have the GPX driver you are ready to try an ogrinfo command on your
+file to get a list of feature types:</p>
+<div class="highlight-python"><pre>&gt;ogrinfo test.gpx
+   INFO: Open of `test.gpx'
+         using driver `GPX' successful.
+   1: waypoints (Point)
+   2: routes (Line String)
+   3: tracks (Multi Line String)
+   4: route_points (Point)
+   5: track_points (Point)</pre>
+</div>
+<p>Now use ogrinfo to get information on one of the feature types:</p>
+<div class="highlight-python"><pre>&gt;ogrinfo test.gpx track_points -summary
+   INFO: Open of `test.gpx'
+         using driver `GPX' successful.
+
+   Layer name: track_points
+   Geometry: Point
+   Feature Count: 661
+   Extent: (-66.694270, 47.985570) - (-66.675222, 47.990791)
+   Layer SRS WKT:
+   GEOGCS["WGS 84",
+       DATUM["WGS_1984",
+           SPHEROID["WGS 84",6378137,298.257223563,
+               AUTHORITY["EPSG","7030"]],
+           AUTHORITY["EPSG","6326"]],
+       PRIMEM["Greenwich",0,
+           AUTHORITY["EPSG","8901"]],
+       UNIT["degree",0.01745329251994328,
+           AUTHORITY["EPSG","9122"]],
+       AUTHORITY["EPSG","4326"]]
+   track_fid: Integer (0.0)
+   track_seg_id: Integer (0.0)
+   track_seg_point_id: Integer (0.0)
+   ele: Real (0.0)
+   time: DateTime (0.0)
+   magvar: Real (0.0)
+   geoidheight: Real (0.0)
+   name: String (0.0)
+   cmt: String (0.0)
+   desc: String (0.0)
+   src: String (0.0)
+   ...</pre>
+</div>
+</div>
+<div class="section" id="mapfile-example">
+<h2>Mapfile Example<a class="headerlink" href="#mapfile-example" title="Permalink to this headline">¶</a></h2>
+<p>Since you have confirmed that OGR can read your GPX file, now you can
+create a MapServer layer:</p>
+<div class="highlight-python"><pre>LAYER
+  NAME gpx
+  TYPE POINT
+  STATUS ON
+  CONNECTIONTYPE OGR
+  CONNECTION test.gpx
+  DATA "track_points"
+  CLASS
+    NAME "gpx"
+    STYLE
+      SYMBOL 'circle'
+      COLOR 0 119 255
+      SIZE 2
+    END
+  END
+END # layer</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../raster.html" title="Raster Data"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tiger.html" title="USGS TIGER"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li>
+          <li><a href="index.html" >Vector Data</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

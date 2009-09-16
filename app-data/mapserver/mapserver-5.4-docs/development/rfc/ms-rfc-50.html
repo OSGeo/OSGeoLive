@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 50: OpenGL Rendering Support &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 51: XML Mapfile Format" href="ms-rfc-51.html" />
+    <link rel="prev" title="MS RFC 49: Symbology, Labeling, and Cartography Improvements" href="ms-rfc-49.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-51.html" title="MS RFC 51: XML Mapfile Format"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-49.html" title="MS RFC 49: Symbology, Labeling, and Cartography Improvements"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-50.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-50.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 50: OpenGL Rendering Support</a><ul>
+<li><a class="reference external" href="#overview">Overview</a></li>
+<li><a class="reference external" href="#technical-solution">Technical Solution</a></li>
+<li><a class="reference external" href="#c-api-changes">C API Changes</a></li>
+<li><a class="reference external" href="#mapfiles">Mapfiles</a></li>
+<li><a class="reference external" href="#issues">Issues</a></li>
+<li><a class="reference external" href="#documentation">Documentation</a></li>
+<li><a class="reference external" href="#backwards-incompatibility">Backwards Incompatibility</a></li>
+<li><a class="reference external" href="#bug-id">Bug ID</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-49.html"
+                                  title="previous chapter">MS RFC 49: Symbology, Labeling, and Cartography Improvements</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-51.html"
+                                  title="next chapter">MS RFC 51: XML Mapfile Format</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-50.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-50-opengl-rendering-support">
+<span id="rfc50"></span><h1>MS RFC 50: OpenGL Rendering Support<a class="headerlink" href="#ms-rfc-50-opengl-rendering-support" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2008/12/23</td>
+</tr>
+<tr class="field"><th class="field-name">Authors:</th><td class="field-body">Toby Rahilly, Jonathan Bourke</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">toby.rahilly at gmail.com. bourke.jf at gmail.com</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">2008/12/23</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">MapServer 5.4</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This RFC proposes the addition of an Opengl Rendering module to MapServer for
+faster rendering of images.</p>
+<p>Presently MapServer supports AGG rendering for high quality anti-aliased images.
+Although AGG is capable of high quality images, and is  significantly faster
+than GD rendering, it is still not fast enough to suit desirable use cases such
+as live on-demand rendering.</p>
+<p>Opengl is seen as a solution that can provide high performance rendering by
+making use of hardware specially designed for real-time rendering. Current
+Opengl prototypes are capable of rendering maps an order of magnitude faster
+than AGG with similar image quality.</p>
+</div>
+<div class="section" id="technical-solution">
+<h2>Technical Solution<a class="headerlink" href="#technical-solution" title="Permalink to this headline">¶</a></h2>
+<p>The Opengl rendering module interface and path will be very similar to the
+current AGG rendering module. Like AGG, the Opengl module will make use of GD
+for I/O of the results. However due to the nature of Opengl there are a few key
+implementation differences that are worth noting.</p>
+<p>Opengl can make use of pre-rendered textures. All symbols can be pre-rendered
+and stored as an Opengl texture, when they are used in rendering a map, the
+rendered texture is simply copied onto the image buffer with transformations.
+This can hugely increase the performance of complex and heavily repeated
+symbols, such as train tracks, because not only do they need to be only
+rendered once, Opengl also handles the repetition and transformations which
+it has been heavily optimised for.</p>
+<p>Labels also benefit from this method greatly, as an entire alphabet can be
+pre-rendered and stored as textures. When a curved label is to be drawn, the
+Opengl module simply places the rotated textures of the characters.</p>
+<p>Pre-rendered textures of symbols can also be shared between different map
+rendering instances. For this reason it is suggested that the rendering path be
+modified slightly, such that when a mapfile with opengl rendering is first
+loaded, all the symbols are pre-rendered and stored on the map object. This
+drastically increases the performance of batch rendering.</p>
+<p>Another notable difference between AGG and Opengl is that Opengl is incapable of
+rendering into main memory, and instead renders into a inaccessible buffer in
+video memory. This means the image must be rendered into video memory in
+OpengGL, then copied to the GD image buffer before saving the result.</p>
+</div>
+<div class="section" id="c-api-changes">
+<h2>C API Changes<a class="headerlink" href="#c-api-changes" title="Permalink to this headline">¶</a></h2>
+<p>As the Opengl module follows very closely to the AGG implementation, very little
+change has to be made to the core of MapServer. Minor changes are made to the
+following files to add a rendering path for Opengl:</p>
+<ul class="simple">
+<li>mapdraw.c</li>
+<li>mapdrawgdal.c</li>
+<li>maperror.c</li>
+<li>maplegend.c</li>
+<li>mapoutput.c</li>
+<li>mapraster.c</li>
+<li>mapresample.c</li>
+<li>maputil.c</li>
+</ul>
+<p>No new functionality is added to these files, rather just else-if blocks.</p>
+<p>The bulk of Opengl functionality will be found in mapogl.cpp.</p>
+</div>
+<div class="section" id="mapfiles">
+<h2>Mapfiles<a class="headerlink" href="#mapfiles" title="Permalink to this headline">¶</a></h2>
+<p>An output block like this will trigger Opengl rendering:</p>
+<div class="highlight-python"><pre>OUTPUTFORMAT
+  NAME 'OGL_PNG24'
+  DRIVER OGL/PNG
+  IMAGEMODE RGB
+END</pre>
+</div>
+</div>
+<div class="section" id="issues">
+<h2>Issues<a class="headerlink" href="#issues" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The guts of opengl rendering occurs inside of opengl drivers. Opengl drivers
+vary from hardware and operating system, and the rendering techniques vary with
+them. What this means is that maps rendered on different computers can have
+different results, such as color shades, anti-aliasing quality and performance.</li>
+<li>Although Opengl is cross platform, each operating system has a different
+method of setting up an Opengl context to render into. Currently we have an
+implementation for pre-vista windows.</li>
+</ul>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>TBD</p>
+</div>
+<div class="section" id="backwards-incompatibility">
+<h2>Backwards Incompatibility<a class="headerlink" href="#backwards-incompatibility" title="Permalink to this headline">¶</a></h2>
+<p>No issues expected.</p>
+</div>
+<div class="section" id="bug-id">
+<h2>Bug ID<a class="headerlink" href="#bug-id" title="Permalink to this headline">¶</a></h2>
+<p>Not assigned.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-51.html" title="MS RFC 51: XML Mapfile Format"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-49.html" title="MS RFC 49: Symbology, Labeling, and Cartography Improvements"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

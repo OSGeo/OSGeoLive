@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>LEGEND &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Mapfile" href="index.html" />
+    <link rel="next" title="MAP" href="map.html" />
+    <link rel="prev" title="LAYER" href="layer.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="map.html" title="MAP"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="layer.html" title="LAYER"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//mapfile/legend.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/mapfile/legend.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="layer.html"
+                                  title="previous chapter">LAYER</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="map.html"
+                                  title="next chapter">MAP</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/mapfile/legend.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="legend">
+<span id="id1"></span><h1>LEGEND<a class="headerlink" href="#legend" title="Permalink to this headline">¶</a></h1>
+<p id="index-25">The size of the legend image is NOT known prior to creation so be careful
+not to hard-code width and height in the &lt;IMG&gt; tag in the template file.</p>
+<dl class="docutils">
+<dt>IMAGECOLOR [r] [g] [b]</dt>
+<dd>Color to initialize the legend with (i.e. the background).</dd>
+<dt>INTERLACE [on|off]</dt>
+<dd><p class="first">Default is [on]. This keyword is now deprecated in favor
+of using the FORMATOPTION &#8220;INTERLACE=ON&#8221; line in the
+<a class="reference external" href="outputformat.html#outputformat"><em>OUTPUTFORMAT</em></a> declaration.</p>
+<p class="last">
+<span class="versionmodified">Deprecated since version 4.6.</span></p>
+</dd>
+<dt><a class="reference external" href="label.html#label"><em>LABEL</em></a></dt>
+<dd>Signals the start of a <a class="reference external" href="label.html#label"><em>LABEL</em></a> object</dd>
+<dt>OUTLINECOLOR [r] [g] [b]</dt>
+<dd>Color to use for outlining symbol key boxes.</dd>
+<dt>POSITION [ul|uc|ur|ll|lc|lr]</dt>
+<dd>Where to place an embedded legend in the map. Default is lr.</dd>
+<dt>KEYSIZE [x][y]</dt>
+<dd>Size of symbol key boxes in pixels. Default is 20 by 10.</dd>
+<dt>KEYSPACING [x][y]</dt>
+<dd>Spacing between symbol key boxes ([y]) and labels ([x]) in pixels.
+Default is 5 by 5.</dd>
+<dt>POSTLABELCACHE [true|false]</dt>
+<dd>Tells MapServer to render this legend after all labels in the cache have
+been drawn. Useful for adding neatlines and similar elements.
+Default is false.</dd>
+<dt>STATUS [on|off|embed]</dt>
+<dd>Is the legend image to be created.</dd>
+<dt>TEMPLATE [filename]</dt>
+<dd><p class="first">HTML legend template file.</p>
+<div class="admonition-see-also last admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="../output/html_legend.html#html-legend"><em>HTML Legends with MapServer</em></a></p>
+</div>
+</dd>
+<dt>TRANSPARENT [on|off]</dt>
+<dd><p class="first">Should the background color for the legend be transparent.
+This flag is now deprecated in favor of declaring transparency within
+<a class="reference external" href="outputformat.html#outputformat"><em>OUTPUTFORMAT</em></a> declarations. Default is off.</p>
+<p class="last">
+<span class="versionmodified">Deprecated since version 4.6.</span></p>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="map.html" title="MAP"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="layer.html" title="LAYER"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>CBE Event Properties Viewer</title>
+<meta name='author' content='Mike Foster, cross-browser.com'>
+<meta name='description' content='Event Properties Viewer: A programming example for CBE, a cross-browser DHTML API for IE, Gecko, Opera, Netscape, Konqueror and similar browsers'>
+<link rel='stylesheet' type='text/css' href='../cbe.css'>
+<script type='text/javascript' src='../cbe.js'></script>
+<script type='text/javascript' src='../cbe_debug.js'></script>
+<script type='text/javascript' src="../cbe_core.js"> </script>
+<script type='text/javascript' src="../cbe_event.js"> </script>
+<script type='text/javascript' src="../cbe_util.js"> </script>
+<script type='text/javascript'><!--
+var s = "<style type='text/css'>.clsCBE { position:absolute; width:100%; height:100%; clip:rect(0,100%,100%,0); border:1px solid #000000; padding:2px; margin:0px;}</style>";
+if (is.opera) s = "<style type='text/css'>.clsCBE { position:absolute; background:#ffffff; width:100%; height:100%; clip:rect(0,100%,100%,0); border:groove #333333; padding:2px; overflow:hidden;}</style>";
+else if (is.nav4) s = "<style type='text/css'>.clsCBE { position:absolute; width:100%; height:100%; clip:rect(0,100%,100%,0); }</style>";
+document.write(s);
+//--></script>
+<script type='text/javascript'><!--
+
+var element1, element2, currentDocumentEvent="", currentElementEvent="";
+
+function windowOnload() {
+  document.eform1.radEvent[0].checked = true;
+  document.eform2.radEvent[0].checked = true;
+  element1 = document.getElementById('element1').cbe;
+  element1.color('#ffffff');
+  element1.background('#883388');
+  element1.resizeTo(150,150);
+  element1.moveTo('e',10);
+  element1.show();
+  element1.addEventListener('dragResize');
+  element2 = document.getElementById('element2').cbe;
+  element2.color('#ffffff');
+  element2.background('#338833');
+  element2.resizeTo(100,50);
+  element2.moveTo('se',5);
+  element2.show();
+  element2.addEventListener('dragResize');
+  timedUpdate();
+}
+
+var isResizing = false;
+function dragStartListener(e) {
+  if (e.offsetX > (e.cbeCurrentTarget.width() - 30) && e.offsetY > (e.cbeCurrentTarget.height() - 30)) isResizing = true;
+  else isResizing = false;
+}
+function dragListener(e) {
+  if (isResizing) e.cbeCurrentTarget.resizeBy(e.dx, e.dy);
+  else e.cbeCurrentTarget.moveBy(e.dx, e.dy);
+}
+
+function documentListenerOn(newEvent) {
+  documentListenerOff();
+  document.cbe.addEventListener(newEvent, formListener, false);
+  currentDocumentEvent = newEvent;
+}
+function elementListenerOn(newEvent) {
+  elementListenerOff();
+  element1.addEventListener(newEvent, formListener, false);
+  currentElementEvent = newEvent;
+}
+
+function documentListenerOff() {
+  if (currentDocumentEvent != "") {
+    document.cbe.removeEventListener(currentDocumentEvent, formListener, false);
+  }  
+  currentDocumentEvent = "";
+  document.form1.reset();
+}
+function elementListenerOff() {
+  if (currentElementEvent != "") {
+    element1.removeEventListener(currentElementEvent, formListener, false);
+  }  
+  currentElementEvent = "";
+  document.form1.reset();
+}
+
+var mm=10;
+function formListener(e) {
+  // for a mousemove event, only update form every 10 events
+  if (e.type == 'mousemove') {
+    if (--mm) return;
+    else mm = 10;
+  }
+  var f1 = document.form1;
+  f1.txtType.value  = e.type;
+  f1.txtTarget.value  = e.cbeTarget ? e.cbeTarget.id : 'null';
+  f1.txtCurrentTarget.value  = e.cbeCurrentTarget ? e.cbeCurrentTarget.id : 'null';
+  f1.txtEventPhase.value  = cbeEventPhase[e.eventPhase];
+  f1.txtBubbles.value  = e.bubbles;
+  f1.txtCancelable.value  = e.cancelable;
+  f1.txtTimeStamp.value  = e.timeStamp;
+  f1.txtScreenX.value      = e.screenX;
+  f1.txtScreenY.value      = e.screenY;
+  f1.txtClientX.value      = e.clientX;
+  f1.txtClientY.value      = e.clientY;
+  f1.txtCtrlKey.value      = e.ctrlKey;
+  f1.txtShiftKey.value     = e.shiftKey;
+  f1.txtAltKey.value       = e.altKey;
+  f1.txtMetaKey.value      = e.metaKey;
+  f1.txtButton.value       = cbeButton[e.button];
+  f1.txtRelatedTarget.value= e.relatedTarget;
+  f1.txtKeyCode.value      = e.keyCode;
+  f1.txtOffsetX.value      = e.offsetX;
+  f1.txtOffsetY.value      = e.offsetY;
+  f1.txtPageX.value      = e.pageX;
+  f1.txtPageY.value      = e.pageY;
+}
+
+function timedUpdate() {
+  setTimeout("timedUpdate()", 250);
+  var f2 = document.form2;
+  var f3 = document.form3;
+  f2.txtScrollTop.value = document.cbe.scrollTop();
+  f2.txtScrollLeft.value = document.cbe.scrollLeft();
+  f2.txtInnerWidth.value = document.cbe.width();
+  f2.txtInnerHeight.value = document.cbe.height();
+  f3.txtTop.value = element1.top();
+  f3.txtLeft.value = element1.left();
+  f3.txtWidth.value = element1.width();
+  f3.txtHeight.value = element1.height();
+}
+
+//--></script>
+</head>
+
+<body marginwidth='0' marginheight='0'><a name="topofpage"></a>
+
+<!-- Title and Nav Bar --><script type='text/javascript'>topNavBarEx()</script>
+
+<table width='80%' align='center' cellspacing='10' cellpadding='10'><tr><td bgcolor='#ffffff'><!-- indentation table -->
+
+<h1>CBE Event Properties Viewer</h1>
+<b>Your browser:</b><br>
+<script type='text/javascript'>
+document.write('userAgent: ' + is.ua + '<br>');
+document.write('is.dom1getbyid: ' + (is.dom1getbyid ? 'true':'false') + '<br>');
+document.write('is.dom2events: ' + (is.dom2events ? 'true':'false') + '<br>');
+</script>
+
+<h3>Show properties on this event:</h3>
+<table cellspacing='10' cellpadding='0' border='0'>
+  <tr><td>
+  <form id="eform1" name="eform1" onsubmit="return false">
+  <input name='radEvent' type='radio' checked='on' onclick="documentListenerOff()"> none<br>
+  <input name='radEvent' type='radio' onclick="documentListenerOn('click')"> document.onClick<br>
+  <input name='radEvent' type='radio' onclick="documentListenerOn('mousedown')"> document.onMouseDown<br>
+  <input name='radEvent' type='radio' onclick="documentListenerOn('mouseup')"> document.onMouseUp<br>
+  <input name='radEvent' type='radio' onclick="documentListenerOn('mousemove')"> document.onMouseMove<br>
+  <input name='radEvent' type='radio' onclick="documentListenerOn('mouseover')"> document.onMouseOver<br>
+  <input name='radEvent' type='radio' onclick="documentListenerOn('mouseout')"> document.onMouseOut<br>
+  <input name='radEvent' type='radio' onclick="documentListenerOn('keypress')"> document.onKeyPress<br>
+  <input name='radEvent' type='radio' onclick="documentListenerOn('keydown')"> document.onKeyDown<br>
+  <input name='radEvent' type='radio' onclick="documentListenerOn('keyup')"> document.onKeyUp<br>
+  </form>
+  </td><td>
+  <form id="eform2" name="eform2" onsubmit="return false">
+  <input name='radEvent' type='radio' checked='on' onclick="elementListenerOff()"> none<br>
+  <input name='radEvent' type='radio' onclick="elementListenerOn('click')"> element1.onClick<br>
+  <input name='radEvent' type='radio' onclick="elementListenerOn('mousedown')"> element1.onMouseDown<br>
+  <input name='radEvent' type='radio' onclick="elementListenerOn('mouseup')"> element1.onMouseUp<br>
+  <input name='radEvent' type='radio' onclick="elementListenerOn('mousemove')"> element1.onMouseMove<br>
+  <input name='radEvent' type='radio' onclick="elementListenerOn('mouseover')"> element1.onMouseOver<br>
+  <input name='radEvent' type='radio' onclick="elementListenerOn('mouseout')"> element1.onMouseOut<br>
+  <input name='radEvent' type='radio' onclick="elementListenerOn('keypress')"> element1.onKeyPress<br>
+  <input name='radEvent' type='radio' onclick="elementListenerOn('keydown')"> element1.onKeyDown<br>
+  <input name='radEvent' type='radio' onclick="elementListenerOn('keyup')"> element1.onKeyUp<br>
+  </form>
+  </td></tr>
+</table>
+
+<br><hr>
+
+<table cellspacing='10' cellpadding='0' border='0'>
+  <tr valign='top'>
+    <td>
+
+<form id='form1' name='form1'>
+  <b>Event Properties</b><br>
+  <table>
+    <tr><td>screenX</td><td><input name='txtScreenX' type='text'></td></tr>
+    <tr><td>screenY</td><td><input name='txtScreenY' type='text'></td></tr>
+    <tr><td>clientX</td><td><input name='txtClientX' type='text'></td></tr>
+    <tr><td>clientY</td><td><input name='txtClientY' type='text'></td></tr>
+    <tr><td>pageX</td><td><input name='txtPageX' type='text'></td></tr>
+    <tr><td>pageY</td><td><input name='txtPageY' type='text'></td></tr>
+    <tr><td>offsetX</td><td><input name='txtOffsetX' type='text'></td></tr>
+    <tr><td>offsetY</td><td><input name='txtOffsetY' type='text'></td></tr>
+    <tr><td>type</td><td><input name='txtType'          type='text'></td></tr>
+    <tr><td>cbeTarget</td><td><input name='txtTarget'        type='text'></td></tr>
+    <tr><td>cbeCurrentTarget</td><td><input name='txtCurrentTarget' type='text'></td></tr>
+    <tr><td>eventPhase</td><td><input name='txtEventPhase'    type='text'></td></tr>
+    <tr><td>bubbles</td><td><input name='txtBubbles'       type='text'></td></tr>
+    <tr><td>cancelable</td><td><input name='txtCancelable'    type='text'></td></tr>
+    <tr><td>timeStamp</td><td><input name='txtTimeStamp'     type='text'></td></tr>
+    <tr><td>ctrlKey</td><td><input name='txtCtrlKey' type='text'></td></tr>
+    <tr><td>shiftKey</td><td><input name='txtShiftKey' type='text'></td></tr>
+    <tr><td>altKey</td><td><input name='txtAltKey' type='text'></td></tr>
+    <tr><td>metaKey</td><td><input name='txtMetaKey' type='text'></td></tr>
+    <tr><td>button</td><td><input name='txtButton' type='text'></td></tr>
+    <tr><td>relatedTarget</td><td><input name='txtRelatedTarget' type='text'></td></tr>
+    <tr><td>keyCode</td><td><input name='txtKeyCode' type='text'></td></tr>
+  </table>                        
+</form>                           
+                                  
+    </td>
+    <td>
+
+<form name='form2'>
+  <b>document.cbe Properties</b><br>
+  <table>
+    <tr><td>scrollLeft</td><td><input name='txtScrollLeft' type='text'></td></tr>
+    <tr><td>scrollTop</td><td><input name='txtScrollTop' type='text'></td></tr>
+    <tr><td>width</td><td><input name='txtInnerWidth' type='text'></td></tr>
+    <tr><td>height</td><td><input name='txtInnerHeight' type='text'></td></tr>
+  </table>                        
+</form>                           
+
+<form name='form3'>
+  <b>element1 Properties</b><br>
+  <table>
+    <tr><td>left</td><td><input name='txtLeft' type='text'></td></tr>
+    <tr><td>top</td><td><input name='txtTop' type='text'></td></tr>
+    <tr><td>width</td><td><input name='txtWidth' type='text'></td></tr>
+    <tr><td>height</td><td><input name='txtHeight' type='text'></td></tr>
+  </table>                        
+</form>                           
+
+    </td>
+  </tr>
+</table>
+
+</td></tr></table><!-- end indentation table -->
+
+<!-- Bottom Nav Bar --><script type='text/javascript'>bottomNavBarEx()</script>
+
+<div id="element1" class='clsCBE'>
+  <b>element1</b><br>draggable<br>resizeable
+  <div id="element2" class='clsCBE'><b>element2</b><br>draggable<br>resizeable</div>
+</div>
+
+</body>                           
+</html>                           

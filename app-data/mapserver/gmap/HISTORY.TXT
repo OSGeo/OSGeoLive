@@ -1,0 +1,28 @@
+GMap Demo - Revision History
+============================
+
+This is a human-readable revision history which will attempt to document
+the main changes between revisions of the application. 
+
+For a complete change history, please see the CVS log comments.
+
+
+Version 1.1.0 (cvs)
+--------------------------
+
+- Added the Vera Font Family (10 fonts)
+
+- Updated links to PHP MapScript and ROSA below the map and in README 
+  to point to new sites on maptools.org
+
+
+Version 1.0.0 (2003-07-23)
+--------------------------
+
+- Upgraded to work with MapServer 4.0
+
+- No Revision history before version 1.0.0
+
+
+----------
+$Id: HISTORY.TXT,v 1.1 2005/04/25 19:21:45 daniel Exp $

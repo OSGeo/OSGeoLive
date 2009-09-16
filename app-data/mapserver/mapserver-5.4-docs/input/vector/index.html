@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Vector Data &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Data Input" href="../index.html" />
+    <link rel="next" title="Data Format Types" href="format_types.html" />
+    <link rel="prev" title="Data Input" href="../index.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="format_types.html" title="Data Format Types"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Data Input"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Data Input</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//input/vector/index.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/input/vector/index.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="../index.html"
+                                  title="previous chapter">Data Input</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="format_types.html"
+                                  title="next chapter">Data Format Types</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/input/vector/index.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="vector-data">
+<span id="vector"></span><h1>Vector Data<a class="headerlink" href="#vector-data" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2008/09/09</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Tyler Mitchell</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">tmitchell at osgeo.org</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Jeff McKenna</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">jmckenna at gatewaygeomatics.com</td>
+</tr>
+</tbody>
+</table>
+<p>This work is licensed under the Creative Commons Attribution-ShareAlike
+License. To view a copy of this license, visit:
+<a class="reference external" href="http://creativecommons.org/licenses/by-sa/2.0/ca/">http://creativecommons.org/licenses/by-sa/2.0/ca/</a> or send a letter to Creative
+Commons, 559 Nathan Abbott Way, Stanford, California 94305, USA.</p>
+<p>What is vector data?  This quote from is a good description of what vector data is:</p>
+<blockquote class="pull-quote">
+<p>Vector: &#8220;An abstraction of the real world where positional data is
+represented in the form of coordinates.  In vector data, the basic units
+of spatial information are points, lines and polygons.  Each of these
+units is composed simply as a series of one or more coordinate points.
+For example, a line is a collection of related points, and a polygon is a
+collection of related lines.  Vector images are defined mathematically as a
+series of points joined by lines.  Vector-based drawings are resolution
+independent.  This means that they appear at the maximum resolution of the
+output device, such as a printer or monitor.  Each object is self-contained,
+with properties such as color, shape, outline, size, and position on the
+screen.&#8221;</p>
+<p>From: <a class="reference external" href="http://coris.noaa.gov/glossary/glossary_l_z.html#v">http://coris.noaa.gov/glossary/glossary_l_z.html#v</a></p>
+</blockquote>
+<p>The rest of this document is the data format guide. This guide is structured
+to show the fundamentals of each MapServer supported data format. Each section
+discusses one format, ranging from one to several pages in length. The
+sections typically start with a summary of the most important information
+about the format, followed by examples of file listings, connection methods,
+ogrinfo usage and MapServer map file syntax examples.</p>
+<p>Each section has been designed to stand alone, so you may notice that certain
+warnings and comments are repeated or redundant. This is intentional. Each
+format is presented in rough order of popular use, based on a survey of the
+MapServer community.</p>
+<p>The following formats are included:</p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="format_types.html">Data Format Types</a></li>
+<li class="toctree-l1"><a class="reference external" href="shapefiles.html">ESRI Shapefiles (SHP)</a></li>
+<li class="toctree-l1"><a class="reference external" href="postgis.html">PostGIS/PostgreSQL</a></li>
+<li class="toctree-l1"><a class="reference external" href="ogr.html">OGR</a></li>
+<li class="toctree-l1"><a class="reference external" href="mapinfo.html">MapInfo</a></li>
+<li class="toctree-l1"><a class="reference external" href="wfs.html">WFS</a></li>
+<li class="toctree-l1"><a class="reference external" href="gml.html">GML</a></li>
+<li class="toctree-l1"><a class="reference external" href="VirtualSpatialData.html">Virtual Spatial Data</a></li>
+<li class="toctree-l1"><a class="reference external" href="ArcInfo.html">ArcInfo</a></li>
+<li class="toctree-l1"><a class="reference external" href="arcsde.html">ArcSDE</a></li>
+<li class="toctree-l1"><a class="reference external" href="dgn.html">DGN</a></li>
+<li class="toctree-l1"><a class="reference external" href="S57.html">S57</a></li>
+<li class="toctree-l1"><a class="reference external" href="pgeo.html">ESRI Personal Geodatabase (MDB)</a></li>
+<li class="toctree-l1"><a class="reference external" href="inline.html">Inline</a></li>
+<li class="toctree-l1"><a class="reference external" href="kml.html">KML - Keyhole Markup Language</a></li>
+<li class="toctree-l1"><a class="reference external" href="oracle.html">Oracle Spatial</a></li>
+<li class="toctree-l1"><a class="reference external" href="mysql.html">MySQL</a></li>
+<li class="toctree-l1"><a class="reference external" href="ntf.html">NTF</a></li>
+<li class="toctree-l1"><a class="reference external" href="sdts.html">SDTS</a></li>
+<li class="toctree-l1"><a class="reference external" href="tiger.html">USGS TIGER</a></li>
+<li class="toctree-l1"><a class="reference external" href="gpx.html">GPS Exchange Format (GPX)</a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="format_types.html" title="Data Format Types"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Data Input"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

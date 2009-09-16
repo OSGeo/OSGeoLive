@@ -1,0 +1,79 @@
+.. _grid:
+
+*****************************************************************************
+ GRID
+*****************************************************************************
+
+LABELFORMAT [DD|DDMM|DDMMSS|C format string]
+    Format of the label. "DD" for degrees, "DDMM" for degrees minutes, and 
+    "DDMMSS" for degrees, minutes, seconds. A C-style formatting string is 
+    also allowed, such as "%g°" to show decimal degrees with a degree symbol. 
+    The default is decimal display of whatever SRS you're rendering the GRID 
+    with.
+
+MINARCS [double]
+    The minimum number of arcs to draw. Increase this parameter to get 
+    more lines. Optional.
+
+MAXARCS [double]
+    The maximum number of arcs to draw.   Decrease this parameter to 
+    get fewer lines.  Optional.
+
+MININTERVAL [double]
+    The minimum number of intervals to try to use. The distance between 
+    the grid lines, in the units of the grid's coordinate system.  Optional.
+
+MAXINTERVAL [double]
+    The maximum number of intervals to try to use.  The distance between 
+    the grid lines, in the units of the grid's coordinate system.  Optional.
+
+MINSUBDIVIDE [double]
+    The minimum number of segments to use when rendering an arc.  If the 
+    lines should be very curved, use this to smooth the lines by adding more 
+    segments.  Optional.
+
+MAXSUBDIVIDE [double]
+    The maximum number of segments to use when rendering an arc. If the 
+    graticule should be very straight, use this to minimize the number of 
+    points for faster rendering.  Optional, default 256.
+
+The following is an example of a GRID object in use: 
+
+::
+
+    LAYER
+     NAME "grid"
+     METADATA
+       "DESCRIPTION" "Grid"
+     END
+     TYPE LINE
+     STATUS ON
+     CLASS
+       NAME "Graticule"
+       COLOR 0 0 0
+       LABEL
+         COLOR  255 0 0
+         FONT "fritqat"
+         TYPE truetype
+         SIZE 8
+         POSITION AUTO          
+         PARTIALS FALSE
+         BUFFER 5
+         OUTLINECOLOR 255 255 255           
+       END 
+    END
+    PROJECTION
+        "init=epsg:4326"
+    END
+    GRID
+      LABELFORMAT "DDMM"
+    #  LABELFORMAT '%g°'  # dec degrees with symbol
+      MAXARCS 10
+      MAXINTERVAL 10
+      MAXSUBDIVIDE 2
+    #  LABELFORMAT '%7.0f m'  # nice if a projected SRS used
+    #  MININTERVAL 20000
+    #  MAXSUBDIVIDE 2
+    END
+    END # Layer
+

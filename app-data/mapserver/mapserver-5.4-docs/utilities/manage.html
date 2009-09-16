@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>File Management &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Utilities" href="index.html" />
+    <link rel="next" title="CGI" href="../cgi/index.html" />
+    <link rel="prev" title="Batch Scripting" href="batch_utilities.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../cgi/index.html" title="CGI"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="batch_utilities.html" title="Batch Scripting"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Utilities</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//utilities/manage.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/utilities/manage.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">File Management</a><ul>
+<li><a class="reference external" href="#file-placement">File Placement</a></li>
+<li><a class="reference external" href="#temporary-files">Temporary  Files</a><ul>
+<li><a class="reference external" href="#windows">Windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="batch_utilities.html"
+                                  title="previous chapter">Batch Scripting</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="../cgi/index.html"
+                                  title="next chapter">CGI</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/utilities/manage.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="file-management">
+<span id="management"></span><h1>File Management<a class="headerlink" href="#file-management" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="file-placement">
+<h2>File Placement<a class="headerlink" href="#file-placement" title="Permalink to this headline">¶</a></h2>
+<p>MapServer requires a number of different files to execute. Except for graphics
+that are referenced in output templates (i.e. web pages) none of the data or
+configuration files need be accessible via a web server. File naming for
+MapServer follows two rules:</p>
+<ol class="arabic simple">
+<li>Files may be given using their full system path. <em>or</em></li>
+<li>Files may be given using a relative path where the path is relative to
+the location of the file they are being referenced from.</li>
+</ol>
+<p>So, for files referenced in the Mapfile they can be given relative
+to the location of the Mapfile. Same holds true for symbol sets and font sets.</p>
+</div>
+<div class="section" id="temporary-files">
+<h2>Temporary  Files<a class="headerlink" href="#temporary-files" title="Permalink to this headline">¶</a></h2>
+<p>MapServer also can produce a number of files (i.e. maps, legends, scalebars, etc...).
+These files <strong>must</strong> be accessible using a web server. To accomplish this
+MapServer creates these files in a scratch directory. The location of that
+directory is given using the IMAGEPATH and IMAGEURL parameters in the web
+section of a Mapfile. The scratch directory must be writable by the user that
+the web server runs under, usually <em>nobody</em>. It is recommended for security
+reasons that the web user own the scratch directory rather than making it
+world writable. The scratch area will need to be cleaned periodically.
+On busy sites this may need to happen several times an hour. Here&#8217;s an
+example shell script that could be run using <em>cron</em>:</p>
+<div class="highlight-python"><pre>#!/bin/csh
+
+find /usr/local/www/docs/tmp -follow -name "*.gif" -exec rm {} \;</pre>
+</div>
+<div class="section" id="windows">
+<h3>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h3>
+<p>The following <em>.bat</em> file can be used in &#8216;Scheduled Tasks&#8217; to remove these
+temporary images daily:</p>
+<div class="highlight-python"><pre>REM this script deletes the contents of the ms_tmp directory
+REM (i.e. the MapServer-created gifs)
+
+cd D:\ms4w\tmp\ms_tmp
+echo Y | del *.*</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../cgi/index.html" title="CGI"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="batch_utilities.html" title="Batch Scripting"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Utilities</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

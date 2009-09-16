@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Time-Based Elliptical Motion :: CrossBrowserElement DHTML Animation</title>
+<meta name='author' content='Mike Foster, cross-browser.com'>
+<meta name='description' content='Time-Based Elliptical Motion: A programming example for CBE, a cross-browser DHTML API for IE, Gecko, Opera, Netscape, Konqueror and similar browsers'>
+<link rel='stylesheet' type='text/css' href='../cbe.css'>
+<style type='text/css'><!--
+.clsCBE {
+  position:absolute; visibility:hidden; overflow:hidden;
+  margin:0; padding:0; width:64; height:64; clip:rect(0 64 64 0);
+  background:transparent; layer-background-color:transparent;
+}
+--></style>
+<script type='text/javascript' src='../cbe_core.js'></script>
+<script type='text/javascript' src='../cbe_event.js'></script>
+<script type='text/javascript' src='../cbe_util.js'></script>
+<script type='text/javascript' src='../cbe_debug.js'></script>
+<script type='text/javascript' src='../cbe.js'></script>
+<script type='text/javascript' src='../cbe_slide.js'> </script>
+<script type='text/javascript'><!--
+var ele1, ele2, ele3;
+function windowOnload() {
+  init();
+}
+function init() {
+  ele1 = document.getElementById('ele1').cbe;
+  ele1.moveTo('center');
+  ele1.show();
+  ele1.sequence = new Array(
+    "ellipse(100,50,2, 4000,0,1440)",
+    "ellipse(200,100,-2,4000,0,-1440)"
+  );
+  ele2 = document.getElementById('ele2').cbe;
+  ele2.moveTo('center');
+  ele2.moveBy(200,0);
+  ele2.show();
+  ele2.sequence = new Array(
+    "ellipse(100,200,0,1000,0,-360)",
+    "ellipse(100,200,0,1000,0,360)",
+    "ellipse(100,200,0,2000,0,-720)",
+    "ellipse(100,200,0,2000,0,720)"
+  );
+  ele3 = document.getElementById('ele3').cbe;
+  ele3.moveTo('center');
+  ele3.show();
+  ele3.sequence = new Array(
+    "ellipse(50,100,0,2000,90,450)",
+    "ellipse(50,100,0,2000,-90,-450)"
+  );
+  document.forms['form1'].txtX.focus();
+  document.forms['form1'].txtX.select();
+}
+function handleSubmit() {
+  ele1.ellipse(
+    document.forms.form1.txtX.value,
+    document.forms.form1.txtY.value,
+    document.forms.form1.txtI.value,
+    document.forms.form1.txtT.value,
+    document.forms.form1.txtS.value,
+    document.forms.form1.txtP.value
+  );
+  document.forms['form1'].txtX.focus();
+  document.forms['form1'].txtX.select();
+  return false;
+}
+function startCycle() {
+  ele1.startSequence();
+  ele2.startSequence();
+  ele3.startSequence();
+}
+function stopCycle() {
+  ele1.stopSequence();
+  ele2.stopSequence();
+  ele3.stopSequence();
+}
+//--></script>
+</head>
+
+<body marginwidth='0' marginheight='0'><a name="topofpage"></a>
+
+<!-- Title and Nav Bar --><script type='text/javascript'>topNavBarEx()</script>
+
+<table width='80%' align='center' cellspacing='10' cellpadding='10'><tr><td bgcolor='#ffffff'><!-- indentation table -->
+
+<h1>Time-Based Elliptical Motion</h1>
+<p>Cross-Browser DHTML Animation using the <a href='http://cross-browser.com/'>CBE API</a> by Mike Foster.</p>
+<p>This example uses the <a target="cbeRefWin" href="../docs/cbe_reference.html#ellipseLink" title="Reference Link">ellipse()</a> CBE method.</p>
+
+<form name="form1" onsubmit="return(handleSubmit())">
+<table border="0">
+<tr><td><b>&nbsp;X&nbsp;</b></td><td><input type="text" name="txtX" size="10" value="25" style="font-family:monospace; font-size:16px;"></td><td>&nbsp;X radius</td></tr>
+<tr><td><b>&nbsp;Y&nbsp;</b></td><td><input type="text" name="txtY" size="10" value="25" style="font-family:monospace; font-size:16px;"></td><td>&nbsp;Y radius</td></tr>
+<tr><td><b>&nbsp;I&nbsp;</b></td><td><input type="text" name="txtI" size="10" value="2" style="font-family:monospace; font-size:16px;"></td><td>&nbsp;Radius increment</td></tr>
+<tr><td><b>&nbsp;T&nbsp;</b></td><td><input type="text" name="txtT" size="10" value="4000" style="font-family:monospace; font-size:16px;"></td><td>&nbsp;Time in milliseconds</td></tr>
+<tr><td><b>&nbsp;S&nbsp;</b></td><td><input type="text" name="txtS" size="10" value="0" style="font-family:monospace; font-size:16px;"></td><td>&nbsp;Start angle in degrees</td></tr>
+<tr><td><b>&nbsp;P&nbsp;</b></td><td><input type="text" name="txtP" size="10" value="-1440" style="font-family:monospace; font-size:16px;"></td><td>&nbsp;Stop angle in degrees</tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td colspan="3"><input type="submit" value="Move Black">&nbsp;&nbsp;<input type="button" value="Stop" onclick="stopCycle()">&nbsp;&nbsp;<input type="button" value="Start Sequence" onclick="startCycle()">&nbsp;&nbsp;<input type="button" value="Reset" onclick="init()"></td></tr>
+</table>
+</form>
+<hr>
+
+<h3>Here's the CSS for the positioned elements.</h3>
+<pre>
+.clsCBE {
+  position:absolute; visibility:hidden; overflow:hidden;
+  margin:0; padding:0; width:64; height:64; clip:rect(0 64 64 0);
+  background:transparent; layer-background-color:transparent;
+}
+</pre>
+<h3>Here's the HTML for the positioned elements.</h3>
+<pre>
+&lt;div id="ele2" class="clsCBE"&gt;&lt;img src="../images/circle6.gif" border="0"&gt;&lt;/div&gt;
+&lt;div id="ele3" class="clsCBE"&gt;&lt;img src="../images/circle3.gif" border="0"&gt;&lt;/div&gt;
+&lt;div id="ele1" class="clsCBE"&gt;&lt;img src="../images/circle1.gif" border="0"&gt;&lt;/div&gt;
+</pre>
+<h3>Here's the javascript for this page:</h3>
+<pre>
+var ele1, ele2, ele3;
+function windowOnload() {
+  init();
+}
+function init() {
+  ele1 = document.getElementById('ele1').cbe;
+  ele1.moveTo('center');
+  ele1.show();
+  ele1.sequence = new Array(
+    "ellipse(100,50,2, 4000,0,1440)",
+    "ellipse(200,100,-2,4000,0,-1440)"
+  );
+  ele2 = document.getElementById('ele2').cbe;
+  ele2.moveTo('center');
+  ele2.moveBy(200,0);
+  ele2.show();
+  ele2.sequence = new Array(
+    "ellipse(100,200,0,1000,0,-360)",
+    "ellipse(100,200,0,1000,0,360)",
+    "ellipse(100,200,0,2000,0,-720)",
+    "ellipse(100,200,0,2000,0,720)"
+  );
+  ele3 = document.getElementById('ele3').cbe;
+  ele3.moveTo('center');
+  ele3.show();
+  ele3.sequence = new Array(
+    "ellipse(50,100,0,2000,90,450)",
+    "ellipse(50,100,0,2000,-90,-450)"
+  );
+  document.forms['form1'].txtX.focus();
+  document.forms['form1'].txtX.select();
+}
+function handleSubmit() {
+  ele1.ellipse(
+    document.forms.form1.txtX.value,
+    document.forms.form1.txtY.value,
+    document.forms.form1.txtI.value,
+    document.forms.form1.txtT.value,
+    document.forms.form1.txtS.value,
+    document.forms.form1.txtP.value
+  );
+  document.forms['form1'].txtX.focus();
+  document.forms['form1'].txtX.select();
+  return false;
+}
+function startCycle() {
+  ele1.startSequence();
+  ele2.startSequence();
+  ele3.startSequence();
+}
+function stopCycle() {
+  ele1.stopSequence();
+  ele2.stopSequence();
+  ele3.stopSequence();
+}
+</pre>
+<h3>Here's the onClick handler for the "Start Sequence" button.</h3>
+<pre>
+onclick="startCycle()
+</pre>
+<h3>Here's the onClick handler for the "Stop" button.</h3>
+<pre>
+onclick="stopCycle()
+</pre>
+
+</td></tr></table><!-- end indentation table -->
+
+<!-- Bottom Nav Bar --><script type='text/javascript'>bottomNavBarEx()</script>
+
+<div id="ele2" class="clsCBE"><img src="../images/circle6.gif" border="0"></div>
+<div id="ele3" class="clsCBE"><img src="../images/circle3.gif" border="0"></div>
+<div id="ele1" class="clsCBE"><img src="../images/circle1.gif" border="0"></div>
+
+</body>
+</html>

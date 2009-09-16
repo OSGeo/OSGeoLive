@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 56: Tighten control of access to mapfiles and templates &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 57: Labeling enhancements: ability to repeat labels along a line/multiline" href="ms-rfc-57.html" />
+    <link rel="prev" title="MS RFC 55: Improve control of output resolution" href="ms-rfc-55.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-57.html" title="MS RFC 57: Labeling enhancements: ability to repeat labels along a line/multiline"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-55.html" title="MS RFC 55: Improve control of output resolution"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-56.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-56.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 56: Tighten control of access to mapfiles and templates</a><ul>
+<li><a class="reference external" href="#overview">Overview</a></li>
+<li><a class="reference external" href="#technical-solution">Technical Solution</a></li>
+<li><a class="reference external" href="#enforce-the-requirement-for-the-map-and-symbolset-keywords">Enforce the requirement for the MAP and SYMBOLSET keywords</a></li>
+<li><a class="reference external" href="#require-a-magic-string-at-the-beginning-of-all-mapserver-templates">Require a Magic String at the beginning of all MapServer templates</a></li>
+<li><a class="reference external" href="#ms-map-pattern-environment-variable">MS_MAP_PATTERN Environment Variable</a></li>
+<li><a class="reference external" href="#ms-map-no-path-environment-variable">MS_MAP_NO_PATH Environment Variable</a></li>
+<li><a class="reference external" href="#backwards-compatibility-issues">Backwards Compatibility Issues</a></li>
+<li><a class="reference external" href="#files-impacted">Files Impacted</a></li>
+<li><a class="reference external" href="#ticket-id">Ticket Id</a></li>
+<li><a class="reference external" href="#voting-history">Voting History</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-55.html"
+                                  title="previous chapter">MS RFC 55: Improve control of output resolution</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-57.html"
+                                  title="next chapter">MS RFC 57: Labeling enhancements: ability to repeat labels along a line/multiline</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-56.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-56-tighten-control-of-access-to-mapfiles-and-templates">
+<span id="rfc56"></span><h1>MS RFC 56: Tighten control of access to mapfiles and templates<a class="headerlink" href="#ms-rfc-56-tighten-control-of-access-to-mapfiles-and-templates" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2009/03/24</td>
+</tr>
+<tr class="field"><th class="field-name">Authors:</th><td class="field-body">Daniel Morissette</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">dmorissette at mapgears.com</td>
+</tr>
+<tr class="field"><th class="field-name">Authors:</th><td class="field-body">Steve Lime</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">steve.lime at dnr.state.mn.us</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">2009/03/26</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Adopted and implemented (2009/03/26)</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">MapServer 5.4.0, 5.2.2, and 4.10.4.</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-56.txt 8873 2009-04-03 12:23:51Z dmorissette $</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>MapServer versions 5.2.1 and older could potentially be used to access
+arbitrary files via the creation of mapfiles or templates in untrusted
+directories.</p>
+<p>This RFC proposes a mechanism to tighten access control on mapfiles and
+templates and limit the risk of leaking arbitrary file contents.</p>
+<p>The new access control mechanisms will be implemented and released in
+MapServer 5.4.0, 5.2.2 and 4.10.4.</p>
+</div>
+<div class="section" id="technical-solution">
+<h2>Technical Solution<a class="headerlink" href="#technical-solution" title="Permalink to this headline">¶</a></h2>
+<p>The following mechanisms will be put in place:</p>
+<ul class="simple">
+<li>Enforce the requirement for the MAP keyword at the beginning of mapfiles and for the SYMBOLSET keyword at the beginning of SYMBOLSETs.</li>
+<li>Require a Magic String at the beginning of all MapServer templates</li>
+<li>Use of environment variables to control and restrict access to mapfiles by the mapserv CGI:<ul>
+<li>MS_MAP_PATTERN</li>
+<li>MS_MAP_NO_PATH</li>
+</ul>
+</li>
+</ul>
+<p>Each of the points above are described in more details in the following
+sections.</p>
+</div>
+<div class="section" id="enforce-the-requirement-for-the-map-and-symbolset-keywords">
+<h2>Enforce the requirement for the MAP and SYMBOLSET keywords<a class="headerlink" href="#enforce-the-requirement-for-the-map-and-symbolset-keywords" title="Permalink to this headline">¶</a></h2>
+<p>The MAP and SYMBOLSET keywords used to be optional at the beginning of
+mapfiles and symbolsets respectively.</p>
+<p>With this change, the MAP keyword will be required on the first line of
+mapfiles and the SYMBOLSET keyword required on the first line of symbolset
+files.</p>
+<p>If the keyword is missing then the parser will reject the file.</p>
+</div>
+<div class="section" id="require-a-magic-string-at-the-beginning-of-all-mapserver-templates">
+<h2>Require a Magic String at the beginning of all MapServer templates<a class="headerlink" href="#require-a-magic-string-at-the-beginning-of-all-mapserver-templates" title="Permalink to this headline">¶</a></h2>
+<p>With this change, the first line of a template must contain the &#8220;MapServer
+Template&#8221; magic string which can be surrounded by comment delimiters in the
+format of the template to facilitate template editing (see examples below).
+The first line of the template file will automatically be stripped from
+the template and will not be included in the MapServer output.</p>
+<p>If the magic string is not found then the template will be rejected by
+MapServer.</p>
+<p>HTML template example:</p>
+<div class="highlight-python"><pre>&lt;!-- MapServer Template --&gt;
+&lt;html&gt;
+ &lt;head&gt;...&lt;/head&gt;
+ &lt;body&gt;
+ ...
+ &lt;/body&gt;
+&lt;/html&gt;</pre>
+</div>
+<p>XML template example:</p>
+<div class="highlight-python"><pre>&lt;!-- MapServer Template --&gt;
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;rootElement&gt;
+  ...
+&lt;/rootElement&gt;</pre>
+</div>
+<p>GeoJSON template example:</p>
+<div class="highlight-python"><pre>// MapServer Template
+  [resultset layer=foo] {
+"type": "FeatureCollection",
+"features": [
+ [feature trim=',']
+ {
+  "type": "Feature",
+  "id": "[id]",
+  "geometry": {
+   "type": "PointLineString",
+   "coordinates": [
+    {
+     "type": "Point",
+     "coordinates": [[x], [y]]
+    }
+   ]
+  },
+  "properties": {
+   "description": "[description]",
+   "venue": "[venue]",
+   "year": "[year]"
+  }
+ },
+ [/feature]
+ ]
+}
+[/resultset]</pre>
+</div>
+</div>
+<div class="section" id="ms-map-pattern-environment-variable">
+<h2>MS_MAP_PATTERN Environment Variable<a class="headerlink" href="#ms-map-pattern-environment-variable" title="Permalink to this headline">¶</a></h2>
+<p>The optional MS_MAP_PATTERN environment variable, set via mod_env or other
+web server equivalents, can be used to specify a Regular Expression that
+must be matched by all mapfile paths passed to the mapserv CGI.</p>
+<p>If MS_MAP_PATTERN is not set then any .map file can be loaded.</p>
+<p>Example, use Apache&#8217;s SetEnv directive to restrict mapfiles to
+the /opt/mapserver/ directory and subdirectories:</p>
+<div class="highlight-python"><pre>SetEnv MS_MAP_PATTERN "^/opt/mapserver/"</pre>
+</div>
+</div>
+<div class="section" id="ms-map-no-path-environment-variable">
+<h2>MS_MAP_NO_PATH Environment Variable<a class="headerlink" href="#ms-map-no-path-environment-variable" title="Permalink to this headline">¶</a></h2>
+<p>The optional MS_MAP_NO_PATH environment variable can be set to any value
+via mod_env or other web server equivalents to forbid the use of explicit
+paths in the map=... URL parameter. Setting MS_MAP_NO_PATH to <strong>any value</strong>
+forces the use of the map=&lt;env_variable_name&gt; mechanism in mapserv CGI URLs.</p>
+<p>If this variable is not set then nothing changes and the mapserv CGI still
+accepts explicit file paths via the map=... URL parameter.</p>
+<p>Example, set set MS_MAP_NOPATH and some mapfile paths in Apache&#8217;s httpd.conf:</p>
+<div class="highlight-python"><pre>SetEnv MS_MAP_NO_PATH "foo"
+SetEnv MY_MAPFILE "/opt/mapserver/map1/mymapfile.map"</pre>
+</div>
+<p>... and then calls the mapserv CGI must use environment variables for the
+map=... parameter:</p>
+<div class="highlight-python"><pre>http://localhost/cgi-bin/mapserv?map=MY_MAPFILE&amp;mode=...</pre>
+</div>
+</div>
+<div class="section" id="backwards-compatibility-issues">
+<h2>Backwards Compatibility Issues<a class="headerlink" href="#backwards-compatibility-issues" title="Permalink to this headline">¶</a></h2>
+<p>The MAP and SYMBOLSET keywords must be added to any mapfile and
+symbolset that did not contain them already.</p>
+<p>All MapServer templates must be updated to contain the &#8220;MapServer
+Template&#8221; magic string on the first line.</p>
+<p>The new environment variables are optional and will have no impact on
+existing applications that don&#8217;t use them.</p>
+</div>
+<div class="section" id="files-impacted">
+<h2>Files Impacted<a class="headerlink" href="#files-impacted" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>mapserver.h</li>
+<li>maptemplate.c</li>
+<li>mapserv.c</li>
+</ul>
+</div>
+<div class="section" id="ticket-id">
+<h2>Ticket Id<a class="headerlink" href="#ticket-id" title="Permalink to this headline">¶</a></h2>
+<p>Related security tickets:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2939">http://trac.osgeo.org/mapserver/ticket/2939</a></li>
+<li><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2941">http://trac.osgeo.org/mapserver/ticket/2941</a></li>
+<li><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2942">http://trac.osgeo.org/mapserver/ticket/2942</a></li>
+<li><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2943">http://trac.osgeo.org/mapserver/ticket/2943</a></li>
+<li><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2944">http://trac.osgeo.org/mapserver/ticket/2944</a></li>
+</ul>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting History<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<p>Adopted on 2009-03-26 with +1 from DanielM, TomK, PericlesN, JeffM, SteveW, AssefaY, SteveL and TamasS.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-57.html" title="MS RFC 57: Labeling enhancements: ability to repeat labels along a line/multiline"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-55.html" title="MS RFC 55: Improve control of output resolution"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

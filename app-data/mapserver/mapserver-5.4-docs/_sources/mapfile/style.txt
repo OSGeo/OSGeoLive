@@ -1,0 +1,216 @@
+.. _style:
+
+*****************************************************************************
+ STYLE
+*****************************************************************************
+
+Style holds parameters for symbolization. Multiple styles may be applied 
+within a class.
+
+This object is new in 4.0 and is intended to separate logic from looks. 
+The final intent is to have named styles (Not yet supported) that will be 
+re-usable through the mapfile. This is the new, preferred way of defining 
+the appearance of an object, notably a class.
+
+ANGLE [double|attribute|AUTO]
+
+    - Angle, given in degrees, to draw the line work. Default is 0. For
+      symbols of Type HATCH, this is the angle of the hatched lines. For its
+      use with hatched lines, see Example#8 in the :ref:`symbology examples
+      <sym_examples>`.
+    - [*Attribute*] was introduced in version 5.0, to specify the item name in
+      the attribute table to use for angle values. The hard brackets [] are
+      required. For example, if your shapefile's DBF has a field named
+      "MYANGLE" that holds angle values for each record, your STYLE object for
+      hatched lines might contain:
+
+      .. code-block:: mapfile
+
+        STYLE
+          SYMBOL 'hatch-test'    
+          COLOR 255 0 0     
+          ANGLE [MYANGLE]
+          SIZE 4
+          WIDTH 3      
+        END 
+
+      The associated RFC document for this feature is :ref:`RFC19`.
+    - The AUTO keyword was added in version 5.4, and currently only applies
+      when coupled with the GEOMTRANSFORM keyword.
+
+ANGLEITEM [string]
+
+    - this parameter was removed in MapServer 5.0.  You should use 
+      the ANGLE [*attribute*] parameter instead.
+    - For MapServer versions <5, this is the attribute/field that stores the
+      angle to be used in rendering. Angle is given in degrees with 0 meaning no
+      rotation.
+
+ANTIALIAS [true|false]
+    Should TrueType fonts and Cartoline symbols be antialiased.
+
+BACKGROUNDCOLOR [r] [g] [b]
+    Color to use for non-transparent symbols.
+
+COLOR [r] [g] [b] | [attribute]
+
+    - Color to use for drawing features.
+    - [*Attribute*] was introduced in version 5.0, to specify the item name in
+      the attribute table to use for color values.  The hard brackets [] are
+      required.  For example, if your :ref:`shapefile <shapefiles>`'s DBF has a field named "MYCOLOR"
+      that holds color values for each record, your STYLE object for might
+      contain:
+
+      .. code-block:: mapfile
+
+        STYLE    
+          COLOR [MYCOLOR]    
+          OUTLINECOLOR 150 150 150      
+        END 
+
+      The associated RFC document for this feature is :ref:`RFC19`.
+
+GAP [int]
+    Given in pixels. This defines a distance between symbols for 
+    TrueType lines.  As of MapServer 5.0 this also applies to PixMap symbols.
+
+    When drawing the symbol along a line segment, a negative GAP will will add 
+    180 degress to the angle. The TrueType and PixMap symbols are always oriented 
+    along the line.  A GAP of 0 (the default value) will cause MapServer to use
+    the symbol as a brush to draw the line.
+    
+    .. versionadded:: 6.0 moved from :ref:`SYMBOL`
+
+GEOMTRANSFORM [start|end|vertices|bbox|centroid]
+    
+    - Used to indicate that the current feature will be transformed before the actual
+      style is applied. Only applies to versions from 5.4
+    - "bbox": uses the current style for rendering the bounding box of the underlying
+      geometry
+    - "centroid": renders a marker at the centroid of the underlying shape.
+    - "start" and "end": uses the current style to render a marker on the first or last
+      vertex of the current geometry. When used with ANGLE AUTO, this can be used to
+      render arrowheads or tails on line segments.
+    - "vertices": uses the current style for rendering a marker on the intermediate
+      vertices of the underlying geometry. When used with ANGLE AUTO, the marker is
+      oriented by the half angle formed by the two adjacent line segments.
+
+LINECAP [butt|round|square|triangle]
+    Sets the line cap type for the cartoline symbol. Default is butt. Works 
+    with the CARTOLINE symbol only!
+    
+    .. versionadded:: 6.0 moved from :ref:`SYMBOL`
+
+LINEJOIN [round|miter|bevel]
+    Sets the line join type for the cartoline symbol. Default is "none" - 
+    lines will not be joined . Works with the CARTOLINE symbol only!
+    
+    .. versionadded:: 6.0 moved from :ref:`SYMBOL`
+
+LINEJOINMAXSIZE [int]
+    Sets the max length of the miter line join type. The value represents a 
+    coefficient which multiplies a current symbol size. Default is 3. 
+    Works with the CARTOLINE symbol only!
+    
+    .. versionadded:: 6.0 moved from :ref:`SYMBOL`
+
+MAXSIZE [integer]
+    Maximum size in pixels to draw a symbol. Default is 50.
+
+MINSIZE [integer]
+    Minimum size in pixels to draw a symbol. Default is 0.
+
+MINWIDTH [integer]
+    Minimum width in pixels to draw the line work.
+
+OFFSET [x][y]
+    Offset values for shadows, hollow symbols, etc ...
+
+OPACITY [integer]
+    Opacity to draw the current style (applies to 5.2+, :ref:`AGG` only, does not apply to pixmap
+    symbols)
+
+OUTLINECOLOR [r] [g] [b] | [attribute]
+
+    - Color to use for outlining polygons and certain marker symbols. Line 
+      symbols do not support outline colors.
+    - [*Attribute*] was introduced in version 5.0, to specify the item name in
+      the attribute table to use for color values.  The hard brackets [] are
+      required.  For example, if your shapefile's DBF has a field named
+      "MYOUTCOLOR" that holds color values for each record, your STYLE object
+      for might contain:
+
+      .. code-block:: mapfile
+
+        STYLE    
+          COLOR 255 0 0    
+          OUTLINECOLOR [MYOUTCOLOR]      
+        END 
+
+      The associated RFC document for this feature is :ref:`RFC19`.
+
+PATTERN [num on] [num off] [num on] ... END
+    
+    Defines a dash style or pattern for line symbologies.
+    
+    .. versionadded:: 6.0 moved from :ref:`SYMBOL`
+
+SIZE [integer|attribute]
+
+    - Height, in layer SIZEUNITS, of the symbol/pattern to be used. Only useful with 
+      scalable symbols. Default is 1. For symbols of Type HATCH, the SIZE is the
+      distance between hatched lines. For its use with hatched lines, see
+      Example#8 in the :ref:`symbology examples <sym_examples>`.
+    - [*Attribute*] was introduced in version 5.0, to specify the item name in
+      the attribute table to use for size values.  The hard brackets [] are
+      required.  For example, if your shapefile's DBF has a field named "MYSIZE"
+      that holds size values for each record, your STYLE object for
+      hatched lines might contain:
+
+      .. code-block:: mapfile
+
+        STYLE
+          SYMBOL 'hatch-test'    
+          COLOR 255 0 0     
+          ANGLE 45
+          SIZE [MYSIZE]
+          WIDTH 3      
+        END 
+
+      The associated RFC document for this feature is :ref:`RFC19`.
+    - Starting from version 5.4, the value can also be a fractional value (and not
+      only integer). Note that currently only the :ref:`AGG <AGG>` renderer can
+      correctly render fractional widths.
+
+SIZEITEM [string]
+
+    - this parameter was removed in MapServer 5.0.  You should
+      use the SIZE [*attribute*] parameter instead. 
+    - For MapServer versions <5, this is the attribute/field that stores the
+      size to be used in rendering. Value is given in pixels.
+
+SYMBOL [integer|string|filename]
+    The symbol name or number to use for all features if attribute tables are 
+    not used. The number is the index of the symbol in the symbol file, 
+    starting at 1, the 5th symbol in the file is therefore symbol number 5. 
+    You can also give your symbols names using the NAME keyword in the symbol 
+    definition file, and use those to refer to them. Default is 0, which 
+    results in a single pixel, single width line, or solid polygon fill, 
+    depending on layer type.
+
+    You can also specify a gif or png filename. The path is relative to the 
+    location of the mapfile. 
+
+WIDTH [integer|attribute]
+    
+    - Width refers to the thickness of line work drawn, in layer `SIZEUNITS`.
+      Default is 1.
+    - For symbols of Type HATCH, the WIDTH is how thick the hatched lines are. 
+      For its use with hatched lines, see Example#8 in the 
+      :ref:`symbology examples <sym_examples>`.
+    - Attribute binding was added in version 5.2
+    - Starting from version 5.4, the value can also be a fractional value (and not
+      only integer). Note that currently only the :ref:`AGG <AGG>` renderer can
+      correctly render fractional widths.
+
+

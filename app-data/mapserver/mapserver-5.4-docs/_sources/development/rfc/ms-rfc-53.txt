@@ -1,0 +1,69 @@
+.. _rfc53:
+
+======================================================================
+MS RFC 53: Guidelines for MapScript method return values
+======================================================================
+
+:Date: 2009/03/08
+:Authors: Daniel Morissette
+:Contact: dmorissette at mapgears.com
+:Last Edited: 2009/03/08
+:Status: Adopted on 2009/03/12
+:Version: MapServer 5.4
+:Id: $Id: ms-rfc-53.txt 8786 2009-03-12 18:17:25Z dmorissette $
+
+Overview
+------------------------------------------------------------------------------
+
+Ticket #244 pointed out that the return values of MapScript methods were
+not consistent: some methods return 0/-1 for success/failure and others
+return MS_SUCCESS/MS_FAILURE.
+
+This mini-RFC defines guidelines for the return values to use with
+MapScript methods in the future.
+
+Technical Solution
+------------------------------------------------------------------------------
+
+Existing methods will remain untouched to avoid breaking existing MapScript 
+applications.
+
+For new methods added to the MapScript API in the future, the following
+guidelines should apply:
+
+1. Return values:
+
+ * If the method returns only a success/failure status then the
+   MS_SUCCESS/MS_FAILURE values should be used.
+ * If the method returns a reference to an object, then it should return a 
+   valid object on success, or a NULL value on failure
+ * If the method returns an positive integer, then it should return a positive 
+   integer on success and -1 on failure. This is a flexible rule which may not 
+   apply in some contexts.
+
+2. Error reporting:
+
+ In case of errors/failures, MapScript developers should ensure that the 
+ MapScript application code can expect to find an errorObj in the error stack.
+ In most cases the core function that MapScript maps to should take care 
+ of calling msSetError(), but in some cases the error may be caught by the 
+ wrapper code and then the wrapper code may be responsible for calling 
+ msSetError() on failure to ensure that the caller has valid error information.
+
+
+Backwards Compatability Issues
+------------------------------------------------------------------------------
+
+None. These guidelines apply only to new MapScript methods. The existing 
+MapScript API remains untouched.
+
+Ticket Id
+------------------------------------------------------------------------------
+
+http://trac.osgeo.org/mapserver/ticket/244
+
+Voting History
+------------------------------------------------------------------------------
+
+Adopted on 2009/03/12 with +1 from DanielM, UmbertoN, TomK, SteveW, TamasS, 
+HowardB, AssefaY, PericlesN, JeffM and SteveL.

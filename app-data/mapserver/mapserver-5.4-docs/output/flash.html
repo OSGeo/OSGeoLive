@@ -1,0 +1,509 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Flash Output &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Output Generation" href="index.html" />
+    <link rel="next" title="HTML Legends with MapServer" href="html_legend.html" />
+    <link rel="prev" title="Dynamic Charting" href="dynamic_charting.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="html_legend.html" title="HTML Legends with MapServer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="dynamic_charting.html" title="Dynamic Charting"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Output Generation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//output/flash.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/output/flash.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Flash Output</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a><ul>
+<li><a class="reference external" href="#links-to-flash-related-information">Links to Flash-Related Information</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#installing-mapserver-with-flash-support">Installing MapServer with Flash Support</a><ul>
+<li><a class="reference external" href="#using-pre-compiled-binaries">Using Pre-compiled Binaries</a></li>
+<li><a class="reference external" href="#compiling-mapserver-with-flash-support">Compiling MapServer with Flash Support</a><ul>
+<li><a class="reference external" href="#building-on-windows">Building on Windows</a></li>
+<li><a class="reference external" href="#building-on-unix">Building on Unix</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference external" href="#how-to-output-swf-files-from-mapserver">How to Output SWF Files from MapServer</a><ul>
+<li><a class="reference external" href="#other-outputformat-options">Other OutputFormat Options</a></li>
+<li><a class="reference external" href="#composition-of-the-resulting-swf-files">Composition of the Resulting SWF Files</a></li>
+<li><a class="reference external" href="#exporting-attributes">Exporting Attributes</a></li>
+<li><a class="reference external" href="#events-and-highlights">Events and Highlights</a></li>
+<li><a class="reference external" href="#fonts">Fonts</a></li>
+<li><a class="reference external" href="#outputting-raster-swf-for-vector-layers">Outputting Raster SWF for Vector Layers</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#what-is-currently-supported-and-not-supported">What is Currently Supported and Not Supported</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="dynamic_charting.html"
+                                  title="previous chapter">Dynamic Charting</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="html_legend.html"
+                                  title="next chapter">HTML Legends with MapServer</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/output/flash.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="flash-output">
+<span id="flash"></span><h1><a class="toc-backref" href="#table-of-contents">Flash Output</a><a class="headerlink" href="#flash-output" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Jeff McKenna</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">jmckenna at gatewaygeomatics.com</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Yewondwossen Assefa</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">assefa at dmsolutions.ca</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8370 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2008-12-31 16:32:02 -0400 (Wed, 31 Dec 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Last Updated:</th><td class="field-body">2008/07/15</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#flash-output" id="id1">Flash Output</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference internal" href="#installing-mapserver-with-flash-support" id="id3">Installing MapServer with Flash Support</a></li>
+<li><a class="reference internal" href="#how-to-output-swf-files-from-mapserver" id="id4">How to Output SWF Files from MapServer</a></li>
+<li><a class="reference internal" href="#what-is-currently-supported-and-not-supported" id="id5">What is Currently Supported and Not Supported</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#table-of-contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Since MapServer 4.0, MapServer can output Flash files, in SWF format (or
+&#8220;Shockwave Flash Format&#8221;).  The following document outlines how to enable
+Flash output in MapServer.</p>
+<div class="section" id="links-to-flash-related-information">
+<h3>Links to Flash-Related Information<a class="headerlink" href="#links-to-flash-related-information" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="http://aris.cseas.kyoto-u.ac.jp/fmv/">Open Source Flash Viewer</a></li>
+<li><a class="reference external" href="http://mapserver.gis.umn.edu/docs/tutorial/demoflashmap/demoflashmaps">Flash maps demo</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="installing-mapserver-with-flash-support">
+<h2><a class="toc-backref" href="#table-of-contents">Installing MapServer with Flash Support</a><a class="headerlink" href="#installing-mapserver-with-flash-support" title="Permalink to this headline">¶</a></h2>
+<p>To check that your mapserv executable includes Flash support, use the &#8220;-v&#8221;
+command-line switch and look for &#8220;OUTPUT=SWF&#8221;.</p>
+<div class="highlight-python"><pre>$ ./mapserv -v
+MapServer version 5.2.0-rc1 OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP
+OUTPUT=PDF OUTPUT=SWF OUTPUT=SVG SUPPORTS=PROJ SUPPORTS=AGG
+SUPPORTS=FREETYPE SUPPORTS=ICONV SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT
+SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=WCS_SERVER
+SUPPORTS=SOS_SERVER SUPPORTS=FASTCGI SUPPORTS=THREADS
+SUPPORTS=GEOS SUPPORTS=RGBA_PNG INPUT=JPEG INPUT=POSTGIS
+INPUT=ORACLESPATIAL INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE</pre>
+</div>
+<div class="section" id="using-pre-compiled-binaries">
+<h3>Using Pre-compiled Binaries<a class="headerlink" href="#using-pre-compiled-binaries" title="Permalink to this headline">¶</a></h3>
+<p>Windows users can use <a class="reference external" href="http://www.maptools.org/ms4w/">MS4W</a>, which supports SWF output.</p>
+</div>
+<div class="section" id="compiling-mapserver-with-flash-support">
+<h3>Compiling MapServer with Flash Support<a class="headerlink" href="#compiling-mapserver-with-flash-support" title="Permalink to this headline">¶</a></h3>
+<p>The library chosen to output SWF files is the <a class="reference external" href="http://www.libming.org/">Ming library</a>.  Ming is a C
+library for generating SWF (&#8220;Flash&#8221;) format movies, and it contains a set of wrappers
+for using the library from C++ and popular scripting languages like PHP,
+Python, and Ruby.</p>
+<div class="section" id="building-on-windows">
+<h4>Building on Windows<a class="headerlink" href="#building-on-windows" title="Permalink to this headline">¶</a></h4>
+<ul>
+<li><p class="first">download the <a class="reference external" href="http://www.libming.org/">Ming library</a> (the version currently supported is 0.2a)</p>
+</li>
+<li><p class="first">as of Ming 0.3 there was no makefile for Windows available in the distribution yet,
+but you can download a MS VC++ makefile (makefile.vc) from <a class="reference external" href="http://www2.dmsolutions.ca/mapserver/dl/ming-0.2a.zip">here</a> (contains makefile
+and also libming.lib)</p>
+</li>
+<li><p class="first">copy makefile.vc under the src directory (ming-0.2/src)</p>
+</li>
+<li><p class="first">execute:</p>
+<div class="highlight-python"><pre>nmake /f makefile.vc</pre>
+</div>
+</li>
+<li><p class="first">at this point you should have a libming.lib that will be linked with MapServer</p>
+</li>
+<li><p class="first">edit the nmake.opt in your MapServer directory and uncomment the MING=-DUSE_MING_FLASH
+flag, and point MING_DIR to your Ming directory.</p>
+</li>
+<li><p class="first">build MapServer as usual</p>
+</li>
+</ul>
+</div>
+<div class="section" id="building-on-unix">
+<h4>Building on Unix<a class="headerlink" href="#building-on-unix" title="Permalink to this headline">¶</a></h4>
+<p>Use the &#8220;&#8211;with-ming&#8221; configure flag to enable MING support on Unix. &#8220;&#8211;with-ming=dir&#8221;
+will try to find the include files and library in the indicated directory.</p>
+<div class="highlight-python"><pre>Note: compiling MapServer 4.4.2 with flash support (mingbeta version 0.3) requires
+the -DMING_VERSION_03 option otherwise the make fails. This option should be included
+in the configure.in after -DUSE_MING_FLASH as below:
+
+   MING ENABLED= "-DUSE_MING_FLASH -DMING_VERSION_03"</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="how-to-output-swf-files-from-mapserver">
+<h2><a class="toc-backref" href="#table-of-contents">How to Output SWF Files from MapServer</a><a class="headerlink" href="#how-to-output-swf-files-from-mapserver" title="Permalink to this headline">¶</a></h2>
+<p>SWF output is specified by using the <a class="reference external" href="../mapfile/outputformat.html#outputformat"><em>OUTPUTFORMAT</em></a> object.
+There are 2 possible output types:</p>
+<ol class="arabic">
+<li><p class="first">A single movie containing the raster output for all the layers. To enable this,
+declare the following in the map file:</p>
+<div class="highlight-python"><pre>OUTPUTFORMAT
+  NAME swf
+  MIMETYPE "application/x-shockwave-flash"
+  DRIVER swf
+  IMAGEMODE PC256
+  FORMATOPTION "OUTPUT_MOVIE=SINGLE"
+END</pre>
+</div>
+</li>
+<li><p class="first">A movie for every layer (vector movies for vector layers and raster
+movies for raster layers).  To enable this,
+declare the following in the map file:</p>
+<div class="highlight-python"><pre>OUTPUTFORMAT
+  NAME swf
+  MIMETYPE "application/x-shockwave-flash"
+  DRIVER swf
+  IMAGEMODE PC256
+  FORMATOPTION "OUTPUT_MOVIE=MULTIPLE"
+END</pre>
+</div>
+</li>
+</ol>
+<div class="section" id="other-outputformat-options">
+<h3>Other OutputFormat Options<a class="headerlink" href="#other-outputformat-options" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><strong>FORMATOPTION &#8220;FULL_RESOLUTION=FALSE&#8221;</strong></p>
+<p>The FULL_RESOLUTION applies only for vector layers. If set to FALSE,
+filtering will be applied to the vector elements. It results in a smaller
+SWF file. The default value is TRUE.</p>
+</li>
+<li><p class="first"><strong>FORMATOPTION &#8220;LOAD_AUTOMATICALLY=OFF&#8221;</strong></p>
+<p>Setting this option to OFF will not load the SWF files for each layer.
+The default value is ON.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="composition-of-the-resulting-swf-files">
+<h3>Composition of the Resulting SWF Files<a class="headerlink" href="#composition-of-the-resulting-swf-files" title="Permalink to this headline">¶</a></h3>
+<p>Several SWF Files will be produced from a single map file: there will be one SWF
+file for each layer defined in the map file and one &#8216;main&#8217; SWF file containing
+critical information on the map file and the layers produced.</p>
+<ul>
+<li><p class="first">The &#8216;main&#8217; SWF File will contain Action Script (AS) code that gives critical
+information on the map file and the SWF layers produced. Basically there will
+be an object called mapObj containing the height, width, extent, scale, number
+of layers, etc. Here is an example (in AS) of the contents of this main movie:</p>
+<div class="highlight-python"><pre>mapObj = new Object ();
+mapObj.name = "DEMO_SWF";
+mapObj.width = 400;
+mapObj.height = 300;
+mapObj.extent = "-2594561.353333,3467361.353333,3467361.353333,3840000.000000"; ;
+mapObj.numlayers = 4;
+mapObj.layers = new Array ();
+function LayerObj (name, type, fullname, relativename) {
+this.name = name;
+this.type = type;
+this.fullname = fullname;
+this.relativename = relativename;
+}
+mapObj.layers[0] = new LayerObj ("park", "2", "c:/tmp/ms_tmp/102389536132841_layer_0.swf", "102389536132841_layer_0.swf");
+mapObj.layers[1] = new LayerObj ("popplace", "4", "c:/tmp/ms_tmp/102389536132841_layer_1.swf", "102389536132841_layer_1.swf");
+mapObj.layers[2] = new LayerObj ("rail", "1", "c:/tmp/ms_tmp/102389536132841_layer_2.swf", "102389536132841_layer_2.swf");
+mapObj.layers[3] = new LayerObj ("road", "1", "c:/tmp/ms_tmp/102389536132841_layer_3.swf", "102389536132841_layer_3.swf");</pre>
+</div>
+<p>This example is produced based on a mapfile with two layers defined in it.
+We create a layer class object containing useful information on a layer. The parameters are:</p>
+<ul class="simple">
+<li>Name : the name found in the map file</li>
+<li>Type : the type of layer ( 0 = Point Layer; 1=Line; 2=Polygon; 3=Raster; 4=Annotation; 6=Circle)</li>
+<li>Fullname : Full name of the file with path included</li>
+<li>Relative name : Relative Name</li>
+</ul>
+<p>For example you can use mapObj.layers[0].name to extract the name of the first layer.</p>
+<p>Note: All map parameters from MapServer are not exported at this time. We should
+come up with a list of information of what we want to output. Note that this information
+can be used in a Flash application to load the SWF file, to build a legend, to build a
+scale bar, etc.</p>
+</li>
+<li><p class="first">SWF Files for each layer</p>
+<p>Each layer defined in the mapfile will have an associated SWF file created. The names of
+these SWF files are based on the name of the main file with an addition of &#8216;layer_X&#8217;
+at the end of the name (where X is the layer index).</p>
+<p>These SWF files will contain vector and raster data as well as some Action Script
+depending on the layer and some configurations in the map file. We will see these
+configurations in detail in the following section.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="exporting-attributes">
+<h3>Exporting Attributes<a class="headerlink" href="#exporting-attributes" title="Permalink to this headline">¶</a></h3>
+<p>Exporting attributes works on a layer basis (it is only available for Vector Layers).
+To be able to export attributes to the SWF files, you have to define a metadata item called
+SWFDUMPATTRIBUTES in the layer section of the mapfile. Here is an example :</p>
+<div class="highlight-python"><pre>...
+LAYER
+NAME park
+METADATA
+  "DESCRIPTION""Parks"
+  "RESULT_FIELDS" "NAME_E YEAR_EST AREA_KMSQ"
+  "SWFDUMPATTRIBUTES" "NAME_E,AREA_KMSQ "
+END
+TYPE POLYGON
+STATUS ON
+DATA park
+...</pre>
+</div>
+<p>In the above example, the values for the attributes NAME_E and AREA_KMSQ will be exported
+for each element in the layer.</p>
+<p>The resulting SWF File will have the values of these attributes (written in Action Script).
+Here is an example related to the above layer:</p>
+<div class="highlight-python"><pre>nAttributes= 2;
+Attributes = new Array();
+Attributes[0] = "NAME_E";
+Attributes[1] = "AREA_KMSQ";
+Element = new Array ();
+Element[0] = new Array();
+Element[0][0] = "Ellesmere Island National Park Reserve";
+Element[0][1] = "1500";
+Element[1][0] = " Aulavik National park";
+Element[1][1] = "1500";</pre>
+</div>
+</div>
+<div class="section" id="events-and-highlights">
+<h3>Events and Highlights<a class="headerlink" href="#events-and-highlights" title="Permalink to this headline">¶</a></h3>
+<p>Here is what is currently implemented concerning events (events here refer to mouse events
+happening on an element. The available events are MOUSEUP, MOUSEDOWN, MOUSEOVER, MOUSEOUT):</p>
+<ul class="simple">
+<li>Events are only available for layers that have defined attributes exported (using
+SWFDUMPATTRIBUTES). This is like defining that a certain layer is queryable.</li>
+<li>When a mouse event happens on one of the elements, there is an Action Script call
+that is made: _root.ElementSelecetd(LayerId, ShapeId, Event) . The Flash application
+who wants to receive these events should define the function ElementSelected and
+use the information received to do actions like retrieving the attribute values from
+the specific SWF for the specified shape and display it.</li>
+</ul>
+<p>In order to have highlighting, it has to be defined when the SWF is produced (basically
+highlighting means that the shape is redrawn using a different color).</p>
+<p>As of MapServer 5.0, highlighting is available on queryable layers by using the
+QueryMap object in the map file to extract the color and do a highlight when on MOUSEOVER.
+The current implementation will highlight all objects that are in a layer that uses
+SWFDUMPATTRIBUTES, using the COLOR set in the QueryMap object in the mapfile.</p>
+<p>Before MapServer 5.0, all objects that are in a layer that uses SWFDUMPATTRIBUTES are
+highlighted using a red color.</p>
+</div>
+<div class="section" id="fonts">
+<h3>Fonts<a class="headerlink" href="#fonts" title="Permalink to this headline">¶</a></h3>
+<p>Ming uses a special type of font called FDB files. It does not yet support Truetype fonts.
+Please refer to ming documentation on how to <a class="reference external" href="http://www.opaque.net/wiki/index.php?MingFAQ">produce FDB files</a>.</p>
+</div>
+<div class="section" id="outputting-raster-swf-for-vector-layers">
+<h3>Outputting Raster SWF for Vector Layers<a class="headerlink" href="#outputting-raster-swf-for-vector-layers" title="Permalink to this headline">¶</a></h3>
+<p>One mechanism would be to use the metadata for layer objects to define a raster output
+for vector layers. We could use something like &#8220;SWFOUTPUT&#8221; &#8220;RASTER&#8221;.  If this sounds desirable,
+please file an enhancement <a class="reference external" href="http://trac.osgeo.org/mapserver/">ticket</a> with this request, specifying the &#8220;Output-SWF&#8221; component.</p>
+</div>
+</div>
+<div class="section" id="what-is-currently-supported-and-not-supported">
+<h2><a class="toc-backref" href="#table-of-contents">What is Currently Supported and Not Supported</a><a class="headerlink" href="#what-is-currently-supported-and-not-supported" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Vector layers<ul>
+<li>Layer Point (case MS_LAYER_POINT) : <em>done</em><ul>
+<li>msDrawMarkerSymbol</li>
+<li>msDrawLabel</li>
+</ul>
+</li>
+<li>Layer line (case MS_LAYER_LINE) : <em>done</em><ul>
+<li>msDrawLineSymbol</li>
+<li>msDrawLabel</li>
+</ul>
+</li>
+<li>Layer circle ( case MS_LAYER_CIRCLE) : <em>not done</em> (should be done easily but missing data for testing)<ul>
+<li>omsCircleDrawLineSymbol</li>
+<li>omsCircleDrawShadeSymbol</li>
+</ul>
+</li>
+<li>Layer annotation (case MS_LAYER_ANNOTATION): <em>done</em><ul>
+<li>omsDrawMarkerSymbol</li>
+<li>omsDrawLabel</li>
+</ul>
+</li>
+<li>Layer Polygon (MS_SHAPE_POLYGON): <em>done</em><ul>
+<li>omsDrawShadeSymbol</li>
+<li>omsDrawLineSymbol</li>
+<li>omsDrawLabel</li>
+</ul>
+</li>
+<li>Vector Low Level functions<ul>
+<li>omsDrawMarkerSymbol<ul>
+<li>case(MS_SYMBOL_TRUETYPE) : <em>done</em></li>
+<li>case(MS_SYMBOL_PIXMAP) : <em>done</em></li>
+<li>case(MS_SYMBOL_ELLIPSE) : <em>done</em></li>
+<li>case(MS_SYMBOL_VECTOR) : <em>done</em></li>
+</ul>
+</li>
+<li>omsDrawLineSymbol<ul>
+<li>case : simple line : <em>done</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>drawing with the symbols : <em>not done</em><ul>
+<li>omsDrawShadeSymbol<ul>
+<li>case : solid fill polygon : <em>done</em></li>
+<li>case : filled with symbols : cannot be implemented for now (tried to create
+a GD image to fill the shape but files created were huge)</li>
+</ul>
+</li>
+<li>omsCircleDrawLineSymbol : <em>not done</em></li>
+<li>omsCircleDrawShadeSymbol : <em>not done</em></li>
+<li>omsDrawLabel : <em>done</em></li>
+<li>omsDrawLabelCache : <em>done</em></li>
+<li>obillboard (shadow for texts) : <em>not done</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Raster Layer<ul>
+<li>msDrawRasterLayer: <em>done</em></li>
+</ul>
+</li>
+<li>WMS Layer<ul>
+<li>msDrawWMSLayer: <em>done</em></li>
+</ul>
+</li>
+<li>Surround components (Legend, scalebar) : <em>not supported</em></li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="html_legend.html" title="HTML Legends with MapServer"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="dynamic_charting.html" title="Dynamic Charting"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Output Generation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

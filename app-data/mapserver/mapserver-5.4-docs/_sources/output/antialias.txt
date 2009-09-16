@@ -1,0 +1,192 @@
+.. _antialias:
+
+*****************************************************************************
+ AntiAliasing with MapServer 
+*****************************************************************************
+
+:Author:  Pericles Nacionales
+:Contact: naci0002 at umn.edu
+:Revision: $Revision: 8440 $
+:Date: $Date: 2009-01-17 11:39:26 -0400 (Sat, 17 Jan 2009) $
+:Last Updated: 2009/01/17
+
+.. note:: For quality antialiased output from mapserver, it is **highly**
+          recommended to use the :ref:`AGG <agg>` rendering. This document
+          applies only if you whish to stick to the GD rendering, or if you
+          are using a version predating the 5.0 release of mapserver.
+
+
+.. contents:: Table of Contents
+    :depth: 2
+    :backlinks: top
+
+
+What needs to be done
+============================
+
+1. Change (or add) IMAGETYPE keyword in MAP object to PNG24 (24-bit PNG
+output) or JPEG
+
+.. code-block:: mapfile
+
+    MAP
+      ...
+      IMAGETYPE PNG24
+      ...
+    END
+
+
+2. Add TRANSPARENCY to the LAYER object and set value to ALPHA
+
+.. code-block:: mapfile
+
+    MAP
+      ...
+      IMAGETYPE PNG24
+      ...
+
+      LAYER
+        ...
+        TRANSPARENCY ALPHA
+        ...
+      END
+    END
+
+3. Add ANTIALIAS keyword to the STYLE object within the :ref:`CLASS` object within the :ref:`LAYER` 
+   and set value to TRUE
+
+.. code-block:: mapfile
+
+    MAP
+      ...
+      IMAGETYPE PNG24
+      ...
+
+      LAYER
+        ...
+        TRANSPARENCY ALPHA
+        ...
+        CLASS
+          ...
+          STYLE
+            ...
+            ANTIALIAS TRUE
+            ...
+          END
+          \.\.\.
+        END # end class
+      END # end layer
+    END # end map
+
+.. note::
+
+    Don't use the SYMBOL or the SIZE keywords within the CLASS object, 
+    instead use WIDTH to specify width of line or polygon outline.  Don't use
+    WIDTH unless you have to.  If you must define a SYMBOL, use symbol of type 
+    CARTOLINE or ELLIPSE--it supports antialiasing.
+
+Here's an example of a real-world mapfile:
+
+.. code-block:: mapfile
+    :linenos:
+
+    MAP
+      NAME 'ms101'
+      EXTENT -2198022.00 -2444920.25 2707932.00 1234545.25  # CONUS LAEA (US)
+      SIZE 640 480
+      SHAPEPATH 'data'
+      SYMBOLSET 'symbols/symbols.txt'
+
+      IMAGETYPE PNG24
+
+      PROJECTION
+        "init=epsg:2163"
+      END
+  
+      # The layer below will be rendered as 1-pixel wide, antialiased line
+      # If you'd like to change the line thickness add the WIDTH keyword
+      # in the STYLE object with a value of 3 or greater.
+      LAYER # begin antialiased country boundary (line) layer
+        NAME 'country_line'
+        DATA 'shapefile/WorldCountryBorders'
+        TYPE LINE
+        STATUS ON
+        TRANSPARENCY ALPHA
+    
+        PROJECTION
+          "init=epsg:4326"
+        END
+
+        CLASS
+          NAME 'Country Boundary'
+          STYLE
+            COLOR 96 96 96
+            ANTIALIAS TRUE
+          END
+        END
+      END # end country boundary layer
+
+      # The layer below shows one way to draw a polygon with antialiased outline
+      LAYER # begin antialiased country boundary (polygon) layer
+        NAME 'country_line'
+        DATA 'shapefile/Countries_area'
+        TYPE POLYGON
+        STATUS ON
+        TRANSPARENCY ALPHA
+    
+        PROJECTION
+          "init=epsg:4326"
+        END
+
+        CLASS
+          NAME 'Country Boundary'
+          STYLE
+            COLOR 212 212 212
+            OUTLINECOLOR 96 96 96
+            WIDTH 3
+            ANTIALIAS TRUE
+          END
+        END
+      END # end country boundary polygon layer
+
+      # The layer below shows one way to draw a polygon with antialiased outline
+      LAYER # begin antialiased state boundary (line) layer
+        NAME 'state_line'
+        DATA 'shapefile/us_states'
+        TYPE LINE
+        STATUS ON
+        TRANSPARENCY ALPHA
+    
+        PROJECTION
+          "init=epsg:4326"
+        END
+
+        CLASS
+          NAME 'State Boundary'
+          STYLE
+            COLOR 144 144 144
+            SYMBOL 'cartoline'
+            ANTIALIAS TRUE
+          END
+        END
+      END # end state line layer
+    END # end of map file
+
+Here's how the 'cartoline' symbol is defined:
+
+.. code-block:: mapfile
+
+    SYMBOL
+      NAME 'cartoline'
+      TYPE CARTOLINE
+      LINECAP "round"
+      LINEJOIN "round"
+      LINEJOINMAXSIZE 3
+    END
+
+.. note:: The examples provided here are for illustrative purposes 
+    only--keep your map file definitions simple.  Antialiasing adds computing 
+    overhead on the server and could slow/degrade its performance.  Don't use 
+    it unless you must and certainly don't use symbols with it unless you really 
+    have to.
+

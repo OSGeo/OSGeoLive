@@ -1,0 +1,1000 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Documentation Development Guide &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Development" href="index.html" />
+    <link rel="next" title="Testing" href="tests/index.html" />
+    <link rel="prev" title="Subversion" href="svn.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="tests/index.html" title="Testing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="svn.html" title="Subversion"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Development</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//development/documentation.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/development/documentation.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Documentation Development Guide</a><ul>
+<li><a class="reference external" href="#background">Background</a></li>
+<li><a class="reference external" href="#general-guidelines">General Guidelines</a></li>
+<li><a class="reference external" href="#restructuredtext-reference-guides">reStructuredText Reference Guides</a></li>
+<li><a class="reference external" href="#restructuredtext-formatting">reStructuredText Formatting</a></li>
+<li><a class="reference external" href="#installing-and-using-sphinx-for-rst-html-generation">Installing and Using Sphinx for rst-html Generation</a></li>
+<li><a class="reference external" href="#how-translations-are-handled">How translations are handled</a></li>
+<li><a class="reference external" href="#reference-labels">Reference Labels</a><ul>
+<li><a class="reference external" href="#regenerating-the-reference-labels">Regenerating the reference labels</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="svn.html"
+                                  title="previous chapter">Subversion</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="tests/index.html"
+                                  title="next chapter">Testing</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/development/documentation.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="documentation-development-guide">
+<span id="documentation-development"></span><h1><a class="toc-backref" href="#table-of-contents">Documentation Development Guide</a><a class="headerlink" href="#documentation-development-guide" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Howard Butler</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">hobu.inc at gmail.com</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Jeff McKenna</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">jmckenna at gatewaygeomatics.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 9128 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2009-06-30 10:10:14 -0300 (Tue, 30 Jun 2009) $</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#documentation-development-guide" id="id1">Documentation Development Guide</a><ul>
+<li><a class="reference internal" href="#background" id="id2">Background</a></li>
+<li><a class="reference internal" href="#general-guidelines" id="id3">General Guidelines</a></li>
+<li><a class="reference internal" href="#restructuredtext-reference-guides" id="id4">reStructuredText Reference Guides</a></li>
+<li><a class="reference internal" href="#restructuredtext-formatting" id="id5">reStructuredText Formatting</a></li>
+<li><a class="reference internal" href="#installing-and-using-sphinx-for-rst-html-generation" id="id6">Installing and Using Sphinx for rst-html Generation</a></li>
+<li><a class="reference internal" href="#how-translations-are-handled" id="id7">How translations are handled</a></li>
+<li><a class="reference internal" href="#reference-labels" id="id8">Reference Labels</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="background">
+<h2><a class="toc-backref" href="#table-of-contents">Background</a><a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>The current structure of the MapServer documentation process is for
+developers with <a class="reference external" href="svn.html#svn"><em>Subversion</em></a> commit access to maintain their documents
+in reStructuredText format, and therefore all documents live in the
+/docs directory in SVN.  The <a class="reference external" href="http://sphinx.pocoo.org/index.html">Sphinx</a> documentation generator is
+used to convert the reStructuredText files to html, and the live
+website is then updated on an hourly basis.</p>
+</div>
+<div class="section" id="general-guidelines">
+<h2><a class="toc-backref" href="#table-of-contents">General Guidelines</a><a class="headerlink" href="#general-guidelines" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">MapServer instead of mapserver, map server, Map Server, mapServer or
+map Server.</p>
+</li>
+<li><p class="first">MapScript instead of mapscript, Mapscript, or map script.</p>
+</li>
+<li><p class="first">PostGIS instead of postgis.</p>
+</li>
+<li><p class="first">HowTo instead of howto or HOWTO.</p>
+</li>
+<li><p class="first">Email addresses should be manually spam protected:</p>
+<div class="highlight-python"><pre>hobu.inc at gmail.com instead of hobu.inc@gmail.com</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="restructuredtext-reference-guides">
+<h2><a class="toc-backref" href="#table-of-contents">reStructuredText Reference Guides</a><a class="headerlink" href="#restructuredtext-reference-guides" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docutils.sourceforge.net/docs/user/rst/quickref.html">Quick reStructuredText</a></li>
+</ul>
+</div>
+<div class="section" id="restructuredtext-formatting">
+<h2><a class="toc-backref" href="#table-of-contents">reStructuredText Formatting</a><a class="headerlink" href="#restructuredtext-formatting" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">All text should be hard breaks at or around the 80 column mark, just as
+the source code.</p>
+</li>
+<li><p class="first">No <tt class="docutils literal"><span class="pre">..</span> <span class="pre">sectnum::</span></tt> in the contents directives</p>
+</li>
+<li><p class="first">All external links should live at the bottom of your document, under
+the heading:</p>
+<div class="highlight-python"><pre>.. #### rST Link Section ####</pre>
+</div>
+</li>
+<li><p class="first">Always include the :Revision: and :Date: lines (as-is) at the top of your
+document, such as:</p>
+<div class="highlight-python"><pre>:Revision: $Revision: 9128 $
+:Date: $Date: 2009-06-30 10:10:14 -0300 (Tue, 30 Jun 2009) $</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="installing-and-using-sphinx-for-rst-html-generation">
+<h2><a class="toc-backref" href="#table-of-contents">Installing and Using Sphinx for rst-html Generation</a><a class="headerlink" href="#installing-and-using-sphinx-for-rst-html-generation" title="Permalink to this headline">¶</a></h2>
+<p><strong>On Windows:</strong></p>
+<ol class="arabic">
+<li><p class="first">install <a class="reference external" href="http://www.python.org/">Python 2.X</a></p>
+</li>
+<li><p class="first">download <a class="reference external" href="http://pypi.python.org/pypi/setuptools#windows">setuptools</a></p>
+</li>
+<li><p class="first">make sure that the &#8216;C:/Python2X/Scripts&#8217; directory is your path</p>
+</li>
+<li><p class="first">execute the following at commandline:</p>
+<div class="highlight-python"><pre>easy_install Sphinx</pre>
+</div>
+<p>...you should see message: &#8220;Finished processing dependencies for Sphinx&#8221;</p>
+</li>
+<li><p class="first">inside the /docs directory, execute:</p>
+<div class="highlight-python"><pre>make html</pre>
+</div>
+<p>or</p>
+<div class="highlight-python"><pre>make latex</pre>
+</div>
+<p>the HTML output will be written to the _build/html sub-directory.</p>
+</li>
+</ol>
+<p><strong>On Linux:</strong></p>
+<ol class="arabic">
+<li><p class="first">make sure you have the Python dev and setuptools packages installed.
+On Ubuntu:</p>
+<div class="highlight-python"><pre>sudo apt-get install python-dev
+sudo apt-get install python-setuptools</pre>
+</div>
+</li>
+<li><p class="first">install sphinx using easy_install:</p>
+<div class="highlight-python"><pre>sudo easy_install sphynx</pre>
+</div>
+</li>
+<li><p class="first">to process the docs, from the MapServer /docs directory, run:</p>
+<div class="highlight-python"><pre>make html</pre>
+</div>
+<p>or</p>
+<div class="highlight-python"><pre>make latex</pre>
+</div>
+<p>the HTML output will be written to the build/html sub-directory.</p>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If there are more than one translation, the above commands will automatically
+build all translations.</p>
+</div>
+</div>
+<div class="section" id="how-translations-are-handled">
+<h2><a class="toc-backref" href="#table-of-contents">How translations are handled</a><a class="headerlink" href="#how-translations-are-handled" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>All translations are organized in subdirectories in MapServer /docs directory</li>
+<li>The directories are named using <a class="reference external" href="http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO3166-1 alpha-2 country codes</a>, which
+will also reference to the corresponding flag icon</li>
+<li>Translations are based on the English docs</li>
+<li>The directory structure and filenames must be kept, they are used to
+generate links between the different translations</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To start a new translation, copy the directory docs/en to docs/&lt;lang&gt;,
+where &lt;lang&gt; is one of the country codes.</p>
+</div>
+<ul class="simple">
+<li>It is not recommended to remove untranslated files, as this would end in an
+404 error for the user.</li>
+<li>To keep the translations in sync with the English docs, the translators
+can monitor commits to the repository.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">One way to monitor changes is to subscribe the rss feed at
+<a class="reference external" href="http://trac.osgeo.org/mapserver/log/trunk/docs">http://trac.osgeo.org/mapserver/log/trunk/docs</a></p>
+</div>
+<p><strong>On Linux:</strong></p>
+<ul>
+<li><p class="first">You have to define which languages are available by setting LANGUAGES in the
+Makefile:</p>
+<blockquote>
+<div class="highlight-python"><pre>LANGUAGES     = en de</pre>
+</div>
+</blockquote>
+</li>
+</ul>
+<p>The build script will then process the subdirectories <em>en</em> and <em>de</em>. If they
+are not accessible, an error message will be returned.</p>
+</div>
+<div class="section" id="reference-labels">
+<h2><a class="toc-backref" href="#table-of-contents">Reference Labels</a><a class="headerlink" href="#reference-labels" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<caption>:ref: reference labels</caption>
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Label</th>
+<th class="head">Title</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>about</td>
+<td><a class="reference external" href="../about.html#about"><em>About</em></a></td>
+</tr>
+<tr><td>agg</td>
+<td><a class="reference external" href="../output/agg.html#agg"><em>AGG Rendering Specifics</em></a></td>
+</tr>
+<tr><td>antialias</td>
+<td><a class="reference external" href="../output/antialias.html#antialias"><em>AntiAliasing with MapServer</em></a></td>
+</tr>
+<tr><td>arcinfo</td>
+<td><a class="reference external" href="../input/vector/ArcInfo.html#arcinfo"><em>ArcInfo</em></a></td>
+</tr>
+<tr><td>arcsde</td>
+<td><a class="reference external" href="../input/vector/arcsde.html#arcsde"><em>ArcSDE</em></a></td>
+</tr>
+<tr><td>autotest</td>
+<td><a class="reference external" href="tests/autotest.html#autotest"><em>Regression Testing</em></a></td>
+</tr>
+<tr><td>background</td>
+<td><a class="reference external" href="../tutorial/background.html#background"><em>Tutorial Timeframe</em></a></td>
+</tr>
+<tr><td>batch_utilities</td>
+<td><a class="reference external" href="../utilities/batch_utilities.html#batch-utilities"><em>Batch Scripting</em></a></td>
+</tr>
+<tr><td>bugs</td>
+<td><a class="reference external" href="bugs.html#bugs"><em>Bug Submission</em></a></td>
+</tr>
+<tr><td>cgi</td>
+<td><a class="reference external" href="../cgi/index.html#cgi"><em>CGI</em></a></td>
+</tr>
+<tr><td>cgi_controls</td>
+<td><a class="reference external" href="../cgi/controls.html#cgi-controls"><em>MapServer CGI Controls</em></a></td>
+</tr>
+<tr><td>cgi_introduction</td>
+<td><a class="reference external" href="../cgi/introduction.html#cgi-introduction"><em>MapServer CGI Introduction</em></a></td>
+</tr>
+<tr><td>class</td>
+<td><a class="reference external" href="../mapfile/class.html#class"><em>CLASS</em></a></td>
+</tr>
+<tr><td>community</td>
+<td><a class="reference external" href="../community/index.html#community"><em>Community Activities</em></a></td>
+</tr>
+<tr><td>development</td>
+<td><a class="reference external" href="index.html#development"><em>Development</em></a></td>
+</tr>
+<tr><td>dgn</td>
+<td><a class="reference external" href="../input/vector/dgn.html#dgn"><em>DGN</em></a></td>
+</tr>
+<tr><td>documentation</td>
+<td><a class="reference external" href="../documentation.html#documentation"><em>MapServer 5.2.2 Documentation</em></a></td>
+</tr>
+<tr><td>documentation_development</td>
+<td><a class="reference internal" href="#documentation-development"><em>Documentation Development Guide</em></a></td>
+</tr>
+<tr><td>dotnet_compile</td>
+<td><a class="reference external" href="../installation/dotnet.html#dotnet-compile"><em>.NET MapScript Compilation</em></a></td>
+</tr>
+<tr><td>download</td>
+<td><a class="reference external" href="../download.html#download"><em>Download</em></a></td>
+</tr>
+<tr><td>dynamic_charting</td>
+<td><a class="reference external" href="../output/dynamic_charting.html#dynamic-charting"><em>Dynamic Charting</em></a></td>
+</tr>
+<tr><td>editing</td>
+<td><a class="reference external" href="editing/index.html#editing"><em>Mapfile Editing</em></a></td>
+</tr>
+<tr><td>errors</td>
+<td><a class="reference external" href="../errors.html#errors"><em>Errors</em></a></td>
+</tr>
+<tr><td>example1-1</td>
+<td><a class="reference external" href="../tutorial/example1-1.html#example1-1"><em>Example 1.1</em></a></td>
+</tr>
+<tr><td>example1-1-map</td>
+<td><a class="reference external" href="../tutorial/example1-1-map.html#example1-1-map"><em>Example1-1.map</em></a></td>
+</tr>
+<tr><td>example1-2</td>
+<td><a class="reference external" href="../tutorial/example1-2.html#example1-2"><em>Example 1.2</em></a></td>
+</tr>
+<tr><td>example1-2-map</td>
+<td><a class="reference external" href="../tutorial/example1-2-map.html#example1-2-map"><em>Example1-2.map</em></a></td>
+</tr>
+<tr><td>example1-3</td>
+<td><a class="reference external" href="../tutorial/example1-3.html#example1-3"><em>Example 1.3</em></a></td>
+</tr>
+<tr><td>example1-3-map</td>
+<td><a class="reference external" href="../tutorial/example1-3-map.html#example1-3-map"><em>Example1-3.map</em></a></td>
+</tr>
+<tr><td>example1-4</td>
+<td><a class="reference external" href="../tutorial/example1-4.html#example1-4"><em>Example 1.4</em></a></td>
+</tr>
+<tr><td>example1-4-map</td>
+<td><a class="reference external" href="../tutorial/example1-4-map.html#example1-4-map"><em>Example1-4.map</em></a></td>
+</tr>
+<tr><td>example1-5</td>
+<td><a class="reference external" href="../tutorial/example1-5.html#example1-5"><em>Example 1.5</em></a></td>
+</tr>
+<tr><td>example1-5-map</td>
+<td><a class="reference external" href="../tutorial/example1-5-map.html#example1-5-map"><em>Example1-5.map</em></a></td>
+</tr>
+<tr><td>example1-6</td>
+<td><a class="reference external" href="../tutorial/example1-6.html#example1-6"><em>Example 1.6</em></a></td>
+</tr>
+<tr><td>example1-6-map</td>
+<td><a class="reference external" href="../tutorial/example1-6-map.html#example1-6-map"><em>Example1-6.map</em></a></td>
+</tr>
+<tr><td>example1-7</td>
+<td><a class="reference external" href="../tutorial/example1-7.html#example1-7"><em>Example 1.7</em></a></td>
+</tr>
+<tr><td>example1-7-map</td>
+<td><a class="reference external" href="../tutorial/example1-7-map.html#example1-7-map"><em>Example1-7.map</em></a></td>
+</tr>
+<tr><td>example1-8</td>
+<td><a class="reference external" href="../tutorial/example1-8.html#example1-8"><em>Example 1.8</em></a></td>
+</tr>
+<tr><td>example1-8-map</td>
+<td><a class="reference external" href="../tutorial/example1-8-map.html#example1-8-map"><em>Example1-8.map</em></a></td>
+</tr>
+<tr><td>expressions</td>
+<td><a class="reference external" href="../mapfile/expressions.html#expressions"><em>Expressions</em></a></td>
+</tr>
+<tr><td>faq</td>
+<td><a class="reference external" href="../faq.html#faq"><em>FAQ</em></a></td>
+</tr>
+<tr><td>fastcgi</td>
+<td><a class="reference external" href="../optimization/fastcgi.html#fastcgi"><em>FastCGI</em></a></td>
+</tr>
+<tr><td>feature</td>
+<td><a class="reference external" href="../mapfile/feature.html#feature"><em>FEATURE</em></a></td>
+</tr>
+<tr><td>filter_encoding</td>
+<td><a class="reference external" href="../ogc/filter_encoding.html#filter-encoding"><em>WFS Filter Encoding</em></a></td>
+</tr>
+<tr><td>flash</td>
+<td><a class="reference external" href="../output/flash.html#flash"><em>Flash Output</em></a></td>
+</tr>
+<tr><td>fontset</td>
+<td><a class="reference external" href="../mapfile/fontset.html#fontset"><em>FONTSET</em></a></td>
+</tr>
+<tr><td>format_types</td>
+<td><a class="reference external" href="../input/vector/format_types.html#format-types"><em>Data Format Types</em></a></td>
+</tr>
+<tr><td>genindex</td>
+<td><a class="reference external" href="../genindex.html"><em>Index</em></a></td>
+</tr>
+<tr><td>gloss</td>
+<td><a class="reference external" href="../glossary.html#gloss"><em>Glossary</em></a></td>
+</tr>
+<tr><td>gml</td>
+<td><a class="reference external" href="../input/vector/gml.html#gml"><em>GML</em></a></td>
+</tr>
+<tr><td>gpx</td>
+<td><a class="reference external" href="../input/vector/gpx.html#gpx"><em>GPS Exchange Format (GPX)</em></a></td>
+</tr>
+<tr><td>grid</td>
+<td><a class="reference external" href="../mapfile/grid.html#grid"><em>GRID</em></a></td>
+</tr>
+<tr><td>html_legend</td>
+<td><a class="reference external" href="../output/html_legend.html#html-legend"><em>HTML Legends with MapServer</em></a></td>
+</tr>
+<tr><td>iis</td>
+<td><a class="reference external" href="../installation/iis.html#iis"><em>IIS Setup for MapServer</em></a></td>
+</tr>
+<tr><td>imagemaps</td>
+<td><a class="reference external" href="../output/imagemaps.html#imagemaps"><em>HTML Imagemaps</em></a></td>
+</tr>
+<tr><td>include</td>
+<td><a class="reference external" href="../mapfile/Include.html#include"><em>INCLUDE</em></a></td>
+</tr>
+<tr><td>inline</td>
+<td><a class="reference external" href="../input/vector/inline.html#inline"><em>Inline</em></a></td>
+</tr>
+<tr><td>input</td>
+<td><a class="reference external" href="../input/index.html#input"><em>Data Input</em></a></td>
+</tr>
+<tr><td>input_postgis</td>
+<td><a class="reference external" href="../input/vector/postgis.html#input-postgis"><em>PostGIS/PostgreSQL</em></a></td>
+</tr>
+<tr><td>installation</td>
+<td><a class="reference external" href="../installation/index.html#installation"><em>Installation</em></a></td>
+</tr>
+<tr><td>introduction</td>
+<td><a class="reference external" href="../introduction.html#introduction"><em>An Introduction to MapServer</em></a></td>
+</tr>
+<tr><td>irc</td>
+<td><a class="reference external" href="../community/irc.html#irc"><em>IRC</em></a></td>
+</tr>
+<tr><td>join</td>
+<td><a class="reference external" href="../mapfile/join.html#join"><em>JOIN</em></a></td>
+</tr>
+<tr><td>kml</td>
+<td><a class="reference external" href="../input/vector/kml.html#kml"><em>KML - Keyhole Markup Language</em></a></td>
+</tr>
+<tr><td>label</td>
+<td><a class="reference external" href="../mapfile/label.html#label"><em>LABEL</em></a></td>
+</tr>
+<tr><td>layer</td>
+<td><a class="reference external" href="../mapfile/layer.html#layer"><em>LAYER</em></a></td>
+</tr>
+<tr><td>legend</td>
+<td><a class="reference external" href="../mapfile/legend.html#legend"><em>LEGEND</em></a></td>
+</tr>
+<tr><td>legend_utility</td>
+<td><a class="reference external" href="../utilities/legend.html#legend-utility"><em>legend</em></a></td>
+</tr>
+<tr><td>license</td>
+<td><a class="reference external" href="../copyright.html#license"><em>License</em></a></td>
+</tr>
+<tr><td>linux</td>
+<td><a class="reference external" href="../download.html#linux"><em>Linux</em></a></td>
+</tr>
+<tr><td>lists</td>
+<td><a class="reference external" href="../community/lists.html#lists"><em>Mailing Lists</em></a></td>
+</tr>
+<tr><td>management</td>
+<td><a class="reference external" href="../utilities/manage.html#management"><em>File Management</em></a></td>
+</tr>
+<tr><td>map</td>
+<td><a class="reference external" href="../mapfile/map.html#map"><em>MAP</em></a></td>
+</tr>
+<tr><td>map_context</td>
+<td><a class="reference external" href="../ogc/mapcontext.html#map-context"><em>Map Context</em></a></td>
+</tr>
+<tr><td>mapcontext_cgi</td>
+<td><a class="reference external" href="../cgi/mapcontext.html#mapcontext-cgi"><em>Map Context Files</em></a></td>
+</tr>
+<tr><td>mapfile</td>
+<td><a class="reference external" href="../mapfile/index.html#mapfile"><em>Mapfile</em></a></td>
+</tr>
+<tr><td>mapfile_tuning</td>
+<td><a class="reference external" href="../optimization/mapfile.html#mapfile-tuning"><em>Mapfile</em></a></td>
+</tr>
+<tr><td>mapinfo</td>
+<td><a class="reference external" href="../input/vector/mapinfo.html#mapinfo"><em>MapInfo</em></a></td>
+</tr>
+<tr><td>mapscript</td>
+<td><a class="reference external" href="../mapscript/index.html#mapscript"><em>MapScript</em></a></td>
+</tr>
+<tr><td>mapscript_introduction</td>
+<td><a class="reference external" href="../mapscript/introduction.html#mapscript-introduction"><em>Introduction</em></a></td>
+</tr>
+<tr><td>mapscript_ows</td>
+<td><a class="reference external" href="../ogc/mapscript.html#mapscript-ows"><em>MapScript Wrappers for WxS Services</em></a></td>
+</tr>
+<tr><td>mapscript_tests</td>
+<td><a class="reference external" href="tests/mapscript.html#mapscript-tests"><em>MapScript Unit Testing</em></a></td>
+</tr>
+<tr><td>mapserv</td>
+<td><a class="reference external" href="../cgi/mapserv.html#mapserv"><em>mapserv</em></a></td>
+</tr>
+<tr><td>modindex</td>
+<td><a class="reference external" href="../modindex.html"><em>Module Index</em></a></td>
+</tr>
+<tr><td>msencrypt</td>
+<td><a class="reference external" href="../utilities/msencrypt.html#msencrypt"><em>msencrypt</em></a></td>
+</tr>
+<tr><td>mysql</td>
+<td><a class="reference external" href="../input/vector/mysql.html#mysql"><em>MySQL</em></a></td>
+</tr>
+<tr><td>ntf</td>
+<td><a class="reference external" href="../input/vector/ntf.html#ntf"><em>NTF</em></a></td>
+</tr>
+<tr><td>oci</td>
+<td><a class="reference external" href="../input/vector/oracle.html#oci"><em>Oracle Spatial</em></a></td>
+</tr>
+<tr><td>oci_install</td>
+<td><a class="reference external" href="../installation/oracle.html#oci-install"><em>Oracle Installation</em></a></td>
+</tr>
+<tr><td>ogc</td>
+<td><a class="reference external" href="../ogc/index.html#ogc"><em>OGC Support and Configuration</em></a></td>
+</tr>
+<tr><td>ogr</td>
+<td><a class="reference external" href="../input/vector/ogr.html#ogr"><em>OGR</em></a></td>
+</tr>
+<tr><td>online_resource_wms</td>
+<td><a class="reference external" href="../ogc/wms_server.html#online-resource-wms"><em>More About the Online Resource URL</em></a></td>
+</tr>
+<tr><td>optimization</td>
+<td><a class="reference external" href="../optimization/index.html#optimization"><em>Optimization</em></a></td>
+</tr>
+<tr><td>osx</td>
+<td><a class="reference external" href="../download.html#osx"><em>Mac OS X</em></a></td>
+</tr>
+<tr><td>output</td>
+<td><a class="reference external" href="../output/index.html#output"><em>Output Generation</em></a></td>
+</tr>
+<tr><td>outputformat</td>
+<td><a class="reference external" href="../mapfile/outputformat.html#outputformat"><em>OUTPUTFORMAT</em></a></td>
+</tr>
+<tr><td>pdf</td>
+<td><a class="reference external" href="../output/pdf.html#pdf"><em>PDF Output</em></a></td>
+</tr>
+<tr><td>pgeo</td>
+<td><a class="reference external" href="../input/vector/pgeo.html#pgeo"><em>ESRI Personal Geodatabase (MDB)</em></a></td>
+</tr>
+<tr><td>php</td>
+<td><a class="reference external" href="../mapscript/php/index.html#php"><em>PHP MapScript</em></a></td>
+</tr>
+<tr><td>php_example</td>
+<td><a class="reference external" href="../mapscript/php/by_example.html#php-example"><em>By Example</em></a></td>
+</tr>
+<tr><td>php_install</td>
+<td><a class="reference external" href="../installation/php.html#php-install"><em>PHP MapScript Installation</em></a></td>
+</tr>
+<tr><td>php_install_example_steps</td>
+<td><a class="reference external" href="../installation/php.html#php-install-example-steps"><em>Example Steps of a Full Windows Installation</em></a></td>
+</tr>
+<tr><td>projection</td>
+<td><a class="reference external" href="../mapfile/projection.html#projection"><em>PROJECTION</em></a></td>
+</tr>
+<tr><td>python</td>
+<td><a class="reference external" href="../mapscript/python.html#python"><em>Python MapScript Appendix</em></a></td>
+</tr>
+<tr><td>querying</td>
+<td><a class="reference external" href="../mapscript/querying.html#querying"><em>Querying</em></a></td>
+</tr>
+<tr><td>querymap</td>
+<td><a class="reference external" href="../mapfile/querymap.html#querymap"><em>QUERYMAP</em></a></td>
+</tr>
+<tr><td>raster</td>
+<td><a class="reference external" href="../input/raster.html#raster"><em>Raster Data</em></a></td>
+</tr>
+<tr><td>raster_optimization</td>
+<td><a class="reference external" href="../optimization/raster.html#raster-optimization"><em>Raster</em></a></td>
+</tr>
+<tr><td>reference</td>
+<td><a class="reference external" href="../mapfile/reference.html#reference"><em>REFERENCE</em></a></td>
+</tr>
+<tr><td>rfc1</td>
+<td><a class="reference external" href="rfc/ms-rfc-1.html#rfc1"><em>MS RFC 1: Technical Steering Committee Guidelines</em></a></td>
+</tr>
+<tr><td>rfc10</td>
+<td><a class="reference external" href="rfc/ms-rfc-10.html#rfc10"><em>MS RFC 10: Joining the Open Source Geospatial Foundation</em></a></td>
+</tr>
+<tr><td>rfc11</td>
+<td><a class="reference external" href="rfc/ms-rfc-11.html#rfc11"><em>MS RFC 11: Support for Curved Labels</em></a></td>
+</tr>
+<tr><td>rfc12</td>
+<td><a class="reference external" href="rfc/ms-rfc-12.html#rfc12"><em>MS RFC 12: C code Unit tests</em></a></td>
+</tr>
+<tr><td>rfc13</td>
+<td><a class="reference external" href="rfc/ms-rfc-13.html#rfc13"><em>MS RFC 13: Support of Sensor Observation Service in MapServer</em></a></td>
+</tr>
+<tr><td>rfc14</td>
+<td><a class="reference external" href="rfc/ms-rfc-14.html#rfc14"><em>MS RFC 14: Relative Coordinates for INLINE features</em></a></td>
+</tr>
+<tr><td>rfc15</td>
+<td><a class="reference external" href="rfc/ms-rfc-15.html#rfc15"><em>MS RFC 15: Support for thread neutral operation of MapServer/MapScript</em></a></td>
+</tr>
+<tr><td>rfc16</td>
+<td><a class="reference external" href="rfc/ms-rfc-16.html#rfc16"><em>MS RFC 16: MapScript WxS Services</em></a></td>
+</tr>
+<tr><td>rfc17</td>
+<td><a class="reference external" href="rfc/ms-rfc-17.html#rfc17"><em>MS RFC 17: Dynamic Allocation of layers, styles, classes and symbols</em></a></td>
+</tr>
+<tr><td>rfc18</td>
+<td><a class="reference external" href="rfc/ms-rfc-18.html#rfc18"><em>MS RFC 18: Encryption of passwords in mapfiles</em></a></td>
+</tr>
+<tr><td>rfc19</td>
+<td><a class="reference external" href="rfc/ms-rfc-19.html#rfc19"><em>MS RFC 19: Style &amp; Label attribute binding</em></a></td>
+</tr>
+<tr><td>rfc2</td>
+<td><a class="reference external" href="rfc/ms-rfc-2.html#rfc2"><em>MS RFC 2: Creating line features and/or shapes using WKT</em></a></td>
+</tr>
+<tr><td>rfc21</td>
+<td><a class="reference external" href="rfc/ms-rfc-21.html#rfc21"><em>MS RFC 21: MapServer Raster Color Correction</em></a></td>
+</tr>
+<tr><td>rfc22a</td>
+<td><a class="reference external" href="rfc/ms-rfc-22a.html#rfc22a"><em>MS RFC 22a: Feature cache for long running processes and query processing</em></a></td>
+</tr>
+<tr><td>rfc23</td>
+<td><a class="reference external" href="rfc/ms-rfc-23.html#rfc23"><em>MS RFC 23: Technical Steering Committee Guidelines</em></a></td>
+</tr>
+<tr><td>rfc24</td>
+<td><a class="reference external" href="rfc/ms-rfc-24.html#rfc24"><em>MS RFC 24: Mapscript memory management</em></a></td>
+</tr>
+<tr><td>rfc24first</td>
+<td><a class="reference external" href="rfc/ms-rfc-24-FIRSTDRAFT.html#rfc24first"><em>MS RFC 24: Mapscript memory management</em></a></td>
+</tr>
+<tr><td>rfc25</td>
+<td><a class="reference external" href="rfc/ms-rfc-25.html#rfc25"><em>MS RFC 25: Align MapServer pixel and extent models with OGC models</em></a></td>
+</tr>
+<tr><td>rfc26</td>
+<td><a class="reference external" href="rfc/ms-rfc-26.html#rfc26"><em>MS RFC 26: Version 5 Terminology Cleanup</em></a></td>
+</tr>
+<tr><td>rfc27</td>
+<td><a class="reference external" href="rfc/ms-rfc-27.html#rfc27"><em>MS RFC 27: Label Priority</em></a></td>
+</tr>
+<tr><td>rfc28</td>
+<td><a class="reference external" href="rfc/ms-rfc-28.html#rfc28"><em>MS RFC 28: Redesign of LOG/DEBUG output mechanisms</em></a></td>
+</tr>
+<tr><td>rfc29</td>
+<td><a class="reference external" href="rfc/ms-rfc-29.html#rfc29"><em>MS RFC 29: Dynamic Charting Capability</em></a></td>
+</tr>
+<tr><td>rfc3</td>
+<td><a class="reference external" href="rfc/ms-rfc-3.html#rfc3"><em>MS RFC 3: Feature Layer Plug-in Architecture</em></a></td>
+</tr>
+<tr><td>rfc30</td>
+<td><a class="reference external" href="rfc/ms-rfc-30.html#rfc30"><em>MS RFC 30: Support for WMS 1.3.0</em></a></td>
+</tr>
+<tr><td>rfc31</td>
+<td><a class="reference external" href="rfc/ms-rfc-31.html#rfc31"><em>MS RFC 31: Loading MapServer Objects from Strings</em></a></td>
+</tr>
+<tr><td>rfc32</td>
+<td><a class="reference external" href="rfc/ms-rfc-32.html#rfc32"><em>MS RFC 32: Support for Anti-Grain Geometry (AGG) Rendering Engine</em></a></td>
+</tr>
+<tr><td>rfc33</td>
+<td><a class="reference external" href="rfc/ms-rfc-33.html#rfc33"><em>MS RFC 33: Removing msLayerWhichItems() from maplayer.c</em></a></td>
+</tr>
+<tr><td>rfc39</td>
+<td><a class="reference external" href="rfc/ms-rfc-39.html#rfc39"><em>MS RFC 39: Support of WMS/SLD Named Styles</em></a></td>
+</tr>
+<tr><td>rfc4</td>
+<td><a class="reference external" href="rfc/ms-rfc-4.html#rfc4"><em>MS RFC 4: MapServer Raster Resampling</em></a></td>
+</tr>
+<tr><td>rfc40</td>
+<td><a class="reference external" href="rfc/ms-rfc-40.html#rfc40"><em>MS RFC 40: Support Label Text Transformations</em></a></td>
+</tr>
+<tr><td>rfc41</td>
+<td><a class="reference external" href="rfc/ms-rfc-41.html#rfc41"><em>MS RFC 41: Support of WCS 1.1.x Protocol</em></a></td>
+</tr>
+<tr><td>rfc42</td>
+<td><a class="reference external" href="rfc/ms-rfc-42.html#rfc42"><em>MS RFC 42: Support of Cookies Forwarding</em></a></td>
+</tr>
+<tr><td>rfc43</td>
+<td><a class="reference external" href="rfc/ms-rfc-43.html#rfc43"><em>MS RFC 43: Direct tile generation for Google Maps and Virtual Earth API</em></a></td>
+</tr>
+<tr><td>rfc44</td>
+<td><a class="reference external" href="rfc/ms-rfc-44.html#rfc44"><em>MS RFC 44: Restore URL modification of mapfiles to pre-5.0 levels</em></a></td>
+</tr>
+<tr><td>rfc45</td>
+<td><a class="reference external" href="rfc/ms-rfc-45.html#rfc45"><em>MS RFC 45: Symbology, Labeling, and Cartography Improvements</em></a></td>
+</tr>
+<tr><td>rfc46</td>
+<td><a class="reference external" href="rfc/ms-rfc-46.html#rfc46"><em>MS RFC 46: Migrate Website to OSGeo</em></a></td>
+</tr>
+<tr><td>rfc47</td>
+<td><a class="reference external" href="rfc/ms-rfc-47.html#rfc47"><em>MS RFC 47: Move IGNORE_MISSING_DATA to run-time configuration</em></a></td>
+</tr>
+<tr><td>rfc48</td>
+<td><a class="reference external" href="rfc/ms-rfc-48.html#rfc48"><em>MS RFC 48: GEOTRANSFORM Geometry operations</em></a></td>
+</tr>
+<tr><td>rfc49</td>
+<td><a class="reference external" href="rfc/ms-rfc-49.html#rfc49"><em>MS RFC 49: Symbology, Labeling, and Cartography Improvements</em></a></td>
+</tr>
+<tr><td>rfc5</td>
+<td><a class="reference external" href="rfc/ms-rfc-5.html#rfc5"><em>MS RFC 5: MapServer Horizon Reprojection Improvements</em></a></td>
+</tr>
+<tr><td>rfc50</td>
+<td><a class="reference external" href="rfc/ms-rfc-50.html#rfc50"><em>MS RFC 50: OpenGL Rendering Support</em></a></td>
+</tr>
+<tr><td>rfc51</td>
+<td><a class="reference external" href="rfc/ms-rfc-51.html#rfc51"><em>MS RFC 51: XML Mapfile Format</em></a></td>
+</tr>
+<tr><td>rfc53</td>
+<td><a class="reference external" href="rfc/ms-rfc-53.html#rfc53"><em>MS RFC 53: Guidelines for MapScript method return values</em></a></td>
+</tr>
+<tr><td>rfc54</td>
+<td><a class="reference external" href="rfc/ms-rfc-54.html#rfc54"><em>MS RFC 54: Rendering Interface API</em></a></td>
+</tr>
+<tr><td>rfc55</td>
+<td><a class="reference external" href="rfc/ms-rfc-55.html#rfc55"><em>MS RFC 55: Improve control of output resolution</em></a></td>
+</tr>
+<tr><td>rfc56</td>
+<td><a class="reference external" href="rfc/ms-rfc-56.html#rfc56"><em>MS RFC 56: Tighten control of access to mapfiles and templates</em></a></td>
+</tr>
+<tr><td>rfc6</td>
+<td><a class="reference external" href="rfc/ms-rfc-6.html#rfc6"><em>MS RFC 6: Color Range Mapping of Continuous Feature Values</em></a></td>
+</tr>
+<tr><td>rfc7</td>
+<td><a class="reference external" href="rfc/ms-rfc-7.html#rfc7"><em>MS RFC 7: MapServer CVS Commit Management</em></a></td>
+</tr>
+<tr><td>rfc7.1</td>
+<td><a class="reference external" href="rfc/ms-rfc-7.1.html#rfc7-1"><em>MS RFC 7.1: MapServer SVN Commit Management</em></a></td>
+</tr>
+<tr><td>rfc8</td>
+<td><a class="reference external" href="rfc/ms-rfc-8.html#rfc8"><em>MS RFC 8: Pluggable External Feature Layer Providers</em></a></td>
+</tr>
+<tr><td>rfc9</td>
+<td><a class="reference external" href="rfc/ms-rfc-9.html#rfc9"><em>MS RFC 9: Item tag for query templates</em></a></td>
+</tr>
+<tr><td>rfcs</td>
+<td><a class="reference external" href="rfc/index.html#rfcs"><em>Request for Comments</em></a></td>
+</tr>
+<tr><td>runsub</td>
+<td><a class="reference external" href="../cgi/runsub.html#runsub"><em>Run-time Substitution</em></a></td>
+</tr>
+<tr><td>s57</td>
+<td><a class="reference external" href="../input/vector/S57.html#s57"><em>S57</em></a></td>
+</tr>
+<tr><td>scalebar</td>
+<td><a class="reference external" href="../mapfile/scalebar.html#scalebar"><em>SCALEBAR</em></a></td>
+</tr>
+<tr><td>scalebar_utility</td>
+<td><a class="reference external" href="../utilities/scalebar.html#scalebar-utility"><em>scalebar</em></a></td>
+</tr>
+<tr><td>sdts</td>
+<td><a class="reference external" href="../input/vector/sdts.html#sdts"><em>SDTS</em></a></td>
+</tr>
+<tr><td>search</td>
+<td><a class="reference external" href="../search.html"><em>Search Page</em></a></td>
+</tr>
+<tr><td>section1</td>
+<td><a class="reference external" href="../tutorial/section1.html#section1"><em>Section 1: Static Maps and the MapFile</em></a></td>
+</tr>
+<tr><td>section2</td>
+<td><a class="reference external" href="../tutorial/section2.html#section2"><em>Section 2: CGI variables and the User Interface</em></a></td>
+</tr>
+<tr><td>shapefiles</td>
+<td><a class="reference external" href="../input/vector/shapefiles.html#shapefiles"><em>ESRI Shapefiles (SHP)</em></a></td>
+</tr>
+<tr><td>shp2img</td>
+<td><a class="reference external" href="../utilities/shp2img.html#shp2img"><em>shp2img</em></a></td>
+</tr>
+<tr><td>shptree</td>
+<td><a class="reference external" href="../utilities/shptree.html#shptree"><em>shptree</em></a></td>
+</tr>
+<tr><td>shptreevis</td>
+<td><a class="reference external" href="../utilities/shptreevis.html#shptreevis"><em>shptreevis</em></a></td>
+</tr>
+<tr><td>sld</td>
+<td><a class="reference external" href="../ogc/sld.html#sld"><em>SLD</em></a></td>
+</tr>
+<tr><td>sortshp</td>
+<td><a class="reference external" href="../utilities/sortshp.html#sortshp"><em>sortshp</em></a></td>
+</tr>
+<tr><td>sos_server</td>
+<td><a class="reference external" href="../ogc/sos_server.html#sos-server"><em>SOS Server</em></a></td>
+</tr>
+<tr><td>source</td>
+<td><a class="reference external" href="../download.html#source"><em>Source</em></a></td>
+</tr>
+<tr><td>sponsors</td>
+<td><a class="reference external" href="sponsors.html#sponsors"><em>Sponsors</em></a></td>
+</tr>
+<tr><td>style</td>
+<td><a class="reference external" href="../mapfile/style.html#style"><em>STYLE</em></a></td>
+</tr>
+<tr><td>styleitemauto-label-styles</td>
+<td><a class="reference external" href="../input/vector/ogr.html#styleitemauto-label-styles"><em>Accessing OGR STYLEITEMAUTO Label Styles Through MapScript</em></a></td>
+</tr>
+<tr><td>svg</td>
+<td><a class="reference external" href="../output/svg.html#svg"><em>SVG</em></a></td>
+</tr>
+<tr><td>svn</td>
+<td><a class="reference external" href="svn.html#svn"><em>Subversion</em></a></td>
+</tr>
+<tr><td>swig</td>
+<td><a class="reference external" href="../mapscript/mapscript.html#swig"><em>SWIG MapScript API Reference</em></a></td>
+</tr>
+<tr><td>sym2img</td>
+<td><a class="reference external" href="../utilities/sym2img.html#sym2img"><em>sym2img</em></a></td>
+</tr>
+<tr><td>sym_construction</td>
+<td><a class="reference external" href="../mapfile/symbology/construction.html#sym-construction"><em>Cartographic Symbol Construction with MapServer</em></a></td>
+</tr>
+<tr><td>sym_examples</td>
+<td><a class="reference external" href="../mapfile/symbology/examples.html#sym-examples"><em>Symbology Examples</em></a></td>
+</tr>
+<tr><td>symbol</td>
+<td><a class="reference external" href="../mapfile/symbol.html#symbol"><em>SYMBOL</em></a></td>
+</tr>
+<tr><td>template</td>
+<td><a class="reference external" href="../mapfile/template.html#template"><em>Templating</em></a></td>
+</tr>
+<tr><td>testing</td>
+<td><a class="reference external" href="tests/index.html#testing"><em>Testing</em></a></td>
+</tr>
+<tr><td>tiger</td>
+<td><a class="reference external" href="../input/vector/tiger.html#tiger"><em>USGS TIGER</em></a></td>
+</tr>
+<tr><td>tile4ms</td>
+<td><a class="reference external" href="../utilities/tile4ms.html#tile4ms"><em>tile4ms</em></a></td>
+</tr>
+<tr><td>tile_mode</td>
+<td><a class="reference external" href="../output/tile_mode.html#tile-mode"><em>Tile Mode</em></a></td>
+</tr>
+<tr><td>tileindex</td>
+<td><a class="reference external" href="../optimization/tileindex.html#tileindex"><em>Tile Indexes</em></a></td>
+</tr>
+<tr><td>tutorial</td>
+<td><a class="reference external" href="../tutorial/index.html#tutorial"><em>MapServer Tutorial</em></a></td>
+</tr>
+<tr><td>unix</td>
+<td><a class="reference external" href="../installation/unix.html#unix"><em>Compiling on Unix</em></a></td>
+</tr>
+<tr><td>utilities</td>
+<td><a class="reference external" href="../utilities/index.html#utilities"><em>Utilities</em></a></td>
+</tr>
+<tr><td>variable_sub</td>
+<td><a class="reference external" href="../mapfile/variable_sub.html#variable-sub"><em>Variable Substitution</em></a></td>
+</tr>
+<tr><td>vector</td>
+<td><a class="reference external" href="../input/vector/index.html#vector"><em>Vector Data</em></a></td>
+</tr>
+<tr><td>vector_optimization</td>
+<td><a class="reference external" href="../optimization/vector.html#vector-optimization"><em>Vector</em></a></td>
+</tr>
+<tr><td>vim</td>
+<td><a class="reference external" href="editing/vim.html#vim"><em>VIM Syntax</em></a></td>
+</tr>
+<tr><td>virtual_vector</td>
+<td><a class="reference external" href="../input/vector/VirtualSpatialData.html#virtual-vector"><em>Virtual Spatial Data</em></a></td>
+</tr>
+<tr><td>wcs_format</td>
+<td><a class="reference external" href="../ogc/wcs_format.html#wcs-format"><em>WCS Use Cases</em></a></td>
+</tr>
+<tr><td>wcs_server</td>
+<td><a class="reference external" href="../ogc/wcs_server.html#wcs-server"><em>WCS Server</em></a></td>
+</tr>
+<tr><td>web</td>
+<td><a class="reference external" href="../mapfile/web.html#web"><em>WEB</em></a></td>
+</tr>
+<tr><td>wfs</td>
+<td><a class="reference external" href="../input/vector/wfs.html#wfs"><em>WFS</em></a></td>
+</tr>
+<tr><td>wfs_client</td>
+<td><a class="reference external" href="../ogc/wfs_client.html#wfs-client"><em>WFS Client</em></a></td>
+</tr>
+<tr><td>wfs_server</td>
+<td><a class="reference external" href="../ogc/wfs_server.html#wfs-server"><em>WFS Server</em></a></td>
+</tr>
+<tr><td>win32</td>
+<td><a class="reference external" href="../installation/win32.html#win32"><em>Compiling on Win32</em></a></td>
+</tr>
+<tr><td>windows</td>
+<td><a class="reference external" href="../download.html#windows"><em>Windows</em></a></td>
+</tr>
+<tr><td>wms_capabilities</td>
+<td><a class="reference external" href="../ogc/wms_server.html#wms-capabilities"><em>Validate the Capabilities Metadata</em></a></td>
+</tr>
+<tr><td>wms_client</td>
+<td><a class="reference external" href="../ogc/wms_client.html#wms-client"><em>WMS Client</em></a></td>
+</tr>
+<tr><td>wms_server</td>
+<td><a class="reference external" href="../ogc/wms_server.html#wms-server"><em>WMS Server</em></a></td>
+</tr>
+<tr><td>wms_time</td>
+<td><a class="reference external" href="../ogc/wms_time.html#wms-time"><em>WMS Time</em></a></td>
+</tr>
+<tr><td>wrapper</td>
+<td><a class="reference external" href="../cgi/wrapper.html#wrapper"><em>A Simple CGI Wrapper Script</em></a></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="regenerating-the-reference-labels">
+<h3>Regenerating the reference labels<a class="headerlink" href="#regenerating-the-reference-labels" title="Permalink to this headline">¶</a></h3>
+<p>You can regenerate the reference labels by issuing:</p>
+<div class="highlight-python"><pre>make labels</pre>
+</div>
+<p>from the docs directory like when you are building the html or latex versions</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="tests/index.html" title="Testing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="svn.html" title="Subversion"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Development</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

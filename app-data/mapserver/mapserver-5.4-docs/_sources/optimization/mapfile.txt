@@ -1,0 +1,161 @@
+.. _mapfile_tuning:
+
+*****************************************************************************
+ Mapfile 
+*****************************************************************************
+
+:Author:       David Fawcett
+:Contact:      david.fawcett at gmail.com
+:Revision: $Revision: 8365 $
+:Date: $Date: 2008-12-31 11:49:02 -0400 (Wed, 31 Dec 2008) $
+:Last Updated: 2007/08/01
+
+.. contents:: Table of Contents
+    :depth: 2
+    :backlinks: top
+
+Introduction
+------------
+
+The contents of a Map File are used by MapServer for configuration, data
+access, projection, and more. Because the Map File is parsed every time a map
+image is requested, it is important to think about what you include in the
+file in order to optimize performance. The optimal Map File is one that
+doesn't include or reference anything that isn't needed.
+
+1. Projections
+==============
+
+There are two ways to define projections in a Map File. You can either use
+inline projection parameters or specify an EPSG code for that projection. If
+you use the :term:`EPSG` code method, :term:`Proj.4` looks up the projection
+parameters in the Proj4 database using the EPSG code as an ID. This database
+lookup takes significantly more resources than when the projection parameters
+are defined inline. This lookup takes place for each projection definition
+using EPSG codes in a Map File.
+
+**Projection defined using inline projection parameters**
+
+.. code-block:: mapfile
+
+    PROJECTION
+      "proj=utm"
+      "ellps=GRS80"
+      "datum=NAD83"
+      "zone=15"
+      "units=m"
+      "north"
+      "no_defs"
+    END
+    
+**Projection defined using EPSG Code**
+
+.. code-block:: mapfile
+
+    PROJECTION
+       "init=epsg:26915"
+    END
+
+**Optimization Suggestions**
+
+- Use inline projection parameter definitions in place of EPSG codes.
+
+- If you want to use EPSG codes, remove all unneeded projection definition
+  records from the Proj.4 :term:`EPSG` database.
+
+
+2. Layers
+==============
+
+For every layer in a Map File that has a status of ON or DEFAULT, MapServer
+will load that layer and prepare it for display, even if that layer never gets
+displayed.
+
+**Optimization Suggestions**
+
+- Build lean Map Files, only include layers that you plan to use.  
+
+- Turn off unnecessary layers; the more layers MapServer is displaying, the
+  more time it takes. Have your opening map view show only the minimum
+  necessary to orient the user, and allow them to turn on additional layers as
+  needed. This is particularly true of remote WMS or very large rasters.
+
+- Related to turning off layers, is turning them on but using MINSCALEDENOM
+  and MAXSCALEDENOM to determine at what zoomlevels the layer is available. If
+  a map's display is outside of the layer's MINSCALEDENOM and MAXSCALEDENOM
+  range, then MapServer can skip processing that layer. It also makes for a
+  really cool effect, that the national boundaries magically change to state
+  boundaries.
+
+- If you have a complex application, consider using multiple simple and
+  specific Map Files in place of one large 'do everything' Map File.
+
+- In a similar vein, each class also supports MINSCALEDENOM and MAXSCALEDENOM.
+  If your dataset has data that are relevant at different zoomlevels, then you
+  may find this a very handy trick. For example, give a MINSCALEDENOM of
+  1:1000000, county roads a MINSCALEDENOM of 1:100000, and streets a
+  MAXSCALEDENOM of 1:50000. You get the cool effect of new data magically
+  appearing, but you don't have MapServer trying to draw the nation's roads
+  when the entire nation is in view!
+
+- Classes are processed in order, and a feature is assigned to the first class
+  that matches. So try placing the most commonly-used classes at the top of
+  the class list, so MapServer doesn't have to try as many classes before
+  finding a match. For example, if you wanted to highlight the single state of
+  Wyoming, you would probably do this:
+
+.. code-block:: mapfile
+
+    CLASS
+       EXPRESSION ('[NAME]' eq 'WY'])
+       STYLE
+         COLOR 255 0 0
+       END
+    END
+    CLASS
+       STYLE
+       COLOR 128 128 128
+       END
+    END
+
+But it would be a lot more efficient to do this, since 98% of cases will be
+matched on the first try:
+
+.. code-block:: mapfile
+
+   CLASS
+     EXPRESSION ('[NAME]' ne 'WY'])
+     STYLE
+       COLOR 128 128 128
+     END
+   END
+   CLASS
+     STYLE
+       COLOR 255 0 0
+     END
+   END
+
+- Use :ref:`tile indexes <tileindex>` instead of multiple layers.
+
+3. Symbols
+==============
+
+When the Map File is loaded, each raster symbol listed in the symbols file is
+located on the filesystem and loaded.
+
+**Optimization Suggestions**
+
+- Only include raster symbols in your symbols file if you know that they will
+  be used by your application.
+
+4. Fonts
+==============
+
+To load a font, MapServer opens up the fonts.list :ref:`fontset` file which
+contains an alias for the font and the path for that font file. If you have a
+fonts.list file with a long list of fonts, it will take more time for
+MapServer to locate and load the font that you need.
+
+**Optimization Suggestions**
+
+- Limit the entries in fonts.list to fonts that you actually use.  

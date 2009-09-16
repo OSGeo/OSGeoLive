@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>LABEL &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Mapfile" href="index.html" />
+    <link rel="next" title="LAYER" href="layer.html" />
+    <link rel="prev" title="JOIN" href="join.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="layer.html" title="LAYER"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="join.html" title="JOIN"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//mapfile/label.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/mapfile/label.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="join.html"
+                                  title="previous chapter">JOIN</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="layer.html"
+                                  title="next chapter">LAYER</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/mapfile/label.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="label">
+<span id="id1"></span><h1>LABEL<a class="headerlink" href="#label" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils" id="index-15">
+<dt>ALIGN [left|center|right]</dt>
+<dd>Since version 5.4 . Specifies text alignment for multiline labels (see <a class="reference internal" href="#wrap">WRAP</a>)
+Note that the alignment algorithm is far from precise, so don&#8217;t expect
+fabulous results (especially for <em>right</em> alignment) if you&#8217;re not using
+a fixed width font.</dd>
+<dt>ANGLE [double|auto|follow|attribute]</dt>
+<dd><ul class="first last">
+<li><p class="first">Angle, given in degrees, to draw the label.</p>
+</li>
+<li><p class="first">AUTO allows MapServer to compute the angle. Valid for LINE layers only.</p>
+</li>
+<li><p class="first">FOLLOW was introduced in version 4.10 and tells MapServer to compute a
+curved label for appropriate linear features (see <a class="reference external" href="../development/rfc/ms-rfc-11.html#rfc11"><em>MS RFC 11: Support for Curved Labels</em></a> for specifics).</p>
+</li>
+<li><p class="first">[<em>Attribute</em>] was introduced in version 5.0, to specify the item name in
+the attribute table to use for angle values.  The hard brackets [] are
+required.  For example, if your shapefile&#8217;s DBF has a field named &#8220;MYANGLE&#8221;
+that holds angle values for each record, your LABEL object might contain:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LABEL</span>
+  <span class="k">COLOR</span>  <span class="mi">150</span> <span class="mi">150</span> <span class="mi">150</span>
+  <span class="k">OUTLINECOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">255</span>
+  <span class="k">FONT</span> <span class="err">sans</span>
+  <span class="k">TYPE</span> <span class="nb">truetype</span>
+  <span class="k">SIZE</span> <span class="mi">6</span>
+  <span class="k">ANGLE</span> <span class="p">[</span><span class="err">MY</span><span class="k">ANGLE</span><span class="p">]</span>
+  <span class="k">POSITION</span> <span class="nb">AUTO</span>
+  <span class="k">PARTIALS</span> <span class="nb">FALSE</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>The associated RFC document for this feature is <a class="reference external" href="../development/rfc/ms-rfc-19.html#rfc19"><em>MS RFC 19: Style &amp; Label attribute binding</em></a>.</p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils" id="index-16">
+<dt>ANTIALIAS [true|false]</dt>
+<dd>Should text be antialiased? Note that this requires more available colors,
+decreases drawing performance, and results in slightly larger output images.</dd>
+<dt>BACKGROUNDCOLOR [r] [g] [b]</dt>
+<dd>Color to draw a background rectangle (i.e. billboard). Off by default.</dd>
+<dt>BACKGROUNDSHADOWCOLOR [r] [g] [b]</dt>
+<dd>Color to draw a background rectangle (i.e. billboard) shadow. Off by
+default.</dd>
+<dt>BACKGROUNDSHADOWSIZE [x][y]</dt>
+<dd>How far should the background rectangle be offset? Default is 1.</dd>
+<dt>BUFFER [integer]</dt>
+<dd>Padding, in pixels, around labels. Useful for maintaining spacing around
+text to enhance readability. Available only for cached labels.
+Default is 0.</dd>
+<dt>COLOR [r] [g] [b] | [attribute]</dt>
+<dd><ul class="first last">
+<li><p class="first">Color to draw text with.</p>
+</li>
+<li><p class="first">[<em>Attribute</em>] was introduced in version 5.0, to specify the item name in
+the attribute table to use for color values.  The hard brackets [] are
+required.  For example, if your shapefile&#8217;s DBF has a field named &#8220;MYCOLOR&#8221;
+that holds color values for each record, your LABEL object might contain:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LABEL</span>
+  <span class="k">COLOR</span>  <span class="p">[</span><span class="err">MY</span><span class="k">COLOR</span><span class="p">]</span>
+  <span class="k">OUTLINECOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">255</span>
+  <span class="k">FONT</span> <span class="err">sans</span>
+  <span class="k">TYPE</span> <span class="nb">truetype</span>
+  <span class="k">SIZE</span> <span class="mi">6</span>
+  <span class="k">POSITION</span> <span class="nb">AUTO</span>
+  <span class="k">PARTIALS</span> <span class="nb">FALSE</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>The associated RFC document for this feature is <a class="reference external" href="../development/rfc/ms-rfc-19.html#rfc19"><em>MS RFC 19: Style &amp; Label attribute binding</em></a>.</p>
+</li>
+</ul>
+</dd>
+<dt>ENCODING [string]</dt>
+<dd><p class="first">Supported encoding format to be used for labels. If the format is not
+supported, the label will not be drawn. Requires the iconv library
+(present on most systems). The library is always detected if present on
+the system, but if not the label will not be drawn.</p>
+<p class="last">Required for displaying international characters in MapServer. More
+information can be found at:
+<a class="reference external" href="http://www.foss4g.org/FOSS4G/MAPSERVER/mpsnf-i18n-en.html">http://www.foss4g.org/FOSS4G/MAPSERVER/mpsnf-i18n-en.html</a>.</p>
+</dd>
+<dt>FONT [name]</dt>
+<dd>Font alias (as defined in the FONTSET) to use for labeling.</dd>
+</dl>
+<dl class="docutils" id="force">
+<dt>FORCE [true|false]</dt>
+<dd>Forces labels for a particular class on, regardless of collisions.
+Available only for cached labels. Default is false.</dd>
+</dl>
+<dl class="docutils" id="maxlength">
+<dt>MAXLENGTH [integer]</dt>
+<dd><p class="first">Introduced in mapserver 5.4, this keyword interacts with the <a class="reference internal" href="#wrap">WRAP</a>
+keyword so that line breaks only occur after the defined number of
+characters</p>
+<table border="1" class="docutils">
+<caption>Interaction with <a class="reference internal" href="#wrap">WRAP</a> keyword</caption>
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>&nbsp;</td>
+<td><strong>maxlength = 0</strong></td>
+<td><strong>maxlength &gt; 0</strong></td>
+<td><strong>maxlength &lt; 0</strong></td>
+</tr>
+<tr><td><strong>wrap = ‘char’</strong></td>
+<td>always wrap at the <a class="reference internal" href="#wrap">WRAP</a> character</td>
+<td>newline at the first <a class="reference internal" href="#wrap">WRAP</a> character after <a class="reference internal" href="#maxlength">MAXLENGTH</a> characters</td>
+<td>hard wrap (always break at exactly <a class="reference internal" href="#maxlength">MAXLENGTH</a> characters)</td>
+</tr>
+<tr><td><strong>no wrap</strong></td>
+<td>no processing</td>
+<td>skip label if it contains more than <a class="reference internal" href="#maxlength">MAXLENGTH</a> characters</td>
+<td>hard wrap (always break at exactly <a class="reference internal" href="#maxlength">MAXLENGTH</a> characters)</td>
+</tr>
+</tbody>
+</table>
+<p class="last">The associated RFC document for this feature is <a class="reference external" href="../development/rfc/ms-rfc-40.html#rfc40"><em>MS RFC 40: Support Label Text Transformations</em></a>.</p>
+</dd>
+<dt>MAXSIZE [integer]</dt>
+<dd>Maximum font size to use when scaling text (pixels). Default is 256.</dd>
+<dt>MINDISTANCE [integer]</dt>
+<dd>Minimum distance between duplicate labels. Given in pixels.</dd>
+<dt>MINFEATURESIZE [integer|auto]</dt>
+<dd>Minimum size a feature must be to be labeled. Given in pixels. For line
+data the overall length of the displayed line is used, for polygons
+features the smallest dimension of the bounding box is used. &#8220;Auto&#8221;
+keyword tells MapServer to only label features that are larger than
+their corresponding label. Available for cached labels only.</dd>
+<dt>MINSIZE [integer]</dt>
+<dd>Minimum font size to use when scaling text (pixels). Default is 4.</dd>
+<dt>OFFSET [x][y]</dt>
+<dd>Offset values for labels, relative to the lower left hand corner of the
+label and the label point. Given in pixels. In the case of rotated text
+specify the values as if all labels are horizontal and any rotation will
+be compensated for.</dd>
+</dl>
+<dl class="docutils" id="outlinecolor">
+<dt>OUTLINECOLOR [r] [g] [b] | [attribute]</dt>
+<dd><ul class="first last">
+<li><p class="first">Color to draw a one pixel outline around the text.</p>
+</li>
+<li><p class="first">[<em>Attribute</em>] was introduced in version 5.0, to specify the item name in
+the attribute table to use for color values.  The hard brackets [] are
+required.  For example, if your shapefile&#8217;s DBF has a field named
+&#8220;MYOUTCOLOR&#8221; that holds color values for each record, your LABEL object
+might contain:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LABEL</span>
+  <span class="k">COLOR</span>  <span class="mi">150</span> <span class="mi">150</span> <span class="mi">150</span>
+  <span class="k">OUTLINECOLOR</span> <span class="p">[</span><span class="err">MYOUT</span><span class="k">COLOR</span><span class="p">]</span>
+  <span class="k">FONT</span> <span class="err">sans</span>
+  <span class="k">TYPE</span> <span class="nb">truetype</span>
+  <span class="k">SIZE</span> <span class="mi">6</span>
+  <span class="k">POSITION</span> <span class="nb">AUTO</span>
+  <span class="k">PARTIALS</span> <span class="nb">FALSE</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>The associated RFC document for this feature is <a class="reference external" href="../development/rfc/ms-rfc-19.html#rfc19"><em>MS RFC 19: Style &amp; Label attribute binding</em></a>.</p>
+</li>
+</ul>
+</dd>
+<dt>OUTLINEWIDTH [integer]</dt>
+<dd>Width of the outline if <a class="reference internal" href="#outlinecolor">OUTLINECOLOR</a> has been set. Defaults to 1.
+Currently only the AGG renderer supports values greater than 1, and
+renders these as a &#8216;halo&#8217; effect: recommended values are 3 or 5.</dd>
+<dt>PARTIALS [true|false]</dt>
+<dd>Can text run off the edge of the map? Default is true.</dd>
+<dt>POSITION [ul|uc|ur|cl|cc|cr|ll|lc|lr|auto]</dt>
+<dd>Position of the label relative to the labeling point (layers only). First
+letter is &#8220;Y&#8221; position, second letter is &#8220;X&#8221; position. &#8220;Auto&#8221; tells
+MapServer to calculate a label position that will not interfere with other
+labels. With points, MapServer selects from the 8 outer
+positions (i.e. excluding cc). With polygons, MapServer selects from
+cc (added in MapServer 5.4), uc, lc, cl and cr as possible positions.
+With lines, it only uses lc or uc, until it finds a position that doesn&#8217;t
+collide with labels that have already been drawn. If all positions cause
+a conflict, then the label is not drawn (Unless the label&#8217;s <a class="reference internal" href="#force">FORCE</a> a
+parameter is set to &#8220;true&#8221;). &#8220;Auto&#8221; placement is only available with cached labels.</dd>
+<dt>PRIORITY [integer]|[item_name]</dt>
+<dd><p class="first">The priority parameter (added in v5.0) takes an integer value between 1
+(lowest) and 10 (highest). The default value is 1. It is also possible
+to bind the priority to an attribute (item_name) using square brackets
+around the [item_name]. e.g. &#8220;PRIORITY [someattribute]&#8221;</p>
+<p class="last">Labels are stored in the label cache and rendered in order of priority,
+with the highest priority levels rendered first.
+Specifying an out of range PRIORITY value inside a map file will result in
+a parsing error. An out of range value set via MapScript or coming from a
+shape attribute will be clamped to the min/max values at rendering time.
+There is no expected impact on performance for using label priorities.</p>
+</dd>
+<dt>REPEATDISTANCE [integer]</dt>
+<dd><ul class="first last">
+<li><p class="first">Introduced in version 5.6. The label will be repeated on every line of
+a multiline shape and will be repeated multiple times along a given
+line at an interval of REPEATDISTANCE pixels.</p>
+<p>The associated RFC document for this feature is <a class="reference external" href="../development/rfc/ms-rfc-57.html#rfc57"><em>MS RFC 57: Labeling enhancements: ability to repeat labels along a line/multiline</em></a>.</p>
+</li>
+</ul>
+</dd>
+<dt>SHADOWCOLOR [r] [g] [b]</dt>
+<dd>Color of drop shadow.</dd>
+<dt>SHADOWSIZE [x][y]</dt>
+<dd>Shadow offset in pixels.</dd>
+<dt>SIZE [integer]|[tiny|small|medium|large|giant]|[attribute]</dt>
+<dd><ul class="first last">
+<li><p class="first">Text size. Use &#8220;integer&#8221; to give the size in pixels of your TrueType font
+based label, or any of the other 5 listed keywords to bitmap fonts.</p>
+</li>
+<li><p class="first">[Attribute] was introduced in version 5.0, to specify the item name in
+the attribute table to use for size values.  The hard brackets [] are
+required.  For example, if your shapefile&#8217;s DBF has a field named &#8220;MYSIZE&#8221;
+that holds size values for each record, your LABEL object might contain:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LABEL</span>
+  <span class="k">COLOR</span>  <span class="mi">150</span> <span class="mi">150</span> <span class="mi">150</span>
+  <span class="k">OUTLINECOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">255</span>
+  <span class="k">FONT</span> <span class="err">sans</span>
+  <span class="k">TYPE</span> <span class="nb">truetype</span>
+  <span class="k">SIZE</span> <span class="p">[</span><span class="err">MY</span><span class="k">SIZE</span><span class="p">]</span>
+  <span class="k">POSITION</span> <span class="nb">AUTO</span>
+  <span class="k">PARTIALS</span> <span class="nb">FALSE</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>The associated RFC document for this feature is <a class="reference external" href="../development/rfc/ms-rfc-19.html#rfc19"><em>MS RFC 19: Style &amp; Label attribute binding</em></a>.</p>
+</li>
+</ul>
+</dd>
+<dt>TYPE [bitmap|truetype]</dt>
+<dd>Type of font to use. Generally bitmap fonts are faster to draw then
+TrueType fonts. However, TrueType fonts are scalable and available in a
+variety of faces. Be sure to set the FONT parameter if you select TrueType.</dd>
+</dl>
+<dl class="docutils" id="wrap">
+<dt>WRAP [character]</dt>
+<dd>Character that represents an end-of-line condition in label text, thus
+resulting in a multi-line label. Interacts with <a class="reference internal" href="#maxlength">MAXLENGTH</a> for conditional
+line wrapping after a given number of characters</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="layer.html" title="LAYER"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="join.html" title="JOIN"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

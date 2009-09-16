@@ -1,0 +1,230 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>CBE Slide Methods</title>
+<meta name='author' content='Mike Foster, cross-browser.com'>
+<meta name='description' content='Slide Methods: A programming example for CBE, a cross-browser DHTML API for IE, Gecko, Opera, Netscape, Konqueror and similar browsers'>
+<link rel='stylesheet' type='text/css' href='../cbe.css'>
+<style type='text/css'><!--
+.clsCBE { position:absolute; visibility:hidden; overflow:hidden; margin:0; padding:0; width:100%; height:100%; clip:rect(0 100% 100% 0); color:#000000; background:transparent; layer-background-color:transparent; }
+--></style>
+<script type='text/javascript' src='../cbe_core.js'></script>
+<script type='text/javascript'><!--
+if (is.nav4) document.write("<style type='text/css'>.clsCBE2 {position:absolute; visibility:hidden; overflow:hidden; margin:0; padding:0; width:100%; height:100%; clip:rect(0 100% 100% 0); color:#000000; background:transparent; layer-background-color:transparent;}</style>");
+else document.write("<style type='text/css'>.clsCBE2 {position:absolute; visibility:hidden; overflow:hidden; margin:0; padding:0; width:100%; height:100%; clip:rect(0 100% 100% 0); color:#000000; background:#ffffff; layer-background-color:#ffffff; border:1px outset;}</style>");
+//--></script>
+<script type='text/javascript' src='../cbe_event.js'></script>
+<script type='text/javascript' src='../cbe_util.js'></script>
+<script type='text/javascript' src='../cbe_debug.js'></script>
+<script type='text/javascript' src='../cbe.js'></script>
+<script type='text/javascript' src='../cbe_slide.js'> </script>
+<script type='text/javascript' src='../cbe_slide2.js'> </script>
+<script type='text/javascript'><!--
+var e3, e1, e2;
+function windowOnload() {
+  with (e3 = document.getElementById('E3').cbe) {
+    addEventListener('drag');
+  }
+  with (e1 = document.getElementById('E1').cbe) {
+    zIndex(2);
+    addEventListener('drag');
+  }
+  e1.sequence = new Array(
+    "slideTo('center',0,500)",
+    "ellipse(50,100,0,2000,90,450)",
+    "ellipse(50,100,0,2000,-90,-450)",
+    "stopSequence()"
+  );
+  with (e2 = document.getElementById('E2').cbe) {
+    zIndex(1);
+    addEventListener('dragResize');
+  }
+  e2.sequence = new Array(
+    "slideTo('ne', 0, 500)",
+    "slideCornerTo('sw', 0, e2.parentNode.scrollTop() + ph, 1000)",
+    "slideCornerBy('nw', pw-150, ph-150, 1000)",
+    "stopSequence()"
+  );
+  init();
+  window.cbe.addEventListener('scroll', scrollListener);
+}
+
+function init() {
+  with (e3) {
+    resizeTo(20,20);
+    show();
+  }
+  with (e1) {
+    zIndex(2);
+    resizeTo(100,100);
+    show();
+  }
+  with (e2) {
+    zIndex(1);
+    resizeTo(125,125);
+    background('#8888ff');
+    show();
+  }
+  scrollListener();
+}
+
+function scrollListener(e) {
+  e1.slideTo(e1.parentNode.width()-e1.width(), e1.parentNode.height()/2 + e1.parentNode.scrollTop(), 800);
+  e2.resizeTo(125,125);
+  e2.slideTo(e2.parentNode.width()-e2.width(), e2.parentNode.height()/2 + e2.parentNode.scrollTop(), 800);
+  e3.slideTo('s', 0, 800);
+}
+
+function run(ex) {
+  var s, c, z;
+  switch(ex) {
+    case 1:
+      e3.slideTo(10, 75, 1500);
+      e1.slideTo(30, 700, 1000);
+      break;
+    case 2:
+      e3.slideBy(30, -30, 800);
+      e1.slideBy(-300, 300, 2000);
+      break;
+    case 3:
+      e3.slideTo('center', 0, 2000);
+      e1.slideTo('se', 10, 1000);
+      break;
+    case 4:
+      e1.startSequence();
+      break;
+    case 5:
+      e2.moveTo('center');
+      e3.moveTo('center');
+      e3.parametricEquation(
+        ".3*t*Math.cos(t*30)",
+        ".3*t*Math.sin(t*30)",
+        0
+      );
+      break;
+    case 6:
+      e2.startSequence();
+      break;
+  }
+}
+
+//--></script>
+</head>
+
+<body marginwidth='0' marginheight='0'><a name="topofpage"></a>
+
+<!-- Title and Nav Bar --><script type='text/javascript'>topNavBarEx()</script>
+
+<table width='80%' align='center' cellspacing='10' cellpadding='10'><tr><td bgcolor='#ffffff'><!-- indentation table -->
+
+<h1>Intro to the CBE Slide Methods</h1>
+<h2>General Slide Concepts</h2>
+<p>Here are the slide methods.</p>
+<ul>
+<li><a target="cbeRefWin" href="../docs/cbe_reference.html#ellipseLink" title="Reference Link">ellipse</a></li>
+<li><a target="cbeRefWin" href="../docs/cbe_reference.html#parametricEquationLink" title="Reference Link">parametricEquation</a></li>
+<li><a target="cbeRefWin" href="../docs/cbe_reference.html#slideCornerByLink" title="Reference Link">slideCornerBy</a></li>
+<li><a target="cbeRefWin" href="../docs/cbe_reference.html#slideCornerToLink" title="Reference Link">slideCornerTo</a></li>
+<li><a target="cbeRefWin" href="../docs/cbe_reference.html#slideByLink" title="Reference Link">slideBy</a></li>
+<li><a target="cbeRefWin" href="../docs/cbe_reference.html#slideToLink" title="Reference Link">slideTo</a></li>
+</ul>
+<p>All the slide methods are <i>time-based</i>. The slide is completed within a certain time that you specify in milliseconds. The advantage is that your animations will execute at the same <i>speed</i> regardless of the browser or computer. On slower browsers and computers, there will be less <i>animation frames</i>. On faster browsers and computers, there will be more frames, so the animation will be smoother. But the animation will complete it's slide within the same time on either slow or fast browsers.</p>
+<p>A slide can be stopped at any time by calling the method <b>stopSlide()</b>.</p>
+<p>Slide methods generate slideStart, slide, and slideEnd events. See <a href="slide1.html">this example.</a></p>
+<p>See the <a target="cbeRefWin" href='../cbe_reference.html'>object reference</a> for complete details of each method, and for an explanation of the parameter syntax used here.</p>
+
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>Linear Sliding</h2>
+<p>The slideTo() method has two parameter variations. The first accepts pixel points, the second accepts cardinal points.</p>
+<h3>Sliding to Pixel Points</h3>
+<p><b>slideTo(iX, iY, uTime [, xEndListener])</b></p>
+<p>Slide the top-left corner to a pixel point, within the given time, then evaluate the (optional) endListener.</p>
+<p><a class='example' href="javascript:run(1)" title='Run Example'>Example 1</a> Slides E3 to the point (10,75) within 1.5 seconds, and slides E1 to the point (30,700) within 1 second.</p>
+<pre>
+e3.slideTo(10, 75, 1500);
+e1.slideTo(30, 700, 1000);
+</pre>
+<p><b>slideBy(iDX, iDY, uTime [, xEndListener])</b></p>
+<p>Slide the top-left corner to a pixel point relative to the current position, within the given time, then evaluate the (optional) endListener.</p>
+<p><a class='example' href="javascript:run(2)" title='Run Example'>Example 2</a> Slides E3 to a point that is offset from it's current position by 30 in the X direction, and -30 in the Y direction. It takes .8 seconds to complete the slide. It also slides E1 to a point that is offset from it's current position by -300 in the X direction and 300 in the Y direction. It takes 2 seconds to complete the slide.</p>
+<pre>
+e3.slideBy(30, -30, 800);
+e1.slideBy(-300, 300, 2000);
+</pre>
+<h3>Sliding to Cardinal Points</h3>
+<p><b>slideTo(sCardinal, iMargin, uTime [, xEndListener ])</b></p>
+<p>Slide the top-left corner to a cardinal point, with the given margin, within the given time, then evaluate the (optional) endListener. A <i>cardinal point</i> is one of the following strings: 'n', 'ne', 'e', 'se', 's', 'sw', w, 'nw', 'center'. That is, a corner, a side, or the center of the containing CrossBrowserElement object.</p>
+<p><a class='example' href="javascript:run(3)" title='Run Example'>Example 3</a> Slides E3 to the center of it's container within 2 seconds. It slides E1 to the south-east corner (with a 10 pixel margin) of it's container within 1 second.</p>
+<pre>
+e3.slideTo('center', 0, 2000);
+e1.slideTo('se', 10, 1000);
+</pre>
+
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>Non-Linear Sliding</h2>
+<h3>Ellipse</h3>
+<p><b>ellipse(uXRad, uYRad, iRadInc, uTime, iStartAngle, iStopAngle [, xEndListener])</b></p>
+<p>Slide the element along an elliptical path. The y axis is opposite from the cartesian system, so sliding from 0 to 360 degrees is a clockwise slide. Sliding from 0 to -360 is a counter-clockwise slide. The center of the ellipse is determined by the radii and the start angle. Imagine that the element is initially sitting at iStartAngle.</p>
+<p><a class='example' href="javascript:run(4)" title='Run Example'>Example 4</a> Slides E1 to the center, then in an elliptical <i>figure eight</i>.</p>
+<pre>
+  e1.sequence = new Array(
+    "slideTo('center',0,500)",
+    "ellipse(50,100,0,2000,90,450)",
+    "ellipse(50,100,0,2000,-90,-450)",
+    "stopSequence()"
+  );
+
+  e1.startSequence();
+</pre>
+<p>More <a href="pe4.html">ellipse() Examples</a>.</p>
+
+<h3>Parametric Equation</h3>
+<p><b>parametricEquation(xX, xY, uTime [, xEndListener])</b></p>
+<p>This is a time-based, parametric equation motion engine. I still need to experiment with this... but its fun to play with.</p>
+<p><a class='example' href="javascript:run(5)" title='Run Example'>Example 5</a> Moves E3 and E2 to their centers, then slides E3 in an outward spiral. You can resize E2 while E3 is in motion and E3 keeps it's position relative to E2's size.</p>
+<pre>
+  e2.moveTo('center');
+  e3.moveTo('center');
+  e3.parametricEquation(
+    ".3*t*Math.cos(t*30)",
+    ".3*t*Math.sin(t*30)",
+    0
+  );
+</pre>
+<p><a class='example' title='Stop Example' href="javascript:e3.stopSlide()">Stop Example 5</a></p>
+<p> More <a href="../examples/pe.html">parametricEquation() Examples</a>.</p>
+
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>Corner Sliding</h2>
+<p><b>slideCornerTo(sCorner, iX, iY, uTime [, xEndListener])</b></p>
+<p>This is a time-based <i>resize</i> - and you can specify which corner slides to the target point.</p>
+<p><a class='example' href="javascript:run(6)" title='Run Example'>Example 6</a> Slides E2 to the north-east corner, then resizes by the south-west corner, then resizes by the north-west corner.</p>
+<pre>
+  e2.sequence = new Array(
+    "slideTo('ne', 0, 500)",
+    "slideCornerTo('sw', 0, e2.parentNode.scrollTop() + ph, 1000)",
+    "slideCornerBy('nw', pw-150, ph-150, 1000)",
+    "stopSequence()"
+  );
+
+  e2.startSequence();
+</pre>
+
+<p><b>slideCornerBy(sCorner, iDX, iDY, uTime [, xEndListener])</b></p>
+<p>This is a time-based <i>resize</i> - and you can specify which corner slides to the target point, which is found be adding iDX and iDY to the current position.</p>
+<p> More <a href="../examples/pe5.html">slideCorner() Examples</a>.</p>
+
+<h2>Slide Sequences</h2>
+<p>CBE includes support for <i>slide sequences</i>. I've used them in some of the examples on this page. See <a href="sequence.html">this example</a> for more.</p>
+
+</td></tr></table><!-- end indentation table -->
+
+<!-- Bottom Nav Bar --><script type='text/javascript'>bottomNavBarEx()</script>
+
+<div id='E1' class='clsCBE'><img border='0' src='../images/mars.gif' alt='E1: draggable'></div>
+<div id='E2' class='clsCBE2' title='E2: draggable resizeable'>E2:<br>draggable<br>resizeable
+<div id='E3' class='clsCBE'><img border='0' src='../images/small_moon.gif' alt='E3: draggable'></div>
+</div>
+
+</body>
+</html>

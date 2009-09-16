@@ -1,0 +1,140 @@
+.. _pgeo:
+
+*****************************************************************************
+ ESRI Personal Geodatabase (MDB)
+*****************************************************************************
+
+ESRI Personal Geodatabases are basically Microsoft Access files that contain spatial information.  For more information see the ESRI `description page`_.
+
+.. _`description page`: http://www.esri.com/software/arcgis/geodatabase/index.html 
+
+File listing
+--------------
+
+Similar to other database formats, the mdb file consists of several tables.  The geometry is held in a BLOB table column.
+
+Data Access / Connection Method
+---------------------------------
+
+Personal geodatabase access is available through OGR. See the OGR `driver page`_
+for specific driver information.  The driver is standard in any win32 build of 
+GDAL/OGR version 1.3.2 or later.  For Linux/Unix, `MDBTools`_ ODBC drivers can be
+used for this (with some difficulty).
+
+.. _`driver page`: http://gdal.org/ogr/drv_pgeo.html
+.. _`MDBTools`: http://mdbtools.sourceforge.net/
+
+OGR uses the names of spatial tables within the personal geodatabase (tables 
+with a Shape column) as layers.
+
+The CONNECTION parameter must include the mdb extension, and the DATA parameter
+should be the name of the spatial table (or OGR layer).
+
+::
+
+  CONNECTIONTYPE ogr
+  CONNECTION "pgeodatabase.mdb"
+  DATA "layername" 
+
+OGRINFO Examples
+----------------
+
+First you should make sure that your GDAL/OGR build contains the personal
+geodatabase "PGeo" driver, by using the '--formats' command:
+
+::
+
+  >ogrinfo --formats
+     Loaded OGR Format Drivers:
+     ...
+     -> "ODBC" (read/write)
+     -> "PGeo" (readonly)
+     -> "PostgreSQL" (read/write)
+     ...
+
+If you don't have the driver, you might want to try the `FWTools`_ or `MS4W`_
+packages, which include the driver.
+
+.. _`FWTools`: http://fwtools.maptools.org/
+.. _`MS4W`: http://www.maptools.org/ms4w/
+
+Once you have the PGeo driver you are ready to try an ogrinfo command on your
+database to get a list of spatial tables:
+
+::
+
+  >ogrinfo test.mdb
+     INFO: Open of `test.mdb'
+     using driver `PGeo' successful.
+     1: counties
+
+Now use ogrinfo to get information on the structure of the spatial table:
+
+::
+
+  >ogrinfo test.mdb counties -summary
+     INFO: Open of `test.mdb'
+     using driver `PGeo' successful.
+
+     Layer name: counties
+     Geometry: Unknown (any)
+     Feature Count: 67
+     Extent: (-87.634943, 24.543945) - (-80.031369, 31.000975)
+     Layer SRS WKT:
+     GEOGCS["GCS_WGS_1984",
+        DATUM["WGS_1984",
+        SPHEROID["WGS_1984",6378137.0,298.257223563]],
+        PRIMEM["Greenwich",0.0],
+        UNIT["Degree",0.0174532925199433]]
+     OBJECTID_1: Integer (10.0)
+     OBJECTID: Integer (10.0)
+     NAME: String (32.0)
+     STATE_NAME: String (25.0)
+     STATE_FIPS: String (2.0)
+     CNTY_FIPS: String (3.0)
+     FIPS: String (5.0)
+     ...
+
+Note that you can also use an ODBC connection to access all of the tables in
+your geodatabase:
+
+::
+
+  >ogrinfo ODBC:jeff/pass@testDSN counties -summary
+     INFO: Open of `ODBC:jeff/pass@testDSN'
+     using driver `ODBC' successful.
+
+     1: counties
+     2: counties_Shape_Index
+     3: GDB_AnnoSymbols
+     4: GDB_AttrRules
+     5: GDB_CodedDomains
+     6: GDB_DefaultValues
+     7: GDB_Domains
+     8: GDB_EdgeConnRules
+     9: GDB_Extensions
+     10: GDB_FeatureClasses
+     11: GDB_FeatureDataset
+     12: GDB_FieldInfo
+     13: GDB_GeomColumns
+     ...
+
+Mapfile Example
+---------------
+
+::
+
+     LAYER
+  	NAME my_geodatabase
+  	TYPE POLYGON
+  	CONNECTIONTYPE ogr
+        CONNECTION "test.mdb"
+        DATA "counties"
+  	STATUS ON
+        CLASS
+          NAME "counties"
+          STYLE
+            COLOR 255 255 120
+          END
+        END
+     END

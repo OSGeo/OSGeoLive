@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Germany's Spinners</title>
+<style type="text/css">
+html { margin:0; padding:0; }
+body { color:#000; background:#fff; margin:0; padding:0; font-size:14px; font-family:"trebuchet ms",verdana,arial,sans-serif; }
+h1 { color:#008; margin:2px 0 6px 0; font-weight:normal; font-size:20px; }
+h2 { color:#000; margin:2px 0 6px 0; font-weight:normal; font-size:16px; }
+pre { color:#008; font-family:monospace; font-size:12px}
+a { color:#008; background:transparent; text-decoration:underline; }
+a:hover { color:#008; background:#ccf; text-decoration:none; }
+#content1 { color:#000; background:#ccc; width:auto; height:auto; margin:20px; padding:10px; border:1px dotted #008; }
+#content2 { color:#000; background:#fff; width:auto; height:auto; margin:20px; padding:10px; border:1px dotted #008; overflow:visible; }
+.clsCBE { position:absolute; visibility:hidden; margin:0; padding:0; }
+</style>
+<script src="../cbe_core.js"  type="text/javascript"></script>
+<script src="../cbe_event.js" type="text/javascript"></script>
+<script src="../cbe_slide.js" type="text/javascript"></script>
+<script src="../cbe_util.js"  type="text/javascript"></script>
+<script src="../cbe_debug.js" type="text/javascript"></script>
+<script type=text/javascript><!--
+var
+  // edit these when adding more spinners:
+  ne = 4,          // number of spinner elements
+  cp = new Array('e','s','w','n'), // cardinal point for each spinner
+  // edit these when changing overall behavior:
+  a2 = 360,        // radial distance for a spinner's slide
+  tm = 8000,       // slide time
+  xr = 75,         // x radius
+  yr = 75,         // y radius
+  ss = 20,         // spinner size
+  // automatically calculated:
+  bw = 2*xr+ss,    // spinnerBox width
+  bh = 2*yr+ss,    // spinnerBox height
+  dl = 360/ne,     // radial distance between spinner elements
+  a1 = 0;          // for calculating start angle
+  
+function windowOnload() {
+  var i, e;
+  for (i=0; i<ne; ++i) {
+    e = document.getElementById('spinner'+i).cbe;
+    e.sequence = new Array("ellipse("+xr+","+yr+",0,"+tm+","+a1+","+a2+")");
+//    e.sequence = new Array("ellipse("+xr+","+yr+",0,"+tm+","+a1+","+a2+")", "stopSequence()");
+    a1 += dl; a2 += dl;
+  }
+  window.cbe.addEventListener("resize", init, false);
+  init();
+}
+
+function init() {
+  var i, e, m;
+  cycle(false);
+  with (document.getElementById('spinnerBox').cbe) {
+//    ele.style.border='1px solid #666';
+    background('#ccccff');
+    resizeTo(bw,bh);
+    moveTo(document.cbe.width()-width()-30, 30);
+    show();
+  }
+  for (i=0; i<ne; ++i) {
+    with (document.getElementById('spinner'+i).cbe) {
+      resizeTo(ss, ss);
+      moveTo(cp[i]);
+      show();
+    }
+  }  
+}
+
+function cycle(bStart) {
+  var i, e;
+  for (i=0; i<ne; ++i) {
+    e = document.getElementById('spinner'+i).cbe;
+    if (bStart) e.startSequence();
+    else e.stopSequence();
+  }
+}
+//--></script>
+
+<body>
+
+<div id="content1">
+<h1>Germany&#39;s Spinners</h1>
+<p><em>A CBE Programming Example</em></p>
+<p>
+  [&nbsp;<a href="javascript:cycle(true)">Start</a>&nbsp;|&nbsp;
+  <a href="javascript:cycle(false)">Stop</a>&nbsp;|&nbsp;
+  <a href="javascript:init()">Reset</a>&nbsp;|&nbsp;
+  <a href="javascript:cbeDebugWindow('../')">Debug</a>&nbsp;]
+</p>
+<p>Thanks to <a href="http://www.hftonline.com/forum/member.php?s=&amp;action=getinfo&amp;userid=2417">Germany</a> for the initial code.</p>
+<p>Get <strong title="Cross-Browser DHTML Javascript Library">CBE</strong> at <a href="http://cross-browser.com/">Cross-Browser.com</a></p>
+</div> <!-- end content1 -->
+
+<div id="content2">
+<h2>The Javascript</h2>
+<pre>
+var
+  // edit these when adding more spinners:
+  ne = 4,          // number of spinner elements
+  cp = new Array('e','s','w','n'), // cardinal point for each spinner
+  // edit these when changing overall behavior:
+  a2 = 360,        // radial distance for a spinner's slide
+  tm = 8000,       // slide time
+  xr = 75,         // x radius
+  yr = 75,         // y radius
+  ss = 20,         // spinner size
+  // automatically calculated:
+  bw = 2*xr+ss,    // spinnerBox width
+  bh = 2*yr+ss,    // spinnerBox height
+  dl = 360/ne,     // radial distance between spinner elements
+  a1 = 0;          // for calculating start angle
+  
+function windowOnload() {
+  var i, e;
+  for (i=0; i&lt;ne; ++i) {
+    e = document.getElementById('spinner'+i).cbe;
+    e.sequence = new Array("ellipse("+xr+","+yr+",0,"+tm+","+a1+","+a2+")");
+//    e.sequence = new Array("ellipse("+xr+","+yr+",0,"+tm+","+a1+","+a2+")", "stopSequence()");
+    a1 += dl; a2 += dl;
+  }
+  window.cbe.addEventListener("resize", init, false);
+  init();
+}
+
+function init() {
+  var i, e, m;
+  cycle(false);
+  with (document.getElementById('spinnerBox').cbe) {
+    ele.style.border='1px solid #666';
+    background('#ccf');
+    resizeTo(bw,bh); //(cw,ch);
+    moveTo(document.cbe.width()-width()-30, 30);
+    show();
+  }
+  for (i=0; i&lt;ne; ++i) {
+    with (document.getElementById('spinner'+i).cbe) {
+      resizeTo(ss, ss);
+      moveTo(cp[i]);
+      show();
+    }
+  }  
+}
+
+function cycle(bStart) {
+  var i, e;
+  for (i=0; i&lt;ne; ++i) {
+    e = document.getElementById('spinner'+i).cbe;
+    if (bStart) e.startSequence();
+    else e.stopSequence();
+  }
+}
+</pre>
+</div> <!-- end content2 -->
+
+<div id="spinnerBox" class="clsCBE" title="spinnerBox">
+  <div id="spinner0" class="clsCBE"><img alt="s0" border="0" width="20" height="20" src="../images/circle1.gif" /></div>
+  <div id="spinner1" class="clsCBE"><img alt="s1" border="0" width="20" height="20" src="../images/circle2.gif" /></div>
+  <div id="spinner2" class="clsCBE"><img alt="s2" border="0" width="20" height="20" src="../images/circle3.gif" /></div>
+  <div id="spinner3" class="clsCBE"><img alt="s3" border="0" width="20" height="20" src="../images/circle4.gif" /></div>
+</div>
+
+</body>
+</html>

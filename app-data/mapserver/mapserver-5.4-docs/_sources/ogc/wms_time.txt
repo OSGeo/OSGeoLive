@@ -1,0 +1,280 @@
+.. _wms_time:
+
+*****************************************************************************
+ WMS Time
+*****************************************************************************
+
+:Author: Jeff McKenna
+:Contact: jmckenna at gatewaygeomatics.com
+:Revision: $Revision: 9071 $
+:Date: $Date: 2009-06-02 20:17:26 -0300 (Tue, 02 Jun 2009) $
+:Last Updated: 2006/06/26
+
+.. contents:: Table of Contents
+    :depth: 2
+    :backlinks: top
+
+Introduction
+============
+
+A WMS server can provide support to temporal requests. This is done by providing 
+a TIME parameter with a time value in the request. MapServer 4.4 and above 
+provides support to interpret the TIME parameter and transform the resulting values 
+into appropriate requests.
+
+Links to WMS-Related Information
+--------------------------------
+
+- :ref:`MapServer WMS Server HowTo <wms_server>`
+- :ref:`MapServer WMS Client HowTo <wms_client>`
+- `WMS 1.1.1 specification`_
+- `MapServer OGC Web Services Workshop`_
+
+Enabling Time Support in MapServer
+==================================
+
+Time Patterns
+-------------
+
+WMS specifies that the basic format used for TIME requests is based on the ISO 
+8601:1988(E) "extended" format. MapServer supports a limited set of patterns that 
+are defined in the ISO 8601 specifications, as well as few other patterns that are 
+useful but not compliant to ISO 8601. Here is a list of patterns currently supported: 
+
+**Table 1. Supported Time Patterns**
+
+==================== ====================
+Time Patterns        Examples
+==================== ====================
+YYYYMMDD             20041012
+YYYY-MM-DDTHH:MM:SSZ 2004-10-12T13:55:20Z
+YYYY-MM-DDTHH:MM:SS  2004-10-12T13:55:20
+YYYY-MM-DD HH:MM:SS  2004-10-12 13:55:20
+YYYY-MM-DDTHH:MM     2004-10-12T13:55
+YYYY-MM-DD HH:MM     2004-10-12 13:55
+YYYY-MM-DDTHH        2004-10-12T13
+YYYY-MM-DD HH        2004-10-12 13
+YYYY-MM-DD           2004-10-12
+YYYY-MM              2004-10
+YYYY                 2004
+THH:MM:SSZ           T13:55:20Z
+THH:MM:SS            T13:55:20
+==================== ====================
+
+Setting Up a WMS Layer with Time Support
+----------------------------------------
+
+To have a valid WMS layer with time support, the user has to define the following 
+metadata at the layer level:
+
+- *wms_timeextent*: (*Mandatory*) this is used in the capabilities document to 
+  return the valid time values for the layer. The value defined here should be a 
+  valid time range. (more on this in 'Specifying Time Extents' below)
+
+- *wms_ timeitem*: (*Mandatory*) this is the name of the field in the DB that 
+  contains the time values.
+  
+- *wms_timedefault*: (*Optional*) this value is used if it is defined and the 
+  TIME value is missing in the request.  
+  
+Specifying Time Extents
+***********************
+
+Time Extents can be declared with the following syntax for the *wms_timeextent*
+metadata (see Annex C.3 in the `WMS 1.1.1 specification`_ document for a full 
+description):
+
+1. *value* - a single value.  This is not directly supported in MapServer but 
+   there is an easy workwound by specifying the same value as min and max.
+
+2. *value1,value2,value3,...* - a list of multiple values.
+
+3. *min/max/resolution* - an interval defined by its lower and upper
+   bounds and its resolution.  This is supported in MapServer (note that 
+   the resolution is not supported however).
+   
+4. *min1/max1/res1,min2/max2/res2,...* - a list of multiple intervals.
+
+Example WMS-Server Layer
+************************
+
+.. code-block:: mapfile
+
+  LAYER
+    NAME "earthquakes"
+    METADATA
+      "wms_title"    "Earthquakes"
+      "wms_timeextent" "2004-01-01/2004-02-01"
+      "wms_timeitem" "TIME"
+      "wms_timedefault" "2004-01-01 14:10:00"
+    END
+    TYPE POINT
+    STATUS ON
+    DATA "quakes"
+    CLASS
+      ..
+    END
+  END
+
+GetCapabilities Output
+----------------------
+
+If your layer is set up properly, requesting the capabilities on the server 
+outputs a Dimension element. Here is an example of a GetCapabilities result for
+a layer configured for time support:
+
+.. code-block:: guess
+
+    <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>earthquakes</Name>
+        <Title>Earthquakes</Title>
+        <SRS>EPSG:4326</SRS>
+        <LatLonBoundingBox minx="-131.02" miny="24.84" maxx="-66.59" maxy="48.39" />
+        <BoundingBox SRS="EPSG:4326"
+                    minx="-131.02" miny="24.84" maxx="-66.59" maxy="48.39" />
+        <Dimension name="time" units="ISO8601"/>
+        <Extent name="time" default="2004-01-01 14:10:00" nearestValue="0">2004-01-01/2004-02-01</Extent>
+    </Layer>            
+        
+Supported Time Requests
+-----------------------
+
+When sending a request with the TIME parameter, different types of time values 
+can be specified. The following are supported by MapServer:
+
+- *single value*: for example: ...&TIME=2004-10-12&...
+- *multiple values*: for example: ...&TIME=2004-10-12, 2004-10-13, 2004-10-14&...
+- *single range value*: for example: ...&TIME=2004-10-12/2004-10-13&...
+- *multiple range values*: for example: ...&TIME=2004-10-12/2004-10-13, 2004-10-15/2004-10-16&...
+
+Interpreting Time Values
+------------------------
+
+When MapServer receives a request with a TIME parameter, it transforms the time 
+requests into valid expressions that are assigned to the filter parameter on 
+layers that are time-aware. Here are some examples of how different types of 
+requests are treated (wms_timeitem is defined here as being "time_field"):
+
+- single value (2004-10-12) *transforms to* (\`[time_field]\` eq \`2004-10-12\`)
+
+- multiple values (2004-10-12, 2004-10-13) *transform to* (\`[time_field]\` eq \`2004-10-12\` 
+  OR \`[time_field]\` eq \`2004-10-13\`)
+
+- single range : 2004-10-12/2004-10-13 *transforms to* ((\`[time_field]\` ge \`2004-10-12\`) 
+  AND (\`[time_field]\` le \`2004-10-13\`))
+
+- multiple ranges (2004-10-12/2004-10-13, 2004-10-15/2004-10-16) *transform to* 
+  ((\`[time_field]\` ge \`2004-10-12\` AND \`[time_field]\` le \`2004-10-13\`) OR 
+  (\`[time_field]\` ge \`2004-10-15\` AND \`[time_field]\` le \`2004-10-16\`)) 
+
+As shown in the above examples, all fields and values are written inside back 
+tics (`) - this is the general way of specifying time expressions inside MapServer.
+
+**Exceptions to this rule:**
+
+1. When dealing with layers that are not Shapefiles nor through OGR, the 
+   expression built has slightly different syntax. For example, the expression 
+   set in the filter for the first example above would be ([time_field] = '2004-10-12').
+   
+2. For :ref:`input_postgis` layers, the time expression built uses the *date_trunc* function 
+   available in PostgreSQL. For example, if the user passes a time value of '2004-10-12', 
+   the expression set in the filter is date_trunc('day', time_field) = '2004-10-12'. 
+   The use of the date_trunc function allows requests to use the concept of time 
+   resolution. In the example above, for a request of '2004-10-12', MapServer determines 
+   that the resolution is "day" by parsing the time string and the result gives all 
+   records matching the date 2004-10-12 regardless of the values set for 
+   Hours/Minutes/Seconds in the database. For more information on the date_trunc function, 
+   please refer to the `PostgreSQL documentation`_. 
+   
+Limiting the Time Formats to Use
+--------------------------------
+
+The user has the ability to define the time format(s) to be used when a request is sent, 
+in metadata at the WEB level. For example, the user can define the following two formats:
+
+.. code-block:: mapfile
+
+   "wms_timeformat" "YYYY-MM-DDTHH, YYYY-MM-DDTHH:MM"  
+            
+
+Another example is for a WMS layer that is based on time data that contains precise time 
+values taken every minute (e.g., 2004-10-12T13:55, 2004-10-12T13:56, 2004-10-12 T13:57, ...). 
+Normally, a valid request on such a layer would require the time value to be as 
+complete as the data underneath. By defining a set of patterns to use, MapServer 
+introduces the notion of resolution to be used when doing a query. Using the example 
+above, a request TIME= 2004-10-12T13:55 would be valid and a request TIME= 2004-10-12T13 
+would also be valid and would return all elements taken for that hour.
+
+Note that this functionality is only available on layers based on Shapefiles and OGR.
+
+Example of WMS-T with PostGIS Tile Index for Raster Imagery
+-----------------------------------------------------------
+
+This example currently requires latest 4.9 CVS build!
+
+Here is an example mapfile snippet for a raster WMS-T instance using a PostGIS tileindex. This example shows US Nexrad Base Reflectivity running at Iowa State U at http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r-t.cgi?SERVICE=WMS&request=GetCapabilities
+
+.. code-block:: mapfile
+    :linenos:
+
+    #  Tile Index
+    LAYER
+     STATUS ON
+     NAME "time_idx"
+     TYPE POLYGON
+     DATA "the_geom from nexrad_n0r_tindex"
+     METADATA
+       "wms_title" "TIME INDEX"
+       "wms_srs"   "EPSG:4326"
+       "wms_extent" "-126 24 -66 50"
+       "wms_timeextent" "2003-08-01/2006-12-31/PT5M"
+       "wms_timeitem" "datetime" #column in postgis table of type timestamp
+       "wms_timedefault" "2006-06-23T03:10:00Z"
+     END
+     CONNECTION "dbname=postgis host=10.10.10.20"
+     CONNECTIONTYPE postgis
+    END
+
+    # raster layer
+    LAYER
+     NAME "nexrad-n0r-wmst"
+     TYPE RASTER
+     STATUS ON
+     DEBUG ON
+     DUMP TRUE
+     PROJECTION
+       "init=epsg:4326"
+     END
+     METADATA
+       "wms_title" "NEXRAD BASE REF WMS-T"
+       "wms_srs"   "EPSG:4326"
+       "wms_extent" "-126 24 -66 50"
+       "wms_timeextent" "2003-08-01/2006-12-31/PT5M"
+       "wms_timeitem" "datetime" #datetime is a column in postgis table of type timestamp
+       "wms_timedefault" "2006-06-23T03:10:00Z"
+     END
+     OFFSITE 0 0 0
+     TILEITEM "filepath" #filepath is a column in postgis table with varchar of the filepath to each image
+     TILEINDEX "time_idx" 
+    END
+
+
+You can find more information on Time and tileindexes in the :ref:`WCS documentation <wcs_server>`.
+
+Future Additions
+================
+
+- Support for a special time value: "current".
+
+Limitations and Known Bugs
+==========================
+
+- Pattern "YYYYMMDD" does not work on Windows. (`Bug#970`_)
+
+
+.. #### rST Link Section ####
+
+.. _`WMS 1.1.1 specification`: http://www.opengeospatial.org/docs/01-068r2.pdf
+.. _`MapServer OGC Web Services Workshop`: http://ms-ogc-workshop.maptools.org/
+.. _`PostgreSQL documentation`: http://www.postgresql.org/docs/8.1/static/functions-datetime.html
+.. _`Bug#970`: http://trac.osgeo.org/mapserver/ticket/970

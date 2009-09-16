@@ -1,0 +1,323 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 40: Support Label Text Transformations &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 41: Support of WCS 1.1.x Protocol" href="ms-rfc-41.html" />
+    <link rel="prev" title="MS RFC 39: Support of WMS/SLD Named Styles" href="ms-rfc-39.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-41.html" title="MS RFC 41: Support of WCS 1.1.x Protocol"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-39.html" title="MS RFC 39: Support of WMS/SLD Named Styles"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-40.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-40.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 40: Support Label Text Transformations</a><ul>
+<li><a class="reference external" href="#overview">Overview</a></li>
+<li><a class="reference external" href="#line-wrapping">Line Wrapping</a></li>
+<li><a class="reference external" href="#line-centering">Line Centering</a></li>
+<li><a class="reference external" href="#modifications-to-the-source-code">Modifications to the source code</a></li>
+<li><a class="reference external" href="#mapscript-implications">MapScript Implications</a></li>
+<li><a class="reference external" href="#files-affected">Files affected</a></li>
+<li><a class="reference external" href="#backwards-compatibility-issues">Backwards compatibility issues</a></li>
+<li><a class="reference external" href="#bug-id">Bug ID</a></li>
+<li><a class="reference external" href="#voting-history">Voting history</a></li>
+<li><a class="reference external" href="#questions-comments-from-the-review-period">Questions/Comments from the review period</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-39.html"
+                                  title="previous chapter">MS RFC 39: Support of WMS/SLD Named Styles</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-41.html"
+                                  title="next chapter">MS RFC 41: Support of WCS 1.1.x Protocol</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-40.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-40-support-label-text-transformations">
+<span id="rfc40"></span><h1>MS RFC 40: Support Label Text Transformations<a class="headerlink" href="#ms-rfc-40-support-label-text-transformations" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2007/12/03</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Thomas Bonfort</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">thomas.bonfort at gmail.com</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">2007/12/03</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Implemented</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">MapServer 5.4</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-40.txt 8278 2008-12-23 21:34:31Z hobu $</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>MapServer 5.0 supports &#8220;hard&#8221; text wrapping, where the wrap character is
+unconditionally treated as a newline. This RFC proposes the addition of:</p>
+<ul class="simple">
+<li>conditional wrapping, i.e. newlines are only added when the current
+line length has met a user adjustable criteria</li>
+<li>line alignment, i.e. text aligned per user request, namely right, center and left</li>
+</ul>
+<p>These two additions are independent from one another, i.e. can be activated
+together or not.</p>
+</div>
+<div class="section" id="line-wrapping">
+<h2>Line Wrapping<a class="headerlink" href="#line-wrapping" title="Permalink to this headline">¶</a></h2>
+<p>A new keyword, MAXLENGTH is added to the label object, and interacts with the
+label WRAP parameter as follows:</p>
+<ul class="simple">
+<li>the wrap character specifies what character can be replaced by a newline
+(no change w.r.t. the current meaning). Probably the most useful wrap
+character will become &#8216; &#8216; (i.e. the space character)</li>
+<li>the MAXLENGTH value specifies the maximum number of characters that can
+compose a line before a newline is inserted. A value of 0 specifies the
+current &#8220;hard&#8221; wrapping. A positive value triggers wrapping at the WRAP
+character for lines longer than MAXLENGTH. A negative value triggers
+wrapping that is allowed to break words, i.e. not necessarily at
+the WRAP character.</li>
+</ul>
+<p>The WRAP / MAXLENGTH combinations are summarized here:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="21%" />
+<col width="36%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">&nbsp;</th>
+<th class="head">maxlen =0</th>
+<th class="head">maxlen &gt; 0</th>
+<th class="head">maxlen &lt; 0</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>wrap = &#8216;char&#8217;</td>
+<td>current way</td>
+<td>conditional wrap if &gt; maxlen</td>
+<td>hard wrap</td>
+</tr>
+<tr><td>no wrap</td>
+<td>no processing</td>
+<td>skip label if &gt; maxlen</td>
+<td>hard wrap</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="line-centering">
+<h2>Line Centering<a class="headerlink" href="#line-centering" title="Permalink to this headline">¶</a></h2>
+<p>A new keyword ALIGN is added to the label object. It supports 3 values: left,
+center and right,  and controls how text lines should be aligned w.r.t. the
+label bounding box. Precise placement of text can only be done at the renderer
+level, by exactly defining the starting pixel of the current line. While this
+approach could be taken, it would considerably burden the renderer code.</p>
+<p>I propose to use a more generic though less precise way of doing, by
+padding the text lines with space characters to approximate indentation.
+The initial implementation could only rely on the number of characters in
+each text line:</p>
+<blockquote>
+<ul class="simple">
+<li>loop through text lines to find the line with the most characters l_max</li>
+<li>pad all the other lines with (l_max - l_cur)/2 space characters</li>
+</ul>
+</blockquote>
+<p>A more advanced implementation will be to use the exact line lengths as
+returned by the renderers with the msGetLabelSize function:</p>
+<blockquote>
+<ul class="simple">
+<li>compute the size in pixels of the &#8221;  &#8221; string (two spaces,
+accounts for kerning): l_2space</li>
+<li>loop through text lines to longest line of length pix_l_max</li>
+<li>pad all the other lines with
+(pix_l_max - pix_l_cur)/2 * 1/(2*l_2space) space characters</li>
+</ul>
+</blockquote>
+<p>&#8216;&#8217;&#8216;Limitations&#8217;&#8216;&#8217;: aligning text to the right will produce ugly results using
+this method, unless using a monospace font.</p>
+</div>
+<div class="section" id="modifications-to-the-source-code">
+<h2>Modifications to the source code<a class="headerlink" href="#modifications-to-the-source-code" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>MAXLENGTH and ALIGN will be added to the LABEL object in map.h, in the
+mapfile parser/writer (mapfile.c) and in MapScript</li>
+<li>msTransformLabelText() in maplabel.c will be updated to support the
+modifications proposed. No other modifications should be required as the
+text itself is modified to fit the user&#8217;s request (i.e. it is padded with
+spaces, and/or newlines are added to it)</li>
+</ul>
+</div>
+<div class="section" id="mapscript-implications">
+<h2>MapScript Implications<a class="headerlink" href="#mapscript-implications" title="Permalink to this headline">¶</a></h2>
+<p>The labelObj will have new maxlength property of type integer
+and align property (ms_align_*).</p>
+</div>
+<div class="section" id="files-affected">
+<h2>Files affected<a class="headerlink" href="#files-affected" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="nb">map</span><span class="o">.</span><span class="n">h</span>
+<span class="n">mapfile</span><span class="o">.</span><span class="n">c</span>
+<span class="n">maplabel</span><span class="o">.</span><span class="n">c</span>
+<span class="n">maplexer</span><span class="o">.</span><span class="n">l</span>
+<span class="n">maplexer</span><span class="o">.</span><span class="n">c</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="backwards-compatibility-issues">
+<h2>Backwards compatibility issues<a class="headerlink" href="#backwards-compatibility-issues" title="Permalink to this headline">¶</a></h2>
+<p>None.</p>
+</div>
+<div class="section" id="bug-id">
+<h2>Bug ID<a class="headerlink" href="#bug-id" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>2383: <a class="reference external" href="https://trac.osgeo.org/mapserver/ticket/2383">https://trac.osgeo.org/mapserver/ticket/2383</a></li>
+</ul>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting history<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>+1: SteveL, SteveW</li>
+<li>+0: FrankW, TomK</li>
+</ul>
+</div>
+<div class="section" id="questions-comments-from-the-review-period">
+<h2>Questions/Comments from the review period<a class="headerlink" href="#questions-comments-from-the-review-period" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>SteveW: allow preciser computation of line offsets when
+padding with spaces: done. The precise size of each line is
+calculated in pixels, and the closest number of space characters
+required for alignment is computed accordingly</li>
+<li>DanielM: allow multiple characters to be used when wrapping lines:
+not addressed. Space characters can be <em>replaced</em> by a newline, while the
+hyphen character should generally be kept. Any idea how we can specify that
+some wrapping characters are to be kept while others are just markers
+for potential linebreaks?</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-41.html" title="MS RFC 41: Support of WCS 1.1.x Protocol"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-39.html" title="MS RFC 39: Support of WMS/SLD Named Styles"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

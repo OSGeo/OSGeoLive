@@ -1,0 +1,88 @@
+/*
+  menu9_def.css
+  Default styles for CBE Cascading Drop-down Menu
+  Cross-Browser.com
+*/
+
+body {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:12px;
+  color:#000000; background:#cccccc;
+  margin:0; padding:2% 10% 2% 10%;
+}
+p {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:12px;
+  color:#333333; background:transparent;
+  margin:1em 0 1em 0em;
+}
+ul, li {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:12px;
+  color:#333333; background:transparent;
+}
+pre {
+  font-family:monospace; font-size:12px;
+  color:#003366; background:transparent;
+  margin:1em 0 1em 1em; padding:0;
+}
+h1 {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:18px;
+  color:#336699; background:transparent;
+  border-top:3px solid #003366;
+  margin-bottom:.5em; padding:0;
+}
+h2 {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:14px;
+  color:#003366; background:transparent;
+  border-top:1px dotted #003366;
+  margin-top:2em; padding:0;
+}
+a:link, a:visited, a:active {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:12px;
+  text-decoration:underline; color:#003366; background:transparent;
+}
+a:hover {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:12px;
+  text-decoration:none; color:#00cccc; background:#336699;
+}
+a.m:link, a.m:visited, a.m:active {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:12px;
+  text-decoration:none; color:#00cccc; background:transparent;
+}
+a.m:hover {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:12px;
+  text-decoration:none; color:#336699; background:#00cccc;
+}
+.subtitle {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:14px;
+  color:#336699; background:transparent;
+  margin-bottom:1em; padding:0;
+}
+.footer {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:10px;
+  color:#336699; background:transparent;
+  border-top:3px solid #003366; text-align:center;
+  margin-bottom:.5em; padding:0;
+}
+.marker {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:12px;
+  color:#003366; background:transparent; font-style:italic;
+}
+.mLabel {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:12px;
+  font-weight:bold; color:#00cccc; background:#336699;
+/*  width:200px; height:auto; */
+  margin:4px 0 0 0; padding:2px;
+  border-top:1px solid #999999; border-left:1px solid #999999;
+  border-bottom:1px solid #000000; border-right:1px solid #000000;
+}
+.mBox {
+  font-family:verdana,arial,helvetica,sans-serif; font-size:12px;
+  color:#00cccc; background:#336699;
+/*  width:200px; height:auto; */
+  margin:0 0 0 10px; padding:2px; line-height:1.3em;
+  border-top:1px solid #999999; border-left:1px solid #999999;
+  border-bottom:1px solid #000000; border-right:1px solid #000000;
+}
+.mItem {
+  background:transparent;
+  margin:0; padding:0;
+}

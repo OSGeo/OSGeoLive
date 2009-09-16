@@ -1,0 +1,141 @@
+.. _example1-7:
+
+===========
+Example 1.7
+===========
+Adding OGC WMS Layers
+---------------------
+
+.. image::  http://demo.mapserver.org/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/example1-7.map&layers=states+states_label+modis_jpl&mode=map
+
+Another exciting feature of MapServer is its ability to use layers from other
+map servers. In this case, a MapServer application becomes a WMS (or WFS)
+client. MapServer can also share (or serve up) the layers in the mapfile to
+other map servers. This makes an application a WMS (or WFS) server. What is WMS
+or WFS? These are "web-based interoperability service" specifications published
+by the Open Geospatial Consortium (OGC). WMS stands for Web Map Service and WFS
+for Web Feature Service. The difference between these two specifications, in
+simple terms, is that WMS uses web raster formats (PNG, GIF, JPEG) to share
+layers while WFS uses GML, the Geography Markup Language. A third OGC
+interoperability specification is the Web Coverage Services specification or
+WCS--MapServer supports this at the server level only. To find more information
+about WMS, WFS, and WCS go the the `OGC's web site
+<http://www.opengeospatial.org>`_ and look for the `OGC Implementation
+Specifications <http://www.opengeospatial.org/specs/?page=specs>`_ or `OGC
+Abstract Specifications <http://www.opengeospatial.org/specs/?page=abstract>`_.
+The MapServer web site also has `documentation
+<http://mapserver.gis.umn.edu/doc.html>`_ and `WIKI pages
+<http://mapserver.gis.umn.edu/cgi-bin/wiki.pl>`_ for these specifications.
+
+This example shows you how to add a WMS layer in your mapfile.
+
+The MapFile
+###########
+
+This is what the mapfile looks like: :ref:`Example1-7.map <example1-7-map>`
+
+LAYER Object and WMS Parameters
+*******************************
+
+Let's have a look at the WMS layer:
+
+**LAYER # MODIS WMS map from JPL**
+          Marks the start of the WMS LAYER object.
+
+**NAME modis_jpl**
+          The LAYER identifier.
+
+**TYPE RASTER**
+          Since this the WMS layer is an image, we use RASTER as LAYER TYPE.
+
+**OFFSITE 0 0 0**
+          Ignore the black background color
+
+**STATUS DEFAULT**
+          Turn this layer on by default.
+
+**CONNECTIONTYPE WMS**
+          The type of LAYER connection to use. The default is LOCAL--if we
+          have to be explicit, we would add CONNECTIONTYPE LOCAL to all othe
+          vector and raster layers in our mapfile. Instead we only define
+          connection types that are external. WMS is an external data layer,
+          coming from another map server.
+
+**CONNECTION "http://mapus.jpl.nasa.gov/wms.cgi?"**
+            The connection string that allows us to &quot;get&quot; the data
+            from another server. In the case of WMS connections, this is a URL.
+            If we were using a PostGIS database, it would be an SQL statement.
+            Please note that the string has to be in a single line in your
+            mapfile.
+
+**METADATA**
+            marks the beginning of the METADATA object for our WMS layer.
+            MapServer uses the parameters defined within this object along with
+            the CONNECTION parameter above to form a valid WMS request to the
+            WMS server.
+
+**"wms_srs" "epsg:4326"**
+            The WMS projection.  Sometimes the WMS server supports more than one
+            projection.  If this is the case you might want to request the map
+            in your output projection (epsg:2163).  Unfortunately, the JPL
+            server doesn't support this projection.
+
+**"wms_name" "modis"**
+            The WMS layer name. This is like adding the parameter "layers=modis".
+
+**"wms_server_version" "1.1.1"**
+            The WMS version the server complies to. MapServer adheres to version
+            1.1.1.
+
+**"wms_format" "image/jpeg"**
+            The image format we expect to be receiving from the WMS server.  You
+            can try replacing the value with &quot;image/png&quot; or something
+            else.
+**END**
+            marks the end of the METADATA object
+
+To know more about adding WMS layers to your applications, please visit the `WMS
+Client HOW-TO document <http://mapserver.gis.umn.edu/doc/wms-client-howto.html>`_.
+
+WEB Object Parameters
+*********************
+
+In addition to adding the WMS layer object, there's also a new object under MAP. This is the WEB object. Within the WEB object are two parameters:
+
+**IMAGEPATH '/data/tmp/'**
+            The absolute local path to a web accessible temporary directory. The
+            user running the web server processes should be able to write to
+            this directory. Make sure that the path includes a slash (/) at the
+            end. (Your IMAGEPATH might look something like this:
+            "/home/apache/htdocs/tmp/" or
+            "C:/Inetpub/wwwroot/tmp/".)
+
+**IMAGEURL '/tmp/'**
+            This is how IMAGEPATH will appear relative to the web server's root
+            directory. If we have to type the full URL for this, it will be
+            "http://terrasip.gis.umn.edu/tmp/". Make sure that the
+            path includes a slash (/) at the end.
+
+            Finally, within the MAP object, I added a new parameter: NAME. This
+            is the identifier for the MAP object. MapServer uses this as prefix
+            to all images it creates and dumps to the &quot;tmp&quot; directory.
+            It's not needed at this point but it also doesn't hurt to have it.
+
+            If you would like to share your data layers to other map servers,
+            you will need to add METADATA objects within your MAP object and
+            within each of the LAYER objects you would like to share. All the
+            WMS layers that you added from another server will automatically be
+            cascaded and will also become available to others. To know more
+            about how to make your MapServer application become a WMS server,
+            please read the `WMS Server HOW-TO documentation
+            <http://mapserver.gis.umn.edu/doc/wms-server-howto.html>`_.
+            Documentations also exist for configuring MapServer application to
+            support the WFS standard, both as a `server
+            <http://mapserver.gis.umn.edu/doc/wfs-server-howto.html>`_ and as a
+            `client <http://mapserver.gis.umn.edu/doc/wfs-client-howto.html>`_.
+
+----
+            
+:ref:`Back to Example 1.6 <example1-6>` | :ref:`Proceed to Example 1.8 <example1-8>`
+
+----

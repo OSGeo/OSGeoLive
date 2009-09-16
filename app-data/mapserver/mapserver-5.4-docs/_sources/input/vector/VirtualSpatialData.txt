@@ -1,0 +1,278 @@
+.. _virtual_vector:
+
+*****************************************************************************
+ Virtual Spatial Data
+*****************************************************************************
+
+.. contents:: Table of Contents
+    :depth: 2
+    :backlinks: top
+
+This is an OGR extension to MapServer.  It allows you to connect to 
+databases that do not explicitly hold spatial data, as well as flat 
+text files.  Your data must have an X and a Y column, and the data 
+may be accessed through an ODBC connection or a direct pointer to a text file.
+
+The original `VirtualSpatialData`_ wiki page may contain additional information.
+
+.. _`VirtualSpatialData`: http://trac.osgeo.org/mapserver/wiki/VirtualSpatialData
+
+Types of Databases
+----------------------
+
+The VirtualSpatialData OGR extension has been tested with the 
+following databases and should, in theory, support all ODBC 
+data sources.
+
+*  Oracle
+*  MySQL
+*  SQL Server
+*  Access
+*  PostgreSQL
+
+
+Types of Flat Files
+----------------------
+
+Comma, tab or custom delimited text/flat files work with VirtualSpatialData.
+
+Steps for Display
+-----------------
+
+1. Create the Datasource Name (DSN)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*  Specific notes about creating a DSN on Windows and Linux can be found by
+   searching the MapServer reference documents site
+
+*  On some Windows systems you must create a SYSTEM DSN.
+
+2. Test your Connection
+~~~~~~~~~~~~~~~~~~~~~~~
+
+Test your connection with ogrinfo.  The syntax for this command is:
+
+::
+
+	> ogrinfo ODBC:user/pass@DSN table
+
+Windows users may not be required to specify a user/password, so the syntax would be:
+
+::
+
+	> ogrinfo ODBC:@DSN table
+
+Example: Accessing a comma separated text file through ODBC using ogrinfo
+
+
+The following is a snippet of the flat text file coal_dep.txt containing lat/long points:
+
+::
+
+	unknown,na,id,id2,mark,coalkey,coalkey2,long,lat
+	0.000,0.000,1,1,7,87,87,76.90238,51.07161
+	0.000,0.000,2,2,7,110,110,78.53851,50.69403
+	0.000,0.000,3,3,3,112,112,83.22586,71.24420
+	0.000,0.000,4,4,6,114,114,80.79896,73.41175
+
+If the DSN name is Data_txt, the ogrinfo command to see a list of applicable files in the directory is:
+
+::
+
+	> ogrinfo ODBC:jeff/test@Data_txt
+	INFO: Open of `ODBC:jeff/test@Data_txt'
+	using driver `ODBC' successful.
+	1: coal_dep.csv
+	2: coal_dep.txt
+	3: coal_dep_nf.txt
+	4: coal_dep_trim.txt
+	5: Copy of coal_dep.txt
+	6: deposit.csv
+	7: maruia.asc
+	8: oahuGISbathy.csv
+	9: oahuGISbathy.txt
+	10: on_pts.txt
+	11: on_pts_utm.txt
+	12: test.txt
+	13: utm_test.txt
+
+Username and password may be optional, so the following may also be valid:
+
+::
+
+	> ogrinfo ODBC:@Data_txt
+
+Therefore, the command to see more information about one of the specific layers is:
+
+::
+
+	> ogrinfo ODBC:@Data_txt coal_dep.txt
+	INFO: Open of `ODBC:@Data_txt'
+	using driver `ODBC' successful.
+
+	Layer name: coal_dep.txt
+	Geometry: Unknown (any)
+	Feature Count: 266
+	Layer SRS WKT:
+	(unknown)
+	UNKNOWN: String (255.0)
+	NA: String (255.0)
+	ID: String (255.0)
+	ID2: String (255.0)
+	MARK: String (255.0)
+	COALKEY: String (255.0)
+	COALKEY2: String (255.0)
+	LONG: String (255.0)
+	LAT: String (255.0)
+	OGRFeature(coal_dep.txt):0
+	UNKNOWN (String) = 0.000
+	....
+
+3. Create a Virtual Data File
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is a file with an ovf extension and looks like the following:
+
+::
+
+	<OGRVRTDataSource>
+		<OGRVRTLayer name="mylayer">
+		<SrcDataSource>ODBC:user/pass@DSN</SrcDataSource>
+		<SrcLayer>tablename</SrcLayer>
+		<GeometryType>wkbPoint</GeometryType>
+		<LayerSRS>WGS84</LayerSRS>
+		<GeometryField encoding="PointFromColumns" x="x" y="y"/>
+		</OGRVRTLayer>
+	</OGRVRTDataSource>
+
+More information on ovf files can be found at: http://www.gdal.org/ogr/drv_vrt.html
+
+Example ovf file for coal_dep.txt:
+
+::
+
+	<OGRVRTDataSource>
+		<OGRVRTLayer  name="coal-test">
+		<SrcDataSource>ODBC:Data_txt</SrcDataSource>
+		<SrcLayer>coal_dep.txt</SrcLayer>
+		<GeometryField encoding="PointFromColumns" x="Long" y="Lat"/>
+		<GeometryType>wkbPoint</GeometryType>
+		</OGRVRTLayer>
+	</OGRVRTDataSource>
+
+4. Test Virtual Data File with ogrinfo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Use ogrinfo to test your new ovf file, such as:
+
+::
+
+        > ogrinfo coal.ovf coal-test
+        ERROR 4: Update access not supported for VRT datasources.
+        Had to open data source read-only.
+        INFO: Open of `myfile.ovf'
+        using driver `VRT' successful.
+
+	Layer name: coal_dep.txt
+	Geometry: Unknown (any)
+	Feature Count: 266
+	Layer SRS WKT:
+	(unknown)
+	UNKNOWN: String (255.0)
+	NA: String (255.0)
+	ID: String (255.0)
+	ID2: String (255.0)
+	MARK: String (255.0)
+        ...
+
+5. Mapfile Layer
+~~~~~~~~~~~~~~~~
+
+Using an ovf file your layer may look like:
+
+::
+
+   LAYER
+    CONNECTION "coal.ovf"
+    CONNECTIONTYPE OGR
+    DATA "coal-test"
+      METADATA
+        "wms_srs"   "4326"
+        "wms_title"   "coal-test"
+      END
+    NAME "coal-test"
+    SIZEUNITS PIXELS
+    STATUS ON
+    TOLERANCE 0
+    TOLERANCEUNITS PIXELS
+    TYPE POINT
+    UNITS METERS
+    CLASS
+      STYLE
+          COLOR 255 0 0
+        MAXSIZE 100
+        MINSIZE 1
+        SIZE 6
+        SYMBOL "star"
+      END
+    END
+  END
+
+Or you may specify the ovf contents inline such as:
+
+::
+
+	LAYER
+		CONNECTION "<OGRVRTDataSource>
+		<OGRVRTLayer  name='coal-test'>
+		<SrcDataSource>ODBC:@Data_txt</SrcDataSource>
+		<SrcLayer>coal_dep.txt</SrcLayer>
+		<GeometryField encoding='PointFromColumns' x='Long' y='Lat'/>
+		<GeometryType>wkbPoint</GeometryType>
+		</OGRVRTLayer>
+		</OGRVRTDataSource>"
+		CONNECTIONTYPE OGR
+		DATA "coal-test"
+		METADATA
+			"wms_srs"   "4326"
+			"wms_title"   "coal-test"
+		END
+		NAME "coal-test"
+		SIZEUNITS PIXELS
+		STATUS ON
+		TOLERANCE 0
+		TOLERANCEUNITS PIXELS
+		TYPE POINT
+		UNITS METERS
+		CLASS
+			STYLE
+				COLOR 255 0 0
+				MAXSIZE 100
+				MINSIZE 1
+				SIZE 6
+				SYMBOL "star"
+			END
+		END
+	END
+
+6. Test your Mapfile
+~~~~~~~~~~~~~~~~~~~~
+
+The first thing you should try is to use the :ref:`shp2img` utility:
+
+::
+
+  shp2img -m mymapfile.map -o test.png
+
+Once you successfully created a map image, then try your application. Note
+Windows users may come across a problem where shp2img works but their
+application throws an error similar to this:
+
+::
+
+  Warning: [MapServer Error]: msOGRFileOpen(): Open failed for OGR connection `coal.ovf'. 
+  Unable to initialize ODBC connection to DSN for jeff/test@Data_txt, 
+  [Microsoft][ODBC Driver Manager] Data source name not found
+  and no default driver specified in D:\ms4w\Apache\htdocs\quickmap.php on line 40
+
+If that happens you should make sure you have created a System DSN.

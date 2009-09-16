@@ -1,0 +1,22 @@
+.. _utilities:
+
+*****************************************************************************
+ Utilities
+*****************************************************************************
+
+
+.. toctree::
+   :maxdepth: 2
+
+   legend
+   msencrypt
+   scalebar
+   shp2img
+   shptree
+   shptreevis
+   sortshp
+   sym2img
+   tile4ms
+   batch_utilities
+   manage
+   

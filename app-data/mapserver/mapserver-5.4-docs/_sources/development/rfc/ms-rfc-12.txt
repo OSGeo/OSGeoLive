@@ -1,0 +1,157 @@
+.. _rfc12:
+
+=========================================================
+MS RFC 12: C code Unit tests
+=========================================================
+
+:Date:  2006/02/28
+:Author: Umberto Nicoletti
+:Contact: umberto.nicoletti at gmail.com
+:Status: Draft
+:Id: $Id: ms-rfc-12.txt 8278 2008-12-23 21:34:31Z hobu $
+
+Overview
+--------
+Unit tests are a simple but effective way of checking progress
+and code correctness while programming. Mapserver already has unit tests
+for python MapScript and a functional testing suite but lacks
+unit tests for the C code which represents the core of its functionality.
+
+This rfc outlines how unit tests can be (gradually) added to the usual
+development cycle of MapServer, without pretending that developers
+switch to extreme programming or adopt test driven development.
+
+Issue #1664 on bugzilla and mapserver-dev will be used to track code 
+samples and discussion.
+
+Example
+-------
+A patch has been attached to issue #1664 on bugzilla which implements
+the basic infrastructure and some unit tests to demonstrate functionality.
+The patch was created in under 6 hours by a single person, who is not a frequent
+C programmer. This is meant to prove that unit tests do not take away
+much time from developers and that in general the benefit is worth the cost.
+
+The example already supports all the usual preprocessor flags (USE_FLAGS like 
+#ifdef PROJ) so only the relevant tests will be compiled and run. This is 
+necessary to avoid test failures due to a missing feature (as happens with 
+Python unit tests).
+
+Unit testing software
+---------------------
+
+This rfc recommends the use of the CUnit unit testing library for the C 
+language, version 2.0.x. The configure script must be updated to reflect this 
+new dependency and the following or a similar text will be displayed when 
+cunit is not found: "cunit not found, C unit testing disabled.".
+
+When cunit is available unit tests could be run by default at the end of 
+the compile phase: this will give users some more confidence in the software 
+they just compiled (most of them are linux newbies and have no experience 
+with programming) and could help in catching obvious bugs (like a typo 
+while committing to cvs).
+
+Unit tests are placed in the cunit subdirectory of the MapServer source and 
+distributed with all future releases. Unit tests files should be named with 
+respect to the original MapServer source file they test plus the addition of 
+the _tests suffix: for instance unit tests for the mappool.c file should be 
+placed in a file called mappool_tests.c. The files can have an alphanumeric 
+code added to the suffix to keep them conveniently short 
+(like mappool_tests_1.c, mappool_tests_1b.c or mappool_tests_umberto.c).
+
+Usage recommendations
+-----------------------
+
+Developers are not required to write unit tests but when they do we suggest to 
+follow this checklist.
+
+Developer implementing a new feature
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* she will try to reproduce the bug with a unit test; if this is not possible 
+  or seems difficult she should consider asking on mapserver-dev. The unit 
+  test must fail at this stage (if written)
+
+* she fixes the bug and verifies that the test written at the previous 
+  item now passes (if written)
+
+* she verifies that also all other tests pass and only after she commits
+
+Developer adding functionality
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* she writes a test that verifies the new functionality (this can also be 
+  done afterward, as we have relaxed requirements)
+
+* she writes the code implementing the desired functionality
+
+* she now verifies that the test passes
+
+* she verifies that all other tests pass and only after she commits
+
+General
+~~~~~~~
+
+She will also use the usual preprocessor flags to ensure only the relevant 
+tests for the current configuration context will be compiled and run. The 
+example attached to issue #1664 already implements this feature.
+
+Testing specific functionalities
+--------------------------------
+
+Some aspects of MapServer like database connections and gd rendering are 
+inherently difficult to test. This section provides guidance on how to deal 
+with them in unit tests and will be expanded as new or better solutions 
+are devised.
+
+Database connections
+~~~~~~~~~~~~~~~~~~~~
+
+Database connections generally require a specific setup so that expected 
+tables, data and possibly other structures are in place. While this should be 
+a long term goal in the short term unit tests could be limited to 
+comparing the sql query against the expected one.
+
+This quite likely requires a refactoring of current PostGIS code.
+
+In the future a minimal setup script should be provided to create and 
+populate the database for the user (if she desires to do so).
+
+GD (and others) rendering engines
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Taking inspiration from the perl GD module a set of images must be produced and
+then compared against those produced by MapServer. This kind of operation is
+already performed by the msautotest suite, so effort should rather go toward
+improving that instead of implementing yet another gd test suite.
+
+WFS/WMS support
+~~~~~~~~~~~~~~~
+
+ Note: The author is not an expert here
+
+In this case unit tests can be used to verify that for certain requests (possibly
+using the test data supplied with MapServer) the string returned by MapServer
+equals the expected one.
+
+A refactoring of existing code could be necessary.
+
+Mapscript
+~~~~~~~~~
+
+Unit tests should be developed by the MapScript mantainers by following the 
+guidelines given here.
+
+Running unit tests and functional tests ( Continuos integration )
+-----------------------------------------------------------------
+
+   Not part of unit tests for now, but useful in perspective
+
+Effort should be put toward developing a build system capable of
+
+a. testing the overall build/test of MapServer and of the various MapServers 
+   with different configure options
+
+b. and integrating those results with the msautotest suite.
+
+

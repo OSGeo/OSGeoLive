@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 47: Move IGNORE_MISSING_DATA to run-time configuration &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 48: GEOTRANSFORM Geometry operations" href="ms-rfc-48.html" />
+    <link rel="prev" title="MS RFC 46: Migrate Website to OSGeo" href="ms-rfc-46.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-48.html" title="MS RFC 48: GEOTRANSFORM Geometry operations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-46.html" title="MS RFC 46: Migrate Website to OSGeo"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-47.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-47.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 47: Move IGNORE_MISSING_DATA to run-time configuration</a><ul>
+<li><a class="reference external" href="#overview">Overview</a></li>
+<li><a class="reference external" href="#technical-solution">Technical Solution</a></li>
+<li><a class="reference external" href="#mapscript-implications">Mapscript Implications</a></li>
+<li><a class="reference external" href="#files-affected">Files Affected</a></li>
+<li><a class="reference external" href="#backwards-compatibility-issues">Backwards Compatibility Issues</a></li>
+<li><a class="reference external" href="#bug-id">Bug ID</a></li>
+<li><a class="reference external" href="#voting-history">Voting History</a></li>
+<li><a class="reference external" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-46.html"
+                                  title="previous chapter">MS RFC 46: Migrate Website to OSGeo</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-48.html"
+                                  title="next chapter">MS RFC 48: GEOTRANSFORM Geometry operations</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-47.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-47-move-ignore-missing-data-to-run-time-configuration">
+<span id="rfc47"></span><h1>MS RFC 47: Move IGNORE_MISSING_DATA to run-time configuration<a class="headerlink" href="#ms-rfc-47-move-ignore-missing-data-to-run-time-configuration" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2008/10/09</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Paul Ramsey</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">pramsey at cleverelephant.ca</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">2008/10/15</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Adopted on 2008-10-15 - Completed</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">MapServer 5.4</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-47.txt 8278 2008-12-23 21:34:31Z hobu $</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Making the options for ignoring missing data in tile-indexed layers and WMS
+client layers more flexible, and configurable at run-time via the map file.</p>
+</div>
+<div class="section" id="technical-solution">
+<h2>Technical Solution<a class="headerlink" href="#technical-solution" title="Permalink to this headline">¶</a></h2>
+<p>Currently Mapserver has only compile-time (./configure &#8211;ignore-missing-data)
+control of behavior when files referenced in tile indexes are missing, via the
+IGNORE_MISSING_DATA define, and that behavior is applied globally.</p>
+<p>Under this RFC, the missing data behavior will be defined:</p>
+<blockquote>
+<ul class="simple">
+<li>at run time</li>
+<li>globally for a map file</li>
+</ul>
+</blockquote>
+<p>As well, the option to &#8220;fail on a missing layer&#8221; will be added to the WMS
+client code, which currently defaults to &#8220;ignore on a missing layer&#8221;.</p>
+<p>All changes will preserve the current default behavior in cases where new
+behavior is not requested by the user: missing data in tileindexes will
+continue to cause failure and missing WMS layers will continue to be ignored,
+unless Mapserver is compiled with &#8211;ignore-missing-data.</p>
+<p>A map-level configuration option will be added, CONFIG &#8220;ON_MISSING_DATA&#8221;
+&#8220;[ACTION]&#8221;, with the following valid actions: &#8220;IGNORE&#8221;, &#8220;LOG&#8221;, &#8220;FAIL&#8221;. The
+default map-level behavior will be &#8220;FAIL&#8221;, unless MapServer is compiled with
+&#8211;ignore-missing-data, in which case it will be &#8220;LOG&#8221;. This will preserve the
+current behavior for all legacy mapfiles and compile set-ups.</p>
+<p>In the case of &#8220;LOG&#8221; behavior, the logging will only occur if the mapfile is
+set up for logging: DEBUG is set and MS_ERRORFILE is set. Documentation must
+note that DEBUG and MS_ERRORFILE need to be set.</p>
+<p>At the same time, this ticket (#2722) can probably be tracked down and
+resolved.</p>
+</div>
+<div class="section" id="mapscript-implications">
+<h2>Mapscript Implications<a class="headerlink" href="#mapscript-implications" title="Permalink to this headline">¶</a></h2>
+<p>None.</p>
+</div>
+<div class="section" id="files-affected">
+<h2>Files Affected<a class="headerlink" href="#files-affected" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">mapshape</span><span class="o">.</span><span class="n">c</span>
+<span class="n">mapogr</span><span class="o">.</span><span class="n">c</span>
+<span class="n">mapraster</span><span class="o">.</span><span class="n">c</span>
+<span class="n">maprasterquery</span><span class="o">.</span><span class="n">c</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Documentation will be updated to reflect the new feature<ul>
+<li>Mapserver Mapfile Reference</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="backwards-compatibility-issues">
+<h2>Backwards Compatibility Issues<a class="headerlink" href="#backwards-compatibility-issues" title="Permalink to this headline">¶</a></h2>
+<p>None. Legacy mapfiles and compile setups should retain existing behavior in
+the presence of this new code.</p>
+</div>
+<div class="section" id="bug-id">
+<h2>Bug ID<a class="headerlink" href="#bug-id" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2785">http://trac.osgeo.org/mapserver/ticket/2785</a></li>
+</ul>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting History<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<p>N/A</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>N/A</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-48.html" title="MS RFC 48: GEOTRANSFORM Geometry operations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-46.html" title="MS RFC 46: Migrate Website to OSGeo"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

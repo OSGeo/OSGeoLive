@@ -1,0 +1,49 @@
+.. _irc:
+
+*****************************************************************************
+ IRC
+*****************************************************************************
+
+Some of the development of MapServer is coordinated through IRC. This page
+describes how you log on to chat, ask questions, and hack around with the
+developers.
+
+Server and Channel Information
+===============================
+
+::
+
+  Server: irc.freenode.net
+  Channel: #mapserver
+  Logs: http://logs.qgis.org/mapserver/
+
+Why IRC?
+========================
+
+IRC is a primary medium where Open Source GIS hackers congregate, collaborate,
+and hack. It makes it easy to communicate things like compilation issues,
+where immediate, iterative feedback allows folks to make a lot of progress.
+Something that might take days of heavily-quoted emails through a maillist
+might only take fifteen minutes on IRC.
+
+IRC is a great way to coordinate on-line meetings. Much of the discussion
+about the development of the new MapServer website was coordinated through
+IRC.
+
+Some folks find IRC distracting and do not normally participate except for
+on-line meetings.
+
+How do I join?
+=========================
+
+`Chatzilla <http://www.mozilla.org/projects/rt-messaging/chatzilla/>`__ is
+probably the easiest way to get going. Chatzilla works with Mozilla or
+Firefox, and once you have it installed, you can log on to the channel by
+pointing your browser at::
+
+  irc://irc.freenode.net/#mapserver
+
+There are many other IRC clients available. `This page
+<http://tikiwiki.org/ConnectingToIrc>`__ provides a good listing for many
+different platforms.
+

@@ -1,0 +1,42 @@
+/* cbe.css
+   not part of CBE, only for cbe offline files
+   to get the latest cbe, visit cross-browser.com
+*/
+
+body {font-family:verdana,arial,sans-serif,helvetica; font-size:12px; color:#000000; background:#333333; margin:0; padding:0; }
+a:link, a:visited, a:active { font-family:verdana,arial,sans-serif; font-size:12px; color:#666666; }
+a:hover { font-family:verdana,arial,sans-serif; font-size:12px; color:#3333ff; background:#cccccc; }
+p { font-family:"trebuchet ms",verdana,arial,sans-serif; font-size:14px; color:#000000; }
+td { font-family:"trebuchet ms",verdana,arial,sans-serif; font-size:14px; color:#000000;}
+ul { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; background:#ffffff; }
+pre, code { font-family:"courier new",monospace; font-size:12px; color:#3333ff; background:#ffffff; }
+.monoSpc { font-family:monospace; font-size:14px; }
+h1 { font-family:verdana,arial,sans-serif; font-size:16px; color:#3333ff; background:#cccccc; padding:2px; }
+h2 { font-family:verdana,arial,sans-serif; font-size:12px; color:#3333ff; background:#ffffff; border-top:1px dotted #000000; margin:1em 0em 1em 0em; text-align:right; }
+h3 { font-family:verdana,arial,sans-serif; font-size:12px; color:#333333; background:transparent; }
+
+a.clsANav:link, a.clsANav:visited, a.clsANav:active { font-family:verdana,arial,sans-serif; font-size:10px; color:#3333ff; text-decoration:underline; }
+a.clsANav:hover { font-family:verdana,arial,sans-serif; font-size:10px; color:#ff3333; text-decoration:none;}
+
+a.clsAMenu:link, a.clsAMenu:visited, a.clsAMenu:active { font-family:verdana,arial,sans-serif; font-size:10px; color:#3333ff; text-decoration:none; }
+a.clsAMenu:hover { font-family:verdana,arial,sans-serif; font-size:10px; color:#ffffff; background:#3333ff; text-decoration:none; }
+
+a.example:link, a.example:visited, a.example:active { font-family:verdana,arial,sans-serif; font-size:12px; color:#ffffff; background:#3333ff; }
+a.example:hover { font-family:verdana,arial,sans-serif; font-size:12px; color:#ffffff; background:#ff3333; }
+
+.clsContentBody { margin-left:2%; margin-right:2%; margin-top:2%; margin-bottom:2%; color:#000000; background:#ffffff; padding:2px; }
+
+.clsTitle { font-family:verdana,arial,sans-serif; font-size:24px; color:#ffffff;
+  margin:0; padding:0; vertical-align:middle; background-color:#3333ff;
+  border-top:1px solid #ffffff; border-left:1px solid #ffffff; border-bottom:1px solid #000000;
+}                                                                                                                                      
+.clsSubTitle { font-family:verdana,arial,sans-serif; font-size:10px; color:#ffffff;
+  margin:0; padding:0; vertical-align:bottom; background-color:#3333ff; text-align:right;
+  border-top:1px solid #ffffff; border-bottom:1px solid #000000; border-right:1px solid #000000;
+}                                                                                                                                      
+.clsNav { font-family:verdana,arial,sans-serif; font-size:10px; color:#000000;
+  margin:0; padding:0; vertical-align:middle; background-color:#cccccc;
+  border-top:1px solid #ffffff; border-left:1px solid #ffffff;
+  border-bottom:1px solid #000000; border-right:1px solid #000000;
+}
+

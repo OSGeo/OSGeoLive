@@ -1,0 +1,561 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Expressions &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Mapfile" href="index.html" />
+    <link rel="next" title="FEATURE" href="feature.html" />
+    <link rel="prev" title="CLASS" href="class.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="feature.html" title="FEATURE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="class.html" title="CLASS"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//mapfile/expressions.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/mapfile/expressions.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Expressions</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a></li>
+<li><a class="reference external" href="#expression-types">Expression Types</a><ul>
+<li><a class="reference external" href="#string-comparison">String comparison</a></li>
+<li><a class="reference external" href="#regular-expression-comparison">Regular expression comparison</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#mapserver-expressions">&#8220;MapServer expressions&#8221;</a><ul>
+<li><a class="reference external" href="#logical-expressions">Logical expressions</a></li>
+<li><a class="reference external" href="#string-operations-that-result-in-a-logical-value">String operations that result in a logical value</a></li>
+<li><a class="reference external" href="#string-operations-that-return-string-values">String operations that return string values</a></li>
+<li><a class="reference external" href="#arithmetic-expressions-returning-logical-values">Arithmetic expressions returning logical values</a></li>
+<li><a class="reference external" href="#arithmetic-expression-returning-a-number">Arithmetic expression returning a number</a></li>
+<li><a class="reference external" href="#temporal-expressions">Temporal expressions</a></li>
+<li><a class="reference external" href="#how-the-attributes-are-referenced">How the attributes are referenced</a></li>
+<li><a class="reference external" href="#quotes-escaping-in-strings">Quotes escaping in strings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="class.html"
+                                  title="previous chapter">CLASS</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="feature.html"
+                                  title="next chapter">FEATURE</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/mapfile/expressions.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="expressions">
+<span id="id1"></span><h1><a class="toc-backref" href="#contents">Expressions</a><a class="headerlink" href="#expressions" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Dirk Tilger</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">dirk at MIRIUP.DE</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Umberto Nicoletti</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">umberto.nicoletti at gmail.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8295 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2008-12-27 01:08:04 -0400 (Sat, 27 Dec 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Last Updated:</th><td class="field-body">2007/07/09</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#expressions" id="id2">Expressions</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#expression-types" id="id4">Expression Types</a></li>
+<li><a class="reference internal" href="#mapserver-expressions" id="id5">&#8220;MapServer expressions&#8221;</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>As of version 4.6.1, expressions are used in two places. They&#8217;re used to
+filter layers for specific records in the dataset and they&#8217;re used in
+<a class="reference external" href="class.html#class"><em>CLASS</em></a> <a class="reference internal" href="#expressions"><em>EXPRESSIONs</em></a> to specify to which items this
+<a class="reference external" href="class.html#class"><em>CLASS</em></a> does apply to.</p>
+</div>
+<div class="section" id="expression-types">
+<h2><a class="toc-backref" href="#contents">Expression Types</a><a class="headerlink" href="#expression-types" title="Permalink to this headline">¶</a></h2>
+<p>Expression are used to match attribute values with certain logical checks.
+There are three different types of expressions you can use with MapServer:</p>
+<blockquote>
+<ul class="simple">
+<li>String comparisons: A single attribute is compared with a string value.</li>
+<li>Regular expressions: A single attribute is matched with a regular expression.</li>
+<li>Logical &#8220;MapServer expressions&#8221;: One or more attributes are compared using
+logical expressions.</li>
+</ul>
+</blockquote>
+<div class="section" id="string-comparison">
+<h3>String comparison<a class="headerlink" href="#string-comparison" title="Permalink to this headline">¶</a></h3>
+<p>String comparison means as the name suggests that attribute values are checked
+if they are equal to some value. String comparison are the simplest form of
+MapServer expressions and the fastest option.</p>
+<p id="index-12">To use a string comparison for filtering a <a class="reference external" href="layer.html#layer"><em>LAYER</em></a>, both FILTERITEM and
+FILTER must be set. FILTERITEM is set to the attribute name. FILTER is set to
+the value for comparison. The same rule applies to <a class="reference external" href="layer.html#classitem"><em>CLASSITEM</em></a> and EXPRESSION in the <a class="reference external" href="class.html#class"><em>CLASS</em></a> object.</p>
+<p>Example for a simple string comparison filter</p>
+<div class="highlight-python"><pre>FILTER "2005"
+FILTERITEM "year"</pre>
+</div>
+<p>would match all records that have the attribute &#8220;year&#8221; set to &#8220;2005&#8221;.
+The rendered map would appear as if the dataset would only contain those items
+that have the &#8220;year&#8221; set to &#8220;2005&#8221;.</p>
+<p>Similarly, a classification for the items matched above would be done
+by setting the CLASSITEM in the layer and the EXPRESSION in the class</p>
+<div class="highlight-python"><pre>LAYER
+    NAME "example"
+    CLASSITEM "year"
+    ...
+    CLASS
+        NAME "year-2005"
+        EXPRESSION "2005"
+        ...
+    END
+END</pre>
+</div>
+<p>For a reason explained later on the values for both CLASSITEM and FILTERITEM
+should start neither with an &#8216;/&#8217; nor with a &#8216;(&#8216; character.</p>
+</div>
+<div class="section" id="regular-expression-comparison">
+<span id="index-13"></span><h3>Regular expression comparison<a class="headerlink" href="#regular-expression-comparison" title="Permalink to this headline">¶</a></h3>
+<p>Regular expressions are a standard text pattern matching mechanism from the
+UNIX world. The functionality of regular expression matching is provided by
+the operating system on UNIX systems and therefore slightly operating system
+dependent. However their minimum set of features are those defined by the POSIX
+standard. The documentation of the particular regular expression library is
+usually in the &#8220;regex&#8221; manual page (&#8220;man regex&#8221;).</p>
+<p>Regular expression with MapServer work similarly to string comparison, but
+allow more complex operation. They are slower than pure string comparisons,
+but might be still faster than logical expression. As with the string
+comparison use regular expressions, a FILTERITEM or a CLASSITEM has to
+defined, respectively.</p>
+<p>A regular expression typically consists of characters with special meanings
+and characters that are interpreted as they are. Alphanumeric characters
+(A-Z, a-z and 0-9) are taken as they are. Characters with special means are:</p>
+<blockquote>
+<ul class="simple">
+<li><strong>.</strong> will match a single character</li>
+<li><strong>[</strong> and <strong>]</strong> are used for grouping. For example <em>[A-Z]</em> would
+match the characters A,B,C,...,X,Y,Z.</li>
+<li><strong>{</strong>, <strong>}</strong>, and <strong>*</strong> are used to specify how often something should match.</li>
+<li><strong>^</strong> matches the beginning, <strong>$</strong> matches the end of the value.</li>
+<li>The backslash <strong>\</strong> is used to take away the special meaning.
+For example <em>$</em> would match the dollar sign.</li>
+</ul>
+</blockquote>
+<p>The following <a class="reference external" href="layer.html#layer"><em>LAYER</em></a> configuration would have all records rendered on the
+map that have &#8220;hotel&#8221; in the attribute named &#8220;placename&#8221;</p>
+<div class="highlight-python"><pre>LAYER
+    NAME "regexp-example"
+    FILTERITEM "placename"
+    FILTER /hotel/
+    ...
+END</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The regular expression is case-sensitive, thus records having
+&#8220;Hotel&#8221; in them would not have matched.</p>
+</div>
+<p>Example: Match records that have a value for the current century
+(as of 2005 ;) in the attribute &#8220;year&#8221;</p>
+<div class="highlight-python"><pre>FILTERITEM "year"
+FILTER /^20[0-9][0-9]/</pre>
+</div>
+<p>Example: Match all the records that are either purely numerical or empty</p>
+<div class="highlight-python"><pre>FILTER /^[0-9]*$/</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you experience frequently segmentation faults when working with
+MapServer and regular expressions, it might be that your current
+working environment is linked against more than one regular expression
+library. This can happen when MapServer is linked with components that
+bring their own copy, like the Apache httpd or PHP. In these cases
+the author has made best experiences with making all those components
+using the regular expression library of the operating system (i.e. the
+one in libc). That involved editing the build files of some of the
+components, however.</p>
+</div>
+</div>
+</div>
+<div class="section" id="mapserver-expressions">
+<h2><a class="toc-backref" href="#contents">&#8220;MapServer expressions&#8221;</a><a class="headerlink" href="#mapserver-expressions" title="Permalink to this headline">¶</a></h2>
+<p>MapServer expressions are the most complex and depending how they are written
+can become quite slow. They can match any of the attributes and thus allow
+filtering and classification depending on more than one attribute. Besides
+pure logical operations there are also expressions allow also certain
+arithmetic, string- and time operations.</p>
+<p>To be able to use a MapServer expression for a FILTER or EXPRESSION value,
+the expression has to be finally of a logical value.</p>
+<div class="section" id="logical-expressions">
+<h3>Logical expressions<a class="headerlink" href="#logical-expressions" title="Permalink to this headline">¶</a></h3>
+<p>Syntactically, a logical expression is everything encapsulated in round
+brackets. Logical expressions take logical values as their input and
+return logical values. A logical expression is either &#8216;true&#8217; or &#8216;false&#8217;.</p>
+<blockquote>
+<ul class="simple">
+<li>( ( ... ) AND ( ... ) )
+( ( ... ) &amp;&amp; ( ... ) )
+... will become true when both of the two logical expressions in the
+innermost brackets are true.</li>
+<li>( ( ... ) OR ( ... ) )
+( ( ... ) || ( ... ) )
+... will become true when at least one of the two logical expressions
+in the innermost brackets is true.</li>
+<li>NOT ( ... )
+! ( ... )
+... will become true, when the logical expression in the brackets
+becomes false.</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="string-operations-that-result-in-a-logical-value">
+<h3>String operations that result in a logical value<a class="headerlink" href="#string-operations-that-result-in-a-logical-value" title="Permalink to this headline">¶</a></h3>
+<p>Syntactically, a sting is something encapsulated in double-quotes.</p>
+<blockquote>
+<ul class="simple">
+<li>( &#8220;String1&#8221; eq &#8220;String2&#8221; )
+( &#8220;String1&#8221; == &#8220;String2&#8221; )
+( &#8220;String1&#8221; = &#8220;String2&#8221; )
+... will become true when both strings are equal. This operation is
+identical to the MapServer string comparison described earlier.</li>
+<li>( &#8220;String1&#8221; != &#8220;String2&#8221; )
+( &#8220;String1&#8221; ne &#8220;String2&#8221; )
+... will become true when both strings are not equal.</li>
+<li>( &#8220;String1&#8221; &lt; &#8220;String2&#8221; )
+( &#8220;String1&#8221; lt &#8220;String2&#8221; )
+... will become true when &#8220;String1&#8221; is lexicographically
+smaller than &#8220;String2&#8221;</li>
+<li>( &#8220;String1&#8221; &gt; &#8220;String2&#8221; )
+( &#8220;String1&#8221; gt &#8220;String2&#8221; )
+... will become true when &#8220;String1&#8221; is lexicographically
+larger than &#8220;String2&#8221;.</li>
+<li>( &#8220;String1&#8221; &lt;= &#8220;String2&#8221; )
+( &#8220;String1&#8221; le &#8220;String2&#8221; )
+... will become true when &#8220;String1&#8221; is not lexicographically larger
+than &#8220;String2&#8221;</li>
+<li>( &#8220;String1&#8221; &gt;= &#8220;String2&#8221; )
+( &#8220;String1&#8221; ge &#8220;String2&#8221; )
+... will become true when &#8220;String1&#8221; is not lexicographically smaller
+than &#8220;String2&#8221;.</li>
+<li>( &#8220;String1&#8221; IN &#8220;token1,token2,...,tokenN&#8221; )
+... will become true when &#8220;String1&#8221; is in equal one of the given tokens.</li>
+</ul>
+</blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<blockquote>
+The separator for those tokens is the comma. That means that you must not add
+unnecessary white space to the list and that you cannot compare to tokens
+that have a comma in it.</blockquote>
+<ul class="last simple">
+<li>( &#8220;String1&#8221; =~ /regexp/ )
+... will become true, when &#8220;String1&#8221; matches the regular expression
+&#8220;regexp&#8221;. This operation is identical to the regular expression matching
+described earlier.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="string-operations-that-return-string-values">
+<h3>String operations that return string values<a class="headerlink" href="#string-operations-that-return-string-values" title="Permalink to this headline">¶</a></h3>
+<p>There is only one operation for strings that returns a string value:</p>
+<blockquote>
+<ul class="simple">
+<li>&#8220;String1&#8221; + &#8220;String2
+... will return &#8220;String1String2&#8221;, thus the two string concatenated to
+each other.</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="arithmetic-expressions-returning-logical-values">
+<h3>Arithmetic expressions returning logical values<a class="headerlink" href="#arithmetic-expressions-returning-logical-values" title="Permalink to this headline">¶</a></h3>
+<p>The basic element for the arithmetic operation is the number. There are
+some purely arithmetic operations that are returning numbers as their value.
+They will be covered in the next section.</p>
+<blockquote>
+<ul class="simple">
+<li>( n1 eq n2 )
+( n1 == n2 )
+( n1 = n2 )
+... will become true when both numbers are equal.</li>
+<li>( n1 != n2 )
+( n1 ne n2 )
+... will become true when both numbers are not equal.</li>
+<li>( n1 &lt; n2 )
+( n1 lt n2 )
+... will become true when n1 is smaller than n2</li>
+<li>( n1 &gt; n2 )
+( n1 gt n2 )
+... will become true when n1 is larger than n2.</li>
+<li>( n1 &lt;= n2 )
+( n1 le n2 )
+... will become true when n1 is smaller or equal n2</li>
+<li>( n1 &gt;= n2 )
+( n1 ge n2 )
+... will become true when n1 is larger or equal n2.</li>
+<li>( n1 IN &#8220;number1,number2,...,numberN&#8221; )
+... will become true when n1 is equal to one of the given numbers.</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="arithmetic-expression-returning-a-number">
+<h3>Arithmetic expression returning a number<a class="headerlink" href="#arithmetic-expression-returning-a-number" title="Permalink to this headline">¶</a></h3>
+<p>As stated in the previous section, MapServer can do purely numerical
+operations with numbers.</p>
+<blockquote>
+<ul class="simple">
+<li>n1 + n2
+... will become the sum of n1 and n2</li>
+<li>n1 - n2
+... will become n2 subtracted from n1</li>
+<li>n1 * n2
+... will become n1 multiplicated with n2</li>
+<li>n1 / n2&gt;
+... will become n1 divided by n2</li>
+<li>-n1
+... will become n1 with negated sign</li>
+<li>n1 ^ n2
+... will become n1 by a power of n2</li>
+<li>length ( &#8220;String1&#8221; )
+... will become the number of characters of &#8220;String1&#8221;</li>
+</ul>
+</blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When the numerical operations above are used like logical operations,
+the following rule applies: values equal to zero will be taken as
+&#8216;false&#8217; and everything else will be &#8216;true&#8217;. That means the expression</p>
+</div>
+<dl class="docutils">
+<dt>::</dt>
+<dd>( 6 + 5 )
+...</dd>
+</dl>
+<p>would evaluate as true, but</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">(</span> <span class="mi">5</span> <span class="o">-</span> <span class="mi">5</span> <span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>would evaluate as false.</p>
+</div>
+<div class="section" id="temporal-expressions">
+<h3>Temporal expressions<a class="headerlink" href="#temporal-expressions" title="Permalink to this headline">¶</a></h3>
+<p>MapServer uses an internal time type to do comparison. To convert a keys
+value into this time type it will check the list below from the top down if
+the specified time matches and if so, it will do the conversion.</p>
+<blockquote>
+<ul class="simple">
+<li>YYYY-MM-DDTHH:MM:SSZ (&#8216;Z&#8217; and &#8216;T&#8217; being the characters itself)&lt;/i&gt;</li>
+<li>YYYY-MM-DDTHH:MM:SS (&#8216;T&#8217; being the character itself)&lt;/i&gt;</li>
+<li>YYYY-MM-DD HH:MM:SS</li>
+<li>YYYY-MM-DDTHH:MM (&#8216;T&#8217; being the character itself)&lt;/i&gt;</li>
+<li>YYYY-MM-DD HH:MM</li>
+<li>YYYY-MM-DDTHH (&#8216;T&#8217; being the character itself)&lt;/i&gt;</li>
+<li>YYYY-MM-DD HH</li>
+<li>YYYY-MM-DD</li>
+<li>YYYY-MM</li>
+<li>YYYY</li>
+<li>THH:MM:SSZ (&#8216;Z&#8217; and &#8216;T&#8217; being the characters itself)&lt;/i&gt;</li>
+<li>THH:MM:SS</li>
+</ul>
+</blockquote>
+<p>For temporal values obtained this way, the following operations are supported:</p>
+<blockquote>
+<ul class="simple">
+<li>( n1 eq n2 )
+( n1 == n2 )
+( n1 = n2 )
+... will become true when both times are equal.</li>
+<li>( t1 != t2 )
+( t1 ne t2 )
+... will become true when both times are not equal.</li>
+<li>( t1 &lt; t2 )
+( t1 lt t2 )
+... will become true when t1 is earlier than t2</li>
+<li>( t1 &gt; t2 )
+( t1 gt t2 )
+... will become true when t1 is later than t2.</li>
+<li>( t1 &lt;= t2 )
+( t1 le t2 )
+... will become true when t1 is earlier or same t2</li>
+<li>( n1 &gt;= n2 )
+( n1 ge n2 )
+... will become true when t1 is later or same t2.</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="how-the-attributes-are-referenced">
+<h3>How the attributes are referenced<a class="headerlink" href="#how-the-attributes-are-referenced" title="Permalink to this headline">¶</a></h3>
+<p>To make a meaningful use of the expressions above, we need to get the attribute
+values into the expressions. That is done by enclosing the attribute key
+into square brackets, like this: [KEY]. Then before the expression is evaluated
+every occurrence of &#8220;[KEY]&#8221; will be replaced by the value for attribute &#8220;KEY&#8221;.</p>
+<p>Example: how a simple string comparison would be evaluated. The filter is set to:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">FILTER</span> <span class="p">(</span> <span class="s">&quot;[BUILDING_NAME]&quot;</span> <span class="o">==</span> <span class="s">&quot;National Museum&quot;</span> <span class="p">)</span>
+</pre></div>
+</div>
+<p>There is a attribute &#8220;BUILDING_NAME&#8221; and its value is &#8220;National Government
+Building&#8221;. Thus the expression actually evaluated is...</p>
+<div class="highlight-python"><pre>"National Government Building" == "National Museum" )</pre>
+</div>
+<p>...and as such should be false.</p>
+<p>Some layers do not really come with metadata. For raster layers for example
+special attributes have been defined that can be used for classification:</p>
+<blockquote>
+<ul class="simple">
+<li>[PIXEL]
+... will become the pixel value as number</li>
+<li>[RED], [GREEN], [BLUE]
+... will become the color value for the red, green and blue component
+in the pixel value, respectively.</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="quotes-escaping-in-strings">
+<h3>Quotes escaping in strings<a class="headerlink" href="#quotes-escaping-in-strings" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Quotes escaping is not supported in MapServer versions lower than 5.0.</p>
+</div>
+<p>Starting with MapServer 5.0, if your dataset contains double-quotes, you
+can use a C-like escape sequence in the expression string. For example if your
+key <em>&#8220;NAME&#8221;</em> has the value <em>&#8216;National &#8220;hero&#8221; statue&#8217;</em> you could write the
+FILTER expression as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">FILTER</span> <span class="p">(</span> <span class="s">&quot;[NAME]&quot;</span> <span class="o">==</span> <span class="s">&quot;National </span><span class="se">\&quot;</span><span class="s">hero</span><span class="se">\&quot;</span><span class="s"> statue&quot;</span> <span class="p">)</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>to escape a single quote use the following sequence instead:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">FILTER</span> <span class="p">(</span> <span class="s">&quot;[NAME]&quot;</span> <span class="o">==</span> <span class="s">&quot;National </span><span class="se">\&#39;</span><span class="s">hero</span><span class="se">\&#39;</span><span class="s"> statue&quot;</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="feature.html" title="FEATURE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="class.html" title="CLASS"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

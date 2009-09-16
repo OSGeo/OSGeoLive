@@ -1,0 +1,122 @@
+.. _example1-4-map:
+
+Example1-4.map
+--------------
+
+.. code-block:: mapfile
+
+  # The annotated map file (sort of)
+  # Created by Pericles S. Nacionales for the MapServer tutorial
+  # 20050408
+  #
+  # MapServer map file uses the pound sign (#) to denote the start of a line
+  # comment--each line that needs to be commented has to be prepended with a "#".
+  #
+  # Map files begin with MAP keyword to signify the start of the map object.
+  # Well, the entire map file is THE map object.  Enclosed between MAP and END
+  # at the very bottom of this map file, are keyword/value pairs and other
+  # objects.
+  MAP
+    IMAGETYPE      PNG
+    EXTENT         -97.238976 41.619778 -82.122902 49.385620
+    SIZE           400 300
+    SHAPEPATH      "../data"
+    IMAGECOLOR     255 255 255
+    FONTSET        "../fonts/fonts.list"
+
+    # Layer objects are defined beneath the map object.  You need at least one
+    # layer defined in your map file before you can display a map...  You can
+    # define as many layers as you'd like although a limit is typically hard-coded
+    # in map.h in the MapServer source.  The default limit is set at 100.  You'd
+    # have to have a very specialized application to need more than 100 layers in
+    # your application.
+
+    # Start of LAYER DEFINITIONS ---------------------------------------------
+    LAYER # States polygon layer begins here
+      NAME         states_poly
+      DATA         states_ugl
+      STATUS       OFF
+      TYPE         POLYGON
+
+      # CLASSITEM defines the non-spatial attribute that you will be using to
+      # separate a layer into classes.  This attribute will be in the DBF file
+      # of your shapefile (it will be different for each data format).  In this
+      # example the shapefile states_ugl has an associated database
+      # (states_ugl.dbf) that contains an attribute called "CLASS".  You will be
+      # using two values in the CLASS attribute to separate the classes (also
+      # called themes) used in this layer--land and water.  CLASSITEM is used in
+      # association with the EXPRESSION parameter in the CLASS object.  See below.
+      CLASSITEM    "CLASS"
+
+      # Just like CLASSITEM, LABELITEM defines the database attribute that you
+      # will be using to draw labels.  In this case, the values of the attribute
+      # "STATE" will be used to label the states polygons.
+      LABELITEM    "STATE"
+
+      # The class object is defined within the layer object.  You can define as
+      # many classes as you need (well, there are limits as with layers, but it's
+      # senseless to define more than ten on a "normal" layer.  There are
+      # situations, however, where you might have to do it.)
+      CLASS
+        NAME 'States'
+        EXPRESSION 'land'
+
+        # There are styles in a class, just like there are classes in a layer,
+        # just like there are layers in a map.  You can define multiple styles in
+        # a class just as you can define multiple classes in a layer and multiple
+        # layers in a map.
+        STYLE
+          COLOR      232 232 232
+        END
+
+        # There can be labels in a class, just like there are classes in a layer,
+        # just like there are layers in a map.  You can define multiple labels in
+        # a class just as you can define multiple classes in a layer and multiple
+        # layers in a map.
+        # MapServer has a very flexible labeling system.  With that flexibility
+        # comes complexity, specially when using truetype fonts.  Please read
+        # through the LABEL section of the MapServer map file documentation at
+        # http://ms.gis.umn.edu/docs/reference/mapfile for more information.
+        LABEL
+          COLOR 132 31 31
+          SHADOWCOLOR 218 218 218
+          SHADOWSIZE 2 2
+          TYPE TRUETYPE
+          FONT arial-bold
+          SIZE 12
+          ANTIALIAS TRUE
+          POSITION CL
+          PARTIALS FALSE
+          MINDISTANCE 300
+          BUFFER 4
+        END # end of label
+      END
+
+      CLASS
+        NAME 'Water'
+        EXPRESSION 'water'
+
+        STYLE
+          COLOR      198 198 255
+        END
+      END
+    END # States polygon layer ends here
+
+    LAYER # States line layer begins here
+      NAME         states_line
+      DATA         states_ugl
+      STATUS       OFF
+      TYPE         LINE
+
+      CLASSITEM    "CLASS"
+      CLASS
+        NAME 'State Boundary'
+        EXPRESSION 'land'
+        STYLE
+          COLOR      64 64 64
+        END
+      END
+    END # States line layer ends here
+    # End of LAYER DEFINITIONS -------------------------------
+
+  END # All map files must come to an end just as all other things must come to...

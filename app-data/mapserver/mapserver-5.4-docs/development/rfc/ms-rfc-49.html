@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 49: Symbology, Labeling, and Cartography Improvements &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 50: OpenGL Rendering Support" href="ms-rfc-50.html" />
+    <link rel="prev" title="MS RFC 48: GEOTRANSFORM Geometry operations" href="ms-rfc-48.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-50.html" title="MS RFC 50: OpenGL Rendering Support"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-48.html" title="MS RFC 48: GEOTRANSFORM Geometry operations"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-49.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-49.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 49: Symbology, Labeling, and Cartography Improvements</a><ul>
+<li><a class="reference external" href="#purpose">Purpose</a></li>
+<li><a class="reference external" href="#fractional-values-for-size-and-width">Fractional values for SIZE and WIDTH</a></li>
+<li><a class="reference external" href="#minscaledenom-maxscaledenom-for-styles-and-labels">MINSCALEDENOM / MAXSCALEDENOM for STYLEs and LABELS</a></li>
+<li><a class="reference external" href="#outlinewidth-on-line-layers">OUTLINEWIDTH on line layers</a></li>
+<li><a class="reference external" href="#add-label-to-layersobj">add LABEL to layersObj</a></li>
+<li><a class="reference external" href="#affected-files">Affected Files</a></li>
+<li><a class="reference external" href="#documentation">Documentation</a></li>
+<li><a class="reference external" href="#mapscript">Mapscript</a></li>
+<li><a class="reference external" href="#backwards-incompatibility">Backwards Incompatibility</a></li>
+<li><a class="reference external" href="#comments-from-review-period">Comments from Review period</a></li>
+<li><a class="reference external" href="#voting-history">Voting History</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-48.html"
+                                  title="previous chapter">MS RFC 48: GEOTRANSFORM Geometry operations</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-50.html"
+                                  title="next chapter">MS RFC 50: OpenGL Rendering Support</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-49.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-49-symbology-labeling-and-cartography-improvements">
+<span id="rfc49"></span><h1>MS RFC 49: Symbology, Labeling, and Cartography Improvements<a class="headerlink" href="#ms-rfc-49-symbology-labeling-and-cartography-improvements" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2009/01/26</td>
+</tr>
+<tr class="field"><th class="field-name">Authors:</th><td class="field-body">Thomas Bonfort, Stephen Lime</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">Thomas.Bonfort at camptocamp.com , Steve.Lime at DNR.State.MN.US</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Passed and Implemented</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">MapServer 5.4</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-49.txt 8455 2009-01-25 17:29:53Z tbonfort $</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this headline">¶</a></h2>
+<p>This RFC regroups a few minor additions or changes to the MapServer rendering
+or mapfile syntax.</p>
+<p>These changes are/were all in RFC45, but were extracted to keep things
+moving on as some of the stuff in RFC45 lacks funding in the near
+future.</p>
+</div>
+<div class="section" id="fractional-values-for-size-and-width">
+<h2>Fractional values for SIZE and WIDTH<a class="headerlink" href="#fractional-values-for-size-and-width" title="Permalink to this headline">¶</a></h2>
+<p>AGG can deal with fractional widths and sizes but styleObj&#8217;s define those
+properties as int&#8217;s.  Shouldn&#8217;t be a big deal since both GD and AGG don&#8217;t use
+those values directly, rather they use scaled values with are cast or rounded
+to an int if necessary.</p>
+<p><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2766">http://trac.osgeo.org/mapserver/ticket/2766</a></p>
+</div>
+<div class="section" id="minscaledenom-maxscaledenom-for-styles-and-labels">
+<h2>MINSCALEDENOM / MAXSCALEDENOM for STYLEs and LABELS<a class="headerlink" href="#minscaledenom-maxscaledenom-for-styles-and-labels" title="Permalink to this headline">¶</a></h2>
+<p>These keywords can reduce mapfile size and maintainance, by avoiding
+creating multiple layers or classes.</p>
+<p><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2865">http://trac.osgeo.org/mapserver/ticket/2865</a></p>
+</div>
+<div class="section" id="outlinewidth-on-line-layers">
+<h2>OUTLINEWIDTH on line layers<a class="headerlink" href="#outlinewidth-on-line-layers" title="Permalink to this headline">¶</a></h2>
+<p>It is currently impossible to draw a outlined line with a scale-dependant
+width.  We propose to add the OUTLINWIDTH keyword to the STYLE block, that
+indicates the width in pixels that should be rendered around the main line
+color.</p>
+<p>The implementation of this lies in mapdraw.c. When a line&#8217;s style block has an
+outlinewidth, the underlying shape is actually drawn twice: once with it&#8217;s
+width adapted to account for the outlinewidth, and once normally. The current
+caching mechanism for lines is preserved.</p>
+<p>example usage:</p>
+<div class="highlight-python"><pre>LAYER
+  TYPE LINE
+  SIZEUNITS meters
+  CLASS
+    STYLE
+      COLOR 255 0 0
+      OUTLINECOLOR 0 0 0
+      OUTLINEWIDTH 1
+      WIDTH 25 #this is in meters (ground units)
+      MINWIDTH 1 #minimal width (in pixels) for far zoomed maps
+      MAXWIDTH 20 #maximal width (in pixels) for close zoomed maps
+    END
+  END
+END</pre>
+</div>
+<p>whatever the map extent or scale, this line layer would always be rendered by a
+red line with a one pixel black outline.</p>
+<p><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2865">http://trac.osgeo.org/mapserver/ticket/2865</a></p>
+</div>
+<div class="section" id="add-label-to-layersobj">
+<h2>add LABEL to layersObj<a class="headerlink" href="#add-label-to-layersobj" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This feature has not yet been implemented</p>
+</div>
+<p>so that a default can be defined for all classes (sort of like templates). A
+class label would take precedent.</p>
+<p><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/XXX">http://trac.osgeo.org/mapserver/ticket/XXX</a></p>
+</div>
+<div class="section" id="affected-files">
+<h2>Affected Files<a class="headerlink" href="#affected-files" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>mapfile.c</li>
+<li>mapdraw.c (outlinewidth on lines, scale on styleobj)</li>
+<li>mapserver.h</li>
+<li>maplabel.c (scale on labels)</li>
+</ul>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>The documentation for the keywords will be aded to the main mapfile syntax docs.</p>
+</div>
+<div class="section" id="mapscript">
+<h2>Mapscript<a class="headerlink" href="#mapscript" title="Permalink to this headline">¶</a></h2>
+<p>Getters and Setters for the keywords will be added for mapscript availability</p>
+</div>
+<div class="section" id="backwards-incompatibility">
+<h2>Backwards Incompatibility<a class="headerlink" href="#backwards-incompatibility" title="Permalink to this headline">¶</a></h2>
+<p>None Expected</p>
+</div>
+<div class="section" id="comments-from-review-period">
+<h2>Comments from Review period<a class="headerlink" href="#comments-from-review-period" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">the LABELMETHOD proposal is withdrawn</p>
+</li>
+<li><p class="first">fractional values also for pattern,gap, offset:  a good candidate
+for 6.0 (when pattern and gap would be moved to the styleObj?)</p>
+</li>
+<li><p class="first">there was concensus for adding parametered scaling, usefull for
+thematic mapping (eg size proportional to a feature attribute)</p>
+<ul>
+<li><p class="first">by allowing simple expressions, eg SIZE  ( 18 + [poptotal] * ((
+43-18)/(5000-30000))  )</p>
+</li>
+<li><p class="first">or by adding pseudoitems at the layer level:</p>
+<div class="highlight-python"><pre>PSEUDOITEM
+ 'mySize' (mrange([itemname], mininput, maxinput, minoutput,
+maxoutput))
+ 'myText (commify(round([itemname], 2)) + ' ac')
+END
+
+LABELITEM 'myText'
+CLASS
+ STYLE
+  COLOR 255 0 0
+  SIZE [mySize]
+ END
+ LABEL
+  ...
+ END
+END</pre>
+</div>
+</li>
+</ul>
+<blockquote>
+<p>this enhancement will be addressed in a specific rfc.</p>
+</blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting History<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<p>+1 : SteveW, UmbertoN, TamasS, SteveL, DanielM (,AlanB)</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-50.html" title="MS RFC 50: OpenGL Rendering Support"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-48.html" title="MS RFC 48: GEOTRANSFORM Geometry operations"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,133 @@
+.. _sdts:
+
+*****************************************************************************
+ SDTS
+*****************************************************************************
+
+This is a United States Geological Survey (USGS) format. SDTS has a raster and a vector format.  The raster format is not supported in MapServer.  Only the vector formats are supported, including VTP and DLG files.
+
+File listing
+------------------
+*  SDTS files are often organized into state-sized pieces.  For 
+   example, all of the state of Maryland (MD), U.S.A.
+*  Files are also available for multiple types of features 
+   including hydrography, transportation and administrative boundaries.
+
+This example uses transportation data, which consists of 35 separate files, each with the suffix DDF:
+
+::
+
+	MDTRAHDR.DDF  MDTRARRF.DDF  MDTRCATS.DDF
+	MDTRDQCG.DDF  MDTRFF01.DDF  MDTRLE02.DDF
+	MDTRNA03.DDF  MDTRNO03.DDF  MDTRSPDM.DDF
+	MDTRAMTF.DDF  MDTRBFPS.DDF  MDTRCATX.DDF
+	MDTRDQHL.DDF  MDTRIDEN.DDF  MDTRLE03.DDF
+	MDTRNE03.DDF  MDTRPC01.DDF  MDTRSTAT.DDF
+	MDTRARDF.DDF  MDTRBMTA.DDF  MDTRDDSH.DDF
+	MDTRDQLC.DDF  MDTRIREF.DDF  MDTRNA01.DDF
+	MDTRNO01.DDF  MDTRPC02.DDF  MDTRXREF.DDF
+	MDTRARDM.DDF  MDTRCATD.DDF  MDTRDQAA.DDF
+	MDTRDQPA.DDF  MDTRLE01.DDF  MDTRNA02.DDF
+	MDTRNO02.DDF  MDTRPC03.DDF
+
+Data Access / Connection Method
+--------------------------------
+
+*  SDTS access is available in MapServer through OGR.
+*  The CONNECTIONTYPE OGR parameter must be used.
+*  The path (which can be relative) to the catalog file (????CATD.DDF) is required, 
+   including file extension.
+*  There are multiple layers in the SDTS catalog, some 
+   of which are only attributes and have no geometries.
+*  The layer name is specified with the DATA parameter
+
+OGRINFO Examples
+-------------------
+
+Using ogrinfo on a catalog file (note that the first 7 layers do not have geometries):
+
+::
+
+	> ogrinfo /data/sdts/MD/MDTRCATD.DDF
+	Had to open data source read-only.
+	INFO: Open of `MDTRCATD.DDF'
+	using driver `SDTS' successful.
+	1: ARDF (None)
+	2: ARRF (None)
+	3: AMTF (None)
+	4: ARDM (None)
+	5: BFPS (None)
+	6: BMTA (None)
+	7: AHDR (None)
+	8: NE03 (Point)
+	9: NA01 (Point)
+	10: NA02 (Point)
+	11: NA03 (Point)
+	12: NO01 (Point)
+	13: NO02 (Point)
+	14: NO03 (Point)
+	15: LE01 (Line String)
+	16: LE02 (Line String)
+	17: LE03 (Line String)
+	18: PC01 (Polygon)
+	19: PC02 (Polygon)
+	20: PC03 (Polygon)
+
+Using ogrinfo to examine the structure of the file/layer:
+
+::
+
+	> ogrinfo /data/sdts/MD/MDTRCATD.DDF LE01 -summary
+	Had to open data source read-only.
+	INFO: Open of `MDTRCATD.DDF'
+	using driver `SDTS' successful.
+
+	Layer name: LE01
+	Geometry: Line String
+	Feature Count: 780
+	Extent: (-80.000289, 36.999774) - (-74.999711, 40.000225)
+	Layer SRS WKT:
+	GEOGCS["NAD27",
+    DATUM["North_American_Datum_1927",
+        SPHEROID["Clarke 1866",6378206.4,294.978698213901]],
+    PRIMEM["Greenwich",0],
+    UNIT["degree",0.0174532925199433]]
+	RCID: Integer (0.0)
+	SNID: Integer (0.0)
+	ENID: Integer (0.0)
+	ENTITY_LABEL: String (7.0)
+	ARBITRARY_EXT: String (1.0)
+	RELATION_TO_GROUND: String (1.0)
+	VERTICAL_RELATION: String (1.0)
+	OPERATIONAL_STATUS: String (1.0)
+	ACCESS_RESTRICTION: String (1.0)
+	OLD_RAILROAD_GRADE: String (1.0)
+	WITH_RAILROAD: String (1.0)
+	COVERED: String (1.0)
+	HISTORICAL: String (1.0)
+	LIMITED_ACCESS: String (1.0)
+	PHOTOREVISED: String (1.0)
+	LANES: Integer (2.0)
+	ROAD_WIDTH: Integer (3.0)
+	BEST_ESTIMATE: String (1.0)
+	ROUTE_NUMBER: String (7.0)
+	ROUTE_TYPE: String (9.0)
+
+Map File Example:
+
+::
+
+	LAYER
+	  NAME sdts_maryland
+	  TYPE LINE
+	  CONNECTIONTYPE OGR
+	  CONNECTION "data/sdts/MD/MDTRCATD.DDF"
+          DATA "LE01"
+	  STATUS DEFAULT
+	  CLASS
+            STYLE
+              COLOR 0 0 0
+            END
+	  END
+	END
+	

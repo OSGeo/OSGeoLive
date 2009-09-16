@@ -1,0 +1,354 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 23: Technical Steering Committee Guidelines &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 25: Align MapServer pixel and extent models with OGC models" href="ms-rfc-25.html" />
+    <link rel="prev" title="MS RFC 22a: Feature cache for long running processes and query processing" href="ms-rfc-22a.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-25.html" title="MS RFC 25: Align MapServer pixel and extent models with OGC models"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-22a.html" title="MS RFC 22a: Feature cache for long running processes and query processing"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-23.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-23.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 23: Technical Steering Committee Guidelines</a><ul>
+<li><a class="reference external" href="#summary">Summary</a></li>
+<li><a class="reference external" href="#detailed-process">Detailed Process</a></li>
+<li><a class="reference external" href="#when-is-vote-required">When is Vote Required?</a></li>
+<li><a class="reference external" href="#observations">Observations</a></li>
+<li><a class="reference external" href="#committee-membership">Committee Membership</a><ul>
+<li><a class="reference external" href="#adding-members">Adding Members</a></li>
+<li><a class="reference external" href="#stepping-down">Stepping Down</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#membership-responsibilities">Membership Responsibilities</a><ul>
+<li><a class="reference external" href="#guiding-development">Guiding Development</a></li>
+<li><a class="reference external" href="#irc-meeting-attendance">IRC Meeting Attendance</a></li>
+<li><a class="reference external" href="#mailing-list-participation">Mailing List Participation</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#bootstrapping">Bootstrapping</a></li>
+<li><a class="reference external" href="#updates">Updates</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-22a.html"
+                                  title="previous chapter">MS RFC 22a: Feature cache for long running processes and query processing</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-25.html"
+                                  title="next chapter">MS RFC 25: Align MapServer pixel and extent models with OGC models</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-23.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-23-technical-steering-committee-guidelines">
+<span id="rfc23"></span><h1>MS RFC 23: Technical Steering Committee Guidelines<a class="headerlink" href="#ms-rfc-23-technical-steering-committee-guidelines" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2006/05/12</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Frank Warmerdam, Steve Lime</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">warmerdam at pobox.com, sdlime at dnr.state.mn.us</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">2008/01/25</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Adopted</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-23.txt 8278 2008-12-23 21:34:31Z hobu $</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>This document describes how the MapServer Project Steering Committee
+determines membership, and makes decisions on all aspects of the
+MapServer project - both technical and non-technical.</p>
+<p>Examples of PSC management responsibilities:</p>
+<ul class="simple">
+<li>setting the overall development road map</li>
+<li>developing technical standards and policies (e.g. coding standards,
+file naming conventions, etc...)</li>
+<li>ensuring regular releases (major and maintenance) of MapServer software</li>
+<li>reviewing RFC for technical enhancements to the software</li>
+<li>project infrastructure (e.g. CVS/SVN, Bugzilla, hosting options, etc...)</li>
+<li>formalization of affiliation with external entities such as OSGeo</li>
+<li>setting project priorities, especially with respect to project sponsorship</li>
+<li>creation and oversight of specialized sub-committees (e.g. project
+infrastructure, training)</li>
+</ul>
+<p>In brief the project team votes on proposals on mapserver-dev.  Proposals are
+available for review for at least two days, and a single veto is sufficient
+delay progress though ultimately a majority of members can pass a proposal.</p>
+</div>
+<div class="section" id="detailed-process">
+<h2>Detailed Process<a class="headerlink" href="#detailed-process" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Proposals are written up and submitted on the mapserver-dev mailing list
+for discussion and voting, by any interested party, not just
+committee members.</li>
+<li>Proposals need to be available for review for at least two business
+days before a final decision can be made.</li>
+<li>Respondents may vote &#8220;+1&#8221; to indicate support for the proposal and a
+willingness to support implementation.</li>
+<li>Respondents may vote &#8220;-1&#8221; to veto a proposal, but must provide clear
+reasoning and alternate approaches to resolving the problem within
+the two days.</li>
+<li>A vote of -0 indicates mild disagreement, but has no effect.  A 0
+indicates no opinion.  A +0 indicate mild support, but has no
+effect.</li>
+<li>Anyone may comment on proposals on the list, but only members of the
+Project Steering Committee&#8217;s votes will be counted.</li>
+<li>A proposal will be accepted if it receives +2 (including the
+author) and no vetoes (-1).</li>
+<li>If a proposal is vetoed, and it cannot be revised to satisfy all
+parties, then it can be resubmitted for an override vote in which a
+majority of all eligible voters indicating +1 is sufficient to pass it.
+Note that this is a majority of all committee members, not just those who
+actively vote.</li>
+<li>Upon completion of discussion and voting the author should announce
+whether they are proceeding (proposal accepted) or are withdrawing
+their proposal (vetoed).</li>
+<li>The Chair gets a vote.</li>
+<li>The Chair is responsible for keeping track of who is a member of the
+Project Steering Committee (perhaps as part of a PSC file in CVS).</li>
+<li>Addition and removal of members from the committee, as well as selection
+of a Chair should be handled as a proposal to the committee.</li>
+<li>The Chair adjudicates in cases of disputes about voting.</li>
+</ul>
+</div>
+<div class="section" id="when-is-vote-required">
+<h2>When is Vote Required?<a class="headerlink" href="#when-is-vote-required" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Any change to committee membership (new members, removing inactive members)</li>
+<li>Changes to project infrastructure (e.g. tool, location or substantive
+configuration)</li>
+<li>Anything that could cause backward compatibility issues.</li>
+<li>Adding substantial amounts of new code.</li>
+<li>Changing inter-subsystem APIs, or objects.</li>
+<li>Issues of procedure.</li>
+<li>When releases should take place.</li>
+<li>Anything dealing with relationships with external entities such as OSGeo</li>
+<li>Anything that might be controversial.&lt;/li&gt;</li>
+</ul>
+</div>
+<div class="section" id="observations">
+<h2>Observations<a class="headerlink" href="#observations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The Chair is the ultimate adjudicator if things break down.</li>
+<li>The absolute majority rule can be used to override an obstructionist
+veto, but it is intended that in normal circumstances vetoers need to be
+convinced to withdraw their veto.  We are trying to reach consensus.</li>
+<li>It is anticipated that separate &#8220;committees&#8221; will exist to manage
+conferences, documentation and web sites.  That said, it is expected
+that the PSC will be the entity largely responsible for creating any
+such committees.</li>
+</ul>
+</div>
+<div class="section" id="committee-membership">
+<h2>Committee Membership<a class="headerlink" href="#committee-membership" title="Permalink to this headline">¶</a></h2>
+<p>The PSC is made up of individuals consisting of technical contributors
+(e.g. developers) and prominent members of the MapServer user community.
+There is no set number of members for the PSC although the initial desire
+is to set the membership at 9.</p>
+<div class="section" id="adding-members">
+<h3>Adding Members<a class="headerlink" href="#adding-members" title="Permalink to this headline">¶</a></h3>
+<p>Any member of the mapserver-dev mailing list may nominate someone for
+committee membership at any time. Only existing PSC committee members may
+vote on new members.  Nominees must receive a majority vote from existing
+members to be added to the PSC.</p>
+</div>
+<div class="section" id="stepping-down">
+<h3>Stepping Down<a class="headerlink" href="#stepping-down" title="Permalink to this headline">¶</a></h3>
+<p>If for any reason a PSC member is not able to fully participate then they
+certainly are free to step down.  If a member is not active (e.g. no
+voting, no IRC or email participation) for a period of two months then
+the committee reserves the right to seek nominations to fill that position.
+Should that person become active again (hey, it happens) then they would
+certainly be welcome, but would require a nomination.</p>
+</div>
+</div>
+<div class="section" id="membership-responsibilities">
+<h2>Membership Responsibilities<a class="headerlink" href="#membership-responsibilities" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="guiding-development">
+<h3>Guiding Development<a class="headerlink" href="#guiding-development" title="Permalink to this headline">¶</a></h3>
+<p>Members should take an active role guiding the development of new features
+they feel passionate about. Once a change request has been accepted
+and given a green light to proceed does not mean the members are free of
+their obligation. PSC members voting &#8220;+1&#8221; for a change request are
+expected to stay engaged and ensure the change is implemented and
+documented in a way that is most beneficial to users. Note that this
+applies not only to change requests that affect code, but also those
+that affect the web site, technical infrastructure, policies and standards.</p>
+</div>
+<div class="section" id="irc-meeting-attendance">
+<h3>IRC Meeting Attendance<a class="headerlink" href="#irc-meeting-attendance" title="Permalink to this headline">¶</a></h3>
+<p>PSC members are expected to participate in pre-scheduled IRC development
+meetings. If known in advance that a member cannot attend a meeting,
+the member should let the meeting organizer know via e-mail.</p>
+</div>
+<div class="section" id="mailing-list-participation">
+<h3>Mailing List Participation<a class="headerlink" href="#mailing-list-participation" title="Permalink to this headline">¶</a></h3>
+<p>PSC members are expected to be active on both the mapserver-users
+and mapserver-dev mailing lists, subject to open source mailing list
+etiquette. Non-developer members of the PSC are not expected to respond
+to coding level questions on the developer mailing list, however they
+are expected to provide their thoughts and opinions on user level
+requirements and compatibility issues when RFC discussions take place.</p>
+</div>
+</div>
+<div class="section" id="bootstrapping">
+<h2>Bootstrapping<a class="headerlink" href="#bootstrapping" title="Permalink to this headline">¶</a></h2>
+<p>Prior to the TSC anointing itself the PSC this RFC must be distributed before
+the MapServer community via MapServer-Users for comment. Any and all
+substantive comments must be discussed (and hopefully, but not necessarily,
+addressed via MapServer-Dev.</p>
+<p>All members of the existing Technical Steering Committee will form the initial
+Project Steering Committee. Steve Lime is declared initial Chair of
+the Project Steering Committee.</p>
+<p>Initial members are:</p>
+<ul class="simple">
+<li>Steve Lime</li>
+<li>Daniel Morissette</li>
+<li>Frank Warmerdam</li>
+<li>Assefa Yewondwossen</li>
+<li>Howard Butler</li>
+<li>Steve Woodbridge</li>
+<li>Perry Nacionales</li>
+</ul>
+<p>There are two open committee positions at the initial formation of the PSC.</p>
+</div>
+<div class="section" id="updates">
+<h2>Updates<a class="headerlink" href="#updates" title="Permalink to this headline">¶</a></h2>
+<p><strong>29 May 2007</strong></p>
+<p>The following members were were added to the PSC after discussion and consensus:</p>
+<ul class="simple">
+<li>Tom Kralidis</li>
+<li>Jeff McKenna</li>
+<li>Umberto Nicoletti</li>
+<li>Tamas Szekeres</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-25.html" title="MS RFC 25: Align MapServer pixel and extent models with OGC models"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-22a.html" title="MS RFC 22a: Feature cache for long running processes and query processing"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>tile4ms &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Utilities" href="index.html" />
+    <link rel="next" title="Batch Scripting" href="batch_utilities.html" />
+    <link rel="prev" title="sym2img" href="sym2img.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="batch_utilities.html" title="Batch Scripting"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sym2img.html" title="sym2img"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Utilities</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//utilities/tile4ms.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/utilities/tile4ms.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">tile4ms</a><ul>
+<li><a class="reference external" href="#purpose">Purpose</a></li>
+<li><a class="reference external" href="#description">Description</a></li>
+<li><a class="reference external" href="#syntax">Syntax</a></li>
+<li><a class="reference external" href="#short-example">Short Example</a></li>
+<li><a class="reference external" href="#long-example">Long Example</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="sym2img.html"
+                                  title="previous chapter">sym2img</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="batch_utilities.html"
+                                  title="next chapter">Batch Scripting</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/utilities/tile4ms.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tile4ms">
+<span id="id1"></span><h1>tile4ms<a class="headerlink" href="#tile4ms" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this headline">¶</a></h2>
+<p>Creates a tile index shapefile for use with MapServer&#8217;s TILEINDEX feature. The program
+creates a shapefile of rectangles from extents of all the shapefiles listed in [metafile]
+(one shapefile name per line) and the associated DBF with the filename for each shape tile
+in a column called LOCATION as required by mapserv.</p>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>This utility creates a shapefile containing the MBR (minimum bounding rectangle) of all
+shapes in the files provided, which can then be used in the LAYER object&#8217;s TILEINDEX parameter
+of the mapfile.  The new filed created with this command is used by MapServer to only load
+the files assocated with that extent (or tile).</p>
+</div>
+<div class="section" id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>tile4ms &lt;meta-file&gt; &lt;tile-file&gt; [-tile-path-only]
+&lt;meta-file&gt;     INPUT  file containing list of shapefile names
+                (complete paths 255 chars max, no extension)
+&lt;tile-file&gt;     OUTPUT shape file of extent rectangles and names
+                of tiles in &lt;tile-file&gt;.dbf
+-tile-path-only Optional flag.  If specified then only the path to the
+                shape files will be stored in the LOCATION field
+                instead of storing the full filename.</pre>
+</div>
+</div>
+<div class="section" id="short-example">
+<h2>Short Example<a class="headerlink" href="#short-example" title="Permalink to this headline">¶</a></h2>
+<p>create tileindex.shp for all tiles under the /path/to/data directory:</p>
+<div class="highlight-python"><pre>   &lt;on Unix&gt;
+
+cd /path/to/data
+find . -name "/*.shp" -print &gt; metafile.txt
+tile4ms metafile.txt tileindex
+
+   &lt;on Windows&gt;
+
+dir /b /s *.shp &gt; metafile.txt
+tile4ms metafile.txt tileindex</pre>
+</div>
+</div>
+<div class="section" id="long-example">
+<h2>Long Example<a class="headerlink" href="#long-example" title="Permalink to this headline">¶</a></h2>
+<p>This example uses TIGER Census data, where the data contains files divided
+up by county (in fact there are over 3200 counties, a very large dataset
+indeed).  In this example we will show how to display all lakes for the
+state of Minnesota.  (note that here we have already converted the TIGER data
+into shapefile format, but you could keep the data in TIGER format and use
+the ogrtindex utility instead) The TIGER Census data for Minnesota is made
+up of 87 different counties, each containing its own lakes file (&#8216;wp.shp&#8217;).</p>
+<ol class="arabic simple">
+<li>We need to create the &#8216;meta-file&#8217; for the tile4ms command.  This is a text
+file of the paths to all &#8216;wp.shp&#8217; files for the MN state.  To create this
+file we can use a few simple commands:</li>
+</ol>
+<blockquote>
+<div class="highlight-python"><pre>DOS: dir wp.shp /b /s &gt; wp_list.txt
+(this includes full paths to the data, you might want to edit the txt
+file to remove the full path)
+
+UNIX: find -name *wp.shp -print &gt; wp_list.txt</pre>
+</div>
+</blockquote>
+<p>The newly created file might look like the following (after removing the
+full path):</p>
+<blockquote>
+<div class="highlight-python"><pre>001\wp.shp
+003\wp.shp
+005\wp.shp
+007\wp.shp
+009\wp.shp
+011\wp.shp
+013\wp.shp
+015\wp.shp
+017\wp.shp
+019\wp.shp
+. . .</pre>
+</div>
+</blockquote>
+<ol class="arabic simple" start="2">
+<li>Execute the tile4ms command with the newly created meta-file to create the
+index file:</li>
+</ol>
+<blockquote>
+<div class="highlight-python"><pre>tile4ms wp_list.txt index
+  Processed 87 of 87 files</pre>
+</div>
+</blockquote>
+<ol class="arabic simple" start="3">
+<li>A new file named &#8216;index.shp&#8217; is created.  This is the index file with the MBRs
+of all &#8216;wp.shp&#8217; files for the entire state, as shown in Figure1.  The attribute
+table of this file contains a field named &#8216;LOCATION&#8217;, that contains the path to
+each &#8216;wp.shp file&#8217;, as shown in Figure2.</li>
+</ol>
+<blockquote>
+<p><strong>Figure 1: Index file created by tile4ms utility</strong></p>
+<img alt="../_images/tile4ms-view.png" src="../_images/tile4ms-view.png" />
+<p><strong>Figure 2: Attributes of index file created by tile4ms utility</strong></p>
+<img alt="../_images/tile4ms-attributes.png" src="../_images/tile4ms-attributes.png" />
+</blockquote>
+<ol class="arabic" start="4">
+<li><dl class="first docutils">
+<dt>The final step is to use this in your mapfile.</dt>
+<dd><ul class="first last simple">
+<li>LAYER object&#8217;s TILEINDEX - must point to the location of the index file</li>
+<li>LAYER object&#8217;s TILEITEM - specify the name of the field in the index file
+containing the paths (default is &#8216;location&#8217;)</li>
+<li>do not need to use the LAYER&#8217;s DATA parameter</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ol>
+<blockquote>
+<p>For example:</p>
+<blockquote>
+<div class="highlight-python"><pre>LAYER
+  NAME 'mn-lakes'
+  STATUS ON
+  TILEINDEX "index"
+  TILEITEM "location"
+  TYPE POLYGON
+  CLASS
+    NAME "mn-lakes"
+    STYLE
+      COLOR 0 0 255
+    END
+  END
+END</pre>
+</div>
+</blockquote>
+<p>When you view the layer in a MapServer application, you will notice that when
+you are zoomed into a small area of the state only those lakes layers are
+loaded, which speeds up the application.</p>
+</blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="batch_utilities.html" title="Batch Scripting"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sym2img.html" title="sym2img"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Utilities</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

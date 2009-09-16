@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>WFS &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Vector Data" href="index.html" />
+    <link rel="next" title="GML" href="gml.html" />
+    <link rel="prev" title="MapInfo" href="mapinfo.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="gml.html" title="GML"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mapinfo.html" title="MapInfo"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Vector Data</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//input/vector/wfs.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/input/vector/wfs.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">WFS</a><ul>
+<li><a class="reference external" href="#capabilities">Capabilities</a></li>
+<li><a class="reference external" href="#data-access-connection-method">Data Access / Connection Method</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="mapinfo.html"
+                                  title="previous chapter">MapInfo</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="gml.html"
+                                  title="next chapter">GML</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/input/vector/wfs.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="wfs">
+<span id="id1"></span><h1>WFS<a class="headerlink" href="#wfs" title="Permalink to this headline">¶</a></h1>
+<p>WFS is an Open Geospatial Consortium (OGC) specification.  For more information about the format itself, see: <a class="reference external" href="http://www.opengeospatial.org/standards/wfs">http://www.opengeospatial.org/standards/wfs</a></p>
+<p>WFS allows a client to retrieve geospatial data encoded in Geography Markup
+Language (GML) from multiple Web Feature Services.  GML is built on the
+standard web language XML.</p>
+<p>WFS differs from the popular Web Map Service (WMS) specification in that
+WFS returns a subset of the data in valid GML format, not just a graphic
+image of data.</p>
+<div class="section" id="capabilities">
+<h2>Capabilities<a class="headerlink" href="#capabilities" title="Permalink to this headline">¶</a></h2>
+<p>Requesting the capabilities using the GetCapabilities request to a WFS server returns an XML document showing what layers and  projections are available, etc.
+Example of a WFS GetCapabilities URL:</p>
+<div class="highlight-python"><pre>http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?VERSION=1.0.0&amp;SERVICE=wfs&amp;REQUEST=GetCapabilities</pre>
+</div>
+<p>Example of the Resulting XML from GetCapabilties:</p>
+<div class="highlight-python"><pre>...
+&lt;FeatureTypeList&gt;
+&lt;Operations&gt;
+        &lt;Query/&gt;
+&lt;/Operations&gt;
+&lt;FeatureType&gt;
+        &lt;Name&gt;park&lt;/Name&gt;
+        &lt;Title&gt;Parks&lt;/Title&gt;
+        &lt;SRS&gt;EPSG:42304&lt;/SRS&gt;
+        &lt;LatLongBoundingBox minx="-173.433" miny="41.4271" maxx="-13.0481" maxy="83.7466" /&gt;
+&lt;/FeatureType&gt;
+&lt;FeatureType&gt;
+        &lt;Name&gt;road&lt;/Name&gt;
+        &lt;Title&gt;Roads&lt;/Title&gt;
+        &lt;SRS&gt;EPSG:42304&lt;/SRS&gt;
+        &lt;LatLongBoundingBox minx="-148.059" miny="35.882" maxx="-33.7745" maxy="72.5503" /&gt;
+&lt;/FeatureType&gt;
+&lt;FeatureType&gt;
+        &lt;Name&gt;popplace&lt;/Name&gt;
+        &lt;Title&gt;Cities&lt;/Title&gt;
+        &lt;SRS&gt;EPSG:42304&lt;/SRS&gt;
+        &lt;LatLongBoundingBox minx="-172.301" miny="36.3541" maxx="-12.9698" maxy="83.4832" /&gt;
+&lt;/FeatureType&gt;
+&lt;/FeatureTypeList&gt;
+...</pre>
+</div>
+</div>
+<div class="section" id="data-access-connection-method">
+<h2>Data Access / Connection Method<a class="headerlink" href="#data-access-connection-method" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>WFS access is a core MapServer feature. MapServer currently supports
+WFS version 1.0.0</li>
+<li>The CONNECTIONTYPE WFS parameter must be used.</li>
+<li>WFS layers can be requested through a layer in a map file, or you can
+request the GML directly through the browser with a GetFeature
+request.  You can specify a specific layer with the TypeName
+request.  In a map file the name/value pairs should be put
+into a METADATA object.</li>
+<li>You can limit the number of features returned in the GML by using
+the MaxFeatures option (e.g. &amp;MAXFEATURES=100).</li>
+</ul>
+<p>Example of a WFS Request Directly Through the Browser:</p>
+<p>The following URL requests the GML for the layer road.  (see the
+GetCapabilities above for the possible layers available on this
+test server) .  The URL is all one line, broken up here for readability.</p>
+<div class="highlight-python"><pre>http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap
+?VERSION=1.0.0
+&amp;SERVICE=wfs
+&amp;REQUEST=getfeature&amp;TYPENAME=road</pre>
+</div>
+<p>Map File Example:</p>
+<div class="highlight-python"><pre>LAYER
+NAME "wfs_gmap_roads"
+STATUS DEFAULT
+TYPE LINE
+CONNECTIONTYPE WFS
+CONNECTION "http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?
+METADATA
+        "wfs_version" "1.0.0"
+        "wfs_srs" "EPSG:42304"
+        "wfs_typename" "road"
+        "wfs_request_method" "GET"
+        "wfs_service" "WFS"
+END
+CLASS
+        NAME "roads"
+        STYLE
+                COLOR 0 0 0
+        END
+END
+END  # layer</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="gml.html" title="GML"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mapinfo.html" title="MapInfo"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li>
+          <li><a href="index.html" >Vector Data</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

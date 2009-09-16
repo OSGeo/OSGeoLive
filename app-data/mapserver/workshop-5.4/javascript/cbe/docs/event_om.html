@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>CBE Event Model Documentation</title>
+<meta name='author' content='Mike Foster, cross-browser.com'>
+<meta name='description' content="CBE is a Cross-Browser DHTML API for IE, Gecko, Opera, Netscape, Konqueror, AOL and browsers with similar object models. CBE implements some of the W3C DOM2 interfaces.">
+<style type='text/css'><!--
+body { font-family:verdana,arial,sans-serif,helvetica; font-size:12px; color:#000000; margin:0px; padding:0px; background:#cccccc; }
+a:link, a:visited, a:active { font-family:verdana,arial,sans-serif; font-size:12px; color:#666666; }
+a:hover { font-family:verdana,arial,sans-serif; font-size:12px; color:#3333ff; background:#cccccc; }
+p { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; }
+ul { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; background:#ffffff; }
+pre { font-family:"courier new",monotxt,courier; font-size:12px; color:#3333ff; background:#ffffff; }
+xmp { font-family:"courier new",monotxt,courier; font-size:12px; color:#3333ff; background:#ffffff; }
+.monoSpc { font-family:monospace; font-size:14px; }
+h1 { font-family:verdana,arial,sans-serif; font-size:16px; color:#3333ff; background:#cccccc; padding:2px; }
+h2 { font-family:verdana,arial,sans-serif; font-size:12px; color:#3333ff; background:#ffffff; border-top:1px dotted #000000; margin:1em 0em 1em 0em;}
+h3 { font-family:verdana,arial,sans-serif; font-size:12px; color:#666666; background:transparent; }
+td { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; vertical-align:top; }
+.clsTitle { font-family:verdana,arial,sans-serif; font-size:24px; color:#ffffff;
+  margin:0px; padding:0px; vertical-align:middle; background-color:#3333ff;
+  border-top:1px solid #ffffff; border-left:1px solid #ffffff; border-bottom:1px solid #000000;
+}                                                                                                                                      
+.clsSubTitle { font-family:verdana,arial,sans-serif; font-size:10px; color:#ffffff;
+  margin:0px; padding:0px; vertical-align:bottom; background-color:#3333ff; text-align:right;
+  border-top:1px solid #ffffff; border-bottom:1px solid #000000; border-right:1px solid #000000;
+}                                                                                                                                      
+--></style>
+</head>
+
+<body marginwidth='0' marginheight='0'><a name="topofpage"></a>
+
+<!-- Title -->
+<table width='100%' border='0' cellspacing='0' cellpadding='4'>
+<tr>
+<td height='40' class='clsTitle'>&nbsp;CBE Event Model</td>
+<td height='40' class='clsSubTitle'>Cross-Browser.com&nbsp;</td>
+</tr></table> 
+
+<table width='80%' align='center' cellspacing='10' cellpadding='10'><tr><td bgcolor='#ffffff'><!-- indentation table -->
+
+<h1>CBE Event Model</h1>
+
+<h2>Implementing The W3C DOM2 Event Model</h2>
+
+<h3>Overview</h3>
+<p>It will be helpful to first read about the CBE <a href="core_om.html">core object model</a>.</p>
+<p>The CBE Event Model is an implementation of the W3C DOM2 event model. Like the CBE core object model, it involves only CrossBrowserElement objects. Event listeners receive CrossBrowserEvent object arguments. CrossBrowserEvent objects flow up and down the CBE object tree in different phases of the event.  You can add more than one listener of a particular event type to an object!</p>
+
+<h3>Event Listeners</h3>
+<p>An event <i>listener</i> is just an event handler function you provide. The function will receive one argument, a CrossBrowserEvent object. You add (or register) an event listener to a specific CrossBrowserElement object by calling the object's <a target="cbeRefWin" href="../cbe_reference.html#addEventListenerLink">addEventListener()</a> method. Let's look at it's syntax:</p>
+<p><b>addEventListener(eventType, eventListener, useCapture)</b></p>
+<p>The eventType argument is a string such as "mouseOver". The eventListener argument is a reference to a function. The useCapture argument is boolean.</p>
+<p>In listing 1 a mouseOver event listener is added to the E1 element. When the mouse first moves over the element, the function <i>mouseOverListener</i> will be called and passed a CrossBrowserEvent object as an argument.</p>
+<p><i>Listing 1</i></p>
+<pre>
+function windowOnload() {
+  var e1 = document.getElementById('E1').cbe;
+  e1.addEventListener('mouseOver', mouseOverListener, false);
+}
+
+function mouseOverListener(e) {
+  alert('The mouse is over ' + e.cbeCurrentTarget.id);
+}
+</pre>
+<p>Event listeners are removed by calling the object's <a target="cbeRefWin" href="../cbe_reference.html#removeEventListenerLink">removeEventListener()</a> method. It must be passed the same arguments as were passed to addEventListener().</p>
+
+<h3>Basic Event Flow</h3>
+<p>CrossBrowserEvent objects are only sent to CrossBrowserElement objects. When an event occurs, a specific CrossBrowserElement object is designated as the <i>event target</i>, and is specified in the event object's <b>cbeTarget</b> property. The event then travels up and down the CBE object tree looking for event listeners registered on the same event type as the event. This occurs in three distinct phases, in this order: the CAPTURING_PHASE, the AT_TARGET phase, and the BUBBLING_PHASE.</p>
+<p>After an event target has been designated, an array is built which consists of every CrossBrowserElement object along the <i>parent chain</i> between the event target and the root of the object tree, but not including the event target. This <i>parent chain</i> array is used during the capturing and bubbling phases.</p>
+
+<h3>The Capturing Phase</h3>
+
+<p>The capturing phase begins at the top node of the parent chain - at <b>window.cbe</b>. The node then dispatches the event to all event listeners that have been added to the node that have the same <i>type</i> as the event and that had passed useCapture==true in the call to addEventListener(). The next node in the parent chain then dispatches the event. This continues down the parent chain until the parent of the event target node dispatches the event to it's listeners.</p>
+
+<p>A capturing event listener will not be triggered by events dispatched directly (AT_TARGET) to the event target upon which it is registered.</p>
+
+<h3>The At-Target Phase</h3>
+<p>After the capturing phase, the at-target phase begins. The event target node dispatches the event to all event listeners that have been added to the node that have the same <i>type</i> as the event and that had passed useCapture==false in the call to addEventListener().</p>
+
+<h3>The Bubbling Phase</h3>
+<p>After the at-target phase, the bubbling phase begins.  This phase begins at the parent of the event target. This node dispatches the event to all event listeners that have been added to the node that have the same <i>type</i> as the event and that had passed useCapture==false in the call to addEventListener(). Then the parent of that node dispatches the event. This continues up the parent chain until the root node of the object tree dispatches the event to it's listeners. Event listeners registered as capturers will not be triggered during this phase.</p>
+
+<h2>CrossBrowserEvent</h2>
+<p>The CrossBrowserEvent object is a partial implementation of some of the W3C DOM2 Event interfaces. See the reference for details on each <a target="cbeRefWin" href="../cbe_reference.html#CrossBrowserEventPropertiesLink">property</a>.</p>
+<h3>cbeTarget &amp; cbeCurrentTarget</h3>
+<p>When a listener receives an event, the event object's <b>cbeCurrentTarget</b> property points to the CrossBrowserElement object of the current listener. Effectively, it is the listener's <i>this</i> pointer. The event object's <b>cbeTarget</b> property points to the CrossBrowserElement object which is the actual target of the event.</p>
+<h3>stopPropagation() &amp; preventDefault()</h3>
+<p>If an event listener wishes to prevent further propagation of the event (stop/prevent the capturing or bubbling phase) it may call the <b>stopPropagation()</b> method of the event object. This will prevent further propagation of the event, although the event will still be dispatched to any remaining event listeners registered on the same object.</p>
+<p>An EventListener may call the <b>preventDefault()</b> method of the event object to cancel any default action associated with the event.</p>
+
+<h2>CBE Supported Events</h2>
+<p>The following events are supported by this implementation of the DOM2 event model.</p>
+<ul>
+<li>click      </li>
+<li>mousedown  </li>
+<li>mouseup    </li>
+<li>mousemove  </li>
+<li>mouseover  </li>
+<li>mouseout   </li>
+<li>keypress   </li>
+<li>keyup      </li>
+<li>keydown    </li>
+</ul>
+<p>CBE also provides support for the following events but not yet within the new event model.</p>
+<ul>
+<li>drag</li>
+<li>dragStart</li>
+<li>dragEnd</li>
+<li>slide</li>
+<li>slideStart</li>
+<li>slideEnd</li>
+<li>dragResize (specialized)</li>
+<li>scroll (for window object)</li>
+<li>resize (for window object)</li>
+</ul>
+<p>See the object reference for details on CrossBrowserElement <a target="cbeRefWin" href="../cbe_reference.html#CrossBrowserElementEventsLink">events</a>.</p>
+
+</td></tr></table><!-- end indentation table -->
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Subversion &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Development" href="index.html" />
+    <link rel="next" title="Documentation Development Guide" href="documentation.html" />
+    <link rel="prev" title="Bug Submission" href="bugs.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="documentation.html" title="Documentation Development Guide"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bugs.html" title="Bug Submission"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Development</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//development/svn.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/development/svn.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Subversion</a><ul>
+<li><a class="reference external" href="#code-developer-s-subversion-access">Code Developer&#8217;s Subversion Access</a></li>
+<li><a class="reference external" href="#support-libraries">Support Libraries</a></li>
+<li><a class="reference external" href="#how-to-obtain-commit-access">How to Obtain Commit Access</a></li>
+<li><a class="reference external" href="#subversion-web-view">Subversion Web View</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="bugs.html"
+                                  title="previous chapter">Bug Submission</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="documentation.html"
+                                  title="next chapter">Documentation Development Guide</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/development/svn.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="subversion">
+<span id="svn"></span><h1>Subversion<a class="headerlink" href="#subversion" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="code-developer-s-subversion-access">
+<h2>Code Developer&#8217;s Subversion Access<a class="headerlink" href="#code-developer-s-subversion-access" title="Permalink to this headline">¶</a></h2>
+<p>MapServer&#8217;s source code and documentation are under Subversion control.
+Subversion access is mostly intended for use by developers, but users can also
+access the MapServer source between releases as it is being developed. CVS
+access is only recommended for those who need the absolute latest and greatest
+code, if they are not afraid of getting their hands dirty building the source.
+The Subversion version does not contain <a class="reference external" href="http://www.boutell.com/gd/">GD</a> or
+any of the support libraries, and it requires flex and bison to build it.
+Building MapScript will also require <a class="reference external" href="http://www.swig.org">SWIG</a> be
+installed on your machine. Here&#8217;s how to access the read-only source:</p>
+<ol class="arabic simple">
+<li>Install a Subversion client, see <a class="reference external" href="http://subversion.tigris.org/">Subversion Homepage</a> for more information. TortoiseSVN is a good
+solution if you are on Windows, and most Unixes should have a client
+available.</li>
+<li>Issue <cite>svn co https://svn.osgeo.org/mapserver/trunk/mapserver mapserver</cite> to
+check out a copy of the current trunk into your working directory.</li>
+</ol>
+</div>
+<div class="section" id="support-libraries">
+<h2>Support Libraries<a class="headerlink" href="#support-libraries" title="Permalink to this headline">¶</a></h2>
+<p>Information about supporting libraries and how to compile MapServer from
+source can be found in the <a class="reference external" href="../installation/unix.html#unix"><em>Compiling on Unix</em></a>.</p>
+</div>
+<div class="section" id="how-to-obtain-commit-access">
+<h2>How to Obtain Commit Access<a class="headerlink" href="#how-to-obtain-commit-access" title="Permalink to this headline">¶</a></h2>
+<p>If you find yourself submitting a lot of patches to <a class="reference external" href="http://trac.osgeo.org/mapserver">Trac</a>, or you would like to be an active
+developer that picks up the maintenance of a portion of MapServer, contact
+Steve Lime or one of the other developers. To obtain Subversion commit access,
+an individual must:</p>
+<ul class="simple">
+<li>demonstrate expertise about a specific area</li>
+<li>be willing to put more time into the project than just the short term
+(dumping code into the project and providing no way to maintain it is almost
+as bad as having no code at all)</li>
+<li>be active instead of casual about the project.</li>
+<li>election of Subversion committers is covered in <a class="reference external" href="rfc/ms-rfc-7.1.html#rfc7-1"><em>MS RFC 7.1: MapServer SVN Commit Management</em></a></li>
+</ul>
+</div>
+<div class="section" id="subversion-web-view">
+<h2>Subversion Web View<a class="headerlink" href="#subversion-web-view" title="Permalink to this headline">¶</a></h2>
+<p>You can find an html viewer for the Subversion repository at
+<a class="reference external" href="http://trac.osgeo.org/mapserver/browser">http://trac.osgeo.org/mapserver/browser</a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="documentation.html" title="Documentation Development Guide"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bugs.html" title="Bug Submission"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Development</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

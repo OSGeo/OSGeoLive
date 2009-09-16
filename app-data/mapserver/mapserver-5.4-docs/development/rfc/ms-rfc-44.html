@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 44: Restore URL modification of mapfiles to pre-5.0 levels &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 45: Symbology, Labeling, and Cartography Improvements" href="ms-rfc-45.html" />
+    <link rel="prev" title="MS RFC 43: Direct tile generation for Google Maps and Virtual Earth API" href="ms-rfc-43.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-45.html" title="MS RFC 45: Symbology, Labeling, and Cartography Improvements"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-43.html" title="MS RFC 43: Direct tile generation for Google Maps and Virtual Earth API"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-44.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-44.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 44: Restore URL modification of mapfiles to pre-5.0 levels</a><ul>
+<li><a class="reference external" href="#proposed-changes">Proposed Changes</a></li>
+<li><a class="reference external" href="#files-affected">Files Affected</a></li>
+<li><a class="reference external" href="#mapfile-changes">Mapfile Changes</a></li>
+<li><a class="reference external" href="#mapscript-changes">MapScript Changes</a></li>
+<li><a class="reference external" href="#backwards-compatibility-issues">Backwards Compatibility Issues</a></li>
+<li><a class="reference external" href="#post-implementation-notes">Post-Implementation Notes</a></li>
+<li><a class="reference external" href="#bug-id">Bug ID</a></li>
+<li><a class="reference external" href="#voting-history">Voting History</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-43.html"
+                                  title="previous chapter">MS RFC 43: Direct tile generation for Google Maps and Virtual Earth API</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-45.html"
+                                  title="next chapter">MS RFC 45: Symbology, Labeling, and Cartography Improvements</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-44.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-44-restore-url-modification-of-mapfiles-to-pre-5-0-levels">
+<span id="rfc44"></span><h1>MS RFC 44: Restore URL modification of mapfiles to pre-5.0 levels<a class="headerlink" href="#ms-rfc-44-restore-url-modification-of-mapfiles-to-pre-5-0-levels" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2008/08/19</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Steve Lime</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">Steve.Lime at dnr.state.mn.us</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">2008/08/19</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Draft</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body"></td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-44.txt 8278 2008-12-23 21:34:31Z hobu $</td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference external" href="ms-rfc-31.html#rfc31"><em>MS RFC 31: Loading MapServer Objects from Strings</em></a> introduced a new syntax for modifying <a class="reference external" href="../../mapfile/index.html#mapfile"><em>mapfiles</em></a>
+via URL. Object parameters could specified together in mapfile snippets making
+it easier to make changes with far fewer characters. At the same time access
+to a number of parameters, particularly those that mapfile parsing did no
+value checks on (mostly strings) were removed for security purposes.
+In hindsight I underestimated the degree to which that functionality was used
+by developers. This RFC aims to restore that functionality albeit with
+security in mind.</p>
+<div class="section" id="proposed-changes">
+<h2>Proposed Changes<a class="headerlink" href="#proposed-changes" title="Permalink to this headline">¶</a></h2>
+<p>Presently a few widely modified (and risky) parameters (e.g. layer TEMPLATE
+and DATA) can be changed via URL <strong>if</strong> a regular expression
+(e.g. TEMPLATEPATTERN and DATAPATTERN) is set to validate the incoming value.
+I propose using the same approach for all un-checked mapfile input.
+Parameters that represent numbers, colors or have a value domain
+(e.g. ON/OFF/DEFAULT) are subject to the same checks as when a mapfile is
+read from disk and as a result should be ok. Those that don&#8217;t would require
+specific validation values be set before input would be allowed. For example,
+the LAYER VALIDATION block below defines patterns that would be used to
+validate DATA or FILTER parameter changes. If the appropriate validation key
+doesn&#8217;t exist the value cannot change.</p>
+<p>Grouping all validation in a new VALIDATION block will ease use by
+simplifying key names to match MapServer token names. The block would be
+valid for <a class="reference external" href="../../mapfile/map.html#map"><em>MAP</em></a>, <a class="reference external" href="../../mapfile/web.html#web"><em>WEB</em></a>, <a class="reference external" href="../../mapfile/layer.html#layer"><em>LAYER</em></a> and <a class="reference external" href="../../mapfile/class.html#class"><em>CLASS</em></a> objects and
+its core type would be a hashTableObj. The MAP level VALIDATION
+block would be useful for applying a pattern for all LAYERs or CLASSes (since
+there is only 1 WEB object there is no need to rely on the MAP object). This
+would save lots of duplication in cases where a mapfile contains similar
+layers and the same data validation pattern applies to all. The logic would
+simply be: look for validation pattern in layer, if not found then
+look for validation pattern at map level, if not found then no modifications
+are allowed.</p>
+<div class="highlight-python"><pre>VALIDATION
+data 'my pattern'
+filter 'another pattern'
+...
+END</pre>
+</div>
+<p>The validation would only be invoked if the token source is a URL.
+Mapfile file or string-based processing would be unaffected. An example of
+how this would work can be seen in mapfile.c near line 2683 with the
+DATA/DATAPATTERN parameters.</p>
+</div>
+<div class="section" id="files-affected">
+<h2>Files Affected<a class="headerlink" href="#files-affected" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>maplexer.l: all parameters (a few will never be modifiable, like
+VALIDATION) will be changed to be recognized in the URL_VARIABLE lexer
+state; VALIDATION token needs to be added</li>
+<li>mapfile.h: add VALIDATION token</li>
+<li>mapfile.c: all non-value checked parameters will require regex validation
+before changes will be allowed via URL; recognize validation token;
+write validation hash with mapfile</li>
+<li>mapserv.c: update code for runtime substitution and qstring validation to
+check the validation hash as well</li>
+</ul>
+<p>A complete list of parameters affected will be attached to this document in the
+post-implementation notes below.</p>
+</div>
+<div class="section" id="mapfile-changes">
+<h2>Mapfile Changes<a class="headerlink" href="#mapfile-changes" title="Permalink to this headline">¶</a></h2>
+<p>New VALIDATION token will be recognized.</p>
+</div>
+<div class="section" id="mapscript-changes">
+<h2>MapScript Changes<a class="headerlink" href="#mapscript-changes" title="Permalink to this headline">¶</a></h2>
+<p>None. MapScript already has a general class for hashTableObj management.</p>
+</div>
+<div class="section" id="backwards-compatibility-issues">
+<h2>Backwards Compatibility Issues<a class="headerlink" href="#backwards-compatibility-issues" title="Permalink to this headline">¶</a></h2>
+<p>The parameters DATAPATTERN and TEMPLATE pattern will become deprecated
+though. The objects in question (LAYER and CLASS) already contain
+validation blocks that can be used for this.</p>
+<p>URL runtime substitution and qstring validation are currently supported
+through metadata, This would become deprecated as well. The runtime variables
+and the word &#8220;qstring&#8221; can be used as keys in the validation block instead.</p>
+</div>
+<div class="section" id="post-implementation-notes">
+<h2>Post-Implementation Notes<a class="headerlink" href="#post-implementation-notes" title="Permalink to this headline">¶</a></h2>
+<p>A HowTo will be developed that covers this topic and run-time substitutions.</p>
+</div>
+<div class="section" id="bug-id">
+<h2>Bug ID<a class="headerlink" href="#bug-id" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2699">http://trac.osgeo.org/mapserver/ticket/2699</a></p>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting History<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<p>+1 Lime, Woodbridge, Morissette, Assefa</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-45.html" title="MS RFC 45: Symbology, Labeling, and Cartography Improvements"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-43.html" title="MS RFC 43: Direct tile generation for Google Maps and Virtual Earth API"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

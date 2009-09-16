@@ -1,0 +1,1063 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cartographic Symbol Construction with MapServer &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Mapfile" href="../index.html" />
+    <link rel="next" title="Symbology Examples" href="examples.html" />
+    <link rel="prev" title="SYMBOL" href="../symbol.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="examples.html" title="Symbology Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../symbol.html" title="SYMBOL"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//mapfile/symbology/construction.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/mapfile/symbology/construction.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Cartographic Symbol Construction with MapServer</a><ul>
+<li><a class="reference external" href="#abstract">Abstract</a></li>
+<li><a class="reference external" href="#introduction">Introduction</a><ul>
+<li><a class="reference external" href="#multiple-rendering-and-overlay">Multiple Rendering and Overlay</a></li>
+<li><a class="reference external" href="#symbol-scaling">Symbol Scaling</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#using-cartographic-symbols-in-umn-mapserver">Using Cartographic Symbols in UMN MapServer</a><ul>
+<li><a class="reference external" href="#scaling-of-symbols">Scaling of Symbols</a></li>
+<li><a class="reference external" href="#symbols-of-type-vector-and-ellipse">Symbols of TYPE VECTOR and ELLIPSE</a></li>
+<li><a class="reference external" href="#construction-of-point-symbols">Construction of Point Symbols</a></li>
+<li><a class="reference external" href="#construction-of-line-symbols">Construction of Line Symbols</a></li>
+<li><a class="reference external" href="#area-symbols">Area Symbols</a></li>
+<li><a class="reference external" href="#signatures-of-type-pixmap">Signatures of TYPE PIXMAP</a></li>
+<li><a class="reference external" href="#signatures-of-type-cartoline">Signatures of TYPE CARTOLINE</a><ul>
+<li><a class="reference external" href="#dashed-line-of-type-cartoline">Dashed line of TYPE CARTOLINE</a></li>
+<li><a class="reference external" href="#linejoin">LINEJOIN</a></li>
+<li><a class="reference external" href="#linejoinmaxsize">LINEJOINMAXSIZE</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#signatures-of-type-truetype">Signatures of TYPE TRUETYPE</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#examples">Examples</a><ul>
+<li><a class="reference external" href="#basic-symbols">Basic Symbols</a></li>
+<li><a class="reference external" href="#complex-symbols">Complex Symbols</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#current-problems-open-issues">Current Problems / Open Issues</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="../symbol.html"
+                                  title="previous chapter">SYMBOL</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="examples.html"
+                                  title="next chapter">Symbology Examples</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/mapfile/symbology/construction.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="cartographic-symbol-construction-with-mapserver">
+<span id="sym-construction"></span><h1><a class="toc-backref" href="#table-of-contents">Cartographic Symbol Construction with MapServer</a><a class="headerlink" href="#cartographic-symbol-construction-with-mapserver" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Peter Freimuth</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">pf at mapmedia.de</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Arnulf Christl</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">arnulf.christl at wheregroup.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8484 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2009-01-31 11:38:27 -0400 (Sat, 31 Jan 2009) $</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#cartographic-symbol-construction-with-mapserver" id="id1">Cartographic Symbol Construction with MapServer</a><ul>
+<li><a class="reference internal" href="#abstract" id="id2">Abstract</a></li>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#using-cartographic-symbols-in-umn-mapserver" id="id4">Using Cartographic Symbols in UMN MapServer</a></li>
+<li><a class="reference internal" href="#examples" id="id5">Examples</a></li>
+<li><a class="reference internal" href="#current-problems-open-issues" id="id6">Current Problems / Open Issues</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="abstract">
+<h2><a class="toc-backref" href="#table-of-contents">Abstract</a><a class="headerlink" href="#abstract" title="Permalink to this headline">¶</a></h2>
+<p>This Document refers to the syntax of MAP and symbolfiles for MapServer 4.6.
+It is based upon the results of a project carried out at the University of
+Hannover, Institute of Landscape and Nature Conservation. It was initiated by
+Mr. Dipl. Ing. Roland Hachmann. Parts have been taken from a study carried through
+by Karsten Hoffmann, student of Geography and Cartography at the FU Berlin. In
+the context of a hands-on training in the company GraS GmbH Mr. Hoffman mainly
+dealed with the development of symbols.
+(<a class="reference external" href="http://www.mapmedia.de/fileadmin/user_upload/dokumente/umn_signaturen_howto/Praktikumsarbeit.zip">Download study report</a> in German)
+His degree dissertation will also concern this subject.</p>
+<p>At the end of this document you will find a link to a paper discussing further
+development of the UMN MapServer software regarding the cartographic rendering
+capabilities. We will try to get around to also translating it to English asap.
+We welcome everybody who is interested in this subject to participate
+in the discussion. As a result of this discussion we want to put together a list
+with change requests and new requirements for UMN MapServer.</p>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#table-of-contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Cartographic characters can be distinguished as point, line and area
+symbols. These symbols may vary depending on their special attributes (variables).
+Bertin (1974) created a clear and logical symbol scheme in which symbols can
+be varied referring to graphical variables. The following variables
+are used within MapServer: FORM, SIZE, PATTERN, COLOR and LIGHTNESS. Point and
+area symbols as well as text fonts (ttf) can additionally be displayed
+with a 1-pixel wide frame which we call OUTLINE.</p>
+<div class="section" id="multiple-rendering-and-overlay">
+<h3>Multiple Rendering and Overlay<a class="headerlink" href="#multiple-rendering-and-overlay" title="Permalink to this headline">¶</a></h3>
+<p>Complex cartographic effects can be achieved by rendering the same vector data
+with different attributes, sizes and colors on top of each other. This is an
+easy workaround to creating complex signatures but obviously it will also reflect
+on the performance of the application. Every rendering process of the same
+geometries will  take up additional processor time.</p>
+<p>As an example consider displaying a highway with a black border line, two yellow
+lanes and a red center line. You can achieve this by rendering the same highway
+geometry three times on top of each other. The lowest (in drawing order) is rendered
+as a broad black line with a width of 9 pixel. The second level lines are rendered
+in yellow color with a width of 7 pixel. The topmost layer is displayed as the
+red center line with a width of 3 pixel in size. That way each yellow colored
+lane will have a width of (7-1)/2 = 3 pixel.</p>
+<p>This can be a solution for many kinds of cartographic questions, a combination of
+different geometry types is also possible. First define a polygon layer as
+TYPE LINE. It will frame the polygons with a line signature. On top of this
+include the same geometry a second time but now as TYPE POLYGON with a symbol
+filling the polygon. This way half of the underlying outline is covered by the
+polygon with the fill symbol. The clipping effect renders an asymmetric line
+symbol. To present the outline without clipping just reorder the layers
+and put the outline presentation on top of the layer with the fill symbol.</p>
+<p>Each step growing more complex, yet another way to construct asymmetric line
+signatures for framed faces is to tamper with the original geometries by buffering
+or clipping the original geometry such that the new objects lie inside the
+original polygons or grow over the borders. A new line symbol for these
+geometries can use the OFFSET parameter with the y-value set to -99. This is
+where current development stops short this functions has not been developed
+further. (Anybody need this feature?). Buffer areas may provide ideal geometry
+for ambitious cartography, this should be possible as soon as the GEOS library
+is implemented in MapServer. Until then using PostGIS helps to solve a lot of
+problems.</p>
+</div>
+<div class="section" id="symbol-scaling">
+<h3>Symbol Scaling<a class="headerlink" href="#symbol-scaling" title="Permalink to this headline">¶</a></h3>
+<p>There are two basically different ways to handle the display size of symbols
+and cartographic elements in a map at different scales. The size of cartographic
+objects is either set in screen pixel or in real world units.</p>
+<ul class="simple">
+<li>If the size is set in real world units (i.e. meters), then cartographic
+objects are scalable, they will shrink and grow together with the scale
+at which the map ist displayed.</li>
+<li>Object sizes in screen pixel will be displayed in the same size no matter
+at what scale the map is displayed.</li>
+</ul>
+<p>UMN MapServer implements the screen pixel size type for displaying cartographic
+elements. Additionally the size of cartographic elements can be tied to defined
+scales, such that the symbols &#8220;grow&#8221; and &#8220;shrink&#8221; with the
+scale. The involved parameters include SYMBOLSCALE, MINSIZE and MAXSIZE settings
+in the MAP file.</p>
+<p>All symbol and style definitions referenced in the following section are contained
+in the archive at the end of this document.</p>
+<p>The following figure shows the theoretical structure of cartographic symbols,
+which are also used in UMN MapServer:</p>
+<p><strong>Figure1: Structure of Cartographic Symbols`</strong></p>
+<img alt="../../_images/carto-elements.png" src="../../_images/carto-elements.png" style="width: 600px; height: 400px;" />
+<p>In a MapServer application symbol parameters are taken from the MAP and symbol
+file as follows:</p>
+<p><em>MAP</em> file:</p>
+<ul class="simple">
+<li>The parameter TYPE defines the type of geometry (point, line or polygon)
+for each layer. The symbols are accordingly rendered as single points,
+along a line or area symbols.</li>
+<li>The definition of the color, brightness (through the color parameter),
+size and outline is set inside the STYLE-section of a CLASS-section
+by the parameters COLOR, SIZE and OUTLINECOLOR.</li>
+<li>Combining several basic elements to achieve a complex signature
+with several STYLEs inside one layer (observe the display order).</li>
+</ul>
+<p><em>Symbol</em> file:</p>
+<ul class="simple">
+<li>Definition of form and pattern with TYPE, POINTS, IMAGE, FILLED,
+STYLE (meaning fill pattern) and GAP.</li>
+</ul>
+<p>The following figure shows the interaction of these elements and explains
+the configuration in the MAP and the SYMBOL file sections necessary for
+rendering cartographic symbols in the map:</p>
+<p><strong>Figure2: Schema showing interaction of MAP and SYMBOL file</strong></p>
+<img alt="../../_images/map-symbolfile-interaction.png" src="../../_images/map-symbolfile-interaction.png" />
+</div>
+</div>
+<div class="section" id="using-cartographic-symbols-in-umn-mapserver">
+<h2><a class="toc-backref" href="#table-of-contents">Using Cartographic Symbols in UMN MapServer</a><a class="headerlink" href="#using-cartographic-symbols-in-umn-mapserver" title="Permalink to this headline">¶</a></h2>
+<p>The basic graphic elements in a symbolfile are made up of vectors, truetype
+fonts, raster images or cartolines and are defined by the TYPE-parameter. The
+following section explains all four types of basic graphic elements and how
+they can be combined to create complex cartographic symbols.</p>
+<div class="section" id="scaling-of-symbols">
+<h3>Scaling of Symbols<a class="headerlink" href="#scaling-of-symbols" title="Permalink to this headline">¶</a></h3>
+<p>The parameter SYMBOLSCALE in the LAYER section specifies the scale number at
+which the symbol or text label is displayed in exactly the pixel size defined
+by the SIZE parameter. Observe that the SIZE parameter is tightly connected
+to the SYMBOLSCALE parameter. The parameters MAXSIZE and MINSIZE inside the
+STYLE block limit the rendering of symbols to the maximum and minimum scale
+specified here. Both the minimum reasonable display size for symbols and the
+minimum of space required to display a symbol within a polygon should be
+observed.</p>
+<p>Symbols of TYPE PIXMAP will not be scaled if used as line and polygon fills!
+In addition PIXMAPs will not display nicely when rescaled due to roundings
+caused by the integer arithmetics of the GD. The basic elements of a composite
+cartographic symbol may change their relative positions to each other, especially
+at very small scales (large number). They can also slightly change their form
+when they are displayed as tiny little images.</p>
+<p>Furthermore the gaps of line symbols (the pattern itself) will not be
+scaled. The gaps stay fixed whereas the width is scaled. This can result in
+strange effects seeming to change the original pattern.</p>
+<p>There is no possibility to separately define the display intervals (gaps) with
+MINSCALE and MAXSCALE in the STYLE-section (anybody need this?), so this tuning
+has to be solved at the LAYER level. TO do this create several layers with the
+same geometries for different scale levels and specify the appropriate sizes
+accordingly.</p>
+<p>Always observe that cartographic symbols depend a lot on the scale! So be careful
+with the interaction of content, symbols and scale when creating projects.
+All three parameters heavily interact and have to be coordinated to produce
+a good map.</p>
+</div>
+<div class="section" id="symbols-of-type-vector-and-ellipse">
+<h3>Symbols of TYPE VECTOR and ELLIPSE<a class="headerlink" href="#symbols-of-type-vector-and-ellipse" title="Permalink to this headline">¶</a></h3>
+<p>The TYPE VECTOR defines the form of a symbol by setting x- and y-values in a
+local caresian coordinate system with the origin at the upper left corner.
+Each symbol is parenthesized by the tags POINTS and END. The maximum number of
+points can be increased by changing the parameter MS_MAXVECTORPOINTS in the
+file mapsymbols.h. The current default is 100. Note that by setting the end
+point equal to the start point you obtain a closed form (polygon). To use the
+coordinates -99 -99 to break a line, the following point will not be connected
+by a line with the preceding one.</p>
+<p>When creating symbols of the TYPE VECTOR you should observe some style guidelines.
+Avoid downtilted lines in area symbols, as they will lead to heavy aliasing
+effects. Furthermore you should not go below a useful minimum size, which is
+relevant for all types of symbols. Keep in mind that the points in the local
+coordinate system are rendered as pixel images, thus only integer values make
+any sense. Every symbol of the TYPE VECTOR is first rendered as a pixel image
+and then added to the geometry. This is the basic principle of the GD graphic
+kernel. PIXMAP symbols may be used directly for drawing.</p>
+<p>To create circles and ellipses use the TYPE ELLIPSE. These forms are created
+by setting the x and y values as the radius of the circle or ellipse inside
+POINTS and END.</p>
+</div>
+<div class="section" id="construction-of-point-symbols">
+<h3>Construction of Point Symbols<a class="headerlink" href="#construction-of-point-symbols" title="Permalink to this headline">¶</a></h3>
+<p>The following figure shows how to combine several basic elements to create a
+new point symbol. The combination is achieved by  adding several STYLEs within
+one layer. Each basic element references one item of the SYMBOL file, which
+are centered and overlayed when rendered.</p>
+<p>Notice that the SIZE parameter in the STYLE section only refers to the width
+of the symbol (size in the y-direction). An edgewise rectangle will thus display
+smaller than a lying rectangle, although both have the same SIZE parameter.
+When combining several point elements on top of each other, they will not always
+be centered correctly. We have not found a regular rule yet. We can only recommend
+to set an even-numbered  SIZE for combined elements. Combining elements with
+even and odd numbered SIZE parameters seem to have larger irregularities.</p>
+<p><strong>Figure3: Construction of Point Symbols</strong></p>
+<img alt="../../_images/point-symbols.png" src="../../_images/point-symbols.png" style="width: 600px; height: 400px;" />
+</div>
+<div class="section" id="construction-of-line-symbols">
+<h3>Construction of Line Symbols<a class="headerlink" href="#construction-of-line-symbols" title="Permalink to this headline">¶</a></h3>
+<p>For displaying line geometries most often a simple point symbol (filled circle
+/ SYMBOL 0) is used. This point is painted for each pixel along the line, giving
+a continuous line with rounded ends. To create line patterns use the STYLE section
+of the SYMBOL file (do not confuse this with the STYLE-section of the CLASS object).
+Here you state how many pixel of the section shall be displayed and how many
+are left blank. This pattern will be repeated as many times as that pattern
+will fit into the element. The following figure shows this effect. Unfortunately up
+to now no OFFSET (start gap) can be defined to create asymetric patterns. (anybody need this?)</p>
+<p><strong>Figure4: Construction of Line Symbols</strong></p>
+<img alt="../../_images/line-symbols.png" src="../../_images/line-symbols.png" style="width: 600px; height: 400px;" />
+<p>When using the point character for rendering all line features with have rounded
+ends. This can be a desired effect or not, it gets more obvious the larger the
+width of line is set. Alternatively a rectangle can be used to generate a line.
+It can be enhanced with a STYLE-parameter to create line patterns (see below).</p>
+<p><strong>Table 1. Creating a Symbol to Display Railways</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="51%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">CLASS-section from the Mapfile</th>
+<th class="head">Character from the Symbolfile</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">CLASS</span>
+  <span class="k">STYLE</span>
+    <span class="k">COLOR</span> <span class="mi">102</span> <span class="mi">102</span> <span class="mi">102</span>
+    <span class="k">SYMBOL</span> <span class="s">&#39;point&#39;</span>
+    <span class="k">SIZE</span> <span class="mi">4</span>
+  <span class="k">END</span>
+  <span class="k">STYLE</span>
+    <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">255</span>
+    <span class="k">SYMBOL</span> <span class="s">&#39;rectangle-train&#39;</span>
+    <span class="k">SIZE</span> <span class="mi">2</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&#39;point&#39;</span>
+  <span class="k">TYPE</span> <span class="nb">ELLIPSE</span>
+  <span class="k">POINTS</span>
+    <span class="mi">1</span> <span class="mi">1</span>
+  <span class="k">END</span>
+  <span class="k">FILLED</span> <span class="nb">TRUE</span>
+<span class="k">END</span>
+
+<span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&#39;rectangle-train&#39;</span>
+  <span class="k">TYPE</span> <span class="nb">VECTOR</span>
+  <span class="k">POINTS</span>
+    <span class="mi">0</span> <span class="mi">0</span>
+    <span class="mi">0</span> <span class="mf">0.6</span>
+    <span class="mi">1</span> <span class="mf">0.6</span>
+    <span class="mi">1</span> <span class="mi">0</span>
+    <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">END</span>
+  <span class="k">FILLED</span> <span class="nb">TRUE</span>
+  <span class="k">STYLE</span>
+    <span class="mi">8</span> <span class="mi">12</span> <span class="mi">8</span> <span class="mi">12</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/railway.png" src="../../_images/railway.png" />
+<p>The STYLE parameter can be used for elements of the SYMBOL file with the
+TYPE VECTOR, ELLIPSE, CARTOLINE and PIXMAP. It will define the number of
+intervals in which the symbol is rendered. This can be done using the GAP
+parameter with TRUETYPE symbols (see below).</p>
+<p>When combining of several symbols on a line, they will be positioned on the
+baseline which is defined by the geometry of the object in pixel coordinates.
+Again we face the problem of centering. In most cases MapServer corectly centers
+symbols. The combination of a line displayed in 6 pixel width and overlayed with
+4 pixel width results in a line symbol with a 1 pixel border. If the cartographic
+symbol is to contain a centered line with a width of 1 pixel, then the SIZE
+parameters have to be reconfiguredfor example to 7 and a 5 pixel. As a rule
+of thumb only combine even numbered or odd numbered SIZE parameters (see above).</p>
+<p>In the STYLE section of the MAP file an OFFSET parameter can be set to shift
+symbols or characters in the x and y direction. Unfortunately the displacement
+is set relative to the map border, not the inclination of the line gemoetry
+(with the exception: OFFSET n -99). Therefore the iterated characters are all
+shifted in the same direction, independent of which direction the line takes
+(see Example 2). To generate asymmetrical line symbols apply -99 for the y
+value of the OFFSET. Then the x-value defines the distance from a parallel
+to the original geometry, for which the selected symbol is used (what a pity
+this wasn&#8217;t documented anywhere!).</p>
+<p><strong>Table 2: Use of the OFFSET parameter with line signatures</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">CLASS-section from the Mapfile</th>
+<th class="head">Character from the Symbolfile</th>
+<th class="head">CLASS-Section from the Mapfile</th>
+<th class="head">Character from the Symbolfile</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">CLASS</span>
+  <span class="k">STYLE</span>
+    <span class="k">SIZE</span> <span class="mi">1</span>
+    <span class="k">COLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">END</span>
+  <span class="k">STYLE</span>
+    <span class="k">SYMBOL</span> <span class="s">&quot;circle&quot;</span>
+    <span class="k">SIZE</span> <span class="mi">7</span>
+    <span class="k">COLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">255</span>
+    <span class="k">OFFSET</span> <span class="mi">8</span> <span class="p">-</span><span class="mi">8</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&quot;circle&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">ELLIPSE</span>
+  <span class="k">POINTS</span>
+    <span class="mi">1</span> <span class="mi">1</span>
+  <span class="k">END</span>
+  <span class="k">STYLE</span>
+    <span class="mi">1</span> <span class="mi">10</span> <span class="mi">1</span> <span class="mi">10</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">CLASS</span>
+  <span class="k">STYLE</span>
+    <span class="k">SIZE</span> <span class="mi">1</span>
+    <span class="k">COLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+    <span class="k">ANTIALIAS</span>
+  <span class="k">END</span>
+  <span class="k">STYLE</span>
+    <span class="k">SYMBOL</span> <span class="s">&quot;circle&quot;</span>
+    <span class="k">SIZE</span> <span class="mi">12</span>
+    <span class="k">COLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">255</span>
+    <span class="k">OFFSET</span> <span class="p">-</span><span class="mi">8</span> <span class="p">-</span><span class="mi">99</span>
+    <span class="k">ANTIALIAS</span> <span class="nb">TRUE</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&quot;circle&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">ELLIPSE</span>
+  <span class="k">POINTS</span>
+    <span class="mi">1</span> <span class="mi">1</span>
+  <span class="k">END</span>
+  <span class="k">STYLE</span>
+    <span class="mi">1</span> <span class="mi">10</span> <span class="mi">1</span> <span class="mi">10</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/symbol-offset-1.png" src="../../_images/symbol-offset-1.png" />
+<img alt="../../_images/symbol-offset-1.png" src="../../_images/symbol-offset-1.png" />
+</div>
+<div class="section" id="area-symbols">
+<h3>Area Symbols<a class="headerlink" href="#area-symbols" title="Permalink to this headline">¶</a></h3>
+<p>Areas (polygons) can be filled with elements of the SYMBOL file to create e.g.
+hatches and graticules. These are by default rendered without spacing one after
+the other in x and y direction and fill out the whole polygon. Simple line
+hatches (e.g. horizontal, vertical and diagonal) can be created by filling the
+polygon with a line symbol from the SYMBOL file (see example 5).</p>
+<p>The SIZE parameter in the STYLE section for line hatches only specifies the
+distance between the lines and not their width. Thus in these hatches all lines
+will always have a width of 1 pixel. Unfortunately there is no additional
+parameter to define the line width (Anybody need this feature?). Notice that
+the SIZE parameter is interpreted by MapServer differently for horizontal and
+vertical lines. Vertical lines with a SIZE parameter of 8 pixel result in a
+distance of 8 pixel between the lines. Horizontal lines with the same SIZE
+parameter are instead renderes with a much smaller gap (see example 5). For
+creating cross hatches composed of vertical and horizontal lines the best
+method is to use a simple cross from the SYMBOL file. Polygons can also be
+filled with other POINT elements to obtain special patterns (e.g. with circles
+or triangles).</p>
+<p><strong>Table 3: Construction of a cross hatch with different line distances</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="51%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">CLASS-Section from the Mapfile</th>
+<th class="head">Character from the Symbolfile</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">CLASS</span>
+  <span class="k">STYLE</span>
+    <span class="k">SYMBOL</span> <span class="s">&quot;line-vertical&quot;</span>
+    <span class="k">SIZE</span> <span class="mi">8</span>
+    <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">102</span> <span class="mi">51</span>
+    <span class="k">OUTLINECOLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">END</span>
+  <span class="k">STYLE</span>
+    <span class="k">SYMBOL</span> <span class="s">&quot;line-horizontal&quot;</span>
+    <span class="k">SIZE</span> <span class="mi">8</span>
+    <span class="k">COLOR</span> <span class="mi">204</span> <span class="mi">102</span> <span class="mi">51</span>
+    <span class="k">OUTLINECOLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&quot;line-vertical&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">vector</span>
+  <span class="k">POINTS</span>
+    <span class="mf">0.5</span> <span class="mi">0</span>
+    <span class="mf">0.5</span> <span class="mi">1</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+<span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&quot;line-horizontal&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">vector</span>
+  <span class="k">POINTS</span>
+    <span class="mi">0</span> <span class="mf">0.5</span>
+    <span class="mi">1</span> <span class="mf">0.5</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/crosshatch.png" src="../../_images/crosshatch.png" />
+</div>
+<div class="section" id="signatures-of-type-pixmap">
+<h3>Signatures of TYPE PIXMAP<a class="headerlink" href="#signatures-of-type-pixmap" title="Permalink to this headline">¶</a></h3>
+<p>Symbols of the TYPE PIXMAP are simply small raster images. The name of the
+raster images are specified in the SYMBOL file with the parameter IMAGE.
+MapServer supports the raster formats GIF and PNG. Observe the color depth
+of the images and avoid using 24 bit PNG symbols displayed in 8 bit mode as
+this may cause unexpected color leaps. When using raster images the color
+cannot be modified in the SMBOL file subsequently. But you can specify a
+color with the TRANPARENT parameter which will not be displayed - i.e. it
+will be transparent. As a result all underlying objects and colors are visible.</p>
+<p>The SIZE parameter defines the size of PIXMAP symbols when used as point symbols.
+Observe that the pixel structure will show when the SIZE grows too large. Prevent
+this from happening by setting a MAXSIZE parameter. When using PIXMAPS as line
+symbols or as fill symbols for polygons they will not be resized but are displayed
+in the original size. So the use of PIXMAP STYLE objects for signatures with
+a high need of scaling is rather limited.</p>
+<p>PIXMAP symbols are always rendered respective to the map border and will not
+follow the inclination of a line or polygon outline. Only truetype font symbols
+can follow an inclined line geometry, although with some defects (see below).</p>
+<p>To create more complex area symbols, e.g. with defined distances between single
+characters or hatches with broad lines, raster images are probably the most
+suitable objects. Depending on the desired pattern you have to generate the
+raster image with high precision using a graphic editor. To obtain a regular
+allocation of symbols with defined spacing you could use the raster image as
+shown in Figure1.</p>
+<p><strong>Figure5: Raster image for a regular polygon symbol fill</strong></p>
+<img alt="../../_images/polygon-symbol-fill.png" src="../../_images/polygon-symbol-fill.png" style="width: 600px; height: 400px;" />
+<p><strong>Figure6: Raster image for a hatched fill</strong></p>
+<img alt="../../_images/hatch-symbol-fill.png" src="../../_images/hatch-symbol-fill.png" style="width: 600px; height: 400px;" />
+<p>Instead of using circles you can use different characters. B defines the width
+and H the height of the raster image. For a regular arrangment of symbols in
+a 45 degree angle B = H. For symbols, which are regularly arranged in parallel
+and without offset between each other one centered symbol with same x and y
+distances to the imageborder is enough. A regular hatch with wider lines can
+be created by using the raster image in fig. 2. To create a 45 degree hatch
+use:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">B</span> <span class="o">=</span> <span class="n">H</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">=</span> <span class="n">y</span>
+</pre></div>
+</div>
+<p>When using the MapServer legend observe that each raster PIXMAP is displayed
+only once in the original size in the middle of the legend box.</p>
+<p>See the example below of some PIXMAP symbols, which can be used as area symbols with
+transparency. The raster images were created using FreeHand, finished with
+Photoshop and exported to PNG with special attention regarding the color palette.
+Observe that you <em>have</em> to specify a COLOR in the STYLE section of the
+CLASS to display raster PIXMAPS although it has no influence on the output
+and color of the image.</p>
+<p><strong>Table 4: Construction of a horizontally arranged area symbol</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">CLASS-Section from the Mapfile</th>
+<th class="head">Character from the Symbolfile</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">CLASS</span>
+  <span class="k">STYLE</span>
+    <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">0</span>
+  <span class="k">END</span>
+  <span class="k">STYLE</span>
+    <span class="k">SYMBOL</span> <span class="s">&quot;in_the_star&quot;</span>
+    <span class="k">COLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+    <span class="k">OUTLINECOLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first highlight-mapfile"><div class="highlight"><pre><span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&quot;in_the_star&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">PIXMAP</span>
+  <span class="k">IMAGE</span> <span class="s">&quot;stern.png&quot;</span>
+  <span class="k">TRANSPARENT</span> <span class="mi">8</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<img align="left" alt="../../_images/star-symbol.png" class="last align-left" src="../../_images/star-symbol.png" />
+</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/horizontal-area-symbol.png" src="../../_images/horizontal-area-symbol.png" />
+<p><strong>Table 5: Construction of a diagonally arranged area symbol</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">CLASS-Section from the Mapfile</th>
+<th class="head">Character from the Symbolfile</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">CLASS</span>
+  <span class="k">STYLE</span>
+    <span class="k">SYMBOL</span> <span class="s">&quot;in_point1&quot;</span>
+    <span class="k">COLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+    <span class="k">OUTLINECOLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first highlight-mapfile"><div class="highlight"><pre><span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&quot;in_point1&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">PIXMAP</span>
+  <span class="k">IMAGE</span> <span class="s">&quot;flaeche1_1.png&quot;</span>
+  <span class="k">TRANSPARENT</span> <span class="mi">13</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<img align="left" alt="../../_images/dot-symbol.png" class="last align-left" src="../../_images/dot-symbol.png" />
+</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/diagonal-area-symbol.png" src="../../_images/diagonal-area-symbol.png" />
+<p><strong>Table 6: Construction of a face hatch</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">CLASS-Section from the Mapfile</th>
+<th class="head">Character from the Symbolfile</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">CLASS</span>
+  <span class="k">STYLE</span>
+    <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">0</span>
+  <span class="k">END</span>
+  <span class="k">STYLE</span>
+    <span class="k">SYMBOL</span> <span class="s">&quot;in_hatch&quot;</span>
+    <span class="k">COLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+    <span class="k">OUTLINECOLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first highlight-mapfile"><div class="highlight"><pre><span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&quot;in_hatch&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">PIXMAP</span>
+  <span class="k">IMAGE</span> <span class="s">&quot;schraffur.png&quot;</span>
+  <span class="k">TRANSPARENT</span> <span class="mi">2</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<img align="left" alt="../../_images/hatch.png" class="last align-left" src="../../_images/hatch.png" />
+</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/hatch-symbol.png" src="../../_images/hatch-symbol.png" />
+</div>
+<div class="section" id="signatures-of-type-cartoline">
+<h3>Signatures of TYPE CARTOLINE<a class="headerlink" href="#signatures-of-type-cartoline" title="Permalink to this headline">¶</a></h3>
+<p>The TYPE Cartoline is not really an independent SYMBOL type or basic element
+but it is useful for creating line signatures. The advantage over the above
+types is the antialising of lines with any width.
+Conventional lines can only use antialising with a width of 1 pixel. This line
+type supports the ANTIALIAS parameter in the STYLE block of the CLASS definition
+just like the truetype fonts and symbols. Here you can also define line patterns
+and offsets. The design of the line ends can be controled with the
+LINECAP parameter. The LINECAP value BUTT stopps the signature exactly at the
+end of the top line.
+Author of this features is Tomas Krecmer (<a class="reference external" href="mailto:tokr&#37;&#52;&#48;tmapy&#46;cz">tokr(a)tmapy<span>&#46;</span>cz</a>).
+If you have questions concerning this type of signature or suggestions for
+improvement please contact the author.</p>
+<div class="section" id="dashed-line-of-type-cartoline">
+<h4>Dashed line of TYPE CARTOLINE<a class="headerlink" href="#dashed-line-of-type-cartoline" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&quot;cartoline&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">cartoline</span>
+  <span class="k">LINECAP</span> <span class="err">round</span> <span class="c">#[butt|round|square|triangle]</span>
+  <span class="k">LINEJOIN</span> <span class="nb">miter</span> <span class="c">#[round|miter|bevel]</span>
+  <span class="k">LINEJOINMAXSIZE</span> <span class="mi">3</span>
+  <span class="k">STYLE</span>
+    <span class="mi">40</span> <span class="mi">17</span> <span class="mi">1</span> <span class="mi">17</span> <span class="mi">1</span> <span class="mi">17</span> <span class="mi">1</span> <span class="mi">17</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="linejoin">
+<h4>LINEJOIN<a class="headerlink" href="#linejoin" title="Permalink to this headline">¶</a></h4>
+<p>The different values for the parameter LINEJOIN have the following visual effects
+(see the following figure).  Default is &#8216;not set&#8217; but do not specify the string
+&#8216;not set&#8217;, just omit the parameter LINEJOIN.</p>
+<img alt="../../_images/linejoin.jpg" src="../../_images/linejoin.jpg" />
+<dl class="docutils">
+<dt>Miter</dt>
+<dd>follow line borders until they intersect, fill the resulting area.</dd>
+<dt>Round</dt>
+<dd>see above</dd>
+<dt>Bevel</dt>
+<dd>see above</dd>
+<dt>None</dt>
+<dd>Lines will not be connected but drawn with LINECAPP &#8216;butt&#8217; at the respective ends.</dd>
+</dl>
+<img alt="../../_images/miter-linejoin.jpg" src="../../_images/miter-linejoin.jpg" />
+</div>
+<div class="section" id="linejoinmaxsize">
+<h4>LINEJOINMAXSIZE<a class="headerlink" href="#linejoinmaxsize" title="Permalink to this headline">¶</a></h4>
+<p>Specify the maximum length of m (only relevant for LINEJOIN type MITER).
+The value is a multiplication factor (default 3). The actual max length is
+calculated as follows:</p>
+<div class="highlight-python"><pre>m - current join size
+d - symbol size
+m_max = d * LINEJOINMAXSIZE</pre>
+</div>
+<p>If current <em>m &gt; m_max</em> then the connection length will be set to m_max.</p>
+</div>
+</div>
+<div class="section" id="signatures-of-type-truetype">
+<h3>Signatures of TYPE TRUETYPE<a class="headerlink" href="#signatures-of-type-truetype" title="Permalink to this headline">¶</a></h3>
+<p>Finally you can use symbols from truetype fonts. The symbol settings are also
+defined in the SYMBOL file. Specify the ASCII number of the symbol to be used
+in the CHARACTER parameter. Add the ALIAS name of the font file to the parameter
+FONT as defined in the file fonts.list. Remember to set the FONTSET parameter
+in the MAP file to link the correct fonts.list file. With the parameter ANTIALIAS
+you define whether to apply antialiasing to the symbols or characters. It is
+recommended to do this especially with more complex symbols and and whenever
+they don&#8217;t fit well into the raster matrix or show a visible pixel structure.
+Set a POSITION [ul|uc|ur|cl|cc|cr|ll|lc|lr] relative to the geometric origin of
+the geometry. In the STYLE section of the LAYER object it is possible to define
+colors for true type symbols (as with signatures of the TYPE VECTOR).</p>
+<p>When using truetype chracters to render complex line symbols, you can define the
+distance in pixel until the symbol is repeated by setting the GAP parmeter in
+the SYMBOL file. A more complicated pattern like the STYLE parameters for VECTOR,
+ELLIPSE or PIXMAP type symbols cannot be used not (Anybody need this feature?).
+The OFFSET parameter is currently not implemented yet. Truetype symbols follow
+the inclination of the accompanying line.</p>
+<p>When using asymmetrical symbols they unfortunately do not always follow the
+outside or the inside, left or right of a line but change. If possible symbols
+will always be displayed upside (which makes a lot of sense for string characters,
+what true type fonts basically are). On vertical lines symbols are rendered
+to the right or left side depending on the drawing direction of the line. If
+the line is drawn from bottom to top, the truetype symbol is displayed to the
+left, if the line is drawn from top to bottom, the symbol is displayed to the
+right (see table below). In left picture in the table the line is drawn
+clockwise and in the right picture drawn counterclockwise.</p>
+<p><strong>Table 7: TrueType-character used on lines</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">CLASS-Section from the Mapfile</th>
+<th class="head">Character from the Symbolfile</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">CLASS</span>
+  <span class="k">STYLE</span>
+    <span class="k">SYMBOL</span> <span class="s">&quot;T&quot;</span>
+     <span class="k">SIZE</span> <span class="mi">12</span>
+     <span class="k">COLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">255</span>
+   <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&quot;T&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">TRUETYPE</span>
+  <span class="k">FONT</span> <span class="s">&quot;arial&quot;</span>
+  <span class="k">CHARACTER</span> <span class="s">&quot;&amp;#84&quot;</span>
+  <span class="k">ANTIALIAS</span> <span class="nb">TRUE</span>
+  <span class="k">GAP</span> <span class="mi">10</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/truetype-character-clockwise.png" src="../../_images/truetype-character-clockwise.png" />
+<img alt="../../_images/truetype-character-cc.png" src="../../_images/truetype-character-cc.png" />
+<p>To find out the character number of a symbol use one of the following options:</p>
+<ul class="simple">
+<li>Use the software FontMap (Shareware, with free trial version for download, thanks Till!)</li>
+<li>Use the MS Windows truetype map</li>
+<li>Trial and Error :-)</li>
+</ul>
+<p>Please note that the numbering of the so-called &#8220;symbol fonts&#8221; starts at 61440!
+So if you want to use character &amp;#84, you have to use 61440 + 84 = &amp;#61524.
+(ain&#8217;t that a pain!!)</p>
+</div>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#table-of-contents">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Find some examples to show different possibilities of the UMN MapServer for
+cartographical symbols of the vector based mapobjects (this is just a selection!):</p>
+<div class="section" id="basic-symbols">
+<h3>Basic Symbols<a class="headerlink" href="#basic-symbols" title="Permalink to this headline">¶</a></h3>
+<img alt="../../_images/point-symbol-examples.png" src="../../_images/point-symbol-examples.png" />
+<img alt="../../_images/line-symbol-examples.png" src="../../_images/line-symbol-examples.png" />
+<img alt="../../_images/pattern-symbol-examples.png" src="../../_images/pattern-symbol-examples.png" />
+</div>
+<div class="section" id="complex-symbols">
+<h3>Complex Symbols<a class="headerlink" href="#complex-symbols" title="Permalink to this headline">¶</a></h3>
+<img alt="../../_images/point-symbol-complex.png" src="../../_images/point-symbol-complex.png" />
+<img alt="../../_images/line-symbol-complex.png" src="../../_images/line-symbol-complex.png" />
+<img alt="../../_images/pattern-symbol-complex.png" src="../../_images/pattern-symbol-complex.png" />
+</div>
+</div>
+<div class="section" id="current-problems-open-issues">
+<h2><a class="toc-backref" href="#table-of-contents">Current Problems / Open Issues</a><a class="headerlink" href="#current-problems-open-issues" title="Permalink to this headline">¶</a></h2>
+<p>The current version of MapServer renders open symbols (e.g. a cross) and empty
+symbols of the TYPE VECTOR incorrectly by filling them. This bug has been removed
+during our code examination and should be eliminated with a future release.
+Additionaly the OUTLINECOLOR-parameter can not be used to create a 1 pixel
+outline for symbols and characters on a line. This can be achieved in a more
+flexible way as mentioned above. Another problem concerns the use of line patterns
+(e.g. dashed line) on features with many points and nooks. The line pattern
+will then often be displayed irregularly (see Table9).</p>
+<p><strong>Table 8: Use of a simple cross on a line</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">CLASS-Section from the Mapfile</th>
+<th class="head">Character from the Symbolfile</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">CLASS</span>
+  <span class="k">STYLE</span>
+    <span class="k">SIZE</span> <span class="mi">1</span>
+    <span class="k">COLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">END</span>
+  <span class="k">STYLE</span>
+    <span class="k">SYMBOL</span> <span class="s">&quot;cross2&quot;</span>
+    <span class="k">SIZE</span> <span class="mi">8</span>
+    <span class="k">COLOR</span> <span class="mi">204</span> <span class="mi">153</span> <span class="mi">0</span>
+    <span class="k">OFFSET</span> <span class="mi">1</span> <span class="p">-</span><span class="mi">7</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&quot;cross2&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">VECTOR</span>
+  <span class="k">POINTS</span>
+    <span class="mi">0</span>   <span class="mi">0</span>
+    <span class="mi">1</span>   <span class="mi">1</span>
+    <span class="p">-</span><span class="mi">99</span> <span class="p">-</span><span class="mi">99</span>
+    <span class="mi">0</span>   <span class="mi">1</span>
+    <span class="mi">1</span>   <span class="mi">0</span>
+  <span class="k">END</span>
+  <span class="k">STYLE</span>
+    <span class="mi">1</span> <span class="mi">15</span> <span class="mi">1</span> <span class="mi">15</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/cross-fill-example.png" src="../../_images/cross-fill-example.png" />
+<p><strong>Table9: Irregularities with line patterns</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">CLASS-Section from the Mapfile</th>
+<th class="head">Character from the Symbolfile</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">CLASS</span>
+  <span class="k">STYLE</span>
+    <span class="k">SYMBOL</span> <span class="s">&quot;border2&quot;</span>
+    <span class="k">SIZE</span> <span class="mi">2</span>
+    <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+<td><div class="first last highlight-mapfile"><div class="highlight"><pre><span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&quot;border2&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">VECTOR</span>
+  <span class="k">POINTS</span>
+    <span class="mi">0</span> <span class="mi">0</span>
+    <span class="mi">1</span> <span class="mi">0</span>
+    <span class="mi">1</span> <span class="mf">0.8</span>
+    <span class="mi">0</span> <span class="mf">0.8</span>
+    <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">END</span>
+  <span class="k">STYLE</span>
+    <span class="mi">10</span> <span class="mi">6</span> <span class="mi">1</span> <span class="mi">6</span>
+  <span class="k">END</span>
+  <span class="k">FILLED</span> <span class="nb">TRUE</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<img alt="../../_images/irregular-line-pattern.png" src="../../_images/irregular-line-pattern.png" />
+<p>All symbols in this document were created with MAP files and SYMBOL files, which
+can be <a class="reference external" href="http://www.mapmedia.de/fileadmin/user_upload/dokumente/umn_signaturen_howto/vortrag_demo.zip">downloaded</a>. If you want to use this MAP
+file please note, that your MapServer must at least be able to handle with 50
+symbols. Otherwise you get an error while loading the SYMBOL files.</p>
+<p>I hope that this document will help you to present your data in a cartographically
+nice manner with the UMN MapServer and explains some basics and possibilities
+of the concept of the UMN MapServer as well as some weakness. It would be great
+to put together a cartographic symbols library for the profit of everyone.
+This especially concerns truetype-fonts, which were developed for some projects
+and contain some typical signatures for cartographic needs.</p>
+<p>You can also view the <a class="reference external" href="http://www.mapmedia.de/fileadmin/user_upload/dokumente/umn_signaturen_howto/DiskussionsPaper-UMNGraphikKernel.pdf">discussion paper for the improvement of the MapServer Graphic-Kernel</a> (sorry as yet German only).</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="examples.html" title="Symbology Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../symbol.html" title="SYMBOL"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

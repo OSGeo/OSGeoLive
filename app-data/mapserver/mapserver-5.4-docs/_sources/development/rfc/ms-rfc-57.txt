@@ -1,0 +1,150 @@
+.. _rfc57:
+
+====================================================================== 
+MS RFC 57: Labeling enhancements: ability to repeat labels along a line/multiline
+======================================================================
+
+:Date: 2009/06/26
+:Authors: Alan Boudreault
+:Contact: aboudreault at mapgears.com
+:Last Edited: 2009/06/29
+:Status:  Adopted (2009/07/21) and Implemented.
+:Version: MapServer 6.0
+:Id: $Id: $
+
+Overview
+------------------------------------------------------------------------------
+
+Currently, MapServer draws labels on the longest segment of a linear
+shape. Even if the shape is a long line or a multiline shape, only one
+label is drawn. In some cases, the map quality could be highly improved
+with more labels.
+
+This RFC proposes a mechanism to fix this by adding the ability to add more
+labels along long lines or multiline shapes. There are two major
+enhancements that are proposed.
+
+See the Images section to visualize the current and new behaviors.
+
+Enhancement 1: Label all the lines in MultiLine shape
+------------------------------------------------------------------------------
+
+At the moment, if you've got a MultiLine shape (i.e. a shapeObj with
+numlines > 1) then only the longest of the Lines is labelled. This is fine
+in most cases, but in some cases, we may want each individual Line in the
+MultiLine to get a label. That's the first proposed enhancement: make it
+possible to label all lines in a MultiLine shape.
+
+
+Enhancement 2: Ability to repeat labels along a line
+------------------------------------------------------------------------------
+
+At the moment, the label is placed at the center of a line in the case of
+ANGLE FOLLOW, and at the center of the longest segment of a line in the
+case of ANGLE AUTO|constant. In the case of very long lines (roads), and
+especially when using metatiles to render a tile cache, we may want to
+repeat the label at some interval along the line. That's the second
+enhancement: make it possible to repeat the label at a given interval along
+a line.
+
+Technical Solution
+------------------------------------------------------------------------------
+
+The way to control this in the mapfile is to add a LABEL.REPEATDISTANCE
+parameter. By default this would be turned off and we would keep the
+current behavior. If REPEATDISTANCE is set to any value > 0 then the labels
+would be repeated on every line of a multiline shape (enhancement 1 above),
+and would be repeated multiple times along a given line at an interval of
+REPEATDISTANCE pixels (item 2 above). In all cases the MINDISTANCE value
+would still be handled by the label cache so that multiple labels ending up
+too close to each other for various reasons would be eliminated by the
+label cache.
+
+To achieve better visual effect, here is an outline of the algorithm that
+applies when REPEATDISTANCE is set:
+
+ #. Calculate the number of labels candidates (N) that can fit in the
+    length of the line.
+
+ #. Ensure that N is an odd number. If it's even then subtract one to get
+    an odd number. We want an odd number of label candidates along a given
+    line so that there is always one candidate that falls at the center of
+    the line and which will remain in case of collisions. With an even
+    number of candidates, when collisions happen along a line, the
+    remaining labels are usually shifted one way or the other along the
+    line instead of being centered which does not look as good.  
+
+ #. Calculate the offset between labels and the position of candidates 
+    along the line.
+
+ #. Insert labels candidates into the label cache in an order that will
+    ensure that the label cache will eliminate the right labels in case of
+    collisions (keep in mind that collisions are still possible since
+    MINDISTANCE remains in effect). We want to give higher priority to the
+    label candidate at the center of the line and lower priority to other
+    candidates as they get further away from the center. Since the label
+    cache order is last in first out (LIFO), we start by inserting the
+    labels candidates at the extremities of the line into the cache end end
+    with the one at the center, giving it the highest priority.
+
+Usage example
+------------------------------------------------------------------------------
+
+This example will repeat the labels every 80 pixels on each line of a
+multiline shape.
+
+::
+
+  MAP
+    ...
+    LABEL
+       REPEATDISTANCE 80
+    END
+    ...   
+  END
+
+
+Backwards Compatibility Issues
+------------------------------------------------------------------------------
+
+There is no backwards compatibility issues. By default the
+LABEL.REPEATDISTANCE parameter is set to 0, so not applied.
+
+Files Impacted
+------------------------------------------------------------------------------
+
+* mapprimitive.c: Modify the labels placement algorithm
+
+* mapfile.c, maplexer.l: new LABEL.REPEATDISTANCE mapfile keyword
+
+* mapdraw.c: Modify the way how msPolylineLabel* calls are handled
+
+
+Ticket Id
+------------------------------------------------------------------------------
+
+* http://trac.osgeo.org/mapserver/ticket/3030
+
+
+Images
+------------------------------------------------------------------------------
+
+Since a picture is worth a thousand words:
+
+* Repeat distance, visual explanation:
+  http://trac.osgeo.org/mapserver/attachment/ticket/3030/repeat_label.gif
+ 
+* Label placement algorithm:
+  http://trac.osgeo.org/mapserver/attachment/ticket/3030/label_algorithm.gif
+
+* Labels comparison:
+  http://trac.osgeo.org/mapserver/attachment/ticket/3030/label-comparison.jpg
+
+* Shields comparison:
+  http://trac.osgeo.org/mapserver/attachment/ticket/3030/shield-comparison.jpg
+
+
+Voting History
+------------------------------------------------------------------------------
+
+Adopted on 2009/07/21 with +1 from SteveW, DanielM, SteveL, AssefaY, ThomasB and PericlesN.

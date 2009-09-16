@@ -1,0 +1,1781 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>CBE Object Reference</title>
+<meta name='author' content='Mike Foster, cross-browser.com'>
+<meta name='description' content='Object reference for CBE, a Cross-Browser DHTML API for IE, Gecko, Opera, Netscape, Konqueror, AOL and similar browsers'>
+<style type='text/css'><!--
+body { font-family:verdana,arial,sans-serif,helvetica; font-size:12px; color:#000000; margin:0px; padding:0px; background:#cccccc; }
+a:link, a:visited, a:active { font-family:verdana,arial,sans-serif; font-size:12px; color:#666666; }
+a:hover { font-family:verdana,arial,sans-serif; font-size:12px; color:#3333ff; background:#cccccc; }
+p { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; }
+ul { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; background:#ffffff; }
+pre { font-family:"courier new",monotxt,courier; font-size:12px; color:#3333ff; background:#ffffff; }
+xmp { font-family:"courier new",monotxt,courier; font-size:12px; color:#3333ff; background:#ffffff; }
+.monoSpc { font-family:monospace; font-size:14px; }
+h1 { font-family:verdana,arial,sans-serif; font-size:16px; color:#3333ff; background:#cccccc; padding:2px; }
+h2 { font-family:verdana,arial,sans-serif; font-size:12px; color:#3333ff; background:#ffffff; border-top:1px dotted #000000; margin:1em 0em 1em 0em;}
+h3 { font-family:verdana,arial,sans-serif; font-size:12px; color:#666666; background:transparent; }
+td { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; vertical-align:top; }
+.even { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; background:#eeeeee; font-weight:bold; }
+.odd { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; background:#dddddd; font-weight:bold; }
+.clsTitle { font-family:verdana,arial,sans-serif; font-size:24px; color:#ffffff;
+  margin:0px; padding:0px; vertical-align:middle; background-color:#3333ff;
+  border-top:1px solid #ffffff; border-left:1px solid #ffffff; border-bottom:1px solid #000000;
+}                                                                                                                                      
+.clsSubTitle { font-family:verdana,arial,sans-serif; font-size:10px; color:#ffffff;
+  margin:0px; padding:0px; vertical-align:bottom; background-color:#3333ff; text-align:right;
+  border-top:1px solid #ffffff; border-bottom:1px solid #000000; border-right:1px solid #000000;
+}                                                                                                                                      
+--></style>
+<script type='text/javascript'><!--
+var currentHash="";
+window.onload = function() {
+  currentHash = window.location.hash;
+  window.focus();
+  hashMonitor();
+}
+function hashMonitor() {
+  setTimeout("hashMonitor()", 500);
+  if (currentHash != window.location.hash) {
+    currentHash = window.location.hash;
+    window.focus();
+  }  
+}  
+//--></script>
+</head>
+
+<body marginwidth='0' marginheight='0'><a name="topofpage"></a>
+
+<!-- Title -->
+<table width='100%' border='0' cellspacing='0' cellpadding='4'>
+<tr>
+<td height='40' class='clsTitle'>&nbsp;CBE Object Reference</td>
+<td height='40' class='clsSubTitle'>Cross-Browser.com&nbsp;</td>
+</tr></table> 
+
+<table width='90%' align='center' cellspacing='10' cellpadding='14'><tr><td bgcolor='#ffffff'><!-- indentation table -->
+
+<table  border='0' cellspacing='0' cellpadding='10'>
+<tr><td class="odd">window</td><td class="odd">&nbsp;</td><td class="odd"><a href='#windowMethodsLink'>Methods</a></td><td class="odd"><a href='#windowPropertiesLink'>Properties</a></td></tr>
+<tr><td class="even">document</td><td class="even">&nbsp;</td><td class="even"><a href='#documentMethodsLink'>Methods</a></td><td class="even"><a href='#documentPropertiesLink'>Properties</a></td></tr>
+<tr><td class="odd">CrossBrowserElement</td><td class="odd"><a href='#CrossBrowserElementEventsLink'>Events</a></td><td class="odd"><a href='#CrossBrowserElementMethodsLink'>Methods</a></td><td class="odd"><a href='#CrossBrowserElementPropertiesLink'>Properties</a></td></tr>
+<tr><td class="even">CrossBrowserEvent</td><td class="even">&nbsp;</td><td class="even"><a href='#CrossBrowserEventMethodsLink'>Methods</a></td><td class="even"><a href='#CrossBrowserEventPropertiesLink'>Properties</a></td></tr>
+<tr><td class="odd">ClientSnifferJr</td><td class="odd">&nbsp;</td><td class="odd">&nbsp;</td><td class="odd"><a href='#ClientSnifferJrPropertiesLink'>Properties</a></td></tr>
+</table>
+<p><a href="#syntax">Parameter Syntax</a></p>
+
+<a name='windowMethodsLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>window Methods</h2>
+<table border='0' width='80%' cellspacing='0' cellpadding='4'>
+  <tr><td width='25%'><a href='#cbeDebugMsgLink'>cbeDebugMsg</a></td><td>cbeDebugMsg(sMsg)</td></tr>
+  <tr><td width='25%'><a href='#cbeDebugWindowLink'>cbeDebugWindow</a></td><td>cbeDebugWindow([sBaseUrl])</td></tr>
+  <tr><td width='25%'><a href='#cbeDegreesLink'>cbeDegrees</a></td><td>cbeDegrees(iRad)</td></tr>
+  <tr><td width='25%'><a href='#cbeEvalLink'>cbeEval</a></td><td>cbeEval(xExpression [, arg1, ...])</td></tr>
+  <tr><td width='25%'><a href='#cbeGetCookieLink'>cbeGetCookie</a></td><td>cbeGetCookie(sName)</td></tr>
+  <tr><td width='25%'><a href='#cbeGetElementByIdLink'>cbeGetElementById</a></td><td>cbeGetElementById(sId)</td></tr>
+  <tr><td width='25%'><a href='#cbeGetFormByNameLink'>cbeGetFormByName</a></td><td>cbeGetFormByName(sName)</td></tr>
+  <tr><td width='25%'><a href='#cbeGetImageByNameLink'>cbeGetImageByName</a></td><td>cbeGetImageByName(sName)</td></tr>
+  <tr><td width='25%'><a href='#cbeGetNodeFromPointLink'>cbeGetNodeFromPoint</a></td><td>cbeGetNodeFromPoint(iX, iY)</td></tr>
+  <tr><td width='25%'><a href='#cbeGetURLArgumentsLink'>cbeGetURLArguments</a></td><td>cbeGetURLArguments()</td></tr>
+  <tr><td width='25%'><a href='#cbeHexStringLink'>cbeHexString</a></td><td>cbeHexString(uN, uDigits, sPrefix)</td></tr>
+  <tr><td width='25%'><a href='#cbeMouseMoveStatusLink'>cbeMouseMoveStatus</a></td><td>cbeMouseMoveStatus()</td></tr>
+  <tr><td width='25%'><a href='#cbeNativeAddEventListenerLink'>cbeNativeAddEventListener</a></td><td>cbeNativeAddEventListener(oEle, sType, fListener, bCapture)</td></tr>
+  <tr><td width='25%'><a href='#cbeNativeRemoveEventListenerLink'>cbeNativeRemoveEventListener</a></td><td>cbeNativeRemoveEventListener(oEle, sType, fListener, bCapture)</td></tr>
+  <tr><td width='25%'><a href='#cbeNewImageLink'>cbeNewImage</a></td><td>cbeNewImage(sName, sUrl [, uWidth, uHeight])</td></tr>
+  <tr><td width='25%'><a href='#cbePadLink'>cbePad</a></td><td>cbePad(sStr, uFinalLen, sPadChar, bLeft)</td></tr>
+  <tr><td width='25%'><a href='#cbePropagateEventLink'>cbePropagateEvent</a></td><td>cbePropagateEvent(oCrossBrowserEvent)</td></tr>
+  <tr><td width='25%'><a href='#cbeRadiansLink'>cbeRadians</a></td><td>cbeRadians(iDeg)</td></tr>
+  <tr><td width='25%'><a href='#cbeRefWindowLink'>cbeRefWindow</a></td><td>cbeRefWindow([sBaseUrl])</td></tr>
+  <tr><td width='25%'><a href='#cbeSetCookieLink'>cbeSetCookie</a></td><td>cbeSetCookie(sName, sValue [, dExpire])</td></tr>
+  <tr><td width='25%'><a href='#cbeSetImageLink'>cbeSetImage</a></td><td>cbeSetImage(sTarget | oTarget, sSource | oSource)</td></tr>
+  <tr><td width='25%'><a href='#cbeShowPropsLink'>cbeShowProps</a></td><td>cbeShowProps(oObj, sObjName, bShowValues)</td></tr>
+  <tr><td width='25%'><a href='#cbeTileWindowsLink'>cbeTileWindows</a></td><td>cbeTileWindows()</td></tr>
+  <tr><td width='25%'><a href='#cbeTraverseTreeLink'>cbeTraverseTree</a></td><td>cbeTraverseTree(sOrder, oStart, fVisit)</td></tr>
+</table>
+
+<a name='windowPropertiesLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>window Properties</h2>
+<table border="1" cellpadding="4" cellspacing="0">
+  <tr><td><b>Property</b></td><td colspan="4" align="center"><b>Browser Support</b></td><td><b>Data Type</b></td><td><b>Notes</b></td></tr>
+  <tr><td>cbe              </td><td>I</td><td>N</td><td>G</td><td>O</td><td>CrossBrowserElement         </td><td>For window, document and every DIV or SPAN with id != "", a CrossBrowserElement object is created and added to the native Element object as a property with the name <b>cbe</b>.</td></tr>
+  <tr><td>cbeAll           </td><td>I</td><td>N</td><td>G</td><td>O</td><td>Array of CrossBrowserElement</td><td>An array of all CrossBrowserElement objects.</td></tr>
+  <tr><td>cbeButton        </td><td>I</td><td>N</td><td>G</td><td>O</td><td>Array of string             </td><td>An enumeration for the CrossBrowserEvent.button property: 'LEFT', 'MIDDLE', 'RIGHT', 'undefined', 'non-mouse event'</td></tr>
+  <tr><td>cbeDebugJsLoaded </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean                     </td><td>True if <i>cbe_debug.js</i> has loaded.</td></tr>
+  <tr><td>cbeDocumentId    </td><td>I</td><td>N</td><td>G</td><td>O</td><td>string                      </td><td>Assigned to document.cbe.id</td></tr>
+  <tr><td>cbeEventJsLoaded </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean                     </td><td>True if <i>cbe_event.js</i> has loaded.</td></tr>
+  <tr><td>cbeEventPhase    </td><td>I</td><td>N</td><td>G</td><td>O</td><td>Array of string             </td><td>An enumeration for the CrossBrowserEvent.eventPhase property: '', 'AT_TARGET', 'BUBBLING_PHASE', 'CAPTURING_PHASE'</td></tr>
+  <tr><td>cbeImageCount    </td><td>I</td><td>N</td><td>G</td><td>O</td><td>integer                     </td><td>The number of Image objects created with cbeNewImage().</td></tr>
+  <tr><td>cbeImageName     </td><td>I</td><td>N</td><td>G</td><td>O</td><td>Array of string             </td><td>An array of the names of the Image objects created with cbeNewImage().</td></tr>
+  <tr><td>cbeImageObj      </td><td>I</td><td>N</td><td>G</td><td>O</td><td>Array of Image              </td><td>An array of the Image objects created with cbeNewImage().</td></tr>
+  <tr><td>cbeSlideJsLoaded </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean                     </td><td>True if <i>cbe_slide.js</i> has loaded.</td></tr>
+  <tr><td>cbeSlide2JsLoaded</td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean                     </td><td>True if <i>cbe_slide2.js</i> has loaded.</td></tr>
+  <tr><td>cbeUtilJsLoaded  </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean                     </td><td>True if <i>cbe_util.js</i> has loaded.</td></tr>
+  <tr><td>cbeWindowId      </td><td>I</td><td>N</td><td>G</td><td>O</td><td>string                      </td><td>Assigned to window.cbe.id</td></tr>
+  <tr><td>cbeVersion       </td><td>I</td><td>N</td><td>G</td><td>O</td><td>string                      </td><td>The current CBE version.</td></tr>
+  <tr><td>is               </td><td>I</td><td>N</td><td>G</td><td>O</td><td>ClientSnifferJr             </td><td>The <a href="#ClientSnifferJrPropertiesLink">client detection</a> object.</td></tr>
+</table>
+
+<a name='documentMethodsLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>document Methods</h2>
+<table border='0' width='80%' cellspacing='0' cellpadding='4'>
+  <tr><td width='25%'><a href='#getElementByIdLink'>getElementById</a></td><td>getElementById(sId)</td></tr>
+</table>
+
+<a name='documentPropertiesLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>document Properties</h2>
+<table border="1" cellpadding="4" cellspacing="0">
+  <tr><td><b>Property</b></td><td colspan="4" align="center"><b>Browser Support</b></td><td><b>Data Type</b></td><td><b>Notes</b></td></tr>
+  <tr><td>cbe</td><td>I</td><td>N</td><td>G</td><td>O</td><td>CrossBrowserElement         </td><td>For window, document and every DIV or SPAN with id != "", a CrossBrowserElement object is created and added to the native Element object as a property with the name <b>cbe</b>.</td></tr>
+</table>
+
+<a name='CrossBrowserElementMethodsLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>CrossBrowserElement Methods</h2>
+<h3>Size:</h3>
+<table border='0' width='80%' cellspacing='0' cellpadding='4'>
+  <tr><td width='25%'><a href='#heightLink'>height</a></td><td>height([iH])</td></tr>
+  <tr><td width='25%'><a href='#resizeByLink'>resizeBy</a></td><td>resizeBy(iDw, iDh)</td></tr>
+  <tr><td width='25%'><a href='#resizeToLink'>resizeTo</a></td><td>resizeTo(iWidth, iHeight)</td></tr>
+  <tr><td width='25%'><a href='#sizeByLink'>sizeBy</a></td><td>sizeBy(iDw, iDh)</td></tr>
+  <tr><td width='25%'><a href='#sizeToLink'>sizeTo</a></td><td>sizeTo(iWidth, iHeight)</td></tr>
+  <tr><td width='25%'><a href='#widthLink'>width</a></td><td>width([iW])</td></tr>
+</table>
+<h3>Clipping:</h3>
+<table border='0' width='80%' cellspacing='0' cellpadding='4'>
+  <tr><td width='25%'><a href="#autoClipLink">autoClip</a></td><td>autoClip(sCP, sDirection, uIncrement, xEndListener)</td></tr>
+  <tr><td width='25%'><a href="#clipLink">clip</a></td><td>clip(iTop, iRight, iBottom, iLeft)</td></tr>
+  <tr><td width='25%'><a href="#clipArrayLink">clipArray</a></td><td>clipArray()</td></tr>
+  <tr><td width='25%'><a href="#clipBottomLink">clipBottom</a></td><td>clipBottom()</td></tr>
+  <tr><td width='25%'><a href="#clipByLink">clipBy</a></td><td>clipBy(iDT, iDR, iDB, iDL)</td></tr>
+  <tr><td width='25%'><a href="#clipHeightLink">clipHeight</a></td><td>clipHeight()</td></tr>
+  <tr><td width='25%'><a href="#clipLeftLink">clipLeft</a></td><td>clipLeft()</td></tr>
+  <tr><td width='25%'><a href="#clipRightLink">clipRight</a></td><td>clipRight()</td></tr>
+  <tr><td width='25%'><a href="#clipTopLink">clipTop</a></td><td>clipTop()</td></tr>
+  <tr><td width='25%'><a href="#clipWidthLink">clipWidth</a></td><td>clipWidth()</td></tr>
+  <tr><td width='25%'><a href="#scrollByLink">scrollBy</a></td><td>scrollBy(iDX, iDY)</td></tr>
+</table>  
+<h3>Appearance:</h3>
+<table border='0' width='80%' cellspacing='0' cellpadding='4'>
+  <tr><td width='25%'><a href='#backgroundLink'>background</a></td><td>background(sColor [,sImage])</td></tr>
+  <tr><td width='25%'><a href='#colorLink'>color</a></td><td>color([s])</td></tr>
+  <tr><td width='25%'><a href='#hideLink'>hide</a></td><td>hide()</td></tr>
+  <tr><td width='25%'><a href='#innerHtmlLink'>innerHtml</a></td><td>innerHtml(sHtml)</td></tr>
+  <tr><td width='25%'><a href='#showLink'>show</a></td><td>show()</td></tr>
+  <tr><td width='25%'><a href='#visibilityLink'>visibility</a></td><td>visibility([s | b])</td></tr>
+  <tr><td width='25%'><a href='#zIndexLink'>zIndex</a></td><td>zIndex([i])</td></tr>
+</table>
+<h3>Position:</h3>
+<table border='0' width='80%' cellspacing='0' cellpadding='4'>
+  <tr><td width='25%'><a href='#containsLink'>contains</a></td><td>contains(iLeft, iTop [, iClipTop [, iClipRight [, iClipBottom, iClipLeft]]])</td></tr>
+  <tr><td width='25%'><a href='#leftLink'>left</a></td><td>left([iX])</td></tr>
+  <tr><td width='25%'><a href='#moveByLink'>moveBy</a></td><td>moveBy(iDx, iDy)</td></tr>
+  <tr><td width='25%'><a href='#moveToLink'>moveTo</a></td><td>moveTo(iX, iY [, xEndListener ])<br>moveTo(sCardinal [, iMargin [, bOutside [, xEndListener ]]])</td></tr>
+  <tr><td width='25%'><a href='#offsetLeftLink'>offsetLeft</a></td><td>offsetLeft()</td></tr>
+  <tr><td width='25%'><a href='#offsetTopLink'>offsetTop</a></td><td>offsetTop()</td></tr>
+  <tr><td width='25%'><a href='#pageXLink'>pageX</a></td><td>pageX()</td></tr>
+  <tr><td width='25%'><a href='#pageYLink'>pageY</a></td><td>pageY()</td></tr>
+  <tr><td width='25%'><a href='#scrollLeftLink'>scrollLeft</a></td><td>scrollLeft()</td></tr>
+  <tr><td width='25%'><a href='#scrollTopLink'>scrollTop</a></td><td>scrollTop()</td></tr>
+  <tr><td width='25%'><a href='#topLink'>top</a></td><td>top([iY])</td></tr>
+</table>
+<h3>Animation:</h3>
+<table border='0' width='80%' cellspacing='0' cellpadding='4'>
+  <tr><td width='25%'><a href='#ellipseLink'>ellipse</a></td><td>ellipse(uXRad, uYRad, iRadInc, uTime, iStartAngle, iStopAngle [, xEndListener])</td></tr>
+  <tr><td width='25%'><a href='#parametricEquationLink'>parametricEquation</a></td><td>parametricEquation(xX, xY, uTime [, xEndListener])</td></tr>
+  <tr><td width='25%'><a href='#slideCornerByLink'>slideCornerBy</a></td><td>slideCornerBy(sCorner, iDX, iDY, uTime [, xEndListener])</td></tr>
+  <tr><td width='25%'><a href='#slideCornerToLink'>slideCornerTo</a></td><td>slideCornerTo(sCorner, iX, iY, uTime [, xEndListener])</td></tr>
+  <tr><td width='25%'><a href='#slideByLink'>slideBy</a></td><td>slideBy(iDX, iDY, uTime [, xEndListener])</td></tr>
+  <tr><td width='25%'><a href='#slideToLink'>slideTo</a></td><td>slideTo(iX, iY, uTime [, xEndListener])<br>slideTo(sCardinal, iMargin, uTime [, xEndListener ])</td></tr>
+  <tr><td width='25%'><a href='#startSequenceLink'>startSequence</a></td><td>startSequence([uIndex])</td></tr>
+  <tr><td width='25%'><a href='#stopSequenceLink'>stopSequence</a></td><td>stopSequence()</td></tr>
+  <tr><td width='25%'><a href='#stopSlideLink'>stopSlide</a></td><td>stopSlide()</td></tr>
+</table>
+<h3>Event Management:</h3>
+<table border='0' width='80%' cellspacing='0' cellpadding='4'>
+  <tr><td width='25%'><a href='#addEventListenerLink'>addEventListener</a></td><td>addEventListener(sType, xListener, bCapture)</td></tr>
+  <tr><td width='25%'><a href='#dispatchEventLink'>dispatchEvent</a></td><td>dispatchEvent(oCrossBrowserEvent)</td></tr>
+  <tr><td width='25%'><a href='#removeEventListenerLink'>removeEventListener</a></td><td>removeEventListener(sType, xListener, bCapture)</td></tr>
+</table>
+<h3>Element Creation:</h3>
+<table border='0' width='80%' cellspacing='0' cellpadding='4'>
+  <tr><td width='25%'><a href='#createElementLink'>createElement</a></td><td>createElement(sEleType)</td></tr>
+</table>
+<h3>Derived from CrossBrowserNode:</h3>
+<table border='0' width='80%' cellspacing='0' cellpadding='4'>
+  <tr><td width='25%'><a href='#appendChildLink'>appendChild</a></td><td>appendChild(oElement)</td></tr>
+</table>
+
+<a name='CrossBrowserElementPropertiesLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>CrossBrowserElement Properties</h2>
+<table border="1" cellpadding="4" cellspacing="0">
+  <tr><td><b>Property</b></td><td colspan="4" align="center"><b>Browser Support</b></td><td><b>Data Type</b></td><td><b>Notes</b></td></tr>
+  <tr><td>ele</td><td>I</td><td>N</td><td>G</td><td>O</td><td>native Element</td><td>The native Element object that this CrossBrowserElement object is associated with.</td></tr>
+  <tr><td>id</td><td>I</td><td>N</td><td>G</td><td>O</td><td>string</td><td>The same id as it's associated Element object.</td></tr>
+  <tr><td>index</td><td>I</td><td>N</td><td>G</td><td>O</td><td>unsigned integer</td><td>This object's index into the array of CrossBrowserElement objects: cbeAll.</td></tr>
+  <tr><td>moving</td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>True if this object is currently sliding.</td></tr>
+  <tr><td>parentElement</td><td>I</td><td>N</td><td>G</td><td>O</td><td>native Element</td><td>The parent Element object of this object's associated Element object.</td></tr>
+  <tr><td>slideRate</td><td>I</td><td>N</td><td>G</td><td>O</td><td>unsigned integer</td><td>Assign one of the following constants to this property: <i>cbeSlideRateLinear</i> - slides at a constant rate. <i>cbeSlideRateSine</i> - (default) starts fast and decelerates toward the target. <i>cbeSlideRateCosine</i> - starts slow and accelerates toward the target.</td></tr>
+  <tr><td colspan='7'>Derived from CrossBrowserNode:</td></tr>
+  <tr><td>childNodes     </td><td>I</td><td>N</td><td>G</td><td>O</td><td>unsigned integer</td><td>The number of child nodes for this node - the number of elements <i>nested</i> one level deep within this element.</td></tr>
+  <tr><td>firstChild     </td><td>I</td><td>N</td><td>G</td><td>O</td><td>CrossBrowserElement</td><td>This object's first child node, or null if there is none.</td></tr>
+  <tr><td>lastChild      </td><td>I</td><td>N</td><td>G</td><td>O</td><td>CrossBrowserElement</td><td>This object's last child node, or null if there is none.</td></tr>
+  <tr><td>nextSibling    </td><td>I</td><td>N</td><td>G</td><td>O</td><td>CrossBrowserElement</td><td>The CrossBrowserElement object after this one, in this object's parent's child list.</td></tr>
+  <tr><td>parentNode     </td><td>I</td><td>N</td><td>G</td><td>O</td><td>CrossBrowserElement</td><td>This object's parent CrossBrowserElement object.</td></tr>
+  <tr><td>previousSibling</td><td>I</td><td>N</td><td>G</td><td>O</td><td>CrossBrowserElement</td><td>The CrossBrowserElement object before this one, in this object's parent's child list.</td></tr>
+</table>
+
+<a name='CrossBrowserElementEventsLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>CrossBrowserElement Events</h2>
+<table border="1" cellpadding="4" cellspacing="0">
+  <tr><td><b>Event</b></td><td colspan="4" align="center"><b>Browser Support</b></td><td><b>Notes</b></td></tr>
+  <tr><td colspan='6'>The following events are supported within CBE's implementation of the DOM2 event model:</td></tr>
+  <tr><td>click    </td><td>I</td><td>N</td><td>G</td><td>O</td><td>The listener will receive a CrossBrowserEvent argument.</td></tr>
+  <tr><td>mousedown</td><td>I</td><td>N</td><td>G</td><td>O</td><td>The listener will receive a CrossBrowserEvent argument.</td></tr>
+  <tr><td>mouseup  </td><td>I</td><td>N</td><td>G</td><td>O</td><td>The listener will receive a CrossBrowserEvent argument.</td></tr>
+  <tr><td>mousemove</td><td>I</td><td>N</td><td>G</td><td>O</td><td>The listener will receive a CrossBrowserEvent argument.</td></tr>
+  <tr><td>mouseover</td><td>I</td><td>N</td><td>G</td><td>O</td><td>The listener will receive a CrossBrowserEvent argument.</td></tr>
+  <tr><td>mouseout </td><td>I</td><td>N</td><td>G</td><td>O</td><td>The listener will receive a CrossBrowserEvent argument.</td></tr>
+  <tr><td>keypress </td><td>I</td><td>N</td><td>G</td><td>O</td><td>The listener will receive a CrossBrowserEvent argument.</td></tr>
+  <tr><td>keyup    </td><td>I</td><td>N</td><td>G</td><td>O</td><td>The listener will receive a CrossBrowserEvent argument.</td></tr>
+  <tr><td>keydown  </td><td>I</td><td>N</td><td>G</td><td>O</td><td>The listener will receive a CrossBrowserEvent argument.</td></tr>
+  <tr><td colspan='6'>CBE also provides support for the following events but not within the new event model:</td></tr>
+  <tr><td>drag                      </td><td>I</td><td>N</td><td>G</td><td>O</td><td>The listener will receive a CrossBrowserEvent argument originated by the mouseMove event. If you do not supply a listener, a pre-implemented listener will provide basic drag support.</td></tr>
+  <tr><td>dragStart                 </td><td>I</td><td>N</td><td>G</td><td>O</td><td>The listener will receive a CrossBrowserEvent argument originated by the mouseDown event.</td></tr>
+  <tr><td>dragEnd                   </td><td>I</td><td>N</td><td>G</td><td>O</td><td>The listener will receive a CrossBrowserEvent argument originated by the mouseUp event.</td></tr>
+  <tr><td>slide                     </td><td>I</td><td>N</td><td>G</td><td>O</td><td>The slide event occurs before each move, during a slide. The event listener will receive four arguments:<br><i>cbe</i>: a reference to the CBE object about to move,<br><i>newX</i>: the x coordinate to which the object is about to move,<br><i>newY</i>: the y coordinate to which the object is about to move,<br><i>time</i>: the elapsed time of the slide, in milliseconds.</td></tr>
+  <tr><td>slideStart                </td><td>I</td><td>N</td><td>G</td><td>O</td><td>The slideStart event occurs before the first move of the slide. The event listener will receive one argument: a reference to the CBE object about to slide.</td></tr>
+  <tr><td>slideEnd                  </td><td>I</td><td>N</td><td>G</td><td>O</td><td>The slideEnd event occurs after the last move which completes the slide. The event listener will receive one argument: a reference to the CBE object which just completed a slide.</td></tr>
+  <tr><td>dragResize</td><td>I</td><td>N</td><td>G</td><td>O</td><td>Not a formal event. A pre-implemented listener will provide basic drag <i>and</i> resize support. File dependencies: cbe_core.js, cbe_event.js, cbe_util.js</td></tr>
+  <tr><td>scroll</td><td>I</td><td>N</td><td>G</td><td>O</td><td>Currently only for window object. Simulates this event in browsers that don't directly support it.</td></tr>
+  <tr><td>resize</td><td>I</td><td>N</td><td>G</td><td>O</td><td>Currently only for window object. Simulates this event in browsers that don't directly support it. CBE automatically installs a basic resize listener which reloads the page on resize for NN4 and Opera.</td></tr>
+</table>
+
+<a name='CrossBrowserEventMethodsLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>CrossBrowserEvent Methods</h2>
+<table border='0' width='80%' cellspacing='0' cellpadding='4'>
+  <tr><td width='25%'><a href='#preventDefaultLink'>preventDefault</a></td><td>preventDefault()</td></tr>
+  <tr><td width='25%'><a href='#stopPropagationLink'>stopPropagation</a></td><td>stopPropagation()</td></tr>
+</table>
+
+<a name='CrossBrowserEventPropertiesLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>CrossBrowserEvent Properties</h2>
+<table border="1" cellpadding="4" cellspacing="0">
+  <tr><td><b>Property</b></td><td colspan="4" align="center"><b>Browser Support</b></td><td><b>Data Type</b></td><td><b>Notes</b></td></tr>
+  <tr><td colspan="7">From DOM2 Interface Event</td></tr>
+  <tr><td>type         </td><td>I</td><td>N</td><td>G</td><td>O</td><td>DOMString</td><td>The name of the event (case-insensitive). </td></tr>
+  <tr><td>target       </td><td>I</td><td>N</td><td>G</td><td>O</td><td>EventTarget</td><td>Used to indicate the EventTarget to which the event was originally dispatched.</td></tr>
+  <tr><td>currentTarget</td><td>I</td><td>&nbsp;</td><td>G</td><td>O</td><td>EventTarget</td><td>Used to indicate the EventTarget whose EventListeners are currently being processed. This is particularly useful during capturing and bubbling.</td></tr>
+  <tr><td>eventPhase   </td><td>&nbsp;</td><td>&nbsp;</td><td>G</td><td>&nbsp;</td><td>unsigned short</td><td>Used to indicate which phase of event flow is currently being evaluated. Masks: cbeEvent.AT_TARGET==1, cbeEvent.BUBBLING_PHASE==2, cbeEvent.CAPTURING_PHASE==3</td></tr>
+  <tr><td>bubbles      </td><td>I</td><td>&nbsp;</td><td>G</td><td>&nbsp;</td><td>boolean</td><td>Used to indicate whether or not an event is a bubbling event. If the event can bubble the value is true, else the value is false.</td></tr>
+  <tr><td>cancelable   </td><td>&nbsp;</td><td>&nbsp;</td><td>G</td><td>&nbsp;</td><td>boolean</td><td>Used to indicate whether or not an event can have its default action prevented. If the default action can be prevented the value is true, else the value is false.</td></tr>
+  <tr><td>timeStamp    </td><td>&nbsp;</td><td>&nbsp;</td><td>G</td><td>&nbsp;</td><td>DOMTimeStamp</td><td>Used to specify the time (in milliseconds relative to the epoch) at which the event was created.</td></tr>
+  <tr><td colspan="7">From DOM2 Interface MouseEvent</td></tr>
+  <tr><td>screenX      </td><td>I</td><td>N</td><td>G</td><td>O</td><td>long</td><td>The horizontal coordinate at which the event occurred relative to the origin of the screen coordinate system.</td></tr>
+  <tr><td>screenY      </td><td>I</td><td>N</td><td>G</td><td>O</td><td>long</td><td>The vertical coordinate at which the event occurred relative to the origin of the screen coordinate system.</td></tr>
+  <tr><td>clientX      </td><td>I</td><td>N</td><td>G</td><td>O</td><td>long</td><td>The horizontal coordinate at which the event occurred relative to the DOM implementation's client area.</td></tr>
+  <tr><td>clientY      </td><td>I</td><td>N</td><td>G</td><td>O</td><td>long</td><td>The vertical coordinate at which the event occurred relative to the DOM implementation's client area.</td></tr>
+  <tr><td>ctrlKey      </td><td>I</td><td>&nbsp;</td><td>G</td><td>O</td><td>boolean</td><td>Used to indicate whether the 'ctrl' key was depressed during the firing of the event.</td></tr>
+  <tr><td>shiftKey     </td><td>I</td><td>&nbsp;</td><td>G</td><td>O</td><td>boolean</td><td>Used to indicate whether the 'shift' key was depressed during the firing of the event.</td></tr>
+  <tr><td>altKey       </td><td>I</td><td>&nbsp;</td><td>G</td><td>&nbsp;</td><td>boolean</td><td>Used to indicate whether the 'alt' key was depressed during the firing of the event.</td></tr>
+  <tr><td>metaKey      </td><td>&nbsp;</td><td>&nbsp;</td><td>G</td><td>&nbsp;</td><td>boolean</td><td>Used to indicate whether the 'meta' key was depressed during the firing of the event.</td></tr>
+  <tr><td>button       </td><td>I</td><td>N</td><td>G</td><td>O</td><td>unsigned short</td><td>During mouse events caused by the depression or release of a mouse button, button is used to indicate which mouse button changed state. Masks: cbeEvent.LEFT==0, cbeEvent.MIDDLE==1, cbeEvent.RIGHT==2</td></tr>
+  <tr><td>relatedTarget</td><td>I</td><td>&nbsp;</td><td>G</td><td>&nbsp;</td><td>EventTarget</td><td>Used to identify a secondary EventTarget related to a UI event. Currently this attribute is used with the mouseover event to indicate the EventTarget which the pointing device exited and with the mouseout event to indicate the EventTarget which the pointing device entered.</td></tr>
+  <tr><td colspan="7">From IE4 Event Model</td></tr>
+  <tr><td>keyCode      </td><td>I</td><td>N</td><td>G</td><td>O</td><td>long</td><td>The ASCII value of the key pressed. During onKeyDown and onKeyUp keyCode will be uppercase only.</td></tr>
+  <tr><td>offsetX      </td><td>I</td><td>N</td><td>G</td><td>&nbsp;</td><td>long</td><td>The pixel X coordinate of the mouse pointer with respect to the current rendering context.</td></tr>
+  <tr><td>offsetY      </td><td>I</td><td>N</td><td>G</td><td>&nbsp;</td><td>long</td><td>The pixel Y coordinate of the mouse pointer with respect to the current rendering context.</td></tr>
+  <tr><td colspan="7">From NN4 Event Model</td></tr>
+  <tr><td>pageX        </td><td>I</td><td>N</td><td>G</td><td>O</td><td>long</td><td>The pixel X coordinate of the mouse pointer with respect to the page.</td></tr>
+  <tr><td>pageY        </td><td>I</td><td>N</td><td>G</td><td>O</td><td>long</td><td>The pixel Y coordinate of the mouse pointer with respect to the page.</td></tr>
+  <tr><td colspan="7">From CBE Event Model</td></tr>
+  <tr><td>cbeTarget       </td><td>I</td><td>N</td><td>G</td><td>O</td><td>CrossBrowserElement</td><td>When an event occurs, a specific CrossBrowserElement object is designated as the <i>event target</i>, and is specified in the event object's <b>cbeTarget</b> property.</td></tr>
+  <tr><td>cbeCurrentTarget</td><td>I</td><td>N</td><td>G</td><td>O</td><td>CrossBrowserElement</td><td>The event object's <b>cbeCurrentTarget</b> property points to the CrossBrowserElement object whose listener is currently processing the event. In effect, this is a <b>this</b> pointer for the listener.</td></tr>
+  <tr><td>dx</td><td>I</td><td>N</td><td>G</td><td>O</td><td>unsigned integer</td><td>During a <i>drag</i> event only, dx is the change in the mouse X coordinate.</td></tr>
+  <tr><td>dy</td><td>I</td><td>N</td><td>G</td><td>O</td><td>unsigned integer</td><td>During a <i>drag</i> event only, dy is the change in the mouse Y coordinate.</td></tr>
+</table>
+
+<a name='ClientSnifferJrPropertiesLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>ClientSnifferJr Properties</h2>
+<table width='80%' border="1" cellpadding="4" cellspacing="0">
+  <tr><td><b>Property</b></td><td colspan="4" align="center"><b>Browser Support</b></td><td><b>Data Type</b></td><td><b>Notes</b></td></tr>
+  <tr><td>aol    </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For any version of AOL.</td></tr>
+  <tr><td>dom1getbyid</td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>True if document.getElementById() exists before cbeInitialize().</td></tr>
+  <tr><td>dom2events</td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>True if document.addEventListener() and document.removeEventListener() exists before cbeInitialize().</td></tr>
+  <tr><td>gecko  </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For NS6 or Mozilla.</td></tr>
+  <tr><td>hotjava</td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For any version of HotJava.</td></tr>
+  <tr><td>ie     </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For any version of IE.</td></tr>
+  <tr><td>ie3    </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For IE3.xx only.</td></tr>
+  <tr><td>ie4    </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For IE4.xx only.</td></tr>
+  <tr><td>ie4up  </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For IE4.xx and above.</td></tr>
+  <tr><td>ie5    </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For IE5.xx only.</td></tr>
+  <tr><td>ie5up  </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For IE5.xx and above.</td></tr>
+  <tr><td>ie6    </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For IE6.xx only.</td></tr>
+  <tr><td>ie6up  </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For IE6.xx and above.</td></tr>
+  <tr><td>konq   </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For any version of Konqueror.</td></tr>
+  <tr><td>major  </td><td>I</td><td>N</td><td>G</td><td>O</td><td>integer</td><td>Only the integer part of the version number.</td></tr>
+  <tr><td>minor  </td><td>I</td><td>N</td><td>G</td><td>O</td><td>float  </td><td>The full floating point version number.</td></tr>
+  <tr><td>nav    </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For any version of NN as well as NS6.</td></tr>
+  <tr><td>nav4   </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For NN4.xx only.</td></tr>
+  <tr><td>nav4up </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For NN4.xx as well as NS6.</td></tr>
+  <tr><td>nav5up </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For NS6 and above. Use nav6up instead.</td></tr>
+  <tr><td>nav6   </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For NS6.xx only.</td></tr>
+  <tr><td>nav6up </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For NS6 and above.</td></tr>
+  <tr><td>opera  </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For any version of Opera.</td></tr>
+  <tr><td>opera5 </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For Opera5.xx only.</td></tr>
+  <tr><td>opera6 </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For Opera6.xx only.</td></tr>
+  <tr><td>ua     </td><td>I</td><td>N</td><td>G</td><td>O</td><td>string </td><td>The userAgent string, all lowercase.</td></tr>
+  <tr><td>webtv  </td><td>I</td><td>N</td><td>G</td><td>O</td><td>boolean</td><td>For any version of WebTV.</td></tr>
+</table>
+
+<p>&nbsp;</p><h1>Functions &amp; Object Methods</h1> <!-- ******* -->
+
+<a name='clipLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>clip</h2>
+<p><i>Description:</i> Set the clipping (visible) area. The parameters define the corners.</p>
+<p><i>Syntax:</i> <b>clip(iTop, iRight, iBottom, iLeft)</b></p>
+<ul>
+<li><i>iTop:</i> Y coordinate of top-right corner.</li>
+<li><i>iRight:</i> X coordinate of top-right corner.</li>
+<li><i>iBottom:</i> Y coordinate of bottom-left corner.</li>
+<li><i>iLeft:</i> X coordinate of bottom-left corner.</li>
+</ul>
+<p><i>Alternate Syntax:</i> <b>clip('auto')</b></p>
+<ul>
+<li><i>'auto':</i> Clip to the current width and height.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support clipping.</p>
+<p><a href="examples/clip0.html"><i>Example</i></a></p>
+<p><i>Snippet:</i> The following is a method from the library file <i>cbe_clip.js</i>.
+It implements scrolling by clipping and moving.</p>
+<pre>
+CrossBrowserElement.prototype.scrollBy = function(dx, dy) {
+  var ct = this.clipTop();
+  var cr = this.clipRight();
+  var cb = this.clipBottom();
+  var cl = this.clipLeft();
+  var w = this.width();
+  var h = this.height();
+  // Don't scroll beyond the edge of the element
+  if (cl + dx < 0) dx = -cl;
+  else if (cr + dx > w) dx = w - cr;
+  if (ct + dy < 0) dy = -ct;
+  else if (cb + dy > h) dy = h - cb;
+  // Clip and move to simulate scrolling
+  this.clip(ct + dy, cr + dx, cb + dy, cl + dx);
+  this.moveBy(-dx, -dy);
+}
+</pre>
+
+<a name='autoClipLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>autoClip</h2>
+<p><i>Description:</i> autoClip is not yet time-based, like the slide methods. It clips by uIncrement until the specified cardinal point is reached.</p>
+<p><i>Syntax:</i> <b>autoClip(sCP, sDirection, uIncrement, xEndListener)</b></p>
+<ul>
+<li><i>sCP:</i> One of: 'n', 'ne', 'e', 'se', 's', 'sw', w, 'nw', 'cen', 'center'.</li>
+<li><i>sDirection:</i> One of: 'clip', 'unclip'.</li>
+<li><i>uIncrement:</i> The amount, in pixels, that is clipped at each iteration.</li>
+<li><i>xEndListener:</i> A function reference or string. If present, it will be <a href='#cbeEvalLink'>evaluated</a> <i>after</i> the last clip.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_clip.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support clipping.</p>
+<p><a href="examples/clip0.html"><i>Example</i></a></p>
+
+<a name='clipArrayLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>clipArray</h2>
+<p><i>Description:</i> Used internally by CBE. Returns an array of string such as:<br>("rect", "0px", "200px", "300px", "0px")  </p>
+<p><i>Syntax:</i> <b>clipArray()</b></p>
+<p><i>Returns:</i> array of string; returns null for NN4 and Opera.</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_clip.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support clipping.</p>
+<p><a href="examples/clip0.html"><i>Example</i></a></p>
+
+<a name='clipBottomLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>clipBottom</h2>
+<p><i>Description:</i> The Y coordinate of the bottom-left corner of the clipping area.</p>
+<p><i>Syntax:</i> <b>clipBottom()</b></p>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_clip.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support clipping.</p>
+<p><a href="examples/clip0.html"><i>Example</i></a></p>
+
+<a name='clipByLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>clipBy</h2>
+<p><i>Description:</i> Add the arguments to the existing clip coordinates.</p>
+<p><i>Syntax:</i> <b>clipBy(iDT, iDR, iDB, iDL)</b></p>
+<ul>
+<li><i>iDT:</i> The change in the Y coordinate of the top-right corner of the clipping area.</li>
+<li><i>iDR:</i> The change in the X coordinate of the top-right corner of the clipping area.</li>
+<li><i>iDB:</i> The change in the Y coordinate of the bottom-left corner of the clipping area.</li>
+<li><i>iDL:</i> The change in the X coordinate of the bottom-left corner of the clipping area.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_clip.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support clipping.</p>
+<p><a href="examples/clip0.html"><i>Example</i></a></p>
+
+<a name='clipHeightLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>clipHeight</h2>
+<p><i>Description:</i> The height of the clipping area: clipBottom() - clipTop().</p>
+<p><i>Syntax:</i> <b>clipHeight()</b></p>
+<p><i>Returns:</i> unsigned integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_clip.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support clipping.</p>
+<p><a href="examples/clip0.html"><i>Example</i></a></p>
+
+<a name='clipLeftLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>clipLeft</h2>
+<p><i>Description:</i> The X coordinate of the bottom-left corner of the clipping area.</p>
+<p><i>Syntax:</i> <b>clipLeft()</b></p>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_clip.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support clipping.</p>
+<p><a href="examples/clip0.html"><i>Example</i></a></p>
+
+<a name='clipRightLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>clipRight</h2>
+<p><i>Description:</i> The X coordinate of the top-left corner of the clipping area.</p>
+<p><i>Syntax:</i> <b>clipRight()</b></p>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_clip.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support clipping.</p>
+<p><a href="examples/clip0.html"><i>Example</i></a></p>
+
+<a name='clipTopLink'></a>
+<p align='Top'><a href='#topofpage'>Top</a></p>
+<h2>clipTop</h2>
+<p><i>Description:</i> The Y coordinate of the top-left corner of the clipping area.</p>
+<p><i>Syntax:</i> <b>clipTop()</b></p>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_clip.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support clipping.</p>
+<p><a href="examples/clip0.html"><i>Example</i></a></p>
+
+<a name='clipWidthLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>clipWidth</h2>
+<p><i>Description:</i> The width of the clipping area: clipRight() - clipLeft().</p>
+<p><i>Syntax:</i> <b>clipWidth()</b></p>
+<p><i>Returns:</i> unsigned integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_clip.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support clipping.</p>
+<p><a href="examples/clip0.html"><i>Example</i></a></p>
+
+<a name='scrollByLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>scrollBy</h2>
+<p><i>Description:</i> Simulate scrolling by clipping and moving.</p>
+<p><i>Syntax:</i> <b>scrollBy(iDX, iDY)</b></p>
+<ul>
+<li><i>iDX:</i> the change in horizontal scroll, in pixels</li>
+<li><i>iDY:</i> the change in vertical scroll, in pixels</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_clip.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support clipping.</p>
+<p><a href="examples/clip0.html"><i>Example</i></a></p>
+
+<a name='heightLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>height</h2>
+<p><i>Description:</i> Set or return the element's height. Do not change the clipping area.</p>
+<p><i>Syntax:</i> <b>height([uH])</b></p>
+<ul>
+<li><i>uH:</i> the new height in pixels</li>
+</ul>
+<p><i>Returns:</i> unsigned integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> E1's height is set to half the height of it's container.</p>
+<pre>
+function windowOnload() {
+  var E1 = document.getElementById('e1').cbe;
+  E1.height( E1.parentNode.height() / 2 );
+}
+</pre>
+
+<a name='resizeByLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>resizeBy</h2>
+<p><i>Description:</i> Add the arguments to the width and height, and clip to the resulting dimensions.</p>
+<p><i>Syntax:</i> <b>resizeBy(iDw, iDh)</b></p>
+<ul>
+<li><i>iDw:</i> The change in width in pixels.</li>
+<li><i>iDh:</i> The change in height in pixels.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i></p>
+<pre>
+function windowOnload() {
+  var cbe = document.getElementById('e1').cbe;
+  cbe.resizeTo(100, 100);
+  cbe.resizeBy(-25, 25);
+  // the element is now 75 wide and 125 high
+}
+</pre>
+
+<a name='resizeToLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>resizeTo</h2>
+<p><i>Description:</i> Set the width and height, and set clipping to the new dimensions.
+This is the preferred way to resize an element, unless you <i>don't</i> want clip to change.</p>
+<p><i>Syntax:</i> <b>resizeTo(uWidth, uHeight)</b></p>
+<ul>
+<li><i>uWidth:</i> The new width in pixels.</li>
+<li><i>uHeight:</i> The new height in pixels.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> This function maximizes an element <i>within it's parent element</i>.</p>
+<pre>
+function maximize(id) {
+  var cbe = document.getElementById(id).cbe;
+  cbe.moveTo(cbe.parentNode.scrollLeft(), cbe.parentNode.scrollTop());
+  cbe.resizeTo(cbe.parentNode.width(), cbe.parentNode.height());
+}
+</pre>
+  
+<a name='sizeByLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>sizeBy</h2>
+<p><i>Description:</i> Add the arguments to the width and height. Do not change the clipping area.</p>
+<p><i>Syntax:</i> <b>sizeBy(iDw, iDh)</b></p>
+<ul>
+<li><i>iDw:</i> The change in width in pixels.</li>
+<li><i>iDh:</i> The change in height in pixels.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i></p>
+<pre>
+function windowOnload() {
+  var cbe = document.getElementById('e1').cbe;
+  cbe.sizeTo(100, 100);
+  cbe.sizeBy(-25, 25);
+  // the element is now 75 wide and 125 high
+  // but clip (the visible area) remains at it's initial settings
+}
+</pre>
+
+<a name='sizeToLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>sizeTo</h2>
+<p><i>Description:</i> Set the width and height. Do not change the clipping area.</p>
+<p><i>Syntax:</i> <b>sizeTo(uWidth, uHeight)</b></p>
+<ul>
+<li><i>uWidth:</i> The new width in pixels.</li>
+<li><i>uHeight:</i> The new height in pixels.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> Maximizes an element in the browser window but does not change the clipping (visible) area.</p>
+<pre>
+function windowOnload() {
+  var cbe = document.getElementById('e1').cbe;
+  cbe.moveTo(cbe.parentNode.scrollLeft(), cbe.parentNode.scrollTop());
+  cbe.sizeTo(document.cbe.width(), document.cbe.height());
+}
+</pre>
+
+<a name='widthLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>width</h2>
+<p><i>Description:</i> Set or return the element's width. Do not change the clipping area.</p>
+<p><i>Syntax:</i> <b>width([uW])</b></p>
+<ul>
+<li><i>uW:</i> The new width in pixels.</li>
+</ul>
+<p><i>Returns:</i> unsigned integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> E1's width is set to half the width of it's container.</p>
+<pre>
+function windowOnload() {
+  var E1 = document.getElementById('e1').cbe;
+  E1.width( E1.parentNode.width() / 2 );
+}
+</pre>
+
+<a name='backgroundLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>background</h2>
+<p><i>Description:</i> Sets the background color and, optionally, the background image. Returns the background color.</p>
+<p><i>Syntax:</i> <b>background(cBgColor [,sImage])</b></p>
+<ul>
+<li><i>cBgColor:</i> A string specifying the background color. All color values as strings are 6 digit hex numbers preceded with '#'.</li>
+<li><i>sImage:</i> A string specifying the URL (absolute or relative) of an image file to be tiled on the background.</li>
+</ul>
+<p><i>Returns:</i> string, the background color</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> In NN4 the background color of text cannot be changed after the page is loaded. In the CSS, make the text's background transparent, then changing the element's background will appear to change the text's background also. Opera5 had problems with transparent backgrounds.</p>
+<p><i>Snippet:</i> Displays random background colors for 5 seconds. Uses the utility function <a href="#cbeHexStringLink">cbeHexString()</a>.</p>
+<pre>
+function windowOnload() {
+  with (document.getElementById('e1').cbe) {
+    moveTo('center');
+    show();
+  }
+  // random background colors for 5 seconds
+  randomColors('e1', 5000);
+}
+
+// This function cycles an element through
+// random background colors for the time specified.
+function randomColors(id, elapsedTime) {
+  if (elapsedTime > 0) {
+    elapsedTime -= 125;
+    setTimeout("randomColors('"+id+"',"+elapsedTime+")", 125);
+    var newColor = cbeHexString(Math.random() * 0xffffff, 6, '#');
+    window.status = 'color: '+newColor + ', time: '+elapsedTime;
+    document.getElementById(id).cbe.background(newColor);
+  }
+}
+</pre>
+
+<a name='colorLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>color</h2>
+<p><i>Description:</i> Sets and returns the text color.</p>
+<p><i>Syntax:</i> <b>color([cTxtColor])</b></p>
+<ul>
+<li><i>cTxtColor:</i> A string specifying the text color. All color values as strings are 6 digit hex numbers preceded with '#'.</li>
+</ul>
+<p><i>Returns:</i> string</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> In NN4 the text color cannot be changed dynamically.</p>
+<p><i>Snippet:</i></p>
+<pre>
+function windowOnload() {
+  var cbe = document.getElementById('e1').cbe;
+  cbe.color('#0000FF'); // set text color to blue
+}
+</pre>
+
+<a name='hideLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>hide</h2>
+<p><i>Description:</i> Sets <a href='#visibilityLink'>visibility</a> to 'hide' (NN4) or 'hidden' (others).</p>
+<p><i>Syntax:</i> <b>hide()</b></p>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i></p>
+<pre>
+function windowOnload() {
+  document.getElementById('e1').cbe.hide();
+}
+</pre>
+
+<a name='innerHtmlLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>innerHtml</h2>
+<p><i>Description:</i> Replaces the <i>innerHTML</i> of an element with the argument.</p>
+<p><i>Syntax:</i> <b>innerHtml(sHtml)</b></p>
+<ul>
+<li><i>sHtml:</i> string</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Not supported by Opera6. In IE and Gecko the native <i>innerHTML</i> is used. In NN4 <i>document.write()</i> is used. NN4 does not retain CSS associations with the element after writing - you must code it into the string to be written.</p>
+<p><i>Snippet:</i></p>
+<pre>
+function windowOnload() {
+  var t = 'dynamic text';
+  if (is.nav4) t = "&lt;span class='myClass'&gt;" + t + "&lt;/span&gt;";
+  document.getElementById('e1').cbe.innerHtml(t);
+}
+</pre>
+
+<a name='showLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>show</h2>
+<p><i>Description:</i> Sets <a href='#visibilityLink'>visibility</a> to 'visible' (Opera) or 'inherit' (others).</p>
+<p><i>Syntax:</i> <b>show()</b></p>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i></p>
+<pre>
+function windowOnload() {
+  document.getElementById('e1').cbe.show();
+}
+</pre>
+
+<a name='visibilityLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>visibility</h2>
+<p><i>Description:</i> Return false if visibility is 'hide' or 'hidden', else return true.</p>
+<p><i>Syntax:</i> <b>visibility([s | b])</b></p>
+<ul>
+<li><i>s:</i> One of the strings: 'inherit', 'visible' (NN4: 'show'), or 'hidden' (NN4: 'hide'). Or a boolean value indicating true or false visibility. The same as calling show() or hide().</li>
+</ul>
+<p><i>Returns:</i> boolean</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> This function toggles the visible state of an element.</p>
+<pre>
+function toggleVisibility(sId) {
+  var prevVisState = document.getElementById(sId).cbe.visibility();
+  cbe.visibility(!prevVisState);
+}
+</pre>
+
+<a name='zIndexLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>zIndex</h2>
+<p><i>Description:</i> Set or get the current zIndex (stacking order).</p>
+<p><i>Syntax:</i> <b>zIndex([uNewZ])</b></p>
+<ul>
+<li><i>uNewZ:</i> The new z-Index.</li>
+</ul>
+<p><i>Returns:</i> unsigned integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> This function swaps the z-index of the element arguments.</p>
+<pre>
+function swapZ(ele1, ele2) {
+  var z1 = ele1.zIndex();
+  ele1.zIndex(ele2.zIndex());
+  ele2.zIndex(z1);
+}
+</pre>
+
+<a name='containsLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>contains</h2>
+<p><i>Description:</i> Return true if the point (iLeft,iTop) is contained within the given clipping area defined by the iClip* arguments. The iClip* arguments are <i>offsets from their respective sides</i>. A positive offset is toward the inside of the element. A negative offset is toward the outside of the element.</p>
+<p><i>Syntax:</i> <b>contains(iLeft, iTop [, iClipTop [, iClipRight [, iClipBottom, iClipLeft]]])</b></p>
+<ul>
+<li><i>iLeft:</i> The x coordinate of the target point.</li>
+<li><i>iTop:</i> The y coordinate of the target point.</li>
+<li><i>iClipTop:</i> The top offset.</li>
+<li><i>iClipRight:</i> The right offset.</li>
+<li><i>iClipBottom:</i> The bottom offset.</li>
+<li><i>iClipLeft:</i> The left offset.</li>
+</ul>
+<p><i>Returns:</i> boolean</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> This function is the mouseMove event listener from one of the menu examples.</p>
+<pre>
+function menuHide(e)
+{
+  if (!menuOpen) return;
+  var x = e.pageX;
+  var y = e.pageY;
+  if (!menuArray[activeMenu].contains(x,y,-2,0,0,0) && !menuBar.contains(x,y)) {
+    menuArray[activeMenu].hide();
+    cbeSetImage(menuArray[activeMenu].lblImg, menuArray[activeMenu].lblOut);
+    menuOpen = false;
+  }
+}
+</pre>
+
+<a name='leftLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>left</h2>
+<p><i>Description:</i> Set or get the current x coordinate. For absolutely positioned elements this coordinate is relative to the <i>containing</i> CrossBrowserElement object. For relatively positioned elements this coordinate is relative to the element's natural position in the flow of HTML.</p>
+<p><i>Syntax:</i> <b>left([iX])</b></p>
+<ul>
+<li><i>iX:</i> The new x coordinate in pixels.</li>
+</ul>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> This function is from the library file <i>cbe_core.js</i>.</p>
+<pre>
+function domLeft(newLeft) {
+  if (arguments.length) this.ele.style.left = newLeft + "px";
+  else return parseInt(this.ele.style.left);
+}
+</pre>
+
+<a name='moveByLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>moveBy</h2>
+<p><i>Description:</i> Add the arguments to the current position.</p>
+<p><i>Syntax:</i> <b>moveBy(iDx, iDy)</b></p>
+<ul>
+<li><i>iDx:</i> The change in the X coordinate.</li>
+<li><i>iDy:</i> The change in the Y coordinate.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> This function slides an element for a certain length of time.</p>
+<pre>
+function animate(id, dx, dy, elapsedTime) {
+  if (elapsedTime > 0) {
+    elapsedTime -= 55;
+    setTimeout("animate('"+id+"',"+dx+","+dy+","+elapsedTime+")", 55);
+    document.getElementById(id).cbe.moveBy(dx, dy);
+  }
+}
+</pre>
+
+<a name='moveToLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>moveTo</h2>
+<p><i>Description:</i> Position the top left corner of the element at the given coordinate.</p>
+<p><i>Syntax:</i> <b>moveTo(iX, iY [, xEndListener ])</b></p>
+<ul>
+<li><i>iX:</i> The new X coordinate.</li>
+<li><i>iY:</i> The new Y coordinate.</li>
+<li><i>xEndListener:</i> A function reference or string. If present, it will be <a href='#cbeEvalLink'>evaluated</a> <i>after</i> the element is moved.</li>
+</ul>
+<p><i>Alternate Syntax:</i> <b>moveTo(sCardinal [, iMargin [, bOutside [, xEndListener ]]])</b></p>
+<ul>
+<li><i>sCardinal:</i> One of the following strings: 'n', 'ne', 'e', 'se', 's', 'sw', w, 'nw', 'cen', 'center'. The element will be positioned in a corner, on a side, or in the center.</li>
+<li><i>iMargin:</i> An integer indicating the distance between the edge of the element and it's container. Assumed zero, if not present.</li>
+<li><i>bOutside:</i> A boolean value. If it is true, the element will be positioned outside of the window. If it is false (or not present), the element will be positioned inside the window.</li>
+<li><i>xEndListener:</i> A function reference or string. If present, it will be <a href='#cbeEvalLink'>evaluated</a> <i>after</i> the element is moved.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> Various examples of using moveTo().</p>
+<pre>
+function windowOnload() {
+  // Center e1 in it's container.
+  with (document.getElementById('e1').cbe) {
+    resizeTo(300,300);
+    background('#ccccff');
+    moveTo('cen');
+    show();
+  }
+  // Position e2 inside the bottom right corner of it's container,
+  // with a four pixel margin.
+  with (document.getElementById('e2').cbe) {
+    resizeTo(100,100);
+    background('#ffcccc');
+    moveTo('se', 4);
+    show();
+  }
+  // Position e3 outside the top left corner of it's container.
+  with (document.getElementById('e2').cbe) {
+    hide();
+    moveTo('nw', 0, true);
+  }
+}
+
+// This function positions an element at a random position
+// in the visible area of it's container.
+function randomPosition(id)
+{
+  var cbe = document.getElementById(id).cbe;
+  var rndX = Math.random() * (cbe.parentNode.width() - cbe.width());
+  var rndY = Math.random() * (cbe.parentNode.height() - cbe.height());
+  rndX += cbe.parentNode.scrollLeft();
+  rndY += cbe.parentNode.scrollTop();
+  cbe.moveTo(rndX, rndY);
+}
+</pre>
+
+<a name='offsetLeftLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>offsetLeft</h2>
+<p><i>Description:</i> Return the x coordinate of the element relative to it's parent CrossBrowserElement object. This is only useful for relatively positioned elements. offsetLeft() has the same meaning for relatively positioned elements as left() has for absolutely positioned elements.</p>
+<p><i>Syntax:</i> <b>offsetLeft()</b></p>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+
+<a name='offsetTopLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>offsetTop</h2>
+<p><i>Description:</i> Return the y coordinate of the element relative to it's parent CrossBrowserElement object. This is only useful for relatively positioned elements. offsetTop() has the same meaning for relatively positioned elements as top() has for absolutely positioned elements.</p>
+<p><i>Syntax:</i> <b>offsetTop()</b></p>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+
+<a name='pageXLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>pageX</h2>
+<p><i>Description:</i> Return the x coordinate relative to the top-left corner of the page. This is the <i>absolute</i> page position of an element, even if it is deeply nested. This works the same for absolutely <i>and</i> relatively positioned elements.</p>
+<p><i>Syntax:</i> <b>pageX()</b></p>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+
+<a name='pageYLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>pageY</h2>
+<p><i>Description:</i> Return the y coordinate relative to the top-left corner of the page. This is the <i>absolute</i> page position of an element, even if it is deeply nested. This works the same for absolutely <i>and</i> relatively positioned elements.</p>
+<p><i>Syntax:</i> <b>pageY()</b></p>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> This is part of the windowOnload() function from this site's home page.</p>
+<pre>
+function windowOnload() {
+  anchor = document.getElementById('idAnchor').cbe;
+  with (menu = document.getElementById('idMenuBar').cbe) {
+    background('#cccccc');
+    resizeTo(document.cbe.width(), 22);
+    moveTo(0,anchor.pageY());
+    zIndex(100);
+    show();
+  }
+}
+</pre>
+
+<a name='scrollLeftLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>scrollLeft</h2>
+<p><i>Description:</i> The number of pixels the element has been scrolled horizontally.</p>
+<p><i>Syntax:</i> <b>scrollLeft()</b></p>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+
+<a name='scrollTopLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>scrollTop</h2>
+<p><i>Description:</i> The number of pixels the element has been scrolled vertically.</p>
+<p><i>Syntax:</i> <b>scrollTop()</b></p>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> To position an element in the <i>visible</i> area of the window use scrollLeft() and scrollTop(). This is from the sliding menu example.</p>
+<pre>
+function windowOnload()
+{
+  menuAnchor = document.getElementById('menuAnchor').cbe;
+  slidingMenu = document.getElementById('slidingMenu').cbe;
+  slidingMenu.moveTo(10, menuAnchor.pageY()-10);
+  slidingMenu.show();
+  window.cbe.addEventListener("scroll", slidingMenuListener);
+}
+
+function slidingMenuListener()
+{
+  slidingMenu.slideTo(
+    10,
+    menuAnchor.pageY() - 10 + document.cbe.scrollTop(),
+    1000
+  );
+}
+</pre>
+
+<a name='topLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>top</h2>
+<p><i>Description:</i> Set or get the current y coordinate. For absolutely positioned elements this coordinate is relative to the <i>containing</i> CrossBrowserElement object. For relatively positioned elements this coordinate is relative to the element's natural position in the flow of HTML.</p>
+<p><i>Syntax:</i> <b>top([iY])</b></p>
+<ul>
+<li><i>iY:</i> The new y coordinate in pixels.</li>
+</ul>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library File:</i> cbe_core.js</p>
+<p><i>Snippet:</i> This is from the library file <i>cbe_core.js</i>.</p>
+<pre>
+CrossBrowserElement.prototype.moveBy = function(dX, dY, endListener) {
+  if (dX) this.left(this.left() + dX);
+  if (dY) this.top(this.top() + dY);
+  if (endListener) cbeEval(endListener, this);
+}
+</pre>
+
+<a name='ellipseLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>ellipse</h2>
+<p><i>Description:</i> Slide the element along an elliptical path. The y axis is opposite from the cartesian system, so sliding from 0 to 360 degrees is a clockwise slide. Sliding from 0 to -360 is a counter-clockwise slide. The center of the ellipse is determined by the radii and the start angle. Imagine that the element is initially sitting at iStartAngle.</p>
+<p><i>Syntax:</i> <b>ellipse(uXRad, uYRad, iRadInc, uTime, iStartAngle, iStopAngle [, xEndListener])</b></p>
+<ul>
+<li><i>uXRad:</i> The x radius.</li>
+<li><i>uYRad:</i> The y radius.</li>
+<li><i>iRadInc:</i> The increment or decrement for both axes.</li>
+<li><i>uTime:</i> The total time for the slide, in milliseconds.</li>
+<li><i>iStartAngle:</i> The start angle in degrees.</li>
+<li><i>iStopAngle:</i> The non-zero stop angle in degrees.</li>
+<li><i>xEndListener:</i> A function reference or string. If present, it will be <a href='#cbeEvalLink'>evaluated</a> after the last move of the slide.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_slide.js</p>
+<p><i>Dependencies:</i> cbe_core.js, cbe_event.js, cbe_util.js</p>
+<p><i>Snippet:</i></p>
+<pre>
+function windowOnload() {
+  var e1 = document.getElementById('e1').cbe;
+  
+  // Moves e1 in a clockwise circle with radius=100.
+  // The slide is completed in one second.
+  e1.ellipse(100, 100, 0, 1000, 0, 360);
+  
+  // Moves e1 in 4 counter-clockwise circles with
+  // x radius = to it's container's width,
+  // and with y radius = to it's container's height.
+  // The slide is completed in 4 seconds.
+  e1.ellipse(
+    e1.parentNode.width(),  // uXRad
+    e1.parentNode.height(), // uYRad
+    0,                      // iRadInc
+    4000,                   // uTime
+    0,                      // iStartAngle
+    -1440                   // iStopAngle
+  );
+}
+</pre>
+
+<a name='parametricEquationLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>parametricEquation</h2>
+<p><i>Description:</i> This is a time-based, parametric equation motion engine. Oh well, I still need to experiment with this... but its fun to play with.</p>
+<p><b>xX</b> and <b>xY</b> are expressions that generate the x and y coordinates during the slide. These expressions are evaluated with the javascript <b>eval()</b> function. Within the expression you may use any valid sub-expression that eval allows and that is <i>in scope</i>. For example, you may call methods of the Math object such as Math.sin(), Math.cos(), and Math.tan(). You may also reference any global variables or functions.
+One variable that is within scope for your expression is the parameter <b>t</b>. That is, <b>t</b> is the argument to the equations you provide. At each iteration, the variable <b>t</b> increments by the value of <b>this.tStep</b> (default value of .008). The values from your expressions are plotted on a coordinate system with it's origin at the center of the sliding element's container. The coordinates are then translated by the element's container's scrollLeft and scrollTop values. So the animation will remain visible if the user scrolls or resizes the element's container.</p>
+<p><i>Syntax:</i> <b>parametricEquation(xX, xY, uTime [, xEndListener])</b></p>
+<ul>
+<li><i>xX:</i> A function reference or string. It will be evaluated at each iteration to provide the next x coordinate.</li>
+<li><i>xY:</i> A function reference or string. It will be evaluated at each iteration to provide the next y coordinate.</li>
+<li><i>uTime:</i> The total time for the slide, in milliseconds. If 0 or not present, the slide will cycle.</li>
+<li><i>xEndListener:</i> A function reference or string. If present, it will be <a href='#cbeEvalLink'>evaluated</a> after the last move of the slide.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_slide2.js</p>
+<p><a href="examples/pe.html"><i>Example</i></a></p>
+
+<a name='slideCornerByLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>slideCornerBy</h2>
+<p><i>Description:</i> This is a time-based <i>resize</i> - and you can specify which corner slides to the target point, which is found be adding iDX and iDY to the current position.</p>
+<p><i>Syntax:</i> <b>slideCornerBy(sCorner, iDX, iDY, uTime [, xEndListener])</b></p>
+<ul>
+<li><i>sCorner:</i> One of the strings: 'ne', 'se', 'sw', or 'nw'.</li>
+<li><i>iDX:</i> The integer change in the x coordinate of the specified corner.</li>
+<li><i>iDY:</i> The integer change in the y coordinate of the specified corner.</li>
+<li><i>uTime:</i> The total time for the slide, in milliseconds.</li>
+<li><i>xEndListener:</i> A function reference or string. If present, it will be <a href='#cbeEvalLink'>evaluated</a> after the last move of the slide.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_slide2.js</p>
+<p><a href="examples/pe5.html"><i>Example</i></a></p>
+
+<a name='slideCornerToLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>slideCornerTo</h2>
+<p><i>Description:</i> This is a time-based <i>resize</i> - and you can specify which corner slides to the target point.</p>
+<p><i>Syntax:</i> <b>slideCornerTo(sCorner, iX, iY, uTime [, xEndListener])</b></p>
+<ul>
+<li><i>sCorner:</i> One of the strings: 'ne', 'se', 'sw', or 'nw'.</li>
+<li><i>iX:</i> The integer target for the x coordinate of the specified corner.</li>
+<li><i>iY:</i> The integer target for the y coordinate of the specified corner.</li>
+<li><i>uTime:</i> The total time for the slide, in milliseconds.</li>
+<li><i>xEndListener:</i> A function reference or string. If present, it will be <a href='#cbeEvalLink'>evaluated</a> after the last move of the slide.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_slide2.js</p>
+<p><a href="examples/pe5.html"><i>Example</i></a></p>
+
+<a name='slideByLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>slideBy</h2>
+<p><i>Description:</i> This is a time-based slide. The target position is obtained by adding iDX and iDY to the current position. It supports different slide rates, see the description for <a href="#slideToLink">slideTo()</a>.</p>
+<p><i>Syntax:</i> <b>slideBy(iDX, iDY, uTime [, xEndListener])</b></p>
+<ul>
+<li><i>iDX:</i> The integer change in the x coordinate. Can be negative.</li>
+<li><i>iDY:</i> The integer change in the y coordinate. Can be negative.</li>
+<li><i>uTime:</i> The total time for the slide, in milliseconds.</li>
+<li><i>xEndListener:</i> A function reference or string. If present, it will be <a href='#cbeEvalLink'>evaluated</a> after the last move of the slide.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_slide.js</p>
+
+<a name='slideToLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>slideTo</h2>
+<p><i>Description:</i> This is a time-based slide to the target position provided. It supports different slide rates. Assign one of the following constants to the <i>slideRate</i> property: <i>cbeSlideRateLinear</i> - slides at a constant rate. <i>cbeSlideRateSine</i> - (default) starts fast and decelerates toward the target. <i>cbeSlideRateCosine</i> - starts slow and accelerates toward the target.</p>
+<p><i>Syntax:</i> <b>slideTo(iX, iY, uTime [, xEndListener])</b></p>
+<ul>
+<li><i>iX:</i> The integer target for the x coordinate. Can be negative.</li>
+<li><i>iY:</i> The integer target for the y coordinate. Can be negative.</li>
+<li><i>uTime:</i> The total time for the slide, in milliseconds.</li>
+<li><i>xEndListener:</i> A function reference or string. If present, it will be <a href='#cbeEvalLink'>evaluated</a> after the last move of the slide.</li>
+</ul>
+<p><i>Alternate Syntax:</i> <b>slideTo(sCardinal, iMargin, uTime [, xEndListener ])</b></p>
+<ul>
+<li><i>sCardinal:</i> One of the following strings: 'n', 'ne', 'e', 'se', 's', 'sw', w, 'nw', 'cen'. The element will be positioned in a corner, on a side, or in the center.</li>
+<li><i>iMargin:</i> An integer indicating the distance between the edge of the element and it's container. bOutside is assumed false, but if isNaN(iMargin) then bOutside is true. </li>
+<li><i>uTime:</i> The total time for the slide, in milliseconds.</li>
+<li><i>xEndListener:</i> A function reference or string. If present, it will be <a href='#cbeEvalLink'>evaluated</a> <i>after</i> the element is moved.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_slide.js</p>
+
+<a name='startSequenceLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>startSequence</h2>
+<p><i>Description:</i> Start the slide sequence defined by the array property named <b>sequence</b>. Each element of the array is a string which evals to a slide method call.</p>
+<p><i>Syntax:</i> <b>startSequence([uIndex])</b></p>
+<ul>
+<li><i>uIndex:</i> Sets the initial index into the sequence array. If not present the sequence will start at index zero.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_slide.js</p>
+<p><i>Snippet:</i> The following is from <a href='examples/sequence.html'>this example</a>.</p>
+<pre>
+var e2;
+function windowOnload() {
+  e2 = document.getElementById('E2').cbe;
+  e2.sequence = new Array(
+    "slideTo('e', 0, 500)",
+    "ellipse(pw/2-(w/2), ph/2-(h/2), 0, 1000, 0, 90)",
+    "slideTo('n', 0, 500)",
+    "ellipse(pw/2-(w/2), ph/2-(h/2), 0, 1000, -90, -180)"
+  );
+}
+
+// The sequence is started with: e2.startSequence();
+
+// The sequence is stopped with: e2.stopSequence();
+</pre>
+
+<a name='stopSequenceLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>stopSequence</h2>
+<p><i>Description:</i> Stop the slide sequence started by startSequence(). To make a sequence of slides add an array of slide method calls to an element. This array must be named <b>sequence</b>.</p>
+<p><i>Syntax:</i> <b>stopSequence()</b></p>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_slide.js</p>
+<p><a href='examples/sequence.html'><i>Example</i></a></p>
+
+<a name='stopSlideLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>stopSlide</h2>
+<p><i>Description:</i> Stop any slide method currently executing on this element.</p>
+<p><i>Syntax:</i> <b>stopSlide()</b></p>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_slide.js</p>
+<a href='examples/sequence.html'>Example</a>
+
+<a name='addEventListenerLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>addEventListener</h2>
+<p><i>Description:</i> Adds an event listener to the element. When the particular event occurs on this element, the listener will be called. Read about the <a href='event_om.html'>CBE event model</a>.</p>
+<p><i>Syntax:</i> <b>addEventListener(sType, xListener, bCapture)</b></p>
+<ul>
+<li><i>sType:</i> string, one of the <a href='#CrossBrowserElementEventsLink'>supported events</a></li>
+<li><i>xListener:</i> Listener function reference.</li>
+<li><i>bCapture:</i> If true, the listener only get's called during the CAPTURING_PHASE of event flow.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_event.js</p>
+<p><i>Snippet:</i></p>
+<pre>
+function windowOnload() {
+  var cbe = document.getElementById('e1').cbe;
+  cbe.addEventListener('drag');
+}
+</pre>
+
+<a name='cbeNativeAddEventListenerLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeNativeAddEventListener</h2>
+<p><i>Description:</i> Add an event listener to the element. This is a cross-browser interface for native event handling.</p>
+<p><i>Syntax:</i> <b>cbeNativeAddEventListener(oEle, sType, fListener, bCapture)</b></p>
+<ul>
+<li><i>oEle:</i> the Element object to which the listener is added.</li>
+<li><i>sType:</i> string, one of the natively supported events</a></li>
+<li><i>fListener:</i> Listener function reference.</li>
+<li><i>bCapture:</i> If true, the listener only get's called during the CAPTURING_PHASE of event flow - if it is supported natively.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_event.js</p>
+
+<a name='cbeNativeRemoveEventListenerLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeNativeRemoveEventListener</h2>
+<p><i>Description:</i> Remove an event listener from the element.</p>
+<p><i>Syntax:</i> <b>cbeNativeRemoveEventListener(oEle, sType, fListener, bCapture)</b></p>
+<ul>
+<li><i>oEle:</i> the Element object from which the listener is removed.</li>
+<li><i>sType:</i> string, one of the natively supported events</a></li>
+<li><i>fListener:</i> Listener function reference.</li>
+<li><i>bCapture:</i> All the arguments must be the same as was passed to cbeNativeAddEventListener().</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_event.js</p>
+
+<a name='dispatchEventLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>dispatchEvent</h2>
+<p><i>Description:</i> This is used in the CBE implementation of the DOM2 event model. The event is dispatched to all appropriate listeners that have been added to this element.</p>
+<p><i>Syntax:</i> <b>dispatchEvent(oCrossBrowserEvent)</b></p>
+<ul>
+<li><i>oCrossBrowserEvent:</i> a CrossBrowserEvent object</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_event.js</p>
+
+<a name='removeEventListenerLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>removeEventListener</h2>
+<p><i>Description:</i> Remove the listener from this element. The arguments must be the same as were passed to addEventListener().</p>
+<p><i>Syntax:</i> <b>removeEventListener(sType, xListener, bCapture)</b></p>
+<ul>
+<li><i>sType:</i> string, one of the <a href='#CrossBrowserElementEventsLink'>supported events</a></li>
+<li><i>xListener:</i> Listener function reference.</li>
+<li><i>bCapture:</i> If true, the listener only get's called during the CAPTURING_PHASE of event flow.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_event.js</p>
+
+<a name='<a name='removeEventListenerLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>removeEventListener</h2>
+<p><i>Description:</i> Remove the listener from this element. The arguments must be the same as were passed to addEventListener().</p>
+<p><i>Syntax:</i> <b>removeEventListener(sType, xListener, bCapture)</b></p>
+<ul>
+<li><i>sType:</i> string, one of the <a href='#CrossBrowserElementEventsLink'>supported events</a></li>
+<li><i>xListener:</i> Listener function reference.</li>
+<li><i>bCapture:</i> If true, the listener only get's called during the CAPTURING_PHASE of event flow.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_event.js</p>
+
+<a name='createElementLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>createElement</h2>
+<p><i>Description:</i> Create a new Element object and its associated CrossBrowserElement object. This should be followed by a call to <a href="#appendChildLink">appendChild</a>. This method can be derefereced by any CrossBrowserElement object, but it is more appropriate to use <i>document.cbe</i>, like this: <i>document.cbe.createElement("DIV")</i>.</p>
+<p><i>Syntax:</i> <b>createElement(sEleType)</b></p>
+<ul>
+<li><i>sEleType:</i> a string such as "DIV" or "SPAN".</li>
+</ul>
+<p><i>Returns:</i> an Element object, or null if the native document.createElement() does not exist.</p>
+<p><i>Method of:</i> CrossBrowserElement</p>
+<p><i>Library file:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support dynamic element creation.</p>
+
+<a name='appendChildLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>appendChild</h2>
+<p><i>Description:</i> Append the argument to this object's element's child list. This calls the native appendChild. This is to be used after a call to <a href="#createElementLink">document.cbe.createElement()</a>.</p>
+<p><i>Syntax:</i> <b>appendChild(oElement)</b></p>
+<ul>
+<li><i>oElement:</i> Element object to be appended to this object's element's child list.</li>
+</ul>
+<p><i>Returns:</i> oElement or null if the native appendChild() does not exist.</p>
+<p><i>Method of:</i> CrossBrowserNode</p>
+<p><i>Library file:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> Opera6 does not support dynamic element creation.</p>
+<p><i>Example:</i></p>
+<pre>
+&lt;html&gt;
+&lt;head&gt;
+&lt;style type='text/css'&gt;
+.clsCBE {
+  position:absolute; visibility:hidden;
+  width:100%; height:100%; clip:rect(0,100%,100%,0);
+}
+&lt;/style&gt;
+&lt;script type='text/javascript' src='cbe_core.js'&gt;&lt;/script&gt;
+&lt;script type='text/javascript'&gt;
+function windowOnload() {
+  var foo = cbeGetElementById('FOO'); // foo is of type Element
+  with (foo.cbe) {
+    color('#FFFFFF');
+    background('#008000');
+    resizeTo(300,300);
+    moveTo('center');
+    show();
+  }
+  var bar = document.cbe.createElement("DIV"); // bar is of type Element
+  bar.id = 'BAR'; // don't omit this step
+  // bar.style.position is now equal to 'absolute',
+  // if you want it to be relative, make that assignment here
+  foo.cbe.appendChild(bar);
+  with(bar.cbe) {
+    color('#000000');
+    background('#FFFF00');
+    resizeTo(100,200);
+    moveTo('center');
+    innerHtml('bar');
+    show();
+  }
+}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id='FOO' class='clsCBE'&gt;foo&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<!-- *** -->
+
+<a name='cbeDegreesLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeDegrees</h2>
+<p><i>Description:</i> Converts radians to degrees.</p>
+<p><i>Syntax:</i> <b>cbeDegrees(iRad)</b></p>
+<ul>
+<li><i>iRad:</i> Radians to be converted to degrees</li>
+</ul>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_util.js</p>
+
+<a name='cbeEvalLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeEval</h2>
+<p><i>Description:</i> Evaluates the argument, which can be a string or a function reference. If it is the latter, any following arguments are passed to the called function.</p>
+<p><i>Syntax:</i> <b>cbeEval(xExpression [, arg1, ...])</b></p>
+<ul>
+<li><i>xExpression:</i> string or function reference</li>
+<li><i>arg1:</i> optional arguments to the function call</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_core.js</p>
+         
+<a name='cbeGetCookieLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeGetCookie</h2>
+<p><i>Description:</i> Get the value of the cookie name.</p>
+<p><i>Syntax:</i> <b>cbeGetCookie(sName)</b></p>
+<ul>
+<li><i>sName:</i> The name of the cookie to get.</li>
+</ul>
+<p><i>Returns:</i> string</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_util.js</p>
+
+<a name='cbeGetElementByIdLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeGetElementById</h2>
+<p><i>Description:</i> Return a reference to the native Element object with id equal to the argument. </p>
+<p><i>Syntax:</i> <b>cbeGetElementById(sId)</b></p>
+<ul>
+<li><i>sId:</i> the id string of the element</li>
+</ul>
+<p><i>Returns:</i> native Element object reference or null if invalid id</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> For NN4 and IE4 (where document.getElementById does not originally exist) a property named getElementById is added to the document object and assigned a reference to cbeGetElementById(). In other browsers when you call document.getElementById(), cbeGetElementById() is <i>not</i> called, but the native document.getElementById() is called. Usually this works out okay because all you want is an Element reference. But here are some advantages to calling cbeGetElementById() directly.</p>
+<ol>
+<li>If the argument is the value of window.cbeWindowId, the window object is returned.</li>
+<li>If the argument is the value of window.cbeDocumentId, the document object is returned.</li>
+<li>If the argument is not found as an id of an element, all form names and ids are searched, if it is still not found, all image names and ids are searched - including the names of the Image objects created with cbeNewImage().</li>
+</ol>
+
+<a name='cbeGetFormByNameLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeGetFormByName</h2>
+<p><i>Description:</i> Return an object reference to the form with sName. You can call <a href="#cbeGetElementByIdLink">cbeGetElementById()</a> instead of this.</p>
+<p><i>Syntax:</i> <b>cbeGetFormByName(sName)</b></p>
+<ul>
+<li><i>sName:</i> The value of an id or name attribute of a form element.</li> 
+</ul>
+<p><i>Returns:</i> Reference to form object or null if sName is invalid.</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_util.js</p>
+
+<a name='cbeGetImageByNameLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeGetImageByName</h2>
+<p><i>Description:</i> Return an object reference to the Image with sName. You can call <a href="#cbeGetElementByIdLink">cbeGetElementById()</a> instead of this.</p>
+<p><i>Syntax:</i> <b>cbeGetImageByName(sName)</b></p>
+<ul>
+<li><i>sName:</i> The value of an id or name attribute of an Image element or an Image object created with cbeNewImage().</li> 
+</ul>
+<p><i>Returns:</i> Reference to Image object or null if sName is invalid.</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_util.js</p>
+
+<a name='cbeGetNodeFromPointLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeGetNodeFromPoint</h2>
+<p><i>Description:</i> Return a reference to the CrossBrowserElement object that has the highest z-index of all CrossBrowserElement objects that contain the point.</p>
+<p><i>Syntax:</i> <b>cbeGetNodeFromPoint(iX, iY)</b></p>
+<ul>
+<li><i>iX:</i> x coordinate of target point</li>
+<li><i>iY:</i> y coordinate of target point</li>
+</ul>
+<p><i>Returns:</i> A CrossBrowserElement object reference.</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_event.js</p>
+
+<a name='cbeGetURLArgumentsLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeGetURLArguments</h2>
+<p><i>Description:</i> If the end of the current URL has name/value pairs, return an array of the values. The array can be indexed with the name. The values are all of type string.</p>
+<p><i>Syntax:</i> <b>cbeGetURLArguments()</b></p>
+<p><i>Returns:</i> array of string</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_util.js</p>
+
+<a name='cbeHexStringLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeHexString</h2>
+<p><i>Description:</i> Convert a number to a hex string with the specified number of digits and the optional prefix.</p>
+<p><i>Syntax:</i> <b>cbeHexString(uN, uDigits, sPrefix)</b></p>
+<ul>
+<li><i>uN:</i> The number to convert to a string.</li>
+<li><i>uDigits:</i> The number of digits in the result.</li>
+<li><i>sPrefix:</i> A string that is prepended to the result.</li>
+</ul>
+<p><i>Returns:</i> string</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_util.js</p>
+<p><i>Snippet:</i> This function cycles an element through random background colors for the time specified.</p>
+<pre>
+function randomColors(id, elapsedTime) {
+  if (elapsedTime > 0) {
+    elapsedTime -= 125;
+    setTimeout("randomColors('"+id+"',"+elapsedTime+")", 125);
+    var newColor = cbeHexString(Math.random() * 0xffffff, 6, '#');
+    window.status = 'color: '+newColor + ', time: '+elapsedTime;
+    document.getElementById(id).cbe.background(newColor);
+  }
+}
+</pre>
+
+<a name='cbeMouseMoveStatusLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeMouseMoveStatus</h2>
+<p><i>Description:</i> Install a mouseMove event listener that displays the absolute mouse position and information about the CrossBrowserElement object under the mouse cursor on the status bar. This is a toggle, call it again to remove the listener. Currently the following is displayed:</p>
+<ul>
+<li>MOUSE:</li>
+<li>X:  e.pageX                  </li>
+<li>Y:  e.pageY                  </li>
+<li>OBJECT:</li>
+<li>ID: e.cbeTarget.id           </li>
+<li>P:  e.cbeTarget.parentNode.id</li>
+<li>L:  e.cbeTarget.left()       </li>
+<li>T:  e.cbeTarget.top()        </li>
+<li>X:  e.cbeTarget.pageX()      </li>
+<li>Y:  e.cbeTarget.pageY()      </li>
+<li>Z:  e.cbeTarget.zIndex()     </li>
+<li>W:  e.cbeTarget.width()      </li>
+<li>H:  e.cbeTarget.height()     </li>
+<li>B:  e.cbeTarget.background() </li>
+</ul>
+<p><i>Syntax:</i> <b>cbeMouseMoveStatus()</b></p>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_debug.js</p>
+
+<a name='cbeNewImageLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeNewImage</h2>
+<p><i>Description:</i> Create a new Image object with the given arguments. The object is stored in the array cbeImageObj, and the name is stored in the array cbeImageName. This is useful for preloading images. Also see <a href="#cbeSetImageLink">cbeSetImage()</a>.</p>
+<p><i>Syntax:</i> <b>cbeNewImage(sName, sUrl [, uWidth, uHeight])</b></p>
+<ul>
+<li><i>sName:</i> a name which can later be used with cbeSetImage()</li>
+<li><i>sUrl:</i> the URL of the image file</li>
+<li><i>uWidth:</i> width of image</li>
+<li><i>uHeight:</i> height of image</li>
+</ul>
+<p><i>Returns:</i> Image object reference or null if sURL is invalid.</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_util.js</p>
+
+<a name='cbeDebugWindowLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeDebugWindow</h2>
+<p><i>Description:</i></p>
+<p>Open, close, or refresh the Debug Window. This window provides development/debugging support. It shows the object tree for the current page, the properties for the selected object, provides a command line for calling methods of the selected object, and provides an area where the application can display messages.</p>
+<p>Select an object by clicking it's <b>id</b> in the object tree, or by clicking on the object itself on the application page. Some of the selected object's properties and method values are then displayed.</p>
+<p>You can call a method of the selected object by typing the method and it's arguments into the text field provided and pressing Enter or clicking the Call button. For example, type this: <b>hide()</b> and click Call. The selected object will be hidden. Type this: <b>background('#cccccc')</b> and click Call. The background color of the selected object will change.</p>
+<p>Your application script can pass a string to <a href="cbe_reference.html#cbeDebugMsgLink">cbeDebugMsg()</a> and it will be displayed in the message area of the debug window.</p>
+
+<p><i>Syntax:</i> <b>cbeDebugWindow([sBaseUrl])</b></p>
+<ul>
+<li><i>sBaseUrl:</i> the base url to the file cbe_debug.html, for example: "./cbe/". It must have a trailing slash unless it's the empty string.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_debug.js</p>
+<p><i>Dependencies:</i> cbe_core.js, cbe_event.js</p>
+
+<a name='cbeRefWindowLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeRefWindow</h2>
+<p><i>Description:</i></p>
+<p>Open or close the Reference Window.</p>
+<p><i>Syntax:</i> <b>cbeRefWindow([sBaseUrl])</b></p>
+<ul>
+<li><i>sBaseUrl:</i> the base url to the file cbe_reference.html, for example: "./cbe/". It must have a trailing slash unless it's the empty string.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_debug.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+
+<a name='cbePadLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbePad</h2>
+<p><i>Description:</i> Prepend or append sPadChar to sStr until the resulting string has uFinalLen characters. This is useful for formatting a string before displaying it.</p>
+<p><i>Syntax:</i> <b>cbePad(sStr, uFinalLen, sPadChar, bLeft)</b></p>
+<ul>
+<li><i>sStr:</i> the string to be padded</li>
+<li><i>uFinalLen:</i> the number of characters in the result</li>
+<li><i>sPadChar:</i> the character that is added as padding</li>
+<li><i>bLeft:</i> if true then prepend, else append.</li>
+</ul>
+<p><i>Returns:</i> the modified argument sStr</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_util.js</p>
+
+<a name='cbePropagateEventLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbePropagateEvent</h2>
+<p><i>Description:</i> This is used in the CBE implementation of the DOM2 event model. The event is propagated throughout the event target's parent chain in the three event phases. To dispatch the event to each node's listeners, each node's dispatchEvent() method is called.</p>
+<p><i>Syntax:</i> <b>cbePropagateEvent(oCrossBrowserEvent)</b></p>
+<ul>
+<li><i>oCrossBrowserEvent:</i> a CrossBrowserEvent object</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_event.js</p>
+
+<a name='cbeRadiansLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeRadians</h2>
+<p><i>Description:</i> Converts degrees to radians.</p>
+<p><i>Syntax:</i> <b>cbeRadians(iDeg)</b></p>
+<ul>
+<li><i>iDeg:</i> the number to be converted</li>
+</ul>
+<p><i>Returns:</i> integer</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_util.js</p>
+
+<a name='cbeSetCookieLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeSetCookie</h2>
+<p><i>Description:</i> Store a value in a cookie on the local machine. This function adds "path=/" so that all pages on the site can read and write this cookie. Cookies have these limitations: (1) 300 total cookies in the cookie file. (2) 4 KB per cookie, for the sum of both the cookie's name and value. (3) 20 cookies per server or domain.</p>
+<p><i>Syntax:</i> <b>cbeSetCookie(sName, sValue [, dExpire])</b></p>
+<ul>
+<li><i>sName:</i> the cookie name</li>
+<li><i>sValue:</i> the value to store in the cookie</li>
+<li><i>dExpire:</i> the expiration date of this cookie, if null it expires at the end of the current browser session</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_util.js</p>
+<p><i>Browser Support:</i> Note that Opera6 doesn't allow cookies while viewing a site on the local machine.</p>
+<p><i>Snippet:</i> The following sets a cookie that expires one year from the current date.</p>
+<pre>
+function SetOneYearCookie(name, value) {
+  var today = new Date();
+  var expires = new Date();
+  expires.setTime(today.getTime() + 1000*60*60*24*365);
+  cbeSetCookie(name, value, expires);
+}
+</pre>
+
+<a name='cbeSetImageLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeSetImage</h2>
+<p><i>Description:</i> Assign the source's src property to the target's src property.</p>
+<p><i>Syntax:</i> <b>cbeSetImage(sTarget | oTarget, sSource | oSource)</b></p>
+<ul>
+<li><i>Target:</i> name string or image object whose src property will be assigned the value of the src property of Source</li>
+<li><i>Source:</i> name string or image object</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_util.js</p>
+
+<a name='cbeShowPropsLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeShowProps</h2>
+<p><i>Description:</i> Open a window and display the object's properties and, optionally, their values.</p>
+<p><i>Syntax:</i> <b>cbeShowProps(oObj, sObjName, bShowValues)</b></p>
+<ul>
+<li><i>oObj:</i> the object whose properties will be enumerated</li>
+<li><i>sObjName:</i> the object identifier as a string</li>
+<li><i>bShowValues:</i> if true, most of the properties' values will be shown.</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_debug.js</p>
+<p><i>Browser Support:</i> Opera6 does not support enumeration of object properties.</p>
+
+<a name='cbeTraverseTreeLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeTraverseTree</h2>
+<p><i>Description:</i> Executes a preorder traversal on the object tree beginning at oStart node.</p>
+<p><i>Syntax:</i> <b>cbeTraverseTree(sOrder, oStart, fVisit)</b></p>
+<ul>
+<li><i>sOrder:</i> currently only 'preorder' is supported. Postorder traversal can be added if you need it.</li>
+<li><i>oStart:</i> the CrossBrowserElement object at which to begin the traversal</li>
+<li><i>fVisit:</i> the visit function must return true (to continue traversal) or false (to halt traversal). It is passed the following arguments.
+  <ul>
+  <li><i>node:</i> the current CrossBrowserElement object in the traversal</li>
+  <li><i>level:</i> this number indicates how deep the current object is in the tree. oStart node has level equal to zero.</li>
+  <li><i>branch:</i> this number indicates the current subtree relative to oStart beginning at zero.</li>
+  </ul>
+</li>
+</ul>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_util.js</p>
+<p><i>Snippet:</i> The following is from the Debug Window html file. It displays the complete CBE object tree.</p>
+<pre>
+var sTree;
+
+function printTree() {
+  sTree = "";
+  window.opener.cbeTraverseTree(
+    'preorder',
+    window.opener.self.cbe,
+    printTreeVF
+  );
+  document.write(sTree);
+}
+
+var levelFlag = new Array();
+
+function printTreeVF(node, level, branch) {
+  levelFlag[level] = node.nextSibling ? true : false;
+  for (var i=0; i &lt; level-1; ++i) {
+    if (levelFlag[i+1]) sTree += '|&nbsp;';
+    else sTree += '&nbsp;&nbsp;';
+  }  
+  if (level) sTree += "|_";
+  sTree +=
+    ("&lt;a href=\"javascript:inst('" + node.id+ "')\"&gt;"
+    + node.id + "&lt;/a&gt;&lt;br&gt;");
+  return true;
+}
+</pre>
+
+<a name='getElementByIdLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>getElementById</h2>
+<p><i>Description:</i> Return a reference to the native Element object with id equal to the argument. </p>
+<p><i>Syntax:</i> <b>getElementById(sId)</b></p>
+<ul>
+<li><i>sId:</i> the id string of the element</li>
+</ul>
+<p><i>Returns:</i> native Element object reference or null if invalid id</p>
+<p><i>Method of:</i> document</p>
+<p><i>Library file:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> See the notes on <a href="#cbeGetElementByIdLink">cbeGetElementById()</a>.</p>
+
+<a name='preventDefaultLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>preventDefault</h2>
+<p><i>Description:</i> An event listener can call this to prevent any default action resulting from the event.</p>
+<p><i>Syntax:</i> <b>preventDefault()</b></p>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserEvent</p>
+<p><i>Library file:</i> cbe_event.js</p>
+
+<a name='stopPropagationLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>stopPropagation</h2>
+<p><i>Description:</i> An event listener can call this to stop subsequent propagation of the event. The event will still complete it's dispatch on the current node.</p>
+<p><i>Syntax:</i> <b>stopPropagation()</b></p>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> CrossBrowserEvent</p>
+<p><i>Library file:</i> cbe_event.js</p>
+
+<a name='cbeDebugMsgLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeDebugMsg</h2>
+<p><i>Description:</i> Display the argument in the textarea on the Debug Window. Also see <a href="#cbeDebugWindowLink">cbeDebugWindow()</a>.</p>
+<p><i>Syntax:</i> <b>cbeDebugMsg(sMsg)</b></p>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_debug.js</p>
+
+<a name='cbeTileWindowsLink'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>cbeTileWindows</h2>
+<p><i>Description:</i> Tile the <a href="#cbeDebugWindowLink">Debug</a>, <a href="#cbeRefWindowLink">Reference</a> and application windows. The application window is the window from which the call is made.</p>
+<p><i>Syntax:</i> <b>cbeTileWindows()</b></p>
+<p><i>Returns:</i> void</p>
+<p><i>Method of:</i> window</p>
+<p><i>Library file:</i> cbe_debug.js</p>
+<p><i>Dependencies:</i> cbe_core.js</p>
+<p><i>Browser Support:</i> This assumes you are using a browser in SDI mode.</p>
+
+<a name='syntax'></a>
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>Parameter Syntax</h2>
+<p>Any parameter in square brackets is optional. The OR symbol '|' is used to indicate a choice of two different parameters. Each parameter has a <i>data type prefix</i> which will be one of the following.</p>
+<ul>
+<li><b>b</b> - boolean</li>
+<li><b>i</b> - signed integer</li>
+<li><b>u</b> - unsigned integer</li>
+<li><b>s</b> - string</li>
+<li><b>c</b> - string specifying a color, preceded with '#' (use cbeHexString() to convert numbers to color strings)</li>
+<li><b>d</b> - date object</li>
+<li><b>o</b> - object reference</li>
+<li><b>f</b> - function reference</li>
+<li><b>x</b> - either a string that can be evaluated, or a function reference. cbeEval() accepts <i>x</i> arguments</li>
+</ul>
+
+</td></tr></table><!-- end indentation table -->
+
+</body>
+</html>

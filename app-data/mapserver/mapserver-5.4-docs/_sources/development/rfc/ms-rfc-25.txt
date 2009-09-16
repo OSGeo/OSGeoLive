@@ -1,0 +1,127 @@
+.. _rfc25:
+
+====================================================================
+  MS RFC 25: Align MapServer pixel and extent models with OGC models
+====================================================================
+
+:Date: 2007/10/23 
+:Author: Steve Lime
+:Contact: steve.lime at DNR.STATE.MN.US
+:Status: Draft
+:Version: 
+:Id: $Id: ms-rfc-25.txt 8278 2008-12-23 21:34:31Z hobu $
+
+Overview
+========
+
+At present MapServer uses different pixel and extent model than defined by OGC 
+services such as WCS and WMS. MapServer uses the center of a pixel to represent 
+its unique coordinate value. An extent is interpreted as the bounding box that 
+runs from the center of the UL pixel in an image to the center of the LR pixel 
+in an image. Why? Well, it goes back to companion software that existed along 
+side MapServer to display satellite data stored in ERDAS that used the center 
+to center extent model. The math is simple and there is a certain logic in 
+having the extent actually represent pixel values - that is, if you render the 
+extent as a polygon you get the exact edge of the image as one might expect.
+
+On the other hand, OGC service specifications define an extent (BBOX) to refer 
+to the dimensions of the outside edges of the image being requested. This 
+appears to be a far more common means of expressing an area of interest.
+
+I've not been able to ascertain where the coordinate of an individual pixel 
+is located from various OGC specifications. MapServer '''could''' retain a 
+center-based pixel model. That does add complexity to the map <=> image 
+coordinate transformations since you have to offset things by one-half 
+cellsize. Since that computation is done many times I would expect a 
+performance hit. We could optimize things by computing and storing the 
+one-half cellsize value once (as cellsize is now), but that complicates the 
+C APIs and requires huge amounts of change. I propose moving to a 
+upper-left-based pixel model to simplify these conversions.
+
+Note: In looking at the code there were past efforts to go to the OGC extent 
+in 4.8 and 4.10, but it was not universally applied. This RFC would ensure 
+that the same extent and pixel model is in use throughout MapServer and that 
+it is consistent with OGC.
+
+model diagram: http://maps.dnr.state.mn.us/mapserver_docs/rfc25_extent.pdf
+
+Technical Details
+=================
+
+Affected files (relative to what is in main development trunk):
+
+- map.h: change definition of MS_CELLSIZE
+
+::
+
+  #define MS_CELLSIZE(min,max,d)    ((max - min)/d)
+
+- map.h: change coordinate conversion macros (no change just add comments)
+
+::
+
+  /*
+  ** These macros work relative to the UL corner of the UL pixel of a map exent. Pixel
+  ** model is (as of 5.0) the UL corner of a pixel. UL pixel = minx,maxy.
+  */
+  #define MS_MAP2IMAGE_X(x,minx,cx) (MS_NINT((x - minx)/cx))
+  #define MS_MAP2IMAGE_Y(y,maxy,cy) (MS_NINT((maxy - y)/cy))
+  #define MS_IMAGE2MAP_X(x,minx,cx) (minx + cx*x)
+  #define MS_IMAGE2MAP_Y(y,maxy,cy) (maxy - cy*y)
+
+- maputil.c: update msAdjustExtent()
+
+::
+
+  ox = MS_MAX((width - (rect->maxx - rect->minx)/cellsize)/2,0);
+  oy = MS_MAX((height - (rect->maxy - rect->miny)/cellsize)/2,0);
+
+- mapwcs.c: remove code to convert between MapServer extent and OWS extent
+- mapwms.c: remove code to convert between MapServer extent and OWS extent
+- mapwmsclient.c remove code to convert between MapServer extent and OWS extent
+- various raster layer handlers: Need Frank's comments here.
+- mapscript ...zoom functions: I don't believe these will need any change.
+
+The affect of these changes on end-users should be minimal since it is 
+unlikely they the are aware of differences in extent interpretation. The 
+larger impact may be on 3rd party applications like dBox, Chameleon and QGIS 
+that manage extents and call MapServer.  Efforts must be made to make those 
+folks aware of the change.
+
+Mapfile Implications
+====================
+
+None, these are internal changes only.
+
+MapScript Implications
+======================
+
+None, these are internal changes only.
+
+Documentation Implications
+==========================
+
+The models for a pixel and an extent need to documented in a couple of 
+places: mapfile reference, the related OWS service how-to's and perhaps a 
+new how-to pertaining to just this topic.
+
+Test Plan
+=========
+
+Need to develop some tests to somehow validate the math. The WCS interface 
+or output drivers using GDAL are excellent candidates since they produce 
+georeferenced output. Some testing has already been done to verify the 
+existence of the issue (first discovered via WCS) and the proposed fix. 
+
+Mini-images (e.g. 7x7) can be used to verify rendering makes sense. 
+For example, if you draw the extent as a polygon you would expect to see 
+lines for the left and top edges, but not for the bottom and right. That is 
+because the maxx,miny extent values won't represent a pixel in the output 
+(rather the next tile to the right and/or below).
+
+Staffing / Timeline
+===================
+
+Changes to maputil.h, map.h, mapwcs.c and mapwms.c would be done by Steve 
+Lime. Changes to other portions of MapServer would be coordinated with the 
+various component owners. This RFC would be completed for the 5.0 release.

@@ -1,0 +1,48 @@
+.. _documentation:
+
+***************************************************
+ MapServer |release| Documentation
+***************************************************
+
+.. note::
+    The entire documentation is also available as a single
+    `PDF document <./MapServer.pdf>`__ |image|
+
+
+.. include:: ./include/docnav.inc
+
+.. |image| image:: ./../_static/pdf.png
+   :height: 15
+   :width: 15
+   :alt: PDF icon
+   :target: /MapServer.pdf
+
+
+.. toctree::
+   :maxdepth: 2
+   
+   about
+   introduction
+   tutorial/index
+   installation/index
+   mapfile/index
+   mapscript/index
+   input/index
+   output/index
+   ogc/index
+   optimization/index
+   utilities/index
+   cgi/index
+   community/index
+   development/index
+   download
+   glossary
+   errors
+   faq
+   copyright
+
+
+
+
+   
+   

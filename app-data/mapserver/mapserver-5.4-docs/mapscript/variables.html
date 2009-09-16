@@ -1,0 +1,1213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MapScript Variables &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="MapScript" href="index.html" />
+    <link rel="next" title="Data Input" href="../input/index.html" />
+    <link rel="prev" title="Querying" href="querying.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../input/index.html" title="Data Input"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="querying.html" title="Querying"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">MapScript</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//mapscript/variables.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/mapscript/variables.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MapScript Variables</a><ul>
+<li><a class="reference external" href="#version">Version</a></li>
+<li><a class="reference external" href="#logical-control-boolean-values">Logical Control - Boolean Values</a></li>
+<li><a class="reference external" href="#logical-control-status-values">Logical Control - Status Values</a></li>
+<li><a class="reference external" href="#map-units">Map Units</a></li>
+<li><a class="reference external" href="#layer-types">Layer Types</a></li>
+<li><a class="reference external" href="#font-types">Font Types</a></li>
+<li><a class="reference external" href="#label-positions">Label Positions</a></li>
+<li><a class="reference external" href="#label-size-bitmap-only">Label Size (Bitmap only)</a></li>
+<li><a class="reference external" href="#shape-types">Shape Types</a></li>
+<li><a class="reference external" href="#measured-shape-types">Measured Shape Types</a></li>
+<li><a class="reference external" href="#shapefile-types">Shapefile Types</a></li>
+<li><a class="reference external" href="#query-types">Query Types</a></li>
+<li><a class="reference external" href="#file-types">File Types</a></li>
+<li><a class="reference external" href="#querymap-styles">Querymap Styles</a></li>
+<li><a class="reference external" href="#connection-types">Connection Types</a></li>
+<li><a class="reference external" href="#db-connection-types">DB Connection Types</a></li>
+<li><a class="reference external" href="#join-types">Join Types</a></li>
+<li><a class="reference external" href="#line-join-types-for-rendering">Line Join Types (for rendering)</a></li>
+<li><a class="reference external" href="#image-types">Image Types</a></li>
+<li><a class="reference external" href="#image-modes">Image Modes</a></li>
+<li><a class="reference external" href="#symbol-types">Symbol Types</a></li>
+<li><a class="reference external" href="#return-codes">Return Codes</a></li>
+<li><a class="reference external" href="#limiters">Limiters</a></li>
+<li><a class="reference external" href="#error-return-codes">Error Return Codes</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="querying.html"
+                                  title="previous chapter">Querying</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="../input/index.html"
+                                  title="next chapter">Data Input</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/mapscript/variables.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mapscript-variables">
+<h1><a class="toc-backref" href="#contents">MapScript Variables</a><a class="headerlink" href="#mapscript-variables" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Howard Butler</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">hobu.inc at gmail.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8278 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2008-12-23 17:34:31 -0400 (Tue, 23 Dec 2008) $</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#mapscript-variables" id="id1">MapScript Variables</a><ul>
+<li><a class="reference internal" href="#version" id="id2">Version</a></li>
+<li><a class="reference internal" href="#logical-control-boolean-values" id="id3">Logical Control - Boolean Values</a></li>
+<li><a class="reference internal" href="#logical-control-status-values" id="id4">Logical Control - Status Values</a></li>
+<li><a class="reference internal" href="#map-units" id="id5">Map Units</a></li>
+<li><a class="reference internal" href="#layer-types" id="id6">Layer Types</a></li>
+<li><a class="reference internal" href="#font-types" id="id7">Font Types</a></li>
+<li><a class="reference internal" href="#label-positions" id="id8">Label Positions</a></li>
+<li><a class="reference internal" href="#label-size-bitmap-only" id="id9">Label Size (Bitmap only)</a></li>
+<li><a class="reference internal" href="#shape-types" id="id10">Shape Types</a></li>
+<li><a class="reference internal" href="#measured-shape-types" id="id11">Measured Shape Types</a></li>
+<li><a class="reference internal" href="#shapefile-types" id="id12">Shapefile Types</a></li>
+<li><a class="reference internal" href="#query-types" id="id13">Query Types</a></li>
+<li><a class="reference internal" href="#file-types" id="id14">File Types</a></li>
+<li><a class="reference internal" href="#querymap-styles" id="id15">Querymap Styles</a></li>
+<li><a class="reference internal" href="#connection-types" id="id16">Connection Types</a></li>
+<li><a class="reference internal" href="#db-connection-types" id="id17">DB Connection Types</a></li>
+<li><a class="reference internal" href="#join-types" id="id18">Join Types</a></li>
+<li><a class="reference internal" href="#line-join-types-for-rendering" id="id19">Line Join Types (for rendering)</a></li>
+<li><a class="reference internal" href="#image-types" id="id20">Image Types</a></li>
+<li><a class="reference internal" href="#image-modes" id="id21">Image Modes</a></li>
+<li><a class="reference internal" href="#symbol-types" id="id22">Symbol Types</a></li>
+<li><a class="reference internal" href="#return-codes" id="id23">Return Codes</a></li>
+<li><a class="reference internal" href="#limiters" id="id24">Limiters</a></li>
+<li><a class="reference internal" href="#error-return-codes" id="id25">Error Return Codes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="version">
+<h2><a class="toc-backref" href="#contents">Version</a><a class="headerlink" href="#version" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_VERSION</td>
+<td>character</td>
+<td>5.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="logical-control-boolean-values">
+<h2><a class="toc-backref" href="#contents">Logical Control - Boolean Values</a><a class="headerlink" href="#logical-control-boolean-values" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_TRUE</td>
+<td>integer</td>
+<td>1</td>
+</tr>
+<tr><td>MS_ON</td>
+<td>integer</td>
+<td>1</td>
+</tr>
+<tr><td>MS_YES</td>
+<td>integer</td>
+<td>1</td>
+</tr>
+<tr><td>MS_FALSE</td>
+<td>integer</td>
+<td>0</td>
+</tr>
+<tr><td>MS_OFF</td>
+<td>integer</td>
+<td>0</td>
+</tr>
+<tr><td>MS_NO</td>
+<td>integer</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="logical-control-status-values">
+<h2><a class="toc-backref" href="#contents">Logical Control - Status Values</a><a class="headerlink" href="#logical-control-status-values" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_DEFAULT</td>
+<td>integer</td>
+<td>2</td>
+</tr>
+<tr><td>MS_EMBED</td>
+<td>integer</td>
+<td>3</td>
+</tr>
+<tr><td>MS_DELETE</td>
+<td>integer</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="map-units">
+<h2><a class="toc-backref" href="#contents">Map Units</a><a class="headerlink" href="#map-units" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_DD</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_FEET</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_INCHES</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_METERS</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_MILES</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_PIXELS</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="layer-types">
+<h2><a class="toc-backref" href="#contents">Layer Types</a><a class="headerlink" href="#layer-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_LAYER_POINT</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_LAYER_LINE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_LAYER_POLYGON</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_LAYER_RASTER</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_LAYER_ANNOTATION</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_LAYER_QUERY</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_LAYER_CIRCLE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_LAYER_TILEINDEX</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="font-types">
+<h2><a class="toc-backref" href="#contents">Font Types</a><a class="headerlink" href="#font-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_TRUETYPE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_BITMAP</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="label-positions">
+<h2><a class="toc-backref" href="#contents">Label Positions</a><a class="headerlink" href="#label-positions" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_UL</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_LL</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_UR</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_LR</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_CL</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_CR</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_UC</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_LC</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_CC</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_AUTO</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="label-size-bitmap-only">
+<h2><a class="toc-backref" href="#contents">Label Size (Bitmap only)</a><a class="headerlink" href="#label-size-bitmap-only" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_TINY</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_SMALL</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_MEDIUM</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_LARGE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_GIANT</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="shape-types">
+<h2><a class="toc-backref" href="#contents">Shape Types</a><a class="headerlink" href="#shape-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_SHAPE_POINT</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_SHAPE_LINE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_SHAPE_POLYGON</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_SHAPE_NULL</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="measured-shape-types">
+<h2><a class="toc-backref" href="#contents">Measured Shape Types</a><a class="headerlink" href="#measured-shape-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_SHP_POINTM</td>
+<td>integer</td>
+<td>21</td>
+</tr>
+<tr><td>MS_SHP_ARCM</td>
+<td>integer</td>
+<td>23</td>
+</tr>
+<tr><td>MS_SHP_POLYGONM</td>
+<td>integer</td>
+<td>25</td>
+</tr>
+<tr><td>MS_SHP_MULTIPOINTM</td>
+<td>integer</td>
+<td>28</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="shapefile-types">
+<h2><a class="toc-backref" href="#contents">Shapefile Types</a><a class="headerlink" href="#shapefile-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="24%" />
+<col width="22%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_SHAPEFILE_POINT</td>
+<td>integer</td>
+<td>1</td>
+</tr>
+<tr><td>MS_SHAPEFILE_ARC</td>
+<td>integer</td>
+<td>3</td>
+</tr>
+<tr><td>MS_SHAPEFILE_POLYGON</td>
+<td>integer</td>
+<td>5</td>
+</tr>
+<tr><td>MS_SHAPEFILE_MULTIPOINT</td>
+<td>integer</td>
+<td>8</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="query-types">
+<h2><a class="toc-backref" href="#contents">Query Types</a><a class="headerlink" href="#query-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_SINGLE</td>
+<td>integer</td>
+<td>0</td>
+</tr>
+<tr><td>MS_MULTIPLE</td>
+<td>integer</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="file-types">
+<h2><a class="toc-backref" href="#contents">File Types</a><a class="headerlink" href="#file-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_FILE_MAP</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_FILE_SYMBOL</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="querymap-styles">
+<h2><a class="toc-backref" href="#contents">Querymap Styles</a><a class="headerlink" href="#querymap-styles" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_NORMAL</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_HILITE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_SELECTED</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="connection-types">
+<h2><a class="toc-backref" href="#contents">Connection Types</a><a class="headerlink" href="#connection-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="24%" />
+<col width="22%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_INLINE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_SHAPEFILE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_TILED_SHAPEFILE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_SDE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_OGR</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_POSTGIS</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_WMS</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_ORACLESPATIAL</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_WFS</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_GRATICULE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_MYGIS</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_RASTER</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="db-connection-types">
+<h2><a class="toc-backref" href="#contents">DB Connection Types</a><a class="headerlink" href="#db-connection-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="48%" />
+<col width="27%" />
+<col width="25%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_DB_XBASE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_DB_CSV</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_DB_MYSQL</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_DB_ORACLE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_DB_POSTGRES</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="join-types">
+<h2><a class="toc-backref" href="#contents">Join Types</a><a class="headerlink" href="#join-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="24%" />
+<col width="22%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_JOIN_ONE_TO_ONE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_JOIN_ONE_TO_MANY</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="line-join-types-for-rendering">
+<h2><a class="toc-backref" href="#contents">Line Join Types (for rendering)</a><a class="headerlink" href="#line-join-types-for-rendering" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="24%" />
+<col width="22%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_CJC_NONE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_CJC_BEVEL</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_CJC_BUTT</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_CJC_MITER</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_CJC_ROUND</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_CJC_SQUARE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_CJC_TRIANGLE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="image-types">
+<h2><a class="toc-backref" href="#contents">Image Types</a><a class="headerlink" href="#image-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="24%" />
+<col width="22%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>GD/GIF</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>GD/PNG</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>GD/PNG24</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>GD/JPEG</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>GD/WBMP</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>swf</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>imagemap</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>pdf</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>GDAL/GTiff</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="image-modes">
+<h2><a class="toc-backref" href="#contents">Image Modes</a><a class="headerlink" href="#image-modes" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="24%" />
+<col width="22%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_IMAGEMODE_PC256</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_IMAGEMODE_RGB</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_IMAGEMODE_RGBA</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_IMAGEMODE_INT16</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_IMAGEMODE_FLOAT32</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_IMAGEMODE_BYTE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_IMAGEMODE_NULL</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_NOOVERRIDE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_GD_ALPHA</td>
+<td>integer</td>
+<td>1000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="symbol-types">
+<h2><a class="toc-backref" href="#contents">Symbol Types</a><a class="headerlink" href="#symbol-types" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="24%" />
+<col width="22%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_SYMBOL_SIMPLE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_SYMBOL_VECTOR</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_SYMBOL_ELLIPSE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_SYMBOL_PIXMAP</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_SYMBOL_TRUETYPE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_SYMBOL_CARTOLINE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="return-codes">
+<h2><a class="toc-backref" href="#contents">Return Codes</a><a class="headerlink" href="#return-codes" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="24%" />
+<col width="22%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_SUCCESS</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_FAILURE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_DONE</td>
+<td>integer</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="limiters">
+<h2><a class="toc-backref" href="#contents">Limiters</a><a class="headerlink" href="#limiters" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="24%" />
+<col width="22%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_MAXSYMBOLS</td>
+<td>long</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_MAXVECTORPOINTS</td>
+<td>long</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_MAXSTYLELENGTH</td>
+<td>long</td>
+<td>&nbsp;</td>
+</tr>
+<tr><td>MS_IMAGECACHESIZE</td>
+<td>long</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="error-return-codes">
+<h2><a class="toc-backref" href="#contents">Error Return Codes</a><a class="headerlink" href="#error-return-codes" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="53%" />
+<col width="24%" />
+<col width="22%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Name</td>
+<td>Type</td>
+<td>Value</td>
+</tr>
+<tr><td>MS_NOERR</td>
+<td>long</td>
+<td>0</td>
+</tr>
+<tr><td>MS_IOERR</td>
+<td>long</td>
+<td>1</td>
+</tr>
+<tr><td>MS_MEMERR</td>
+<td>long</td>
+<td>2</td>
+</tr>
+<tr><td>MS_TYPEERR</td>
+<td>long</td>
+<td>3</td>
+</tr>
+<tr><td>MS_SYMERR</td>
+<td>long</td>
+<td>4</td>
+</tr>
+<tr><td>MS_REGEXERR</td>
+<td>long</td>
+<td>5</td>
+</tr>
+<tr><td>MS_TTFERR</td>
+<td>long</td>
+<td>6</td>
+</tr>
+<tr><td>MS_DBFERR</td>
+<td>long</td>
+<td>7</td>
+</tr>
+<tr><td>MS_GDERR</td>
+<td>long</td>
+<td>8</td>
+</tr>
+<tr><td>MS_IDENTERR</td>
+<td>long</td>
+<td>9</td>
+</tr>
+<tr><td>MS_EOFERR</td>
+<td>long</td>
+<td>10</td>
+</tr>
+<tr><td>MS_PROJERR</td>
+<td>long</td>
+<td>11</td>
+</tr>
+<tr><td>MS_MISCERR</td>
+<td>long</td>
+<td>12</td>
+</tr>
+<tr><td>MS_CGIERR</td>
+<td>long</td>
+<td>13</td>
+</tr>
+<tr><td>MS_WEBERR</td>
+<td>long</td>
+<td>14</td>
+</tr>
+<tr><td>MS_IMGERR</td>
+<td>long</td>
+<td>15</td>
+</tr>
+<tr><td>MS_HASHERR</td>
+<td>long</td>
+<td>16</td>
+</tr>
+<tr><td>MS_JOINERR</td>
+<td>long</td>
+<td>17</td>
+</tr>
+<tr><td>MS_NOTFOUND</td>
+<td>long</td>
+<td>18</td>
+</tr>
+<tr><td>MS_SHPERR</td>
+<td>long</td>
+<td>19</td>
+</tr>
+<tr><td>MS_PARSEERR</td>
+<td>long</td>
+<td>20</td>
+</tr>
+<tr><td>MS_SDEERR</td>
+<td>long</td>
+<td>21</td>
+</tr>
+<tr><td>MS_OGRERR</td>
+<td>long</td>
+<td>22</td>
+</tr>
+<tr><td>MS_QUERYERR</td>
+<td>long</td>
+<td>23</td>
+</tr>
+<tr><td>MS_WMSERR</td>
+<td>long</td>
+<td>24</td>
+</tr>
+<tr><td>MS_WMSCONNERR</td>
+<td>long</td>
+<td>25</td>
+</tr>
+<tr><td>MS_ORACLESPATIALERR</td>
+<td>long</td>
+<td>26</td>
+</tr>
+<tr><td>MS_WFSERR</td>
+<td>long</td>
+<td>27</td>
+</tr>
+<tr><td>MS_WFSCONNERR</td>
+<td>long</td>
+<td>28</td>
+</tr>
+<tr><td>MS_MAPCONTEXTERR</td>
+<td>long</td>
+<td>29</td>
+</tr>
+<tr><td>MS_HTTPERR</td>
+<td>long</td>
+<td>30</td>
+</tr>
+<tr><td>MS_CHILDERR</td>
+<td>long</td>
+<td>31</td>
+</tr>
+<tr><td>MS_WCSERR</td>
+<td>long</td>
+<td>32</td>
+</tr>
+<tr><td>MS_NUMERRORCODES</td>
+<td>long</td>
+<td>33</td>
+</tr>
+<tr><td>MESSAGELENGTH</td>
+<td>long</td>
+<td>33</td>
+</tr>
+<tr><td>ROUTINELENGTH</td>
+<td>long</td>
+<td>33</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../input/index.html" title="Data Input"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="querying.html" title="Querying"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >MapScript</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

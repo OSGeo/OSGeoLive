@@ -1,0 +1,680 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Compiling on Unix &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Installation" href="index.html" />
+    <link rel="next" title="Compiling on Win32" href="win32.html" />
+    <link rel="prev" title="Installation" href="index.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="win32.html" title="Compiling on Win32"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Installation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Installation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//installation/unix.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/installation/unix.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Compiling on Unix</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a></li>
+<li><a class="reference external" href="#obtaining-the-necessary-software">Obtaining the necessary software</a><ul>
+<li><a class="reference external" href="#required-external-libraries">Required External Libraries</a></li>
+<li><a class="reference external" href="#highly-recommended-libraries">Highly Recommended Libraries</a></li>
+<li><a class="reference external" href="#optional-external-libraries">Optional External Libraries</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#libgd">libgd</a><ul>
+<li><a class="reference external" href="#minimum-libgd-versions">Minimum libgd versions</a></li>
+<li><a class="reference external" href="#libiconv">libiconv</a></li>
+<li><a class="reference external" href="#pre-packaged-system-libraries">Pre-packaged/system libraries</a></li>
+<li><a class="reference external" href="#macosx">MacOSX</a></li>
+<li><a class="reference external" href="#freetype-support">FreeType support</a></li>
+<li><a class="reference external" href="#px-anti-aliasing-and-segfaults">1px Anti-Aliasing and segfaults</a></li>
+<li><a class="reference external" href="#curved-label-support">Curved label support</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#anti-grain-geometry-support">Anti-Grain Geometry Support</a></li>
+<li><a class="reference external" href="#ogc-support">OGC Support</a><ul>
+<li><a class="reference external" href="#wms-support">WMS support</a><ul>
+<li><a class="reference external" href="#wms-server">WMS Server</a></li>
+<li><a class="reference external" href="#wms-client">WMS Client</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#wfs-support">WFS support</a><ul>
+<li><a class="reference external" href="#wfs-server">WFS Server</a></li>
+<li><a class="reference external" href="#wfs-client">WFS Client</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference external" href="#spatial-warehousing">Spatial Warehousing</a><ul>
+<li><a class="reference external" href="#postgis">PostGIS</a></li>
+<li><a class="reference external" href="#arcsde">ArcSDE</a></li>
+<li><a class="reference external" href="#oracle-spatial">Oracle Spatial</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#compiling">Compiling</a></li>
+<li><a class="reference external" href="#installation">Installation</a><ul>
+<li><a class="reference external" href="#mapserver-binary">MapServer binary</a><ul>
+<li><a class="reference external" href="#the-basic-install">The basic install</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#common-problems">Common problems</a><ul>
+<li><a class="reference external" href="#file-permissions">File permissions</a></li>
+<li><a class="reference external" href="#apache-errors">Apache errors</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#where-to-go-once-you-ve-got-it-compiled">Where to go once you&#8217;ve got it compiled</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Installation</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="win32.html"
+                                  title="next chapter">Compiling on Win32</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/installation/unix.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="compiling-on-unix">
+<span id="unix"></span><h1><a class="toc-backref" href="#table-of-contents">Compiling on Unix</a><a class="headerlink" href="#compiling-on-unix" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">J.F. Doyon</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">jdoyon at nrcan.gc.ca</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Howard Butler</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">hobu.inc at gmail.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8463 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2009-01-28 11:37:36 -0400 (Wed, 28 Jan 2009) $</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#compiling-on-unix" id="id1">Compiling on Unix</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference internal" href="#obtaining-the-necessary-software" id="id3">Obtaining the necessary software</a></li>
+<li><a class="reference internal" href="#libgd" id="id4">libgd</a></li>
+<li><a class="reference internal" href="#anti-grain-geometry-support" id="id5">Anti-Grain Geometry Support</a></li>
+<li><a class="reference internal" href="#ogc-support" id="id6">OGC Support</a></li>
+<li><a class="reference internal" href="#spatial-warehousing" id="id7">Spatial Warehousing</a></li>
+<li><a class="reference internal" href="#compiling" id="id8">Compiling</a></li>
+<li><a class="reference internal" href="#installation" id="id9">Installation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#table-of-contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The University of Minnesota&#8217;s MapServer is an open-source and freely
+available map rendering engine for the web. Due to its open-source nature,
+it can be compiled on a wide variety of platforms and operating systems.
+We will focus on how to obtain, compile and install MapServer on UNIX-like
+platforms.</p>
+<p>You might also check the <a class="reference external" href="http://trac.osgeo.org/mapserver/wiki/MapServerCompilation">MapServerCompilation</a>
+wiki page for additional information.</p>
+</div>
+<div class="section" id="obtaining-the-necessary-software">
+<h2><a class="toc-backref" href="#table-of-contents">Obtaining the necessary software</a><a class="headerlink" href="#obtaining-the-necessary-software" title="Permalink to this headline">¶</a></h2>
+<p>You can obtain the MapServer source code as well as the demo package from the
+<a class="reference external" href="../download.html#download"><em>Download</em></a> section.</p>
+<p>You can also get the latest MapServer source code from <a class="reference external" href="../development/svn.html#svn"><em>Subversion</em></a>.</p>
+<div class="section" id="required-external-libraries">
+<h3>Required External Libraries<a class="headerlink" href="#required-external-libraries" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="http://www.libpng.org/pub/png/libpng.html">libpng</a>: libpng should be on
+your system by default.  1.2.12 is the current release with security patches, although
+versions all the way back to 1.2.7 should work.</li>
+<li><a class="reference external" href="http://www.freetype.org/">freetype</a>: Version 2.x or above is required by GD.</li>
+<li><a class="reference external" href="http://www.libgd.org/">GD</a>: libgd is used by MapServer for
+rendering images.  Version 2.0.28 or greater required. Version 2.0.29 or
+later is required to use curved (following) labels, and version 2.0.34
+is required for antialiasing (1 pixel wide lines/outlines).</li>
+<li><a class="reference external" href="http://www.gzip.org/zlib/">zlib</a>: Zlib should be on your system by
+default.  1.2.1 is the current release with security patches.</li>
+</ul>
+</div>
+<div class="section" id="highly-recommended-libraries">
+<h3>Highly Recommended Libraries<a class="headerlink" href="#highly-recommended-libraries" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="http://trac.osgeo.org/proj/">libproj</a>: libproj provides projection
+support for MapServer.  Version 4.4.6 or greater is required.</li>
+<li><a class="reference external" href="http://curl.haxx.se/libcurl/">libcurl</a>: libcurl is the foundation of
+OGC (WFS/WMS/WCS) client and server support.  Version 7.10 or greater is
+required</li>
+<li><a class="reference external" href="http://www.gdal.org/ogr/">OGR</a>: OGR provides access to at least 18
+different vector formats.</li>
+<li><a class="reference external" href="http://www.gdal.org/">GDAL</a>: GDAL provides access to at least
+42 different raster formats.</li>
+<li><a class="reference external" href="http://antigrain.com">AGG</a>: AGG (Anti-Grain Geometry) is an optional
+dependency to enable high quality antialiased output for vector data.
+Currently versions 2.4 and 2.5 are identical featurewise, and only vary in
+their licence (2.4 is BSD, 2.5 is GPL)</li>
+</ul>
+</div>
+<div class="section" id="optional-external-libraries">
+<h3>Optional External Libraries<a class="headerlink" href="#optional-external-libraries" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="http://www.libtiff.org/">libtiff</a>: libtiff provides TIFF
+(Tagged Image File Format) reading support to MapServer.</li>
+<li><a class="reference external" href="http://trac.osgeo.org/geotiff/">libgeotiff</a>
+libgeotiff provides support to read GeoTIFF files (TIFF files with
+geographic referencing).</li>
+<li><a class="reference external" href="http://www.ijg.org/">libjpeg</a>: libjpeg allows MapServer to render
+images in JPEG format.  A sufficient version should be installed by
+default on your system.  Version 6b is the current version and dates back to
+1998.</li>
+<li><a class="reference external" href="http://trac.osgeo.org/geos/">GEOS</a>: GEOS allows MapServer to do
+spatial predicate and algebra operations (within, touches, etc &amp; union,
+difference, intersection). Requires version 4.10 or greater.</li>
+<li><a class="reference external" href="http://xmlsoft.org">libxml</a>: libxml is required to use <a class="reference external" href="../ogc/sos_server.html#sos-server"><em>OGC SOS</em></a>
+support in MapServer (versions 4.10 and greater).</li>
+<li><a class="reference external" href="http://www.esri.com/software/arcgis/arcsde/index.html">SDE Client Library</a>:
+The client libraries for your platform should be part of the ArcSDE
+media kit.  They are <em>not</em> publicly available for download.</li>
+<li><a class="reference external" href="http://www.oracle.com/technology/products/spatial/index.html">Oracle Spatial OCI</a>:
+The client libraries for your platform are available for download from
+Oracle&#8217;s website.  Ideally, your client library matches the database
+you are querying from, but this is not a hard requirement.</li>
+<li><a class="reference external" href="http://www.postgresql.org/">libpq</a>: libpq is required to support
+the use of PostGIS geometries within the PostgreSQL database.  Ideally,
+your client library matches the database you are querying from.</li>
+<li><a class="reference external" href="http://www.pdflib.com/products/pdflib-family/pdflib-lite/">pdflib (lite)</a>:
+PDFlib Lite is the Open Source version of PDFlib that allows MapServer
+to produce PDF output.  Version 4.0.3 or greater is required.</li>
+<li><a class="reference external" href="http://www.libming.org">libming</a>: libming provides Macromedia
+Flash output to MapServer.  Version 0.2a is required. Later versions are
+not known to work.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="libgd">
+<h2><a class="toc-backref" href="#table-of-contents">libgd</a><a class="headerlink" href="#libgd" title="Permalink to this headline">¶</a></h2>
+<p>There are a number of issues that you should be aware of when using GD in
+combination with MapServer.</p>
+<div class="section" id="minimum-libgd-versions">
+<h3>Minimum libgd versions<a class="headerlink" href="#minimum-libgd-versions" title="Permalink to this headline">¶</a></h3>
+<p>MapServer aggressively takes advantage of new features and bug fixes in the
+latest versions of libgd.  The minimum required version to run MapServer is
+2.0.29.  Upgrading to at least 2.0.34 is advised as it includes an important
+bug fix for antialiased lines.  Configure should detect which version of
+libgd you have installed, but you  can quickly check yourself by issuing the
+following command:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">gdlib</span><span class="o">-</span><span class="n">config</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="libiconv">
+<h3>libiconv<a class="headerlink" href="#libiconv" title="Permalink to this headline">¶</a></h3>
+<p>If you intend to use international character sets, your version of libgd
+<em>must</em> be compiled against the GNU iconv libraries.  If you are using a
+pre-packaged version, it is very likely that this is the case.  To check
+for yourself, issue the following command and look for &#8216;-liconv&#8217; in the output:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">gdlib</span><span class="o">-</span><span class="n">config</span> <span class="o">--</span><span class="n">libs</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="pre-packaged-system-libraries">
+<h3>Pre-packaged/system libraries<a class="headerlink" href="#pre-packaged-system-libraries" title="Permalink to this headline">¶</a></h3>
+<p>If you intend to use your system&#8217;s libgd, ensure that you have the development
+package also installed so MapServer can find and use the appropriate headers.</p>
+</div>
+<div class="section" id="macosx">
+<h3>MacOSX<a class="headerlink" href="#macosx" title="Permalink to this headline">¶</a></h3>
+<p>A useful FAQ on for libgd on OSX is available at
+<a class="reference external" href="http://www.libgd.org/DOC_INSTALL_OSX">http://www.libgd.org/DOC_INSTALL_OSX</a></p>
+</div>
+<div class="section" id="freetype-support">
+<h3>FreeType support<a class="headerlink" href="#freetype-support" title="Permalink to this headline">¶</a></h3>
+<p>The GD you compile MapServer against MUST be compiled against the FreeType
+library in order to use TrueType fonts. MapServer no longer uses it&#8217;s own
+interface to FreeType, using it through GD instead.</p>
+<p>When you run your &#8220;configure&#8221; script, look for the following output:</p>
+<div class="highlight-python"><pre>using GD ( -DUSE_GD_GIF -DUSE_GD_PNG -DUSE_GD_JPEG
+           -DUSE_GD_WBMP -DUSE_GD_TTF -DGD_HAS_GDIMAGEGIFPTR) from system libs.</pre>
+</div>
+<p>If your GD is built against FreeType, you will see either
+&#8220;-DUSE_GD_TTF&#8221; (Or &#8220;-DUSE_GD_FT&#8221; for Freetype 2.x) part. If it&#8217;s missing,
+you will need to recompile your GD to make sure you include FreeType
+support. See the GD documentation for more information.</p>
+<p>Also note that the configure script looks for the FreeType library
+separately as well, generating output looking somewhat like this:</p>
+<div class="highlight-python"><pre>checking where FreeType is installed...
+checking for FT_Init_FreeType in -lfreetype... yes
+        using libfreetype -lfreetype from system libs.</pre>
+</div>
+<p>Even though you have FreeType installed on your system <em>and</em> the
+configure script finds it, does <em>NOT</em> mean you will have TrueType
+font support. GD <em>MUST</em> be compiled against FreeType either way.</p>
+</div>
+<div class="section" id="px-anti-aliasing-and-segfaults">
+<h3>1px Anti-Aliasing and segfaults<a class="headerlink" href="#px-anti-aliasing-and-segfaults" title="Permalink to this headline">¶</a></h3>
+<p>Versions of libgd earlier than 2.0.34 contain a one very
+significant bug and will <em>always</em> cause a segfault if
+you attempt to do one pixel wide antialiasing.  You can manually
+patch older gd&#8217;s, or better yet upgrade to at least GD 2.0.34.</p>
+<p>In gd.c, function gdImageSetAAPixelColor() change:</p>
+<div class="highlight-python"><pre>int dr,dg,db,p,r,g,b;
+p = gdImageGetPixel(im,x,y);</pre>
+</div>
+<p>to</p>
+<div class="highlight-python"><pre>int dr,dg,db,p,r,g,b;
+if (!gdImageBoundsSafeMacro (im, x, y)) return;
+p = gdImageGetPixel(im,x,y);</pre>
+</div>
+<p>More detail about this patch (if you need any) was described by Steve Lime
+in a <a class="reference external" href="http://article.gmane.org/gmane.comp.gis.mapserver.user/17766">post to mapserver-users</a>.</p>
+</div>
+<div class="section" id="curved-label-support">
+<h3>Curved label support<a class="headerlink" href="#curved-label-support" title="Permalink to this headline">¶</a></h3>
+<p>ANGLE FOLLOW, a new feature that allows MapServer to draw curved labels
+about a linear feature like a road, requires libgd 2.0.29 and TrueType
+font support.  Configure should autodetect if you have a sufficient
+libgd and TrueType support to be able to use this feature.</p>
+</div>
+</div>
+<div class="section" id="anti-grain-geometry-support">
+<h2><a class="toc-backref" href="#table-of-contents">Anti-Grain Geometry Support</a><a class="headerlink" href="#anti-grain-geometry-support" title="Permalink to this headline">¶</a></h2>
+<p>Since version 5.0 MapServer supports the AGG rendering backend.
+Download the 2.4 tarball from the antigrain website and just type make in
+the root directory. If you intend on using mapscript, you must beforehand
+tweak the agg makefile to add -fPIC to the compiler options.</p>
+</div>
+<div class="section" id="ogc-support">
+<h2><a class="toc-backref" href="#table-of-contents">OGC Support</a><a class="headerlink" href="#ogc-support" title="Permalink to this headline">¶</a></h2>
+<p>MapServer provides support for many <a class="reference external" href="http://www.opengeospatial.org">OGC</a>
+specifications.  At 4.2.3, it provides support for WMS (Web Mapping Service),
+SLD (Styled Layer Descriptor), WFS (Web Feature Service), and experimental
+support for WCS (Web Coverage Service).</p>
+<div class="section" id="wms-support">
+<h3>WMS support<a class="headerlink" href="#wms-support" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="wms-server">
+<h4>WMS Server<a class="headerlink" href="#wms-server" title="Permalink to this headline">¶</a></h4>
+<p>Support for this specification is automatically enabled when you
+include PROJ.4 support. (&#8211;with-proj)
+You can check this yourself by looking for the following
+in your &#8220;configure&#8221; output:</p>
+<div class="highlight-python"><pre>checking whether we should include WMS support...
+    OGC WMS compatibility enabled (-DUSE_WMS).</pre>
+</div>
+<p>If, for some reason you DON&#8217;T want WMS support, you can force it off
+by passing &#8220;&#8211;without-wms&#8221; to your configure script.</p>
+<p>More information on using this feature is available in the WMS Server
+HOWTO available on the MapServer website.</p>
+</div>
+<div class="section" id="wms-client">
+<h4>WMS Client<a class="headerlink" href="#wms-client" title="Permalink to this headline">¶</a></h4>
+<p>Cascading is also supported. This allows mapserver to transparently
+fetch remote layers over WMS, basically acting like a client, and combine
+them with other layers to generate the final map.</p>
+<p>In order to enable this feature, you will need to pass the &#8220;&#8211;with-wmsclient&#8221;
+option to the configure script. MapServer will automatically look for
+libcurl, which is also required.</p>
+<p>To verify that the WMS Client feature is enabled, check the
+output from the configure script:</p>
+<div class="highlight-python"><pre>checking whether we should include WMS Client Connections support...
+    OGC WMS Client Connections enabled (-DUSE_WMS_LYR).</pre>
+</div>
+<p>Note that this feature is disabled by default, you have to
+specifically request it.</p>
+<p>More information on using this feature is available in the
+WMS Client HOWTO available on the MapServer website.</p>
+</div>
+</div>
+<div class="section" id="wfs-support">
+<h3>WFS support<a class="headerlink" href="#wfs-support" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="wfs-server">
+<h4>WFS Server<a class="headerlink" href="#wfs-server" title="Permalink to this headline">¶</a></h4>
+<p>Support for this specification is enabled by passing the configure
+script the &#8220;&#8211;with-wfs&#8221; option. OGR and PROJ.4 support is required.</p>
+<p>You can check this yourself by looking for the following in your
+&#8220;configure&#8221; output:</p>
+<div class="highlight-python"><pre>checking whether we should include WFS Server support...
+    OGC WFS Server support enabled (-DUSE_WFS_SVR).</pre>
+</div>
+<p>Note that this feature is disabled by default, you have to
+specifically request it.</p>
+<p>More information on using this feature is available in the
+WFS Server HOWTO available on the MapServer website.</p>
+</div>
+<div class="section" id="wfs-client">
+<h4>WFS Client<a class="headerlink" href="#wfs-client" title="Permalink to this headline">¶</a></h4>
+<p>MapServer can also act as a WFS client. This effectively means that MapServer
+reads it&#8217;s data from a remote server&#8217;s WFS output and renders it into a map,
+just like it would when reading data from a shapefile.</p>
+<p>In order to enable this feature, you will need to make sure you include
+OGR (Built with Xerces support) and PROJ.4 support, and pass the
+&#8220;&#8211;with-wfsclient&#8221; option to your configure script. MapServer will automatically
+look for libcurl, which is also required.</p>
+<p>To verify that the WFS Client feature is enabled, check the output
+from the configure script:</p>
+<div class="highlight-python"><pre>checking whether we should include WFS Client Connections support...
+    OGC WFS Client Connections enabled (-DUSE_WFS_LYR).</pre>
+</div>
+<p>Note that this feature is disabled by default, you have to specifically
+request it.</p>
+<p>More information on using this feature is available in the WFS Client
+HOWTO available on the MapServer website.</p>
+</div>
+</div>
+</div>
+<div class="section" id="spatial-warehousing">
+<h2><a class="toc-backref" href="#table-of-contents">Spatial Warehousing</a><a class="headerlink" href="#spatial-warehousing" title="Permalink to this headline">¶</a></h2>
+<p>MapServer can use a wide variety of sources of data input. One of the
+solutions growing in popularity is to use spatially enabled databases to
+store data, and to use them directly to draw maps for the web.</p>
+<p>Here you will find out how to enable mapserver to talk to one of these
+products. Please refer to the MapFile reference for more details on how to
+use these. This section only details how to compile MapServer for their use.</p>
+<div class="section" id="postgis">
+<h3>PostGIS<a class="headerlink" href="#postgis" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://postgis.refractions.net">PostGIS</a> adds support for geographic
+objects to the <a class="reference external" href="http://www.postresql.org">PostgreSQL</a> object-relational
+database. In effect, PostGIS &#8220;spatially enables&#8221; the PostgreSQL server,
+allowing it to be used as a backend spatial database for geographic
+information systems (GIS), much like ESRI&#8217;s SDE or Oracle&#8217;s Spatial extension.
+PostGIS is included in many distributions&#8217; packaging system, but you can also
+roll your own if needed.</p>
+<p>MapServer can use PostGIS as a data source. In order to do so simply use
+&#8220;&#8211;with-postgis&#8221; when running your configure script.</p>
+<div class="highlight-python"><pre>--with-postgis=/usr/local/pgsql/bin/pg_config</pre>
+</div>
+</div>
+<div class="section" id="arcsde">
+<h3>ArcSDE<a class="headerlink" href="#arcsde" title="Permalink to this headline">¶</a></h3>
+<p>MapServer allows you to use SDE as a data source both for geometry and
+attributes. In order to achieve this, you must have the SDE client librairies
+at your disposition, and have them installed on the machine running MapServer.</p>
+<p>In order to enable SDE support in MapServer, you have to compile it
+with two options specified:</p>
+<div class="highlight-python"><pre>--with-sde=/opt/sdeexe90
+--with-sde-version=90</pre>
+</div>
+</div>
+<div class="section" id="oracle-spatial">
+<h3>Oracle Spatial<a class="headerlink" href="#oracle-spatial" title="Permalink to this headline">¶</a></h3>
+<p>Oracle&#8217;s Spatial Warehousing cartridge is also supported by MapServer.
+In order to connect to it, you will need to compile MapServer against
+the Oracle libraries by passing the &#8220;&#8211;with-oraclespatial&#8221; argument to
+your configure script.  You will very likely need an ORACLE_HOME environment
+variable set to have it configure things correctly.</p>
+<div class="highlight-python"><pre>--with-oraclespatial=/opt/oracle</pre>
+</div>
+</div>
+</div>
+<div class="section" id="compiling">
+<h2><a class="toc-backref" href="#table-of-contents">Compiling</a><a class="headerlink" href="#compiling" title="Permalink to this headline">¶</a></h2>
+<p>First prepare the ground by making sure all of your required and/or
+recommended libraries are installed before attempting to compile MapServer.
+This will make your life much less complicated ;).  Here is the order that I
+usually use:</p>
+<ol class="arabic">
+<li><p class="first">Compile GD.  This often means acquiring libjpeg, libpng, zlib, and
+freetype before actually compiling the library.  You shouldn&#8217;t have too
+much trouble finding binaries of the libraries that GD requires, and
+often, they will already be installed with your system.  On unix, I&#8217;ve
+had very little luck finding pre-compiled binaries of the required
+GD library.  See <a class="reference internal" href="#libgd">libgd</a> section for notes about patching libgd if you
+plan to use antialiasing.</p>
+</li>
+<li><p class="first">Compile GDAL/OGR.  Describing how to compile GDAL/OGR is beyond the scope
+of this document.  If you have requirements for lots of different formats,
+make sure to install those libraries first.  I often find that building
+up a GDAL/OGR library often takes as long as compiling MapServer itself!</p>
+</li>
+<li><p class="first">Compile Proj.4.  Proj.4 is a straight-forward configure/make/make install
+library.</p>
+</li>
+<li><p class="first">Compile libcurl.  libcurl is a straight-forward configure/make/make install
+library.</p>
+</li>
+<li><p class="first">Compile/install optional libraries.  These might include SDE, PostGIS,
+Oracle Spatial, AGG, Ming, PDFlib, or MyGIS.  Mix and match as you need
+them.</p>
+</li>
+<li><p class="first">Unpack the MapServer tarball and cd into the mapserver directory:</p>
+<div class="highlight-python"><pre>[user@host user]$ tar -zxvf mapserver-X.Y.Z.tar.gz</pre>
+</div>
+</li>
+<li><p class="first">Configure your environment using &#8220;configure&#8221;.  I often place my configure
+command in its own file and changes its mode to be executable (+x) to save
+typing and have a record of how MapServer was configured.</p>
+<div class="highlight-python"><pre>./configure     --with-sde=/usr/sde/sdeexe90 \
+                --with-sde-version=90 \
+                --with-ogr=/usr/local/bin/gdal-config \
+                --with-gdal=/usr/local/bin/gdal-config \
+                --with-httpd=/usr/sbin/httpd \
+                --with-wfsclient \
+                --with-wmsclient \
+                --enable-debug \
+                --with-curl-config=/usr/bin/curl-config \
+                --with-proj=/usr/local \
+                --with-tiff \
+                --with-gd=/usr/local/ \
+                --with-jpeg \
+                --with-freetype=/usr/ \
+                --with-oraclespatial=/usr/oracle \
+                --with-threads \
+                --with-wcs \
+                --with-postgis=/usr/local/database/bin/pg_config \
+                --with-libiconv=/usr \ # new in 4.8
+                --with-geos=/usr/local/bin/geos-config \ # new in 4.8
+                --with-libiconv=/usr \ # new in 4.8
+                --with-xml2-config=/usr/bin/xml2-config \ # new in 4.10
+                --with-sos \ # new in 4.10
+                --with-agg=/path/to/agg-2.4</pre>
+</div>
+</li>
+<li><p class="first">Now that you have configured your build options and selected all the
+libraries you wish mapserver to use, you&#8217;re ready to compile the
+source code into an executable.</p>
+<p>This is actually quite simple, just execute &#8220;make&#8221;:</p>
+<div class="highlight-python"><pre>[user@host mapserver]$ make</pre>
+</div>
+</li>
+<li><p class="first">There is no <em>make install</em> step in the installation of MapServer.  The
+output of the compilation of MapServer is a binary executable that you
+can use in a CGI execution environment.</p>
+<p>To make sure all went well, look for the file called <em>mapserv</em></p>
+<div class="highlight-python"><pre>[user@host mapserver]$ ls -al mapserv
+-rwxr-xr-x    1 user     user       351177 Dec 21 11:38 mapserv</pre>
+</div>
+<p>A simple test is to try and run it:</p>
+<div class="highlight-python"><pre>[user@host mapserver]$ ./mapserv
+This script can only be used to decode form results and
+should be initiated as a CGI process via a httpd server.
+[user@host mapserver]$</pre>
+</div>
+<p>The message above is perfectly normal, and means exactly what it says.
+If you get anything else, something went terribly wrong.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="installation">
+<h2><a class="toc-backref" href="#table-of-contents">Installation</a><a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mapserver-binary">
+<h3>MapServer binary<a class="headerlink" href="#mapserver-binary" title="Permalink to this headline">¶</a></h3>
+<p>The MapServer program itself consists of only one file, the &#8220;mapserv&#8221; binary
+executable. This is a CGI executable, meant to be called and run by your
+web server.</p>
+<p>In this section, we will assume you are running Apache under its default
+directory structure in /usr/local/apache. You may need to have privileges
+to edit your httpd.conf (the main apache configuration file), or have
+someone (such as your webmaster) help you with the configuration details.</p>
+<p>The main goal is to get the &#8220;mapserv&#8221; binary installed in a publicly
+accessible directory that is configured to run CGI programs and scripts.</p>
+<div class="section" id="the-basic-install">
+<h4>The basic install<a class="headerlink" href="#the-basic-install" title="Permalink to this headline">¶</a></h4>
+<p>Under a default configuration, the CGI directory is &#8220;/usr/local/apache/cgi-bin&#8221;
+(RedHat users will use &#8220;/home/httpd/cgi-bin&#8221;). Placing the mapserv file in this
+directory makes it accessible by the following URL:
+&#8220;<a class="reference external" href="http://yourhostname.com/cgi-bin/mapserv">http://yourhostname.com/cgi-bin/mapserv</a>&#8220;. When accessing this URL through your
+web client, you should expect the following output if all has worked well:
+&#8220;No query information to decode. QUERY_STRING is set, but empty.&#8221; If you get
+this message, you&#8217;re done installing MapServer.</p>
+</div>
+</div>
+<div class="section" id="common-problems">
+<h3>Common problems<a class="headerlink" href="#common-problems" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="file-permissions">
+<h4>File permissions<a class="headerlink" href="#file-permissions" title="Permalink to this headline">¶</a></h4>
+<p>The most common problem one is likely to encounter when attempting to
+install the binary are permissions issues:</p>
+<ul>
+<li><p class="first">You do not have write permissions into your web server&#8217;s CGI Directory.
+Ask your webmaster to install the file for you.</p>
+</li>
+<li><p class="first">The web server gives you a &#8220;403 Permission denied&#8221; error. Make sure the
+user the web server runs as (usually &#8220;nobody&#8221;) has execute permission on
+the binary executable. Making the file world executable is perfectly
+fine and safe:</p>
+<div class="highlight-python"><pre>[user@host cgi-bin]$ chmod o+x mapserv</pre>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="apache-errors">
+<h4>Apache errors<a class="headerlink" href="#apache-errors" title="Permalink to this headline">¶</a></h4>
+<p>You may receive a few different type of errors as well if your web
+server configuration isn&#8217;t right:</p>
+<ul class="simple">
+<li>500 Internal server error: This is a fairly generic error message.
+All it basically tells you is that the web server was unsuccessful
+in running the program. You will have to consult the web server&#8217;s error
+log to find out more, and may need to enlist the help of your
+webmaster/system administrator.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="where-to-go-once-you-ve-got-it-compiled">
+<h3>Where to go once you&#8217;ve got it compiled<a class="headerlink" href="#where-to-go-once-you-ve-got-it-compiled" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference external" href="../introduction.html#introduction"><em>An Introduction to MapServer</em></a> document provides excellent coverage of getting started
+with MapServer.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="win32.html" title="Compiling on Win32"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Installation"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Installation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

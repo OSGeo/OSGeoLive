@@ -1,0 +1,305 @@
+MAP
+
+NAME GMAP_DEMO
+STATUS ON
+SIZE 400 300
+SYMBOLSET ../etc/symbols.txt
+EXTENT -2200000 -712631 3072800 3840000
+UNITS METERS
+SHAPEPATH "../data"
+IMAGECOLOR 255 255 255
+FONTSET ../etc/fonts.txt
+
+
+#
+# Start of web interface definition
+#
+WEB
+  MINSCALE 2000000
+  MAXSCALE 50000000
+#
+# On Windows systems, /tmp and /tmp/ms_tmp/ should be created at the root 
+# of the drive where the .MAP file resides.
+#
+  IMAGEPATH "/ms4w/tmp/ms_tmp/" 
+  IMAGEURL "/ms_tmp/"
+END
+
+#
+# Start of reference map
+#
+REFERENCE
+   IMAGE images/keymap.png
+   EXTENT -2200000 -712631 3072800 3840000
+   STATUS ON
+  COLOR -1 -1 -1
+  OUTLINECOLOR 255 0 0
+  SIZE 120 90      
+END
+
+#
+# Start of legend
+#
+LEGEND
+  KEYSIZE 18 12
+  LABEL
+    TYPE BITMAP
+    SIZE MEDIUM
+    COLOR 0 0 89
+  END
+  STATUS ON
+END
+
+#
+# Start of scalebar
+#
+SCALEBAR
+  IMAGECOLOR 255 255 255
+  LABEL
+    COLOR 0 0 0 
+    SIZE SMALL
+  END
+  SIZE 150 5
+  COLOR 255 255 255
+  BACKGROUNDCOLOR 0 0 0
+  OUTLINECOLOR 0 0 0
+  UNITS kilometers
+  INTERVALS 5
+  STATUS ON
+END
+
+
+QUERYMAP
+  STYLE HILITE
+  COLOR 255 0 0
+END
+
+
+#
+# Start of layer definitions
+#
+
+
+LAYER
+  NAME bathymetry
+  METADATA
+    "DESCRIPTION" "Elevation/Bathymetry"
+  END
+  TYPE RASTER
+  STATUS ON
+  DATA bath_mapserver.tif
+END
+
+LAYER
+  NAME land_fn
+  METADATA
+    "DESCRIPTION" "Foreign Lands"
+  END
+  TYPE POLYGON
+  STATUS ON
+  DATA land_fn
+  CLASS
+    NAME "Foreign Lands"
+    STYLE
+      COLOR 240 240 240
+      OUTLINECOLOR 199 199 199    
+    END
+  END
+END # layer
+
+LAYER
+  NAME park
+  METADATA
+    "DESCRIPTION"   "Parks"
+    "RESULT_FIELDS" "NAME_E YEAR_EST AREA_KMSQ"
+  END
+  TYPE POLYGON
+  STATUS OFF
+  DATA park
+  CLASS
+    NAME "Parks"
+    STYLE
+      COLOR 200 255 0
+      OUTLINECOLOR 120 120 120    
+    END
+    TEMPLATE "ttt_query.html"
+  END
+  TOLERANCE 5
+END # Layer
+
+LAYER
+  NAME drain_fn
+  METADATA
+    "DESCRIPTION" "Water"
+  END
+  TYPE POLYGON
+  STATUS ON
+  DATA drain_fn
+  CLASSITEM "Poly_featu" 
+  CLASS
+    EXPRESSION /16|21/  
+    NAME "Water"
+    STYLE
+      COLOR 225 249 255
+      OUTLINECOLOR 186 234 245    
+    END
+  END
+END # layer
+
+LAYER
+  NAME drainage
+  METADATA
+    "DESCRIPTION" "Drainage"
+  END
+  TYPE POLYGON
+  STATUS ON
+  DATA drainage
+  CLASSITEM "Poly_featu" 
+  CLASS
+    EXPRESSION "0"  
+    NAME "Water"
+    STYLE
+      COLOR 225 249 255
+      OUTLINECOLOR 186 234 245  
+    END
+  END
+END # layer
+
+LAYER
+  NAME prov_bound
+  METADATA
+    "DESCRIPTION" "Province"
+  END
+  TYPE LINE
+  STATUS ON
+  DATA province
+  CLASS
+    NAME "Province"
+    STYLE
+      COLOR 120 120 120
+    END
+  END
+END # layer
+
+LAYER
+  NAME fedlimit
+  METADATA
+    "DESCRIPTION" "Federal Limit"
+  END
+  TYPE LINE
+  STATUS ON
+  DATA fedlimit
+  CLASS
+    NAME "Federal Limit"
+    STYLE
+      SYMBOL 3  
+      COLOR 0 119 255  
+    END
+  END
+
+END # Layer
+
+LAYER
+  NAME rail
+  METADATA
+    "DESCRIPTION" "Railroads"
+  END
+  TYPE LINE
+  STATUS OFF
+  DATA rail
+  CLASS
+    NAME "Railroads"
+    STYLE
+      SYMBOL 0  
+      COLOR 168 0 184
+    END
+  END
+END # Layer
+
+LAYER
+  NAME road
+  METADATA
+    "DESCRIPTION" "Roads"
+  END
+  TYPE LINE
+  STATUS OFF
+  DATA road
+  CLASS
+    NAME "Roads"
+    STYLE
+      SYMBOL 0 
+      COLOR 220 0 0
+    END
+  END
+END # Layer
+
+LAYER
+  NAME popplace
+  METADATA
+    "DESCRIPTION"   "Cities"
+    "RESULT_FIELDS" "NAME"
+  END
+  TYPE POINT
+  STATUS ON
+  DATA popplace
+  LabelItem "Name"  
+  CLASSITEM "Capital" 
+  CLASS
+    EXPRESSION "1"  
+    TEMPLATE "ttt_query.html"
+    NAME "Cities"
+    LABEL
+      COLOR  255 0 0
+      FONT sans-italic
+      TYPE truetype
+      SIZE 8
+      POSITION AUTO     
+      PARTIALS FALSE
+      OUTLINECOLOR 255 255 255      
+    END 
+    STYLE
+      SYMBOL 2
+      SIZE 8
+      COLOR 0 0 0
+    END
+  END
+  CLASS
+    EXPRESSION /2|3/
+    TEMPLATE "ttt_query.html"
+    NAME "Cities"
+    LABEL
+     COLOR  0 0 0
+     FONT sans
+     TYPE truetype
+     SIZE 8
+     POSITION AUTO      
+     PARTIALS FALSE
+     OUTLINECOLOR 255 255 255     
+    END 
+    STYLE
+      SYMBOL 7
+      SIZE 6
+      COLOR 0 0 0
+    END
+  END
+  TOLERANCE 5
+END # Layer
+
+LAYER
+  NAME "grid"
+  METADATA
+    "DESCRIPTION" "Grid"
+  END
+  TYPE LINE
+  STATUS OFF
+  DATA "grid"
+  CLASS
+    NAME "Graticule"
+    STYLE
+      COLOR 0 0 0
+    END
+  END
+END # Layer
+
+
+END # Map File

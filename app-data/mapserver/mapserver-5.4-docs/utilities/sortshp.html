@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>sortshp &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Utilities" href="index.html" />
+    <link rel="next" title="sym2img" href="sym2img.html" />
+    <link rel="prev" title="shptreevis" href="shptreevis.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="sym2img.html" title="sym2img"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="shptreevis.html" title="shptreevis"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Utilities</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//utilities/sortshp.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/utilities/sortshp.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="shptreevis.html"
+                                  title="previous chapter">shptreevis</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="sym2img.html"
+                                  title="next chapter">sym2img</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/utilities/sortshp.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sortshp">
+<span id="id1"></span><h1>sortshp<a class="headerlink" href="#sortshp" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Purpose:</th><td class="field-body"><p class="first">Sorts a shapefile based on a single column in ascending or descending order.
+Supports INTEGER, DOUBLE and STRING column types. Useful for prioritizing shapes
+for rendering and/or labeling.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Description:</th><td class="field-body"><p class="first">The idea here is that if you know that you need to display a certain attribute
+classed by a certain value, it will be faster for MapServer to access that value
+if it is at the beginning of the attribute file.</p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Syntax:</th><td class="field-body"><div class="first highlight-python"><div class="highlight"><pre><span class="n">sortshp</span> <span class="p">[</span><span class="n">infile</span><span class="p">]</span> <span class="p">[</span><span class="n">outfile</span><span class="p">]</span> <span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="p">[</span><span class="n">ascending</span><span class="o">|</span><span class="n">descending</span><span class="p">]</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Example:</th><td class="field-body"><p class="first">This example uses a roads file (&#8216;roads_ugl&#8217;) that has a field with road classes in
+integer format (&#8216;class1&#8217;).</p>
+<div class="highlight-python"><pre>sortshp roads_ugl roads-sort class1 ascending</pre>
+</div>
+</td>
+</tr>
+<tr class="field"><th class="field-name">Result:</th><td class="field-body"><p class="first last">A new shapefile named &#8216;roads-sort.shp&#8217; is created with shapes sorted in ascending order,
+according to the values in the &#8216;class1&#8217; field, as shown below.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Figure1: Attributes Before sortshp</strong></p>
+<img alt="../_images/sortshp-before.png" src="../_images/sortshp-before.png" />
+<p><strong>Figure2: Attributes After sortshp</strong></p>
+<img alt="../_images/sortshp-after.png" src="../_images/sortshp-after.png" />
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="sym2img.html" title="sym2img"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="shptreevis.html" title="shptreevis"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Utilities</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

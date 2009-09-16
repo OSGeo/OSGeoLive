@@ -1,0 +1,180 @@
+.. _rfc30:
+
+==============================================
+MS RFC 30: Support for WMS 1.3.0
+==============================================
+
+:Date: 2007/06/15
+:Author: Daniel Morissette
+:Contact: dmorissette at mapgears.com
+:Author: Yewondwossen Assefa
+:Contact: yassefa at dmsolutions.ca
+:Last Edited: 2009/02/11
+:Status: Draft
+:Version: MapServer 5.4
+:Id: $Id: ms-rfc-30.txt 8883 2009-04-06 14:45:30Z assefa $
+
+Overview
+--------
+
+This RFC documents the changes required in order to upgrade MapServer's OGC
+WMS support to version 1.3.0 of the specification.
+
+MapServer already includes mechanisms to support multiple WMS versions (and
+already supports WMS versions 1.0.0, 1.1.0 and 1.1.1) so in theory this upgrade 
+should be straightforward and shouldn't require a RFC. Unfortunately, WMS 1.3.0
+contains some tricky changes that while they are not exactly backwards 
+incompatible are likely to make the life of users of WMS miserable.
+
+This RFC is mostly to document those changes and the way MapServer deals 
+with them.
+
+Coordinate Systems and Axis Orientation
+---------------------------------------
+
+The main issue introduced by WMS 1.3.0 is the change in the way it handles
+axis order for several SRS. This has an impact on the way the
+BBOX is specified in WMS requests and in Capabilities documents and in
+how the CONNECTIONTYPE WMS code interacts with remote servers.
+
+In previous versions of WMS, for any SRS the first axis
+was the easting (x or lon) and the second axis was the northing (y or lat). 
+Starting with WMS 1.3.0, some SRS such as the very popular
+EPSG:4326 have their axis reversed and the axis order becomes lon, lat 
+instead of lat, lon. This change in WMS 1.3.0 was done in order to align 
+with the definitions from the EPSG database (a requirement to make WMS
+an ISO specification).
+
+This change is sure to confuse simple clients that used to treat all 
+SRS the same way. MapServer and PROJ will need to be extended to carry
+information about the axis order of all EPSG SRS codes and treat them
+using the correct axis order.
+
+New CRS codes such as CRS:xxxx and AUTO2:xxxx have also been added by WMS 1.3.0
+that will need to be supported by MapServer. Note the wo types of Layer CRS 
+identifiers are supported by the specification: “label” and “URL” identifiers.
+The intention is to support at this point the label types CRS. 
+
+List of CRS planned to be supported are:
+
+- CRS:84 (WGS 84 longitude-latitude) 
+- CRS:83 (NAD83 longitude-latitude) 
+- CRS:27 (NAD27 longitude-latitude).  
+- AUTO2:42001 AUTO2:42002 AUTO2:42003 AUTO2:42004 AUTO2:42005
+
+CRS:1 (pixel coordinates) would not be supported at this point (there is a ticket 
+discussing this issue http://trac.osgeo.org/mapserver/ticket/485)
+
+EPSG codes: when advertising (such as BoundingBox for a layer elemnt) or using 
+a CRS element in a request such as GetMap/GetFeatureInfo, elements using epsg code >=4000 
+and <5000 will be assumed to have a reverse axes.  
+
+
+All the above need to be done in a way that allows continued support for
+older versions of the WMS specification (1.0.0 to 1.1.1) and will have 
+the least impact on existing WMS services.
+
+Implementation for the reverse axis will follow closely to what was already
+done for WCS1.1 support (http://mapserver.org/development/rfc/ms-rfc-41.html)
+
+
+WMS and SLD
+-----------
+
+All references to SLD support has been removed from the WMS 1.3.0 specifications.
+It has been replaced by two specifications:
+
+- Styled Layer Descriptor profile of the Web Map Service
+- Symbology Encoding Implementation Specification
+
+The Styled Layer Descriptor profile allows:
+
+- to extend the WMS to support additional operations (DescribeLayer, GetLegendGraphic)
+- addtional parameters related to the SLD for the GetMap support
+- advertise SLD support.
+
+This specification will be supported in the current implementation. 
+Note that the GetStyles operation (available in WMS 1.1.1) might not be supported
+in the first phase
+
+The Symbology Encoding Implementation represent basically the definitions for the 
+different symbolizers. We need to upgrade the current SLD support to support this
+specification.
+
+
+HTTP Post support
+-----------------
+
+HTTP Post support is optional and currently supported by Mapserver WMS 1.1.1.
+WMS 1.3.0 defines that if POST is supported, the the request message is formulated 
+as an XML document.
+Although this is highly deirable, the first implemenation of the WMS 1.3.0 might
+not support the XML Post requests.
+   
+
+OCG compliance tests
+--------------------
+
+The OGC Compliance and Interoperability Testing Initiative (CITE) 
+http://cite.opengeospatial.org/test_engine/wms/1.3.0/ provides automatic tests to 
+validate the implementation. The short term intention is to use this service as a 
+first validation tool. The longer term goal is to have Mapserver WMS 1.3.0 fully compliant.  
+
+
+Other Notes
+-----------
+
+- GetCapabilities advertises only the text/xml format. During a request we do not parse 
+  the optional Format paramater. It is always set to text/xml
+
+
+MapScript Implications
+----------------------
+
+None. This affects only the WMS server interface and WMS CONNECTION type.
+
+Files affected
+--------------
+
+::
+
+ mapwms.c
+ mapwmslayer.c
+ mapfile.c
+ mapows.c/h
+ mapogcsld.c
+
+Backwards compatibility issues
+------------------------------
+
+* The change in the way the axis order is handled is likely to cause lots
+  of confusion.
+
+Bug ID
+------
+
+* 473: http://trac.osgeo.org/mapserver/ticket/473
+
+
+Voting history
+--------------
+
+Passed with +1 from: TomK, Woodbridge, Assefa, Morissette
+
+
+Questions/Comments from the review period
+-----------------------------------------
+
+* Q: Can libxml2 be used to generate XML responses to continue the work started 
+  in mapowscommon.c?
+
+  A: I'll keep libxml2 in mind during the implementation, but I do not plan to 
+  refactor and risk breaking any code to convert it to libxml2 as part of 
+  this upgrade.
+
+  Since WMS 1.3.0 doesn't implement OWS common, it won't benefit from any of 
+  the code that's already using libxml2. It will actually mostly reuse 
+  existing printf-based code that's already well tested and working. I think 
+  the right time to switch to libxml2 for WMS would be when it will support 
+  OWS common and then there will be real benefits by reusing functions from 
+  mapowscommon.c. 

@@ -1,0 +1,30 @@
+.. _batch_utilities:
+
+*****************************************************************************
+ Batch Scripting 
+*****************************************************************************
+
+If you need to run the utilities on multiple files/folders, here are some 
+commands that will help you:
+
+Windows
+-------
+
+type the following at the command prompt:
+
+::
+
+    for %f in (*.shp) do shptree %f
+
+or to run recursively (throughout all subfolders):
+
+::
+
+    for /R %f in (*.shp) do shptree %f
+
+Linux
+-----
+
+::
+
+    find /path/to/data -name "*.shp" -exec shptree {} \; 

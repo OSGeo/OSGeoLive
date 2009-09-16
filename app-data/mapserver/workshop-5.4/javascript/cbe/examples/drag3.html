@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>CBE: Making An Element Resizable And Draggable</title>
+<meta name='author' content='Mike Foster, cross-browser.com'>
+<meta name='description' content='Making An Element Resizable And Draggable: A programming example for CBE, a cross-browser DHTML API for IE, Gecko, Opera, Netscape, Konqueror and similar browsers'>
+<link rel='stylesheet' type='text/css' href='../cbe.css'>
+<script type='text/javascript' src='../cbe.js'></script>
+<script type='text/javascript' src='../cbe_core.js'></script>
+<script type='text/javascript' src='../cbe_event.js'></script>
+<script type='text/javascript' src='../cbe_util.js'></script>
+<script type='text/javascript' src='../cbe_debug.js'></script>
+<script type='text/javascript'><!--
+var s = "<style type='text/css'>.clsCBE { position:absolute; width:100%; height:100%; clip:rect(0,100%,100%,0); border:1px solid #000000; padding:2px; margin:0px;}</style>";
+if (is.opera) s = "<style type='text/css'>.clsCBE { position:absolute; background:#ffffff; width:100%; height:100%; clip:rect(0,100%,100%,0); border:groove #333333; padding:2px; overflow:hidden;}</style>";
+else if (is.nav4) s = "<style type='text/css'>.clsCBE { position:absolute; width:100%; height:100%; clip:rect(0,100%,100%,0); }</style>";
+document.write(s);
+//--></script>
+<script type='text/javascript'><!--
+var e1;
+function windowOnload() {
+  with (e1 = document.getElementById('e1').cbe) {
+    color('#ff3333');
+    background('#ccccff');
+    resizeTo(125,125);
+    moveTo('e',10);
+    show();
+    addEventListener('dragResize');
+  }  
+}
+//--></script>
+</head>
+
+<body marginwidth='0' marginheight='0'><a name="topofpage"></a>
+
+<!-- Title and Nav Bar --><script type='text/javascript'>topNavBarEx()</script>
+
+<table width='80%' align='center' cellspacing='10' cellpadding='10'><tr><td bgcolor='#ffffff'><!-- indentation table -->
+
+<h1>Making An Element Resizeable <i>and</i> Draggable</h1>
+<p>The drag and dragStart events can be used to make an element <i>resizeable</i> by dragging.</p>
+
+<h2>Quick &amp; Easy</h2>
+
+<p>I've provided very simple event listeners just for this purpose.
+These listeners implement basic resizing <b>and</b> basic dragging.
+If you need more functionality than what these simple listeners provide, 
+then I'll discuss how to write your own below. The following is all the javascript for the example on this page.</p>
+<pre>
+var e1;
+function windowOnload() {
+  with (e1 = document.getElementById('e1').cbe) {
+    color('#ff3333');
+    background('#ccccff');
+    resizeTo(125,125);
+    moveTo('e',10);
+    show();
+    <b>addEventListener('dragResize');</b> // now e1 is draggable and resizeable 
+  }  
+}
+</pre>
+
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h2>Writing Your Own Resize Event Listener</h2>
+
+<p>I'll show how I wrote my dragResize listeners, and that should get you started writing your own.
+The following is what I wrote <i>before</i> I incorporated this feature into CBE.</p>
+<h3>The windowOnload() Function</h3>
+<p>The windowOnload function initializes the element and adds drag and dragStart event listeners.</p>
+<pre>
+var e1;
+function windowOnload() {
+  with (e1 = document.getElementById('e1').cbe) {
+    background('#ccccff');
+    resizeTo(125,125);
+    moveTo('e',10);
+    show();
+    addEventListener('dragStart', dragStartListener);
+    addEventListener('drag', dragListener);
+  }  
+}
+</pre>
+<h3>The dragStartListener() Function</h3>
+<p>The dragStartListener checks if the initial mouseDown event occured in the <i>resize corner</i> of the element.
+In this case, I'm using a 20 by 20 area in the bottom-right corner. If this was true, then the isResizing property is set to true, else false.</p>
+<pre>
+function dragStartListener(e) {
+  if (
+    e.offsetX > (e.cbeCurrentTarget.width() - 20)
+    &&
+    e.offsetY > (e.cbeCurrentTarget.height() - 20)
+  ) {
+    e.cbeCurrentTarget.isResizing = true;
+  }
+  else e.cbeCurrentTarget.isResizing = false;
+}
+</pre>
+<h3>The dragListener() Function</h3>
+<p>The dragListener either drags or resizes the element, depending on the value of the isResizing property.</p>
+<pre>
+function dragListener(e) {
+  if (e.cbeCurrentTarget.isResizing) e.cbeCurrentTarget.resizeBy(e.dx, e.dy);
+  else e.cbeCurrentTarget.moveBy(e.dx, e.dy);
+}
+</pre>
+
+</td></tr></table><!-- end indentation table -->
+
+<!-- Bottom Nav Bar --><script type='text/javascript'>bottomNavBarEx()</script>
+
+<div id="e1" class='clsCBE'>
+<b>e1</b><br>
+<br>
+draggable<br><br>
+resizeable
+</div>
+
+</body>
+</html>

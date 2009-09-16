@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 26: Version 5 Terminology Cleanup &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 27: Label Priority" href="ms-rfc-27.html" />
+    <link rel="prev" title="MS RFC 25: Align MapServer pixel and extent models with OGC models" href="ms-rfc-25.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-27.html" title="MS RFC 27: Label Priority"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-25.html" title="MS RFC 25: Align MapServer pixel and extent models with OGC models"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-26.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-26.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 26: Version 5 Terminology Cleanup</a><ul>
+<li><a class="reference external" href="#transparency">TRANSPARENCY</a></li>
+<li><a class="reference external" href="#scale">SCALE</a></li>
+<li><a class="reference external" href="#pattern">PATTERN</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-25.html"
+                                  title="previous chapter">MS RFC 25: Align MapServer pixel and extent models with OGC models</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-27.html"
+                                  title="next chapter">MS RFC 27: Label Priority</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-26.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-26-version-5-terminology-cleanup">
+<span id="rfc26"></span><h1>MS RFC 26: Version 5 Terminology Cleanup<a class="headerlink" href="#ms-rfc-26-version-5-terminology-cleanup" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2007/04/21</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Steve Lime, Havard Tveite</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">steve.lime at dnr.state.mn.us, havard.tveite at umb.no</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">$Date: 2008-12-23 22:34:31 +0100 (Di, 23. Dez 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Implemented</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">MapServer 5.0</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-26.txt 8278 2008-12-23 21:34:31Z hobu $</td>
+</tr>
+</tbody>
+</table>
+<p>Mapserver terminology is mostly good and consistent, with a few exceptions.
+The two that generate the most confusion and TRANSPARENCY (layerObj) and
+various scale referencing parameters (e.g. MINSCALE).</p>
+<p>Another change would be changing the symbolObj STYLE parameter to PATTERN
+instead. This would be simply to avoid confusion with the classObj STYLE.</p>
+<p>The The purpose of this proposal is to make Mapserver even easier to use,
+removing confusion that can arise in cases of inconsistent terminology.</p>
+<div class="section" id="transparency">
+<h2>TRANSPARENCY<a class="headerlink" href="#transparency" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Overview</li>
+</ol>
+<p>TRANSPARENCY is used in the Mapserver mapfile layer object for what is in
+fact opacity (as is also pointed out in the current documentation).</p>
+<p>2) Technical details
+To achieve more consistent terminology, the following should be done:</p>
+<p>Changing the keyword TRANSPARENCY to OPACITY</p>
+<p>The old mapfile layer keyword &#8220;TRANSPARENCY&#8221; will be deprecated, but shall
+be supported in future versions of Mapserver as an alias for OPACITY.</p>
+<p>The new mapfile layer keyword OPACITY should replace TRANSPARENCY. There
+will be no changes in type or semantics, only a change of keyword name.</p>
+<p>The internal structure member name in the layerObj will change from
+transparency to opacity.</p>
+<ol class="arabic simple" start="3">
+<li>Mapfile Implications</li>
+</ol>
+<p>The parser will have to support both OPACITY and TRANSPARENCY (for
+backward compatibility).  The type will not change.</p>
+<p>At debug level 1 a warning will be issued that the TRANSPARENCY parameter
+is deprecated and OPACITY should be used instead.</p>
+<ol class="arabic simple" start="4">
+<li>MapScript Implications</li>
+</ol>
+<p>Since the layerObj will no longer contain a transparency member this will
+break old scripts. The fix will be evident.</p>
+<ol class="arabic simple" start="5">
+<li>Documentation Implications</li>
+</ol>
+<p>Documentation should be updated, introducing OPACITY as a new layer
+keyword with documentation similar to the current transparency.  The
+layer keyword TRANSPARENCY should be documented as deprecated.
+All other documentation that references TRANSPARENCY will have to be
+updated (simple search-replace with a manual check of all occurences
+of the word transparency?)</p>
+</div>
+<div class="section" id="scale">
+<h2>SCALE<a class="headerlink" href="#scale" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Overview</li>
+</ol>
+<p>SCALE and MAXSCALE/MINSCALE is a case where Mapserver terminology is not in
+line with mainstream map terminology.</p>
+<p>In proper usage, scale is a representative fraction. The scale 1:50000
+tells us that one meter on the map corresponds to 50000 meters in the
+&#8220;terrain&#8221;. 1:1000 (0.001) is a larger scale than 1:50000 (0.00002). The
+current use of MAXSCALE and MINSCALE is therefore not consistent with
+proper terminology.</p>
+<ol class="arabic simple" start="2">
+<li>Technical details</li>
+</ol>
+<p>To achieve more consistent terminology, the following could be done with
+limited consequences:</p>
+<p>Change all occurrences of &#8220;SCALE&#8221; in keywords to &#8220;ScaleDenom&#8221;.</p>
+<blockquote>
+MinScale 10000
+Maxscale 1000000</blockquote>
+<p>will become:</p>
+<blockquote>
+MinScaleDenom 10000
+MaxScaleDenom 1000000</blockquote>
+<p>This will apply to the following occurences of SCALE in mapserver keywords:</p>
+<dl class="docutils">
+<dt>Map object:</dt>
+<dd>SCALE -&gt; ScaleDenom</dd>
+<dt>Web object:</dt>
+<dd>MAXSCALE/MINSCALE</dd>
+<dt>Layer object:</dt>
+<dd>MAXSCALE/MINSCALE
+LABELMAXSCALE/LABELMINSCALE
+SYMBOLSCALE</dd>
+<dt>Class object:</dt>
+<dd>MAXSCALE/MINSCALE</dd>
+</dl>
+<ol class="arabic simple" start="3">
+<li>Mapfile Implications</li>
+</ol>
+<p>The parser would have to accept the new keywords.  The old keywords will be
+unique prefixes of the new keywords, and could be accepted by the parser
+(in a transition period or for eternity).</p>
+<p>At debug level 1 a warning will be issued that the ...SCALE parameter is
+deprecated and ...SCALEDENOM should be used instead.</p>
+<p>4) MapScript Implications
+For all scale variables, scale should be changed to scaledenom (for
+consistency reasons).  The type (double) will not change. Like opacity above
+this could break old scripts.</p>
+<ol class="arabic simple" start="5">
+<li>Template Implications</li>
+</ol>
+<p>The [scale] substitution should be deprecated (but still supported)
+and [scaledenom] added.</p>
+<ol class="arabic simple" start="6">
+<li>CGI Imaplications</li>
+</ol>
+<p>The scale CGI parameter would continue to be supported (e.g. users often
+define a map extent using a center point and a scale value). Scaledenom
+would also be supported.</p>
+<ol class="arabic simple" start="7">
+<li>Documentation Implications</li>
+</ol>
+<p>All occurences of scale keywords in the documentation will have to be
+changed to reflect the new names. The old style keywords could be included,
+but should marked as deprecated.</p>
+</div>
+<div class="section" id="pattern">
+<h2>PATTERN<a class="headerlink" href="#pattern" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Overview</li>
+</ol>
+<p>Currently both the symbolObj and classObj contain STYLE parameters.
+The symbolObj style stores dash patterns used for line symbols. The name
+is derived from GD terminology. To avoid confusion with the classObj STYLE
+the symbolObj STYLE should be renamed to more concisely reflect it&#8217;s purpose.</p>
+<ol class="arabic simple" start="2">
+<li>Technical details</li>
+</ol>
+<p>In the symbolObj structure definition the member style will be renamed
+pattern. All references to the style in the code will also be updated.</p>
+<ol class="arabic simple" start="3">
+<li>Mapfile/symbol file Implications</li>
+</ol>
+<p>The parser would have to accept the new keywords.  The old keywords will
+be unique prefixes of the new keywords, and could be accepted by the
+parser (in a transition period or for eternity).</p>
+<p>At debug level 1 a warning will be issued that the STYLE parameter is
+deprecated and PATTERN should be used instead.</p>
+<ol class="arabic simple" start="4">
+<li>MapScript Implications</li>
+</ol>
+<p>As above the symbolObj structure would be altered and so MapScript scripts
+that set a symbol style programatically would break. They would need to
+reference the patter parameter instead.</p>
+<ol class="arabic simple" start="5">
+<li>Template Implications</li>
+</ol>
+<p>None</p>
+<ol class="arabic simple" start="6">
+<li>CGI Implications</li>
+</ol>
+<p>None</p>
+<ol class="arabic simple" start="7">
+<li>Documentation Implications</li>
+</ol>
+<p>The symbolObj reference guides would need to updated to reflect the name
+change.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-27.html" title="MS RFC 27: Label Priority"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-25.html" title="MS RFC 25: Align MapServer pixel and extent models with OGC models"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

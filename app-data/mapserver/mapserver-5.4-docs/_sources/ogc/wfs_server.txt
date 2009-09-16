@@ -1,0 +1,551 @@
+.. _wfs_server:
+
+*****************************************************************************
+ WFS Server
+*****************************************************************************
+
+:Author: Jean-François Doyon
+:Contact: jdoyon at nrcan.gc.ca
+:Author: Jeff McKenna
+:Contact: jmckenna at gatewaygeomatics.com
+:Revision: $Revision: 9272 $
+:Date: $Date: 2009-08-25 19:01:14 -0300 (Tue, 25 Aug 2009) $
+:Last Updated: 2006/10/13
+
+.. contents::
+    :depth: 2
+    :backlinks: top
+    
+Introduction
+============
+
+A WFS ( Web Feature Service ) publishes feature-level geospatial data to the web. 
+This means that instead of returning an image, as MapServer has traditionally done, 
+the client now obtains fine-grained information about specific geospatial features 
+of the underlying data, at both the geometry AND attribute levels. As with other 
+OGC specifications, this interface uses XML over HTTP as it's delivery mechanism, 
+and, more precisely, GML (Geography Markup Language), which is a subset of XML.
+
+WFS-Related Information
+-----------------------
+
+Here are some WFS related links (including a newly added OGC services workshop 
+with MapServer). Since these are highly detailed technical specifications, there 
+is no need to read through them in their entirety to get a MapServer WFS up and 
+running. It is still recommended however to read them over and get familiar with 
+the basics of each of them, in order to understand how it all works:
+
+- The `OGC Web Feature Service Implementation Specification`_.
+
+- The `Geography Markup Language Implementation Specification`_.
+
+- MapServer `OGC Web Services Workshop package`_. 
+
+Working knowledge of MapServer is of course also required.
+
+Software Requirements
+---------------------
+
+In order to enable MapServer to serve WFS, it MUST be compiled against certain 
+librairies:
+
+- PROJ.4: The reprojection library. Version 4.4.3 or greater is required.
+
+- GDAL/OGR: I/O support libraries. Version 1.1.8 or greater is required.
+
+Please see the MapServer :ref:`UNIX Compilation and Installation HowTo <unix>` for detailed 
+instructions on compiling mapserver with support for these libraries and features. 
+For Windows users, the `MS4W`_ installer comes ready to serve both WFS and WMS. 
+
+Version of GML Supported
+------------------------
+
+MapServer can output both GML2 and GML3.  By default MapServer serves GML2.  You can
+test this by adding an 'OUTPUTFORMAT' parameter to a GetFeature request, such as:
+
+- `GML2 request output`_
+- `GML3 request output`_
+
+For a detailed discussion on the versions supported, see `bug#884`_.
+
+Configuring your MapFile to Serve WFS layers
+============================================
+
+Much as in the WMS support, WFS publishing is enabled by adding certain magic 
+METADATA keyword/value pairs to a MapFile.
+
+MapServer will serve and include in its WFS capabilities only the layers that 
+meet the following conditions:
+
+- Data source is of vector type (Shapefile, OGR, PostGIS, SDE, SDO, ...)
+
+- LAYER NAME must be set. Layer names must start with a letter when setting up a 
+  WFS server (layer names should not start with a digit or have spaces in them).
+
+- LAYER TYPE is one of: LINE, POINT, POLYGON
+
+- LAYER DUMP parameter set to TRUE
+
+- The "wfs_onlineresource" metadata:
+
+  The wfs_onlineresource metadata is set in the map's web object metadata and 
+  specifies the URL that should be used to access your server. This is required for 
+  the GetCapabilities output. If wfs_onlineresource is not provided then MapServer 
+  will try to provide a default one using the script name and hostname, but you 
+  shouldn't count on that too much. It is strongly recommended that you provide 
+  the wfs_onlineresource metadata.
+
+  See section 12.3.3 of the `WFS 1.0.0 specification`_ for the whole story about 
+  the online resource URL. Basically, what you need is a complete HTTP URL including 
+  the http:// prefix, hostname, script name, potentially a "map=" parameter, and 
+  and terminated by "?" or "&".
+
+  Here is a valid online resource URL:
+
+  ::
+  
+     http://my.host.com/cgi-bin/mapserv?map=mywfs.map&
+          
+  By creating a wrapper script on the server it is possible to hide the "map=" 
+  parameter from the URL and then your server's online resource URL could be 
+  something like:
+
+  ::
+  
+     http://my.host.com/cgi-bin/mywfs?
+          
+  This is covered in more detail in the "More About the Online Resource URL" section 
+  of the :ref:`WMS Server <online_resource_wms>` document. 
+
+Example WFS Server Mapfile
+--------------------------
+
+The following is an example of a bare minimum WFS Server mapfile. Note the comments 
+for the required parameters.
+
+.. code-block:: mapfile
+
+        NAME "WFS_server"
+        STATUS ON
+        SIZE 400 300
+        SYMBOLSET ../etc/symbols.sym
+        EXTENT -2200000 -712631 3072800 3840000
+        UNITS METERS
+        SHAPEPATH "../data"
+        IMAGECOLOR 255 255 255
+        FONTSET ../etc/fonts.txt
+
+        WEB
+          IMAGEPATH "/ms4w/tmp/ms_tmp/" 
+          IMAGEURL "/ms_tmp/"
+          METADATA
+            "wfs_title"            "GMap WFS Demo Server"  ## REQUIRED
+            "wfs_onlineresource"   "http://127.0.0.1/cgi-bin/mapserv.exe?"  ## Recommended
+            "wfs_srs"               "EPSG:42304 EPSG:42101 EPSG:4269 EPSG:4326"  ## Recommended
+            "ows_schemas_location" "http://ogc.dmsolutions.ca"  ## Optional
+          END
+        END
+
+        PROJECTION
+          "init=epsg:42304"
+        END
+
+        LAYER
+          NAME "province"
+          METADATA
+            "wfs_title"    "Provinces" ## REQUIRED
+            "gml_featureid" "ID" ## REQUIRED
+            "gml_include_items" "all"  ## Optional (serves all attributes for layer)
+          END
+          TYPE POLYGON
+          STATUS ON
+          DATA province
+          PROJECTION
+            "init=epsg:42304"
+          END
+          DUMP TRUE           ## REQUIRED
+          CLASS
+            NAME "Canada"
+            STYLE
+              COLOR 200 255 0
+              OUTLINECOLOR 120 120 120
+            END
+            TEMPLATE "ttt_query.html"
+          END
+        END # Layer
+
+        END # Map File
+
+Rules for Handling SRS in MapServer WFS
+---------------------------------------
+
+Contrary to WMS, the OGC WFS specification doesn't allow a layer (feature type) 
+to be advertised in more than one SRS. Also, there is no default SRS that applies 
+to all layers by default in the OGC WFS spec. However, it is possible to have every 
+layer in a WFS server advertised in a different SRS.
+
+Here is how MapServer decides the SRS to advertise and use for each layer in your WFS:
+
+- If a top-level map SRS is defined* then this SRS is used and applies to all layers 
+  (feature types) in this WFS. In this case the SRS of individual layers is simply 
+  ignored even if it's set.
+
+- If there is no top-level map SRS defined* then each layer is advertised in its own 
+  SRS in the capabilities.
+
+- By "SRS is defined", we mean either the presence of a PROJECTION object defined 
+  using an EPSG code, or of a "wfs_srs" metadata at this level.
+
+Note that at the map top-level the "wfs_srs" metadata value takes precedence over the 
+contents of the :ref:`PROJECTION` block.
+
+At the layer level, if both the wfs_srs metadata and the PROJECTION object are set 
+to different values, then the wfs_srs metadata defines the projection to use in 
+advertising this layer (assuming there is no top-level map SRS), and the PROJECTION 
+value is assumed to be the projection of the data. So this means that the data would 
+be reprojected from the PROJECTION SRS to the one defined in the wfs_srs metadata 
+before being served to WFS clients.
+
+Confusing? As a rule of thumb, simply set the wfs_srs at the map level (in web metadata) 
+and never set the wfs_srs metadata at the layer level and things will work fine for 
+most cases.
+
+Test Your WFS Server
+--------------------
+
+Validate the Capabilities Metadata
+**********************************
+
+OK, now that we've got a mapfile, we have to check the XML capabilities returned 
+by our server to make sure nothing is missing.
+
+Using a web browser, access your server's online resource URL to which you add 
+the parameter "REQUEST=GetCapabilities" to the end, e.g.
+
+http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&VERSION=1.0.0&REQUEST=getcapabilities
+
+If everything went well, you should have a complete XML capabilities document. 
+Search it for the word "WARNING"... MapServer inserts XML comments starting 
+with "<!--WARNING: " in the XML output if it detects missing mapfile parameters
+or metadata items. If you notice any warning in your XML output then you have 
+to fix all of them before you can register your server with a WFS client, otherwise 
+things are likely not going to work.
+
+Note that the SERVICE parameter is required for all WFS requests.  When a request happens, it is passed through WMS, WFS, and WCS in MapServer (in that order) until one of the services respond to it.  
+
+Test With a GetFeature Request
+******************************
+
+OK, now that we know that our server can produce a valid XML GetCapabilities 
+response we should test the GetFeature request. Simply adding 
+"SERVICE=WFS&VERSION=1.0.0&REQUEST=GetFeature&TYPENAME=yourlayername1,yourlayername2" 
+to your server's URL should return the GML associated with those layers.
+
+http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&VERSION=1.0.0&REQUEST=getfeature&TYPENAME=park
+
+Test with a Real Client
+***********************
+
+If you have access to a WFS client, then register your new server's online 
+resource with it and you should be off and running.
+
+If you don't have your own WFS client installed already, here are a few pointers:
+
+- MapServer itself can be used as a WFS client, see the :ref:`WFS Client HowTo <wfs_client>`.
+
+- `Deegree`_ provides a WFS client.
+
+- `uDig`_ can add layers from WMS/WFS servers.
+
+- The `owsview`_ Viewer Client Generator is an online application that allows 
+  users to validate WFS Capabilities XML (it does not allow you to view WFS data). 
+  
+Support for GET and POST Requests
+*********************************
+
+Starting from version 4.2 MapServer supports XML-encoded POST requests and GET 
+requests. The default in MapServer is POST.
+
+Support for Filter Encoding
+***************************
+
+Starting from version 4.2 MapServer supports Filter Encoding (FE) in WFS 
+GetFeature requests. For more information on the server side of Filter Encoding 
+see the :ref:`Filter Encoding HowTo <filter_encoding>`.   
+
+Reference Section
+=================
+
+The following metadata are available in the setup of the WFS Server mapfile:
+
+**Note**
+
+Each of the metadata below can also be referred to as 'ows_*' instead of 'wfs_*'. 
+MapServer tries the 'wfs_*' metadata first, and if not found it tries the corresponding 
+'ows_*' name. Using this reduces the amount of duplication in mapfiles that support 
+multiple OGC interfaces since "ows_*" metadata can be used almost everywhere for 
+common metadata items shared by multiple OGC interfaces.
+
+Web Object Metadata
+-------------------
+
+**ows_updatesequence**
+
+- *Description:* (Optional) The updateSequence parameter can be used for maintaining the consistency of a client cache of the contents of a service metadata document. The parameter value can be an integer, a timestamp in [ISO 8601:2000] format, or any other number or string.
+
+**ows_schemas_location**
+
+- *Description:* (Optional) (Note the name ows_schemas_location and not wfs/_... 
+  this is because all OGC Web Services (OWS) use the same metadata) Root of the 
+  web tree where the family of OGC WFS XMLSchema files are located. This must be a 
+  valid URL where the actual .xsd files are located if you want your WFS output to 
+  validate in a validating XML parser. Default is http://schemas.opengis.net. 
+  See http://ogc.dmsolutions.ca for an example of a valid schema tree. 
+
+**wfs_abstract**
+
+- *WFS TAG Name:* Abstract (WFS 1.0.0, sect. 12.3.3)
+- *Description:* (Optional) Descriptive narrative for more information about 
+  the server. 
+
+**wfs_accessconstraints**
+
+- *WFS TAG Name:* Accessconstraints (WFS 1.0.0, sect. 12.3.3)
+- *Description:* (Optional) Text describing any access constraints imposed by the 
+  service provider on the WFS or data retrieved from this service. 
+
+**wfs_encoding**
+
+- *Description:* (Optional) XML encoding for all XML documents returned by the 
+  server. The default is ISO-8859-1. 
+
+**wfs_fees**
+
+- *WFS TAG Name:* Fees (WFS 1.0.0, sect. 12.3.3)
+- *Description:* (Optional) Any fees imposed by the service provider for usage of 
+  this service or for data retrieved from the WFS. 
+
+**wfs_keywordlist**
+
+- *WFS TAG Name:* Keyword (WFS 1.0.0, sect. 12.3.3)
+- *Description:* (Optional) List of words to aid catalog searching. 
+
+**wfs_maxfeatures**
+
+- *Description:* (Optional) The number of elements to be returned by the WFS server. 
+  This has priority over the 'maxfeatures' parameter passed by the user. If the 
+  not set the current behaviour is not changed. 
+
+**wfs_namespace_prefix**
+
+- *Description:* (Optional) User defined namespace prefix to be used in the response 
+  of a WFS GetFeature request. e.g. "wfs_namespace_prefix" "someprefix". 
+
+**wfs_namespace_uri**
+
+- *Description:* (Optional) User defined namespace URI to be used in the response 
+  of a WFS GetFeature request. e.g. "wfs_namespace_uri" "http://somehost/someurl". 
+
+**wfs_onlineresource**
+
+- *WFS TAG Name:* Onlineresource (WFS 1.0.0, sect. 12.3.3)
+- *Description:* (Recommended) The URL prefix for HTTP GET requests. 
+
+**wfs_service_onlineresource**
+
+- *Description:* (Optional) Top-level onlineresource URL. MapServer uses the onlineresource 
+  metadata (if provided) in the following order:
+         
+   1. wfs_service_onlineresource
+         
+   2. ows_service_onlineresource
+         
+   3. wfs_onlineresource (or automatically generated URL, see the onlineresource 
+      section of this document) 
+
+**wfs_title**
+
+- *WFS TAG Name:* Title (WFS 1.0.0, sect. 12.3.3)
+- *Description:* (Required) Human readable title to identify server. 
+
+**wfs_srs**
+
+- *Description:* (Recommended) The SRS to use for all layers in this server. 
+  (e.g. EPSG:4326) See the notes below about the SRS rules in the WFS. 
+
+**wfs_feature_collection**
+
+- *Description:* Replaces the default name of the feature-containing element (<msFeatureCollection>) with a user-defined value.
+
+Layer Object
+------------
+
+**gml_exclude_items**
+
+- *Description:* (Optional) A comma delimited list of items to exclude.
+  As of MapServer 4.6, you can control how many attributes (fields) you expose 
+  for your data layer with metadata. The previous behaviour was simply to expose 
+  all attributes all of the time. The default is to expose no attributes at all.
+  An example excluding a specific field would be:
+  
+  ::
+  
+    "gml_include_items" "all"
+    "gml_exclude_items" "Phonenum"
+
+**gml_featureid**
+
+- *Description:* (Required for MapServer 4.10) Field to be used for the ID of the feature in the output GML.    
+  wfs_featureid or ows_feature_id can be specified instead.
+
+**gml_groups**
+
+- *Description:* (Optional) A comma delimited list of group names for the layer.
+
+**gml_[group name]_group**
+
+- *Description:* (Optional) A comma delimited list of attributes in the group.
+  Here is an example:
+  
+  ::
+  
+    "gml_include_items" "all"
+    "gml_groups"        "display"
+    "gml_display_group" "Name_e,Name_f"
+
+**gml_include_items**
+
+- *Description:* (Optional) A comma delimited list of items to include, or keyword
+  "all". As of MapServer 4.6, you can control how many attributes (fields) you expose 
+  for your data layer with this metadata. The previous behaviour was simply to expose 
+  all attributes all of the time. You can enable full exposure by using the keyword "all", 
+  such as:
+  
+  ::
+  
+    "gml_include_items" "all"
+    
+  You can specify a list of attributes (fields) for partial exposure, such as:
+  
+  ::
+  
+    "gml_include_items" "Name,ID"
+    
+  The new default behaviour is to expose no attributes at all.
+
+**gml_[item name]_alias**
+
+- *Description:* (Optional) An alias for an attribute's name.  The served GML will refer
+  to this attribute by the alias.  Here is an example:
+
+  ::
+  
+    "gml_province_alias" "prov"
+    
+**gml_[item name]_type**
+
+- *Description:* (Optional) Specifies the type of the attribute.  Valid values
+  are Integer|Real|Character|Date|Boolean.
+
+**gml_xml_items**
+
+- *Description:* (Optional) A comma delimited list of items that should not be 
+  XML-encoded.
+
+**gml_geometries**
+
+- *Description:* provides a name other than the default "msGeometry" for geometry elements. The value is specified as a string to be used for geometry element names.
+
+**gml_[name]_type**
+
+- *Description:* When employing gml_geometries, it is also necessary to specify the geometry type of the layer. This is accomplished by providing a value for gml_[name]_type, where [name] is the string value specified for gml_geometries, and a value which is one of:
+
+            * point
+            * multipoint
+            * line
+            * multiline
+            * polygon
+            * multipolygon
+
+**gml_[name]_occurances**
+
+- *Description:* MapServer applies default values of 0 and 1, respectively, to the "minOccurs" and "maxOccurs" attributes of geometry elements, as can be seen in the preceding examples. To override these defaults, a value is assigned to a gml_[name]_occurances layer metadata item, where again [name] is the string value specified for gml_geometries, and the value is a comma-delimited pair containing the respective lower and upper bounds.
+
+**wfs_abstract**
+
+- Same as wfs_abstract in the Web Object. 
+
+**wfs_extent**
+
+- *Description:* (Optional) Used for the layer's BoundingBox tag for cases where it is impossible (or very inefficient) for MapServer to probe the data source to figure its extents. The value for this metadata is "minx miny maxx maxy" separated by spaces, with the values in the layer's projection units. If wfs_extent is provided then it has priority and MapServer will NOT try to read the source file's extents.
+
+**wfs_featureid**
+
+- *Description:* (Required for MapServer 4.10) Field to be used for the ID of the feature in the output GML.    
+  gml_featureid or ows_feature_id can be specified instead.
+
+**wfs_keywordlist**
+
+- Same as wfs_keywordlist in the Web Object. 
+
+**wfs_metadataurl_format**
+
+- *Description:* (Optional) The file format of the metadata record. Valid 
+  values are "XML", "SGML", or "HTML". The layer metadata wfs_metadataurl_type 
+  and wfs_metadataurl_href must also be specified.
+- refer to section 12.3.5 of the `WFS 1.0.0 spec`_. 
+
+**wfs_metadataurl_href**
+
+- *Description:* (Optional) The URL to the layer's metadata. The layer 
+  metadata wfs_metadataurl_type and wfs_metadataurl_format must also 
+  be specified.
+- refer to section 12.3.5 of the `WFS 1.0.0 spec`_. 
+
+**wfs_metadataurl_type**
+
+- *Description:* (Optional) The standard to which the metadata complies. Currently 
+  only two types are valid: "TC211" which refers to [ISO 19115], and "FGDC" which 
+  refers to [FGDC CSDGM]. The layer metadata wfs_metadataurl_format and 
+  wfs_metadataurl_href must also be specified.
+- refer to section 12.3.5 of the `WFS 1.0.0 spec`_. 
+
+**wfs_srs**
+
+- *Description:* If there is no SRS defined at the top-level in the mapfile 
+  then this SRS will be used to advertize this feature type (layer) in the 
+  capabilities. See the note below about the SRS rules in the WFS. 
+
+**wfs_title**
+
+- Same as wfs_title in the Web Object. 
+
+To-do Items and Known Limitations
+==================================
+
+- This is just a basic WFS (read-only): transaction requests are not supported 
+  and probably never will given the nature of MapServer.  `GeoServer`_ is
+  recommended for those needing WFS-T support.
+
+- WFS spec. seems to require that features of a given feature type must all be 
+  of the same geometry type (point, line, polygon). This works fine for shapefiles, 
+  but some data source formats supported by MapServer allow mixed geometry 
+  types in a single layer and this goes against the WFS spec. Suggestions on 
+  how to handle this are welcome (send suggestions to the 
+  :ref:`mapserver-dev mailing list <lists>`.
+
+.. #### rST Link Section ####
+
+.. _`OGC Web Feature Service Implementation Specification`: https://portal.opengeospatial.org/files/?artifact_id=7176
+.. _`Geography Markup Language Implementation Specification`: https://portal.opengeospatial.org/files/?artifact_id=7174
+.. _`OGC Web Services Workshop package`: http://ms-ogc-workshop.maptools.org/
+.. _`MS4W`: http://www.maptools.org/ms4w/
+.. _`WFS 1.0.0 specification`: https://portal.opengeospatial.org/files/?artifact_id=7176
+.. _`Deegree`: http://deegree.sourceforge.net/
+.. _`owsview`: http://devgeo.cciw.ca/owsview
+.. _`uDig`: http://udig.refractions.net/confluence/display/UDIG/Home
+.. _`WFS 1.0.0 spec`: https://portal.opengeospatial.org/files/?artifact_id=7176
+.. _`GeoServer`: http://docs.codehaus.org/display/GEOS/Home
+.. _`GML2 request output`: http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&VERSION=1.0.0&REQUEST=getfeature&TYPENAME=park&maxfeatures=1&OUTPUTFORMAT=gml2
+.. _`GML3 request output`: http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&VERSION=1.0.0&REQUEST=getfeature&TYPENAME=park&maxfeatures=1&OUTPUTFORMAT=gml3
+.. _`bug#884`: http://trac.osgeo.org/mapserver/ticket/884

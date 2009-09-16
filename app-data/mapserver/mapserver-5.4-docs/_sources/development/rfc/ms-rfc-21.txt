@@ -1,0 +1,121 @@
+.. _rfc21:
+
+============================================
+MS RFC 21: MapServer Raster Color Correction 
+============================================
+
+:Date:  2006/10/13
+:Author: Frank Warmerdam
+:Contact: warmerdam at pobox.com
+:Status: adopted
+:Version: MapServer 5.0
+:Id: $Id: ms-rfc-21.txt 8278 2008-12-23 21:34:31Z hobu $
+
+Overview
+--------
+
+To add support to MapServer to apply color correction curves (aka lookup
+tables) to raster images on the fly. 
+
+
+Technical Details
+-----------------
+
+MapServer's raster rendering engine (mapgdaldraw.c) will be extended to 
+support a PROCESSING option indicating a color correction file to be 
+applied on the fly when raster data is being read from disk.  The PROCESSING
+option would take the form::
+
+ PROCESSING "LUT=<lut_specification>"
+
+for a single LUT applied to all bands equally or::
+
+ PROCESSING "LUT_<color#>=<lut_specification>"
+
+for a LUT applied only to one band.  The <lut_specification> can be
+the name of a file containing a LUT, or an inline lut definition.  The inline
+lut definition looks like::
+
+  <lut_specification>=<in_value>:<out_value>,<in_value>:<out_value>[,<in_value>:<out_value>]*
+
+The text file takes the same form, except that it may be multiline (lines will 
+be implicitly joined by commas).  So some common forms would be::
+
+ PROCESSING "LUT=0:0,128:150,255:255"
+ 
+ PROCESSING "LUT_2=green_lut.txt"
+
+Note that the LUT specification files will be searched for relative to the
+map file if a relative path is provided. 
+
+The LUT will be applied in LoadGDALImage(), after any scaling to 8bit.  So
+currently only 8bit (0-255) input and output values are supported.  Optionally
+we could consider non-8bit inputs, and allow the LUT to apply scaling to 8bit
+but this would be somewhat complicated to do in a computationally efficient
+manner. 
+
+A 256 entry LUT will be created by linear interpolation between the LUT
+control points.  Note this is different than a true "curve" based approach
+where some form of curve fitting is done to the control points.  For a
+significant number of control points the difference will be very slight, 
+but it could be noticable for LUTs with only a few control points (ie. 3). 
+Optionally we could compute a proper curve fit, but this will require extra
+research and development. 
+
+If no control points exist for input values 0 and 255 a mapping of "0:0" and
+"255:255" will be assumed.  
+
+
+Other Curve Formats
+-------------------
+
+The GIMP's ascii curve format will also be supported directly.  Exact
+details of this are to be determined, and since a GIMP curve file contains
+several curves (for different bands) it may be necessary to select which
+is to be used in the PROCESSING statement.  Perhaps something like::
+
+  PROCESSING "LUT_2=GIMP_red:gimp.crv"
+
+
+Mapfile Implications
+--------------------
+
+All new options are selected via new PROCESSING options.   There is
+no change in the mapfile syntax.  There should be no compatibility problems
+with old mapfiles. 
+
+
+MapScript Implications
+----------------------
+
+There are no additions or changes to the MapScript API.  The new
+options are controlled via PROCESSING information on the layers which I
+believe is already manipulatable from MapScript. 
+
+
+Documentation Implications
+--------------------------
+
+The new processing options will need to be documented in the Raster Access 
+HOWTO (and possibly the mapfile reference). 
+
+
+Test Plan
+---------
+
+New test cases for each mode will be incorporated in msautotest/gdal. 
+
+
+Staffing / Timeline
+-------------------
+
+The new feature will be implemented by Frank Warmerdam and completed
+by November 30th, 2006, for inclusion in the MapServer 5.0 release. 
+Funding provided by the Information Center of the Ministry of Agriculture
+and Forestry (Finland). 
+
+
+Tracking Bug
+------------
+
+http://trac.osgeo.org/mapserver/ticket/1943

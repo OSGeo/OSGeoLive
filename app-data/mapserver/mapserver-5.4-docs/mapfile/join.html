@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>JOIN &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Mapfile" href="index.html" />
+    <link rel="next" title="LABEL" href="label.html" />
+    <link rel="prev" title="GRID" href="grid.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="label.html" title="LABEL"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="grid.html" title="GRID"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//mapfile/join.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/mapfile/join.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">JOIN</a><ul>
+<li><a class="reference external" href="#description">Description</a></li>
+<li><a class="reference external" href="#supported-formats">Supported Formats</a></li>
+<li><a class="reference external" href="#mapfile-parameters">Mapfile Parameters:</a></li>
+<li><a class="reference external" href="#example-1-join-from-shp-file-to-dbf-file">Example 1: Join from SHP file to DBF file</a><ul>
+<li><a class="reference external" href="#mapfile-layer">Mapfile Layer</a></li>
+<li><a class="reference external" href="#ogrinfo">Ogrinfo</a></li>
+<li><a class="reference external" href="#template">Template</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#example-2-join-from-shp-file-to-postgresql-table">Example 2: Join from SHP file to PostgreSQL table</a><ul>
+<li><a class="reference external" href="#id2">Mapfile Layer</a></li>
+<li><a class="reference external" href="#id3">Ogrinfo</a></li>
+<li><a class="reference external" href="#id4">Template</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#example-3-join-from-shp-file-to-csv-file">Example 3: Join from SHP file to CSV file</a><ul>
+<li><a class="reference external" href="#id5">Mapfile Layer</a></li>
+<li><a class="reference external" href="#csv-file-structure">CSV File Structure</a></li>
+<li><a class="reference external" href="#id6">Ogrinfo</a></li>
+<li><a class="reference external" href="#id7">Template</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="grid.html"
+                                  title="previous chapter">GRID</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="label.html"
+                                  title="next chapter">LABEL</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/mapfile/join.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="join">
+<span id="id1"></span><h1>JOIN<a class="headerlink" href="#join" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="description">
+<span id="index-14"></span><h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>Joins are defined within a <a class="reference external" href="layer.html#layer"><em>LAYER</em></a> object. It is important to understand
+that JOINs are <em>ONLY</em> available once a query has been processed. You cannot
+use joins to affect the look of a map. The primary purpose is to enable lookup
+tables for coded data (e.g. 1 =&gt; Forest) but there are other possible uses.</p>
+</div>
+<div class="section" id="supported-formats">
+<h2>Supported Formats<a class="headerlink" href="#supported-formats" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>DBF/XBase files</li>
+<li>CSV (comma delimited text file)</li>
+<li>PostgreSQL and PostGIS tables</li>
+<li>MySQL tables</li>
+</ul>
+</div>
+<div class="section" id="mapfile-parameters">
+<h2>Mapfile Parameters:<a class="headerlink" href="#mapfile-parameters" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>CONNECTION [string]</dt>
+<dd>Parameters required for the join table&#8217;s database connection (not required
+for DBF or CSV joins). The following is an example for <a class="reference external" href="../input/vector/postgis.html#input-postgis"><em>PostgreSQL</em></a>:</dd>
+</dl>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">CONNECTION</span> <span class="s">&quot;host=127.0.0.1 port=5432 user=postgres password=postgres dbname=somename&quot;</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>CONNECTIONTYPE [string]</dt>
+<dd>Type of connection (not required for DBF or CSV joins). The following is
+an example for PostgreSQL:</dd>
+</dl>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">CONNECTIONTYPE</span> <span class="nb">ogr</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>FROM [item]</dt>
+<dd>Join item in the dataset.  This is case sensitive.</dd>
+<dt>NAME [string]</dt>
+<dd>Unique name for this join. Required.</dd>
+<dt>TABLE [filename|tablename]</dt>
+<dd>For file-based joins this is the name of XBase or comma delimited file
+(relative to the location of the mapfile) to join TO. For PostgreSQL and
+MySQL support this is the name of the PostgreSQL/MySQL table to join TO.</dd>
+<dt>TEMPLATE [filename]</dt>
+<dd>Template to use with one-to-many joins. The template is processed once
+for each record and can only contain substitutions for items in the joined
+table.  Refer to the column in the joined table in your template like
+[joinname_columnname], where joinname is the NAME specified for the JOIN
+object.</dd>
+<dt>TO [item]</dt>
+<dd>Join item in the table to be joined. This is case sensitive.</dd>
+<dt>TYPE [ONE-TO-ONE|ONE-TO-MANY]</dt>
+<dd>The type of join. Default is one-to-one.</dd>
+</dl>
+</div>
+<div class="section" id="example-1-join-from-shp-file-to-dbf-file">
+<h2>Example 1: Join from SHP file to DBF file<a class="headerlink" href="#example-1-join-from-shp-file-to-dbf-file" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mapfile-layer">
+<h3>Mapfile Layer<a class="headerlink" href="#mapfile-layer" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+  <span class="k">NAME</span> <span class="s">&quot;prov_bound&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">POLYGON</span>
+  <span class="k">STATUS</span> <span class="nb">DEFAULT</span>
+  <span class="k">DATA</span> <span class="s">&quot;prov.shp&quot;</span>
+  <span class="k">CLASS</span>
+    <span class="k">NAME</span> <span class="s">&quot;Province&quot;</span>
+    <span class="k">STYLE</span>
+      <span class="k">OUTLINECOLOR</span> <span class="mi">120</span> <span class="mi">120</span> <span class="mi">120</span>
+      <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">0</span>
+    <span class="k">END</span>
+  <span class="k">END</span>
+  <span class="k">TEMPLATE</span> <span class="s">&quot;../htdocs/cgi-query-templates/prov.html&quot;</span>
+  <span class="k">HEADER</span> <span class="s">&quot;../htdocs/cgi-query-templates/prov-header.html&quot;</span>
+  <span class="k">FOOTER</span> <span class="s">&quot;../htdocs/cgi-query-templates/footer.html&quot;</span>
+  <span class="k">JOIN</span>
+    <span class="k">NAME</span> <span class="s">&quot;test&quot;</span>
+    <span class="k">TABLE</span> <span class="s">&quot;../data/lookup.dbf&quot;</span>
+    <span class="k">FROM</span> <span class="s">&quot;ID&quot;</span>
+    <span class="k">TO</span> <span class="s">&quot;IDENT&quot;</span>
+    <span class="k">TYPE</span> <span class="nb">ONE-TO-ONE</span>
+  <span class="k">END</span>
+<span class="k">END</span> <span class="c"># layer</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ogrinfo">
+<h3>Ogrinfo<a class="headerlink" href="#ogrinfo" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>&gt;ogrinfo lookup.dbf lookup -summary
+INFO: Open of `lookup.dbf'
+using driver `ESRI Shapefile' successful.
+
+Layer name: lookup
+Geometry: None
+Feature Count: 12
+Layer SRS WKT:
+(unknown)
+IDENT: Integer (2.0)
+VAL: Integer (2.0)</pre>
+</div>
+<div class="highlight-python"><pre>&gt;ogrinfo prov.shp prov -summary
+INFO: Open of `prov.shp'
+using driver `ESRI Shapefile' successful.
+
+Layer name: prov
+Geometry: Polygon
+Feature Count: 12
+Extent: (-2340603.750000, -719746.062500) - (3009430.500000, 3836605.250000)
+Layer SRS WKT:
+(unknown)
+NAME: String (30.0)
+ID: Integer (2.0)</pre>
+</div>
+</div>
+<div class="section" id="template">
+<h3>Template<a class="headerlink" href="#template" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>&lt;tr bgcolor="#EFEFEF"&gt;&lt;td align="left"&gt;[NAME]&lt;/td&gt;&lt;td align="left"&gt;[test_VAL]&lt;/td&gt;&lt;/tr&gt;</pre>
+</div>
+</div>
+</div>
+<div class="section" id="example-2-join-from-shp-file-to-postgresql-table">
+<h2>Example 2: Join from SHP file to PostgreSQL table<a class="headerlink" href="#example-2-join-from-shp-file-to-postgresql-table" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>Mapfile Layer<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+  <span class="k">NAME</span> <span class="s">&quot;prov_bound&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">POLYGON</span>
+  <span class="k">STATUS</span> <span class="nb">DEFAULT</span>
+  <span class="k">DATA</span> <span class="s">&quot;prov.shp&quot;</span>
+  <span class="k">CLASS</span>
+    <span class="k">NAME</span> <span class="s">&quot;Province&quot;</span>
+    <span class="k">STYLE</span>
+      <span class="k">OUTLINECOLOR</span> <span class="mi">120</span> <span class="mi">120</span> <span class="mi">120</span>
+      <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">0</span>
+    <span class="k">END</span>
+  <span class="k">END</span>
+  <span class="k">TOLERANCE</span> <span class="mi">20</span>
+  <span class="k">TEMPLATE</span> <span class="s">&quot;../htdocs/cgi-query-templates/prov.html&quot;</span>
+  <span class="k">HEADER</span> <span class="s">&quot;../htdocs/cgi-query-templates/prov-header.html&quot;</span>
+  <span class="k">FOOTER</span> <span class="s">&quot;../htdocs/cgi-query-templates/footer.html&quot;</span>
+  <span class="k">JOIN</span>
+    <span class="k">NAME</span> <span class="s">&quot;test&quot;</span>
+    <span class="k">CONNECTION</span> <span class="s">&quot;host=127.0.0.1 port=5432 user=postgres password=postgres dbname=join&quot;</span>
+    <span class="k">CONNECTIONTYPE</span> <span class="nb">ogr</span>
+    <span class="k">TABLE</span> <span class="s">&quot;lookup&quot;</span>
+    <span class="k">FROM</span> <span class="s">&quot;ID&quot;</span>
+    <span class="k">TO</span> <span class="s">&quot;ident&quot;</span>
+    <span class="k">TYPE</span> <span class="nb">ONE-TO-ONE</span>
+  <span class="k">END</span>
+<span class="k">END</span> <span class="c"># layer</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Ogrinfo<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>&gt;ogrinfo -ro PG:"host=127.0.0.1 port=5432 user=postgres password=postgre dbname=join" lookup -summary
+INFO: Open of `PG:host=127.0.0.1 port=5432 user=postgres password=postgres dbname=join'
+using driver `PostgreSQL' successful.
+
+Layer name: lookup
+Geometry: Unknown (any)
+Feature Count: 12
+Layer SRS WKT:
+(unknown)
+ident: Integer (0.0)
+val: Integer (0.0)</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>Template<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>&lt;tr bgcolor="#EFEFEF"&gt;&lt;td align="left"&gt;[NAME]&lt;/td&gt;&lt;td align="left"&gt;[test_val]&lt;/td&gt;&lt;/tr&gt;</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When testing with MapServer 4.10.0 on Windows this postgresql join caused a
+mapserv.exe crash. However when testing this with a MapServer build &gt; 4.10.0
+the crash did not occur.</p>
+</div>
+</div>
+</div>
+<div class="section" id="example-3-join-from-shp-file-to-csv-file">
+<h2>Example 3: Join from SHP file to CSV file<a class="headerlink" href="#example-3-join-from-shp-file-to-csv-file" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h3>Mapfile Layer<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+  <span class="k">NAME</span> <span class="s">&quot;prov_bound&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">POLYGON</span>
+  <span class="k">STATUS</span> <span class="nb">DEFAULT</span>
+  <span class="k">DATA</span> <span class="s">&quot;prov.shp&quot;</span>
+  <span class="k">CLASS</span>
+    <span class="k">NAME</span> <span class="s">&quot;Province&quot;</span>
+    <span class="k">STYLE</span>
+      <span class="k">OUTLINECOLOR</span> <span class="mi">120</span> <span class="mi">120</span> <span class="mi">120</span>
+      <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">0</span>
+    <span class="k">END</span>
+  <span class="k">END</span>
+  <span class="k">TOLERANCE</span> <span class="mi">20</span>
+  <span class="k">TEMPLATE</span> <span class="s">&quot;../htdocs/cgi-query-templates/prov.html&quot;</span>
+  <span class="k">HEADER</span> <span class="s">&quot;../htdocs/cgi-query-templates/prov-header.html&quot;</span>
+  <span class="k">FOOTER</span> <span class="s">&quot;../htdocs/cgi-query-templates/footer.html&quot;</span>
+  <span class="k">JOIN</span>
+    <span class="k">NAME</span> <span class="s">&quot;test&quot;</span>
+    <span class="k">TABLE</span> <span class="s">&quot;../data/lookup.csv&quot;</span>
+    <span class="k">FROM</span> <span class="s">&quot;ID&quot;</span>
+    <span class="k">TO</span> <span class="s">&quot;IDENT&quot;</span>
+    <span class="k">TYPE</span> <span class="nb">ONE-TO-ONE</span>
+  <span class="k">END</span>
+<span class="k">END</span> <span class="c"># layer</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="csv-file-structure">
+<h3>CSV File Structure<a class="headerlink" href="#csv-file-structure" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;IDENT&quot;</span><span class="p">,</span><span class="s">&quot;VAL&quot;</span>
+<span class="mi">1</span><span class="p">,</span><span class="mi">12</span>
+<span class="mi">2</span><span class="p">,</span><span class="mi">11</span>
+<span class="mi">3</span><span class="p">,</span><span class="mi">10</span>
+<span class="mi">4</span><span class="p">,</span><span class="mi">9</span>
+<span class="mi">5</span><span class="p">,</span><span class="mi">8</span>
+<span class="mi">6</span><span class="p">,</span><span class="mi">7</span>
+<span class="mi">7</span><span class="p">,</span><span class="mi">6</span>
+<span class="mi">8</span><span class="p">,</span><span class="mi">5</span>
+<span class="mi">9</span><span class="p">,</span><span class="mi">4</span>
+<span class="mi">10</span><span class="p">,</span><span class="mi">3</span>
+<span class="mi">11</span><span class="p">,</span><span class="mi">2</span>
+<span class="mi">12</span><span class="p">,</span><span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h3>Ogrinfo<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>&gt;ogrinfo lookup.csv lookup -summary
+INFO: Open of `lookup.csv'
+using driver `CSV' successful.
+
+Layer name: lookup
+Geometry: None
+Feature Count: 12
+Layer SRS WKT:
+(unknown)
+IDENT: String (0.0)
+VAL: String (0.0)</pre>
+</div>
+</div>
+<div class="section" id="id7">
+<h3>Template<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><pre>&lt;tr bgcolor="#EFEFEF"&gt;&lt;td align="left"&gt;[NAME]&lt;/td&gt;&lt;td align="left"&gt;[test_VAL]&lt;/td&gt;&lt;/tr&gt;</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="label.html" title="LABEL"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="grid.html" title="GRID"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

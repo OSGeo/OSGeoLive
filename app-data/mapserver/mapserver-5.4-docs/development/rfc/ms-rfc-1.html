@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 1: Technical Steering Committee Guidelines &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 2: Creating line features and/or shapes using WKT" href="ms-rfc-2.html" />
+    <link rel="prev" title="Request for Comments" href="index.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-2.html" title="MS RFC 2: Creating line features and/or shapes using WKT"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Request for Comments"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-1.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-1.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 1: Technical Steering Committee Guidelines</a><ul>
+<li><a class="reference external" href="#summary">Summary</a></li>
+<li><a class="reference external" href="#detailed-process">Detailed Process</a></li>
+<li><a class="reference external" href="#when-is-vote-required">When is Vote Required?</a></li>
+<li><a class="reference external" href="#boundaries-of-technical">Boundaries of &#8220;Technical&#8221;</a></li>
+<li><a class="reference external" href="#observations">Observations</a></li>
+<li><a class="reference external" href="#bootstrapping">Bootstrapping</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Request for Comments</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-2.html"
+                                  title="next chapter">MS RFC 2: Creating line features and/or shapes using WKT</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-1.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-1-technical-steering-committee-guidelines">
+<span id="rfc1"></span><h1>MS RFC 1: Technical Steering Committee Guidelines<a class="headerlink" href="#ms-rfc-1-technical-steering-committee-guidelines" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2005/06/24</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Frank Warmerdam, Independent</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">warmerdam at pobox.com</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">$Date: 2008-12-23 22:34:31 +0100 (Di, 23. Dez 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Superseded by <a class="reference external" href="ms-rfc-23.html#rfc23"><em>MS RFC 23: Technical Steering Committee Guidelines</em></a></td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-1.txt 8278 2008-12-23 21:34:31Z hobu $</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>This document describes how the MapServer Technical Steering Committee
+determines membership, and makes decisions on MapServer technical issues.</p>
+<p>In brief the technical team votes on proposals on mapserver-dev.  Proposals
+are available for review for at least two days, and a single veto is
+sufficient delay progress though ultimately a majority of members can
+pass a proposal.</p>
+</div>
+<div class="section" id="detailed-process">
+<h2>Detailed Process<a class="headerlink" href="#detailed-process" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Proposals are written up and submitted on the mapserver-dev mailing list for
+discussion and voting, by any interested party, not just committee members.</li>
+<li>Proposals need to be available for review for at least two
+business days before a final decision can be made.</li>
+<li>Respondents may vote &#8220;+1&#8221; to indicate support for the proposal and
+a willingness to support implementation.</li>
+<li>Respondents may vote &#8220;-1&#8221; to veto a proposal, but must provide clear
+reasoning and alternate approaches to resolving the problem within
+the two days.</li>
+<li>A vote of -0 indicates mild disagreement, but has no effect.
+A 0 indicates no opinion.  A +0 indicate mild support, but has no effect.</li>
+<li>Anyone may comment on proposals on the list, but only members of
+the Technical Steering Committee&#8217;s votes will be counted.</li>
+<li>A proposal will be accepted if it receives +2 (including the
+proposer) and no vetos (-1).</li>
+<li>If a proposal is vetoed, and it cannot be revised to satisfy
+all parties, then it can be resubmitted for an override vote in
+which a majority of all eligible voters indicating +1 is sufficient
+to pass it.  Note that this is a majority of all committee members,
+not just those who actively vote.</li>
+<li>Upon completion of discussion and voting the proposer should announce
+whether they are proceeding (proposal accepted) or are withdrawing
+their proposal (vetoed).</li>
+<li>The Chair gets a vote.</li>
+<li>The Chair is responsible for keeping track of who is a member of the
+Technical Steering Committee (perhaps as part of a TSC file in CVS).</li>
+<li>Addition and removal of members from the committee, as well as
+selection of a Chair should be handled as a proposal to the committee.</li>
+<li>The Chair adjudicates in cases of disputes about voting.</li>
+</ol>
+</div>
+<div class="section" id="when-is-vote-required">
+<h2>When is Vote Required?<a class="headerlink" href="#when-is-vote-required" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Anything that could cause backward compatability issues.</li>
+<li>Adding substantial amounts of new code.</li>
+<li>Changing inter-subssytem APIs, or objects.</li>
+<li>Issues of procedure.</li>
+<li>When releases should take place.</li>
+<li>Anything that might be controversial.</li>
+</ul>
+</div>
+<div class="section" id="boundaries-of-technical">
+<h2>Boundaries of &#8220;Technical&#8221;<a class="headerlink" href="#boundaries-of-technical" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>If it relates to changes in the code, it is technical.</li>
+<li>If it relates to how the developers cooperate, it is technical.</li>
+<li>If it relates to legal issues around code ownership it is technical.</li>
+<li>If it relates to documentation, or the web site it is not technical.</li>
+<li>If it relates to events such as conferences, it is not technical.</li>
+</ul>
+</div>
+<div class="section" id="observations">
+<h2>Observations<a class="headerlink" href="#observations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The Chair is the ultimate adjudicator if things break down.</li>
+<li>The absolute majority rule can be used to override an obstructionist veto,
+but it is intended that in normal circumstances vetoers need to be
+convinced to withdraw their veto.  We are trying to reach consensus.</li>
+<li>It is anticipated that seperate &#8220;committees&#8221; will exist to
+manage conferences, documentation and web sites.</li>
+</ul>
+</div>
+<div class="section" id="bootstrapping">
+<h2>Bootstrapping<a class="headerlink" href="#bootstrapping" title="Permalink to this headline">¶</a></h2>
+<p>Steve Lime is declared initial Chair of the Technical Steering Committee.</p>
+<p>Steve Lime, Daniel Morissette, Frank Warmerdam, Sean Gilles, Assefa
+Yewondwossen, Howard Butler and Perry Nacionales are declared to be the
+founding Technical Steering Committee.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-2.html" title="MS RFC 2: Creating line features and/or shapes using WKT"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Request for Comments"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

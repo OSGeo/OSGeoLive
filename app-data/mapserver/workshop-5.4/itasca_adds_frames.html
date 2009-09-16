@@ -1,0 +1,147 @@
+<!-- MapServer Template -->
+<html>
+<head>
+  <title>MapServer - Itasca Application</title>
+
+<script language="javascript">
+  var pansize = 0.80;
+
+  function pan(direction) {    
+    var x, y;
+    
+    if(direction == 'n') {
+      x = ([mapwidth]-1)/2.0;
+      y = 0 - [mapheight]*pansize + [mapheight]/2.0;
+    } else if(direction == 'nw') {
+      x = 0 - [mapwidth]*pansize + [mapwidth]/2.0;
+      y = 0 - [mapheight]*pansize + [mapheight]/2.0;
+    } else if(direction == 'ne') {
+      x = ([mapwidth]-1) + [mapwidth]*pansize - [mapwidth]/2.0;
+      y = 0 - [mapheight]*pansize + [mapheight]/2.0;
+    } else if(direction == 's') {
+      x = ([mapwidth]-1)/2.0;
+      y = ([mapheight]-1) + [mapheight]*pansize - [mapheight]/2.0;
+    } else if(direction == 'sw') {
+      x = 0 - [mapwidth]*pansize + [mapwidth]/2.0;
+      y = ([mapheight]-1) + [mapheight]*pansize - [mapheight]/2.0;
+    } else if(direction == 'se') {
+      x = ([mapwidth]-1) + [mapwidth]*pansize - [mapwidth]/2.0;
+      y = ([mapheight]-1) + [mapheight]*pansize - [mapheight]/2.0;
+    } else if(direction == 'e') {
+      x = ([mapwidth]-1) + [mapwidth]*pansize - [mapwidth]/2.0;
+      y = ([mapheight]-1)/2.0;
+    } else if(direction == 'w') {
+      x = 0 - [mapwidth]*pansize + [mapwidth]/2.0;
+      y = ([mapheight]-1)/2.0;
+    }
+
+    document.mapserv.mode[0].checked = true; // force browse
+    document.mapserv.zoomdir[1].checked = true; // force pan
+    document.mapserv.imgxy.value = x + " " + y;
+    document.mapserv.submit();
+  }
+
+  function submit_form() {    
+    if(document.mapserv.mode[0].checked) // browsing
+      document.mapserv.target = "_self";
+    else
+      document.mapserv.target = "query_frame";
+    return;
+  }
+</script>
+
+</head>
+<body bgcolor=#FFFFFF onLoad="top.query_frame.location.href='[root]/blank.html'">
+
+<center><h1>MapServer - Itasca Application</h1></center>
+<hr>
+<form method=GET action="[program]" name="mapserv" onSubmit="submit_form()">
+
+<center>
+<table border=0 cellspacing=0 cellpadding=4>
+<tr>
+<td valign="top" align=center>
+  <table width="390" border="0" cellspacing="0" cellpadding="0" align="center" bgcolor="#666666">
+    <tr>
+      <td align="right" width="18"><a href="javascript:pan('nw')"><img src="[root]/graphics/nw.gif" width="18" height="18" border="0" alt="pan northwest"></a></td>
+      <td align="center"><a href="javascript:pan('n')"><img src="[root]/graphics/n.gif" width="23" height="18" border="0" alt="pan north"></a></td>
+      <td align="left" width="18"><a href="javascript:pan('ne')"><img src="[root]/graphics/ne.gif" width="18" height="18" border="0" alt="pan northeast"></a></td>
+    </tr>
+    <tr>
+      <td align="right" width="18"><a href="javascript:pan('w')"><img src="[root]/graphics/w.gif" width="18" height="23" border="0" alt="pan west"></a></td>
+      <td align="center"><INPUT type="image" name="img" src="[img]" width="[mapwidth]" height="[mapheight]" border="0" alt="this is the map"></td>
+      <td align="left" width="18"><a href="javascript:pan('e')"><img src="[root]/graphics/e.gif" width="18" height="23" border="0" alt="pan east"></a></td>
+    </tr>
+    <tr>
+      <td align="right" width="18"><a href="javascript:pan('sw')"><img src="[root]/graphics/sw.gif" width="18" height="18" border="0" alt="pan southwest"></a></td>
+      <td align="center"><a href="javascript:pan('s')"><img src="[root]/graphics/s.gif" width="23" height="18" border="0" alt="pan south"></a></td>
+      <td align="left" width="18"><a href="javascript:pan('se')"><img src="[root]/graphics/se.gif" width="18" height="18" border="0" alt="pan southeast"></a></td>
+    </tr>
+    <tr><td bgcolor="#666666" colspan="3">      
+      <img align="right" title="scalebar (km)" alt="scalebar (km)" src="[program]?map=[map]&mapext=[minx]+[miny]+[maxx]+[maxy]&map_scalebar=UNITS+KILOMETERS&mode=scalebar">
+      <img title="scalebar (mi)" alt="scalebar (mi)" src="[scalebar]">
+    </td></tr>
+  </table>  
+</td>
+<td valign="top" bgcolor=#ffffff>
+  <table cellpadding="5" cellspacing="0" border="0" bgcolor="#ffffff">
+    <tr><td>
+      <center><input type="submit" value="Refresh/Query"></center>
+      <p>
+
+      <input type="radio" name="mode" value="browse" checked> <b>Browse map</b><br>
+      <input type="radio" name="mode" value="query"> <b>Query feature</b><br>
+      <input type="radio" name="mode" value="nquery"> <b>Query multiple features</b>
+
+      <hr>
+
+      <p>
+      <b>Select Layers to Display: </b><br>
+      <select multiple name="layer" size=3>
+        <option value="airports" [airports_select]> Airports
+        <option value="cities" [cities_select]> Cities
+        <option value="lakespy2" [lakespy2_select]> Lakes & Rivers
+        <option value="dlgstln2" [dlgstln2_select]> Streams
+        <option value="roads" [roads_select]> Roads
+        <option value="twprgpy3" [twprgpy3_select]> Townships
+        <option value="drgs" [drgs_select]> USGS 1:250,000 Quads
+      </select>
+
+      <p>
+      Zoom In <input type=radio name=zoomdir value=1 [zoomdir_1_check]> 
+      Pan <input type=radio name=zoomdir value=0 [zoomdir_0_check]>
+      Zoom Out <input type=radio name=zoomdir value=-1 [zoomdir_-1_check]>
+      <p>
+      Zoom Size <input type=text name=zoomsize size=4 value=[zoomsize]>
+      <p>
+
+      <font size=+1><b>Legend</b></font><br><hr>
+      <img src="[legend]"><hr>
+
+      <p>
+      <center><input name="ref" type="image" src="[ref]" border="0"></center>
+    </td></tr></table>
+
+  </td></tr>
+</table>
+</center>
+
+<input type="hidden" name="imgxy" value="[center]">
+<input type="hidden" name="imgext" value="[mapext]">
+<input type="hidden" name="map" value="[map]">
+<input type="hidden" name="root" value="[root]">
+<input type="hidden" name="savequery" value="true">
+
+<input type="hidden" name="program" value="[program]">
+<input type="hidden" name="map_web" value="[map_web]">
+
+</form>
+
+<p><hr><p>
+
+<!-- this is strange looking because we want to get out of the frames when starting over -->
+<a href="javascript:top.location.href='[root]/index.html'">back to start</a><p>
+<i>itasca_adds_frames.html</i>
+
+</body></html>
+

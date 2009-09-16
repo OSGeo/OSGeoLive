@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Run-time Substitution &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="CGI" href="index.html" />
+    <link rel="next" title="A Simple CGI Wrapper Script" href="wrapper.html" />
+    <link rel="prev" title="MapServer CGI Controls" href="controls.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="wrapper.html" title="A Simple CGI Wrapper Script"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="controls.html" title="MapServer CGI Controls"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">CGI</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//cgi/runsub.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/cgi/runsub.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Run-time Substitution</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a></li>
+<li><a class="reference external" href="#basic-example">Basic Example</a></li>
+<li><a class="reference external" href="#parameters-supported">Parameters Supported</a><ul>
+<li><a class="reference external" href="#filters">FILTERs</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#default-values-if-not-provided-in-the-url">Default values if not provided in the URL</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="controls.html"
+                                  title="previous chapter">MapServer CGI Controls</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="wrapper.html"
+                                  title="next chapter">A Simple CGI Wrapper Script</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/cgi/runsub.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="run-time-substitution">
+<span id="runsub"></span><h1><a class="toc-backref" href="#table-of-contents">Run-time Substitution</a><a class="headerlink" href="#run-time-substitution" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Steve Lime</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">steve.lime at DNR.STATE.MN.US</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 9280 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2009-08-28 08:53:52 -0300 (Fri, 28 Aug 2009) $</td>
+</tr>
+<tr class="field"><th class="field-name">Last Updated:</th><td class="field-body">2005/12/12</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#run-time-substitution" id="id1">Run-time Substitution</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference internal" href="#basic-example" id="id3">Basic Example</a></li>
+<li><a class="reference internal" href="#parameters-supported" id="id4">Parameters Supported</a></li>
+<li><a class="reference internal" href="#default-values-if-not-provided-in-the-url" id="id5">Default values if not provided in the URL</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#table-of-contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Run-time substitution for the MapServer CGI has been around since version 4.0
+and it&#8217;s use has continued to expand. In short, it allows you to alter
+portions of a mapfile based on data passed via a CGI request. This
+functionality is only available via the standard CGI application. Within
+MapScript this is easy to do since the developer has complete control over how
+input is handled.</p>
+</div>
+<div class="section" id="basic-example">
+<h2><a class="toc-backref" href="#table-of-contents">Basic Example</a><a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s say you&#8217;d like the user to dynamically set a
+portion of an expression so they could highlight a certain land cover class,
+and you have a form element (called ctype) that allows them to choose between:
+forest, water, wetland and developed. You could then set up a layer like so:</p>
+<div class="highlight-python"><pre>LAYER
+    NAME 'covertypes'
+    ...
+    CLASSITEM 'type'
+    CLASS # highlighted presentation
+        EXPRESSION '%ctype%'
+        ...
+    END
+    CLASS # default presentation
+        ...
+    END
+END</pre>
+</div>
+<p>When a request is processed the value for ctype is substituted for the
+string %ctype% and the mapfile is processed as normal. If no ctype is passed
+in the EXPRESSION will never be true so it doesn&#8217;t really hurt anything except
+for a slight performance hit. Often you would set a default class to draw
+features that don&#8217;t match, but that is not required.</p>
+</div>
+<div class="section" id="parameters-supported">
+<h2><a class="toc-backref" href="#table-of-contents">Parameters Supported</a><a class="headerlink" href="#parameters-supported" title="Permalink to this headline">¶</a></h2>
+<p>Not every mapfile parameter supports run-time substitution and care has
+been taken to try and support those that make the most sense. Remember, you
+also can do run-time configuration using the map_object_property type syntax
+detailed elsewhere (todo- add link). Below is a list of properties that do
+allow run-time substitution (todo- add MapServer version):</p>
+<ul class="simple">
+<li>LAYER: DATA (must validate against DATAPATTERN)</li>
+<li>LAYER: TILEINDEX</li>
+<li>LAYER: CONNECTION</li>
+<li>LAYER: FILTER</li>
+<li>CLASS EXPRESSION</li>
+</ul>
+<div class="section" id="filters">
+<h3>FILTERs<a class="headerlink" href="#filters" title="Permalink to this headline">¶</a></h3>
+<p>You can use runtime substitutions to change values within a FILTER as you go.
+For example your FILTER could be written like so:</p>
+<div class="highlight-python"><pre>FILTER ("multimedia='%multimedia%' and seats &gt;= %nseats% and Sound= '%sound%')</pre>
+</div>
+<p>Then (assuming you&#8217;re using the CGI interface) you could pass in variables
+named multimedia, nseats and sound with values defined by the user in an HTML
+form.</p>
+<p>You should also define validation expressions on these variables to guard
+against unintentional SQL being submitted to postgis. Within the layer
+metadata you&#8217;d do the following:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">METADATA</span>
+    <span class="s">&#39;multimedia_validation_pattern&#39;</span> <span class="s">&#39;^yes|no$&#39;</span>
+    <span class="s">&#39;sound_validation_pattern&#39;</span> <span class="s">&#39;^yes|no$&#39;</span>
+    <span class="s">&#39;nseats_validation_pattern&#39;</span> <span class="s">&#39;^[0-9]{1,2}$&#39;</span>
+    <span class="s">&#39;... more metadata ...&#39;</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>The validation strings are regular expressions that are applied against the
+appropriate variable value before being added to the FILTER. The first two
+limit the value of multimedia and sound to yes or no. The third limits the
+value for nseats to a 2 digit integer.</p>
+</div>
+</div>
+<div class="section" id="default-values-if-not-provided-in-the-url">
+<h2><a class="toc-backref" href="#table-of-contents">Default values if not provided in the URL</a><a class="headerlink" href="#default-values-if-not-provided-in-the-url" title="Permalink to this headline">¶</a></h2>
+<p>The runtime substitution mechanism will usually create syntactically incorrect,
+and almost always semantically incorrect mapfiles if the substitution parameter
+was not provided in the calling URL.</p>
+<p>Since version 5.6, you can provide a default value for any substitution parameter,
+that will be applied if the parameter was not found in the url. You do this by
+providing special entries inside the layer metadata :</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">METADATA</span>
+    <span class="s">&#39;default_sound&#39;</span> <span class="s">&#39;yes&#39;</span>
+    <span class="s">&#39;default_nseats&#39;</span> <span class="s">&#39;5&#39;</span>
+    <span class="s">&#39;default_multimedia&#39;</span> <span class="s">&#39;yes&#39;</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>In this example, the mapfile will be created as if the url contained
+&#8220;&amp;sound=yes&amp;nseats=5&amp;multimedia=yes&#8221;</p>
+<p>This behavior is also accessible in the shp2img utility, allowing you to test
+runtime substitution mapfiles without using a webserver.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="wrapper.html" title="A Simple CGI Wrapper Script"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="controls.html" title="MapServer CGI Controls"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >CGI</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

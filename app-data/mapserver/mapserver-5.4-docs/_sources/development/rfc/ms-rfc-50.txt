@@ -1,0 +1,110 @@
+.. _rfc50:
+
+======================================================================
+MS RFC 50: OpenGL Rendering Support
+======================================================================
+
+:Date: 2008/12/23
+:Authors: Toby Rahilly, Jonathan Bourke
+:Contact: toby.rahilly at gmail.com. bourke.jf at gmail.com 
+:Last Edited: 2008/12/23
+:Version: MapServer 5.4
+:Id:
+
+Overview
+------------------------------------------------------------------------------
+This RFC proposes the addition of an Opengl Rendering module to MapServer for
+faster rendering of images.
+
+Presently MapServer supports AGG rendering for high quality anti-aliased images.
+Although AGG is capable of high quality images, and is  significantly faster
+than GD rendering, it is still not fast enough to suit desirable use cases such
+as live on-demand rendering.
+
+Opengl is seen as a solution that can provide high performance rendering by
+making use of hardware specially designed for real-time rendering. Current
+Opengl prototypes are capable of rendering maps an order of magnitude faster
+than AGG with similar image quality.
+
+Technical Solution
+------------------------------------------------------------------------------
+The Opengl rendering module interface and path will be very similar to the
+current AGG rendering module. Like AGG, the Opengl module will make use of GD
+for I/O of the results. However due to the nature of Opengl there are a few key
+implementation differences that are worth noting.
+
+Opengl can make use of pre-rendered textures. All symbols can be pre-rendered
+and stored as an Opengl texture, when they are used in rendering a map, the
+rendered texture is simply copied onto the image buffer with transformations.
+This can hugely increase the performance of complex and heavily repeated 
+symbols, such as train tracks, because not only do they need to be only 
+rendered once, Opengl also handles the repetition and transformations which 
+it has been heavily optimised for.
+
+Labels also benefit from this method greatly, as an entire alphabet can be
+pre-rendered and stored as textures. When a curved label is to be drawn, the
+Opengl module simply places the rotated textures of the characters.
+
+Pre-rendered textures of symbols can also be shared between different map
+rendering instances. For this reason it is suggested that the rendering path be
+modified slightly, such that when a mapfile with opengl rendering is first
+loaded, all the symbols are pre-rendered and stored on the map object. This
+drastically increases the performance of batch rendering.
+
+Another notable difference between AGG and Opengl is that Opengl is incapable of
+rendering into main memory, and instead renders into a inaccessible buffer in
+video memory. This means the image must be rendered into video memory in
+OpengGL, then copied to the GD image buffer before saving the result.
+
+C API Changes
+------------------------------------------------------------------------------
+As the Opengl module follows very closely to the AGG implementation, very little
+change has to be made to the core of MapServer. Minor changes are made to the
+following files to add a rendering path for Opengl:
+
+- mapdraw.c 
+- mapdrawgdal.c 
+- maperror.c 
+- maplegend.c 
+- mapoutput.c 
+- mapraster.c
+- mapresample.c 
+- maputil.c
+
+No new functionality is added to these files, rather just else-if blocks.
+
+The bulk of Opengl functionality will be found in mapogl.cpp.
+
+Mapfiles
+------------------------------------------------------------------------------
+An output block like this will trigger Opengl rendering:
+
+::
+
+  OUTPUTFORMAT
+    NAME 'OGL_PNG24'
+    DRIVER OGL/PNG
+    IMAGEMODE RGB
+  END
+
+Issues
+------------------------------------------------------------------------------
+- The guts of opengl rendering occurs inside of opengl drivers. Opengl drivers
+  vary from hardware and operating system, and the rendering techniques vary with 
+  them. What this means is that maps rendered on different computers can have 
+  different results, such as color shades, anti-aliasing quality and performance.
+- Although Opengl is cross platform, each operating system has a different
+  method of setting up an Opengl context to render into. Currently we have an
+  implementation for pre-vista windows.
+
+Documentation
+--------------------------------------------------------------------------------
+TBD
+
+Backwards Incompatibility
+--------------------------------------------------------------------------------
+No issues expected.
+
+Bug ID
+--------------------------------------------------------------------------------
+Not assigned.

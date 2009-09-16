@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Testing &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Development" href="../index.html" />
+    <link rel="next" title="Regression Testing" href="autotest.html" />
+    <link rel="prev" title="Documentation Development Guide" href="../documentation.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="autotest.html" title="Regression Testing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../documentation.html" title="Documentation Development Guide"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Development</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/tests/index.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/tests/index.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="../documentation.html"
+                                  title="previous chapter">Documentation Development Guide</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="autotest.html"
+                                  title="next chapter">Regression Testing</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/tests/index.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="testing">
+<span id="id1"></span><h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<p>MapServer provides testing in multiple forms.  The <a class="reference external" href="autotest.html#autotest"><em>Regression Testing</em></a> framework
+uses <a class="reference external" href="../../cgi/index.html#cgi"><em>CGI</em></a> and other tools to test the generation of images and
+<a class="reference external" href="../../ogc/index.html#ogc"><em>OGC</em></a> output.  The <a class="reference external" href="mapscript.html#mapscript-tests"><em>MapScript Unit Testing</em></a> framework tests the
+MapScript and its object hierarchy.</p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="autotest.html">Regression Testing</a><ul>
+<li class="toctree-l2"><a class="reference external" href="autotest.html#getting-msautotest">Getting msautotest</a></li>
+<li class="toctree-l2"><a class="reference external" href="autotest.html#running-msautotest">Running msautotest</a></li>
+<li class="toctree-l2"><a class="reference external" href="autotest.html#checking-failures">Checking Failures</a></li>
+<li class="toctree-l2"><a class="reference external" href="autotest.html#perceptualdiff">PerceptualDiff</a></li>
+<li class="toctree-l2"><a class="reference external" href="autotest.html#background">Background</a></li>
+<li class="toctree-l2"><a class="reference external" href="autotest.html#todo">TODO</a></li>
+<li class="toctree-l2"><a class="reference external" href="autotest.html#adding-new-tests">Adding New Tests</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="mapscript.html">MapScript Unit Testing</a><ul>
+<li class="toctree-l2"><a class="reference external" href="mapscript.html#test-driven-development">Test Driven Development</a></li>
+<li class="toctree-l2"><a class="reference external" href="mapscript.html#about-the-tests">About the tests</a></li>
+<li class="toctree-l2"><a class="reference external" href="mapscript.html#status">Status</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="autotest.html" title="Regression Testing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../documentation.html" title="Documentation Development Guide"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

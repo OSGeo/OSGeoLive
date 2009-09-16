@@ -1,0 +1,282 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>PanelMenu - A Horizontal Collapsible Menu</title>
+<meta name='author' content='Mike Foster, mfoster.com'>
+<style type='text/css'><!--
+body {
+  font-family:verdana,sans-serif; font-size:12px;
+  overflow:hidden;
+  color:#000000; background:#cccccc;
+  margin:0px; padding:10px;
+}
+a:link, a:visited, a:active { font-family: verdana,arial,sans-serif; text-decoration:underline; font-size: 12px; color:#000000; background:transparent; }
+a:hover { font-family: verdana,arial,sans-serif; text-decoration:none; font-size: 12px; color:#ffffff; background:#000080; }
+a.m:link, a.m:visited, a.m:active { font-family: verdana,arial,sans-serif; text-decoration:none; font-size: 12px; color:#000000; background:transparent; }
+a.m:hover { font-family: verdana,arial,sans-serif; text-decoration:none; font-size: 12px; color:#ffffff; background:#000080; }
+.menuContent {
+  font-family:verdana,sans-serif; font-size:12px;
+  color:#0000ff;
+  margin:0px; padding:4px 0px 0px 10px;
+}
+td.menuContent div {
+  margin:2px 0px 4px 0px; padding:0px;
+}
+.menuPanel {
+  font-family:verdana,sans-serif; font-size:12px;
+  position:absolute; visibility:hidden; overflow:hidden;
+  width:150px; height:200px; clip:rect(0,150px,150px,0);
+  color:#0000ff; background:#ffffff; layer-background-color:#ffffff;
+  margin:0px; padding:0px;
+  border-bottom:1px solid #000000;
+}
+.menuTitle {
+  position:relative;
+  font-family:verdana,sans-serif; font-size:10px;
+  font-weight:bold;
+  color:#000000; background:transparent;
+}
+--></style>
+<script type='text/javascript' src='../cbe_core.js'></script>
+<script type='text/javascript' src='../cbe_event.js'></script>
+<script type='text/javascript' src='../cbe_slide.js'></script>
+<!-- <script type='text/javascript' src='../cbe_util.js'></script> -->
+<script type='text/javascript'><!--
+var menu;
+function windowOnload() {
+
+  menu = new PanelMenu(
+    5,     // panelCount
+    150,   // panelWidth
+    200,   // panelHeight
+    24,    // labelWidth
+    125    // slideRate
+  );
+  
+  pagePaint();
+  window.cbe.addEventListener('resize', pagePaint, false);
+}
+
+function pagePaint() {
+  menu.paint();
+}
+
+// Class PanelMenu
+
+function PanelMenu(panelCount, panelWidth, panelHeight, labelWidth, slideRate) {
+
+  // Properties
+
+  this.count = panelCount;
+  this.pw = panelWidth;
+  this.ph = panelHeight;
+  this.lw = labelWidth;
+  this.sr = slideRate;      // slide rate for menuPanels
+  this.panel = new Array(); // array of menuPanel cbe objects
+  this.title = new Array(); // array of menuTitle cbe objects
+  this.target = 0;          // id of panel to open
+  this.allClosed = true;    // mouse not over a panel
+  
+  // Methods
+
+  this.paint = function() {
+    var i;
+    for (i = 1; i <= this.count; ++i) {
+      var cbe = this.panel[i];
+      cbe.resizeTo(this.pw + this.lw, this.ph);
+//      cbe.resizeTo(this.pw + this.lw, this.ph + ((i-1) * this.lw));
+      cbe.x1 = cbe.parentNode.width() - ((this.count+1-i) * this.lw);
+      cbe.y1 = 0;
+      cbe.x2 = cbe.parentNode.width() - (this.pw + ((this.count-i) * this.lw));
+      cbe.y2 = cbe.y1;
+      cbe.open = false;
+      cbe.menuId = i;
+      with (cbe) {
+        slideRate = cbeSlideRateCosine;
+        moveTo(x1, y1);
+        zIndex(i);
+        show();
+      }
+    }
+  } // end this.paint()
+
+  // Construction
+
+  for (var i = 1; i <= this.count; ++i) {
+    this.panel[i] = cbeGetElementById('menuPanel' + i).cbe;
+    this.panel[i].menu = this;
+    this.title[i] = cbeGetElementById('menuTitle' + i).cbe;
+    this.title[i].isTitle = true;
+  }  
+  this.paint();
+  document.cbe.addEventListener('mousemove', mnuMousemoveListener, false);
+
+}  // end class PanelMenu
+
+function mnuMousemoveListener(e) {
+  if (e.cbeTarget.isTitle) {
+    e.cbeTarget = e.cbeTarget.parentNode;
+  }
+  if (e.cbeTarget.menu) {
+    menu.allClosed = false;
+    if (e.cbeTarget.menu.target != e.cbeTarget.menuId) {
+      e.cbeTarget.menu.target = e.cbeTarget.menuId;
+      mnuCloseSequence(e.cbeTarget.menu.panel[e.cbeTarget.menu.count]);
+    }
+  }  
+  else if (!menu.allClosed) {
+    menu.allClosed = true;
+    menu.target = 0;
+    mnuCloseSequence(menu.panel[menu.count]);
+  }
+}
+function mnuCloseSequence(cbe) {
+  cbe.menu.title[cbe.menuId].color('#000000');
+  if (cbe.menuId == cbe.menu.target) {
+    mnuOpenSequence(cbe.menu.panel[1]);
+  }
+  else if (cbe.open) { // close it                                     
+    cbe.open = false;
+    if (cbe.menuId > 1)
+      cbe.slideTo(cbe.x1, cbe.y1, cbe.menu.sr, "mnuCloseSequence(cbeAll["+cbe.menu.panel[cbe.menuId-1].index+"])");
+    else  
+      cbe.slideTo(cbe.x1, cbe.y1, cbe.menu.sr);
+  }
+  else {
+    if (cbe.menuId > 1) mnuCloseSequence(cbe.menu.panel[cbe.menuId-1]);
+  }  
+}
+function mnuOpenSequence(cbe) {
+  if (cbe.menuId == cbe.menu.target) cbe.menu.title[cbe.menuId].color('#0000ff');
+  else cbe.menu.title[cbe.menuId].color('#000000');
+  if (cbe.menuId <= cbe.menu.target) {
+    if (!cbe.open) { // open it
+      cbe.open = true;
+      if (cbe.menuId < cbe.menu.count)
+        cbe.slideTo(cbe.x2, cbe.y2, cbe.menu.sr, "mnuOpenSequence(cbeAll["+cbe.menu.panel[cbe.menuId+1].index+"])");
+      else
+        cbe.slideTo(cbe.x2, cbe.y2, cbe.menu.sr);
+    }  
+    else {
+      if (cbe.menuId < cbe.menu.count) mnuOpenSequence(cbe.menu.panel[cbe.menuId+1]);
+    }  
+  }
+}
+//--></script>
+</head>
+<body>
+
+<!-- Title and Nav Bar --><script type='text/javascript'>topNavBarEx()</script>
+
+<h2>PanelMenu</h2>
+<p><i>A Horizontal Collapsible Menu</i></p>
+<p><i>CBE Menu Example 8</i></p>
+<p>Tested on Win98 with IE 6.0, Mozilla 1.1a, Opera 6.04 and Navigator 4.75.</p>
+<p>Tested on Win2K with IE 5.01, Mozilla 0.9.7, Opera 6.0 and Navigator 4.79.</p>
+<p><a href="http://mfoster.com/">Mike Foster</a></p>
+<p><a href="http://cross-browser.com/">cross-browser.com</a></p>
+
+<div id='menuPanel1' class='menuPanel'>
+  <table border='0' cellspacing='0' cellpadding='0'><tr>
+    <td valign='top' align='center' width='24' height='200' background='../images/menu8_bg0.jpg'><div id='menuTitle1' class='menuTitle'>M<br>E<br>N<br>U<br>&nbsp;<br>1</div></td>
+    <td valign='top' class='menuContent'>
+      <div><b>This...</b></div>
+      <div>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a>
+      </div>
+      <div><b>That...</b></div>
+      <div>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a>
+      </div>
+    </td>  
+  </tr>
+  </table>
+</div>
+<div id='menuPanel2' class='menuPanel'>
+  <table border='0' cellspacing='0' cellpadding='0'><tr>
+    <td valign='top' align='center' width='24' height='200' background='../images/menu8_bg0.jpg'><div id='menuTitle2' class='menuTitle'>M<br>E<br>N<br>U<br>&nbsp;<br>2</div></td>
+    <td valign='top' class='menuContent'>
+      <div><b>This...</b></div>
+      <div>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a>
+      </div>
+      <div><b>That...</b></div>
+      <div>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a>
+      </div>
+    </td>  
+  </tr></table>
+</div>
+<div id='menuPanel3' class='menuPanel'>
+  <table border='0' cellspacing='0' cellpadding='0'><tr>
+    <td valign='top' align='center' width='24' height='200' background='../images/menu8_bg0.jpg'><div id='menuTitle3' class='menuTitle'>M<br>E<br>N<br>U<br>&nbsp;<br>3</div></td>
+    <td valign='top' class='menuContent'>
+      <div><b>This...</b></div>
+      <div>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a>
+      </div>
+      <div><b>That...</b></div>
+      <div>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a>
+      </div>
+    </td>  
+  </tr></table>
+</div>
+<div id='menuPanel4' class='menuPanel'>
+  <table border='0' cellspacing='0' cellpadding='0'><tr>
+    <td valign='top' align='center' width='24' height='200' background='../images/menu8_bg0.jpg'><div id='menuTitle4' class='menuTitle'>M<br>E<br>N<br>U<br>&nbsp;<br>4</div></td>
+    <td valign='top' class='menuContent'>
+      <div><b>This...</b></div>
+      <div>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a>
+      </div>
+      <div><b>That...</b></div>
+      <div>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a>
+      </div>
+    </td>  
+  </tr></table>
+</div>
+<div id='menuPanel5' class='menuPanel'>
+  <table border='0' cellspacing='0' cellpadding='0'><tr>
+    <td valign='top' align='center' width='24' height='200' background='../images/menu8_bg0.jpg'><div id='menuTitle5' class='menuTitle'>M<br>E<br>N<br>U<br>&nbsp;<br>5</div></td>
+    <td valign='top' class='menuContent'>
+      <div><b>This...</b></div>
+      <div>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a>
+      </div>
+      <div><b>That...</b></div>
+      <div>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a><br>
+        <a class='m' href='#'>menu item</a>
+      </div>
+    </td>  
+  </tr></table>
+</div>
+
+</body>
+</html>

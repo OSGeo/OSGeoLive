@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>WEB &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Mapfile" href="index.html" />
+    <link rel="next" title="MapScript" href="../mapscript/index.html" />
+    <link rel="prev" title="Variable Substitution" href="variable_sub.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../mapscript/index.html" title="MapScript"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="variable_sub.html" title="Variable Substitution"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//mapfile/web.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/mapfile/web.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="variable_sub.html"
+                                  title="previous chapter">Variable Substitution</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="../mapscript/index.html"
+                                  title="next chapter">MapScript</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/mapfile/web.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="web">
+<span id="id1"></span><h1>WEB<a class="headerlink" href="#web" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>EMPTY [url]</dt>
+<dd>URL to forward users to if a query fails. If not defined the value for
+ERROR is used.</dd>
+<dt>ERROR [url]</dt>
+<dd>URL to forward users to if an error occurs. Ugly old MapServer error
+messages will appear if this is not defined</dd>
+<dt>FOOTER [filename]</dt>
+<dd>Template to use AFTER anything else is sent. Multiresult query modes only.</dd>
+<dt>HEADER [filename]</dt>
+<dd>Template to use BEFORE everything else has been sent. Multiresult query
+modes only.</dd>
+<dt>IMAGEPATH [path]</dt>
+<dd>Path to the temporary directory fro writing temporary files and images.
+Must be writable by the user the web server is running as. Must end
+with a / or depending on your platform.</dd>
+<dt>IMAGEURL [path]</dt>
+<dd>Base URL for IMAGEPATH. This is the URL that will take the web browser
+to IMAGEPATH to get the images.</dd>
+<dt>LOG [filename]</dt>
+<dd>File to log MapServer activity in. Must be writable by the user the web
+server is running as.</dd>
+</dl>
+<dl class="docutils" id="index-30">
+<dt>MAXSCALEDENOM [double]</dt>
+<dd><p class="first">Maximum scale at which this interface is valid. When a user requests a map
+at a bigger scale, MapServer automatically returns the map at this scale.
+This effectively prevents user from zooming too far out.  Scale is given as
+the denominator of the actual scale fraction, for example for a map at a
+scale of 1:24,000 use 24000.  Implemented in MapServer 5.0, to replace the
+deprecated MAXSCALE parameter.</p>
+<p class="last">
+<span class="versionmodified">Deprecated since version 5.0.</span></p>
+</dd>
+<dt>MAXSCALE [double] - deprecated</dt>
+<dd><p class="first">Since MapServer 5.0 the proper parameter to use is MAXSCALEDENOM instead.
+The deprecated MAXSCALE is the maximum scale at which this interface is
+valid. When a user requests a map at a bigger scale, MapServer automatically
+returns the map at this scale. This effectively prevents user from zooming
+too far out.  Scale is given as the denominator of the actual scale
+fraction, for example for a map at a scale of 1:24,000 use 24000.</p>
+<div class="admonition-see-also last admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="../glossary.html#term-map-scale"><em class="xref">Map scale</em></a></p>
+</div>
+</dd>
+<dt>MAXTEMPLATE [file|url]</dt>
+<dd>Template to be used if above the maximum scale for the app, useful
+for nesting apps.</dd>
+<dt>METADATA</dt>
+<dd><p class="first">This keyword allows for arbitrary data to be stored as name value pairs.
+This is used with OGC WMS to define things such as layer title. It can
+also allow more flexibility in creating templates, as anything you put
+in here will be accessible via template tags.
+Example:</p>
+<div class="last highlight-mapfile"><div class="highlight"><pre><span class="k">METADATA</span>
+    <span class="k">title</span> <span class="s">&quot;My layer title&quot;</span>
+    <span class="err">auth</span><span class="ow">or</span> <span class="s">&quot;Me!&quot;</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="docutils" id="index-31">
+<dt>MINSCALEDENOM [double]</dt>
+<dd><p class="first">Minimum scale at which this interface is valid. When a user reqests a
+map at a smaller scale, MapServer automatically returns the map at this
+scale. This effectively prevents the user from zooming in too far.
+Scale is given as the denominator of the actual scale fraction, for example
+for a map at a scale of 1:24,000 use 24000.  Implemented in MapServer 5.0, to
+replace the deprecated MINSCALE parameter.</p>
+<div class="admonition-see-also last admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="../glossary.html#term-map-scale"><em class="xref">Map scale</em></a></p>
+</div>
+</dd>
+<dt>MINSCALE [double] - deprecated</dt>
+<dd><p class="first">Since MapServer 5.0 the proper parameter to use is MINSCALEDENOM
+instead.  The deprecated MINSCALE is the minimum scale at which this
+interface is valid. When a user reqests a map at a smaller scale, MapServer
+automatically returns the map at this scale. This effectively prevents the
+user from zooming in too far.  Scale is given as the denominator of the
+actual scale fraction, for example for a map at a scale of 1:24,000 use
+24000.</p>
+<p class="last">
+<span class="versionmodified">Deprecated since version 5.0.</span></p>
+</dd>
+<dt>MINTEMPLATE</dt>
+<dd>Template to be used if above the minimum scale for the app, useful
+for nesting apps.</dd>
+<dt>OUTPUTFORMAT [mime-type]</dt>
+<dd>Format of the query output. Default is &#8220;text/html&#8221;. This is experimental,
+the use of the <a class="reference external" href="outputformat.html#outputformat"><em>OUTPUTFORMAT</em></a> object is recommended instead.</dd>
+<dt>TEMPLATE [filename|url]</dt>
+<dd>Template file or URL to use in presenting the results to the user in an
+interactive mode (i.e. map generates map and so on ... )</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../mapscript/index.html" title="MapScript"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="variable_sub.html" title="Variable Substitution"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

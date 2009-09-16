@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 6: Color Range Mapping of Continuous Feature Values &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 7: MapServer CVS Commit Management" href="ms-rfc-7.html" />
+    <link rel="prev" title="MS RFC 5: MapServer Horizon Reprojection Improvements" href="ms-rfc-5.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-7.html" title="MS RFC 7: MapServer CVS Commit Management"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-5.html" title="MS RFC 5: MapServer Horizon Reprojection Improvements"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-6.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-6.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 6: Color Range Mapping of Continuous Feature Values</a><ul>
+<li><a class="reference external" href="#background">Background</a></li>
+<li><a class="reference external" href="#current-syntax-problems">Current Syntax Problems</a></li>
+<li><a class="reference external" href="#proposed-new-syntax">Proposed New Syntax</a></li>
+<li><a class="reference external" href="#proposed-legend-format">Proposed Legend Format</a></li>
+<li><a class="reference external" href="#mapscript-issues">MapScript Issues</a></li>
+<li><a class="reference external" href="#files-affected">Files affected</a></li>
+<li><a class="reference external" href="#backwards-compatabilty-issues">Backwards compatabilty issues</a></li>
+<li><a class="reference external" href="#multiple-mapping-methods">Multiple Mapping Methods</a></li>
+<li><a class="reference external" href="#bug-id">Bug ID</a></li>
+<li><a class="reference external" href="#voting-history">Voting history</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-5.html"
+                                  title="previous chapter">MS RFC 5: MapServer Horizon Reprojection Improvements</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-7.html"
+                                  title="next chapter">MS RFC 7: MapServer CVS Commit Management</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-6.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-6-color-range-mapping-of-continuous-feature-values">
+<span id="rfc6"></span><h1>MS RFC 6: Color Range Mapping of Continuous Feature Values<a class="headerlink" href="#ms-rfc-6-color-range-mapping-of-continuous-feature-values" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2005/09/27</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Bill Binko</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">bill at binko.net</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">$Date: 2008-12-23 22:34:31 +0100 (Di, 23. Dez 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Proposed</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-6.txt 8278 2008-12-23 21:34:31Z hobu $</td>
+</tr>
+</tbody>
+</table>
+<p>Description: This proposal addresses the need to be able to easily
+map continuous feature values to a continuous range of colors.  This RFC is
+the result of (and my interpretation of) the discussion that
+surrounded Bug #1305.</p>
+<p>A preliminary patch has already been applied to Mapserver 4.6+ (before
+the RFC process was in place), however, there is little consensus on the
+format being used and there is no support for proper display of
+legends for classes using ColorRanges.</p>
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>This work started as a patch that I created to be able to quickly
+visualize data with a large range of values.  In particular, I was
+wishing to map property values, and various ratios that could take on
+a large range of values.  To me, the natural way to do this was to set
+a max value, a min value and what colors those mapped to.  The patch I
+wrote had Mapserver do a linear interpolation of the value for each
+feature on to that color range.</p>
+<p>The initial syntax for this feature simply added 5 new keywords to the
+STYLE block and looked as follows:</p>
+<div class="highlight-python"><pre>STYLE
+  COLOR 60 60 60
+  MINCOLOR 0 0 0
+  MAXCOLOR 255 255 0
+  MINVALUE 0.0
+  MAXVALUE 300000.0
+  GRADIENTITEM "sale_price"
+END</pre>
+</div>
+<p>After some discussion, the term Gradient was shown to be problematic.
+Also, the number of new keywords seemed high.  After some discussion,
+the syntax was changed to this format:</p>
+<div class="highlight-python"><pre>STYLE
+  COLORRANGE 0 0 0  255 255 0 # black to yellow
+  DATARANGE 0.0 100.0
+  RANGEITEM "foobar"
+END</pre>
+</div>
+<p>While this is still just a set of keywords under a Style, it seemed
+simpler and is now working in the Mapserver 4.6 branch.</p>
+</div>
+<div class="section" id="current-syntax-problems">
+<h2>Current Syntax Problems<a class="headerlink" href="#current-syntax-problems" title="Permalink to this headline">¶</a></h2>
+<p>Several people pointed out that the current syntax could be improved
+by:</p>
+<ol class="arabic simple">
+<li>Moving the new keywords into a block</li>
+<li>Adding a METHOD keyword with the type of interpolation used
+(&#8216;linear&#8217; being the first defined type, &#8216;logarithmic&#8217; being a
+potential second type, etc.</li>
+<li>Adding an INTERVALS keyword that would limit the number of colors
+actually used by rounding values before interopolation.</li>
+<li>Moving all of the keywords out of the Style block.</li>
+<li>Allowing the ColorRange to be defined separately so that it can be reused</li>
+</ol>
+</div>
+<div class="section" id="proposed-new-syntax">
+<h2>Proposed New Syntax<a class="headerlink" href="#proposed-new-syntax" title="Permalink to this headline">¶</a></h2>
+<p>To meet the above needs, I propose the following new Block Syntax:</p>
+<div class="highlight-python"><pre>COLORRANGE
+  RANGEITEM 'itemname' #required
+  MINCOLOR 0 0 0 #optional - default = Black
+  MAXCOLOR 255 255 0 #optional -default = White
+  MINVALUE 0.0 #optional - default = 0
+  MAXVALUE 100.0 #optional - default = 1
+  INTERVALS 10 #optional - default = 0 (unlimited)
+  METHOD LINEAR #optional - default = 'LINEAR'
+END</pre>
+</div>
+<p>I propose that this block lives at the CLASS level.  My reasons for
+putting it at the CLASS, rather than the LAYER (or above) level are as
+follows:</p>
+<ol class="arabic simple">
+<li>CLASS is the lowest level that can define a Legend entry (by using
+a named class)</li>
+<li>Allows multiple COLORANGES to be applied to a single layer
+(i.e. Red-&gt;Yellow and Yellow-&gt;Green to make a contiguous
+Reg-&gt;Yellow-&gt;Green).</li>
+<li>Allows &#8220;out of bounds&#8221; values to be highlighted separately (with a
+different CLASS).</li>
+</ol>
+<p>(If we wish to provide this capability on the OUTLINECOLOR, then I
+would suggest we create a OUTLINECOLORRANGE block with identical format.)</p>
+<p>Note: I am (and have always been) flexible on all of the keyword names
+and formats here.  However, given the discussion that&#8217;s gone on around
+(and around) this, I thought I&#8217;d put a straw man up and start here.</p>
+</div>
+<div class="section" id="proposed-legend-format">
+<h2>Proposed Legend Format<a class="headerlink" href="#proposed-legend-format" title="Permalink to this headline">¶</a></h2>
+<p>I have posted a mockup of how I believe legends should look at</p>
+<p><a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/324">http://trac.osgeo.org/mapserver/ticket/324</a></p>
+<p>The format only changes the height of the legend (which is already
+dynamic) so it should not have major layout implications.
+(Nit-picking about how tall the colorbar should be can be worked out
+during implementation.)</p>
+<p>I have not started the legend support, and would like some help in
+this area.  However, I do believe it is straightforward, and I will do
+it on my own if there are no volunteers.</p>
+</div>
+<div class="section" id="mapscript-issues">
+<h2>MapScript Issues<a class="headerlink" href="#mapscript-issues" title="Permalink to this headline">¶</a></h2>
+<p>As Sean Gillies mentioned in the discussion, this should be
+encapsulated in MapScript as a class.  While I disagree with his
+putting it on the LAYER (see above), the rest of his suggestions all
+seem right in line.</p>
+<p>I Propose a class named ColorRamp with the following read/write attributes:</p>
+<div class="highlight-python"><pre>Color minColor
+Color maxColor
+double minValue
+double maxValue
+String rangeItem
+String method
+int intervals</pre>
+</div>
+<p>and two methods</p>
+<div class="highlight-python"><pre>Color findColor(double value)
+double findValue(Color color)</pre>
+</div>
+<p>ColorRamps can be obtained through an appropriate constructor or
+through a new (read/write) attribute on the ClassObj object:</p>
+<div class="highlight-python"><pre>ColorRange colorRange</pre>
+</div>
+<p>Note: I will need help in adding these to MapScript as I do not have
+the SWIG experience to do it well.</p>
+</div>
+<div class="section" id="files-affected">
+<h2>Files affected<a class="headerlink" href="#files-affected" title="Permalink to this headline">¶</a></h2>
+<p>I will update this list as the RFC evolves, but right now, these are
+what I see:</p>
+<ul class="simple">
+<li>mapfile.h =&gt; Change Keywords</li>
+<li>maplexer.l =&gt; Change Keywords</li>
+<li>mapfile.c =&gt; process new Keywords</li>
+<li>mapscript/swiginc/*.i =&gt; various interface modifications to fit the
+above requirements</li>
+<li>maplegend.c =&gt; Add new Legend support</li>
+<li>mapdraw.c =&gt; update existing ColorRange code to use new keywords &amp;
+add intervals and LOGARITHMIC method</li>
+</ul>
+</div>
+<div class="section" id="backwards-compatabilty-issues">
+<h2>Backwards compatabilty issues<a class="headerlink" href="#backwards-compatabilty-issues" title="Permalink to this headline">¶</a></h2>
+<p>Right now, certain code _requires_ that there is a COLOR attribute set
+on any layer that is going to be displayed.  Either this will need to
+be changed, or we will have to decide what that means if both a COLOR
+and a COLORRANGE are defined.  One option is to use the COLOR for any
+values that are outside of the range.</p>
+</div>
+<div class="section" id="multiple-mapping-methods">
+<h2>Multiple Mapping Methods<a class="headerlink" href="#multiple-mapping-methods" title="Permalink to this headline">¶</a></h2>
+<p>The system will allow new color mapping methods to be added with as little
+effort as possible.  If a new color mapping method uses only the keywords
+defined by this RFC, it should be a simple as:</p>
+<ol class="arabic simple">
+<li>Implement a function with the signature</li>
+</ol>
+<div class="highlight-python"><pre>int mappingFn(colorRangeObj\* range, shapeObj\* shape, colorObj \*color)
+
+This function should use the shape and range parameters to determine the
+shapes color, and modify the color parameter accordingly.</pre>
+</div>
+<ol class="arabic simple" start="2">
+<li>Choose a unique method name (&#8216;linear&#8217;, &#8216;logarithmic&#8217;, &#8216;discrete&#8217;)
+modify the method msMapColorRamp() to call its method when its method name
+is found on a ColorRange definition.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Whether the msMapColorRamp() method uses if/then logic or dispatches
+by function pointer can be determined later.  For now, I believe the
+simplest approach would be to move all of the mapping logic + all current
+methods into a mapColorRange.c file.</p>
+</div>
+</div>
+<div class="section" id="bug-id">
+<h2>Bug ID<a class="headerlink" href="#bug-id" title="Permalink to this headline">¶</a></h2>
+<p>Currently this is being tracked by <a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/1305">http://trac.osgeo.org/mapserver/ticket/1305</a></p>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting history<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-7.html" title="MS RFC 7: MapServer CVS Commit Management"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-5.html" title="MS RFC 5: MapServer Horizon Reprojection Improvements"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

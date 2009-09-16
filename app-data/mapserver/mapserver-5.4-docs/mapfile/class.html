@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CLASS &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Mapfile" href="index.html" />
+    <link rel="next" title="Expressions" href="expressions.html" />
+    <link rel="prev" title="Mapfile" href="index.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="expressions.html" title="Expressions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Mapfile"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//mapfile/class.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/mapfile/class.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Mapfile</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="expressions.html"
+                                  title="next chapter">Expressions</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/mapfile/class.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="class">
+<span id="id1"></span><h1>CLASS<a class="headerlink" href="#class" title="Permalink to this headline">¶</a></h1>
+<dl class="docutils">
+<dt>BACKGROUNDCOLOR [r] [g] [b]</dt>
+<dd>Color to use for non-transparent symbols.</dd>
+<dt>COLOR [r] [g] [b]</dt>
+<dd>Color to use for drawing features.</dd>
+</dl>
+<dl class="docutils" id="index-6">
+<dt>DEBUG [on|off]</dt>
+<dd><p class="first">Enables debugging of the class object. Verbose output is generated and sent
+to the standard error output (STDERR) or the MapServer logfile if one is
+set using the LOG parameter in the <a class="reference external" href="web.html#web"><em>WEB</em></a> object.</p>
+<div class="admonition-see-also last admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="../development/rfc/ms-rfc-28.html#rfc28"><em>MS RFC 28: Redesign of LOG/DEBUG output mechanisms</em></a></p>
+</div>
+</dd>
+</dl>
+<dl class="docutils" id="index-7">
+<dt><a class="reference external" href="expressions.html#expressions"><em>EXPRESSION</em></a> [string]</dt>
+<dd><p class="first">Four types of expressions are now supported to define class membership.
+String comparisons, regular expressions, simple logical expressions, and
+string functions. If no expression is given, then all features are said
+to belong to this class.</p>
+<ul class="last">
+<li><p class="first">String comparisons are case sensitive and are the fastest to evaluate.
+No special delimiters are necessary although string must be quoted if they
+contain special characters. (As a matter of good habit, it is recommended
+you quote all strings).</p>
+</li>
+<li><p class="first">Regular expressions function just like previous versions of MapServer.
+However, you must now delimit a regular expression using /regex/. No
+quotes should be used.</p>
+</li>
+<li><p class="first">Logical expressions allow you to build fairly complex tests based on one
+or more attributes and therefore are only available with shapefiles.
+Logical expressions are delimited by parentheses &#8220;(expression)&#8221;.
+Attribute names are delimited by square brackets &#8220;[ATTRIBUTE]&#8221;. These
+names are case sensitive and must match the items in the shapefile.
+For example: EXPRESSION ([POPULATION] &gt; 50000 AND &#8216;[LANGUAGE]&#8217; eq
+&#8216;FRENCH&#8217;) ... The following logical operators are supported:
+=,&gt;,&lt;,&lt;=,&gt;=,=,or,and,lt,gt,ge,le,eq,ne. As you might expect this level
+of complexity is slower to process.</p>
+</li>
+<li><p class="first">One string function exists: length(). This obviously computes the length
+of a string. An example follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">EXPRESSION</span> <span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="s">&#39;[NAME_E]&#39;</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>String comparisons and regular expressions work from the classitem defined
+at the layer level. You may mix expression types within the different
+classes of a layer.</p>
+</li>
+</ul>
+</dd>
+</dl>
+<dl class="docutils" id="index-8">
+<dt>GROUP [string]</dt>
+<dd><p class="first">Allows for grouping of classes. It is only used when a CLASSGROUP at the
+<a class="reference external" href="layer.html#layer"><em>LAYER</em></a> level is set. If the CLASSGROUP parameter is set, only classes that
+have the same group name would be considered at rendering time.  An example
+of a layer with grouped classes might contain:</p>
+<div class="last highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+  <span class="p">...</span>
+  <span class="k">CLASSGROUP</span> <span class="s">&quot;group1&quot;</span>
+  <span class="p">...</span>
+  <span class="k">CLASS</span>
+    <span class="k">NAME</span> <span class="s">&quot;name1&quot;</span>
+    <span class="k">GROUP</span> <span class="s">&quot;group1&quot;</span>
+    <span class="p">...</span>
+  <span class="k">END</span>
+  <span class="k">CLASS</span>
+    <span class="k">NAME</span> <span class="s">&quot;name2&quot;</span>
+    <span class="k">GROUP</span> <span class="s">&quot;group2&quot;</span>
+    <span class="p">...</span>
+  <span class="k">END</span>
+  <span class="k">CLASS</span>
+    <span class="k">NAME</span> <span class="s">&quot;name3&quot;</span>
+    <span class="k">GROUP</span> <span class="s">&quot;group1&quot;</span>
+    <span class="p">...</span>
+  <span class="k">END</span>
+  <span class="p">...</span>
+<span class="k">END</span> <span class="c"># layer</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<dl class="docutils" id="keyimage">
+<span id="index-9"></span><dt>KEYIMAGE [filename]</dt>
+<dd>Full filename of the legend image for the <a class="reference internal" href="#class"><em>CLASS</em></a>. This image is used
+when building a legend (or requesting a legend icon via MapScript or the
+<a class="reference external" href="../cgi/index.html#cgi"><em>CGI application</em></a>).</dd>
+<dt><a class="reference external" href="label.html#label"><em>LABEL</em></a></dt>
+<dd>Signals the start of a <a class="reference external" href="label.html#label"><em>LABEL</em></a> object.</dd>
+</dl>
+<dl class="docutils" id="index-10">
+<dt>MAXSCALEDENOM [double]</dt>
+<dd><p class="first">Maximum scale at which this <a class="reference internal" href="#class"><em>CLASS</em></a> is drawn. Scale is given as the
+denominator of the actual scale fraction, for example for a map at a scale
+of 1:24,000 use 24000. Implemented in MapServer 5.0, to replace the
+deprecated MAXSCALE parameter.</p>
+<div class="admonition-see-also last admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="../glossary.html#term-map-scale"><em class="xref">Map Scale</em></a></p>
+</div>
+</dd>
+<dt>MAXSCALE [double] - deprecated</dt>
+<dd>Since MapServer 5.0 the proper parameter to use is MAXSCALEDENOM instead.
+The deprecated MAXSCALE is the maximum scale at which this CLASS is drawn.
+Scale is given as the denominator of the actual scale fraction, for
+example for a map at a scale of 1:24,000 use 24000.</dd>
+<dt>MAXSIZE [integer]</dt>
+<dd>Maximum size in pixels to draw a symbol. Default is 50.</dd>
+</dl>
+<dl class="docutils" id="index-11">
+<dt>MINSCALEDENOM [double]</dt>
+<dd><p class="first">Minimum scale at which this <a class="reference internal" href="#class"><em>CLASS</em></a> is drawn.  Scale is given as the
+denominator of the actual scale fraction, for example for a map at a scale
+of 1:24,000 use 24000.  Implemented in MapServer 5.0, to replace the
+deprecated MINSCALE parameter.</p>
+<div class="admonition-see-also last admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="../glossary.html#term-map-scale"><em class="xref">Map Scale</em></a></p>
+</div>
+</dd>
+<dt>MINSCALE [double] - deprecated</dt>
+<dd>Since MapServer 5.0 the proper parameter to use is MINSCALEDENOM instead.
+The deprecated MINSCALE is the minimum scale at which this CLASS is drawn.
+Scale is given as the denominator of the actual scale fraction, for
+example for a map at a scale of 1:24,000 use 24000.</dd>
+<dt>MINSIZE [integer]</dt>
+<dd>Minimum size in pixels to draw a symbol. Default is 0.</dd>
+<dt>NAME [string]</dt>
+<dd>Name to use in legends for this class. If not set class won&#8217;t show up in
+legend.</dd>
+<dt>OUTLINECOLOR [r] [g] [b]</dt>
+<dd>Color to use for outlining polygons and certain marker symbols. Line
+symbols do not support outline colors.</dd>
+<dt>SIZE [integer]</dt>
+<dd>Height, in pixels, of the symbol/pattern to be used. Only useful with
+scalable symbols. For vector (and ellipse) symbol types the default size
+is based on the range of Y values in the POINTS defining the symbol. For
+pixmaps, the default is the vertical size of the image. Default size is 1
+for TTF symbols.</dd>
+<dt>STATUS [on|off]</dt>
+<dd>Sets the current display status of the class.  Default turns the class on.</dd>
+<dt><a class="reference external" href="style.html#style"><em>STYLE</em></a></dt>
+<dd>Signals the start of a <a class="reference external" href="style.html#style"><em>STYLE</em></a> object. A class can contain multiple
+styles.</dd>
+<dt><a class="reference external" href="symbol.html#symbol"><em>SYMBOL</em></a> [integer|string|filename]</dt>
+<dd><p class="first">The symbol name or number to use for all features if attribute tables are
+not used. The number is the index of the symbol in the symbol file,
+starting at 1, the 5th symbol in the file is therefore symbol number 5.
+You can also give your symbols names using the NAME keyword in the symbol
+definition file, and use those to refer to them. Default is 0, which
+results in a single pixel, single width line, or solid polygon fill,
+depending on layer type.</p>
+<p class="last">You can also specify a gif or png filename. The path is relative to the
+location of the mapfile.</p>
+</dd>
+<dt><a class="reference external" href="template.html#template"><em>TEMPLATE</em></a> [filename]</dt>
+<dd>Template file or URL to use in presenting query results to the user.  See
+<a class="reference external" href="template.html#template"><em>Templating</em></a> for more info.</dd>
+<dt>TEXT [string]</dt>
+<dd>Static text to label features in this class with. This overrides values obtained
+from the LABELTIEM. The string may be given as an expression delimited using
+the ()&#8217;s. This allows you to concatenate multiple attributes into a single
+label. For example: ([FIRSTNAME],[LASTNAME]).</dd>
+</dl>
+<p>You can also &#8220;stack&#8221; 2 symbols to achieve interesting effects. You define the second
+symbol, which effectively sits &#8220;on top&#8221; of the symbol normally defined above.
+See <a class="reference external" href="symbology/construction.html#sym-construction"><em>Cartographic Symbol Construction with MapServer</em></a> for more information.</p>
+<p>The following parameters allow you to define the symbol, and they are equivalent
+to their non-overlay counterparts:</p>
+<ul class="simple">
+<li>OVERLAYBACKGROUNDCOLOR</li>
+<li>OVERLAYCOLOR</li>
+<li>OVERLAYOUTLINECOLOR</li>
+<li>OVERLAYSIZE</li>
+<li>OVERLAYMINSIZE</li>
+<li>OVERLAYMAXSIZE</li>
+<li>OVERLAYSYMBOL</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="expressions.html" title="Expressions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Mapfile"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

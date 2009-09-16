@@ -1,0 +1,298 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 8: Pluggable External Feature Layer Providers &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 9: Item tag for query templates" href="ms-rfc-9.html" />
+    <link rel="prev" title="MS RFC 7.1: MapServer SVN Commit Management" href="ms-rfc-7.1.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-9.html" title="MS RFC 9: Item tag for query templates"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-7.1.html" title="MS RFC 7.1: MapServer SVN Commit Management"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-8.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-8.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 8: Pluggable External Feature Layer Providers</a><ul>
+<li><a class="reference external" href="#purpose">Purpose</a></li>
+<li><a class="reference external" href="#abstract-solution">Abstract Solution</a></li>
+<li><a class="reference external" href="#technical-solution">Technical Solution</a></li>
+<li><a class="reference external" href="#files-and-objects-affected">Files and objects affected</a></li>
+<li><a class="reference external" href="#backwards-compatibility-issues">Backwards compatibility issues</a></li>
+<li><a class="reference external" href="#implementation-issues">Implementation Issues</a></li>
+<li><a class="reference external" href="#bug-id">Bug ID</a></li>
+<li><a class="reference external" href="#voting-history">Voting history</a></li>
+<li><a class="reference external" href="#open-questions">Open questions</a></li>
+<li><a class="reference external" href="#working-notes">Working Notes</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-7.1.html"
+                                  title="previous chapter">MS RFC 7.1: MapServer SVN Commit Management</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-9.html"
+                                  title="next chapter">MS RFC 9: Item tag for query templates</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-8.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-8-pluggable-external-feature-layer-providers">
+<span id="rfc8"></span><h1>MS RFC 8: Pluggable External Feature Layer Providers<a class="headerlink" href="#ms-rfc-8-pluggable-external-feature-layer-providers" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2005/10/26</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Jani Averbach</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">javerbach at extendthereach.com</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">$Date: 2008-12-23 22:34:31 +0100 (Di, 23. Dez 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">adopted</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">MapServer 4.8</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-8.txt 8278 2008-12-23 21:34:31Z hobu $</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this headline">¶</a></h2>
+<p>The purpose of this proposal is provide a way to user actually plug-in
+external third party feature layer providers to the MapServer at run
+time.</p>
+</div>
+<div class="section" id="abstract-solution">
+<h2>Abstract Solution<a class="headerlink" href="#abstract-solution" title="Permalink to this headline">¶</a></h2>
+<p>Provide a way to user to tell via map-file which library to load for
+layer, then load this library on demand and cache it for later use and
+bind it to the running MapServer by layer&#8217;s virtual table.</p>
+</div>
+<div class="section" id="technical-solution">
+<h2>Technical Solution<a class="headerlink" href="#technical-solution" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">New <tt class="docutils literal"><span class="pre">CONFIG</span></tt> option <tt class="docutils literal"><span class="pre">MS_PLUGIN_DIR</span></tt> which, if set, tells the base
+path for plugins</p>
+</li>
+<li><p class="first">New MAP-file keyword <tt class="docutils literal"><span class="pre">PLUGIN</span></tt> with string argument.  This
+keywords tells which library dynamically to load for this layer.</p>
+<p>The plugins are loaded based on the following algorithm:</p>
+<ul class="simple">
+<li>If plugin string is missing <tt class="docutils literal"><span class="pre">.so</span></tt> or <tt class="docutils literal"><span class="pre">.dll</span></tt> extension, append
+it to the plugin string</li>
+<li>If <tt class="docutils literal"><span class="pre">MS_PLUGIN_DIR</span></tt> is set and plugin string is not an absolute
+path, prefix plugin string with <tt class="docutils literal"><span class="pre">MS_PLUGIN_DIR</span></tt></li>
+<li>otherwise use plugin string directly</li>
+</ul>
+<p>In general, the dynamic library loader will use system paths to seek
+appropriate plugin to load, if the path is not absolute.</p>
+</li>
+<li><p class="first">New connection type <tt class="docutils literal"><span class="pre">PLUGIN</span></tt></p>
+</li>
+<li><p class="first">New field <tt class="docutils literal"><span class="pre">char*</span> <span class="pre">plugin_library</span></tt> in layerObj structure, this is
+the name of library to load for this layer.</p>
+</li>
+<li><p class="first">Function to get virtual table for requested layer. If the library
+isn&#8217;t already loaded, it will be loaded  on demand.</p>
+<div class="highlight-python"><pre>static const layerVTableObj *
+getCustomLayerVirtualTable(layerObj *layer)</pre>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">layerVTableObj</span></tt> is the virtual table and layer is a custom
+layer. In case of error, funtion will return <tt class="docutils literal"><span class="pre">NULL</span></tt>.</p>
+</li>
+<li><p class="first">Function to get a function pointer from dynamic loaded library. This
+function will also load the library.</p>
+<div class="highlight-python"><pre>msGetDynamicLibrarySymbol(const char *Library,
+                          const char *SymbolName)</pre>
+</div>
+<p>This is implemented by GDAL project, and I have planned to use their
+implementation of this (<tt class="docutils literal"><span class="pre">CPLGetSymbol</span></tt>).</p>
+</li>
+<li><p class="first">Cache structure for already loaded libraries. This cache structure
+will consist of a full name/path of the library (provided by user
+via mapfile), and a function pointer to the virtual table
+initialization function. The size of cache will be fixed and will be
+same as the maximum amount of layers (200 at the moment).  This is
+the maximum number of different custom layers for MapServer which
+could be loaded at the same time.  This cache implementation is
+internal, so if it has to be make dynamically allocated, it is
+possible to do later without breaking interface.</p>
+</li>
+<li><p class="first">New lock item (<tt class="docutils literal"><span class="pre">TLOCK_LAYER_VTABLE</span></tt>) to protect library cache structure.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="files-and-objects-affected">
+<h2>Files and objects affected<a class="headerlink" href="#files-and-objects-affected" title="Permalink to this headline">¶</a></h2>
+<p>This proposal will affect at least following files and objects:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">map.h</span></tt><ul>
+<li><tt class="docutils literal"><span class="pre">layerObj</span></tt> will contain a new field, <tt class="docutils literal"><span class="pre">char</span> <span class="pre">*plugin_library</span></tt>.</li>
+</ul>
+</li>
+<li>New lock token <tt class="docutils literal"><span class="pre">TLOCK_LAYER_VTABLE</span></tt></li>
+<li>New files and objects for custom layer handling.</li>
+</ul>
+</div>
+<div class="section" id="backwards-compatibility-issues">
+<h2>Backwards compatibility issues<a class="headerlink" href="#backwards-compatibility-issues" title="Permalink to this headline">¶</a></h2>
+<p>This change is binary incompatible, but mapfile backward
+compatible.  It will add a new keyword which is unknown for old
+MapServers.</p>
+</div>
+<div class="section" id="implementation-issues">
+<h2>Implementation Issues<a class="headerlink" href="#implementation-issues" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
+</div>
+<div class="section" id="bug-id">
+<h2>Bug ID<a class="headerlink" href="#bug-id" title="Permalink to this headline">¶</a></h2>
+<p>Bug <a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/1477">1477</a></p>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting history<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<p>Vote proposed by Jani Averbach on 10/26/2005, the initial result
+was +3 and after amending RFC, got +4 (3 non-voting members).</p>
+<p>Voting +1: Frank Warmerdam, Steve Lime, Yewondwossen Assefa, Daniel Morissette</p>
+<p>Proposal passed and will move forward.</p>
+</div>
+<div class="section" id="open-questions">
+<h2>Open questions<a class="headerlink" href="#open-questions" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
+</div>
+<div class="section" id="working-notes">
+<h2>Working Notes<a class="headerlink" href="#working-notes" title="Permalink to this headline">¶</a></h2>
+<p>Plugin library has to implement function
+<tt class="docutils literal"><span class="pre">PluginInitializeVirtualTable</span></tt></p>
+<div class="highlight-python"><pre>int (*pfnPluginInitVTable)(layerVTableObj *,
+                           layerObj *);</pre>
+</div>
+<p>which is called during library loading.  This function is responsible
+to populate <tt class="docutils literal"><span class="pre">layerVTableObj</span> <span class="pre">*</span></tt> virtual table.  If this function
+leaves some function pointers to <tt class="docutils literal"><span class="pre">NULL</span></tt> in this virtual table, then
+default actions are used for these missing functions.  The defaults
+are visible in function <tt class="docutils literal"><span class="pre">maplayer.c:</span> <span class="pre">populateVirtualTable(...)</span></tt>.
+The function must not populate directly <tt class="docutils literal"><span class="pre">layerObj-&gt;vtable</span></tt>, it have
+to use <tt class="docutils literal"><span class="pre">layerVTableObj</span> <span class="pre">*</span></tt> argument for this.  The MapServer is
+holding <tt class="docutils literal"><span class="pre">TLOCK_LAYER_VTABLE</span></tt> lock during this function call.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-9.html" title="MS RFC 9: Item tag for query templates"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-7.1.html" title="MS RFC 7.1: MapServer SVN Commit Management"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

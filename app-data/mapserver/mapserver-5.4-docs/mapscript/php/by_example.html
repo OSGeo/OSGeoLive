@@ -1,0 +1,666 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>By Example &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="PHP MapScript" href="index.html" />
+    <link rel="next" title="Python MapScript Appendix" href="../python.html" />
+    <link rel="prev" title="Introduction" href="class-intro.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../python.html" title="Python MapScript Appendix"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="class-intro.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >MapScript</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">PHP MapScript</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//mapscript/php/by_example.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/mapscript/php/by_example.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">By Example</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a><ul>
+<li><a class="reference external" href="#do-you-have-running-somewhere">Do you have running somewhere...</a></li>
+<li><a class="reference external" href="#can-you">Can you...</a></li>
+<li><a class="reference external" href="#outline-of-this-document">Outline of this Document</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#mapscript-overview">MapScript overview</a></li>
+<li><a class="reference external" href="#our-first-application">Our first application</a><ul>
+<li><a class="reference external" href="#the-map-file">The Map File</a></li>
+<li><a class="reference external" href="#displaying-the-map-with-mapscript">Displaying the map with MapScript</a></li>
+<li><a class="reference external" href="#code-explanation">Code Explanation</a></li>
+<li><a class="reference external" href="#output">Output</a></li>
+<li><a class="reference external" href="#zooming-and-panning">Zooming and Panning</a></li>
+<li><a class="reference external" href="#php-mapscript-code">PHP/MapScript Code</a></li>
+<li><a class="reference external" href="#code-explanation-html">Code Explanation - HTML</a></li>
+<li><a class="reference external" href="#code-explanation-php">Code Explanation - PHP</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#conclusions">Conclusions</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="class-intro.html"
+                                  title="previous chapter">Introduction</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="../python.html"
+                                  title="next chapter">Python MapScript Appendix</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/mapscript/php/by_example.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="by-example">
+<span id="php-example"></span><h1><a class="toc-backref" href="#contents">By Example</a><a class="headerlink" href="#by-example" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Vinko Vrsalovic</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">el at vinko.cl</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8365 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2008-12-31 11:49:02 -0400 (Wed, 31 Dec 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Last Updated:</th><td class="field-body">2005/12/12</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#by-example" id="id1">By Example</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference internal" href="#mapscript-overview" id="id3">MapScript overview</a></li>
+<li><a class="reference internal" href="#our-first-application" id="id4">Our first application</a></li>
+<li><a class="reference internal" href="#conclusions" id="id5">Conclusions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The purpose of this document is to be a step by step explanation of the
+<a class="reference external" href="index.html#php"><em>PHP MapScript</em></a> with practical examples for each of
+them.  It is assumed a basic knowledge of <a class="reference external" href="../../mapfile/map.html#map"><em>MAP</em></a> and MapServer, and
+familiarity with the <a class="reference external" href="http://www.php.net">PHP (scripting)</a> and <a class="reference external" href="http://www.w3.org/MarkUp/">HTML (markup)</a> languages .
+This document was originally created for MapServer v4.0, but the examples still
+apply to more recent versions.</p>
+<p><strong>Let&#8217;s Begin...</strong></p>
+<p>Hello, kind reader. I am Tut, thank you for downloading me. I am sorry, but I am
+just a technical manual so I cannot answer any questions. The maintainer, a
+handsome, very nice and lazy guy according to what I saw from the other side of
+the screen, maybe will be able to answer your question(s). I am currently here to
+tell you about MapScript in its PHP incarnation. At my current age, I will be more
+useful to beginners than advanced users, even though I hope that some day I will
+be sufficiently old to be useful to advanced MapScript programmers.</p>
+<p>Let&#8217;s hope I live long enough... sigh.</p>
+<p>But enough with my personal problems, let myself begin. My duty is to familiarize
+you with MapScript, and in particular with PHP MapScript. When I end, you are
+expected to understand what MapScript is, and to be able to write applications to
+display and navigate that is, zooming and panning over shapefiles via a web browser.</p>
+<p>What follows are the questions you must answer affirmatively before accompanying
+me through the rest of this journey (I apologize for my maintainer&#8217;s lack of
+literary taste).</p>
+<div class="section" id="do-you-have-running-somewhere">
+<h3>Do you have running somewhere...<a class="headerlink" href="#do-you-have-running-somewhere" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>a web server capable of running PHP as a CGI (Apache will do)?</li>
+<li>the PHP language configured as a CGI, version 4.1.2 or higher? I recommend 4.3 onwards.</li>
+<li>PHP MapScript, version 4.0 or later? <a class="reference external" href="../../installation/php.html#php-install"><em>PHP MapScript Installation</em></a></li>
+</ul>
+</div>
+<div class="section" id="can-you">
+<h3>Can you...<a class="headerlink" href="#can-you" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>code PHP or are willing to <a class="reference external" href="http://php.net/tut.php">learn how to</a>?</li>
+<li>write and understand <a class="reference external" href="http://www.w3.org/MarkUp/">HTML</a> documents? (Note that Javascript is a plus)</li>
+<li>tell somebody what on earth is a <a class="reference external" href="http://shapelib.maptools.org/">shapefile</a> [or a <a class="reference external" href="http://postgis.refractions.net/">PostGIS</a> table]?</li>
+</ul>
+</div>
+<div class="section" id="outline-of-this-document">
+<h3>Outline of this Document<a class="headerlink" href="#outline-of-this-document" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>A general overview of MapScript, in a language independent way</li>
+<li>A trivial example</li>
+<li>A simple example</li>
+<li>Conclusion</li>
+</ul>
+<p>You can also go to each part directly through my table of contents located at
+the top, if you wish to skip some sections.</p>
+</div>
+</div>
+<div class="section" id="mapscript-overview">
+<h2><a class="toc-backref" href="#contents">MapScript overview</a><a class="headerlink" href="#mapscript-overview" title="Permalink to this headline">¶</a></h2>
+<p>Ok, now I&#8217;m at last arriving at a point I will enjoy. This overview intends to
+clear some common misconceptions beginners encounter when first facing MapScript
+and to give a general overview about MapScript&#8217;s internals. For now, just look
+at the following diagram (I apologize again for the maintainer&#8217;s lack of graphic
+design taste).</p>
+<img alt="../../_images/phpmapscript-byexample-map.png" src="../../_images/phpmapscript-byexample-map.png" />
+<p>It all starts as everything on the Web. A browser requests a certain URL through
+HTTP. The request arrives at the web server, which, in turn, delivers a file or
+executes a program and then delivers its output back to the browser. Yes, I know
+you knew that, but I have been told to be as complete as possible, and I will
+try to.</p>
+<p>In MapScript&#8217;s case, the server executes a certain script, which contains standard
+language functionality, that is, the same functionality you would have in that
+language without MapScript, plus access to almost all of the MapServer C API, the
+level of completeness of MapServer API support varies a bit with the language you
+choose, but I think it is my duty to tell you almost every available flavor of
+MapScript is usable. This API, exposed now in your scripting language through the
+MapScript module, allows you to do many GIS-like operations on spatial data,
+including read-write access to shapefiles, reprojection of data, and many others.
+For more information on the API, click over the link above. For other flavors,
+you can check their own documentation, you will see there is not much difference.</p>
+<p>The CGI version of MapServer is not required to run MapScript applications, just as
+you don&#8217;t need a particular MapScript module to run the CGI. The CGI version has
+many features out-of-the-box, MapScript is just an API, so with MapScript you must
+start from scratch or with some of the examples available. Think of the CGI as of a
+MapScript application written directly in C, with direct access to the MapServer C
+API. Sometimes the out-of-the-box functionality has some limits which can be surpassed
+by MapScript, but not embedded within the CGI. In other words, the CGI is not
+scriptable, but you can program all the CGI and more with MapScript. This may seem a
+strange thing to clarify, but is a common misconception, just check the <a class="reference external" href="http://lists.osgeo.org/pipermail/mapserver-users/">list archives</a>
+if you are not inclined to believe me.</p>
+<p>As with MapServer itself, MapScript can be configured using only map files, but, unlike
+the CGI, also includes the possibility of dynamically create maps or modify existing
+ones and to (and here is the key to the flexibility that MapScript has) mix this
+information with other sources of non GIS data, such as user input, non spatial and
+spatial databases, text files, etc. and that you can use every single module your
+language provides. The power of this approach is tremendous, and the most restrictive
+limit is your imagination. As always, flexibility comes with a price, performance.
+It&#8217;s generally slower to use a scripting language instead of C, but nowadays this
+shouldn&#8217;t be a big worry. And you can still program directly in C (there are not much
+documents about how to do it, though you might want to check the <a class="reference external" href="http://lists.osgeo.org/mailman/listinfo/mapserver-dev/">mapserver-dev list</a>)
+if you would like to.</p>
+<p>The input and output formats MapScript can handle are exactly the same as the ones
+configured when you build MapServer/MapScript. But one of the most important things
+to remember is that, basically, you feed geographic data and relevant user input (for
+instance clicks over the map image) to MapScript and as a result get one or more
+file(s), typically standard image files such as a PNG or JPEG. So you can apply anything
+you&#8217;ve seen in any server side scripted web application, DHTML, Java applets, CSS,
+HTML templates, sessions, you name it.</p>
+</div>
+<div class="section" id="our-first-application">
+<h2><a class="toc-backref" href="#contents">Our first application</a><a class="headerlink" href="#our-first-application" title="Permalink to this headline">¶</a></h2>
+<p>In this first example, I will tell you how to display a shapefile on a web page using
+a map file.</p>
+<div class="section" id="the-map-file">
+<h3>The Map File<a class="headerlink" href="#the-map-file" title="Permalink to this headline">¶</a></h3>
+<p>Here&#8217;s the map file:</p>
+<div class="highlight-python"><pre>NAME "Europe in purple"
+SIZE 400 400
+STATUS ON
+SYMBOLSET "/var/www/html/maps/symbols/symbols.sym"
+EXTENT -5696501 1923039 5696501 11022882
+UNITS METERS
+SHAPEPATH "/var/www/html/maps/data"
+
+WEB
+    IMAGEPATH "/var/www/html/maps/tmp/"
+    IMAGEURL "/tmp/"
+END
+
+LAYER
+    NAME "Europe"
+    TYPE POLYGON
+    STATUS ON
+    DATA "europe"
+    CLASS
+        STYLE
+            COLOR 110 50 100
+            OUTLINECOLOR 200 200 200
+            SYMBOL 0
+        END
+    END
+END
+
+END</pre>
+</div>
+<p>Here I have shown a map with a single layer, where the europe.shp, europe.shx and
+europe.dbf files must be located in the subdirectory called data. The symbols are
+located in the symbols subdirectory. All this locations are relative from the place
+the map file is, but better safe than sorry, I guess. The web section is used to
+define where will the images be saved and in what URL will they be available.</p>
+</div>
+<div class="section" id="displaying-the-map-with-mapscript">
+<h3>Displaying the map with MapScript<a class="headerlink" href="#displaying-the-map-with-mapscript" title="Permalink to this headline">¶</a></h3>
+<p>To display a map the following MapScript objects and methods will be used:</p>
+<ul class="simple">
+<li>MapObj object</li>
+<li>imageObj object</li>
+</ul>
+<p>MapObj methods:</p>
+<ul class="simple">
+<li>The constructor method: MapObj ms_newMapObj(string map_file_name[,string new_map_path])</li>
+<li>The draw method: imageObj draw()</li>
+</ul>
+<p>imageObj methods:</p>
+<ul class="simple">
+<li>The saveWebImage method: string saveWebImage()</li>
+</ul>
+<p>The code looks like this:</p>
+<div class="highlight-python"><pre>1 &lt;?php
+
+2 dl('php_mapscript.so');
+
+3 $map_path="/var/www/html/ms/map_files/";
+
+4 $map = ms_newMapObj($map_path."europe.map");
+5 $image=$map-&gt;draw();
+6 $image_url=$image-&gt;saveWebImage();
+
+7 ?&gt;
+
+8  &lt;HTML&gt;
+9   &lt;HEAD&gt;
+10      &lt;TITLE&gt;Example 1: Displaying a map&lt;/TITLE&gt;
+11  &lt;/HEAD&gt;
+12  &lt;BODY&gt;
+13      &lt;IMG SRC=&lt;?php echo $image_url; ?&gt; &gt;
+14  &lt;/BODY&gt;
+15 &lt;/HTML&gt;</pre>
+</div>
+<p>The code I will present through the rest of this document will follow the
+following rule:</p>
+<ul class="simple">
+<li>Every non empty line is numbered</li>
+</ul>
+<p>This code will render an image corresponding to the shapefile europe and display
+it on a HTML page.</p>
+</div>
+<div class="section" id="code-explanation">
+<h3>Code Explanation<a class="headerlink" href="#code-explanation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>In line 2 it is loaded the MapScript extension (you may not need it if your
+php.ini file is configured to automatically load it).</li>
+<li>Line 3 declares a variable that holds the absolute path for the mapfile.</li>
+<li>Line 4 creates an instance of the MapObj object using the constructor. As you
+can see, the constructor receives the location of the map file as its only
+required parameter, and the map file received the europe.map name.</li>
+<li>Afterwards the draw method of the map object is called to render the image
+defined by the map file (line 5). The result (an imageObj) is saved in the
+$image variable.</li>
+<li>Line 6 calls the saveWebImage method to generate the image file, it returns a
+string which represents the URL as defined in the mapfile (in this case,
+/tmp/filename.png).</li>
+<li>The rest of the lines are pure HTML, except line 13, that defines the source
+URL of the image will be the value stored in $image_url.</li>
+</ul>
+<p>You should test the application on your system, to check that it really works
+and to solve the problems that may arise on your particular configuration before
+moving on to the more complex examples.</p>
+</div>
+<div class="section" id="output">
+<h3>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h3>
+<p>The output (using the europe shapefile) should look like this:</p>
+<img alt="../../_images/phpmapscript-byexample-map.png" src="../../_images/phpmapscript-byexample-map.png" />
+</div>
+<div class="section" id="zooming-and-panning">
+<h3>Zooming and Panning<a class="headerlink" href="#zooming-and-panning" title="Permalink to this headline">¶</a></h3>
+<p>Now I will tell you how to add zoom and pan capabilities to the code.</p>
+<p>Here goes the list of new methods and objects called.</p>
+<p>New Objects:</p>
+<ul class="simple">
+<li>pointObj</li>
+<li>rectObj</li>
+</ul>
+<p>New Methods and Members called:</p>
+<ul class="simple">
+<li>The zoompoint method of the map object: void zoompoint(int nZoomFactor,
+pointObj oPixelPos, int nImageWidth, int nImageHeight, rectObj oGeorefExt).</li>
+<li>The setextent method of the map object: $map-&gt;setextent(double minx,
+double miny, double maxx, double maxy);.</li>
+<li>The extent, width and height members of the map object.</li>
+<li>The constructors of RectObj and PointObj: $point = ms_newPointObj();
+$rect = ms_newRectObj();</li>
+<li>The setXY method of the point object: $point-&gt;setXY(double x_coord,
+double y_coord);</li>
+<li>The setextent method of the rectangle object: $rect-&gt;setextent(double minx,
+double miny, double maxx, double maxy);</li>
+</ul>
+<p>The .map file remains the same as the one presented in the previous example.</p>
+</div>
+<div class="section" id="php-mapscript-code">
+<h3>PHP/MapScript Code<a class="headerlink" href="#php-mapscript-code" title="Permalink to this headline">¶</a></h3>
+<p>Here I present the new code.</p>
+<div class="highlight-python"><pre>1 &lt;?php
+
+2 dl('php_mapscript.so');
+
+3 // Default values and configuration
+
+4 $val_zsize=3;
+5 $check_pan="CHECKED";
+6 $map_path="/var/www/html/ms/map_files/";
+7 $map_file="europe.map";
+
+8 $map = ms_newMapObj($map_path.$map_file);
+
+
+9 if ( isset($_POST["mapa_x"]) &amp;&amp; isset($_POST["mapa_y"])
+10      &amp;&amp; !isset($_POST["full"]) ) {
+
+11      $extent_to_set = explode(" ",$_POST["extent"]);
+
+12      $map-&gt;setextent($extent_to_set[0],$extent_to_set[1],
+13                      $extent_to_set[2],$extent_to_set[3]);
+
+14      $my_point = ms_newpointObj();
+15      $my_point-&gt;setXY($_POST["mapa_x"],$_POST["mapa_y"]);
+
+16      $my_extent = ms_newrectObj();
+
+17      $my_extent-&gt;setextent($extent_to_set[0],$extent_to_set[1],
+18                              $extent_to_set[2],$extent_to_set[3]);
+
+19      $zoom_factor = $_POST["zoom"]*$_POST["zsize"];
+20      if ($zoom_factor == 0) {
+21              $zoom_factor = 1;
+22              $check_pan = "CHECKED";
+23              $check_zout = "";
+24              $check_zin = "";
+25      } else if ($zoom_factor &lt; 0) {
+26              $check_pan = "";
+27              $check_zout = "CHECKED";
+28              $check_zin = "";
+29      } else {
+30              $check_pan = "";
+31              $check_zout = "";
+32              $check_zin = "CHECKED";
+33      }
+
+34      $val_zsize = abs($zoom_factor);
+
+35      $map-&gt;zoompoint($zoom_factor,$my_point,$map-&gt;width,$map-&gt;height,
+36                      $my_extent);
+
+37 }
+
+
+38 $image=$map-&gt;draw();
+39 $image_url=$image-&gt;saveWebImage();
+
+40 $extent_to_html = $map-&gt;extent-&gt;minx." ".$map-&gt;extent-&gt;miny." "
+41              .$map-&gt;extent-&gt;maxx." ".$map-&gt;extent-&gt;maxy;
+
+42 ?&gt;
+43 &lt;HTML&gt;
+44 &lt;HEAD&gt;
+45 &lt;TITLE&gt;Map 2&lt;/TITLE&gt;
+46 &lt;/HEAD&gt;
+47 &lt;BODY&gt;
+48 &lt;CENTER&gt;
+49 &lt;FORM METHOD=POST ACTION=&lt;?php echo $HTTP_SERVER_VARS['PHP_SELF']?&gt;&gt;
+50 &lt;TABLE&gt;
+51 &lt;TR&gt;
+52      &lt;TD&gt;
+53              &lt;INPUT TYPE=IMAGE NAME="mapa" SRC="&lt;?php echo $image_url?&gt;"&gt;
+54      &lt;/TD&gt;
+55 &lt;/TR&gt;
+56 &lt;TR&gt;
+57      &lt;TD&gt;
+58              Pan
+59      &lt;/TD&gt;
+60      &lt;TD&gt;
+61              &lt;INPUT TYPE=RADIO NAME="zoom" VALUE=0 &lt;?php echo $check_pan?&gt;&gt;
+62      &lt;/TD&gt;
+63 &lt;/TR&gt;
+64 &lt;TR&gt;
+65      &lt;TD&gt;
+66              Zoom In
+67      &lt;/TD&gt;
+68      &lt;TD&gt;
+69              &lt;INPUT TYPE=RADIO NAME="zoom" VALUE=1 &lt;?php echo $check_zin?&gt;&gt;
+70      &lt;/TD&gt;
+71 &lt;/TR&gt;
+72 &lt;TR&gt;
+73      &lt;TD&gt;
+74              Zoom Out
+75      &lt;/TD&gt;
+76      &lt;TD&gt;
+77              &lt;INPUT TYPE=RADIO NAME="zoom" VALUE=-1 &lt;?php echo $check_zout?&gt;&gt;
+78      &lt;/TD&gt;
+79 &lt;/TR&gt;
+80 &lt;TR&gt;
+81      &lt;TD&gt;
+82              Zoom Size
+83      &lt;/TD&gt;
+84      &lt;TD&gt;
+85              &lt;INPUT TYPE=TEXT NAME="zsize" VALUE="&lt;?php echo $val_zsize?&gt;"
+86              SIZE=2&gt;
+87      &lt;/TD&gt;
+88 &lt;/TR&gt;
+89 &lt;TR&gt;
+90      &lt;TD&gt;
+91              Full Extent
+92      &lt;/TD&gt;
+93      &lt;TD&gt;
+94              &lt;INPUT TYPE=SUBMIT NAME="full" VALUE="Go"
+95              SIZE=2&gt;
+96      &lt;/TD&gt;
+97 &lt;/TABLE&gt;
+98 &lt;INPUT TYPE=HIDDEN NAME="extent" VALUE="&lt;?php echo $extent_to_html?&gt;"&gt;
+99 &lt;/FORM&gt;
+100 &lt;/CENTER&gt;
+101 &lt;/BODY&gt;
+102 &lt;/HMTL&gt;</pre>
+</div>
+<p>This code will zoom out, zoom in, pan, and restore to full extent the image
+displayed in the previous example.</p>
+<p>It looks much more complicated than it really is, much of the lines are the
+HTML code, and much of the remaining PHP code is just to deal with the forms
+and such.</p>
+<p>You should try it and look at how it works first.  Try it in your own server
+by copying and pasting the code.</p>
+<p>Now it&#8217;s time for you to play with it a little and look at the source in your
+browser to check how it changes.</p>
+<p>Done?, now let&#8217;s start the explanation with the HTML part.</p>
+</div>
+<div class="section" id="code-explanation-html">
+<h3>Code Explanation - HTML<a class="headerlink" href="#code-explanation-html" title="Permalink to this headline">¶</a></h3>
+<p>Line 49 declares a form, and line 53 declares the image generated by MapScript
+to be part of that form, so when you click on it, the X and Y coordinates of the
+click (in pixels) will be sent along with the other data for the PHP code to
+process.</p>
+<p>If you are familiar with HTML and PHP, the rest of the HTML code should be
+straightforward for you to understand with the exception of line 98, that will
+be explained in due time.</p>
+</div>
+<div class="section" id="code-explanation-php">
+<h3>Code Explanation - PHP<a class="headerlink" href="#code-explanation-php" title="Permalink to this headline">¶</a></h3>
+<p>Now look at the PHP code, it&#8217;s almost the same code used in example 1, with the
+addition of lines 9 to 37. What do these lines do?</p>
+<p>Line 9 checks the relevant variables from the form have been setted. &#8216;mapa_x&#8217; and
+&#8216;mapa_y&#8217; represent the X and Y coordinates of the click over the image, and &#8216;full&#8217;
+represents the click on the &#8216;Full Extent&#8217; button.</p>
+<p>The first time the page is displayed the code between the if statement doesn&#8217;t get
+executed, but the rest of the code does. Lines 40 and 41 set the &#8216;$extent_to_html&#8217;
+variable with the values of the extent defined in the map file separated by spaces;
+that value will be put in the HTML variable &#8216;extent&#8217; in line 98.</p>
+<p>Now look at line 11 and 12. We are inside the if statement, that means the form has
+been submitted at least once. We grab the extent stored in the previous execution
+(the &#8216;extent&#8217; HTML variable) of the code and set the extent of the map to be that
+last extent. This allows to zoom or pan with respect of the previous extent, not
+the extent that is set in the map file.</p>
+<p>From that last paragraph you can deduce that all the default values are set in the
+map file, and anything that you change through MapScript and would like to remain
+in your code, must be stored somehow. In this case it is done through hidden variables
+in a form. For more advanced applications you could use session variables or a database.</p>
+<p>Now you should be able to see why the &#8216;Full Extent&#8217; button works. If you check
+line 10, it says that if you haven&#8217;t pressed the button, skip the code in the if
+statement, so the extent is reset to the value that the map file has. You should
+also see that it isn&#8217;t necessarily a full extent (in case the extent in the map
+file is not full extent).</p>
+<p>Lines 14 and 15 declare a new point object and initialize it with the values the
+user clicked on. You should not forget that those values are in pixels, not in
+georeferenced coordinates.</p>
+<p>Lines 16 through 18 create a new rectangle object and set it with the extent of
+the previous image, just like it is done on line 12. In fact this would work too:
+$my_extent = $map-&gt;extent;.</p>
+<p>To do all the zooming and panning, the zoompoint function in called on line 35,
+but first the arguments it receives must be prepared. You can determine the point
+the user clicked on, and the extent of the image ($my_point and $my_extent,
+respectively), but now you have to determine the zoom factor. That&#8217;s what lines
+19 to 33 do. If you wondered why the values of the radio buttons where 0, -1,
+and 1 for pan, zoom in and zoom out, now you will know the reason.</p>
+<p>A zoom factor of 1 tells zoompoint that the operation is pan, a negative value
+indicates zoom out and a positive value indicates zoom in. So, by means of
+multiplying the value received for the radio buttons (HTML variable &#8216;zoom&#8217;) by
+the size of the zoom the user entered the zoom factor is calculated. If that
+value is 0, that means the user selected the pan operation, so &#8216;$zoom_factor&#8217;
+is set to 1, otherwise the result of the multiplication is the zoom factor zoompoint
+needs to receive. The other lines are to preserve the button the user clicked on
+the next time. Line 34 tries to preserve the value of the zoom size the user
+entered (It doesn&#8217;t do that all the time, when and why that line fails? That&#8217;s
+for you to find out).</p>
+<p>And finally, line 34 calls the zoompoint method with the zoom factor obtained,
+the point built from the pixel coordinates (I insist on that issue because zoompoint
+is almost the only method that receives the coordinates in pixels, for the other
+methods you must convert pixels to georeferenced coordinates on your own), the
+height and width of the image, and the extent.</p>
+<p>After calling zoompoint, the extent of the image is changed accordingly to the
+operation performed (or, better put, the zoom factor). So then the image is
+drawn and the current extent saved (after the zooming) for use in the next
+iteration.</p>
+</div>
+</div>
+<div class="section" id="conclusions">
+<h2><a class="toc-backref" href="#contents">Conclusions</a><a class="headerlink" href="#conclusions" title="Permalink to this headline">¶</a></h2>
+<p>Well, it&#8217;s time for me to go recharge my batteries. So I will use this last
+energy to share some final words. The examples I have managed to present here
+are very basic but you should now be able to devise ways to improve them and
+suit things to your needs. Keep in mind that you can preprocess, store, read,
+write data from any source you can usually read through PHP, plus all the
+sources MapServer can handle for GIS data. You can even process some GIS data
+with PHP only if the need would arise (SQL sources are a good example of
+this). You can also do hybrid approaches where some script prepares data which
+is then shown through the CGI interface to MapServer, or create data on the
+fly based on input from a GPS, etc, etc. The possibilities are just too many
+to enumerate completely. As I already said your imagination is the limit. The
+next version of this document will include examples that include more than one
+layer, with different datasources (not just shapefiles) and creation of
+dynamic layers and classes. If you have a better idea or would like to see
+some other thing here first, please drop a note to my maintainer.</p>
+<p>In the meantime, if you need bigger examples you can refer to the <a class="reference external" href="http://www.mapsherpa.com/gmap/">GMap demo</a>
+(you can download the source <a class="reference external" href="http://dl.maptools.org/dl/">here</a> or as an <a class="reference external" href="http://www.maptools.org/ms4w/index.phtml?page=downloads.html">MS4W packaged application</a>),
+or the <a class="reference external" href="http://www.maptools.org/">MapTools site</a> (MapLab, Chameleon). Goodbye, and thanks for reading
+this far.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../python.html" title="Python MapScript Appendix"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="class-intro.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >MapScript</a> &raquo;</li>
+          <li><a href="index.html" >PHP MapScript</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

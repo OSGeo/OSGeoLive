@@ -1,0 +1,621 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PHP MapScript Installation &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Installation" href="index.html" />
+    <link rel="next" title=".NET MapScript Compilation" href="dotnet.html" />
+    <link rel="prev" title="Compiling on Win32" href="win32.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="dotnet.html" title=".NET MapScript Compilation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="win32.html" title="Compiling on Win32"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Installation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//installation/php.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/installation/php.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PHP MapScript Installation</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a><ul>
+<li><a class="reference external" href="#which-version-of-php-is-supported">Which version of PHP is supported?</a></li>
+<li><a class="reference external" href="#how-to-get-more-information-on-the-php-mapscript-module-for-mapserver">How to Get More Information on the PHP/MapScript Module for MapServer</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#obtaining-compiling-and-installing-php-and-the-php-mapscript-module">Obtaining, Compiling, and Installing PHP and the PHP/MapScript Module</a><ul>
+<li><a class="reference external" href="#download-php-and-php-mapscript">Download PHP and PHP/MapScript</a></li>
+<li><a class="reference external" href="#setting-up-php-on-your-server">Setting Up PHP on Your Server</a></li>
+<li><a class="reference external" href="#build-install-the-php-mapscript-module">Build/Install the PHP/MapScript Module</a></li>
+<li><a class="reference external" href="#installing-php-mapscript">Installing PHP/MapScript</a></li>
+<li><a class="reference external" href="#example-steps-of-a-full-windows-installation">Example Steps of a Full Windows Installation</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#faq-common-problems">FAQ / Common Problems</a><ul>
+<li><a class="reference external" href="#questions-regarding-documentation">Questions Regarding Documentation</a></li>
+<li><a class="reference external" href="#questions-about-installation">Questions About Installation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="win32.html"
+                                  title="previous chapter">Compiling on Win32</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="dotnet.html"
+                                  title="next chapter">.NET MapScript Compilation</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/installation/php.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="php-mapscript-installation">
+<span id="php-install"></span><h1><a class="toc-backref" href="#table-of-contents">PHP MapScript Installation</a><a class="headerlink" href="#php-mapscript-installation" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Jeff McKenna</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">jmckenna at gatewaygeomatics.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8459 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2009-01-27 14:13:56 -0400 (Tue, 27 Jan 2009) $</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#php-mapscript-installation" id="id1">PHP MapScript Installation</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference internal" href="#obtaining-compiling-and-installing-php-and-the-php-mapscript-module" id="id3">Obtaining, Compiling, and Installing PHP and the PHP/MapScript Module</a></li>
+<li><a class="reference internal" href="#faq-common-problems" id="id4">FAQ / Common Problems</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<span id="index-3"></span><h2><a class="toc-backref" href="#table-of-contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The PHP/MapScript module is a PHP dynamically loadable module that makes
+MapServer&#8217;s MapScript functions and classes available in a PHP environment.</p>
+<p>The original version of MapScript (in Perl) uses <a class="reference external" href="http://www.swig.org/">SWIG</a>, but since SWIG does not
+support the PHP language, the module has to be maintained separately and may
+not always be in sync with the Perl version.</p>
+<p>The PHP module was developed by <a class="reference external" href="http://www.dmsolutions.ca/">DM Solutions Group</a> and is currently
+maintained by <a class="reference external" href="http://www.mapgears.com">Mapgears</a>.</p>
+<p>This document assumes that you are already familiar with certain aspects of
+your operating system:</p>
+<ul class="simple">
+<li>For Unix/Linux users, a familiarity with the build environment, notably <em>make</em>.</li>
+<li>For Windows users, some compilation skills if you don&#8217;t have ready access to
+a pre-compiled installation and need to compile your own copy of MapServer with
+the PHP/MapScript module.</li>
+</ul>
+<div class="section" id="which-version-of-php-is-supported">
+<h3>Which version of PHP is supported?<a class="headerlink" href="#which-version-of-php-is-supported" title="Permalink to this headline">¶</a></h3>
+<p>PHP MapScript was originally developed for PHP-3.0.14 but after MapServer 3.5
+support for PHP3 has been dropped and as of the last update of this document,
+PHP 4.3.11 or more recent was required (PHP5 is well supported).</p>
+<p>The best combinations of MapScript and PHP versions are:</p>
+<ul class="simple">
+<li>MapScript 4.10 with PHP 5.2.1 and up</li>
+<li>MapScript 4.10 with PHP 4.4.6 and up</li>
+</ul>
+</div>
+<div class="section" id="how-to-get-more-information-on-the-php-mapscript-module-for-mapserver">
+<h3>How to Get More Information on the PHP/MapScript Module for MapServer<a class="headerlink" href="#how-to-get-more-information-on-the-php-mapscript-module-for-mapserver" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>For a list of all classes, properties, and methods available in the module
+see the <a class="reference external" href="../mapscript/php/index.html#php"><em>PHP MapScript</em></a> reference document.</li>
+<li>More information on the PHP/MapScript module can be found on the
+<a class="reference external" href="http://www.maptools.org/php_mapscript/">PHP/MapScript page</a> on MapTools.org.</li>
+<li>The <a class="reference external" href="http://trac.osgeo.org/mapserver/wiki/PHPMapScript">MapServer Wiki</a> also has PHP/MapScript build and installation notes
+and some php code snippets.</li>
+<li>Questions regarding the module should be forwarded to the <a class="reference external" href="../community/lists.html#lists"><em>MapServer mailing list</em></a>.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="obtaining-compiling-and-installing-php-and-the-php-mapscript-module">
+<h2><a class="toc-backref" href="#table-of-contents">Obtaining, Compiling, and Installing PHP and the PHP/MapScript Module</a><a class="headerlink" href="#obtaining-compiling-and-installing-php-and-the-php-mapscript-module" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="download-php-and-php-mapscript">
+<span id="index-4"></span><h3>Download PHP and PHP/MapScript<a class="headerlink" href="#download-php-and-php-mapscript" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>The PHP source or the Win32 binaries can be obtained from the <a class="reference external" href="http://www.php.net/">PHP web site</a>.</li>
+<li>Once you have verified that PHP is installed and is running, you need to get
+the latest <a class="reference external" href="../download.html#download"><em>MapServer source</em></a> and compile MapServer and the PHP module.</li>
+</ul>
+</div>
+<div class="section" id="setting-up-php-on-your-server">
+<h3>Setting Up PHP on Your Server<a class="headerlink" href="#setting-up-php-on-your-server" title="Permalink to this headline">¶</a></h3>
+<p><strong>Unix</strong></p>
+<ul class="simple">
+<li>Check if you have PHP already installed (several Linux distributions have it built in).</li>
+<li>If not, see the PHP manual&#8217;s &#8220;<a class="reference external" href="http://php.net/manual/en/install.unix.php">Installation on Unix systems</a>&#8221; section.</li>
+</ul>
+<p><strong>Windows</strong></p>
+<ul class="simple">
+<li><a class="reference external" href="http://www.maptools.org/ms4w/">MS4W (MapServer For Windows)</a> is a package that contains Apache, PHP, and
+PHP/MapScript ready to use in a simple zipfile. Several Open Source applications
+are also available for use in MS4W.</li>
+<li>Windows users can follow steps in the <a class="reference external" href="http://www.php-mysql-tutorial.com/install-apache-php-mysql.php">Installing Apache, PHP and MySQL on Windows tutorial</a>
+to install Apache and PHP manually on their system.</li>
+<li>Window users running PWS/IIS can follow <a class="reference external" href="http://www.php.net/manual/en/install.iis.php">php.net&#8217;s howto</a> for installing PHP for PWS/IIS 3,
+PWS 4 or newer, and IIS 4 or newer.</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When setting up PHP on Windows, make sure that PHP is configured as a CGI and not
+as an Apache module because php_mapscript.dll is not thread-safe and does not work
+as an Apache module (See the <a class="reference internal" href="#php-install-example-steps"><em>Example Steps of a Full Windows Installation</em></a> section of this document).</p>
+</div>
+</div>
+<div class="section" id="build-install-the-php-mapscript-module">
+<h3>Build/Install the PHP/MapScript Module<a class="headerlink" href="#build-install-the-php-mapscript-module" title="Permalink to this headline">¶</a></h3>
+<p><strong>Building on a Linux Box</strong></p>
+<p>NOTE: For UNIX users, see the README.CONFIGURE file in the MapServer source, or
+see the <a class="reference external" href="unix.html#unix"><em>Compiling on Unix</em></a> HowTo.</p>
+<ul class="simple">
+<li>The main MapServer configure script will automatically setup the main makefile
+to compile php_mapscript.so if you pass the <em>&#8211;with-php=DIR</em> argument to the configure script.</li>
+<li>Copy the php_mapscript.so library to your PHP extensions directory, and then
+use the dl() function to load the module at the beginning of your PHP scripts.
+See also the PHP function <a class="reference external" href="http://www.php.net/manual/en/function.extension-loaded.php">extension_loaded()</a> to check whether an extension is
+already loaded.</li>
+<li>The file <em>mapscript/php3/examples/phpinfo_mapscript.phtml</em> will test that the
+php_mapscript module is properly installed and can be loaded.</li>
+<li>If you get an error from PHP complaining that it cannot load the library, then
+make sure that you recompiled and reinstalled PHP with support for dynamic
+libraries. On RedHat 5.x and 6.x, this means adding &#8220;-rdynamic&#8221; to the CLDFLAGS
+in the main PHP3 Makefile after running ./configure Also make sure all directories
+in the path to the location of php_mapscript.so are at least r-x for the HTTPd user
+(usually &#8216;nobody&#8217;), otherwise dl() may complain that it cannot find the file even
+if it&#8217;s there.</li>
+</ul>
+<p><strong>Building on Windows</strong></p>
+<ul class="simple">
+<li>For Windows users, it is recommended to look for a precompiled binary for your
+PHP version on the <a class="reference external" href="../download.html#download"><em>MapServer download page</em></a> or on <a class="reference external" href="http://www.maptools.org/php_mapscript/index.phtml?page=downloads.html">MapTools.org</a>.</li>
+<li>If for some reason you really need to compile your own Windows binary then see the
+README.WIN32 file in the MapServer source (good luck!).</li>
+</ul>
+</div>
+<div class="section" id="installing-php-mapscript">
+<h3>Installing PHP/MapScript<a class="headerlink" href="#installing-php-mapscript" title="Permalink to this headline">¶</a></h3>
+<p>Simply copy the file php4_mapscript.dll to your PHP4 extensions directory
+(pathto/php/extensions)</p>
+<p>Using phpinfo()</p>
+<p>To verify that PHP and PHP/MapScript were installed properly, create a &#8216;.php&#8217; file
+containing the following code and try to access it through your web server:</p>
+<div class="highlight-python"><pre>&lt;HTML&gt;
+&lt;BODY&gt;
+
+&lt;?php
+  if (PHP_OS == "WINNT" || PHP_OS == "WIN32")
+  {
+    dl("php_mapscript.dll");
+  }
+  else
+  {
+    dl("php_mapscript.so");
+  }
+  phpinfo();
+?&gt;
+
+&lt;/BODY&gt;
+&lt;/HTML&gt;</pre>
+</div>
+<p>If PHP and PHP/MapScript were installed properly, several tables should be
+displayed on your page, and &#8216;MapScript&#8217; should be listed in the &#8216;Extensions&#8217;
+table.</p>
+</div>
+<div class="section" id="example-steps-of-a-full-windows-installation">
+<span id="php-install-example-steps"></span><h3>Example Steps of a Full Windows Installation<a class="headerlink" href="#example-steps-of-a-full-windows-installation" title="Permalink to this headline">¶</a></h3>
+<p><strong>Using MS4W (MapServer for Windows)</strong></p>
+<ol class="arabic simple">
+<li>Download the latest <a class="reference external" href="http://www.maptools.org/ms4w/index.phtml?page=downloads.html">MS4W base package</a>.</li>
+<li>Extract the files in the archive to the root of one of your drives
+(e.g. C:/ or D:/).</li>
+<li>Double-click the file /ms4w/apache-install.bat to install and start the
+Apache Web server.</li>
+<li>In a web browser goto <a class="reference external" href="http://127.0.0.1">http://127.0.0.1</a>. You should see an MS4W opening page.
+You are now running PHP, PHP/MapScript, and Apache.</li>
+<li>You can now optionally install other applications that are pre-configured
+for MS4W, which are located on the <a class="reference external" href="http://www.maptools.org/ms4w/index.phtml?page=downloads.html">MS4W download page</a>.</li>
+</ol>
+<p><strong>Manual Installation Using Apache Server</strong></p>
+<ol class="arabic">
+<li><p class="first">Download the <a class="reference external" href="http://httpd.apache.org/">Apache Web Server</a> and extract it to the root of a directory
+(eg. D:/Apache).</p>
+</li>
+<li><p class="first">Download <a class="reference external" href="http://www.php.net/">PHP4</a> and extract it to your Apache folder (eg. D:/Apache/PHP4).</p>
+</li>
+<li><p class="first">Create a temp directory to store MapServer created GIFs. NOTE: This directory
+is specified in the IMAGEPATH parameter of the WEB Object in the <a class="reference external" href="../mapfile/index.html#mapfile"><em>Mapfile</em></a>
+reference.
+For this example we will call the temp directory &#8220;ms_tmp&#8221; (eg. E:/tmp/ms_tmp).</p>
+</li>
+<li><p class="first">Locate the file <em>httpd.conf</em> in the conf directory of Apache, and open it
+in a text viewer (eg. TextPad, Emacs, Notepad).</p>
+<p>In the <em>Alias</em> section of this file, add aliases to the ms_tmp folder and any
+other folder you require (for this example we will use the <em>msapps</em> folder):</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">Alias</span>   <span class="o">/</span><span class="n">ms_tmp</span><span class="o">/</span>   <span class="s">&quot;path/to/ms_tmp/&quot;</span>
+<span class="n">Alias</span>   <span class="o">/</span><span class="n">msapps</span><span class="o">/</span>   <span class="s">&quot;path/to/msapps/&quot;</span>
+</pre></div>
+</div>
+<p>In the <em>ScriptAlias</em> section of this file, add an alias for the PHP4 folder.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ScriptAlias</span>    <span class="o">/</span><span class="n">cgi</span><span class="o">-</span><span class="n">php4</span><span class="o">/</span>     <span class="s">&quot;pathto/apache/php4/&quot;</span>
+</pre></div>
+</div>
+<p>In the <em>AddType</em> section of this file, add a type for php4 files.</p>
+<div class="highlight-python"><pre>AddType application/x-httpd-php4   .php</pre>
+</div>
+<p>In the <em>Action</em> section of this file, add an action for the php.exe file.</p>
+<div class="highlight-python"><pre>Action application/x-httpd-php4    "/cgi-php4/php.exe"</pre>
+</div>
+</li>
+<li><p class="first">Copy the file <em>php4.ini-dist</em> located in your Apache/php4 directory and
+paste it into your WindowsNT folder (eg. c:/winnt), and then rename this
+file to <em>php.ini</em> in your WindowsNT folder.</p>
+</li>
+<li><p class="first">If you want specific extensions loaded by default, open the <em>php.ini</em> file
+in a text viewer and uncomment the appropriate extension.</p>
+</li>
+<li><p class="first">Place the file php_mapscript.dll into your Apache/php4/extensions folder.</p>
+</li>
+</ol>
+<p><strong>Installation Using Microsoft&#8217;s IIS</strong></p>
+<p>(please see the <a class="reference external" href="iis.html#iis"><em>IIS Setup for MapServer</em></a> document for uptodate steps)</p>
+<ol class="arabic">
+<li><p class="first">Install IIS if required (see the <a class="reference external" href="http://support.microsoft.com/support/iis/install/install_iis4.asp">IIS 4.0 installation procedure</a>).</p>
+</li>
+<li><p class="first">Install PHP and PHP/MapScript (see above).</p>
+</li>
+<li><p class="first">Open the Internet Service Manager (eg. C/WINNT/system32/inetsrv/inetmgr.exe).</p>
+</li>
+<li><p class="first">Select the Default web site and create a virtual directory (right click,
+select New/Virtual directory). For this example we will call the directory
+<em>msapps</em>.</p>
+</li>
+<li><p class="first">In the Alias field enter <em>msapps</em> and click Next.</p>
+</li>
+<li><p class="first">Enter the path to the root of your application (eg. &#8220;c:/msapps&#8221;) and click Next.</p>
+</li>
+<li><p class="first">Set the directory permissions and click Finish.</p>
+</li>
+<li><p class="first">Select the msapps virtual directory previously created and open the directory
+property sheets (by right clicking and selecting properties) and then click
+on the Virtual directory tab.</p>
+</li>
+<li><p class="first">Click on the Configuration button and then click the App Mapping tab.</p>
+</li>
+<li><p class="first">Click Add and in the Executable box type: <em>path/to/php4/php.exe %s %s</em>. You
+MUST have the <em>%s %s</em> on the end, PHP will not function properly if you fail
+to do this. In the Extension box, type the file name extension to be associated
+with your PHP scripts. Usual extensions needed to be associated are phtml and php.
+You must repeat this step for each extension.</p>
+</li>
+<li><p class="first">Create a temp directory in Explorer to store MapServer created GIFs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This directory is specified in the IMAGEPATH parameter of the WEB
+Object in the <a class="reference external" href="../mapfile/index.html#mapfile"><em>Mapfile</em></a>. For this example we will call the temp
+directory <em>ms_tmp</em> (eg. C:/tmp/ms_tmp).</p>
+</div>
+</li>
+<li><p class="first">Open the Internet Service Manager again.</p>
+</li>
+<li><p class="first">Select the Default web site and create a virtual directory called <em>ms_tmp</em>
+(right click, select New/Virtual directory). Set the path to the ms_tmp directory
+(eg. C:/tmp/ms_tmp) . The directory permissions should at least be set to
+Read/Write Access.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="faq-common-problems">
+<h2><a class="toc-backref" href="#table-of-contents">FAQ / Common Problems</a><a class="headerlink" href="#faq-common-problems" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="questions-regarding-documentation">
+<h3>Questions Regarding Documentation<a class="headerlink" href="#questions-regarding-documentation" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Q:</th><td class="field-body"><p class="first"><strong>Is there any documentation available?</strong></p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">A:</th><td class="field-body"><p class="first">The main reference document is the <a class="reference external" href="../mapscript/php/index.html#php"><em>PHP MapScript reference</em></a>,
+which describes all of the current classes, properties and methods
+associated with the PHP/MapScript module.</p>
+<p>To get a more complete description of each class and the meaning of
+their member variables, see the <a class="reference external" href="../mapscript/index.html#mapscript"><em>MapScript reference</em></a>
+and the <a class="reference external" href="../mapfile/index.html#mapfile"><em>MapFile reference</em></a>.</p>
+<p class="last">The <a class="reference external" href="http://trac.osgeo.org/mapserver/wiki/PHPMapScript">MapServer Wiki</a> also has PHP/MapScript build and installation
+notes and some php code snippets.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Q:</th><td class="field-body"><p class="first"><strong>Where can I find sample scripts?</strong></p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">A:</th><td class="field-body"><p class="first">Some examples are included in directory <em>mapserver/mapscript/php3/examples/</em>
+in the MapServer source distribution. A good one to get started is
+<em>test_draw_map.phtml</em>: it&#8217;s a very simple script that just draws a map,
+legend and scalebar in an HTML page.</p>
+<p>A good intermediate example is the <a class="reference external" href="../mapscript/php/by_example.html#php-example"><em>PHP MapScript By Example guide</em></a>
+(note that this document was created for an earlier MapServer version
+but the code might be still useful).</p>
+<p class="last">The next example is the <a class="reference external" href="http://www.mapsherpa.com/gmap/">GMap demo</a>. You can download the whole source and
+data files from the <a class="reference external" href="http://www.maptools.org/dl/">MapTools.org download page</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="questions-about-installation">
+<h3>Questions About Installation<a class="headerlink" href="#questions-about-installation" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Q:</th><td class="field-body"><p class="first"><strong>How can I tell that the module is properly installed on my server?</strong></p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">A:</th><td class="field-body"><p class="first">Create a file called phpinfo.phtml with the following contents:</p>
+<div class="highlight-python"><pre>&lt;?php  dl("php_mapscript.so");
+       phpinfo();
+?&gt;</pre>
+</div>
+<p>Make sure you replace the php_mapscript.so with the name under which you
+installed it, it could be php_mapscript_46.so on Unix, or php_mapscript_46.dll
+on Windows</p>
+<p class="last">You can then try the second test page <em>mapserver/mapscript/php3/examples/test_draw_map.phtml</em>.
+This page simply opens a MapServer .map file and inserts its map, legend,
+and scalebar in an HTML page. Modify the page to access one of your own
+MapServer .map files, and if you get the expected result, then everything
+is probably working fine.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Q:</th><td class="field-body"><p class="first"><strong>I try to display my .phtml or .php page in my browser but the page is
+shown as it would it Notepad.</strong></p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">A:</th><td class="field-body"><p class="first">The problem is that your PHP installation does not recognize &#8220;.phtml&#8221;
+as a PHP file extension. Assuming you&#8217;re using PHP4 under Apache then you
+need to add the following line with the other PHP-related AddType
+lines in the httpd.conf:</p>
+<div class="highlight-python"><pre>AddType application/x-httpd-php .phtml</pre>
+</div>
+<p class="last">For a more detailed explanation, see the <a class="reference internal" href="#php-install-example-steps"><em>Example Steps of a Full Windows
+Installation</em></a> section of this document.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Q:</th><td class="field-body"><p class="first"><strong>I installed the PROJ.4, GDAL, or one of the support libraries on my system,
+it is recognized by MapServer&#8217;s &#8220;configure&#8221; as a system lib but at runtime
+I get an error: &#8220;libproj.so.0: No such file or directory&#8221;.</strong></p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">A:</th><td class="field-body"><p class="first">You are probably running a RedHat Linux system if this happened to you.
+This happens because the libraries install themselves under /usr/local/lib
+but this directory is not part of the runtime library path by default on
+your system.</p>
+<p>(I&#8217;m still surprised that &#8220;configure&#8221; picked proj.4 as a system lib since
+it&#8217;s not in the system&#8217;s lib path...probably something magic in autoconf
+that we&#8217;ll have to look into)</p>
+<p>There are a couple of possible solutions:</p>
+<ol class="arabic">
+<li><p class="first">Add a &#8220;setenv LD_LIBRARY_PATH&#8221; to your httpd.conf to contain that directory</p>
+</li>
+<li><p class="first">Edit /etc/ld.so.conf to add /usr/local/lib, and then run &#8220;/sbin/ldconfig&#8221;.
+This will permanently add /usr/local/lib to your system&#8217;s runtime lib path.</p>
+</li>
+<li><p class="first">Configure MapServer with the following options:</p>
+<div class="highlight-python"><pre>--with-proj=/usr/local --enable-runpath</pre>
+</div>
+<p>and the /usr/local/lib directory will be hardcoded in the exe and .so files</p>
+</li>
+</ol>
+<p class="last">I (Daniel Morissette) personally prefer option #2 because it is permanent
+and applies to everything running on your system.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Q:</th><td class="field-body"><strong>Does PHP/MapScript have to be setup as a CGI? If so, why?</strong></td>
+</tr>
+<tr class="field"><th class="field-name">A:</th><td class="field-body">Yes, please see the <a class="reference external" href="http://old-mapserver.gis.umn.edu/cgi-bin/wiki.pl?PHPMapScriptCGI">PHP/MapScript CGI page</a> in the MapServer Wiki for details.</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Q:</th><td class="field-body"><p class="first"><strong>I have compiled PHP as a CGI and when PHP tries to load the php_mapscript.so,
+I get an &#8220;undefined symbol: _register_list_destructors&#8221; error. What&#8217;s wrong?</strong></p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">A:</th><td class="field-body"><p class="first">Your PHP CGI executable is probably not linked to support loading shared libraries.
+The MapServer configure script must have given you a message about a flag to add
+to the PHP Makefile to enable shared libs.</p>
+<p>Edit the main PHP Makefile and add &#8220;-rdynamic&#8221; to the LDFLAGS at the top of the
+Makefile, then relink your PHP executable.</p>
+<p class="last"><strong>Note:</strong> The actual parameter to add to LDFLAGS may vary depending on the system
+you&#8217;re running on. On Linux it is &#8220;-rdynamic&#8221;, and on *BSD it is &#8220;-export-dynamic&#8221;.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Q:</th><td class="field-body"><p class="first"><strong>What are the best combinations of MapScript and PHP versions?</strong></p>
+</td>
+</tr>
+<tr class="field"><th class="field-name">A:</th><td class="field-body"><p class="first">The best combinations are:</p>
+<ul class="last simple">
+<li>MapScript 4.10 with PHP 5.2.1 and up</li>
+<li>MapScript 4.10 with PHP 4.4.6 and up</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Q:</th><td class="field-body"><strong>I am dynamically loading gd.so and php_mapscript.so and running into problems, why?</strong></td>
+</tr>
+<tr class="field"><th class="field-name">A:</th><td class="field-body">The source of the problems could be a mismatch of GD versions. The PHP GD module compiles
+its own version of libgd, and if the GD library is loaded before the mapscript library,
+mapscript will use the php-specific version.  Wherever possible you should use a gd.so
+built with the same GD as PHPMapScript.  A workaround is to load the php_mapscript
+module before the GD module.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="dotnet.html" title=".NET MapScript Compilation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="win32.html" title="Compiling on Win32"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Installation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

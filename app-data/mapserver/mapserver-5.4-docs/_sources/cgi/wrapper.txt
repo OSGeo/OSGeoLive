@@ -1,0 +1,67 @@
+.. _wrapper:
+
+*****************************************************************************
+ A Simple CGI Wrapper Script 
+*****************************************************************************
+
+:Author:  Steven Monai      
+:Revision: $Revision: 8278 $
+:Date: $Date: 2008-12-23 17:34:31 -0400 (Tue, 23 Dec 2008) $
+:Last Updated: 2006/01/26
+
+
+.. contents:: Table of Contents
+    :depth: 2
+    :backlinks: top
+
+
+Introduction
+------------
+This document presents a simple shell script that can be used to "wrap" the 
+MapServer CGI, in order to avoid having to specify the 'map' parameter (or any 
+other chosen parameters) in your MapServer URLs.
+
+Script Information
+------------------
+
+If you want to avoid having to specify the 'map' parameter in your MapServer
+URLs, one solution is to use a "wrapper". Basically, a wrapper is a CGI program
+that receives an incoming CGI request, modifies the request parameters in some
+way, and then hands off the actual processing to another CGI program (e.g.
+MapServer).
+
+The following shell script is a wrapper for CGI GET requests that should be
+generic enough to run on any OS with /bin/sh:
+
+::
+
+    #!/bin/sh
+    MAPSERV="/path/to/my/mapserv"
+    MAPFILE="/path/to/my/mapfile.map"
+    if [ "${REQUEST_METHOD}" = "GET" ]; then
+      if [ -z "${QUERY_STRING}" ]; then
+        QUERY_STRING="map=${MAPFILE}"
+      else
+        QUERY_STRING="map=${MAPFILE}&${QUERY_STRING}"
+      fi
+      exec ${MAPSERV}
+    else
+      echo "Sorry, I only understand GET requests."
+    fi
+    exit 1
+    # End of Script
+
+You should set the MAPSERV and MAPFILE variables as appropriate for your
+configuration. MAPSERV points to your MapServer executable, and MAPFILE points
+to the mapfile you want MapServer to use. Both variables should be absolute
+file paths that your webserver has permission to access, although they need not
+(and probably should not) be in web-accessible locations. Then put the script
+in your web server's cgi-bin directory, and make it executable.
+
+Although this script only sets the 'map' parameter, it is easily modified to
+set any number of other MapServer parameters as well. For example, if you want
+to force your MapServer to 'map' mode, you can simply add 'mode=map' to the
+front of the QUERY_STRING variable. Just remember to separate your parameters
+with ampersands ('&').
+
+Finally, note that the script only works for GET requests.

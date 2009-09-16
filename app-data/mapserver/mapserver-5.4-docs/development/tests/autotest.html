@@ -1,0 +1,420 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Regression Testing &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Testing" href="index.html" />
+    <link rel="next" title="MapScript Unit Testing" href="mapscript.html" />
+    <link rel="prev" title="Testing" href="index.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="mapscript.html" title="MapScript Unit Testing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Testing"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Testing</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/tests/autotest.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/tests/autotest.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Regression Testing</a><ul>
+<li><a class="reference external" href="#getting-msautotest">Getting msautotest</a></li>
+<li><a class="reference external" href="#running-msautotest">Running msautotest</a></li>
+<li><a class="reference external" href="#checking-failures">Checking Failures</a></li>
+<li><a class="reference external" href="#perceptualdiff">PerceptualDiff</a></li>
+<li><a class="reference external" href="#background">Background</a><ul>
+<li><a class="reference external" href="#test-script-internal-functioning">Test Script Internal Functioning</a></li>
+<li><a class="reference external" href="#what-if-a-test-fails">What If A Test Fails?</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#todo">TODO</a></li>
+<li><a class="reference external" href="#adding-new-tests">Adding New Tests</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="index.html"
+                                  title="previous chapter">Testing</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="mapscript.html"
+                                  title="next chapter">MapScript Unit Testing</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/tests/autotest.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="regression-testing">
+<span id="autotest"></span><h1><a class="toc-backref" href="#table-of-contents">Regression Testing</a><a class="headerlink" href="#regression-testing" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Frank Warmerdam</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">warmerdam at pobox.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8365 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2008-12-31 11:49:02 -0400 (Wed, 31 Dec 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Last Updated:</th><td class="field-body">2007/8/31</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#regression-testing" id="id1">Regression Testing</a><ul>
+<li><a class="reference internal" href="#getting-msautotest" id="id2">Getting msautotest</a></li>
+<li><a class="reference internal" href="#running-msautotest" id="id3">Running msautotest</a></li>
+<li><a class="reference internal" href="#checking-failures" id="id4">Checking Failures</a></li>
+<li><a class="reference internal" href="#perceptualdiff" id="id5">PerceptualDiff</a></li>
+<li><a class="reference internal" href="#background" id="id6">Background</a></li>
+<li><a class="reference internal" href="#todo" id="id7">TODO</a></li>
+<li><a class="reference internal" href="#adding-new-tests" id="id8">Adding New Tests</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The msautotest is a suite of test maps, data files, expected result images,
+and test scripts intended to make it easy to run an a set of automated
+regression tests on MapServer.</p>
+<div class="section" id="getting-msautotest">
+<h2><a class="toc-backref" href="#table-of-contents">Getting msautotest</a><a class="headerlink" href="#getting-msautotest" title="Permalink to this headline">¶</a></h2>
+<p>The autotest is available from SVN. On Unix it could be fetched something like:</p>
+<div class="highlight-python"><pre>% svn checkout http://svn.osgeo.org/mapserver/trunk/msautotest</pre>
+</div>
+<p>This would create an msautotest subdirectory whereever you are. I normally put
+the autotest within my MapServer directory.</p>
+</div>
+<div class="section" id="running-msautotest">
+<h2><a class="toc-backref" href="#table-of-contents">Running msautotest</a><a class="headerlink" href="#running-msautotest" title="Permalink to this headline">¶</a></h2>
+<p>The autotest requires python (but not python MapScript), so if you don&#8217;t have
+python on your system - get and install it. More information on python is
+available at <a class="reference external" href="http://www.python.org">http://www.python.org</a>. Most Linux system have some version
+already installed.</p>
+<p>The autotest also requires that the executables built with MapServer, notably
+<a class="reference external" href="../../utilities/shp2img.html#shp2img"><em>shp2img</em></a>, <a class="reference external" href="../../utilities/legend.html#legend-utility"><em>legend</em></a>, <a class="reference external" href="../../cgi/mapserv.html#mapserv"><em>mapserv</em></a> and
+<a class="reference external" href="../../utilities/scalebar.html#scalebar-utility"><em>scalebar</em></a>, are available in the path. I generally
+accomplish this by adding the MapServer build directory to my path.</p>
+<p>csh:</p>
+<div class="highlight-python"><pre>% setenv PATH $HOME/mapserver:$PATH</pre>
+</div>
+<p>bash/sh:</p>
+<div class="highlight-python"><pre>% PATH=$HOME/mapserver:$PATH</pre>
+</div>
+<p>Verify that you can run stuff by typing &#8216;shp2img -v&#8217; in the autotest
+directory:</p>
+<div class="highlight-python"><pre>warmerda@gdal2200[152]% shp2img -v
+MapServer version 3.7 (development) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP
+SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS_SERVER SUPPORTS=GD2_RGB
+INPUT=TIFF INPUT=EPPL7 INPUT=JPEG INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE</pre>
+</div>
+<p>Now you are ready to run the tests. The tests are subdivided into categories,
+currently just &#8220;gdal&#8221;, &#8220;misc&#8221;, and &#8220;wxs&#8221; each as a subdirectory. To run the
+&#8220;gdal&#8221; tests cd into the gdal directory and run the run_test.py script.</p>
+<p>Unix:</p>
+<div class="highlight-python"><pre>./run_test.py</pre>
+</div>
+<p>Windows:</p>
+<div class="highlight-python"><pre>python.exe run_test.py</pre>
+</div>
+<p>The results in the misc directory might look something like this:</p>
+<div class="highlight-python"><pre>warmerda@gdal2200[164]% run_test.py
+version = MapServer version 3.7 (development) OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP
+SUPPORTS=PROJ SUPPORTS=TTF SUPPORTS=WMS_SERVER SUPPORTS=GD2_RGB INPUT=TIFF
+INPUT=EPPL7 INPUT=JPEG INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE
+
+Processing: rgba_scalebar.map
+   results match.
+Processing: tr_scalebar.map
+   results match.
+Processing: tr_label_rgb.map
+   results match.
+Processing: ogr_direct.map
+   results match.
+Processing: ogr_select.map
+   results match.
+Processing: ogr_join.map
+   results match.
+Test done:
+   0 tested skipped
+   6 tests succeeded
+   0 tests failed
+   0 test results initialized</pre>
+</div>
+<p>In general you are hoping to see that no tests failed.</p>
+</div>
+<div class="section" id="checking-failures">
+<h2><a class="toc-backref" href="#table-of-contents">Checking Failures</a><a class="headerlink" href="#checking-failures" title="Permalink to this headline">¶</a></h2>
+<p>Because most msautotest tests are comparing generated images to expected
+images, the tests are very sensitive to subtle rounding differences on
+different systems, and subtle rendering changes in libraries like freetype
+and gd. So it is quite common to see some failures.</p>
+<p>These failures then need to be reviewed manually to see if the differences
+are acceptable and just indicating differences in rounding/rendering or
+whether they are &#8220;real&#8221; bugs. This is normally accomplished by visually
+comparing files in the &#8220;result&#8221; directory with the corrresponding file in
+the &#8220;expected&#8221; directory. It is best if this can be done in an application
+that allows images to be layers, and toggled on and off to visually
+highlight what is changing. OpenEV can be used for this.</p>
+</div>
+<div class="section" id="perceptualdiff">
+<h2><a class="toc-backref" href="#table-of-contents">PerceptualDiff</a><a class="headerlink" href="#perceptualdiff" title="Permalink to this headline">¶</a></h2>
+<p>If you install the PerceptualDiff program (<a class="reference external" href="http://pdiff.sourceforge.net/">http://pdiff.sourceforge.net/</a>) and
+it is in the path, then the autotest will attempt to use it as a last fallback
+when comparing images. If images are found to be &#8220;perceptually&#8221; the same the
+test will pass with the message &#8220;result images perceptually match, though
+files differ.&#8221; This can dramatically cut down the number of apparent failures
+that on close inspection are for all intents and purposes identical. Building
+PerceptualDiff is a bit of a hassle.</p>
+</div>
+<div class="section" id="background">
+<h2><a class="toc-backref" href="#table-of-contents">Background</a><a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>The msautotest suite was initially developed by Frank Warmerdam
+(warmerdam at pobox.com), who can be contacted with questions it.</p>
+<p>The msautotest suite is organized as a series of .map files. The python
+scripts basically scan the directory in which they are run for files ending in
+.map. They are then &#8220;run&#8221; with the result dumped into a file in the result
+directory. A binary comparison is then done to the corresponding file in the
+expected directory and differences are reported. The general principles for
+the test suite are that:</p>
+<ul class="simple">
+<li>The test data should be small so it can be easily stored and checked out of
+svn without big files needing to be downloaded.</li>
+<li>The test data should be completely contained within the test suite ... no
+dependencies on external datasets, or databases that require additional
+configuration. PostGIS and Oracle will require separate testing mechanisms.</li>
+<li>The tests should be able to run without a significant deal of user
+interaction. This is as distinct from the DNR test suite described in
+FunctionalityDemo.</li>
+<li>The testing mechanism should be suitable to test many detailed functions in
+relative isolation.</li>
+<li>The test suite is not dependent on any of the MapScript environments, though
+I think it would be valuable to extend the testsuite with some mapscript
+dependent components in the future (there is a start on this in the mspython
+directory).</li>
+</ul>
+<div class="section" id="test-script-internal-functioning">
+<h3>Test Script Internal Functioning<a class="headerlink" href="#test-script-internal-functioning" title="Permalink to this headline">¶</a></h3>
+<p>Because MapServer can be built with many possible extensions, such as support
+for OGR, GDAL, and PROJ.4, it is desirable to have the testsuite automatically
+detect which tests should be run based on the configuratio of MapServer. This
+is accomplished by capturing the version output of &#8220;shp2img -v&#8221; and using the
+various keys in that to decide which tests can be run. A directory can have a
+file called &#8220;all_require.txt&#8221; with a &#8220;REQUIRES:&#8221; line indicating components
+required for all tests in the directory. If any of these requirements are not
+met, no tests at all will be run in this directory. For instance, the
+gdal/all_require.txt lists:</p>
+<div class="highlight-python"><pre>REQUIRES: INPUT=GDAL OUTPUT=PNG</pre>
+</div>
+<p>In addition, individual .map files can have additional requirements expressed
+as a REQUIRES: comment in the mapfile. If the requirements are not met the map
+will be skipped (and listsed in the summary as a skipped test). For example
+gdal/256_overlay_res.map has the following line to indicate it requires
+projection support (in addition to the INPUT=GDAL and OUTPUT=PNG required by
+all files in the directory):</p>
+<div class="highlight-python"><pre>REQUIRES: SUPPORTS=PROJ</pre>
+</div>
+<p>The output files generated by processing a map is put in the file
+results/&lt;mapfilebasename&gt;.png (regardless of whether it is PNG or not). So
+when gdal/256_overlay_res.map is processed, the output file is written to
+gdal/results/256_overlay_res.png. This is compared to
+gdal/expected/256_overlay_res.png. If they differ the test fails, and the
+&#8220;wrong&#8221; result file is left behind for investigation. If they match the result
+file is deleted. If there is no corresponding expected file the results file
+is moved to the expected directory (and reported as an &#8220;initialized&#8221; test)
+ready to be committed to CVS.</p>
+<p>There is also a RUN_PARMS keyword that may be placed in map files to override
+a bunch of behaviour. The default behaviour is to process map files with
+shp2img, but other programs such as mapserv or scalebar can be requested, and
+various commandline arguments altered as well as the name of the output file.
+For instance, the following line in misc/tr_scalebar.map indicates that the
+output file should be called tr_scalebar.png, the commandline should look like
+&#8220;[SCALEBAR] [MAPFILE] [RESULT]&#8221; instead of the default &#8220;[SHP2IMG] -m [MAPFILE]
+-o [RESULT]&#8221;.</p>
+<div class="highlight-python"><pre>RUN_PARMS: tr_scalebar.png [SCALEBAR] [MAPFILE] [RESULT]</pre>
+</div>
+<p>For testing things as they would work from an HTTP request, use the RUN_PARMS
+with the program [MAPSERV] and the QUERY_STRING argument, with results
+redirected to a file.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># RUN_PARMS: wcs_cap.xml [MAPSERV] QUERY_STRING=&#39;map=[MAPFILE]&amp;SERVICE=WCS&amp;VERSION=1.0.0&amp;REQUEST=GetCapabilities&#39; &gt; [RESULT]</span>
+</pre></div>
+</div>
+<p>For web services that generate images that would normally be prefixed with the
+Content-type header, use [RESULT_NOMIME] to instruct the test harnass to
+script off any http headers before doing the comparison.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Generate simple PNG.</span>
+<span class="c"># RUN_PARMS: wcs_simple.png [MAPSERV] QUERY_STRING=&#39;map=[MAPFILE]&amp;SERVICE=WCS&amp;VERSION=1.0.0&amp;REQUEST=GetCoverage&amp;WIDTH=120&amp;HEIGHT=90&amp;FORMAT=GDPNG&amp;BBOX=0,0,400,300&amp;COVERAGE=grey&amp;CRS=EPSG:32611&#39; &gt; [RESULT_DEMIME]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="what-if-a-test-fails">
+<h3>What If A Test Fails?<a class="headerlink" href="#what-if-a-test-fails" title="Permalink to this headline">¶</a></h3>
+<p>When running the test suite, it is common for some tests to fail depending on
+vagaries of floating point on the platform, or harmless changes in
+MapServer. To identify these compare the results in result with the file in
+expected and determine what the differences are. If there is just a slight
+shift in text or other features it is likely due to floating point differences
+on different platforms. These can be ignored. If something has gone seriously
+wrong, then track down the problem!</p>
+<p>It is also prudent to avoid using output image formats that are platform
+specific. For instance, if you produce TIFF it will generate big endian on big
+endian systems and therefore be different at the binary level from what was
+expected. PNG should be pretty safe.</p>
+</div>
+</div>
+<div class="section" id="todo">
+<h2><a class="toc-backref" href="#table-of-contents">TODO</a><a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Add lots of tests for different stuff!  Very little vector testing done yet.</li>
+<li>Add a high level script in the msautotest directory that runs the subscripts
+in all the subdirectories and produces a summary report.</li>
+</ul>
+</div>
+<div class="section" id="adding-new-tests">
+<h2><a class="toc-backref" href="#table-of-contents">Adding New Tests</a><a class="headerlink" href="#adding-new-tests" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Pick an appropriate directory to put the test in. Feel free to start a new
+one for new families of testing functionality.</li>
+<li>Create a minimal map file to test a particular issue. I would discourage
+starting from a &#8220;real&#8221; mapfile and cutting down as it is hard to reduce this
+to the minimum.</li>
+<li>Give the new mapfile a name that hints at what it is testing without making
+the name too long. For instance &#8220;ogr_join.map&#8221; tests OGR joins.
+&#8220;rgb_overlay_res_to8bit.map&#8221; tests RGB overlay layers with resampling and
+converting to 8bit output.</li>
+<li>Put any MapServer functionality options in a # REQUIRES: item in the header
+as described in the internal functioning topic above.</li>
+<li>Write some comments at the top of the .map file on what this test is
+intended to check.</li>
+<li>Add any required datasets within the data directory beneath the test
+directory. These test datasets should be as small as possible! Reuse
+existing datasets if at all possible.</li>
+<li>run the &#8220;run_tests.py&#8221; script.</li>
+<li>verify that the newly created expected/&lt;testname&gt;.png file produces the
+results you expect. If not, revise the map and rerun the test, now checking
+the results/&lt;testname&gt;.png file. Move the results/&lt;testname&gt;.png file into
+the expected directory when you are happy with it.</li>
+<li>add the .map file, and the expected/&lt;testname&gt;.png file to CVS when you are
+happy with them. Make sure the .png file (and any supporting data files) are
+marked as binary files. For example,</li>
+</ul>
+<div class="highlight-python"><pre>% svn add mynewtest.map expected/mynewtest.png
+% svn commit -m "new" mynewtest.map expected/mynewtest.png</pre>
+</div>
+<p>You&#8217;re done!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="mapscript.html" title="MapScript Unit Testing"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Testing"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Testing</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

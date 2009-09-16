@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Example 1.1 &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//tutorial/example1-1.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/tutorial/example1-1.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Example 1.1</a><ul>
+<li><a class="reference external" href="#map-with-a-single-layer">Map With A Single Layer</a><ul>
+<li><a class="reference external" href="#mapfile-structure">Mapfile Structure</a><ul>
+<li><a class="reference external" href="#map-object">MAP Object</a></li>
+<li><a class="reference external" href="#layer-object">LAYER Object</a></li>
+<li><a class="reference external" href="#class-object">CLASS Object</a></li>
+<li><a class="reference external" href="#style-object">STYLE Object</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/tutorial/example1-1.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="example-1-1">
+<span id="example1-1"></span><h1>Example 1.1<a class="headerlink" href="#example-1-1" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="map-with-a-single-layer">
+<h2>Map With A Single Layer<a class="headerlink" href="#map-with-a-single-layer" title="Permalink to this headline">¶</a></h2>
+<img alt="http://demo.mapserver.org/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/example1-1.map&amp;layer=states&amp;mode=map" src="http://demo.mapserver.org/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/example1-1.map&amp;layer=states&amp;mode=map" />
+<p>MapServer can create an image and dump it to a local directory or send it directly to the requesting web browser, as in this example. You can view it without the need for an html page, just enter this URL: <a class="reference external" href="http://localhost/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/example1-1.map&amp;layer=states&amp;mode=map">http://localhost/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/example1-1.map&amp;layer=states&amp;mode=map</a> (Remember to replace &#8220;&lt;insert hostname or IP address here&gt;&#8221; with your web server&#8217;s name, e.g. &#8220;localhost&#8221;, or its IP address, e.g. &#8220;127.0.0.1&#8221;).</p>
+<p>This URL can be broken into three parts: the first part, <a class="reference external" href="http:/">http:/</a>/&lt;insert hostname or IP address here&gt;/cgi-bin/mapserv.exe?, calls the MapServer CGI program. If you invoke it as is you will get this familiar message:</p>
+<div class="highlight-python"><pre>No query information to decode. QUERY_STRING is set, but empty.</pre>
+</div>
+<p>The next three parts are what make up the query string.  The query string contains the CGI parameters (variables and their values), with each parameter separated by an ampersand (&amp;amp;). So, looking at the query string, the first parameter &#8220;map&#8221; has a value &#8220;/ms4w/apps/tutorial/htdocs/example1-1.map&#8221;&#8211;this tells the MapServer CGI program (mapserv or mapserv.exe) what mapfile to process/parse. The next parameter &amp;quot;layer=states&amp;quot;, tells mapserv.exe to &#8220;turn on&#8221; the states layer&#8211;recall that we named our layer object &#8220;states&#8221;.  The last parameter, &amp;quot;mode=map&amp;quot;, tells mapserv.exe what to do with the output from the mapfile. In this case it tells mapserv.exe to dump the image directly to the web browser (the client), without first creating a temporary image on the server. The MapServer &amp;quot;mode&amp;quot; CGI variable takes values other than &amp;quot;map&amp;quot;. For example if you use &amp;quot;mode=browse&amp;quot;, MapServer will dump the image to a temporary directory on the server. The browse mode will not work now but we&#8217;ll come back to it again later.</p>
+<div class="section" id="mapfile-structure">
+<h3>Mapfile Structure<a class="headerlink" href="#mapfile-structure" title="Permalink to this headline">¶</a></h3>
+<p>This is what the mapfile looks like: <a class="reference external" href="example1-1-map.html#example1-1-map"><em>Example1-1.map</em></a>.</p>
+<p>The <a class="reference external" href="../mapfile/index.html#mapfile"><em>MAPFILE</em></a> is MapServer&#8217;s basic configuration mechanism. It is made up of &#8220;objects&#8221; and each object can have keywords or other objects. It has a hierarchical structure such that some objects fall under other objects... on top of this hierarchy is the MAP object, all other objects belong to it. This example shows a very straightforward heirarchy of objects.  As you go through each example, the complexity of these hierarchical trees will increase.</p>
+<p>A few quick notes about mapfiles: we define each object in the mapfile with the object name and we close it with &#8220;END&#8221; and we precede comments with a pound (#) sign.</p>
+<p>Let&#8217;s break &#8220;example1-1.map&#8221; down by objects. Its structure looks like this:</p>
+<div class="highlight-python"><pre>MAP
+ |-LAYER
+   |-CLASS
+     |-STYLE</pre>
+</div>
+<div class="section" id="map-object">
+<h4>MAP Object<a class="headerlink" href="#map-object" title="Permalink to this headline">¶</a></h4>
+<p>Let&#8217;s look at the keywords (parameters) within the MAP object:</p>
+<dl class="docutils">
+<dt><strong>MAP</strong></dt>
+<dd>Every mapfile starts with the <a class="reference external" href="../mapfile/map.html#map"><em>MAP</em></a> object&#8211;the entire
+mapfile is the MAP object.</dd>
+<dt><strong>IMAGETYPE</strong></dt>
+<dd>The keyword IMAGETYPE is used to define which image format the
+MapServer CGI program should use for output. In this case we are
+using indexed color PNG (similar to GIF). This could be GIF, if
+we compiled the GD library with GIF support, WBMP, or JPEG. We
+can also specify other output options (PDF, SWF, GeoTIFF)
+provided that we compiled support for them and specify them with
+the OUTPUTFORMAT object. The OUTPUTFORMAT goes beyond the scope of
+this tutorial but you can find out more about by reading through
+documentations in the MapServer web site.</dd>
+<dt><strong>EXTENT</strong></dt>
+<dd>This parameter specifies the output extent of our map&#8211;the bounding
+box of our initial map.  The EXTENT values are given in this format:</dd>
+</dl>
+<div class="highlight-python"><pre>&lt;Lower Left X&gt; &lt;Lower Left Y&gt; &lt;Upper Right X&gt; &lt;Upper Right Y&gt;</pre>
+</div>
+<p>with spaces separating each value. This needs to be in the same units as the
+data or, if specifying a different output projection, in the same units as the
+output projection.</p>
+<p>In this example our data is in geographic projection so the units are in decimal
+degrees.  You can use the utility
+<a class="reference external" href="http://gdal.osgeo.org/ogr_utilities.html">ogrinfo</a>,
+which is part of the GDAL/OGR library package, to get the extent of a particular
+shapefile (or other supported vector formats).  Here is the command I used to
+get the extent for this example:</p>
+<div class="highlight-python"><pre>ogrinfo -al -so states_ugl.shp</pre>
+</div>
+<p>This returned the following output:</p>
+<div class="highlight-python"><pre>INFO: Open of `states_ugl.shp' using driver `ESRI Shapefile' successful.
+Layer name: states_ugl
+Geometry: Polygon
+Feature Count: 204
+Extent: (-97.238976, 41.619778) - (-82.122902, 49.385620)
+Layer SRS WKT:(unknown)
+AREA: Real (12.3)
+PERIMETER: Real (12.3)
+STATESP020: Real (11.0)STATE: String (20.0)
+STATE_FIPS: String (2.0)
+CLASS: String (5.0)&lt;/pre&gt;</pre>
+</div>
+<p>You can also use ArcView or other open source GIS packages&#8211;QGIS, Thuban, etc.</p>
+<p>Feel free to change the values of EXTENT to get a better understanding of how it changes your map.</p>
+<dl class="docutils">
+<dt><strong>SIZE</strong></dt>
+<dd>This is the size of the image (the map) that MapServer will generate,
+in pixels. So our map is 400 pixels wide by 300 pixels high.  Again,
+change this to your heart&#8217;s content and see how it affects your map.</dd>
+<dt><strong>SHAPEPATH</strong></dt>
+<dd>This is the path to your data layers. You can provide absolute paths
+(i.e. &#8220;/ms4w/apps/tutorial/data&#8221; or &#8220;C:/ms4w/apps/tutorial/data&#8221;) or
+paths relative to your mapfile&#8217;s location (in this example, you&#8217;d use
+&#8220;../data&#8221;). This path doesn&#8217;t have to be web accessible, and probably
+shouldn&#8217;t be unless you want anyone to download your raw data. It has
+nothing directly to do with the web so don&#8217;t even think of URLs
+here&#8211;just make sure that the user running the web server (usually
+&#8220;nobody&#8221; or &#8220;apache&#8221; in the <a href="#id1"><span class="problematic" id="id2">*</span></a>nix world) can READ the data in the SHAPEPATH.</dd>
+<dt><strong>IMAGECOLOR</strong></dt>
+<dd>This is the background color of your map. The values are RGB values so
+255 Red, 255 Green, and 255 Blue which results in a white background.
+Go ahead and play with this values.</dd>
+</dl>
+</div>
+<div class="section" id="layer-object">
+<h4>LAYER Object<a class="headerlink" href="#layer-object" title="Permalink to this headline">¶</a></h4>
+<p>Now let&#8217;s look at the LAYER object parameters:</p>
+<dl class="docutils">
+<dt><strong>LAYER</strong></dt>
+<dd>Marks the beginning of a <a class="reference external" href="../mapfile/layer.html#layer"><em>LAYER</em></a> within the MAP object.
+You can specify as many layers as you&#8217;d like although you are limited
+to 100, by default. To change this limit, you will have to edit the
+map.h header file (in the soure tree) and recompile MapServer.</dd>
+<dt><strong>NAME</strong></dt>
+<dd>This is the layer identifier.  MapServer uses this name to toggle the
+layer on and off.  It won&#8217;t work in this example as we have the layer
+STATUS set to default.  We will get back to this in later examples.</dd>
+<dt><strong>DATA</strong></dt>
+<dd>The name of the data (shapefile in this case). MapServer supports
+vector data formats other than ESRI&#8217;s shapefile through the use of OGR
+library (part of the GDAL software package). Please visit the GDAL
+project web site at <a class="reference external" href="http://gdal.osgeo.org/">http://gdal.osgeo.org/</a> and
+read <a class="reference external" href="http://gdal.osgeo.org/ogr/">http://gdal.osgeo.org/ogr/</a>
+to know more about the different vector formats MapServer supports.
+In addition, Jeff McKenna and Tyler Mitchell have written a detailed
+<a class="reference external" href="../input/vector/index.html#vector"><em>guide to using vector data for MapServer</em></a>.</dd>
+<dt><strong>TYPE</strong></dt>
+<dd>What type of data is it? If it&#8217;s a vector data, you can specify whether
+it is a POLYGON, LINE (you use LINE even if your data is technically a
+POLYLINE), or a POINT. You can also specify RASTER or ANNOTATION data.
+Here we want to display POLYGON.</dd>
+<dt><strong>STATUS</strong></dt>
+<dd>Layers are turned on or off based on their STATUS. DEFAULT is always on.
+ON or OFF works when the LAYER name is passed as part of the query string.</dd>
+</dl>
+</div>
+<div class="section" id="class-object">
+<h4>CLASS Object<a class="headerlink" href="#class-object" title="Permalink to this headline">¶</a></h4>
+<p>Let&#8217;s look at the CLASS object parameters:</p>
+<dl class="docutils">
+<dt><strong>CLASS</strong></dt>
+<dd>Marks the beginning of a <a class="reference external" href="../mapfile/class.html#class"><em>CLASS</em></a> object within the LAYER
+object. You can specify as many classes within a layer although you are
+limited to 50 by default. You&#8217;ll have to recompile MapServer to change
+this default value.</dd>
+<dt><strong>NAME</strong></dt>
+<dd>The descriptive identifier for this CLASS. LAYER objects can have
+multiple classes, just like MAP objects can have multiple layers.
+CLASS names are used by MapServer as labels for the legend so make
+sure to use an appropriate descriptive name when naming classes.  We
+will talk about legends later in this tutorial.</dd>
+</dl>
+</div>
+<div class="section" id="style-object">
+<h4>STYLE Object<a class="headerlink" href="#style-object" title="Permalink to this headline">¶</a></h4>
+<p>And finally, let&#8217;s look at the STYLE object parameters:</p>
+<dl class="docutils">
+<dt><strong>STYLE</strong></dt>
+<dd>Marks the beginning of the <a class="reference external" href="../mapfile/style.html#style"><em>STYLE</em></a> object.  You can
+define multiple styles within a class&#8211;this is useful when you want to
+overlay a style over another.</dd>
+<dt><strong>COLOR</strong></dt>
+<dd>This is the fill color of the polygon. In case the TYPE is LINE, this
+is the line color. The values are in RGB format.</dd>
+<dt><strong>OUTLINECOLOR</strong></dt>
+<dd>This is the outline color of the polygons. The values are in RGB format.
+MapServer doesn&#8217;t draw polygon outlines by default, so if you want to
+see polygon boundaries, you will want to define an OUTLINECOLOR.</dd>
+</dl>
+<p>This ends the first example in this tutorial. You are encouraged to change the values of the keywords in the mapfile. It will help you understand what these keywords do.</p>
+<hr class="docutils" />
+<p><a class="reference external" href="section1.html#section1"><em>Back to Section 1 index</em></a> | <a class="reference external" href="example1-2.html#example1-2"><em>Proceed to Example 1.2</em></a></p>
+<hr class="docutils" />
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

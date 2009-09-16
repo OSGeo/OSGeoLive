@@ -1,0 +1,24 @@
+.. _mapscript:
+
+*****************************************************************************
+ MapScript
+*****************************************************************************
+
+:Release: |release|
+:Date: |today|
+
+
+
+.. toctree::
+   :maxdepth: 2
+
+   introduction
+   mapscript
+   php/index
+   python
+   imagery
+   mapfile
+   querying
+   variables
+   
+ 

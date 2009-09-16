@@ -1,0 +1,519 @@
+.. _map_context:
+
+*****************************************************************************
+ Map Context
+*****************************************************************************
+
+:Author:       Jeff McKenna
+:Contact:      jmckenna at gatewaygeomatics.com
+:Revision: $Revision: 9272 $
+:Date: $Date: 2009-08-25 19:01:14 -0300 (Tue, 25 Aug 2009) $
+:Last Updated: 2008/03/20
+
+.. contents::
+    :depth: 2
+    :backlinks: top
+
+Introduction
+============
+ 
+The term 'map context' comes from the Open Geospatial Constortium's (OGC) `Web
+Map Context Specification v1.0.0`_, which coincides with the OGC `Web Map
+Server Specification (WMS) v1.1.1`_. A map context is a XML document that
+describes the appearance of layers from one or more WMS servers, and can be
+transferred between clients while maintaining startup views, the state of the
+view (and its layers), and storing additional layer information.
+
+Support for OGC Web Map Context was added to MapServer in version 3.7/4.0.
+This allows client applications to load and save a map configuration in a
+standard XML format. MapServer can read context documents of versions 0.1.2,
+0.1.4, 0.1.7, 1.0.0, 1.1.0 and can export contents in versions 0.1.4, 0.1.7,
+1.0.0, 1.1.0. Web Map Context 1.1.0 support was added to MapServer 4.10
+
+This document assumes that you are already familiar with certain aspects of
+MapServer:
+
+- MapServer application development and setting up :ref:`mapfiles <mapfile>`.
+
+- Familiarity with the WMS spec would be an asset. Please see the following
+  section for links to associated sources.
+
+Links to WMS / Map Context Related Information
+----------------------------------------------
+
+- :ref:`MapServer WMS Client HowTo <wms_client>`
+- `Open Geospatial Consortium (OGC)`_ home page
+- `WMS 1.1.1 specification`_
+- `Map Context 1.0.0 specification`_
+- `MapServer OGC Web Services Workshop`_
+
+Implementing a Web Map Context
+==============================
+
+Special Build Considerations
+----------------------------
+
+Map Context support requires PROJ4, GDAL/OGR and PHP support libraries.
+
+Build/install the above libraries on your system and then build MapServer with
+the *'--with-wmsclient --with-proj --with-ogr --with-gdal --with-php'*
+configure options. Also make sure that your build uses the *USE_WMS_LYR* and
+*USE_OGR* flags. For more details on MapServer compilation see the appropriate
+HowTo: :ref:`Unix <unix>` / :ref:`Windows <win32>`
+
+Windows users can use `MS4W`_, which is ready for Map Context use.
+
+Map Context Mapfile
+-------------------
+
+A map context document can ONLY contain WMS layers (e.g. CONNECTIONTYPE WMS).
+Please refer to the :ref:`MapServer WMS Client HowTo <wms_client>` for more
+information on declaring WMS layers.
+
+MapFile Metadata
+****************
+
+The following mapfile metadata are used by MapServer to handle map context information:
+
+(Note that some parameters have width, height, format, and href, and some only 
+have format and href. This is because width and height are only used for images 
+and parameters that do not have them are text or html. For consistency with the 
+spec MapServer supports height and width for all parameters, but they should only 
+be used for images)
+
+Web Object Metadata
+*******************************************************************************
+
+- *ows_schemas_location* : Location of XML schema document. Default is 
+  http://schemas.opengis.net. See http://ogc.dmsolutions.ca for an example 
+  of a valid schema tree. 
+
+- *wms_abstract* : A blurb of text providing more information about the WMS server. 
+
+- *wms_address* : If provided must also then provide wms_addresstype, 
+  wms_city, wms_stateorprovince, wms_postcode, and wms_country) 
+
+- *wms_addresstype* : If provided must also then provide wms_address, 
+  wms_city, wms_stateorprovince, wms_postcode, and wms_country) 
+
+- *wms_city* : If provided must also then provide wms_address, 
+  wms_addresstype, wms_stateorprovince, wms_postcode, and wms_country) 
+
+- *wms_contactelectronicmailaddress* : contact Email address. 
+
+- *wms_contactfacsimiletelephone* : contact facsimile telephone number. 
+
+- *wms_contactorganization* : 
+
+- *wms_contactperson* : 
+
+- *wms_contactposition* :
+
+- *wms_contactvoicetelephone* : contact voice telephone number. 
+
+- *wms_context_fid* : the feature id of the context. Set to 0 when saving if not 
+  specified. 
+
+- *wms_context_version* : the version of the map context specification. 
+
+- *wms_country* : If provided must also then provide wms_address, wms_city, 
+  wms_stateorprovince, wms_postcode, and wms_addresstype.
+
+- *wms_descriptionurl_format* : Format of the webpage which contains relevant 
+  information to the view.
+
+- *wms_descriptionurl_href* : Reference to a webpage which contains relevant 
+  information to the view.
+
+- *wms_keywordlist* : A comma-separated list of keywords or keyword phrases to 
+  help catalog searching. 
+
+- *wms_logourl_width* : Width of the context logo.
+
+- *wms_logourl_height* : Height of the context logo.
+
+- *wms_logourl_format* : Format of the context logo.
+
+- *wms_logourl_href* : Location of the context logo.
+
+- *wms_postcode* : If provided must also then provide wms_address, 
+  wms_city, wms_stateorprovince, wms_addresstype, and wms_country. 
+
+- *wms_stateorprovince* : If provided must also then provide 
+  wms_address, wms_city, wms_addresstype, wms_postcode, and wms_country. 
+
+- *wms_title* : (**Required**) A human-readable name for this Layer (this metadata does not 
+  exist beyond version 0.1.4) 
+
+Layer Object Metadata
+*******************************************************************************
+
+
+- *wms_abstract* : A blurb of text providing more information about the WMS server. 
+
+- *wms_dataurl_href* : Link to an online resource where data corresponding to the 
+  layer can be found.
+
+- *wms_dataurl_format* : Format of the online resource where data corresponding 
+  to the layer can be found.
+  
+- *wms_dimension* : Current dimension used.
+  
+  .. versionadded:: 4.10
+
+- *wms_dimensionlist* : List of available dimensions.
+  
+  .. versionadded:: 4.10
+
+- *wms_dimension_%s_default* : Default dimension value. MapServer will check
+  for wms_time and wms_timedefault metadata when this is not specified. %s =
+  the name of the dimension.
+  
+  .. versionadded:: 4.10
+  
+- *wms_dimension_%s_multiplevalues* : Multiple dimension values. %s = the name
+  of the dimension.
+  
+  .. versionadded:: 4.10
+  
+- *wms_dimension_%s_nearestvalue* : Nearest dimension value. The default value
+  is 0. %s = the name of the dimension.
+  
+  .. versionadded:: 4.10
+  
+- *wms_dimension_%s_units* : Units for the dimension values. The default value
+  is ISO8601. %s = the name of the dimension.
+  
+  .. versionadded:: 4.10
+  
+- *wms_dimension_%s_unitsymbol* : Symbol for dimension units. The default
+  value is t. %s = the name of the dimension.
+  
+  .. versionadded:: 4.10
+  
+- *wms_dimension_%s_uservalue* : User dimension value. MapServer will check
+  for wms_time and wms_timedefault metadata when this is not specified. %s =
+  the name of the dimension.
+  
+  .. versionadded:: 4.10
+
+- *wms_format* : Current format used. 
+
+- *wms_formatlist* : List of available formats for this layer. 
+
+- *wms_metadataurl_href* : Link to an online resource where descriptive metadata 
+  of the corresponding layer can be found.
+
+- *wms_metadataurl_format* : Format of the online resource where descriptive 
+  metadata of the corresponding layer can be found.
+
+- *wms_name* : Name of the WMS layer on the server. 
+
+- *wms_onlineresource* : **Required** URL to access the server. 
+
+- *wms_server_version* : The version of the web map server specification. 
+
+- *wms_server_title* : The title of the web map server. 
+
+- *wms_stylelist* : Current style used. 
+
+- *wms_style_%s_legendurl_width* : Width of an image describing the style. 
+  %s = the name of the style.
+
+- *wms_style_%s_legendurl_height* : Height of an image describing the style.
+  %s = the name of the style.
+
+- *wms_style_%s_legendurl_format* : Format of an image describing the style.
+  %s = the name of the style.
+
+- *wms_style_%s_legendurl_href* : Location of an image describing the style.
+  %s = the name of the style.
+
+- *wms_style_%s_sld* : URL to the SLD document of this style. %s = the name 
+  of the style. 
+
+- *wms_style_%s_sld_body* : SLD_BODY document of this style. %s = the name of
+  the style.
+
+- *wms_style_%s_title* : Title of the layer. %s = the name of the style. 
+
+- *wms_title* : (**Required**) A human-readable name for this Layer. 
+
+Sample Map Context Mapfile
+**************************
+
+.. code-block:: mapfile
+    :linenos:
+
+    NAME WMS_CONTEXT
+    STATUS ON
+    SIZE 400 300
+    SYMBOLSET ../etc/symbols.sym
+    EXTENT -2200000 -712631 3072800 3840000
+    UNITS METERS
+    SHAPEPATH "../data"
+    IMAGECOLOR 255 255 255
+    FONTSET ../etc/fonts.txt
+
+    WEB
+      IMAGEPATH "/ms4w/tmp/ms_tmp/" 
+      IMAGEURL "/ms_tmp/"
+      METADATA
+        "wms_abstract" "Demo for map context document. Blah blah..."
+        "wms_title" "Map Context demo"   #### REQUIRED
+      END
+    END
+
+    PROJECTION
+      "init=epsg:42304"
+    END
+
+    LAYER
+      NAME "prov_bound"
+      TYPE RASTER
+      STATUS ON
+      CONNECTION "http://www2.dmsolutions.ca/cgi-bin/mswms_gmap?"
+      CONNECTIONTYPE WMS
+      METADATA
+        "wms_name"            "prov_bound"
+        "wms_server_version"  "1.1.1"
+        "wms_server_title"    "GMap WMS Demo Server"
+        "wms_format"          "image/gif"
+        "wms_srs"             "EPSG:42304"   
+        "wms_title"           "Canadian boundaries"  #### REQUIRED
+        "wms_onlineresource"  "http://www2.dmsolutions.ca/cgi-bin/mswms_gmap?"  #### REQUIRED
+        "wms_dimensionlist"             "time,width"    
+        "wms_dimension"                 "time"
+        "wms_dimension_time_unitsymbol" "t"    
+        "wms_dimension_time_units"      "ISO8601"
+        "wms_dimension_time_uservalue"  "1310"
+        "wms_dimension_time_default"    "1310"     
+        "wms_dimension_time_multiplevalues"  "1310,1410" 
+        "wms_dimension_time_nearestvalue"  "0"        
+      END
+    END  
+
+    LAYER
+      NAME popplace
+      TYPE RASTER
+      STATUS ON
+      CONNECTIONTYPE WMS
+      CONNECTION "http://www2.dmsolutions.ca/cgi-bin/mswms_gmap?"
+      METADATA
+        "wms_name"              "popplace"
+        "wms_server_version"    "1.1.1"
+        "wms_server_title"      "GMap WMS Demo Server"
+        "wms_format"            "image/png"
+        "wms_srs"               "EPSG:42304"
+        "wms_title"             "Canadian Cities" #### REQUIRED
+        "wms_onlineresource"    "http://www2.dmsolutions.ca/cgi-bin/mswms_gmap?" #### REQUIRED    
+      END
+    END # Layer
+
+    END # Map File
+
+Testing Map Context Support
+---------------------------
+
+1. The first thing to do is to save your mapfile using the saveMapContext function 
+   available from the :ref:`PHP/MapScript <php>` library. An 
+   example script is shown below:
+
+   .. code-block:: php
+   
+      <?php
+        dl("php_mapscript.dll");
+        $oMap = ms_newMapObj("gmap_wms_context.map");
+        $oMap->saveMapContext("gmap_wms_context_output.xml");
+      ?>               
+                
+2. Scan the XML output to look for *<!-- WARNING: ... -->* comments. Then make 
+   the necessary changes to fix every warning that you encounter. At the end of 
+   this you should have a mapfile compatible with the Map Context specification.
+   
+3. Now you can load your new Map Context document into an application using the 
+   *loadMapContext* function from the PHP/MapScript library.
+
+Sample Map Context Document
+---------------------------
+
+The following is a sample Map Context document:
+
+.. code-block:: guess
+    :linenos:
+    
+	<?xml version='1.0' encoding="ISO-8859-1" standalone="no" ?>
+	<ViewContext version="1.1.0" id="WMS_CONTEXT" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ogc="http://www.opengis.net/ogc" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.opengis.net/context" xmlns:sld="http://www.opengis.net/sld" xsi:schemaLocation="http://www.opengis.net/context http://schemas.opengis.net/context/1.1.0/context.xsd">
+	  <General>
+	    <Window width="400" height="300"/>
+	    <!-- Bounding box corners and spatial reference system -->
+	    <BoundingBox SRS="EPSG:42304" minx="-2200000.000000" miny="-712631.000000" maxx="3072800.000000" maxy="3840000.000000"/>
+	    <!-- Title of Context -->
+	    <Title>Map Context demo</Title>
+	    <Abstract>Demo for map context document. Blah blah...</Abstract>
+	    <ContactInformation>
+	    </ContactInformation>
+	  </General>
+	  <LayerList>
+	    <Layer queryable="0" hidden="0">
+	      <Server service="OGC:WMS" version="1.1.1" title="Canadian boundaries">
+		<OnlineResource xlink:type="simple" xlink:href="http://www2.dmsolutions.ca/cgi-bin/mswms_gmap?"/>
+	      </Server>
+	      <Name>prov_bound</Name>
+	      <Title>Canadian boundaries</Title>
+	      <SRS>EPSG:42304</SRS>
+	      <FormatList>
+		<Format current="1">image/gif</Format>
+	      </FormatList>
+	      <DimensionList>
+		<Dimension name="time" units="ISO8601" unitSymbol="t" userValue="1310" default="1310" multipleValues="1310,1410" nearestValue="0" current="1"/>
+	      </DimensionList>
+	    </Layer>
+	    <Layer queryable="0" hidden="0">
+	      <Server service="OGC:WMS" version="1.1.1" title="Canadian Cities">
+		<OnlineResource xlink:type="simple" xlink:href="http://www2.dmsolutions.ca/cgi-bin/mswms_gmap?"/>
+	      </Server>
+	      <Name>popplace</Name>
+	      <Title>Canadian Cities</Title>
+	      <SRS>EPSG:42304</SRS>
+	      <FormatList>
+		<Format current="1">image/png</Format>
+	      </FormatList>
+	      </DimensionList>
+	    </Layer>
+	  </LayerList>
+	</ViewContext>
+            
+Map Context Support Through CGI
+-------------------------------
+
+MapServer CGI allows you to load a map context through the use of a CONTEXT
+parameter, and you can point this parameter to a locally stored context file
+or a context file accessible through a URL. For more information on MapServer
+CGI see the :ref:`CGI Reference <cgi>`.
+
+Support for Local Map Context Files
+***********************************
+
+There is a new cgi parameter called *CONTEXT* that is used to specify a local
+context file. The user can then use MapServer to request a map using the
+following syntax:
+
+::
+
+    http://localhost/mapserver.cgi?MODE=map&MAP=/path/to/mapfile.map&CONTEXT=
+                         /path/to/contextfile.xml&LAYERS=layer_name1 layers_name2           
+                        
+.. note::
+
+    All layers created from a context file have their status set to ON. To be
+    able to display layers, the user needs to add the LAYERS argument in the
+    URL.
+
+Support for Context Files Accessed Through a URL
+************************************************
+
+The syntax of using a web accessible context file would be similar to accessing 
+a local context file:
+
+::
+
+    http://localhost/mapserver.cgi?MODE=map&MAP=/path/to/mapfile.map&CONTEXT=
+                http://URL/path/to/contextfile.xml&LAYERS=layers_name1 layer_name2     
+                        
+Due to security concerns loading a file from a URL is disabled by default. To enable 
+this functionality, the user needs to set a CONFIG parameter called *CGI_CONTEXT_URL* 
+in the default mapfile that will allow this functionality. Here is an example of a 
+map file with the CONFIG parameter:
+
+.. code-block:: mapfile
+
+    # Start of map file
+    NAME "map-context"
+    STATUS ON
+    SIZE 400 300
+    EXTENT -2200000 -712631 3072800 3840000
+    UNITS METERS
+    IMAGECOLOR 255 255 255
+    IMAGETYPE png
+    CONFIG "CGI_CONTEXT_URL" "1"
+    ...
+    WEB
+      ...
+    END
+    LAYER
+      ...
+    END 
+    
+    END
+                        
+Default Mapfile
+****************
+
+To smoothly run a MapServer CGI application with a Map Context, the
+application administrator needs to provide a default mapfile with at least the
+basic required parameters that will be used with the Context file. This
+default mapfile can contain as little information as the imagepath and
+imageurl or contain a list of layers. Information coming from the context
+(e.g.: layers, width, height, ...) would either be appended or will replace
+values found in the mapfile.
+
+Here is an example of a default map file containing the minimum required
+parameters:
+
+.. code-block:: mapfile
+    :linenos:
+    
+    NAME "CGI-CONTEXT-DEMO"
+    STATUS ON
+    SIZE 400 300
+    EXTENT -2200000 -712631 3072800 3840000
+    UNITS METERS
+    IMAGECOLOR 255 255 255
+    IMAGETYPE png
+    #
+    # Start of web interface definition
+    #
+    WEB
+      MINSCALE 2000000
+      MAXSCALE 50000000
+    #
+    # On Windows systems, /tmp and /tmp/ms_tmp/ should be created at the root 
+    # of the drive where the .MAP file resides.
+    #
+      IMAGEPATH "/ms4w/tmp/ms_tmp/" 
+      IMAGEURL "/ms_tmp/"
+    END
+    END # Map File                      
+
+Map Context Support Through WMS
+-------------------------------
+
+MapServer can also output your WMS layers as a Context document.  MapServer
+extends the WMS standard by adding a request=GetContext operation that allows
+you to retrieve a context for a WMS-based mapfile with a call
+like:
+
+::
+
+    http://localhost/mapserver.cgi?map=/path/to/mapfile.map&service=WMS&
+    request=GetContext&version=1.1.0
+
+The VERSION parameter controls the version of context document to return.
+
+GetContext is disabled by default because it could be
+considered a security issue: it could publicly expose the URLs of WMS layers
+used (cascaded) by a mapfile.
+
+To enable it, set the "wms_getcontext_enabled" web metadata to "1" in your
+WMS server's mapfile.
+
+.. #### rST Link Section ####
+
+.. _`Web Map Context Specification v1.0.0`: http://www.opengeospatial.org/docs/03-036r2.pdf
+.. _`Map Context 1.0.0 specification`: http://www.opengeospatial.org/docs/03-036r2.pdf
+.. _`Web Map Server Specification (WMS) v1.1.1`: http://www.opengeospatial.org/docs/01-068r2.pdf
+.. _`WMS 1.1.1 specification`: http://www.opengeospatial.org/docs/01-068r2.pdf
+.. _`MapServer OGC Web Services Workshop`: http://ms-ogc-workshop.maptools.org/
+.. _`Open Geospatial Consortium (OGC)`: http://www.opengeospatial.org/
+.. _`MS4W`: http://www.maptools.org/ms4w/

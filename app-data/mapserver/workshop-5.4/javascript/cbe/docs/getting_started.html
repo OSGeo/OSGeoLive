@@ -1,0 +1,246 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Getting Started with CBE</title>
+<meta name='author' content='Mike Foster, cross-browser.com'>
+<meta name='description' content="CBE is a Cross-Browser DHTML API for IE, Gecko, Opera, Netscape, Konqueror, AOL and browsers with similar object models. CBE implements some of the W3C DOM2 interfaces.">
+<style type='text/css'><!--
+body { font-family:verdana,arial,sans-serif,helvetica; font-size:12px; color:#000000; margin:0px; padding:0px; background:#cccccc; }
+a:link, a:visited, a:active { font-family:verdana,arial,sans-serif; font-size:12px; color:#666666; }
+a:hover { font-family:verdana,arial,sans-serif; font-size:12px; color:#3333ff; background:#cccccc; }
+p { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; }
+ul { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; background:#ffffff; }
+pre { font-family:"courier new",monotxt,courier; font-size:12px; color:#3333ff; background:#ffffff; }
+xmp { font-family:"courier new",monotxt,courier; font-size:12px; color:#3333ff; background:#ffffff; }
+.monoSpc { font-family:monospace; font-size:14px; }
+h1 { font-family:verdana,arial,sans-serif; font-size:16px; color:#3333ff; background:#cccccc; padding:2px; }
+h2 { font-family:verdana,arial,sans-serif; font-size:12px; color:#3333ff; background:#ffffff; border-top:1px dotted #000000; margin:1em 0em 1em 0em;}
+h3 { font-family:verdana,arial,sans-serif; font-size:12px; color:#666666; background:transparent; }
+td { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; vertical-align:top; }
+.clsTitle { font-family:verdana,arial,sans-serif; font-size:24px; color:#ffffff;
+  margin:0px; padding:0px; vertical-align:middle; background-color:#3333ff;
+  border-top:1px solid #ffffff; border-left:1px solid #ffffff; border-bottom:1px solid #000000;
+}                                                                                                                                      
+.clsSubTitle { font-family:verdana,arial,sans-serif; font-size:10px; color:#ffffff;
+  margin:0px; padding:0px; vertical-align:bottom; background-color:#3333ff; text-align:right;
+  border-top:1px solid #ffffff; border-bottom:1px solid #000000; border-right:1px solid #000000;
+}                                                                                                                                      
+--></style>
+</head>
+
+<body marginwidth='0' marginheight='0'><a name="topofpage"></a>
+
+<!-- Title -->
+<table width='100%' border='0' cellspacing='0' cellpadding='4'>
+<tr>
+<td height='40' class='clsTitle'>&nbsp;Getting Started with CBE</td>
+<td height='40' class='clsSubTitle'>Cross-Browser.com&nbsp;</td>
+</tr></table> 
+
+<table width='80%' align='center' cellspacing='10' cellpadding='10'><tr><td bgcolor='#ffffff'><!-- indentation table -->
+
+<h1>Getting Started with CBE</h1>
+
+<ul>
+<li><a href='#ifsLink'>Initial File Setup</a>
+  <br>Install the Library
+  <br>Start a Project
+  <br>Include?
+  <br>Test Your Setup
+</li>
+<li><a href='#threeLink'>DHTML</a>
+  <br>CSS
+  <br>HTML
+  <br>Javascript
+<li><a href='#etLink'>First Experiment</a>
+  <br>Color
+  <br>Size
+  <br>Position
+  <br>Visibility
+  <br>Initialization
+</li>
+<li><a href='#esLink'>Preparation for Development</a>
+  <br>Study the CBE Object &amp; Event Models
+  <br>Get Familiar with the Library
+  <br>Create a Development Environment
+</li>
+<li><a href='#dtLink'>Debugging Tips</a>
+  <br>Syntax Errors
+  <br>Logic Errors
+  <br>Watch Variables
+  <br>Break Points
+  <br>CBE Debug Window
+</li>
+</ul>
+
+<a name='ifsLink'></a>
+<h2>Initial File Setup</h2>
+<h3>Install the Library</h3>
+<p>Create a new folder for the CBE project on your hard-drive. <a href="javascript:showC(2)">Download</a> the latest version of the CBE library into the new folder and unzip it there.</p>
+
+<h3>Start a Project</h3>
+<p>The following template is included with the download as the file <a href="../cbe_template.html">cbe_template.html</a>. When you start a CBE project, use a <i>copy</i> of the template file.</p>
+<pre>
+&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;CBE Template&lt;/title&gt;
+&lt;style type='text/css'&gt;&lt;!--
+body {
+  color:#000000; background:#FFFFFF;
+  margin:0px; padding:0px;
+}
+.clsCBE {
+  position:absolute; visibility:hidden;
+  width:100%; height:100%; clip:rect(0,100%,100%,0);
+  color:#000000; margin:0px; padding:0px;
+}
+--&gt;&lt;/style&gt;
+&lt;script type='text/javascript' src='cbe_core.js'&gt;&lt;/script&gt;
+&lt;script type='text/javascript'&gt;&lt;!--
+var e1;
+function windowOnload() {
+  with (e1 = cbeGetElementById('E1').cbe) {
+    color('#FFFFFF');
+    background('#0000FF');
+    resizeTo(200,200);
+    moveTo('center');
+    show();
+  }
+}
+//--&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body marginwidth='0' marginheight='0'&gt;
+
+&lt;div id='E1' class='clsCBE'&gt;E1&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<h3>Include?</h3>
+<p>Often I'll use the phrase <i>include a javascript file</i>. What do I mean by <i>include</i>? It is a preprocessor directive for the C language. It directs the preprocessor to literally <i>include</i> (insert) the referenced file into the current file. Javascript doesn't have a corresponding keyword - but it does provide similar functionality.</p>
+<p>Refer to the template above. The first SCRIPT element is empty - it doesn't have any Javascript between the opening and closing tags. But it does assign a value to the <b>src</b> attribute. This value specifies the URL of a Javascript file that is to be <i>included</i> at that point in the template copy. In this case, it specifies that <i>cbe_core.js</i> is in the same folder as the template copy.</p>
+<p>The second SCRIPT element is not empty, it has Javascript between the opening and closing tags, and so it does not assign a value to the <b>src</b> attribute.</p>
+<p>The CBE library consists of several different Javascript files. The object reference indicates what file needs to be <i>included</i> to enable a particular feature.</p>
+
+<h3>Test Your Setup</h3>
+<p>Make a copy of the template file (I'll assume its named "proj.html"), and open it in your favorite Browser. You will see a blue square in the center of the browser window. The white text "E1" will be in the upper-left corner of the square. I refer to the square in general as an <i>element</i>. This element's <b>id</b> is <i>E1</i>, so I'll refer to that particular square as E1.</p>
+
+<a name='threeLink'></a><p align='right'><a href='#topofpage'>Top</a>&nbsp;|&nbsp;<a href='../index.html'>Home</a></p>
+<h2>DHTML</h2>
+<p>Dynamic HTML is the cooperation of three technologies: CSS, HTML, and Javascript. For each <i>positioned element</i> on the page, there must be related CSS, HTML, and Javascript. By the phrase <i>positioned element</i> I mean an element whose CSS property <b>position</b> has the value 'absolute' or 'relative'.</p>
+
+<h3>CSS</h3>
+<p>This CSS defines a Class named clsCBE. Its <i>position</i> property is set to 'absolute'.</p>
+<pre>
+.clsCBE { position:absolute; }
+</pre>
+<h3>HTML</h3>
+<p>This HTML defines an Element with its <i>id</i> attribute set to 'E1' and its <i>class</i> attribute set to 'clsCBE'. All the styles defined by the CSS Class <i>clsCBE</i> are applied to this element.</p>
+<pre>
+&lt;div id='E1' class='clsCBE'&gt; &lt;/div&gt;
+</pre>
+<h3>Javascript</h3>
+<p>The Javascript uses the <i>id</i> attribute of the Element to access the Element <i>object</i> and it's properties.</p>
+<pre>
+window.onload = function()
+{
+  var e1 = document.getElementById('E1');
+  e1.style.visibility = 'visible';
+}
+</pre>
+<p>The Class can be applied to more than one element. The Identifier (<i>id</i> attribute) of each element must be unique.</p>
+
+<a name='etLink'></a><p align='right'><a href='#topofpage'>Top</a>&nbsp;|&nbsp;<a href='../index.html'>Home</a></p>
+<h2>First Experiment</h2>
+<p>Open proj in your favorite text editor. You now have proj open in both an editor and a browser. After you make changes to proj in the editor, save the file, go to the browser and refresh it, to see the effect of your changes.</p>
+<h3>Color</h3>
+<p>Change the <a title="Reference Link" target="cbeRefWin" href="../cbe_reference.html#backgroundLink">background</a> value to '#FF0000', save the file, and refresh the browser. Now e1 is red. Change the <a title="Reference Link" target="cbeRefWin" href="../cbe_reference.html#colorLink">color</a> value to '#000000', save the file, and refresh the browser. The text is now black. Here's a <a href="color_charts.html">color chart</a> with color values. It is more cross-browser to use the hex values instead of the color names.</p>
+<h3>Size</h3>
+<p>The arguments to the <a title="Reference Link" target="cbeRefWin" href="../cbe_reference.html#resizeToLink">resizeTo</a> method are <i>width</i>, and <i>height</i>. Experiment with different values.</p>
+<h3>Position</h3>
+<p>Experiment with the <a title="Reference Link" target="cbeRefWin" href="../cbe_reference.html#moveToLink">moveTo</a> method. Here is it's syntax: <b>moveTo(x, y)</b>, where x and y are pixel coordinates with the point <b>(0,0)</b> at the upper-left corner of the element's <i>containing</i> element.</p>
+<p>Move e1 to the point <b>(-200, 0)</b>. It will be at the top of the window, but half-way <i>off</i> the window to the left. So x and y can also be negative.</p>
+<p>The <a title="Reference Link" target="cbeRefWin" href="../cbe_reference.html#moveToLink">moveTo</a> method can take arguments other than a pixel point. It can take a <i>cardinal</i> point, that is, a point designated by north, south, east, etc. The syntax follows. The square brackets indicate an optional parameter.</p>
+<p><b>moveTo(sCardinal [, iMargin [, bOutside ]])</b></p>
+<ul>
+<li><i>sCardinal</i><br>
+One of the following strings: 'n', 'ne', 'e', 'se', 's', 'sw', w, 'nw', 'center'. The element will be positioned in the corner, on the side, or in the center of it's containing CBE object.</li>
+<li><i>iMargin</i><br>
+A signed integer value, indicating the distance between the edge of the container and the element. Assumed zero, if not present.</li>
+<li><i>bOutside</i><br>
+A boolean (true/false) value. If it is true, the element will be positioned outside of the container's edge. If it is false (or not present), the element will be positioned inside the container's edge.</li>
+</ul>
+<p>Experiment with moving e1 to the different corners and sides of the window. Experiment with the <b>margin</b>. Then give an <b>outside</b> argument.</p>
+<h3>Visibility</h3>
+<p>An element's visibility is controlled by the <a title="Reference Link" target="cbeRefWin" href="../cbe_reference.html#visibilityLink">visibility()</a> method. This method accepts one, optional argument of type string. This method returns a boolean value - true if the element is visible, and false if it is hidden.</p>
+<p>There are two shortcut methods provided, <a title="Reference Link" target="cbeRefWin" href="../cbe_reference.html#showLink">show()</a> and <a title="Reference Link" target="cbeRefWin" href="../cbe_reference.html#hideLink">hide()</a>, and they do exactly what they say. They do not accept arguments and have no return values.</p>
+<h3>Initialization</h3>
+<p>When the CBE object model is created, <i>nothing</i> is done to the positioned elements. You might think because size, position, and visibility are set in the CSS, that you don't have to set those properties in script - and in some browsers that's true, but in some browsers an element's properties are not initialized with the CSS values. You have to set them initially in script. At a minimum, setting <b>size</b>, <b>position</b>, and <b>visibility</b> should be part of your normal initialization for each object. A logical place to perform this initialization is in <i>windowOnload()</i>. Look at the code above for the CBE template, and notice the initialization of the element.</p>
+
+<a name='esLink'></a><p align='right'><a href='#topofpage'>Top</a>&nbsp;|&nbsp;<a href='../index.html'>Home</a></p>
+<h2>Preparation for Development</h2>
+<h3>Study the CBE Object &amp; Event Models</h3>
+<p>To develop applications with CBE you need a general understanding of the CBE <a href='core_om.html'>object model</a> and <a href='event_om.html'>event model</a>. This is not a waste of time - you are not learning a <i>proprietary</i> API. The CBE API is an implementation of some of the W3C DOM2 interfaces. There are only minor differences. So by learning the CBE object and event models you are also developing your understanding of the DOM2 standards.</p>
+<h3>Get Familiar with the Library</h3>
+<p>Get familiar with the CBE library by viewing the examples I've provided, by perusing the object reference and other documentation I've provided, and especially by <i>using</i> the library. Start a new project with a copy of your CBE template file. Look through the object reference and choose a method you want to experiment with. Most entries in the reference have a <i>snippet</i> of an example. Copy the snippet and paste it into your new file. The snippets are designed to be used with that template - most of them have a <b>windowOnload()</b> function that can take the place of the same function in the template. If there's a particular example that interests you, download that example file, get it working on your own computer, then experiment with it.</p>
+<p>Refer to the reference for the valid values and ranges of each argument to the method you're using, and experiment with them.  As before, you have your file open in an editor and a browser. Change the value of one of the arguments, save the file, and refresh the browser to see the changes.</p>
+<h3>Create a Development Environment</h3>
+<p>Learn to utilize the development/debugging tools CBE provides. Here's <a href="../examples/tools.html">a list</a> of the functions in <i>cbe_debug.js</i>.</p>
+<p><i>The Debug Window</i> - The Debug link on the menubar will open, close, or refresh the CBE Debug Window. This window provides development/debugging support. It shows the object tree for the current page, the properties for the selected object, provides a command line for calling methods of the selected object, and provides an area where the application can display messages by calling <a target="cbeRefWin" href="../cbe_reference.html#cbeDebugMsgLink" title="Reference Link">cbeDebugMsg()</a>. The debug window file <i>cbe_debug.html</i> is included with the CBE download. You can use the debug window as you develop applications on your own computer.</p>
+<p><i>The Reference Window</i> - The object reference opens in it's own window. As you study the examples, or as you are developing your own application, you can quickly view the documentation for a particular method, property, or event - without leaving the page you're studying.</p>
+<p><i>Development Environment</i> - The CBE debug and reference windows, the application window, and your own text editor form a <i>development environment</i>. To help with this <i>environment</i> here's a little feature: <a href="javascript:cbeTileWindows()">Tile the CBE Windows</a>. Clicking a reference link on one of my pages will cause the reference window to scroll to the appropriate entry, and then bring itself to the top (give itself the focus).</p>
+<p>The CBE debug and reference windows can be used on your own computer as you develop your own applications with CBE. To use the debug window, include a minimum of the following in the file you're developing. Call <a title="Reference Link" target="cbeRefWin" href="../cbe_reference.html#cbeDebugWindowLink">cbeDebugWindow()</a> to open, close, or refresh the debug window.</p>
+<ul>
+<li>cbe_core.js</li>
+<li>cbe_event.js</li>
+<li>cbe_debug.js</li>
+</ul>
+
+<a name='dtLink'></a><p align='right'><a href='#topofpage'>Top</a>&nbsp;|&nbsp;<a href='../index.html'>Home</a></p>
+<h2>Debugging Tips</h2>
+<p>You can download some very nice Javascript debugging programs for a variety of platforms, but your initial debugging can be done with simple techniques right in your code. Most browsers will give the line number of an error - this is essential. Some browsers give better error descriptions than others. There are basically two types of errors: syntax errors, and logic errors.</p>
+<h3>Syntax Errors</h3>
+<p>A syntax error will occur when you have not followed the <i>grammer</i> of Javascript: forget to put two quotes around a string; forget to put a closing curly brace; have punctuation in the wrong place, etc. The browser will inform you of most syntax errors.</p>
+<h3>Logic Errors</h3>
+<p>After you correct your syntax errors, the script still may not work properly while running: it may be mis-calculating a value, or perhaps an <b>if</b> condition is using the logically wrong (but syntactically valid) operator. These are logic errors.</p>
+<p>Among the tools that most Debuggers provide for solving errors are <i>Watch Variables</i> and <i>Breakpoints</i>. You can utilize these same concepts without a debugger.</p>
+<h3>Watch Variables</h3>
+<p>A watch variable is a variable for which you want to watch the value, <i>as the script is running</i> - that is, as the page is active in a browser.</p>
+<p>A simple technique for using watch variables without a debugger is to use the window's <b>status bar</b> (some browsers are better at this than others). For example, in the following code fragment I want to <i>watch</i> the value of the variable <b>dx</b>. I insert line number 9. Notice the "//// debug" comment. I do this so I won't forget why I added this line, and so, later, I can search my file for "debug", and delete all those lines.</p>
+<p>Now I save the file, refresh the browser, and watch the value of dx on the status bar, as the script is running.</p>
+<pre>
+1:  if (cl + dx < 0) {
+2:    cl = 0;
+3:    dx = 0;
+4:  }
+5:  else if (cr + dx > this.width()) {
+6:    cr = cl + this.clipWidth();
+7:    dx = 0;
+8:  }
+9:  window.status = "dx: " + dx; ////////////////////// debug
+</pre>
+
+<h3>Break Points</h3>
+<p>There are times when a variable's value is changing too quickly to use a watch. You need to stop the script and look at the variable. A break point is a line in the script at which <i>the script stops running</i>. You can then look at the current values of variables. When you are ready, you let the script continue running.</p>
+<p>A simple technique for using break points without a debugger is to use Javascript's <b>alert()</b> function. This function stops the script, displays a message, and waits for the user clik the OK button. The script then continues executing. This technique is not <i>exactly</i> like a break point, but its close enough. For example, in the following code fragment I want to see the value of dx only if it enters the <i>else if</i> block, and before it is assigned zero. I insert line number 6.
+<pre>
+1:  if (cl + dx < 0) {
+2:    cl = 0;
+3:    dx = 0;
+4:  }
+5:  else if (cr + dx > this.width()) {
+6:    alert("dx: " + dx); ////////////////////// debug
+7:    cr = cl + this.clipWidth();
+8:    dx = 0;
+9:  }
+</pre>
+<h3>The CBE Debug Window</h3>
+<p>The CBE debug window provides a variety of features that help with debugging. Select an object by clicking it's <b>id</b> in the object tree, or by clicking on the object itself on the application page. Most of the selected object's properties are then displayed. You can call a method of the selected object by typing the method and it's arguments into the text field provided and pressing Enter or clicking the Call button. For example, type this: <b>hide()</b> and click Call. The selected object will be hidden. Type this: <b>background('#cccccc')</b> and click Call. The background color of the selected object will change.</p>
+<p>Your application script can pass a string to <a title="Reference Link" target="cbeRefWin" href="../cbe_reference.html#cbeDebugMsgLink">cbeDebugMsg()</a> and it will be displayed in the message area of the debug window.</p>
+
+</td></tr></table><!-- end indentation table -->
+
+</body>
+</html>

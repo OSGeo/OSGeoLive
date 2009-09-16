@@ -1,0 +1,255 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>USGS TIGER &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Vector Data" href="index.html" />
+    <link rel="next" title="GPS Exchange Format (GPX)" href="gpx.html" />
+    <link rel="prev" title="SDTS" href="sdts.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="gpx.html" title="GPS Exchange Format (GPX)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="sdts.html" title="SDTS"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Vector Data</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//input/vector/tiger.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/input/vector/tiger.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">USGS TIGER</a><ul>
+<li><a class="reference external" href="#file-listing">File listing</a></li>
+<li><a class="reference external" href="#data-access-connection-method">Data Access / Connection Method</a><ul>
+<li><a class="reference external" href="#ogrinfo-examples">OGRINFO Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="sdts.html"
+                                  title="previous chapter">SDTS</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="gpx.html"
+                                  title="next chapter">GPS Exchange Format (GPX)</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/input/vector/tiger.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="usgs-tiger">
+<span id="tiger"></span><h1>USGS TIGER<a class="headerlink" href="#usgs-tiger" title="Permalink to this headline">¶</a></h1>
+<p>TIGER/Line files are created by the US Census Bureau and cover the
+entire US.  They are often referred simply as TIGER files.  For more
+information see: <a class="reference external" href="http://www.census.gov/geo/www/tiger/">http://www.census.gov/geo/www/tiger/</a>.</p>
+<div class="section" id="file-listing">
+<h2>File listing<a class="headerlink" href="#file-listing" title="Permalink to this headline">¶</a></h2>
+<p>TIGER/Line files are text files and directory-based data sources.
+For example, one county folder TGR06059 contains several associated
+files:</p>
+<div class="highlight-python"><pre>TGR06059.RT1 TGR06059.RT2 TGR06059.RT4 TGR06059.RT5
+TGR06059.RT6 TGR06059.RT7 TGR06059.RT8 TGR06059.RTA
+TGR06059.RTC TGR06059.RTH TGR06059.RTI TGR06059.RTP
+TGR06059.RTR TGR06059.RTS TGR06059.RTT TGR06059.RTZ</pre>
+</div>
+</div>
+<div class="section" id="data-access-connection-method">
+<h2>Data Access / Connection Method<a class="headerlink" href="#data-access-connection-method" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>TIGER/Line access occurs through an OGR CONNECTION</li>
+<li>The full path to the directory containing the associated files is
+required in the CONNECTION string.</li>
+<li>The feature type is specified in the DATA parameter</li>
+</ul>
+<div class="section" id="ogrinfo-examples">
+<h3>OGRINFO Examples<a class="headerlink" href="#ogrinfo-examples" title="Permalink to this headline">¶</a></h3>
+<p>Using ogrinfo on a TIGER directory to retrieve feature types:</p>
+<div class="highlight-python"><pre>&gt; ogrinfo TGR06059 (NOTE that this is a directory)
+ERROR 4: Tiger Driver doesn't support update.
+Had to open data source read-only.
+INFO: Open of `TGR06059'
+using driver `TIGER' successful.
+1: CompleteChain (Line String)
+2: AltName (None)
+3: FeatureIds (None)
+4: ZipCodes (None)
+5: Landmarks (Point)
+6: AreaLandmarks (None)
+7: Polygon (None)
+8: PolygonCorrections (None)
+9: EntityNames (Point)
+10: PolygonEconomic (None)
+11: IDHistory (None)
+12: PolyChainLink (None)
+13: PIP (Point)
+14: TLIDRange (None)
+15: ZeroCellID (None)
+16: OverUnder (None)
+17: ZipPlus4 (None)</pre>
+</div>
+<p>Using ogrinfo to examine the structure of the TIGER feature type CompleteChain:</p>
+<div class="highlight-python"><pre>&gt; ogrinfo TGR06059 CompleteChain -summary
+ERROR 4: Tiger Driver doesn't support update.
+Had to open data source read-only.
+INFO: Open of `TGR06059'
+using driver `TIGER' successful.
+
+Layer name: CompleteChain
+Geometry: Line String
+Feature Count: 123700
+Extent: (-118.125898, 33.333992) - (-117.412987, 33.947512)
+Layer SRS WKT:
+GEOGCS["NAD83",
+DATUM["North_American_Datum_1983",
+        SPHEROID["GRS 1980",6378137,298.257222101]],
+PRIMEM["Greenwich",0],
+UNIT["degree",0.0174532925199433]]
+MODULE: String (8.0)
+TLID: Integer (10.0)
+SIDE1: Integer (1.0)
+SOURCE: String (1.0)
+FEDIRP: String (2.0)
+FENAME: String (30.0)
+FETYPE: String (4.0)
+FEDIRS: String (2.0)
+CFCC: String (3.0)
+FRADDL: String (11.0)
+TOADDL: String (11.0)
+FRADDR: String (11.0)
+TOADDR: String (11.0)
+FRIADDL: String (1.0)
+TOIADDL: String (1.0)
+FRIADDR: String (1.0)
+TOIADDR: String (1.0)
+ZIPL: Integer (5.0)</pre>
+</div>
+<p>Map File Example:</p>
+<div class="highlight-python"><pre>LAYER
+  NAME Complete_Chain
+  TYPE LINE
+  STATUS DEFAULT
+  CONNECTIONTYPE OGR
+  CONNECTION "/path/to/data/tiger/TGR06059"
+  DATA "CompleteChain"
+  CLASS
+    STYLE
+      COLOR 153 102 0
+    END
+  END
+END # Layer</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="gpx.html" title="GPS Exchange Format (GPX)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="sdts.html" title="SDTS"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li>
+          <li><a href="index.html" >Vector Data</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

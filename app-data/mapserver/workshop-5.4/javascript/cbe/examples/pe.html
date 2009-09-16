@@ -1,0 +1,166 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>CBE Parametric Equation Method</title>
+<meta name='author' content='Mike Foster, cross-browser.com'>
+<meta name='description' content='Parametric Equation Method: A programming example for CBE, a cross-browser DHTML API for IE, Gecko, Opera, Netscape, Konqueror and similar browsers'>
+<link rel='stylesheet' type='text/css' href='../cbe.css'>
+<style type='text/css'>
+.clsCBE { position:absolute; width:100%; height:100%; clip:rect(100%,100%,100%,100%); color:#cccccc; background:transparent;}
+</style>
+<script type='text/javascript' src='../cbe_core.js'></script>
+<script type='text/javascript' src='../cbe_event.js'></script>
+<script type='text/javascript' src='../cbe_util.js'></script>
+<script type='text/javascript' src='../cbe_debug.js'></script>
+<script type='text/javascript' src='../cbe.js'></script>
+<script type='text/javascript' src='../cbe_slide.js'></script>
+<script type='text/javascript' src='../cbe_slide2.js'></script>
+<script type='text/javascript'><!--
+var e1, e2, e3;
+function windowOnload() {
+  e1 = document.getElementById('E1').cbe;
+  e1.addEventListener('drag');
+  e2 = document.getElementById('E2').cbe;
+  e2.addEventListener('dragResize');
+  e3 = document.getElementById('E3').cbe;
+  e3.addEventListener('drag');
+  init();
+}
+function init() {
+  with (e1) {
+    resizeTo(60,32);
+    moveTo('center');
+    show();
+  }
+  with (e2) {
+    background('#3333ff');
+    resizeTo(200,200);
+    moveTo('se',10);
+    show();
+  }
+  with (e3) {
+    resizeTo(60,32);
+    moveTo('center');
+    show();
+  }
+  document.form1.reset();
+}
+function startDemo() {
+  var exprX = document.form1.txtXExp.value;
+  var exprY = document.form1.txtYExp.value;
+  var duration = parseInt(document.form1.txtTime.value);
+  if (exprX=="") { alert('Invalid exprX argument'); return; }
+  if (exprY=="") { alert('Invalid exprY argument'); return; }
+  if (isNaN(duration)) { alert('Invalid time argument'); return; }
+  e1.parametricEquation(exprX, exprY, duration);
+  e3.parametricEquation(exprX, exprY, duration);
+  return false;
+}
+function stopDemo() {
+  e1.stopSlide();
+  e3.stopSlide();
+}
+function resetDemo() {
+  stopDemo();
+  init();
+}
+function run(x, y, t) {
+  document.form1.txtXExp.value = x;
+  document.form1.txtYExp.value = y;
+  document.form1.txtTime.value = t;
+  startDemo();
+}
+//--></script>
+</head>
+
+<body marginwidth='0' marginheight='0'><a name="topofpage"></a>
+
+<!-- Title and Nav Bar --><script type='text/javascript'>topNavBarEx()</script>
+
+<table width='80%' align='center' cellspacing='10' cellpadding='10'><tr><td bgcolor='#ffffff'><!-- indentation table -->
+
+<h1>Parametric Equation Method</h1>
+
+<p>I developed the <b>parametricEquation()</b> method after studying the parametric equation examples by <a href="http://www.sebchevrel.com">Sebastien Chevrel</a>.</p>
+
+<p>On this page there are three positioned elements. E1 contains a flag image and it's parentNode is <b>document.cbe</b>. E2 contains E3. E3 contains a flag image and it's parentNode is E2. E1 and E3 are draggable. E2 is draggable and resizeable. When you click the Start button below, the values in the fields will be passed as arguments to the <a target="cbeRefWin" href="../docs/cbe_reference.html#parametricEquationLink" title="Reference Link">parametricEquation()</a> methods of both E1 and E3.</p>
+
+<form id="form1" name="form1" onsubmit="return startDemo()">
+<table border="0"><tr>
+    <td><input type="submit" value="Start"></td>
+    <td><input type="button" value="Stop" onclick="stopDemo()"></td>
+    <td><input type="button" value="Reset" onclick="resetDemo()"></td>
+</tr></table>
+<br>
+<table border="0">
+  <tr><td><b>X(t) = </b></td><td><input size="50" type="text" name="txtXExp" class="textInput" value="Math.sin(t*2)*Math.sin(t*4.2)*Math.sin(t*5.1)   " style="font-family:monospace;font-size:12px;"></td></tr>
+  <tr><td><b>Y(t) = </b></td><td><input size="50" type="text" name="txtYExp" class="textInput" value="Math.sin(t*1.123)*Math.sin(t*7)*Math.sin(t*2.31)" style="font-family:monospace;font-size:12px;"></td></tr>
+  <tr><td><b>Time = </b></td><td><input size="50" type="text" name="txtTime" class="textInput" value="0" style="font-family:monospace;font-size:12px;"></td></tr>
+</table>
+</form>
+
+<h3>The Parameters</h3>
+<p><b>X(t)</b> and <b>Y(t)</b> are expressions that generate the x and y coordinates during the slide. These expressions are evaluated with the javascript <b>eval()</b> function. Within the expression you may use any valid sub-expression that eval allows and that is <i>in scope</i>. For example, you may call methods of the Math object such as Math.sin(), Math.cos(), and Math.tan(). You may also reference any global variables or functions.</p>
+<p>One variable that is within scope for your expression is the parameter <b>t</b>. That is, <b>t</b> is the argument to the equations you provide. At each iteration, the variable <b>t</b> increments by the value of <b>this.tStep</b> (default value of .008).</p>
+<p>The <b>Time</b> argument to parametricEquation() specifies the <i>total time</i> for the slide in milliseconds. If the value is zero, the slide will not <i>timeout</i>. You can stop any slide, at any time, by calling the method <b>stopSlide()</b>.</p>
+
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h3>The Coordinate System</h3>
+<p>The values from your expressions are plotted on a coordinate system with it's origin at the center of the sliding element's container. The coordinates are then translated by the element's container's scrollLeft and scrollTop values. So the animation will remain visible if the user scrolls or resizes the element's container. Here's how x and y are calculated:</p>
+<pre>
+  this.xTarget = Math.round((eval(this.exprX) * centerX) + centerX);
+  this.xTarget += this.parentNode.scrollLeft();
+  this.yTarget = Math.round((eval(this.exprY) * centerY) + centerY);
+  this.yTarget += this.parentNode.scrollTop();
+</pre>
+
+<p align='right'><a href='#topofpage'>Top</a></p>
+<h3>Sample Expressions</h3>
+<p>This doesn't define a circle, as you might think, it defines the ellipse bounded by the containing element's width and height.<br>
+<b>X(t) = </b>Math.cos(t*4)<br>
+<b>Y(t) = </b>Math.sin(t*4)<br>
+<a class='example' title='Run Example' href="javascript:run('Math.cos(t*4)','Math.sin(t*4)',0)">Run</a>&nbsp;
+<a class='example' title='Stop Example' href="javascript:stopDemo()">Stop</a></p>
+
+<p>This is a horizontal sine wave. It has a frequency of 2/2 or 1, which means it will trace out one sine wave within the width of it's container.<br>
+<b>X(t) = </b>Math.cos(t)<br>
+<b>Y(t) = </b>Math.sin(t*2)<br>
+<a class='example' title='Run Example' href="javascript:run('Math.cos(t)','Math.sin(t*2)',0)">Run</a>&nbsp;
+<a class='example' title='Stop Example' href="javascript:stopDemo()">Stop</a></p>
+
+<p>This is a vertical sine wave with a frequency of 8/2 or 4, so it will make four cycles within the height of it's container. It's axis is shifted to the left by half of it's original position (the center of it's container).<br>
+<b>X(t) = </b>Math.cos(t*8)-.5<br>
+<b>Y(t) = </b>Math.sin(t)<br>
+<a class='example' title='Run Example' href="javascript:run('Math.cos(t*8)-.5','Math.sin(t)',0)">Run</a>&nbsp;
+<a class='example' title='Stop Example' href="javascript:stopDemo()">Stop</a></p>
+
+<p>This is a horizontal sine wave with a frequency of 6.5 (notice the difference between even and odd frequencies). It has an amplitude of .5 which represents half the height of the element's container.<br>
+<b>X(t) = </b>Math.cos(t)<br>
+<b>Y(t) = </b>.5*Math.sin(t*13)<br>
+<a class='example' title='Run Example' href="javascript:run('Math.cos(t)','.5*Math.sin(t*12)',0)">Run</a>&nbsp;
+<a class='example' title='Stop Example' href="javascript:stopDemo()">Stop</a></p>
+
+<p>This executes a spiral, beginning at the center of the element's container.<br>
+<b>X(t) = </b>.2*t*Math.cos(t*30)<br>
+<b>Y(t) = </b>.2*t*Math.sin(t*30)<br>
+<a class='example' title='Run Example' href="javascript:run('.2*t*Math.cos(t*30)','.2*t*Math.sin(t*30)',0)">Run</a>&nbsp;
+<a class='example' title='Stop Example' href="javascript:stopDemo()">Stop</a></p>
+
+<p>As I've played with parametricEquation() I've realized that there are several things that need to be done to it. But later... ;)</p>
+
+</td></tr></table><!-- end indentation table -->
+
+<!-- Bottom Nav Bar --><script type='text/javascript'>bottomNavBarEx()</script>
+
+<div id='E1' class='clsCBE'>
+  <img src='../images/usflag.jpg' alt='E1: draggable' border='0' width='60' height='32'>
+</div>
+
+<div id='E2' class='clsCBE'>E2: draggable &amp; resizeable
+  <div id='E3' class='clsCBE'>
+    <img src='../images/usflag.jpg' alt='E3: draggable' border='0' width='60' height='32'>
+  </div>
+</div>
+
+</body>
+</html>

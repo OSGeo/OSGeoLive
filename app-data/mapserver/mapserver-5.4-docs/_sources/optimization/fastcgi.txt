@@ -1,0 +1,197 @@
+.. _fastcgi:
+
+*****************************************************************************
+ FastCGI
+*****************************************************************************
+
+:Author:        Frank Warmerdam
+:Contact:       warmerdam at pobox.com
+:Author:        Howard Butler
+:Contact:       hobu.inc at gmail.com
+:Revision: $Revision: 8295 $
+:Date: $Date: 2008-12-27 01:08:04 -0400 (Sat, 27 Dec 2008) $
+:Last Updated: 2008/07/15
+
+.. contents:: Table of Contents
+    :depth: 2
+    :backlinks: top
+
+=============================================================================
+ Introduction
+=============================================================================
+
+FastCGI is a protocol for keeping cgi-bin style web applications running as a 
+daemon to take advantage of preserving memory caches, and amortizing other 
+high startup costs (like heavy database connections) over many requests.
+
+=============================================================================
+ Obtaining the necessary software
+=============================================================================
+
+1.  There are three pieces to the MapServer FastCGI puzzle.  First, you need 
+    the actual FastCGI library.  This can be downloaded from 
+    `http://www.fastcgi.com/ <http://www.fastcgi.com/>`__.  This library does 
+    the usual *configure, make, make install* dance.  One added complication 
+    is that it installs by default in /usr/local, and you might give the 
+    *configure* command a --prefix=/usr to put it in a location that is 
+    already visible to ldconfig.
+
+2.  Assuming you are running `Apache <http://httpd.apache.org>`__, the next 
+    piece you need is mod_fcgi.  Mod_fcgi depends on the version of Apache 
+    you are running, so make sure to download the correct fork 
+    (Apache 1.3 vs. Apache 2).
+
+3.  The third and final piece is to compile MapServer with FastCGI support. 
+    This is pretty straightforward, and all you need to do is tell 
+    *configure* where the FastCGI library is installed.  If you changed 
+    the prefix variable as described above, this would be: 
+
+::
+
+  ./configure [other options] --with-fastcgi=/usr
+
+With those pieces in place, the MapServer CGI (mapserv) should now be 
+FastCGI-enabled.  You can verify this by testing it on with the command line:
+
+::
+
+  [hobu@kenyon mapserver-4.4.2]# ./mapserv -v
+  MapServer version 4.4.2 OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP 
+  SUPPORTS=PROJ SUPPORTS=FREETYPE SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT 
+  SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=FASTCGI INPUT=EPPL7 
+  INPUT=SDE INPUT=ORACLESPATIAL INPUT=OGR INPUT=GDAL 
+  INPUT=SHAPEFILE DEBUG=MSDEBUG
+
+=============================================================================
+ Configuration
+=============================================================================
+
+1.  Modify http.conf to load the FastCGI module.
+
+    ::
+      
+      LoadModule fastcgi_module /usr/lib/apache/1.3/mod_fastcgi.so
+
+2.  Add an Apache handler for FastCGI applications.
+
+    ::
+    
+      AddHandler fastcgi-script fcgi
+
+3.  Set FastCGI processing information
+
+    ::
+    
+      FastCgiConfig -initial-env PROJ_LIB=/usr/local/share/proj 
+      -initial-env LD_LIBRARY_PATH=/usr/local/lib:/usr/local/pgsql/lib:/usr3/pkg3/oracle9/lib 
+      -appConnTimeout 60 -idle-timeout 60 -init-start-delay 1 
+      -minProcesses 2 -maxClassProcesses 20 -startDelay 5
+
+4.  In your mapfile, set a PROCESSING directive to tell FastCGI to cache 
+    the connections and layer information on all layers for which connection 
+    caching is desired - ie. all slow layers.
+
+    .. code-block:: mapfile
+       
+       PROCESSING "CLOSE_CONNECTION=DEFER"
+
+
+=============================================================================
+ Common Problems
+=============================================================================
+File permissions
+-------------------
+Fedora Core 3 doesn't allow FastCGI to write to the process logs (when you 
+use RedHat's Apache 2 rather than your own).  This is described `here 
+<http://www.fastcgi.com/archives/fastcgi-developers/2005-March/003638.html>`__.
+
+Also, FastCGI needs to write its socket information somewhere.  This 
+can be directed with the *FastCgiIpcDir* directive.
+
+=============================================================================
+ FastCGI on Win32
+=============================================================================
+
+MS4W Users
+----------
+
+`MS4W (MapServer for Windows)`_ >= version 2.2.2 contains MapServer compiled
+with FastCGI support. MS4W version >= 2.2.8 also contains the required Apache
+module (mod_fcgid), and users must follow the `README instructions`_ to setup
+FastCGI with their application.
+
+.. _MS4W (MapServer for Windows): http://www.maptools.org/ms4w/
+.. _README instructions: http://www.maptools.org/ms4w/index.phtml?page=README_INSTALL.html#f-fastcgi
+
+
+Building fcgi-2.4.0
+-------------------
+
+I used libfcgi-2.4.0 for use with Apache2 from http://www.fastcgi.com.
+
+Binary IO Patch
+---------------
+
+It is critical that stdio be in binary mode when PNG and other binary images
+are written to it. To accomplish this for stdio handled through the FastCGI
+library, I had to do the following hack to libfcgi/fcgi_stdio.c within the
+fcgi-2.4.0 distribution.
+
+In FCGI_Accept() made he following change
+
+.. code-block:: c
+
+      if(isCGI) {
+        FCGI_stdin->stdio_stream = stdin;
+        FCGI_stdin->fcgx_stream = NULL;
+        FCGI_stdout->stdio_stream = stdout;
+        FCGI_stdout->fcgx_stream = NULL;
+        FCGI_stderr->stdio_stream = stderr;
+        FCGI_stderr->fcgx_stream = NULL;
+
+        /* FrankWarmerdam: added so that returning PNG and other binary data
+           will still work */
+      #ifdef _WIN32
+        _setmode( _fileno(stdout), _O_BINARY);
+        _setmode( _fileno(stdin), _O_BINARY);
+      #endif
+
+      } else {
+
+Also, add the following just before the FCGI_Accept() function
+
+.. code-block:: c
+
+    #ifdef _WIN32
+    #include <fcntl.h>
+    #include <io.h>
+    #endif
+
+I'm sure there is a better way of accomplishing this. If you know how, please
+let me know!
+
+Building libfcgi
+----------------
+
+The makefile.nt should be fine. Just ensure you have run VCVARS32.BAT (as is
+needed for building MapServer) and then issue the command::
+
+  nmake /f makefile.nt 
+
+Then the .lib and .dll will be in libfcgi/Debug?. Make sure you copy the DLL
+somewhere appropriate (such as your cgi-bin directory).
+
+Other Issues
+------------
+
+1) FastCGI's receive a very limited environment on win32, seemingly even more
+restricted than normal cgi's started by apache. Make sure that all DLLs
+required are either in the fastcgi directory or in windows\system32. Any
+missing DLLs will result in very cryptic errors in the error_log, including
+stuff about Overlapping read requests failing or something like that.
+
+2) Make sure you use a libfcgi.dll built against the same runtime library as
+your mapserv.exe (and possibly libmap_fcgi.dll) or you will suffer a world of
+pain! Different runtime libraries have different "environ" variables (as well
+as their own stdio and heaps). You can check that everything is using
+MSVCRT.DLL (or all using MSVCRTD.DLL) using the MS SDK Dependency Walker.

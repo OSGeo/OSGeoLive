@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>STYLE &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Mapfile" href="index.html" />
+    <link rel="next" title="SYMBOL" href="symbol.html" />
+    <link rel="prev" title="SCALEBAR" href="scalebar.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="symbol.html" title="SYMBOL"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="scalebar.html" title="SCALEBAR"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//mapfile/style.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/mapfile/style.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="scalebar.html"
+                                  title="previous chapter">SCALEBAR</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="symbol.html"
+                                  title="next chapter">SYMBOL</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/mapfile/style.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="style">
+<span id="id1"></span><h1>STYLE<a class="headerlink" href="#style" title="Permalink to this headline">¶</a></h1>
+<p>Style holds parameters for symbolization. Multiple styles may be applied
+within a class.</p>
+<p>This object is new in 4.0 and is intended to separate logic from looks.
+The final intent is to have named styles (Not yet supported) that will be
+re-usable through the mapfile. This is the new, preferred way of defining
+the appearance of an object, notably a class.</p>
+<p>ANGLE [double|attribute|AUTO]</p>
+<blockquote>
+<ul>
+<li><p class="first">Angle, given in degrees, to draw the line work. Default is 0. For
+symbols of Type HATCH, this is the angle of the hatched lines. For its
+use with hatched lines, see Example#8 in the <a class="reference external" href="symbology/examples.html#sym-examples"><em>symbology examples</em></a>.</p>
+</li>
+<li><p class="first">[<em>Attribute</em>] was introduced in version 5.0, to specify the item name in
+the attribute table to use for angle values. The hard brackets [] are
+required. For example, if your shapefile&#8217;s DBF has a field named
+&#8220;MYANGLE&#8221; that holds angle values for each record, your STYLE object for
+hatched lines might contain:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">STYLE</span>
+  <span class="k">SYMBOL</span> <span class="s">&#39;hatch-test&#39;</span>
+  <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">ANGLE</span> <span class="p">[</span><span class="err">MY</span><span class="k">ANGLE</span><span class="p">]</span>
+  <span class="k">SIZE</span> <span class="mi">4</span>
+  <span class="k">WIDTH</span> <span class="mi">3</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>The associated RFC document for this feature is <a class="reference external" href="../development/rfc/ms-rfc-19.html#rfc19"><em>MS RFC 19: Style &amp; Label attribute binding</em></a>.</p>
+</li>
+<li><p class="first">The AUTO keyword was added in version 5.4, and currently only applies
+when coupled with the GEOMTRANSFORM keyword.</p>
+</li>
+</ul>
+</blockquote>
+<p>ANGLEITEM [string]</p>
+<blockquote>
+<ul class="simple">
+<li>this parameter was removed in MapServer 5.0.  You should use
+the ANGLE [<em>attribute</em>] parameter instead.</li>
+<li>For MapServer versions &lt;5, this is the attribute/field that stores the
+angle to be used in rendering. Angle is given in degrees with 0 meaning no
+rotation.</li>
+</ul>
+</blockquote>
+<dl class="docutils">
+<dt>ANTIALIAS [true|false]</dt>
+<dd>Should TrueType fonts and Cartoline symbols be antialiased.</dd>
+<dt>BACKGROUNDCOLOR [r] [g] [b]</dt>
+<dd>Color to use for non-transparent symbols.</dd>
+</dl>
+<p>COLOR [r] [g] [b] | [attribute]</p>
+<blockquote>
+<ul>
+<li><p class="first">Color to use for drawing features.</p>
+</li>
+<li><p class="first">[<em>Attribute</em>] was introduced in version 5.0, to specify the item name in
+the attribute table to use for color values.  The hard brackets [] are
+required.  For example, if your <a class="reference external" href="../input/vector/shapefiles.html#shapefiles"><em>shapefile</em></a>&#8216;s DBF has a field named &#8220;MYCOLOR&#8221;
+that holds color values for each record, your STYLE object for might
+contain:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">STYLE</span>
+  <span class="k">COLOR</span> <span class="p">[</span><span class="err">MY</span><span class="k">COLOR</span><span class="p">]</span>
+  <span class="k">OUTLINECOLOR</span> <span class="mi">150</span> <span class="mi">150</span> <span class="mi">150</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>The associated RFC document for this feature is <a class="reference external" href="../development/rfc/ms-rfc-19.html#rfc19"><em>MS RFC 19: Style &amp; Label attribute binding</em></a>.</p>
+</li>
+</ul>
+</blockquote>
+<dl class="docutils">
+<dt>GAP [int]</dt>
+<dd><p class="first">Given in pixels. This defines a distance between symbols for
+TrueType lines.  As of MapServer 5.0 this also applies to PixMap symbols.</p>
+<p>When drawing the symbol along a line segment, a negative GAP will will add
+180 degress to the angle. The TrueType and PixMap symbols are always oriented
+along the line.  A GAP of 0 (the default value) will cause MapServer to use
+the symbol as a brush to draw the line.</p>
+<p class="last">
+<span class="versionmodified">New in version 6.0: </span>moved from <a class="reference external" href="symbol.html#symbol"><em>SYMBOL</em></a></p>
+</dd>
+</dl>
+<p>GEOMTRANSFORM [start|end|vertices|bbox|centroid]</p>
+<blockquote>
+<ul class="simple">
+<li>Used to indicate that the current feature will be transformed before the actual
+style is applied. Only applies to versions from 5.4</li>
+<li>&#8220;bbox&#8221;: uses the current style for rendering the bounding box of the underlying
+geometry</li>
+<li>&#8220;centroid&#8221;: renders a marker at the centroid of the underlying shape.</li>
+<li>&#8220;start&#8221; and &#8220;end&#8221;: uses the current style to render a marker on the first or last
+vertex of the current geometry. When used with ANGLE AUTO, this can be used to
+render arrowheads or tails on line segments.</li>
+<li>&#8220;vertices&#8221;: uses the current style for rendering a marker on the intermediate
+vertices of the underlying geometry. When used with ANGLE AUTO, the marker is
+oriented by the half angle formed by the two adjacent line segments.</li>
+</ul>
+</blockquote>
+<dl class="docutils">
+<dt>LINECAP [butt|round|square|triangle]</dt>
+<dd><p class="first">Sets the line cap type for the cartoline symbol. Default is butt. Works
+with the CARTOLINE symbol only!</p>
+<p class="last">
+<span class="versionmodified">New in version 6.0: </span>moved from <a class="reference external" href="symbol.html#symbol"><em>SYMBOL</em></a></p>
+</dd>
+<dt>LINEJOIN [round|miter|bevel]</dt>
+<dd><p class="first">Sets the line join type for the cartoline symbol. Default is &#8220;none&#8221; -
+lines will not be joined . Works with the CARTOLINE symbol only!</p>
+<p class="last">
+<span class="versionmodified">New in version 6.0: </span>moved from <a class="reference external" href="symbol.html#symbol"><em>SYMBOL</em></a></p>
+</dd>
+<dt>LINEJOINMAXSIZE [int]</dt>
+<dd><p class="first">Sets the max length of the miter line join type. The value represents a
+coefficient which multiplies a current symbol size. Default is 3.
+Works with the CARTOLINE symbol only!</p>
+<p class="last">
+<span class="versionmodified">New in version 6.0: </span>moved from <a class="reference external" href="symbol.html#symbol"><em>SYMBOL</em></a></p>
+</dd>
+<dt>MAXSIZE [integer]</dt>
+<dd>Maximum size in pixels to draw a symbol. Default is 50.</dd>
+<dt>MINSIZE [integer]</dt>
+<dd>Minimum size in pixels to draw a symbol. Default is 0.</dd>
+<dt>MINWIDTH [integer]</dt>
+<dd>Minimum width in pixels to draw the line work.</dd>
+<dt>OFFSET [x][y]</dt>
+<dd>Offset values for shadows, hollow symbols, etc ...</dd>
+<dt>OPACITY [integer]</dt>
+<dd>Opacity to draw the current style (applies to 5.2+, <a class="reference external" href="../output/agg.html#agg"><em>AGG Rendering Specifics</em></a> only, does not apply to pixmap
+symbols)</dd>
+</dl>
+<p>OUTLINECOLOR [r] [g] [b] | [attribute]</p>
+<blockquote>
+<ul>
+<li><p class="first">Color to use for outlining polygons and certain marker symbols. Line
+symbols do not support outline colors.</p>
+</li>
+<li><p class="first">[<em>Attribute</em>] was introduced in version 5.0, to specify the item name in
+the attribute table to use for color values.  The hard brackets [] are
+required.  For example, if your shapefile&#8217;s DBF has a field named
+&#8220;MYOUTCOLOR&#8221; that holds color values for each record, your STYLE object
+for might contain:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">STYLE</span>
+  <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">OUTLINECOLOR</span> <span class="p">[</span><span class="err">MYOUT</span><span class="k">COLOR</span><span class="p">]</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>The associated RFC document for this feature is <a class="reference external" href="../development/rfc/ms-rfc-19.html#rfc19"><em>MS RFC 19: Style &amp; Label attribute binding</em></a>.</p>
+</li>
+</ul>
+</blockquote>
+<p>PATTERN [num on] [num off] [num on] ... END</p>
+<blockquote>
+<p>Defines a dash style or pattern for line symbologies.</p>
+<p>
+<span class="versionmodified">New in version 6.0: </span>moved from <a class="reference external" href="symbol.html#symbol"><em>SYMBOL</em></a></p>
+</blockquote>
+<p>SIZE [integer|attribute]</p>
+<blockquote>
+<ul>
+<li><p class="first">Height, in layer SIZEUNITS, of the symbol/pattern to be used. Only useful with
+scalable symbols. Default is 1. For symbols of Type HATCH, the SIZE is the
+distance between hatched lines. For its use with hatched lines, see
+Example#8 in the <a class="reference external" href="symbology/examples.html#sym-examples"><em>symbology examples</em></a>.</p>
+</li>
+<li><p class="first">[<em>Attribute</em>] was introduced in version 5.0, to specify the item name in
+the attribute table to use for size values.  The hard brackets [] are
+required.  For example, if your shapefile&#8217;s DBF has a field named &#8220;MYSIZE&#8221;
+that holds size values for each record, your STYLE object for
+hatched lines might contain:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">STYLE</span>
+  <span class="k">SYMBOL</span> <span class="s">&#39;hatch-test&#39;</span>
+  <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">ANGLE</span> <span class="mi">45</span>
+  <span class="k">SIZE</span> <span class="p">[</span><span class="err">MY</span><span class="k">SIZE</span><span class="p">]</span>
+  <span class="k">WIDTH</span> <span class="mi">3</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>The associated RFC document for this feature is <a class="reference external" href="../development/rfc/ms-rfc-19.html#rfc19"><em>MS RFC 19: Style &amp; Label attribute binding</em></a>.</p>
+</li>
+<li><p class="first">Starting from version 5.4, the value can also be a fractional value (and not
+only integer). Note that currently only the <a class="reference external" href="../output/agg.html#agg"><em>AGG</em></a> renderer can
+correctly render fractional widths.</p>
+</li>
+</ul>
+</blockquote>
+<p>SIZEITEM [string]</p>
+<blockquote>
+<ul class="simple">
+<li>this parameter was removed in MapServer 5.0.  You should
+use the SIZE [<em>attribute</em>] parameter instead.</li>
+<li>For MapServer versions &lt;5, this is the attribute/field that stores the
+size to be used in rendering. Value is given in pixels.</li>
+</ul>
+</blockquote>
+<dl class="docutils">
+<dt>SYMBOL [integer|string|filename]</dt>
+<dd><p class="first">The symbol name or number to use for all features if attribute tables are
+not used. The number is the index of the symbol in the symbol file,
+starting at 1, the 5th symbol in the file is therefore symbol number 5.
+You can also give your symbols names using the NAME keyword in the symbol
+definition file, and use those to refer to them. Default is 0, which
+results in a single pixel, single width line, or solid polygon fill,
+depending on layer type.</p>
+<p class="last">You can also specify a gif or png filename. The path is relative to the
+location of the mapfile.</p>
+</dd>
+</dl>
+<p>WIDTH [integer|attribute]</p>
+<blockquote>
+<ul class="simple">
+<li>Width refers to the thickness of line work drawn, in layer <cite>SIZEUNITS</cite>.
+Default is 1.</li>
+<li>For symbols of Type HATCH, the WIDTH is how thick the hatched lines are.
+For its use with hatched lines, see Example#8 in the
+<a class="reference external" href="symbology/examples.html#sym-examples"><em>symbology examples</em></a>.</li>
+<li>Attribute binding was added in version 5.2</li>
+<li>Starting from version 5.4, the value can also be a fractional value (and not
+only integer). Note that currently only the <a class="reference external" href="../output/agg.html#agg"><em>AGG</em></a> renderer can
+correctly render fractional widths.</li>
+</ul>
+</blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="symbol.html" title="SYMBOL"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="scalebar.html" title="SCALEBAR"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

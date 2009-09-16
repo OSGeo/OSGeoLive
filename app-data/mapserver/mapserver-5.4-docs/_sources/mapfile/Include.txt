@@ -1,0 +1,98 @@
+.. _include:
+
+*****************************************************************************
+ INCLUDE
+*****************************************************************************
+
+.. index::
+    pair: INCLUDE; MAP
+
+When this directive is encountered parsing switches to the included file
+immediately. As a result the included file can be comprised of any valid
+mapfile syntax. For example:
+
+.. code-block:: mapfile
+
+    INCLUDE 'myLayer.map'
+
+Performance does not seem to be seriously impacted with limited use, however
+in high performance instances you may want to use includes in a pre-processing
+step to build a production mapfile. The C pre-processor can also be used
+(albeit with a different syntax) and is far more powerful.
+
+Notes
+-----
+
+- Supported in versions 4.10 and higher.
+
+- The name of the file to be included **MUST be quoted** (single or
+  double quotes).
+
+- Includes may be nested, up to 5 deep.
+
+- File location can be given as a full path to the file, or (in MapServer >=
+  4.10.1) as a path relative to the mapfile.
+
+- Debugging can be problematic because: 
+
+  1) the file an error occurs in does not get output to the user
+
+  2) the line number counter is not reset for each file. Here is one possible
+     error that is thrown when the include file cannot be found:
+
+     ::
+
+          msyylex(): Unable to access file. Error opening included file "parks_include.map"
+
+Example
+-------
+
+::
+
+      MAP
+       NAME "include_mapfile"
+       EXTENT 0 0 500 500
+       SIZE 250 250
+ 
+       INCLUDE "test_include_symbols.map"
+       INCLUDE "test_include_layer.map"
+      END
+
+where test_include_symbols.map contains:
+
+::
+
+      SYMBOL
+         NAME 'square'
+         TYPE VECTOR
+         FILLED TRUE
+         POINTS 0 0 0 1 1 1 1 0 0 0 END
+      END
+
+and test_include_layer.map contains:
+
+::
+
+      LAYER
+        TYPE POINT
+        STATUS DEFAULT
+        FEATURE
+          POINTS 10 10 40 20 300 300 400 10 10 400 END
+        END
+        CLASS
+          NAME 'Church'
+          COLOR 0 0 0
+          SYMBOL 'square'
+          SIZE 7
+          STYLE
+            SYMBOL "square"
+            SIZE 5
+            COLOR 255 255 255
+          END
+          STYLE
+            SYMBOL "square"
+            SIZE 3
+            COLOR 0 0 255
+          END
+        END
+      END

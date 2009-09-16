@@ -1,0 +1,685 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>WFS Server &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="OGC Support and Configuration" href="index.html" />
+    <link rel="next" title="WFS Client" href="wfs_client.html" />
+    <link rel="prev" title="Map Context" href="mapcontext.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="wfs_client.html" title="WFS Client"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mapcontext.html" title="Map Context"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">OGC Support and Configuration</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//ogc/wfs_server.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/ogc/wfs_server.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">WFS Server</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a><ul>
+<li><a class="reference external" href="#wfs-related-information">WFS-Related Information</a></li>
+<li><a class="reference external" href="#software-requirements">Software Requirements</a></li>
+<li><a class="reference external" href="#version-of-gml-supported">Version of GML Supported</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#configuring-your-mapfile-to-serve-wfs-layers">Configuring your MapFile to Serve WFS layers</a><ul>
+<li><a class="reference external" href="#example-wfs-server-mapfile">Example WFS Server Mapfile</a></li>
+<li><a class="reference external" href="#rules-for-handling-srs-in-mapserver-wfs">Rules for Handling SRS in MapServer WFS</a></li>
+<li><a class="reference external" href="#test-your-wfs-server">Test Your WFS Server</a><ul>
+<li><a class="reference external" href="#validate-the-capabilities-metadata">Validate the Capabilities Metadata</a></li>
+<li><a class="reference external" href="#test-with-a-getfeature-request">Test With a GetFeature Request</a></li>
+<li><a class="reference external" href="#test-with-a-real-client">Test with a Real Client</a></li>
+<li><a class="reference external" href="#support-for-get-and-post-requests">Support for GET and POST Requests</a></li>
+<li><a class="reference external" href="#support-for-filter-encoding">Support for Filter Encoding</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference external" href="#reference-section">Reference Section</a><ul>
+<li><a class="reference external" href="#web-object-metadata">Web Object Metadata</a></li>
+<li><a class="reference external" href="#layer-object">Layer Object</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#to-do-items-and-known-limitations">To-do Items and Known Limitations</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="mapcontext.html"
+                                  title="previous chapter">Map Context</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="wfs_client.html"
+                                  title="next chapter">WFS Client</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/ogc/wfs_server.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="wfs-server">
+<span id="id1"></span><h1><a class="toc-backref" href="#contents">WFS Server</a><a class="headerlink" href="#wfs-server" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Jean-François Doyon</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">jdoyon at nrcan.gc.ca</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Jeff McKenna</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">jmckenna at gatewaygeomatics.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 9272 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2009-08-25 19:01:14 -0300 (Tue, 25 Aug 2009) $</td>
+</tr>
+<tr class="field"><th class="field-name">Last Updated:</th><td class="field-body">2006/10/13</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#wfs-server" id="id2">WFS Server</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#configuring-your-mapfile-to-serve-wfs-layers" id="id4">Configuring your MapFile to Serve WFS layers</a></li>
+<li><a class="reference internal" href="#reference-section" id="id5">Reference Section</a></li>
+<li><a class="reference internal" href="#to-do-items-and-known-limitations" id="id6">To-do Items and Known Limitations</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>A WFS ( Web Feature Service ) publishes feature-level geospatial data to the web.
+This means that instead of returning an image, as MapServer has traditionally done,
+the client now obtains fine-grained information about specific geospatial features
+of the underlying data, at both the geometry AND attribute levels. As with other
+OGC specifications, this interface uses XML over HTTP as it&#8217;s delivery mechanism,
+and, more precisely, GML (Geography Markup Language), which is a subset of XML.</p>
+<div class="section" id="wfs-related-information">
+<h3>WFS-Related Information<a class="headerlink" href="#wfs-related-information" title="Permalink to this headline">¶</a></h3>
+<p>Here are some WFS related links (including a newly added OGC services workshop
+with MapServer). Since these are highly detailed technical specifications, there
+is no need to read through them in their entirety to get a MapServer WFS up and
+running. It is still recommended however to read them over and get familiar with
+the basics of each of them, in order to understand how it all works:</p>
+<ul class="simple">
+<li>The <a class="reference external" href="https://portal.opengeospatial.org/files/?artifact_id=7176">OGC Web Feature Service Implementation Specification</a>.</li>
+<li>The <a class="reference external" href="https://portal.opengeospatial.org/files/?artifact_id=7174">Geography Markup Language Implementation Specification</a>.</li>
+<li>MapServer <a class="reference external" href="http://ms-ogc-workshop.maptools.org/">OGC Web Services Workshop package</a>.</li>
+</ul>
+<p>Working knowledge of MapServer is of course also required.</p>
+</div>
+<div class="section" id="software-requirements">
+<h3>Software Requirements<a class="headerlink" href="#software-requirements" title="Permalink to this headline">¶</a></h3>
+<p>In order to enable MapServer to serve WFS, it MUST be compiled against certain
+librairies:</p>
+<ul class="simple">
+<li>PROJ.4: The reprojection library. Version 4.4.3 or greater is required.</li>
+<li>GDAL/OGR: I/O support libraries. Version 1.1.8 or greater is required.</li>
+</ul>
+<p>Please see the MapServer <a class="reference external" href="../installation/unix.html#unix"><em>UNIX Compilation and Installation HowTo</em></a> for detailed
+instructions on compiling mapserver with support for these libraries and features.
+For Windows users, the <a class="reference external" href="http://www.maptools.org/ms4w/">MS4W</a> installer comes ready to serve both WFS and WMS.</p>
+</div>
+<div class="section" id="version-of-gml-supported">
+<h3>Version of GML Supported<a class="headerlink" href="#version-of-gml-supported" title="Permalink to this headline">¶</a></h3>
+<p>MapServer can output both GML2 and GML3.  By default MapServer serves GML2.  You can
+test this by adding an &#8216;OUTPUTFORMAT&#8217; parameter to a GetFeature request, such as:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=getfeature&amp;TYPENAME=park&amp;maxfeatures=1&amp;OUTPUTFORMAT=gml2">GML2 request output</a></li>
+<li><a class="reference external" href="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=getfeature&amp;TYPENAME=park&amp;maxfeatures=1&amp;OUTPUTFORMAT=gml3">GML3 request output</a></li>
+</ul>
+<p>For a detailed discussion on the versions supported, see <a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/884">bug#884</a>.</p>
+</div>
+</div>
+<div class="section" id="configuring-your-mapfile-to-serve-wfs-layers">
+<h2><a class="toc-backref" href="#contents">Configuring your MapFile to Serve WFS layers</a><a class="headerlink" href="#configuring-your-mapfile-to-serve-wfs-layers" title="Permalink to this headline">¶</a></h2>
+<p>Much as in the WMS support, WFS publishing is enabled by adding certain magic
+METADATA keyword/value pairs to a MapFile.</p>
+<p>MapServer will serve and include in its WFS capabilities only the layers that
+meet the following conditions:</p>
+<ul>
+<li><p class="first">Data source is of vector type (Shapefile, OGR, PostGIS, SDE, SDO, ...)</p>
+</li>
+<li><p class="first">LAYER NAME must be set. Layer names must start with a letter when setting up a
+WFS server (layer names should not start with a digit or have spaces in them).</p>
+</li>
+<li><p class="first">LAYER TYPE is one of: LINE, POINT, POLYGON</p>
+</li>
+<li><p class="first">LAYER DUMP parameter set to TRUE</p>
+</li>
+<li><p class="first">The &#8220;wfs_onlineresource&#8221; metadata:</p>
+<p>The wfs_onlineresource metadata is set in the map&#8217;s web object metadata and
+specifies the URL that should be used to access your server. This is required for
+the GetCapabilities output. If wfs_onlineresource is not provided then MapServer
+will try to provide a default one using the script name and hostname, but you
+shouldn&#8217;t count on that too much. It is strongly recommended that you provide
+the wfs_onlineresource metadata.</p>
+<p>See section 12.3.3 of the <a class="reference external" href="https://portal.opengeospatial.org/files/?artifact_id=7176">WFS 1.0.0 specification</a> for the whole story about
+the online resource URL. Basically, what you need is a complete HTTP URL including
+the <a class="reference external" href="http://">http://</a> prefix, hostname, script name, potentially a &#8220;map=&#8221; parameter, and
+and terminated by &#8220;?&#8221; or &#8220;&amp;&#8221;.</p>
+<p>Here is a valid online resource URL:</p>
+<div class="highlight-python"><pre>http://my.host.com/cgi-bin/mapserv?map=mywfs.map&amp;</pre>
+</div>
+<p>By creating a wrapper script on the server it is possible to hide the &#8220;map=&#8221;
+parameter from the URL and then your server&#8217;s online resource URL could be
+something like:</p>
+<div class="highlight-python"><pre>http://my.host.com/cgi-bin/mywfs?</pre>
+</div>
+<p>This is covered in more detail in the &#8220;More About the Online Resource URL&#8221; section
+of the <a class="reference external" href="wms_server.html#online-resource-wms"><em>WMS Server</em></a> document.</p>
+</li>
+</ul>
+<div class="section" id="example-wfs-server-mapfile">
+<h3>Example WFS Server Mapfile<a class="headerlink" href="#example-wfs-server-mapfile" title="Permalink to this headline">¶</a></h3>
+<p>The following is an example of a bare minimum WFS Server mapfile. Note the comments
+for the required parameters.</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">NAME</span> <span class="s">&quot;WFS_server&quot;</span>
+<span class="k">STATUS</span> <span class="nb">ON</span>
+<span class="k">SIZE</span> <span class="mi">400</span> <span class="mi">300</span>
+<span class="k">SYMBOLSET</span> <span class="p">..</span><span class="o">/</span><span class="err">etc</span><span class="o">/</span><span class="err">symbols</span><span class="p">.</span><span class="err">sym</span>
+<span class="k">EXTENT</span> <span class="p">-</span><span class="mi">2200000</span> <span class="p">-</span><span class="mi">712631</span> <span class="mi">3072800</span> <span class="mi">3840000</span>
+<span class="k">UNITS</span> <span class="nb">METERS</span>
+<span class="k">SHAPEPATH</span> <span class="s">&quot;../data&quot;</span>
+<span class="k">IMAGECOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">255</span>
+<span class="k">FONTSET</span> <span class="p">..</span><span class="o">/</span><span class="err">etc</span><span class="o">/</span><span class="err">fonts</span><span class="p">.</span><span class="err">txt</span>
+
+<span class="k">WEB</span>
+  <span class="k">IMAGEPATH</span> <span class="s">&quot;/ms4w/tmp/ms_tmp/&quot;</span>
+  <span class="k">IMAGEURL</span> <span class="s">&quot;/ms_tmp/&quot;</span>
+  <span class="k">METADATA</span>
+    <span class="s">&quot;wfs_title&quot;</span>            <span class="s">&quot;GMap WFS Demo Server&quot;</span>  <span class="c">## REQUIRED</span>
+    <span class="s">&quot;wfs_onlineresource&quot;</span>   <span class="s">&quot;http://127.0.0.1/cgi-bin/mapserv.exe?&quot;</span>  <span class="c">## Recommended</span>
+    <span class="s">&quot;wfs_srs&quot;</span>               <span class="s">&quot;EPSG:42304 EPSG:42101 EPSG:4269 EPSG:4326&quot;</span>  <span class="c">## Recommended</span>
+    <span class="s">&quot;ows_schemas_location&quot;</span> <span class="s">&quot;http://ogc.dmsolutions.ca&quot;</span>  <span class="c">## Optional</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+
+<span class="k">PROJECTION</span>
+  <span class="s">&quot;init=epsg:42304&quot;</span>
+<span class="k">END</span>
+
+<span class="k">LAYER</span>
+  <span class="k">NAME</span> <span class="s">&quot;province&quot;</span>
+  <span class="k">METADATA</span>
+    <span class="s">&quot;wfs_title&quot;</span>    <span class="s">&quot;Provinces&quot;</span> <span class="c">## REQUIRED</span>
+    <span class="s">&quot;gml_featureid&quot;</span> <span class="s">&quot;ID&quot;</span> <span class="c">## REQUIRED</span>
+    <span class="s">&quot;gml_include_items&quot;</span> <span class="s">&quot;all&quot;</span>  <span class="c">## Optional (serves all attributes for layer)</span>
+  <span class="k">END</span>
+  <span class="k">TYPE</span> <span class="nb">POLYGON</span>
+  <span class="k">STATUS</span> <span class="nb">ON</span>
+  <span class="k">DATA</span> <span class="err">province</span>
+  <span class="k">PROJECTION</span>
+    <span class="s">&quot;init=epsg:42304&quot;</span>
+  <span class="k">END</span>
+  <span class="k">DUMP</span> <span class="nb">TRUE</span>           <span class="c">## REQUIRED</span>
+  <span class="k">CLASS</span>
+    <span class="k">NAME</span> <span class="s">&quot;Canada&quot;</span>
+    <span class="k">STYLE</span>
+      <span class="k">COLOR</span> <span class="mi">200</span> <span class="mi">255</span> <span class="mi">0</span>
+      <span class="k">OUTLINECOLOR</span> <span class="mi">120</span> <span class="mi">120</span> <span class="mi">120</span>
+    <span class="k">END</span>
+    <span class="k">TEMPLATE</span> <span class="s">&quot;ttt_query.html&quot;</span>
+  <span class="k">END</span>
+<span class="k">END</span> <span class="c"># Layer</span>
+
+<span class="k">END</span> <span class="c"># Map File</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rules-for-handling-srs-in-mapserver-wfs">
+<h3>Rules for Handling SRS in MapServer WFS<a class="headerlink" href="#rules-for-handling-srs-in-mapserver-wfs" title="Permalink to this headline">¶</a></h3>
+<p>Contrary to WMS, the OGC WFS specification doesn&#8217;t allow a layer (feature type)
+to be advertised in more than one SRS. Also, there is no default SRS that applies
+to all layers by default in the OGC WFS spec. However, it is possible to have every
+layer in a WFS server advertised in a different SRS.</p>
+<p>Here is how MapServer decides the SRS to advertise and use for each layer in your WFS:</p>
+<ul class="simple">
+<li>If a top-level map SRS is defined* then this SRS is used and applies to all layers
+(feature types) in this WFS. In this case the SRS of individual layers is simply
+ignored even if it&#8217;s set.</li>
+<li>If there is no top-level map SRS defined* then each layer is advertised in its own
+SRS in the capabilities.</li>
+<li>By &#8220;SRS is defined&#8221;, we mean either the presence of a PROJECTION object defined
+using an EPSG code, or of a &#8220;wfs_srs&#8221; metadata at this level.</li>
+</ul>
+<p>Note that at the map top-level the &#8220;wfs_srs&#8221; metadata value takes precedence over the
+contents of the <a class="reference external" href="../mapfile/projection.html#projection"><em>PROJECTION</em></a> block.</p>
+<p>At the layer level, if both the wfs_srs metadata and the PROJECTION object are set
+to different values, then the wfs_srs metadata defines the projection to use in
+advertising this layer (assuming there is no top-level map SRS), and the PROJECTION
+value is assumed to be the projection of the data. So this means that the data would
+be reprojected from the PROJECTION SRS to the one defined in the wfs_srs metadata
+before being served to WFS clients.</p>
+<p>Confusing? As a rule of thumb, simply set the wfs_srs at the map level (in web metadata)
+and never set the wfs_srs metadata at the layer level and things will work fine for
+most cases.</p>
+</div>
+<div class="section" id="test-your-wfs-server">
+<h3>Test Your WFS Server<a class="headerlink" href="#test-your-wfs-server" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="validate-the-capabilities-metadata">
+<h4>Validate the Capabilities Metadata<a class="headerlink" href="#validate-the-capabilities-metadata" title="Permalink to this headline">¶</a></h4>
+<p>OK, now that we&#8217;ve got a mapfile, we have to check the XML capabilities returned
+by our server to make sure nothing is missing.</p>
+<p>Using a web browser, access your server&#8217;s online resource URL to which you add
+the parameter &#8220;REQUEST=GetCapabilities&#8221; to the end, e.g.</p>
+<p><a class="reference external" href="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=getcapabilities">http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=getcapabilities</a></p>
+<p>If everything went well, you should have a complete XML capabilities document.
+Search it for the word &#8220;WARNING&#8221;... MapServer inserts XML comments starting
+with &#8220;&lt;!&#8211;WARNING: &#8221; in the XML output if it detects missing mapfile parameters
+or metadata items. If you notice any warning in your XML output then you have
+to fix all of them before you can register your server with a WFS client, otherwise
+things are likely not going to work.</p>
+<p>Note that the SERVICE parameter is required for all WFS requests.  When a request happens, it is passed through WMS, WFS, and WCS in MapServer (in that order) until one of the services respond to it.</p>
+</div>
+<div class="section" id="test-with-a-getfeature-request">
+<h4>Test With a GetFeature Request<a class="headerlink" href="#test-with-a-getfeature-request" title="Permalink to this headline">¶</a></h4>
+<p>OK, now that we know that our server can produce a valid XML GetCapabilities
+response we should test the GetFeature request. Simply adding
+&#8220;SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=GetFeature&amp;TYPENAME=yourlayername1,yourlayername2&#8221;
+to your server&#8217;s URL should return the GML associated with those layers.</p>
+<p><a class="reference external" href="http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=getfeature&amp;TYPENAME=park">http://www2.dmsolutions.ca/cgi-bin/mswfs_gmap?SERVICE=WFS&amp;VERSION=1.0.0&amp;REQUEST=getfeature&amp;TYPENAME=park</a></p>
+</div>
+<div class="section" id="test-with-a-real-client">
+<h4>Test with a Real Client<a class="headerlink" href="#test-with-a-real-client" title="Permalink to this headline">¶</a></h4>
+<p>If you have access to a WFS client, then register your new server&#8217;s online
+resource with it and you should be off and running.</p>
+<p>If you don&#8217;t have your own WFS client installed already, here are a few pointers:</p>
+<ul class="simple">
+<li>MapServer itself can be used as a WFS client, see the <a class="reference external" href="wfs_client.html#wfs-client"><em>WFS Client HowTo</em></a>.</li>
+<li><a class="reference external" href="http://deegree.sourceforge.net/">Deegree</a> provides a WFS client.</li>
+<li><a class="reference external" href="http://udig.refractions.net/confluence/display/UDIG/Home">uDig</a> can add layers from WMS/WFS servers.</li>
+<li>The <a class="reference external" href="http://devgeo.cciw.ca/owsview">owsview</a> Viewer Client Generator is an online application that allows
+users to validate WFS Capabilities XML (it does not allow you to view WFS data).</li>
+</ul>
+</div>
+<div class="section" id="support-for-get-and-post-requests">
+<h4>Support for GET and POST Requests<a class="headerlink" href="#support-for-get-and-post-requests" title="Permalink to this headline">¶</a></h4>
+<p>Starting from version 4.2 MapServer supports XML-encoded POST requests and GET
+requests. The default in MapServer is POST.</p>
+</div>
+<div class="section" id="support-for-filter-encoding">
+<h4>Support for Filter Encoding<a class="headerlink" href="#support-for-filter-encoding" title="Permalink to this headline">¶</a></h4>
+<p>Starting from version 4.2 MapServer supports Filter Encoding (FE) in WFS
+GetFeature requests. For more information on the server side of Filter Encoding
+see the <a class="reference external" href="filter_encoding.html#filter-encoding"><em>Filter Encoding HowTo</em></a>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="reference-section">
+<h2><a class="toc-backref" href="#contents">Reference Section</a><a class="headerlink" href="#reference-section" title="Permalink to this headline">¶</a></h2>
+<p>The following metadata are available in the setup of the WFS Server mapfile:</p>
+<p><strong>Note</strong></p>
+<p>Each of the metadata below can also be referred to as &#8216;ows_*&#8217; instead of &#8216;wfs_*&#8217;.
+MapServer tries the &#8216;wfs_*&#8217; metadata first, and if not found it tries the corresponding
+&#8216;ows_*&#8217; name. Using this reduces the amount of duplication in mapfiles that support
+multiple OGC interfaces since &#8220;ows_*&#8221; metadata can be used almost everywhere for
+common metadata items shared by multiple OGC interfaces.</p>
+<div class="section" id="web-object-metadata">
+<h3>Web Object Metadata<a class="headerlink" href="#web-object-metadata" title="Permalink to this headline">¶</a></h3>
+<p><strong>ows_updatesequence</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) The updateSequence parameter can be used for maintaining the consistency of a client cache of the contents of a service metadata document. The parameter value can be an integer, a timestamp in [ISO 8601:2000] format, or any other number or string.</li>
+</ul>
+<p><strong>ows_schemas_location</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) (Note the name ows_schemas_location and not wfs/_...
+this is because all OGC Web Services (OWS) use the same metadata) Root of the
+web tree where the family of OGC WFS XMLSchema files are located. This must be a
+valid URL where the actual .xsd files are located if you want your WFS output to
+validate in a validating XML parser. Default is <a class="reference external" href="http://schemas.opengis.net">http://schemas.opengis.net</a>.
+See <a class="reference external" href="http://ogc.dmsolutions.ca">http://ogc.dmsolutions.ca</a> for an example of a valid schema tree.</li>
+</ul>
+<p><strong>wfs_abstract</strong></p>
+<ul class="simple">
+<li><em>WFS TAG Name:</em> Abstract (WFS 1.0.0, sect. 12.3.3)</li>
+<li><em>Description:</em> (Optional) Descriptive narrative for more information about
+the server.</li>
+</ul>
+<p><strong>wfs_accessconstraints</strong></p>
+<ul class="simple">
+<li><em>WFS TAG Name:</em> Accessconstraints (WFS 1.0.0, sect. 12.3.3)</li>
+<li><em>Description:</em> (Optional) Text describing any access constraints imposed by the
+service provider on the WFS or data retrieved from this service.</li>
+</ul>
+<p><strong>wfs_encoding</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) XML encoding for all XML documents returned by the
+server. The default is ISO-8859-1.</li>
+</ul>
+<p><strong>wfs_fees</strong></p>
+<ul class="simple">
+<li><em>WFS TAG Name:</em> Fees (WFS 1.0.0, sect. 12.3.3)</li>
+<li><em>Description:</em> (Optional) Any fees imposed by the service provider for usage of
+this service or for data retrieved from the WFS.</li>
+</ul>
+<p><strong>wfs_keywordlist</strong></p>
+<ul class="simple">
+<li><em>WFS TAG Name:</em> Keyword (WFS 1.0.0, sect. 12.3.3)</li>
+<li><em>Description:</em> (Optional) List of words to aid catalog searching.</li>
+</ul>
+<p><strong>wfs_maxfeatures</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) The number of elements to be returned by the WFS server.
+This has priority over the &#8216;maxfeatures&#8217; parameter passed by the user. If the
+not set the current behaviour is not changed.</li>
+</ul>
+<p><strong>wfs_namespace_prefix</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) User defined namespace prefix to be used in the response
+of a WFS GetFeature request. e.g. &#8220;wfs_namespace_prefix&#8221; &#8220;someprefix&#8221;.</li>
+</ul>
+<p><strong>wfs_namespace_uri</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) User defined namespace URI to be used in the response
+of a WFS GetFeature request. e.g. &#8220;wfs_namespace_uri&#8221; &#8220;<a class="reference external" href="http://somehost/someurl">http://somehost/someurl</a>&#8220;.</li>
+</ul>
+<p><strong>wfs_onlineresource</strong></p>
+<ul class="simple">
+<li><em>WFS TAG Name:</em> Onlineresource (WFS 1.0.0, sect. 12.3.3)</li>
+<li><em>Description:</em> (Recommended) The URL prefix for HTTP GET requests.</li>
+</ul>
+<p><strong>wfs_service_onlineresource</strong></p>
+<ul>
+<li><p class="first"><em>Description:</em> (Optional) Top-level onlineresource URL. MapServer uses the onlineresource
+metadata (if provided) in the following order:</p>
+<blockquote>
+<ol class="arabic simple">
+<li>wfs_service_onlineresource</li>
+<li>ows_service_onlineresource</li>
+<li>wfs_onlineresource (or automatically generated URL, see the onlineresource
+section of this document)</li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<p><strong>wfs_title</strong></p>
+<ul class="simple">
+<li><em>WFS TAG Name:</em> Title (WFS 1.0.0, sect. 12.3.3)</li>
+<li><em>Description:</em> (Required) Human readable title to identify server.</li>
+</ul>
+<p><strong>wfs_srs</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Recommended) The SRS to use for all layers in this server.
+(e.g. EPSG:4326) See the notes below about the SRS rules in the WFS.</li>
+</ul>
+<p><strong>wfs_feature_collection</strong></p>
+<ul class="simple">
+<li><em>Description:</em> Replaces the default name of the feature-containing element (&lt;msFeatureCollection&gt;) with a user-defined value.</li>
+</ul>
+</div>
+<div class="section" id="layer-object">
+<h3>Layer Object<a class="headerlink" href="#layer-object" title="Permalink to this headline">¶</a></h3>
+<p><strong>gml_exclude_items</strong></p>
+<ul>
+<li><p class="first"><em>Description:</em> (Optional) A comma delimited list of items to exclude.
+As of MapServer 4.6, you can control how many attributes (fields) you expose
+for your data layer with metadata. The previous behaviour was simply to expose
+all attributes all of the time. The default is to expose no attributes at all.
+An example excluding a specific field would be:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;gml_include_items&quot;</span> <span class="s">&quot;all&quot;</span>
+<span class="s">&quot;gml_exclude_items&quot;</span> <span class="s">&quot;Phonenum&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>gml_featureid</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Required for MapServer 4.10) Field to be used for the ID of the feature in the output GML.
+wfs_featureid or ows_feature_id can be specified instead.</li>
+</ul>
+<p><strong>gml_groups</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) A comma delimited list of group names for the layer.</li>
+</ul>
+<p><strong>gml_[group name]_group</strong></p>
+<ul>
+<li><p class="first"><em>Description:</em> (Optional) A comma delimited list of attributes in the group.
+Here is an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;gml_include_items&quot;</span> <span class="s">&quot;all&quot;</span>
+<span class="s">&quot;gml_groups&quot;</span>        <span class="s">&quot;display&quot;</span>
+<span class="s">&quot;gml_display_group&quot;</span> <span class="s">&quot;Name_e,Name_f&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>gml_include_items</strong></p>
+<ul>
+<li><p class="first"><em>Description:</em> (Optional) A comma delimited list of items to include, or keyword
+&#8220;all&#8221;. As of MapServer 4.6, you can control how many attributes (fields) you expose
+for your data layer with this metadata. The previous behaviour was simply to expose
+all attributes all of the time. You can enable full exposure by using the keyword &#8220;all&#8221;,
+such as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;gml_include_items&quot;</span> <span class="s">&quot;all&quot;</span>
+</pre></div>
+</div>
+<p>You can specify a list of attributes (fields) for partial exposure, such as:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;gml_include_items&quot;</span> <span class="s">&quot;Name,ID&quot;</span>
+</pre></div>
+</div>
+<p>The new default behaviour is to expose no attributes at all.</p>
+</li>
+</ul>
+<p><strong>gml_[item name]_alias</strong></p>
+<ul>
+<li><p class="first"><em>Description:</em> (Optional) An alias for an attribute&#8217;s name.  The served GML will refer
+to this attribute by the alias.  Here is an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;gml_province_alias&quot;</span> <span class="s">&quot;prov&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>gml_[item name]_type</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Specifies the type of the attribute.  Valid values
+are Integer|Real|Character|Date|Boolean.</li>
+</ul>
+<p><strong>gml_xml_items</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) A comma delimited list of items that should not be
+XML-encoded.</li>
+</ul>
+<p><strong>gml_geometries</strong></p>
+<ul class="simple">
+<li><em>Description:</em> provides a name other than the default &#8220;msGeometry&#8221; for geometry elements. The value is specified as a string to be used for geometry element names.</li>
+</ul>
+<p><strong>gml_[name]_type</strong></p>
+<ul>
+<li><p class="first"><em>Description:</em> When employing gml_geometries, it is also necessary to specify the geometry type of the layer. This is accomplished by providing a value for gml_[name]_type, where [name] is the string value specified for gml_geometries, and a value which is one of:</p>
+<blockquote>
+<ul class="simple">
+<li>point</li>
+<li>multipoint</li>
+<li>line</li>
+<li>multiline</li>
+<li>polygon</li>
+<li>multipolygon</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p><strong>gml_[name]_occurances</strong></p>
+<ul class="simple">
+<li><em>Description:</em> MapServer applies default values of 0 and 1, respectively, to the &#8220;minOccurs&#8221; and &#8220;maxOccurs&#8221; attributes of geometry elements, as can be seen in the preceding examples. To override these defaults, a value is assigned to a gml_[name]_occurances layer metadata item, where again [name] is the string value specified for gml_geometries, and the value is a comma-delimited pair containing the respective lower and upper bounds.</li>
+</ul>
+<p><strong>wfs_abstract</strong></p>
+<ul class="simple">
+<li>Same as wfs_abstract in the Web Object.</li>
+</ul>
+<p><strong>wfs_extent</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Used for the layer&#8217;s BoundingBox tag for cases where it is impossible (or very inefficient) for MapServer to probe the data source to figure its extents. The value for this metadata is &#8220;minx miny maxx maxy&#8221; separated by spaces, with the values in the layer&#8217;s projection units. If wfs_extent is provided then it has priority and MapServer will NOT try to read the source file&#8217;s extents.</li>
+</ul>
+<p><strong>wfs_featureid</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Required for MapServer 4.10) Field to be used for the ID of the feature in the output GML.
+gml_featureid or ows_feature_id can be specified instead.</li>
+</ul>
+<p><strong>wfs_keywordlist</strong></p>
+<ul class="simple">
+<li>Same as wfs_keywordlist in the Web Object.</li>
+</ul>
+<p><strong>wfs_metadataurl_format</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) The file format of the metadata record. Valid
+values are &#8220;XML&#8221;, &#8220;SGML&#8221;, or &#8220;HTML&#8221;. The layer metadata wfs_metadataurl_type
+and wfs_metadataurl_href must also be specified.</li>
+<li>refer to section 12.3.5 of the <a class="reference external" href="https://portal.opengeospatial.org/files/?artifact_id=7176">WFS 1.0.0 spec</a>.</li>
+</ul>
+<p><strong>wfs_metadataurl_href</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) The URL to the layer&#8217;s metadata. The layer
+metadata wfs_metadataurl_type and wfs_metadataurl_format must also
+be specified.</li>
+<li>refer to section 12.3.5 of the <a class="reference external" href="https://portal.opengeospatial.org/files/?artifact_id=7176">WFS 1.0.0 spec</a>.</li>
+</ul>
+<p><strong>wfs_metadataurl_type</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) The standard to which the metadata complies. Currently
+only two types are valid: &#8220;TC211&#8221; which refers to [ISO 19115], and &#8220;FGDC&#8221; which
+refers to [FGDC CSDGM]. The layer metadata wfs_metadataurl_format and
+wfs_metadataurl_href must also be specified.</li>
+<li>refer to section 12.3.5 of the <a class="reference external" href="https://portal.opengeospatial.org/files/?artifact_id=7176">WFS 1.0.0 spec</a>.</li>
+</ul>
+<p><strong>wfs_srs</strong></p>
+<ul class="simple">
+<li><em>Description:</em> If there is no SRS defined at the top-level in the mapfile
+then this SRS will be used to advertize this feature type (layer) in the
+capabilities. See the note below about the SRS rules in the WFS.</li>
+</ul>
+<p><strong>wfs_title</strong></p>
+<ul class="simple">
+<li>Same as wfs_title in the Web Object.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="to-do-items-and-known-limitations">
+<h2><a class="toc-backref" href="#contents">To-do Items and Known Limitations</a><a class="headerlink" href="#to-do-items-and-known-limitations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>This is just a basic WFS (read-only): transaction requests are not supported
+and probably never will given the nature of MapServer.  <a class="reference external" href="http://docs.codehaus.org/display/GEOS/Home">GeoServer</a> is
+recommended for those needing WFS-T support.</li>
+<li>WFS spec. seems to require that features of a given feature type must all be
+of the same geometry type (point, line, polygon). This works fine for shapefiles,
+but some data source formats supported by MapServer allow mixed geometry
+types in a single layer and this goes against the WFS spec. Suggestions on
+how to handle this are welcome (send suggestions to the
+<a class="reference external" href="../community/lists.html#lists"><em>mapserver-dev mailing list</em></a>.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="wfs_client.html" title="WFS Client"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mapcontext.html" title="Map Context"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >OGC Support and Configuration</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>CBE HTML4 Template</title>
+<style type='text/css'><!--
+html {
+  margin:0;
+  padding:0;
+}
+body {
+  color:#000;
+  background:#fff;
+  margin:0;
+  padding:0;
+  font-family:verdana,arial,sans-serif;
+  font-size:12px;
+}
+a {
+  color:#008;
+  background:transparent;
+  text-decoration:underline;
+}
+a:hover {
+  color:#008;
+  background:#ccc;
+  text-decoration:none;
+}
+.clsCBE {
+  position:absolute; visibility:hidden;
+  width:50%; height:50%; clip:rect(0 50% 50% 0);
+  color:#000000; background:#ffffff;
+  margin:0; padding:0;
+}
+--></style>
+<script type='text/javascript' src='../cbe_core.js'></script>
+<script type='text/javascript' src='../cbe_event.js'></script>
+<script type='text/javascript' src='../cbe_slide.js'></script>
+<script type='text/javascript' src='../cbe_slide2.js'></script>
+<script type='text/javascript' src='../cbe_clip.js'></script>
+<script type='text/javascript' src='../cbe_util.js'></script>
+<script type='text/javascript' src='../cbe_debug.js'></script>
+<script type='text/javascript'><!--
+function windowOnload() {
+  with (cbeGetElementById('id1').cbe) {
+    color('#ffffff');
+    background('#0000ff');
+    resizeTo(200,200);
+    moveTo('center');
+    show();
+  }
+}
+//--></script>
+</head>
+<body>
+
+<p><a href="javascript:cbeDebugWindow('../')">Debug</a></p>
+
+<div id='id1' class='clsCBE'>id1</div>
+
+</body>
+</html>

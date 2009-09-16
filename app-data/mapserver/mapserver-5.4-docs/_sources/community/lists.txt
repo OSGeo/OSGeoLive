@@ -1,0 +1,101 @@
+.. _lists:
+
+*****************************************************************************
+ Mailing Lists
+*****************************************************************************
+
+
+mapserver-announce
+-----------------------------------------------------------------------------
+
+The mapserver-announce listserv is used to announce MapServer software updates
+or security issues. It is a very low-traffic volume list.
+
+* **Subscribing to mapserver-announce**
+
+  To subscribe to the mapserver-announce listserv visit
+  http://lists.osgeo.org/mailman/listinfo/mapserver-announce and enter your
+  subscription information. You can later change your subscription information
+  or leave the list at this website. 
+
+  .. note::
+      If your are subscribed to the mapserver-users listserv, you need not
+      subscribe to mapserver-announce: all messages sent to mapserver-announce
+      are also copied to mapserver-users.
+
+* **Submitting Questions to mapserver-announce**
+
+  The mapserver-announce mailing list is "read only" - subscribers are not 
+  permitted to post to this list.
+
+mapserver-users
+-----------------------------------------------------------------------------
+
+The mapserver-users is the primary means for MapServer users and
+developers to exchange application ideas, discuss potential software
+improvements, and ask questions. 
+
+* **Subscribing to mapserver-users**
+
+  To subscribe to the mapserver-users listserv visit
+  http://lists.osgeo.org/mailman/listinfo/mapserver-users. You can later change
+  your subscription information or leave the list at this website.
+
+* **Submitting Questions to mapserver-users**
+
+  To submit questions to the mapserver-users listserv, first join the list by
+  following the subscription procedure above. Then post questions to the list by
+  sending an email message to mapserver-users@lists.osgeo.org.
+
+* **Searching the Archives**
+
+  All MapServer-Users archives are located in
+  http://lists.osgeo.org/pipermail/mapserver-users/. Searching the archives is 
+  best done with `Nabble <http://n2.nabble.com/MapServer-f1969210.html>`__.
+
+mapserver-dev
+-----------------------------------------------------------------------------
+
+A separate listserv is available for MapServer developers. It is meant to be
+used by individuals working on MapServer source code and related libraries to
+discuss issues that would not be of interest to the entire mapserver-users
+listserv.
+
+* **Subscribing to mapserver-dev**
+
+  To subscribe to the mapserver-dev listserv visit
+  http://lists.osgeo.org/mailman/listinfo/mapserver-dev, enter your e-mail
+  address, name, and create a password and click subscribe. You can later change
+  your subscription information or leave the list at this website.
+
+* **Submitting Questions to mapserver-dev**
+
+  To submit questions to the mapserver-dev listserv, first join the list by
+  following the subscription procedure above. Then post questions to the list by
+  sending an email message to mapserver-dev@lists.osgeo.org.
+  
+* **Searching the Archives**
+
+  All MapServer-Dev archives are located in
+  http://lists.osgeo.org/pipermail/mapserver-dev/. Searching the archives is 
+  best done with `Nabble <http://n2.nabble.com/MapServer-f1969210.html>`__.
+
+MapServer mailing lists in languages other than English
+-----------------------------------------------------------------------------
+
+* `MapServer-DE (German) <http://freegis.org/mailman/listinfo/mapserver-de>`__
+
+    .. note::
+        Please send a note to the mapserver-dev list if you know of any 
+        other MapServer mailing lists in additional languages.
+
+Downloading list archives
+-----------------------------------------------------------------------------
+
+The MapServer-Users and MapServer-Dev mailing lists have been migrated to the
+new OSGeo list server. One of the benefits of this migration is that you no
+longer need an account to download or read the archives. To access the
+MapServer archives, simply point your browser to
+http://lists.osgeo.org/pipermail/mapserver-users/ and download the gzipped
+file or click on the link. For MapServer-Dev archives, go to
+http://lists.osgeo.org/pipermail/mapserver-dev/.

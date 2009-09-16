@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ArcInfo &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Vector Data" href="index.html" />
+    <link rel="next" title="ArcSDE" href="arcsde.html" />
+    <link rel="prev" title="Virtual Spatial Data" href="VirtualSpatialData.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="arcsde.html" title="ArcSDE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="VirtualSpatialData.html" title="Virtual Spatial Data"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Vector Data</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//input/vector/ArcInfo.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/input/vector/ArcInfo.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">ArcInfo</a><ul>
+<li><a class="reference external" href="#file-listing">File listing</a></li>
+<li><a class="reference external" href="#data-access-connection-method">Data Access / Connection Method</a><ul>
+<li><a class="reference external" href="#ogrinfo-examples">OGRINFO Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="VirtualSpatialData.html"
+                                  title="previous chapter">Virtual Spatial Data</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="arcsde.html"
+                                  title="next chapter">ArcSDE</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/input/vector/ArcInfo.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="arcinfo">
+<span id="id1"></span><h1>ArcInfo<a class="headerlink" href="#arcinfo" title="Permalink to this headline">¶</a></h1>
+<p>ESRI ArcInfo Coverage Files are also known as simply as
+Coverages and less commonly as ADF files.</p>
+<div class="section" id="file-listing">
+<h2>File listing<a class="headerlink" href="#file-listing" title="Permalink to this headline">¶</a></h2>
+<p>Coverages are made up of a set of files within a folder.  The folder
+itself is the coverage name.  The files roughly represent
+different layers, usually representing different types of
+topology or feature types.</p>
+<div class="highlight-python"><pre>&gt; ls /data/coverage/brazil
+aat.adf  arc.adf  arx.adf  bnd.adf  lab.adf  prj.adf  tic.adf  tol.adf</pre>
+</div>
+<p>A folder with the name INFO is also part of the coverage.  It sits at
+the same hierarchical level as the coverage folder itself.  Therefore,
+to copy a coverage (using regular file system tools) the coverage
+folder and the INFO folder must both be copied.  The INFO folder
+holds some catalogue information about the coverage.</p>
+<div class="highlight-python"><pre>&gt; ls /data/coverage/info
+arc0000.dat  arc0001.dat  arc0002.dat  arc.dir
+arc0000.nit  arc0001.nit  arc0002.nit</pre>
+</div>
+</div>
+<div class="section" id="data-access-connection-method">
+<h2>Data Access / Connection Method<a class="headerlink" href="#data-access-connection-method" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>CONNECTIONTYPE OGR must be used.  The ability to use coverages
+is not built into MapServer.</li>
+<li>The path to the coverage folder name is required.</li>
+<li>The layer name (feature type) is specified in the DATA parameter</li>
+</ul>
+<div class="section" id="ogrinfo-examples">
+<h3>OGRINFO Examples<a class="headerlink" href="#ogrinfo-examples" title="Permalink to this headline">¶</a></h3>
+<p>The directory is the data source.  Layers are found within the directory.
+Using ogrinfo on a coverage directory:</p>
+<div class="highlight-python"><pre>&gt; ogrinfo /data/coverage/brazil -summary
+INFO: Open of `brazil'
+using driver `AVCBin' successful.
+1: ARC (Line String)
+2: CNT (Point)
+3: LAB (Point)
+4: PAL (Polygon)</pre>
+</div>
+<p>Using ogrinfo to examine the structure of a layer:</p>
+<div class="highlight-python"><pre>&gt; ogrinfo /data/coverage/brazil PAL -summary
+Had to open data source read-only.
+INFO: Open of `brazil'
+using driver `AVCBin' successful.
+
+Layer name: PAL
+Geometry: Polygon
+Feature Count: 1
+Extent: (1272793.274958, 795381.617050) - (1287078.382785, 807302.747284)
+Layer SRS WKT:
+(unknown)
+ArcIds: IntegerList (0.0)
+AREA: Real (18.5)
+PERIMETER: Real (18.5)
+F_OPER#: Integer (5.0)
+F_OPER-ID: Integer (5.0)
+OPER: String (2.0)
+FCODE: String (10.0)</pre>
+</div>
+<p>Map File Example:</p>
+<div class="highlight-python"><pre>LAYER
+  NAME Brazil_bounds
+  TYPE POLYGON
+  STATUS DEFAULT
+  CONNECTIONTYPE OGR
+  CONNECTION "/data/coverage/brazil"
+  DATA "PAL"
+  CLASS
+    NAME "Brazil Admin Areas"
+    STYLE
+      OUTLINECOLOR 153 102 0
+      SIZE 2
+    END
+  END
+END</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="arcsde.html" title="ArcSDE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="VirtualSpatialData.html" title="Virtual Spatial Data"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Data Input</a> &raquo;</li>
+          <li><a href="index.html" >Vector Data</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

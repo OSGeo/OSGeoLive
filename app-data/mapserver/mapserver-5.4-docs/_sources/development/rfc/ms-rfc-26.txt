@@ -1,0 +1,187 @@
+.. _rfc26:
+
+======================================================================
+MS RFC 26: Version 5 Terminology Cleanup
+======================================================================
+
+:Date: 2007/04/21 
+:Author: Steve Lime, Havard Tveite
+:Contact: steve.lime at dnr.state.mn.us, havard.tveite at umb.no
+:Last Edited: $Date: 2008-12-23 22:34:31 +0100 (Di, 23. Dez 2008) $
+:Status: Implemented
+:Version: MapServer 5.0
+:Id: $Id: ms-rfc-26.txt 8278 2008-12-23 21:34:31Z hobu $
+
+Mapserver terminology is mostly good and consistent, with a few exceptions. 
+The two that generate the most confusion and TRANSPARENCY (layerObj) and 
+various scale referencing parameters (e.g. MINSCALE). 
+
+Another change would be changing the symbolObj STYLE parameter to PATTERN 
+instead. This would be simply to avoid confusion with the classObj STYLE.
+
+The The purpose of this proposal is to make Mapserver even easier to use, 
+removing confusion that can arise in cases of inconsistent terminology.
+
+TRANSPARENCY
+------------
+
+1) Overview
+
+TRANSPARENCY is used in the Mapserver mapfile layer object for what is in 
+fact opacity (as is also pointed out in the current documentation).
+
+2) Technical details
+To achieve more consistent terminology, the following should be done:
+
+Changing the keyword TRANSPARENCY to OPACITY
+
+The old mapfile layer keyword "TRANSPARENCY" will be deprecated, but shall
+be supported in future versions of Mapserver as an alias for OPACITY.
+ 
+The new mapfile layer keyword OPACITY should replace TRANSPARENCY. There 
+will be no changes in type or semantics, only a change of keyword name.
+
+The internal structure member name in the layerObj will change from 
+transparency to opacity.
+
+3) Mapfile Implications
+
+The parser will have to support both OPACITY and TRANSPARENCY (for 
+backward compatibility).  The type will not change.
+
+At debug level 1 a warning will be issued that the TRANSPARENCY parameter 
+is deprecated and OPACITY should be used instead.
+
+4) MapScript Implications
+
+Since the layerObj will no longer contain a transparency member this will 
+break old scripts. The fix will be evident.
+
+5) Documentation Implications
+
+Documentation should be updated, introducing OPACITY as a new layer
+keyword with documentation similar to the current transparency.  The
+layer keyword TRANSPARENCY should be documented as deprecated.
+All other documentation that references TRANSPARENCY will have to be
+updated (simple search-replace with a manual check of all occurences
+of the word transparency?)
+
+SCALE
+-----
+
+1) Overview
+
+SCALE and MAXSCALE/MINSCALE is a case where Mapserver terminology is not in 
+line with mainstream map terminology.
+
+In proper usage, scale is a representative fraction. The scale 1:50000 
+tells us that one meter on the map corresponds to 50000 meters in the 
+"terrain". 1:1000 (0.001) is a larger scale than 1:50000 (0.00002). The 
+current use of MAXSCALE and MINSCALE is therefore not consistent with 
+proper terminology.
+
+2) Technical details
+
+To achieve more consistent terminology, the following could be done with 
+limited consequences:
+
+Change all occurrences of "SCALE" in keywords to "ScaleDenom".
+
+     MinScale 10000
+     Maxscale 1000000
+
+will become:
+
+     MinScaleDenom 10000
+     MaxScaleDenom 1000000
+
+This will apply to the following occurences of SCALE in mapserver keywords:
+
+Map object:
+    SCALE -> ScaleDenom
+
+Web object:
+    MAXSCALE/MINSCALE
+
+Layer object:
+    MAXSCALE/MINSCALE
+    LABELMAXSCALE/LABELMINSCALE
+    SYMBOLSCALE
+
+Class object:
+    MAXSCALE/MINSCALE
+
+
+3) Mapfile Implications
+
+The parser would have to accept the new keywords.  The old keywords will be 
+unique prefixes of the new keywords, and could be accepted by the parser 
+(in a transition period or for eternity).
+
+At debug level 1 a warning will be issued that the ...SCALE parameter is 
+deprecated and ...SCALEDENOM should be used instead.
+
+4) MapScript Implications
+For all scale variables, scale should be changed to scaledenom (for 
+consistency reasons).  The type (double) will not change. Like opacity above 
+this could break old scripts.
+
+5) Template Implications
+
+The [scale] substitution should be deprecated (but still supported) 
+and [scaledenom] added.
+
+6) CGI Imaplications
+
+The scale CGI parameter would continue to be supported (e.g. users often 
+define a map extent using a center point and a scale value). Scaledenom 
+would also be supported.
+
+7) Documentation Implications
+
+All occurences of scale keywords in the documentation will have to be 
+changed to reflect the new names. The old style keywords could be included, 
+but should marked as deprecated.
+
+PATTERN
+-------
+
+1) Overview
+
+Currently both the symbolObj and classObj contain STYLE parameters. 
+The symbolObj style stores dash patterns used for line symbols. The name 
+is derived from GD terminology. To avoid confusion with the classObj STYLE 
+the symbolObj STYLE should be renamed to more concisely reflect it's purpose. 
+
+2) Technical details
+
+In the symbolObj structure definition the member style will be renamed 
+pattern. All references to the style in the code will also be updated.
+
+3) Mapfile/symbol file Implications
+
+The parser would have to accept the new keywords.  The old keywords will 
+be unique prefixes of the new keywords, and could be accepted by the 
+parser (in a transition period or for eternity).
+
+At debug level 1 a warning will be issued that the STYLE parameter is 
+deprecated and PATTERN should be used instead.
+
+4) MapScript Implications
+
+As above the symbolObj structure would be altered and so MapScript scripts 
+that set a symbol style programatically would break. They would need to 
+reference the patter parameter instead.
+
+5) Template Implications
+
+None
+
+6) CGI Implications
+
+None
+
+7) Documentation Implications
+
+The symbolObj reference guides would need to updated to reflect the name 
+change.

@@ -1,0 +1,211 @@
+.. _rfc56:
+
+======================================================================
+MS RFC 56: Tighten control of access to mapfiles and templates
+======================================================================
+
+:Date: 2009/03/24
+:Authors: Daniel Morissette
+:Contact: dmorissette at mapgears.com
+:Authors: Steve Lime
+:Contact: steve.lime at dnr.state.mn.us
+:Last Edited: 2009/03/26
+:Status: Adopted and implemented (2009/03/26)
+:Version: MapServer 5.4.0, 5.2.2, and 4.10.4.
+:Id: $Id: ms-rfc-56.txt 8873 2009-04-03 12:23:51Z dmorissette $
+
+Overview
+------------------------------------------------------------------------------
+
+MapServer versions 5.2.1 and older could potentially be used to access 
+arbitrary files via the creation of mapfiles or templates in untrusted 
+directories.
+
+This RFC proposes a mechanism to tighten access control on mapfiles and 
+templates and limit the risk of leaking arbitrary file contents.
+
+The new access control mechanisms will be implemented and released in 
+MapServer 5.4.0, 5.2.2 and 4.10.4.
+
+
+Technical Solution
+------------------------------------------------------------------------------
+
+The following mechanisms will be put in place:
+
+* Enforce the requirement for the MAP keyword at the beginning of mapfiles and for the SYMBOLSET keyword at the beginning of SYMBOLSETs.
+
+* Require a Magic String at the beginning of all MapServer templates
+
+* Use of environment variables to control and restrict access to mapfiles by the mapserv CGI:
+
+  * MS_MAP_PATTERN
+  * MS_MAP_NO_PATH
+
+Each of the points above are described in more details in the following 
+sections.
+
+
+Enforce the requirement for the MAP and SYMBOLSET keywords
+------------------------------------------------------------------------------
+
+The MAP and SYMBOLSET keywords used to be optional at the beginning of
+mapfiles and symbolsets respectively.
+
+With this change, the MAP keyword will be required on the first line of
+mapfiles and the SYMBOLSET keyword required on the first line of symbolset
+files.
+
+If the keyword is missing then the parser will reject the file.
+
+
+Require a Magic String at the beginning of all MapServer templates
+------------------------------------------------------------------------------
+
+With this change, the first line of a template must contain the "MapServer 
+Template" magic string which can be surrounded by comment delimiters in the 
+format of the template to facilitate template editing (see examples below). 
+The first line of the template file will automatically be stripped from 
+the template and will not be included in the MapServer output.
+
+If the magic string is not found then the template will be rejected by 
+MapServer. 
+
+HTML template example:
+
+::
+
+  <!-- MapServer Template -->
+  <html>
+   <head>...</head>
+   <body>
+   ...
+   </body>
+  </html>
+
+
+XML template example:
+
+::
+
+  <!-- MapServer Template -->
+  <?xml version="1.0" encoding="UTF-8" ?>
+  <rootElement>
+    ...
+  </rootElement>
+
+
+GeoJSON template example:
+
+::
+
+ // MapServer Template
+   [resultset layer=foo] {
+ "type": "FeatureCollection",
+ "features": [
+  [feature trim=',']
+  {
+   "type": "Feature",
+   "id": "[id]",
+   "geometry": {
+    "type": "PointLineString",
+    "coordinates": [
+     {
+      "type": "Point",
+      "coordinates": [[x], [y]]
+     }
+    ]
+   },
+   "properties": {
+    "description": "[description]",
+    "venue": "[venue]",
+    "year": "[year]"
+   }
+  },
+  [/feature]
+  ]
+ }
+ [/resultset]
+
+
+MS_MAP_PATTERN Environment Variable
+------------------------------------------------------------------------------
+
+The optional MS_MAP_PATTERN environment variable, set via mod_env or other
+web server equivalents, can be used to specify a Regular Expression that 
+must be matched by all mapfile paths passed to the mapserv CGI. 
+
+If MS_MAP_PATTERN is not set then any .map file can be loaded.
+
+Example, use Apache's SetEnv directive to restrict mapfiles to 
+the /opt/mapserver/ directory and subdirectories:
+
+::
+
+  SetEnv MS_MAP_PATTERN "^/opt/mapserver/"
+
+
+MS_MAP_NO_PATH Environment Variable
+------------------------------------------------------------------------------
+
+The optional MS_MAP_NO_PATH environment variable can be set to any value
+via mod_env or other web server equivalents to forbid the use of explicit
+paths in the map=... URL parameter. Setting MS_MAP_NO_PATH to **any value**
+forces the use of the map=<env_variable_name> mechanism in mapserv CGI URLs.
+
+If this variable is not set then nothing changes and the mapserv CGI still
+accepts explicit file paths via the map=... URL parameter.
+
+Example, set set MS_MAP_NOPATH and some mapfile paths in Apache's httpd.conf:
+
+::
+
+  SetEnv MS_MAP_NO_PATH "foo"
+  SetEnv MY_MAPFILE "/opt/mapserver/map1/mymapfile.map"
+
+... and then calls the mapserv CGI must use environment variables for the
+map=... parameter:
+
+::
+
+  http://localhost/cgi-bin/mapserv?map=MY_MAPFILE&mode=...
+
+
+Backwards Compatibility Issues
+------------------------------------------------------------------------------
+
+The MAP and SYMBOLSET keywords must be added to any mapfile and 
+symbolset that did not contain them already.
+
+All MapServer templates must be updated to contain the "MapServer
+Template" magic string on the first line.
+
+The new environment variables are optional and will have no impact on 
+existing applications that don't use them.
+
+
+Files Impacted
+------------------------------------------------------------------------------
+
+* mapserver.h
+
+* maptemplate.c
+
+* mapserv.c
+
+
+Ticket Id
+------------------------------------------------------------------------------
+
+Related security tickets:
+
+* http://trac.osgeo.org/mapserver/ticket/2939
+* http://trac.osgeo.org/mapserver/ticket/2941
+* http://trac.osgeo.org/mapserver/ticket/2942
+* http://trac.osgeo.org/mapserver/ticket/2943
+* http://trac.osgeo.org/mapserver/ticket/2944 
+
+Voting History
+------------------------------------------------------------------------------
+
+Adopted on 2009-03-26 with +1 from DanielM, TomK, PericlesN, JeffM, SteveW, AssefaY, SteveL and TamasS.

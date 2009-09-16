@@ -1,0 +1,152 @@
+.. _download:
+
+***************************************************
+ Download
+***************************************************
+
+.. _source:
+
+Source
+------------------------------------------------------------------------------
+
+Current Release(s)
+..............................................................................
+
+* **2009-7-23** `mapserver-5.4.2.tar.gz`_ 
+  `Changelog <http://trac.osgeo.org/mapserver/browser/tags/rel-5-4-2/mapserver/HISTORY.TXT>`__
+
+.. _`mapserver-5.4.2.tar.gz`: http://download.osgeo.org/mapserver/mapserver-5.4.2.tar.gz
+
+Development Releases
+..............................................................................
+
+* none available
+
+Past Releases
+..............................................................................
+
+* **2009-6-1** `mapserver-5.4.1.tar.gz`_ 
+  `Changelog <http://trac.osgeo.org/mapserver/browser/tags/rel-5-4-1/mapserver/HISTORY.TXT>`__
+
+.. _`mapserver-5.4.1.tar.gz`: http://download.osgeo.org/mapserver/mapserver-5.4.1.tar.gz
+
+* **2009-7-23** `mapserver-5.2.3.tar.gz`_ 
+  `Changelog <http://trac.osgeo.org/mapserver/browser/tags/rel-5-2-3/mapserver/HISTORY.TXT>`__
+
+.. _`mapserver-5.2.3.tar.gz`: http://download.osgeo.org/mapserver/mapserver-5.2.3.tar.gz
+
+* **2009-7-23** `mapserver-4.10.5.tar.gz`_ 
+  `Changelog <http://trac.osgeo.org/mapserver/browser/tags/rel-4-10-5/mapserver/HISTORY.TXT>`__
+
+.. _`mapserver-4.10.5.tar.gz`: http://download.osgeo.org/mapserver/mapserver-4.10.5.tar.gz
+
+Development Source
+..............................................................................
+
+* Current Trunk: http://svn.osgeo.org/mapserver/trunk/
+
+* Latest Release Branch: http://svn.osgeo.org/mapserver/branches/branch-5-4
+
+    .. note::
+        More information about MapServer development can be found at
+        :ref:`development`
+
+Binaries
+------------------------------------------------------------------------------
+
+.. _windows:
+
+Windows
+..............................................................................
+
+
+`OSGeo4W`_
+    OSGeo4W is a binary distribution of a broad set of Open Source geospatial
+    software for Win32 environments (Windows XP, Vista, etc). OSGeo4W includes
+    GDAL/OGR, GRASS, MapServer, OpenEV, uDig, as well as many other packages
+    (about 70 as of summer 2008).
+    
+.. _`OSGeo4W`: http://trac.osgeo.org/osgeo4w/
+
+
+`MS4W`_
+    MapServer for Windows from MapTools.org. If you are a beginner looking for
+    a complete MapServer solution on the Windows platform, or an advanced user
+    looking to avoid compiling your own, this is what you're looking for. MS4W
+    is a complete Web Server/MapServer/MapScript package. MS4W includes 
+    several flavors of MapScript (PHP, C#, Python, Java), and additional dlls 
+    for SDE and Oracle support.  Several popular Web applications are also 
+    available for download, which are pre-configured for MS4W.
+
+.. _`MS4W`: http://maptools.org/ms4w/
+
+`FWTools`_
+    A collection of Open Source GIS tools provided by Frank Warmerdam. This
+    goes beyond your basic web mapping tools and include many useful utilities
+    for creating, manipulating, and serving geo-spatial data.
+
+.. _`FWTools`: http://fwtools.maptools.org/
+
+
+.. _linux:
+
+Linux
+..............................................................................
+
+`FGS`_
+    The FGS Linux Installer is a self-extracting file that will install
+    MapServer with PHP/MapScript and all of their dependencies on your Linux
+    system. It provides a stand-alone environment with all the required
+    software (incl. Apache and PHP) to run PHP/MapScript webmapping
+    applications. The bundled version of Apache can be configured to run on
+    any port so it will not interfere with previous installations of Apache or
+    other web servers on your system.
+
+.. _`FGS`: http://maptools.org/fgs/
+
+`DebianGIS`_
+    DebianGIS provides a number of packages including MapServer, PostGIS, 
+    GDAL, QGIS, and GEOS.  It sometimes lags a little bit behind the absolute 
+    latest release, but DebianGIS provides a solid integration environment 
+    for a giant slug of Open Source GIS software.
+    
+.. _`DebianGIS`: http://wiki.debian.org/DebianGis
+
+
+`UbuntuGIS`_
+    UbuntuGIS provides up to date packages of MapServer and related OSGeo tools
+    for the last three releases of Ubuntu.
+
+.. _`UbuntuGIS`: https://wiki.ubuntu.com/UbuntuGIS
+
+
+.. _osx:
+
+Mac OS X
+..............................................................................
+
+`Kyng Chaos`_
+    William Kyngesburye provides excellent, up-to-date packages for Mac OS X.
+    Most of the Open Source GIS stack is provided, including GEOS, GDAL, QGIS, 
+    and PostGIS.
+
+.. _`Kyng Chaos`: http://www.kyngchaos.com/wiki/software:mapserver
+
+
+Demo Application
+------------------------------------------------------------------------------
+
+Download `MapServer 5.4.x Demo`_
+    Download and unzip this file into your computer.  Follow the directions in 
+    ReadMe.txt. You will most likely need to move the demo directory tree to an 
+    appropriate location in your httpd server.  You will also need to edit some
+    of the mapfile and template file parameters to reflect the changes in your
+    paths (directory locations).
+
+.. _`MapServer 5.4.x Demo`: http://maps.dnr.state.mn.us/mapserver_demos/workshop-5.4.zip
+
+`View Demo Application`_
+    The link above provides a live version of the demo application.
+
+.. _`View Demo Application`: http://demo.mapserver.org/mapserver_demos/workshop-5.4/
+

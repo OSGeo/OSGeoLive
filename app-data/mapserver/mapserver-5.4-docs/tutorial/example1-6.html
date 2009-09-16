@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Example 1.6 &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//tutorial/example1-6.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/tutorial/example1-6.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Example 1.6</a><ul>
+<li><a class="reference external" href="#defining-projections-and-extents">Defining Projections and Extents</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/tutorial/example1-6.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="example-1-6">
+<span id="example1-6"></span><h1>Example 1.6<a class="headerlink" href="#example-1-6" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="defining-projections-and-extents">
+<h2>Defining Projections and Extents<a class="headerlink" href="#defining-projections-and-extents" title="Permalink to this headline">¶</a></h2>
+<img alt="http://demo.mapserver.org/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/example1-6.map&amp;layer=states&amp;layer=states_label&amp;layer=modis&amp;mode=map" src="http://demo.mapserver.org/cgi-bin/mapserv.exe?map=/ms4w/apps/tutorial/htdocs/example1-6.map&amp;layer=states&amp;layer=states_label&amp;layer=modis&amp;mode=map" />
+<p>Whoa! What happened here?</p>
+<p>You&#8217;ve just experienced on-the-fly reprojection. When a PROJECTION object is
+defined in the mapfile, MapServer passes the layer and projection info to the
+Proj.4 library which does the reprojection.  For more information about the
+Proj.4 library, please visit <a class="reference external" href="http://proj.maptools.org/">http://proj.maptools.org/</a>.</p>
+<p>This example attempts to shed some light on the projection support in MapServer.</p>
+<p>This is what the mapfile looks like: <a class="reference external" href="example1-6-map.html#example1-6-map"><em>Example1-6.map</em></a></p>
+<p>The first thing you might have noticed with our mapfile is the original EXTENT
+has been commented out and the new EXTENT values don&#8217;t look anything like
+latitude and longitude values. Also, we have added a PROJECTION object near the
+top and within each of our layers.</p>
+<p>Let&#8217;s have a look at the new object and parameter:</p>
+<div class="highlight-python"><pre>EXTENT  201621.496941 -294488.285333 1425518.020722 498254.511514</pre>
+</div>
+<p>The extent we provide to MapServer needs to be in the same units as the output
+projection.  Since Lambert Azimuthal Equal-Area&#8217;s units are in meters, we have
+to give the new extent in meters.  We can calculate the new extent using
+ArcView or some other GIS package, or you can use Proj.4&#8217;s cs2cs utility.  The
+command below is what can be used to reproject the original extent values:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">cs2cs</span> <span class="o">+</span><span class="n">proj</span><span class="o">=</span><span class="n">latlong</span> <span class="o">+</span><span class="n">datum</span><span class="o">=</span><span class="n">WGS84</span> <span class="o">+</span><span class="n">to</span> <span class="o">+</span><span class="n">proj</span><span class="o">=</span><span class="n">laea</span> <span class="o">+</span><span class="n">ellps</span><span class="o">=</span><span class="n">clrk66</span> <span class="o">+</span><span class="n">lat_0</span><span class="o">=</span><span class="mi">45</span> <span class="o">+</span><span class="n">lon_0</span><span class="o">=-</span><span class="mi">100</span>
+</pre></div>
+</div>
+<p>After typing the command, enter the southwestern coordinate pair (the lower
+left coordinates), separated by a space:</p>
+<div class="highlight-python"><pre>-97.5 41.619778</pre>
+</div>
+<p>to which the &#8220;cs2cs&#8221; utility gives the values:</p>
+<div class="highlight-python"><pre>208398.01       -372335.44 0.000</pre>
+</div>
+<p>I then type the northeastern coordinate pair (upper right corner coordinates),
+again separated by space:</p>
+<div class="highlight-python"><pre>-82.122902 49.38562</pre>
+</div>
+<p>and the following values are returned:</p>
+<div class="highlight-python"><pre>1285308.08      632638.93 0.000</pre>
+</div>
+<p>You will notice that &#8220;cs2cs&#8221; returns a set of three values.  You can ignore the
+third value, 0.000, as it means to represent altitute (which we&#8217;re not using).
+Anyway, we can now present the EXTENT as:</p>
+<div class="highlight-python"><pre>EXTENT 208398.01 -372335.44 1285308.08 632638.93</pre>
+</div>
+<p>But it doesn&#8217;t match up the extent above, you say.  Well, that&#8217;s what usually
+happens when you reproject&#8211;the map doesn&#8217;t necessarily get centered as you&#8217;d
+expect.  You can fudge around it, taking a few thousand meters off to the left
+and adding a few to the right.  Or, you can use a graphical GIS package to give
+you the extent. <a class="reference external" href="http://biometry.gis.umn.edu/tutorial/arcview_extent.html">Here are the instructions</a>
+for getting EXTENT using ArcView.</p>
+<p>MapServer can take projection definitions in two ways. The first is shown in the
+mapfile&#8217;s output PROJECTION object (the first PROJECTION block). This is the
+traditional way of passing parameters to the Proj.4 library. The other way is
+to use the EPSG codes. These codes are standard projection codes (or spatial
+reference identifiers) as defined by the European Petroleum Survey Group
+(EPSG). In the case of our Lambert Azimuthal Equal-Area projection, it has a
+code of &#8220;2163&#8221;. If you comment out the four lines after PROJECTION and uncomment
+the line &#8220;init=epsg:2163&#8221;, this will provide the same information to Proj.4. If
+you want to learn more about EPSG codes, have a look at
+&#8220;/usr/local/share/proj/epsg&#8221; or &#8220;C:/proj/nad/epsg&#8221; (&#8220;/ms4w/proj/nad&#8221; in MS4W).</p>
+<p>Also, check out the EPSG web site at <a class="reference external" href="http://www.epsg.org">http://www.epsg.org</a>.</p>
+<p>If you need to learn more about projections, please look through some of the links below:
+<a class="reference external" href="http://www.colorado.edu/geography/gcraft/notes/mapproj/mapproj_f.html">http://www.colorado.edu/geography/gcraft/notes/mapproj/mapproj_f.html</a></p>
+<p><a class="reference external" href="http://www.geography.hunter.cuny.edu/mp/">http://www.geography.hunter.cuny.edu/mp/</a></p>
+<p><a class="reference external" href="http://www.nationalatlas.gov/articles/mapping/a_projections.html">http://www.nationalatlas.gov/articles/mapping/a_projections.html</a></p>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/Map_projection">http://en.wikipedia.org/wiki/Map_projection</a></p>
+<p><a class="reference external" href="http://erg.usgs.gov/isb/pubs/MapProjections/projections.html">http://erg.usgs.gov/isb/pubs/MapProjections/projections.html</a></p>
+<p><a class="reference external" href="http://spatialreference.org/">http://spatialreference.org/</a></p>
+<p>You can find more by searching the web for &#8220;map projection&#8221;.</p>
+<hr class="docutils" />
+<p><a class="reference external" href="example1-5.html#example1-5"><em>Back to Example 1.5</em></a> | <a class="reference external" href="example1-7.html#example1-7"><em>Proceed to Example 1.7</em></a></p>
+<hr class="docutils" />
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

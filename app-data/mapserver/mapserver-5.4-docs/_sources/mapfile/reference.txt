@@ -1,0 +1,48 @@
+.. _reference:
+
+*****************************************************************************
+ REFERENCE
+*****************************************************************************
+
+Three types of reference maps are supported. The most common would be one
+showing the extent of a map in an interactive interface. It is also possible
+to request reference maps as part of a query. Point queries will generate an
+image with a marker (see below) placed at the query point. Region based
+queries will depict the extent of the area of interest. Finally, feature based
+queries will display the selection feature(s) used.
+
+COLOR [r] [g] [b]
+    Color in which the reference box is drawn. Set any component to -1 for 
+    no fill. Default is red.
+
+EXTENT [minx][miny][maxx][maxy]
+    The spatial extent of the base reference image.
+
+IMAGE [filename]
+    Full filename of the base reference image. Must be a GIF image.
+
+MARKER [integer|string]
+    Defines a symbol (from the symbol file) to use when the box becomes too 
+    small (see MINBOXSIZE and MAXBOXSIZE below). Uses a crosshair by default.
+
+MARKERSIZE [integer]
+    Defines the size of the symbol to use instead of a box (see MARKER above).
+
+MINBOXSIZE [integer]
+    If box is smaller than MINBOXSIZE (use box width or height) then use the 
+    symbol defined by MARKER and MARKERSIZE.
+
+MAXBOXSIZE [integer]
+    If box is greater than MAXBOXSIZE (use box width or height) then draw 
+    nothing (Often the whole map gets covered when zoomed way out and it's 
+    perfectly obvious where you are).
+
+OUTLINECOLOR [r] [g] [b]
+    Color to use for outlining the reference box. Set any component to -1 
+    for no outline.
+
+SIZE [x][y]
+    Size, in pixels, of the base reference image.
+
+STATUS [on|off]
+    Is the reference map to be created? Default it off.

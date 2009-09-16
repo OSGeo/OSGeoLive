@@ -1,0 +1,117 @@
+.. _kml:
+
+*****************************************************************************
+ KML - Keyhole Markup Language
+*****************************************************************************
+
+Keyhole Markup Language (KML) is an XML-based language for managing the
+display of 3D geospatial data.
+
+
+Data Access / Connection Method
+---------------------------------
+
+KML access is available through OGR. See the OGR `driver page`_
+for specific driver information.  Read support was initially added to 
+GDAL/OGR version 1.5.0.
+
+.. _`driver page`: http://www.gdal.org/ogr/drv_kml.html
+
+The CONNECTION parameter must include the kml extension, and the DATA parameter
+should be the name of the layer.
+
+::
+
+  CONNECTIONTYPE ogr
+  CONNECTION "myplaces.kml"
+  DATA "layername" 
+
+OGRINFO Examples
+----------------
+
+First you should make sure that your GDAL/OGR build contains the "KML" driver,
+by using the '--formats' command:
+
+::
+
+  >ogrinfo --formats
+     Loaded OGR Format Drivers:
+     ...
+     -> "GML" (read/write)
+     -> "GPX" (read/write)
+     -> "KML" (read/write)
+     ...
+
+If you don't have the driver, you might want to try the `FWTools`_ or `MS4W`_
+packages, which include the driver.
+
+.. _`FWTools`: http://fwtools.maptools.org/
+.. _`MS4W`: http://www.maptools.org/ms4w/
+
+Once you have the KML driver you are ready to try an ogrinfo command on your
+file to get a list of available layers:
+
+::
+
+  >ogrinfo myplaces.kml
+     INFO: Open of `myplaces.kml'
+     using driver `KML' successful.
+     1: Layer #0 (Point)
+
+Now use ogrinfo to get information on the structure of the layer:
+
+::
+
+  >ogrinfo fountains-hotel.kml "Layer #0" -summary
+    Had to open data source read-only.
+    INFO: Open of `fountains-hotel.kml'
+      using driver `KML' successful.
+
+    Layer name: Layer #0
+    Geometry: Point
+    Feature Count: 1
+    Extent: (18.424930, -33.919627) - (18.424930, -33.919627)
+    Layer SRS WKT:
+    GEOGCS["WGS 84",
+        DATUM["WGS_1984",
+          SPHEROID["WGS 84",6378137,298.257223563,
+            AUTHORITY["EPSG","7030"]],
+        AUTHORITY["EPSG","6326"]],
+      PRIMEM["Greenwich",0,
+        AUTHORITY["EPSG","8901"]],
+      UNIT["degree",0.01745329251994328,
+        AUTHORITY["EPSG","9122"]],
+      AUTHORITY["EPSG","4326"]]
+    Name: String (0.0)
+    Description: String (0.0)
+
+
+Mapfile Example
+---------------
+
+::
+
+   LAYER
+     NAME kml_places
+     TYPE POINT
+     STATUS DEFAULT
+     CONNECTIONTYPE OGR
+     CONNECTION "kml/fountains-hotel.kml"
+     DATA "Layer #0"
+     LABELITEM "NAME"
+     CLASS
+       NAME "My Places"
+       STYLE
+         COLOR 250 0 0
+         OUTLINECOLOR 255 255 255
+         SYMBOL 'circle'
+         SIZE 6
+       END
+     LABEL
+       SIZE TINY
+       COLOR 0 0 0
+       OUTLINECOLOR 255 255 255
+       POSITION AUTO
+     END      
+    END
+  END

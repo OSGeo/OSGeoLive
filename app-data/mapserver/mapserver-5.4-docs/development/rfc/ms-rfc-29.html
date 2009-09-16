@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 29: Dynamic Charting Capability &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 30: Support for WMS 1.3.0" href="ms-rfc-30.html" />
+    <link rel="prev" title="MS RFC 28: Redesign of LOG/DEBUG output mechanisms" href="ms-rfc-28.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-30.html" title="MS RFC 30: Support for WMS 1.3.0"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-28.html" title="MS RFC 28: Redesign of LOG/DEBUG output mechanisms"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-29.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-29.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 29: Dynamic Charting Capability</a><ul>
+<li><a class="reference external" href="#overview">Overview</a></li>
+<li><a class="reference external" href="#technical-solution">Technical Solution</a></li>
+<li><a class="reference external" href="#issues-and-limitations">Issues and limitations</a></li>
+<li><a class="reference external" href="#mapscript-implications">MapScript Implications</a></li>
+<li><a class="reference external" href="#files-affected">Files affected</a></li>
+<li><a class="reference external" href="#backwards-compatibility-issues">Backwards compatibility issues</a></li>
+<li><a class="reference external" href="#bug-id">Bug ID</a></li>
+<li><a class="reference external" href="#documentation">Documentation</a></li>
+<li><a class="reference external" href="#voting-history">Voting history</a></li>
+<li><a class="reference external" href="#questions-comments-from-the-review-period">Questions/Comments from the review period</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-28.html"
+                                  title="previous chapter">MS RFC 28: Redesign of LOG/DEBUG output mechanisms</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-30.html"
+                                  title="next chapter">MS RFC 30: Support for WMS 1.3.0</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-29.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-29-dynamic-charting-capability">
+<span id="rfc29"></span><h1>MS RFC 29: Dynamic Charting Capability<a class="headerlink" href="#ms-rfc-29-dynamic-charting-capability" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2007/06/15</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Daniel Morissette</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">dmorissette at mapgears.com</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">2007/07/31</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Adopted (2007/07/05) - Completed (2007/07/09)</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">MapServer 5.0</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-29.txt 8278 2008-12-23 21:34:31Z hobu $</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This RFC proposes the addition of simple dynamic charting capability in
+MapServer 5.0 by integrating the patch proposed by Thomas Bonfort in
+ticket #1800.</p>
+<p>Note: this is already implemented and working (as a patch in ticket 1800).
+This RFC is to document the new feature and (hopefully) include it in the
+MapServer 5.0 release.</p>
+</div>
+<div class="section" id="technical-solution">
+<h2>Technical Solution<a class="headerlink" href="#technical-solution" title="Permalink to this headline">¶</a></h2>
+<p>A new CHART layer type is created and the initial implementation would
+support pie and bar charts.</p>
+<p>PROCESSING directives are used to set the layer&#8217;s CHART_TYPE (pie or bar) and
+CHART_SIZE,</p>
+<p>Then we have one class for each pie slice or bar from the chart. Inside each
+class, the STYLE COLOR defines the color of the pie slice or bar, and the
+STYLE SIZE is used to set the relative size (value) of each pie slice or bar.
+This is mostly useful in combination with attribute binding of course. e.g.</p>
+<p>Example:</p>
+<div class="highlight-python"><pre>LAYER
+    NAME "Ages"
+    TYPE CHART
+    CONNECTIONTYPE postgis
+    CONNECTION "blabla"
+    DATA "the_geom from demo"
+    PROCESSING "CHART_TYPE=pie"
+    PROCESSING "CHART_SIZE=30"
+    STATUS ON
+    CLASS
+      NAME "Population Age 0-19"
+      STYLE
+        SIZE [v1006]
+        COLOR 255 244 237
+      END
+    END
+    CLASS
+      NAME "Population Age 20-39"
+      STYLE
+        SIZE [v1007]
+        COLOR 255 217 191
+      END
+    END
+    CLASS
+      NAME "Population Age 40-59"
+      STYLE
+        SIZE [v1008]
+        COLOR 255 186 140
+      END
+    END
+END</pre>
+</div>
+<p>In the example above, if for a given shape we have v1006=1000, v1007=600 and
+v1008=400 then the actual pie slices for each class will be respectively 50%,
+30% and 20% of the total pie size. If we produced bar charts then the values
+would represent the relative height of the bars with the largest value
+(highest bar) being 100% of the chart height.</p>
+<p>The following attachment to ticket 1800 contains a sample map produced
+by the layer definition above:</p>
+<p><a class="reference external" href="https://trac.osgeo.org/mapserver/attachment/ticket/1800/chart-test.jpg">https://trac.osgeo.org/mapserver/attachment/ticket/1800/chart-test.jpg</a></p>
+<p>The layer&#8217;s legend behaves as usual and produces one color sample per class.</p>
+</div>
+<div class="section" id="issues-and-limitations">
+<h2>Issues and limitations<a class="headerlink" href="#issues-and-limitations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The initial implementation supports only GD output formats. However
+Thomas Bonfort has offered to implement an AGG version once support
+for it is available. This is considered a future enhancement outside
+of the scope of this RFC. Update 2007/09/06: chart rendering is supported
+by the AGG renderer too.</li>
+<li>Should we use special keywords instead of PROCESSING parameters to specify
+the chart type and size?</li>
+<li>The values of each class are taken from the SIZE of the corresponding STYLE,
+which is semantically awkward (but that saves us from creating new keywords)</li>
+</ul>
+</div>
+<div class="section" id="mapscript-implications">
+<h2>MapScript Implications<a class="headerlink" href="#mapscript-implications" title="Permalink to this headline">¶</a></h2>
+<p>The new CHART type (constant) would be exposed via MapScript. There are no
+other MapScript implications.</p>
+</div>
+<div class="section" id="files-affected">
+<h2>Files affected<a class="headerlink" href="#files-affected" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>map.h          (new MS_LAYER_CHART constant)
+mapfile.c
+maplexer.l     (new CHART keyword)
+mapdraw.c      (hooks to call chart rendering code)
+mapchart.c     (implementation of chart rendering)
+maplegend.c    (add case for chart layer type)
+Makefile.in    (addition of mapchart.o)
+makefile.vc    (addition of mapchart.obj)</pre>
+</div>
+<p>Note:</p>
+<p>The patch from ticket 1800 also contains changes to mappostgis.c and
+mapmygis.c to treat layer type CHART the same way as POLYGON but I&#8217;m not
+exactly sure why or if the same needs to be done for other data sources.
+This will need further review before being released.</p>
+</div>
+<div class="section" id="backwards-compatibility-issues">
+<h2>Backwards compatibility issues<a class="headerlink" href="#backwards-compatibility-issues" title="Permalink to this headline">¶</a></h2>
+<p>None. This is a new feature.</p>
+</div>
+<div class="section" id="bug-id">
+<h2>Bug ID<a class="headerlink" href="#bug-id" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>1800: <a class="reference external" href="https://trac.osgeo.org/mapserver/ticket/1800">https://trac.osgeo.org/mapserver/ticket/1800</a></li>
+</ul>
+<p>Future enhancements:</p>
+<ul class="simple">
+<li>2136: <a class="reference external" href="https://trac.osgeo.org/mapserver/ticket/2136">https://trac.osgeo.org/mapserver/ticket/2136</a></li>
+<li>2145: <a class="reference external" href="https://trac.osgeo.org/mapserver/ticket/2145">https://trac.osgeo.org/mapserver/ticket/2145</a></li>
+</ul>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://mapserver.gis.umn.edu/docs/howto/dynamic-charting">http://mapserver.gis.umn.edu/docs/howto/dynamic-charting</a></li>
+</ul>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting history<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<p>Vote completed on 2007/07/05:</p>
+<p>+1 from DanielM, SteveW, AssefaY</p>
+</div>
+<div class="section" id="questions-comments-from-the-review-period">
+<h2>Questions/Comments from the review period<a class="headerlink" href="#questions-comments-from-the-review-period" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Q: Does this assume a POLYGON data type input only? Can LINE and POINT data
+sources also be supported?</p>
+<p>A: The current implementation works only for polygon data sources. I could
+extend it to work on point data sources as well fairly easily I think.</p>
+<p>I&#8217;m not sure about line data sources though. I guess we could do like we do
+for ANNOTATION layers and use msPolylineLabelPoint() to determine the
+location of the chart.</p>
+<p>Ticket #2145 has been opened to track this enhancement:
+<a class="reference external" href="https://trac.osgeo.org/mapserver/ticket/2145">https://trac.osgeo.org/mapserver/ticket/2145</a></p>
+</li>
+<li><p class="first">Q: Could we support attribute binding in CHART_SIZE = [size]? This would
+allow you to show the relative size of hits at a point and have the chart
+show the percentage contributions in the wedges.</p>
+<p>A: While this would be a nice feature, we will keep it as a potential
+enhancement for a future release. See
+ticket #2136: <a class="reference external" href="https://trac.osgeo.org/mapserver/ticket/2136">https://trac.osgeo.org/mapserver/ticket/2136</a></p>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-30.html" title="MS RFC 30: Support for WMS 1.3.0"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-28.html" title="MS RFC 28: Redesign of LOG/DEBUG output mechanisms"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

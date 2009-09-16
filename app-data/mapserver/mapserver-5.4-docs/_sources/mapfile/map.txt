@@ -1,0 +1,314 @@
+.. _map:
+
+*****************************************************************************
+ MAP
+*****************************************************************************
+
+ANGLE [double]
+   Angle, given in degrees, to rotate the map. Default is 0. The rendered 
+   map will rotate in a clockwise direction. The following are important notes:
+
+   - Requires a :ref:`projection` object specified at the MAP level and for each 
+     :ref:`layer` object (even if all layers are in the same projection). 
+
+   - Requires :ref:`MapScript <mapscript>` (:ref:`SWIG <swig>`, :ref:`PHP
+     MapScript <php>`). Does not work with :ref:`CGI <cgi>` mode.
+
+   - If using the :ref:`LABEL` object's ANGLE or the :ref:`LAYER` object's
+     LABELANGLEITEM parameters as well, these parameters are relative to the
+     map's orientation (i.e. they are computed after the MAP object's ANGLE).
+     For example, if you have specified an ANGLE for the map of 45, and then
+     have a layer LABELANGLEITEM value of 45, the resulting label will not
+     appear rotated (because the resulting map is rotated clockwise 45 degrees
+     and the label is rotated counter-clockwise 45 degrees).
+
+   - More information can be found on the MapRotation `Wiki Page`_.
+
+.. _`Wiki Page`: http://trac.osgeo.org/mapserver/wiki/MapRotation 
+
+.. index::
+    pair: CONFIG; MAP
+    
+CONFIG [key] [value]
+    This can be used to specify several values at run-time, for both MapServer
+    and GDAL/OGR libraries. Developers: values will be passed on to
+    CPLSetConfigOption(). Details on GDAL/OGR options are found in their
+    associated driver documentation pages (`GDAL`_/`OGR`_). The following
+    options are available specifically for MapServer: 
+
+    CGI_CONTEXT_URL [value]
+       The CONFIG parameter can be used to enable loading a map context from a
+       URL. See the :ref:`Map Context HowTo<map_context>` for more info.
+
+    MS_ENCRYPTION_KEY [filename]
+       The CONFIG parameter can be used to specify an encryption key that is
+       used with MapServer's :ref:`msencypt utility<msencrypt>`.
+ 
+    MS_ERRORFILE [filename]
+       The CONFIG parameter can be used to write MapServer errors to a file
+       (as of MapServer 5.0). A full path (absolute reference) is
+       required, including the filename.  For more on this see the DEBUG 
+       parameter below.
+
+    MS_NONSQUARE [yes|no]
+       The CONFIG parameter can be used to allow non-square WMS requests.
+
+    ON_MISSING_DATA [FAIL|LOG|IGNORE]
+       The CONFIG parameter can be used to tell MapServer how to handle
+       missing data in tile indexes (as of MapServer 5.3-dev, r8015). Previous
+       MapServer versions required a compile-time switch
+       ("IGNORE_MISSING_DATA"), but this is no longer required.
+
+       FAIL
+           This will cause MapServer to throw an error and exit (to crash, in
+           other words) on a missing file in a tile index. This is the
+           default.
+
+           .. code-block:: mapfile
+
+             CONFIG "ON_MISSING_DATA" "FAIL"
+
+       LOG
+           This will cause MapServer to log the error message for a missing
+           file in a tile index, and continue with the map creation. Note:
+           DEBUG parameter and CONFIG "MS_ERRORFILE" need to be set for
+           logging to occur, so please see the DEBUG parameter below for more
+           information.
+
+           .. code-block:: mapfile
+
+             CONFIG "ON_MISSING_DATA" "LOG" 
+
+       IGNORE
+           This will cause MapServer to not report or log any errors for
+           missing files, and map creation will occur normally.
+
+           .. code-block:: mapfile
+
+             CONFIG "ON_MISSING_DATA" "IGNORE" 
+   
+    PROJ_LIB [path]
+        The CONFIG parameter can be used to define the location of your EPSG
+        files for the :term:`Proj.4` library. Setting the [key] to PROJ_LIB
+        and the [value] to the location of your EPSG files will force PROJ.4
+        to use this value. Using CONFIG allows you to avoid setting
+        environment variables to point to your PROJ_LIB directory. Here are
+        some examples:
+
+        1. Unix
+        
+           .. code-block:: mapfile
+
+             CONFIG "PROJ_LIB" "/usr/local/share/proj/"
+
+        2. Windows
+
+           .. code-block:: mapfile
+
+             CONFIG "PROJ_LIB" "C:/somedir/proj/nad/"
+
+.. _DATAPATTERN:
+
+DATAPATTERN [regular expression]
+    This defines a regular expression to be applied to requests to change DATA 
+    parameters via URL requests (i.e. map_layername_data=...). If a pattern 
+    doesn't exist then web users can't monkey with support files via URLs. 
+    This allows you to isolate one application from another if you desire, 
+    with the default operation being very conservative. See also 
+    TEMPLATEPATTERN_.
+
+DEBUG [off|on|0|1|2|3|4|5]
+    Enables debugging of all of the layers in the current map. 
+
+    *Debugging with MapServer versions >= 5.0:*
+
+    Verbose output is generated and sent to the standard error output (STDERR)
+    or the MapServer errorfile if one is set using the "MS_ERRORFILE" environment
+    variable.  You can set the environment variable by using the CONFIG parameter
+
+    at the MAP level of the mapfile, such as:
+
+    .. code-block:: mapfile
+
+      CONFIG "MS_ERRORFILE" "/ms4w/tmp/ms_error.txt"
+
+    You can also set the environment variable in Apache by adding the following
+    to your httpd.conf:
+
+    ::
+
+      SetEnv MS_ERRORFILE "/ms4w/tmp/ms_error.txt"
+
+    Once the environment variable is set, the DEBUG mapfile parameter can be
+    used to control the level of debugging output.  Here is a description of the
+    possible DEBUG values:
+
+    - **DEBUG O or OFF** - only msSetError() calls are logged to MS_ERRORFILE. No
+      msDebug() output at all. This is the default and corresponds to the
+      original behavior of MS_ERRORFILE in MapServer 4.x
+
+    - **DEBUG 1 or ON** - includes all output from DEBUG 0 plus msDebug() warnings
+      about common pitfalls, failed assertions or non-fatal error situations
+      (e.g. missing or invalid values for some parameters, missing shapefiles
+      in tileindex, timeout error from remote WMS/WFS servers, etc.)
+
+    - **DEBUG 2** - includes all output from DEBUG 1 plus notices and timing
+      information useful for tuning mapfiles and applications
+
+    - **DEBUG 3** - all of DEBUG 2 plus some debug output useful in
+      troubleshooting problems such as WMS connection URLs being called,
+      database connection calls, etc. This is the recommended level for
+      debugging mapfiles.
+
+    - **DEBUG 4** - DEBUG 3 plus even more details...
+
+    - **DEBUG 5** - DEBUG 4 plus any msDebug() output that might be more useful to
+      the developers than to the users.
+
+    You can also set the debug level by using the "MS_DEBUGLEVEL" environment
+    variable.
+
+    The DEBUG setting can also be specified for a layer, by setting the DEBUG
+    parameter in the :ref:`LAYER` object.
+
+    For more details on this debugging mechanism, please see :ref:`RFC28`.
+
+    *Debugging with MapServer versions < 5:*
+
+    Verbose output is generated and sent to the standard error output (STDERR)
+    or the MapServer logfile if one is set using the LOG parameter in the WEB
+    object.  Apache users will see timing details for drawing in Apache's
+    error_log file.  Requires MapServer to be built with the DEBUG=MSDEBUG
+    option (--with-debug configure option).
+
+EXTENT [minx] [miny] [maxx] [maxy]
+    The spatial extent of the map to be created. In most cases you will need 
+    to specify this, although MapServer can sometimes (expensively) 
+    calculate one if it is not specified.
+
+:ref:`FONTSET` [filename]
+    Filename of fontset file to use. Can be a path relative to the mapfile, or
+    a full path.
+
+IMAGECOLOR [r] [g] [b]
+    Color to initialize the map with (i.e. background color). When 
+    transparency is enabled (TRANSPARENT ON) for the typical case of 8-bit 
+    pseudocolored map generation, this color will be marked as transparent 
+    in the output file palette. Any other map components drawn in this color 
+    will also be transparent, so for map generation with transparency it is 
+    best to use an otherwise unused color as the background color.
+
+IMAGEQUALITY [int]
+    *Deprecated* Use FORMATOPTION "QUALITY=n" in the :ref:`OUTPUTFORMAT` declaration 
+    to specify compression quality for JPEG output.
+    
+    .. deprecated:: 4.6
+
+.. _imagetype:
+
+IMAGETYPE [gif|png|jpeg|wbmp|gtiff|swf|userdefined]
+    Output format to generate. See details in the :ref:`OUTPUTFORMAT` section for 
+    available formats. The name here must match the 'NAME' of a user defined 
+    or internally generated :ref:`OUTPUTFORMAT` section.
+
+INTERLACE [on|off]
+    *Deprecated* Use FORMATOPTION "INTERLACE=ON" in the :ref:`OUTPUTFORMAT` 
+    declaration to specify if the output images should be interlaced.
+    
+    .. deprecated:: 4.6
+
+:ref:`LAYER`
+    Signals the start of a :ref:`LAYER` object.
+
+:ref:`LEGEND`
+    Signals the start of a :ref:`LEGEND` object.
+
+MAXSIZE [integer]
+    Sets the maximum size of the map image. This will override the default 
+    value. For example, setting this to 2048 means that you can have up to 
+    2048 pixels in both dimensions (i.e. max of 2048x2048). 
+
+NAME [name]
+    Prefix attached to map, scalebar and legend GIF filenames created using 
+    this mapfile. It should be kept short.
+
+:ref:`PROJECTION`
+    Signals the start of a :ref:`PROJECTION` object.
+
+:ref:`QUERYMAP`
+    Signals the start of a :ref:`QUERYMAP` object.
+
+:ref:`REFERENCE`
+    Signals the start of a :ref:`REFERENCE` MAP object.
+
+RESOLUTION [int]
+    Sets the pixels per inch for output, only affects scale computations 
+    and nothing else, default is 72.
+
+.. index::
+    pair: SCALEDENOM; MAP
+    
+SCALEDENOM [double]
+    Computed scale of the map. Set most often by the application.  Scale is
+    given as the denominator of the actual scale fraction, for example for a map
+    at a scale of 1:24,000 use 24000.  Implemented in MapServer 5.0, to replace
+    the deprecated SCALE parameter.
+    
+    .. seealso::
+        
+        :term:`Map Scale`
+
+SCALE [double] - deprecated
+    Since MapServer 5.0 the proper parameter to use is SCALEDENOM 
+    instead.  The deprecated SCALE is the computed scale of the map. Set most
+    often by the application.  Scale is given as the denominator of the actual
+    scale fraction, for example for a map at a scale of 1:24,000 use 24000.
+    
+    .. deprecated:: 5.0
+
+SCALEBAR
+    Signals the start of a :ref:`SCALEBAR` object.
+
+SHAPEPATH [filename]
+    Path to the directory holding the shapefiles or tiles. There can be 
+    further subdirectories under SHAPEPATH.
+
+SIZE [x][y]
+    Size in pixels of the output image (i.e. the map).
+
+STATUS [on|off]
+    Is the map active? Sometimes you may wish to turn this off to use only the 
+    reference map or scale bar.
+
+SYMBOLSET [filename]
+    Filename of the symbolset to use. Can be a path relative to the mapfile,
+    or a full path.
+
+:ref:`SYMBOL`
+    Signals the start of a :ref:`SYMBOL` object.
+
+.. _TEMPLATEPATTERN:
+
+TEMPLATEPATTERN [regular expression]
+    This defines a regular expression to be applied to requests to change 
+    TEMPLATE parameters via URL requests (i.e. map_layername_template=...). If 
+    a pattern doesn't exist then web users can't monkey with support files via 
+    URLs. This allows you to isolate one application from another if you 
+    desire, with the default operation being very conservative. See also 
+    DATAPATTERN_.
+
+TRANSPARENT [on|off]
+    Use FORMATOPTION "TRANSPARENT=ON" in the :ref:`OUTPUTFORMAT` 
+    declaration to specify if the output images should be transparent.
+    
+    .. deprecated:: 4.6
+
+UNITS [feet|inches|kilometers|meters|miles|dd]
+    Units of the map coordinates. Used for scalebar and scale computations.
+
+:ref:`WEB`
+    Signals the start of a :ref:`WEB` object.
+
+    
+.. _`GDAL`: http://www.gdal.org/formats_list.html
+.. _`OGR`: http://www.gdal.org/ogr/ogr_formats.html 

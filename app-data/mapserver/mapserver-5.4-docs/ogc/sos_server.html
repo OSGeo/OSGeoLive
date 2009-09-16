@@ -1,0 +1,829 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>SOS Server &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="OGC Support and Configuration" href="index.html" />
+    <link rel="next" title="MapScript Wrappers for WxS Services" href="mapscript.html" />
+    <link rel="prev" title="WCS Use Cases" href="wcs_format.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="mapscript.html" title="MapScript Wrappers for WxS Services"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="wcs_format.html" title="WCS Use Cases"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">OGC Support and Configuration</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//ogc/sos_server.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/ogc/sos_server.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">SOS Server</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a><ul>
+<li><a class="reference external" href="#links-to-sos-related-information">Links to SOS-Related Information</a></li>
+<li><a class="reference external" href="#relevant-definitions">Relevant Definitions</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#setting-up-an-sos-server-using-mapserver">Setting Up an SOS Server Using MapServer</a><ul>
+<li><a class="reference external" href="#install-the-required-software">Install the Required Software</a></li>
+<li><a class="reference external" href="#configure-a-mapfile-for-sos">Configure a Mapfile For SOS</a><ul>
+<li><a class="reference external" href="#onlineresource-url">Onlineresource URL</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#example-sos-server-mapfile">Example SOS Server Mapfile</a></li>
+<li><a class="reference external" href="#test-your-sos-server">Test Your SOS Server</a><ul>
+<li><a class="reference external" href="#getcapabilities-request">GetCapabilities Request</a></li>
+<li><a class="reference external" href="#getobservation-request">GetObservation Request</a></li>
+<li><a class="reference external" href="#describesensor-request">DescribeSensor Request</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference external" href="#limitations-todo">Limitations / TODO</a></li>
+<li><a class="reference external" href="#reference-section">Reference Section</a><ul>
+<li><a class="reference external" href="#web-object-metadata">Web Object Metadata</a></li>
+<li><a class="reference external" href="#layer-object-metadata">Layer Object Metadata</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#use-of-sos-procedure-and-sos-procedure-item">Use of sos_procedure and sos_procedure_item</a><ul>
+<li><a class="reference external" href="#getcapabilities">GetCapabilities</a></li>
+<li><a class="reference external" href="#describesensor">DescribeSensor</a></li>
+<li><a class="reference external" href="#getobservation">GetObservation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="wcs_format.html"
+                                  title="previous chapter">WCS Use Cases</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="mapscript.html"
+                                  title="next chapter">MapScript Wrappers for WxS Services</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/ogc/sos_server.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="sos-server">
+<span id="id1"></span><h1><a class="toc-backref" href="#table-of-contents">SOS Server</a><a class="headerlink" href="#sos-server" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Jeff McKenna</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">jmckenna at gatewaygeomatics.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 9024 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2009-05-19 11:14:40 -0300 (Tue, 19 May 2009) $</td>
+</tr>
+<tr class="field"><th class="field-name">Last Updated:</th><td class="field-body">2007/12/06</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#sos-server" id="id2">SOS Server</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#setting-up-an-sos-server-using-mapserver" id="id4">Setting Up an SOS Server Using MapServer</a></li>
+<li><a class="reference internal" href="#limitations-todo" id="id5">Limitations / TODO</a></li>
+<li><a class="reference internal" href="#reference-section" id="id6">Reference Section</a></li>
+<li><a class="reference internal" href="#use-of-sos-procedure-and-sos-procedure-item" id="id7">Use of sos_procedure and sos_procedure_item</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#table-of-contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>SOS (Sensor Observation Service), currently an OGC discussion paper, is part of
+of the OGC&#8217;s SensorWeb Enablement (SWE) group of specifications.  These
+specifications describe how applications and services will be able to access
+sensors of all types over the Web.  Specifically, SOS provides an API for
+managing deployed sensors and retrieving sensor data.</p>
+<p>SOS support is <strong>available in MapServer 4.10.0 or more recent</strong>. Note that no
+client tools currently exist in MapServer for SOS. More SWE based software is
+available at <a class="reference external" href="http://www.52north.org/">http://www.52north.org/</a></p>
+<p>SOS support was implemented in MapServer to the guidelines of MapServer <a class="reference external" href="../development/rfc/ms-rfc-13.html#rfc13"><em>MS RFC 13: Support of Sensor Observation Service in MapServer</em></a>.</p>
+<p>This document assumes that you are already familiar with certain aspects of MapServer:</p>
+<ul class="simple">
+<li>MapServer application development and setting up .map files.</li>
+</ul>
+<div class="section" id="links-to-sos-related-information">
+<h3>Links to SOS-Related Information<a class="headerlink" href="#links-to-sos-related-information" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><a class="reference external" href="http://portal.opengeospatial.org/files/?artifact_id=12846">SOS discussion paper</a></li>
+<li><a class="reference external" href="http://www.opengeospatial.org/functional/?page=swe">Sensor Web Enablement and OpenGIS SensorWeb</a></li>
+</ul>
+</div>
+<div class="section" id="relevant-definitions">
+<h3>Relevant Definitions<a class="headerlink" href="#relevant-definitions" title="Permalink to this headline">¶</a></h3>
+<p>The following is taken from the SOS discussion paper:</p>
+<dl class="docutils">
+<dt>Observation</dt>
+<dd>An observation is an event with a result which has a value describing some phenomenon.</dd>
+<dt>Observation Offering</dt>
+<dd>An observation offering is a logical grouping of observations offered by a service that are related in some way.</dd>
+<dt>Observed Value</dt>
+<dd>A value describing a natural phenomenon, which may use one of a variety of scales including nominal, ordinal, ratio and interval.</dd>
+<dt>Sensor</dt>
+<dd>An entity capable of observing a phenomenon and returning an observed value. A sensor can be an instrument or a living organism (e.g. a person).</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="setting-up-an-sos-server-using-mapserver">
+<h2><a class="toc-backref" href="#table-of-contents">Setting Up an SOS Server Using MapServer</a><a class="headerlink" href="#setting-up-an-sos-server-using-mapserver" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-the-required-software">
+<h3>Install the Required Software<a class="headerlink" href="#install-the-required-software" title="Permalink to this headline">¶</a></h3>
+<p>SOS requests are handled by the &#8220;<a class="reference external" href="../cgi/mapserv.html#mapserv"><em>mapserv</em></a>&#8221; CGI program. The first step is to check that your mapserv executable includes SOS support. One way to verify this is to use the &#8220;-v&#8221; command-line switch and look for &#8220;SUPPORTS=SOS_SERVER&#8221;.</p>
+<p>Example 1. On Unix:</p>
+<div class="highlight-python"><pre>$ ./mapserv -v
+MapServer version 4.9 OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP OUTPUT=SVG S
+UPPORTS=PROJ SUPPORTS=FREETYPE SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT SUPPORTS=
+WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=WCS_SERVER SUPPORTS=SOS_SERVER SUPPORTS=
+THREADS INPUT=JPEG INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE DEBUG=MSDEBUG</pre>
+</div>
+<p>Example 2. On Windows:</p>
+<div class="highlight-python"><pre>C:\Apache\cgi-bin&gt; mapserv -v
+MapServer version 4.9 OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP OUTPUT=SVG S
+UPPORTS=PROJ SUPPORTS=FREETYPE SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT SUPPORTS=
+WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=WCS_SERVER SUPPORTS=SOS_SERVER SUPPORTS=
+THREADS INPUT=JPEG INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE DEBUG=MSDEBUG</pre>
+</div>
+<p>If you don&#8217;t have SOS support in your MapServer build, then you must compile MapServer
+with the following in mind:</p>
+<ul class="simple">
+<li>flag <em>-DUSE_SOS_SVR</em> is required</li>
+<li>requires either <em>-DUSE_WMS_SVR</em> or <em>-DUSE_WFS_SVR</em> flags to be enabled</li>
+<li>requires libxml2 and proj libraries</li>
+<li>requires ICONV support (<em>-DUSE_ICONV</em>) on Windows</li>
+</ul>
+<p>For more help with MapServer compilation see the appropriate HowTo: <a class="reference external" href="../installation/unix.html#unix"><em>Unix</em></a> / <a class="reference external" href="../installation/win32.html#win32"><em>Windows</em></a></p>
+</div>
+<div class="section" id="configure-a-mapfile-for-sos">
+<h3>Configure a Mapfile For SOS<a class="headerlink" href="#configure-a-mapfile-for-sos" title="Permalink to this headline">¶</a></h3>
+<p>Each instance of SOS server that you setup needs to have its own mapfile. It
+is just a regular MapServer mapfile in which some parameters and some metadata
+entries are mandatory. Most of the metadata is required in order to produce a
+valid GetCapabilites output.</p>
+<p>Here is the list of parameters and metadata items that usually optional with
+MapServer, but are <strong>required (or strongly recommended) for a SOS
+configuration:</strong></p>
+<p><strong>MAP level:</strong></p>
+<ul class="simple">
+<li>Map NAME</li>
+<li>Map PROJECTION</li>
+<li>Map Metadata (in the WEB Object):<ul>
+<li>sos_title</li>
+<li>sos_onlineresource</li>
+<li>sos_srs</li>
+<li>see the <a class="reference internal" href="#reference-section">Reference Section</a> of this document for a full list of metadata and
+descriptions</li>
+</ul>
+</li>
+</ul>
+<p><strong>LAYER level:</strong></p>
+<ul class="simple">
+<li>Layer NAME</li>
+<li>Layer PROJECTION</li>
+<li>Layer METADATA<ul>
+<li>sos_offering_id</li>
+<li>sos_observedproperty_id</li>
+<li>sos_observedproperty_id</li>
+<li>sos_describesensor_url</li>
+<li>see the <a class="reference internal" href="#reference-section">Reference Section</a> of this document for a full list of metadata and
+descriptions</li>
+</ul>
+</li>
+</ul>
+<div class="section" id="onlineresource-url">
+<h4>Onlineresource URL<a class="headerlink" href="#onlineresource-url" title="Permalink to this headline">¶</a></h4>
+<p>The sos_onlineresource metadata is set in the map&#8217;s web object metadata and
+specifies the URL that should be used to access your server. This is required for
+the GetCapabilities output. If sos_onlineresource is not provided then MapServer
+will try to provide a default one using the script name and hostname, but you
+shouldn&#8217;t count on that too much. It is strongly recommended that you provide
+the wfs_onlineresource metadata.</p>
+<p>Here is a valid online resource URL:</p>
+<div class="highlight-python"><pre>http://my.host.com/cgi-bin/mapserv?map=mysos.map&amp;</pre>
+</div>
+<p>By creating a wrapper script on the server it is possible to hide the &#8220;map=&#8221;
+parameter from the URL and then your server&#8217;s online resource URL could be
+something like:</p>
+<div class="highlight-python"><pre>http://my.host.com/cgi-bin/mapserv?</pre>
+</div>
+<p>This is covered in more detail in the &#8220;More About the Online Resource URL&#8221; section
+of the <a class="reference external" href="wms_server.html#online-resource-wms"><em>WMS Server</em></a> document.</p>
+</div>
+</div>
+<div class="section" id="example-sos-server-mapfile">
+<h3>Example SOS Server Mapfile<a class="headerlink" href="#example-sos-server-mapfile" title="Permalink to this headline">¶</a></h3>
+<p>The following is an example of a bare minimum SOS Server mapfile. Note the comments
+for the required parameters.</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">NAME</span> <span class="s">&quot;SOS_DEMO&quot;</span>
+<span class="k">STATUS</span> <span class="nb">ON</span>
+<span class="k">SIZE</span> <span class="mi">300</span> <span class="mi">300</span>
+<span class="k">EXTENT</span> <span class="p">-</span><span class="mi">66</span> <span class="mi">44</span> <span class="p">-</span><span class="mi">62</span> <span class="mi">45</span>
+<span class="k">UNITS</span> <span class="nb">METERS</span>
+<span class="k">SHAPEPATH</span> <span class="s">&quot;./data/&quot;</span>
+<span class="k">IMAGECOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">0</span>
+<span class="k">SYMBOLSET</span> <span class="s">&quot;./etc/symbols.sym&quot;</span>
+
+<span class="k">IMAGETYPE</span> <span class="nb">png</span>
+
+<span class="k">WEB</span>
+ <span class="k">IMAGEPATH</span> <span class="s">&quot;/ms4w/tmp/ms_tmp/&quot;</span>
+ <span class="k">IMAGEURL</span> <span class="s">&quot;/ms_tmp/&quot;</span>
+
+ <span class="k">METADATA</span>
+   <span class="s">&quot;sos_onlineresource&quot;</span> <span class="s">&quot;http://127.0.0.1/cgi-bin/mapserv.exe?map=D:/ms4w/apps/sos/sos_test.map&quot;</span> <span class="c">## REQUIRED</span>
+   <span class="s">&quot;sos_title&quot;</span>          <span class="s">&quot;My SOS Demo Server&quot;</span> <span class="c">## Recommended</span>
+   <span class="s">&quot;sos_srs&quot;</span>            <span class="s">&quot;EPSG:4326&quot;</span> <span class="c">## REQUIRED</span>
+ <span class="k">END</span>
+<span class="k">END</span>
+
+<span class="k">PROJECTION</span>
+  <span class="s">&quot;init=epsg:4326&quot;</span>
+<span class="k">END</span>
+
+<span class="k">LAYER</span>
+  <span class="k">NAME</span> <span class="s">&quot;test_sos_layer&quot;</span>
+  <span class="k">METADATA</span>
+    <span class="s">&quot;sos_procedure&quot;</span>  <span class="s">&quot;NS01EE0014&quot;</span> <span class="c">## REQUIRED</span>
+    <span class="s">&quot;sos_offering_id&quot;</span> <span class="s">&quot;WQ1289&quot;</span> <span class="c">## REQUIRED</span>
+    <span class="s">&quot;sos_observedproperty_id&quot;</span> <span class="s">&quot;Water Quality&quot;</span> <span class="c">## REQUIRED</span>
+    <span class="s">&quot;sos_describesensor_url&quot;</span> <span class="s">&quot;http://some/url/NS01EE0014.xml&quot;</span> <span class="c">## REQUIRED</span>
+  <span class="k">END</span>
+  <span class="k">TYPE</span> <span class="nb">POINT</span>
+  <span class="k">STATUS</span> <span class="nb">ON</span>
+  <span class="k">DATA</span> <span class="s">&quot;sos_test&quot;</span>
+
+  <span class="k">PROJECTION</span>
+    <span class="s">&quot;init=epsg:4326&quot;</span>
+  <span class="k">END</span>
+
+  <span class="k">CLASS</span>
+    <span class="k">NAME</span> <span class="s">&quot;water quality&quot;</span>
+    <span class="k">STYLE</span>
+      <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">0</span> <span class="mi">0</span>
+      <span class="k">SYMBOL</span> <span class="s">&quot;circle&quot;</span>
+      <span class="k">SIZE</span> <span class="mi">8</span>
+    <span class="k">END</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+
+<span class="k">END</span> <span class="c">#map</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="test-your-sos-server">
+<h3>Test Your SOS Server<a class="headerlink" href="#test-your-sos-server" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="getcapabilities-request">
+<h4>GetCapabilities Request<a class="headerlink" href="#getcapabilities-request" title="Permalink to this headline">¶</a></h4>
+<p>The GetCapabilities request allows the clients to retrieve service metadata
+about a specific service instance. For an SOS service, it allows to identify such
+things as offerings and observed property available, as well as information on
+sensors that are used.</p>
+<p>Using a web browser, access your server&#8217;s online resource URL to which you add
+the parameters &#8220;SERVICE=SOS&amp;REQUEST=GetCapabilities&#8221; to the end, e.g.</p>
+<div class="highlight-python"><pre>http://my.host.com/cgi-bin/mapserv?MAP=mysos.map&amp;SERVICE=SOS&amp;REQUEST=GetCapabilities</pre>
+</div>
+<p>If everything went well, you should have a complete XML capabilities document.
+Search it for the word &#8220;WARNING&#8221;... MapServer inserts XML comments starting
+with &#8220;&lt;!&#8211;WARNING: &#8221; in the XML output if it detects missing mapfile parameters
+or metadata items. If you notice any warning in your XML output then you have
+to fix all of them before you can try your server with an SOS client, otherwise
+things are likely not going to work.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The SERVICE parameter is required for all SOS requests.</p>
+</div>
+</div>
+<div class="section" id="getobservation-request">
+<h4>GetObservation Request<a class="headerlink" href="#getobservation-request" title="Permalink to this headline">¶</a></h4>
+<p>The GetObservation request is designed to query sensor systems to retrieve observation
+data in the form defined in the Observation and Measurement specification (O&amp;M),
+and more information on this O&amp;M spec can be found at <a class="reference external" href="http://www.opengeospatial.org/functional/?page=swe">http://www.opengeospatial.org/functional/?page=swe</a>.
+Upon receiving a GetObservation request, a SOS shall either satisfy the request or
+return an exception report.</p>
+<p>The following is a list of the possible parameters for a GetObservation request:</p>
+<blockquote>
+<p><strong>request</strong>:  (Required) value must be &#8220;GetObservation&#8221;.</p>
+<p><strong>service</strong>:  (Required) value must be &#8220;SOS&#8221;.</p>
+<p><strong>version</strong>:  (Required) value must be &#8220;1.0.0&#8221;.</p>
+<p><strong>offering</strong>: (Required) The Offering identified in the capabilities document.</p>
+<p><strong>observedProperty</strong>: (Required) The property identified in the capabilities document.</p>
+<p><strong>responseFormat</strong>: (Required) The format / encoding to be returned by the response.</p>
+<p><strong>eventTime</strong> (Optional) Specifies the time period for which observations are requested.</p>
+<p><strong>procedure</strong>: (Optional) The procedure specifies the sensor system used. In this implementation, the procedure is equivalent to be the sensor id that will be used when doing a DescribeSensor request.</p>
+<p><strong>featureOfInterest</strong>: (Optional) In this implementation, this will be represented by a gml envelope defining the lower and upper corners.</p>
+<p><strong>Result</strong>: (Optional) The Result parameter provides a place to put OGC filter expressions based on property values.</p>
+<p><strong>resultModel</strong>: (Optional) Identifier of the result model to be used for the requested data. The resultModel values supported by a SOS server are listed in the contents section of the service metadata (GetCapabilities).  MapServer currently supports om:Observation and om:Measurement.  om:Measurement provides a flat model of the geometry and attributes, similar to WFS GetFeature output.  om:Observations provides a more compact definition which includes an XML header of the field names and defintions, followed by a &#8220;DataBlock&#8221; of delimited records (default is CSV delimited output).  The default output is om:Measurement.</p>
+<p><strong>srsName</strong>: (Optional) srs (EPSG code) of the output response.</p>
+</blockquote>
+<p>Here are some valid examples:</p>
+<p>Example 1:</p>
+<div class="highlight-python"><pre>http://127.0.0.1/cgi-bin/mapserv.exe?map=D:/ms4w/apps/sos/sos_test.map&amp;Request=GetObservation&amp;service=SOS&amp;
+Offering=WQ1289&amp;observedproperty=Water Quality&amp;version=1.0.0&amp;responseFormat=text/xml; subtype="om/1.0.0"</pre>
+</div>
+<p>Example 2:</p>
+<div class="highlight-python"><pre>http://127.0.0.1/cgi-bin/mapserv.exe?map=D:/ms4w/apps/sos/sos_test.map&amp;Request=GetObservation&amp;service=SOS&amp;
+Offering=WQ1289&amp;observedproperty=Water Quality&amp;eventtime=&lt;ogc:TM_Equals&gt;&lt;gml:TimePeriod&gt;&lt;gml:beginPosition&gt;1991-05-01&lt;/gml:beginPosition&gt;&lt;gml:endPosition&gt;1993-02-02&lt;/gml:endPosition&gt;&lt;/gml:TimePeriod&gt;&lt;/ogc:TM_Equals&gt;  &amp;result=&lt;Filter&gt;&lt;Or&gt;&lt;PropertyIsEqualTo&gt;
+&lt;PropertyName&gt;COLOUR&lt;/PropertyName&gt;&lt;Literal&gt;180&lt;/Literal&gt;&lt;/PropertyIsEqualTo&gt;&lt;PropertyIsEqualTo&gt;
+&lt;PropertyName&gt;COLOUR&lt;/PropertyName&gt;&lt;Literal&gt;200&lt;/Literal&gt;&lt;/PropertyIsEqualTo&gt;&lt;/or&gt;&lt;/Filter&gt;&amp;version=1.0.0&amp;responseFormat=text/xml; subtype="om/1.0.0"</pre>
+</div>
+<p>Example 3:</p>
+<div class="highlight-python"><pre>http://127.0.0.1/cgi-bin/mapserv.exe?map=D:/ms4w/apps/sos/sos_test.map&amp;Request=GetObservation&amp;service=SOS&amp;
+Offering=WQ1289&amp;observedproperty=Water Quality&amp;featureofinterest=
+&lt;gml:Envelope&gt;&lt;gml:lowerCorner srsName='EPSG:4326'&gt;-66 43&lt;/gml:lowerCorner&gt;&lt;gml:upperCorner srsName='EPSG:4326'&gt;
+-64 45&lt;/gml:upperCorner&gt;&lt;/gml:Envelope&gt;&amp;version=1.0.0&amp;responseFormat=text/xml; subtype="om/1.0.0"</pre>
+</div>
+<p>Example 4:</p>
+<div class="highlight-python"><pre>http://127.0.0.1/cgi-bin/mapserv.exe?map=D:/ms4w/apps/sos/sos_test.map&amp;Request=GetObservation&amp;service=SOS&amp;
+Offering=WQ1289&amp;observedproperty=Water Quality&amp;version=1.0.0&amp;responseFormat=text/xml; subtype="om/1.0.0"&amp;resultModel=om:Observation</pre>
+</div>
+</div>
+<div class="section" id="describesensor-request">
+<h4>DescribeSensor Request<a class="headerlink" href="#describesensor-request" title="Permalink to this headline">¶</a></h4>
+<p>The DescribeSensor request gives the client the ability to retrieve the
+characteristics of a particular sensor and return the information in a
+SensorML xml document. In this implementation, MapServer does not generate the
+SensorML document but only redirect the request to an existing SensorML
+document.</p>
+<p>The following is a list of the possible parameters for a DescribeSensor request:</p>
+<blockquote>
+<p><strong>request</strong>: (Required) value must be &#8220;DescribeSensor&#8221;</p>
+<p><strong>service</strong>:  (Required) value must be &#8220;SOS&#8221;.</p>
+<p><strong>version</strong>:  (Required) value must be &#8220;1.0.0&#8221;.</p>
+<p><strong>procedure</strong>: (Required) This is the sensor id, which was specified in the &#8220;sos_procedure&#8221; metadata.</p>
+<p><strong>outputFormat</strong>: (Required) The format encoding to be returned by the response.</p>
+</blockquote>
+<p>Here is a valid example:</p>
+<div class="highlight-python"><pre>http://127.0.0.1/cgi-bin/mapserv.exe?map=D:/ms4w/apps/sos/sos_test.map&amp;Request=DescribeSensor&amp;
+procedure=urn:ogc:def:procedure:NS01EE0014&amp;service=SOS&amp;version=1.0.0&amp;outputFormat=text/xml; subtype="sensorML/1.0.0"</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="limitations-todo">
+<h2><a class="toc-backref" href="#table-of-contents">Limitations / TODO</a><a class="headerlink" href="#limitations-todo" title="Permalink to this headline">¶</a></h2>
+<p>1. Have MapServer generate the SensorML document, instead of redirecting the
+request to an existing SensorML document.</p>
+</div>
+<div class="section" id="reference-section">
+<h2><a class="toc-backref" href="#table-of-contents">Reference Section</a><a class="headerlink" href="#reference-section" title="Permalink to this headline">¶</a></h2>
+<p>The following metadata are available in the setup of the SOS Server mapfile:</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Each of the metadata below can also be referred to as &#8216;ows_*&#8217; instead of
+&#8216;sos_*&#8217;. MapServer tries the &#8216;sos_*&#8217; metadata first, and if not found it
+tries the corresponding &#8216;ows_*&#8217; name. Using this reduces the amount of
+duplication in mapfiles that support multiple OGC interfaces since &#8220;ows_*&#8221;
+metadata can be used almost everywhere for common metadata items shared by
+multiple OGC interfaces.</p>
+</div>
+<div class="section" id="web-object-metadata">
+<h3>Web Object Metadata<a class="headerlink" href="#web-object-metadata" title="Permalink to this headline">¶</a></h3>
+<p><strong>ows_updatesequence</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) The updateSequence parameter can be used for
+maintaining the consistency of a client cache of the contents of a service
+metadata document. The parameter value can be an integer, a timestamp in
+[ISO 8601:2000] format, or any other number or string.</li>
+</ul>
+<p><strong>ows_language</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Descriptive narrative for more information about
+the server. Identifier of the language used by all included exception text
+values. These language identifiers shall be as specified in IETF RFC 1766.
+When this attribute is omitted, the language used is not identified.
+Examples: &#8220;en-CA&#8221;, &#8220;fr-CA&#8221;, &#8220;en-US&#8221;. Default is &#8220;en-US&#8221;.</li>
+</ul>
+<p><strong>ows_schemas_location</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) (Note the name ows_schemas_location and not
+sos/_... this is because all OGC Web Services (OWS) use the same metadata)
+Root of the web tree where the family of OGC SOS XMLSchema files are
+located. This must be a valid URL where the actual .xsd files are located if
+you want your SOS output to validate in a validating XML parser. Default is
+<a class="reference external" href="http://www.opengeospatial.net/sos">http://www.opengeospatial.net/sos</a>. See <a class="reference external" href="http://ogc.dmsolutions.ca">http://ogc.dmsolutions.ca</a> for an
+example of a valid schema tree.</li>
+</ul>
+<p><strong>sos_abstract</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Descriptive narrative for more information about
+the server.</li>
+</ul>
+<p><strong>sos_keywordlist</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) A comma-separated list of keywords or keyword
+phrases to help catalog searching.</li>
+</ul>
+<p><strong>sos_accessconstraints</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Text describing any access constraints imposed by
+the service provider on the SOS or data retrieved from this service.</li>
+</ul>
+<p><strong>sos_addresstype, sos_address, sos_city, sos_stateorprovince, sos_postcode, sos_country</strong></p>
+<ul class="simple">
+<li><em>Description:</em> Optional contact address information. If provided then all
+six metadata items are required.</li>
+</ul>
+<p><strong>sos_contactelectronicmailaddress</strong></p>
+<ul class="simple">
+<li><em>Description:</em> Optional contact Email address.</li>
+</ul>
+<p><strong>sos_contactperson, sos_contactposition, sos_contactorganization</strong></p>
+<ul class="simple">
+<li><em>Description:</em> Optional contact information. If provided then all three metadata
+items are required.</li>
+</ul>
+<p><strong>sos_contactvoicetelephone</strong></p>
+<ul class="simple">
+<li><em>Description:</em> Optional contact voice telephone number.</li>
+</ul>
+<p><strong>sos_contactfacsimiletelephone</strong>
+- * Description: Optional contact facsimile telephone number.</p>
+<p><strong>sos_fees</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Fees information. Use the reserved word &#8220;none&#8221; if there
+are no fees.</li>
+</ul>
+<p><strong>sos_onlineresource</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Required) The URL that will be used to access this OGC server.
+This value is used in the GetCapabilities response.</li>
+<li>See the section &#8220;Onlineresource URL&#8221; above for more information.</li>
+</ul>
+<p><strong>sos_service_onlineresource</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Top-level onlineresource URL.</li>
+</ul>
+<p><strong>sos_srs</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Required) Contains a list of EPSG projection codes that should be advertized as being available for all layers in this server. The value can contain one or more EPSG:&lt;code&gt; pairs separated by spaces (e.g. &#8220;EPSG:4269 EPSG:4326&#8221;) This value should be upper case (EPSG:42304.....not epsg:42304) to avoid problems with case sensitive platforms.</li>
+</ul>
+<p><strong>sos_title</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Recommended) A human-readable name for this Layer.</li>
+</ul>
+<p><strong>sos_hoursofservice</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Time period (including time zone) when individuals can contact the organization or individual.</li>
+</ul>
+<p><strong>sos_contactinstructions</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Supplemental instructions on how or when to contact the individual or organization.</li>
+</ul>
+<p><strong>sos_role</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Function performed by the responsible party. Possible values of this Role shall include the values and the meanings listed in Subclause B.5.5 of ISO 19115:2003.</li>
+</ul>
+<p><strong>sos_maxfeatures</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) The number of elements to be returned by the WFS server. If the not set all observations are returned</li>
+</ul>
+<p><strong>sos_encoding_blockSeparator</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) For GetObservation requests using resultModel=om:Observation (SWE DataBlock encoding).  Record separator to be used.  Default is &#8216;\n&#8217;</li>
+</ul>
+<p><strong>sos_encoding_tokenSeparator</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) For GetObservation requests using resultModel=om:Observation (SWE DataBlock encoding).  Token (field) separator to be used.  Default is &#8216;,&#8217;</li>
+</ul>
+</div>
+<div class="section" id="layer-object-metadata">
+<h3>Layer Object Metadata<a class="headerlink" href="#layer-object-metadata" title="Permalink to this headline">¶</a></h3>
+<p><strong>sos_describesensor_url</strong></p>
+<ul>
+<li><p class="first"><em>Description:</em> (Required) This metadata item is only a temporary measure until the
+describe sensor is generated from MapServer. Right now when a DescribeSensor request is sent with a procedure (sensorid), it will redirect it to the url defined by this metadata item.</p>
+</li>
+<li><p class="first">In MapServer 5.0, it is possible to use variable substituion on the url. For example &#8220;sos_describesensor_url&#8221; &#8220;http://foo/foo?mysensor=%procedure%&#8221; will substitute the %procedure% in the metadata with the procedure value coming from the request.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;sos_describesensor_url&quot;</span> <span class="s">&quot;http://some/url/NS01EE0014.xml&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>sos_[item name]_alias</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) An alias for an attribute&#8217;s name that will be returned
+when executing a GetObservation request.</li>
+</ul>
+<p><strong>sos_[item name]_definition</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) An associated definition (usually a URN) for a component, that will be returned when executing a GetObservation request.  Default is &#8220;urn:ogc:object:definition&#8221;</li>
+</ul>
+<p><strong>sos_[item name]_uom</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) An associated unit of measure URN) for a component, that will be returned when executing a GetObservation request.  Default is &#8220;urn:ogc:object:uom&#8221;</li>
+</ul>
+<p><strong>sos_observedproperty_id</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Required) ID of observed property, possibly in number format.</li>
+</ul>
+<p><strong>sos_observedproperty_name</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Name of observed property, possibly in string format.</li>
+</ul>
+<p><strong>sos_observedproperty_authority</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) An associated authority for a given component of an observed property</li>
+</ul>
+<p><strong>sos_observedproperty_version</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) An associated version for a given component of an observed property</li>
+</ul>
+<p><strong>sos_offering_description</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Description of offering.</li>
+</ul>
+<p><strong>sos_offering_extent</strong></p>
+<ul>
+<li><p class="first"><em>Description:</em> (Optional) Spatial extents of offering, in <em>minx, miny, maxx, maxy</em> format:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;sos_offering_extent&quot;</span> <span class="s">&quot;-66, 43, -62, 45&quot;</span>
+</pre></div>
+</div>
+<p>The logic for the bounding box returned as part of the offering is the following:</p>
+<blockquote>
+<ul class="simple">
+<li>note that it is a mandatory element that needs an espg code and lower/upper corner
+coordinates</li>
+<li>looks for the espg parameter in the first layer of the offering (this could be an ows/sos_srs
+or a projection object with the epsg code (mandatory)</li>
+<li>looks for sos_offering_extent. If the metadata is not available,
+the extents of all layers in the offering will be used to compute it.</li>
+</ul>
+</blockquote>
+<p>Here is an example result from a GetCapabilities request:</p>
+<div class="highlight-guess"><div class="highlight"><pre><span class="nt">&lt;gml:boundedBy&gt;</span>
+  <span class="nt">&lt;gml:Envelope&gt;</span>
+    <span class="nt">&lt;gml:lowerCorner</span> <span class="na">srsName=</span><span class="s">&quot;EPSG:4326&quot;</span><span class="nt">&gt;</span>-66 43<span class="nt">&lt;/gml:lowerCorner&gt;</span>
+    <span class="nt">&lt;gml:upperCorner</span> <span class="na">srsName=</span><span class="s">&quot;EPSG:4326&quot;</span><span class="nt">&gt;</span>-62 45<span class="nt">&lt;/gml:upperCorner&gt;</span>
+  <span class="nt">&lt;/gml:Envelope&gt;</span>
+<span class="nt">&lt;/gml:boundedBy&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>sos_offering_id</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Required) ID of offering, possibly in number format.</li>
+</ul>
+<p><strong>sos_offering_intendedapplication</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) The intended category of use for this offering.</li>
+</ul>
+<p><strong>sos_offering_name</strong></p>
+<ul class="simple">
+<li><em>Description:</em> (Optional) Name of offering, possibly in string format.</li>
+</ul>
+<p><strong>sos_offering_timeextent</strong></p>
+<ul>
+<li><p class="first"><em>Description:</em> (Optional) Time extent of offering, in the format of &#8220;begin/end&#8221;.
+Here is an example:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="s">&quot;sos_offering_timeextent&quot;</span> <span class="s">&quot;1990/2006&quot;</span>
+</pre></div>
+</div>
+<p>If end is not specified it will be set to now.  Here is an example result from a
+GetCapabilities request:</p>
+<div class="highlight-guess"><div class="highlight"><pre><span class="nt">&lt;sos:eventTime&gt;</span>
+  <span class="nt">&lt;gml:TimePeriod&gt;</span>
+     <span class="nt">&lt;gml:beginPosition&gt;</span>1990<span class="nt">&lt;/gml:beginPosition&gt;</span>
+     <span class="nt">&lt;gml:endPosition&gt;</span>2006<span class="nt">&lt;/gml:endPosition&gt;</span>
+  <span class="nt">&lt;/gml:TimePeriod&gt;</span>
+<span class="nt">&lt;/sos:eventTime&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>sos_procedure</strong></p>
+<ul>
+<li><p class="first"><em>Description:</em> (Required) Normally a sensor unique id.  One per layer:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="s">&quot;sos_procedure&quot;</span>  <span class="s">&quot;NS01EE0014&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">sos_procedure can also be a list, separated by spaces, i.e.:</p>
+</div>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="s">&quot;sos_procedure&quot;</span> <span class="s">&quot;35 2147 604&quot;</span>
+</pre></div>
+</div>
+<p>All <em>sos_procedure</em> links from layers in the offerings will be outputed together, such
+as the following taken from a GetCapabilities response:</p>
+<div class="highlight-guess"><div class="highlight"><pre><span class="o">&lt;</span><span class="n">procedure</span> <span class="n">xlink:href</span><span class="o">=</span><span class="s">&quot;urn:ogc:object:feature:Sensor:3eTI:csi-sensor-1&quot;</span><span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="n">procedure</span> <span class="n">xlink:href</span><span class="o">=</span><span class="s">&quot;urn:ogc:object:feature:Sensor:3eTI:csi-sensor-2&quot;</span><span class="o">/&gt;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>sos_procedure_item</strong></p>
+<ul>
+<li><p class="first"><em>Description:</em> (Required if sos_procedure is not present): See section 5 for more details</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="s">&quot;sos_procedure_item&quot;</span>  <span class="s">&quot;attribute_field_name&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<p><strong>sos_timeitem</strong></p>
+<ul>
+<li><p class="first"><em>Description:</em> (Optional) Name of the time field. It will be used for queries when a
+GetObservation request is called with an EVENTTIME parameter.  It is layer specific and
+should be set on all layers.</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="s">&quot;sos_timeitem&quot;</span> <span class="s">&quot;TIME&quot;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="use-of-sos-procedure-and-sos-procedure-item">
+<h2><a class="toc-backref" href="#table-of-contents">Use of sos_procedure and sos_procedure_item</a><a class="headerlink" href="#use-of-sos-procedure-and-sos-procedure-item" title="Permalink to this headline">¶</a></h2>
+<p>In MapServer 5.0 SOS support has been upgraded to use a new metadata called
+sos_procedure_item. The value for sos_procedure_item is the field/attribute
+name containing the procedure values. The use of this metadata as well as the
+sos_procedure is described here per type of request (refer to
+<a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2050">http://trac.osgeo.org/mapserver/ticket/2050</a> for more description):</p>
+<p>It should be noted that, for very large datasets defined only with
+sos_procedure_item, this may result in costly processing, because MapServer
+has to process attribute data. It is advised to setup and manage datasets
+accordingly if dealing with large observation collections.</p>
+<div class="section" id="getcapabilities">
+<h3>GetCapabilities<a class="headerlink" href="#getcapabilities" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>if sos_procedure is defined, use it</li>
+<li>if not look for sos_procedure_item :  procedure values are extracted
+from the layer&#8217;s attribute specified by this metadata. Not that this
+can be time consuming for layers with a large number of features.</li>
+<li>if none is defined return an exception</li>
+</ul>
+</div>
+<div class="section" id="describesensor">
+<h3>DescribeSensor<a class="headerlink" href="#describesensor" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>if sos_procedure  is defined, use it</li>
+<li>if not look for sos_procedure_item :  procedure values are extracted
+from the layer&#8217;s attribute specified by this metadata</li>
+<li>if none is defined return an exception</li>
+</ul>
+</div>
+<div class="section" id="getobservation">
+<h3>GetObservation<a class="headerlink" href="#getobservation" title="Permalink to this headline">¶</a></h3>
+<p>Both sos_procedure and sos_procedure_item can be define. Here are the cases:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>case 1 <span class="classifier-delimiter">:</span> <span class="classifier">only sos_procedure is defined.</span></dt>
+<dd><ul class="first last simple">
+<li>Use this metadata to match the layer with the procedure value sent in the request</li>
+<li>When outputing the &lt;member/procedure&gt; output the value of the metadata</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If more than one procedure is defined per LAYER object, output
+observations will have incorrect sos:procedure values, because there is no
+way to map procedures to observations. This is where sos_procedure_item
+should be used (i.e. when more than one procedure makes up a LAYER
+object).</p>
+</div>
+<ul>
+<li><dl class="first docutils">
+<dt>case 2: only procedure_item is defined.</dt>
+<dd><ul class="first last simple">
+<li>Use the sos_procedure_item and do a query on the layer to match the
+procedure with the layer.</li>
+<li>When outputting the &lt;member/procedure&gt; use the procedure_item as a way
+to only output the attribute value corresponding to the feature.</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>case 3: both are defined.</dt>
+<dd><ul class="first last simple">
+<li>check in sos_procedure to match the procedure with the layer.</li>
+<li>When outputting the &lt;member/procedure&gt; use the procedure_item as a
+way to only output the attribute value corresponding to the feature.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="mapscript.html" title="MapScript Wrappers for WxS Services"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="wcs_format.html" title="WCS Use Cases"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >OGC Support and Configuration</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

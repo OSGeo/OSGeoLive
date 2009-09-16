@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>FONTSET &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Mapfile" href="index.html" />
+    <link rel="next" title="INCLUDE" href="Include.html" />
+    <link rel="prev" title="FEATURE" href="feature.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Include.html" title="INCLUDE"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="feature.html" title="FEATURE"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//mapfile/fontset.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/mapfile/fontset.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">FONTSET</a><ul>
+<li><a class="reference external" href="#format">Format</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="feature.html"
+                                  title="previous chapter">FEATURE</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="Include.html"
+                                  title="next chapter">INCLUDE</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/mapfile/fontset.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="fontset">
+<span id="id1"></span><h1><a class="toc-backref" href="#contents">FONTSET</a><a class="headerlink" href="#fontset" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Kari Guerts</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Jeff McKenna</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">jmckenna at gatewaygeomatics.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8295 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2008-12-27 01:08:04 -0400 (Sat, 27 Dec 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Last Updated:</th><td class="field-body">2008/10/08</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#fontset" id="id2">FONTSET</a><ul>
+<li><a class="reference internal" href="#format" id="id3">Format</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="format">
+<h2><a class="toc-backref" href="#contents">Format</a><a class="headerlink" href="#format" title="Permalink to this headline">¶</a></h2>
+<p>The format is very simple. Each line contains 2 items: an alias and
+the name/path of the font separated by white space. The alias is simply
+the name you refer to the font as in your <a class="reference external" href="index.html#mapfile"><em>Mapfile</em></a> (eg. times-bold).
+The name is the actual name of the TrueType file. If not full path then
+it is interpreted as relative to the location of the fontset. Here&#8217;s the
+fontset I use (the font.list file and all .ttf files are stored in the
+same sub-directory).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Aliases are case sensitive. Excellent reference information about
+the TrueType format and online font resources is available from the
+<a class="reference external" href="http://www.freetype.org/">FreeType</a>.</p>
+</div>
+<div class="highlight-python"><pre>arial                           arial.ttf
+arial-bold                      arialbd.ttf
+arial-italic                    ariali.ttf
+arial-bold-italic               arialbi.ttf
+arial_black                     ariblk.ttf
+comic_sans                      comic.ttf
+comic_sans-bold                 comicbd.ttf
+courier                         cour.ttf
+courier-bold                    courbd.ttf
+courier-italic                  couri.ttf
+courier-bold-italic             courbi.ttf
+georgia                         georgia.ttf
+georgia-bold                    georgiab.ttf
+georgia-italic                  georgiai.ttf
+georgia-bold-italic             georgiaz.ttf
+impact                          impact.ttf
+monotype.com                    monotype.ttf
+recreation_symbols              recreate.ttf
+times                           times.ttf
+times-bold                      timesbd.ttf
+times-italic                    timesi.ttf
+times-bold-italic               timesbi.ttf
+trebuchet_ms                    trebuc.ttf
+trebuchet_ms-bold               trebucbd.ttf
+trebuchet_ms-italic             trebucit.ttf
+trebuchet_ms-bold-italic        trebucbi.ttf
+verdana                         verdana.ttf
+verdana-bold                    verdanab.ttf
+verdana-italic                  verdanai.ttf
+verdana-bold-italic             verdanaz.ttf</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Include.html" title="INCLUDE"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="feature.html" title="FEATURE"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Mapfile</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

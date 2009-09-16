@@ -1,0 +1,500 @@
+.. _filter_encoding:
+
+*****************************************************************************
+ WFS Filter Encoding
+*****************************************************************************
+
+:Author:        Jeff McKenna
+:Contact:       jmckenna at gatewaygeomatics.com
+:Author:        Yewondwossen Assefa
+:Contact:       assefa at dmsolutions.ca
+:Revision: $Revision: 8479 $
+:Date: $Date: 2009-01-29 15:56:34 -0400 (Thu, 29 Jan 2009) $
+:Last Updated: 2005/09/23
+
+.. contents:: Table of Contents
+    :depth: 2
+    :backlinks: top
+
+
+Introduction
+============
+
+This document describes the procedures for taking advantage of the Filter 
+Encoding (FE) support in WFS GetFeature requests, which was added to 
+MapServer in version 4.2.  
+
+This document assumes that you are already familiar with the following 
+aspects of MapServer:
+
+- MapServer application development and setting up .map files.
+
+- Familiarity with the WFS specification would be an asset. Links to the 
+  MapServer WFS documents are included in the next section. 
+
+Links to SLD-related Information
+--------------------------------
+
+- `Filter Encoding Implementation Specification`_.
+- :ref:`MapServer WFS Client Howto <wfs_client>`.
+- :ref:`MapServer WFS Server Howto <wfs_server>`.
+- `MapServer OGC Web Services Workshop`_.
+- `Open GIS Consortium (OGC) home page`_.
+
+.. _`Filter Encoding Implementation Specification`: http://www.opengeospatial.org/docs/02-059.pdf
+.. _`Open GIS Consortium (OGC) home page`: http://www.opengeospatial.org
+.. _`MapServer OGC Web Services Workshop`: http://ms-ogc-workshop.maptools.org/
+
+Currently Supported Features
+============================
+
+The following table lists the currently supported features for FE.
+
+**Table 1. Currently Supported Features**
+
++----------------------+-------------------------------------+
+| Feature Set          | Feature                             |
++======================+=====================================+
+| Spatial Capabilities |                                     |
++----------------------+-------------------------------------+
+|                      | Equals                              |
++----------------------+-------------------------------------+   
+|                      | Disjoint                            |
++----------------------+-------------------------------------+     
+|                      | Touches                             |
++----------------------+-------------------------------------+     
+|                      | Within                              |
++----------------------+-------------------------------------+     
+|                      | Overlaps                            | 
++----------------------+-------------------------------------+     
+|                      | Crosses                             | 
++----------------------+-------------------------------------+     
+|                      | Intersects                          | 
++----------------------+-------------------------------------+     
+|                      | Contains                            |
++----------------------+-------------------------------------+     
+|                      | DWithin                             | 
++----------------------+-------------------------------------+     
+|                      | BBOX                                |  
++----------------------+-------------------------------------+
+| Scalar Capabilities  |                                     |
++----------------------+-------------------------------------+
+|                      |                                     |
++----------------------+-------------------------------------+
+| Logical Operators    |                                     |
++----------------------+-------------------------------------+
+|                      | And                                 |
++----------------------+-------------------------------------+   
+|                      | Or                                  |
++----------------------+-------------------------------------+     
+|                      | Not                                 |
++----------------------+-------------------------------------+
+| Comparison Operators |                                     |
++----------------------+-------------------------------------+
+|                      | PropertyIsEqualTo (=)               |
++----------------------+-------------------------------------+
+|                      | PropertyIsNotEqualTo (<>)           |
++----------------------+-------------------------------------+   
+|                      | PropertyIsLessThan (<)              |
++----------------------+-------------------------------------+     
+|                      | PropertyIsGreaterThan (>)           |
++----------------------+-------------------------------------+   
+|                      | PropertyIsLessThanOrEqualTo (<=)    |
++----------------------+-------------------------------------+     
+|                      | PropertyIsGreaterThanOrEqualTo (>=) |
++----------------------+-------------------------------------+     
+|                      | PropertyIsLike                      |
++----------------------+-------------------------------------+     
+|                      | PropertyIsBetween (range)           |
++----------------------+-------------------------------------+
+
+Get and Post Requests
+=====================
+
+MapServer already has the capability to receive and parse Get requests and 
+URL-encoded Post requests. The ability for MapServer to be able to receive 
+Post requests with XML-encoded information sent in the body of the request 
+has been added. Also, the ability to generate XML-encoded Post requests for 
+WFS layers has been added.
+
+Both Get and Post request are now supported for all WFS requests:
+
+- GetCapabilities
+ 
+- GetFeatures
+
+- DescribeFeatureType 
+
+Supporting these WFS requests in Post was implemented to keep consistency 
+between all supported WFS requests.
+
+When sending requests, the default request method used is Post. To change this 
+behavior, we have introduced a layer level meta data, wfs_request_method, 
+which can be set to "GET". 
+
+Use of Filter Encoding in MapServer
+===================================
+
+This section describes how to use FE on both the server and client sides. 
+
+Server Side
+-----------
+
+To be able to use Filter Encoding, you need to create a valid WFS server using 
+MapServer. Please refer to the :ref:`WFS Server HOWTO <wfs_server>` for specifics. 
+
+There is nothing special that should be added to a WFS server for Filter 
+Encoding, but you should note that, when requesting the capabilities of 
+your WFS server, the document returned should contain the supported filters. 
+Here is part of a Capabilities document as well as the Post support:
+
+.. code-block:: guess
+    :linenos:
+
+    <?xml version='1.0' encoding="ISO-8859-1" ?>
+    <WFS_Capabilities 
+       version="1.0.0" 
+       updateSequence="0" 
+       xmlns="http://www.opengis.net/wfs" 
+       xmlns:ogc="http://www.opengis.net/ogc" 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.opengis.net/wfs http://ogc.dmsolutions.ca/wfs/1.0.0/WFS-capabilities.xsd">
+
+    <!-- MapServer version 4.1 OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP 
+    OUTPUT=PDF OUTPUT=SWF SUPPORTS=PROJ SUPPORTS=FREETYPE SUPPORTS=WMS_SERVER 
+    SUPPORTS=WMS_CLIENT SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT INPUT=POSTGIS 
+    INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE -->
+
+    <Service>
+      <Name>MapServer WFS</Name>
+      <Title>GMap WMS Demo Server</Title>
+      <OnlineResource>http://localhost/cgi-bin/mapserv.exe?map=
+        c:/msapps/wfs_filter/htdocs/ns_wfsserver.map&</OnlineResource>
+    </Service>
+
+    <Capability>
+      <Request>
+        <GetCapabilities>
+          <DCPType>
+            <HTTP>
+              <Get onlineResource="http://localhost/cgi-bin/mapserv.exe?map=
+                c:/msapps/wfs_filter/htdocs/ns_wfsserver.map&" />
+            </HTTP>
+          </DCPType>
+          <DCPType>
+            <HTTP>
+              <Post onlineResource="http://localhost/cgi-bin/mapserv.exe?map=
+                c:/msapps/wfs_filter/htdocs/ns_wfsserver.map&" />
+            </HTTP>
+          </DCPType>
+        </GetCapabilities>
+        ...
+      </Request>
+    </Capability>
+    ...
+    <Filter_Capabilities>
+      <Spatial_Capabilities>
+        <Spatial_Operators>
+                 <Intersect/>
+                 <DWithin/>
+               <BBOX/>
+        </Spatial_Operators>
+      </Spatial_Capabilities>
+      <Scalar_Capabilities>
+        <Logical_Operators />
+        <Comparison_Operators>
+          <Simple_Comparisons />
+          <Like />
+          <Between />
+        </Comparison_Operators>
+      </Scalar_Capabilities>
+    </Filter_Capabilities>
+
+    </WFS_Capabilities>
+    
+Client Side
+-----------
+
+To be able to generate a Filter to a WFS server, a layer level metadata called 
+*wfs_filter* has been added, which should contain the filter to be sent to the 
+server. Following is an example of a valid WFS client layer with a filter:
+
+.. code-block:: mapfile
+
+    LAYER
+      NAME popplace
+      METADATA
+        "wfs_version"   "1.0.0"       
+        "wfs_typename"  "popplace"
+        "wfs_filter"    "<PropertyIsGreaterThan><PropertyName>POP_RANGE</PropertyName>
+                                         <Literal>4</Literal></PropertyIsGreaterThan>"        
+      END
+      TYPE POINT
+      STATUS ON
+      PROJECTION
+        "init=epsg:42304"
+      END
+      CONNECTIONTYPE WFS
+      CONNECTION "http://www2.dmsolutions.ca:8090/cgi-bin/mswfs_filter?"
+      LabelItem "Name"  
+      CLASSITEM "Capital" 
+      CLASS
+        SYMBOL 2
+        SIZE 8
+        NAME "Cities"
+        LABEL
+          COLOR  255 0 0
+          FONT fritqat-italic
+          TYPE truetype
+          SIZE 8
+          POSITION AUTO         
+          OUTLINECOLOR 255 255 255  
+          FORCE TRUE
+        END 
+        COLOR 0 0 0
+      END
+    END # Layer
+
+*Note:*
+
+- The filter given as a value of the wfs_filter metadata should not contain 
+  <Filter> start and end tags.
+
+- The CONNECTION points to a valid WFS server supporting filters
+
+- The returned shapes will be drawn using the class defined in the layer.
+
+Limitations
+===========
+
+- A limited set of spatial operators are supported. 
+
+
+Tests
+=====
+
+Here are some test URLs for the different supported filters:
+
+- `PropertyIsEqualTo`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&
+  TYPENAME=popplace&Filter=<Filter><PropertyIsEqualTo><PropertyName>NAME</PropertyName>
+  <Literal>Digby</Literal></PropertyIsEqualTo></Filter> 
+  
+- `PropertyIsNotEqualTo`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&
+  TYPENAME=popplace&Filter=<Filter><PropertyIsNotEqualTo><PropertyName>NAME</PropertyName>
+  <Literal>Digby</Literal></PropertyIsNotEqualTo></Filter>
+
+- `PropertyIsLessThan`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&
+  TYPENAME=popplace&Filter=<Filter><PropertyIsLessThan><PropertyName>POP_RANGE</PropertyName>
+  <Literal>2</Literal></PropertyIsLessThan></Filter>
+
+- `PropertyIsGreaterThan`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&
+  TYPENAME=popplace&Filter=<Filter><PropertyIsGreaterThan><PropertyName>POP_RANGE</PropertyName>
+  <Literal>5</Literal></PropertyIsGreaterThan></Filter>
+
+- `PropertyIsLessThanOrEqualTo`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&
+  TYPENAME=popplace&Filter=<Filter><PropertyIsLessThanOrEqualTo><PropertyName>POP_RANGE</PropertyName>
+  <Literal>2</Literal></PropertyIsLessThanOrEqualTo></Filter>
+
+- `PropertyIsGreaterThanOrEqualTo`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&
+  TYPENAME=popplace&Filter=<Filter><PropertyIsGreaterThanOrEqualTo><PropertyName>POP_RANGE</PropertyName>
+  <Literal>5</Literal></PropertyIsGreaterThanOrEqualTo></Filter>
+
+- `PropertyIsBetween`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&
+  TYPENAME=popplace&Filter=<Filter><PropertyIsBetween><PropertyName>POP_RANGE</PropertyName>
+  <LowerBoundary>5</LowerBoundary><UpperBoundary>6</UpperBoundary></PropertyIsBetween></Filter>
+
+- `PropertyIsLike`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&
+  TYPENAME=popplace&Filter=<Filter><PropertyIsLike wildcard='*' singleChar='.' escape='!'>
+  <PropertyName>NAME</PropertyName><Literal>Syd*</Literal></PropertyIsLike></Filter>
+
+- `Logical operator OR`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&
+  TYPENAME=popplace&Filter=<Filter><OR><PropertyIsEqualTo><PropertyName>NAME</PropertyName>
+  <Literal>Sydney</Literal></PropertyIsEqualTo><PropertyIsEqualTo><PropertyName>NAME</PropertyName>
+  <Literal>Digby</Literal></PropertyIsEqualTo></OR></Filter>
+
+- `Logical operator AND`_ 
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&
+  TYPENAME=popplace&Filter=<Filter><AND><PropertyIsLike wildcard='*' singleChar='.' escape='!'>
+  <PropertyName>NAME</PropertyName><Literal>Syd*</Literal></PropertyIsLike><PropertyIsEqualTo>
+  <PropertyName>POP_RANGE</PropertyName><Literal>4</Literal></PropertyIsEqualTo></AND></Filter>
+
+- `Logical operator NOT`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&
+  TYPENAME=popplace&Filter=<Filter><AND><NOT><PropertyIsEqualTo><PropertyName>POP_RANGE</PropertyName>
+  <Literal>2</Literal></PropertyIsEqualTo></NOT><NOT><PropertyIsEqualTo><PropertyName>POP_RANGE</PropertyName>
+  <Literal>3</Literal></PropertyIsEqualTo></NOT></AND></Filter> 
+
+- `Spatial operator BBOX`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&
+  Filter=<Filter><BBOX><PropertyName>Name>NAME</PropertyName><Box%20srsName='EPSG:42304'>
+  <coordinates>2518000,150000 2918000,450000</coordinates></Box></BBOX></Filter>
+
+- `Spatial operator Dwithin`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=
+  <Filter><DWithin><PropertyName>Geometry</PropertyName><gml:Point><gml:coordinates>2587598.000000,404010.531250</gml:coordinates>
+  </gml:Point><Distance units='m'>1000</Distance></DWithin></Filter>
+
+- `Spatial operator Intersects`_
+
+::
+
+  http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter>
+  <Intersect><PropertyName>Geometry</PropertyName><gml:Polygon><gml:outerBoundaryIs><gml:LinearRing>
+  <gml:coordinates>2488789,289552 2588789,289552 2588789,389552 2488789,389552 2488789,289552</gml:coordinates>
+  </gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></Intersect></Filter>
+
+.. _`PropertyIsEqualTo`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><PropertyIsEqualTo><PropertyName>NAME</PropertyName><Literal>Digby</Literal></PropertyIsEqualTo></Filter>
+.. _`PropertyIsNotEqualTo`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><PropertyIsNotEqualTo><PropertyName>NAME</PropertyName><Literal>Digby</Literal></PropertyIsNotEqualTo></Filter>
+.. _`PropertyIsLessThan`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><PropertyIsLessThan><PropertyName>POP_RANGE</PropertyName><Literal>2</Literal></PropertyIsLessThan></Filter>
+.. _`PropertyIsGreaterThan`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><PropertyIsGreaterThan><PropertyName>POP_RANGE</PropertyName><Literal>5</Literal></PropertyIsGreaterThan></Filter>
+.. _`PropertyIsLessThanOrEqualTo`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><PropertyIsLessThanOrEqualTo><PropertyName>POP_RANGE</PropertyName><Literal>2</Literal></PropertyIsLessThanOrEqualTo></Filter>
+.. _`PropertyIsGreaterThanOrEqualTo`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><PropertyIsGreaterThanOrEqualTo><PropertyName>POP_RANGE</PropertyName><Literal>5</Literal></PropertyIsGreaterThanOrEqualTo></Filter>
+.. _`PropertyIsBetween`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><PropertyIsBetween><PropertyName>POP_RANGE</PropertyName><LowerBoundary>5</LowerBoundary><UpperBoundary>6</UpperBoundary></PropertyIsBetween></Filter>
+.. _`PropertyIsLike`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><PropertyIsLike%20wildcard='*'%20singleChar='.'%20escape='!'><PropertyName>NAME</PropertyName><Literal>Syd*</Literal></PropertyIsLike></Filter>
+.. _`Logical operator OR`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><OR><PropertyIsEqualTo><PropertyName>NAME</PropertyName><Literal>Sydney</Literal></PropertyIsEqualTo><PropertyIsEqualTo><PropertyName>NAME</PropertyName><Literal>Digby</Literal></PropertyIsEqualTo></OR></Filter>
+.. _`Logical operator AND`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><AND><PropertyIsLike%20wildcard='*'%20singleChar='.'%20escape='!'><PropertyName>NAME</PropertyName><Literal>Syd*</Literal></PropertyIsLike><PropertyIsEqualTo><PropertyName>POP_RANGE</PropertyName><Literal>4</Literal></PropertyIsEqualTo></AND></Filter>
+.. _`Logical operator NOT`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><AND><NOT><PropertyIsEqualTo><PropertyName>POP_RANGE</PropertyName><Literal>2</Literal></PropertyIsEqualTo></NOT><NOT><PropertyIsEqualTo><PropertyName>POP_RANGE</PropertyName><Literal>3</Literal></PropertyIsEqualTo></NOT></AND></Filter> 
+.. _`Spatial operator BBOX`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><BBOX><PropertyName>Name>NAME</PropertyName><Box%20srsName='EPSG:42304'><coordinates>2518000,150000%202918000,450000</coordinates></Box></BBOX></Filter>
+.. _`Spatial operator Dwithin`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><DWithin><PropertyName>Geometry</PropertyName><gml:Point><gml:coordinates>2587598.000000,404010.531250</gml:coordinates></gml:Point><Distance%20units='m'>1000</Distance></DWithin></Filter>
+.. _`Spatial operator Intersects`: http://www2.dmsolutions.ca/cgi-bin/mswfs_filter?&VERSION=1.0.0&SERVICE=WFS&REQUEST=GetFeature&TYPENAME=popplace&Filter=<Filter><Intersect><PropertyName>Geometry</PropertyName><gml:Polygon><gml:outerBoundaryIs><gml:LinearRing><gml:coordinates>2488789,289552%202588789,289552%202588789,389552%202488789,389552%202488789,289552</gml:coordinates></gml:LinearRing></gml:outerBoundaryIs></gml:Polygon></Intersect></Filter>
+   
+- Tests using MapServer as a WFS client and a WFS server are available at http://www2.dmsolutions.ca/msapps/wfs_fe/.
+
+- The OGC conformance tests (http://cite.occamlab.com/tsOGC/) have been run on 
+  the FE support. The following table and notes reflect the current status.
+
+**Table 2. WFS OGC test suite (over the HTTP Get and Post method)**
+
+======== ========================================================= ========== =================
+Test #   Description                                               # of Tests # of Failed Tests
+======== ========================================================= ========== =================
+1        Basic WFS tests over the HTTP Get and Post method         402        281
+1.1      GetCapabilities                                           16         0
+1.2      DescribeFeatureType                                       18         0
+1.3      GetFeature                                                368        281
+1.3.1    Basic WFS tests                                           20         1
+1.3.2    Complex WFS tests                                         18         18
+1.3.3    Arithmetic filter WFS tests                               8          8
+1.3.4    Comparison WFS tests                                      50         26
+1.3.4.1  GetFeature PropertyIsGreaterThanOrEqualTo filter          2          0
+1.3.4.2  GetFeature PropertyIsBetween filter                       6          2
+1.3.4.3  GetFeature PropertyIsEqualTo filter                       4          0
+1.3.4.4  GetFeature PropertyIsGreaterThan filter                   4          2
+1.3.4.5  GetFeature PropertyIsGreaterThanOrEqualTo filter          6          6
+1.3.4.6  GetFeature PropertyIsLessThan filter                      6          4
+1.3.4.7  GetFeature PropertyIsLessThanOrEqualTo filter             6          4
+1.3.4.8  GetFeature PropertyIsLike filter                          2          0
+1.3.4.9  GetFeature PropertyIsNotEqualTo filter                    6          0
+1.3.4.10 GetFeature PropertyIsNull filter                          8          8
+1.3.5    Logical WFS test                                          20         0
+1.3.5.1  GetFeature AND PropertyIsEqualTo PropertyIsEqualTo filter 8          0
+1.3.5.2  GetFeature OR PropertyIsEqualTo PropertyIsEqualTo filter  8          0
+1.3.5.3  GetFeature NOT PropertyIsNotEqualTo filter                4          0
+1.3.6    Spatial operator WFS test                                 252        228
+1.3.6.1  GetFeature BBOX filter                                    36         12
+1.3.6.2  GetFeature with other filter types                        216        216
+2        Transactional WFS test                                    69         69
+======== ========================================================= ========== =================
+
+The OGC Cite WFS test suite can be found on the `OGC Cite portal`_.
+
+.. _`OGC Cite portal`: http://cite.occamlab.com/test_engine/wfs_1_0_0/wfs_1_0_0.html
+
+Following are some MapServer specific notes on this test suite:
+
+1.  *Test number 1.3.1*:
+
+    - There is a contradiction between the wfs/1.0.0/basic/getfeature/post/3 assertion 
+      and the XPath expected value of the test. The assertion says: "Test that a 
+      GetFeature request with no output format defined returns a wfs:FeatureCollection 
+      with GML data." and the expected XPath value for this request: 
+      "boolean(/ogc:ServiceExceptionReport)" is supposed to be true. So, the assertion 
+      means that when a WFS server receives a request which contains an undefined 
+      output format or no output format at all, the WFS server must return a WFS 
+      collection containing GML data. The XPath expected value means that when a 
+      WFS server receives a request with an undefined output format or no output 
+      format at all, the WFS server must return a service exception report.
+   
+2.  *Tests number 1.3.2 and 1.3.3*:
+
+    - Not supported.
+    
+3.  *Tests number 1.3.4.2, 1.3.4.4 to 1.3.4.7*:
+
+    - The string comparison is not supported using >, <, >=, <=.
+
+    - The date comparison is not supported.
+
+    .. seealso::
+        
+        `bug 461`_ 
+   
+4.  *Test number 1.3.4.10*:
+
+    - This property is not supported in MapServer.
+   
+5.  *Test number 1.3.6.1*:
+    
+    - The returned feature xml won't validate because the validation is done 
+      against a specific xsd (geomatry.xsd).
+
+    - The data conversion on multipoints and multilayers are not supported within GDAL.
+    
+    .. seealso::
+        
+        `bug 461`_ 
+   
+6.  *Test number 2*:
+
+    - The transaction requests are not supported. 
+
+.. _`bug 461`: http://trac.osgeo.org/mapserver/ticket/461
+

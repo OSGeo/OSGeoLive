@@ -1,0 +1,221 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>CBE Debug Window</title>
+<meta name='author' content='Mike Foster, cross-browser.com'>
+<style type='text/css'>
+body { font-family:verdana,arial,sans-serif,helvetica; font-size:12px; color:#000000; background:#ffffff; margin:0px; padding:0px; }
+p { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; background:#ffffff; }
+td { font-family:verdana,arial,sans-serif; font-size:12px; color:#000000; background:#ffffff; }
+a:link, a:visited, a:active { font-family:verdana,arial,sans-serif; font-size:10px; color:#3333ff; text-decoration:none;}
+a:hover { font-family:verdana,arial,sans-serif; font-size:10px; color:#ff3333; text-decoration:underline;}
+.clsPad { color:#000000; background:#ffffff; padding:6px; }
+.monoSpc { font-family:monospace; font-size:12px; }
+.monoSpc2 { font-family:monospace; font-size:18px; }
+.clsNav { font-family:verdana,arial,sans-serif; font-size:12px; color:#666666; background:#cccccc; margin:0px; padding:2px; }
+.clsTitle { font-family:verdana,arial,sans-serif; font-size:14px; color:#3333ff; margin:0px; padding:2px; background:#cccccc; }
+</style>
+<script type='text/javascript' src='cbe_core.js'></script>
+<script type='text/javascript' src='cbe_event.js'></script>
+<script type='text/javascript' src='cbe_util.js'></script>
+<script type='text/javascript' src='cbe_debug.js'> </script>
+<script type='text/javascript'><!--
+var f1,f2,f3,f4,previousId="",oos=false;
+function windowOnload() {
+  window.focus();
+  window.onerror = outOfSync;
+  f1 = document.forms['form1'];
+  f2 = document.forms['form2'];
+  f3 = document.forms['form3'];
+  f4 = document.forms['form4'];
+  f2.reset();
+  f3.reset();
+  f4.reset();
+  timedUpdate();
+}
+function outOfSync() {
+  oos = true;
+  f1.reset();
+  f2.t1.value = f1.t1.value = f1.t10.value = f1.t20.value = "Out Of Sync";
+  setMsg("Out Of Sync");
+  window.close();
+}
+function inst(idInstance) {
+  if (!window.opener || !window.opener.cbeDebugSelected) {
+    outOfSync();
+    return;
+  }
+  if (!idInstance) idInstance = 'idWindow';
+  window.opener.cbeDebugSetSelected(idInstance);
+}
+function timedUpdate() {
+  if (oos) return;
+  else setTimeout("timedUpdate()", 750);
+  if (window.opener) {
+    if (window.opener.cbeDebugSelected && window.opener.cbeDebugObj) {
+      var thisId = window.opener.cbeDebugObj.id;
+      f1.t1.value = thisId;
+      f1.t2.value = window.opener.cbeDebugObj.left;
+      f1.t3.value = window.opener.cbeDebugObj.top;
+      f1.t4.value = window.opener.cbeDebugObj.zIndex;
+      f1.t5.value = window.opener.cbeDebugObj.pageX;
+      f1.t6.value = window.opener.cbeDebugObj.pageY;
+      f1.t7.value = window.opener.cbeDebugObj.offsetLeft;
+      f1.t8.value = window.opener.cbeDebugObj.offsetTop;
+      f1.t9.value = window.opener.cbeDebugObj.scrollLeft;
+      f1.t10.value = window.opener.cbeDebugObj.scrollTop;
+      f1.t11.value = window.opener.cbeDebugObj.width;
+      f1.t12.value = window.opener.cbeDebugObj.height;
+      f1.t13.value = window.opener.cbeDebugObj.visibility || "";
+      f1.t14.value = window.opener.cbeDebugObj.color || "";
+      f1.t15.value = window.opener.cbeDebugObj.background || "";
+      f1.t16.value = window.opener.cbeDebugObj.parentNode || "";
+      f1.t17.value = window.opener.cbeDebugObj.previousSibling || "";
+      f1.t18.value = window.opener.cbeDebugObj.nextSibling || "";
+      f1.t19.value = window.opener.cbeDebugObj.childNodes || "";
+      f1.t20.value = window.opener.cbeDebugObj.firstChild || "";
+      f1.t21.value = window.opener.cbeDebugObj.lastChild || "";
+      if (previousId != thisId) {
+        previousId = thisId;
+      }
+      return;
+    }
+  }
+  outOfSync();
+}
+var sTree;
+function printTree() {
+  sTree = "";
+  window.opener.cbeTraverseTree('preorder', window.opener.self.cbe, printTreeVF);
+  document.write(sTree);
+}
+var levelFlag = new Array();
+for (var i=0; i<window.opener.cbeAll.length; ++i) levelFlag[i] = false;
+function printTreeVF(node, level, branch) {
+  levelFlag[level] = node.nextSibling ? true : false;
+  for (var i=0; i < level-1; ++i) {
+    if (levelFlag[i+1]) sTree += '|&nbsp;';
+    else sTree += '&nbsp;&nbsp;';
+  }  
+  if (level) {
+    if (!node.nextSibling) sTree += "|_";
+    else if (node.childNodes) sTree += "|_";
+    else sTree += "|_";
+  }
+  sTree += "<a href=\"javascript:inst('" + node.id+ "')\">" + node.id + "</a><br>";
+  return true;
+}
+
+function cmdLine(formNum) {
+  if (window.opener.cbeDebugObj) {
+    if (formNum == 2) {
+      window.opener.cbeDebugObj.cmdLine = "cbeGetElementById('" + f1.t1.value + "').cbe." + f2.t1.value;
+      f2.t1.focus();
+      f2.t1.select();
+    }
+    else {
+      window.opener.cbeDebugObj.cmdLine = f4.t1.value;
+      f4.t1.focus();
+      f4.t1.select();
+    }
+  }
+  return false;
+}
+
+function setMsg(s) {
+  f3.t1.value += s + '\n';
+}
+//--></script>
+</head>
+
+<body marginwidth='0' marginheight='0'><a name="topofpage"></a>
+
+<table width='100%' border='0' cellspacing='0' cellpadding='4'><tr><td class='clsTitle'><b>Objects</b></td>
+<td class='clsTitle' align='right'>
+  <a href="#topofpage" title="Objects">&nbsp;O&nbsp;</a>
+  <a href="#cmdLineLink" title="Command Line">&nbsp;C&nbsp;</a>
+  <a href="#propertiesLink" title="Properties">&nbsp;P&nbsp;</a>
+  <a href="#msgsLink" title="Messages">&nbsp;M&nbsp;</a>
+</td></tr></table>
+<div class='clsPad'>
+<p class='monoSpc'>
+<script type='text/javascript'>printTree()</script>
+</p>
+</div> <!-- end clsPad -->
+
+<a name='cmdLineLink'></a>
+<table width='100%' border='0' cellspacing='0' cellpadding='4'><tr><td class='clsTitle'><b>Cmd Line</b></td>
+<td class='clsTitle' align='right'>
+  <a href="#topofpage" title="Objects">&nbsp;O&nbsp;</a>
+  <a href="#cmdLineLink" title="Command Line">&nbsp;C&nbsp;</a>
+  <a href="#propertiesLink" title="Properties">&nbsp;P&nbsp;</a>
+  <a href="#msgsLink" title="Messages">&nbsp;M&nbsp;</a>
+</td></tr></table>
+<div class='clsPad'>
+<form name='form2' onsubmit='return cmdLine(2)'>
+CBE Method:<br>
+<input name='t1' type='text' size='14' value='' class='monoSpc'>
+<input type='submit' value='Call'>
+</form> <!-- end form form2 -->
+
+<form name='form4' onsubmit='return cmdLine(4)'>
+Expression:<br>
+<input name='t1' type='text' size='14' value='' class='monoSpc'>
+<input type='submit' value='Eval'>
+</form> <!-- end form form4 -->
+
+</div> <!-- end clsPad -->
+  
+<a name='propertiesLink'></a>
+<table width='100%' border='0' cellspacing='0' cellpadding='4'><tr><td class='clsTitle'><b>Properties</b></td>
+<td class='clsTitle' align='right'>
+  <a href="#topofpage" title="Objects">&nbsp;O&nbsp;</a>
+  <a href="#cmdLineLink" title="Command Line">&nbsp;C&nbsp;</a>
+  <a href="#propertiesLink" title="Properties">&nbsp;P&nbsp;</a>
+  <a href="#msgsLink" title="Messages">&nbsp;M&nbsp;</a>
+</td></tr></table>
+<div class='clsPad'>
+<form name='form1' onsubmit='return false'>
+<table border='0' cellspacing='0' cellpadding='2'>
+<tr><td><b>id</b>      <br><input name='t1' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>left()         <br><input name='t2' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>top()          <br><input name='t3' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>pageX()        <br><input name='t5' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>pageY()        <br><input name='t6' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>offsetLeft()   <br><input name='t7' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>offsetTop()    <br><input name='t8' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>scrollLeft()   <br><input name='t9' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>scrollTop()    <br><input name='t10' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>width()        <br><input name='t11' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>height()       <br><input name='t12' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>zIndex()       <br><input name='t4' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>visibility()   <br><input name='t13' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>color()        <br><input name='t14' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>background()   <br><input name='t15' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>parentNode.id  <br><input name='t16' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>previousSibling.id<br><input name='t17' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>nextSibling.id <br><input name='t18' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>childNodes     <br><input name='t19' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>firstChild.id  <br><input name='t20' type='text' size='14' value='' class='monoSpc'></td></tr>
+<tr><td>lastChild.id   <br><input name='t21' type='text' size='14' value='' class='monoSpc'></td></tr>
+</table>
+</form> <!-- end form form1 -->
+</div> <!-- end clsPad -->
+
+<a name='msgsLink'></a>
+<table width='100%' border='0' cellspacing='0' cellpadding='4'><tr><td class='clsTitle'><b>Messages</b></td>
+<td class='clsTitle' align='right'>
+  <a href="#topofpage" title="Objects">&nbsp;O&nbsp;</a>
+  <a href="#cmdLineLink" title="Command Line">&nbsp;C&nbsp;</a>
+  <a href="#propertiesLink" title="Properties">&nbsp;P&nbsp;</a>
+  <a href="#msgsLink" title="Messages">&nbsp;M&nbsp;</a>
+</td></tr></table>
+<div class='clsPad'>
+<form name='form3' onsubmit='return false'>
+Messages:<br>
+<textarea name='t1' class='monoSpc' rows='30' cols='14'></textarea>
+</form> <!-- end form form3 -->
+</div> <!-- end clsPad -->
+  
+</body>                           
+</html>                           

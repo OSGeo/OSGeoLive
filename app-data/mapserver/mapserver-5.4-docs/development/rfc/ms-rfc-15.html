@@ -1,0 +1,605 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 15: Support for thread neutral operation of MapServer/MapScript &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 16: MapScript WxS Services" href="ms-rfc-16.html" />
+    <link rel="prev" title="MS RFC 14: Relative Coordinates for INLINE features" href="ms-rfc-14.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-16.html" title="MS RFC 16: MapScript WxS Services"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-14.html" title="MS RFC 14: Relative Coordinates for INLINE features"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-15.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-15.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 15: Support for thread neutral operation of MapServer/MapScript</a><ul>
+<li><a class="reference external" href="#overview">1. Overview</a></li>
+<li><a class="reference external" href="#purpose">2. Purpose</a></li>
+<li><a class="reference external" href="#general-principles-of-the-solution">2. General principles of the solution</a></li>
+<li><a class="reference external" href="#not-changing-the-code-considering-as-safe-without-locks">2.1 Not changing the code (Considering as safe without locks)</a></li>
+<li><a class="reference external" href="#retaining-the-variable-but-reconsidering-the-initialization-code">2.2 Retaining the variable, but reconsidering the initialization code</a></li>
+<li><a class="reference external" href="#rewriting-the-code-to-eliminate-the-need-of-the-global-variable">2.3 Rewriting the code to eliminate the need of the global variable</a></li>
+<li><a class="reference external" href="#using-thread-local-variable-instead-of-the-global-one">2.4 Using thread local variable instead of the global one</a></li>
+<li><a class="reference external" href="#not-changing-the-code-marking-as-safe-with-locks-will-be-reconsidered-later">2.5 Not changing the code (Marking as safe with locks, will be reconsidered later)</a></li>
+<li><a class="reference external" href="#not-changing-the-code-marking-as-unsafe-will-be-deprecated-and-unsupported">2.6 Not changing the code (Marking as unsafe, will be deprecated and unsupported)</a></li>
+<li><a class="reference external" href="#issues-of-the-mapserver-mapscript-code">3. Issues of the Mapserver/Mapscript code</a></li>
+<li><a class="reference external" href="#issues-of-the-related-libraries">3. Issues of the related libraries</a></li>
+<li><a class="reference external" href="#considerations-for-the-future-development">4. Considerations for the future development</a></li>
+<li><a class="reference external" href="#backwards-compatibility-issues">5. Backwards compatibility issues</a></li>
+<li><a class="reference external" href="#bug-id">Bug ID</a></li>
+<li><a class="reference external" href="#voting-history">Voting history</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-14.html"
+                                  title="previous chapter">MS RFC 14: Relative Coordinates for INLINE features</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-16.html"
+                                  title="next chapter">MS RFC 16: MapScript WxS Services</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-15.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-15-support-for-thread-neutral-operation-of-mapserver-mapscript">
+<span id="rfc15"></span><h1>MS RFC 15: Support for thread neutral operation of MapServer/MapScript<a class="headerlink" href="#ms-rfc-15-support-for-thread-neutral-operation-of-mapserver-mapscript" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2006/05/01</td>
+</tr>
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Tamas Szekeres</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">szekerest at gmail.com</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">$Date: 2008-12-23 22:34:31 +0100 (Di, 23. Dez 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Draft</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">Not assigned yet</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body">$Id: ms-rfc-15.txt 8278 2008-12-23 21:34:31Z hobu $</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="overview">
+<h2>1. Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>By this time the core MapServer code has become widely used by many of the
+different application models. The extended usage of MapScript causes the
+possibility that the execution of the code is carried out by multiple
+threads, standing a fair chance portions of the code being called by the
+different threads simultaneously. The threading model of the application
+may fall beyond the control of the MapServer code, at the worst case even
+the host process of the application is beyond the programmer&#8217;s scope. For
+example a web mapping application may be executed by a pre-existing host
+process ensuring to serve the user requests and calling the MapServer code
+by different threads from a pool of threads. The usage of process-wide global
+variables and resources within MapServer may require the need to serialize
+of the access to the variable by the multiple threads by using locks. The
+current approach uses process-wide locks to ensure the safe access to these
+variables causing performance degradation in multithreaded environments.
+Currently this behavior may be controlled by the USE_THREAD
+compilation switch.</p>
+</div>
+<div class="section" id="purpose">
+<h2>2. Purpose<a class="headerlink" href="#purpose" title="Permalink to this headline">¶</a></h2>
+<p>The purpose of this change is to get a significant performance boost by
+removing &#8220;big locks&#8221; from the code. It would add a significant improvement of
+the applications having high number of multiple threads executed
+simultaneously. This activity could bring in a more feasible support for
+some application models not really aimed at now like Microsoft ASP.NET. May
+result in higher clarity of the code by determining the code segments
+affected by multiple threads.</p>
+</div>
+<div class="section" id="general-principles-of-the-solution">
+<h2>2. General principles of the solution<a class="headerlink" href="#general-principles-of-the-solution" title="Permalink to this headline">¶</a></h2>
+<p>This RFC is in a special situation since wide area of the code is to be
+reviewed and extensive developer support is needed. The proposal will reach
+the proposed state only if all of the open issues are classified and
+properly handled.</p>
+<p>Changing of the modules of MapServer should be in accordance of the
+primary maintainer. The maintainer may reserve the right to commit the
+changes proposed by this RFC during the implementation phase. Otherwise the
+primary author Tamas Szekeres will be responsible to make the changes.</p>
+<p>The problems of the current implementation and the proposed changes will be
+enumerated later. To handle these issues the following options will be
+considered ordering by the expediency. The latter is the less expedient.</p>
+</div>
+<div class="section" id="not-changing-the-code-considering-as-safe-without-locks">
+<h2>2.1 Not changing the code (Considering as safe without locks)<a class="headerlink" href="#not-changing-the-code-considering-as-safe-without-locks" title="Permalink to this headline">¶</a></h2>
+<p>Some of the process-wide global variables store invariant data - like
+enumerations - having been initialized at compilation time. Since these
+variables can be simultaneously read by multiple threads there is nothing
+to be done and even the locks should be removed - if exist - ensuring the
+thread isolation to be realized. Might be redeclared as &#8220;static const&#8221;.</p>
+</div>
+<div class="section" id="retaining-the-variable-but-reconsidering-the-initialization-code">
+<h2>2.2 Retaining the variable, but reconsidering the initialization code<a class="headerlink" href="#retaining-the-variable-but-reconsidering-the-initialization-code" title="Permalink to this headline">¶</a></h2>
+<p>Some of the global variables store invariant data but the initial value is
+assigned at run time during the module initialization phase. In this situation
+we should ensure that the initialization will be done before the subsequent
+access is receivable to prevent from the possibility of race conditions.
+msSetup() is designated as a suitable place to make module level initialization
+of the variables. Mapscript language bindings are encouraged to provide
+calling msSetup automatically at module startup. The current locking
+strategy should be reviewed and the locks should be restricted to the
+initialization code.</p>
+</div>
+<div class="section" id="rewriting-the-code-to-eliminate-the-need-of-the-global-variable">
+<h2>2.3 Rewriting the code to eliminate the need of the global variable<a class="headerlink" href="#rewriting-the-code-to-eliminate-the-need-of-the-global-variable" title="Permalink to this headline">¶</a></h2>
+<p>If the global variable could be eliminated by changing the code structure we
+will consider to make these changes. The locks related to these variables
+should be removed.</p>
+</div>
+<div class="section" id="using-thread-local-variable-instead-of-the-global-one">
+<h2>2.4 Using thread local variable instead of the global one<a class="headerlink" href="#using-thread-local-variable-instead-of-the-global-one" title="Permalink to this headline">¶</a></h2>
+<p>When the usage of the global variable cannot be eliminated easily we will
+consider to use thread local variables instead. To implement thread local
+variables, theoretically we have at least 2 options to do:</p>
+<ol class="arabic simple">
+<li>By modifying the variable declaration we could use storage specifiers like
+Microsoft specific &#8220;__declspec(thread)&#8221; or &#8220;__thread&#8221; on
+the POSIX environments.</li>
+<li>By implementing the allocation of the thread local memory utilizing the
+platform dependent TLS APIs like the Windows TLS or the unix
+Pthreads implementation.</li>
+</ol>
+<p>The first one is not applicable for Mapserver since the Microsoft
+implementation does not allow delay loading of the dll containing variables
+declared with __declspec(thread).</p>
+<p>The second approach is applicable, however rewriting the existing code may be
+more difficult. GDAL has a sample implementation for it might be taken over.</p>
+</div>
+<div class="section" id="not-changing-the-code-marking-as-safe-with-locks-will-be-reconsidered-later">
+<h2>2.5 Not changing the code (Marking as safe with locks, will be reconsidered later)<a class="headerlink" href="#not-changing-the-code-marking-as-safe-with-locks-will-be-reconsidered-later" title="Permalink to this headline">¶</a></h2>
+<p>Some of the MapServer code and/or the related external libraries may not be
+modified easily and will be protected by locks in this phase of the
+realization. These issues will be kept open and the solution for the thread
+isolation might be reconsidered later. The open issues will be enumerated and
+documented along with the MapServer source files and the thread safety FAQ</p>
+<p><a class="reference external" href="http://mapserver.gis.umn.edu/docs/faq/thread_safety">http://mapserver.gis.umn.edu/docs/faq/thread_safety</a></p>
+</div>
+<div class="section" id="not-changing-the-code-marking-as-unsafe-will-be-deprecated-and-unsupported">
+<h2>2.6 Not changing the code (Marking as unsafe, will be deprecated and unsupported)<a class="headerlink" href="#not-changing-the-code-marking-as-unsafe-will-be-deprecated-and-unsupported" title="Permalink to this headline">¶</a></h2>
+<p>Having lack of support of portions of the existing code may keep from changing
+the code easily. These portions of the code will not be modified in this
+phase of the realization. These issues will be kept open and might be
+reconsidered later. The open issues will be enumerated and documented
+along with the MapServer source files and the thread safety FAQ.</p>
+</div>
+<div class="section" id="issues-of-the-mapserver-mapscript-code">
+<h2>3. Issues of the Mapserver/Mapscript code<a class="headerlink" href="#issues-of-the-mapserver-mapscript-code" title="Permalink to this headline">¶</a></h2>
+<p>This chapter will enumerate the sections of the existing code should be
+reconsidered according to the options mentioned previously. The line
+numbers may slightly change according to the developers work.</p>
+<div class="highlight-python"><pre>epplib.c(47):static int REVERSE; /* set to 1 on bigendian machines */</pre>
+</div>
+<p>This variable is set in eppreset using the following code
+{ union { long i; char c[4]; } u; u.i=1; REVERSE=(u.c[0]==0); }
+should be set during the initialization or by the makefile as a predefined
+constant. Also the MapServer configure script may include byte order
+detection. This constant might be used by other modules.</p>
+<p>SDL: This constant is limited to epplib.c...</p>
+<div class="highlight-python"><pre>mapcpl.c(57):static char     szStaticResult[MS_PATH_BUF_SIZE];</pre>
+</div>
+<p>FrankW: In fact this code carried over from GDAL was later remodelled in GDAL.
+It looks like msGetBasename() is only used in a few places and we should
+remodel those to avoid using a static buffer.</p>
+<div class="highlight-python"><pre>maperror.c(110):static char *ms_errorCodes[MS_NUMERRORCODES] = {"",
+maperror.c(154):    static errorObj ms_error = {MS_NOERR, "", "", NULL};
+maperror.c(169):static te_info_t *error_list = NULL;
+maperror.c(552):  static char version[1024];
+maperror.c(651):    static char nonblocking_set = 0;</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapfile.c(184):static char *msUnits[8]={"INCHES", "FEET", "MILES", "METERS", "KILOMETERS", "DD",  "PIXELS", "PERCENTAGES"};
+mapfile.c(185):static char *msLayerTypes[8]={"POINT", "LINE", "POLYGON", "RASTER", "ANNOTATION", "QUERY", "CIRCLE", "TILEINDEX"};
+mapfile.c(186):char *msPositionsText[MS_POSITIONS_LENGTH] = {"UL", "LR", "UR", "LL", "CR", "CL", "UC", "LC", "CC", "AUTO", "XY", "FOLLOW"}; /* msLabelPositions[] also used in mapsymbols.c (not static) */
+mapfile.c(187):static char *msBitmapFontSizes[5]={"TINY", "SMALL", "MEDIUM", "LARGE", "GIANT"};
+mapfile.c(188):static char *msQueryMapStyles[4]={"NORMAL", "HILITE", "SELECTED", "INVERTED"};
+mapfile.c(189):static char *msStatus[5]={"OFF", "ON", "DEFAULT", "EMBED"};
+mapfile.c(191):static char *msTrueFalse[2]={"FALSE", "TRUE"};
+mapfile.c(193):static char *msJoinType[2]={"ONE-TO-ONE", "ONE-TO-MANY"};</pre>
+</div>
+<p>The above are all const static data, being handled as 2.1.</p>
+<div class="highlight-python"><pre>mapgd.c(239):static unsigned char PNGsig[8] = {137, 80, 78, 71, 13, 10, 26, 10}; /* 89 50 4E 47 0D 0A 1A 0A hex */
+mapgd.c(240):static unsigned char JPEGsig[3] = {255, 216, 255}; /* FF D8 FF hex */
+mapgd.c(911):  static gdPoint points[38];
+mapgd.c(2428):  static double last_style_size;
+mapgd.c(2719):  static int styleIndex, styleVis;
+mapgd.c(2720):  static double styleSize=0, styleCoef=0, last_style_size=-1;
+mapgd.c(2721):  static int last_style_c=-1, last_style_stylelength=-1, last_styleVis=0;</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapgdal.c(141):static int    bGDALInitialized = 0;</pre>
+</div>
+<p>Will be handled as 2.2. (Startup initialization)</p>
+<div class="highlight-python"><pre>mapgeos.cpp(98):GeometryFactory *gf=NULL;</pre>
+</div>
+<p>Will be handled as 2.2. (Startup initialization)</p>
+<div class="highlight-python"><pre>maphttp.c(140):static int gbCurlInitialized = MS_FALSE;</pre>
+</div>
+<p>Will be handled as 2.2. (Startup initialization)</p>
+<div class="highlight-python"><pre>mapimagemap.c(141):static char *layerlist=NULL;
+mapimagemap.c(142):static int layersize=0;
+mapimagemap.c(143):static pString imgStr, layerStr={ &amp;layerlist, &amp;layersize, 0 };
+mapimagemap.c(146):static const char *polyHrefFmt, *polyMOverFmt, *polyMOutFmt;
+mapimagemap.c(147):static const char *symbolHrefFmt, *symbolMOverFmt, *symbolMOutFmt;
+mapimagemap.c(148):static const char *mapName;
+mapimagemap.c(150):static int suppressEmpty=0;
+mapimagemap.c(229):static int lastcolor=-1;
+mapimagemap.c(273):static char* lname;
+mapimagemap.c(274):static int dxf;</pre>
+</div>
+<p>Imagemap support is not widely used, will be handled as 2.6 for now. Still waiting for comments.</p>
+<div class="highlight-python"><pre>mapio.c(67):static int is_msIO_initialized = MS_FALSE;
+mapio.c(69):static msIOContext default_stdin_context;
+mapio.c(70):static msIOContext default_stdout_context;
+mapio.c(71):static msIOContext default_stderr_context;
+mapio.c(73):static msIOContext current_stdin_context;
+mapio.c(74):static msIOContext current_stdout_context;
+mapio.c(75):static msIOContext current_stderr_context;</pre>
+</div>
+<p>FrankW: Currently there is only one process wide set of &#8220;io handlers&#8221; for io.  This will almost certainly need to change at some point to be thread local in some fashion.  I hope to address this when I work on the redirectable OWS services accessable from MapScript this spring.</p>
+<div class="highlight-python"><pre>maplexer.c(220):static YY_BUFFER_STATE yy_current_buffer = 0;
+maplexer.c(230):static char yy_hold_char;
+maplexer.c(232):static int yy_n_chars;         /* number of characters read into yy_ch_buf */
+maplexer.c(238):static char *yy_c_buf_p = (char *) 0;
+maplexer.c(239):static int yy_init = 1;                /* whether we need to initialize */
+maplexer.c(240):static int yy_start = 0;       /* start state number */
+maplexer.c(245):static int yy_did_buffer_switch_on_eof;
+maplexer.c(306):static yyconst short int yy_accept[2442] =
+maplexer.c(579):static yyconst int yy_ec[256] =
+maplexer.c(611):static yyconst int yy_meta[52] =
+maplexer.c(621):static yyconst short int yy_base[2456] =
+maplexer.c(895):static yyconst short int yy_def[2456] =
+maplexer.c(1169):static yyconst short int yy_nxt[2776] =
+maplexer.c(1478):static yyconst short int yy_chk[2776] =
+maplexer.c(1787):static yy_state_type yy_last_accepting_state;
+maplexer.c(1788):static char *yy_last_accepting_cpos;
+maplexer.c(1886):static int yy_start_stack_ptr = 0;
+maplexer.c(1887):static int yy_start_stack_depth = 0;
+maplexer.c(1888):static int *yy_start_stack = 0;</pre>
+</div>
+<p>According to Steve&#8217;s suggestions we will address this with newer versions
+flex and bison invoked appropriately.</p>
+<div class="highlight-python"><pre>mapmygis.c(245):static int gBYTE_ORDER = 0;</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapogcsos.c(1974):    static char *request=NULL, *service=NULL;</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapogr.cpp(840):static int bOGRDriversRegistered = MS_FALSE;</pre>
+</div>
+<p>Will be handled as 2.2. (Startup initialization)</p>
+<div class="highlight-python"><pre>mapows.c(1647):  static char epsgCode[20] ="";</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapparser.c(282):static const unsigned char yytranslate[] =
+mapparser.c(317):static const unsigned char yyprhs[] =
+mapparser.c(328):static const yysigned_char yyrhs[] =
+mapparser.c(354):static const unsigned short yyrline[] =
+mapparser.c(368):static const char *const yytname[] =
+mapparser.c(381):static const unsigned short yytoknum[] =
+mapparser.c(391):static const unsigned char yyr1[] =
+mapparser.c(402):static const unsigned char yyr2[] =
+mapparser.c(415):static const unsigned char yydefact[] =
+mapparser.c(431):static const yysigned_char yydefgoto[] =
+mapparser.c(439):static const short yypact[] =
+mapparser.c(455):static const yysigned_char yypgoto[] =
+mapparser.c(465):static const unsigned char yytable[] =
+mapparser.c(491):static const yysigned_char yycheck[] =
+mapparser.c(519):static const unsigned char yystos[] =</pre>
+</div>
+<p>According to Steve&#8217;s suggestions we will address this with newer versions
+flex and bison invoked appropriately.</p>
+<div class="highlight-python"><pre>mappluginlayer.c(46):static VTFactoryObj gVirtualTableFactory = {MS_MAXLAYERS, 0, {NULL}};</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mappool.c(206):static int connectionCount = 0;
+mappool.c(207):static int connectionMax = 0;
+mappool.c(208):static connectionObj *connections = NULL;</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapproject.c(889):static char *ms_proj_lib = NULL;
+mapproject.c(890):static char *last_filename = NULL;
+mapproject.c(918):    static int finder_installed = 0;</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapscale.c(68):static char *unitText[5]={"in", "ft", "mi", "m", "km"};
+mapscale.c(69):double inchesPerUnit[6]={1, 12, 63360.0, 39.3701, 39370.1, 4374754};</pre>
+</div>
+<p>const static data, being handled as 2.1.</p>
+<div class="highlight-python"><pre>mapsde.c(216):static int lcacheCount = 0;
+mapsde.c(217):static int lcacheMax = 0;
+mapsde.c(218):static layerId *lcache = NULL;</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapserv.c(1196):        static int nRequestCounter = 1;</pre>
+</div>
+<p>Considering safe without locks (2.1). The <a class="reference external" href="../../cgi/mapserv.html#mapserv"><em>mapserv</em></a> application does not
+involved in multiple threads.</p>
+<div class="highlight-python"><pre>mapshape.c(70):static int      bBigEndian;</pre>
+</div>
+<p>Should be handled as
+epplib.c(47):static int REVERSE;</p>
+<div class="highlight-python"><pre>mapsvg.c(164):    static char epsgCode[20] ="";
+mapsvg.c(165):    static char *value;</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapswf.c(97):static char gszFilename[128];
+mapswf.c(98):static char gszAction[256];
+mapswf.c(99):static char gszTmp[256];</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapsymbol.c(154):static char *msCapsJoinsCorners[7]={"NONE", "BEVEL", "BUTT", "MITER", "ROUND", "SQUARE", "TRIANGLE"};</pre>
+</div>
+<p>const static data, being handled as 2.1.</p>
+<div class="highlight-python"><pre>mapthread.c(196):static int thread_debug = 0;
+mapthread.c(198):static char *lock_names[] =</pre>
+</div>
+<p>const static data, being handled as 2.1.</p>
+<div class="highlight-python"><pre>mapthread.c(213):static int mutexes_initialized = 0;
+mapthread.c(214):static pthread_mutex_t mutex_locks[TLOCK_MAX];
+mapthread.c(223):    static pthread_mutex_t core_lock = PTHREAD_MUTEX_INITIALIZER;
+mapthread.c(294):static int mutexes_initialized = 0;
+mapthread.c(295):static HANDLE mutex_locks[TLOCK_MAX];
+mapthread.c(305):    static HANDLE core_lock = NULL;</pre>
+</div>
+<p>Should be handled as 2.2. (Startup initialization). Initialized in msThreadInit();</p>
+<div class="highlight-python"><pre>maputil.c(1068):static int tmpCount = 0;
+maputil.c(1069):static char *ForcedTmpBase = NULL;</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapwms.c(252):static char *wms_exception_format=NULL;</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>md5c.c(58):static unsigned char PADDING[64] = {</pre>
+</div>
+<p>const static data, being handled as 2.1.</p>
+<div class="highlight-python"><pre>strptime.c(43):static const char *abb_weekdays[] = {
+strptime.c(54):static const char *full_weekdays[] = {
+strptime.c(65):static const char *abb_month[] = {
+strptime.c(81):static const char *full_month[] = {
+strptime.c(97):static const char *ampm[] = {</pre>
+</div>
+<p>const static data, being handled as 2.1.</p>
+<div class="highlight-python"><pre>gdft\gdkanji.c(103):   static int whatcode;
+gdft\gdkanji.c(403):   static unsigned char tmp[BUFSIZ];
+gdft\gdkanji.c(489):   static unsigned char tmp_dest[BUFSIZ];</pre>
+</div>
+<p>SDL: gdft and it&#8217;s contents are not part of MapServer distributions.</p>
+<div class="highlight-python"><pre>gdft\gdttf.c(712):  static gdCache_head_t *tweenColorCache=NULL; /****** set up tweenColorCache on first call ************/
+gdft\gdttf.c(852):  static gdCache_head_t      *fontCache=NULL; /****** initialize font engine on first call ************/
+gdft\gdttf.c(853):  static TT_Engine   engine;</pre>
+</div>
+<p>SDL: gdft and it&#8217;s contents are not part of MapServer distributions.</p>
+<div class="highlight-python"><pre>gdft\jisx0208.h(7):static unsigned short UnicodeTbl[][94] = {</pre>
+</div>
+<p>SDL: gdft and it&#8217;s contents are not part of MapServer distributions.</p>
+<div class="highlight-python"><pre>mapscript\csharp\csmodule.i(32):               static $moduleHelper()
+mapscript\csharp\csmodule.i(41):       static $moduleHelper the$moduleHelper = new $moduleHelper();</pre>
+</div>
+<p>Initialization startup code.</p>
+<div class="highlight-python"><pre>mapscript\php3\mapscript_i.c(223):    static int i=0;
+mapscript\php3\mapscript_i.c(1137):        static char pszFieldName[1000];</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapscript\php3\php_mapscript.c(789):static int le_msmap;
+mapscript\php3\php_mapscript.c(790):static int le_mslayer;
+mapscript\php3\php_mapscript.c(791):static int le_msimg;
+mapscript\php3\php_mapscript.c(792):static int le_msclass;
+mapscript\php3\php_mapscript.c(793):static int le_mslabel;
+mapscript\php3\php_mapscript.c(794):static int le_mscolor;
+mapscript\php3\php_mapscript.c(795):static int le_msrect_new;
+mapscript\php3\php_mapscript.c(796):static int le_msrect_ref;
+mapscript\php3\php_mapscript.c(797):static int le_mspoint_new;
+mapscript\php3\php_mapscript.c(798):static int le_mspoint_ref;
+mapscript\php3\php_mapscript.c(799):static int le_msline_new;
+mapscript\php3\php_mapscript.c(800):static int le_msline_ref;
+mapscript\php3\php_mapscript.c(801):static int le_msshape_new;
+mapscript\php3\php_mapscript.c(802):static int le_msshape_ref;
+mapscript\php3\php_mapscript.c(803):static int le_msshapefile;
+mapscript\php3\php_mapscript.c(804):static int le_msweb;
+mapscript\php3\php_mapscript.c(805):static int le_msrefmap;
+mapscript\php3\php_mapscript.c(806):static int le_msprojection_new;
+mapscript\php3\php_mapscript.c(807):static int le_msprojection_ref;
+mapscript\php3\php_mapscript.c(808):static int le_msscalebar;
+mapscript\php3\php_mapscript.c(809):static int le_mslegend;
+mapscript\php3\php_mapscript.c(810):static int le_msstyle;
+mapscript\php3\php_mapscript.c(811):static int le_msoutputformat;
+mapscript\php3\php_mapscript.c(812):static int le_msgrid;
+mapscript\php3\php_mapscript.c(813):static int le_mserror_ref;
+mapscript\php3\php_mapscript.c(814):static int le_mslabelcache;
+mapscript\php3\php_mapscript.c(815):static int le_mssymbol;
+mapscript\php3\php_mapscript.c(816):static int le_msquerymap;
+mapscript\php3\php_mapscript.c(857):static zend_class_entry *map_class_entry_ptr;
+mapscript\php3\php_mapscript.c(858):static zend_class_entry *img_class_entry_ptr;
+mapscript\php3\php_mapscript.c(859):static zend_class_entry *rect_class_entry_ptr;
+mapscript\php3\php_mapscript.c(860):static zend_class_entry *color_class_entry_ptr;
+mapscript\php3\php_mapscript.c(861):static zend_class_entry *web_class_entry_ptr;
+mapscript\php3\php_mapscript.c(862):static zend_class_entry *reference_class_entry_ptr;
+mapscript\php3\php_mapscript.c(863):static zend_class_entry *layer_class_entry_ptr;
+mapscript\php3\php_mapscript.c(864):static zend_class_entry *label_class_entry_ptr;
+mapscript\php3\php_mapscript.c(865):static zend_class_entry *class_class_entry_ptr;
+mapscript\php3\php_mapscript.c(866):static zend_class_entry *point_class_entry_ptr;
+mapscript\php3\php_mapscript.c(867):static zend_class_entry *line_class_entry_ptr;
+mapscript\php3\php_mapscript.c(868):static zend_class_entry *shape_class_entry_ptr;
+mapscript\php3\php_mapscript.c(869):static zend_class_entry *shapefile_class_entry_ptr;
+mapscript\php3\php_mapscript.c(870):static zend_class_entry *projection_class_entry_ptr;
+mapscript\php3\php_mapscript.c(871):static zend_class_entry *scalebar_class_entry_ptr;
+mapscript\php3\php_mapscript.c(872):static zend_class_entry *legend_class_entry_ptr;
+mapscript\php3\php_mapscript.c(873):static zend_class_entry *style_class_entry_ptr;
+mapscript\php3\php_mapscript.c(874):static zend_class_entry *outputformat_class_entry_ptr;
+mapscript\php3\php_mapscript.c(875):static zend_class_entry *grid_class_entry_ptr;
+mapscript\php3\php_mapscript.c(876):static zend_class_entry *error_class_entry_ptr;
+mapscript\php3\php_mapscript.c(877):static zend_class_entry *labelcache_class_entry_ptr;
+mapscript\php3\php_mapscript.c(878):static zend_class_entry *symbol_class_entry_ptr;
+mapscript\php3\php_mapscript.c(879):static zend_class_entry *querymap_class_entry_ptr;
+mapscript\php3\php_mapscript.c(891):static unsigned char one_arg_force_ref[] =
+mapscript\php3\php_mapscript.c(893):static unsigned char two_args_first_arg_force_ref[] =</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapscript\php3\php_proj.c(196):static zend_class_entry *proj_class_entry_ptr;
+mapscript\php3\php_proj.c(200):static int le_projobj;
+mapscript\php3\php_proj.c(294):static long _php_proj_build_proj_object(PJ *pj,</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapscript\swiginc\dbfinfo.i(40):        static char pszFieldName[1000];</pre>
+</div>
+<p>TODO</p>
+<div class="highlight-python"><pre>mapscript\swiginc\map.i(204):    static int i=0;</pre>
+</div>
+<p>TODO</p>
+</div>
+<div class="section" id="issues-of-the-related-libraries">
+<h2>3. Issues of the related libraries<a class="headerlink" href="#issues-of-the-related-libraries" title="Permalink to this headline">¶</a></h2>
+<p>TODO</p>
+</div>
+<div class="section" id="considerations-for-the-future-development">
+<h2>4. Considerations for the future development<a class="headerlink" href="#considerations-for-the-future-development" title="Permalink to this headline">¶</a></h2>
+<p>Developers should keep in mind that their code may be called by multiple
+threads simultaneously. Using process-wide global variables modified at run
+time will be discouraged in the future. If the usage is inevitable the
+variables should be protected by using mutual exclusion properly depending
+on the USE_THREAD constant.</p>
+</div>
+<div class="section" id="backwards-compatibility-issues">
+<h2>5. Backwards compatibility issues<a class="headerlink" href="#backwards-compatibility-issues" title="Permalink to this headline">¶</a></h2>
+<p>This is binary and source code level backward incompatible change.
+The compatibility of the mapscript interface might be kept.</p>
+</div>
+<div class="section" id="bug-id">
+<h2>Bug ID<a class="headerlink" href="#bug-id" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>The following bug is added as a primary source for collecting the developer</dt>
+<dd>and user response. Nevertheless the MapServer users and developers list
+will also be monitored and the RFC will be updated accordingly by the
+primary author.</dd>
+</dl>
+<p>Bug <a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/1764">1764</a></p>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting history<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<p>Still not proposed for voting</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-16.html" title="MS RFC 16: MapScript WxS Services"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-14.html" title="MS RFC 14: Relative Coordinates for INLINE features"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,369 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html> 
+<head>
+<title>CBE Position Viewer</title>
+<meta name='author' content='Mike Foster, cross-browser.com'>
+<meta name='description' content='Position Viewer: A programming example for CBE, a cross-browser DHTML API for IE, Gecko, Opera, Netscape, Konqueror and similar browsers'>
+<link rel='stylesheet' type='text/css' href='../cbe.css'>
+<script type='text/javascript' src='../cbe_core.js'></script>
+<script type='text/javascript' src='../cbe_event.js'></script>
+<script type='text/javascript' src='../cbe_util.js'></script>
+<script type='text/javascript' src='../cbe_debug.js'></script>
+<script type='text/javascript' src='../cbe_slide.js'></script>
+<script type='text/javascript' src='../cbe.js'></script>
+<style type='text/css'><!--
+.clsCBE {
+  position:absolute; visibility:hidden; overflow:hidden;
+  margin:0; padding:2px; color:#000000;
+}
+#E3 { position:relative; visibility:visible; overflow:hidden; margin:0; padding:0; width:50px; height:30px; clip:rect(0 50px 30px 0); color:#000000; left:0px; top:0px; }
+#E4 { position:relative; visibility:visible; overflow:hidden; margin:0; padding:0; width:auto; height:50px; color:#000000; left:0px; top:0px; }
+#E5 { padding:4px; }
+#E6 { position:relative; visibility:visible; overflow:hidden; margin:0; padding:0; width:100px; height:100px; clip:rect(0 100px 100px 0); color:#000000; left:0px; top:0px; }
+#E8 { position:relative; visibility:visible; overflow:hidden; margin:0; padding:0; width:auto; height:20px; color:#000000; background:#cccccc; left:0px; top:0px; }
+input { font-family:monospace; font-size:12px; }
+--></style>
+<script type='text/javascript'><!--
+var e1, e2, e3, e4, e5, e6, e7;
+var e1w=200, e1h=250, e2w=80, e2h=100;
+function windowOnload() {
+
+  if (document.styleSheets) {
+    var ss = document.styleSheets[0];
+    if (ss.insertRule) ss.insertRule(".clsCBE {border:1px solid #000000;}", 0);
+    else if (ss.addRule) ss.addRule(".clsCBE", "border:1px solid #000000", 0);
+  }
+  
+  with (e1 = cbeGetElementById('E1').cbe) { // absolute
+    resizeTo(e1w,e1h);
+    background('#9999ff');
+    moveTo('se');
+    show();
+    addEventListener('dragResize');
+  }
+  with (e2 = cbeGetElementById('E2').cbe) { // absolute
+    resizeTo(e2w,e2h);
+    background('#ff9999');
+    moveTo('se',4);
+    show();
+    addEventListener('dragResize');
+  }
+  with (e3 = cbeGetElementById('E3').cbe) { // relative
+    background('#3399ff');
+  }
+  with (e4 = cbeGetElementById('E4').cbe) { // relative
+    background('#ff9933');
+  }
+  with (e5 = cbeGetElementById('E5').cbe) { // absolute
+    resizeTo(250,250);
+    background('#339933');
+    show();
+    addEventListener('drag');
+  }  
+  e5.moveTo(cbeGetElementById("E8").cbe.pageX(), cbeGetElementById("E8").cbe.pageY());
+
+  with (e6 = cbeGetElementById('E6').cbe) { // relative
+    background('#99ff99');
+  }
+  with (e7 = cbeGetElementById('E7').cbe) { // absolute
+    zIndex(2);
+    resizeTo(100,100);
+    background('#33ff33');
+    moveTo(e6.offsetLeft()+e6.width()+2, e6.offsetTop()+e6.height()+2);
+    show();
+    addEventListener('drag');
+  }
+  e7.slideRate = cbeSlideRateCosine;
+
+  cbeMouseMoveStatus(true);  
+  updateForm();
+  
+//  showSupport();
+}
+
+function showSupport() {
+  var i, s = "";
+  for (i in document.cbe.supported) {
+    s += i + " = " + document.cbe.supported[i] + "\n";
+  }
+  alert(s);
+}
+
+function updateForm() {
+  setTimeout("updateForm()", 250);
+
+  var f = cbeGetElementById('f0');
+  f.t1.value = document.cbe.scrollLeft();
+  f.t2.value = document.cbe.scrollTop();
+  f.t3.value = document.cbe.width();
+  f.t4.value = document.cbe.height();
+
+  f = cbeGetElementById('f1');
+  f.t1.value = e1.left();
+  f.t2.value = e1.top();
+  f.t3.value = e1.offsetLeft();
+  f.t4.value = e1.offsetTop();
+  f.t5.value = e1.pageX();
+  f.t6.value = e1.pageY()
+
+  f = cbeGetElementById('f2');
+  f.t1.value = e2.left();
+  f.t2.value = e2.top();
+  f.t3.value = e2.offsetLeft();
+  f.t4.value = e2.offsetTop();
+  f.t5.value = e2.pageX();
+  f.t6.value = e2.pageY();
+
+  f = cbeGetElementById('f3');
+  f.t1.value = e3.left();
+  f.t2.value = e3.top();
+  f.t3.value = e3.offsetLeft();
+  f.t4.value = e3.offsetTop();
+  f.t5.value = e3.pageX();
+  f.t6.value = e3.pageY();
+
+  f = cbeGetElementById('f4');
+  f.t1.value = e4.left();
+  f.t2.value = e4.top();
+  f.t3.value = e4.offsetLeft();
+  f.t4.value = e4.offsetTop();
+  f.t5.value = e4.pageX();
+  f.t6.value = e4.pageY();
+
+  f = cbeGetElementById('f5');
+  f.t1.value = e5.left();
+  f.t2.value = e5.top();
+  f.t3.value = e5.offsetLeft();
+  f.t4.value = e5.offsetTop();
+  f.t5.value = e5.pageX();
+  f.t6.value = e5.pageY();
+
+  f = cbeGetElementById('f6');
+  f.t1.value = e6.left();
+  f.t2.value = e6.top();
+  f.t3.value = e6.offsetLeft();
+  f.t4.value = e6.offsetTop();
+  f.t5.value = e6.pageX();
+  f.t6.value = e6.pageY();
+
+  f = cbeGetElementById('f7');
+  f.t1.value = e7.left();
+  f.t2.value = e7.top();
+  f.t3.value = e7.offsetLeft();
+  f.t4.value = e7.offsetTop();
+  f.t5.value = e7.pageX();
+  f.t6.value = e7.pageY();
+}
+
+function handleSubmit() {
+  return false;
+}
+ 
+function winSize() {
+  var s = "";
+  if (_def(document.width)) s += "document.width: " + document.width + "\n";
+  if (_def(window.innerWidth)) s += "window.innerWidth: " + window.innerWidth + "\n";
+  if (document.body && _def(document.body.clientWidth)) s += "document.body.clientWidth: " + document.body.clientWidth + "\n";
+  if (document.documentElement && _def(document.documentElement.clientWidth)) s += "document.documentElement.clientWidth: " + document.documentElement.clientWidth + "\n";
+
+  if (_def(document.height)) s += "document.height: " + document.height + "\n";
+  if (_def(window.innerHeight)) s += "window.innerHeight: " + window.innerHeight + "\n";
+  if (document.body && _def(document.body.clientHeight)) s += "document.body.clientHeight: " + document.body.clientHeight + "\n";
+  if (document.documentElement && _def(document.documentElement.clientHeight)) s += "document.documentElement.clientHeight: " + document.documentElement.clientHeight + "\n";
+
+  alert(s);    
+}
+
+function eleSize(id) {
+  
+  if (document.defaultView) alert("document.defaultView");
+  
+  var s = "", e = cbeGetElementById(id);
+
+  if (e.currentStyle) alert("currentStyle");
+  
+  if (_def(e.style.width)) s += "e.style.width: " + e.style.width + "\n";
+  if (_def(e.style.pixelWidth)) s += "e.style.pixelWidth: " + e.style.pixelWidth + "\n";
+  if (_def(e.offsetWidth)) s += "e.offsetWidth: " + e.offsetWidth + "\n";
+
+  if (_def(e.style.height)) s += "e.style.height: " + e.style.height + "\n";
+  if (_def(e.style.pixelHeight)) s += "e.style.pixelHeight: " + e.style.pixelHeight + "\n";
+  if (_def(e.offsetHeight)) s += "e.offsetHeight: " + e.offsetHeight + "\n";
+
+  alert(s);
+}
+
+//--></script>
+</head>  
+<body marginwidth='0' marginheight='0'><a name="topofpage"></a>
+
+<!-- Title and Nav Bar --><script type='text/javascript'>topNavBarEx()</script>
+
+<table width='80%' align='center' cellspacing='10' cellpadding='10'><tr><td bgcolor='#ffffff'><!-- indentation table -->
+
+<h1>Position Viewer</h1>
+
+<p>This page puts IE6 in standards-compliant mode.</p>
+
+<form id='f0' name='f0' onsubmit="javascript:return(handleSubmit())">
+<table width='50%'>
+  <tr><td colspan='2'><b>document.cbe</b></td></tr>
+  <tr><td>width()</td><td><input size='10' type='text' name='t3'></td></tr>
+  <tr><td>height()</td><td><input size='10' type='text' name='t4'></td></tr>
+  <tr><td><a target="cbeRefWin" href="../docs/cbe_reference.html#scrollLeftLink" title="Reference Link">scrollLeft()</a></td><td><input size='10' type='text' name='t1'></td></tr>
+  <tr><td><a target="cbeRefWin" href="../docs/cbe_reference.html#scrollTopLink" title="Reference Link">scrollTop()</a></td><td><input size='10' type='text' name='t2'></td></tr>
+</table>
+</form>
+
+<p><a href="javascript:winSize()">View window and document sizes</a></p><!-- ************ -->
+<p><a href="javascript:eleSize('E1')">View E1 sizes</a></p><!-- ************ -->
+
+<table width='100%' border='1' cellspacing='0' cellpadding='4'>
+  <tr>
+    <td width='50%'>
+<form id='f1' name='f1' onsubmit="javascript:return(handleSubmit())">
+<table>
+  <tr><td colspan='2'><b>E1:</b> absolutely positioned; parentNode is idDocument.</td></tr>
+  <tr><td><a target="cbeRefWin" href="../docs/cbe_reference.html#leftLink" title="Reference Link">left()</a></td><td><input size='10' type='text' name='t1'></td></tr>
+  <tr><td><a target="cbeRefWin" href="../docs/cbe_reference.html#topLink" title="Reference Link">top()</a></td><td><input size='10' type='text' name='t2'></td></tr>
+  <tr><td><a target="cbeRefWin" href="../docs/cbe_reference.html#offsetLeftLink" title="Reference Link">offsetLeft()</a></td><td><input size='10' type='text' name='t3'></td></tr>
+  <tr><td><a target="cbeRefWin" href="../docs/cbe_reference.html#offsetTopLink" title="Reference Link">offsetTop()</a></td><td><input size='10' type='text' name='t4'></td></tr>
+  <tr><td><a target="cbeRefWin" href="../docs/cbe_reference.html#pageXLink" title="Reference Link">pageX()</a></td><td><input size='10' type='text' name='t5'></td></tr>
+  <tr><td><a target="cbeRefWin" href="../docs/cbe_reference.html#pageYLink" title="Reference Link">pageY()</a></td><td><input size='10' type='text' name='t6'></td></tr>
+</table>
+</form>
+    </td>
+    <td width='50%'>
+<form id='f2' name='f2' onsubmit="javascript:return(handleSubmit())">
+<table>
+  <tr><td colspan='2'><b>E2:</b> absolutely positioned; parentNode is E1.</td></tr>
+  <tr><td>left()</td><td><input size='10' type='text' name='t1'></td></tr>
+  <tr><td>top()</td><td><input size='10' type='text' name='t2'></td></tr>
+  <tr><td>offsetLeft()</td><td><input size='10' type='text' name='t3'></td></tr>
+  <tr><td>offsetTop()</td><td><input size='10' type='text' name='t4'></td></tr>
+  <tr><td>pageX()</td><td><input size='10' type='text' name='t5'></td></tr>
+  <tr><td>pageY()</td><td><input size='10' type='text' name='t6'></td></tr>
+</table>
+</form>
+    </td>
+  </tr>
+  <tr>
+    <td width='50%'>
+<form id='f3' name='f3' onsubmit="javascript:return(handleSubmit())">
+<table>
+  <tr><td colspan='2'><b>E3:</b> relatively positioned; parentNode is E2</td></tr>
+  <tr><td>left()</td><td><input size='10' type='text' name='t1'></td></tr>
+  <tr><td>top()</td><td><input size='10' type='text' name='t2'></td></tr>
+  <tr><td>offsetLeft()</td><td><input size='10' type='text' name='t3'></td></tr>
+  <tr><td>offsetTop()</td><td><input size='10' type='text' name='t4'></td></tr>
+  <tr><td>pageX()</td><td><input size='10' type='text' name='t5'></td></tr>
+  <tr><td>pageY()</td><td><input size='10' type='text' name='t6'></td></tr>
+</table>
+</form>
+    </td>
+    <td width='50%'>
+<form id='f4' name='f4' onsubmit="javascript:return(handleSubmit())">
+<table>
+  <tr><td colspan='2'><b>E4:</b> relatively positioned; parentNode is idDocument; parentElement is DIV used for indentation</td></tr>
+  <tr><td>left()</td><td><input size='10' type='text' name='t1'></td></tr>
+  <tr><td>top()</td><td><input size='10' type='text' name='t2'></td></tr>
+  <tr><td>offsetLeft()</td><td><input size='10' type='text' name='t3'></td></tr>
+  <tr><td>offsetTop()</td><td><input size='10' type='text' name='t4'></td></tr>
+  <tr><td>pageX()</td><td><input size='10' type='text' name='t5'></td></tr>
+  <tr><td>pageY()</td><td><input size='10' type='text' name='t6'></td></tr>
+</table>
+</form>
+    </td>
+  </tr>
+</table>
+
+<p align='right'><a href='#topofpage'>Top</a></p>
+<div id='E4'><p>E4:<br>relative<br><br>&nbsp;</p></div>
+
+<table width='100%' border='1' cellspacing='0' cellpadding='4'>
+  <tr>
+    <td width='50%'>
+<form id='f5' name='f5' onsubmit="javascript:return(handleSubmit())">
+<table>
+  <tr><td colspan='2'><b>E5:</b> absolutely positioned, contains the table.</td></tr>
+  <tr><td>left()</td><td><input size='10' type='text' name='t1'></td></tr>
+  <tr><td>top()</td><td><input size='10' type='text' name='t2'></td></tr>
+  <tr><td>offsetLeft()</td><td><input size='10' type='text' name='t3'></td></tr>
+  <tr><td>offsetTop()</td><td><input size='10' type='text' name='t4'></td></tr>
+  <tr><td>pageX()</td><td><input size='10' type='text' name='t5'></td></tr>
+  <tr><td>pageY()</td><td><input size='10' type='text' name='t6'></td></tr>
+</table>
+</form>
+    </td>
+    <td width='50%'>
+<form id='f6' name='f6' onsubmit="javascript:return(handleSubmit())">
+<table>
+  <tr><td colspan='2'><b>E6:</b> relatively positioned in a table cell. parentNode is E5.<br></td></tr>
+  <tr><td>left()</td><td><input size='10' type='text' name='t1'></td></tr>
+  <tr><td>top()</td><td><input size='10' type='text' name='t2'></td></tr>
+  <tr><td>offsetLeft()</td><td><input size='10' type='text' name='t3'></td></tr>
+  <tr><td>offsetTop()</td><td><input size='10' type='text' name='t4'></td></tr>
+  <tr><td>pageX()</td><td><input size='10' type='text' name='t5'></td></tr>
+  <tr><td>pageY()</td><td><input size='10' type='text' name='t6'></td></tr>
+</table>
+</form>
+    </td>
+  </tr>
+  <tr>
+    <td width='50%'>
+<form id='f7' name='f7' onsubmit="javascript:return(handleSubmit())">
+<table>
+  <tr><td colspan='2'><b>E7:</b> absolutely positioned, but defined in a table cell. parentNode is E5.</td></tr>
+  <tr><td>left()</td><td><input size='10' type='text' name='t1'></td></tr>
+  <tr><td>top()</td><td><input size='10' type='text' name='t2'></td></tr>
+  <tr><td>offsetLeft()</td><td><input size='10' type='text' name='t3'></td></tr>
+  <tr><td>offsetTop()</td><td><input size='10' type='text' name='t4'></td></tr>
+  <tr><td>pageX()</td><td><input size='10' type='text' name='t5'></td></tr>
+  <tr><td>pageY()</td><td><input size='10' type='text' name='t6'></td></tr>
+</table>
+</form>
+    </td>
+    <td width='50%' valign="top">
+      <div id="E8"><b>E8:</b> relatively positioned marker for E5</div>
+    </td>
+  </tr>
+</table>
+
+<br><br>
+
+</td></tr></table><!-- end indentation table -->
+
+<!-- Bottom Nav Bar --><script type='text/javascript'>bottomNavBarEx()</script>
+
+<!-- Positioned Elements -->
+<div id='E1' class='clsCBE'>E1<br>draggable<br>resizeable
+  <div id='E2' class='clsCBE'>E2<br>draggable<br>resizeable
+    <div id='E3'>E3<br>relative</div>
+  </div>
+</div>
+
+<div id='E5' class='clsCBE'>
+  <table border='1' cellspacing='0' cellpadding='0'>
+    <tr>
+      <td valign='top' width='100' height='100'>
+        <div id='E6'>E6<br><br>relative<br><br><a href="javascript:e7.slideTo(e6.offsetLeft(), e6.offsetTop(), 300)">Move</a> E7 here</div>
+      </td>
+      <td width='100' height='100'>
+        r1c2<br><br><a href="javascript:e7.slideTo(e6.offsetLeft()+e6.width()+2, e6.offsetTop(), 300)">Move</a> E7 here
+      </td>
+    </tr>
+    <tr>  
+      <td width='100' height='100'>
+        r2c1<br><br><a href="javascript:e7.slideTo(e6.offsetLeft(), e6.offsetTop()+e6.height()+2, 300)">Move</a> E7 here
+      </td>
+      <td width='100' height='100'>
+        <div id='E7' class='clsCBE'>E7<br>draggable</div>
+        r2c2<br><br><a href="javascript:e7.slideTo(e6.offsetLeft()+e6.width()+2, e6.offsetTop()+e6.height()+2, 300)">Move</a> E7 here
+      </td>
+    </tr>
+  </table>  
+  <p>E5 draggable</p>
+</div>
+
+</body>
+</html>

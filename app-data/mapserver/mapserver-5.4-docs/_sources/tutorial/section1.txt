@@ -1,0 +1,37 @@
+.. _section1:
+
+Section 1: Static Maps and the MapFile
+======================================
+
+- Take a shapefile. Any shapefile. We can use MapServer to display that shapefile on a web browser. Look...
+    - :ref:`Example 1.1 - A map with a single layer <example1-1>`
+  
+- We can display the same shapefile repeatedly. We can display the polygon attributes on one LAYER and and the line attributes on another...
+    - :ref:`Example 1.2 - A map with two layers <example1-2>`
+
+- And we can select which parts of the shapefile to display. We do this using the CLASS object...
+    - :ref:`Example 1.3 - Using classes to make a "useful" map <example1-3>`
+
+- We can also label our maps...
+    - :ref:`Example 1.4 - Labeling layers and label layers <example1-4>`
+
+- Or add raster data such as satellite images, aerial photographs, or shaded reliefs...
+    - :ref:`Example 1.5 - Adding a raster layer <example1-5>`
+
+- We can reproject our data from just about any projection to just about any... Yeah, check it out!
+    - :ref:`Example 1.6 - Projection/Reprojection <example1-6`
+
+- And we can use layers from other map servers on the internet (as long as they are WMS servers)...
+    - :ref:`Example 1.7 - Adding a WMS layer <example1-7>`
+
+- MapServer can output to various formats such as PDF and GeoTIFF.
+    - :ref:`Example 1.8 - A different output format <example1-8>`
+
+- MapServer not only generates static maps, it can also create interactive maps...
+    - :ref:`Example 1.9 - The difference between map and browse mode <example1-9>`
+    
+----
+
+:ref:`Back to Tutorial home <tutorial>` | :ref:`Proceed to Section 2 <section2>`
+
+----

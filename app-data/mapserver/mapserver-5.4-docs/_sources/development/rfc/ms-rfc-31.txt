@@ -1,0 +1,202 @@
+.. _rfc31:
+
+===============================================================
+  MS RFC 31: Loading MapServer Objects from Strings
+===============================================================
+
+:Date: 2007/06/19
+:Author: Steve Lime
+:Contact: Steve.Lime at DNR.State.MN.US
+:Version: 5.0
+:Status: Accepted (2007/06/22) Implemented
+:Id: $Id: ms-rfc-31.txt 8278 2008-12-23 21:34:31Z hobu $
+
+Description: This RFC addresses the ability of the MapServer tokenizer 
+(in maplexer.l and mapfile.c) to work from strings as well as files. A 
+mapfile-wide ability was added to 5.0 source and this RFC looks at loading 
+MapServer objects (layers, scalebars, etc...) via MapScript and via URLs.
+
+Current State
+~~~~~~~~~~~~~
+
+Presently MapServer can load entire mapfile's from a text block using 
+msLoadMapFromString. This is a new capability in 5.0. MapServer has long been 
+able to load/modify individual values via URL using a map_object_property 
+syntax (e.g. map_scalebar_units). 
+
+The problem with the URL support is that it is cumbersome for the user and 
+results in a ton of duplicative code in mapfile.c making maintenance difficult. 
+Developers will often add a parameter but forget to add a URL equivalent. This 
+proposal removes that redundant code and relies on a single tokenizing function 
+for each object.
+
+C API Changes
+~~~~~~~~~~~~~
+
+All major objects would get a new ...LoadFromString function (e.g. 
+msLoadLayerFromString and so on). These functions would be very simple and 
+would take an existing reference to an object and a string snippet. They would:
+
+1) establish lexer thread locks
+2) set lexer state to MS_TOKENIZE_STRING
+3) call loadObject (e.g. loadLayer)
+
+In effect this would be a way to load an empty object or update a new one.
+
+The loadObject functions would need minor changes:
+
+1) Each function would need to remove restrictions for duplicate properties. 
+   That is setting a parameter twice should not generate an error as is 
+   does now.
+2) Properties with allocated memory (e.g. char * ) should be free'd if they 
+   already have values and are being updated.
+3) the object main keyword (e.g. LAYER or CLASS) should be allowed as a token 
+   within that object loader. When parsing a file the object identifier 
+   (e.g. LAYER) is stripped off with the parent object. For example, a CLASS 
+   is recognized by loadLayer so that token never is encountered by loadClass. 
+   It makes the most sense to pass entire object definitions including the 
+   object identifier for ease of use.
+
+
+MapScript
+~~~~~~~~~
+
+I'm open to suggestions but I think the easiest thing to do would be to add an 
+updateFromString method to all major objects. It would simply take a string 
+snippet and would wrap the ...LoadFromString methods mentioned above. They 
+would return MS_SUCCESS or MS_FAILURE. Might consider adding a "clear" method 
+to (freeObject then initObject) so that users could clean things out and reload 
+from a string. I'm not sure about the effects on reference counting here.
+
+URL
+~~~
+
+I propose removing all the loadObjectValue (e.g. loadLayerValue) functions in 
+favor of entire object loading. So, instead of doing something like:
+
+  ...map_scalebar_units=meters&map_scalebar_intervals=5&map_scalebar_size=300+2... 
+
+You would do:
+
+  ...map_scalebar=UNITS+METERS+INTERVALS+5+SIZE+300+2...
+
+The major objects would still be referenced by map_scalebar or map_legend or 
+map_layername, but all other properties would be loaded through snippets.
+
+The function msLoadMapParameter would become msUpdateMapFromURL and it would 
+set the lexer state, acquire a thread lock and then call the appropriate 
+loadObject function.
+
+One issue is that the loadObject functions have traditionally worked just 
+from files so there are no limitations on what can be altered. Obviously from 
+a URL you can't allow just anything to be altered (e.g. CONNECTION, DUMP 
+and so on). So, we would create a new lexer state, MS_TOKENIZE_URL, that
+would only recognize the parameters that we want. In that state the lexer 
+would not return tokens like DUMP or CONNECTION so the loadObject functions 
+would not handle those cases. This is a simple addition to the lexer. Any 
+parameter exposed to URL modification will have the relevant loading block 
+examined so that there are no memory leaks or buffer overflow possibilities.   
+
+In addition, it was pointed out that URL configuration should not be a 
+default behavior but should be enabled explicitly. Enabling this feature 
+would happen by way of a new parameter within the webObj- URLCONFIG [pattern], 
+with a default of NULL. The pattern would be a regular expression that would
+be applied against any map_* variables. So, one could limit changes to just 
+the scalebar object with URLCONFIG 'scalebar' or allow more with 
+URLCONFIG '.'. The default would not to be allow any URL configuration. 
+
+Backwards Compatibility
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The URL change will break backwards compatibility but I feel this is a 
+relatively lightly used option and this change will be very beneficial.
+
+Post Implementation Notes
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Apparently a number of folks are having trouble with porting applications to 
+use the new url configuration. Below are more examples and lists of supported 
+keywords by object type. Rule of thumb one: when there is the opportunity for 
+more than one of a particular object (e.g. layers, classes and styles) the 
+syntax must uniquely identify the object in question in the variable name 
+(e.g. map.layer[lakes]) and then the mapfile snippet to modify the object is 
+given as the variable value. We have no way to modify 5 styles at once because 
+the mapfile syntax is so freeform. Rule of thumb two: any parameters or 
+objects that hang off the mapObj must be referenced in the variable name 
+(e.g. map.imagetype).
+
+Example 1, changing a scalebar object:
+
+::
+
+  ...&map.scalebar=UNITS+MILES+COLOR+121+121+121+SIZE+300+2&...
+
+Example 2, changing a presentation style:
+
+::
+
+ ...&map.layer[lakes].class[0].style[0]=SYMBOL+crosshatch+COLOR+151+51+151+SIZE+15&...
+
+Example 3, creating a new feature:
+
+::
+
+  ...&map_layer[3]=FEATURE+POINTS+500000+1000000+END+TEXT+'A+test+point'+END&...
+
+Changeable objects/keywords by object type.
+
+mapObj (example - ...&map.angle=50&map.imagecolor=255+0+0&...)
+
+::
+
+  angle,config,extent,imagecolor,imagetype,layer,legend,projection,querymap,reference,resolution,
+  scalebar,size,shapepath,transparent,units,web
+
+layerObj (example - ...&map.layer[lakes].data=myTempShapefile&...
+
+::
+
+  class,data (subject to DATAPATTERN validation),feature,footer (subject to TEMPLATEPATTERN   
+  validation),header (subject to TEMPLATEPATTERN validation),labelitem,opacity,projection,status,
+  template (subject to TEMPLATEPATTERN validation),tolerance,units
+
+classObj (example - ...&map.layer[lakes].class[0].style[1]=COLOR+255+0+0...)
+
+::
+
+  color,label,outlinecolor,overlaycolor,overlayoutlinecolor,overlaysize,overlaysymbolsize,size,
+  status,style,symbol,text (note that setting of color etc... should really be done through 
+  a styleObj and not the class shortcuts)
+
+labelObj (example - ...&map.scalebar=LABEL+COLOR+255+0+0+SIZE+15+END)
+
+::
+
+  angle,antialias,backgroundcolor,backgroundshadowcolor,backgroundshadowsize,color,font,
+  outlinecolor,position,shadowcolor,shadowsize,size
+
+styleObj (example - ...&map.layer[lakes].class[0].style[0]=COLOR+255+0+0+ANGLE+50+SIZE+30...)
+
+::
+
+  angle,backgroundcolor,color,outlinecolor,size,symbol,width
+
+featureObj (example - ...&map_layer[3]=FEATURE+POINTS+500000+1000000+END+TEXT+'A+test+point'+END&...)
+
+::
+ 
+  points,text,wkt
+
+More to come...
+
+Bug IDs
+~~~~~~~
+
+http://trac.osgeo.org/mapserver/ticket/2143
+
+Voting history
+~~~~~~~~~~~~~~
+
++1 from SteveL, SteveW, TomK, FrankW, AssefaY, PericlesN
+
++0 from JeffM

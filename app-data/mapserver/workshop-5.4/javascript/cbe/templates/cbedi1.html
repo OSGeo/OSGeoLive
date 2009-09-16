@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>CBE Dynamic Interface</title>
+<!-- $Revision: 0.1 $ -->
+<link rel='stylesheet' type='text/css' href='cbedi1_def.css' />
+<script type='text/javascript' src='cbedi1.js'></script>
+</head>
+
+<body>
+<a name="topofpage"></a>
+
+<div id='header' class='CBE'>
+  <div class='headerContent'>
+    <div class='mainTitle'>CBE Dynamic Interface #1</div>
+    <div class='subTitle'>A Cross-Browser Dynamic User Interface</div>
+  </div>
+</div>
+
+<div id='col1' class='CBE'>
+  <div class='col1Content'>
+    <h1>Column 1</h1>
+    <div id='fmenuMarker' class='marker'>&nbsp;</div>
+    <div id='floatingMenu' class='CBE'>
+      <hr />
+      <a class='m' href="../index.html">CBE Index</a>
+      <a class='m' href="#topofpage">Top</a>
+      <a class='m' href="#linkF">Features</a>
+      <a class='m' href="#linkU">Usage</a>
+      <a class='m' href="#linkP">Perspiciatis</a>
+      <a class='m' href="#linkA">At vero eos</a>
+      <a class='m' href="#" onclick="app.paint();return false">Repaint</a>
+      <hr />
+    </div>  
+  </div>
+</div>
+
+<div id='col2' class='CBE'>
+  <div class='col2Content'>
+    <h1>Column 2</h1>
+    <a name="linkF"></a>
+    <h2>Features</h2>
+    <ul>
+    <li>Has two columns with a header and a footer.</li>
+    <li>Header and footer have fixed heights.</li>
+    <li>Header and footer widths are dynamically resized to fit the window.</li>
+    <li>Column 1 has a vertical, floating menu.</li>
+    <li>Column 1 width is fixed.</li>
+    <li>Column 2 width is dynamically resized to fit the window.</li>
+    <li>Column heights are dynamically resized to fit the window or column 2 content - whichever is larger.</li>
+    <li>Can be configured to repaint on window resize, or on any other event.</li>
+    <li>Downgrades gracefully when javascript is disabled.</li>
+    </ul>
+    <a name="linkU"></a>
+    <h2>Usage</h2>
+    <p></p>
+    <pre>
+  var app;
+  
+  function windowOnload() {
+    app = new cbeDI1(
+      64,   // header height
+      32,   // footer height
+      125,  // column 1 width
+      10,   // vertical margin
+      40,   // horizontal margin
+      2,    // inner margin
+      700   // menu slide time
+    );
+    window.cbe.addEventListener(
+      "resize",
+      winResizeListener,
+      false
+    );
+    window.cbe.addEventListener(
+      "scroll",
+      winScrollListener,
+      false
+    );
+  }
+  
+  function winResizeListener() {
+    app.paint();
+  }
+  
+  function winScrollListener() {
+    var
+      mark = cbeGetElementById('fmenuMarker').cbe,
+      menu = cbeGetElementById('floatingMenu').cbe;
+    menu.slideTo(
+      mark.offsetLeft(),
+      mark.offsetTop() + document.cbe.scrollTop(),
+      app.tm
+    );
+  }
+    </pre>
+    <a name="linkP"></a>
+    <h2>But I must explain...</h2>
+    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui do<a href="http://lipsum.com/" title="Read about Lorem Ipsum at lipsum.com">lorem ipsum</a> quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+    <a name="linkA"></a>
+    <h2>On the other hand...</h2>
+    <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+  </div> <!-- End col2Content -->
+  <div id='col2Marker' class='marker'>&nbsp;</div>
+</div>
+
+<div id='footer' class='CBE'>
+  <div class='footerContent'>
+    Get CBE at <a href="http://cross-browser.com/" title="Cross-Browser DHTML">Cross-Browser.com</a>
+  </div>
+</div>
+
+</body>
+</html>

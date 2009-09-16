@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>CBE Position Methods</title>
+<meta name='author' content='Mike Foster, cross-browser.com'>
+<meta name='description' content='Position Methods: A programming example for CBE, a cross-browser DHTML API for IE, Gecko, Opera, Netscape, Konqueror and similar browsers'>
+<link rel='stylesheet' type='text/css' href='../cbe.css'>
+<style type='text/css'><!--
+.clsRelative {
+  position:relative; visibility:visible; overflow:hidden;
+  margin:0; padding:0; width:100%; height:100%; clip:rect(0 100% 100% 0);
+  color:#000000; background:#99ff99; layer-background-color:#99ff99;
+  left:2px; top:2px;
+}
+--></style>
+<script type='text/javascript' src='../cbe_core.js'></script>
+<script type='text/javascript' src='../cbe_event.js'></script>
+<script type='text/javascript' src='../cbe_util.js'></script>
+<script type='text/javascript' src='../cbe_debug.js'></script>
+<script type='text/javascript' src='../cbe_slide.js'></script>
+<script type='text/javascript' src='../cbe_slide2.js'></script>
+<script type='text/javascript' src='../cbe.js'></script>
+<script type='text/javascript'><!--
+if (is.nav4) document.write("<style type='text/css'>.clsCBE {position:absolute; visibility:hidden; overflow:hidden; margin:0; padding:0; width:100%; height:100%; clip:rect(0 100% 100% 0); color:#000000; background:transparent; layer-background-color:transparent;}</style>");
+else document.write("<style type='text/css'>.clsCBE {position:absolute; visibility:hidden; overflow:hidden; margin:0; padding:0; width:100%; height:100%; clip:rect(0 100% 100% 0); color:#000000; background:#ffffff; layer-background-color:#ffffff; border:1px outset; -moz-opacity:85% ; filter:Alpha(Opacity=85);}</style>");
+//--></script>
+<script type='text/javascript'><!--
+var e1, e2, e3;
+function windowOnload() {
+  with (e1 = document.getElementById('E1').cbe) {
+    resizeTo(400,100);
+    background('#9999ff');
+    moveTo('se',10);
+    show();
+    addEventListener('dragResize');
+  }
+  with (e2 = document.getElementById('E2').cbe) {
+    resizeTo(200,50);
+    background('#ff9999');
+    moveTo('e',2);
+    show();
+    addEventListener('dragResize');
+  }
+  with (e3 = document.getElementById('E3').cbe) {
+    resizeTo(300,100);
+    show(); // for opera
+  }
+  cbeMouseMoveStatus(true);  
+  window.cbe.addEventListener('scroll', scrollListener);
+}
+
+function scrollListener(e) {
+  if (!e1.moving) e1.slideCornerTo('se',e1.left()+150,e1.top()+150,200,"e1.slideTo('se',10,700)");
+  if (!e2.moving) e2.slideCornerTo('se',e2.left()+75,e2.top()+75,200,"e2.slideTo('se',20,700)");
+}
+
+function run(ex) {
+  switch(ex) {
+    case 1:
+      e1.left(0);
+      e2.top(0);
+      break;
+    case 2:
+      var x = e2.parentNode.width() / 2;
+      var y = e2.parentNode.height() / 2;
+      e2.left(x);
+      e2.top(y);
+      break;
+    case 3:
+      e1.moveTo(e3.pageX(), e3.pageY());
+      e1.moveBy(e3.width(), e3.height());
+      break;
+    case 4:
+      e1.moveTo('center')
+      e1.firstChild.moveTo('center');
+      break;
+    case 5:
+      e1.moveTo('center')
+      e2.moveTo('e', -e2.width()/2, true);
+      break;
+    case 6:
+      break;
+  }
+}
+
+//--></script>
+</head>
+
+<body marginwidth='0' marginheight='0'><a name="topofpage"></a>
+
+<!-- Title and Nav Bar --><script type='text/javascript'>topNavBarEx()</script>
+
+<table width='80%' align='center' cellspacing='10' cellpadding='10'><tr><td bgcolor='#ffffff'><!-- indentation table -->
+
+<h1>Intro to the CBE Positioning Methods</h1>
+<h2>Notes</h2>
+<p>See the object reference for an explanation of the parameter syntax used on this site, and for complete details on these methods.</p>
+<p>It is the object's top-left corner which is positioned. The point (0,0) is always at the top-left corner of the object's containing object (it's parent).</p>
+<h2>Positioning An Element</h2>
+<p><b>left([iX])</b></p>
+<p><a target="cbeRefWin" href="../docs/cbe_reference.html#leftLink" title="Reference Link">left</a> sets the x-coordinate. Returns the current x-coordinate.</p>
+<p><b>top([iY])</b></p>
+<p><a target="cbeRefWin" href="../docs/cbe_reference.html#topLink" title="Reference Link">top</a> sets the y-coordinate. Returns the current y-coordinate.</p>
+<p><a class='example' href="javascript:run(1)" title='Run Example'>Example 1</a> Sets E1's x-coordinate to 0, and sets E2's y-coordinate to 0.</p>
+<pre>
+function windowOnload() {
+  var e1 = document.getElementById('E1').cbe;
+  e1.left(10);
+  var e2 = document.getElementById('E2').cbe;
+  e2.top(0);
+}
+</pre>
+<p><a class='example' href="javascript:run(2)" title='Run Example'>Example 2</a> Sets E2's top-left corner at it's parent's center.</p>
+<pre>
+function windowOnload() {
+  var e2 = document.getElementById('E2').cbe;
+  var x = e2.parentNode.width() / 2;
+  var y = e2.parentNode.height() / 2;
+  e2.left(x);
+  e2.top(y);
+}
+</pre>
+
+<p align='right'><a href='#topofpage'>Top</a></p>
+<p><b>moveBy(iDx, iDy)</b></p>
+<p><a target="cbeRefWin" href="../docs/cbe_reference.html#moveByLink" title="Reference Link">moveBy</a> adds the arguments to the current coordinates. Returns void.</p>
+<p><b>moveTo(iX, iY [, xEndListener ])</b> - pixel coordinates</p>
+<p><a target="cbeRefWin" href="../docs/cbe_reference.html#moveToLink" title="Reference Link">moveTo</a> sets the (x,y) coordinates (<i>moves</i> the object to the specified point). Returns void.</p>
+<p><a class='example' href="javascript:run(3)" title='Run Example'>Example 3</a> Moves E1 to the same position as E3, then moves it by the width and height of E3.</p>
+<pre>
+function windowOnload() {
+  var e1 = document.getElementById('E1').cbe;
+  var e3 = document.getElementById('E3').cbe;
+  e1.moveTo(e3.pageX(), e3.pageY());
+  e1.moveBy(e3.width(), e3.height());
+}
+</pre>
+<div id='E3' class='clsRelative' style="position:relative; visibility:visible; overflow:hidden; margin:0; padding:0; width:300px; height:50px; clip:rect(0 300px 50px 0); color:#000000; background:#99ff99; layer-background-color:#99ff99; left:0px; top:0px;">E3 - relatively positioned</div>
+
+<p align='right'><a href='#topofpage'>Top</a></p>
+<p><b>moveTo(sCardinal [, iMargin [, bOutside [, xEndListener ]]])</b> - cardinal coordinates</p>
+<p><a target="cbeRefWin" href="../docs/cbe_reference.html#moveToLink" title="Reference Link">moveTo</a> moves the object to a <i>cardinal</i> position - north, south, etc. (see the object reference for details). Returns void.</p>
+<p><a class='example' href="javascript:run(4)" title='Run Example'>Example 4</a> Moves both E1 and E2 to the center of their respective containers.</p>
+<pre>
+function windowOnload() {
+  var e1 = document.getElementById('E1').cbe;
+  e1.moveTo('center')
+  e1.firstChild.moveTo('center');
+}
+</pre>
+<p><a class='example' href="javascript:run(5)" title='Run Example'>Example 5</a> Moves E1 to the center, then moves E2 half-way off the 'east' edge of it's container.</p>
+<pre>
+function windowOnload() {
+  var e1 = document.getElementById('E1').cbe;
+  var e2 = document.getElementById('E2').cbe;
+  e1.moveTo('center')
+  e2.moveTo('e', -e2.width()/2, true);
+}
+</pre>
+
+</td></tr></table><!-- end indentation table -->
+
+<!-- Bottom Nav Bar --><script type='text/javascript'>bottomNavBarEx()</script>
+
+<div id='E1' class='clsCBE' title='E1: draggable resizeable'>E1<br>draggable<br>resizeable
+  <div id='E2' class='clsCBE' title='E2: draggable resizeable'>E2<br>draggable<br>resizeable</div>
+</div>
+
+</body>
+</html>

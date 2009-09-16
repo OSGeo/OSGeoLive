@@ -1,0 +1,485 @@
+.. _wms_client:
+
+*****************************************************************************
+ WMS Client
+*****************************************************************************
+
+:Author: Jeff McKenna
+:Contact: jmckenna at gatewaygeomatics.com
+:Revision: $Revision: 9272 $
+:Date: $Date: 2009-08-25 19:01:14 -0300 (Tue, 25 Aug 2009) $
+:Last Updated: 2008/07/15
+
+.. contents:: Table of Contents
+    :depth: 2
+    :backlinks: top
+
+
+Introduction
+============
+
+A WMS (or Web Map Server) allows for use of data from several different servers, 
+and enables for the creation of a network of Map Servers from which clients can 
+build customized maps.  The following document contains information about using 
+MapServer's WMS connection type to include layers from remote WMS servers in 
+MapServer applications.
+
+This document assumes that you are already familiar with certain aspects of 
+MapServer:
+
+- MapServer application development and setting up .map files.
+- Familiarity with the WMS spec would be an asset. A link to the WMS specification 
+  document is included below. 
+
+WMS-Related Information
+-----------------------
+
+- :ref:`MapServer WMS Server HowTo <wms_server>`
+- `WMS 1.1.1 specification`_
+- `MapServer OGC Web Services Workshop package`_ 
+
+Compilation / Installation
+==========================
+
+The WMS connection type is enabled by the *--with-wmsclient* configure switch. 
+It requires PROJ4, libcurl version 7.10.1 or more recent, and optionally GDAL 
+(see below).  Windows users who do not want to compile MapServer should use 
+`MS4W`_ (which comes ready for WMS/WFS client and server use), or check for the
+availability of other :ref:`Windows binaries <windows>` with WMS support.
+
+- For PROJ4 and GDAL installation, see the MapServer Compilation HowTo (:ref:`unix` / :ref:`win32`)
+- For `libcurl`_, make sure you have version 7.10.1 or more recent installed on your 
+  system. You can find out your libcurl version using *curl-config --version*. 
+  (if your system came with an older version of libcurl preinstalled then you MUST 
+  uninstall it prior to installing the new version) 
+
+You might want to also include GDAL support if you want your application to be 
+able to reproject map slides received from remote servers. This is because raster 
+resampling works only together with the GDAL library in MapServer. If GDAL is not 
+included in your MapServer build then your application can only serve maps in the 
+subset of the projections supported by all the remote servers (this should be 
+sufficient for most applications). If you compile with GDAL then make sure that 
+your GDAL includes GIF and/or PNG support, depending on which image format you 
+request from remote servers.
+
+Once the required libraries are installed, then configure MapServer using the 
+*--with-wmsclient* switch (plus all the other switches you used to use) and recompile.
+This will give you a new set of executables (and possibly php_mapscript.so if you 
+requested it). See the MapServer Compilation HowTo (links above) for installation details. 
+
+Check your MapServer executable
+-------------------------------
+
+To check that your mapserv executable includes WMS support, use the "-v" command-line 
+switch and look for "SUPPORTS=WMS_CLIENT".
+
+Example 1. Mapserv Version Info on Unix:
+
+::
+
+   $ ./mapserv -v
+   MapServer version 5.2.0-rc1 OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP
+   OUTPUT=PDF OUTPUT=SWF OUTPUT=SVG SUPPORTS=PROJ SUPPORTS=AGG 
+   SUPPORTS=FREETYPE SUPPORTS=ICONV SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT
+   SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=WCS_SERVER
+   SUPPORTS=SOS_SERVER SUPPORTS=FASTCGI SUPPORTS=THREADS
+   SUPPORTS=GEOS SUPPORTS=RGBA_PNG INPUT=JPEG INPUT=POSTGIS 
+   INPUT=ORACLESPATIAL INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE    
+        
+
+Example 2. Mapserv Version Info on Windows:
+
+::
+
+   C:\ms4w\apache\cgi-bin> mapserv -v
+   MapServer version 5.2.0-rc1 OUTPUT=GIF OUTPUT=PNG OUTPUT=JPEG OUTPUT=WBMP
+   OUTPUT=PDF OUTPUT=SWF OUTPUT=SVG SUPPORTS=PROJ SUPPORTS=AGG 
+   SUPPORTS=FREETYPE SUPPORTS=ICONV SUPPORTS=WMS_SERVER SUPPORTS=WMS_CLIENT
+   SUPPORTS=WFS_SERVER SUPPORTS=WFS_CLIENT SUPPORTS=WCS_SERVER
+   SUPPORTS=SOS_SERVER SUPPORTS=FASTCGI SUPPORTS=THREADS
+   SUPPORTS=GEOS SUPPORTS=RGBA_PNG INPUT=JPEG INPUT=POSTGIS 
+   INPUT=ORACLESPATIAL INPUT=OGR INPUT=GDAL INPUT=SHAPEFILE  
+        
+Install Optional PROJ4 EPSG Codes
+---------------------------------
+
+(Note: installing these PROJ4 codes is optional, install only if you need them)
+
+Some Canadian WMS servers will use some non-standard projection codes not included 
+in the default distribution (e.g. EPSG:42304, etc.). If you are planning to use 
+MapServer to connect to Canadian WMS servers then you might want to `download a custom 
+Canadian epsg file`_ with those codes, and unzip it in the /usr/local/share/proj 
+directory (or /ms4w/proj/nad/ for MS4W users).
+
+Finally, ESRI WMS servers also come with their own series of non-standard codes. If you 
+are planning to connect to ESRI WMS servers then you might want to get a custom epsg file 
+that contains the canadian codes and the ESRI codes, allowing you to connect to any server. 
+Download the `custom ESRI epsg file`_  and unzip it in /usr/local/share/proj (or 
+/ms4w/proj/nad/ for MS4W users).  
+
+:Q: But why not always install and distribute the proj4-epsg-with-42xxx-and-esri.zip file 
+    then since it's more complete?
+
+:A: You should install only the epsg projection codes that you need, the epsg file with all 
+    ESRI codes in it is 20% larger than the default one, so it comes with extra overhead 
+    that you may not need. Also note that when creating WMS servers, in order to be really 
+    interoperable, only EPSG codes that are part of the standard EPSG list should be used. 
+    i.e. it is a bad idea for interoperability to use the custom canadian codes or the custom 
+    ESRI codes and we do not want to promote their use too much. 
+
+MapFile Configuration
+=====================
+
+
+.. note::
+
+    A PROJECTION must be set in the mapfile for the MAP unless you are sure that all your 
+    WMS layers support only a single projection which is the same as the PROJECTION of the map. 
+    The MAP PROJECTION can be set using "init=epsg:xxxx" codes or using regular PROJ4 parameters. 
+    Failure to set a MAP PROJECTION may result in blank maps coming from remote WMS servers 
+    (because of inconsistent BBOX+SRS combination being used in the WMS connection URL).
+
+Storing Temporary Files
+-----------------------
+
+You have to set the IMAGEPATH value in the WEB object of your mapfile to point to a valid and 
+writable directory. MapServer will use this directory to store temporary files downloaded from 
+the remote servers. The temporary files are automatically deleted by MapServer so you won't 
+notice them... but a valid IMAGEPATH is still required.
+
+Example 3. Setting IMAGEPATH Parameter in Mapfile
+
+.. code-block:: mapfile
+
+      MAP
+        ...
+        WEB
+          IMAGEPATH "/tmp/ms_tmp/"
+          IMAGEURL ...
+        END
+        ...
+      END                        
+            
+            
+
+If you want to keep this temporary file for debugging purposes, you should add the following 
+statement to the LAYER object of your mapfile:
+
+.. code-block:: mapfile
+
+    LAYER
+      ....
+      DEBUG ON
+      ... 
+    END
+      
+Adding a WMS Layer
+------------------
+
+WMS layers are accessed via the WMS connection type in the :ref:`mapfile`. Here is an 
+example of a layer using this connection type:
+
+.. code-block:: mapfile
+
+    LAYER
+      NAME "prov_bound"
+      TYPE RASTER
+      STATUS ON
+      CONNECTION "http://www2.dmsolutions.ca/cgi-bin/mswms_gmap?"
+      CONNECTIONTYPE WMS
+      METADATA
+        "wms_srs"             "EPSG:42304"
+        "wms_name"            "prov_bound"
+        "wms_server_version"  "1.1.1"
+        "wms_format"          "image/gif"
+      END
+    END
+    
+
+Required Layer Parameters and Metadata
+**************************************
+
+
+- **CONNECTIONTYPE WMS**
+
+- **CONNECTION** 
+  - this is the remote server's online resource URL, just the base URL 
+  without any of the WMS parameters. The server version, image format, 
+  layer name, etc. will be provided via metadata, see below.
+
+.. note::
+
+    Note that if the CONNECTION parameter value is not set the the value of 
+    the "wms_onlineresource" metadata will be used. If both CONNECTION and 
+    "wms_onlineresource" are set then the "wms_onlineresource" metadata takes precedence.
+
+- **"wms_format" metadata** 
+  - the image format to use in GetMap requests.
+
+.. note:: 
+
+    If wms_formatlist is provided then wms_format is optional and MapServer will 
+    pick the first supported format in wms_formatlist for use in GetMap requests. 
+    If both wms_format and wms_formatlist are provided then wms_format takes precedence.
+    Also note that WMS Servers only advertize supported formats that are part of the GD/GDAL 
+    libraries. 
+
+- **"wms_name" metadata** 
+  - comma-separated list of layers to be fetched from the remote WMS server. This 
+  value is used to set the LAYERS and QUERY_LAYERS WMS URL parameters.
+
+- **"wms_server_version" metadata**
+  - the version of the WMS protocol supported by the remote WMS server and that will be 
+  used for issuing GetMap requests.
+
+- **"wms_srs" metadata**
+  - space-delimited list of EPSG projection codes supported by the remote server. 
+  You normally get this from the server's capabilities output. This value should 
+  be upper case (EPSG:4236.....not epsg:4236) to avoid problems with case sensitive 
+  platforms. The value is used to set the SRS WMS URL parameter.
+
+Optional Layer Parameters and Metadata
+**************************************
+
+- **MINSCALE, MAXSCALE** 
+  - if the remote server's capabilities contains a ScaleHint value for this layer 
+  then you might want to set the MINSCALE and MAXSCALE in the LAYER object in the mapfile. 
+  This will allow MapServer to request the layer only at scales where it makes sense
+
+- **PROJECTION object** 
+  - it is optional at this point. MapServer will create one internally if needed.
+
+- **"wms_auth_username" metadata**
+  - msEncrypt-style authorization string.  Empty strings are also accepted.
+
+  .. code-block:: mapfile
+
+    METADATA
+      "wms_auth_username" "foo"
+      "wms_auth_password" "{FF88CFDAAE1A5E33}"
+    END
+
+- **"wms_auth_type" metadata**
+  - Authorization type.  Supported types include:
+
+    - basic
+    - digest
+    - ntlm
+    - any (the underlying http library picks the best among the opotions supported by the remote server)
+    - anysafe (the underlying http library picks only safe methods among the options supported by the remote server)
+
+  .. code-block:: mapfile
+
+    METADATA
+      "wms_auth_type" "ntlm"
+    END
+
+- **"wms_connectiontimeout" metadata** 
+  - the maximum time to wait for a remote WMS layer to load, set in seconds (default is 30 
+  seconds). This metadata can be added at the layer level so that it affects only that layer, 
+  or it can be added at the map level (in the web object) so that it affects all of the layers. 
+  Note that wms_connectiontimeout at the layer level has priority over the map level.
+
+  .. code-block:: mapfile
+
+    METADATA
+      ...
+      "wms_connectiontimeout" "60"
+      ...
+    END  
+
+- **"wms_exceptions_format" metadata**
+  - set the format for exceptions (as of MapServer 4.6). MapServer defaults to *application/vnd.ogc.se_inimage* (the exception will be in a picture format).  You can check the GetCapabilities of the server to see what formats are available for exceptions.  The *application/vnd.ogc.se_inimage* exception format is actually a non-required exception format in the WMS 1.1.1 spec, so there are servers out there which don't support this format. In that case you would use:
+
+  .. code-block:: mapfile
+
+    LAYER
+      ...
+      METADATA
+        "wms_exceptions_format "application/vnd.ogc.se_xml"
+      END
+      ...
+    END
+
+  Which would return this xml exception in the MS_ERRORFILE:
+
+  ::
+
+    Tue Jan 17 18:05:13 2006 - msDrawWMSLayerLow(): WMS server error. WMS GetMap 
+    request got XML exception for layer 'prov_bound': <?xml version='1.0' 
+    encoding="ISO-8859-1" standalone="no" ?><!DOCTYPE ServiceExceptionReport 
+    SYSTEM "http://schemas.opengis.net/wms/1.1.1/exception_1_1_1.dtd">
+    <ServiceExceptionReport version="1.1.1"><ServiceException code="LayerNotDefined">
+    msWMSLoadGetMapParams(): WMS server error. Invalid layer(s) given in the LAYERS parameter.
+    </ServiceException>
+    </ServiceExceptionReport>
+
+- **"wms_force_separate_request" metadata** 
+  - set this to "1" to force this WMS layer to be requested using its own separate GetMap 
+  request. By default MapServer will try to merge multiple adjacent WMS layers from the 
+  same server into a single multi-layer GetMap request to reduce the load on remote servers 
+  and improve response time. This metadata is used to bypass that behavior. 
+
+- **"wms_formatlist" metadata** 
+  - comma-separated list of image formats supported by the remote WMS server.
+  Note that wms_formatlist is used only if wms_format is not set. If both wms_format and 
+  wms_formatlist are provided then wms_format takes precedence.
+
+- **"wms_latlonboundingbox" metadata** 
+  - the bounding box of this layer in geographic coordinates in the format "lon_min lat_min 
+  lon_max lat_max". If it is set then MapServer will request the layer only when the map 
+  view overlaps that bounding box. You normally get this from the server's capabilities 
+  output.
+ 
+  .. code-block:: mapfile
+
+    METADATA
+      "wms_latlonboundingbox" "-124 48 -123 49"
+    END
+
+- **"wms_proxy_auth_type" metadata**
+  - the authorization type to use for a proxy connection.  Supported types include:
+
+    - basic
+    - digest
+    - ntlm
+    - any (the underlying http library picks the best among the opotions supported by the remote server)
+    - anysafe (the underlying http library picks only safe methods among the options supported by the remote server)
+
+  .. code-block:: mapfile
+
+    METADATA
+      "wms_proxy_auth_type" "ntlm"
+    END 
+
+- **"wms_proxy_host" metadata**
+  - the hostname of the proxy to use, in "dot-quad" format, with an optional port component (e.g. '192.168.2.10:8080').
+
+  .. code-block:: mapfile
+
+    METADATA
+      "wms_proxy_host" "192.168.2.10"
+    END 
+
+- **"wms_proxy_port" metadata**
+  - the port to use for a proxy connection.
+
+  .. code-block:: mapfile
+
+    METADATA
+      "wms_proxy_port" "8080"
+    END   
+
+- **"wms_proxy_type" metadata**
+  - the type of the proxy connection.  Valid values are 'http' and 'socks5', which are case sensitive.
+
+  .. code-block:: mapfile
+
+    METADATA
+      "wms_proxy_type" "http"
+    END 
+
+- **"wms_proxy_username" metadata**
+  - msEncrypt-style string for a proxy connection.  Empty strings are also accepted.
+
+  .. code-block:: mapfile
+
+    METADATA
+      "wms_proxy_username" "foo"
+      "wms_proxy_password" "{FF88CFDAAE1A5E33}"
+    END 
+
+- **"wms_sld_body" metadata**
+  -  can be used to specify an inline SLD document.
+
+- **"wms_sld_url" metadata**
+  - can be used to specify a link to an SLD document.
+          
+- **"wms_style" metadata** 
+  - name of style to use for the STYLES parameter in GetMap requests for this layer.
+
+- **"wms_style_<stylename>_sld" metadata** 
+  URL of a SLD to use in GetMap requests. Replace 
+  <stylename> in the metadta name with the name of the style to which the SLD applies.
+
+  .. code-block:: mapfile
+
+    METADATA
+      ...
+      "wms_style"              "mystyle"
+      "wms_style_mystyle_sld"  "http://my.host.com/mysld.xml"
+      ...
+    END
+          
+
+  For more information on SLDs in MapServer see the :ref:`SLD HowTo document <sld>`.
+
+- **"wms_time" metadata** 
+  - value to use for the TIME parameter in GetMap requests for this layer. Please see the 
+  :ref:`WMS Time HowTo <wms_time>` for more information.
+
+- **"wms_bgcolor" metadata**
+  - specifies the color to be used as the background of the map. The general format of BGCOLOR is a hexadecimal encoding of an RGB value where two hexadecimal characters are used for each of Red, Green, and Blue color values. The values can range between 00 and FF for each (0 and 255, base 10). The format is 0xRRGGBB; either upper or lower case characters are allowed for RR, GG, and BB values. The "0x" prefix shall have a lower case "x".
+
+- **"wms_transparent" metadata**
+  - specifies whether the map background is to be made transparent or not. TRANSPARENT can take on two values, "TRUE" or "FALSE".  If not specified, MapServer sets default to "TRUE"
+
+.. note::
+
+    Note that each of the above metadata can also be referred to as 'ows_*' instead of 'wms_*'. 
+    MapServer tries the 'wms_*' metadata first, and if not found it tries the corresponding 
+    'ows_*' name. Using this reduces the amount of duplication in mapfiles that support multiple 
+    OGC interfaces since "ows_*" metadata can be used almost everywhere for common metadata items 
+    shared by multiple OGC interfaces.
+
+Old CONNECTION parameter format from version 3.5 and 3.6 (deprecated)
+*********************************************************************
+
+In MapServer version 3.5 and 3.6, the CONNECTION parameter had to include at a 
+minimum the VERSION, LAYERS, FORMAT and TRANSPARENT WMS parameters. This mode of 
+operation is still supported but is deprecated and you are encouraged to use metadata 
+items for those parameters as documented in the previous section above.
+
+Here is an example of a layer definition using this deprecated CONNECTION parameter format:
+
+.. code-block:: mapfile
+
+    LAYER
+     NAME "bathymetry"
+     METADATA
+       "wms_title" "Elevation/Bathymetry"
+       "wms_srs"   "EPSG:4269 EPSG:4326"
+     END
+     TYPE RASTER
+     STATUS ON
+     CONNECTIONTYPE WMS
+     CONNECTION "http://www2.dmsolutions.ca/cgi-bin/mswms_gmap?VERSION=1.1.0&LAYERS=bathymetry&FORMAT=image/png"
+     PROJECTION
+       "init=epsg:4236"
+     END
+    END
+    
+Limitations/TODO
+================
+
+1. GetFeatureInfo is not fully supported since the output of getFeatureInfo is 
+   left to the discretion of the remote server. A method layer.getWMSFeatureInfoURL() 
+   has been added to MapScript for applications that want to access featureInfo results 
+   and handle them directly.
+   
+2. MapServer does not attempt to fetch the layer's capabilities. Doing so at every 
+   map draw would be extremely inefficient. And caching that information does not belong 
+   in the core of MapServer. This is better done at the application level, in a script, 
+   and only the necessary information is passed to the MapServer core via the CONNECTION 
+   string and metadata. 
+
+
+
+.. #### rST Link Section ####
+
+.. _`WMS 1.1.1 specification`: http://www.opengeospatial.org/docs/01-068r2.pdf
+.. _`MapServer OGC Web Services Workshop package`: http://ms-ogc-workshop.maptools.org/
+.. _`libcurl`: http://curl.haxx.se/libcurl/c/
+.. _`MS4W`: http://www.maptools.org/ms4w/
+.. _`download a custom Canadian epsg file`: http://www.maptools.org/dl/proj4-epsg-with-42xxx.zip
+.. _`custom ESRI epsg file`: http://www.maptools.org/dl/proj4-epsg-with-42xxx-and-esri.zip

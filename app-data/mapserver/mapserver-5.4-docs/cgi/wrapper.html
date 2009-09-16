@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>A Simple CGI Wrapper Script &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="CGI" href="index.html" />
+    <link rel="next" title="Community Activities" href="../community/index.html" />
+    <link rel="prev" title="Run-time Substitution" href="runsub.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../community/index.html" title="Community Activities"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="runsub.html" title="Run-time Substitution"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">CGI</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//cgi/wrapper.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/cgi/wrapper.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">A Simple CGI Wrapper Script</a><ul>
+<li><a class="reference external" href="#introduction">Introduction</a></li>
+<li><a class="reference external" href="#script-information">Script Information</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="runsub.html"
+                                  title="previous chapter">Run-time Substitution</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="../community/index.html"
+                                  title="next chapter">Community Activities</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/cgi/wrapper.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="a-simple-cgi-wrapper-script">
+<span id="wrapper"></span><h1><a class="toc-backref" href="#table-of-contents">A Simple CGI Wrapper Script</a><a class="headerlink" href="#a-simple-cgi-wrapper-script" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Steven Monai</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8278 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2008-12-23 17:34:31 -0400 (Tue, 23 Dec 2008) $</td>
+</tr>
+<tr class="field"><th class="field-name">Last Updated:</th><td class="field-body">2006/01/26</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#a-simple-cgi-wrapper-script" id="id1">A Simple CGI Wrapper Script</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference internal" href="#script-information" id="id3">Script Information</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#table-of-contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This document presents a simple shell script that can be used to &#8220;wrap&#8221; the
+MapServer CGI, in order to avoid having to specify the &#8216;map&#8217; parameter (or any
+other chosen parameters) in your MapServer URLs.</p>
+</div>
+<div class="section" id="script-information">
+<h2><a class="toc-backref" href="#table-of-contents">Script Information</a><a class="headerlink" href="#script-information" title="Permalink to this headline">¶</a></h2>
+<p>If you want to avoid having to specify the &#8216;map&#8217; parameter in your MapServer
+URLs, one solution is to use a &#8220;wrapper&#8221;. Basically, a wrapper is a CGI program
+that receives an incoming CGI request, modifies the request parameters in some
+way, and then hands off the actual processing to another CGI program (e.g.
+MapServer).</p>
+<p>The following shell script is a wrapper for CGI GET requests that should be
+generic enough to run on any OS with /bin/sh:</p>
+<div class="highlight-python"><pre>#!/bin/sh
+MAPSERV="/path/to/my/mapserv"
+MAPFILE="/path/to/my/mapfile.map"
+if [ "${REQUEST_METHOD}" = "GET" ]; then
+  if [ -z "${QUERY_STRING}" ]; then
+    QUERY_STRING="map=${MAPFILE}"
+  else
+    QUERY_STRING="map=${MAPFILE}&amp;${QUERY_STRING}"
+  fi
+  exec ${MAPSERV}
+else
+  echo "Sorry, I only understand GET requests."
+fi
+exit 1
+# End of Script</pre>
+</div>
+<p>You should set the MAPSERV and MAPFILE variables as appropriate for your
+configuration. MAPSERV points to your MapServer executable, and MAPFILE points
+to the mapfile you want MapServer to use. Both variables should be absolute
+file paths that your webserver has permission to access, although they need not
+(and probably should not) be in web-accessible locations. Then put the script
+in your web server&#8217;s cgi-bin directory, and make it executable.</p>
+<p>Although this script only sets the &#8216;map&#8217; parameter, it is easily modified to
+set any number of other MapServer parameters as well. For example, if you want
+to force your MapServer to &#8216;map&#8217; mode, you can simply add &#8216;mode=map&#8217; to the
+front of the QUERY_STRING variable. Just remember to separate your parameters
+with ampersands (&#8216;&amp;&#8217;).</p>
+<p>Finally, note that the script only works for GET requests.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../community/index.html" title="Community Activities"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="runsub.html" title="Run-time Substitution"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >CGI</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

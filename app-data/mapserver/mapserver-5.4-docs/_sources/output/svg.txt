@@ -1,0 +1,427 @@
+.. _svg:
+
+*****************************************************************************
+ SVG
+*****************************************************************************
+
+:Author:        Jeff McKenna
+:Contact:       jmckenna at gatewaygeomatics.com
+:Revision: $Revision: 8365 $
+:Date: $Date: 2008-12-31 11:49:02 -0400 (Wed, 31 Dec 2008) $
+:Last Updated: 2005/12/13
+
+.. contents:: Table of Contents
+    :depth: 2
+    :backlinks: top
+
+Introduction
+============
+
+SVG (or Scalable Vector Graphics) is a standardized XML language for describing 
+2D graphics via vector graphics, text and raster graphics. As of version 4.5, 
+MapServer can output SVG v1.1 maps. The following documentation is based on the 
+`World Wide Web Consortium's (W3C) Scalable Vector Graphics (SVG) 1.1 Specification`_.
+
+This document assumes that you are already familiar with certain aspects of MapServer:
+
+- MapServer application development and setting up map files. 
+
+Links to SVG-Related Information
+--------------------------------
+
+- `SVG 1.1 specification`_
+
+- `SVG Discussion Paper`_
+
+- `G-XML Project Page`_
+
+- `SVG Tiny Profile`_
+
+- :ref:`MapFile Reference Doc <mapfile>`
+
+Feature Types and SVG Support Status
+====================================
+
+Annotation Layers
+-----------------
+
+Annotation layers are supported (see the *Text Features* section below for details).
+
+Circle Layers
+-------------
+
+Circle layers are not yet supported.
+
+Line Layers
+-----------
+
+The following items describe how line layers are handled by MapServer for SVG output:
+
+- Lines are converted to SVG `polyline`_ elements.
+- The STYLE object's WIDTH parameter is used for SYMBOL 0 for line thickness.
+- The STYLE object's SIZE parameter is used for other symbols for line thickness.
+- All lines are drawn without symbols - only line thickness changes.
+- If a style uses a symbol and this symbol has a dashed style, it will be 
+  transformed into an SVG `stroke-dasharray`_ element. 
+
+Point Layers
+------------
+
+The following items describe how point layers are handled by MapServer for SVG output:
+
+- VECTOR, ELLIPSE, and TRUETYPE symbols are supported.
+- PIXMAP symbols are not currently supported.
+- Labels attached with the symbols are supported (see the *Text Features* section 
+  below for details). 
+
+Polygon Layers
+--------------
+
+The following items describe how polygon layers are handled by MapServer for SVG output:
+
+- Polygons are converted to SVG `polygon`_ elements.
+- The STYLE's COLOR is used for the fill.
+- The STYLE's OUTLINECOLOR is used for the stroke.
+- SVG `patterns`_ are not currently supported. 
+
+Raster Layers
+-------------
+
+The following items describe how raster layers are handled by MapServer for SVG output:
+
+- Temporary image is created through the GD library, and GD functions are used to draw the layer.
+- You must have at least PNG or JPEG support compiled in MapServer.
+- You must have the WEB object's IMAGEPATH and IMAGEURL set properly in your mapfile. 
+
+Text Features
+-------------
+
+The following items describe how text features are handled by MapServer for SVG output:
+
+- Text is converted to SVG `text`_ element.
+- Only TRUETYPE fonts are supported.
+- Supports labels with ENCODING (output as UTF-8 hexadecimal values).
+- The FONT name used in MapServer is parsed to form the SVG `font-family`_, `font-style`_, and `font-weight`_. 
+
+WMS Layers
+----------
+
+WMS layers are not yet supported.
+
+Setting up a Mapfile for SVG Output
+
+- You must have valid IMAGEPATH and IMAGEURL parameters set in the WEB object of 
+  the mapfile.
+- To be able to output a valid SVG file, the user needs to define an OUTPUTFORMAT 
+  object in the map file and set the IMAGETYPE parameter to svg. Here is an example:
+
+  ::
+
+    MAP
+      ...
+      IMAGETYPE svg
+      ...
+      OUTPUTFORMAT
+        NAME svg
+        MIMETYPE "image/svg+xml"
+        DRIVER svg
+        FORMATOPTION  "COMPRESSED_OUTPUT=TRUE"
+        FORMATOPTION  "FULL_RESOLUTION=TRUE"        
+      END
+      ...
+      WEB
+        IMAGEPATH "/tmp/ms_tmp/"
+        IMAGEURL  "/ms_tmp/"
+      END
+      ...
+      LAYER
+        ...
+      END      
+    END
+    
+
+  **Note:**
+
+  If FORMATOPTION "COMPRESSED_OUTPUT=TRUE" is set MapServer will produce a 
+  compressed SVG file (svgz). By default this option is FALSE. Note that to be 
+  able to create compressed output, MapServer must be built with the compile 
+  flag USE_ZLIB.
+
+  If FORMATOPTION "FULL_RESOLUTION=TRUE" is set MapServer will not eliminate 
+  duplicate points and collinear lines when outputting SVG. By default this option 
+  is set to FALSE. 
+  
+Testing your SVG Output
+=======================
+
+- The easiest way to test your SVG mapfile is to use :ref:`MapServer CGI <cgi>`. For example, 
+  you might enter the following URL in a browser:
+
+  ::
+  
+      http://127.0.0.1/cgi-bin/mapserv.exe?map=my/path/to/my-svg.map&mode=map&layers=layer1 layer2
+        
+- You can also use :ref:`PHP/MapScript <php>` to test your SVG mapfile. Your php file 
+  might look like the following:
+
+  ::
+  
+    <?php
+
+      dl("php_mapscript_45.dll");
+
+      $oMap = ms_newmapObj("my/path/to/my-svg.map");
+
+      $img = $oMap->draw();
+
+      header("Content-type: image/svg+xml");
+
+      $url = $img->saveImage("");
+
+    ?>      
+        
+
+An SVG file should be created in your IMAGEPATH directory. If you open the SVG 
+file in a text editor you can see that it is an XML file. Below is a sample SVG 
+file of a point layer with labels:
+
+::
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-flat.dtd">
+    <svg version="1.1" width="400" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <!-- START LAYER popplace -->
+    <ellipse cx="252" cy="130" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="37" cy="227" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="127" cy="239" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="255" cy="282" rx="3" ry="3" fill="#000000"  />
+    <polygon fill="#000000"   stroke-width="1"  points=" 267,263 270,263 271,260 272,263 275,263 273,265 274,268 271,266 268,268 269,265"/>
+    <ellipse cx="288" cy="247" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="313" cy="243" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="328" cy="233" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="331" cy="245" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="366" cy="196" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="161" cy="246" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="92" cy="208" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="40" cy="125" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="108" cy="146" rx="3" ry="3" fill="#000000"  />
+    <text  x="40" y="143" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Yellowknife</text>
+    <text  x="43" y="121" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Whitehorse</text>
+    <text  x="34" y="205" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Edmonton</text>
+    <text  x="164" y="258" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Winnipeg</text>
+    <text  x="316" y="190" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >St. John's</text>
+    <text  x="334" y="258" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Halifax</text>
+    <text  x="249" y="230" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Charlottetown</text>
+    <text  x="241" y="242" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Quebec</text>
+    <text  x="223" y="260" font-family="fritqat-italic" font-size="8pt"   fill="#ff0000" stroke="#ffffff" stroke-width="0.5"  >Ottawa</text>
+    <text  x="210" y="279" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Toronto</text>
+    <text  x="82" y="234" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Regina</text>
+    <text  x="40" y="223" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Victoria</text>
+    <text  x="214" y="125" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Iqaluit</text>
+    </svg>    
+    
+
+You can now view the SVG file in a supported browser (see the official `list of 
+SVG implementations`_ for possible SVG viewers). The `Adobe Viewer plugin`_ is very popular. 
+
+goSVG
+=====
+
+goSVG is now supported as a vector output format in MapServer 4.5 (and later).
+
+Definition
+----------
+
+This definition of goSVG was obtained from `here`_.
+
+goSVG is short for "G-XML over SVG" and "g-contents over SVG". This is a subset 
+for mobiles specified within the `G-XML`_ (a Japanese Spatial Information Format 
+which is an XML based protocol with the ability to describe, communicate and 
+exchange Spatial Information and Electric Maps), and is a Spatial Information 
+Exchanging format that determines the method to expand spatial information and 
+connect to the backend system(G-XML standard mark format). goSVG is an expanded 
+`SVG Tiny profile`_ (a Mobile profile of `SVG 1.1`_. suited for cellular phones) 
+that adds functions that are useful for Spatial Information Services
+(SVG Map Service).
+
+Support for Specific goSVG Elements
+-----------------------------------
+
+- Name space extension: supported
+- Content Area Definition (bounding box): supported
+- Geographic Coordinate System: supported
+- Map Request Protocol: supported 
+
+Setting up a Mapfile for goSVG Output
+-------------------------------------
+
+Requirements
+************
+
+- A valid MapServer :ref:`mapfile`.
+- Valid IMAGEPATH and IMAGEURL parameters set in the WEB object of the mapfile.
+- A PROJECTION object defined beneath the MAP object, using an EPSG code. 
+  For example:
+
+  ::
+  
+          MAP
+            ...
+            WEB
+              IMAGEPATH "/tmp/ms_tmp/"
+              IMAGEURL  "/ms_tmp/"
+            END
+            ...
+            PROJECTION
+              "init=epsg:42304"
+            END
+            ...
+            LAYER
+            ...
+            END
+          END
+          
+
+Setting the OUTPUTFORMAT
+************************
+
+To be able to output a valid goSVG file, you must define an 
+:ref:`OUTPUTFORMAT` object in the mapfile and set the IMAGETYPE to svg. 
+Here is an example:
+
+::
+
+          MAP
+            ...
+            IMAGETYPE svg
+            ...
+            OUTPUTFORMAT
+              NAME svg
+              MIMETYPE "image/svg+xml"
+              DRIVER svg
+              FORMATOPTION "GOSVG=TRUE"
+              FORMATOPTION "GOSVG_ZoomInTH=20"
+              FORMATOPTION "GOSVG_ZoomOutTH=40"
+              FORMATOPTION "GOSVG_ScrollTH=60"
+            END
+            ...
+            WEB
+              IMAGEPATH "/tmp/ms_tmp/"
+              IMAGEURL  "/ms_tmp/"
+            END
+            ...
+            PROJECTION
+              "init=epsg:42304"
+            END
+            ...
+            LAYER
+            ...
+            END
+          END
+          
+
+Specific FORMATOPTIONs Related to goSVG
+***********************************************************
+
+GOSVG
+  should be set to TRUE. The default is false.
+
+GOSVG_ZoomInTH
+  controls the zoomin threshold when outputting the Map Request 
+  Protocol. If it is not defined the default value is set to 70.
+
+GOSVG_ZoomOutTH
+  controls the zoomout threshold when outputting the Map R
+  equest Protocol. If it is not defined the default value is set to 100.
+
+GOSVG_ScrollTH
+  controls the scrolling threshold when outputting the Map 
+  Request Protocol. If it is not defined the default value is set to 10. 
+
+Testing your goSVG Output
+-------------------------
+
+Refer to the section `Testing your SVG Output`_ to generate and test your 
+goSVG output. goSVG can be read by regular SVG viewers (they will just ignore 
+the goSVG headers).
+
+Sample goSVG File Produced by MapServer
+---------------------------------------
+
+Below is a sample goSVG file of a point layer with labels:
+
+::
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11-flat.dtd">
+    <svg version="1.1" width="400" height="300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:au="http://www.svgmovile.jp/2004/kddip"  au:boundingBox="0 0 400 300">
+    <title>DEMO</title>
+    <metadata> 
+    <rdf:RDF xmlns:rdf = "http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+    xmlns:crs = "http://www.ogc.org/crs" xmlns:svg="http://wwww.w3.org/2000/svg"> 
+    <rdf:Description> 
+    <crs:CoordinateReferenceSystem svg:transform="matrix(0.000066,0.000000,0.000000,-0.000066,171.243002,253.040495)" 
+    rdf:resource="http://www.opengis.net/gml/srs/epsg.xml#42304"/> 
+    </rdf:Description> 
+     </rdf:RDF> 
+    <au:lbs protocol="maprequest">
+    <au:zoomin th="20" xlink:href="."/>
+    <au:zoomout th="40" xlink:href="."/>
+    <au:scroll th="60" xlink:href="."/>
+    </au:lbs>
+    </metadata>
+
+    <!-- START LAYER popplace -->
+    <ellipse cx="252" cy="130" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="37" cy="227" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="127" cy="239" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="255" cy="282" rx="3" ry="3" fill="#000000"  />
+    <polygon fill="#000000"   stroke-width="1"  points=" 267,263 270,263 271,260 272,263 275,263 273,265 274,268 271,266 268,268 269,265"/>
+    <ellipse cx="288" cy="247" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="313" cy="243" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="328" cy="233" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="331" cy="245" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="366" cy="196" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="161" cy="246" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="92" cy="208" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="40" cy="125" rx="3" ry="3" fill="#000000"  />
+    <ellipse cx="108" cy="146" rx="3" ry="3" fill="#000000"  />
+    <text  x="40" y="143" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Yellowknife</text>
+    <text  x="43" y="121" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Whitehorse</text>
+    <text  x="34" y="205" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Edmonton</text>
+    <text  x="164" y="258" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Winnipeg</text>
+    <text  x="316" y="190" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >St. John's</text>
+    <text  x="334" y="258" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Halifax</text>
+    <text  x="249" y="230" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Charlottetown</text>
+    <text  x="241" y="242" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Quebec</text>
+    <text  x="223" y="260" font-family="fritqat-italic" font-size="8pt"   fill="#ff0000" stroke="#ffffff" stroke-width="0.5"  >Ottawa</text>
+    <text  x="210" y="279" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Toronto</text>
+    <text  x="82" y="234" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Regina</text>
+    <text  x="40" y="223" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Victoria</text>
+    <text  x="214" y="125" font-family="fritqat" font-size="8pt"   fill="#000000" stroke="#ffffff" stroke-width="0.5"  >Iqaluit</text>
+    </svg>      
+      
+
+.. #### rST Link Section ####
+
+.. _`World Wide Web Consortium's (W3C) Scalable Vector Graphics (SVG) 1.1 Specification`: http://www.w3.org/TR/SVG/
+.. _`SVG 1.1 specification`: http://www.w3.org/TR/SVG/
+.. _`SVG Discussion Paper`: http://www.carto.net/papers/svg/index_e.shtml
+.. _`G-XML Project Page`: http://gisclh.dpc.or.jp/gxml/contents-e/index.htm
+.. _`SVG Tiny Profile`: http://www.w3.org/TR/2003/REC-SVGMobile-20030114/
+.. _`polyline`: http://www.w3.org/TR/SVG/shapes.html#PolylineElement
+.. _`stroke-dasharray`: http://www.w3.org/TR/SVG/painting.html
+.. _`polygon`: http://www.w3.org/TR/SVG/shapes.html#PolygonElement
+.. _`patterns`: http://www.w3.org/TR/SVG/pservers.html#Patterns
+.. _`text`: http://www.w3.org/TR/SVG/text.html#TextElement
+.. _`font-family`: http://www.w3.org/TR/SVG/text.html#FontFamilyProperty
+.. _`font-style`: http://www.w3.org/TR/SVG/text.html#FontStyleProperty
+.. _`font-weight`: http://www.w3.org/TR/SVG/text.html#FontWeightProperty
+.. _`list of SVG implementations`: http://www.w3.org/Graphics/SVG/SVG-Implementations
+.. _`Adobe Viewer plugin`: http://www.adobe.com/svg/viewer/install/main.html
+.. _`here`: http://www.svgopen.org/2004/papers/goSVGauthoringtool-1/
+.. _`G-XML`: http://gisclh.dpc.or.jp/gxml/contents-e/index.htm
+.. _`SVG 1.1`: http://www.w3.org/TR/SVG/
+
+

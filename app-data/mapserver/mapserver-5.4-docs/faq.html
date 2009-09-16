@@ -1,0 +1,771 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>FAQ &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="copyright" title="Copyright" href="copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="index.html" />
+    <link rel="next" title="License" href="copyright.html" />
+    <link rel="prev" title="Errors" href="errors.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="index.html" title="Home">Home</a> |
+  <a href="documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="" title="FAQ">FAQ</a> |
+  <a href="download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="index.html" title="Home"><img src="_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="copyright.html" title="License"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="errors.html" title="Errors"
+             accesskey="P">previous</a> |</li>
+        <li><a href="documentation.html">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../html//faq.html"><img src="_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../html/de/faq.html"><img src="_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">FAQ</a><ul>
+<li><a class="reference external" href="#where-is-the-mapserver-log-file">Where is the MapServer log file?</a></li>
+<li><a class="reference external" href="#what-books-are-available-about-mapserver">What books are available about MapServer?</a></li>
+<li><a class="reference external" href="#how-do-i-compile-mapserver-for-windows">How do I compile MapServer for Windows?</a></li>
+<li><a class="reference external" href="#what-do-mapserver-version-numbers-mean">What do MapServer version numbers mean?</a></li>
+<li><a class="reference external" href="#is-mapserver-thread-safe">Is MapServer Thread-safe?</a></li>
+<li><a class="reference external" href="#what-does-status-mean-in-a-layer">What does STATUS mean in a LAYER?</a></li>
+<li><a class="reference external" href="#how-can-i-make-my-maps-run-faster">How can I make my maps run faster?</a></li>
+<li><a class="reference external" href="#what-does-polyline-mean-in-mapserver">What does Polyline mean in MapServer?</a></li>
+<li><a class="reference external" href="#what-is-mapscript">What is MapScript?</a></li>
+<li><a class="reference external" href="#does-mapserver-support-reverse-geocoding">Does MapServer support reverse geocoding?</a></li>
+<li><a class="reference external" href="#does-mapserver-support-geocoding">Does MapServer support geocoding?</a></li>
+<li><a class="reference external" href="#how-do-i-set-line-width-in-my-maps">How do I set line width in my maps?</a></li>
+<li><a class="reference external" href="#why-do-my-jpeg-input-images-look-crappy-via-mapserver">Why do my JPEG input images look crappy via MapServer?</a></li>
+<li><a class="reference external" href="#which-image-format-should-i-use">Which image format should I use?</a></li>
+<li><a class="reference external" href="#why-doesn-t-pil-python-imaging-library-open-my-pngs">Why doesn&#8217;t PIL (Python Imaging Library) open my PNGs?</a></li>
+<li><a class="reference external" href="#why-do-my-symbols-look-poor-in-jpeg-output">Why do my symbols look poor in JPEG output?</a></li>
+<li><a class="reference external" href="#how-do-i-add-a-copyright-notice-on-the-corner-of-my-map">How do I add a copyright notice on the corner of my map?</a><ul>
+<li><a class="reference external" href="#example-layer">Example Layer</a></li>
+<li><a class="reference external" href="#result">Result</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#how-do-i-have-a-polygon-that-has-both-a-fill-and-an-outline-with-a-width">How do I have a polygon that has both a fill and an outline with a width?</a></li>
+<li><a class="reference external" href="#how-can-i-create-simple-antialiased-line-features">How can I create simple antialiased line features?</a></li>
+<li><a class="reference external" href="#which-ogc-specifications-does-mapserver-support">Which OGC Specifications does MapServer support?</a></li>
+<li><a class="reference external" href="#why-does-my-requested-wms-layer-not-align-correctly">Why does my requested WMS layer not align correctly?</a></li>
+<li><a class="reference external" href="#when-i-do-a-getcapabilities-why-does-my-browser-want-to-download-mapserv-exe-mapserv">When I do a GetCapabilities, why does my browser want to download mapserv.exe/mapserv?</a></li>
+<li><a class="reference external" href="#why-do-my-wms-getmap-requests-return-exception-using-mapserver-5-0">Why do my WMS GetMap requests return exception using MapServer 5.0?</a></li>
+<li><a class="reference external" href="#where-do-i-find-my-epsg-code">Where do I find my <tt class="docutils literal"><span class="pre">EPSG</span></tt> code?</a></li>
+<li><a class="reference external" href="#how-can-i-reproject-my-data-using-ogr2ogr">How can I reproject my data using ogr2ogr?</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="errors.html"
+                                  title="previous chapter">Errors</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="copyright.html"
+                                  title="next chapter">License</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="_sources/faq.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="faq">
+<span id="id1"></span><h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="where-is-the-mapserver-log-file">
+<h2>Where is the MapServer log file?<a class="headerlink" href="#where-is-the-mapserver-log-file" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference external" href="development/rfc/ms-rfc-28.html#rfc28"><em>MS RFC 28: Redesign of LOG/DEBUG output mechanisms</em></a></p>
+</div>
+<div class="section" id="what-books-are-available-about-mapserver">
+<h2>What books are available about MapServer?<a class="headerlink" href="#what-books-are-available-about-mapserver" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://www.oreilly.com/catalog/mappinghks/">&#8220;Mapping Hacks&#8221;</a> by Schuyler
+Erle, Rich Gibson, and Jo Walsh is available from O&#8217;Reilly.</p>
+<p><a class="reference external" href="http://oreilly.com/catalog/webmapping">&#8220;Web Mapping Illustrated&#8221;</a> by Tyler
+Mitchell is available from O&#8217;Reilly. Introduces MapServer and many other
+related technologies including, GDAL/OGR, MapScript, PostGIS, map projections,
+etc.</p>
+<p><a class="reference external" href="http://www.apress.com/book/bookDisplay.html?bID=443">&#8220;MapServer: Open Source GIS Development&#8221;</a> by Bill Kropla.</p>
+</div>
+<div class="section" id="how-do-i-compile-mapserver-for-windows">
+<h2>How do I compile MapServer for Windows?<a class="headerlink" href="#how-do-i-compile-mapserver-for-windows" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference external" href="installation/win32.html#win32"><em>Compiling on Win32</em></a>. Also, you can use the development libraries in <a class="reference external" href="download.html#windows"><em>OSGeo4W</em></a> as a starting point instead of building all of the dependent
+libraries yourself.</p>
+</div>
+<div class="section" id="what-do-mapserver-version-numbers-mean">
+<h2>What do MapServer version numbers mean?<a class="headerlink" href="#what-do-mapserver-version-numbers-mean" title="Permalink to this headline">¶</a></h2>
+<p>MapServer&#8217;s version numbering scheme is very similar to Linux&#8217;s. For example,
+a MapServer version number of 4.2.5 can be decoded as such:</p>
+<ul class="simple">
+<li>4: Major version number. MapServer releases a major version every two to
+three years.</li>
+<li>2: Minor version number. Increments in minor version number almost always
+relate to additions in functionality.</li>
+<li>5: Revision number. Revisions are bug fixes only. No new functionality is
+provided in revisions.</li>
+</ul>
+<p>From a developer&#8217;s standpoint, MapServer version numbering scheme is also like
+Linux. Even minor version numbers (0..2..4..6) relate to <em>release</em> versions,
+and odd minor versions (1..3..5..7) correspond to developmental versions.</p>
+</div>
+<div class="section" id="is-mapserver-thread-safe">
+<h2>Is MapServer Thread-safe?<a class="headerlink" href="#is-mapserver-thread-safe" title="Permalink to this headline">¶</a></h2>
+<p><strong>Q</strong>: Is MapServer thread-safe?</p>
+<p><strong>A</strong>: Generally, no (but see the next question). Many components of MapServer
+use static or global data that could potentially be modified by another
+thread. Under heavy load these unlikely events become inevitable, and could
+result in sporadic errors.</p>
+<p><strong>Q</strong>: Is it possible to safely use any of MapServer in a multi-threaded
+application?</p>
+<p><strong>A</strong>: Some of it, yes, with care. Or with Python :) Programmers must either
+avoid using the unsafe components of MapServer or carefully place locks around
+them. Python&#8217;s global interpreter lock immunizes against MapServer threading
+problems; since no mapscript code ever releases the GIL all mapscript
+functions or methods are effectively atomic. Users of mapscript and Java,
+.NET, mod_perl, or mod_php do not have this extra layer of protection.</p>
+<p><strong>A</strong>: Which components are to be avoided?</p>
+<p><strong>Q</strong>: Below are lists of unsafe and unprotected components and unsafe but
+locked components.</p>
+<p>Unsafe:</p>
+<ul class="simple">
+<li>OGR layers: use unsafe CPL services</li>
+<li>Cartoline rendering: static data</li>
+<li>Imagemap output: static data</li>
+<li>SWF output: static data and use of unsafe msGetBasename()</li>
+<li>SVG output: static data</li>
+<li>WMS/WFS server: static data used for state of dispatcher</li>
+<li>Forcing a temporary file base (an obscure feature): static data</li>
+<li>MyGIS: some static data</li>
+</ul>
+<p>Unsafe, but locked:</p>
+<ul class="simple">
+<li>Map config file loading: global parser</li>
+<li>Setting class and and layer filter expressions (global parser)</li>
+<li>Class expression evaluation (global parser)</li>
+<li>Setting map and layer projections (PROJ)</li>
+<li>Raster layer rendering and querying (GDAL)</li>
+<li>Database Connections (mappool.c)</li>
+<li>PostGIS support</li>
+<li>Oracle Spatial (use a single environment handle for connection)</li>
+<li>SDE support (global layer cache)</li>
+<li>Error handling (static repository of the error objects)</li>
+<li>WMS/WFS client connections: potential race condition in Curl initialization</li>
+<li>Plugin layers (static repository of the loaded dll-s)</li>
+</ul>
+<p>Rather coarse locks are in place for the above. Only a single thread can use
+the global parser at a time, and only one thread can access GDAL raster data
+at a time. Performance is exchanged for safety.</p>
+</div>
+<div class="section" id="what-does-status-mean-in-a-layer">
+<h2>What does STATUS mean in a LAYER?<a class="headerlink" href="#what-does-status-mean-in-a-layer" title="Permalink to this headline">¶</a></h2>
+<p>STATUS ON and STATUS OFF set the default status of the layer. If a map is
+requested, those layers will be ON/OFF unless otherwise specified via the
+layers parameter. This is particularly the case when using MapScript and
+MapServer&#8217;s built-in template mechanism, but is also useful as a hint when
+writing your own apps and setting up the initial map view.</p>
+<p>STATUS DEFAULT means that the layer is always on, even if not specified in the
+layers parameter. A layer&#8217;s status can be changed from DEFAULT to OFF in
+MapScript, but other than that, it&#8217;s always on.</p>
+<p><a class="reference external" href="cgi/index.html#cgi"><em>CGI</em></a> turns everything off that is not &#8220;STATUS DEFAULT&#8221; off so all layers
+start from the same state (e.g. off) and must be explicitly requested to be
+drawn or query. That common state made (at least in my mind) implementations
+easier. I mean, if a layer &#8220;lakes&#8221; started ON the doing layer=lakes would turn
+it OFF. So I wanted to remove the ambiguity of a starting state.</p>
+</div>
+<div class="section" id="how-can-i-make-my-maps-run-faster">
+<h2>How can I make my maps run faster?<a class="headerlink" href="#how-can-i-make-my-maps-run-faster" title="Permalink to this headline">¶</a></h2>
+<p>There are a lot of different approaches to improving the performance of your
+maps, aside from the obvious and expensive step of buying faster hardware.
+Here are links to some individual howtos for various optimizations.</p>
+<ul class="simple">
+<li><a class="reference external" href="optimization/mapfile.html#mapfile-tuning"><em>Tuning your mapfile for performance</em></a></li>
+<li><a class="reference external" href="optimization/vector.html#vector-optimization"><em>Optimizing the performance of vector data sources</em></a></li>
+<li><a class="reference external" href="optimization/raster.html#raster-optimization"><em>Optimizing the performance of raster data sources</em></a></li>
+<li><a class="reference external" href="optimization/tileindex.html#tileindex"><em>Tileindexes for mosaicing and performance</em></a></li>
+</ul>
+<p>Some general tips for all cases:</p>
+<ul class="simple">
+<li>First and foremost is hardware. An extra GB of RAM will give your map
+performance increases beyond anything you&#8217;re likely to achieve by tweaking
+your data. With the price of RAM these days, it&#8217;s cheap and easy to speed up
+every map with one inexpensive upgrade.</li>
+<li>Use the scientific method. Change one thing at a time, and see what effect
+it had. Try disabling all layers and enabling them one at a time until you
+discover which layer is being problematic.</li>
+<li>Use <a class="reference external" href="utilities/shp2img.html#shp2img"><em>shp2img</em></a> program to time your results. This runs from
+the command line and draws an image of your entire map. Since it&#8217;s run from
+the command line, it is immune to net lag and will give more consistent
+measurements that your web browser.</li>
+</ul>
+</div>
+<div class="section" id="what-does-polyline-mean-in-mapserver">
+<h2>What does Polyline mean in MapServer?<a class="headerlink" href="#what-does-polyline-mean-in-mapserver" title="Permalink to this headline">¶</a></h2>
+<p>There&#8217;s confusion over what POLYLINE means in MapServer and via ESRI. In
+MapServer POLYLINE simply means a linear representation of POLYGON data. With
+ESRI polyline means multi-line. Old versions of the Shapefile techical
+description don&#8217;t even refer to polyline shapefiles, just line. So, ESRI
+polyline shapefiles are just linework and can only be drawn and labeled as
+LINE layers. Those shapefiles don&#8217;t have feature closure enforced as polygon
+shapefiles do which is why the distinction is so important. I suppose there is
+a better choice than POLYLINE but I don&#8217;t know what it would be.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The only difference between POLYLINE and LINE layers is how they are
+labeled.</p>
+</div>
+</div>
+<div class="section" id="what-is-mapscript">
+<h2>What is MapScript?<a class="headerlink" href="#what-is-mapscript" title="Permalink to this headline">¶</a></h2>
+<p>MapScript is the scripting interface to MapServer, usually generated by
+<a class="reference external" href="glossary.html#term-swig"><em class="xref">SWIG</em></a> (except in the case of <a class="reference external" href="mapscript/php/index.html#php"><em>PHP MapScript</em></a>).  MapScript allows you to
+program with MapServer&#8217;s objects directly instead of interacting with
+MapServer through its <a class="reference external" href="cgi/index.html#cgi"><em>CGI</em></a> and <a class="reference external" href="mapfile/index.html#mapfile"><em>Mapfile</em></a>.</p>
+</div>
+<div class="section" id="does-mapserver-support-reverse-geocoding">
+<h2>Does MapServer support reverse geocoding?<a class="headerlink" href="#does-mapserver-support-reverse-geocoding" title="Permalink to this headline">¶</a></h2>
+<p>No.</p>
+<p>Reverse geocoding is an activity where you take a list of street features that
+you already have and generate postal addresses from them. This kind of spatial
+functionality is provided by proprietary packages such as the ESRI suite of
+tools, as well as services such as those provided by GDT. MapServer is for
+<em>map rendering</em>, and it does not provide for advanced spatial operations such
+as this.</p>
+</div>
+<div class="section" id="does-mapserver-support-geocoding">
+<h2>Does MapServer support geocoding?<a class="headerlink" href="#does-mapserver-support-geocoding" title="Permalink to this headline">¶</a></h2>
+<p>No.</p>
+<p>Geocoding is an activity where you take a list of addresses and generate
+lat/lon points for them. This kind of spatial functionality is provided by
+proprietary packages such as the ESRI suite of tools, as well as services such
+as those provided by GDT. MapServer is for <em>map rendering</em>, and it does not
+provide for advanced spatial operations such as this.</p>
+<p>If you are using MapScript, there is a free geocder available through XMLRPC
+and SOAP at <a class="reference external" href="http://geocoder.us">http://geocoder.us</a> . You could hook you application up to use this
+service to provide lat/lon pairs for addresses, and then use MapServer to
+display those points.</p>
+</div>
+<div class="section" id="how-do-i-set-line-width-in-my-maps">
+<h2>How do I set line width in my maps?<a class="headerlink" href="#how-do-i-set-line-width-in-my-maps" title="Permalink to this headline">¶</a></h2>
+<p>You must set the symbol for the LAYER to be &#8216;circle&#8217; and then you can set the
+symbol SIZE to be the width you want. A &#8216;circle&#8217; symbol can be defined as</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">SYMBOL</span>
+  <span class="k">NAME</span> <span class="s">&#39;circle&#39;</span>
+  <span class="k">TYPE</span> <span class="nb">ELLIPSE</span>
+  <span class="k">FILLED</span> <span class="nb">TRUE</span>
+  <span class="k">POINTS</span> <span class="mi">1</span> <span class="mi">1</span> <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="why-do-my-jpeg-input-images-look-crappy-via-mapserver">
+<h2>Why do my JPEG input images look crappy via MapServer?<a class="headerlink" href="#why-do-my-jpeg-input-images-look-crappy-via-mapserver" title="Permalink to this headline">¶</a></h2>
+<p>The default output format for MapServer is 8bit pseudo-colored PNG or GIF.
+Inherently there will be some color degredation in converting a 24bit image
+(16 million colors) image into 8bit (256 colors).</p>
+<p>But in order to ensure fast rendering MapServer uses quite a simple method to
+do the transformation, converting pixels to the nearest color in a 175 color
+colorcube. This will usually result in blotchy color in a fairly smoothly
+varying image.</p>
+<p>Solutions include:</p>
+<ul class="simple">
+<li>Select 24bit output. This might be as easy as &#8220;IMAGETYPE JPEG&#8221; in your MAP
+section.</li>
+<li>Enable dithering (PROCESSING &#8220;DITHER=YES&#8221;) to produce a better color
+appearance.</li>
+<li>Preprocess your image to 8bit before using it in MapServer with an external
+application like the GDAL rgb2pct.py script.</li>
+</ul>
+<p>For more information review the <a class="reference external" href="input/raster.html#raster"><em>Raster Data</em></a>.</p>
+</div>
+<div class="section" id="which-image-format-should-i-use">
+<h2>Which image format should I use?<a class="headerlink" href="#which-image-format-should-i-use" title="Permalink to this headline">¶</a></h2>
+<p>Although MapScript can generate the map in any desired image format it
+sufficient to only consider the three most prevalent ones: JPEG, PNG, and GIF.</p>
+<p>JPEG is an image format that uses a lossy compression algorithm to reduce an
+image&#8217;s file size and is mostly used when loss of detail through compression
+is either not noticeable or negligible, as in most photos. Maps on the other
+hand mainly consist of fine lines and areas solidly filled in one colour,
+which is something JPEG is not known for displaying very well. In addition,
+maps, unless they include some aerial or satellite imagery, generally only use
+very few different colours. JPEG with its 24bit colour depth capable of
+displaying around 16.7 million colours is simple not suitable for this
+purpose. GIF and PNG however use an indexed colour palette which can be
+optimized for any number (up to 256) of colours which makes them the perfect
+solution for icons, logos, charts or maps. The following comparison (generated
+file sizes only; not file generation duration) will therefore only include
+these two file formats:</p>
+<table border="1" class="docutils">
+<caption>GIF vs. PNG vs. PNG24 Generated Map File Sizes</caption>
+<colgroup>
+<col width="67%" />
+<col width="11%" />
+<col width="11%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">&nbsp;</th>
+<th class="head">GIF</th>
+<th class="head">PNG</th>
+<th class="head">PNG24</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Vector Data only</td>
+<td>59kb</td>
+<td>26kb</td>
+<td>69kb</td>
+</tr>
+<tr><td>Vector Data &amp; Satellite Image coloured</td>
+<td>156kb</td>
+<td>182kb</td>
+<td>573kb</td>
+</tr>
+<tr><td>Vector Data &amp; Satellite Image monochrome</td>
+<td>142kb</td>
+<td>134kb</td>
+<td>492kb</td>
+</tr>
+</tbody>
+</table>
+<p>(results based on an average 630x396 map with various colours, symbols,
+labels/annotations etc.)</p>
+<p>Although GIF shows a quantitative as well as qualitative advantage over PNG
+when generating maps that contain full coloured remote sensing imagery, PNG is
+the clear quantitative winner in terms of generated file sizes for maps with
+or without additional monochrome imagery and should therefore been the
+preferred image format. If the mapping application however can also display
+fullcolour aerial or satellite imagery, the output file format can be changed
+dynamically to either GIF or even PNG24 to achieve the highest possible image
+quality.</p>
+</div>
+<div class="section" id="why-doesn-t-pil-python-imaging-library-open-my-pngs">
+<h2>Why doesn&#8217;t PIL (Python Imaging Library) open my PNGs?<a class="headerlink" href="#why-doesn-t-pil-python-imaging-library-open-my-pngs" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference external" href="http://www.pythonware.com/products/pil/">PIL</a> does not support interlaced
+PNGs at this time (no timetable on when it actually will either). To be able
+to read PNGs in PIL, they must not be interlaced. Modify your OUTPUTFORMAT with
+a FORMATOPTION like so:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">OUTPUTFORMAT</span>
+  <span class="k">NAME</span> <span class="nb">png</span>
+  <span class="k">DRIVER</span> <span class="s">&quot;GD/PNG&quot;</span>
+  <span class="k">MIMETYPE</span> <span class="s">&quot;image/png&quot;</span>
+  <span class="k">IMAGEMODE</span> <span class="nb">RGB</span>
+  <span class="k">EXTENSION</span> <span class="s">&quot;png&quot;</span>
+  <span class="k">FORMATOPTION</span> <span class="s">&quot;INTERLACE=OFF&quot;</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="why-do-my-symbols-look-poor-in-jpeg-output">
+<h2>Why do my symbols look poor in JPEG output?<a class="headerlink" href="#why-do-my-symbols-look-poor-in-jpeg-output" title="Permalink to this headline">¶</a></h2>
+<p>When I render my symbols to an 8bit output (PNG, GIF) they look fine, but in
+24bit jpeg output they look very blocky and gross.</p>
+<p>In order to render some classes of symbols properly in 24bit output, such as
+symbols from true type fonts, it is necessary to force rendering to occur in
+RGBA. This can be accomplished by including the &#8220;TRANSPARENCY ALPHA&#8221; line in
+the layer definition. Don&#8217;t use this unnecessarily as there is a performance
+penalty.</p>
+<p>This problem also affects PNG24 output or any RGB output format. 8bit (PC256)
+or RGBA output types are already ok.</p>
+</div>
+<div class="section" id="how-do-i-add-a-copyright-notice-on-the-corner-of-my-map">
+<h2>How do I add a copyright notice on the corner of my map?<a class="headerlink" href="#how-do-i-add-a-copyright-notice-on-the-corner-of-my-map" title="Permalink to this headline">¶</a></h2>
+<p>You can use an inline feature, with the <a class="reference external" href="mapfile/feature.html#feature"><em>FEATURE</em></a> object, to make a point on
+your map. Use the TEXT parameter of the FEATURE object for the actual text of
+the notice, and a <a class="reference external" href="mapfile/label.html#label"><em>LABEL</em></a> object to style the notice.</p>
+<div class="section" id="example-layer">
+<h3>Example Layer<a class="headerlink" href="#example-layer" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+  <span class="k">NAME</span> <span class="s">&quot;copyright&quot;</span>
+  <span class="k">STATUS</span> <span class="nb">ON</span>
+  <span class="k">TYPE</span> <span class="nb">annotation</span>
+  <span class="k">TRANSFORM</span> <span class="nb">ll</span> <span class="c">#set the image origin to be lower left</span>
+  <span class="k">FEATURE</span>
+    <span class="k">POINTS</span>
+      <span class="mi">60</span> <span class="p">-</span><span class="mi">10</span> <span class="c">#set the offset from lower left position in pixels</span>
+    <span class="k">END</span>
+    <span class="k">TEXT</span> <span class="s">&quot;© xyz company 2006&quot;</span> <span class="c">#this is your displaying text</span>
+  <span class="k">END</span>
+  <span class="k">CLASS</span>
+    <span class="k">LABEL</span> <span class="c">#defines the font, colors etc. of the text</span>
+      <span class="k">FONT</span> <span class="s">&quot;sans&quot;</span>
+      <span class="k">TYPE</span> <span class="nb">TRUETYPE</span>
+      <span class="k">SIZE</span> <span class="mi">8</span>
+      <span class="k">BUFFER</span> <span class="mi">1</span>
+      <span class="k">COLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+      <span class="k">BACKGROUNDCOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">255</span>
+      <span class="k">FORCE</span> <span class="nb">TRUE</span>
+    <span class="k">END</span>
+  <span class="k">END</span>
+  <span class="k">UNITS</span> <span class="nb">PIXELS</span> <span class="c">#sets the units for the feature object</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="result">
+<h3>Result<a class="headerlink" href="#result" title="Permalink to this headline">¶</a></h3>
+<img alt="_images/copyright-image.png" src="_images/copyright-image.png" />
+</div>
+</div>
+<div class="section" id="how-do-i-have-a-polygon-that-has-both-a-fill-and-an-outline-with-a-width">
+<h2>How do I have a polygon that has both a fill and an outline with a width?<a class="headerlink" href="#how-do-i-have-a-polygon-that-has-both-a-fill-and-an-outline-with-a-width" title="Permalink to this headline">¶</a></h2>
+<p>How do I have a polygon that has both a fill and an outline with a width?
+Whenever I put both a color (fill) and an outlinecolor with a width on a
+polygon within a single STYLE, the outline width isn&#8217;t respected.</p>
+<p>For historical reasons, width has two meanings within the context of filling
+polygons and stroke widths for the outline. If a polygon is filled, then the
+width defines the width of the symbol <em>inside</em> the filled polygon. In this
+event, the outline width is disregarded, and it is always set to 1. To acheive
+the effect of <em>both</em> a fill and an outline width, you need to use two styles
+in your class.</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">STYLE</span> <span class="c"># solid fill</span>
+  <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="k">END</span>
+<span class="k">STYLE</span> <span class="c"># thick outline (could use a circle symbol with size too)</span>
+  <span class="k">OUTLINECOLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="k">WIDTH</span> <span class="mi">3</span>
+  <span class="k">ANTIALIAS</span> <span class="nb">TRUE</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-can-i-create-simple-antialiased-line-features">
+<h2>How can I create simple antialiased line features?<a class="headerlink" href="#how-can-i-create-simple-antialiased-line-features" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way to produce antialiased lines is to:</p>
+<ul class="simple">
+<li>use a 24-bit output image type (IMAGEMODE RGB (or RGBA))</li>
+<li>set TRANSPARENCY ALPHA in the layer using antialiased lines</li>
+<li>set ANTIALIAS TRUE in the STYLE element of the CLASS with antialiased lines</li>
+</ul>
+<p>The following mapfile snippets enable antialiased county borders:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="p">...</span>
+<span class="k">IMAGETYPE</span> <span class="s">&quot;png24&quot;</span>
+<span class="p">...</span>
+<span class="k">OUTPUTFORMAT</span>
+  <span class="k">NAME</span> <span class="s">&quot;png24&quot;</span>
+  <span class="k">DRIVER</span> <span class="s">&quot;GD/PNG&quot;</span>
+  <span class="k">MIMETYPE</span> <span class="s">&quot;image/png&quot;</span>
+  <span class="k">IMAGEMODE</span> <span class="nb">RGB</span>
+  <span class="k">EXTENSION</span> <span class="s">&quot;png&quot;</span>
+<span class="k">END</span>
+<span class="p">...</span>
+<span class="k">LAYER</span>
+  <span class="k">NAME</span> <span class="s">&quot;counties&quot;</span>
+  <span class="k">TYPE</span> <span class="nb">line</span>
+  <span class="k">STATUS</span> <span class="nb">default</span>
+  <span class="k">DATA</span> <span class="s">&quot;bdry_counln2&quot;</span>
+  <span class="k">TRANSPARENCY</span> <span class="nb">alpha</span>
+  <span class="k">SYMBOLSCALE</span> <span class="mi">5000000</span>
+  <span class="k">CLASS</span>
+    <span class="k">STYLE</span>
+       <span class="k">WIDTH</span> <span class="mi">3</span>
+       <span class="k">COLOR</span> <span class="mi">1</span> <span class="mi">1</span> <span class="mi">1</span>
+       <span class="k">ANTIALIAS</span> <span class="nb">true</span>
+    <span class="k">END</span>
+  <span class="k">END</span>
+<span class="k">END</span>
+<span class="p">...</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The bdry_counln2 shapefile referenced in the counties layer is a line
+shapefile. A polygon shapefile could be substituted with roughly the same
+results, though owing to the nature of shapefiles each border would be
+rendered twice and the resulting output line would likely appear to be
+slightly thicker. Alternatively, one could use a polygon shapefile, set
+TYPE to POLYGON, and use OUTLINECOLOR in place of COLOR in the STYLE
+element.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You can tweak the combination of STYLE-&gt;WIDTH and SYMBOLSCALE to modify
+line widths in your output images.</p>
+</div>
+<div class="admonition-see-also admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference external" href="mapfile/symbology/construction.html#sym-construction"><em>Cartoline</em></a> symbols can be used to achieve fancier
+effects.</p>
+</div>
+</div>
+<div class="section" id="which-ogc-specifications-does-mapserver-support">
+<h2>Which OGC Specifications does MapServer support?<a class="headerlink" href="#which-ogc-specifications-does-mapserver-support" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Web Map Service (OGC:WMS) 1.0.0, 1.0.7, 1.1.0 and 1.1.1</li>
+<li>Web Feature Service (OGC:WFS) 1.0.0, 1.1.0</li>
+<li>Web Coverage Service (OGC:WCS) 1.0.0, 1.1.0</li>
+<li>Geography Markup Language (OGC:GML) 2.1.2, 3.1.0 Level 0 Profile</li>
+<li>Web Map Context Documents (OGC:WMC) 1.0.0, 1.1.0</li>
+<li>Styled Layer Descriptor (OGC:SLD) 1.0.0</li>
+<li>Filter Encoding Specification (OGC:FES) 1.0.0</li>
+<li>Sensor Observation Service (OGC:SOS) 1.0.0</li>
+<li>Observations and Measurements (OGC:OM) 1.0.0</li>
+<li>SWE Common (OGC:SWE) 1.0.1</li>
+<li>OWS Common (OGC:OWS) 1.0.0, 1.1.0</li>
+</ul>
+</div>
+<div class="section" id="why-does-my-requested-wms-layer-not-align-correctly">
+<h2>Why does my requested WMS layer not align correctly?<a class="headerlink" href="#why-does-my-requested-wms-layer-not-align-correctly" title="Permalink to this headline">¶</a></h2>
+<p>Requesting a layer from some ArcIMS WMS connectors results in a map with
+misalgned data (the aspect ratio of the pixels looks wrong).</p>
+<p>Some ArcIMS sites are not set up to stretch the returned image to fit the
+requested envelope by default. This results in a map with data layers that
+overlay well in the center of the map, but not towards the edges. This can be
+solved by adding &#8220;<em>reaspect=false</em>&#8221; to the request (by tacking it on to the
+connection string).</p>
+<p>For example, if your mapfile is in a projection other than EPSG:4326, the
+following layer will not render correctly:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+    <span class="k">NAME</span> <span class="s">&quot;hillshade&quot;</span>
+    <span class="k">TYPE</span> <span class="nb">RASTER</span>
+    <span class="k">STATUS</span> <span class="nb">OFF</span>
+    <span class="k">TRANSPARENCY</span> <span class="mi">70</span>
+    <span class="k">CONNECTIONTYPE</span> <span class="nb">WMS</span>
+    <span class="k">CONNECTION</span> <span class="s">&quot;http://gisdata.usgs.net:80/servlet19/com.esri.wms.Esrimap/USGS_WMS_NED?&quot;</span>
+    <span class="k">PROJECTION</span>
+            <span class="s">&quot;init=epsg:4326&quot;</span>
+    <span class="k">END</span>
+    <span class="k">METADATA</span>
+            <span class="s">&quot;wms_srs&quot;</span> <span class="s">&quot;EPSG:4326&quot;</span>
+            <span class="s">&quot;wms_title&quot;</span> <span class="s">&quot;US_NED_Shaded_Relief&quot;</span>
+            <span class="s">&quot;wms_name&quot;</span> <span class="s">&quot;US_NED_Shaded_Relief&quot;</span>
+            <span class="s">&quot;wms_server_version&quot;</span> <span class="s">&quot;1.1.1&quot;</span>
+            <span class="s">&quot;wms_format&quot;</span> <span class="s">&quot;image/png&quot;</span>
+    <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>Adding &#8220;reaspect=false&#8221; to the connection string solves the problem:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+    <span class="k">NAME</span> <span class="s">&quot;hillshade&quot;</span>
+    <span class="k">TYPE</span> <span class="nb">RASTER</span>
+    <span class="k">STATUS</span> <span class="nb">OFF</span>
+    <span class="k">TRANSPARENCY</span> <span class="mi">70</span>
+    <span class="k">CONNECTIONTYPE</span> <span class="nb">WMS</span>
+    <span class="k">CONNECTION</span> <span class="s">&quot;http://gisdata.usgs.net:80/servlet19/com.esri.wms.Esrimap/USGS_WMS_NED?reaspect=false&quot;</span>
+    <span class="k">PROJECTION</span>
+            <span class="s">&quot;init=epsg:4326&quot;</span>
+    <span class="k">END</span>
+    <span class="k">METADATA</span>
+            <span class="s">&quot;wms_srs&quot;</span> <span class="s">&quot;EPSG:4326&quot;</span>
+            <span class="s">&quot;wms_title&quot;</span> <span class="s">&quot;US_NED_Shaded_Relief&quot;</span>
+            <span class="s">&quot;wms_name&quot;</span> <span class="s">&quot;US_NED_Shaded_Relief&quot;</span>
+            <span class="s">&quot;wms_server_version&quot;</span> <span class="s">&quot;1.1.1&quot;</span>
+            <span class="s">&quot;wms_format&quot;</span> <span class="s">&quot;image/png&quot;</span>
+    <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="when-i-do-a-getcapabilities-why-does-my-browser-want-to-download-mapserv-exe-mapserv">
+<h2>When I do a GetCapabilities, why does my browser want to download mapserv.exe/mapserv?<a class="headerlink" href="#when-i-do-a-getcapabilities-why-does-my-browser-want-to-download-mapserv-exe-mapserv" title="Permalink to this headline">¶</a></h2>
+<p>A beginner question here... I&#8217;m new to MS and to Apache. I&#8217;ve got MS4W up and
+running with the Itasca demo. Now I want to enable it as a WMS server. mapserv
+-v at the command line tells me it supports WMS_SERVER. When I point my
+browser to it, my browser just wants to download mapserv.exe!</p>
+<p>What am I missing?</p>
+<p>Here is the URL I&#8217;m using to issue a GetCapabilities WMS request:
+<a class="reference external" href="http://localhost/cgi-bin/mapserv.exe?map=../htdocs/itasca/demo.map&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetCapabilities">http://localhost/cgi-bin/mapserv.exe?map=../htdocs/itasca/demo.map&amp;SERVICE=WMS&amp;VERSION=1.1.1&amp;REQUEST=GetCapabilities</a></p>
+<p>The OGC:WMS 1.1.0 and 1.1.1 specifications (which are both supported by
+MapServer) state that, for GetCapabilities responses, the OGC:WMS server
+returns a specific MIME type (i.e. application/vnd.ogc.xml (see subclause
+6.5.3 of <a class="reference external" href="http://portal.opengeospatial.org/files/?artifact_id=1081&amp;version=1&amp;format=pdf">OGC:WMS 1.1.1</a>.</p>
+<p>A MIME type is passed from the web server to the client (in your case, a web
+browser), from which a client can decide how to process it.</p>
+<p>Example 1: if using a web browser, if a web server returns an HTTP Header of
+&#8220;Content-type:image/png&#8221;, then the web browser will know that this is a PNG
+image and display it accordingly.</p>
+<p>Example 2: if using a web browser, if a web server returns an HTTP Header of
+&#8220;Content-type:text/html&#8221;, then the web browser will know that this is an HTML
+page and display it accordingly (i.e. tables, divs, etc.)</p>
+<p>Basically, what is happening is that the OGC:WMS is returning, in the headers
+of the HTTP response, a MIME type which your web browser does not understand,
+which usually prompts a dialog box on whether to open or download the content
+(i.e. Content-type:application/vnd.ogc.wms_xml).</p>
+<p>You could configure your web browser to handle the application/vnd.ogc.wms_xml
+MIME type a certain way (i.e. open in Notepad, etc.).</p>
+</div>
+<div class="section" id="why-do-my-wms-getmap-requests-return-exception-using-mapserver-5-0">
+<h2>Why do my WMS GetMap requests return exception using MapServer 5.0?<a class="headerlink" href="#why-do-my-wms-getmap-requests-return-exception-using-mapserver-5-0" title="Permalink to this headline">¶</a></h2>
+<p>Before upgrading to MapServer 5.0, I was able to do quick GetMap tests in the
+form of:
+<a class="reference external" href="http://wms.example.com/wms?service=WMS&amp;version=1.1.1&amp;request=GetMap&amp;layers=foo">http://wms.example.com/wms?service=WMS&amp;version=1.1.1&amp;request=GetMap&amp;layers=foo</a></p>
+<p>Now when I try the same test, MapServer WMS returns an XML document saying
+something about missing required parameters. What&#8217;s going on here?</p>
+<p>This was a major change for WMS Server support in MapServer 5.0. MapServer WMS
+Server GetMap requests now require the following additional parameters:</p>
+<ul class="simple">
+<li>srs</li>
+<li>bbox</li>
+<li>width</li>
+<li>height</li>
+<li>format</li>
+<li>styles</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">These parameters were always required in all versions of the WMS
+specification, but MapServer previously had not required them in a client
+request (even though most OGC WMS clients would issue them anyway to be
+consistent with the WMS spec).</p>
+</div>
+<p>The request below now constitutes a valid GetMap request:</p>
+<div class="highlight-python"><pre>http://wms.example.com/wms?service=WMS&amp;version=1.1.1&amp;request=GetMap&amp;layers=foo&amp;srs=EPSG:4326&amp;bbox=-180,-90,180,90&amp;format=image/png&amp;width=400&amp;height=300&amp;styles=default</pre>
+</div>
+<p>Which is consistent with the WMS specification.</p>
+<p>More information on these parameters can be found in the <a class="reference external" href="ogc/wms_server.html#wms-server"><em>WMS Server</em></a> and
+the <a class="reference external" href="http://portal.opengeospatial.org/files/?artifact_id=1081&amp;version=1&amp;format=pdf">OGC WMS 1.1.1 specification</a></p>
+<p>For more detailed information, see <a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/1088">ticket 1088</a></p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">STYLES, though a required WMS parameter, is now optional again in
+MapServer. For more detailed information, see <a class="reference external" href="http://trac.osgeo.org/mapserver/ticket/2427#comment:2">ticket 2427</a></p>
+</div>
+</div>
+<div class="section" id="where-do-i-find-my-epsg-code">
+<h2>Where do I find my <a class="reference external" href="glossary.html#term-epsg"><em class="xref">EPSG</em></a> code?<a class="headerlink" href="#where-do-i-find-my-epsg-code" title="Permalink to this headline">¶</a></h2>
+<p>There is a text file &#8220;epsg&#8221; in your PROJ4 installation (e.g.
+&#8220;/usr/local/share/proj/epsg&#8221;) which contain the EPSG information used by
+PROJ4. In Windows, this is often located in C:\proj\nad or is found with an
+environment variable called PROJ_LIB.</p>
+<p><a class="reference external" href="http://spatialreference.org">http://spatialreference.org</a> allows you to search for EPSG codes.</p>
+<p>You can also have a look at:
+<a class="reference external" href="http://ocean.csl.co.uk">http://ocean.csl.co.uk</a></p>
+<p>More information to EPSG:
+<a class="reference external" href="http://www.epsg.org">http://www.epsg.org</a></p>
+<p>More information to PROJ4:
+<a class="reference external" href="http://trac.osgeo.org/proj">http://trac.osgeo.org/proj</a></p>
+</div>
+<div class="section" id="how-can-i-reproject-my-data-using-ogr2ogr">
+<h2>How can I reproject my data using ogr2ogr?<a class="headerlink" href="#how-can-i-reproject-my-data-using-ogr2ogr" title="Permalink to this headline">¶</a></h2>
+<p>With ogr2ogr of course! ogr2ogr is a powerful utility that will transform the
+projections of your shapefiles when passed the appropriate parameters. In my
+case, I was using MapServer to serve data in RI State Plane Feet. In order to
+do so, the data had to first be converted to meters. Here is the command I
+used:</p>
+<div class="highlight-python"><pre>ogr2ogr -t_srs EPSG:32130 output.shp input.shp</pre>
+</div>
+<p>Since my data already had a projection defined, I did not need to explicitly
+state a source projection. This command uses the EPSG definition for NAD83
+Rhode Island (32130) and performs the feet to meters conversion.</p>
+<p>Now say my data wasn&#8217;t already projected? Here&#8217;s how we deal with that:</p>
+<div class="highlight-python"><pre>ogr2ogr -s_srs "+proj=tmerc +lat_0=41.08333333333334 +lon_0=-71.5 +k=0.999994 +x_0=100000 +y_0=0 +ellps=GRS80 +datum=NAD83 +to_meter=0.3408 +no_defs" -t_srs EPSG:32130 output.shp input.shp</pre>
+</div>
+<p>Let&#8217;s examine what is going on here:</p>
+<p>The -s_srs parameter explicitly defines a projection for the data. The
+parameters used here were taken out of the EPSG definition (in this case,
+32130) in the epsg file(see the <a class="reference external" href="epsg_codes">projection FAQ</a> for more
+details on locating EPSG definitions). The entry for RI in the epsg file is as
+follows:</p>
+<div class="highlight-python"><pre># NAD83 / Rhode Island
+&lt;32130&gt; +proj=tmerc +lat_0=41.08333333333334 +lon_0=-71.5 +k=0.999994 +x_0=100000 +y_0=0 +ellps=GRS80 +datum=NAD83 +units=m +no_defs  no_defs &lt;&gt;</pre>
+</div>
+<p>You can see how the definition in the initial command is formulated. Notice
+that the &#8220;+units=m&#8221; parameter has been changed to “+to_meter=0.3408”. This is
+important for the conversion. Where did the value of 0.3408 come from you ask?
+From the EPSG file! It has many goodies buried in it so by simply running
+&#8216;grep &#8220;to_meter&#8221; epsg’ you can refresh your memory if you need to.</p>
+<p>The next parameter in the command is &#8220;-t_srs EPSG:32130&#8221;. This command tells
+ogr2ogr to transform the data to the EPSG code of 32130. After this is
+declared, all you need to do is declare a file name for your new shape file
+and to set which file is being used as the input (note: make sure you don’t
+confuse the order of these two).</p>
+<p>Hit enter, bombs away, and enjoy your new data in meters!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="copyright.html" title="License"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="errors.html" title="Errors"
+             >previous</a> |</li>
+        <li><a href="documentation.html">Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

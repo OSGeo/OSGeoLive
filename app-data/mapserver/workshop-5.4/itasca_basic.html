@@ -1,0 +1,85 @@
+<!-- MapServer Template -->
+<html>
+<head>
+  <title>MapServer - Itasca Application</title>
+</head>
+<body bgcolor="#ffffff">
+
+<center><h1>MapServer - Itasca Application</h1></center>
+<hr>
+<form method="GET" action="[program]" name="mapserv">
+
+<center>
+<table border="0" cellspacing="0" cellpadding="4">
+<tr>
+<td valign="top" align="center">
+  <table width="390" border="0" cellspacing="0" cellpadding="4" align="center" bgcolor="#666666">
+    <tr>
+      <td align="center"><input type="image" name="img" src="[img]" width="[mapwidth]" height="[mapheight]" border="0" alt="this is the map"></td>
+    </tr> 
+    <tr><td bgcolor="#666666">      
+      <img title="scalebar (mi)" alt="scalebar (mi)" src="[scalebar]">
+    </td></tr>
+  </table>  
+</td>
+<td valign="top" bgcolor="#ffffff">
+  <table cellpadding="5" cellspacing="0" border="0" bgcolor="#ffffff">
+    <tr><td>
+      <center><input type="submit" value="Refresh/Query"></center>
+      <p>
+
+      <input type="radio" name="mode" value="browse" checked> <b>Browse map</b><br>
+      <input type="radio" name="mode" value="query"> <b>Query feature</b><br>
+      <input type="radio" name="mode" value="nquery"> <b>Query multiple features</b>
+
+      <hr>
+
+      <p>
+      <b>Select Layers to Display: </b><br>
+      <select multiple name="layer" size=3>
+        <option value="airports" [airports_select]> Airports
+        <option value="cities" [cities_select]> Cities
+        <option value="lakespy2" [lakespy2_select]> Lakes & Rivers
+        <option value="dlgstln2" [dlgstln2_select]> Streams
+        <option value="roads" [roads_select]> Roads
+        <option value="twprgpy3" [twprgpy3_select]> Townships
+        <option value="drgs" [drgs_select]> USGS 1:250,000 Quads
+      </select>
+
+      <p>
+      Zoom In <input type=radio name=zoomdir value=1 [zoomdir_1_check]> 
+      Pan <input type=radio name=zoomdir value=0 [zoomdir_0_check]>
+      Zoom Out <input type=radio name=zoomdir value=-1 [zoomdir_-1_check]>
+      <p>
+      Zoom Size <input type=text name=zoomsize size=4 value=[zoomsize]>
+      <p>
+
+      <font size=+1><b>Legend</b></font><br><hr>
+      <img src="[legend]"><hr>
+
+      <p>
+      <center><input name="ref" type="image" src="[ref]" border="0"></center>
+    </td></tr></table>
+
+  </td></tr>
+</table>
+</center>
+
+<input type="hidden" name="imgxy" value="[center]">
+<input type="hidden" name="imgext" value="[mapext]">
+<input type="hidden" name="map" value="[map]">
+<input type="hidden" name="root" value="[root]">
+<input type="hidden" name="savequery" value="true">
+
+<input type="hidden" name="program" value="[program]">
+<input type="hidden" name="map_web" value="[map_web]">
+
+</form>
+
+<p><hr><p>
+
+<a href="[root]/index.html">back to start</a><p>
+<i>itasca_basic.html</i>
+
+</body></html>
+

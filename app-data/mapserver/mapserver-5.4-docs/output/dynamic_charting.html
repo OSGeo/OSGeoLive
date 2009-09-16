@@ -1,0 +1,433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dynamic Charting &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../index.html" />
+    <link rel="up" title="Output Generation" href="index.html" />
+    <link rel="next" title="Flash Output" href="flash.html" />
+    <link rel="prev" title="AntiAliasing with MapServer" href="antialias.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../index.html" title="Home">Home</a> |
+  <a href="../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../faq.html" title="FAQ">FAQ</a> |
+  <a href="../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../index.html" title="Home"><img src="../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="flash.html" title="Flash Output"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="antialias.html" title="AntiAliasing with MapServer"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Output Generation</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../html//output/dynamic_charting.html"><img src="../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../html/de/output/dynamic_charting.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">Dynamic Charting</a><ul>
+<li><a class="reference external" href="#setup">Setup</a><ul>
+<li><a class="reference external" href="#supported-renderers">Supported Renderers</a></li>
+<li><a class="reference external" href="#output-from-agg-and-gd-renderers">Output from AGG and GD Renderers</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#adding-a-chart-layer-to-a-mapfile">Adding a Chart Layer to a Mapfile</a><ul>
+<li><a class="reference external" href="#layer-type">Layer Type</a></li>
+<li><a class="reference external" href="#specifying-the-size-of-each-chart">Specifying the Size of each Chart</a></li>
+<li><a class="reference external" href="#specifying-the-values-to-be-plotted">Specifying the Values to be Plotted</a></li>
+<li><a class="reference external" href="#specifying-style">Specifying Style</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#pie-charts">Pie Charts</a></li>
+<li><a class="reference external" href="#bar-graphs">Bar Graphs</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="antialias.html"
+                                  title="previous chapter">AntiAliasing with MapServer</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="flash.html"
+                                  title="next chapter">Flash Output</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/output/dynamic_charting.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="dynamic-charting">
+<span id="id1"></span><h1><a class="toc-backref" href="#table-of-contents">Dynamic Charting</a><a class="headerlink" href="#dynamic-charting" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">Thomas Bonfort</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">thomas.bonfort at gmail.com</td>
+</tr>
+<tr class="field"><th class="field-name">Revision:</th><td class="field-body">$Revision: 8439 $</td>
+</tr>
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">$Date: 2009-01-17 11:27:10 -0400 (Sat, 17 Jan 2009) $</td>
+</tr>
+<tr class="field"><th class="field-name">Last Updated:</th><td class="field-body">2009/01/17</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dynamic-charting" id="id2">Dynamic Charting</a><ul>
+<li><a class="reference internal" href="#setup" id="id3">Setup</a></li>
+<li><a class="reference internal" href="#adding-a-chart-layer-to-a-mapfile" id="id4">Adding a Chart Layer to a Mapfile</a></li>
+<li><a class="reference internal" href="#pie-charts" id="id5">Pie Charts</a></li>
+<li><a class="reference internal" href="#bar-graphs" id="id6">Bar Graphs</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Starting with version 5.0, MapServer included the ability to automatically draw
+pie or bar graphs whose values are taken and adjusted from attributes of a
+datasource.</p>
+<p>This document assumes that you are already familiar with MapServer application
+development and especially setting up <a class="reference external" href="../mapfile/index.html#mapfile"><em>Mapfile</em></a> s. You
+can also check out the <a class="reference external" href="../input/vector/index.html#vector"><em>Vector Data Access Guide</em></a>, which has lots of
+examples of how to access specific data sources.</p>
+<div class="section" id="setup">
+<h2><a class="toc-backref" href="#table-of-contents">Setup</a><a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="supported-renderers">
+<h3>Supported Renderers<a class="headerlink" href="#supported-renderers" title="Permalink to this headline">¶</a></h3>
+<p>Dynamic charts are supported solely with the GD and <a class="reference external" href="agg.html#agg"><em>AGG</em></a> renderers.</p>
+<p>Attempting to add a chart layer with any other renderer (e.g. PDF or SWF) will
+result in an error. Rendering quality with the GD renderer is less than optimal,
+especially with small graphs, due to the lack of subpixel rendering functions.</p>
+</div>
+<div class="section" id="output-from-agg-and-gd-renderers">
+<h3>Output from AGG and GD Renderers<a class="headerlink" href="#output-from-agg-and-gd-renderers" title="Permalink to this headline">¶</a></h3>
+<p>MapServer AGG Rendering</p>
+<img alt="../_images/renderer-agg.png" src="../_images/renderer-agg.png" />
+<p>MapServer GD Rendering</p>
+<img alt="../_images/gd-renderer.png" src="../_images/gd-renderer.png" />
+</div>
+</div>
+<div class="section" id="adding-a-chart-layer-to-a-mapfile">
+<h2><a class="toc-backref" href="#table-of-contents">Adding a Chart Layer to a Mapfile</a><a class="headerlink" href="#adding-a-chart-layer-to-a-mapfile" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="layer-type">
+<h3>Layer Type<a class="headerlink" href="#layer-type" title="Permalink to this headline">¶</a></h3>
+<p>A new type of layer has been added to the mapfile syntax. To specify a chart
+layer, use</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+<span class="p">...</span>
+    <span class="k">TYPE</span> <span class="nb">CHART</span>
+    <span class="p">...</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>No other specific keywords have been added in order to keep the number of
+different keywords to a minimum in the mapfile syntax, therefore all the
+chart specific configuration is determined by PROCESSING directives.</p>
+</div>
+<div class="section" id="specifying-the-size-of-each-chart">
+<h3>Specifying the Size of each Chart<a class="headerlink" href="#specifying-the-size-of-each-chart" title="Permalink to this headline">¶</a></h3>
+<p>The size of each chart is specified by the CHART_SIZE directive. If two values
+are given for this parameter, this will specify the width and height of each
+chart (this only applies for bar graphs). By default, the charts are 20x20
+pixels.</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+    <span class="k">TYPE</span> <span class="nb">CHART</span>
+    <span class="k">PROCESSING</span> <span class="s">&quot;CHART_SIZE=21&quot;</span> <span class="c"># specify size of the chart for pie or bar graphs</span>
+    <span class="c">#PROCESSING &quot;CHART_SIZE=20 10&quot; # specify width and height for bar graphs</span>
+    <span class="p">...</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>From version 5.2 and onwards, the diameter of a pie chart can be bound to an
+attribute,using the CHART_SIZE_RANGE PROCESSING attribute:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">PROCESSING</span> <span class="s">&quot;CHART_SIZE_RANGE = itemname minsize maxsize minval maxval&quot;</span>
+</pre></div>
+</div>
+<p>where:</p>
+<blockquote>
+<ul class="simple">
+<li>itemname is the name of the attribute that drives the chart size (e.g.
+total_sales)</li>
+<li>minsize and maxsize are the minimum and maximum chart size values in pixels
+(e.g. &#8220;10 100&#8221;)</li>
+<li>minval and maxval are the minimum values of the attribute that correspond to
+chart sizes of minsize and maxsize (e.g. 10000 1000000).</li>
+</ul>
+</blockquote>
+<p>If the attribute value is smaller than &#8216;minval&#8217; then the chart size will be
+minsize pixels, and if the attribute value is larger than maxval, the chart
+size will be maxsize pixels.</p>
+</div>
+<div class="section" id="specifying-the-values-to-be-plotted">
+<h3>Specifying the Values to be Plotted<a class="headerlink" href="#specifying-the-values-to-be-plotted" title="Permalink to this headline">¶</a></h3>
+<p>Each value to be plotted (i.e. a slice in a pie chart, or a bar in a par graph)
+is specified in a CLASS of the chart layer. The value to be plotted is taken
+from the SIZE keyword from the first STYLE block of the class. This is
+semantically a bit awkward, but keeps the number of different keywords to a
+minimum in the mapfile syntax. The value given to the SIZE keyword could of
+course be given a static value, but dynamic charting really only makes sense
+with attribute binding.</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">LAYER</span>
+<span class="p">...</span>
+    <span class="k">CLASS</span>
+        <span class="c"># include a NAME keyword if you want this class to be included</span>
+        <span class="c"># in the legend</span>
+        <span class="k">NAME</span> <span class="s">&quot;value 1&quot;</span>
+        <span class="k">STYLE</span>
+            <span class="c"># specify which value from the data source will be used as the</span>
+            <span class="c"># value for the graph</span>
+            <span class="k">SIZE</span> <span class="p">[</span><span class="err">attribute</span><span class="p">]</span>
+            <span class="p">...</span>
+        <span class="k">END</span>
+    <span class="k">END</span>
+    <span class="k">CLASS</span>
+        <span class="p">...</span>
+    <span class="k">END</span>
+<span class="p">...</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>At least 2 CLASS blocks must be specified before charting can occur (but
+you already knew this if you want your charts to convey at least <em>some</em>
+information ;) ).</p>
+</div>
+<div class="section" id="specifying-style">
+<h3>Specifying Style<a class="headerlink" href="#specifying-style" title="Permalink to this headline">¶</a></h3>
+<p>The styling of each value in the charts is specified by the usual MapServer
+syntax. Only one style per class is supported, any other STYLE block will
+be silently ignored. Only a subset of the styling keywords are supported:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">STYLE</span>
+    <span class="k">SIZE</span> <span class="p">[</span><span class="err">attribute</span><span class="p">]</span>
+    <span class="c"># specify the fill color</span>
+    <span class="k">COLOR</span> <span class="err">r</span> <span class="err">g</span> <span class="err">b</span>
+
+    <span class="c"># if present will draw an outline around the corresponding bar or slice</span>
+    <span class="k">OUTLINECOLOR</span> <span class="err">r</span> <span class="err">g</span> <span class="err">b</span>
+
+    <span class="c">#specify the width of the outline if OUTLINECOLOR is present (defaults to 1)</span>
+    <span class="k">WIDTH</span> <span class="err">w</span>
+
+    <span class="c"># only for pie charts. &#39;a&#39; is the number of pixels the corresponding</span>
+    <span class="c"># slice will be offset relative to the center of the pie. This is useful</span>
+    <span class="c"># for emphasizing a specific value in each chart. &#39;b&#39; is required by the</span>
+    <span class="c"># mapfile parser but is ignored.</span>
+    <span class="k">OFFSET</span> <span class="err">a</span> <span class="err">b</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="pie-charts">
+<h2><a class="toc-backref" href="#table-of-contents">Pie Charts</a><a class="headerlink" href="#pie-charts" title="Permalink to this headline">¶</a></h2>
+<p>This is the default type of chart that is rendered. This can also be
+specifically set with a PROCESSING keyword in the layer attributes:</p>
+<div class="highlight-python"><pre>PROCESSING "CHART_TYPE=PIE"</pre>
+</div>
+<p>For each shape in the layer&#8217;s datasource, the STYLE SIZE is used to set
+the relative size (value) of each pie slice, with the  angles of the slices
+that are automatically computed so as to form a full pie. For example:</p>
+<div class="highlight-mapfile"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">LAYER</span>
+    <span class="k">NAME</span> <span class="s">&quot;Ages&quot;</span>
+    <span class="k">TYPE</span> <span class="nb">CHART</span>
+    <span class="k">CONNECTIONTYPE</span> <span class="nb">postgis</span>
+    <span class="k">CONNECTION</span> <span class="s">&quot;blabla&quot;</span>
+    <span class="k">DATA</span> <span class="s">&quot;the_geom from demo&quot;</span>
+    <span class="k">PROCESSING</span> <span class="s">&quot;CHART_TYPE=pie&quot;</span>
+    <span class="k">PROCESSING</span> <span class="s">&quot;CHART_SIZE=30&quot;</span>
+    <span class="k">STATUS</span> <span class="nb">ON</span>
+    <span class="k">CLASS</span>
+        <span class="k">NAME</span> <span class="s">&quot;Population Age 0-19&quot;</span>
+        <span class="k">STYLE</span>
+            <span class="k">SIZE</span> <span class="p">[</span><span class="err">v</span><span class="mi">1006</span><span class="p">]</span>
+            <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">244</span> <span class="mi">237</span>
+        <span class="k">END</span>
+    <span class="k">END</span>
+    <span class="k">CLASS</span>
+        <span class="k">NAME</span> <span class="s">&quot;Population Age 20-39&quot;</span>
+        <span class="k">STYLE</span>
+            <span class="k">SIZE</span> <span class="p">[</span><span class="err">v</span><span class="mi">1007</span><span class="p">]</span>
+            <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">217</span> <span class="mi">191</span>
+        <span class="k">END</span>
+    <span class="k">END</span>
+    <span class="k">CLASS</span>
+        <span class="k">NAME</span> <span class="s">&quot;Population Age 40-59&quot;</span>
+        <span class="k">STYLE</span>
+            <span class="k">SIZE</span> <span class="p">[</span><span class="err">v</span><span class="mi">1008</span><span class="p">]</span>
+            <span class="k">COLOR</span> <span class="mi">255</span> <span class="mi">186</span> <span class="mi">140</span>
+        <span class="k">END</span>
+    <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</td></tr></table></div>
+<p>In the example above, if for a given shape we have v1006=1000, v1007=600 and
+v1008=400 then the actual pie slices for each class will be respectively
+50%, 30% and 20% of the total pie size.</p>
+</div>
+<div class="section" id="bar-graphs">
+<h2><a class="toc-backref" href="#table-of-contents">Bar Graphs</a><a class="headerlink" href="#bar-graphs" title="Permalink to this headline">¶</a></h2>
+<p>Bar graph drawing is set with a PROCESSING keyword in the layer attributes:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">PROCESSING</span> <span class="s">&quot;CHART_TYPE=BAR&quot;</span>
+</pre></div>
+</div>
+<p>For each shape in the layer&#8217;s datasource, the STYLE SIZE is used to set the
+relative size (value) of each bar in the graph. By default, the vertical axis
+of each bar graph is scaled for the values of the corresponding shape, and
+will always include the origin (=0). For example</p>
+<blockquote>
+<ul class="simple">
+<li>a shape whose STYLE SIZEs contains values {5,8,10,3} will be plotted
+on a graph whose vertical axis spans 0 to 10.</li>
+<li>a shape whose STYLE SIZEs contains values {-5,-8,-10,-3} will be plotted
+on a graph whose vertical axis spans -10 to 0.</li>
+<li>a shape whose STYLE SIZEs contains values {-5,-8,10,3} will be plotted
+on a graph whose vertical axis spans -8 to 10.</li>
+</ul>
+</blockquote>
+<p>Additional PROCESSING directives are used to optionally specify the bounds
+of vertical axes so that the graphs for all the shapes can be plotted with
+the same scale:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span class="k">PROCESSING</span> <span class="s">&quot;CHART_BAR_MINVAL=val&quot;</span>
+<span class="k">PROCESSING</span> <span class="s">&quot;CHART_BAR_MAXVAL=val&quot;</span>
+</pre></div>
+</div>
+<p>Values in the datasource that are above CHART_BAR_MAXVAL or below
+CHART_BAR_MINVAL will be clipped respectively to these values. If only one of
+these directives is included, the other will be automatically adjusted for
+each shape to include at least the origin, i.e. the graphs for all the
+shapes will be in the same scale <em>only if</em> all the values are of the
+same sign (positive or negative).</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="flash.html" title="Flash Output"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="antialias.html" title="AntiAliasing with MapServer"
+             >previous</a> |</li>
+        <li><a href="../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="index.html" >Output Generation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

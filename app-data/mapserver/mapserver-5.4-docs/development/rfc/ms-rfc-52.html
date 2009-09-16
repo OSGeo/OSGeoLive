@@ -1,0 +1,336 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>MS RFC 52: One-pass query processing &mdash; MapServer 5.4.2 documentation</title>
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '5.4.2',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 5.4.2 documentation" href="../../index.html" />
+    <link rel="up" title="Request for Comments" href="index.html" />
+    <link rel="next" title="MS RFC 53: Guidelines for MapScript method return values" href="ms-rfc-53.html" />
+    <link rel="prev" title="MS RFC 51: XML Mapfile Format" href="ms-rfc-51.html" /> 
+  </head>
+  <body>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: right; float: right; vertical-align: bottom;">
+  <a href="../../index.html" title="Home">Home</a> |
+  <a href="../../documentation.html" title="Docs">Docs</a> |
+  <a href="http://trac.osgeo.org/mapserver" title="Issue Tracker">Issue Tracker</a> |
+  <a href="../../faq.html" title="FAQ">FAQ</a> |
+  <a href="../../download.html" title="Download">Download </a>
+</div>
+
+<div style="padding: 10px 10px 15px 15px; background-color: white; text-align: left">
+  <a href="../../index.html" title="Home"><img src="../../_static/mapserver.jpg" alt="MapServer logo" border="0" /></a>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-53.html" title="MS RFC 53: Guidelines for MapScript method return values"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-51.html" title="MS RFC 51: XML Mapfile Format"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div >
+
+      
+        <a href="../../../../html//development/rfc/ms-rfc-52.html"><img src="../../_static/flagicons/.png" alt="" title="" border="0" /></a>
+      
+
+      
+        <a href="../../../../html/de/development/rfc/ms-rfc-52.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+      
+      <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+</div>
+    
+            <h3><a href="../../documentation.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">MS RFC 52: One-pass query processing</a><ul>
+<li><a class="reference external" href="#overview">Overview</a></li>
+<li><a class="reference external" href="#technical-solution">Technical Solution</a></li>
+<li><a class="reference external" href="#backwards-compatability-issues">Backwards Compatability Issues</a></li>
+<li><a class="reference external" href="#query-file-support">Query File Support</a></li>
+<li><a class="reference external" href="#files-impacted">Files Impacted</a></li>
+<li><a class="reference external" href="#unknowns">Unknowns</a></li>
+<li><a class="reference external" href="#voting-history">Voting History</a></li>
+</ul>
+</li>
+</ul>
+
+    
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="ms-rfc-51.html"
+                                  title="previous chapter">MS RFC 51: XML Mapfile Format</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="ms-rfc-53.html"
+                                  title="next chapter">MS RFC 53: Guidelines for MapScript method return values</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../../_sources/development/rfc/ms-rfc-52.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ms-rfc-52-one-pass-query-processing">
+<h1>MS RFC 52: One-pass query processing<a class="headerlink" href="#ms-rfc-52-one-pass-query-processing" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Date:</th><td class="field-body">2009/03/08</td>
+</tr>
+<tr class="field"><th class="field-name">Authors:</th><td class="field-body">Steve Lime</td>
+</tr>
+<tr class="field"><th class="field-name">Contact:</th><td class="field-body">sdlime at comcast.net</td>
+</tr>
+<tr class="field"><th class="field-name">Last Edited:</th><td class="field-body">2009/06/03</td>
+</tr>
+<tr class="field"><th class="field-name">Status:</th><td class="field-body">Draft</td>
+</tr>
+<tr class="field"><th class="field-name">Version:</th><td class="field-body">MapServer 6.0</td>
+</tr>
+<tr class="field"><th class="field-name">Id:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>This RFC proposes change(s) to the current of query (by point, by box, by shape,
+etc...) processing in MapServer.</p>
+<p>Presently MapServer supports a very flexible query mechanism that utilizes two
+passes through the data. This works by caching a list of feature IDs (pass one)
+and then a second pass through the features for presentation: templated output,
+drawing, or retrieval via MapScript. The obvious problem is the performance hit
+incurred from the second pass. The real pain is that the msLayerGetShape() function,
+as implemented, provides random access to the data which can be very expensive for
+certain drivers.</p>
+</div>
+<div class="section" id="technical-solution">
+<h2>Technical Solution<a class="headerlink" href="#technical-solution" title="Permalink to this headline">¶</a></h2>
+<p>There are a number of potential solutions:</p>
+<p>1. One could cache the returned shapes in memory. While this wouldn&#8217;t result in
+a true single-pass, you wouldn&#8217;t have to go back to the original driver twice.
+However, it could lead to large memory consumption with even moderately-sized
+datasets. Multiple clients accessing services at the same time would only
+compound the problems. Some testing has confirmed this method to be no faster
+and probably even a bit slower than option 3 below.</p>
+<p>2. Another solution would be fold much of the query pre-  and post-processing
+code into the msLayerWhichShapes() and msLayerNextShapes() functions so that
+the access paradigm used in drawing layers could be used. Subsequent research
+has let us to conclude that a true single pass is not possible in some cases.
+For example, GML requires a result set envelope be written out before writing
+individual features. There&#8217;s no way to get that initial envelope without a
+pass through the features.</p>
+<p>3. A final solution would be to change how the msLayerGetShape() function
+behaves. We prepose changing the behavior of that function to provide random
+access to a result set (as defined by msLayerWhichShapes()) rather than the
+entire data set. This removes most of the overhead currently incurred by
+referencing the results already returned by the data driver in the intial
+query. For implementation purposes we would retain the current msLayerGetShape()
+implementations to support easy random access and create a new function
+called msLayerResultsGetShape().</p>
+<p>msLayerGetShape() would <em>only</em> be used via MapScript to preserve true random
+access functionality. Note that drawing uses msLayerNextShape() and does not
+rely on index values.</p>
+<p>Under this last solution data drivers would need to do two things:</p>
+<blockquote>
+<ul class="simple">
+<li>update the population of the shapeObj index property (long int) with a value
+that will allow msLayerResultsGetShape() to randomly access a result</li>
+<li>creation of the driver-specific version of msLayerResultsGetShape() to
+retrieve a shape from the results created in msLayerWhichShapes()</li>
+<li>the default implementation of msLayerResultsGetShape() would simply wrap
+msLayerGetShape() since most drivers would not have to implement the newer
+function (e.g. OGR or shapefiles)</li>
+</ul>
+</blockquote>
+<p>The query functions would need to:</p>
+<blockquote>
+<ul class="simple">
+<li>not close the layer when finished with a query (we assume that users will
+want to do something with the results)</li>
+<li>allow msLayerWhichItems() to retrieve ALL items so that the retreived
+shapes are presentation-ready (draw, template, or ...)</li>
+</ul>
+</blockquote>
+<p>The presentation functions:</p>
+<blockquote>
+<ul class="simple">
+<li>refrain from calling msLayerOpen(), msLayerWhichItems(), msLayerWhichShapes()
+since that has already been done in the query functions</li>
+</ul>
+</blockquote>
+<p>MapScript layerObj wrappers:</p>
+<blockquote>
+<ul class="simple">
+<li>add resultsGetShape() method</li>
+</ul>
+</blockquote>
+<p>This solution has been piloted in the single-pass sandbox with very promising
+results. In some cases queries run orders of magnitude faster. One positive side
+effect is that primary keys need not be used to retrieve features from the result
+set. It is the drivers responsibility to provide data to uniquely identify a
+row in the result set.</p>
+</div>
+<div class="section" id="backwards-compatability-issues">
+<h2>Backwards Compatability Issues<a class="headerlink" href="#backwards-compatability-issues" title="Permalink to this headline">¶</a></h2>
+<p>This solution will most likely require changes to MapScript applications that
+process query results depending on types of data being processed. Those hitting
+shapefiles for example will still function &#8220;as is&#8221; since there that driver will
+still be using msLayerGetShape(). Any script hitting a RDBMS data source will
+have to swith to using resultsGetShape() instead of getFeature()/getShape().</p>
+<p>One casualty would be the query save/read functions. Since the processing of
+a set of results would be specific to dataset result handle it won&#8217;t be
+possible to get back to a result once a layer is ultimately closed. A proposed
+solution to this problem is presented next.</p>
+</div>
+<div class="section" id="query-file-support">
+<h2>Query File Support<a class="headerlink" href="#query-file-support" title="Permalink to this headline">¶</a></h2>
+<p>Query files have provided a means of saving the results of a query operation for
+use in subsequent map production. The series of indexes gathered during a query
+are written to disk and read later to be used to access the data a feature at a
+time. With the proposed changes this simply won&#8217;t work with RDBMS data sources.
+It becomes necessary to instead recreate the result set but re-executing the
+query. Problem is, there&#8217;s no easy way to serialize query parameters.</p>
+<p>I propose creating a new object, a queryObj, to store the various parameters
+associated with MapServer queries. It might look something like:</p>
+<dl class="docutils">
+<dt>typedef struct {</dt>
+<dd><p class="first">int type; /* By rect, point, shape, attribute, etc... Types match the query functions. <em>/
+int qlayer; /</em> used by all functions <a href="#id1"><span class="problematic" id="id2">*</span></a>/</p>
+<p>rectObj <em>rect; /</em> used by msQueryByRect() <a href="#id3"><span class="problematic" id="id4">*</span></a>/</p>
+<p>char <em>qitem; /</em> used by msQueryByAttribute() <em>/
+char *qstring; /</em> used by msQueryByAttribute() <a href="#id5"><span class="problematic" id="id6">*</span></a>/</p>
+<p class="last">...and so on...</p>
+</dd>
+</dl>
+<p>} queryObj;</p>
+<p>A single queryObj would hang off a mapObj and the mapObj would be the sole parameter
+passed to the various query methods. MapServer C code, primarily the CGI and OGC
+interfaces would simply populate the appropriate queryObj members and call the correct
+query function.</p>
+<p>MapScript would be unchanged. The wrappers for the various query functions need only
+use the user supplied parameters to populate the queryObj and then call the query
+function. The queryObj would be immutable.</p>
+<p>By storing all the information in a single store it should be easily serialized to
+disk. When read, the reconsituted queryObj could then be used to re-execute the
+appropriate query. The msSaveQuery() and msLoadQuery() function signatures would
+remain &#8220;as is&#8221; although the internals would change.</p>
+</div>
+<div class="section" id="files-impacted">
+<h2>Files Impacted<a class="headerlink" href="#files-impacted" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>driver files: implement msXXXLayerResultsGetShape() function to shape fetching
+code if necessary</li>
+<li>maptemplate.c: don&#8217;t open/close a layer when presenting results</li>
+<li>mapgml.c: don&#8217;t open/close a layer when presenting results</li>
+<li>mapdraw.c: don&#8217;t open/close a layer ect... IF if drawing a query map</li>
+<li>maplayer.c: refactor msLayerWhichItems(), add msLayerResultsGetShape() to the
+layer plugin API</li>
+<li>mapquery.c: re-work msSaveQuery() and msLoadQuery(), change query functions
+to take a lone mapObj as input, add msInitQuery() and msFreeQuery() functions</li>
+<li>mapserv.c: populate map-&gt;query before calling query functions</li>
+<li>mapwxs.c (various): populate map-&gt;query before calling query functions</li>
+<li>mapfile.c: leverage msInitQuery() and msFreeQuery() functions</li>
+<li>mapserver.h: define queryObj, add to mapObj</li>
+<li>mapscript (various): update map/layer query methods to populate a queryObj</li>
+<li>others? (mapcopy.c for one)</li>
+</ul>
+<p>Although a number of files are impacted the changes in general are relatively simple.</p>
+</div>
+<div class="section" id="unknowns">
+<h2>Unknowns<a class="headerlink" href="#unknowns" title="Permalink to this headline">¶</a></h2>
+<p>To date only shapefiles, PostGIS and Oracle drivers have been tested with this new
+scheme, all with positive results. Even shapefiles showed a performance improvement
+simply due to incurring the overhead of opening files just once. It&#8217;s not clear how
+OGR, SDE and raster queries will be impacted. I hope the owners of those drivers can
+comment further.</p>
+<p>MapServer has supported a rather obscure query method called queryByIndex() as basically
+a wrapper to msLayerGetShape(). This change may render that method obsolete but more
+checking need be done.</p>
+</div>
+<div class="section" id="voting-history">
+<h2>Voting History<a class="headerlink" href="#voting-history" title="Permalink to this headline">¶</a></h2>
+<p>None</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-53.html" title="MS RFC 53: Guidelines for MapScript method return values"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-51.html" title="MS RFC 51: XML Mapfile Format"
+             >previous</a> |</li>
+        <li><a href="../../documentation.html">Documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Development</a> &raquo;</li>
+          <li><a href="index.html" >Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../../copyright.html">Copyright</a> 2009, Regents of the University of Minnesota.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>
