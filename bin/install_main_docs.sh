@@ -59,14 +59,17 @@ wget -nv -O - "$OSGEO_SVN/doc/index_post.html" \
 
 
 # FIXME
-echo "install_main_docs.sh FIXME: The Firefox home page shoud be set to file:///usr/share/livedvd-docs/index.html"
+echo "install_main_docs.sh FIXME: Double-check that the Firefox \
+home page is now set to file:///usr/share/livedvd-docs/index.html"
+# ~user/mozilla/ has to exist first, so firefox would have need
+#   to been started at least once to set it up
 
 # edit ~user/.mozilla/firefox/$RANDOM.default/prefs.js:
 #   user_pref("browser.startup.homepage", "file:///usr/share/livedvd-docs/index.html");
 
 PREFS_FILE=`find ~user/.mozilla/firefox/ | grep -w default/prefs.js | head -n 1`
 if [ -n "$PREFS_FILE" ] ; then
-   mv "$PREFS_FILE" "$PREFS_FILE~"
-   sed -e 's+\(homepage", "\)[^"]*+\1file:///usr/share/livedvd-docs/index.html+' \
-      "$PREFS_FILE~" > "$PREFS_FILE"
+   sed -i -e 's+\(homepage", "\)[^"]*+\1file:///usr/share/livedvd-docs/index.html+' \
+      "$PREFS_FILE"
 fi
+
