@@ -1,6 +1,51 @@
---- debian/control.ORIG	2009-08-30 22:29:09.000000000 +1200
-+++ debian/control	2009-08-30 22:29:44.000000000 +1200
-@@ -47,8 +47,8 @@
+--- debian/control.ORIG	2009-09-17 21:58:24.000000000 +1200
++++ debian/control	2009-09-17 22:43:41.000000000 +1200
+@@ -11,25 +11,26 @@
+ 	libboost-filesystem-dev,
+ 	libboost-serialization-dev,
+ 	libc6-dev,
+-	libcurl4-gnutls-dev | libcurl4-openssl-dev | libcurl3-openssl-dev,
++	libcurl4-openssl-dev,
+ 	libgda3-dev,
+ 	libgps-dev,
+ 	libgtk2.0-dev,
+ 	libltdl3-dev,
+ 	libmagick9-dev,
+-	libmapnik-dev (>> 0.5.0-1),
++	libmapnik-dev,
+ 	libpcre3-dev,
+-	libspeechd-dev (>= 0.6.7) | libspeechd-dev (>= 0.6.7~rc1-1),
++	libspeechd-dev,
+ 	libsqlite3-dev,
+ 	libxml-twig-perl,
++	libxml2-dev,
+ 	perl-doc,
+ 	pkg-config,
+ 	po-debconf,
+ 	python-dev,
+ 	python-central,
+-	python-dev | python2.4-dev | python2.3-dev,
++	python-dev,
+ 	python-support,
+-	speech-dispatcher (>= 0.6.6)
++	speech-dispatcher
+ Standards-Version: 3.8.1
+ 
+ # ------------------------------------------------------------------
+@@ -38,35 +39,33 @@
+ Depends: ${misc:Depends},
+ 	 ${shlibs:Depends},
+ 	libart-2.0-2,
+-	libboost-filesystem1.33.1 | libboost-filesystem1.34.1,
+-	libboost-thread1.33.1 | libboost-thread1.34.1 | libboost-thread1.34.1-4ubuntu3,
++	libboost-filesystem1.34.1,
++	libboost-thread1.34.1,
+ 	libgda3-3,
+ 	libgda3-postgres,
+-	libltdl3 | libltdl7,
+-	libmapnik (>> 0.5.0-1) | libmapnik0.5,
++	libltdl7,
++	libmapnik0.5,
  	libsqlite3-0,
  	mapnik-plugins,
  	mapnik-utils,
@@ -9,8 +54,30 @@
 +	openstreetmap-map-icons,
 +	gpsdrive-utils,
  	perlmagick,
- 	sudo,
+-	sudo,
  	ttf-dejavu
+ Recommends: gpsd,
+ 	espeak,
+ 	gdal-bin,
+ 	gpsbabel,
+-	gpsdrive-data-maps (>> 2322),
+ 	imagemagick,
+-	libdbd-mysql-perl,
+-	libdbd-sqlite3-perl,
+-	libgeos,
+-	postgresql-8.3-postgis | postgresql-8.2-postgis,
++	postgresql-8.3-postgis,
+ 	python-mapnik
+ Conflicts: osm-data-mapnik,
+ 	osm-data-map-icons,
+ 	gpsdrive-scripts
+ Suggests: grass,
++	sudo,
++	libgeos-c1,
++	libdbd-sqlite3-perl,
+ 	libarchive-zip-perl,
+ 	libexpat1,
+ 	libfile-find-rule-perl,
 --- data/maps/debian/control.ORIG	2009-08-30 22:39:34.000000000 +1200
 +++ data/maps/debian/control	2009-08-30 22:39:49.000000000 +1200
 @@ -10,7 +10,6 @@
