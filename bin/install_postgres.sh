@@ -33,7 +33,10 @@ echo "alter role \"user\" with password 'user'" > /tmp/build_postgre.sql
 sudo -u postgres pqsl -f /tmp/build_postgre.sql
 # rm /tmp/build_postgre.sql
 
-
+#configure template postgis database
+createlang plpgsql template_postgis 
+psql -d template_postgis  -f /usr/share/postgresql-8.3-postgis/lwpostgis.sql 
+psql -d template_postgis  -f /usr/share/postgresql-8.3-postgis/spatial_ref_sys.sql 
 
 #include pgadmin3 profile for connection
 for FILE in  pgadmin3  pgpass  ; do
