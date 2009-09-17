@@ -106,16 +106,16 @@ chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/uDig.desktop
 ## Sample Data ##
 
 # Download udig's sample data
-if [ -f "data-v1_1.zip" ]
+if [ -f "data-v1_2.zip" ]
 then
-   echo "data-v1_1.zip has already been downloaded."
+   echo "data-v1_2.zip has already been downloaded."
 else
    wget -c http://udig.refractions.net/docs/data-v1_2.zip # changed from 1_1 to include index
 fi
 
 #unzip the file into /usr/local/share/udig-data
 mkdir $DATA_FOLDER/udig-data
-unzip data-v1_1.zip -d $DATA_FOLDER/udig-data
+unzip data-v1_2.zip -d $DATA_FOLDER/udig-data
 chmod a+w $DATA_FOLDER/udig-data
 
 ## Documentation ##
