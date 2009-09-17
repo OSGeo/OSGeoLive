@@ -42,7 +42,7 @@ wget -nv -O - "$OSGEO_SVN/doc/index_pre.html" \
 
 
 # apps
-APPS="geokettle gpsdrive grass mapfish udig"
+APPS="geokettle gpsdrive grass mapfish pgrouting qgis R udig"
 
 for ITEM in $APPS ; do
    wget -nv -O - "$OSGEO_SVN/doc/descriptions/${ITEM}_definition.html" \
