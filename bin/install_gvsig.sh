@@ -75,5 +75,11 @@ fi
 
 cp $GVSIG_MAN $GVSIG_DOCS
 
+
+# download gvSIG sample project
+mkdir ~/gvSIG
+wget http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp
+cp sample-project.gvp ~/gvSIG
+
 echo "Done!"
 
