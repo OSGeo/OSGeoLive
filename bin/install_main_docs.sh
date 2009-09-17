@@ -37,7 +37,7 @@ for ITEM in $FILES ; do
    wget -r "$OSGEO_SVN/doc/$ITEM"  --output-document "$DEST/$ITEM"
 done
 # index page start
-wget -q -O - "$OSGEO_SVN/doc/index_pre.html" \
+wget -nv -O - "$OSGEO_SVN/doc/index_pre.html" \
     > "$DEST/index.html"
 
 
@@ -45,7 +45,7 @@ wget -q -O - "$OSGEO_SVN/doc/index_pre.html" \
 APPS="geokettle gpsdrive grass mapfish udig"
 
 for ITEM in $APPS ; do
-   wget -q -O - "$OSGEO_SVN/doc/descriptions/${ITEM}_definition.html" \
+   wget -nv -O - "$OSGEO_SVN/doc/descriptions/${ITEM}_definition.html" \
        >> "$DEST/index.html"
 
    wget -r "$OSGEO_SVN/doc/descriptions/${ITEM}_description.html" \
@@ -53,7 +53,7 @@ for ITEM in $APPS ; do
 done
 
 # index page end
-wget -q -O - "$OSGEO_SVN/doc/index_post.html" \
+wget -nv -O - "$OSGEO_SVN/doc/index_post.html" \
     >> "$DEST/index.html"
 
 
