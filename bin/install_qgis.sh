@@ -49,7 +49,8 @@ fi
 ##libgdal1-1.6.0-grass
 
 #Install optional packages that some plugins use
-apt-get --assume-yes python-psycopg2 python-qwt5-qt4 python-gdal python-matplotlib python-qt4-sql libqt4-sql-psql
+apt-get --assume-yes python-psycopg2 python-qwt5-qt4 \
+   python-gdal python-matplotlib python-qt4-sql libqt4-sql-psql
 
 #Make sure old qt uim isn't installed
 apt-get remove uim-qt uim-qt3
@@ -96,7 +97,12 @@ wget -c http://download.osgeo.org/qgis/doc/manual/qgis-1.0.0_a-gentle-gis-introd
 	--output-document=/usr/local/share/qgis/qgis-1.0.0_a-gentle-gis-introduction_en.pdf
 wget -c http://download.osgeo.org/qgis/doc/manual/qgis-1.1.0_user_guide_en.pdf \
 	--output-document=/usr/local/share/qgis/qgis-1.1.0_user_guide_en.pdf
+
 chmod a+rwx /usr/local/share/qgis/*
+# eh? what is this, Windows? the above is rather OTT permissive.
+# why not just:
+#chmod 644 /usr/local/share/qgis/*.pdf
+
 
 #TODO Install some popular python plugins
 #Use wget to pull them directly into qgis python path?
@@ -107,6 +113,7 @@ tar xzf /tmp/qgis_plugin.tar.gz
 cp -R  /tmp/.qgis/python/plugins/ /usr/share/qgis/python/
 #Next line might be optional, unsure
 #chmod -R 777 /usr/share/qgis/python/plugins/*
+# why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
 
 #TODO Include some sample projects using already installed example data
 #post a sample somewhere on qgis website or launchpad to pull
