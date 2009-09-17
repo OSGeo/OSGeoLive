@@ -31,15 +31,15 @@
 
 
 
-apt-get install python-psycopg2 python-gdal python-matplotlib python-qt4-sql libqt4-sql-psql python-rpy python-all-dev libgdal1-dev grass-dev libxml2-dev python-shapely tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev python-setuptools
+apt-get install python-rpy python-all-dev libgdal1-dev grass-dev libxml2-dev python-shapely tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev python-setuptools
 
 easy_install rpy2
 
 echo 'packagelist <- c("adapt","boot","class","classInt","coda","DCluster","digest","e1071","epitools","foreign","gpclib","graph","gstat","lattice","lmtest","maps","maptools","Matrix","mgcv","nlme","pgirmess","pkgDepTools","R2WinBUGS","RandomFields","RBGL","RColorBrewer","rgdal","Rgraphviz","sandwich","sp","spam","spatialkernel","spatstat","spdep","spgrass6","spgwr","splancs","tripack","xtable","zoo")
 for (i in packagelist) {
     install.packages(i, repos= "http://cran.r-project.org", lib = "/usr/local/lib/R/site-library/" , dependencies = TRUE)
-}' > installRpaRckages.r
+}' > /tmp/installRpackages.r
 
-R CMD BATCH installRpackages.r
+R CMD BATCH /tmp/installRpackages.r
 
 apt-get remove python-all-dev libgdal1-dev grass-dev libxml2-dev tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev 
