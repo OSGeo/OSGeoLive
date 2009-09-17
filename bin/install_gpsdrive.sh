@@ -31,6 +31,7 @@ TMP_DIR=/tmp/build_gpsdrive
 ## packaged version (2.10pre4) is long out of date, so we build 2.10pre7 manually.
 BUILD_LATEST=1
 
+# base packages
 if [ "$BUILD_LATEST" -eq 0 ] ; then
    # install very old pre-packaged version
    PACKAGES="gpsd gpsd-clients python-gps gpsdrive"
@@ -39,7 +40,16 @@ else
    PACKAGES="gpsd gpsd-clients python-gps"
 fi
 
+# add some useful Recommends
+PACKAGES="$PACKAGES espeak gdal-bin gpsbabel imagemagick postgresql-8.3-postgis python-mapnik"
+
 apt-get install --yes $PACKAGES
+
+if [ $? -ne 0 ] ; then
+   echo "An error occurred installing packages. Aborting install."
+   exit 1
+fi
+
 
 
 #######################
@@ -71,6 +81,10 @@ if [ $BUILD_LATEST -eq 1 ] ; then
     patch -p0 < "$PATCH.patch"
   done
 
+  if [ $? -ne 0 ] ; then
+     echo "An error occurred patching package. Aborting install."
+     exit 1
+  fi
 
   cat << EOF > "gpsdrive_fix_icon.patch"
 --- data/gpsdrive.desktop.ORIG  2009-08-31 01:42:39.000000000 +1200
@@ -97,13 +111,10 @@ EOF
   ### install any missing build-dep packages
 
   # these are potentially problematic for my hack below so do them by hand
-  apt-get install --yes libcurl4-openssl-dev libspeechd-dev libltdl7-dev
+  #apt-get install --yes libcurl4-openssl-dev  libltdl7-dev
 
   NEEDED_BUILD_PKG=`dpkg-checkbuilddeps 2>&1 | cut -f3 -d: | \
     sed -e 's/([^)]*)//g' -e 's/| [^ ]*//g' -e 's/|//g'`
-
-  NEEDED_BUILD_PKG="$NEEDED_BUILD_PKG libxml2-dev libcurl4-openssl-dev libspeechd-dev"
-
 
   if [ -n "$NEEDED_BUILD_PKG" ] ; then
      echo "Attempting to (temporarily) install the following packages: $NEEDED_BUILD_PKG"
@@ -136,13 +147,15 @@ EOF
   # get+install at least one OSM icon set package
   #   see http://www.gpsdrive.de/development/map-icons/overview.en.shtml
   echo "Downloading support packages ... (please wait)"
-  wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.small_16908_all.deb"
-  wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-square.big_16908_all.deb"
-  wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons-classic.small_16908_all.deb"
-  wget -c -nv "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-map-icons_16908_all.deb"
+  DL_URL="http://www.gpsdrive.de/debian/pool/squeeze"
+
+  wget -c -nv "$DL_URL/openstreetmap-map-icons-square.small_16908_all.deb"
+  wget -c -nv "$DL_URL/openstreetmap-map-icons-square.big_16908_all.deb"
+  wget -c -nv "$DL_URL/openstreetmap-map-icons-classic.small_16908_all.deb"
+  wget -c -nv "$DL_URL/openstreetmap-map-icons_16908_all.deb"
 
   # holy cow, mapnik-world-boundaries.deb is 300mb!
-  #wget -c "http://www.gpsdrive.de/debian/pool/squeeze/openstreetmap-mapnik-world-boundaries_16662_all.deb"
+  #wget -c "$DL_URL/openstreetmap-mapnik-world-boundaries_16662_all.deb"
 
 
   CUSTOM_PKGS="gpsdrive*.deb openstreetmap-map*.deb"
