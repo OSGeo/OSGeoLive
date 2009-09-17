@@ -86,6 +86,7 @@ mkdir -p /usr/local/share/grass
 for FILE in spearfish_grass60data-0.3 nc_spm_latest ; do
    cd "$TMP_DIR"
    if [ ! -e "$FILE.tar.gz" ] ; then
+      # [! -e] bypasses "wget -c" opportunity, oh well
       wget -c http://grass.osgeo.org/sampledata/$FILE.tar.gz
    fi
 
