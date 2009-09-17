@@ -12,7 +12,7 @@ MAPTILERDEB="maptiler_1.0.beta1_all.deb"
 cd "$TMP"
 
 #Add repositories
-wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
    --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 #Add signed key for repositorys LTS and non-LTS

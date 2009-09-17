@@ -40,7 +40,7 @@ psql -d template_postgis  -f /usr/share/postgresql-8.3-postgis/spatial_ref_sys.s
 
 #include pgadmin3 profile for connection
 for FILE in  pgadmin3  pgpass  ; do
-   wget -r "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/postgis-conf/$FILE" \
+   wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/postgis-conf/$FILE" \
       --output-document="/home/$USER_NAME/.$FILE"
 
     chown $USER_NAME:$USER_NAME "/home/$USER_NAME/.$FILE"

@@ -34,7 +34,7 @@ mkdir -p $DEST
 FILES="banner.png arramagong.css"
 
 for ITEM in $FILES ; do
-   wget -r "$OSGEO_SVN/doc/$ITEM"  --output-document "$DEST/$ITEM"
+   wget -nv "$OSGEO_SVN/doc/$ITEM"  --output-document "$DEST/$ITEM"
 done
 # index page start
 wget -nv -O - "$OSGEO_SVN/doc/index_pre.html" \
@@ -48,7 +48,7 @@ for ITEM in $APPS ; do
    wget -nv -O - "$OSGEO_SVN/doc/descriptions/${ITEM}_definition.html" \
        >> "$DEST/index.html"
 
-   wget -r "$OSGEO_SVN/doc/descriptions/${ITEM}_description.html" \
+   wget -nv "$OSGEO_SVN/doc/descriptions/${ITEM}_description.html" \
         --output-document "$DEST/${ITEM}_description.html"
 done
 

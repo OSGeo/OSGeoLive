@@ -24,7 +24,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
 #Add repositories
-wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 #Add signed key for repositorys LTS and non-LTS
@@ -107,6 +107,10 @@ chmod a+rwx /usr/local/share/qgis/*
 #TODO Install some popular python plugins
 #Use wget to pull them directly into qgis python path?
 # A temp bundle of common plugins
+
+# be careful with 'wget -c', if the file changes on the server the local
+# copy will get corrupted. Wget only knows about filesize, not file 
+# contents, timestamps, or md5sums!
 wget -c http://www.geofemengineering.it/data/qgis_plugin.tar.gz \ 
 	--output-document=/tmp/qgis_plugin.tar.gz
 tar xzf /tmp/qgis_plugin.tar.gz 
