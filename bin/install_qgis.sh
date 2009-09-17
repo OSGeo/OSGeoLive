@@ -100,6 +100,13 @@ chmod a+rwx /usr/local/share/qgis/*
 
 #TODO Install some popular python plugins
 #Use wget to pull them directly into qgis python path?
+# A temp bundle of common plugins
+wget -c http://www.geofemengineering.it/data/qgis_plugin.tar.gz \ 
+	--output-document=/tmp/qgis_plugin.tar.gz
+tar xzf /tmp/qgis_plugin.tar.gz 
+cp -R  /tmp/.qgis/python/plugins/ /usr/share/qgis/python/
+#Next line might be optional, unsure
+#chmod -R 777 /usr/share/qgis/python/plugins/*
 
 #TODO Include some sample projects using already installed example data
 #post a sample somewhere on qgis website or launchpad to pull
