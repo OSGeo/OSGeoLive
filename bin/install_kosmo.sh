@@ -51,12 +51,7 @@ cd $TMP
 ## Install Application ##
 
 # get kosmo
-if [ -f "kosmo_1_2_1_linux_jre.tar.gz" ]
-then
-   echo "Kosmo_1_2_1 has already been downloaded."
-else
-   wget http://www.saig.es/descargas/dloads/kosmo/kosmo_1_2_1_linux_jre.tar.gz
-fi
+wget -c http://www.saig.es/descargas/dloads/kosmo/kosmo_1_2_1_linux_jre.tar.gz
 
 # unpack it and copy it to /usr/lib
 tar xvfz kosmo_1_2_1_linux_jre.tar.gz -C $INSTALL_FOLDER
@@ -66,16 +61,8 @@ chmod -R 755 $KOSMO_FOLDER
 ln -s $KOSMO_FOLDER/bin/Kosmo.sh /usr/bin/kosmo_1_2_1
 
 # Download desktop link
-if [ -f "kosmo_1_2_1.desktop" ]
-then
-   echo "kosmo_1_2_1.desktop has already been downloaded."
-else
-   wget http://www.saig.es/descargas/dloads/kosmo/kosmo_1_2_1.desktop
-fi
+wget -c http://www.saig.es/descargas/dloads/kosmo/kosmo_1_2_1.desktop
 
 # copy it into the openjump folder
 cp kosmo_1_2_1.desktop $USER_HOME/Desktop
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/kosmo_1_2_1.desktop
-
-
-
