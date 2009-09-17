@@ -112,10 +112,11 @@ then
 else
    wget -c http://udig.refractions.net/docs/data-v1_1.zip
 fi
+
 #unzip the file into /usr/local/share/udig-data
 mkdir $DATA_FOLDER/udig-data
 unzip data-v1_1.zip -d $DATA_FOLDER/udig-data
-
+chmod o+w $DATA_FOLDER/udig-docs
 
 ## Documentation ##
 
