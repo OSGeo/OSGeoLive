@@ -110,7 +110,7 @@ if [ -f "data-v1_1.zip" ]
 then
    echo "data-v1_1.zip has already been downloaded."
 else
-   wget -c http://udig.refractions.net/docs/data-v1_1.zip
+   wget -c http://udig.refractions.net/docs/data-v1_2.zip # changed from 1_1 to include index
 fi
 
 #unzip the file into /usr/local/share/udig-data
