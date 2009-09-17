@@ -116,7 +116,7 @@ fi
 #unzip the file into /usr/local/share/udig-data
 mkdir $DATA_FOLDER/udig-data
 unzip data-v1_1.zip -d $DATA_FOLDER/udig-data
-chmod o+w $DATA_FOLDER/udig-docs
+chmod a+w $DATA_FOLDER/udig-data
 
 ## Documentation ##
 
