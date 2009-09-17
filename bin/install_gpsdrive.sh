@@ -167,15 +167,16 @@ EOF
         # skip overenthusiastic recommends
         continue
      fi
-     REQ_PKG=`dpkg --info "$PKG" | grep '^ Depends: \|^ Recommends: ' | \
+     REQ_PKG=`dpkg --info "$PKG" | grep '^ Depends: ' | \
        cut -f2- -d: | tr ',' '\n' | cut -f1 -d'|' | \
        sed -e 's/^ //' -e 's/(.*$//' | tr '\n' ' '`
+     echo "$PKG wants: $REQ_PKG"
      EXTRA_PKGS="$EXTRA_PKGS $REQ_PKG"
   done
 
 
   EXTRA_PKGS=`echo $EXTRA_PKGS | tr ' ' '\n' | sort -u | \
-     grep -v 'gpsdrive\|gpsdrive-data-maps\|openstreetmap-map-icons\|libgeos'`
+     grep -v 'gpsdrive\|openstreetmap-map-icons'`
 
   TO_INSTALL=""
   for PACKAGE in $EXTRA_PKGS ; do
@@ -184,6 +185,7 @@ EOF
      fi
   done
 
+  # remove libltdl swap as it's now redundant after testing new dep patch
   TO_INSTALL=`echo "$TO_INSTALL" | sed -e 's/|//g' -e 's/libltdl3/libltdl7/'`
 
   if [ -n "$TO_INSTALL" ] ; then
@@ -208,7 +210,8 @@ EOF
   if [ -n "$NEEDED_BUILD_PKG" ] ; then
      apt-get remove $NEEDED_BUILD_PKG
   fi
-
+  # don't worry (too much) if the above fails, it's just removing cruft.
+  # we really want a --assume-no switch to only remove if perfectly safe
 fi
 ##
 ## end self-build
@@ -276,7 +279,8 @@ chmod -R g+rwX /usr/local/share/gpsdrive/maps
 
 
 # bypass Mapnik wanting 300mb World Boundaries DB to be installed
-sed -e 4594,4863d "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" > "$USER_HOME/.gpsdrive/osm.xml"
+sed -e 4594,4863d "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
+  > "$USER_HOME/.gpsdrive/osm.xml"
 
 
 #if [ $? -eq 0 ] ; then
