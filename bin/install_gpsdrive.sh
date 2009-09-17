@@ -60,7 +60,7 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   mkdir "$TMP_DIR"
   cd "$TMP_DIR"
 
-  wget -c "http://www.gpsdrive.de/packages/gpsdrive-$VERSION.tar.gz"
+  wget -c --progress=dot:mega "http://www.gpsdrive.de/packages/gpsdrive-$VERSION.tar.gz"
 
   tar xzf gpsdrive-$VERSION.tar.gz
   #if [ $? -eq 0 ] ; then
@@ -161,6 +161,7 @@ EOF
   CUSTOM_PKGS="gpsdrive*.deb openstreetmap-map*.deb"
 
   # install package dependencies
+  echo "Checking if local.deb needs are already installed ..."
   EXTRA_PKGS="osm2pgsql"
   for PKG in $CUSTOM_PKGS ; do
      if [ `echo $PKG | cut -f1 -d_` = "openstreetmap-map-icons" ] ; then
@@ -261,7 +262,7 @@ echo "Convention_Centre   -33.8750   151.2005" > "$USER_HOME/.gpsdrive/way.txt"
 
 #  v1.1, 70mb LANDSAT + OpenStreetMap tiles
 # move to .au mirror once it becomes avail.
-wget -c "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/gpsdrive_syd_tileset-1.1.tar.gz?use_mirror=internode"
+wget -c --progress=dot:mega "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/gpsdrive_syd_tileset-1.1.tar.gz?use_mirror=internode"
 
 mkdir -p /usr/local/share/gpsdrive
 cd /usr/local/share/gpsdrive/

@@ -59,7 +59,7 @@ if [ -n "$TO_INSTALL" ] ; then
 
    if [ $? -ne 0 ] ; then
       echo "ERROR: package install failed: $TO_INSTALL"
-      #exit 1
+      exit 1
    fi
 fi
 
@@ -75,7 +75,7 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-wget -nv "$LATEST"
+wget -c --progress=dot:mega "$LATEST"
 
 tar xzf `basename $LATEST`
 
@@ -86,7 +86,7 @@ tar xzf `basename $LATEST`
 
 ### get the Levitus annual water temperature profile database
 # needed for mblevitus program, uncompressed it is 16mb.
-wget -nv ftp://ftp.ldeo.columbia.edu/pub/MB-System/annual.gz
+wget -c --progress=dot:mega ftp://ftp.ldeo.columbia.edu/pub/MB-System/annual.gz
 
 gzip -d annual.gz
 #if [ $? -eq 0 ] ; then
