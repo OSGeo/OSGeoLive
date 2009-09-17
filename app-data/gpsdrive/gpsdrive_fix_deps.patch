@@ -10,7 +10,7 @@
  	libgps-dev,
  	libgtk2.0-dev,
 -	libltdl3-dev,
-+	libltdl7-dev,
++	libltdl7-dev | libltdl3-dev,
  	libmagick9-dev,
 -	libmapnik-dev (>> 0.5.0-1),
 +	libmapnik-dev,
