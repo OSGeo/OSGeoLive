@@ -47,7 +47,7 @@ fi
 \rm /etc/apt/sources.list.d/grass.list /etc/apt/sources.list.d/qgis.list
 
 # Add UbuntuGIS repository (same as QGIS)
-wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 #Add signed key for repositorys LTS and non-LTS
