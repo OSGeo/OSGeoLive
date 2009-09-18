@@ -35,7 +35,7 @@ echo "Starting master.sh for version: `cat ${DIR}/../VERSION.txt`"
 echo "===================================================================="
 echo Disk Usage1:, main.sh, `df | grep "Filesystem" | sed -e "s/  */,/g"`, date
 echo Disk Usage2:, main.sh, `df | grep " /$" | sed -e "s/  */,/g"`, `date`
-exit
+
 # clear the decks
 rm -rf /tmp/build_gisvm_error.log
 
