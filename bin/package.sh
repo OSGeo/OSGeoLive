@@ -30,21 +30,51 @@
 # 
 
 DIR=`dirname ${0}`
-VERSION=cat ${DIR}/VERSION.txt
+#VERSION=`cat ${DIR}/../VERSION.txt`
+VERSION=2.0-beta1
 PACKAGE_NAME="arramagong-gisvm"
-VM_DIR="/var/lib/vmware/Virtual Machines/" # Default directory
-VM="arramagong-gisvm-2.0-alpha5"
+#VM_DIR="/var/lib/vmware/Virtual Machines/" # Default directory
+VM_DIR="/home/cshorter/lisasoft/marketing/ArramagongLiveDVD/vm"
+VM="arramagong-gisvm-2.0-beta1"
+
+echo "===================================================================="
+echo "Starting package.sh for version: {$VERSION}"
+echo "===================================================================="
+echo Disk Usage1:, package.sh start, `df | grep "Filesystem" | sed -e "s/  */,/g"`
+echo Disk Usage2:, package.sh start, `df | grep " /$" | sed -e "s/  */,/g"`
+echo "Start package.sh. Packaging ${VM_DIR}/${VM}"
+date
+
+# Install 7zip
+apt-get install p7zip-full
 
 # Remove non-core VM files, except *.vmx and *.vmdk
-cd ${VM_DIR}${VM}
+cd "${VM_DIR}/${VM}"
 for FILE  in `ls | grep -v "\.vmdk$" | grep -v "\.vmx$"` ; do
-  rm $FILE
+  rm -f $FILE
 done
 
-# Shrink image
+ Shrink
+echo "Shrink the image"
 vmware-vdiskmanager -k *.vmdk
 
-# Compress the image using 7z
-cd $VM_DIR
-7z a -mx=9 "${PACKAGE_NAME}-{VERSION}.7z" ${VM_DIR}
+# Compress
+echo "Compress the image using 7z"
+cd "${VM_DIR}"
+pwd
+7z a -mx=9 "${PACKAGE_NAME}-${VERSION}.7z" "${PACKAGE_NAME}-${VERSION}" 
 
+# if the image is greater than 2 Gig, we need to split the image, as the OSGeo
+# server isn't configured to accept files of a greater size.
+echo "Split the image"
+echo split -b 1900M  "${PACKAGE_NAME}-${VERSION}.7z"  "${PACKAGE_NAME}-${VERSION}.7z"
+split -b 1900M  ${PACKAGE_NAME}-${VERSION}.7z  ${PACKAGE_NAME}-${VERSION}.7z
+
+# Checksums
+echo "Create checksums"
+md5sum ${PACKAGE_NAME}-${VERSION}*.7z*
+
+echo Disk Usage1:, package.sh end, `df | grep "Filesystem" | sed -e "s/  */,/g"`
+echo Disk Usage2:, package.sh end, `df | grep " /$" | sed -e "s/  */,/g"`
+echo Finished package.sh
+date
