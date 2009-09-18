@@ -30,7 +30,7 @@ GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-
+DOC_DIR=$USER_HOME/gisvm/trunk/app-data/geoserver/doc
 
 ### Setup things... ###
  
@@ -118,8 +118,8 @@ chmod 755 "$GS_HOME/bin/shutdown.sh"
 chmod 755 "$GS_HOME/bin/stop_notify.sh"
 
 ## Allow the user to write in the GeoServer data dir
-chown -R user:user "$GS_HOME/data_dir"
-chown -R user:user "$GS_HOME/logs"
+chmod -R a+w "$GS_HOME/data_dir"
+chmod -R a+w "$GS_HOME/logs"
 
 ## link from bin directory
 if [ ! -e "$BIN/geoserver_start.sh" ] ; then
@@ -134,6 +134,21 @@ fi
 if [ ! -e "$BIN/geoserver_stop_notify.sh" ] ; then
   ln -s $GS_HOME/bin/stop_notify.sh $BIN/geoserver_stop_notify.sh
 fi
+
+### download the documentation
+
+mkdir -p $DOC_DIR
+echo "Getting GeoServer documentation"
+if [ -f "geoserver-$GS_VERSION-htmldoc.zip" ]
+then
+   echo "geoserver-$GS_VERSION-htmldoc.zip has already been downloaded"
+else
+  wget "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-htmldoc.zip/download"
+fi
+## unpack it
+echo "Installing GeoServer documentation"
+unzip -o -q geoserver-$GS_VERSION-htmldoc.zip -d $DOC_DIR
+
 
 ### install desktop icons ##
 echo "Installing GeoServer icons"
@@ -203,8 +218,21 @@ Icon=/usr/share/icons/geoserver_desktop_48x48.png
 Terminal=false
 EOF
 
-cp -a /usr/share/applications/geoserver-styler.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-styler.desktop"
+## documentation icon
+cat << EOF > /usr/share/applications/geoserver-docs.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=GeoServer documentation
+Comment=GeoServer 1.7.6 documentation
+Categories=Application;Geography;Geoscience;Education;
+Exec=$BIN/firefox "$DOC_DIR/user/index.html"
+Icon=/usr/share/icons/geoserver_desktop_48x48.png
+Terminal=false
+EOF
+
+cp -a /usr/share/applications/geoserver-docs.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-docs.desktop"
 
 ## clean up eventual leftover Jetty cache directory
 echo "Cleaning up Jetty JSP cache in /tmp"
