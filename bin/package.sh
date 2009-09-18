@@ -34,8 +34,8 @@ DIR=`dirname ${0}`
 VERSION=2.0-beta1
 PACKAGE_NAME="arramagong-gisvm"
 #VM_DIR="/var/lib/vmware/Virtual Machines/" # Default directory
-VM_DIR="/home/cshorter/lisasoft/marketing/ArramagongLiveDVD/vm"
-VM="arramagong-gisvm-2.0-beta1"
+VM_DIR="/mnt/space/arramagong/vm"
+VM="arramagong-gisvm-${VERSION}"
 
 echo "===================================================================="
 echo "Starting package.sh for version: {$VERSION}"
@@ -69,8 +69,7 @@ pwd
 # Reconstitute with:
 #   `cat ${PACKAGE_NAME}-${VERSION}.7z[1-9]* > ${PACKAGE_NAME}-${VERSION}.7z
 echo "Split the image"
-echo split -b 1900M  "${PACKAGE_NAME}-${VERSION}.7z"  "${PACKAGE_NAME}-${VERSION}.7z"
-split -b 1900M  ${PACKAGE_NAME}-${VERSION}.7z  ${PACKAGE_NAME}-${VERSION}.7z
+split -b 1500M  ${PACKAGE_NAME}-${VERSION}.7z  ${PACKAGE_NAME}-${VERSION}.7z
 
 # Checksums
 echo "Create checksums"
