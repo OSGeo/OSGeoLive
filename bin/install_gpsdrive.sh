@@ -270,8 +270,10 @@ cd /usr/local/share/gpsdrive/
 tar xzf "$TMP_DIR"/gpsdrive_syd_tileset-*.tar.gz
 
 cd "$USER_HOME/.gpsdrive/"
-ln -s /usr/local/share/gpsdrive/maps "$USER_HOME/.gpsdrive/maps"
 
+# better to mkdir maps here then symlink in mapsets, with the big
+#  mapnik/ one as read-only?? (so not loaded into RAM)
+ln -s /usr/local/share/gpsdrive/maps "$USER_HOME/.gpsdrive/maps"
 
 # allow users to download new data to /usr/local/share/gpsdrive
 adduser $USER_NAME users
