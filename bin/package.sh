@@ -66,6 +66,8 @@ pwd
 
 # if the image is greater than 2 Gig, we need to split the image, as the OSGeo
 # server isn't configured to accept files of a greater size.
+# Reconstitute with:
+#   `cat ${PACKAGE_NAME}-${VERSION}.7z[1-9]* > ${PACKAGE_NAME}-${VERSION}.7z
 echo "Split the image"
 echo split -b 1900M  "${PACKAGE_NAME}-${VERSION}.7z"  "${PACKAGE_NAME}-${VERSION}.7z"
 split -b 1900M  ${PACKAGE_NAME}-${VERSION}.7z  ${PACKAGE_NAME}-${VERSION}.7z
