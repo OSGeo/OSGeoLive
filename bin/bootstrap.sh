@@ -25,6 +25,7 @@
 # sudo ./boostrap.sh
 
 SCRIPT_DIR=/usr/local/share
+rsync -avz cshorter@192.168.2.166::/media/Shorter/repository/livedvd/Arramagong_tmp/ /tmp/
 
 # install subversion and sshd (so you can log into the VM remotely)
 apt-get install --yes subversion openssh-server
