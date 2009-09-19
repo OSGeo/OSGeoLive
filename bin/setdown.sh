@@ -20,19 +20,40 @@
 # =======
 # sudo ./setdown.sh 2>&1 | tee /var/log/arramagong/setdown.log
 
+DIR=`dirname ${0}`
+VERSION=`cat ${DIR}/../VERSION.txt`
+PACKAGE_NAME="arramagong-gisvm"
+VM="${PACKAGE_NAME}-${VERSION}"
+
+
 # remove build stuff no longer of use
 apt-get --yes remove devscripts pbuilder \
    cvs-buildpackage svn-buildpackage \
    lintian debhelper pkg-config
 
+# Copy tmp files, apt cache and logs ready for backup
+mkdir /tmp/${VM}-bak
+cd /tmp/${VM}-bak
+
+mkdir ${VM}-tmp
+mv /tmp/build* ${VM}-tmp
+mv /tmp/*downloads ${VM}-tmp
+mv /tmp/tilelite ${VM}-tmp
+
+tar -zcf ${VM}-apt-cache.tar.gz /var/cache/apt/
+
+tar -zcf ${VM}-log.tar.gz /var/log/arramagong/
+
+
 # remove the apt-get cache
 apt-get clean
+
 
 rm -fr \
   /home/user/.bash_history \
   /home/user/.ssh \
   /home/user/.subversion \
-  # /tmp/* \
+  # /tmp/* \ # tmp is cleared during shutdown
 
   # Do we need the following:
   # /home/user/.cache \
@@ -42,3 +63,5 @@ rm -fr \
 # Compress image by wiping the vitual disk, filling empty space with zero.
 cat /dev/zero > zero.fill ; sync ; sleep 1 ; sync ; rm -f zero.fill
 
+echo "Finished setdown.sh. Copy backup files to the host system with:"
+echo "  scp -pr /tmp/${VM}-bak username@hostname:/directory"
