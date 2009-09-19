@@ -91,10 +91,11 @@ echo "Add the following lines to"
 echo "  https://camerons@svn.osgeo.org/osgeo/livedvd/gisvm/trunk/download/index.html"
 echo 
 
-echo "<h3>Arramagong GISVM and LiveDVD - ${VERSION}"
+echo "<h3>Arramagong GISVM and LiveDVD - ${VERSION}</h3>"
+echo `date "+%d %B %Y"`
 echo "<ul>"
 for FILE in ${PACKAGE_NAME}-${VERSION}.7z* ; do
-  MD5SUM=`md5sum ${FILE}`
+  MD5SUM=`md5sum ${FILE} | cut -f1 -d" "`
   SIZE=`du -h ${FILE} | cut -f1`
   echo "<li>"
   echo "  <a href=\"${FILE}\">$FILE</a>"
