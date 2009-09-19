@@ -24,19 +24,18 @@ USER_NAME="user"
 
 apt-get install --yes postgresql-8.3-postgis pgadmin3
 
-
-
 #set default user/password to the system user for easy login
 sudo -u postgres createuser --superuser $USER_NAME
 
 echo "alter role \"user\" with password 'user'" > /tmp/build_postgre.sql
-sudo -u postgres pqsl -f /tmp/build_postgre.sql
+sudo -u postgres psql -f /tmp/build_postgre.sql
 # rm /tmp/build_postgre.sql
 
 #configure template postgis database
-createlang plpgsql template_postgis 
-psql -d template_postgis  -f /usr/share/postgresql-8.3-postgis/lwpostgis.sql 
-psql -d template_postgis  -f /usr/share/postgresql-8.3-postgis/spatial_ref_sys.sql 
+sudo -u $USER_NAME createdb template_postgis 
+sudo -u $USER_NAME createlang plpgsql template_postgis 
+sudo -u $USER_NAME psql -d template_postgis  -f /usr/share/postgresql-8.3-postgis/lwpostgis.sql 
+sudo -u $USER_NAME psql -d template_postgis  -f /usr/share/postgresql-8.3-postgis/spatial_ref_sys.sql 
 
 #include pgadmin3 profile for connection
 for FILE in  pgadmin3  pgpass  ; do
