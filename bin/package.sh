@@ -33,7 +33,8 @@ DIR=`dirname ${0}`
 VERSION=`cat ${DIR}/../VERSION.txt`
 PACKAGE_NAME="arramagong-gisvm"
 #VM_DIR="/var/lib/vmware/Virtual Machines/" # Default directory
-VM_DIR="/mnt/space/arramagong/vm"
+#VM_DIR="/mnt/space/arramagong/vm/${VERSION}"
+VM_DIR="/data/space/arramagong/vm/${VERSION}"
 VM="arramagong-gisvm-${VERSION}"
 
 echo "===================================================================="
@@ -90,18 +91,18 @@ echo "Add the following lines to"
 echo "  https://camerons@svn.osgeo.org/osgeo/livedvd/gisvm/trunk/download/index.html"
 echo 
 
-echo '<h3>Arramagong GISVM and LiveDVD - ${VERSION}'
-echo '<ul>'
+echo "<h3>Arramagong GISVM and LiveDVD - ${VERSION}"
+echo "<ul>"
 for FILE in ${PACKAGE_NAME}-${VERSION}.7z* ; do
   MD5SUM=`md5sum ${FILE}`
   SIZE=`du -h ${FILE} | cut -f1`
-  echo '<li>'
-  echo '  <a href="${FILE}">$FILE</a>'
-  echo '  (${SIZE})'
-  echo '  mdsum: $MD5SUM '
-  echo '</li>'
+  echo "<li>"
+  echo "  <a href=\"${FILE}\">$FILE</a>"
+  echo "  (${SIZE})"
+  echo "  mdsum: $MD5SUM "
+  echo "</li>"
 done
-echo '</ul>'
+echo "</ul>"
 echo
 
 echo Disk Usage1:, package.sh end, `df | grep "Filesystem" | sed -e "s/  */,/g"`
