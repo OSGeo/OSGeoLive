@@ -30,8 +30,7 @@
 # 
 
 DIR=`dirname ${0}`
-#VERSION=`cat ${DIR}/../VERSION.txt`
-VERSION=2.0-beta1
+VERSION=`cat ${DIR}/../VERSION.txt`
 PACKAGE_NAME="arramagong-gisvm"
 #VM_DIR="/var/lib/vmware/Virtual Machines/" # Default directory
 VM_DIR="/mnt/space/arramagong/vm"
@@ -50,11 +49,13 @@ apt-get install p7zip-full
 
 # Remove non-core VM files, except *.vmx and *.vmdk
 cd "${VM_DIR}/${VM}"
+
 for FILE  in `ls | grep -v "\.vmdk$" | grep -v "\.vmx$"` ; do
-  rm -f $FILE
+  rm -fr $FILE
 done
 
- Shrink
+
+# Shrink
 echo "Shrink the image"
 vmware-vdiskmanager -k *.vmdk
 
