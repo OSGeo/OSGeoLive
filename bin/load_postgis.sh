@@ -20,6 +20,7 @@
 # Author:
 # ======
 # Mark Leslie <mark.s.leslie@gmail.com>
+# Alex Mandel <tech@wildintellect.com>
 
 
 
@@ -29,27 +30,17 @@ wget "ftp://ftp.ardec.com.au/UPLOADS/medford-gisvm.sql.bz2" --output-document="/
 wget "ftp://ftp.ardec.com.au/UPLOADS/medford-gisvm.sql.bz2.sha1" --output-document="/tmp/medford-gisvm.sql.bz2.sha1"
 cd /tmp
 
-sha1sum --check medford-gisvm.sql.bz2.sha1 && \
-(
-  createdb -U $postgres_user --template=template_postgis medford && \
-  (
-    bzip2 -dc /tmp/medford-gisvm.sql.bz2 | psql -U $postgres_user medford > /dev/null || \
-    (
-      echo ** Data load failure.  Cleaning up. **
-      dropdb -U $postgres_user medford
-    )
-  ) \
-  || \
-  (
-    echo ** Database creation error. **
-  )
-) \
-|| \
-(
-  echo ** Invalid data package. **
-)
+sha1sum --check medford-gisvm.sql.bz2.sha1
 
-rm /tmp/medford-gisvm.sql.bz2 /tmp/medford-gisvm.sql.bz2.sha1
+sudo -u $postgres_user createdb --template=template_postgis medford
+
+#simplified the script, was too hard to debug with all the commands attempting to be piped continuously with each other
+bzip2 -d /tmp/medford-gisvm.sql.bz2 
+sed -i 's/mleslie/user/g' /tmp/medford-gisvm.sql
+sudo -u $postgres_user psql medford -f /tmp/medford-gisvm.sql
+
+#Not neeeded since the /tmp will be wiped on reboot and not included in the iso
+#rm /tmp/medford-gisvm.sql.bz2 /tmp/medford-gisvm.sql.bz2.sha1
 
 cd $return_pwd
 
