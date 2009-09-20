@@ -51,7 +51,7 @@ done
 QGIS_CONFIG="/home/$USER_NAME/.config/QuantumGIS/QGIS.conf"
 if [ -e "$QGIS_CONFIG" ] && \
    [ `grep -c '\[PostgreSQL\]' "$QGIS_CONFIG"` -eq 0 ] ; then
-	cat >> /home/user/.config/QuantumGIS/QGIS.conf <<EOF
+	cat >> "/home/$USER_NAME/.config/QuantumGIS/QGIS.conf" <<EOF
 
 [PostgreSQL]
 connections\selected=local

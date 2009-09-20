@@ -26,21 +26,33 @@
 
 export postgres_user=user
 export return_pwd=`pwd`
-wget "ftp://ftp.ardec.com.au/UPLOADS/medford-gisvm.sql.bz2" --output-document="/tmp/medford-gisvm.sql.bz2"
-wget "ftp://ftp.ardec.com.au/UPLOADS/medford-gisvm.sql.bz2.sha1" --output-document="/tmp/medford-gisvm.sql.bz2.sha1"
+
+# download package is not versioned so we don't use "wget -c"
+wget --progress=dot:mega \
+   "ftp://ftp.ardec.com.au/UPLOADS/medford-gisvm.sql.bz2" \
+   --output-document="/tmp/medford-gisvm.sql.bz2"
+wget -nv "ftp://ftp.ardec.com.au/UPLOADS/medford-gisvm.sql.bz2.sha1" \
+   --output-document="/tmp/medford-gisvm.sql.bz2.sha1"
+
 cd /tmp
 
 sha1sum --check medford-gisvm.sql.bz2.sha1
+# wanted?
+# if [ $? -ne 0 ] ; then
+#   echo "ERROR: checksum failed on download"
+#   exit 1
+# fi
 
 sudo -u $postgres_user createdb --template=template_postgis medford
 
-#simplified the script, was too hard to debug with all the commands attempting to be piped continuously with each other
+# simplified the script, was too hard to debug with all the commands
+#  attempting to be piped continuously with each other
+
 bzip2 -d /tmp/medford-gisvm.sql.bz2 
-sed -i 's/mleslie/user/g' /tmp/medford-gisvm.sql
+sed -i "s/mleslie/$postgres_user/g" /tmp/medford-gisvm.sql
 sudo -u $postgres_user psql medford -f /tmp/medford-gisvm.sql
 
 #Not neeeded since the /tmp will be wiped on reboot and not included in the iso
 #rm /tmp/medford-gisvm.sql.bz2 /tmp/medford-gisvm.sql.bz2.sha1
 
 cd $return_pwd
-
