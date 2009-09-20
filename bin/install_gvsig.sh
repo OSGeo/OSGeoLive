@@ -48,7 +48,7 @@ if [ -f $GVSIG_PACKAGE ]
 then
    echo "$GVSIG_PACKAGE has already been downloaded."
 else
-   wget -c $GVSIG_PATH/$GVSIG_PACKAGE
+   wget -c --progress=dot:mega $GVSIG_PATH/$GVSIG_PACKAGE
 fi
 
 # install the deb package
@@ -70,7 +70,7 @@ if [ -f "$GVSIG_MAN" ]
 then
    echo "$GVSIG_MAN has already been downloaded."
 else
-   wget ftp://downloads.gvsig.org/gva/descargas/manuales/$GVSIG_MAN
+   wget --progress=dot:mega ftp://downloads.gvsig.org/gva/descargas/manuales/$GVSIG_MAN
 fi
 
 cp $GVSIG_MAN $GVSIG_DOCS
