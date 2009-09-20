@@ -40,7 +40,7 @@ VM="arramagong-gisvm-${VERSION}"
 echo "===================================================================="
 echo "Starting package.sh for version: {$VERSION}"
 echo "===================================================================="
-echo Disk Usage1:, package.sh start, `df | grep "Filesystem" | sed -e "s/  */,/g"`, `date`
+echo Disk Usage1:, package.sh start, `df | grep "Filesystem" | sed -e "s/  */,/g"`, date
 echo Disk Usage2:, package.sh start, `df | grep " /$" | sed -e "s/  */,/g"`, `date`
 
 echo Disk Usage3:, package.sh start, `df -s ${VM_DIR}/${VM}` , `date`
@@ -106,7 +106,7 @@ done
 echo "</ul>"
 echo
 
-echo Disk Usage1:, package.sh end, `df | grep "Filesystem" | sed -e "s/  */,/g"`, `date`
+echo Disk Usage1:, package.sh end, `df | grep "Filesystem" | sed -e "s/  */,/g"`, date
 echo Disk Usage2:, package.sh end, `df | grep " /$" | sed -e "s/  */,/g"`, `date`
 echo Finished package.sh
 

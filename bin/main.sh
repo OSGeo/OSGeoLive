@@ -71,7 +71,7 @@ for SCRIPT in \
   fi
   echo Finished: $SCRIPT
   echo 
-  echo Disk Usage1:, $SCRIPT, `df | grep "Filesystem" | sed -e "s/  */,/g"`, `date`
+  echo Disk Usage1:, $SCRIPT, `df | grep "Filesystem" | sed -e "s/  */,/g"`, date
   echo Disk Usage2:, $SCRIPT, `df | grep " /$" | sed -e "s/  */,/g"`, `date`
 done
 
