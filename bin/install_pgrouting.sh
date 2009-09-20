@@ -110,8 +110,8 @@ make
 make install
 
 # create routing database
-createdb -U postgres sydney
-createlang -U postgres plpgsql sydney
+sudo -u $USER_NAME createdb sydney
+sudo -u $USER_NAME createlang plpgsql sydney
 
 cd ..
 

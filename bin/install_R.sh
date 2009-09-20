@@ -33,17 +33,10 @@
 
 apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev grass-dev libxml2-dev python-shapely tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev python-setuptools
 
+#Required for QGIS plugins
 easy_install rpy2
 
-#echo 'packagelist <- c("adapt","boot","class","classInt","coda","DCluster","digest","e1071","epitools","foreign","gpclib","graph","gstat","lattice","lmtest","maps","maptools","Matrix","mgcv","nlme","pgirmess","pkgDepTools","R2WinBUGS","RandomFields","RBGL","RColorBrewer","rgdal","Rgraphviz","sandwich","sp","spam","spatialkernel","spatstat","spdep","spgrass6","spgwr","splancs","tripack","xtable","zoo")
-#for (i in packagelist) {
- #   install.packages(i, repos= "http://cran.r-project.org", lib = "/usr/local/lib/R/site-library/" , dependencies = TRUE)
-#}' > /tmp/installRpackages.r
-
-#Use wget line if the r file gets moved out of bin
-#wget -r https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/? \
-	output-document= /tmp/installRpackages.r
-#Semi interactive R session to watch process
+#Calls R script to do install with feedback to stdout
 R --no-save < installRpackages.r
 
-apt-get remove python-all-dev libgdal1-dev grass-dev libxml2-dev tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev 
+apt-get --assume-yes remove python-all-dev libgdal1-dev grass-dev libxml2-dev tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev 
