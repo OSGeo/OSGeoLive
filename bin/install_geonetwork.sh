@@ -108,6 +108,22 @@ else
    wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/geonetwork-conf/mapServers.xml
 fi
 
+# Download start-geonetwork.sh file with mods to work from any directory
+if [ -f "start-geonetwork.sh" ]
+then
+   echo "start-geonetwork.sh has already been downloaded."
+else
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/geonetwork-conf/start-geonetwork.sh
+fi
+
+# Download stop-geonetwork.sh file with mods to work from any directory
+if [ -f "stop-geonetwork.sh" ]
+then
+   echo "stop-geonetwork.sh has already been downloaded."
+else
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/geonetwork-conf/stop-geonetwork.sh
+fi
+
 
 ## Install Application ##
 if [ -d "$GEONETWORK_FOLDER" ]
@@ -122,6 +138,12 @@ sudo cp jetty.xml $GEONETWORK_FOLDER/bin/jetty.xml
 
 # copy mapServers.xml to $GEONETWORK_FOLDER/web/intermap/WEB-INF
 sudo cp mapServers.xml $GEONETWORK_FOLDER/web/intermap/WEB-INF/mapServers.xml
+
+# copy start-geonetwork.sh to $GEONETWORK_FOLDER/bin
+sudo cp start-geonetwork.sh $GEONETWORK_FOLDER/bin/start-geonetwork.sh
+
+# copy stop-geonetwork.sh to $GEONETWORK_FOLDER/bin
+sudo cp stop-geonetwork.sh $GEONETWORK_FOLDER/bin/stop-geonetwork.sh
 
 # fix permissions on installed software
 sudo chown -R $USER_NAME:$USER_NAME $GEONETWORK_FOLDER
