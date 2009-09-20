@@ -51,17 +51,17 @@ cd $TMP
 ## Install Application ##
 
 # get kosmo
-wget -c http://www.saig.es/descargas/dloads/kosmo/kosmo_1_2_1_linux_jre.tar.gz
+wget -c --progress=dot:mega http://www.saig.es/descargas/dloads/kosmo/kosmo_1_2_1_linux_jre.tar.gz
 
 # unpack it and copy it to /usr/lib
-tar xvfz kosmo_1_2_1_linux_jre.tar.gz -C $INSTALL_FOLDER
+tar xzf kosmo_1_2_1_linux_jre.tar.gz -C $INSTALL_FOLDER
 chmod -R 755 $KOSMO_FOLDER
 
 # create link to startup script
 ln -s $KOSMO_FOLDER/bin/Kosmo.sh /usr/bin/kosmo_1_2_1
 
 # Download desktop link
-wget -c http://www.saig.es/descargas/dloads/kosmo/kosmo_1_2_1.desktop
+wget -nv http://www.saig.es/descargas/dloads/kosmo/kosmo_1_2_1.desktop
 
 # copy it into the openjump folder
 cp kosmo_1_2_1.desktop $USER_HOME/Desktop
