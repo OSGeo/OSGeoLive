@@ -116,28 +116,28 @@ sudo -u $USER_NAME createlang plpgsql sydney
 cd ..
 
 # add PostGIS functions
-psql -U postgres -f $POSTGIS_FOLDER/lwpostgis.sql sydney
-psql -U postgres -f $POSTGIS_FOLDER/spatial_ref_sys.sql sydney
+sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/lwpostgis.sql sydney
+sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/spatial_ref_sys.sql sydney
 
 # add pgRouting functions
-psql -U postgres -f $POSTLBS_FOLDER/routing_core.sql sydney
-psql -U postgres -f $POSTLBS_FOLDER/routing_core_wrappers.sql sydney
-psql -U postgres -f $POSTLBS_FOLDER/routing_topology.sql sydney
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_core.sql sydney
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_core_wrappers.sql sydney
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_topology.sql sydney
 
 # add pgRouting TSP functions
-psql -U postgres -f $POSTLBS_FOLDER/routing_tsp.sql sydney
-psql -U postgres -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql sydney
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_tsp.sql sydney
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql sydney
 
 # add pgRouting Driving Distance functions
-psql -U postgres -f $POSTLBS_FOLDER/routing_dd.sql sydney
-psql -U postgres -f $POSTLBS_FOLDER/routing_dd_wrappers.sql sydney
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd.sql sydney
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd_wrappers.sql sydney
 
 # add data to the database
-psql -c "DROP TABLE geometry_columns" -U postgres sydney
-psql -f schema.sql -U postgres sydney
-psql -f sydney.sql -U postgres sydney
+sudo -u $USER_NAME psql -c "DROP TABLE geometry_columns"  sydney
+sudo -u $USER_NAME psql -f schema.sql  sydney
+sudo -u $USER_NAME psql -f sydney.sql  sydney
 
 # testing pgRouting functions
-psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM dijkstra_sp_delta('sydney', 101, 114, 0.003)" -U postgres sydney
-psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM astar_sp_delta('sydney', 101, 114, 0.003)" -U postgres sydney
-psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM shootingstar_sp('sydney', 8, 24, 0.1, 'length', true, true)" -U postgres sydney
+sudo -u $USER_NAME psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM dijkstra_sp_delta('sydney', 101, 114, 0.003)"  sydney
+sudo -u $USER_NAME psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM astar_sp_delta('sydney', 101, 114, 0.003)"  sydney
+sudo -u $USER_NAME psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM shootingstar_sp('sydney', 8, 24, 0.1, 'length', true, true)"  sydney
