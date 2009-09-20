@@ -35,7 +35,7 @@ apt-get install --yes wget more less zip unzip bzip2 p7zip \
   locate diff patch fuseiso menu \
   vim emacs nedit nano \
   evince ghostscript a2ps pdftk netpbm qiv \
-  lynx mutt mc xchat rxvt units menu
+  lynx mutt mc xchat rxvt units
 
 # Install build stuff (temporarily?)
 apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
