@@ -58,7 +58,8 @@ apt-get install --yes \
    postgresql-server-dev-8.3 \
    build-essential \
    cmake \
-   libboost-graph-dev \
+   libboost1.35-dev \
+   libboost-graph1.35-dev \
    libcgal*
 
 
