@@ -39,4 +39,23 @@ easy_install rpy2
 #Calls R script to do install with feedback to stdout
 R --no-save < installRpackages.r
 
+#Add Desktop shortcut
+
+if [ ! -e /usr/share/applications/r.desktop ] ; then
+   cat << EOF > /usr/share/applications/r.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=R
+Comment=R Statistical Package
+Categories=Application;Education;Geography;
+Exec=R
+Icon= /usr/share/R/doc/html/logo.jpg
+Terminal=true
+StartupNotify=false
+EOF
+fi
+
+
+#Remove build libraries
 apt-get --assume-yes remove python-all-dev libgdal1-dev grass-dev libxml2-dev tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev 
