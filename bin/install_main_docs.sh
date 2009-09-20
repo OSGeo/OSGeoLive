@@ -73,3 +73,23 @@ if [ -n "$PREFS_FILE" ] ; then
       "$PREFS_FILE"
 fi
 
+#Alternative, just put an icon on the desktop that launched firefox and points to index.html
+wget http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong-wombat-small.png --output-document=/usr/share/icons/arramagong-wombat-small.png
+#What logo to use for launching the help? 
+if [ ! -e /usr/share/applications/gisvmhelp.desktop ] ; then
+   cat << EOF > /usr/share/applications/gisvmhelp.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Help
+Comment=Live Demo Help
+Categories=Application;Education;Geography;
+Exec=firefox /usr/share/livedvd-docs/index.html
+Icon=/usr/share/icons/arramagong-wombat-small.png
+Terminal=false
+StartupNotify=false
+Categories=Education;Geography
+EOF
+fi
+
+#Should we embed the password file in the help somehow too?

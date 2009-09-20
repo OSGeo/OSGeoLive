@@ -108,16 +108,12 @@ chmod 644 /usr/local/share/qgis/*.pdf
 #Use wget to pull them directly into qgis python path?
 # A temp bundle of common plugins
 
-cd /tmp
-
 # be careful with 'wget -c', if the file changes on the server the local
 # copy will get corrupted. Wget only knows about filesize, not file 
 # contents, timestamps, or md5sums!
-wget --progress=dot:mega \
-   http://www.geofemengineering.it/data/qgis_plugin.tar.gz \
-   --output-document=/tmp/qgis_plugin.tar.gz
+wget --progress=dot:mega http://www.geofemengineering.it/data/qgis_plugin.tar.gz  --output-document=/tmp/qgis_plugin.tar.gz
 
-tar xzf /tmp/qgis_plugin.tar.gz 
+tar xzf /tmp/qgis_plugin.tar.gz  -C /tmp
 cp -R  /tmp/.qgis/python/plugins/ /usr/share/qgis/python/
 
 #Next line might be optional, unsure
