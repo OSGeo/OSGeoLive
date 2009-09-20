@@ -32,22 +32,19 @@ apt-get --yes remove devscripts pbuilder \
    lintian debhelper pkg-config
 
 # Copy tmp files, apt cache and logs ready for backup
-mkdir /tmp/${VM}-bak
-cd /tmp/${VM}-bak
+mkdir /tmp/${VERSION}
+cd /tmp/${VERSION}
 
 mkdir ${VM}-tmp
 mv /tmp/build* ${VM}-tmp
 mv /tmp/*downloads ${VM}-tmp
 mv /tmp/tilelite ${VM}-tmp
 
-tar -zcf ${VM}-apt-cache.tar.gz /var/cache/apt/
-
-tar -zcf ${VM}-log.tar.gz /var/log/arramagong/
-
+ln -s /var/cache/apt/ ${VM}-apt-cache
+ln -s /var/log/arramagong/ ${VM}-log
 
 # remove the apt-get cache
 apt-get clean
-
 
 rm -fr \
   /home/user/.bash_history \
@@ -64,4 +61,4 @@ rm -fr \
 cat /dev/zero > zero.fill ; sync ; sleep 1 ; sync ; rm -f zero.fill
 
 echo "Finished setdown.sh. Copy backup files to the host system with:"
-echo "  scp -pr /tmp/${VM}-bak username@hostname:/directory"
+echo "  scp -pr /tmp/${VERSION} username@hostname:/directory"
