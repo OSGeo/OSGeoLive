@@ -93,7 +93,7 @@ if [ -f "sydney.tar.gz" ]
 then
  echo "sydney.tar.gz has already been downloaded."
 else
- wget -c http://files.postlbs.org/foss4g2009/sydney.tar.gz
+ wget --progress=dot:mega http://files.postlbs.org/foss4g2009/sydney.tar.gz
 fi
 
 # unpack sample data
