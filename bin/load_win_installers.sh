@@ -56,3 +56,8 @@ done;
   # WinGRASS
   # MapGuide Open Source
 
+  ### Possibles:
+  # GpsBabel + GUI (1.2mb)
+  #    http://www.gpsbabel.org/plan9.php?dl=gpsbabel-1.3.6.zip \
+  # gpsVP: (500kb)  http://code.google.com/p/gpsvp/
+  #    http://gpsvp.googlecode.com/files/gpsVPxp_0.4.18.zip \
