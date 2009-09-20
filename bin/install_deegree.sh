@@ -68,9 +68,10 @@ fi
 mkdir $TMP
 cd $TMP
 
-function getWithMd5 {
+getWithMd5()
+{
     rm -f $1.md5
-    wget http://download.deegree.org/LiveDVD/FOSS4G2009/$1.md5
+    wget -nv http://download.deegree.org/LiveDVD/FOSS4G2009/$1.md5
 
     if (test -f $1) then
         if(md5sum -c $1.md5) then
@@ -79,10 +80,10 @@ function getWithMd5 {
         else
             echo "md5 hash is not correct. Downloading $1 again."
             rm -f $1
-            wget -c http://download.deegree.org/LiveDVD/FOSS4G2009/$1
+            wget -c --progress=dot:binary http://download.deegree.org/LiveDVD/FOSS4G2009/$1
         fi
     else
-        wget -c http://download.deegree.org/LiveDVD/FOSS4G2009/$1
+        wget -c --progress=dot:binary http://download.deegree.org/LiveDVD/FOSS4G2009/$1
     fi
 
     if (md5sum -c $1.md5) then
@@ -124,7 +125,7 @@ chmod 755 $BIN/deegree_st*.sh
 
 ### install desktop icons ##
 if [ ! -e "/usr/share/icons/deegree_desktop_48x48.png" ] ; then
-   wget "http://download.deegree.org/LiveDVD/FOSS4G2009/deegree_desktop_48x48.png"
+   wget -nv "http://download.deegree.org/LiveDVD/FOSS4G2009/deegree_desktop_48x48.png"
    mv deegree_desktop_48x48.png /usr/share/icons/
 fi
 
