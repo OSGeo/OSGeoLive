@@ -31,22 +31,26 @@
 # Port number =8880
 #
 # To start geonetwork
-# cd /usr/lib/geonetwork
-# sudo ./start-geonetwork.sh 
+# cd /usr/lib/geonetwork/bin
+# ./start-geonetwork.sh 
 #
-# To stop geoserver
-# sudo ./stop-geonetwork.sh
+# To stop geonetwork
+# cd /usr/lib/geonetwork/bin
+# ./stop-geonetwork.sh
 #
-# To enter geoserver
+# To enter geonetwork, start browser with url:
 # http://localhost:8880/geonetwork
-
+#
+# GeoNetwork version 2.4.1 runs with java-sun-1.5 or java-sun-1.6.
+# It can be installed into servlet containers: jetty and tomcat. Jetty is   
+# bundled with the installer.
+#
 # Running:
 # =======
 # sudo ./install_geonetwork.sh
 
 TMP="/tmp/geonetwork_downloads"
 INSTALL_FOLDER="/usr/lib"
-#DATA_FOLDER="/usr/local/share"
 GEONETWORK_FOLDER="$INSTALL_FOLDER/geonetwork"
 BIN="/usr/bin"
 USER_NAME="user"
