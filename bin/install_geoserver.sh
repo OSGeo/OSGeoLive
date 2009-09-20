@@ -57,7 +57,7 @@ if [ -f "geoserver-$GS_VERSION-bin.zip" ]
 then
    echo "geoserver-$GS_VERSION-bin.zip has already been downloaded."
 else
-   wget "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-bin.zip/download"
+   wget -c --progress=dot:mega "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-bin.zip/download"
 fi
 ## unpack it to /usr/lib overwriting eventual existing copy
 echo "Unpacking GeoServer in $GS_HOME"
