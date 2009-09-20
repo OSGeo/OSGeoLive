@@ -24,7 +24,8 @@
 
 # Requires: nothing
 
-
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
 OSGEO_SVN="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk"
 DEST="/usr/share/livedvd-docs"
 

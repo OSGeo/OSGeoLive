@@ -28,8 +28,8 @@
 # Running:
 # =======
 # sudo ./install_PyDep_and_R.sh
-
-
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
 
 apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev grass-dev libxml2-dev python-shapely tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev python-setuptools
 
@@ -56,6 +56,7 @@ StartupNotify=false
 EOF
 fi
 
+cp -a /usr/share/applications/r.desktop "$USER_HOME/Desktop/"
 
 #Remove build libraries
 apt-get --assume-yes remove python-all-dev libgdal1-dev grass-dev libxml2-dev tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev 
