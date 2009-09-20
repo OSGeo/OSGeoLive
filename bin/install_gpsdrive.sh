@@ -41,7 +41,7 @@ else
 fi
 
 # add some useful Recommends
-PACKAGES="$PACKAGES espeak gdal-bin gpsbabel imagemagick postgresql-8.3-postgis python-mapnik"
+PACKAGES="$PACKAGES espeak gdal-bin gpsbabel graphicsmagick-imagemagick-compat postgresql-8.3-postgis python-mapnik"
 
 apt-get install --yes $PACKAGES
 
@@ -109,9 +109,6 @@ EOF
 
 
   ### install any missing build-dep packages
-
-  # these are potentially problematic for my hack below so do them by hand
-  #apt-get install --yes libcurl4-openssl-dev  libltdl7-dev
 
   NEEDED_BUILD_PKG=`dpkg-checkbuilddeps 2>&1 | cut -f3 -d: | \
     sed -e 's/([^)]*)//g' -e 's/| [^ ]*//g' -e 's/|//g'`
