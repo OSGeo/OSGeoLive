@@ -34,7 +34,8 @@ apt-get --assume-yes install remastersys
 
 #Configure
 #ie set exclude folders in /etc/remastersys.conf
-
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/remastersys.conf \
+     --output-document=/etc/remastersys.conf
 
 #quick name check
 echo "Now creating ${discname}.iso"
