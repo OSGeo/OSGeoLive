@@ -30,6 +30,11 @@
 # but my scripting skills are not up to that.)
 
 DIR=`dirname $0`
+LOG_DIR="/var/log/arramagong"
+MAIN_LOG_FILE="main_install.log"
+DISK_USAGE_LOG="disk_usage.log"
+
+
 echo "===================================================================="
 echo "Starting master.sh for version: `cat ${DIR}/../VERSION.txt`"
 echo "===================================================================="
@@ -42,11 +47,11 @@ rm -rf /tmp/build_gisvm_error.log
 for SCRIPT in \
   ./setup.sh \
   ./install_java.sh \
-  ./install_main_docs.sh \
+  ./install_geoserver.sh \
   ./install_postgres.sh \
+  ./install_main_docs.sh \
   ./install_apache2.sh \
   ./install_mapserver.sh \
-  ./install_geoserver.sh \
   ./install_geonetwork.sh \
   ./install_deegree.sh \
   ./install_udig.sh \
@@ -61,6 +66,7 @@ for SCRIPT in \
   ./install_pgrouting.sh \
   ./install_gvsig.sh \
   ./install_gpsdrive.sh \
+  ./setdown.sh \
 ; do
   echo "===================================================================="
   echo Starting: $SCRIPT
@@ -92,27 +98,26 @@ if [ -e /tmp/build_gisvm_error.log ] ; then
    echo
    cat /tmp/build_gisvm_error.log
 fi
+
+# grep for problems
+grep -iwn ERROR main_install.log
+
 exit
 
 ########################################################
 # Scripts past here are not installed yet
 ########################################################
-# remove packages only needed for building the above
-./setdown.sh
 
 # install MB System - software for mapping the Sea Floor
 # This is disabled until it can be built with shared libraries,
 #   using static libraries it takes up 300mb.
 ./install_mb-system.sh
 
-
-
 # check install sizes
+grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | tee ${LOG_DIR}/${DISK_USAGE_LOG}
+
 echo "Package    |Kilobytes" | tr '|' '\t'
-cat disk_usage.csv | cut -f2,9 -d, | cut -f2- -d_ | \
-   grep -v '^,\|setup.sh' | sed -e 's/\.sh,/    \t/' | sort -nr -k2   
-
-# grep for problems
-grep -iwn ERROR main_install.log
-
+grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | \
+  cat disk_usage.csv | cut -f2,9 -d, | cut -f2- -d_ | \
+  grep -v '^,\|setup.sh' | sed -e 's/\.sh,/    \t/' | sort -nr -k2   
 
