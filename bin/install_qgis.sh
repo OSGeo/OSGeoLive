@@ -92,6 +92,7 @@ EOF
 fi
 
 
+
 #Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/qgis
 wget -c http://download.osgeo.org/qgis/doc/manual/qgis-1.0.0_a-gentle-gis-introduction_en.pdf \
@@ -100,22 +101,25 @@ wget -c http://download.osgeo.org/qgis/doc/manual/qgis-1.1.0_user_guide_en.pdf \
 	--output-document=/usr/local/share/qgis/qgis-1.1.0_user_guide_en.pdf
 
 chmod 644 /usr/local/share/qgis/*.pdf
-# eh? what is this, Windows? the above is rather OTT permissive.
-# why not just:
-#chmod 644 /usr/local/share/qgis/*.pdf
+
 
 
 #TODO Install some popular python plugins
 #Use wget to pull them directly into qgis python path?
 # A temp bundle of common plugins
 
+cd /tmp
+
 # be careful with 'wget -c', if the file changes on the server the local
 # copy will get corrupted. Wget only knows about filesize, not file 
 # contents, timestamps, or md5sums!
-cd /tmp
-wget http://www.geofemengineering.it/data/qgis_plugin.tar.gz  --output-document=/tmp/qgis_plugin.tar.gz
+wget --progress=dot:mega \
+   http://www.geofemengineering.it/data/qgis_plugin.tar.gz \
+   --output-document=/tmp/qgis_plugin.tar.gz
+
 tar xzf /tmp/qgis_plugin.tar.gz 
 cp -R  /tmp/.qgis/python/plugins/ /usr/share/qgis/python/
+
 #Next line might be optional, unsure
 #chmod -R 777 /usr/share/qgis/python/plugins/*
 # why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories. - might not necessary at all
