@@ -99,8 +99,8 @@ for FILE in ${PACKAGE_NAME}-${VERSION}.7z* ; do
   SIZE=`du -h ${FILE} | cut -f1`
   echo "<li>"
   echo "  <a href=\"${FILE}\">$FILE</a>"
-  echo "  (${SIZE})"
-  echo "  mdsum: $MD5SUM "
+  echo "  <BR>(${SIZE})"
+  echo "  md5sum: $MD5SUM"
   echo "</li>"
 done
 echo "</ul>"
