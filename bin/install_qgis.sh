@@ -88,8 +88,9 @@ if [ ! -e /usr/share/menu/qgis ] ; then
   command="/usr/bin/qgis"\
   icon="/usr/share/icons/qgis-icon.xpm"
 EOF
+  update-menus
 fi
-update-menus
+
 
 #Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/qgis
@@ -98,7 +99,7 @@ wget -c http://download.osgeo.org/qgis/doc/manual/qgis-1.0.0_a-gentle-gis-introd
 wget -c http://download.osgeo.org/qgis/doc/manual/qgis-1.1.0_user_guide_en.pdf \
 	--output-document=/usr/local/share/qgis/qgis-1.1.0_user_guide_en.pdf
 
-chmod a+rwx /usr/local/share/qgis/*
+chmod 644 /usr/local/share/qgis/*.pdf
 # eh? what is this, Windows? the above is rather OTT permissive.
 # why not just:
 #chmod 644 /usr/local/share/qgis/*.pdf
@@ -111,13 +112,12 @@ chmod a+rwx /usr/local/share/qgis/*
 # be careful with 'wget -c', if the file changes on the server the local
 # copy will get corrupted. Wget only knows about filesize, not file 
 # contents, timestamps, or md5sums!
-wget -c http://www.geofemengineering.it/data/qgis_plugin.tar.gz \ 
-	--output-document=/tmp/qgis_plugin.tar.gz
+wget http://www.geofemengineering.it/data/qgis_plugin.tar.gz  --output-document=/tmp/qgis_plugin.tar.gz
 tar xzf /tmp/qgis_plugin.tar.gz 
 cp -R  /tmp/.qgis/python/plugins/ /usr/share/qgis/python/
 #Next line might be optional, unsure
 #chmod -R 777 /usr/share/qgis/python/plugins/*
-# why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
+# why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories. - might not necessary at all
 
 #TODO Include some sample projects using already installed example data
 #post a sample somewhere on qgis website or launchpad to pull

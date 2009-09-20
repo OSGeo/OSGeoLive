@@ -31,7 +31,7 @@
 
 
 
-apt-get install python-rpy python-all-dev libgdal1-dev grass-dev libxml2-dev python-shapely tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev python-setuptools
+apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev grass-dev libxml2-dev python-shapely tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev python-setuptools
 
 easy_install rpy2
 
