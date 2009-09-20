@@ -28,10 +28,14 @@
 
 cd $HOME
 
-export WORK=/tmp/work
-export CD=/tmp/cd
-export FORMAT=squashfs
-export FS_DIR=casper
+WORK=/tmp/work
+CD=/tmp/cd
+FORMAT=squashfs
+FS_DIR=casper
+
+# do any of these really need to be exported from the script?
+export WORK CD FORMAT FS_DIR
+
 
 mkdir -p ${CD}/${FS_DIR} ${CD}/boot/grub ${WORK}/rootfs
 

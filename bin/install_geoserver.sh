@@ -92,6 +92,10 @@ unzip -o -q styler-1.7.3.zip -d $GS_HOME/data_dir/www
 
 ## We need to make sure the scripts use the proper JDK version ##
 echo "Configuring GeoServer script for Arramagong"
+#############
+echo "FIXME: 'export FOO=bar' is a Bashism and will not work with Ubuntu's #!/bin/sh  (which is dash)"
+# use `FOO=bar; export FOO`  instead.
+#############
 sed -i "1 i # Force usage of Sun JDK\nexport JAVA_HOME=/usr/lib/jvm/java-6-sun\n# Force proper GeoServer home\nexport GEOSERVER_HOME=$GS_HOME\n" $GS_HOME/bin/startup.sh
 sed -i "1 i # Force usage of Sun JDK\nexport JAVA_HOME=/usr/lib/jvm/java-6-sun\n# Force proper GeoServer home\nexport GEOSERVER_HOME=$GS_HOME\n" $GS_HOME/bin/shutdown.sh
 

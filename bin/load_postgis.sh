@@ -23,9 +23,10 @@
 # Alex Mandel <tech@wildintellect.com>
 
 
+postgres_user=user
+return_pwd=`pwd`
+export postgres_user return_pwd
 
-export postgres_user=user
-export return_pwd=`pwd`
 
 # download package is not versioned so we don't use "wget -c"
 wget --progress=dot:mega \
@@ -55,4 +56,6 @@ sudo -u $postgres_user psql medford -f /tmp/medford-gisvm.sql
 #Not neeeded since the /tmp will be wiped on reboot and not included in the iso
 #rm /tmp/medford-gisvm.sql.bz2 /tmp/medford-gisvm.sql.bz2.sha1
 
+
+# is this redundant?
 cd $return_pwd

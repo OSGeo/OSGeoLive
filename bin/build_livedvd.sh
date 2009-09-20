@@ -26,14 +26,19 @@
 
 #The script will create 2 folders in $HOME: work and cd
 
-#export TMP="/tmp"
-export TMP="/media/Shorter/repository/livedvd/build-livedvd"
-export LIVE_DVD="${TMP}/livedvd" # was WORK
-export CD="${TMP}/iso_mount/"
-export FORMAT="squashfs"
-export FS_DIR="casper"
-export VM_ROOT=user@10.0.2.15:/ # The location of the Virtual Machine we will copy
-export BASE_ISO="/media/Shorter/repository/downloads/xubuntu-9.04-desktop-i386.iso"
+#TMP="/tmp"
+TMP="/media/Shorter/repository/livedvd/build-livedvd"
+LIVE_DVD="${TMP}/livedvd" # was WORK
+CD="${TMP}/iso_mount/"
+FORMAT="squashfs"
+FS_DIR="casper"
+VM_ROOT=user@10.0.2.15:/ # The location of the Virtual Machine we will copy
+BASE_ISO="/media/Shorter/repository/downloads/xubuntu-9.04-desktop-i386.iso"
+
+# do any of these really need to be exported from the script?
+export TMP LIVE_DVD CD FORMAT FS_DIR VM_ROOT BASE_ISO
+
+
 
 # install appropriate build tools
 apt-get install squashfs-tools # chroot
