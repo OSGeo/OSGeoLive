@@ -28,7 +28,7 @@ USER_HOME="/home/$USER_NAME"
 
 #### install grass ####
 
-PACKAGES="grass grass-doc python-opengl python-wxgtk2.8 avce00 e00compr gdal-bin gpsbabel"
+PACKAGES="grass grass-doc python-opengl python-wxgtk2.8 avce00 e00compr gdal-bin python-gdal gpsbabel wish tk8.5 xml2"
 
 MODERN_VERSION="6.4"
 
@@ -43,14 +43,13 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-# remove old cruft
-\rm /etc/apt/sources.list.d/grass.list /etc/apt/sources.list.d/qgis.list
 
 # Add UbuntuGIS repository (same as QGIS)
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 #Add signed key for repositorys LTS and non-LTS
+#qgis repo 68436DDF unused? :
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 
@@ -135,10 +134,13 @@ LOCATION_NAME: spearfish60
 MAPSET: user1
 GRASS_GUI: $GRASS_GUI
 EOF
+
+
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/.grassrc6"
 
 mkdir -p "$USER_HOME/grassdata/addons"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata/addons"
+
 
 if [ `grep -c 'GRASS_PAGER=' "$USER_HOME/.bashrc"` -eq 0 ] ; then
    cat << EOF >> "$USER_HOME/.bashrc"
@@ -154,7 +156,7 @@ fi
 
 #### install desktop icon ####
 if [ ! -e "/usr/share/icons/grass-48x48.png" ] ; then
-   wget -nv "http://svn.osgeo.org/grass/grass/trunk/gui/icons/grass-48x48.png"   \mv grass64.xpm /usr/share/icons/
+   wget -nv "http://svn.osgeo.org/grass/grass/trunk/gui/icons/grass-48x48.png"
    \mv grass-48x48.png /usr/share/icons/
 fi
 
