@@ -21,18 +21,61 @@
 # sudo /etc/init.d/postgresql-8.3 start
 
 USER_NAME="user"
+TMP_DIR="/tmp/build_postgis"
 
-apt-get install --yes postgresql-8.3-postgis pgadmin3 libgeos-dev
+# Install postgis 1.3
+apt-get install --yes postgresql-8.3-postgis pgadmin3
 
+
+###########################
 ## add PostGIS 1.4, for those apps that want it
-##  TODO: use repo version when it becomes available
-wget http://postgis.refractions.net/download/postgis-1.4.0.tar.gz \
-    --output-document="/tmp/postgis-1.4.0.tar.gz"
+#### (which apps are those?)
+##  TODO: use repo version when it becomes available  (Ubuntu 9.10 or 10.04 ?)
+INSTALL_POSTGIS_1_4=false
 
-tar xzf /tmp/postgis-1.4.0.tar.gz -C /usr/src/
-return_pwd=`pwd`
-cd /usr/src/postgis-1.4.0 && ./configure && make && sudo make install
-cd $return_pwd
+if [ "$INSTALL_POSTGIS_1_4" = "true" ] ; then
+
+   apt-get install --yes postgresql-server-dev-8.3 libgeos-dev
+
+   mkdir "$TMP_DIR"
+   cd "$TMP_DIR"
+   PGIS_VERSION=1.4.0
+
+   if [ ! -e "postgis-$PGIS_VERSION.tar.gz" ] ; then
+      wget --progress=dot:mega "http://postgis.refractions.net/download/postgis-$PGIS_VERSION.tar.gz"
+   else
+      echo "... postgis-$PGIS_VERSION.tar.gz already downloaded"
+   fi
+
+   tar xzf "postgis-$PGIS_VERSION.tar.gz"
+   cd "postgis-$PGIS_VERSION"
+   
+   ./configure && make && make install
+   if [ $? -ne 0 ] ; then
+      echo "ERROR: building PostGIS 1.4"
+   else
+      # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
+      if [ -d /etc/ld.so.conf.d ] ; then
+         echo "/usr/local/lib" > /etc/ld.so.conf.d/usr_local.conf
+      else
+         if [ `grep -c '/usr/local/lib' /etc/ld.so.conf` -eq 0 ] ; then
+            echo "/usr/local/lib" >> /etc/ld.so.conf
+         fi
+      fi
+      ldconfig
+   fi
+
+   #cleanup
+   apt-get remove --yes postgresql-server-dev-8.3 libgeos-dev
+
+   cd "$TMP_DIR"
+fi
+#done
+###########################
+
+
+
+### config ###
 
 #set default user/password to the system user for easy login
 sudo -u postgres createuser --superuser $USER_NAME
@@ -48,14 +91,20 @@ sudo -u $USER_NAME createdb $USER_NAME
 sudo -u $USER_NAME createdb template_postgis 
 sudo -u $USER_NAME createlang plpgsql template_postgis 
 
-## postgis 1.4
-pgis_file="/usr/share/postgresql-8.3-postgis/lwpostgis.sql"
-if [ -e /usr/share/postgresql/8.3/contrib/postgis.sql ] ; then
-  pgis_file="/usr/share/postgresql/8.3/contrib/postgis.sql"
-fi 
 
-sudo -u $USER_NAME psql -d template_postgis -f $pgis_file
-sudo -u $USER_NAME psql -d template_postgis -f /usr/share/postgresql-8.3-postgis/spatial_ref_sys.sql 
+pgis_file="/usr/share/postgresql-8.3-postgis/lwpostgis.sql"
+
+if [ "$INSTALL_POSTGIS_1_4" = "true" ] ; then
+   if [ -e /usr/share/postgresql/8.3/contrib/postgis.sql ] ; then
+      pgis_file="/usr/share/postgresql/8.3/contrib/postgis.sql"
+   fi
+fi
+
+
+sudo -u $USER_NAME psql -d template_postgis -f "$pgis_file"
+sudo -u $USER_NAME psql -d template_postgis \
+   -f /usr/share/postgresql-8.3-postgis/spatial_ref_sys.sql 
+
 
 #include pgadmin3 profile for connection
 for FILE in  pgadmin3  pgpass  ; do
