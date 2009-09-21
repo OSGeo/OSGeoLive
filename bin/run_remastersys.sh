@@ -41,5 +41,5 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/remastersys.co
 echo "Now creating ${discname}.iso"
 
 #Create iso, only uncomment once it's working
-#sudo remastersys backuup ${discname}.iso
+sudo remastersys backup ${discname}.iso
 
