@@ -52,6 +52,7 @@ for SCRIPT in \
   ./install_java.sh \
   ./install_geoserver.sh \
   ./install_postgres.sh \
+  ./install_desktop \
   ./install_main_docs.sh \
   ./install_apache2.sh \
   ./install_mapserver.sh \
@@ -95,17 +96,34 @@ fi
 dpkg --get-selections > "$DOC_DIR/package_manifest.txt"
 
 
-echo
-echo "Finished main.sh."
-echo "Run sudo vmware-toolbox, and select shrink, to shrink the image"
+echo "==============================================================="
+echo "Show packages hogging the most space on the disc:"
+dpkg-query --show --showformat='${Package;-50}\t${Installed-Size}\n' \
+  | sort -k 2 -n | grep -v deinstall | \
+  awk '{printf "%.3f MB \t %s\n", $2/(1024), $1}'
+
+# check install sizes
+echo "==============================================================="
+grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | tee ${LOG_DIR}/${DISK_USAGE_LOG}
+
+echo "==============================================================="
+echo "Package    |Kilobytes" | tr '|' '\t'
+grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | \
+  cat disk_usage.csv | cut -f2,9 -d, | cut -f2- -d_ | \
+  grep -v '^,\|setup.sh' | sed -e 's/\.sh,/    \t/' | sort -nr -k2   
+
 if [ -e /tmp/build_gisvm_error.log ] ; then
    echo
    cat /tmp/build_gisvm_error.log
 fi
 
 # grep for problems
+echo "==============================================================="
 grep -iwn ERROR main_install.log
 
+echo
+echo "==============================================================="
+echo "Finished main.sh."
 exit
 
 ########################################################
@@ -116,12 +134,4 @@ exit
 # This is disabled until it can be built with shared libraries,
 #   using static libraries it takes up 300mb.
 ./install_mb-system.sh
-
-# check install sizes
-grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | tee ${LOG_DIR}/${DISK_USAGE_LOG}
-
-echo "Package    |Kilobytes" | tr '|' '\t'
-grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | \
-  cat disk_usage.csv | cut -f2,9 -d, | cut -f2- -d_ | \
-  grep -v '^,\|setup.sh' | sed -e 's/\.sh,/    \t/' | sort -nr -k2   
 

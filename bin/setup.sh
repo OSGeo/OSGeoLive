@@ -52,20 +52,3 @@ rm -fr /home/user/Pictures
 rm -fr /home/user/Templates
 rm -fr /home/user/Videos
 
-# Show packages hogging the most space on the disc:
-# dpkg-query --show --showformat='${Package;-50}\t${Installed-Size}\n' \
-#   | sort -k 2 -n | grep -v deinstall | \
-#   awk '{printf "%.3f MB \t %s\n", $2/(1024), $1}'
-
-# Default password list on the desktop to be replaced by html help in the future.
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
-   --output-document=/home/user/Desktop/passwords.txt
-chown user:user /home/user/Desktop/passwords.txt
-
-# Setup the desktop background
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong-desktop.png \
-	--output-document=/usr/share/xfce4/backdrops/arramagong-desktop.png
-
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor/image-path \
-   -s /usr/share/xfce4/backdrops/arramagong-desktop.png
-
