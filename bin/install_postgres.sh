@@ -22,7 +22,7 @@
 
 USER_NAME="user"
 
-apt-get install --yes postgresql-8.3-postgis pgadmin3
+apt-get install --yes postgresql-8.3-postgis pgadmin3 libgeos-dev
 
 #set default user/password to the system user for easy login
 sudo -u postgres createuser --superuser $USER_NAME
@@ -65,3 +65,14 @@ connections\local\geometryColumnsOnly=false
 connections\local\save=true
 EOF
 fi
+
+## add PostGIS 1.4, for those apps that want it
+wget http://postgis.refractions.net/download/postgis-1.4.0.tar.gz \
+    --output-document="/tmp/postgis-1.4.0.tar.gz"
+
+cd /tmp
+tar xzf  postgis-1.4.0.tar.gz
+sudo mv postgis-1.4.0 /usr/src/
+cd /usr/src/postgis-1.4.0
+./configure
+make && sudo make install
