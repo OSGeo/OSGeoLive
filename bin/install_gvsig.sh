@@ -31,56 +31,73 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
+
+# live disc's username is "user"
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+
+
 # create tmp folders
-TMP=/tmp/gvsig_downloads
+TMP="/tmp/build_gvsig"
 
 if [ ! -d $TMP ] ; then
-   mkdir cd $TMP
+   mkdir "$TMP"
 fi
 
-cd $TMP
+cd "$TMP"
 
 # get deb package
 GVSIG_PACKAGE="gvsig_1.9.0RC1_i386.deb"
 GVSIG_PATH="http://gvsig-desktop.forge.osor.eu/downloads/people/iver"
 
-if [ -f $GVSIG_PACKAGE ]
+if [ -f "$GVSIG_PACKAGE" ]
 then
    echo "$GVSIG_PACKAGE has already been downloaded."
 else
-   wget -c --progress=dot:mega $GVSIG_PATH/$GVSIG_PACKAGE
+   wget -c --progress=dot:mega "$GVSIG_PATH/$GVSIG_PACKAGE"
 fi
 
 # install the deb package
-dpkg -i $GVSIG_PACKAGE
+dpkg -i "$GVSIG_PACKAGE"
+
+if [ $? -ne 0 ] ; then
+   echo "ERROR: gvsig package failed to install"
+   exit 1
+fi
+
 
 # place a gvSIG icon on desktop
-cp /usr/share/applications/gvsig.desktop /home/user/Desktop
+cp /usr/share/applications/gvsig.desktop "$USER_HOME/Desktop"
 
 
 # download documentation
 GVSIG_DOCS=/usr/local/share/gvsig
 GVSIG_MAN=gvSIG-1_1-man-v1-en.pdf
 
-if [ ! -d $GVSIG_DOCS ] ; then
-   mkdir cd $GVSIG_DOCS
-fi
 
 if [ -f "$GVSIG_MAN" ]
 then
    echo "$GVSIG_MAN has already been downloaded."
 else
-   wget --progress=dot:mega ftp://downloads.gvsig.org/gva/descargas/manuales/$GVSIG_MAN
+   wget --progress=dot:mega "ftp://downloads.gvsig.org/gva/descargas/manuales/$GVSIG_MAN"
 fi
 
-cp $GVSIG_MAN $GVSIG_DOCS
+
+if [ ! -d "$GVSIG_DOCS" ] ; then
+   mkdir -p "$GVSIG_DOCS"
+fi
+
+cp "$GVSIG_MAN" "$GVSIG_DOCS"
 
 
 # download gvSIG sample project
-mkdir ~/gvSIG
-wget http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp
-cp sample-project.gvp ~/gvSIG
-chown -R user:user ~/gvSIG
+mkdir "$USER_HOME/gvSIG"
+wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp \
+     --output-file=sample-project.gvp
+
+cp sample-project.gvp "$USER_HOME/gvSIG/"
+
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
+
 
 echo "Done!"
-
