@@ -80,6 +80,7 @@ cp $GVSIG_MAN $GVSIG_DOCS
 mkdir ~/gvSIG
 wget http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp
 cp sample-project.gvp ~/gvSIG
+chown -R user:user ~/gvSIG
 
 echo "Done!"
 
