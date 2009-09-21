@@ -24,6 +24,16 @@ USER_NAME="user"
 
 apt-get install --yes postgresql-8.3-postgis pgadmin3 libgeos-dev
 
+## add PostGIS 1.4, for those apps that want it
+##  TODO: use repo version when it becomes available
+wget http://postgis.refractions.net/download/postgis-1.4.0.tar.gz \
+    --output-document="/tmp/postgis-1.4.0.tar.gz"
+
+tar xzf /tmp/postgis-1.4.0.tar.gz -C /usr/src/
+return_pwd=`pwd`
+cd /usr/src/postgis-1.4.0 && ./configure && make && sudo make install
+cd $return_pwd
+
 #set default user/password to the system user for easy login
 sudo -u postgres createuser --superuser $USER_NAME
 
@@ -31,11 +41,21 @@ echo "alter role \"user\" with password 'user'" > /tmp/build_postgre.sql
 sudo -u postgres psql -f /tmp/build_postgre.sql
 # rm /tmp/build_postgre.sql
 
+#add a gratuitous db called user to avoid psql inconveniences
+sudo -u $USER_NAME createdb $USER_NAME
+
 #configure template postgis database
 sudo -u $USER_NAME createdb template_postgis 
 sudo -u $USER_NAME createlang plpgsql template_postgis 
-sudo -u $USER_NAME psql -d template_postgis  -f /usr/share/postgresql-8.3-postgis/lwpostgis.sql 
-sudo -u $USER_NAME psql -d template_postgis  -f /usr/share/postgresql-8.3-postgis/spatial_ref_sys.sql 
+
+## postgis 1.4
+pgis_file="/usr/share/postgresql-8.3-postgis/lwpostgis.sql"
+if [ -e /usr/share/postgresql/8.3/contrib/postgis.sql ] ; then
+  pgis_file="/usr/share/postgresql/8.3/contrib/postgis.sql"
+fi 
+
+sudo -u $USER_NAME psql -d template_postgis -f $pgis_file
+sudo -u $USER_NAME psql -d template_postgis -f /usr/share/postgresql-8.3-postgis/spatial_ref_sys.sql 
 
 #include pgadmin3 profile for connection
 for FILE in  pgadmin3  pgpass  ; do
@@ -66,13 +86,3 @@ connections\local\save=true
 EOF
 fi
 
-## add PostGIS 1.4, for those apps that want it
-wget http://postgis.refractions.net/download/postgis-1.4.0.tar.gz \
-    --output-document="/tmp/postgis-1.4.0.tar.gz"
-
-cd /tmp
-tar xzf  postgis-1.4.0.tar.gz
-sudo mv postgis-1.4.0 /usr/src/
-cd /usr/src/postgis-1.4.0
-./configure
-make && sudo make install
