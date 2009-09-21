@@ -24,7 +24,7 @@ USER_NAME="user"
 TMP_DIR="/tmp/build_postgis"
 
 # Install postgis 1.3
-apt-get install --yes postgresql-8.3-postgis pgadmin3
+apt-get install --yes postgresql-8.3-postgis postgis pgadmin3
 
 
 ###########################
