@@ -56,11 +56,11 @@ USER_HOME="/home/$USER_NAME"
  
 ## check required tools are installed
 if [ ! -x "`which wget`" ] ; then
-   echo "[install_deegree.sh] FIXME: wget is required, please install it and try again." 
+   echo "ERROR: wget is required, please install it and try again."
    exit 1
 fi
 if [ ! -x "`which java`" ] ; then
-   echo "[install_deegree.sh] FIXME: java is required, please install a SUN version (preferably java-1.5-sun) and try again." 
+   echo "ERROR: java is required, please install a SUN version (preferably java-1.5-sun) and try again."
    exit 1
 fi
 
