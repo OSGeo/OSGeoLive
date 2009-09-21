@@ -22,24 +22,31 @@
 # sudo ./run_remastersys.sh
 #
 
-#Set the iso filename and the disc image name, where else can we pull this from?
-discname="arramagong-gisvm-beta2"
+
+DIR=`dirname ${0}`
+VERSION=`cat ${DIR}/../VERSION.txt`
+PACKAGE_NAME="arramagong-livedvd"
+ISO_NAME="${PACKAGE_NAME}-${VERSION}"
+TMP="/tmp/build_remastersys"
+LOGS="/var/log/arramagong/remastersys.conf"
 
 #Install remastersys.sh
+mkdir -p $TMP
+cd $TMP
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/remastersys.list \
      --output-document=/etc/apt/sources.list.d/remastersys.list
 
-apt-get update
+# apt-get update
 apt-get --assume-yes install remastersys
 
 #Configure
 #ie set exclude folders in /etc/remastersys.conf
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/remastersys.conf \
-     --output-document=/etc/remastersys.conf
+     --output-document=$LOG
 
 #quick name check
-echo "Now creating ${discname}.iso"
+echo "Now creating ${ISO_NAME}.iso"
 
 #Create iso, only uncomment once it's working
-sudo remastersys backup ${discname}.iso
+sudo remastersys backup ${ISO_NAME}.iso
 
