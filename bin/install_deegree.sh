@@ -1,19 +1,19 @@
 #!/bin/bash
 #################################################################################
-# 
+#
 # Purpose: Installation of deegree_2.2-with-tomcat_6.0.20-all-in-one into Xubuntu
 # Author:  Judit Mays <mays@lat-lon.de>
 # Credits: Stefan Hansen <shansen@lisasoft.com>
 #          H.Bowman <hamish_b  yahoo com>
 # Date:    $Date$
 # Revision:$Revision$
-# 
+#
 #################################################################################
 # Copyright (c) 2009 lat/lon GmbH
 # Copyright (c) 2009 Uni Bonn
 #
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -29,13 +29,13 @@
 # =====
 # This script will install deegree-tomcat-all-in-one into Xubuntu
 #
-# deegree version 2.2 runs with both java-sun-1.5 (preferred) and java-sun-1.6. 
+# deegree version 2.2 runs with both java-sun-1.5 (preferred) and java-sun-1.6.
 # It works best with java-sun-1.5.
 #
-# It can be installed into servlet containers: 
+# It can be installed into servlet containers:
 #    Tomcat 5.5.x (but not Tomcat 5.5.26)
 #    Tomcat 6.0.x (but not Tomcat 6.0.16)
-# The preferred servlet container is Tomcat (version as described above) 
+# The preferred servlet container is Tomcat (version as described above)
 #
 
 # Running:
@@ -53,7 +53,7 @@ USER_HOME="/home/$USER_NAME"
 
 
 ### Setup things... ###
- 
+
 ## check required tools are installed
 if [ ! -x "`which wget`" ] ; then
    echo "ERROR: wget is required, please install it and try again."
@@ -100,12 +100,9 @@ getWithMd5()
 ## get deegree-tomcat-all-in-one
 getWithMd5 deegree-2.2_tomcat-6.0.20.tar.gz
 
-## unpack it as "user" to /tmp and move it to /usr/lib as "root"
-## thus ensuring that the unpacked folder/files are owned by "user"
-## (chown to "user" after unpacking would also work but take longer)
-su $USER_NAME -c "tar xzf deegree-2.2_tomcat-6.0.20.tar.gz -C /tmp/"
-mv /tmp/deegree-2.2_tomcat-6.0.20 $INSTALL_FOLDER
-
+## unpack as root, chmod everything to be group/world readable
+tar xzf deegree-2.2_tomcat-6.0.20.tar.gz -o -C $INSTALL_FOLDER
+chmod -R go+r $INSTALL_FOLDER/deegree-2.2_tomcat-6.0.20
 
 ### Configure Application ###
 
