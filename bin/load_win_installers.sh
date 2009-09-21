@@ -39,7 +39,7 @@ for URL in \
   \
   http://download.osgeo.org/qgis/win32/QGIS-1.2.0-0-No-GrassSetup.exe \
   http://home.gdal.org/tmp/vcredist_x86.exe \
-  http://mirror.aarnet.edu.au/pub/grass/grass64/binary/mswindows/native/WinGRASS-6.4.0SVN-r38959-1-Setup.exe \
+  http://mirror.aarnet.edu.au/pub/grass/grass64/binary/mswindows/native/WinGRASS-6.4.0SVN-r39271-1-Setup.exe \
   http://maptools.org/dl/ms4w/ms4w_3.0_beta7.zip \
   http://download.osgeo.org/mapguide/releases/2.0.2/MgServerSetup-2.0.2.3011.exe \
 ; do
