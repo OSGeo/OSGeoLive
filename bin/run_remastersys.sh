@@ -38,7 +38,7 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/remaster
 
 # apt-get update
 apt-get update
-apt-get --assume-yes --force-yes install remastersys
+apt-get --assume-yes install remastersys
 
 #Configure
 #ie set exclude folders in /etc/remastersys.conf
