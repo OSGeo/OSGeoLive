@@ -19,6 +19,7 @@
 # Running:
 # =======
 # sudo ./install_desktop.sh
+USER_NAME=user
 
 # Default password list on the desktop to be replaced by html help in the future.
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
@@ -29,5 +30,6 @@ chown user:user /home/user/Desktop/passwords.txt
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong-desktop.png \
 	--output-document=/usr/share/xfce4/backdrops/arramagong-desktop.png
 
-xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-path \
+#Has to been run as the regular user
+sudo -u $USER_NAME xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-path \
 	-s /usr/share/xfce4/backdrops/arramagong-desktop.png
