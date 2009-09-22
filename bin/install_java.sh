@@ -16,4 +16,4 @@
 # =====
 # This script will install sun jre 5
 
-apt-get install --yes sun-java5-jre
+apt-get --assume-yes install sun-java5-jre
