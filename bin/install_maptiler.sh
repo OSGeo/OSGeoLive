@@ -9,7 +9,9 @@
 TMP=/tmp/maptiler_downloads
 MAPTILERDEB="maptiler_1.0.beta1_all.deb"
 
-cd "$TMP"
+#Can't cd to a directory before you make it, may be uneeded now
+mkdir "$TMP"
+#cd "$TMP"
 
 #Add repositories
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
@@ -34,8 +36,8 @@ fi
 
 # If MapTiler is not installed then download the .deb package and install it
 if [ `dpkg -l maptiler | grep -c '^ii'` -eq 0 ] ; then
-  wget -c "http://maptiler.googlecode.com/files/$MAPTILERDEB"
-  dpkg -i "$MAPTILERDEB"
+  wget -c "http://maptiler.googlecode.com/files/$MAPTILERDEB" --output-document="${TMP}/${MAPTILERDEB}"
+  dpkg -i "${TMP}${MAPTILERDEB}"
   #rm "$MAPTILERDEB"
 fi
 
