@@ -110,7 +110,7 @@ grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | tee ${LOG_DIR}/${DISK_USAGE_LO
 echo "==============================================================="
 echo "Package    |Kilobytes" | tr '|' '\t'
 grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | \
-  cat disk_usage.csv | cut -f2,9 -d, | cut -f2- -d_ | \
+  cat ${DISK_USAGE_LOG} | cut -f2,9 -d, | cut -f2- -d_ | \
   grep -v '^,\|setup.sh' | sed -e 's/\.sh,/    \t/' | sort -nr -k2   
 
 if [ -e /tmp/build_gisvm_error.log ] ; then
@@ -120,7 +120,7 @@ fi
 
 # grep for problems
 echo "==============================================================="
-grep -iwn ERROR main_install.log
+grep -iwn ERROR ${LOG_DIR}/${MAIN_LOG_FILE}
 
 echo
 echo "==============================================================="
