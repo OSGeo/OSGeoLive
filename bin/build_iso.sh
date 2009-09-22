@@ -19,7 +19,7 @@
 # Running:
 # Note: Run this absolutely last, especially after doing filesystem cleanup
 # =======
-# sudo ./run_remastersys.sh
+# sudo ./build_iso.sh
 #
 
 

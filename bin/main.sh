@@ -73,6 +73,7 @@ for SCRIPT in \
   ./install_mapfish.sh \
   ./install_R.sh \
   ./setdown.sh \
+  ./build_iso.sh \
 ; do
   echo "===================================================================="
   echo Starting: $SCRIPT
