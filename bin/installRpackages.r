@@ -1,4 +1,4 @@
-packagelist <- c("adapt","boot","class","classInt","coda","DCluster","digest","e1071","epitools","foreign","gpclib","graph","gstat","lattice","lmtest","maps","maptools","Matrix","mgcv","nlme","pgirmess","pkgDepTools","R2WinBUGS","RandomFields","RBGL","RColorBrewer","rgdal","Rgraphviz","sandwich","sp","spam","spatialkernel","spatstat","spdep","spgrass6","spgwr","splancs","tripack","xtable","zoo")
+packagelist <- c("boot","class","classInt","DCluster","digest","epitools","gpclib","graph","gstat","maptools","Matrix","pgirmess","pkgDepTools","R2WinBUGS","RandomFields","RBGL","RColorBrewer","rgdal","Rgraphviz","sp","spam","spatialkernel","spatstat","spdep","spgrass6","spgwr","splancs","tripack","xtable")
 
 for (i in packagelist) {
 	#Generic Version followed by Australian Repos

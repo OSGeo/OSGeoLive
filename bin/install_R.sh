@@ -36,6 +36,12 @@ apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev grass-dev li
 #Required for QGIS plugins
 easy_install rpy2
 
+#Install packages from debs if available
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/cran.list \
+     --output-document=/etc/apt/sources.list.d/cran.list
+apt-get update
+apt-get --assume-yes install r-cran-adapt r-cran-boot r-cran-matrix r-cran-coda r-cran-e1071 r-cran-foreign r-cran-lattice r-cran-lmtest r-cran-maps r-cran-mgcv r-cran-nlme r-cran-sandwich r-cran-zoo
+
 #Calls R script to do install with feedback to stdout
 R --no-save < installRpackages.r
 
