@@ -33,7 +33,7 @@ apt-get install --yes wget more less zip unzip bzip2 p7zip \
   cvs cvsutils subversion subversion-tools bzr bzr-tools git mercurial \
   openssh-client lftp sl smbclient usbutils wireless-tools \
   locate diff patch fuseiso menu \
-  vim emacs nedit nano \
+  vim emacs nedit nano screen \
   evince ghostscript a2ps pdftk netpbm qiv \
   lynx mutt mc xchat rxvt units
 
