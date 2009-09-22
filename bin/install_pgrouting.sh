@@ -35,7 +35,7 @@ POSTLBS_FOLDER="/usr/share/postlbs"
 BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-
+LOGS="/var/log/pgrouting.log"
 ## Setup things... ##
 
 # check required tools are installed
@@ -139,6 +139,7 @@ sudo -u $USER_NAME psql -f schema.sql  sydney
 sudo -u $USER_NAME psql -f sydney.sql  sydney
 
 # testing pgRouting functions
-sudo -u $USER_NAME psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM dijkstra_sp_delta('sydney', 101, 114, 0.003)"  sydney
-sudo -u $USER_NAME psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM astar_sp_delta('sydney', 101, 114, 0.003)"  sydney
-sudo -u $USER_NAME psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM shootingstar_sp('sydney', 8, 24, 0.1, 'length', true, true)"  sydney
+# Renable once we figure out how to get rid of user interaction
+#sudo -u $USER_NAME psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM dijkstra_sp_delta('sydney', 101, 114, 0.003)"  sydney >> $LOGS
+#sudo -u $USER_NAME psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM astar_sp_delta('sydney', 101, 114, 0.003)"  sydney >> $LOGS
+#sudo -u $USER_NAME psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM shootingstar_sp('sydney', 8, 24, 0.1, 'length', true, true)"  sydney >> $LOGS
