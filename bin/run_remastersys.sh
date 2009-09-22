@@ -37,7 +37,8 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/remaster
      --output-document=/etc/apt/sources.list.d/remastersys.list
 
 # apt-get update
-apt-get --assume-yes install remastersys
+apt-get update
+apt-get --assume-yes --force-yes install remastersys
 
 #Configure
 #ie set exclude folders in /etc/remastersys.conf
@@ -49,5 +50,5 @@ cp $LOGS /etc/remastersys.conf
 echo "Now creating ${ISO_NAME}.iso"
 
 #Create iso, only uncomment once it's working
-sudo remastersys backup ${ISO_NAME}.iso
+remastersys backup ${ISO_NAME}.iso
 
