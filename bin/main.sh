@@ -71,6 +71,7 @@ for SCRIPT in \
   ./install_gvsig.sh \
   ./install_gpsdrive.sh \
   ./install_mapfish.sh \
+  ./install_R.sh \
   ./setdown.sh \
 ; do
   echo "===================================================================="
