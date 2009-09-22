@@ -32,7 +32,7 @@ LOGS="/var/log/arramagong/remastersys.conf"
 
 #Install remastersys.sh
 mkdir -p $TMP
-cd $TMP
+#cd $TMP
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/remastersys.list \
      --output-document=/etc/apt/sources.list.d/remastersys.list
 
