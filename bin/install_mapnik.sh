@@ -49,17 +49,17 @@ cd $TMP/tilelite
 python setup.py install # will install 'tilelite.py' in site-packages and 'liteserv.py' in default bin directory
 
 # copy TileLite demo application and data to 'mapnik' subfolder of DATA_FOLDER
-cp demo $DATA_FOLDER/mapnik -R
+cp -R demo $DATA_FOLDER/mapnik
 
 # now get rid of temporary unzipped sources
 rm -fr $TMP/tilelite
 
-# move into data folder and make mapfile path to shapefile absolute
-# because absolute paths not well supported until Mapnik 0.6.1
+# Make the mapfile's path to the shapefile absolute
+# because relative paths are not well supported until Mapnik 0.6.1
 cd $DATA_FOLDER/mapnik
-sudo sed -i "s:demo:`pwd`/demo:" demo/population.xml
+sed -e "s:demo:`pwd`/demo:" -i xml demo/population.xml
 
-# lauch the tile server with a Mapnik XML mapfile as input
+# launch the tile server with a Mapnik XML mapfile as input
 #liteserv.py demo/population.xml
 
 # Note on the above command which launchs server.
