@@ -147,7 +147,7 @@ if [ -f "geoserver-$GS_VERSION-htmldoc.zip" ]
 then
    echo "geoserver-$GS_VERSION-htmldoc.zip has already been downloaded"
 else
-  wget "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-htmldoc.zip/download"
+  wget --progress=dot:mega "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-htmldoc.zip/download"
 fi
 ## unpack it
 echo "Installing GeoServer documentation"
