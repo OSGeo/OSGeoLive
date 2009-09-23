@@ -43,7 +43,7 @@ echo "===================================================================="
 echo Disk Usage1:, package.sh start, `df | grep "Filesystem" | sed -e "s/  */,/g"`, date
 echo Disk Usage2:, package.sh start, `df | grep " /$" | sed -e "s/  */,/g"`, `date`
 
-echo Disk Usage3:, package.sh start, `df -h ${VM_DIR}/${VM}` , `date`
+echo Disk Usage3:, package.sh start, `du -sh ${VM_DIR}/${VM} | cut -f1` , `date`
 
 echo "Start package.sh. Packaging ${VM_DIR}/${VM}"
 date
