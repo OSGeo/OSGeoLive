@@ -16,27 +16,39 @@ apt-get install --yes python-mapnik
 
 
 # download, install, and setup demo Mapnik tile-serving application
-TMP="/tmp/tilelite"
+TMP="/tmp"
 DATA_FOLDER="/usr/local/share"
 
-mkdir "$TMP"
-cd "$TMP"
+cd $TMP
+
+## Setup things... ##
+# check required tools are installed
+if [ ! -x "`which wget`" ] ; then
+   echo "ERROR: wget is required, please install it and try again" 
+   exit 1
+fi
+
+if [ ! -d $DATA_FOLDER/mapnik ]
+then
+    echo "Create $DATA_FOLDER/mapnik directory"
+    mkdir $DATA_FOLDER/mapnik
+fi
 
 # download TileLite sources
 wget -c http://bitbucket.org/springmeyer/tilelite/get/tip.zip
-if [ -d tilelite ] ; then
-  rm -rf tilelite/
-fi
-unzip tip.zip
+unzip -o tip.zip
+rm tip.zip
+cd $TMP/tilelite
 
-cd tilelite
 
 # using the standard python installation tools
 python setup.py install # will install 'tilelite.py' in site-packages and 'liteserv.py' in default bin directory
 
 # copy TileLite demo application and data to 'mapnik' subfolder of DATA_FOLDER
-mkdir $DATA_FOLDER/mapnik
 cp demo $DATA_FOLDER/mapnik -R
+
+# now get rid of temporary unzipped sources
+rm -fr $TMP/tilelite
 
 # then to run demo do...
 #cd $DATA_FOLDER/mapnik
