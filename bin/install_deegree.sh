@@ -50,7 +50,7 @@ DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-2.2_tomcat-6.0.20"
 BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-PASSWORD = "user"
+PASSWORD="user"
 
 
 ### Setup things... ###
@@ -66,8 +66,8 @@ if [ ! -x "`which java`" ] ; then
 fi
 
 ## create tmp folder
-mkdir $TMP
-cd $TMP
+mkdir "$TMP"
+cd "$TMP"
 
 getWithMd5()
 {
