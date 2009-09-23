@@ -50,6 +50,7 @@ DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-2.2_tomcat-6.0.20"
 BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
+PASSWORD = "user"
 
 
 ### Setup things... ###
@@ -131,6 +132,7 @@ if(test ! -d $USER_HOME/Desktop) then
 fi
 
 ## start icon
+##Relies on launchassist in home dir
 if [ ! -e /usr/share/applications/deegree-start.desktop ] ; then
    cat << EOF > /usr/share/applications/deegree-start.desktop
 [Desktop Entry]
@@ -139,7 +141,7 @@ Encoding=UTF-8
 Name=start deegree
 Comment=deegree v2.2
 Categories=Application;Geography;Geoscience;Education;
-Exec=$BIN/deegree_start.sh
+Exec=dash $USER_HOME/launchassist.sh $BIN/deegree_start.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
 Terminal=false
 EOF
@@ -149,6 +151,7 @@ cp -a /usr/share/applications/deegree-start.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/deegree-start.desktop"
 
 ## stop icon
+##Relies on launchassist in home dir
 if [ ! -e /usr/share/applications/deegree-stop.desktop ] ; then
    cat << EOF > /usr/share/applications/deegree-stop.desktop
 [Desktop Entry]
@@ -157,7 +160,7 @@ Encoding=UTF-8
 Name=stop deegree
 Comment=deegree v2.2
 Categories=Application;Geography;Geoscience;Education;
-Exec=$BIN/deegree_stop.sh
+Exec=dash $USER_HOME/launchassist.sh  $BIN/deegree_stop.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
 Terminal=false
 EOF

@@ -20,6 +20,7 @@
 # =======
 # sudo ./install_desktop.sh
 USER_NAME=user
+USER_HOME=/home/$USER_NAME
 
 # Default password list on the desktop to be replaced by html help in the future.
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
@@ -33,3 +34,8 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong
 #Has to been run as the regular user
 sudo -u $USER_NAME xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-path \
     -s /usr/share/xfce4/backdrops/arramagong-desktop.png
+
+#Add the launchhelp script which allows other apps to provide sudo launching with the password already embedded
+#Geonetwork and deegree needs this right now
+cp ${USER_HOME}/gisvm/trunk/bin/launchassist.sh ${USER_HOME}/.
+chmod 755 ${USER_HOME}/launchassist.sh
