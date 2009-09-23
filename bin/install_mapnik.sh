@@ -22,6 +22,10 @@ apt-get install --yes python-mapnik
 # download, install, and setup demo Mapnik tile-serving application
 TMP="/tmp"
 DATA_FOLDER="/usr/local/share"
+MAPNIK_DATA=$DATA_FOLDER/mapnik
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+BIN="/usr/bin"
 
 cd $TMP
 
@@ -32,10 +36,10 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-if [ ! -d $DATA_FOLDER/mapnik ]
+if [ ! -d $MAPNIK_DATA ]
 then
-    echo "Create $DATA_FOLDER/mapnik directory"
-    mkdir $DATA_FOLDER/mapnik
+    echo "Create $MAPNIK_DATA directory"
+    mkdir $MAPNIK_DATA
 fi
 
 # download TileLite sources
@@ -49,30 +53,76 @@ cd $TMP/tilelite
 python setup.py install # will install 'tilelite.py' in site-packages and 'liteserv.py' in default bin directory
 
 # copy TileLite demo application and data to 'mapnik' subfolder of DATA_FOLDER
-cp -R demo $DATA_FOLDER/mapnik
+cp -R demo $MAPNIK_DATA
 
 # now get rid of temporary unzipped sources
 rm -fr $TMP/tilelite
 
 # Make the mapfile's path to the shapefile absolute
 # because relative paths are not well supported until Mapnik 0.6.1
-cd $DATA_FOLDER/mapnik
+cd $MAPNIK_DATA
+# ubuntu
 sed -e "s:demo:`pwd`/demo:" -i demo/population.xml
+# mac osx
+#sed -e "s:demo:`pwd`/demo:" -i -f demo/population.xml
 
-# launch the tile server with a Mapnik XML mapfile as input
-#liteserv.py demo/population.xml
+# Create the index page
+cat <<EOF > $MAPNIK_DATA/index.html
+<html>
+<title>Mapnik 0.5.1</title>
+<body>
 
-# Note on the above command which launchs server.
-# The paths in XML mapfile depend on the demo being run from this exact spot,
-# so users must either edit the shapefile path inside 'population.xml' or make sure to
-# run from '$DATA_FOLDER/mapnik'
+<div id="about">
+
+<h1>About Mapnik</h1>
+
+<p>Mapnik</p>
+
+</div>
+</body>
+</html>
+EOF
+
+# Demo Tiles app using OpenLayers
+cat << EOF > $BIN/mapnik_start_tilelite.sh
+#!/bin/sh
+bash -c "firefox -new-tab /usr/local/share/mapnik/demo/openlayers.html"
+liteserv.py /usr/local/share/mapnik/demo/population.xml
+EOF
+
+chmod 755 $BIN/mapnik_start_tilelite.sh
 
 
-## MANUAL STEPS ##
+## TileLite start icon
+cat << EOF > /usr/share/applications/mapnik-start.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Start Mapnik Demo
+Comment=Mapnik Demo using TileLite Server
+Categories=Application;Geography;Geoscience;Education;
+Exec=$BIN/mapnik_start_tilelite.sh
+Icon=
+Terminal=False
+EOF
 
-# View the server homepage:
-# open in a browser...
-# http://yourdomain.com:8000 or http://localhost:8000
+cp -a /usr/share/applications/mapnik-start.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/mapnik-start.desktop"
 
-# Then view the tiles in sample OpenLayers Map (needs internet connection for OpenLayers.js, etc)
-# file:///usr/local/share/mapnik/demo/openlayers.html
+# Demo Tiles app using OpenLayers
+cat << EOF > /usr/share/applications/mapnik-intro.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Mapnik Intro
+Comment=Mapnik Intro
+Categories=Application;Education;Geography;Graphics;
+Exec=firefox /usr/local/share/mapnik/index.html
+Icon=
+Terminal=false
+Categories=Education;Geography;Graphics;
+EOF
+
+cp -a /usr/share/applications/mapnik-intro.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/mapnik-intro.desktop"
+
