@@ -43,13 +43,17 @@ then
 fi
 
 # download TileLite sources
-wget -c http://bitbucket.org/springmeyer/tilelite/get/tip.zip
+wget http://bitbucket.org/springmeyer/tilelite/get/tip.zip
 unzip -o tip.zip
 rm tip.zip
 cd $TMP/tilelite
 
 
-# using the standard python installation tools
+# uninstall tilelite files
+rm -rf /usr/local/lib/python2.6/dist-packages/tilelite*
+rm /usr/local/bin/liteserv.py
+
+# install tilelite using the standard python installation tools
 python setup.py install # will install 'tilelite.py' in site-packages and 'liteserv.py' in default bin directory
 
 # copy TileLite demo application and data to 'mapnik' subfolder of DATA_FOLDER
