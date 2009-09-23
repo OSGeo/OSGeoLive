@@ -57,7 +57,7 @@ rm -fr $TMP/tilelite
 # Make the mapfile's path to the shapefile absolute
 # because relative paths are not well supported until Mapnik 0.6.1
 cd $DATA_FOLDER/mapnik
-sed -e "s:demo:`pwd`/demo:" -i xml demo/population.xml
+sed -e "s:demo:`pwd`/demo:" -i demo/population.xml
 
 # launch the tile server with a Mapnik XML mapfile as input
 #liteserv.py demo/population.xml
