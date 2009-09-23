@@ -34,7 +34,7 @@ USER_HOME="/home/$USER_NAME"
 apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev grass-dev libxml2-dev python-shapely tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev python-setuptools
 
 #Required for QGIS plugins
-easy_install rpy2
+easy_install -Z rpy2
 
 #Install packages from debs if available
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/cran.list \
