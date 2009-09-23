@@ -10,6 +10,10 @@
 # Running:
 # =======
 # sudo ./install_mapnik.sh
+#
+# Requires:
+# =========
+# python, wget, unzip
 
 # will fetch Mapnik 0.5.1 on Ubuntu 9.04
 apt-get install --yes python-mapnik
@@ -50,8 +54,10 @@ cp demo $DATA_FOLDER/mapnik -R
 # now get rid of temporary unzipped sources
 rm -fr $TMP/tilelite
 
-# then to run demo do...
-#cd $DATA_FOLDER/mapnik
+# move into data folder and make mapfile path to shapefile absolute
+# because absolute paths not well supported until Mapnik 0.6.1
+cd $DATA_FOLDER/mapnik
+sudo sed -i "s:demo:`pwd`/demo:" demo/population.xml
 
 # lauch the tile server with a Mapnik XML mapfile as input
 #liteserv.py demo/population.xml
