@@ -123,4 +123,23 @@ cp -R  /tmp/.qgis/python/plugins/ /usr/share/qgis/python/
 #TODO Include some sample projects using already installed example data
 #post a sample somewhere on qgis website or launchpad to pull
 
+#add a connection for postgis if it's installed
+QGIS_CONFIG="/home/$USER_NAME/.config/QuantumGIS/QGIS.conf"
+if [ -e "$QGIS_CONFIG" ] && \
+   [ `grep -c '\[PostgreSQL\]' "$QGIS_CONFIG"` -eq 0 ] ; then
+	cat >> "/home/$USER_NAME/.config/QuantumGIS/QGIS.conf" <<EOF
+
+[PostgreSQL]
+connections\selected=local
+connections\local\host=localhost
+connections\local\database=postgres
+connections\local\port=5432
+connections\local\username=user
+connections\local\password=user
+connections\local\publicOnly=false
+connections\local\geometryColumnsOnly=false
+connections\local\save=true
+EOF
+fi
+
 echo "Finished installing QGIS $INSTALLED_VERSION."

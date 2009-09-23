@@ -116,22 +116,5 @@ for FILE in  pgadmin3  pgpass  ; do
 done
 
 
-#add a connection for qgis if it's installed
-QGIS_CONFIG="/home/$USER_NAME/.config/QuantumGIS/QGIS.conf"
-if [ -e "$QGIS_CONFIG" ] && \
-   [ `grep -c '\[PostgreSQL\]' "$QGIS_CONFIG"` -eq 0 ] ; then
-	cat >> "/home/$USER_NAME/.config/QuantumGIS/QGIS.conf" <<EOF
 
-[PostgreSQL]
-connections\selected=local
-connections\local\host=localhost
-connections\local\database=postgres
-connections\local\port=5432
-connections\local\username=user
-connections\local\password=user
-connections\local\publicOnly=false
-connections\local\geometryColumnsOnly=false
-connections\local\save=true
-EOF
-fi
 
