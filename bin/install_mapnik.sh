@@ -19,12 +19,16 @@ apt-get install --yes python-mapnik
 TMP="/tmp/tilelite"
 DATA_FOLDER="/usr/local/share"
 
-mkdir $TMP
-cd $TMP
+mkdir "$TMP"
+cd "$TMP"
 
 # download TileLite sources
 wget -c http://bitbucket.org/springmeyer/tilelite/get/tip.zip
+if [ -d tilelite ] ; then
+  rm -rf tilelite/
+fi
 unzip tip.zip
+
 cd tilelite
 
 # using the standard python installation tools
