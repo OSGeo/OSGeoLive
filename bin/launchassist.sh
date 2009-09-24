@@ -1,5 +1,5 @@
 #!/bin/sh/
-#launchhelp
+#launchassist
 #Takes script/app to launch as an arg an makes sure it's run as sudo.
 #Seems to alleviate strange behavior of desktop icons not launching apps properly
 PASSWORD=user
