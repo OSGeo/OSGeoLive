@@ -14,6 +14,11 @@
 # Requires:
 # =========
 # python, wget, unzip
+#
+# Uninstall:
+# ==========
+# rm -rf /usr/local/lib/python2.6/dist-packages/tilelite*
+# rm /usr/local/bin/liteserv.py
 
 # will fetch Mapnik 0.5.1 on Ubuntu 9.04
 apt-get install --yes python-mapnik
@@ -27,7 +32,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 BIN="/usr/bin"
 
-cd $TMP
+cd "$TMP"
 
 ## Setup things... ##
 # check required tools are installed
@@ -38,23 +43,18 @@ fi
 
 if [ ! -d $MAPNIK_DATA ]
 then
-    echo "Create $MAPNIK_DATA directory"
+    echo "Creating $MAPNIK_DATA directory"
     mkdir $MAPNIK_DATA
 fi
 
 # download TileLite sources
-wget http://bitbucket.org/springmeyer/tilelite/get/tip.zip
+wget -c http://bitbucket.org/springmeyer/tilelite/get/tip.zip
 unzip -o tip.zip
 rm tip.zip
 cd $TMP/tilelite
 
-
-# uninstall tilelite files
-rm -rf /usr/local/lib/python2.6/dist-packages/tilelite*
-rm /usr/local/bin/liteserv.py
-
 # install tilelite using the standard python installation tools
-python setup.py install # will install 'tilelite.py' in site-packages and 'liteserv.py' in default bin directory
+python setup.py install # will install 'tilelite.py' in dist-packages and 'liteserv.py' in default bin directory
 
 # copy TileLite demo application and data to 'mapnik' subfolder of DATA_FOLDER
 cp -R demo $MAPNIK_DATA
@@ -70,63 +70,47 @@ sed -e "s:demo:`pwd`/demo:" -i demo/population.xml
 # mac osx
 #sed -e "s:demo:`pwd`/demo:" -i -f demo/population.xml
 
-# Create the index page
-cat <<EOF > $MAPNIK_DATA/index.html
-<html>
-<title>Mapnik 0.5.1</title>
-<body>
-
-<div id="about">
-
-<h1>About Mapnik</h1>
-
-<p>Mapnik</p>
-
-</div>
-</body>
-</html>
-EOF
-
-# Demo Tiles app using OpenLayers
+# Create startup script for TileLite Mapnik Server
 cat << EOF > $BIN/mapnik_start_tilelite.sh
 #!/bin/sh
-bash -c "firefox -new-tab /usr/local/share/mapnik/demo/openlayers.html"
 liteserv.py /usr/local/share/mapnik/demo/population.xml
 EOF
 
 chmod 755 $BIN/mapnik_start_tilelite.sh
 
 
-## TileLite start icon
+## Create Desktop Shortcut for starting TileLite Mapnik Server in shell
+# Note: TileLite when run with the 'liteserv.py' script is in development
+# mode and is intended to be run within a viewable terminal, thus 'Terminal=true'
 cat << EOF > /usr/share/applications/mapnik-start.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Start Mapnik Demo
-Comment=Mapnik Demo using TileLite Server
+Name=Start Mapnik/TileLite
+Comment=Mapnik tile-serving using TileLite Server
 Categories=Application;Geography;Geoscience;Education;
-Exec=$BIN/mapnik_start_tilelite.sh
-Icon=
-Terminal=False
+Exec=dash /home/user/launchassist.sh $BIN/mapnik_start_tilelite.sh
+Icon=boot
+Terminal=true
+StartupNotify=false
 EOF
 
 cp -a /usr/share/applications/mapnik-start.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/mapnik-start.desktop"
 
-# Demo Tiles app using OpenLayers
+# Create Desktop Shortcut for Basic Intro page and Demo
 cat << EOF > /usr/share/applications/mapnik-intro.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Mapnik Intro
-Comment=Mapnik Intro
-Categories=Application;Education;Geography;Graphics;
-Exec=firefox /usr/local/share/mapnik/index.html
-Icon=
+Name=Mapnik Introduction
+Comment=Mapnik Introduction
+Categories=Application;Geography;Geoscience;Education;
+Exec=firefox /usr/share/livedvd-docs/mapnik_description.html
+Icon=browser
 Terminal=false
-Categories=Education;Geography;Graphics;
+StartupNotify=false
 EOF
 
 cp -a /usr/share/applications/mapnik-intro.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/mapnik-intro.desktop"
-
