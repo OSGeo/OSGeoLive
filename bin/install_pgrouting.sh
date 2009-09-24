@@ -66,7 +66,7 @@ echo "FIXME: remove -dev packages once you are done with them. libboost-dev is h
 # Explicitly set which ones you want to keep for runtime 
 #    otherwise there is a good chance they will be auto-cleaned:
 # (prior apt-get installs these, this one is just to remove the auto-tag)
-apt-get install --yes libcgal2 \
+apt-get install --yes libcgal2 libqt3-mt \
    libboost-date-time1.35.0 libboost-filesystem1.35.0 \
    libboost-graph1.35.0 libboost-iostreams1.35.0 \
    libboost-program-options1.35.0 libboost-python1.35.0 \
