@@ -62,6 +62,19 @@ apt-get install --yes \
    libboost-graph1.35-dev \
    libcgal*
 
+echo "FIXME: remove -dev packages once you are done with them. libboost-dev is hundreds of MB."
+# Explicitly set which ones you want to keep for runtime 
+#    otherwise there is a good chance they will be auto-cleaned:
+# (prior apt-get installs these, this one is just to remove the auto-tag)
+apt-get install --yes libcgal2 \
+   libboost-date-time1.35.0 libboost-filesystem1.35.0 \
+   libboost-graph1.35.0 libboost-iostreams1.35.0 \
+   libboost-program-options1.35.0 libboost-python1.35.0 \
+   libboost-regex1.35.0 libboost-serialization1.35.0 \
+   libboost-signals1.35.0 libboost-system1.35.0 \
+   libboost-test1.35.0 libboost-thread1.35.0 \
+   libboost-wave1.35.0
+
 
 if [ -f "gaul-devel-0.1849-0.tar.gz" ]
 then
