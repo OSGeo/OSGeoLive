@@ -106,6 +106,27 @@ EOF
 
 echo -n "Done\n"
 
+#Add Launch icon to desktop
+#What Icon should be used
+INSTALLED_VERSION=`dpkg -s mapserver | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
+if [ ! -e /usr/share/applications/mapserver.desktop ] ; then
+   cat << EOF > /usr/share/applications/mapserver.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Mapserver
+Comment=Mapserver
+Categories=Application;Education;Geography;
+Exec=firefox /usr/local/share/mapserver/index.html
+Icon=
+Terminal=false
+StartupNotify=false
+Categories=Education;Geography;
+EOF
+fi
+cp /usr/share/applications/mapserver.desktop "$USER_HOME/Desktop/"
+
+
 # Create the index page
 cat <<EOF > $MAPSERVER_DATA/index.html
 <html>
@@ -184,21 +205,4 @@ EOF
 # Reload Apache
 /etc/init.d/apache2 force-reload
 
-#Add Launch icon to desktop
-#What Icon should be used
-INSTALLED_VERSION=`dpkg -s mapserver | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
-if [ ! -e /usr/share/applications/mapserver.desktop ] ; then
-   cat << EOF > /usr/share/applications/mapserver.desktop
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=Mapserver
-Comment=Mapserver
-Categories=Application;Education;Geography;
-Exec=firefox /usr/local/share/mapserver/index.html
-Icon=
-Terminal=false
-StartupNotify=false
-Categories=Education;Geography;
-EOF
-fi
+
