@@ -73,7 +73,6 @@ for SCRIPT in \
   ./install_desktop.sh \
   ./install_main_docs.sh \
   ./setdown.sh \
-  ./build_iso.sh \
 ; do
   echo "===================================================================="
   echo Starting: $SCRIPT
@@ -140,4 +139,7 @@ exit
 # This is disabled until it can be built with shared libraries,
 #   using static libraries it takes up 300mb.
 ./install_mb-system.sh
+
+# Build the iso should be done later
+./build_iso.sh
 
