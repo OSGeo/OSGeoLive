@@ -43,7 +43,7 @@ fi
 # add some useful Recommends
 PACKAGES="$PACKAGES espeak gdal-bin gpsbabel graphicsmagick-imagemagick-compat postgresql-8.3-postgis python-mapnik speech-dispatcher"
 
-apt-get install --yes $PACKAGES
+apt-get --assume-yes install  $PACKAGES
 
 if [ $? -ne 0 ] ; then
    echo "An error occurred installing packages. Aborting install."
@@ -113,15 +113,15 @@ EOF
   ### install any missing build-dep packages
 
   # kludge to make sure these make it in there
-  apt-get install --assume-yes libboost-dev libboost-filesystem-dev libboost-serialization-dev
-  apt-get install --assume-yes libmapnik-dev
+  apt-get --assume-yes install libboost-dev libboost-filesystem-dev libboost-serialization-dev
+  apt-get --assume-yes install libmapnik-dev
 
   NEEDED_BUILD_PKG=`dpkg-checkbuilddeps 2>&1 | cut -f3 -d: | \
     sed -e 's/([^)]*)//g' -e 's/| [^ ]*//g' -e 's/|//g'`
 
   if [ -n "$NEEDED_BUILD_PKG" ] ; then
      echo "Attempting to (temporarily) install the following packages: $NEEDED_BUILD_PKG"
-     apt-get install --assume-yes $NEEDED_BUILD_PKG
+     apt-get --assume-yes install $NEEDED_BUILD_PKG
 
      # don't exit on fail because pbuilder will try next
   else
@@ -209,10 +209,10 @@ EOF
 
   # cleanup
    # from kludge to make sure these made it in there
-  apt-get remove --assume-yes libboost-dev libmapnik-dev libboost-filesystem-dev libboost-serialization-dev
+  apt-get --assume-yes remove libboost-dev libmapnik-dev libboost-filesystem-dev libboost-serialization-dev
    # from auto-detect
   if [ -n "$NEEDED_BUILD_PKG" ] ; then
-     apt-get remove $NEEDED_BUILD_PKG
+     apt-get --assume-yes remove $NEEDED_BUILD_PKG
   fi
   # don't worry (too much) if the above fails, it's just removing cruft.
   # we really want a --assume-no switch to only remove if perfectly safe

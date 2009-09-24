@@ -51,27 +51,27 @@ for SCRIPT in \
   ./setup.sh \
   ./install_java.sh \
   ./install_geoserver.sh \
-  ./install_postgres.sh \
-  ./install_desktop \
-  ./install_main_docs.sh \
-  ./install_apache2.sh \
-  ./install_mapserver.sh \
+  ./install_gvsig.sh \
   ./install_geonetwork.sh \
   ./install_deegree.sh \
   ./install_udig.sh \
   ./install_openjump.sh \
+  ./install_apache2.sh \
+  ./install_postgres.sh \
+  ./install_pgrouting.sh \
+  ./install_mapserver.sh \
   ./install_geokettle.sh \
   ./install_grass.sh \
+  ./install_qgis.sh \
   ./install_mapnik.sh \
   ./install_kosmo.sh \
   ./install_maptiler.sh \
-  ./install_marble.sh \
-  ./install_qgis.sh \
-  ./install_pgrouting.sh \
-  ./install_gvsig.sh \
+  ./install_marble.sh \  
   ./install_gpsdrive.sh \
   ./install_mapfish.sh \
   ./install_R.sh \
+  ./install_desktop.sh \
+  ./install_main_docs.sh \
   ./setdown.sh \
   ./build_iso.sh \
 ; do

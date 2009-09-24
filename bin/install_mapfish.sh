@@ -40,7 +40,7 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-apt-get -y install python2.5
+apt-get --assume-yes install python2.5
 
 if [ ! -d $MAPFISH_CONF_DIR ]
 then
