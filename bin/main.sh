@@ -109,14 +109,18 @@ echo "==============================================================="
 grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | tee ${LOG_DIR}/${DISK_USAGE_LOG}
 
 echo "==============================================================="
-echo "Package    |Kilobytes" | tr '|' '\t'
+# to be interesting this should really focus on diff to prior, not absolute value
+echo "Package    |Kilobytes used by filesystem" | tr '|' '\t'
 grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | \
-  cat ${LOG_DIR}/${DISK_USAGE_LOG} | cut -f2,9 -d, | cut -f2- -d_ | \
-  grep -v '^,\|setup.sh' | sed -e 's/\.sh,/    \t/' | sort -nr -k2   
+  cut -f2,5 -d, | cut -f2- -d_ | \
+  grep -v '^,\|setup.sh\|setdown.sh' | sed -e 's/\.sh,/    \t/' | sort -nr -u -k2
 
+echo "==============================================================="
 if [ -e /tmp/build_gisvm_error.log ] ; then
    echo
    cat /tmp/build_gisvm_error.log
+else
+   echo "No script failures detected."
 fi
 
 # grep for problems
