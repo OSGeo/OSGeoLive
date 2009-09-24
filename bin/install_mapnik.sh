@@ -48,7 +48,7 @@ then
 fi
 
 # download TileLite sources
-wget -c http://bitbucket.org/springmeyer/tilelite/get/tip.zip
+wget -c --progress=dot:mega http://bitbucket.org/springmeyer/tilelite/get/tip.zip
 unzip -o tip.zip
 rm tip.zip
 cd $TMP/tilelite
