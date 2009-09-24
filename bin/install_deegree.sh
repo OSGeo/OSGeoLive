@@ -81,10 +81,10 @@ getWithMd5()
         else
             echo "md5 hash is not correct. Downloading $1 again."
             rm -f $1
-            wget -c --progress=dot:binary http://download.deegree.org/LiveDVD/FOSS4G2009/$1
+            wget -c --progress=dot:mega http://download.deegree.org/LiveDVD/FOSS4G2009/$1
         fi
     else
-        wget -c --progress=dot:binary http://download.deegree.org/LiveDVD/FOSS4G2009/$1
+        wget -c --progress=dot:mega http://download.deegree.org/LiveDVD/FOSS4G2009/$1
     fi
 
     if (md5sum -c $1.md5) then
