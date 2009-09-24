@@ -46,8 +46,8 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 # create tmp folders
-mkdir $TMP
-cd $TMP
+mkdir "$TMP"
+cd "$TMP"
 
 
 ## Install Application ##
@@ -57,7 +57,7 @@ if [ -f "openjump-v1.3.zip" ]
 then
    echo "openjump-v1.3.zip has already been downloaded."
 else
-   wget -c http://sourceforge.net/projects/jump-pilot/files/OpenJUMP/1.3/openjump-v1.3.zip/download
+   wget -c --progress=dot:mega http://sourceforge.net/projects/jump-pilot/files/OpenJUMP/1.3/openjump-v1.3.zip/download
 fi
 # unpack it and copy it to /usr/lib
 unzip openjump-v1.3.zip -d $INSTALL_FOLDER
@@ -70,7 +70,7 @@ if [ -f "openjump.sh" ]
 then
    echo "openjump.sh has already been downloaded."
 else
-   wget -c https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/openjump-conf/openjump.sh
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/openjump-conf/openjump.sh
 fi
 # copy it into the openjump folder
 cp openjump.sh $OJ_FOLDER/bin
@@ -90,7 +90,7 @@ if [ -f "openjump.icon" ]
 then
    echo "openjump.icon has already been downloaded."
 else
-   wget -c https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/openjump-conf/openjump.ico
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/openjump-conf/openjump.ico
 fi
 # copy it into the openjump folder
 cp openjump.ico $OJ_FOLDER
@@ -100,7 +100,7 @@ if [ -f "openjump.desktop" ]
 then
    echo "openjump.desktop has already been downloaded."
 else
-   wget -c https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/openjump-conf/openjump.desktop
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/openjump-conf/openjump.desktop
 fi
 # copy it into the openjump folder
 cp openjump.desktop $USER_HOME/Desktop
@@ -114,7 +114,7 @@ if [ -f "ogrs2009_tutorialddata_mod.zip" ]
 then
    echo "ogrs2009_tutorialddata_mod.zip has already been downloaded."
 else
-   wget -c http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.3%20Docs%20%28English%29/ogrs2009_tutorialddata_mod.zip/download
+   wget -c --progress=dot:mega http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.3%20Docs%20%28English%29/ogrs2009_tutorialddata_mod.zip/download
 fi
 #unzip the file into /usr/local/share/openjump-data
 mkdir $DATA_FOLDER/openjump-data
@@ -128,7 +128,7 @@ if [ -f "ogrs2009_tutorial.pdf" ]
 then
    echo "ogrs2009_tutorial.pdf has already been downloaded."
 else
-   wget -c http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.3%20Docs%20%28English%29/ogrs2009_tutorial.pdf/download
+   wget -c --progress=dot:mega http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.3%20Docs%20%28English%29/ogrs2009_tutorial.pdf/download
 fi
 
 #copy into /usr/local/share/openjump-docs
