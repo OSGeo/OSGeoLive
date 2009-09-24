@@ -86,7 +86,7 @@ cat << EOF > /usr/share/applications/mapnik-start.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Start Mapnik/TileLite
+Name=Start Mapnik & TileLite
 Comment=Mapnik tile-serving using TileLite Server
 Categories=Application;Geography;Geoscience;Education;
 Exec=dash /home/user/launchassist.sh $BIN/mapnik_start_tilelite.sh
