@@ -45,8 +45,8 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 # create tmp folders
-mkdir $TMP
-cd $TMP
+mkdir "$TMP"
+cd "$TMP"
 
 
 ## Install Application ##
@@ -70,7 +70,7 @@ if [ -f "udig-1.2-M6.linux.gtk.x86.tar.gz" ]
 then
    echo "udig-1.2-M6.linux.gtk.x86.tar.gz has already been downloaded."
 else
-   wget -c http://udig.refractions.net/files/downloads/branches/udig-1.2-M6.linux.gtk.x86.tar.gz
+   wget -c --progress=dot:mega http://udig.refractions.net/files/downloads/branches/udig-1.2-M6.linux.gtk.x86.tar.gz
 fi
 # unpack it and copy it to /usr/lib
 tar -xzf udig-1.2-M6.linux.gtk.x86.tar.gz -C $INSTALL_FOLDER
@@ -83,7 +83,7 @@ if [ -f "udig.sh" ]
 then
    echo "udig.sh has already been downloaded."
 else
-   wget -c https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/udig-conf/udig.sh
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/udig-conf/udig.sh
 fi
 # copy it into the udig folder
 cp udig.sh $UDIG_FOLDER
@@ -96,7 +96,7 @@ if [ -f "uDig.desktop" ]
 then
    echo "uDig.desktop has already been downloaded."
 else
-   wget -c https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/udig-conf/uDig.desktop
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/udig-conf/uDig.desktop
 fi
 # copy it into the udig folder
 cp uDig.desktop $USER_HOME/Desktop
@@ -110,7 +110,7 @@ if [ -f "data-v1_2.zip" ]
 then
    echo "data-v1_2.zip has already been downloaded."
 else
-   wget -c http://udig.refractions.net/docs/data-v1_2.zip # changed from 1_1 to include index
+   wget -c --progress=dot:mega http://udig.refractions.net/docs/data-v1_2.zip # changed from 1_1 to include index
 fi
 
 #unzip the file into /usr/local/share/udig-data
@@ -125,21 +125,21 @@ if [ -f "udig-1.2-M5.html" ]
 then
    echo "udig-1.2-M5.html has already been downloaded."
 else
-   wget -c http://udig.refractions.net/files/downloads/branches/udig-1.2-M5.html
+   wget -nv http://udig.refractions.net/files/downloads/branches/udig-1.2-M5.html
 fi
 
 if [ -f "uDigWalkthrough1.pdf" ]
 then
    echo "uDigWalkthrough1.pdf has already been downloaded."
 else
-   wget -c http://udig.refractions.net/docs/uDigWalkthrough1.pdf
+   wget -c --progress=dot:mega http://udig.refractions.net/docs/uDigWalkthrough1.pdf
 fi
 
 if [ -f "uDigWalkthrough2.pdf" ]
 then
    echo "uDigWalkthrough2.pdf has already been downloaded."
 else
-   wget -c http://udig.refractions.net/docs/uDigWalkthrough2.pdf
+   wget -c --progress=dot:mega http://udig.refractions.net/docs/uDigWalkthrough2.pdf
 fi
 
 #copy into /usr/local/share/udig-docs
