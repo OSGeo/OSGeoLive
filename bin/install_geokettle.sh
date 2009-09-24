@@ -64,7 +64,7 @@ if [ -f "$GEOKETTLE_FILENAME" ]
 then
    echo "$GEOKETTLE_FILENAME has already been downloaded."
 else
-   wget "$GEOKETTLE_BASE_URL/$GEOKETTLE_FILENAME" -O $GEOKETTLE_FILENAME
+   wget --progress=dot:mega "$GEOKETTLE_BASE_URL/$GEOKETTLE_FILENAME" -O $GEOKETTLE_FILENAME
 fi
 # unpack it
 unzip "$GEOKETTLE_FILENAME" -d "$TMP"
