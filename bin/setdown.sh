@@ -58,8 +58,8 @@ rm -fr \
   # /home/user/.dbus \
 
 echo "==============================================================="
-echo " Compress image by wiping the vitual disk, filling empty space with zero.
-cat /dev/zero > zero.fill ; sync ; sleep 1 ; sync ; rm -f zero.fill"
+echo " Compress image by wiping the vitual disk, filling empty space with zero."
+cat /dev/zero > zero.fill ; sync ; sleep 1 ; sync ; rm -f zero.fill
 
 echo "==============================================================="
 echo "Finished setdown.sh. Copy backup files and logs to the host system with:"
