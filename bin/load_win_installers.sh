@@ -42,6 +42,7 @@ for URL in \
   http://mirror.aarnet.edu.au/pub/grass/grass64/binary/mswindows/native/WinGRASS-6.4.0SVN-r39271-1-Setup.exe \
   http://maptools.org/dl/ms4w/ms4w_3.0_beta7.zip \
   http://download.osgeo.org/mapguide/releases/2.0.2/MgServerSetup-2.0.2.3011.exe \
+  http://maptiler.googlecode.com/files/maptiler-1.0-beta1-setup.exe \
 ; do
   wget -c --progress=dot:mega ${URL}
 done;
@@ -55,6 +56,7 @@ done;
   # udig
   # WinGRASS
   # MapGuide Open Source
+  # MapTiler
 
   ### Possibles:
   # GpsBabel + GUI (1.2mb)
