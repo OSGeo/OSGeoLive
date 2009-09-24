@@ -29,7 +29,7 @@ fi
 
 
 # Install some useful stuff
-apt-get install --yes wget more less zip unzip bzip2 p7zip \
+apt-get install --yes wget less zip unzip bzip2 p7zip \
   cvs cvsutils subversion subversion-tools bzr bzr-tools git mercurial \
   openssh-client lftp sl smbclient usbutils wireless-tools \
   locate diff patch fuseiso menu \
