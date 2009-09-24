@@ -66,7 +66,7 @@ for SCRIPT in \
   ./install_mapnik.sh \
   ./install_kosmo.sh \
   ./install_maptiler.sh \
-  ./install_marble.sh \  
+  ./install_marble.sh \
   ./install_gpsdrive.sh \
   ./install_mapfish.sh \
   ./install_R.sh \
