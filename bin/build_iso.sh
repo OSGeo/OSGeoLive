@@ -27,11 +27,24 @@ DIR=`dirname ${0}`
 VERSION=`cat ${DIR}/../VERSION.txt`
 PACKAGE_NAME="arramagong-livedvd"
 ISO_NAME="${PACKAGE_NAME}-${VERSION}"
-TMP="/home/remastersys/remastersys/ISOTMP"
+WORKDIR="/tmp/remastersys"
+TMP="${WORKDIR}/ISOTMP"
 LOGS="/var/log/arramagong/remastersys.conf"
 
-#Install remastersys.sh
+#Install remastersys.sh add directories it expects
 mkdir -p $TMP
+mkdir -p $WORKDIR/ISOTMP/casper
+mkdir -p $WORKDIR/ISOTMP/preseed
+mkdir -p $WORKDIR/dummysys/dev
+mkdir -p $WORKDIR/dummysys/etc
+mkdir -p $WORKDIR/dummysys/proc
+mkdir -p $WORKDIR/dummysys/tmp
+mkdir -p $WORKDIR/dummysys/sys
+mkdir -p $WORKDIR/dummysys/mnt
+mkdir -p $WORKDIR/dummysys/media/cdrom
+mkdir -p $WORKDIR/dummysys/var
+chmod ug+rwx,o+rwt $WORKDIR/dummysys/tmp
+
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/remastersys.list \
      --output-document=/etc/apt/sources.list.d/remastersys.list
 
