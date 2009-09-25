@@ -31,6 +31,8 @@ TMP="/tmp/remastersys/ISOTMP/WindowsInstallers"
 mkdir -p $TMP
 cd $TMP
 
+echo "OSGeo software for Windows:  http://trac.osgeo.org/osgeo4w/" > README.txt
+
 for URL in \
   http://home.gdal.org/fwtools/FWTools243.exe \
   http://downloads.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.4.1/geonetwork-install-2.4.1-0.exe?use_mirror=transact \
