@@ -30,7 +30,7 @@ fi
 
 # Install some useful stuff
 apt-get install --yes wget less zip unzip bzip2 p7zip \
-  cvs cvsutils subversion subversion-tools bzr bzr-tools git mercurial \
+  cvs cvsutils subversion subversion-tools bzr bzrtools git mercurial \
   openssh-client lftp sl smbclient usbutils wireless-tools \
   locate diff patch fuseiso menu \
   vim emacs nedit nano screen \
