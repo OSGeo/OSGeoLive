@@ -25,7 +25,7 @@
 # Requires: nothing
 
 #Add the files to the directory where remastersys wants them
-#TMP="/tmp/build_win_installers"
+#TMP="/tmp/build_mac_installers"
 TMP="/tmp/remastersys/ISOTMP/MacInstallers"
 mkdir -p "$TMP"
 cd "$TMP"
