@@ -27,7 +27,7 @@ DIR=`dirname ${0}`
 VERSION=`cat ${DIR}/../VERSION.txt`
 PACKAGE_NAME="arramagong-livedvd"
 ISO_NAME="${PACKAGE_NAME}-${VERSION}"
-TMP="/home/remastersys/ISOTMP"
+TMP="/home/remastersys/remastersys/ISOTMP"
 LOGS="/var/log/arramagong/remastersys.conf"
 
 #Install remastersys.sh
@@ -48,8 +48,8 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/remastersys.co
 cp $LOGS /etc/remastersys.conf
 
 #Add Windows and Mac installers by copying files into ISOTMP folder
-./load_win_installer.sh
-./load_mac_installer.sh
+./load_win_installers.sh
+./load_mac_installers.sh
 
 #quick name check
 echo "Now creating ${ISO_NAME}.iso"

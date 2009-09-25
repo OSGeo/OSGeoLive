@@ -27,7 +27,7 @@
 
 #Add the files to the directory where remastersys wants them
 #TMP="/tmp/build_win_installers"
-TMP="/home/remastersys/ISOTMP/WindowsInstallers"
+TMP="/home/remastersys/remastersys/ISOTMP/WindowsInstallers"
 mkdir -p $TMP
 cd $TMP
 
