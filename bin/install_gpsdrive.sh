@@ -115,7 +115,13 @@ EOF
   # kludge to make sure these make it in there
   apt-get --assume-yes install libboost-dev libboost-filesystem-dev libboost-serialization-dev
   apt-get --assume-yes install libmapnik-dev
-  apt-get --assume-yes install libgeos-3.0.0
+
+  # explicitly install these so they aren't removed in a later autoclean
+  apt-get --assume-yes install  libgeos-3.0.0 \
+    libboost-wave1.34.1  libboost-test1.34.1 \
+    libboost-serialization1.34.1  libboost-date-time1.34.1 \
+    libboost-signals1.34.1  libboost-graph1.34.1
+
 
   NEEDED_BUILD_PKG=`dpkg-checkbuilddeps 2>&1 | cut -f3 -d: | \
     sed -e 's/([^)]*)//g' -e 's/| [^ ]*//g' -e 's/|//g'`
