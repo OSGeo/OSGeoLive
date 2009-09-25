@@ -47,6 +47,7 @@ for URL in \
   http://maptiler.googlecode.com/files/maptiler-1.0-beta1-setup.exe \
   http://www.gpsbabel.org/plan9.php?dl=gpsbabel-1.3.6.zip \
   http://gpsvp.googlecode.com/files/gpsVPxp_0.4.18.zip \
+  http://www.saig.es/descargas/dloads/kosmo/kosmo_2_0_beta_windows_jre_2009_09_07.zip \
 ; do
   wget -c --progress=dot:mega ${URL}
 done;
@@ -63,3 +64,4 @@ done;
   # MapTiler
   # GpsBabel + GUI (1.2mb)
   # gpsVP: (500kb)  http://code.google.com/p/gpsvp/
+  # Kosmo
