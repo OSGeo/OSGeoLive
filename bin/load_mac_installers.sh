@@ -19,7 +19,7 @@
 
 # Running:
 # =======
-# cd ${CD}/win
+# cd ${CD}/mac
 # sudo ./load_mac_installers.sh
 
 # Requires: nothing
