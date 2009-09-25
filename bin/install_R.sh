@@ -31,7 +31,9 @@
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
-apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev grass-dev libxml2-dev python-shapely tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev python-setuptools
+apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev \
+   grass-dev libxml2-dev python-shapely tcl8.5-dev tk8.5-dev \
+   libgl1-mesa-dev libglu1-mesa-dev python-setuptools
 
 #Required for QGIS plugins
 easy_install -Z rpy2
@@ -68,4 +70,5 @@ fi
 cp -a /usr/share/applications/r.desktop "$USER_HOME/Desktop/"
 
 #Remove build libraries
-apt-get --assume-yes remove python-all-dev libgdal1-dev grass-dev libxml2-dev tcl8.4-dev tk8.4-dev libgl1-mesa-dev libglu1-mesa-dev 
+apt-get --assume-yes remove python-all-dev libgdal1-dev grass-dev \
+   libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev libglu1-mesa-dev 
