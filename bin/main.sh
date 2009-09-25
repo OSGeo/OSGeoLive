@@ -140,6 +140,9 @@ exit
 #   using static libraries it takes up 300mb.
 ./install_mb-system.sh
 
+# wasn't in time for the feature freeze
+./install_osm.sh
+
 # Build the iso should be done later
 ./build_iso.sh
 
