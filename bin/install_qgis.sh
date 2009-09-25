@@ -44,13 +44,11 @@ if [ $? -ne 0 ] ; then
 fi
 
 
-#Turned off assuming the repo conflict will be resolved
-#apt-get --assume-yes install libgdal1-1.6.0 
-##libgdal1-1.6.0-grass
-
 #Install optional packages that some plugins use
-apt-get --assume-yes install python-psycopg2 python-qwt5-qt4 \
+apt-get --assume-yes install python-psycopg2 \
    python-gdal python-matplotlib python-qt4-sql libqt4-sql-psql
+# python-qwt5-qt4 not installable (wants python==2.5 but 2.6 is installed)
+
 
 #Make sure old qt uim isn't installed
 apt-get remove uim-qt uim-qt3
