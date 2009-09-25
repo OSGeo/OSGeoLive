@@ -73,7 +73,7 @@ apt-get install --yes libcgal2 libqt3-mt \
    libboost-regex1.35.0 libboost-serialization1.35.0 \
    libboost-signals1.35.0 libboost-system1.35.0 \
    libboost-test1.35.0 libboost-thread1.35.0 \
-   libboost-wave1.35.0
+   libboost-wave1.35.0 libgmpxx4ldbl
 
 
 if [ -f "gaul-devel-0.1849-0.tar.gz" ]
