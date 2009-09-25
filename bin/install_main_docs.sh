@@ -43,7 +43,7 @@ wget -nv -O - "$OSGEO_SVN/doc/index_pre.html" \
 
 
 # apps
-APPS="deegree geokettle geoserver gpsdrive grass gvsig kosmo mapfish mapnik mapserver maptiler pgrouting postgis qgis R udig"
+APPS="deegree geokettle geonetwork geoserver gpsdrive grass gvsig kosmo mapfish mapnik mapserver maptiler openlayers pgrouting postgis qgis R udig"
 
 for ITEM in $APPS ; do
    wget -nv -O - "$OSGEO_SVN/doc/descriptions/${ITEM}_definition.html" \
