@@ -45,7 +45,12 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/cran.lis
 apt-key adv --keyserver subkeys.pgp.net --recv-key E2A11821
      
 apt-get update
-apt-get --assume-yes install r-cran-adapt r-cran-boot r-cran-matrix r-cran-coda r-cran-e1071 r-cran-foreign r-cran-lattice r-cran-lmtest r-cran-maps r-cran-mgcv r-cran-nlme r-cran-sandwich r-cran-zoo
+apt-get --assume-yes install r-cran-adapt r-cran-boot \
+  r-cran-matrix r-cran-coda r-cran-foreign \
+  r-cran-lattice r-cran-lmtest r-cran-maps r-cran-mgcv \
+  r-cran-nlme r-cran-sandwich r-cran-zoo
+# package does not exist in Jaunty: r-cran-e1071
+
 
 #Calls R script to do install with feedback to stdout
 R --no-save < installRpackages.r
