@@ -25,10 +25,11 @@
 
 # Requires: nothing
 
-
-TMP=/tmp/build_win_installers
-
+#Add the files to the directory where remastersys wants them
+#TMP="/tmp/build_win_installers"
+TMP="/tmp/remastersys/ISOTMP/WindowsInstallers"
 mkdir -p $TMP
+cd $TMP
 
 for URL in \
   http://home.gdal.org/fwtools/FWTools243.exe \
@@ -36,7 +37,6 @@ for URL in \
   http://downloads.sourceforge.net/project/geoserver/GeoServer/1.7.6/geoserver-1.7.6-ng.exe?use_mirror=transact \
   ftp://downloads.gvsig.org/gva/descargas/ficheros/11/gvSIG-update-1_1_2-windows-i586.exe \
   http://udig.refractions.net/files/downloads/udig-1.1.1.exe \
-  \
   http://download.osgeo.org/qgis/win32/QGIS-1.2.0-0-No-GrassSetup.exe \
   http://home.gdal.org/tmp/vcredist_x86.exe \
   http://mirror.aarnet.edu.au/pub/grass/grass64/binary/mswindows/native/WinGRASS-6.4.0SVN-r39271-1-Setup.exe \
