@@ -107,11 +107,11 @@ for LOCATION in spearfish60 nc_spm_08 ; do
    mkdir $LOCATION/user1
    cp /usr/local/share/grass/$LOCATION/user1/* $LOCATION/user1/
 
-   # not needed, PERMANENT can be read-only?
-   # are we the owner of the symlinked PERMANENT? we don't have
+   # PERMANENT can be read-only
+   # are we the owner of the symlinked PERMANENT? (yes) We don't have
    #  to be but it would be nice. otherwise libgis enforces read-only.
-   chmod g+rwx /usr/local/share/grass/$LOCATION
-   chown root.users /usr/local/share/grass/$LOCATION
+   chmod -R a+rX /usr/local/share/grass/$LOCATION
+   chown -R root.users /usr/local/share/grass/$LOCATION
 done
 
 adduser $USER_NAME users
