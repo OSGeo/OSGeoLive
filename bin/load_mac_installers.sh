@@ -50,7 +50,7 @@ cd "$TMP"
 #    pgRouting-1.0.3-3(PG8.3).dmg
 #    PostGIS-1.4.0-4(PG8.3).dmg
 #    Qgis-1.3.0-1-Leopard.dmg
-#    Qgis-1.3.0-2-Snow.dmg
+#    Qgis-1.3.0-1-Snow.dmg
 #
 
 BASE_URL="http://www.kyngchaos.com/files/software/unixport"
