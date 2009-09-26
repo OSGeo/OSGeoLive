@@ -50,6 +50,8 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
+# highly useful
+apt-get --assume-yes install sqlite3 sqlitebrowser
 
 
 #######################
