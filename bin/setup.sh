@@ -52,3 +52,6 @@ rm -fr /home/user/Pictures
 rm -fr /home/user/Templates
 rm -fr /home/user/Videos
 
+
+# and there was music and laughter and much rejoicing
+adduser user audio
