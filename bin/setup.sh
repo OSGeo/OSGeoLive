@@ -28,6 +28,10 @@ fi
 # For .deb package building something like: 'debuild binary-arch i686' ???????
 
 
+# Install latest greatest security packages etc.
+apt-get update && apt-get --yes upgrade
+
+
 # Install some useful stuff
 apt-get install --yes wget less zip unzip bzip2 p7zip \
   cvs cvsutils subversion subversion-tools bzr bzrtools git mercurial \
