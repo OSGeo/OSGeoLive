@@ -56,7 +56,7 @@
     <projectlayers layercount="5" >
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0" >
             <id>archsites20090926194844789</id>
-            <datasource>/home/user/grassdata/PERMANENT/archsites/1_point</datasource>
+            <datasource>/home/user/grassdata/spearfish60/PERMANENT/archsites/1_point</datasource>
             <layername>archsites</layername>
             <srs>
                 <spatialrefsys>
@@ -118,7 +118,7 @@
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" minLabelScale="0" maxLabelScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0" >
             <id>bugsites20090926194853448</id>
-            <datasource>/home/user/grassdata/PERMANENT/bugsites/1_point</datasource>
+            <datasource>/home/user/grassdata/spearfish60/PERMANENT/bugsites/1_point</datasource>
             <layername>bugsites</layername>
             <srs>
                 <spatialrefsys>
@@ -176,7 +176,7 @@
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0" >
             <id>elevation_10m20090926194834831</id>
-            <datasource>/home/user/grassdata/PERMANENT/cellhd/elevation.10m</datasource>
+            <datasource>/home/user/grassdata/spearfish60/PERMANENT/cellhd/elevation.10m</datasource>
             <layername>elevation.10m</layername>
             <srs>
                 <spatialrefsys>
@@ -2074,7 +2074,7 @@
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0" >
             <id>quads20090926194905153</id>
-            <datasource>/home/user/grassdata/PERMANENT/quads/1_polygon</datasource>
+            <datasource>/home/user/grassdata/spearfish60/PERMANENT/quads/1_polygon</datasource>
             <layername>quads</layername>
             <srs>
                 <spatialrefsys>
@@ -2135,7 +2135,7 @@
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0" >
             <id>roads_net_120090926194919440</id>
-            <datasource>/home/user/grassdata/PERMANENT/roads_net/1_line</datasource>
+            <datasource>/home/user/grassdata/spearfish60/PERMANENT/roads_net/1_line</datasource>
             <layername>roads_net 1</layername>
             <srs>
                 <spatialrefsys>
@@ -2198,8 +2198,8 @@
     </projectlayers>
     <properties>
         <GRASS>
-            <WorkingLocation type="QString" >grassdata</WorkingLocation>
-            <WorkingGisdbase type="QString" >/home/user</WorkingGisdbase>
+            <WorkingLocation type="QString" >spearfish60</WorkingLocation>
+            <WorkingGisdbase type="QString" >/home/user/grassdata</WorkingGisdbase>
             <WorkingMapset type="QString" >PERMANENT</WorkingMapset>
         </GRASS>
         <Gui>
