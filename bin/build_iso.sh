@@ -30,6 +30,7 @@ ISO_NAME="${PACKAGE_NAME}-${VERSION}"
 WORKDIR="/tmp/remastersys"
 TMP="${WORKDIR}/ISOTMP"
 LOGS="/var/log/arramagong/remastersys.conf"
+DOCS_SRC="/usr/local/share/livedvd-docs"
 
 #Install remastersys.sh add directories it expects
 mkdir -p $TMP
@@ -63,6 +64,9 @@ cp $LOGS /etc/remastersys.conf
 #Add Windows and Mac installers by copying files into ISOTMP folder
 ./load_win_installers.sh
 ./load_mac_installers.sh
+
+# Copy documentation
+cp -pr ${DOCS_SRC} ${ISOTMP}
 
 #Update the file search index
 updatedb
