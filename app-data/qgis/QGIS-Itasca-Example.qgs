@@ -1,0 +1,619 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis projectname="" version="1.3.0-Mimas" >
+    <title></title>
+    <mapcanvas>
+        <units>degrees</units>
+        <extent>
+            <xmin>435876.411350</xmin>
+            <ymin>5210247.404249</ymin>
+            <xmax>498388.146193</xmax>
+            <ymax>5252471.689525</ymax>
+        </extent>
+        <projections>0</projections>
+        <destinationsrs>
+            <spatialrefsys>
+                <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                <srsid>3452</srsid>
+                <srid>4326</srid>
+                <epsg>4326</epsg>
+                <description>WGS 84</description>
+                <projectionacronym>longlat</projectionacronym>
+                <ellipsoidacronym>WGS84</ellipsoidacronym>
+                <geographicflag>true</geographicflag>
+            </spatialrefsys>
+        </destinationsrs>
+    </mapcanvas>
+    <legend>
+        <legendgroup open="true" checked="Qt::Unchecked" name="Indexes" >
+            <legendlayer open="true" checked="Qt::Unchecked" name="Topo Map Index" >
+                <filegroup open="false" hidden="true" >
+                    <legendlayerfile isInOverview="0" layerid="drgidx20090926195219059" visible="0" />
+                </filegroup>
+            </legendlayer>
+            <legendlayer open="true" checked="Qt::Unchecked" name="Public Land Survey" >
+                <filegroup open="false" hidden="true" >
+                    <legendlayerfile isInOverview="0" layerid="plsscpy320090926195219227" visible="0" />
+                </filegroup>
+            </legendlayer>
+        </legendgroup>
+        <legendlayer open="true" checked="Qt::Checked" name="airports" >
+            <filegroup open="false" hidden="true" >
+                <legendlayerfile isInOverview="0" layerid="airports20090926195218796" visible="1" />
+            </filegroup>
+        </legendlayer>
+        <legendgroup open="true" checked="Qt::Checked" name="Roads" >
+            <legendlayer open="true" checked="Qt::Checked" name="Major Roads" >
+                <filegroup open="false" hidden="true" >
+                    <legendlayerfile isInOverview="0" layerid="majrdln320090926195219144" visible="1" />
+                </filegroup>
+            </legendlayer>
+            <legendlayer open="true" checked="Qt::Checked" name="County Roads" >
+                <filegroup open="false" hidden="true" >
+                    <legendlayerfile isInOverview="0" layerid="ctyrdln320090926195218953" visible="1" />
+                </filegroup>
+            </legendlayer>
+            <legendlayer open="true" checked="Qt::Checked" name="mcdrdln3" >
+                <filegroup open="false" hidden="true" >
+                    <legendlayerfile isInOverview="0" layerid="mcdrdln320090926195219197" visible="1" />
+                </filegroup>
+            </legendlayer>
+        </legendgroup>
+        <legendlayer open="true" checked="Qt::Checked" name="Lakes" >
+            <filegroup open="false" hidden="true" >
+                <legendlayerfile isInOverview="0" layerid="lakespy220090926195219074" visible="1" />
+            </filegroup>
+        </legendlayer>
+        <legendlayer open="true" checked="Qt::Checked" name="County Boundaries" >
+            <filegroup open="false" hidden="true" >
+                <legendlayerfile isInOverview="0" layerid="ctybdpy220090926195218921" visible="1" />
+            </filegroup>
+        </legendlayer>
+    </legend>
+    <Composer>
+        <Composition printResolution="300" paperWidth="297" snapGridOffsetX="0" snapGridResolution="0" snapGridOffsetY="0" snapping="0" paperHeight="210" />
+    </Composer>
+    <projectlayers layercount="8" >
+        <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0" >
+            <id>airports20090926195218796</id>
+            <datasource>/usr/local/share/mapserver/demos/itasca/data/airports.shp</datasource>
+            <layername>airports</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <srsid>3452</srsid>
+                    <srid>4326</srid>
+                    <epsg>4326</epsg>
+                    <description>WGS 84</description>
+                    <projectionacronym>longlat</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>true</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="System" >ogr</provider>
+            <edittypes>
+                <edittype type="0" name="ELEVATION" />
+                <edittype type="0" name="LAT" />
+                <edittype type="0" name="LON" />
+                <edittype type="0" name="NAME" />
+                <edittype type="0" name="QUADNAME" />
+            </edittypes>
+            <displayfield>NAME</displayfield>
+            <label>1</label>
+            <attributeactions/>
+            <singlesymbol>
+                <symbol>
+                    <lowervalue></lowervalue>
+                    <uppervalue></uppervalue>
+                    <label></label>
+                    <pointsymbol>svg:/transport/amenity=airport.svg</pointsymbol>
+                    <pointsize>5</pointsize>
+                    <rotationclassificationfieldname></rotationclassificationfieldname>
+                    <scaleclassificationfieldname></scaleclassificationfieldname>
+                    <symbolfieldname></symbolfieldname>
+                    <outlinecolor red="255" blue="255" green="255" />
+                    <outlinestyle>SolidLine</outlinestyle>
+                    <outlinewidth>0.66</outlinewidth>
+                    <fillcolor red="133" blue="143" green="54" />
+                    <fillpattern>SolidPattern</fillpattern>
+                    <texturepath null="1" ></texturepath>
+                </symbol>
+            </singlesymbol>
+            <labelfield>NAME</labelfield>
+            <labelattributes>
+                <label fieldname="NAME" text="Label" />
+                <family fieldname="" name="Sans Serif" />
+                <size fieldname="" units="pt" value="10" />
+                <bold fieldname="" on="0" />
+                <italic fieldname="" on="0" />
+                <underline fieldname="" on="0" />
+                <color fieldname="" red="0" blue="0" green="0" />
+                <x fieldname="" />
+                <y fieldname="" />
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname="" />
+                <angle fieldname="" value="0" auto="0" />
+                <alignment fieldname="" value="below" />
+                <buffercolor fieldname="" red="255" blue="255" green="255" />
+                <buffersize fieldname="" units="pt" value="1" />
+                <bufferenabled fieldname="" on="1" />
+                <multilineenabled fieldname="" on="" />
+            </labelattributes>
+        </maplayer>
+        <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0" >
+            <id>ctybdpy220090926195218921</id>
+            <datasource>/usr/local/share/mapserver/demos/itasca/data/ctybdpy2.shp</datasource>
+            <layername>County Boundaries</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <srsid>3452</srsid>
+                    <srid>4326</srid>
+                    <epsg>4326</epsg>
+                    <description>WGS 84</description>
+                    <projectionacronym>longlat</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>true</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="System" >ogr</provider>
+            <edittypes>
+                <edittype type="0" name="AREA" />
+                <edittype type="0" name="COUN" />
+                <edittype type="0" name="CTY_ABBR" />
+                <edittype type="0" name="CTY_FIPS" />
+                <edittype type="0" name="CTY_NAME" />
+                <edittype type="0" name="ISLAND" />
+                <edittype type="0" name="PERIMETER" />
+                <edittype type="0" name="RECNO" />
+            </edittypes>
+            <displayfield>AREA</displayfield>
+            <label>0</label>
+            <attributeactions/>
+            <singlesymbol>
+                <symbol>
+                    <lowervalue></lowervalue>
+                    <uppervalue></uppervalue>
+                    <label></label>
+                    <pointsymbol>hard:circle</pointsymbol>
+                    <pointsize>2</pointsize>
+                    <rotationclassificationfieldname></rotationclassificationfieldname>
+                    <scaleclassificationfieldname></scaleclassificationfieldname>
+                    <symbolfieldname></symbolfieldname>
+                    <outlinecolor red="0" blue="0" green="0" />
+                    <outlinestyle>SolidLine</outlinestyle>
+                    <outlinewidth>0.26</outlinewidth>
+                    <fillcolor red="221" blue="221" green="221" />
+                    <fillpattern>SolidPattern</fillpattern>
+                    <texturepath null="1" ></texturepath>
+                </symbol>
+            </singlesymbol>
+            <labelattributes>
+                <label fieldname="" text="Label" />
+                <family fieldname="" name="Sans Serif" />
+                <size fieldname="" units="pt" value="12" />
+                <bold fieldname="" on="0" />
+                <italic fieldname="" on="0" />
+                <underline fieldname="" on="0" />
+                <color fieldname="" red="0" blue="0" green="0" />
+                <x fieldname="" />
+                <y fieldname="" />
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname="" />
+                <angle fieldname="" value="0" auto="0" />
+                <alignment fieldname="" value="center" />
+                <buffercolor fieldname="" red="255" blue="255" green="255" />
+                <buffersize fieldname="" units="pt" value="1" />
+                <bufferenabled fieldname="" on="" />
+                <multilineenabled fieldname="" on="" />
+            </labelattributes>
+        </maplayer>
+        <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0" >
+            <id>ctyrdln320090926195218953</id>
+            <datasource>/usr/local/share/mapserver/demos/itasca/data/ctyrdln3.shp</datasource>
+            <layername>County Roads</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <srsid>3452</srsid>
+                    <srid>4326</srid>
+                    <epsg>4326</epsg>
+                    <description>WGS 84</description>
+                    <projectionacronym>longlat</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>true</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="System" >ogr</provider>
+            <edittypes>
+                <edittype type="0" name="LENGTH" />
+                <edittype type="0" name="LFEET" />
+                <edittype type="0" name="LKILOMETER" />
+                <edittype type="0" name="LMILES" />
+                <edittype type="0" name="ROAD_CLASS" />
+                <edittype type="0" name="ROAD_NAME" />
+                <edittype type="0" name="ROAD_NUM" />
+            </edittypes>
+            <displayfield>LENGTH</displayfield>
+            <label>0</label>
+            <attributeactions/>
+            <singlesymbol>
+                <symbol>
+                    <lowervalue></lowervalue>
+                    <uppervalue></uppervalue>
+                    <label></label>
+                    <pointsymbol>hard:circle</pointsymbol>
+                    <pointsize>2</pointsize>
+                    <rotationclassificationfieldname></rotationclassificationfieldname>
+                    <scaleclassificationfieldname></scaleclassificationfieldname>
+                    <symbolfieldname></symbolfieldname>
+                    <outlinecolor red="255" blue="0" green="85" />
+                    <outlinestyle>SolidLine</outlinestyle>
+                    <outlinewidth>0.26</outlinewidth>
+                    <fillcolor red="0" blue="0" green="0" />
+                    <fillpattern>NoBrush</fillpattern>
+                    <texturepath null="1" ></texturepath>
+                </symbol>
+            </singlesymbol>
+            <labelattributes>
+                <label fieldname="" text="Label" />
+                <family fieldname="" name="Sans Serif" />
+                <size fieldname="" units="pt" value="12" />
+                <bold fieldname="" on="0" />
+                <italic fieldname="" on="0" />
+                <underline fieldname="" on="0" />
+                <color fieldname="" red="0" blue="0" green="0" />
+                <x fieldname="" />
+                <y fieldname="" />
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname="" />
+                <angle fieldname="" value="0" auto="0" />
+                <alignment fieldname="" value="center" />
+                <buffercolor fieldname="" red="255" blue="255" green="255" />
+                <buffersize fieldname="" units="pt" value="1" />
+                <bufferenabled fieldname="" on="" />
+                <multilineenabled fieldname="" on="" />
+            </labelattributes>
+        </maplayer>
+        <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0" >
+            <id>drgidx20090926195219059</id>
+            <datasource>/usr/local/share/mapserver/demos/itasca/data/drgidx.shp</datasource>
+            <layername>Topo Map Index</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <srsid>3452</srsid>
+                    <srid>4326</srid>
+                    <epsg>4326</epsg>
+                    <description>WGS 84</description>
+                    <projectionacronym>longlat</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>true</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>48</transparencyLevelInt>
+            <provider encoding="System" >ogr</provider>
+            <edittypes>
+                <edittype type="0" name="LOCATION" />
+            </edittypes>
+            <displayfield>LOCATION</displayfield>
+            <label>1</label>
+            <attributeactions/>
+            <singlesymbol>
+                <symbol>
+                    <lowervalue></lowervalue>
+                    <uppervalue></uppervalue>
+                    <label></label>
+                    <pointsymbol>hard:circle</pointsymbol>
+                    <pointsize>2</pointsize>
+                    <rotationclassificationfieldname></rotationclassificationfieldname>
+                    <scaleclassificationfieldname></scaleclassificationfieldname>
+                    <symbolfieldname></symbolfieldname>
+                    <outlinecolor red="143" blue="107" green="143" />
+                    <outlinestyle>SolidLine</outlinestyle>
+                    <outlinewidth>0.36</outlinewidth>
+                    <fillcolor red="170" blue="127" green="170" />
+                    <fillpattern>SolidPattern</fillpattern>
+                    <texturepath null="1" ></texturepath>
+                </symbol>
+            </singlesymbol>
+            <labelfield>LOCATION</labelfield>
+            <labelattributes>
+                <label fieldname="LOCATION" text="Label" />
+                <family fieldname="" name="Sans Serif" />
+                <size fieldname="" units="pt" value="12" />
+                <bold fieldname="" on="0" />
+                <italic fieldname="" on="0" />
+                <underline fieldname="" on="0" />
+                <color fieldname="" red="0" blue="0" green="0" />
+                <x fieldname="" />
+                <y fieldname="" />
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname="" />
+                <angle fieldname="" value="0" auto="0" />
+                <alignment fieldname="" value="center" />
+                <buffercolor fieldname="" red="255" blue="255" green="255" />
+                <buffersize fieldname="" units="pt" value="1" />
+                <bufferenabled fieldname="" on="" />
+                <multilineenabled fieldname="" on="" />
+            </labelattributes>
+        </maplayer>
+        <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0" >
+            <id>lakespy220090926195219074</id>
+            <datasource>/usr/local/share/mapserver/demos/itasca/data/lakespy2.shp</datasource>
+            <layername>Lakes</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <srsid>3452</srsid>
+                    <srid>4326</srid>
+                    <epsg>4326</epsg>
+                    <description>WGS 84</description>
+                    <projectionacronym>longlat</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>true</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>127</transparencyLevelInt>
+            <provider encoding="System" >ogr</provider>
+            <edittypes>
+                <edittype type="0" name="ACRES" />
+                <edittype type="0" name="AREA" />
+                <edittype type="0" name="DOWLKNUM" />
+                <edittype type="0" name="DOW_VERIF" />
+                <edittype type="0" name="ELEVATION" />
+                <edittype type="0" name="LAKE_CLASS" />
+                <edittype type="0" name="LAKE_NAME" />
+                <edittype type="0" name="PERFEET" />
+                <edittype type="0" name="PERIMETER" />
+                <edittype type="0" name="USCLASS" />
+            </edittypes>
+            <displayfield>AREA</displayfield>
+            <label>0</label>
+            <attributeactions/>
+            <singlesymbol>
+                <symbol>
+                    <lowervalue></lowervalue>
+                    <uppervalue></uppervalue>
+                    <label></label>
+                    <pointsymbol>hard:circle</pointsymbol>
+                    <pointsize>2</pointsize>
+                    <rotationclassificationfieldname></rotationclassificationfieldname>
+                    <scaleclassificationfieldname></scaleclassificationfieldname>
+                    <symbolfieldname></symbolfieldname>
+                    <outlinecolor red="0" blue="0" green="0" />
+                    <outlinestyle>SolidLine</outlinestyle>
+                    <outlinewidth>0.26</outlinewidth>
+                    <fillcolor red="85" blue="255" green="85" />
+                    <fillpattern>SolidPattern</fillpattern>
+                    <texturepath null="1" ></texturepath>
+                </symbol>
+            </singlesymbol>
+            <labelattributes>
+                <label fieldname="" text="Label" />
+                <family fieldname="" name="Sans Serif" />
+                <size fieldname="" units="pt" value="12" />
+                <bold fieldname="" on="0" />
+                <italic fieldname="" on="0" />
+                <underline fieldname="" on="0" />
+                <color fieldname="" red="0" blue="0" green="0" />
+                <x fieldname="" />
+                <y fieldname="" />
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname="" />
+                <angle fieldname="" value="0" auto="0" />
+                <alignment fieldname="" value="center" />
+                <buffercolor fieldname="" red="255" blue="255" green="255" />
+                <buffersize fieldname="" units="pt" value="1" />
+                <bufferenabled fieldname="" on="" />
+                <multilineenabled fieldname="" on="" />
+            </labelattributes>
+        </maplayer>
+        <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0" >
+            <id>majrdln320090926195219144</id>
+            <datasource>/usr/local/share/mapserver/demos/itasca/data/majrdln3.shp</datasource>
+            <layername>Major Roads</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <srsid>3452</srsid>
+                    <srid>4326</srid>
+                    <epsg>4326</epsg>
+                    <description>WGS 84</description>
+                    <projectionacronym>longlat</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>true</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="System" >ogr</provider>
+            <edittypes>
+                <edittype type="0" name="LENGTH" />
+                <edittype type="0" name="LFEET" />
+                <edittype type="0" name="LKILOMETER" />
+                <edittype type="0" name="LMILES" />
+                <edittype type="0" name="ROAD_CLASS" />
+                <edittype type="0" name="ROAD_NAME" />
+                <edittype type="0" name="ROAD_NUM" />
+            </edittypes>
+            <displayfield>LENGTH</displayfield>
+            <label>0</label>
+            <attributeactions/>
+            <singlesymbol>
+                <symbol>
+                    <lowervalue></lowervalue>
+                    <uppervalue></uppervalue>
+                    <label></label>
+                    <pointsymbol>hard:circle</pointsymbol>
+                    <pointsize>2</pointsize>
+                    <rotationclassificationfieldname></rotationclassificationfieldname>
+                    <scaleclassificationfieldname></scaleclassificationfieldname>
+                    <symbolfieldname></symbolfieldname>
+                    <outlinecolor red="255" blue="0" green="0" />
+                    <outlinestyle>SolidLine</outlinestyle>
+                    <outlinewidth>0.56</outlinewidth>
+                    <fillcolor red="0" blue="0" green="0" />
+                    <fillpattern>NoBrush</fillpattern>
+                    <texturepath null="1" ></texturepath>
+                </symbol>
+            </singlesymbol>
+            <labelattributes>
+                <label fieldname="" text="Label" />
+                <family fieldname="" name="Sans Serif" />
+                <size fieldname="" units="pt" value="12" />
+                <bold fieldname="" on="0" />
+                <italic fieldname="" on="0" />
+                <underline fieldname="" on="0" />
+                <color fieldname="" red="0" blue="0" green="0" />
+                <x fieldname="" />
+                <y fieldname="" />
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname="" />
+                <angle fieldname="" value="0" auto="0" />
+                <alignment fieldname="" value="center" />
+                <buffercolor fieldname="" red="255" blue="255" green="255" />
+                <buffersize fieldname="" units="pt" value="1" />
+                <bufferenabled fieldname="" on="" />
+                <multilineenabled fieldname="" on="" />
+            </labelattributes>
+        </maplayer>
+        <maplayer minimumScale="0" maximumScale="1e+08" minLabelScale="0" maxLabelScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0" >
+            <id>mcdrdln320090926195219197</id>
+            <datasource>/usr/local/share/mapserver/demos/itasca/data/mcdrdln3.shp</datasource>
+            <layername>mcdrdln3</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <srsid>3452</srsid>
+                    <srid>4326</srid>
+                    <epsg>4326</epsg>
+                    <description>WGS 84</description>
+                    <projectionacronym>longlat</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>true</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="System" >ogr</provider>
+            <displayfield>LENGTH</displayfield>
+            <label>0</label>
+            <attributeactions/>
+            <singlesymbol>
+                <symbol>
+                    <lowervalue></lowervalue>
+                    <uppervalue></uppervalue>
+                    <label></label>
+                    <pointsymbol>hard:circle</pointsymbol>
+                    <pointsize>2</pointsize>
+                    <rotationclassificationfieldname></rotationclassificationfieldname>
+                    <scaleclassificationfieldname></scaleclassificationfieldname>
+                    <symbolfieldname></symbolfieldname>
+                    <outlinecolor red="252" blue="54" green="181" />
+                    <outlinestyle>SolidLine</outlinestyle>
+                    <outlinewidth>0.26</outlinewidth>
+                    <fillcolor red="0" blue="0" green="0" />
+                    <fillpattern>NoBrush</fillpattern>
+                    <texturepath null="1" ></texturepath>
+                </symbol>
+            </singlesymbol>
+            <labelattributes>
+                <label fieldname="" text="Label" />
+                <family fieldname="" name="Sans Serif" />
+                <size fieldname="" units="pt" value="12" />
+                <bold fieldname="" on="0" />
+                <italic fieldname="" on="0" />
+                <underline fieldname="" on="0" />
+                <color fieldname="" red="0" blue="0" green="0" />
+                <x fieldname="" />
+                <y fieldname="" />
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname="" />
+                <angle fieldname="" value="0" auto="0" />
+                <alignment fieldname="" value="center" />
+                <buffercolor fieldname="" red="255" blue="255" green="255" />
+                <buffersize fieldname="" units="pt" value="1" />
+                <bufferenabled fieldname="" on="" />
+                <multilineenabled fieldname="" on="" />
+            </labelattributes>
+        </maplayer>
+        <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0" >
+            <id>plsscpy320090926195219227</id>
+            <datasource>/usr/local/share/mapserver/demos/itasca/data/plsscpy3.shp</datasource>
+            <layername>Public Land Survey</layername>
+            <srs>
+                <spatialrefsys>
+                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <srsid>3452</srsid>
+                    <srid>4326</srid>
+                    <epsg>4326</epsg>
+                    <description>WGS 84</description>
+                    <projectionacronym>longlat</projectionacronym>
+                    <ellipsoidacronym>WGS84</ellipsoidacronym>
+                    <geographicflag>true</geographicflag>
+                </spatialrefsys>
+            </srs>
+            <transparencyLevelInt>255</transparencyLevelInt>
+            <provider encoding="System" >ogr</provider>
+            <edittypes>
+                <edittype type="0" name="ACRES" />
+                <edittype type="0" name="AREA" />
+                <edittype type="0" name="PERFEET" />
+                <edittype type="0" name="PERIMETER" />
+                <edittype type="0" name="RANG" />
+                <edittype type="0" name="RDIR" />
+                <edittype type="0" name="SECT" />
+                <edittype type="0" name="TOWN" />
+                <edittype type="0" name="TRSMATCH" />
+            </edittypes>
+            <displayfield>AREA</displayfield>
+            <label>1</label>
+            <attributeactions/>
+            <singlesymbol>
+                <symbol>
+                    <lowervalue></lowervalue>
+                    <uppervalue></uppervalue>
+                    <label></label>
+                    <pointsymbol>hard:circle</pointsymbol>
+                    <pointsize>2</pointsize>
+                    <rotationclassificationfieldname></rotationclassificationfieldname>
+                    <scaleclassificationfieldname></scaleclassificationfieldname>
+                    <symbolfieldname></symbolfieldname>
+                    <outlinecolor red="0" blue="0" green="170" />
+                    <outlinestyle>SolidLine</outlinestyle>
+                    <outlinewidth>0.46</outlinewidth>
+                    <fillcolor red="121" blue="24" green="221" />
+                    <fillpattern>NoBrush</fillpattern>
+                    <texturepath null="1" ></texturepath>
+                </symbol>
+            </singlesymbol>
+            <labelfield>TRSMATCH</labelfield>
+            <labelattributes>
+                <label fieldname="TRSMATCH" text="Label" />
+                <family fieldname="" name="Sans Serif" />
+                <size fieldname="" units="pt" value="4" />
+                <bold fieldname="" on="0" />
+                <italic fieldname="" on="0" />
+                <underline fieldname="" on="0" />
+                <color fieldname="" red="0" blue="0" green="0" />
+                <x fieldname="" />
+                <y fieldname="" />
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname="" />
+                <angle fieldname="" value="0" auto="0" />
+                <alignment fieldname="" value="center" />
+                <buffercolor fieldname="" red="255" blue="255" green="255" />
+                <buffersize fieldname="" units="pt" value="1" />
+                <bufferenabled fieldname="" on="" />
+                <multilineenabled fieldname="" on="" />
+            </labelattributes>
+        </maplayer>
+    </projectlayers>
+    <properties>
+        <Gui>
+            <SelectionColorBluePart type="int" >0</SelectionColorBluePart>
+            <CanvasColorGreenPart type="int" >255</CanvasColorGreenPart>
+            <CanvasColorRedPart type="int" >255</CanvasColorRedPart>
+            <SelectionColorRedPart type="int" >255</SelectionColorRedPart>
+            <SelectionColorGreenPart type="int" >255</SelectionColorGreenPart>
+            <CanvasColorBluePart type="int" >255</CanvasColorBluePart>
+        </Gui>
+        <PositionPrecision>
+            <DecimalPlaces type="int" >2</DecimalPlaces>
+            <Automatic type="bool" >true</Automatic>
+        </PositionPrecision>
+    </properties>
+</qgis>
