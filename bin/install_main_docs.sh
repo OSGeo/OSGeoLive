@@ -29,7 +29,7 @@ USER_HOME="/home/$USER_NAME"
 OSGEO_SVN="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk"
 DEST="/usr/local/share/livedvd-docs"
 
-mkdir -p $DEST
+mkdir -p $DEST/doc
 
 #base
 FILES="banner.png arramagong.css"
@@ -50,7 +50,7 @@ for ITEM in $APPS ; do
        >> "$DEST/index.html"
 
    wget -nv "$OSGEO_SVN/doc/descriptions/${ITEM}_description.html" \
-        --output-document "$DEST/${ITEM}_description.html"
+        --output-document "$DEST/doc/${ITEM}_description.html"
 done
 
 # index page end
