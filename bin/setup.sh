@@ -55,3 +55,17 @@ rm -fr /home/user/Videos
 
 # and there was music and laughter and much rejoicing
 adduser user audio
+
+# highly useful tricks
+echo "alias ll='ls -l'" >> /home/user/.bashrc
+chown user.user /home/user/.bashrc
+
+cat << EOF >> /home/user/.inputrc
+# a conference talk full of terminal beeps is no good
+set prefer-visible-bell
+
+# -------- Bind page up/down wih history search ---------
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
+EOF
+chown user.user /home/user/.inputrc
