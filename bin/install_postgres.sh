@@ -22,6 +22,7 @@
 
 USER_NAME="user"
 TMP_DIR="/tmp/build_postgis"
+BIN_DIR=`pwd`
 
 # Install postgis 1.3
 apt-get install --yes postgresql-8.3-postgis postgis pgadmin3
@@ -116,5 +117,8 @@ for FILE in  pgadmin3  pgpass  ; do
 done
 
 
+### load data ###
+cd "$BIN_DIR"
 
-
+# ??? activate this or not ???
+# ./load_postgis.sh

@@ -17,45 +17,47 @@
 # This script will is to be run after the installation of postgresql 
 # and postgis.  It will download, validate and load a simple dataset.
 #
-# Author:
-# ======
+# Authors:
+# =======
 # Mark Leslie <mark.s.leslie@gmail.com>
 # Alex Mandel <tech@wildintellect.com>
+# Hamish Bowman <hamish_b yahoo com>
+#
 
 
-postgres_user=user
-return_pwd=`pwd`
-export postgres_user return_pwd
+POSTGRES_USER="user"
+TMP_DIR="/tmp/build_postgis"
+
+if [ ! -d "$TMP_DIR" ] ; then
+   mkdir "$TMP_DIR"
+fi
+cd "$TMP_DIR"
 
 
-# download package is not versioned so we don't use "wget -c"
-wget --progress=dot:mega \
-   "ftp://ftp.ardec.com.au/UPLOADS/medford-gisvm.sql.bz2" \
-   --output-document="/tmp/medford-gisvm.sql.bz2"
-wget -nv "ftp://ftp.ardec.com.au/UPLOADS/medford-gisvm.sql.bz2.sha1" \
-   --output-document="/tmp/medford-gisvm.sql.bz2.sha1"
+### download data
+URL_BASE="ftp://ftp.ardec.com.au/UPLOADS"
+DL_FILE="medford-gisvm.sql.bz2"
 
-cd /tmp
+# download package is not versioned so we really shouldn't use "wget -c"
+wget -c --progress=dot:mega "$URL_BASE/$DL_FILE"
+# -O used to enable auto-overwrite
+wget -nv "$URL_BASE/$DL_FILE.sha1" -O "$DL_FILE.sha1"
 
-sha1sum --check medford-gisvm.sql.bz2.sha1
-# wanted?
-# if [ $? -ne 0 ] ; then
-#   echo "ERROR: checksum failed on download"
-#   exit 1
-# fi
+sha1sum --check "$DL_FILE.sha1"
+if [ $? -ne 0 ] ; then
+   echo "ERROR: checksum failed on download"
+   exit 1
+fi
 
-sudo -u $postgres_user createdb --template=template_postgis medford
+
+### create DB and populate it
+sudo -u $POSTGRES_USER createdb --template=template_postgis medford
 
 # simplified the script, was too hard to debug with all the commands
 #  attempting to be piped continuously with each other
 
-bzip2 -d /tmp/medford-gisvm.sql.bz2 
-sed -i "s/mleslie/$postgres_user/g" /tmp/medford-gisvm.sql
-sudo -u $postgres_user psql medford -f /tmp/medford-gisvm.sql
+bzip2 -d "$DL_FILE"
+sed -i "s/mleslie/$POSTGRES_USER/g" `basename $DL_FILE .bz2`
+# use the psql --quiet flag?
+sudo -u $POSTGRES_USER psql --quiet medford -f `basename $DL_FILE .bz2`
 
-#Not neeeded since the /tmp will be wiped on reboot and not included in the iso
-#rm /tmp/medford-gisvm.sql.bz2 /tmp/medford-gisvm.sql.bz2.sha1
-
-
-# is this redundant?
-cd $return_pwd
