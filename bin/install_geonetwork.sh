@@ -182,7 +182,11 @@ fi
 cp geonetwork.desktop $USER_HOME/Desktop/geonetwork.desktop
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/geonetwork.desktop
 
-cp GeoNetwork_opensource_v240_Manual.pdf $USER_HOME/Desktop
-chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/GeoNetwork_opensource_v240_Manual.pdf
+#Manual is being put into /usr/local/share and linked to the geonetwork documentation
+mkdir /usr/local/share/geonetwork
+cp GeoNetwork_opensource_v240_Manual.pdf /usr/local/share/geonetwork/GeoNetwork_opensource_v240_Manual.pdf
+chmod 644 /usr/local/share/geonetwork/*.pdf
+#cp GeoNetwork_opensource_v240_Manual.pdf $USER_HOME/Desktop
+#chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/GeoNetwork_opensource_v240_Manual.pdf
 
 exit 0

@@ -120,6 +120,10 @@ cp -R  /tmp/.qgis/python/plugins/ /usr/share/qgis/python/
 
 #TODO Include some sample projects using already installed example data
 #post a sample somewhere on qgis website or launchpad to pull
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/qgis/QGIS-Itasca-Example.qgs --output-document=/usr/local/share/qgis/QGIS-Itasca-Example.qgs
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/qgis/QGIS-Itasca-Example.qgs --output-document=/usr/local/share/qgis/QGIS-Grass-Example.qgs
+
+chmod 644 /usr/local/share/qgis/*.qgs
 
 #add a connection for postgis if it's installed
 QGIS_CONFIG="/home/$USER_NAME/.config/QuantumGIS/QGIS.conf"

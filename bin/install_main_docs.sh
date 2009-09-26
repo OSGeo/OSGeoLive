@@ -27,7 +27,7 @@
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 OSGEO_SVN="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk"
-DEST="/usr/share/livedvd-docs"
+DEST="/usr/local/share/livedvd-docs"
 
 mkdir -p $DEST
 
@@ -75,7 +75,7 @@ if [ -n "$PREFS_FILE" ] ; then
 fi
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
-wget -nv http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong-wombat-small.png --output-document=/usr/share/icons/arramagong-wombat-small.png
+wget -nv http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong-wombat-small.png --output-document=/usr/local/share/icons/arramagong-wombat-small.png
 
 #What logo to use for launching the help? 
 if [ ! -e /usr/share/applications/gisvmhelp.desktop ] ; then
@@ -86,14 +86,14 @@ Encoding=UTF-8
 Name=Help
 Comment=Live Demo Help
 Categories=Application;Education;Geography;
-Exec=firefox /usr/share/livedvd-docs/index.html
-Icon=/usr/share/icons/arramagong-wombat-small.png
+Exec=firefox /usr/local/share/livedvd-docs/index.html
+Icon=/usr/local/share/icons/arramagong-wombat-small.png
 Terminal=false
 StartupNotify=false
 Categories=Education;Geography
 EOF
 fi
 
-cp -a /usr/share/applications/gisvmhelp.desktop "$USER_HOME/Desktop/"
+cp -a /usr/local/share/applications/gisvmhelp.desktop "$USER_HOME/Desktop/"
 
 #Should we embed the password file in the help somehow too?

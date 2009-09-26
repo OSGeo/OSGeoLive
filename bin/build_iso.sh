@@ -64,6 +64,9 @@ cp $LOGS /etc/remastersys.conf
 ./load_win_installers.sh
 ./load_mac_installers.sh
 
+#Update the file search index
+updatedb
+
 #quick name check
 echo "Now creating ${ISO_NAME}.iso"
 
