@@ -90,7 +90,7 @@ done
 
 # write installed package manifest
 ## better to write to /usr/local/share/livedvd-docs ?
-DOC_DIR="/usr/share/livedvd-docs"
+DOC_DIR="/usr/local/share/livedvd-docs"
 if [ ! -d "$DOC_DIR" ] ; then
    mkdir -p "$DOC_DIR"
 fi
