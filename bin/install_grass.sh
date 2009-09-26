@@ -103,7 +103,7 @@ cd "$USER_HOME/grassdata"
 
 for LOCATION in spearfish60 nc_spm_08 ; do
    mkdir $LOCATION
-   ln -s /usr/local/share/grass/$LOCATION/PERMANENT PERMANENT
+   ln -s /usr/local/share/grass/$LOCATION/PERMANENT $LOCATION/PERMANENT
    mkdir $LOCATION/user1
    cp /usr/local/share/grass/$LOCATION/user1/* $LOCATION/user1/
 
