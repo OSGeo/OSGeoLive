@@ -34,6 +34,10 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong
 #Has to been run as the regular user
 sudo -u $USER_NAME xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-path \
     -s /usr/share/xfce4/backdrops/arramagong-desktop.png
+# set to stretch style background
+sudo -u $USER_NAME xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-style \
+    -s 3
+
 
 #Add the launchhelp script which allows other apps to provide sudo launching with the password already embedded
 #Geonetwork and deegree needs this right now
