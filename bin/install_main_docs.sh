@@ -95,6 +95,6 @@ Categories=Education;Geography
 EOF
 fi
 
-cp -a /usr/local/share/applications/gisvmhelp.desktop "$USER_HOME/Desktop/"
+cp -a /usr/share/applications/gisvmhelp.desktop "$USER_HOME/Desktop/"
 
 #Should we embed the password file in the help somehow too?
