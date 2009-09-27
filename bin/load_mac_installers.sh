@@ -140,3 +140,5 @@ for PKG in $C_PKG ; do
   sleep 1
 done
 
+#Add uDig from another source
+wget -c --progress=dot:mega http://udig.refractions.net/files/downloads/branches/udig-1.2-M6.macosx.cocoa.x86.zip
