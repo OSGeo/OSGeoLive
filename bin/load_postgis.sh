@@ -58,6 +58,6 @@ sudo -u $POSTGRES_USER createdb --template=template_postgis medford
 
 bzip2 -d "$DL_FILE"
 sed -i "s/mleslie/$POSTGRES_USER/g" `basename $DL_FILE .bz2`
-# use the psql --quiet flag?
+# use the psql --quiet flag!
 sudo -u $POSTGRES_USER psql --quiet medford -f `basename $DL_FILE .bz2`
 

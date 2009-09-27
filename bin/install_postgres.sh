@@ -120,5 +120,4 @@ done
 ### load data ###
 cd "$BIN_DIR"
 
-# ??? activate this or not ???
-# ./load_postgis.sh
+./load_postgis.sh
