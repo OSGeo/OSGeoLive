@@ -35,8 +35,8 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong
 sudo -u $USER_NAME xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-path \
     -s /usr/share/xfce4/backdrops/arramagong-desktop.png
 # set to stretch style background
-sudo -u $USER_NAME xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-style \
-    -s 3
+sudo -u $USER_NAME xfconf-query -c xfce4-desktop -n /backdrop/screen0/monitor0/image-style
+sudo -u $USER_NAME xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-style -s 3 #?? -t int
 
 
 #Add the launchhelp script which allows other apps to provide sudo launching with the password already embedded
