@@ -66,7 +66,7 @@ cp $LOGS /etc/remastersys.conf
 ./load_mac_installers.sh
 
 # Copy documentation
-cp -pr ${DOCS_SRC} ${ISOTMP}
+cp -pr ${DOCS_SRC} ${TMP}
 
 #Update the file search index
 updatedb
