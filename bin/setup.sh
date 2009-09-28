@@ -58,7 +58,7 @@ rm -fr /home/user/Videos
 
 # rename dangerous icon
 # this probably won't work here because ubiquity isn't loaded until remastersys step
-sed -i -e 's/Install/Install xubuntu GNU Linux/' /home/user/Desktop/ubiquity-gtkui.desktop
+sed -i -e 's/Install/Install xubuntu GNU Linux/' /usr/share/applications/ubiquity-gtkui.desktop
 
 
 # and there was music and laughter and much rejoicing
