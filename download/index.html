@@ -1,112 +1,109 @@
 <html>
 <body>
+<a href="http://www.osgeo.org"><img src="http://www.osgeo.org/sites/all/themes/osgeo/logo.png" align="right" border="0"></a>
+<BR>
 
 <h1>Available ISO-Images and Virtual Machines:</h1>
+
+Try out fully-operational versions of popular Free Geospatial Software
+on any<sup>*</sup> computer without the need to install a thing! Everything
+is set up for you ready to go: just reboot into it, glance at the help pages
+on the desktop, and start using it. Your existing hard drive and operating
+system will not be modified in any way, everything happens in temporary
+system memory. As such it will run a bit slower than the "real thing", and
+you may want to grab a USB flash drive to save or transfer files with.
+You can load and boot a live-image completely from a USB stick too if you
+prefer.
+
+<P>
+<ul>
+  <li> What is a Live ISO image?
+	<a href="http://en.wikipedia.org/wiki/Live_CD">See the Wikipedia entry</a>
+  <li> What is a Virtual Machine?
+	<a href="http://en.wikipedia.org/wiki/Virtual_machine">See the Wikipedia entry</a>
+</ul>
+<P>
+<font size="-2">
+[*] <i>Minimum suggested resources: 512MB RAM, 1GHz CPU. No hard drive required.
+Sorry ARM users, by "any" computer we mean any i686 compatible.
+We assume that Alpha, MIPS, SPARC, etc., users can teach us more about
+building software than we can them, and do not need our advice.</i>
+</font>
+
 <hr>
 <h2><font color="#AD6617">Arramagong GISVM</font></h2>
 
 The 2.0 version is being developed for the <a href="http://2009.foss4g.org">FOSS4G 2009 conference</a>.  See the <a href="http://wiki.osgeo.org/wiki/Live_GIS_Disc_Quick_Start">Quick Start</a> page for guidance on downloading and running.
 
-<h3>Arramagong GISVM and LiveDVD - 2.0 Final</h3>
-27 September 2009
+<h3>Arramagong GISVM and LiveDVD - 2.0.1 Final</h3>
+28 September 2009
+
 <ul>
-<li>
-  <a href="2.0-final/logs.tar.gz">build logs</a>
+<li> Package
+  <a href="2.0-Final/logs.tar.gz">build logs</a>
+</li>
+<li> Image
+  <a href="2.0.1-Final/build_iso.log">build_iso.log</a>
 </li>
 </ul>
-ISO Image (to be burned into a DVD then run):
+ISO Image (to be burned onto a DVD then run):
 <ul>
 <li>
-Torrent file 
-<a href="2.0-Final/arramagong-livedvd-2.0-Final.iso.torrent">arramagong-livedvd-2.0-Final.iso.torrent</a>
-(3.6 GB)
+Torrent file now available, please remember to leave it open when you
+are done to help others.<BR>
+Don't know what a torrent is or how to use one? See this:
+<i><a href="http://www.wikihow.com/Download-Torrents">How to Torrent</a></i>.
+<br>
+
+<a href="2.0.1-Final/arramagong-livedvd-2.0.1-Final.iso.torrent">arramagong-livedvd-2.0.1-Final.iso.torrent</a>
+(final download 3.6 GB)
+</li>
+</ul>
+
+OR download the image directly from the OSGeo download server. Due to its
+size it has been split into two parts which will need to be put back together
+again using the <tt>cat</tt> utility, as follows:
+<pre>
+   # recombine
+   cat arramagong-livedvd-2.0.1-Final.iso.0 \
+       arramagong-livedvd-2.0.1-Final.iso.1 \
+       > arramagong-livedvd-2.0.1-Final.iso
+
+   # check image integrity
+   md5sum arramagong-livedvd-2.0.1-Final.iso
+</pre>
+
+If the download is stopped for some reason part way through, continue
+without restarting from the beginning by making sure the filename is
+unaltered (rename if needed) and running "<tt>wget&nbsp;-c&nbsp;{URL}</tt>"
+from the directory that the partially downloaded file is in.
+
+<ul>
+<li>Reconstituted ISO md5sum:<a href="2.0.1-Final/arramagong-livedvd-2.0.1-Final.iso.md5">arramagong-livedvd-2.0.1-Final.iso.md5</a>
+</li>
+<BR>
+<li>
+  <a href="2.0.1-Final/arramagong-livedvd-2.0.1-Final.iso.0">arramagong-livedvd-2.0.1-Final.iso.0</a>
+  (1.9 GB)&nbsp;
+  md5sum:<a href="2.0.1-Final/arramagong-livedvd-2.0.1-Final.iso.0.md5">arramagong-livedvd-2.0.1-Final.iso.0.md5</a>
 </li>
 <li>
-  <a href="2.0-Final/arramagong-livedvd-2.0-Final.iso.0">arramagong-livedvd-2.0-Final.iso.00</a>
-  (1.9 GB)
-  <a href="2.0-Final/arramagong-livedvd-2.0-Final.iso.0.md5">mdsum:arramagong-livedvd-2.0-Final.iso.0.md5</a>
-</li>
-<li>
-  <a href="2.0-Final/arramagong-livedvd-2.0-Final.iso.1">arramagong-livedvd-2.0-Final.iso.01</a>
-  (1.8 GB)
-  <a href="2.0-Final/arramagong-livedvd-2.0-Final.iso.1.md5">mdsum:arramagong-livedvd-2.0-Final.iso.1.md5</a>
+  <a href="2.0.1-Final/arramagong-livedvd-2.0.1-Final.iso.1">arramagong-livedvd-2.0.1-Final.iso.1</a>
+  (1.8 GB)&nbsp;
+  md5sum:<a href="2.0.1-Final/arramagong-livedvd-2.0.1-Final.iso.1.md5">arramagong-livedvd-2.0.1-Final.iso.1.md5</a>
 </li>
 </ul>
 Virtual Machine: Will be posted in a couple of days.
 <ul>
 <!--<li> 
-  <a href="2.0-final/arramagong-gisvm-2.0-final.7z">arramagong-gisvm-2.0-final.7z</a>
+  <a href="2.0.1-Final/arramagong-gisvm-2.0.1-Final.7z">arramagong-gisvm-2.0.1-Final.7z</a>
   ()
-  mdsum:
+  md5sum:
 </li>-->
 </ul>
 
-<h3>Arramagong GISVM and LiveDVD - 2.0-beta4</h3>
-24 September 2009<br/><br/>
-ISO Image (to be burned into a DVD then run):
-<ul>
-<li>
-  <a href="2.0-beta4/arramagong-livedvd-2.0-beta4.iso.00">arramagong-livedvd-2.0-beta4.iso.00</a>
-  (1.5G)
-  mdsum: f10aa1f7e9c2f4335b3c1e4b6dab21dc
-</li>
-<li>
-  <a href="2.0-beta4/arramagong-livedvd-2.0-beta4.iso.01">arramagong-livedvd-2.0-beta4.iso.01</a>
-  (880M)
-  mdsum: f10aa1f7e9c2f4335b3c1e4b6dab21dc
-</li>
-</ul>
-Virtual Machine:
-<ul>
-<li> 
-  <a href="2.0-beta4/arramagong-gisvm-2.0-beta4.7z">arramagong-gisvm-2.0-beta4.7z</a>
-  (1.8G)
-  mdsum: 7479136d350d79fbe68afdf257f8702b
-</li>
-<li>
-  <a href="2.0-beta4/logs.tar.gz">build logs</a>
-</li>
-</ul>
 
-<h3>Arramagong GISVM and LiveDVD - 2.0-beta3</h3>
-23 September 2009<br/><br/>
-ISO Image (to be burned into a DVD then run):
-<ul>
-<li>
-  <a href="arramagong-livedvd-2.0-beta3.iso.1">arramagong-livedvd-2.0-beta3.iso.1</a>
-  (1.2G)
-  mdsum: a2e9e0b9e1229f3ead87ae2faed6a1e4
-</li>
-<li>
-  <a href="arramagong-livedvd-2.0-beta3.iso.2">arramagong-livedvd-2.0-beta3.iso.2</a>
-  (880M)
-  mdsum: 6dde13a74ef361a3155711477d8ac2c7
-</li>
-</ul>
-Virtual Machine:
-<ul>
-<li>
-  <a href="arramagong-gisvm-2.0-beta3.7z.1">arramagong-gisvm-2.0-beta3.7z.1</a>
-  (1.5G)
-  mdsum: eace196d9b3a9d9455c0611db07f72c5
-</li>
-<li>
-  <a href="arramagong-gisvm-2.0-beta3.7z.2">arramagong-gisvm-2.0-beta3.7z.2</a>
-  (1.5G)
-  mdsum: f0a605f289aed108de76cfb1c3cb592b
-</li>
-<li>
-  <a href="arramagong-gisvm-2.0-beta3.7z.3">arramagong-gisvm-2.0-beta3.7z.3</a>
-  (104M)
-  mdsum: 00cdda2fee27fa7812f0af31a0aba54b
-</li>
-<li>
-  <a href="arramagong-gisvm-2.0-beta3-log.tar.gz">build logs</a>
-</li>
-</ul>
-
-
-<h2>Latest Stable </h2>
+<h2>Last year's stable release</h2>
 29 October 2008
 	<ul>
 	<li>
@@ -191,7 +188,3 @@ Release date: 21 Aug 2008
 <BR><BR><BR><BR>
 </body>
 </html>
-
-
-
-
