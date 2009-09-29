@@ -32,7 +32,7 @@ apt-get install --yes postgresql-8.3-postgis postgis pgadmin3
 ## add PostGIS 1.4, for those apps that want it
 #### (which apps are those?)
 ##  TODO: use repo version when it becomes available  (Ubuntu 9.10 or 10.04 ?)
-INSTALL_POSTGIS_1_4=true
+INSTALL_POSTGIS_1_4=false
 
 if [ "$INSTALL_POSTGIS_1_4" = "true" ] ; then
 
