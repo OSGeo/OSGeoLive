@@ -17,6 +17,7 @@
 #
 # Uninstall:
 # ==========
+# sudo apt-get remove python-mapnik
 # rm -rf /usr/local/lib/python2.6/dist-packages/tilelite*
 # rm /usr/local/bin/liteserv.py
 
@@ -90,7 +91,7 @@ Name=Start Mapnik & TileLite
 Comment=Mapnik tile-serving using TileLite Server
 Categories=Application;Geography;Geoscience;Education;
 Exec=dash /home/user/launchassist.sh $BIN/mapnik_start_tilelite.sh
-Icon=boot
+Icon=gnome-globe
 Terminal=true
 StartupNotify=false
 EOF
