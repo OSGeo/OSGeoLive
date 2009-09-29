@@ -28,15 +28,17 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
 chown user:user /home/user/Desktop/passwords.txt
 
 # Setup the desktop background
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong-desktop.png \
-    --output-document=/usr/share/xfce4/backdrops/arramagong-desktop.png
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong-gisvm-desktop.png \
+    --output-document=/usr/share/xfce4/backdrops/arramagong-gisvm-desktop.png
 
 #Has to been run as the regular user
-sudo -u $USER_NAME xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-path \
-    -s /usr/share/xfce4/backdrops/arramagong-desktop.png
+sudo -u $USER_NAME xfconf-query -c xfce4-desktop \
+     -p /backdrop/screen0/monitor0/image-path \
+     -s /usr/share/xfce4/backdrops/arramagong-gisvm-desktop.png
 # set to stretch style background
-sudo -u $USER_NAME xfconf-query -c xfce4-desktop -n /backdrop/screen0/monitor0/image-style
-sudo -u $USER_NAME xfconf-query -c xfce4-desktop -p /backdrop/screen0/monitor0/image-style -s 3 #?? -t int
+sudo -u $USER_NAME xfconf-query -c xfce4-desktop --create \
+     -p /backdrop/screen0/monitor0/image-style  -s 3  -t int
+
 
 
 #Add the launchhelp script which allows other apps to provide sudo launching with the password already embedded
