@@ -117,7 +117,9 @@ done
 adduser $USER_NAME users
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata"
 
-
+# link in an extra mapset with satellite data
+ln -s /usr/local/share/grass/nc_spm_08/landsat \
+      "$USER_HOME"/grassdata/nc_spm_08/landsat
 
 
 #### preconfig setup ####
