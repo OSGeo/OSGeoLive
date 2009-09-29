@@ -148,8 +148,8 @@ sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd_wrappers.sql sydney
 
 # add data to the database
 sudo -u $USER_NAME psql -c "DROP TABLE geometry_columns"  sydney
-sudo -u $USER_NAME psql -f schema.sql  sydney
-sudo -u $USER_NAME psql -f sydney.sql  sydney
+sudo -u $USER_NAME psql --quiet -f schema.sql  sydney
+sudo -u $USER_NAME psql --quiet -f sydney.sql  sydney
 
 # testing pgRouting functions
 # Renable once we figure out how to get rid of user interaction
