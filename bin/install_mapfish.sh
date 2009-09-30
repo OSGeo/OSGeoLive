@@ -23,6 +23,7 @@
 
 TMP="/tmp"
 BIN="/usr/bin"
+USER_NAME="user"
 USER_DIR="/home/user"
 
 CONF_DIR="/etc"
@@ -67,10 +68,15 @@ $MAPFISH_VENV_DIR/bin/easy_install --index-url=http://www.mapfish.org/downloads/
 
 $MAPFISH_VENV_DIR/bin/paster make-config mapfish.app.minimal $MAPFISH_CONF_DIR/minimal.ini
 
+# install launchers
 wget -P $MAPFISH_INSTALL_DIR -c http://www.mapfish.org/downloads/foss4g_livedvd/start_in_browser.sh
 chmod a+x $MAPFISH_INSTALL_DIR/start_in_browser.sh
 wget -P $BIN -c http://www.mapfish.org/downloads/foss4g_livedvd/mapfish
 chmod a+x $BIN/mapfish
+
+# install menu and desktop shortcuts
 wget -P $MAPFISH_INSTALL_DIR -c http://www.mapfish.org/downloads/foss4g_livedvd/mapfish.png
-wget -P $USER_DIR/Desktop -c http://www.mapfish.org/downloads/foss4g_livedvd/MapFish.desktop
+wget -P /usr/share/applications -c http://www.mapfish.org/downloads/foss4g_livedvd/MapFish.desktop
+cp /usr/share/applications/MapFish.desktop $USER_DIR/Desktop/
+chown $USER_NAME:$USER_NAME $USER_DIR/Desktop/MapFish.desktop
 

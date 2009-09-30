@@ -114,10 +114,12 @@ for LOCATION in spearfish60 nc_spm_08 ; do
    chown -R root.users /usr/local/share/grass/$LOCATION
 done
 
+# link in an extra mapset with satellite data
+ln -s /usr/local/share/grass/nc_spm_08/landsat \
+      "$USER_HOME"/grassdata/nc_spm_08/landsat
+
 adduser $USER_NAME users
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata"
-
-
 
 
 #### preconfig setup ####

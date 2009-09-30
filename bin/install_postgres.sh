@@ -89,8 +89,11 @@ sudo -u postgres psql -f /tmp/build_postgre.sql
 sudo -u $USER_NAME createdb $USER_NAME
 
 #configure template postgis database
-sudo -u $USER_NAME createdb template_postgis 
-sudo -u $USER_NAME createlang plpgsql template_postgis 
+sudo -u $USER_NAME createdb -T -E UTF8 template_postgis 
+sudo -u $USER_NAME createlang plpgsql template_postgis
+# Allows non-superusers the ability to create from this template, from GeoDjango manual
+sudo -u $USER_NAME psql -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';" 
+
 
 
 pgis_file="/usr/share/postgresql-8.3-postgis/lwpostgis.sql"
@@ -101,7 +104,7 @@ if [ "$INSTALL_POSTGIS_1_4" = "true" ] ; then
    fi
 fi
 
-
+#Should we make a 1.3 and 1.4 template?
 sudo -u $USER_NAME psql -d template_postgis -f "$pgis_file"
 sudo -u $USER_NAME psql -d template_postgis \
    -f /usr/share/postgresql-8.3-postgis/spatial_ref_sys.sql 
