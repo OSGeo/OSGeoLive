@@ -72,6 +72,11 @@ PREFS_FILE=`find ~user/.mozilla/firefox/ | grep -w default/prefs.js | head -n 1`
 if [ -n "$PREFS_FILE" ] ; then
    sed -i -e 's+\(homepage", "\)[^"]*+\1file:///usr/local/share/livedvd-docs/index.html+' \
       "$PREFS_FILE"
+
+   # firefox snafu: needed for web apps to work if network is not there
+   echo 'user_pref("toolkit.networkmanager.disable", true);' >> "$PREFS_FILE"
+   # maybe being online won't stick, but we may as well try:
+   echo 'user_pref("network.online", true);' >> "$PREFS_FILE"
 fi
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
