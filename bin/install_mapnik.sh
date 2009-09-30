@@ -91,7 +91,7 @@ Name=Start Mapnik & TileLite
 Comment=Mapnik tile-serving using TileLite Server
 Categories=Application;Geography;Geoscience;Education;
 Exec=dash /home/user/launchassist.sh $BIN/mapnik_start_tilelite.sh
-Icon=gnome-globe
+Icon=browser
 Terminal=true
 StartupNotify=false
 EOF
