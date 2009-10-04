@@ -23,12 +23,12 @@ USER_NAME=user
 USER_HOME=/home/$USER_NAME
 
 # Default password list on the desktop to be replaced by html help in the future.
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/doc/passwords.txt \
     --output-document=/home/user/Desktop/passwords.txt
 chown user:user /home/user/Desktop/passwords.txt
 
 # Setup the desktop background
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong-gisvm-desktop.png \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/desktop-conf/arramagong-gisvm-desktop.png \
     --output-document=/usr/share/xfce4/backdrops/arramagong-gisvm-desktop.png
 
 #Has to been run as the regular user
@@ -43,5 +43,5 @@ sudo -u $USER_NAME xfconf-query -c xfce4-desktop --create \
 
 #Add the launchhelp script which allows other apps to provide sudo launching with the password already embedded
 #Geonetwork and deegree needs this right now
-cp ${USER_HOME}/gisvm/trunk/bin/launchassist.sh ${USER_HOME}/.
+cp ${USER_HOME}/gisvm/bin/launchassist.sh ${USER_HOME}/.
 chmod 755 ${USER_HOME}/launchassist.sh

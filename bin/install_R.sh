@@ -39,7 +39,7 @@ apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev \
 easy_install -Z rpy2
 
 #Install packages from debs if available
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/cran.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/sources.list.d/cran.list \
      --output-document=/etc/apt/sources.list.d/cran.list
      
 apt-key adv --keyserver subkeys.pgp.net --recv-key E2A11821

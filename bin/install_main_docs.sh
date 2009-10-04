@@ -26,7 +26,7 @@
 
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-OSGEO_SVN="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk"
+OSGEO_SVN="https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2"
 DEST="/usr/local/share/livedvd-docs"
 
 mkdir -p $DEST/doc
@@ -80,7 +80,7 @@ if [ -n "$PREFS_FILE" ] ; then
 fi
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
-wget -nv http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong-wombat-small.png \
+wget -nv "$OSGEO_SVN/desktop-conf/arramagong-wombat-small.png" \
    --output-document=/usr/local/share/icons/arramagong-wombat-small.png
 
 #What logo to use for launching the help? 

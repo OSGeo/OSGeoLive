@@ -30,7 +30,7 @@ GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-DOC_DIR=$USER_HOME/gisvm/trunk/app-data/geoserver/doc
+DOC_DIR=$USER_HOME/gisvm/app-data/geoserver/doc
 
 ### Setup things... ###
  

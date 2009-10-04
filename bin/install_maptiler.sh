@@ -14,7 +14,7 @@ mkdir "$TMP"
 #cd "$TMP"
 
 #Add repositories
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/sources.list.d/ubuntugis.list \
    --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 #Add signed key for repositorys LTS and non-LTS

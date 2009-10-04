@@ -93,7 +93,7 @@ if [ -f "install.xml" ]
 then
    echo "install.xml has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/geonetwork-conf/install.xml
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/geonetwork-conf/install.xml
 fi
 
 # Download jetty.xml file to listen on all addresses and change Port to 8880 
@@ -101,7 +101,7 @@ if [ -f "jetty.xml" ]
 then
    echo "jetty.xml has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/geonetwork-conf/jetty.xml
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/geonetwork-conf/jetty.xml
 fi
 
 # Download mapServers.xml file to find default GeoServer layers Port 8880
@@ -109,7 +109,7 @@ if [ -f "mapServers.xml" ]
 then
    echo "mapServers.xml has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/geonetwork-conf/mapServers.xml
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/geonetwork-conf/mapServers.xml
 fi
 
 # Download start-geonetwork.sh file with mods to work from any directory
@@ -117,7 +117,7 @@ if [ -f "start-geonetwork.sh" ]
 then
    echo "start-geonetwork.sh has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/geonetwork-conf/start-geonetwork.sh
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/geonetwork-conf/start-geonetwork.sh
 fi
 
 # Download stop-geonetwork.sh file with mods to work from any directory
@@ -125,7 +125,7 @@ if [ -f "stop-geonetwork.sh" ]
 then
    echo "stop-geonetwork.sh has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/geonetwork-conf/stop-geonetwork.sh
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/geonetwork-conf/stop-geonetwork.sh
 fi
 
 
@@ -158,7 +158,7 @@ if [ -f "start_geonetwork.desktop" ]
 then
 	echo "start_geonetwork.desktop has already been downloaded"
 else
-	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/geonetwork-conf/start_geonetwork.desktop
+	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/geonetwork-conf/start_geonetwork.desktop
 fi
 cp start_geonetwork.desktop $USER_HOME/Desktop/start_geonetwork.desktop
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/start_geonetwork.desktop
@@ -168,7 +168,7 @@ if [ -f "stop_geonetwork.desktop" ]
 then
 	echo "stop_geonetwork.desktop has already been downloaded"
 else
-	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/geonetwork-conf/stop_geonetwork.desktop
+	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/geonetwork-conf/stop_geonetwork.desktop
 fi
 cp stop_geonetwork.desktop $USER_HOME/Desktop/stop_geonetwork.desktop
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/stop_geonetwork.desktop
@@ -177,7 +177,7 @@ if [ -f "geonetwork.desktop" ]
 then
 	echo "geonetwork.desktop has already been downloaded"
 else
-	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/geonetwork-conf/geonetwork.desktop
+	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/geonetwork-conf/geonetwork.desktop
 fi
 cp geonetwork.desktop $USER_HOME/Desktop/geonetwork.desktop
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/geonetwork.desktop
