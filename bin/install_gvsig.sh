@@ -92,7 +92,7 @@ cp "$GVSIG_MAN" "$GVSIG_DOCS"
 
 # download gvSIG sample project
 mkdir "$USER_HOME/gvSIG"
-wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp \
+wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/app-data/gvsig/sample-project.gvp \
      --output-document=sample-project.gvp
 
 cp sample-project.gvp "$USER_HOME/gvSIG/"

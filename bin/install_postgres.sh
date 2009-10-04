@@ -112,7 +112,7 @@ sudo -u $USER_NAME psql -d template_postgis \
 
 #include pgadmin3 profile for connection
 for FILE in  pgadmin3  pgpass  ; do
-   wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/postgis-conf/$FILE" \
+   wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_2/postgis-conf/$FILE" \
       --output-document="/home/$USER_NAME/.$FILE"
 
     chown $USER_NAME:$USER_NAME "/home/$USER_NAME/.$FILE"

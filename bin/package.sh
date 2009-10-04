@@ -78,17 +78,12 @@ echo Disk Usage3:, after 7zipping the image, `du -hs ${PACKAGE_NAME}-${VERSION}.
 # Reconstitute with:
 #   `cat ${PACKAGE_NAME}-${VERSION}.7z[1-9]* > ${PACKAGE_NAME}-${VERSION}.7z
 echo "Split the image"
-split -b 1500M  ${PACKAGE_NAME}-${VERSION}.7z  ${PACKAGE_NAME}-${VERSION}.7z
+split -d -a 1 -b 1500M  ${PACKAGE_NAME}-${VERSION}.7z  ${PACKAGE_NAME}-${VERSION}.7z.
+#Replaced mv commands with split options to achieve same effect
 
-mv  ${PACKAGE_NAME}-${VERSION}.7z.aa  ${PACKAGE_NAME}-${VERSION}.7z.1
-mv  ${PACKAGE_NAME}-${VERSION}.7z.ab  ${PACKAGE_NAME}-${VERSION}.7z.2
-mv  ${PACKAGE_NAME}-${VERSION}.7z.ac  ${PACKAGE_NAME}-${VERSION}.7z.3
-mv  ${PACKAGE_NAME}-${VERSION}.7z.ad  ${PACKAGE_NAME}-${VERSION}.7z.4
-mv  ${PACKAGE_NAME}-${VERSION}.7z.ae  ${PACKAGE_NAME}-${VERSION}.7z.5
-mv  ${PACKAGE_NAME}-${VERSION}.7z.af  ${PACKAGE_NAME}-${VERSION}.7z.6
 
 echo "Add the following lines to"
-echo "  https://camerons@svn.osgeo.org/osgeo/livedvd/gisvm/trunk/download/index.html"
+echo "  https://username@svn.osgeo.org/osgeo/livedvd/gisvm/trunk/download/index.html"
 echo 
 
 echo "<h3>Arramagong GISVM and LiveDVD - ${VERSION}</h3>"
