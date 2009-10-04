@@ -33,7 +33,7 @@
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-DATA_DIR=$USER_HOME/gisvm/trunk/app-data/mapserver
+DATA_DIR=$USER_HOME/gisvm/app-data/mapserver
 MAPSERVER_DATA=/usr/local/share/mapserver
 
 MS_APACHE_CONF="/etc/apache2/conf.d/mapserver"

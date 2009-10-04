@@ -83,7 +83,7 @@ split -d -a 1 -b 1500M  ${PACKAGE_NAME}-${VERSION}.7z  ${PACKAGE_NAME}-${VERSION
 
 
 echo "Add the following lines to"
-echo "  https://camerons@svn.osgeo.org/osgeo/livedvd/gisvm/trunk/download/index.html"
+echo "  https://username@svn.osgeo.org/osgeo/livedvd/gisvm/trunk/download/index.html"
 echo 
 
 echo "<h3>Arramagong GISVM and LiveDVD - ${VERSION}</h3>"

@@ -43,5 +43,5 @@ sudo -u $USER_NAME xfconf-query -c xfce4-desktop --create \
 
 #Add the launchhelp script which allows other apps to provide sudo launching with the password already embedded
 #Geonetwork and deegree needs this right now
-cp ${USER_HOME}/gisvm/trunk/bin/launchassist.sh ${USER_HOME}/.
+cp ${USER_HOME}/gisvm/bin/launchassist.sh ${USER_HOME}/.
 chmod 755 ${USER_HOME}/launchassist.sh

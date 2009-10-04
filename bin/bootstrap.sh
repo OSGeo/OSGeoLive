@@ -25,6 +25,8 @@
 # sudo ./boostrap.sh
 
 SCRIPT_DIR=/usr/local/share
+
+# copy in pre-downloaded data files. flavour to suit or just skip 
 rsync -avz cshorter@192.168.2.166::/media/Shorter/repository/livedvd/Arramagong_tmp/ /tmp/
 
 # install subversion and sshd (so you can log into the VM remotely)
@@ -32,7 +34,7 @@ apt-get install --yes subversion openssh-server
 
 # check out the install scripts from subversion
 cd $SCRIPT_DIR
-svn co http://svn.osgeo.org/osgeo/livedvd/gisvm
+svn co http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk gisvm
 chown -R user:user gisvm
 cd /home/user
 ln -s ${SCRIPT_DIR}/gisvm .
