@@ -41,7 +41,7 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-apt-get --assume-yes install python2.5
+apt-get --assume-yes install python2.5 python2.5-dev
 
 if [ ! -d $MAPFISH_CONF_DIR ]
 then
@@ -80,3 +80,5 @@ wget -P /usr/share/applications -c http://www.mapfish.org/downloads/foss4g_lived
 cp /usr/share/applications/MapFish.desktop $USER_DIR/Desktop/
 chown $USER_NAME:$USER_NAME $USER_DIR/Desktop/MapFish.desktop
 
+#cleanup
+apt-get --assume-yes remove python2.5-dev
