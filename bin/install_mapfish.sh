@@ -41,7 +41,7 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-apt-get --assume-yes install python2.5 python2.5-dev
+apt-get --assume-yes install python2.5 python2.5-dev libpq-dev
 
 if [ ! -d $MAPFISH_CONF_DIR ]
 then
