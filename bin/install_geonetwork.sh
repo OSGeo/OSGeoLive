@@ -4,6 +4,7 @@
 # Purpose: Installation of GeoNetwork into Xubuntu
 # Author:  Ricardo Pinho <ricardo.pinho@gisvm.com>
 # Author:  Simon Pigot <simon.pigot@csiro.au>
+# Small edits: Jeroen Ticheler <Jeroen.Ticheler@GeoCat.net>
 #
 #################################################
 # Copyright (c) 2009 Open Geospatial Foundation
@@ -25,7 +26,7 @@
 # About:
 # =====
 # This script will install geonetwork into Xubuntu
-# stable version: v2.4.1 (20 August 2009) (also the manuals)
+# stable version: v2.4.2 (12 October 2009) (also the manuals)
 # based on Jetty + Geoserver + McKoi
 # Installed at /usr/lib/geonetwork
 # Port number =8880
@@ -41,7 +42,7 @@
 # To enter geonetwork, start browser with url:
 # http://localhost:8880/geonetwork
 #
-# GeoNetwork version 2.4.1 runs with java-sun-1.5 or java-sun-1.6.
+# GeoNetwork version 2.4.2 runs with java-sun-1.5 or java-sun-1.6.
 # It can be installed into servlet containers: jetty and tomcat. Jetty is   
 # bundled with the installer.
 #
@@ -70,11 +71,11 @@ cd $TMP
 
 
 # get geonetwork
-if [ -f "geonetwork-install-2.4.1-0.jar" ]
+if [ -f "geonetwork-install-2.4.2-0.jar" ]
 then
-   echo "geonetwork-install-2.4.1-0.jar has already been downloaded."
+   echo "geonetwork-install-2.4.2-0.jar has already been downloaded."
 else
-   wget -c --progress=dot:mega http://freefr.dl.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.4.1/geonetwork-install-2.4.1-0.jar
+   wget -c --progress=dot:mega http://freefr.dl.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.4.2/geonetwork-install-2.4.2-0.jar
 fi
 
 # get geonetwork doco
@@ -134,7 +135,7 @@ if [ -d "$GEONETWORK_FOLDER" ]
 then
 	( cd $GEONETWORK_FOLDER/bin; ./stop-geonetwork.sh )
 fi
-sudo java -jar geonetwork-install-2.4.1-0.jar install.xml
+sudo java -jar geonetwork-install-2.4.2-0.jar install.xml
 
 
 # copy jetty.xml to $GEONETWORK_FOLDER/bin
@@ -151,7 +152,6 @@ sudo cp stop-geonetwork.sh $GEONETWORK_FOLDER/bin/stop-geonetwork.sh
 
 # fix permissions on installed software
 sudo chown -R $USER_NAME:$USER_NAME $GEONETWORK_FOLDER
-
 
 # create startup, shutdown, open browser and doco desktop entries
 if [ -f "start_geonetwork.desktop" ]
