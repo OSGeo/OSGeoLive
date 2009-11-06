@@ -47,6 +47,14 @@ svn info ..
 # clear the decks
 rm -rf /tmp/build_gisvm_error.log
 
+# install order:
+#  1. Base packages
+#  2. Java apps
+#  3. PostGIS apps
+#  4. Desktop GIS apps
+#  5. LiveDVD desktop, docs, etc.
+#  6. Cleanup scripts
+
 for SCRIPT in \
   ./setup.sh \
   ./install_java.sh \
@@ -59,6 +67,7 @@ for SCRIPT in \
   ./install_apache2.sh \
   ./install_postgres.sh \
   ./install_pgrouting.sh \
+  ./install_osm.sh \
   ./install_mapserver.sh \
   ./install_geokettle.sh \
   ./install_grass.sh \
@@ -139,9 +148,6 @@ exit
 # This is disabled until it can be built with shared libraries,
 #   using static libraries it takes up 300mb.
 ./install_mb-system.sh
-
-# wasn't in time for the feature freeze
-./install_osm.sh
 
 # Build the iso should be done later
 ./build_iso.sh
