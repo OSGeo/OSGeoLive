@@ -180,7 +180,7 @@ for SUBDIR in  html include ps share ; do
    mkdir -p /usr/local/mbsystem/$SUBDIR
    install --mode=644 $SUBDIR/* /usr/local/mbsystem/$SUBDIR
 done
-install --mode=644 ../LevitusAnnual82.data /usr/local/mbsystem/share
+install --mode=644 ../LevitusAnnual82.dat /usr/local/mbsystem/share
 
 
 ### cleanup ####
