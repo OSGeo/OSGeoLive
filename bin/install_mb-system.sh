@@ -40,7 +40,7 @@ LATEST="ftp://ftp.ldeo.columbia.edu/pub/MB-System/mbsystem-$MB_VERSION.tar.gz"
 
 #### get dependencies ####
 
-DEPENDS="gmt gv xv lesstif2 libnetcdf4 libgl1-mesa-glx libglu1-mesa"
+DEPENDS="gmt gv lesstif2 libnetcdf4 libgl1-mesa-glx libglu1-mesa"
 BUILD_DEPENDS="libgmt-dev lesstif2-dev libnetcdf-dev libglu1-mesa-dev libgl1-mesa-dev"
 #make gcc, ...
 
