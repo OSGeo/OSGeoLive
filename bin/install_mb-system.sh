@@ -212,8 +212,7 @@ fi
 
 
 
-#### sample data ####
-
+#### get and install sample data ####
 # ftp://ftp.ldeo.columbia.edu/pub/MB-System/
 #
 # On 31 Aug 2009, Dave Caress wrote:
@@ -222,6 +221,22 @@ fi
 # it won't be available this week.
 # Cheers,
 # Dave
+
+cd /tmp/build_mbsystem
+
+wget -c --progress=dot:mega ftp://ftp.ldeo.columbia.edu/pub/MB-System/MB-SystemExamples.5.1.0.tar.gz
+
+cd /usr/local/mbsystem/
+tar xzf /tmp/build_mbsystem/MB-SystemExamples.5.1.0.tar.gz
+mv MB-SystemExamples.5.1.0/ examples/
+
+
+#### get and install cookbook tutorial ####
+
+cd /tmp/build_mbsystem
+wget -c --progress=dot:mega ftp://ftp.ldeo.columbia.edu/pub/MB-System/mbcookbook.pdf
+mv mbcookbook.pdf /usr/local/mbsystem/
+
 
 
 echo "Finished installing MB System."
