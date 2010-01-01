@@ -1,0 +1,59 @@
+--- install_makefiles.ORIG	2010-01-01 20:16:22.000000000 +1300
++++ install_makefiles	2010-01-01 20:50:26.000000000 +1300
+@@ -103,26 +103,25 @@
+ #
+ # Required parameters:
+ $MBSYSTEM_HOME = "/usr/local/mbsystem";
+-$OS = "DARWIN";
++$OS = "LINUX";
+ $CFLAGS = "-Wall -g -I/usr/X11R6/include";
+-$LFLAGS = "-Wall -lm -bind_at_load -Wl,-dylib_file,/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/LibGL.dylib";
+-$NETCDFLIBDIR = "/sw/lib";
+-$NETCDFINCDIR = "/sw/include";
+-$GMTLIBDIR = "/usr/local/gmt/lib";
+-$GMTINCDIR = "/usr/local/gmt/include";
+-$LEVITUS = "$MBSYSTEM_HOME/share/LevitusAnnual82.dat";
++$LFLAGS = "-Wl -lm";
++$NETCDFLIBDIR = "/usr/lib";
++$NETCDFINCDIR = "/usr/include";
++$GMTLIBDIR = "/usr/lib";
++$GMTINCDIR = "/usr/include/gmt";
+ $PROJECTIONS = "$MBSYSTEM_HOME/share/Projections.dat";
+ #
+ # Required parameters for spectrogram program mbsegypsd
+ #   - mbsegypsd will not be built if these are commented out
+-$FFTWLIBDIR = "/usr/local/fftw/lib";
+-$FFTWINCDIR = "/usr/local/fftw/include";
++$FFTWLIBDIR = "/usr/lib";
++$FFTWINCDIR = "/usr/include";
+ #
+ # Required parameters for graphical tools
+ #   - graphical tools will not be built if these
+ #     are commented out
+-$MOTIFINCDIR = "/sw/include";
+-$MOTIFLIBS = "-L/sw/lib -L/usr/X11R6/lib -lXm -lXt -lX11";
++$MOTIFINCDIR = "/usr/include";
++$MOTIFLIBS = "-L/usr/lib -L/usr/X11R6/lib -lXm -lXt -lX11";
+ #
+ # Required parameter for visualization tools
+ #   - visualization tools will not be built if this
+@@ -133,7 +132,7 @@
+ $LEVITUS = "$MBSYSTEM_HOME/share/LevitusAnnual82.dat";
+ #
+ # Required parameter for mbotps program
+-$OTPSDIR = "/usr/local/OTPSnc";
++#$OTPSDIR = "/usr/local/OTPSnc";
+ #
+ # Optional parameter for use of non-default C compiler
+ #$CC = "cc";
+@@ -147,8 +146,8 @@
+ # Optional parameters for use of independent PROJ4 library installation
+ #   - PROJ4 library included with MB-System will be used 
+ #     if these are commented out
+-#$PROJLIB = "/usr/local/proj/lib/libproj.a";
+-#$PROJINCDIR = "/usr/local/proj/include/";
++$PROJLIB = "/usr/lib/libproj.a";
++$PROJINCDIR = "/usr/include/";
+ #
+ #--------------------------------------------------------------------
+ # END OF PARAMETER EDITING SECTION
