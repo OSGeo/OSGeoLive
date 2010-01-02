@@ -28,7 +28,7 @@ USER_HOME="/home/$USER_NAME"
 
 #### install grass ####
 
-PACKAGES="grass grass-doc python-opengl python-wxgtk2.8 avce00 e00compr gdal-bin proj-bin python-gdal gpsbabel xml2 sqlitebrowser"
+PACKAGES="grass grass-doc python-opengl python-wxgtk2.8 avce00 e00compr gdal-bin proj-bin python-gdal gpsbabel xml2 sqlitebrowser dbview"
 
 MODERN_VERSION="6.4"
 
