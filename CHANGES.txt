@@ -1,0 +1,48 @@
+Arramagong GISVM
+================
+
+Version: 3.1 alpha 1
+====================
+
+Version: 2.0.1
+==============
+October 2009
+
+This stable release was handed out at the international FOSS4G 2009 conference. http://2009.foss4g.org
+
+Version: 2.0 alpha 5
+====================
+13 September 2009
+
+This is an early release, for builders to test functionality and is expected
+to still have lots of bugs.
+
+This version is build almost completely from the main.sh script for the first
+time. It has fixed installers for:
+* Deegree
+* GeoServer
+* PostGIS
+
+It now includes gpsdrive.
+
+Version: 2.0 alpha 4
+====================
+11 September 2009
+
+This version is build entirely from install scripts. It has not been tested
+and is for developers to test functionality. It has some reduced functionality
+from alpha 1 for PostGIS, GeoServer and Mapserver, which were previously
+configured manually.
+
+Version: 2.0 alpha 2 & 3
+========================
+
+Internal Releases
+
+Version: 2.0 alpha 1
+====================
+11 September 2009
+
+This version is a combination of packages installed onto the Arramgong 2008
+Live DVD and GISVM and was build mainly by manually installing each package.
+
