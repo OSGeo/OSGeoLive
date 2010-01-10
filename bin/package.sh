@@ -31,11 +31,18 @@
 
 DIR=`dirname ${0}`
 VERSION=`cat ${DIR}/../VERSION.txt`
-PACKAGE_NAME="arramagong-gisvm"
+PACKAGE_NAME="arramagong"
 #VM_DIR="/var/lib/vmware/Virtual Machines/" # Default directory
+VM_DIR="/var/lib/vmware/VirtualMachines/"
 #VM_DIR="/mnt/space/arramagong/vm/${VERSION}"
-VM_DIR="/data/space/arramagong/vm/${VERSION}"
-VM="arramagong-gisvm-${VERSION}"
+#VM_DIR="/data/space/arramagong/vm/"
+VM="arramagong-${VERSION}"
+
+# Exit if VM doesn't exist
+if [ `find "${VM_DIR}/${VM}" -name "*.vmdk" -print | wc -l` -eq 0 ] ; then 
+  echo "Cannot find ${VM_DIR}/${VM}/*.vmdk"
+  exit 1
+fi
 
 echo "===================================================================="
 echo "Starting package.sh for version: {$VERSION}"
@@ -52,6 +59,7 @@ date
 apt-get install p7zip-full
 
 echo "Remove non-core VM files, except *.vmx and *.vmdk"
+
 cd "${VM_DIR}/${VM}"
 
 for FILE  in `ls | grep -v "\.vmdk$" | grep -v "\.vmx$"` ; do
