@@ -3,6 +3,8 @@ Arramagong GISVM
 
 Version: 3.0 alpha 1
 ====================
+Rebuilt using Xubuntu 9.10.
+No bugs were fixed.
 
 Version: 2.0.1
 ==============
