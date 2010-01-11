@@ -23,7 +23,7 @@ apt-get install ossim-bin ossimplanet
 
 # Additional dependence for Grass / Qgis plug-in :
 #
-# apt-get install grass qgis python-pysqlite2 python-pygame python-scipy python-serial python-psycopg2
+apt-get install grass qgis python-pysqlite2 python-pygame python-scipy python-serial python-psycopg2
 
 
 cat << EOF > /usr/share/applications/imagelinker.desktop
