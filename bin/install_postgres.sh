@@ -28,6 +28,12 @@ BIN_DIR=`pwd`
 apt-get install --yes postgresql-8.3-postgis postgis pgadmin3
 
 
+if [ $? -ne 0 ] ; then
+   echo 'ERROR: Package install failed! Aborting.'
+   exit 1
+fi
+
+
 ###########################
 ## add PostGIS 1.4, for those apps that want it
 #### (which apps are those?)
