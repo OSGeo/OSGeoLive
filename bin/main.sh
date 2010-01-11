@@ -77,6 +77,7 @@ for SCRIPT in \
   ./install_maptiler.sh \
   ./install_marble.sh \
   ./install_gpsdrive.sh \
+  ./install_mb-system.sh \
   ./install_mapfish.sh \
   ./install_R.sh \
   ./install_desktop.sh \
@@ -147,7 +148,8 @@ exit
 # install MB System - software for mapping the Sea Floor
 # This is disabled until it can be built with shared libraries,
 #   using static libraries it takes up 300mb.
-./install_mb-system.sh
+##(temp enabled)
+##./install_mb-system.sh
 
 # Build the iso should be done later
 ./build_iso.sh
