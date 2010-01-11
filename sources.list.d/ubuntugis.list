@@ -4,8 +4,8 @@
 #deb-src http://ppa.launchpad.net/qgis/stable/ubuntu karmic main
 
 #Non LTS 1.x
-#deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu karmic main 
-#deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu karmic main
-deb http://ppa.launchpad.net/ubuntugis/ppa/ubuntu karmic main
-deb-src http://ppa.launchpad.net/ubuntugis/ppa/ubuntu karmic main
+deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu karmic main 
+deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu karmic main
+#deb http://ppa.launchpad.net/ubuntugis/ppa/ubuntu karmic main
+#deb-src http://ppa.launchpad.net/ubuntugis/ppa/ubuntu karmic main
 
