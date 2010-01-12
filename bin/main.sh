@@ -80,6 +80,7 @@ for SCRIPT in \
   ./install_mb-system.sh \
   ./install_mapfish.sh \
   ./install_R.sh \
+  ./install_ossim.sh \
   ./install_desktop.sh \
   ./install_main_docs.sh \
   ./setdown.sh \
