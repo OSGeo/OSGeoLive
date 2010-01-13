@@ -120,12 +120,19 @@ grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | tee ${LOG_DIR}/${DISK_USAGE_LO
 
 echo "==============================================================="
 # to be interesting this should really focus on diff to prior, not absolute value
-echo "Package    |Kilobytes used by filesystem" | tr '|' '\t'
+echo "Package    |Kilobytes used by install script" | tr '|' '\t'
 grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | \
   cut -f2,5 -d, | cut -f2- -d_ | \
-  grep -v '^,\|setup.sh\|setdown.sh' | sed -e 's/\.sh,/    \t/' | sort -nr -u -k2
+  grep -v '^,\|setup.sh\|setdown.sh' | sed -e 's/\.sh,/    \t/' | \
+  awk 'BEGIN { PREV=0; } 
+	{ if(PREV == 0) { PREV = $2; }
+	printf("%s", $1);
+	if($1 == "R" || $1 == "osm") { printf("\t") }
+	print "    \t" $2 - PREV;
+	PREV = $2 }' | sort  -nr -u -k2
 
 echo "==============================================================="
+
 if [ -e /tmp/build_gisvm_error.log ] ; then
    echo
    cat /tmp/build_gisvm_error.log
