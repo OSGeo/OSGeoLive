@@ -129,7 +129,7 @@ grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | \
 	printf("%s", $1);
 	if($1 == "R" || $1 == "osm") { printf("\t") }
 	print "    \t" $2 - PREV;
-	PREV = $2 }' | sort  -nr -u -k2
+	PREV = $2 }' | sort  -nr -k2
 
 echo "==============================================================="
 
