@@ -23,7 +23,7 @@
 # just double-click on Desktop gvSIG Icon file
 
 # install dependencies
-apt-get --assume-yes install libstdc++5 libgdal1-1.5.0 
+apt-get --assume-yes install libstdc++6 libgdal1-1.6.0 
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
