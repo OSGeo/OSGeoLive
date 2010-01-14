@@ -22,6 +22,21 @@
 # Go to Applications -> Accesories -> gvSIG or
 # just double-click on Desktop gvSIG Icon file
 
+
+
+
+
+
+
+echo "ERROR: the gvsig.deb pacakge needs to be updated to work with Ubuntu 9.10. Aborting."
+exit 1
+
+
+
+
+
+
+
 # install dependencies
 apt-get --assume-yes install libstdc++6 libgdal1-1.6.0 
 
