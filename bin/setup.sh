@@ -32,6 +32,16 @@ fi
 apt-get update && apt-get --yes upgrade
 
 
+# Add UbuntuGIS repository
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+     --output-document=/etc/apt/sources.list.d/ubuntugis.list
+#Add signed key for repositorys LTS and non-LTS
+#qgis repo 68436DDF unused? :
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
+apt-get update
+
+
 # Install some useful stuff
 apt-get install --yes wget less zip unzip bzip2 p7zip \
   cvs cvsutils subversion subversion-tools bzr bzrtools git mercurial \
