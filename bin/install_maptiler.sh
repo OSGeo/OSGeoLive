@@ -7,7 +7,7 @@
 # Hack to start with python2.5
 
 TMP=/tmp/maptiler_downloads
-MAPTILERDEB="maptiler_1.0.beta1_all.deb"
+MAPTILERDEB="maptiler_1.0.beta2_all.deb"
 
 #Can't cd to a directory before you make it, may be uneeded now
 mkdir "$TMP"
@@ -24,7 +24,7 @@ apt-get update
 
 
 # Install dependencies
-PACKAGES="python2.5 python-wxgtk2.8 python-gdal"
+PACKAGES="python python-wxgtk2.8 python-gdal"
 
 echo "Installing: $PACKAGES"
 apt-get --assume-yes install $PACKAGES
@@ -40,9 +40,6 @@ if [ `dpkg -l maptiler | grep -c '^ii'` -eq 0 ] ; then
   dpkg -i "${TMP}/${MAPTILERDEB}"
   #rm "$MAPTILERDEB"
 fi
-
-# Hack to start maptiler with python2.5 :-(
-sed -i 's/env python/env python2.5/g' /usr/lib/maptiler/maptiler.py
 
 # Test if installation was correct and create the Desktop icon
 if [ -e /usr/share/applications/maptiler.desktop ] ; then
