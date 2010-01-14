@@ -1,7 +1,7 @@
 Arramagong GISVM
 ================
 
-Version: 3.0 alpha 2
+Version: 3.0 alpha 2 & 3
 ====================
 14 Jan 2010
 Some bug fixes in the build process
