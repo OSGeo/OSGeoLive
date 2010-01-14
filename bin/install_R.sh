@@ -35,6 +35,12 @@ apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev \
    grass-dev libxml2-dev python-shapely tcl8.5-dev tk8.5-dev \
    libgl1-mesa-dev libglu1-mesa-dev python-setuptools
 
+if [ $? -ne 0 ] ; then
+   echo 'ERROR: Package install failed! Aborting.'
+   exit 1
+fi
+
+
 #Required for QGIS plugins
 easy_install -Z rpy2
 

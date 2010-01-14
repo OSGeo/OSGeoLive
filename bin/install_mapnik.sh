@@ -24,6 +24,10 @@
 # will fetch Mapnik 0.5.1 on Ubuntu 9.04
 apt-get install --yes python-mapnik
 
+if [ $? -ne 0 ] ; then
+   echo 'ERROR: Package install failed! Aborting.'
+   exit 1
+fi      
 
 # download, install, and setup demo Mapnik tile-serving application
 TMP="/tmp"

@@ -43,6 +43,12 @@ fi
 
 apt-get --assume-yes install python2.5 python2.5-dev libpq-dev
 
+if [ $? -ne 0 ] ; then
+   echo 'ERROR: Package install failed! Aborting.'
+   exit 1
+fi
+
+
 if [ ! -d $MAPFISH_CONF_DIR ]
 then
     echo "Create $MAPFISH_CONF_DIR directory"

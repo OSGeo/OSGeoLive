@@ -21,6 +21,12 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 apt-get update
 apt-get install ossim-bin ossimplanet
 
+if [ $? -ne 0 ] ; then
+   echo 'ERROR: Package install failed! Aborting.'
+   exit 1
+fi
+
+
 # Additional dependence for Grass / Qgis plug-in :
 #
 apt-get install grass qgis python-pysqlite2 python-pygame python-scipy python-serial python-psycopg2
