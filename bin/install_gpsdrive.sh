@@ -119,10 +119,10 @@ EOF
   apt-get --assume-yes install libmapnik-dev
 
   # explicitly install these so they aren't removed in a later autoclean
-  apt-get --assume-yes install  libgeos-3.0.0 \
-    libboost-wave1.34.1  libboost-test1.34.1 \
-    libboost-serialization1.34.1  libboost-date-time1.34.1 \
-    libboost-signals1.34.1  libboost-graph1.34.1
+  apt-get --assume-yes install  libgeos-3.1.1 \
+    libboost-wave1.38.0  libboost-test1.38.0 \
+    libboost-serialization1.38.0 \
+    libboost-signals1.38.0  libboost-graph1.38.0
 
 
   NEEDED_BUILD_PKG=`dpkg-checkbuilddeps 2>&1 | cut -f3 -d: | \
