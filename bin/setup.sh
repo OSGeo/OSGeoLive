@@ -44,7 +44,7 @@ apt-get update
 
 # Install some useful stuff
 apt-get install --yes wget less zip unzip bzip2 p7zip \
-  cvs cvsutils subversion subversion-tools bzr bzrtools git mercurial \
+  cvs cvsutils subversion subversion-tools bzr bzrtools gnuit mercurial \
   openssh-client lftp sl smbclient usbutils wireless-tools \
   locate diff patch fuseiso menu \
   vim emacs nedit nano screen \
