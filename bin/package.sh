@@ -56,7 +56,7 @@ echo "Start package.sh. Packaging ${VM_DIR}/${VM}"
 date
 
 # Install 7zip
-apt-get install p7zip-full
+apt-get --assume-yes install p7zip-full
 
 echo "Remove non-core VM files, except *.vmx and *.vmdk"
 

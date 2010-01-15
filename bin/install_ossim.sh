@@ -19,7 +19,7 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugi
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 
 apt-get update
-apt-get install ossim-bin ossimplanet
+apt-get install --assume-yes ossim-bin ossimplanet
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -29,7 +29,8 @@ fi
 
 # Additional dependence for Grass / Qgis plug-in :
 #
-apt-get install grass qgis python-pysqlite2 python-pygame python-scipy python-serial python-psycopg2
+apt-get install --assume-yes grass qgis python-pysqlite2 python-pygame python-scipy \
+   python-serial python-psycopg2
 
 
 cat << EOF > /usr/share/applications/imagelinker.desktop

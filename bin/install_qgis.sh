@@ -51,7 +51,7 @@ apt-get --assume-yes install python-psycopg2 \
 
 
 #Make sure old qt uim isn't installed
-apt-get remove uim-qt uim-qt3
+apt-get --assume-yes remove uim-qt uim-qt3
 
 
 #### install desktop icon ####

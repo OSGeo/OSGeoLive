@@ -32,7 +32,7 @@ echo start inchroot.sh, `date`
 
 # update the system and install required packages
 #apt-get update
-apt-get install casper xresprobe 
+apt-get install --assume-yes casper xresprobe 
 #apt-get ubiquity
 depmod -a $(uname -r)
 

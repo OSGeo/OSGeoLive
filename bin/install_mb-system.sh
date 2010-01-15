@@ -122,7 +122,7 @@ install --mode=644 ../LevitusAnnual82.dat /usr/local/mbsystem/share
 
 
 ### cleanup ####
-apt-get remove $BUILD_DEPENDS
+apt-get --assume-yes remove $BUILD_DEPENDS
 cd ..
 #cd; rm -rf /tmp/build_mbsystem
 
