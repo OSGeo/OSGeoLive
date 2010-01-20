@@ -63,6 +63,9 @@ if [ -n "$TO_INSTALL" ] ; then
 fi
 
 
+# add GMT apps to the PATH
+echo 'PATH="$PATH:/usr/lib/gmt/bin"' >> "$USER_HOME/.bashrc"
+
 
 mkdir -p /tmp/build_mbsystem
 cd /tmp/build_mbsystem
