@@ -1,18 +1,19 @@
---- install_makefiles.ORIG	2010-01-01 20:16:22.000000000 +1300
-+++ install_makefiles	2010-01-01 20:50:26.000000000 +1300
+--- install_makefiles.ORIG	2010-01-20 21:02:01.000000000 +1300
++++ install_makefiles	2010-01-20 21:03:31.000000000 +1300
 @@ -103,26 +103,25 @@
  #
  # Required parameters:
  $MBSYSTEM_HOME = "/usr/local/mbsystem";
 -$OS = "DARWIN";
-+$OS = "LINUX";
- $CFLAGS = "-Wall -g -I/usr/X11R6/include";
+-$CFLAGS = "-Wall -g -I/usr/X11R6/include";
 -$LFLAGS = "-Wall -lm -bind_at_load -Wl,-dylib_file,/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/LibGL.dylib";
 -$NETCDFLIBDIR = "/sw/lib";
 -$NETCDFINCDIR = "/sw/include";
 -$GMTLIBDIR = "/usr/local/gmt/lib";
 -$GMTINCDIR = "/usr/local/gmt/include";
 -$LEVITUS = "$MBSYSTEM_HOME/share/LevitusAnnual82.dat";
++$OS = "LINUX";
++$CFLAGS = "-g -I/usr/X11R6/include";
 +$LFLAGS = "-Wl -lm";
 +$NETCDFLIBDIR = "/usr/lib";
 +$NETCDFINCDIR = "/usr/include";
