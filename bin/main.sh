@@ -60,6 +60,7 @@ for SCRIPT in \
   ./install_java.sh \
   ./install_geoserver.sh \
   ./install_gvsig.sh \
+  ./install_geomajas \
   ./install_geonetwork.sh \
   ./install_deegree.sh \
   ./install_udig.sh \
@@ -76,6 +77,7 @@ for SCRIPT in \
   ./install_kosmo.sh \
   ./install_maptiler.sh \
   ./install_marble.sh \
+  ./install_opencpn \
   ./install_gpsdrive.sh \
   ./install_mb-system.sh \
   ./install_mapfish.sh \
