@@ -71,6 +71,7 @@ for SCRIPT in \
   ./install_osm.sh \
   ./install_mapserver.sh \
   ./install_geokettle.sh \
+  ./install_gmt.sh \
   ./install_grass.sh \
   ./install_qgis.sh \
   ./install_mapnik.sh \
