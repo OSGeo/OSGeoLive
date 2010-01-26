@@ -85,6 +85,7 @@ for SCRIPT in \
   ./install_ossim.sh \
   ./install_desktop.sh \
   ./install_main_docs.sh \
+  ./install_geopublishing.sh \
   ./setdown.sh \
 ; do
   echo "===================================================================="
