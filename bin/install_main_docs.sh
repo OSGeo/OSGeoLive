@@ -35,6 +35,8 @@ mkdir -p $DEST/doc
 FILES="banner.png arramagong.css"
 
 for ITEM in $FILES ; do
+#TODO: change wget to cp commands from local checkout required for build, keep it at one doc per line as missing files tell us which docs are missing
+   #cp "/doc/$ITEM" "$DEST/$ITEM"
    wget -nv "$OSGEO_SVN/doc/$ITEM"  --output-document "$DEST/$ITEM"
 done
 # index page start
@@ -46,11 +48,14 @@ wget -nv -O - "$OSGEO_SVN/doc/index_pre.html" \
 APPS="deegree geokettle geonetwork geoserver gpsdrive grass gvsig kosmo mapfish mapnik mapserver maptiler openlayers pgrouting postgis qgis R udig ossim"
 
 for ITEM in $APPS ; do
+#TODO: change wget to cp commands from local checkout required for build, keep it at one doc per line as missing files tell us which docs are missing
+   #not sure, is this an append
    wget -nv -O - "$OSGEO_SVN/doc/descriptions/${ITEM}_definition.html" \
        >> "$DEST/index.html"
-
+   #cp "/doc/descriptions/${ITEM}_definition.html" "$DEST/doc/${ITEM}_description.html"   
    wget -nv "$OSGEO_SVN/doc/descriptions/${ITEM}_description.html" \
         --output-document "$DEST/doc/${ITEM}_description.html"
+
 done
 
 # index page end

@@ -14,18 +14,32 @@
 
 # About:
 # =====
-# This script will install postgres 8.3, postgis and pgadmin3
+# This script will install postgres 8.4, postgis 1.4 and pgadmin3
 
 # Running:
 # =======
-# sudo /etc/init.d/postgresql-8.3 start
+# sudo /etc/init.d/postgresql-8.4 start
 
 USER_NAME="user"
 TMP_DIR="/tmp/build_postgis"
 BIN_DIR=`pwd`
+#Not to be confused with PGIS_Version, this has one less number and period to correspond to install paths
+$PG_VERSION="1.4"
 
-# Install postgis 1.3
-apt-get install --yes postgresql-8.3-postgis postgis pgadmin3
+# postgis 1.4 is in the UbuntuGIS repository
+#Add repositories
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+     --output-document=/etc/apt/sources.list.d/ubuntugis.list
+
+#Add signed key for repositorys LTS and non-LTS
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
+
+apt-get update
+
+
+# Install postgis 1.4, starting with ubuntu karmic 9.10, 
+apt-get install --yes postgresql-8.4-postgis postgis pgadmin3
 
 
 if [ $? -ne 0 ] ; then
@@ -37,7 +51,8 @@ fi
 ###########################
 ## add PostGIS 1.4, for those apps that want it
 #### (which apps are those?)
-##  TODO: use repo version when it becomes available  (Ubuntu 9.10 or 10.04 ?)
+##  Now Uses repo version when it becomes available  (Ubuntu 9.10 or 10.04 ?)
+# TODO: remove or archive the manual installation method now that a package is available, may come in handy for future releases
 INSTALL_POSTGIS_1_4=false
 
 if [ "$INSTALL_POSTGIS_1_4" = "true" ] ; then
@@ -102,18 +117,19 @@ sudo -u $USER_NAME psql -1 -d postgres -c "UPDATE pg_database SET datistemplate=
 
 
 
-pgis_file="/usr/share/postgresql-8.3-postgis/lwpostgis.sql"
+#pgis_file="/usr/share/postgresql-8.3-postgis/lwpostgis.sql"
+pgis_file="/usr/share/postgresql-$PG_VERSION-postgis/postgis.sql"
 
 if [ "$INSTALL_POSTGIS_1_4" = "true" ] ; then
-   if [ -e /usr/share/postgresql/8.3/contrib/postgis.sql ] ; then
-      pgis_file="/usr/share/postgresql/8.3/contrib/postgis.sql"
+   if [ -e /usr/share/postgresql/8.4/contrib/postgis.sql ] ; then
+      pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis.sql"
    fi
 fi
 
 #Should we make a 1.3 and 1.4 template?
 sudo -u $USER_NAME psql -d template_postgis -f "$pgis_file"
 sudo -u $USER_NAME psql -d template_postgis \
-   -f /usr/share/postgresql-8.3-postgis/spatial_ref_sys.sql 
+   -f /usr/share/postgresql-$PG_VERSION-postgis/spatial_ref_sys.sql 
 
 
 #include pgadmin3 profile for connection

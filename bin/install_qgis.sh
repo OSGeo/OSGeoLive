@@ -36,7 +36,7 @@ apt-get update
 #Install packages
 apt-get --assume-yes install qgis \
    qgis-common qgis-plugin-grass python-qgis python-qgis-common \
-   qgis-plugin-grass-common libgdal1-1.6.0-grass gpsbabel grass-doc
+   qgis-plugin-grass-common libgdal-grass gpsbabel grass-doc
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -95,8 +95,8 @@ fi
 mkdir /usr/local/share/qgis
 wget -c --progress=dot:mega http://download.osgeo.org/qgis/doc/manual/qgis-1.0.0_a-gentle-gis-introduction_en.pdf \
 	--output-document=/usr/local/share/qgis/qgis-1.0.0_a-gentle-gis-introduction_en.pdf
-wget -c --progress=dot:mega http://download.osgeo.org/qgis/doc/manual/qgis-1.1.0_user_guide_en.pdf \
-	--output-document=/usr/local/share/qgis/qgis-1.1.0_user_guide_en.pdf
+wget -c --progress=dot:mega http://download.osgeo.org/qgis/doc/manual/qgis-1.3.0_user_guide_en.pdf \
+	--output-document=/usr/local/share/qgis/qgis-1.3.0_user_guide_en.pdf
 
 chmod 644 /usr/local/share/qgis/*.pdf
 
