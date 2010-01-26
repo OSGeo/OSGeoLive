@@ -26,7 +26,11 @@ BIN_DIR=`pwd`
 #Not to be confused with PGIS_Version, this has one less number and period to correspond to install paths
 $PG_VERSION="1.4"
 
+
+##  Use UbuntuGIS ppa.launchpad repo version, change to main one once it becomes
+#    available there (Ubuntu 10.04/Lucid)
 # postgis 1.4 is in the UbuntuGIS repository
+
 #Add repositories
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
@@ -38,7 +42,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 apt-get update
 
 
-# Install postgis 1.4, starting with ubuntu karmic 9.10, 
+# how about libpostgis-java ?
 apt-get install --yes postgresql-8.4-postgis postgis pgadmin3
 
 
@@ -46,54 +50,6 @@ if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
-
-
-###########################
-## add PostGIS 1.4, for those apps that want it
-#### (which apps are those?)
-##  Now Uses repo version when it becomes available  (Ubuntu 9.10 or 10.04 ?)
-# TODO: remove or archive the manual installation method now that a package is available, may come in handy for future releases
-INSTALL_POSTGIS_1_4=false
-
-if [ "$INSTALL_POSTGIS_1_4" = "true" ] ; then
-
-   apt-get install --yes postgresql-server-dev-8.3 libgeos-dev
-
-   mkdir "$TMP_DIR"
-   cd "$TMP_DIR"
-   PGIS_VERSION=1.4.0
-
-   if [ ! -e "postgis-$PGIS_VERSION.tar.gz" ] ; then
-      wget --progress=dot:mega "http://postgis.refractions.net/download/postgis-$PGIS_VERSION.tar.gz"
-   else
-      echo "... postgis-$PGIS_VERSION.tar.gz already downloaded"
-   fi
-
-   tar xzf "postgis-$PGIS_VERSION.tar.gz"
-   cd "postgis-$PGIS_VERSION"
-   
-   ./configure && make && make install
-   if [ $? -ne 0 ] ; then
-      echo "ERROR: building PostGIS 1.4"
-   else
-      # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
-      if [ -d /etc/ld.so.conf.d ] ; then
-         echo "/usr/local/lib" > /etc/ld.so.conf.d/usr_local.conf
-      else
-         if [ `grep -c '/usr/local/lib' /etc/ld.so.conf` -eq 0 ] ; then
-            echo "/usr/local/lib" >> /etc/ld.so.conf
-         fi
-      fi
-      ldconfig
-   fi
-
-   #cleanup
-   apt-get remove --yes postgresql-server-dev-8.3 libgeos-dev
-
-   cd "$TMP_DIR"
-fi
-#done
-###########################
 
 
 
@@ -120,13 +76,12 @@ sudo -u $USER_NAME psql -1 -d postgres -c "UPDATE pg_database SET datistemplate=
 #pgis_file="/usr/share/postgresql-8.3-postgis/lwpostgis.sql"
 pgis_file="/usr/share/postgresql-$PG_VERSION-postgis/postgis.sql"
 
-if [ "$INSTALL_POSTGIS_1_4" = "true" ] ; then
-   if [ -e /usr/share/postgresql/8.4/contrib/postgis.sql ] ; then
-      pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis.sql"
-   fi
-fi
+# or is it this one:   ???
+#if [ -e /usr/share/postgresql/8.4/contrib/postgis.sql ] ; then
+#   pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis.sql"
+#fi
 
-#Should we make a 1.3 and 1.4 template?
+
 sudo -u $USER_NAME psql -d template_postgis -f "$pgis_file"
 sudo -u $USER_NAME psql -d template_postgis \
    -f /usr/share/postgresql-$PG_VERSION-postgis/spatial_ref_sys.sql 

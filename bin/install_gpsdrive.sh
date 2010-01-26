@@ -41,7 +41,8 @@ else
 fi
 
 # add some useful Recommends
-PACKAGES="$PACKAGES espeak gdal-bin gpsbabel graphicsmagick-imagemagick-compat postgresql-8.3-postgis python-mapnik speech-dispatcher"
+PACKAGES="$PACKAGES espeak gdal-bin gpsbabel graphicsmagick-imagemagick-compat \
+   postgresql-8.4-postgis python-mapnik speech-dispatcher"
 
 apt-get --assume-yes install  $PACKAGES
 
