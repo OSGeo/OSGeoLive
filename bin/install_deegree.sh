@@ -95,6 +95,13 @@ getWithMd5()
     fi
 }
 
+## TODO: improve. This function does not test on correct md5 sums. 
+getFromOsgeo()
+{
+    rm -f $1
+    ## wget -c --progress=dot:mega http://download.deegree.org/LiveDVD/FOSS4G2009/$1
+    wget -c --progress=dot:mega http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/deegree/$1
+}
 
 ### Install Application ###
 
@@ -108,12 +115,16 @@ chmod -R go+r $INSTALL_FOLDER/deegree-2.2_tomcat-6.0.20
 ### Configure Application ###
 
 ## Download startup script for deegree
-getWithMd5 deegree_start.sh
+## according to issue 478, the deegree_start.sh script was moved to OSGeo-SVN
+#getWithMd5 deegree_start.sh
+getFromOsgeo deegree_start.sh
 ## copy it into the /usr/bin folder
 cp deegree_start.sh $BIN
 
 ## Download shutdown script for deegree
-getWithMd5 deegree_stop.sh
+## according to issue 481, the deegree_stop.sh script was moved to OSGeo-SVN
+#getWithMd5 deegree_stop.sh
+getFromOsgeo deegree_stop.sh
 ## copy it into the /usr/bin folder
 cp deegree_stop.sh $BIN
 
@@ -123,7 +134,8 @@ chmod 755 $BIN/deegree_st*.sh
 
 ### install desktop icons ##
 if [ ! -e "/usr/share/icons/deegree_desktop_48x48.png" ] ; then
-   wget -nv "http://download.deegree.org/LiveDVD/FOSS4G2009/deegree_desktop_48x48.png"
+   #wget -nv "http://download.deegree.org/LiveDVD/FOSS4G2009/deegree_desktop_48x48.png"
+   wget -nv "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/deegree/deegree_desktop_48x48.png"
    mv deegree_desktop_48x48.png /usr/share/icons/
 fi
 
