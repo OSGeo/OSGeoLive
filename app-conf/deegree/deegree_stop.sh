@@ -4,8 +4,8 @@
 ## deegree stop script
 ## for OSGeo LiveDVD
 ##
-## Date:    $Date: $
-## Revision:$Revision: $
+## Date:    $Date$
+## Revision:$Revision$
 #########################
 
 ## stop tomcat (and deegree webapps):

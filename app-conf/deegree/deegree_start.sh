@@ -4,8 +4,8 @@
 ## deegree start script
 ## for OSGeo LiveDVD
 ##
-## Date:    $Date: $
-## Revision:$Revision: $
+## Date:    $Date$
+## Revision:$Revision$
 ##
 #########################
 
