@@ -23,6 +23,14 @@
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
+TMP_DIR=/tmp/build_qgis
+
+if [ -d "$TMP_DIR" ] ; then
+   mkdir "$TMP_DIR"
+fi
+cd "$TMP_DIR"
+
+
 #Add repositories
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
