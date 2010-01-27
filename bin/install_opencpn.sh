@@ -36,7 +36,7 @@ USER_HOME="/home/$USER_NAME"
 
 TMP_DIR=/tmp/build_opencpn
 
-if [ -d "$TMP_DIR" ] ; then
+if [ ! -d "$TMP_DIR" ] ; then
    mkdir "$TMP_DIR"
 fi
 cd "$TMP_DIR"
