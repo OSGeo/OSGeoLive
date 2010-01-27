@@ -76,6 +76,7 @@ chmod 755 "$GEOMAJAS_HOME/bin/startup.sh"
 chmod 755 "$GEOMAJAS_HOME/bin/shutdown.sh"
 chmod 755 "$GEOMAJAS_HOME/bin/start_geomajas.sh"
 chmod 755 "$GEOMAJAS_HOME/bin/stop_geomajas.sh"
+chmod -R 777 "$GEOMAJAS_HOME/logs"
 
 
 ##### Step4: link from bin directory
