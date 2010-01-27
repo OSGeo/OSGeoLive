@@ -83,7 +83,7 @@ CHARTS="
 
 
 
-TMP_DIR=/tmp/opencpn
+TMP_DIR=/tmp/build_opencpn
 
 if [ -d "$TMP_DIR" ] ; then
    mkdir "$TMP_DIR"
