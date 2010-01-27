@@ -36,6 +36,9 @@ USER_HOME="/home/$USER_NAME"
 
 TMP_DIR=/tmp/opencpn
 
+if [ -d "$TMP_DIR" ] ; then
+   mkdir "$TMP_DIR"
+fi
 cd "$TMP_DIR"
 
 wget -c --progress=dot:mega \
@@ -54,7 +57,6 @@ DEPS="libgl1-mesa-glx libglu1-mesa \
 
 apt-get --assume-yes install $DEPS
 
-
 dpkg -i "opencpn_1.3.6_i386.deb"
 
 if [ $? -ne 0 ] ; then
@@ -63,7 +65,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 
-#### download sample data from NOAA
+#### download sample data
 # RNC raster (BSB format)
 # ENC vector (S-57 format)
 #
@@ -71,7 +73,7 @@ fi
 #  safety-critical data for the purposes of "DRM" is fundamentally stupid.
 #  They should rely on well-established cryptographically signed methods
 #  to ensure that the data has not been corrupted or tampered with instead.
-#  So we use USA's NOAA data for our examples instead of Sydney Harbour.)
+#  So we use NOAA data from the USA for our examples instead of Sydney Harbour.)
 
 # send users to these websites as part of the min-tutorial:
 # http://www.nauticalcharts.noaa.gov/mcd/Raster/download_agreement.htm
@@ -83,6 +85,10 @@ DATADIR="/usr/local/share/opencpn"
 mkdir -p "$DATADIR/charts/BSB_ROOT"
 mkdir -p "$DATADIR/charts/ENC_ROOT"
 
+adduser "$USER_NAME" users
+chown -R root.users "$DATADIR"
+chmod -R g+rw "$DATADIR"
+
 
 ## "Copying of the NOAA RNCs® to any other server or location for further
 ##  distribution is discouraged unless the following guidelines are followed:
@@ -90,76 +96,10 @@ mkdir -p "$DATADIR/charts/ENC_ROOT"
 ##  NOAA RNCs®, and 2) a reference to this Web site is included so that anyone
 ##  accessing the NOAA RNCs® is advised of their origin."
 
-# [ temp enable for testing:
-#   move to user-init'd run-time script "opencpn_fetch_charts.sh" ]
-ACCEPTED_TERMS=true
+###  data install moved to user-init'd run-time script "opencpn_fetch_charts.sh"
 
-if [ "$ACCEPTED_TERMS" = "true" ] ; then
-
-   ### Raster BSB charts ###
-   # New York Harbor:
-   CHARTS="
-    12300
-    12326
-    12327
-    12334
-    12335
-    12358
-    12401
-    12402
-    13006"
-
-    for CHART in $CHARTS ; do
-      wget -c --progress=dot:mega "http://www.charts.noaa.gov/RNCs/$CHART.zip"
-      wget -c -nv "http://www.charts.noaa.gov/RNCs/${CHART}_RNCProdCat.xml"
-    done
-
-    cd "$DATADIR/charts"
-
-    for CHART in $CHARTS ; do
-       unzip "$TMP_DIR/$CHART.zip"
-       cp "$TMP_DIR/${CHART}_RNCProdCat.xml" BSB_ROOT/
-    done
-
-
-   cd "$TMP_DIR"
-
-   ### Vector S-57 charts ###
-   # New York Harbor and Long Island Sound:
-   CHARTS="
-    US2EC03M
-    US3NY01M
-    US4NY13M
-    US4NY1AM
-    US4NY1GM
-    US5CN10M
-    US5CN11M
-    US5CN12M
-    US5NY12M
-    US5NY14M
-    US5NY15M
-    US5NY16M
-    US5NY18M
-    US5NY19M
-    US5NY1BM
-    US5NY1CM
-    US5NY1DM
-    US5NY50M"
-
-    for CHART in $CHARTS ; do
-      wget -c --progress=dot:mega "http://www.charts.noaa.gov/ENCs/$CHART.zip"
-      wget -c -nv "http://www.charts.noaa.gov/ENCs/${CHART}_ENCProdCat.xml"
-    done
-
-    cd "$DATADIR/charts"
-
-    for CHART in $CHARTS ; do
-       unzip -u -o "$TMP_DIR/$CHART.zip"
-       cp "$TMP_DIR/${CHART}_ENCProdCat.xml" ENC_ROOT/
-    done
-
-    cd "$TMP_DIR"
-fi
+# for data install license agreement question in the user-run data fetch script:
+apt-get --assume-yes install gxmessage
 
 
 #### pre-set config file with data paths and initial position
