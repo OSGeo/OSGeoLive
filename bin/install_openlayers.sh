@@ -22,16 +22,15 @@
 # Then open a web browser and go to http://localhost/OpenLayers/
 
 TMP_DIR="/tmp/"
-OL_Version="2.8"
+OL_VERSION="2.8"
 
-
+cd "$TMP_DIR"
 if [ ! -e "OpenLayers-$OL_VERSION.tar.gz" ] ; then
       wget --progress=dot:mega "http://openlayers.org/download/OpenLayers-$OL_VERSION.tar.gz"
    else
       echo "... OpenLayers-$OL_VERSION.tar.gz already downloaded"
    fi
 
-cd "$TMP_DIR"
 tar xzf "OpenLayers-$OL_VERSION.tar.gz"
 
 cp -R OpenLayers-$OL_VERSION/ /var/www/OpenLayers
@@ -40,4 +39,4 @@ chmod -R uga+r /var/www/OpenLayers
 #TODO: Launch script and icon for OpenLayers to take you to a documentation page and examples listing
 #TODO: Create local example that uses data from the many wms/wfs sources on the live disc
 
-echo "Finished installing GRASS $OL_VERSION."
+echo "Finished installing OpenLayers $OL_VERSION."
