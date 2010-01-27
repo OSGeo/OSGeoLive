@@ -21,7 +21,7 @@
 # rm -rf /usr/local/lib/python2.6/dist-packages/tilelite*
 # rm /usr/local/bin/liteserv.py
 
-# will fetch Mapnik 0.5.1 on Ubuntu 9.04
+# will fetch Mapnik 0.6.1 on Ubuntu 9.10
 apt-get install --yes python-mapnik
 
 if [ $? -ne 0 ] ; then
@@ -66,14 +66,6 @@ cp -R demo $MAPNIK_DATA
 
 # now get rid of temporary unzipped sources
 rm -fr $TMP/tilelite
-
-# Make the mapfile's path to the shapefile absolute
-# because relative paths are not well supported until Mapnik 0.6.1
-cd $MAPNIK_DATA
-# ubuntu
-sed -e "s:demo:`pwd`/demo:" -i demo/population.xml
-# mac osx
-#sed -e "s:demo:`pwd`/demo:" -i -f demo/population.xml
 
 # Create startup script for TileLite Mapnik Server
 cat << EOF > $BIN/mapnik_start_tilelite.sh
