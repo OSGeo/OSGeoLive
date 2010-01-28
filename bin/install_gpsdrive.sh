@@ -217,7 +217,10 @@ EOF
 
   # cleanup
    # from kludge to make sure these made it in there
-  apt-get --assume-yes remove libboost-dev libmapnik-dev libboost-filesystem-dev libboost-serialization-dev
+  apt-get --assume-yes remove libboost-dev libmapnik-dev \
+     libboost-filesystem-dev libboost-serialization-dev \
+     pbuilder-satisfydepends-dummy
+
    # from auto-detect
   if [ -n "$NEEDED_BUILD_PKG" ] ; then
      apt-get --assume-yes remove $NEEDED_BUILD_PKG
