@@ -1,4 +1,5 @@
 #!/bin/sh
+
 #################################################
 # 
 # Purpose: Compress and package the Arramagong / GISVM images
@@ -94,7 +95,8 @@ echo "Add the following lines to"
 echo "  https://username@svn.osgeo.org/osgeo/livedvd/gisvm/trunk/download/index.html"
 echo 
 
-echo "<h3>Arramagong GISVM and LiveDVD - ${VERSION}</h3>"
+echo "<a name='${VERSION}'></a>"
+echo "<h3>Arramagong LiveDVD - ${VERSION}</h3>"
 echo `date "+%d %B %Y"`
 echo "<ul>"
 for FILE in ${PACKAGE_NAME}-${VERSION}.7z* ; do
