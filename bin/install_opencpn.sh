@@ -35,6 +35,7 @@ USER_HOME="/home/$USER_NAME"
 
 
 TMP_DIR=/tmp/build_opencpn
+WD=`pwd`
 
 if [ ! -d "$TMP_DIR" ] ; then
    mkdir "$TMP_DIR"
@@ -172,6 +173,7 @@ echo "Chart download complete."
 ###  data acceptance in user-init'd run-time script "opencpn_noaa_agreement.sh"
 # for data install license agreement question in the user-run data fetch script:
 chmod a-r "$DATADIR/charts"
+cd "$WD"
 cp ../app-data/opencpn/noaa_agreement.txt "$DATADIR/"
 cp ../app-data/opencpn/opencpn_noaa_agreement.sh /usr/local/bin/
 apt-get --assume-yes install gxmessage
