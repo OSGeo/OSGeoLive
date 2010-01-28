@@ -198,6 +198,8 @@ OwnShipLatLon="   40.58,   -71.02"
 nBoundaryStyle=79
 EOF
 
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/.opencpn/"
+
 
 #### install icon on desktop/menus
 wget -nv -c "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/opencpn.png"
