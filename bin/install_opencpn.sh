@@ -75,20 +75,22 @@ fi
 #  to ensure that the data has not been corrupted or tampered with instead.
 #  So we use NOAA data from the USA for our examples instead of Sydney Harbour.)
 
-# send users to these websites as part of the min-tutorial:
-# http://www.nauticalcharts.noaa.gov/mcd/Raster/download_agreement.htm
-# http://www.nauticalcharts.noaa.gov/mcd/enc/download_agreement.htm
-# find the chart numbers you want then,
-#   http://www.charts.noaa.gov/RNCs/
-
 DATADIR="/usr/local/share/opencpn"
 mkdir -p "$DATADIR/charts/BSB_ROOT"
 mkdir -p "$DATADIR/charts/ENC_ROOT"
+
+mkdir "$DATADIR/gpx"   # GPX tracks, etc
+mkdir "$DATADIR/grib"  # GRIB weather data downloads:
 
 adduser "$USER_NAME" users
 chown -R root.users "$DATADIR"
 chmod -R g+rw "$DATADIR"
 
+# send users to these websites as part of the min-tutorial:
+# http://www.nauticalcharts.noaa.gov/mcd/Raster/download_agreement.htm
+# http://www.nauticalcharts.noaa.gov/mcd/enc/download_agreement.htm
+# find the chart numbers you want then,
+#   http://www.charts.noaa.gov/RNCs/
 
 ## "Copying of the NOAA RNCs® to any other server or location for further
 ##  distribution is discouraged unless the following guidelines are followed:
@@ -96,18 +98,87 @@ chmod -R g+rw "$DATADIR"
 ##  NOAA RNCs®, and 2) a reference to this Web site is included so that anyone
 ##  accessing the NOAA RNCs® is advised of their origin."
 
-###  data install moved to user-init'd run-time script "opencpn_fetch_charts.sh"
 
+### Raster BSB charts ###
+# New York Harbor:
+RNC_CHARTS="
+ 12300
+ 12326
+ 12327
+ 12334
+ 12335
+ 12358
+ 12401
+ 12402
+ 13006"
+
+### Raster BSB charts ###
+cd "$TMP_DIR"
+
+for CHART in $RNC_CHARTS ; do
+  wget -c --progress=dot:mega "http://www.charts.noaa.gov/RNCs/$CHART.zip"
+  wget -c -nv "http://www.charts.noaa.gov/RNCs/${CHART}_RNCProdCat.xml"
+done
+
+cd "$DATADIR/charts"
+
+for CHART in $RNC_CHARTS ; do
+   unzip "$TMP_DIR/$CHART.zip"
+   cp "$TMP_DIR/${CHART}_RNCProdCat.xml" BSB_ROOT/
+done
+
+
+### Vector S-57 charts ###
+# New York Harbor and Long Island Sound:
+ENC_CHARTS="
+ US2EC03M
+ US3NY01M
+ US4NY13M
+ US4NY1AM
+ US4NY1GM
+ US5CN10M
+ US5CN11M
+ US5CN12M
+ US5NY12M
+ US5NY14M
+ US5NY15M
+ US5NY16M
+ US5NY18M
+ US5NY19M
+ US5NY1BM
+ US5NY1CM
+ US5NY1DM
+ US5NY50M"
+
+
+cd "$TMP_DIR"
+
+for CHART in $ENC_CHARTS ; do
+  wget -c --progress=dot:mega "http://www.charts.noaa.gov/ENCs/$CHART.zip"
+  wget -c -nv "http://www.charts.noaa.gov/ENCs/${CHART}_ENCProdCat.xml"
+done
+
+cd "$DATADIR/charts"
+
+for CHART in $ENC_CHARTS ; do
+   unzip -u -o "$TMP_DIR/$CHART.zip"
+   cp "$TMP_DIR/${CHART}_ENCProdCat.xml" ENC_ROOT/
+done
+
+
+echo "Chart download complete."
+
+
+###  data acceptance in user-init'd run-time script "opencpn_noaa_agreement.sh"
 # for data install license agreement question in the user-run data fetch script:
+chmod a-r "$DATADIR/charts"
+cp ../app-data/opencpn/noaa_agreement.txt "$DATADIR/"
+cp ../app-data/opencpn/opencpn_noaa_agreement.sh /usr/local/bin/
 apt-get --assume-yes install gxmessage
 
 
+
 #### pre-set config file with data paths and initial position
-# GPX tracks, etc:
-mkdir "$DATADIR/gpx"
-# GRIB weather data downloads:
-mkdir "$DATADIR/grib"
-# seed config file:
 mkdir "$USER_HOME/.opencpn"
 
 cat << EOF > "$USER_HOME/.opencpn/opencpn.conf"
@@ -124,7 +195,6 @@ VPScale=0.00135726
 OwnShipLatLon="   40.58,   -71.02"
 nBoundaryStyle=79
 EOF
-#S57DataLocation=/usr/src/cvs/opencpn/data/s57data
 
 
 #### install icon on desktop/menus
