@@ -61,7 +61,7 @@ RNC_CHARTS="
 
 ### Vector S-57 charts ###
 # New York Harbor and Long Island Sound:
-CHARTS="
+ENC_CHARTS="
  US2EC03M
  US3NY01M
  US4NY13M
