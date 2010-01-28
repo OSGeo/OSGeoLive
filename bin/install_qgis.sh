@@ -44,7 +44,7 @@ apt-get update
 #Install packages
 apt-get --assume-yes install qgis \
    qgis-common qgis-plugin-grass python-qgis python-qgis-common \
-   qgis-plugin-grass-common libgdal-grass gpsbabel grass-doc
+   qgis-plugin-grass-common libgdal1-1.6.0-grass gpsbabel grass-doc
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -54,8 +54,8 @@ fi
 
 #Install optional packages that some plugins use
 apt-get --assume-yes install python-psycopg2 \
-   python-gdal python-matplotlib python-qt4-sql libqt4-sql-psql
-# python-qwt5-qt4 not installable (wants python==2.5 but 2.6 is installed)
+   python-gdal python-matplotlib python-qt4-sql \
+   libqt4-sql-psql python-qwt5-qt4
 
 
 #Make sure old qt uim isn't installed
