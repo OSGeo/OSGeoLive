@@ -121,9 +121,7 @@ EOF
 
   # explicitly install these so they aren't removed in a later autoclean
   apt-get --assume-yes install  libgeos-3.1.1 \
-    libboost-wave1.38.0  libboost-test1.38.0 \
-    libboost-serialization1.38.0 \
-    libboost-signals1.38.0  libboost-graph1.38.0
+    libboost-serialization1.38.0 libboost-date-time1.38.0
 
 
   NEEDED_BUILD_PKG=`dpkg-checkbuilddeps 2>&1 | cut -f3 -d: | \

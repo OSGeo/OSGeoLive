@@ -46,7 +46,7 @@
 -	libltdl3 | libltdl7,
 -	libmapnik (>> 0.5.0-1) | libmapnik0.5,
 +	libltdl7 | libltdl3,
-+	libmapnik0.5,
++	libmapnik0.6,
  	libsqlite3-0,
  	mapnik-plugins,
  	mapnik-utils,
