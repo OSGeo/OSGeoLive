@@ -78,6 +78,7 @@ for SCRIPT in \
   ./install_kosmo.sh \
   ./install_maptiler.sh \
   ./install_marble.sh \
+  ./install_octave.sh \
   ./install_opencpn \
   ./install_gpsdrive.sh \
   ./install_mb-system.sh \
