@@ -24,7 +24,7 @@ USER_NAME="user"
 TMP_DIR="/tmp/build_postgis"
 BIN_DIR=`pwd`
 #Not to be confused with PGIS_Version, this has one less number and period to correspond to install paths
-$PG_VERSION="1.4"
+PG_VERSION="8.4"
 
 
 ##  Use UbuntuGIS ppa.launchpad repo version, change to main one once it becomes
@@ -43,7 +43,7 @@ apt-get update
 
 
 # how about libpostgis-java ?
-apt-get install --yes postgresql-8.4-postgis postgis pgadmin3
+apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis pgadmin3
 
 
 if [ $? -ne 0 ] ; then
@@ -74,7 +74,7 @@ sudo -u $USER_NAME psql -1 -d postgres -c "UPDATE pg_database SET datistemplate=
 
 
 #pgis_file="/usr/share/postgresql-8.3-postgis/lwpostgis.sql"
-pgis_file="/usr/share/postgresql-$PG_VERSION-postgis/postgis.sql"
+pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis.sql"
 
 # or is it this one:   ???
 #if [ -e /usr/share/postgresql/8.4/contrib/postgis.sql ] ; then
@@ -84,7 +84,7 @@ pgis_file="/usr/share/postgresql-$PG_VERSION-postgis/postgis.sql"
 
 sudo -u $USER_NAME psql -d template_postgis -f "$pgis_file"
 sudo -u $USER_NAME psql -d template_postgis \
-   -f /usr/share/postgresql-$PG_VERSION-postgis/spatial_ref_sys.sql 
+   -f /usr/share/postgresql/$PG_VERSION/contrib/spatial_ref_sys.sql 
 
 
 #include pgadmin3 profile for connection

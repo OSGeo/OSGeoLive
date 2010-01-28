@@ -28,14 +28,16 @@
 # =======
 # sudo ./install_pgrouting.sh
 
-TMP="/tmp/pgrouting_downloads"
+TMP="/tmp/build_pgrouting"
 INSTALL_FOLDER="$TMP/pgrouting"
-POSTGIS_FOLDER="/usr/share/postgresql-8.3-postgis"
+POSTGIS_VERSION="8.4"
+POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/"
 POSTLBS_FOLDER="/usr/share/postlbs"
 BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 LOGS="/var/log/pgrouting.log"
+BOOST="1.38"
 ## Setup things... ##
 
 # check required tools are installed
@@ -55,25 +57,25 @@ cd "$TMP"
 
 # install libraries
 apt-get install --yes \
-   postgresql-server-dev-8.3 \
+   postgresql-server-dev-8.4 \
    build-essential \
    cmake \
-   libboost1.35-dev \
-   libboost-graph1.35-dev \
+   "libboost$BOOST-dev" \
+   "libboost-graph$BOOST-dev" \
    libcgal*
 
 echo "FIXME: remove -dev packages once you are done with them. libboost-dev is hundreds of MB."
 # Explicitly set which ones you want to keep for runtime 
 #    otherwise there is a good chance they will be auto-cleaned:
 # (prior apt-get installs these, this one is just to remove the auto-tag)
-apt-get install --yes libcgal2 libqt3-mt \
-   libboost-date-time1.35.0 libboost-filesystem1.35.0 \
-   libboost-graph1.35.0 libboost-iostreams1.35.0 \
-   libboost-program-options1.35.0 libboost-python1.35.0 \
-   libboost-regex1.35.0 libboost-serialization1.35.0 \
-   libboost-signals1.35.0 libboost-system1.35.0 \
-   libboost-test1.35.0 libboost-thread1.35.0 \
-   libboost-wave1.35.0 libgmpxx4ldbl
+apt-get install --yes libcgal3 libqt3-mt \
+   libboost-date-time1.38.0 libboost-filesystem1.38.0 \
+   libboost-graph1.38.0 libboost-iostreams1.38.0 \
+   libboost-program-options1.38.0 libboost-python1.38.0 \
+   libboost-regex1.38.0 libboost-serialization1.38.0 \
+   libboost-signals1.38.0 libboost-system1.38.0 \
+   libboost-test1.38.0 libboost-thread1.38.0 \
+   libboost-wave1.38.0 libgmpxx4ldbl
 
 
 if [ -f "gaul-devel-0.1849-0.tar.gz" ]
@@ -130,7 +132,7 @@ sudo -u $USER_NAME createlang plpgsql sydney
 cd ..
 
 # add PostGIS functions
-sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/lwpostgis.sql sydney
+sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/postgis.sql sydney
 sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/spatial_ref_sys.sql sydney
 
 # add pgRouting functions

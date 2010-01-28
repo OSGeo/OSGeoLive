@@ -21,7 +21,7 @@
 # sudo service apache2 start
 # Then open a web browser and go to http://localhost/OpenLayers/
 
-TMP_DIR="/tmp/"
+TMP_DIR="/tmp/build_openlayers"
 OL_VERSION="2.8"
 
 cd "$TMP_DIR"
@@ -33,8 +33,8 @@ if [ ! -e "OpenLayers-$OL_VERSION.tar.gz" ] ; then
 
 tar xzf "OpenLayers-$OL_VERSION.tar.gz"
 
-cp -R OpenLayers-$OL_VERSION/ /var/www/OpenLayers
-chmod -R uga+r /var/www/OpenLayers
+cp -R OpenLayers-$OL_VERSION/ /var/www/openlayers
+chmod -R uga+r /var/www/openlayers
 
 #TODO: Launch script and icon for OpenLayers to take you to a documentation page and examples listing
 #TODO: Create local example that uses data from the many wms/wfs sources on the live disc
