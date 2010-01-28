@@ -1,0 +1,41 @@
+http://www.nauticalcharts.noaa.gov/mcd/enc/download_agreement.htm
+
+Explanations of Column Headings
+
+Chart
+This is the NOAA chart number for the paper chart that corresponds to the location of the NOAA ENC®.
+
+Title
+This is the title of the NOAA paper chart that corresponds to the location of the NOAA ENC®.
+
+Ed
+Stands for Edition Number. The edition number represents the number of Base cells that have been released since that cell was first made available for download. A "new" Base cell is produced when significant or numerous changes are made to an ENC.
+
+Update Application Date
+Is the date when a ENC Base cell became available for download. The filename extension for a Base cell is always 000.
+
+Issue Date
+Is the date that an Update Patch is made available. Update Patches can be made available many times during the edition life of an ENC. An Update Patch only contains the cartographic data associated with the critical change, and must be applied to the Base Cell. The filename extension for an Update Patch is the number of the update, e.g., 001, 002, etc. These numbers are sequential and without omission. The update sequence is not interrupted by a Reissue Cell.
+
+Cell Name
+The name of the NOAA ENC® cell is shown in this column. This corresponds to the name of the compressed file that contains the NOAA ENC®.
+
+Select
+Clicking on the checkbox selects the NOAA ENC® for download. A "Review Selections" section follows the select process. When the "Download Selected NOAA ENC®s" button is pressed all of the selected NOAA ENC®s are placed into a new archive file for download. This archive file has a randomly generated name.
+
+Reissue Cells
+These cells are made available when there are many Update Patches available for an ENC. A Reissue Cell does not contain new cartographic changes. The Issue Date is the date that a Reissue Cell is available for download. A Reissue Cell is the currently available Base Cell with all the currently available Update Patches applied to it. The filename extension for a Reissue Cell is 000.
+
+ENC Cell Naming Convention
+ENC cells are 8 characters long (i.e., US3CA70M) 
+
+    * The 1st and 2nd fields are filled with the country or producer code.
+    * The 3rd field is filled with the navigation purpose. The U.S. has five classifications.
+          # 1 is for overview charts with scales ranging from 1:1,500,001 or smaller
+          # 2 is for general charts with scales ranging from 1:600,001 - 1:1,500,000
+          # 3 is for coastal charts with scales ranging from 1:150,001 - 1:600,000
+          # 4 is for approach charts with scales ranging from 1:50,001 - 1:150,000
+          # 5 is for harbour charts with scales ranging from 1:50,000 or larger
+    * The 4th and 5th fields are filled in the U.S. with the state, territory or region abbreviation.
+    * The 6th and 7th fields are filled with an arbitrary number or letter.
+    * The 8th is filled with the chart's unit of measurement. "M' is for metric.

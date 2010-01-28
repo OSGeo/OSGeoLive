@@ -40,109 +40,32 @@
 ##  NOAA RNCs®, and 2) a reference to this Web site is included so that anyone
 ##  accessing the NOAA RNCs® is advised of their origin."
 
-
-#### download sample data
-# RNC raster (BSB format)
-# ENC vector (S-57 format)
-
-
-### Raster BSB charts ###
-# New York Harbor:
-RNC_CHARTS="
- 12300
- 12326
- 12327
- 12334
- 12335
- 12358
- 12401
- 12402
- 13006"
-
-### Vector S-57 charts ###
-# New York Harbor and Long Island Sound:
-ENC_CHARTS="
- US2EC03M
- US3NY01M
- US4NY13M
- US4NY1AM
- US4NY1GM
- US5CN10M
- US5CN11M
- US5CN12M
- US5NY12M
- US5NY14M
- US5NY15M
- US5NY16M
- US5NY18M
- US5NY19M
- US5NY1BM
- US5NY1CM
- US5NY1DM
- US5NY50M"
-
-
-
-TMP_DIR=/tmp/build_opencpn
-
-if [ ! -d "$TMP_DIR" ] ; then
-   mkdir "$TMP_DIR"
-fi
-
-
-# the main install script has to set the dir's group to "users" (+rw) and
-#   add the user to the "users" group.
 DATADIR="/usr/local/share/opencpn"
-
-
-
-
+cd "$DATADIR"
 
 ### see if user agrees to NOAA's terms
- echo "Read and accept" | \
-   gxmessage -file - -buttons "I agree,I do not agree" -center
-#
+
+gxmessage -file noaa_agreement.txt -center \
+   -buttons "I agree,I do not agree" -default "I do not agree"
+
 # echo $?
 # 101  1st button 
 # 102  2nd button
 
-
-if [ "$ACCEPTED_TERMS" = "false" ] ; then
+if [ $? -ne 101 ] ; then
+   echo "Charts have not been activated."
    exit 1
 fi
 
 
+sudo chmod a+r "$DATADIR/charts"
 
-### Raster BSB charts ###
-cd "$TMP_DIR"
-
-for CHART in $RNC_CHARTS ; do
-  wget -c --progress=dot:mega "http://www.charts.noaa.gov/RNCs/$CHART.zip"
-  wget -c -nv "http://www.charts.noaa.gov/RNCs/${CHART}_RNCProdCat.xml"
+# clear the decks to force chart-list DB rebuild
+for FILE in chartlist.dat navobj.xml ; do
+   if [ -e ~/.opencpn/$FILE ] ; then
+      \rm -f ~/.opencpn/$FILE
+   fi
 done
 
-cd "$DATADIR/charts"
-
-for CHART in $RNC_CHARTS ; do
-   unzip "$TMP_DIR/$CHART.zip"
-   cp "$TMP_DIR/${CHART}_RNCProdCat.xml" BSB_ROOT/
-done
-
-
-### Vector S-57 charts ###
-cd "$TMP_DIR"
-
-for CHART in $ENC_CHARTS ; do
-  wget -c --progress=dot:mega "http://www.charts.noaa.gov/ENCs/$CHART.zip"
-  wget -c -nv "http://www.charts.noaa.gov/ENCs/${CHART}_ENCProdCat.xml"
-done
-
-cd "$DATADIR/charts"
-
-for CHART in $ENC_CHARTS ; do
-   unzip -u -o "$TMP_DIR/$CHART.zip"
-   cp "$TMP_DIR/${CHART}_ENCProdCat.xml" ENC_ROOT/
-done
-
-
-echo "Chart download complete."
+echo "Charts activated."
+exit 0
