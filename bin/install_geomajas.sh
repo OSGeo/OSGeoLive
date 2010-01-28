@@ -19,7 +19,7 @@
 # Install script for Geomajas
 # =============================================================================
 
-TMP="/tmp/geomajas"
+TMP="/tmp/build_geomajas"
 INSTALL_FOLDER="/usr/lib"
 BIN=/usr/bin
 GEOMAJAS_VERSION=1.4.2

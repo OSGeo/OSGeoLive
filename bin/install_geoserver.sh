@@ -22,7 +22,7 @@
 
 # Requires: Sun Java 6 runtime
 
-TMP="/tmp/gs_downloads"
+TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/lib"
 BIN=/usr/bin
 GS_VERSION="1.7.6"
@@ -46,7 +46,7 @@ echo "Installing Sun JDK 6"
 apt-get install --yes sun-java6-jdk
 
 ### setup temp ###
-mkdir $TMP
+mkdir -p $TMP
 cd $TMP
 
 ### Download and unpack GeoServer ###

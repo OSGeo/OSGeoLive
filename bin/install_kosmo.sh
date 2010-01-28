@@ -30,7 +30,7 @@
 # sudo ./install_kosmo.sh
 
 USER_NAME="user"
-TMP="/tmp/kosmo_downloads"
+TMP="/tmp/build_kosmo"
 INSTALL_FOLDER="/usr/lib"
 KOSMO_FOLDER="$INSTALL_FOLDER/kosmo_1_2_1"
 BIN="/usr/bin"

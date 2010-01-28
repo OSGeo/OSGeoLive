@@ -35,7 +35,7 @@
 # =======
 # sudo ./install_geokettle.sh
 
-TMP="/tmp/geokettle_downloads"
+TMP="/tmp/build_geokettle"
 GEOKETTLE_BASE_URL="http://downloads.sourceforge.net/project/geokettle/geokettle/3.2.0-20090609"
 GEOKETTLE_BASENAME="geokettle-3.2.0-20090609-bin"
 GEOKETTLE_FILENAME="$GEOKETTLE_BASENAME.zip"

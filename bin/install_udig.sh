@@ -29,7 +29,7 @@
 # =======
 # sudo ./install_udig.sh
 
-TMP="/tmp/udig_downloads"
+TMP="/tmp/build_udig"
 INSTALL_FOLDER="/usr/lib"
 DATA_FOLDER="/usr/local/share"
 UDIG_FOLDER="$INSTALL_FOLDER/udig"

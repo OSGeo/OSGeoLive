@@ -31,7 +31,7 @@
 
 echo TYPE YOUR USER NAME:
 read USER_NAME
-TMP="/tmp/kosmo_downloads"
+TMP="/tmp/build_kosmo"
 INSTALL_FOLDER="/usr/lib"
 KOSMO_FOLDER="$INSTALL_FOLDER/kosmo_2_0_beta"
 BIN="/usr/bin"

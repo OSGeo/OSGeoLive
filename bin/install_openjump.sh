@@ -30,7 +30,7 @@
 # sudo ./install_openjump.sh
 
 
-TMP="/tmp/openjump_downloads"
+TMP="/tmp/build_openjump"
 INSTALL_FOLDER="/usr/lib"
 DATA_FOLDER="/usr/local/share"
 OJ_FOLDER="$INSTALL_FOLDER/openjump-1.3"

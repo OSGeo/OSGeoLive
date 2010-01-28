@@ -6,7 +6,7 @@
 # UbuntuGIS repository added to the Apt (same like in QGIS and GRASS)
 # Hack to start with python2.5
 
-TMP=/tmp/maptiler_downloads
+TMP="/tmp/build_maptiler"
 MAPTILERDEB="maptiler_1.0.beta2_all.deb"
 
 #Can't cd to a directory before you make it, may be uneeded now

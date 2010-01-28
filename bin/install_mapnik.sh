@@ -30,13 +30,14 @@ if [ $? -ne 0 ] ; then
 fi      
 
 # download, install, and setup demo Mapnik tile-serving application
-TMP="/tmp"
+TMP="/tmp/build_mapnik"
 DATA_FOLDER="/usr/local/share"
 MAPNIK_DATA=$DATA_FOLDER/mapnik
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 BIN="/usr/bin"
 
+mkdir -p $TMP
 cd "$TMP"
 
 ## Setup things... ##
@@ -55,7 +56,7 @@ fi
 # download TileLite sources
 wget -c --progress=dot:mega http://bitbucket.org/springmeyer/tilelite/get/tip.zip
 unzip -o tip.zip
-rm tip.zip
+#rm tip.zip # We wish to backup files downloaded. The tmp directory is automatically emptied upon computer shutdown.
 cd $TMP/tilelite
 
 # install tilelite using the standard python installation tools

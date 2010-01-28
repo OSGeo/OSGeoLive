@@ -50,7 +50,7 @@
 # =======
 # sudo ./install_geonetwork.sh
 
-TMP="/tmp/geonetwork_downloads"
+TMP="/tmp/build_geonetwork"
 INSTALL_FOLDER="/usr/lib"
 GEONETWORK_FOLDER="$INSTALL_FOLDER/geonetwork"
 BIN="/usr/bin"

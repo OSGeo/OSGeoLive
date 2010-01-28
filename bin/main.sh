@@ -159,12 +159,6 @@ exit
 # Scripts past here are not installed yet
 ########################################################
 
-# install MB System - software for mapping the Sea Floor
-# This is disabled until it can be built with shared libraries,
-#   using static libraries it takes up 300mb.
-##(temp enabled)
-##./install_mb-system.sh
-
 # Build the iso should be done later
 ./build_iso.sh
 
