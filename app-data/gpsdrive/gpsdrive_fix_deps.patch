@@ -48,7 +48,7 @@
 +	libltdl7 | libltdl3,
 +	libmapnik0.6,
  	libsqlite3-0,
- 	mapnik-plugins,
+-	mapnik-plugins,
  	mapnik-utils,
 -	openstreetmap-map-icons (>> 8310),
 -	openstreetmap-utils (>> 8290) | gpsdrive-utils (>> 2299),
