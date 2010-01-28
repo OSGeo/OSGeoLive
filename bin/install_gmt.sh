@@ -24,7 +24,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
 
-PACKAGES="gmt gmt-doc gmt-manpages gmt-coast-low \
+PACKAGES="gmt gmt-doc gmt-doc-pdf gmt-coast-low \
    gmt-examples gmt-tutorial gmt-tutorial-pdf"
 
 
