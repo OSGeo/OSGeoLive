@@ -47,10 +47,10 @@ cp ${USER_HOME}/gisvm/bin/launchassist.sh ${USER_HOME}/.
 chmod 755 ${USER_HOME}/launchassist.sh
 
 
-# Ubuntu 9.10 (GNOME) wants to see the ~/Desktop/*.desktop files be executable
-# (wtf is with that?). By this point all scripts should have run, if they
-# haven't, too bad, they should move to where they should be, earlier in the
-# build process.
+# Ubuntu 9.10 (GNOME) wants to see the ~/Desktop/*.desktop files be executable,
+# and start with this shebang: #!/usr/bin/env xdg-open
+#  By this point all scripts should have run, if they haven't, too bad, they
+#  should move to where they should be, earlier in the build process.
 #-uncomment if needed for Xubuntu
 ##chmod u+x "$USER_HOME"/Desktop/*.desktop
 
