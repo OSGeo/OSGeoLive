@@ -118,7 +118,10 @@ make all
 #### install ####
 install bin/* /usr/local/bin
 install --mode=644 lib/* /usr/local/lib
-install --mode=644 man/manl/* /usr/local/man/manl
+mkdir -p /usr/local/man/man1
+install --mode=644 man/man1/* /usr/local/man/man1
+mkdir -p /usr/local/man/man3
+install --mode=644 man/man3/* /usr/local/man/man3
 for SUBDIR in  html include ps share ; do
    mkdir -p /usr/local/mbsystem/$SUBDIR
    install --mode=644 $SUBDIR/* /usr/local/mbsystem/$SUBDIR
