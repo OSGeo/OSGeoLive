@@ -103,7 +103,6 @@ Exec=firefox /usr/local/share/livedvd-docs/index.html
 Icon=/usr/local/share/icons/arramagong-wombat-small.png
 Terminal=false
 StartupNotify=false
-Categories=Education;Geography
 EOF
 fi
 
