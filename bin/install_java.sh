@@ -14,6 +14,6 @@
 
 # About:
 # =====
-# This script will install sun jre 6
+# This script will install sun jre 6 and jdk 6
 
-apt-get --assume-yes install java-common sun-java6-bin sun-java6-jre
+apt-get --assume-yes install java-common sun-java6-bin sun-java6-jre sun-java6-jdk
