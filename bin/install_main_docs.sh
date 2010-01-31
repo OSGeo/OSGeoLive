@@ -26,7 +26,6 @@
 
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-OSGEO_SVN="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk"
 DEST="/usr/local/share/livedvd-docs"
 
 mkdir -p $DEST/doc
@@ -35,32 +34,35 @@ mkdir -p $DEST/doc
 FILES="banner.png arramagong.css"
 
 for ITEM in $FILES ; do
-#TODO: change wget to cp commands from local checkout required for build, keep it at one doc per line as missing files tell us which docs are missing
-   #cp "/doc/$ITEM" "$DEST/$ITEM"
-   wget -nv "$OSGEO_SVN/doc/$ITEM"  --output-document "$DEST/$ITEM"
+   # keep it at one file per line, as missing files tell us what is missing
+   cp -f ../doc/"$ITEM" "$DEST/"
 done
 # index page start
-wget -nv -O - "$OSGEO_SVN/doc/index_pre.html" \
-    > "$DEST/index.html"
+cp -f ../doc/index_pre.html "$DEST/index.html"
 
 
-# apps
-APPS="deegree geokettle geonetwork geoserver gpsdrive grass gvsig kosmo mapfish mapnik mapserver maptiler openlayers pgrouting postgis qgis R udig ossim"
+### apps
+#APPS="
+#  deegree  geokettle  geonetwork  geoserver  gpsdrive
+#  gmt  grass  gvsig  kosmo  mapfish  mapnik  mapserver
+#  maptiler  mb-system  octave  opencpn  openlayers
+#  osm  ossim  pgrouting  postgis  qgis  R  udig"
+
+# automatically get app list from installer scripts:
+SKIP="main_docs desktop java jdk apache2"
+SKIP_STR=`echo "$SKIP" | sed -e 's/ /\\\|/g'`
+
+APPS=`\ls -1 install_*.sh | cut -f2- -d_ | \
+   sed -e 's/\.sh$//' | grep -vx "$SKIP_STR"`
 
 for ITEM in $APPS ; do
-#TODO: change wget to cp commands from local checkout required for build, keep it at one doc per line as missing files tell us which docs are missing
-   #not sure, is this an append
-   wget -nv -O - "$OSGEO_SVN/doc/descriptions/${ITEM}_definition.html" \
-       >> "$DEST/index.html"
-   #cp "/doc/descriptions/${ITEM}_definition.html" "$DEST/doc/${ITEM}_description.html"   
-   wget -nv "$OSGEO_SVN/doc/descriptions/${ITEM}_description.html" \
-        --output-document "$DEST/doc/${ITEM}_description.html"
-
+   # keep it at one doc per line as missing files tell us which docs are missing
+   \cp -f ../doc/descriptions/"${ITEM}_description.html" "$DEST/doc/"
+   cat ../doc/descriptions/"${ITEM}_definition.html" >> "$DEST/index.html"
 done
 
 # index page end
-wget -nv -O - "$OSGEO_SVN/doc/index_post.html" \
-    >> "$DEST/index.html"
+cat ../doc/index_post.html >> "$DEST/index.html"
 
 
 
@@ -85,12 +87,12 @@ if [ -n "$PREFS_FILE" ] ; then
 fi
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
-wget -nv "$OSGEO_SVN/desktop-conf/arramagong-wombat-small.png" \
-   --output-document=/usr/local/share/icons/arramagong-wombat-small.png
+\cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
+
 
 #What logo to use for launching the help? 
-if [ ! -e /usr/share/applications/gisvmhelp.desktop ] ; then
-   cat << EOF > /usr/share/applications/gisvmhelp.desktop
+if [ ! -e /usr/share/applications/live_GIS_help.desktop ] ; then
+   cat << EOF > /usr/share/applications/live_GIS_help.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -105,6 +107,6 @@ Categories=Education;Geography
 EOF
 fi
 
-cp -a /usr/share/applications/gisvmhelp.desktop "$USER_HOME/Desktop/"
+\cp -a /usr/share/applications/live_GIS_help.desktop "$USER_HOME/Desktop/"
 
 #Should we embed the password file in the help somehow too?
