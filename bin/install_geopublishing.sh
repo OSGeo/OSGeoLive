@@ -29,7 +29,8 @@
 # Get the sources list file (may overwrite existing sources file, but that is no problem)
 # Uses lsb_release so that the script will run unchanged for "lucid" and later versions of ubuntu/debian
 apt-get install --yes lsb-release
-sudo wget --output-document=/etc/apt/sources.list.d/geopublishing.list http://www.geopublishing.org/sources.list.d/$(lsb_release -cs).list
+wget -nv --output-document="/etc/apt/sources.list.d/geopublishing.list" \
+   "http://www.geopublishing.org/sources.list.d/$(lsb_release -cs).list"
 
 # Get and import the key that the .deb packages are signed with
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7450D04751B576FD
