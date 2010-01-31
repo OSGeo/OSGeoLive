@@ -80,6 +80,7 @@ for SCRIPT in \
   ./install_marble.sh \
   ./install_octave.sh \
   ./install_opencpn \
+  ./install_geopublishing.sh \
   ./install_gpsdrive.sh \
   ./install_mb-system.sh \
   ./install_mapfish.sh \
@@ -87,7 +88,6 @@ for SCRIPT in \
   ./install_ossim.sh \
   ./install_desktop.sh \
   ./install_main_docs.sh \
-  ./install_geopublishing.sh \
   ./setdown.sh \
 ; do
   echo "===================================================================="
