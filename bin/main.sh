@@ -63,6 +63,7 @@ for SCRIPT in \
   ./install_geomajas \
   ./install_geonetwork.sh \
   ./install_deegree.sh \
+  ./install_kosmo.sh \
   ./install_udig.sh \
   ./install_openjump.sh \
   ./install_apache2.sh \
@@ -75,7 +76,6 @@ for SCRIPT in \
   ./install_grass.sh \
   ./install_qgis.sh \
   ./install_mapnik.sh \
-  ./install_kosmo.sh \
   ./install_maptiler.sh \
   ./install_marble.sh \
   ./install_octave.sh \
