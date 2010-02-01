@@ -126,7 +126,7 @@ grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | tee ${LOG_DIR}/${DISK_USAGE_LO
 
 echo "==============================================================="
 # to be interesting this should really focus on diff to prior, not absolute value
-echo "Package    |Kilobytes used by install script" | tr '|' '\t'
+echo "Package    |Megabytes used by install script" | tr '|' '\t'
 grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | \
   cut -f2,5 -d, | cut -f2- -d_ | \
   grep -v '^,\|setup.sh\|setdown.sh' | sed -e 's/\.sh,/    \t/' | \
