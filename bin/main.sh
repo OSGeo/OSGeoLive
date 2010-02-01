@@ -60,7 +60,7 @@ for SCRIPT in \
   ./install_java.sh \
   ./install_geoserver.sh \
   ./install_gvsig.sh \
-  ./install_geomajas \
+  ./install_geomajas.sh \
   ./install_geonetwork.sh \
   ./install_deegree.sh \
   ./install_kosmo.sh \
