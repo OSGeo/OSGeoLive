@@ -3,28 +3,51 @@ http://www.nauticalcharts.noaa.gov/mcd/enc/download_agreement.htm
 Explanations of Column Headings
 
 Chart
-This is the NOAA chart number for the paper chart that corresponds to the location of the NOAA ENC®.
+This is the NOAA chart number for the paper chart that corresponds
+to the location of the NOAA ENC®.
 
 Title
-This is the title of the NOAA paper chart that corresponds to the location of the NOAA ENC®.
+This is the title of the NOAA paper chart that corresponds to the
+location of the NOAA ENC®.
 
 Ed
-Stands for Edition Number. The edition number represents the number of Base cells that have been released since that cell was first made available for download. A "new" Base cell is produced when significant or numerous changes are made to an ENC.
+Stands for Edition Number. The edition number represents the number
+of Base cells that have been released since that cell was first made
+available for download. A "new" Base cell is produced when significant
+or numerous changes are made to an ENC.
 
 Update Application Date
-Is the date when a ENC Base cell became available for download. The filename extension for a Base cell is always 000.
+Is the date when a ENC Base cell became available for download. The
+filename extension for a Base cell is always 000.
 
 Issue Date
-Is the date that an Update Patch is made available. Update Patches can be made available many times during the edition life of an ENC. An Update Patch only contains the cartographic data associated with the critical change, and must be applied to the Base Cell. The filename extension for an Update Patch is the number of the update, e.g., 001, 002, etc. These numbers are sequential and without omission. The update sequence is not interrupted by a Reissue Cell.
+Is the date that an Update Patch is made available. Update Patches can
+be made available many times during the edition life of an ENC. An
+Update Patch only contains the cartographic data associated with the
+critical change, and must be applied to the Base Cell. The filename
+extension for an Update Patch is the number of the update, e.g., 001,
+002, etc. These numbers are sequential and without omission. The update
+sequence is not interrupted by a Reissue Cell.
 
 Cell Name
-The name of the NOAA ENC® cell is shown in this column. This corresponds to the name of the compressed file that contains the NOAA ENC®.
+The name of the NOAA ENC® cell is shown in this column. This corresponds
+to the name of the compressed file that contains the NOAA ENC®.
 
 Select
-Clicking on the checkbox selects the NOAA ENC® for download. A "Review Selections" section follows the select process. When the "Download Selected NOAA ENC®s" button is pressed all of the selected NOAA ENC®s are placed into a new archive file for download. This archive file has a randomly generated name.
+Clicking on the checkbox selects the NOAA ENC® for download. A "Review
+Selections" section follows the select process. When the "Download
+Selected NOAA ENC®s" button is pressed all of the selected NOAA ENC®s
+are placed into a new archive file for download. This archive file has a
+randomly generated name.
 
 Reissue Cells
-These cells are made available when there are many Update Patches available for an ENC. A Reissue Cell does not contain new cartographic changes. The Issue Date is the date that a Reissue Cell is available for download. A Reissue Cell is the currently available Base Cell with all the currently available Update Patches applied to it. The filename extension for a Reissue Cell is 000.
+These cells are made available when there are many Update
+Patches available for an ENC. A Reissue Cell does not contain new
+cartographic changes. The Issue Date is the date that a Reissue Cell is
+available for download. A Reissue Cell is the currently available Base
+Cell with all the currently available Update Patches applied to it. 
+The filename extension for a Reissue Cell is 000.
+
 
 ENC Cell Naming Convention
 ENC cells are 8 characters long (i.e., US3CA70M) 
