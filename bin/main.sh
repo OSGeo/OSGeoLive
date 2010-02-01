@@ -79,7 +79,7 @@ for SCRIPT in \
   ./install_maptiler.sh \
   ./install_marble.sh \
   ./install_octave.sh \
-  ./install_opencpn \
+  ./install_opencpn.sh \
   ./install_geopublishing.sh \
   ./install_gpsdrive.sh \
   ./install_mb-system.sh \
