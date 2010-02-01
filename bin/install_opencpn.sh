@@ -45,6 +45,8 @@ cd "$TMP_DIR"
 wget -c --progress=dot:mega \
   "http://downloads.sourceforge.net/project/opencpn/opencpn/1.3.6/opencpn_1.3.6_i386.deb"
 
+# recommended:
+apt-get --assume-yes install gpsd gpsd-clients python-gps
 
 # dpkg -I <packagename.deb>
 # Depends: libc6 (>= 2.4), libgcc1 (>= 1:4.1.1-21), libgl1-mesa-glx | libgl1,
