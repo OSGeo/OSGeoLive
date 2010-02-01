@@ -37,4 +37,4 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7450D04751B576FD
 
 # Install Geopublisher and AtlasStyler and documentation
 apt-get update --yes
-apt-get install --yes geopublishing geopublishing-doc
+apt-get install --yes --no-install-recommends geopublishing geopublishing-doc
