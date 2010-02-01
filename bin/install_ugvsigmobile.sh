@@ -82,8 +82,8 @@ if [ ! -d "$UGVSIGMOBILE_DOCS" ]
 then
    mkdir -p "$UGVSIGMOBILE_DOCS"
 else
-   rm "$UGVSIGMOBILE_DOCS/*.pdf"
-   rm "$UGVSIGMOBILE_DOCS/*.zip"
+   rm "$UGVSIGMOBILE_DOCS"/*.pdf
+   rm "$UGVSIGMOBILE_DOCS"/*.zip
 fi
 
 cp "$UGVSIGMOBILE_DOCZIP" "$UGVSIGMOBILE_DOCS"
