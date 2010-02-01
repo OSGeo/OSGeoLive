@@ -57,8 +57,16 @@ APPS=`\ls -1 install_*.sh | cut -f2- -d_ | \
 
 for ITEM in $APPS ; do
    # keep it at one doc per line as missing files tell us which docs are missing
-   \cp -f ../doc/descriptions/"${ITEM}_description.html" "$DEST/doc/"
-   cat ../doc/descriptions/"${ITEM}_definition.html" >> "$DEST/index.html"
+   if [ -e ../doc/descriptions/"${ITEM}_description.html" ] ; then
+      \cp -f ../doc/descriptions/"${ITEM}_description.html" "$DEST/doc/"
+   else
+      echo "ERROR: missing ${ITEM}_description.html"
+   fi
+   if [ -e ../doc/descriptions/"${ITEM}_definition.html" ] ; then
+      cat ../doc/descriptions/"${ITEM}_definition.html" >> "$DEST/index.html"
+   else
+       echo "ERROR: missing ${ITEM}_definition.html"
+   fi
 done
 
 # index page end
@@ -75,7 +83,7 @@ home page is now set to file://$DEST/index.html"
 # edit ~user/.mozilla/firefox/$RANDOM.default/prefs.js:
 #   user_pref("browser.startup.homepage", "file:///usr/local/share/livedvd-docs/index.html");
 
-PREFS_FILE=`find ~user/.mozilla/firefox/ | grep -w default/prefs.js | head -n 1`
+PREFS_FILE=`find "$USER_HOME/.mozilla/firefox/" | grep -w default/prefs.js | head -n 1`
 if [ -n "$PREFS_FILE" ] ; then
    sed -i -e 's+\(homepage", "\)[^"]*+\1file:///usr/local/share/livedvd-docs/index.html+' \
       "$PREFS_FILE"
@@ -90,9 +98,12 @@ fi
 \cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
 
 
-#What logo to use for launching the help? 
-if [ ! -e /usr/share/applications/live_GIS_help.desktop ] ; then
-   cat << EOF > /usr/share/applications/live_GIS_help.desktop
+#What logo to use for launching the help?
+
+ICON_FILE="live_GIS_help.desktop"
+
+if [ ! -e "/usr/share/applications/$ICON_FILE" ] ; then
+   cat << EOF > "/usr/share/applications/$ICON_FILE"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -106,6 +117,11 @@ StartupNotify=false
 EOF
 fi
 
-\cp -a /usr/share/applications/live_GIS_help.desktop "$USER_HOME/Desktop/"
+\cp -a "/usr/share/applications/$ICON_FILE" "$USER_HOME/Desktop/"
+chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
+# executable bit needed for Ubunti 9.10's GNOME. Also make the first line
+#   of the *.desktop files read "#!/usr/bin/env xdg-open"
+#chmod u+x "$USER_HOME/Desktop/$ICON_FILE"
+
 
 #Should we embed the password file in the help somehow too?
