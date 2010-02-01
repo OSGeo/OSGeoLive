@@ -1,5 +1,5 @@
---- debian/control.ORIG	2009-09-17 22:55:53.000000000 +1200
-+++ debian/control	2009-09-17 22:56:42.000000000 +1200
+--- debian/control.ORIG	2010-02-02 01:17:31.000000000 +1300
++++ debian/control	2010-02-02 01:25:40.000000000 +1300
 @@ -11,25 +11,25 @@
  	libboost-filesystem-dev,
  	libboost-serialization-dev,
@@ -10,9 +10,9 @@
  	libgps-dev,
  	libgtk2.0-dev,
 -	libltdl3-dev,
-+	libltdl7-dev | libltdl3-dev,
 -	libmagick9-dev,
 -	libmapnik-dev (>> 0.5.0-1),
++	libltdl7-dev | libltdl3-dev,
 +	libmapnik-dev,
  	libpcre3-dev,
 -	libspeechd-dev (>= 0.6.7) | libspeechd-dev (>= 0.6.7~rc1-1),
@@ -33,7 +33,7 @@
  Standards-Version: 3.8.1
  
  # ------------------------------------------------------------------
-@@ -38,35 +39,33 @@
+@@ -38,35 +38,32 @@
  Depends: ${misc:Depends},
  	 ${shlibs:Depends},
  	libart-2.0-2,
