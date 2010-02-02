@@ -27,6 +27,14 @@ fi
 # look for ./configure --build=BUILD, --host=HOST, --target=TARGET  to try and force build for i686.
 # For .deb package building something like: 'debuild binary-arch i686' ???????
 
+# don't install the kitchen sink
+if [ ! -e /etc/apt/apt.conf.d/depends_only ] ; then
+   cat << EOF > /etc/apt/apt.conf.d/depends_only
+APT::Install-Recommends "false";
+APT::Install-Suggests "false";
+EOF
+fi
+
 
 # Install latest greatest security packages etc.
 apt-get update && apt-get --yes upgrade
