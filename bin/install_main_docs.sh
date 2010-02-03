@@ -27,11 +27,12 @@
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 DEST="/usr/local/share/livedvd-docs"
+FILES="banner.png arramagong.css" # base files to install
+INSTALL_APPS=../install_list # List applications to install 
+APPS=`sed -e 's/#.*$//' ${INSTALL_APPS}`
 
 mkdir -p $DEST/doc
 
-#base
-FILES="banner.png arramagong.css"
 
 for ITEM in $FILES ; do
    # keep it at one file per line, as missing files tell us what is missing
@@ -40,38 +41,38 @@ done
 # index page start
 cp -f ../doc/index_pre.html "$DEST/index.html"
 
-
-### apps
-#APPS="
-#  deegree  geokettle  geonetwork  geoserver  gpsdrive
-#  gmt  grass  gvsig  kosmo  mapfish  mapnik  mapserver
-#  maptiler  mb-system  octave  opencpn  openlayers
-#  osm  ossim  pgrouting  postgis  qgis  R  udig"
-
-# automatically get app list from installer scripts:
-SKIP="main_docs desktop java jdk apache2"
-SKIP_STR=`echo "$SKIP" | sed -e 's/ /\\\|/g'`
-
-APPS=`\ls -1 install_*.sh | cut -f2- -d_ | \
-   sed -e 's/\.sh$//' | grep -vx "$SKIP_STR"`
+# license page start
+#cp -f ../doc/license_pre.html "$DEST/license.html"
 
 for ITEM in $APPS ; do
+   # Copy Descriptions:
    # keep it at one doc per line as missing files tell us which docs are missing
-   if [ -e ../doc/descriptions/"${ITEM}_description.html" ] ; then
-      \cp -f ../doc/descriptions/"${ITEM}_description.html" "$DEST/doc/"
+   if [ -e "../doc/descriptions/${ITEM}_description.html" ] ; then
+      cp -f "../doc/descriptions/${ITEM}_description.html" "$DEST/doc/"
    else
-      echo "ERROR: missing ${ITEM}_description.html"
+     echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_description.html"
    fi
-   if [ -e ../doc/descriptions/"${ITEM}_definition.html" ] ; then
-      cat ../doc/descriptions/"${ITEM}_definition.html" >> "$DEST/index.html"
+
+   # Copy Definitions:
+   if [ -e "../doc/descriptions/${ITEM}_definition.html" ] ; then
+      cat "../doc/descriptions/${ITEM}_definition.html" >> "$DEST/index.html"
    else
-       echo "ERROR: missing ${ITEM}_definition.html"
+     echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_definition.html"
    fi
+
+   # Copy Licenses:
+   #if [ -e "../doc/descriptions/${ITEM}_license.html" ] ; then
+   #   cat "../doc/descriptions/${ITEM}_license.html" >> "$DEST/license.html"
+   #else
+   #  echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_license.html"
+   #fi
 done
 
 # index page end
 cat ../doc/index_post.html >> "$DEST/index.html"
 
+# license page end
+#cat ../doc/license_post.html >> "$DEST/license.html"
 
 
 # FIXME
