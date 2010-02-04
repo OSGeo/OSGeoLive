@@ -23,22 +23,20 @@
 # just double-click on Desktop gvSIG Icon file
 
 
+# Changelog:
+# ===========
+# 2010-01-04: adapting the script to 1.9 stable release (jsanz@osgeo.org)
+#   * Adapted dependencies
+#   * Changed to the "with-jre" version because the 9.10 version
+#     doesn't have the packages of Java 1.5
 
 
-
-
-
-echo "ERROR: the gvsig.deb pacakge needs to be updated to work with Ubuntu 9.10. Aborting."
-exit 1
-
-
-
-
-
+# echo "ERROR: the gvsig.deb pacakge needs to be updated to work with Ubuntu 9.10. Aborting."
+# exit 1
 
 
 # install dependencies
-apt-get --assume-yes install libstdc++6 libgdal1-1.6.0 
+apt-get --assume-yes install libgdal1-1.5.0
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
@@ -51,6 +49,9 @@ fi
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
+# load user dirs to have the  $XDG_DESKTOP_DIR variable
+source "$USER_HOME/.config/user-dirs.dirs"
+USER_DESKTOP=$XDG_DESKTOP_DIR
 
 # create tmp folders
 TMP="/tmp/build_gvsig"
@@ -61,8 +62,8 @@ fi
 
 cd "$TMP"
 
-# get deb package
-GVSIG_PACKAGE="gvsig_1.9.0RC1_i386.deb"
+# get deb package with the jre "gvsig-withjre"
+GVSIG_PACKAGE="gvsig-withjre_1.9.0-1253_i386.deb"
 GVSIG_PATH="http://gvsig-desktop.forge.osor.eu/downloads/people/iver"
 
 if [ -f "$GVSIG_PACKAGE" ]
@@ -82,10 +83,13 @@ fi
 
 
 # place a gvSIG icon on desktop
-cp /usr/share/applications/gvsig.desktop "$USER_HOME/Desktop"
+# NOTE: maybe this icon will be placed at other folder
+cp /usr/share/applications/gvsig.desktop $USER_DESKTOP
 
 
-# download documentation
+# download documentation 
+# note: at this time (January 2010) the last updated version of the
+#       gvSIG manual is for the 1.1.2 version of gvSIG
 GVSIG_DOCS=/usr/local/share/gvsig
 GVSIG_MAN=gvSIG-1_1-man-v1-en.pdf
 
@@ -94,7 +98,7 @@ if [ -f "$GVSIG_MAN" ]
 then
    echo "$GVSIG_MAN has already been downloaded."
 else
-   wget --progress=dot:mega "ftp://downloads.gvsig.org/gva/descargas/manuales/$GVSIG_MAN"
+   wget --progress=dot:mega "http://forge.osor.eu/docman/view.php/89/329/gvSIG-1_1-man-v1-en.pdf"
 fi
 
 
@@ -115,4 +119,4 @@ cp sample-project.gvp "$USER_HOME/gvSIG/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
 
 
-echo "Done!"
+echo "gvSIG Done!"
