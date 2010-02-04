@@ -87,6 +87,7 @@ for SCRIPT in \
   ./install_R.sh \
   ./install_ossim.sh \
   ./install_spatialite.sh \
+  ./install_beta_and_submenu.sh \
   ./install_desktop.sh \
   ./install_main_docs.sh \
   ./setdown.sh \
