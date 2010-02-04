@@ -1,4 +1,7 @@
 [Desktop Entry]
+; Use this file as template but do not delete it
+; 
+; Set this values correctly in your .desktop file
 Type=Application
 Name=Unofficial gvSIG Mobile for Linux
 Version=0.1.6
@@ -7,5 +10,7 @@ Icon=gvsigmobile
 Exec=/usr/bin/ugvsigmo
 Terminal=false
 StartupNotify=false
-# Do not modify this:
+; 
+; 
+; Do not modify this:
 Categories=Geobeta;
