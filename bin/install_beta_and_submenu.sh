@@ -15,7 +15,8 @@
 # 
 # Copy your install script to the folder ./beta_software  
 # Also create in that folder your .desktop file using
-# the existing one as template
+# the existing one as template. Your script should not create two .desktop files,
+# only the one inside the folder ./beta_software
 # Add a call to your install sh script here (under "for SCRIPT in \")
 
 echo "===================================================================="
