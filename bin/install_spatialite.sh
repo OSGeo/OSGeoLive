@@ -21,11 +21,11 @@
 # sudo ./install_spatialite.sh
 
 TMP="/tmp/build_spatialite"
-INSTALL_FOLDER="/usr"
-BIN=/usr/bin
+INSTALL_FOLDER="/usr/local"
+DATA_FOLDER="/usr/local/share"
+PKG_DATA=$DATA_FOLDER/spatialite
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-DOC_DIR=$USER_HOME/gisvm/app-data/spatialite/doc
 
 ### Setup things... ###
  
@@ -45,9 +45,9 @@ cd $TMP
 ## get spatialite
 echo "Getting and unpacking spatialite"
 
-URL=http://www.gaia-gis.it/spatialite-2.4.0/binaries.html
+BASEURL=http://www.gaia-gis.it/spatialite-2.4.0
 
-wget -r --no-parent --accept *linux-x86-*.tar.gz -c --progress=dot:mega $URL
+wget -r --no-parent --accept *linux-x86-*.tar.gz -c --progress=dot:mega $BASEURL/binaries.html
 
 for i in $(find www.gaia-gis.it -type f); do
   fn=$(basename $i)
@@ -60,17 +60,19 @@ done
 #rm -rf www.gaia-gis.it
 
 
-### Configure Application ###
+if [ ! -d $PKG_DATA ]
+then
+    echo "Creating $PKG_DATA directory"
+    mkdir $PKG_DATA
+fi
 
-## We need to make sure the scripts use the proper JDK version ##
-echo "Configuring spatialite script for Arramagong"
+# download sample data
+wget -c --progress=dot:mega $BASEURL/samples.tar.gz
+(cd $PKG_DATA && tar xzf $TMP/samples.tar.gz)
 
+chown user:users $PKG_DATA/*
 
-### download the documentation
-
-#mkdir -p $DOC_DIR
-#echo "Getting spatialite documentation"
-
+ln -s $PKG_DATA $USER_HOME/
 
 ## start icon
 cat << EOF > /usr/share/applications/spatialite-gui.desktop
