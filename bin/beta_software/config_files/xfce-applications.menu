@@ -1,0 +1,150 @@
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+  "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+
+<Menu>
+    <Name>Xfce</Name>
+    
+    <DefaultAppDirs/>
+    <DefaultDirectoryDirs/>
+    
+    <Include>
+        <Filename>gnome-app-install-xfce.desktop</Filename>
+        <Filename>xubuntu-help.desktop</Filename>
+        <Filename>xfce4-about-xfce.desktop</Filename>
+        <Filename>xfce4-logout.desktop</Filename>
+    </Include>
+
+    <Layout>
+        <Filename>gnome-app-install-xfce.desktop</Filename>
+        <Separator/>
+        <Menuname>Settings</Menuname>
+        <Separator/>
+        <Merge type="all"/>
+        <Separator/>
+        <Filename>xubuntu-help.desktop</Filename>
+        <Filename>xfce4-about-xfce.desktop</Filename>
+        <Filename>xfce4-logout.desktop</Filename>
+    </Layout>
+    
+    <Menu>
+        <Name>Settings</Name>
+        <Directory>xfce-settings.directory</Directory>
+        <Include>
+            <Category>Settings</Category>
+        </Include>
+        <Exclude>
+            <Category>System</Category>
+        </Exclude>
+        
+        <Layout>
+            <Filename>xfce-settings-manager.desktop</Filename>
+            <Separator/>
+            <Merge type="all"/>
+        </Layout>
+        
+    </Menu>
+    
+    <Menu>
+        <Name>Accessories</Name>
+        <Directory>xfce-accessories.directory</Directory>
+        <Include>
+            <Or>
+                <Category>Accessibility</Category>
+                <Category>Core</Category>
+                <Category>Legacy</Category>
+                <Category>Utility</Category>
+            </Or>
+        </Include>
+    </Menu>
+    
+    <Menu>
+        <Name>Development</Name>
+        <Directory>xfce-development.directory</Directory>
+        <Include>
+            <Category>Development</Category>
+        </Include>
+    </Menu>
+    
+    <Menu>
+        <Name>Education</Name>
+        <Directory>xfce-education.directory</Directory>
+        <Include>
+            <Category>Education</Category>
+        </Include>
+    </Menu>
+    
+    <Menu>
+        <Name>Geospatial Beta software</Name>
+        <Directory>xfce-geobeta.directory</Directory>
+        <Include>
+            <Category>Geobeta</Category>
+        </Include>
+    </Menu>
+    
+    <Menu>
+        <Name>Games</Name>
+        <Directory>xfce-games.directory</Directory>
+        <Include>
+            <Category>Game</Category>
+        </Include>
+    </Menu>
+    
+    <Menu>
+        <Name>Graphics</Name>
+        <Directory>xfce-graphics.directory</Directory>
+        <Include>
+            <Category>Graphics</Category>
+        </Include>
+    </Menu>
+    
+    <Menu>
+        <Name>Multimedia</Name>
+        <Directory>xfce-multimedia.directory</Directory>
+        <Include>
+            <Category>Audio</Category>
+            <Category>Video</Category>
+            <Category>AudioVideo</Category>
+        </Include>
+    </Menu>
+    
+    <Menu>
+        <Name>Network</Name>
+        <Directory>xfce-network.directory</Directory>
+        <Include>
+            <Category>Network</Category>
+        </Include>
+    </Menu>
+    
+    <Menu>
+        <Name>Office</Name>
+        <Directory>xfce-office.directory</Directory>
+        <Include>
+            <Category>Office</Category>
+        </Include>
+    </Menu>
+    
+    <Menu>
+        <Name>System</Name>
+        <Directory>xfce-system.directory</Directory>
+        <Include>
+            <Category>System</Category>
+        </Include>
+        <Exclude>
+            <Filename>gnome-app-install-xfce.desktop</Filename>
+        </Exclude>
+    </Menu>
+    
+    <Menu>
+        <Name>Other</Name>
+        <Directory>xfce-other.directory</Directory>
+        <OnlyUnallocated/>
+        <Include>
+            <All/>
+        </Include>
+        <Exclude>
+            <Category>Screensaver</Category>
+            <Category>X-Xfce-Toplevel</Category>
+        </Exclude>
+    </Menu>
+    
+</Menu>

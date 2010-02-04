@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Unofficial gvSIG Mobile for Linux
+Version=0.1.6
+GenericName=Mobile GIS app for Linux devices
+Icon=gvsigmobile
+Exec=/usr/bin/ugvsigmo
+Terminal=false
+StartupNotify=false
+# Do not modify this:
+Categories=Geobeta;
