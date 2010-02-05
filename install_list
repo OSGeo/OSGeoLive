@@ -25,7 +25,6 @@ udig
 openjump
 
 # Postgres Applications
-#postgres # TBD, we need to rename install_postgres.sh to install_postgis.sh
 postgis
 pgrouting
 osm
