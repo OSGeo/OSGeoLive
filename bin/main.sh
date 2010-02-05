@@ -86,6 +86,7 @@ for SCRIPT in \
   ./install_mapfish.sh \
   ./install_R.sh \
   ./install_ossim.sh \
+  ./install_osgearth.sh \
   ./install_spatialite.sh \
   ./install_beta_and_submenu.sh \
   ./install_desktop.sh \
