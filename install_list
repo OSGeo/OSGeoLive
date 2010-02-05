@@ -1,0 +1,49 @@
+# This file contains a list of projects with install_X.sh scripts and 
+# and documentation to install
+# Projects can be commented out of this list to prevent them being installed
+#
+# Other installers, like install_java are called directly
+# from the main.sh script
+#
+# install order:
+#  1. Base packages (called from main.sh)
+#  2. Java apps
+#  3. PostGIS apps
+#  4. Desktop GIS apps
+#  5. LiveDVD desktop, docs, etc. (called from main.sh)
+#  6. Cleanup scripts (called from main.sh)
+
+# Java Applications
+geoserver
+gvsig
+ugvsigmobile # beta software
+geomajas
+geonetwork
+deegree
+kosmo
+udig
+openjump
+
+# Postgres Applications
+#postgres # TBD, we need to rename install_postgres.sh to install_postgis.sh
+postgis
+pgrouting
+osm
+mapserver
+geokettle
+gmt
+
+# Desktop Applications
+grass
+qgis
+mapnik
+maptiler
+marble
+octave
+opencpn
+geopublishing
+gpsdrive
+mb-system
+mapfish
+R
+ossim
