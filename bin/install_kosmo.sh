@@ -54,6 +54,12 @@ wget -c --progress=dot:mega http://www.opengis.es/descargas/Kosmo_Desktop_2.0_RC
 
 # unpack it and copy it to /usr/lib
 tar xzf Kosmo_Desktop_2.0_RC1_linux_jre.tar.gz -C $INSTALL_FOLDER
+
+if [ $? -ne 0 ] ; then
+   echo "ERROR: Kosmo download failed."
+   exit 1
+fi
+
 chmod -R 777 $KOSMO_FOLDER
 
 ## execute the links.sh script
