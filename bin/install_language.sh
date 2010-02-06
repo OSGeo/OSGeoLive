@@ -17,6 +17,7 @@
 # This script will install additional language support
 # Language choice was made based on the 
 # 1. SIL Ethnologue http://en.wikipedia.org/wiki/List_of_languages_by_number_of_native_speakers
+# Note: Wu language not in the ISO list
 # 2. Ubuntu Language packa available
 # 3. OSGeo Chapter Presence ?
 # TODO: find out which applications support which languages
@@ -29,10 +30,10 @@ PACKAGES=""
 
 #TODO: make an alternate list base on OSGeo chapters
 #TODO: figure out how to do inline comment with name of language, possibly store list in a different file
+# English is assumed as the 1st language already installed
 for CODE in \
   zh \
-  sp \
-  en \
+  es \
   hi \
   ar \
   bn \
@@ -40,9 +41,7 @@ for CODE in \
   ru \
   ja \
   de \
-  jv \
   pa \
-# no language code for Wu may not be a written language
   fr \
   te \
   vi \
@@ -53,10 +52,10 @@ for CODE in \
   tr \
 ; do
   #Currently simulates in order to test for packages and how much space it will take
-PACKAGES="$PACKAGES language-support-$code" 
+PACKAGES="$PACKAGES language-support-$CODE language-pack-$CODE" 
   #Additional packages may have language packs specific to them ie: firefox	
 done
-apt-get install -s $PACKAGES
+apt-get install -q $PACKAGES
 
 #TODO: allow select at boot splash screen
 
