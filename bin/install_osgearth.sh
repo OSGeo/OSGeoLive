@@ -15,6 +15,9 @@
 # About:
 # =====
 # This script will install osgearth in xubuntu
+#
+# osgEarth is a scalable terrain rendering toolkit for OpenSceneGraph
+# http://osgearth.org/
 
 # Running:
 # =======
