@@ -232,7 +232,8 @@ fi
 ## end self-build
 #######################
 
-
+#cleanup
+apt-get autoremove
 
 
 #### install data ####
