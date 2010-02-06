@@ -33,7 +33,7 @@ USER_HOME="/home/$USER_NAME"
 
 apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev \
    grass-dev libxml2-dev python-shapely tcl8.5-dev tk8.5-dev \
-   libgl1-mesa-dev libglu1-mesa-dev python-setuptools
+   libgl1-mesa-dev libglu1-mesa-dev python-setuptools build-essential gfortran
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
