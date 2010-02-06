@@ -52,10 +52,12 @@ for CODE in \
   tr \
 ; do
   #Currently simulates in order to test for packages and how much space it will take
-PACKAGES="$PACKAGES language-support-$CODE language-pack-$CODE" 
+  #These meta packages also pull openoffice, so we'll have to do it the harder way
+#PACKAGES="$PACKAGES language-support-$CODE language-pack-$CODE" 
+PACKAGES="$PACKAGES language-pack-$CODE-base language-pack-$CODE"
   #Additional packages may have language packs specific to them ie: firefox	
 done
-apt-get install -q $PACKAGES
+apt-get install -q --no-install-recommends $PACKAGES
 
 #TODO: allow select at boot splash screen
 
