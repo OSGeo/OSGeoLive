@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
@@ -51,7 +51,7 @@ wget -r --no-parent --accept *linux-x86-*.tar.gz -c --progress=dot:mega $BASEURL
 
 for i in $(find www.gaia-gis.it -type f); do
   fn=$(basename $i)
-  dir=${fn/.tar.gz/}
+  dir=${fn%.tar.gz}
   tar xzf $i
   ## unpack it to /usr overwriting eventual existing copy
   cp -r $dir/* $INSTALL_FOLDER
