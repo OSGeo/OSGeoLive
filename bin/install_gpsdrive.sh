@@ -122,6 +122,13 @@ EOF
   # explicitly install these so they aren't removed in a later autoclean
   apt-get --assume-yes install  libgeos-3.1.1 \
     libboost-serialization1.38.0 libboost-date-time1.38.0
+  # any of these too?
+  #  libgssrpc4
+  #  libodbcinstq1c2
+  #  libpcrecpp0
+  #  libpthread-stubs0
+  #  libtiffxx0c2
+  #  libkdb5-4 
 
 
   NEEDED_BUILD_PKG=`dpkg-checkbuilddeps 2>&1 | cut -f3 -d: | \
