@@ -167,7 +167,7 @@ cat << EOF > /usr/share/applications/geoserver-start.desktop
 Type=Application
 Encoding=UTF-8
 Name=Start GeoServer
-Comment=GeoServer 1.7.6
+Comment=GeoServer ${GS_VERSION}
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/geoserver_start_admin.sh
 Icon=/usr/share/icons/geoserver_desktop_48x48.png
@@ -183,7 +183,7 @@ cat << EOF > /usr/share/applications/geoserver-stop.desktop
 Type=Application
 Encoding=UTF-8
 Name=Stop GeoServer
-Comment=GeoServer 1.7.6
+Comment=GeoServer ${GS_VERSION}
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/geoserver_stop_notify.sh
 Icon=/usr/share/icons/geoserver_desktop_48x48.png
@@ -199,7 +199,7 @@ cat << EOF > /usr/share/applications/geoserver-admin.desktop
 Type=Application
 Encoding=UTF-8
 Name=Admin GeoServer
-Comment=GeoServer 1.7.6
+Comment=GeoServer ${GS_VERSION}
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/firefox "http://localhost:$GS_PORT/geoserver/welcome.do"
 Icon=/usr/share/icons/geoserver_desktop_48x48.png
@@ -215,7 +215,7 @@ cat << EOF > /usr/share/applications/geoserver-styler.desktop
 Type=Application
 Encoding=UTF-8
 Name=Style GeoServer
-Comment=GeoServer 1.7.6 Styler Extension
+Comment=GeoServer ${GS_VERSION} Styler Extension
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/firefox "http://localhost:$GS_PORT/geoserver/www/styler"
 Icon=/usr/share/icons/geoserver_desktop_48x48.png
@@ -228,7 +228,7 @@ cat << EOF > /usr/share/applications/geoserver-docs.desktop
 Type=Application
 Encoding=UTF-8
 Name=GeoServer documentation
-Comment=GeoServer 1.7.6 documentation
+Comment=GeoServer ${GS_VERSION} Documentation
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/firefox "$DOC_DIR/user/index.html"
 Icon=/usr/share/icons/geoserver_desktop_48x48.png
