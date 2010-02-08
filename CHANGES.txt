@@ -1,10 +1,14 @@
 Arramagong GISVM
 ================
 
-Version: 3.0 alpha 4
+Version: 3.0 rc1
+================
+8 February 2010
+Feature Freeze
+
+Version: 3.0 alpha 4 & 5
 ====================
-24 Jan 2010
-Build on click2try
+Headless builds (with logs)
 
 Version: 3.0 alpha 2 & 3
 ====================
