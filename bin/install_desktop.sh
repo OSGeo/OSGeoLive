@@ -28,8 +28,8 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
 chown user:user /home/user/Desktop/passwords.txt
 
 # Setup the desktop background
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/arramagong-desktop.png \
-    --output-document=/usr/share/xfce4/backdrops/arramagong-desktop.png
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/background.jpeg \
+    --output-document=/usr/share/xfce4/backdrops/osgeo-background.jpeg
 
 #Has to been run as the regular user
 sudo -u $USER_NAME xfconf-query -c xfce4-desktop \

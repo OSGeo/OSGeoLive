@@ -6,7 +6,12 @@ Version: 3.0 rc1
 8 February 2010
 Feature Freeze
 
-Version: 3.0 alpha 4 & 5
+Version: 3.0 alpha 5
+====================
+5 February 2010
+Some bugs fixed, not all scripts tested.
+
+Version: 3.0 alpha 4
 ====================
 Headless builds (with logs)
 
