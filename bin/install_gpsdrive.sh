@@ -239,8 +239,8 @@ fi
 ## end self-build
 #######################
 
-#cleanup
-apt-get autoremove
+#cleanup, need to assume otherwise it prompts
+apt-get autoremove --asume-yes
 
 
 #### install data ####
