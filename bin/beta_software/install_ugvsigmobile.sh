@@ -19,8 +19,15 @@
 
 # Running:
 # =======
-# Go to Applications -> Education -> Unofficial gvSIG Mobile ...
+#
+# cd beta_software
+# sudo ./ugvsigmobile.sh
+# (in this case, the start menu will be in the "Applications - Education" menu)
+#
+# should be called with sudo ./install_beta_and_submenu.sh
+#
 
+# --------------- Start: ---------------------
 
 # install dependencies. gpsd is also as a dep. in the deb file
 apt-get --assume-yes install gpsd 
