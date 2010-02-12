@@ -57,7 +57,7 @@ rm -fr \
   # /home/user/.dbus \
 
 echo "==============================================================="
-echo " Compress image by wiping the vitual disk, filling empty space with zero."
+echo " Compress image by wiping the virtual disk, filling empty space with zero."
 cat /dev/zero > zero.fill ; sync ; sleep 1 ; sync ; rm -f zero.fill
 
 echo "==============================================================="

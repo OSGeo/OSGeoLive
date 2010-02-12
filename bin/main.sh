@@ -84,6 +84,7 @@ for SCRIPT in \
   ./install_gpsdrive.sh \
   ./install_mb-system.sh \
   ./install_mapfish.sh \
+  ./install_openlayers.sh \
   ./install_R.sh \
   ./install_ossim.sh \
   ./install_osgearth.sh \
