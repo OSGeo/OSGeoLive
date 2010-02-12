@@ -240,7 +240,7 @@ fi
 #######################
 
 #cleanup, need to assume otherwise it prompts
-apt-get autoremove --asume-yes
+apt-get --assume-yes autoremove
 
 
 #### install data ####
