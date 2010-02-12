@@ -74,14 +74,13 @@ fi
 
 # download documentation
 UGVSIGMOBILE_DOCS=/usr/local/share/ugvsigmobile
-UGVSIGMOBILE_DOCZIP=ugvsigmobile_0.1.6_all_doc_en.zip
-
+UGVSIGMOBILE_DOCZIP=ugvsigmobile_0.1.6_all_doc_english.zip
 
 if [ -f "$UGVSIGMOBILE_DOCZIP" ]
 then
    echo "$UGVSIGMOBILE_DOCZIP has already been downloaded."
 else
-   wget --no-check-certificate "https://garage.maemo.org/frs/download.php/7363/$UGVSIGMOBILE_DOCZIP"
+   wget --no-check-certificate "https://garage.maemo.org/frs/download.php/7504/$UGVSIGMOBILE_DOCZIP"
 fi
 
 
@@ -91,6 +90,9 @@ then
 else
    rm "$UGVSIGMOBILE_DOCS"/*.pdf
    rm "$UGVSIGMOBILE_DOCS"/*.zip
+   rm "$UGVSIGMOBILE_DOCS"/*.shx
+   rm "$UGVSIGMOBILE_DOCS"/*.dbf
+   rm "$UGVSIGMOBILE_DOCS"/*.shp
 fi
 
 cp "$UGVSIGMOBILE_DOCZIP" "$UGVSIGMOBILE_DOCS"
