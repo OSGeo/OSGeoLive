@@ -35,7 +35,7 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/background
 #Has to been run as the regular user
 sudo -u $USER_NAME xfconf-query -c xfce4-desktop \
      -p /backdrop/screen0/monitor0/image-path \
-     -s /usr/share/xfce4/backdrops/osgeo-desktop.png
+     -s /usr/share/xfce4/backdrops/osgeo-desktop.jpeg
 # set to stretch style background
 sudo -u $USER_NAME xfconf-query -c xfce4-desktop --create \
      -p /backdrop/screen0/monitor0/image-style  -s 3  -t int
