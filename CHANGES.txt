@@ -1,6 +1,12 @@
 Arramagong GISVM
 ================
 
+Version: 3.0 rc2
+================
+16 February 2010
+Interim release
+
+Feature Freeze
 Version: 3.0 rc1
 ================
 8 February 2010
