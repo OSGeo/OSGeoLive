@@ -78,6 +78,9 @@ rm -fr /home/user/Videos
 # this probably won't work here because ubiquity isn't loaded until remastersys step
 sed -i -e 's/Install/Install xubuntu GNU Linux/' /usr/share/applications/ubiquity-gtkui.desktop
 
+# Link to the project data files
+cd /home/user
+ln -s /usr/local/share data
 
 # and there was music and laughter and much rejoicing
 adduser user audio
