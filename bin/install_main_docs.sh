@@ -30,6 +30,8 @@ DEST="/usr/local/share/livedvd-docs"
 FILES="banner.png arramagong.css" # base files to install
 INSTALL_APPS=../install_list # List applications to install 
 APPS=`sed -e 's/#.*$//' ${INSTALL_APPS}`
+VERSION=`cat ../VERSION.txt`
+
 
 mkdir -p $DEST/doc
 
@@ -39,7 +41,8 @@ for ITEM in $FILES ; do
    cp -f ../doc/"$ITEM" "$DEST/"
 done
 # index page start
-cp -f ../doc/index_pre.html "$DEST/index.html"
+# copy the version number into the <h1>title</h1>
+sed -e "s/<\/h1>/ version ${VERSION}<\/h1>/" ../doc/index_pre.html > $DEST/index.html
 
 # license page start
 #cp -f ../doc/license_pre.html "$DEST/license.html"
