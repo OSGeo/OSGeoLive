@@ -91,6 +91,13 @@ cd gaul-devel-0.1849-0/
 ./configure --disable-slang
 
 make
+
+if [ $? -ne 0 ] ; then
+   #cleanup()
+   echo "ERROR (pgrouting): gaul build failed. Aborting install script."
+   exit 1
+fi
+
 sudo make install
 sudo ldconfig
 
@@ -122,6 +129,13 @@ cd "$INSTALL_FOLDER"
 
 cmake -DWITH_TSP=ON -DWITH_DD=ON .
 make
+
+if [ $? -ne 0 ] ; then
+   #cleanup()
+   echo "ERROR: pgRouting build failed. Aborting install script."
+   exit 1
+fi
+
 # we are already root
 make install
 
