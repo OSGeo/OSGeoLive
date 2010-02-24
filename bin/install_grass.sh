@@ -229,4 +229,6 @@ PERMANENT mapset and click [ok]
 
 That's it.
 
+see also https://trac.osgeo.org/grass/wiki/HowToTestGrass6
+
 EOF
