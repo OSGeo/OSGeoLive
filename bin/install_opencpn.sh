@@ -215,7 +215,7 @@ Name=OpenCPN
 Comment=GPS Navigation. You need to setup Gpsd manually
 Categories=Application;Education;Geography;
 Exec=/usr/local/bin/opencpn
-Icon=exec
+Icon=/usr/share/icons/opencpn.png
 Terminal=false
 EOF
 
