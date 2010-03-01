@@ -24,3 +24,9 @@
 
 apt-get install --yes marble marble-data
 
+
+# copy marble.desktop to "$USER_HOME/Desktop/"
+#...
+
+
+
