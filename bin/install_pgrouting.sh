@@ -52,13 +52,6 @@ if [ ! -x "`which psql`" ] ; then
  exit 1
 fi
 
-
-if [ ! -x "`which svn`" ] ; then
- echo "WARNING: svn is required and will be installed right away" 
- sudo apt-get install subversion
-fi
-
-
 # create tmp folders
 mkdir "$TMP"
 cd "$TMP"
@@ -66,11 +59,11 @@ cd "$TMP"
 # install libraries
 apt-get install --yes \
    postgresql-server-dev-8.4 \
-   build-essential \
    cmake \
    "libboost$BOOST-dev" \
    "libboost-graph$BOOST-dev" \
-   libcgal*
+   libcgal3 \
+   libcgal-dev
 
 echo "FIXME: remove -dev packages once you are done with them. libboost-dev is hundreds of MB."
 # Explicitly set which ones you want to keep for runtime 
@@ -90,7 +83,7 @@ if [ -f "gaul-devel-0.1849-0.tar.gz" ]
 then
  echo "gaul-devel-0.1849-0.tar.gz has already been downloaded."
 else
- wget -c "http://downloads.sourceforge.net/gaul/gaul-devel-0.1849-0.tar.gz?modtime=1114163427&big_mirror=0"
+ wget -nv "http://downloads.sourceforge.net/gaul/gaul-devel-0.1849-0.tar.gz"
 fi
 
 tar -xzf gaul-devel-0.1849-0.tar.gz
@@ -106,8 +99,8 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-sudo make install
-sudo ldconfig
+make install
+ldconfig
 
 cd "$TMP"
 
@@ -117,7 +110,7 @@ cd "$TMP"
 # echo "pgRouting-1.03.tgz has already been downloaded."
 #else
  #wget -c http://files.postlbs.org/pgrouting/source/pgRouting-1.03.tgz
- svn checkout http://pgrouting.postlbs.org/svn/pgrouting/trunk pgrouting
+ svn checkout -r 355 http://pgrouting.postlbs.org/svn/pgrouting/trunk pgrouting
 #fi
 
 # get sample data
@@ -147,6 +140,16 @@ fi
 
 # we are already root
 make install
+
+
+# cleanup
+apt-get --assume-yes remove \
+   postgresql-server-dev-8.4 \
+   "libboost$BOOST-dev" \
+   "libboost-graph$BOOST-dev" \
+   libcgal-dev
+apt-get --assume-yes autoremove
+
 
 # create routing database
 sudo -u $USER_NAME createdb sydney
