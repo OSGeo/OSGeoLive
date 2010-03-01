@@ -24,8 +24,8 @@ USER_HOME=/home/$USER_NAME
 
 # Default password list on the desktop to be replaced by html help in the future.
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
-    --output-document=/home/user/Desktop/passwords.txt
-chown user:user /home/user/Desktop/passwords.txt
+    --output-document="$USER_HOME/Desktop/passwords.txt"
+chown user:user "$USER_HOME/Desktop/passwords.txt"
 
 # Setup the desktop background
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/background.jpg \
@@ -44,8 +44,8 @@ sudo -u $USER_NAME xfconf-query -c xfce4-desktop --create \
 
 #Add the launchhelp script which allows other apps to provide sudo launching with the password already embedded
 #Geonetwork and deegree needs this right now
-cp ${USER_HOME}/gisvm/bin/launchassist.sh ${USER_HOME}/.
-chmod 755 ${USER_HOME}/launchassist.sh
+cp "$USER_HOME/gisvm/bin/launchassist.sh" "$USER_HOME/"
+chmod 755 "$USER_HOME/launchassist.sh"
 
 
 # Ubuntu 9.10 (GNOME) wants to see the ~/Desktop/*.desktop files be executable,
@@ -55,3 +55,79 @@ chmod 755 ${USER_HOME}/launchassist.sh
 #-uncomment if needed for Xubuntu
 ##chmod u+x "$USER_HOME"/Desktop/*.desktop
 
+
+#### attempt to clean up the desktop icons
+# (putting everything in a menu tree should happen too, but these things are not
+# mutually exclusive)
+cd "$USER_HOME/Desktop"
+
+mkdir "Desktop GIS"
+DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0_RC1"
+for APP in $DESKTOP_APPS ; do
+   mv "$APP.desktop" "Desktop GIS"/
+done
+
+mkdir "Navigation and Maps"
+NAV_APPS="MapFish marble gpsdrive opencpn mapnik-*"
+for APP in $DESKTOP_APPS ; do
+   mv $APP.desktop "Navigation and Maps"/
+done
+
+mkdir "Server"  # what to call this?
+NAV_APPS="deegree-* geoserver-* *geonetwork geomajas-* mapserver"
+for APP in $DESKTOP_APPS ; do
+   mv $APP.desktop "Server"/
+done
+
+
+mkdir "Geo Tools"  # what to call this?
+NAV_APPS="maptiler imagelinker r spatialite-*"
+for APP in $DESKTOP_APPS ; do
+   mv $APP.desktop "Geo Tools"/
+done
+
+
+### get list of *.desktop from bin/install_*.sh :
+# grep '\.desktop' * | sed -e 's/\.desktop.*/.desktop/' -e 's+^.*[/" ]++' | sort | uniq
+#
+#List as of 1 March 2010:
+#
+# deegree-start.desktop
+# deegree-stop.desktop
+# geokettle.desktop
+# geomajas-start.desktop
+# geomajas-stop.desktop
+# geonetwork.desktop
+# geoserver-admin.desktop
+# geoserver-docs.desktop
+# geoserver-start.desktop
+# geoserver-stop.desktop
+# geoserver-styler.desktop
+# gpsdrive.desktop
+# grass.desktop
+# gvsig.desktop
+# imagelinker.desktop
+# Kosmo_2.0_RC1.desktop
+# [live_GIS_help.desktop]  leave on main desktop
+# MapFish.desktop
+# mapnik-intro.desktop
+# mapnik-start.desktop
+# mapserver.desktop
+# maptiler.desktop
+# opencpn.desktop
+# openjump.desktop
+# ossimplanet.desktop
+# qgis.desktop
+# r.desktop
+# spatialite-gis.desktop
+# spatialite-gui.desktop
+# start_geonetwork.desktop
+# stop_geonetwork.desktop
+# [ubiquity-gtkui.desktop]  rename in possible
+# uDig.desktop
+# 
+
+
+# permissions cleanup (if needed)
+chown user:user "$USER_HOME/Desktop/" -R
+chmod a+r "$USER_HOME/Desktop/" -R
