@@ -61,7 +61,7 @@ if [ -f "$UGM_PACKAGE" ]
 then
    echo "$UGM_PACKAGE has already been downloaded."
 else
-   wget --no-check-certificate "$UGM_BASEURL/$UGM_PACKAGE"
+   wget -nv --no-check-certificate "$UGM_BASEURL/$UGM_PACKAGE"
 fi
 
 # install the deb package
@@ -74,15 +74,14 @@ fi
 
 # download documentation
 UGVSIGMOBILE_DOCS=/usr/local/share/ugvsigmobile
-UGVSIGMOBILE_DOCZIP=ugvsigmobile_0.1.6_all_doc_english.zip
+UGVSIGMOBILE_DOCZIP=ugvsigmobile_0.1.6_doc_en_it.zip
 
 if [ -f "$UGVSIGMOBILE_DOCZIP" ]
 then
    echo "$UGVSIGMOBILE_DOCZIP has already been downloaded."
 else
-   wget --no-check-certificate "https://garage.maemo.org/frs/download.php/7504/$UGVSIGMOBILE_DOCZIP"
+   wget -nv --no-check-certificate "https://garage.maemo.org/frs/download.php/7632/$UGVSIGMOBILE_DOCZIP"
 fi
-
 
 if [ ! -d "$UGVSIGMOBILE_DOCS" ]
 then
