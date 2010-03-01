@@ -46,10 +46,18 @@ if [ ! -x "`which wget`" ] ; then
  exit 1
 fi
 
+
 if [ ! -x "`which psql`" ] ; then
  echo "ERROR: PostgreSQL is required, please install it and try again" 
  exit 1
 fi
+
+
+if [ ! -x "`which svn`" ] ; then
+ echo "WARNING: svn is required and will be installed right away" 
+ sudo apt-get install subversion
+fi
+
 
 # create tmp folders
 mkdir "$TMP"
@@ -104,12 +112,13 @@ sudo ldconfig
 cd "$TMP"
 
 # get pgRouting
-if [ -f "pgRouting-1.03.tgz" ]
-then
- echo "pgRouting-1.03.tgz has already been downloaded."
-else
- wget -c http://files.postlbs.org/pgrouting/source/pgRouting-1.03.tgz
-fi
+#if [ -f "pgRouting-1.03.tgz" ]
+#then
+# echo "pgRouting-1.03.tgz has already been downloaded."
+#else
+ #wget -c http://files.postlbs.org/pgrouting/source/pgRouting-1.03.tgz
+ svn checkout http://pgrouting.postlbs.org/svn/pgrouting/trunk pgrouting
+#fi
 
 # get sample data
 if [ -f "sydney.tar.gz" ]
@@ -123,7 +132,7 @@ fi
 tar -xzf sydney.tar.gz -C "$TMP"
 
 # unpack and compile pgRouting
-tar -xzf pgRouting-1.03.tgz -C "$TMP"
+#tar -xzf pgRouting-1.03.tgz -C "$TMP"
 
 cd "$INSTALL_FOLDER"
 
