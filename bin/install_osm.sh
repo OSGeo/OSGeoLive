@@ -56,6 +56,9 @@ chmod a+x /usr/share/applications/gosmore.desktop
 #
 
 # wget -c --progress=dot:mega http:// ... ?
+mkdir /usr/local/share/osm
+cp ../app-data/osm/Auckland.osm.gz /usr/local/share/osm/
+
 
 ####
 # Point gosmore to a sample planet-*.osm data file extract
