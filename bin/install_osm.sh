@@ -38,7 +38,7 @@ cat << EOF > /usr/share/applications/gosmore.desktop
 [Desktop Entry]
 Version=1.0
 Name=Gosmore
-Comment=Editor for OpenStreetMap.com
+Comment=Viewer for OpenStreetMap.com
 Exec=/usr/bin/gosmore
 Icon=josm-32
 StartupNotify=false
