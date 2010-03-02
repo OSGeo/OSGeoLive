@@ -68,7 +68,7 @@ for APP in $DESKTOP_APPS ; do
 done
 
 mkdir "Navigation and Maps"
-NAV_APPS="MapFish marble gpsdrive opencpn mapnik-*"
+NAV_APPS="MapFish marble gpsdrive opencpn mapnik-* josm gosmore"
 for APP in $DESKTOP_APPS ; do
    mv $APP.desktop "Navigation and Maps"/
 done

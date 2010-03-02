@@ -25,8 +25,6 @@
 apt-get install --yes marble marble-data
 
 
-# copy marble.desktop to "$USER_HOME/Desktop/"
-#...
-
-
+# copy icon to Desktop
+cp /usr/share/applications/kde4/marble.desktop /user/home/Desktop/
 

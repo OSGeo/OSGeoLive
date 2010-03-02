@@ -21,3 +21,46 @@
 # sudo ./install_osm.sh
 
 apt-get install --assume-yes josm josm-plugins gosmore gpsd
+
+
+#### desktop icons
+echo '#!/usr/bin/env xdg-open' > /home/user/Desktop/josm.desktop
+cat /usr/share/applications/josm.desktop >> /home/user/Desktop/josm.desktop
+chmod a+x /home/user/Desktop/josm.desktop
+
+## need to make one for gosmore
+# not much point copying this to the desktop until we have a data file builta (see below)
+cat << EOF > /usr/share/applications/gosmore.desktop
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Name=Gosmore
+Comment=Editor for OpenStreetMap.com
+Exec=/usr/bin/gosmore
+Icon=josm-32
+StartupNotify=false
+Terminal=false
+Type=Application
+Categories=Education;Science;Geoscience;
+EOF
+
+chmod a+x /usr/share/applications/gosmore.desktop
+
+
+#### install sample OSM data
+#
+# - Download OSM planet file from
+#  http://www.osmaustralia.org/osmausextract.php
+#    or
+#  http://downloads.cloudmade.com/oceania/australia
+#
+
+# wget -c --progress=dot:mega http:// ... ?
+
+####
+# Point gosmore to a sample planet-*.osm data file extract
+# ** TODO **
+# su - user \   ??
+#bzip2 -d planet-...osm.bz2 | gosmore rebuild
+
+
