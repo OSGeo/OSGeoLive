@@ -28,6 +28,15 @@
 # =======
 # sudo ./install_pgrouting.sh
 
+clean_up() {
+   apt-get --assume-yes remove \
+   postgresql-server-dev-8.4 \
+   "libboost$BOOST-dev" \
+   "libboost-graph$BOOST-dev" \
+   libcgal-dev
+   apt-get --assume-yes autoremove
+}
+
 TMP="/tmp/build_pgrouting"
 INSTALL_FOLDER="$TMP/pgrouting"
 POSTGIS_VERSION="8.4"
@@ -94,7 +103,7 @@ cd gaul-devel-0.1849-0/
 make
 
 if [ $? -ne 0 ] ; then
-   #cleanup()
+   clean_up
    echo "ERROR (pgrouting): gaul build failed. Aborting install script."
    exit 1
 fi
@@ -105,13 +114,7 @@ ldconfig
 cd "$TMP"
 
 # get pgRouting
-#if [ -f "pgRouting-1.03.tgz" ]
-#then
-# echo "pgRouting-1.03.tgz has already been downloaded."
-#else
- #wget -c http://files.postlbs.org/pgrouting/source/pgRouting-1.03.tgz
- svn checkout -r 355 http://pgrouting.postlbs.org/svn/pgrouting/trunk pgrouting
-#fi
+ svn checkout -r 356 http://pgrouting.postlbs.org/svn/pgrouting/trunk pgrouting
 
 # get sample data
 if [ -f "sydney.tar.gz" ]
@@ -133,7 +136,7 @@ cmake -DWITH_TSP=ON -DWITH_DD=ON .
 make
 
 if [ $? -ne 0 ] ; then
-   #cleanup()
+   clean_up
    echo "ERROR: pgRouting build failed. Aborting install script."
    exit 1
 fi
@@ -141,15 +144,7 @@ fi
 # we are already root
 make install
 
-
-# cleanup
-apt-get --assume-yes remove \
-   postgresql-server-dev-8.4 \
-   "libboost$BOOST-dev" \
-   "libboost-graph$BOOST-dev" \
-   libcgal-dev
-apt-get --assume-yes autoremove
-
+clean_up
 
 # create routing database
 sudo -u $USER_NAME createdb sydney
