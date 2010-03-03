@@ -52,12 +52,15 @@ cp /usr/share/applications/gosmore.desktop "$USER_HOME/Desktop/"
 
 
 #### install sample OSM data
-# - Download OSM planet file from
-#  http://www.osmaustralia.org/osmausextract.php
-#    or
-#  http://downloads.cloudmade.com/oceania/australia
-# wget -c --progress=dot:mega http:// ... ?
-
 mkdir /usr/local/share/osm
+
+# Auckland:
 cp ../app-data/osm/Auckland.osm.gz /usr/local/share/osm/
+
+# Barcelona:
+
+### Please update to latest data at the last minute! See data dir on server for details.
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/osm/Barcelona.osm.bz2"
+cp Barcelona.osm.bz2 /usr/local/share/osm/
+
 
