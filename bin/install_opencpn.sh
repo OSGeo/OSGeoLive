@@ -67,6 +67,10 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
+wget -nv -O tips.html \
+  "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/doc/tips.html"
+cp tips.html /usr/local/share/opencpn/doc/
+
 
 #### download sample data
 # RNC raster (BSB format)
