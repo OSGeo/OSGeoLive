@@ -30,10 +30,10 @@
 
 clean_up() {
    apt-get --assume-yes remove \
-   postgresql-server-dev-8.4 \
-   "libboost$BOOST-dev" \
-   "libboost-graph$BOOST-dev" \
-   libcgal-dev
+      postgresql-server-dev-8.4 \
+      "libboost$BOOST-dev" \
+      "libboost-graph$BOOST-dev" \
+      libcgal-dev
    apt-get --assume-yes autoremove
 }
 
@@ -74,8 +74,7 @@ apt-get install --yes \
    libcgal3 \
    libcgal-dev
 
-echo "FIXME: remove -dev packages once you are done with them. libboost-dev is hundreds of MB."
-# Explicitly set which ones you want to keep for runtime 
+# Explicitly set which packages you want to keep for runtime 
 #    otherwise there is a good chance they will be auto-cleaned:
 # (prior apt-get installs these, this one is just to remove the auto-tag)
 apt-get install --yes libcgal3 libqt3-mt \
@@ -114,7 +113,7 @@ ldconfig
 cd "$TMP"
 
 # get pgRouting
- svn checkout -r 356 http://pgrouting.postlbs.org/svn/pgrouting/trunk pgrouting
+svn checkout -r 356 http://pgrouting.postlbs.org/svn/pgrouting/trunk pgrouting
 
 # get sample data
 if [ -f "sydney.tar.gz" ]
