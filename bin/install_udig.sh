@@ -31,13 +31,16 @@
 
 TMP="/tmp/build_udig"
 INSTALL_FOLDER="/usr/lib"
-DATA_FOLDER="/usr/local/share"
 UDIG_FOLDER="$INSTALL_FOLDER/udig"
+DATA_FOLDER="/usr/local/share/udig"
 BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
  
 ## Setup things... ##
+if [ ! -d "$DATA_FOLDER" ] ; then
+   mkdir "$DATA_FOLDER"
+fi
  
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
@@ -73,7 +76,7 @@ else
    wget -c --progress=dot:mega http://udig.refractions.net/files/downloads/branches/udig-1.2-M9.linux.gtk.x86.tar.gz
 fi
 # unpack it and copy it to /usr/lib
-tar -xzf udig-1.2-M9.linux.gtk.x86.tar.gz -C $INSTALL_FOLDER
+tar -xzf udig-1.2-M9.linux.gtk.x86.tar.gz -C "$INSTALL_FOLDER"
 
 
 ## Configure Application ##
@@ -86,10 +89,10 @@ else
    wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/udig/udig.sh
 fi
 # copy it into the udig folder
-cp udig.sh $UDIG_FOLDER
+cp udig.sh "$UDIG_FOLDER"
 
 # create link to startup script
-ln -s $UDIG_FOLDER/udig.sh $BIN/udig
+ln -s "$UDIG_FOLDER/udig.sh" "$BIN/udig"
 
 # Download desktop icon
 if [ -f "uDig.desktop" ]
@@ -99,8 +102,8 @@ else
    wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/udig/uDig.desktop
 fi
 # copy it into the udig folder
-cp uDig.desktop $USER_HOME/Desktop
-chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/uDig.desktop
+cp uDig.desktop "$USER_HOME/Desktop"
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/uDig.desktop"
 
 
 ## Sample Data ##
@@ -114,9 +117,9 @@ else
 fi
 
 #unzip the file into /usr/local/share/udig-data
-mkdir $DATA_FOLDER/udig-data
-unzip data-v1_2.zip -d $DATA_FOLDER/udig-data
-chmod a+w $DATA_FOLDER/udig-data
+mkdir "$DATA_FOLDER/udig-data"
+unzip data-v1_2.zip -d "$DATA_FOLDER/udig-data"
+chmod a+w "$DATA_FOLDER/udig-data"
 
 ## Documentation ##
 
@@ -142,8 +145,8 @@ else
    wget -c --progress=dot:mega http://udig.refractions.net/files/tutorials/uDigWalkthrough2.pdf
 fi
 
-#copy into /usr/local/share/udig-docs
-mkdir $DATA_FOLDER/udig-docs
-cp udig-1.2-M5.html $DATA_FOLDER/udig-docs
-cp uDigWalkthrough1.pdf $DATA_FOLDER/udig-docs
-cp uDigWalkthrough1.pdf $DATA_FOLDER/udig-docs
+#copy into /usr/local/share/udig/udig-docs
+mkdir "$DATA_FOLDER/udig-docs"
+cp udig-1.2-M5.html "$DATA_FOLDER/udig-docs"
+cp uDigWalkthrough1.pdf "$DATA_FOLDER/udig-docs"
+cp uDigWalkthrough1.pdf "$DATA_FOLDER/udig-docs"
