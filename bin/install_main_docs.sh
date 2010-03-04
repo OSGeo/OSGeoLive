@@ -26,7 +26,9 @@
 
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
+SRC="../doc"
 DEST="/usr/local/share/livedvd-docs"
+#DEST="/home/cshorter/tmp"
 FILES="banner.png arramagong.css" # base files to install
 INSTALL_APPS=../install_list # List applications to install 
 APPS=`sed -e 's/#.*$//' ${INSTALL_APPS}`
@@ -38,44 +40,53 @@ mkdir -p $DEST/doc
 
 for ITEM in $FILES ; do
    # keep it at one file per line, as missing files tell us what is missing
-   cp -f ../doc/"$ITEM" "$DEST/"
+   cp -f ${SRC}/"$ITEM" "$DEST/"
 done
 # index page start
 # copy the version number into the <h1>title</h1>
-sed -e "s/<\/h1>/ version ${VERSION}<\/h1>/" ../doc/index_pre.html > $DEST/index.html
+sed -e "s/<\/h1>/ version ${VERSION}<\/h1>/" ${SRC}/index_pre.html > $DEST/index.html
 
 # license page start
-#cp -f ../doc/license_pre.html "$DEST/license.html"
+#cp -f ${SRC}/license_pre.html "$DEST/license.html"
 
 for ITEM in $APPS ; do
-   # Copy Descriptions:
-   # keep it at one doc per line as missing files tell us which docs are missing
-   if [ -e "../doc/descriptions/${ITEM}_description.html" ] ; then
-      cp -f "../doc/descriptions/${ITEM}_description.html" "$DEST/doc/"
+   # Publish/Copy Descriptions:
+
+   # Convert .odt description to html if doc exists
+   #if [ -e "${SRC}/descriptions/${ITEM}_description.odt" ] ; then
+   #   echo "Found ${SRC}/descriptions/${ITEM}_description.odt"
+   #   cp "${SRC}/descriptions/${ITEM}_description.odt" "$DEST/doc/"
+   #   abiword --to html ${SRC}/descriptions/${ITEM}_description.odt
+   #   rm "${SRC}/descriptions/${ITEM}_description.odt"
+   #elif
+
+   # Otherwise, copy the HTML
+   if [ -e "${SRC}/descriptions/${ITEM}_description.html" ] ; then
+      cp -f "${SRC}/descriptions/${ITEM}_description.html" "$DEST/doc/"
    else
      echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_description.html"
    fi
 
    # Copy Definitions:
-   if [ -e "../doc/descriptions/${ITEM}_definition.html" ] ; then
-      cat "../doc/descriptions/${ITEM}_definition.html" >> "$DEST/index.html"
+   if [ -e "${SRC}/descriptions/${ITEM}_definition.html" ] ; then
+      cat "${SRC}/descriptions/${ITEM}_definition.html" >> "$DEST/index.html"
    else
      echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_definition.html"
    fi
 
    # Copy Licenses:
-   #if [ -e "../doc/descriptions/${ITEM}_license.html" ] ; then
-   #   cat "../doc/descriptions/${ITEM}_license.html" >> "$DEST/license.html"
+   #if [ -e "${SRC}/descriptions/${ITEM}_license.html" ] ; then
+   #   cat "${SRC}/descriptions/${ITEM}_license.html" >> "$DEST/license.html"
    #else
    #  echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_license.html"
    #fi
 done
 
 # index page end
-cat ../doc/index_post.html >> "$DEST/index.html"
+cat ${SRC}/index_post.html >> "$DEST/index.html"
 
 # license page end
-#cat ../doc/license_post.html >> "$DEST/license.html"
+#cat ${SRC}/license_post.html >> "$DEST/license.html"
 
 
 # FIXME
