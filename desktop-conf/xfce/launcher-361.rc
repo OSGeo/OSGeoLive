@@ -7,7 +7,7 @@ Name=Terminal
 Comment=Linux Command Line
 Icon=xfce-terminal
 Exec=xfce4-terminal
-Path=/home/user
+Path=
 Terminal=false
 StartupNotify=false
 
