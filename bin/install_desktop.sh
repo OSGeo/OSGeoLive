@@ -19,8 +19,10 @@
 # Running:
 # =======
 # sudo ./install_desktop.sh
-USER_NAME=user
-USER_HOME=/home/$USER_NAME
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+
+BUILD_DIR="/tmp/build_desktop"
 
 # Default password list on the desktop to be replaced by html help in the future.
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
@@ -87,13 +89,17 @@ for APP in $GEO_APPS ; do
 done
 
 
+
 ##### populate the Geospatial menu
+mkdir "$BUILD_DIR"
+cd "$BUILD_DIR"
+
 DESKTOP_APPS="grass qgis gvsig openjump udig kosmo"
 SECTION="Desktop GIS"
 for APP in $DESKTOP_APPS ; do
    if [ -e "/usr/share/menu/$APP" ] ; then
       sed -e "s+section=\".[^\"]*\"+section=\"Geospatial/$SECTION\"+" \
-        "/usr/share/menu/$APP" > "/usr/share/menu/${APP}_livedvd"
+        "/usr/share/menu/$APP" >> osgeo_submenu
    else
       echo "E: can't find menu entry for <$APP>"
    fi
@@ -104,7 +110,7 @@ SECTION="Desktop GIS/OSSIM"
 for APP in $OSSIM_APPS ; do
    if [ -e "/usr/share/menu/$APP" ] ; then
       sed -e "s+section=\".[^\"]*\"+section=\"Geospatial/$SECTION\"+" \
-        "/usr/share/menu/$APP" > "/usr/share/menu/${APP}_livedvd"
+        "/usr/share/menu/$APP" >> osgeo_submenu
    else
       echo "E: can't find menu entry for <$APP>"
    fi
@@ -115,7 +121,7 @@ SECTION="Navigation and Maps"
 for APP in $NAV_APPS ; do
    if [ -e "/usr/share/menu/$APP" ] ; then
       sed -e "s+section=\".[^\"]*\"+section=\"Geospatial/$SECTION\"+" \
-        "/usr/share/menu/$APP" > "/usr/share/menu/${APP}_livedvd"
+        "/usr/share/menu/$APP" >> osgeo_submenu
    else
       echo "E: can't find menu entry for <$APP>"
    fi
@@ -132,14 +138,13 @@ SECTION="Geo Tools"
 for APP in $GEO_APPS ; do
    if [ -e "/usr/share/menu/$APP" ] ; then
       sed -e "s+section=\".[^\"]*\"+section=\"Geospatial/$SECTION\"+" \
-        "/usr/share/menu/$APP" > "/usr/share/menu/${APP}_livedvd"
+        "/usr/share/menu/$APP" >> osgeo_submenu
    else
       echo "E: can't find menu entry for <$APP>"
    fi
 done
 
-
-
+cp osgeo_submenu /usr/share/menu/
 update-menus
 
 
