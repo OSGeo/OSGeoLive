@@ -97,9 +97,9 @@ done
 
 mkdir /usr/local/share/xfce
 # OSGeo menu, Terminal launcher, and CPU load for top taskbar:
-cp "$BUILD_DIR"/desktop-conf/xfce/xfce4-menu-360.rc /etc/xdg/xubuntu/xfce4/panel/
-cp "$BUILD_DIR"/desktop-conf/xfce/launcher-361.rc /etc/xdg/xubuntu/xfce4/panel/
-cp "$BUILD_DIR"/desktop-conf/xfce/cpugraph-362.rc /etc/xdg/xubuntu/xfce4/panel/
+cp "$BUILD_DIR"/../desktop-conf/xfce/xfce4-menu-360.rc /etc/xdg/xubuntu/xfce4/panel/
+cp "$BUILD_DIR"/../desktop-conf/xfce/launcher-361.rc /etc/xdg/xubuntu/xfce4/panel/
+cp "$BUILD_DIR"/../desktop-conf/xfce/cpugraph-362.rc /etc/xdg/xubuntu/xfce4/panel/
 
 # edit the panel to add these things
 sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
@@ -109,8 +109,8 @@ sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
 
 
 # pared down copy of /etc/xdg/xubuntu/menus/xfce-applications.menu
-cp "$BUILD_DIR"/desktop-conf/xfce/xfce-osgeo.menu /usr/local/share/xfce/
-cp "$BUILD_DIR"/desktop-conf/xfce/xfce-*.directory /usr/share/desktop-directories/
+cp "$BUILD_DIR"/../desktop-conf/xfce/xfce-osgeo.menu /usr/local/share/xfce/
+cp "$BUILD_DIR"/../desktop-conf/xfce/xfce-*.directory /usr/share/desktop-directories/
 sed -e 's/^Name=.*/Name=OSGeo Software Help/' live_GIS_help.desktop \
    > /usr/share/applications/osgeo-help.desktop
 
