@@ -22,6 +22,7 @@
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
+BUILD_DIR=`pwd`
 
 # Default password list on the desktop to be replaced by html help in the future.
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
@@ -96,9 +97,9 @@ done
 
 mkdir /usr/local/share/xfce
 # OSGeo menu, Terminal launcher, and CPU load for top taskbar:
-cp ../desktop-conf/xfce/xfce4-menu-360.rc /etc/xdg/xubuntu/xfce4/panel/
-cp ../desktop-conf/xfce/launcher-361.rc /etc/xdg/xubuntu/xfce4/panel/
-cp ../desktop-conf/xfce/cpugraph-362.rc /etc/xdg/xubuntu/xfce4/panel/
+cp "$BUILD_DIR"/desktop-conf/xfce/xfce4-menu-360.rc /etc/xdg/xubuntu/xfce4/panel/
+cp "$BUILD_DIR"/desktop-conf/xfce/launcher-361.rc /etc/xdg/xubuntu/xfce4/panel/
+cp "$BUILD_DIR"/desktop-conf/xfce/cpugraph-362.rc /etc/xdg/xubuntu/xfce4/panel/
 
 # edit the panel to add these things
 sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
@@ -108,8 +109,8 @@ sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
 
 
 # pared down copy of /etc/xdg/xubuntu/menus/xfce-applications.menu
-cp ../desktop-conf/xfce/xfce-osgeo.menu /usr/local/share/xfce/
-cp ../desktop-conf/xfce/xfce-*.directory /usr/share/desktop-directories/
+cp "$BUILD_DIR"/desktop-conf/xfce/xfce-osgeo.menu /usr/local/share/xfce/
+cp "$BUILD_DIR"/desktop-conf/xfce/xfce-*.directory /usr/share/desktop-directories/
 sed -e 's/^Name=.*/Name=OSGeo Software Help/' live_GIS_help.desktop \
    > /usr/share/applications/osgeo-help.desktop
 
