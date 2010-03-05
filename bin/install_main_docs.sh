@@ -22,7 +22,7 @@
 # =======
 # sudo ./install_main_docs.sh
 
-# Requires: nothing
+# Requires: abiword for the build process (but abiword can be deleted after that)
 
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
@@ -33,9 +33,10 @@ INSTALL_APPS=../install_list # List applications to install
 APPS=`sed -e 's/#.*$//' ${INSTALL_APPS}`
 VERSION=`cat ../VERSION.txt`
 
+# abiword is required to convert .odt files to .html
+apt-get install --yes abiword
 
 mkdir -p $DEST/doc
-
 
 for ITEM in $FILES ; do
    # keep it at one file per line, as missing files tell us what is missing
@@ -52,18 +53,16 @@ for ITEM in $APPS ; do
    # Publish/Copy Descriptions:
 
    # Convert .odt description to html if doc exists
-   #if [ -e "${SRC}/descriptions/${ITEM}_description.odt" ] ; then
-   #   echo "Found ${SRC}/descriptions/${ITEM}_description.odt"
-   #   cp "${SRC}/descriptions/${ITEM}_description.odt" "$DEST/doc/"
-   #   abiword --to html ${SRC}/descriptions/${ITEM}_description.odt
-   #   rm "${SRC}/descriptions/${ITEM}_description.odt"
-   #elif
+   if [ -e "${SRC}/descriptions/${ITEM}_description.odt" ] ; then
+      abiword --to "${DEST}/doc/${ITEM}_description.html" "${SRC}/descriptions/${ITEM}_description.odt"
 
    # Otherwise, copy the HTML
-   if [ -e "${SRC}/descriptions/${ITEM}_description.html" ] ; then
-      cp -f "${SRC}/descriptions/${ITEM}_description.html" "$DEST/doc/"
    else
-     echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_description.html"
+     if [ -e "${SRC}/descriptions/${ITEM}_description.html" ] ; then
+       cp -f "${SRC}/descriptions/${ITEM}_description.html" "$DEST/doc/"
+     else
+       echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_description.html"
+     fi
    fi
 
    # Copy Definitions:
@@ -88,7 +87,7 @@ cat ${SRC}/index_post.html >> "$DEST/index.html"
 #cat ${SRC}/license_post.html >> "$DEST/license.html"
 
 # Download the Test Plan / Test Results
-wget -O ${DEST}/tests.html http://wiki.osgeo.org/wiki/Live_GIS_Disc_Testing
+wget -c -O ${DEST}/tests.html http://wiki.osgeo.org/wiki/Live_GIS_Disc_Testing
 
 # FIXME
 echo "install_main_docs.sh FIXME: Double-check that the Firefox \
