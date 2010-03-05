@@ -122,12 +122,26 @@ for APP in $NAV_APPS ; do
 done
 #
 SERVER_APPS="deegree geoserver geonetwork geomajas mapserver"
-SECTION="Server"
+SECTION="Servers"
 #...
-# TODO
+# TODO: own section for each server package with start+stop in each one
+#
+#
+GEO_APPS="maptiler octave3.0 r-base-core spatialite"
+SECTION="Geo Tools"
+for APP in $GEO_APPS ; do
+   if [ -e "/usr/share/menu/$APP" ] ; then
+      sed -e "s+section=\".[^\"]*\"+section=\"Geospatial/$SECTION\"+" \
+        "/usr/share/menu/$APP" > "/usr/share/menu/${APP}_livedvd"
+   else
+      echo "E: can't find menu entry for <$APP>"
+   fi
+done
+
 
 
 update-menus
+
 
 
 ### get list of *.desktop from bin/install_*.sh :
