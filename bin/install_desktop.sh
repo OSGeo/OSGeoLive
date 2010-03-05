@@ -69,22 +69,65 @@ done
 
 mkdir "Navigation and Maps"
 NAV_APPS="MapFish marble gpsdrive opencpn mapnik-* josm gosmore"
-for APP in $DESKTOP_APPS ; do
+for APP in $NAV_APPS ; do
    mv $APP.desktop "Navigation and Maps"/
 done
 
 mkdir "Server"  # what to call this?
-NAV_APPS="deegree-* geoserver-* *geonetwork geomajas-* mapserver"
-for APP in $DESKTOP_APPS ; do
+SERVER_APPS="deegree-* geoserver-* *geonetwork geomajas-* mapserver"
+for APP in $SERVER_APPS ; do
    mv $APP.desktop "Server"/
 done
 
 
 mkdir "Geo Tools"  # what to call this?
-NAV_APPS="maptiler imagelinker r spatialite-*"
-for APP in $DESKTOP_APPS ; do
+GEO_APPS="maptiler imagelinker r spatialite-*"
+for APP in $GEO_APPS ; do
    mv $APP.desktop "Geo Tools"/
 done
+
+
+##### populate the Geospatial menu
+DESKTOP_APPS="grass qgis gvsig openjump udig kosmo"
+SECTION="Desktop GIS"
+for APP in $DESKTOP_APPS ; do
+   if [ -e "/usr/share/menu/$APP" ] ; then
+      sed -e "s+section=\".[^\"]*\"+section=\"Geospatial/$SECTION\"+" \
+        "/usr/share/menu/$APP" > "/usr/share/menu/${APP}_livedvd"
+   else
+      echo "E: can't find menu entry for <$APP>"
+   fi
+done
+#
+OSSIM_APPS="ossimplanet imagelinker"
+SECTION="Desktop GIS/OSSIM"
+for APP in $OSSIM_APPS ; do
+   if [ -e "/usr/share/menu/$APP" ] ; then
+      sed -e "s+section=\".[^\"]*\"+section=\"Geospatial/$SECTION\"+" \
+        "/usr/share/menu/$APP" > "/usr/share/menu/${APP}_livedvd"
+   else
+      echo "E: can't find menu entry for <$APP>"
+   fi
+done
+#
+NAV_APPS="mapfish marble gpsdrive opencpn josm gosmore" # mapnik?
+SECTION="Navigation and Maps"
+for APP in $NAV_APPS ; do
+   if [ -e "/usr/share/menu/$APP" ] ; then
+      sed -e "s+section=\".[^\"]*\"+section=\"Geospatial/$SECTION\"+" \
+        "/usr/share/menu/$APP" > "/usr/share/menu/${APP}_livedvd"
+   else
+      echo "E: can't find menu entry for <$APP>"
+   fi
+done
+#
+SERVER_APPS="deegree geoserver geonetwork geomajas mapserver"
+SECTION="Server"
+#...
+# TODO
+
+
+update-menus
 
 
 ### get list of *.desktop from bin/install_*.sh :
