@@ -119,7 +119,10 @@ fi
 #unzip the file into /usr/local/share/udig-data
 mkdir "$DATA_FOLDER/udig-data"
 unzip data-v1_2.zip -d "$DATA_FOLDER/udig-data"
-chmod a+w "$DATA_FOLDER/udig-data"
+chmod g+w "$DATA_FOLDER/udig-data"
+adduser $USER_NAME users
+chown root.users "$DATA_FOLDER/udig-data"
+
 
 ## Documentation ##
 
