@@ -1,0 +1,51 @@
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+  "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+
+<Menu>
+    <Name>OSGeo</Name>
+    
+    <DefaultAppDirs/>
+    <DefaultDirectoryDirs/>
+
+    <Include>
+        <Filename>osgeo-help.desktop</Filename>
+    </Include>
+
+    <Layout>
+        <Merge type="all"/>
+	<Separator/>
+	<Filename>osgeo-help.desktop</Filename>
+    </Layout>
+ 
+    <Menu>
+        <Name>Desktop GIS</Name>
+        <Directory>xfce-desktopgis.directory</Directory>
+        <Include>
+            <Category>Desktop GIS</Category>
+        </Include>
+    </Menu>
+    
+    <Menu>
+        <Name>Navigation and Maps</Name>
+        <Directory>xfce-navigation.directory</Directory>
+        <Include>
+	    <Category>Navigation</Category>
+        </Include>
+    </Menu>
+
+    <Menu>
+        <Name>Servers</Name>
+        <Directory>xfce-geoservers.directory</Directory>
+        <Include>
+	    <Category>Geoservers</Category>
+        </Include>
+    </Menu>
+
+    <Menu>
+        <Name>Geo Tools</Name>
+        <Directory>xfce-geotools.directory</Directory>
+        <Include>
+	    <Category>Geo Tools</Category>
+        </Include>
+    </Menu>
+</Menu>

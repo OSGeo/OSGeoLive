@@ -1,0 +1,13 @@
+[Global]
+MoveFirst=false
+ArrowPosition=0
+
+[Entry 0]
+Name=Terminal
+Comment=Linux Command Line
+Icon=xfce-terminal
+Exec=xfce4-terminal
+Path=/home/user
+Terminal=false
+StartupNotify=false
+

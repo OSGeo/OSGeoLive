@@ -1,0 +1,7 @@
+use_default_menu=false
+menu_file=/usr/local/share/xfce/xfce-osgeo.menu
+icon_file=/usr/share/icons/gnome/24x24/categories/gnome-globe.png
+show_menu_icons=true
+button_title=Geospatial
+show_button_title=true
+

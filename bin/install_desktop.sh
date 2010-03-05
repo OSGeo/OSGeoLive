@@ -22,7 +22,6 @@
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
-BUILD_DIR="/tmp/build_desktop"
 
 # Default password list on the desktop to be replaced by html help in the future.
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
@@ -30,8 +29,8 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
 chown user:user "$USER_HOME/Desktop/passwords.txt"
 
 # Setup the desktop background
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/background.jpg \
-    --output-document=/usr/share/xfce4/backdrops/osgeo-desktop.jpg
+cp ../desktop-conf/background_dark.jpg \
+     /usr/share/xfce4/backdrops/osgeo-desktop.jpg
 
 #TODO:copy over default image file instead for headless installs, preference for png
 #Has to been run as the regular user
@@ -44,14 +43,15 @@ sudo -u $USER_NAME xfconf-query -c xfce4-desktop --create \
 
 
 
-#Add the launchhelp script which allows other apps to provide sudo launching with the password already embedded
+#Add the launchhelp script which allows other apps to provide sudo
+#    launching with the password already embedded
 #Geonetwork and deegree needs this right now
 cp "$USER_HOME/gisvm/bin/launchassist.sh" "$USER_HOME/"
 chmod 755 "$USER_HOME/launchassist.sh"
 
 
-# Ubuntu 9.10 (GNOME) wants to see the ~/Desktop/*.desktop files be executable,
-# and start with this shebang: #!/usr/bin/env xdg-open
+# Ubuntu 9.10 (GNOME but not Xfce) wants to see the ~/Desktop/*.desktop
+# files be executable, and start with this shebang: #!/usr/bin/env xdg-open
 #  By this point all scripts should have run, if they haven't, too bad, they
 #  should move to where they should be, earlier in the build process.
 #-uncomment if needed for Xubuntu
@@ -59,135 +59,98 @@ chmod 755 "$USER_HOME/launchassist.sh"
 
 
 #### attempt to clean up the desktop icons
-# (putting everything in a menu tree should happen too, but these things are not
-# mutually exclusive)
 cd "$USER_HOME/Desktop"
 
-mkdir "Desktop GIS"
+### get list of *.desktop from bin/install_*.sh :
+# grep '\.desktop' * | sed -e 's/\.desktop.*/.desktop/' -e 's+^.*[/" ]++' | sort | uniq
+
 DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0_RC1"
+NAV_APPS="MapFish marble gpsdrive opencpn mapnik-* josm gosmore"
+SERVER_APPS="deegree-* geoserver-* *geonetwork geomajas-* mapserver"
+GEO_APPS="maptiler imagelinker r spatialite-*"
+
+
+mkdir "Desktop GIS"
 for APP in $DESKTOP_APPS ; do
    mv "$APP.desktop" "Desktop GIS"/
 done
 
 mkdir "Navigation and Maps"
-NAV_APPS="MapFish marble gpsdrive opencpn mapnik-* josm gosmore"
 for APP in $NAV_APPS ; do
    mv $APP.desktop "Navigation and Maps"/
 done
 
-mkdir "Server"  # what to call this?
-SERVER_APPS="deegree-* geoserver-* *geonetwork geomajas-* mapserver"
+mkdir "Servers"
 for APP in $SERVER_APPS ; do
-   mv $APP.desktop "Server"/
+   mv $APP.desktop "Servers"/
 done
 
-
 mkdir "Geo Tools"  # what to call this?
-GEO_APPS="maptiler imagelinker r spatialite-*"
 for APP in $GEO_APPS ; do
    mv $APP.desktop "Geo Tools"/
 done
 
 
 
-##### populate the Geospatial menu
-mkdir "$BUILD_DIR"
-cd "$BUILD_DIR"
+##### create and populate the Geospatial menu, add launchers to the panel
 
-DESKTOP_APPS="grass qgis gvsig openjump udig kosmo"
-SECTION="Desktop GIS"
+mkdir /usr/local/share/xfce
+# OSGeo menu, Terminal launcher, and CPU load for top taskbar:
+cp ../desktop-conf/xfce/xfce4-menu-360.rc /etc/xdg/xubuntu/xfce4/panel/
+cp ../desktop-conf/xfce/launcher-361.rc /etc/xdg/xubuntu/xfce4/panel/
+cp ../desktop-conf/xfce/cpugraph-362.rc /etc/xdg/xubuntu/xfce4/panel/
+
+# edit the panel to add these things
+sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
+   -e 's+\(launcher" id="3".*\)+\1\n\t\t\t<item name="launcher" id="361"/>+' \
+   -e 's+\(.*item name="clock"\)+\t\t\t<item name="cpugraph" id="362"/>\n\1+' \
+   /etc/xdg/xubuntu/xfce4/panel/panels.xml
+
+
+# pared down copy of /etc/xdg/xubuntu/menus/xfce-applications.menu
+cp ../desktop-conf/xfce/xfce-osgeo.menu /usr/local/share/xfce/
+cp ../desktop-conf/xfce/xfce-*.directory /usr/share/desktop-directories/
+sed -e 's/^Name=.*/Name=OSGeo Software Help/' live_GIS_help.desktop \
+   > /usr/share/applications/osgeo-help.desktop
+
+
+
+# create individual menu entries from desktop icons:
 for APP in $DESKTOP_APPS ; do
-   if [ -e "/usr/share/menu/$APP" ] ; then
-      sed -e "s+section=\".[^\"]*\"+section=\"Geospatial/$SECTION\"+" \
-        "/usr/share/menu/$APP" >> osgeo_submenu
-   else
-      echo "E: can't find menu entry for <$APP>"
-   fi
+   for APPL in `ls $APP.desktop` ; do
+      if [ -e "$APPL" ] ; then
+         sed -e 's/^Categories=.*/Categories=Geospatial;Desktop GIS;/' \
+            "$APPL" > "/usr/share/applications/osgeo-$APPL"
+      fi
+   done
 done
-#
-OSSIM_APPS="ossimplanet imagelinker"
-SECTION="Desktop GIS/OSSIM"
-for APP in $OSSIM_APPS ; do
-   if [ -e "/usr/share/menu/$APP" ] ; then
-      sed -e "s+section=\".[^\"]*\"+section=\"Geospatial/$SECTION\"+" \
-        "/usr/share/menu/$APP" >> osgeo_submenu
-   else
-      echo "E: can't find menu entry for <$APP>"
-   fi
-done
-#
-NAV_APPS="mapfish marble gpsdrive opencpn josm gosmore" # mapnik?
-SECTION="Navigation and Maps"
+
 for APP in $NAV_APPS ; do
-   if [ -e "/usr/share/menu/$APP" ] ; then
-      sed -e "s+section=\".[^\"]*\"+section=\"Geospatial/$SECTION\"+" \
-        "/usr/share/menu/$APP" >> osgeo_submenu
-   else
-      echo "E: can't find menu entry for <$APP>"
-   fi
+   for APPL in `ls $APP.desktop` ; do
+      if [ -e "$APPL" ] ; then
+         sed -e 's/^Categories=.*/Categories=Geospatial;Navigation;/' \
+            "$APPL" > "/usr/share/applications/osgeo-$APPL"
+      fi
+   done
 done
-#
-SERVER_APPS="deegree geoserver geonetwork geomajas mapserver"
-SECTION="Servers"
-#...
-# TODO: own section for each server package with start+stop in each one
-#
-#
-GEO_APPS="maptiler octave3.0 r-base-core spatialite"
-SECTION="Geo Tools"
+
+for APP in $SERVER_APPS ; do
+   for APPL in `ls $APP.desktop` ; do
+      if [ -e "$APPL" ] ; then
+         sed -e 's/^Categories=.*/Categories=Geospatial;Geoservers;/' \
+            "$APPL" > "/usr/share/applications/osgeo-$APPL"
+      fi
+   done
+done
+
 for APP in $GEO_APPS ; do
-   if [ -e "/usr/share/menu/$APP" ] ; then
-      sed -e "s+section=\".[^\"]*\"+section=\"Geospatial/$SECTION\"+" \
-        "/usr/share/menu/$APP" >> osgeo_submenu
-   else
-      echo "E: can't find menu entry for <$APP>"
-   fi
+   for APPL in `ls $APP.desktop` ; do
+      if [ -e "$APPL" ] ; then
+         sed -e 's/^Categories=.*/Categories=Geospatial;Geo Tools;/' \
+            "$APPL" > "/usr/share/applications/osgeo-$APPL"
+      fi
+   done
 done
-
-cp osgeo_submenu /usr/share/menu/
-update-menus
-
-
-
-### get list of *.desktop from bin/install_*.sh :
-# grep '\.desktop' * | sed -e 's/\.desktop.*/.desktop/' -e 's+^.*[/" ]++' | sort | uniq
-#
-#List as of 1 March 2010:
-#
-# deegree-start.desktop
-# deegree-stop.desktop
-# geokettle.desktop
-# geomajas-start.desktop
-# geomajas-stop.desktop
-# geonetwork.desktop
-# geoserver-admin.desktop
-# geoserver-docs.desktop
-# geoserver-start.desktop
-# geoserver-stop.desktop
-# geoserver-styler.desktop
-# gpsdrive.desktop
-# grass.desktop
-# gvsig.desktop
-# imagelinker.desktop
-# Kosmo_2.0_RC1.desktop
-# [live_GIS_help.desktop]  leave on main desktop
-# MapFish.desktop
-# mapnik-intro.desktop
-# mapnik-start.desktop
-# mapserver.desktop
-# maptiler.desktop
-# opencpn.desktop
-# openjump.desktop
-# ossimplanet.desktop
-# qgis.desktop
-# r.desktop
-# spatialite-gis.desktop
-# spatialite-gui.desktop
-# start_geonetwork.desktop
-# stop_geonetwork.desktop
-# [ubiquity-gtkui.desktop]  rename in possible
-# uDig.desktop
-# 
 
 
 # permissions cleanup (if needed)
