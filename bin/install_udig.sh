@@ -73,10 +73,10 @@ if [ -f "udig-1.2-M9.linux.gtk.x86.tar.gz" ]
 then
    echo "udig-1.2-M9.linux.gtk.x86.tar.gz has already been downloaded."
 else
-   wget -c --progress=dot:mega http://udig.refractions.net/files/downloads/branches/udig-1.2-M9.linux.gtk.x86.tar.gz
+   wget -c --progress=dot:mega http://udig.refractions.net/files/downloads/udig-1.2-RC1.linux.gtk.x86.tar.gz
 fi
 # unpack it and copy it to /usr/lib
-tar -xzf udig-1.2-M9.linux.gtk.x86.tar.gz -C "$INSTALL_FOLDER"
+tar -xzf udig-1.2-RC1.linux.gtk.x86.tar.gz -C "$INSTALL_FOLDER"
 
 
 ## Configure Application ##
@@ -127,11 +127,11 @@ chown root.users "$DATA_FOLDER/udig-data"
 ## Documentation ##
 
 # Download udig's documentation
-if [ -f "udig-1.2-M9.html" ]
+if [ -f "udig-1.2-RC1.html" ]
 then
-   echo "udig-1.2-M9.html has already been downloaded."
+   echo "udig-1.2-RC1.html has already been downloaded."
 else
-   wget -nv http://udig.refractions.net/files/downloads/branches/udig-1.2-M9.html
+   wget -nv http://udig.refractions.net/files/downloads/branches/udig-1.2-RC1.html
 fi
 
 if [ -f "uDigWalkthrough1.pdf" ]
