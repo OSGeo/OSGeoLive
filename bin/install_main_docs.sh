@@ -90,7 +90,7 @@ for ITEM in $APPS ; do
 done
 
 # Copy post.html into all the html files
-for ITEM in contact.html index.html support.html ; do
+for ITEM in contact.html index.html sponsors.html content.html ; do
   cat ${SRC}/post.html >> "$DEST/$ITEM"
 done
 
