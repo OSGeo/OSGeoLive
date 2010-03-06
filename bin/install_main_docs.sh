@@ -29,7 +29,7 @@ USER_HOME="/home/$USER_NAME"
 SRC="../doc"
 DEST="/usr/local/share/livedvd-docs"
 BASE_FILES="banner.png arramagong.css images" # base files to install
-HTML_FILES="contact.html index.html support.html"
+HTML_FILES="contact.html index.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
 APPS=`sed -e 's/#.*$//' ${INSTALL_APPS}`
 VERSION=`cat ../VERSION.txt`
@@ -45,13 +45,13 @@ for ITEM in $BASE_FILES ; do
 done
 
 # Copy pre.html into all the html files
-for ITEM in contact.html index.html support.html content.html ; do
+for ITEM in contact.html index.html sponsors.html content.html ; do
   # copy the version number into the <h1>title</h1>
   sed -e "s/<\/h1>/ version ${VERSION}<\/h1>/" ${SRC}/pre.html > $DEST/$ITEM
 done
 
 # Copy body of html static files
-for ITEM in contact.html index.html support.html content.html; do
+for ITEM in contact.html index.html sponsors.html content.html; do
   cat ${SRC}/${ITEM} >> $DEST/$ITEM
 done
 
