@@ -28,7 +28,8 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SRC="../doc"
 DEST="/usr/local/share/livedvd-docs"
-FILES="banner.png arramagong.css" # base files to install
+BASE_FILES="banner.png arramagong.css images" # base files to install
+HTML_FILES="contact.html index.html support.html"
 INSTALL_APPS=../install_list # List applications to install 
 APPS=`sed -e 's/#.*$//' ${INSTALL_APPS}`
 VERSION=`cat ../VERSION.txt`
@@ -38,19 +39,27 @@ apt-get install --yes abiword
 
 mkdir -p $DEST/doc
 
-for ITEM in $FILES ; do
+for ITEM in $BASE_FILES ; do
    # keep it at one file per line, as missing files tell us what is missing
-   cp -f ${SRC}/"$ITEM" "$DEST/"
+   cp -prf ${SRC}/"$ITEM" "$DEST/"
 done
-# index page start
-# copy the version number into the <h1>title</h1>
-sed -e "s/<\/h1>/ version ${VERSION}<\/h1>/" ${SRC}/index_pre.html > $DEST/index.html
+
+# Copy pre.html into all the html files
+for ITEM in contact.html index.html support.html content.html ; do
+  # copy the version number into the <h1>title</h1>
+  sed -e "s/<\/h1>/ version ${VERSION}<\/h1>/" ${SRC}/pre.html > $DEST/$ITEM
+done
+
+# Copy body of html static files
+for ITEM in contact.html index.html support.html content.html; do
+  cat ${SRC}/${ITEM} >> $DEST/$ITEM
+done
 
 # license page start
 #cp -f ${SRC}/license_pre.html "$DEST/license.html"
 
 for ITEM in $APPS ; do
-   # Publish/Copy Descriptions:
+   # Publish Descriptions:
 
    # Convert .odt description to html if doc exists
    if [ -e "${SRC}/descriptions/${ITEM}_description.odt" ] ; then
@@ -67,7 +76,7 @@ for ITEM in $APPS ; do
 
    # Copy Definitions:
    if [ -e "${SRC}/descriptions/${ITEM}_definition.html" ] ; then
-      cat "${SRC}/descriptions/${ITEM}_definition.html" >> "$DEST/index.html"
+      cat "${SRC}/descriptions/${ITEM}_definition.html" >> "$DEST/content.html"
    else
      echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_definition.html"
    fi
@@ -80,8 +89,10 @@ for ITEM in $APPS ; do
    #fi
 done
 
-# index page end
-cat ${SRC}/index_post.html >> "$DEST/index.html"
+# Copy post.html into all the html files
+for ITEM in contact.html index.html support.html ; do
+  cat ${SRC}/post.html >> "$DEST/$ITEM"
+done
 
 # license page end
 #cat ${SRC}/license_post.html >> "$DEST/license.html"
