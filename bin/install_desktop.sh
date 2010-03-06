@@ -101,12 +101,21 @@ cp "$BUILD_DIR"/../desktop-conf/xfce/xfce4-menu-360.rc /etc/xdg/xubuntu/xfce4/pa
 cp "$BUILD_DIR"/../desktop-conf/xfce/launcher-361.rc /etc/xdg/xubuntu/xfce4/panel/
 cp "$BUILD_DIR"/../desktop-conf/xfce/cpugraph-362.rc /etc/xdg/xubuntu/xfce4/panel/
 
+
 # edit the panel to add these things
+## .. if it hasn't already been done
+#if [ `grep -c 'xfce4-menu" id="360"' /etc/xdg/xubuntu/xfce4/panel/panels.xml` -eq 0 ] ; then
 sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
    -e 's+\(launcher" id="3".*\)+\1\n\t\t\t<item name="launcher" id="361"/>+' \
    -e 's+\(.*item name="clock"\)+\t\t\t<item name="cpugraph" id="362"/>\n\1+' \
    /etc/xdg/xubuntu/xfce4/panel/panels.xml
+#fi
 
+# and if user accound
+#? filename if [ -e "$USER_HOME/.config/xfce4/panel.xml" ] ; then
+#  if [ `grep -c 'xfce4-menu" id="360"' "$USER_HOME/.config/xfce4/panel.xml"` -eq 0 ] ; then
+#    sed -i -e 's+\(xfce4-menu.*\)+ ...
+## ... (todo)
 
 # pared down copy of /etc/xdg/xubuntu/menus/xfce-applications.menu
 cp "$BUILD_DIR"/../desktop-conf/xfce/xfce-osgeo.menu /usr/local/share/xfce/
