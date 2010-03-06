@@ -74,6 +74,11 @@ for ITEM in $APPS ; do
      fi
    fi
 
+   # Add Header to the X_description.html file
+   # FIXME, we should use the pre.html file for this, or similar, to make easier
+   # to maintain
+   sed -i -e 's/<body>/<body> <div class="header"> <a href="..\/index.html">Home<\/a> | <a href="..\/content.html">Contents<\/a> | <a href="..\/contact.html">Contact and Support<\/a> | <a href="..\/tests.html">Tests<\/a> | <a href="..\/sponsors.html">Sponsors<\/a> <div class="banner"><a href="http:\/\/www.arramagong.com\/"><img src="..\/banner.png"><\/a><\/div> <\/div>/' "$DEST/doc/${ITEM}_description.html"
+
    # Copy Definitions:
    if [ -e "${SRC}/descriptions/${ITEM}_definition.html" ] ; then
       cat "${SRC}/descriptions/${ITEM}_definition.html" >> "$DEST/content.html"
