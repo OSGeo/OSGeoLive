@@ -74,10 +74,20 @@ for ITEM in $APPS ; do
      fi
    fi
 
+   # Link to the arramagong style file
+   # FIXME, we should use the pre.html file for this, or similar, to make easier
+   # to maintain
+   sed -i -e 's/<head>/<head><link href="..\/arramagong.css" type="text\/css" rel="stylesheet"\/>/' "$DEST/doc/${ITEM}_description.html"
+
    # Add Header to the X_description.html file
    # FIXME, we should use the pre.html file for this, or similar, to make easier
    # to maintain
    sed -i -e 's/<body>/<body> <div class="header"> <a href="..\/index.html">Home<\/a> | <a href="..\/content.html">Contents<\/a> | <a href="..\/contact.html">Contact and Support<\/a> | <a href="..\/tests.html">Tests<\/a> | <a href="..\/sponsors.html">Sponsors<\/a> <div class="banner"><a href="http:\/\/www.arramagong.com\/"><img src="..\/banner.png"><\/a><\/div> <\/div>/' "$DEST/doc/${ITEM}_description.html"
+
+   # Add Footer to the X_description.html file
+   # FIXME, we should use the post.html file for this, or similar, to make easier
+   # to maintain
+   sed -i -e 's/<\/body>/<div class="footer"> <div class="copyright">\&copy; The Open Source Geospatial Foundation and LISAsoft 2010<\/div> <\/body>/' "$DEST/doc/${ITEM}_description.html"
 
    # Copy Definitions:
    if [ -e "${SRC}/descriptions/${ITEM}_definition.html" ] ; then
