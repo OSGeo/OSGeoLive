@@ -68,7 +68,7 @@ cd "$USER_HOME/Desktop"
 DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0_RC1"
 NAV_APPS="MapFish marble gpsdrive opencpn mapnik-* josm gosmore"
 SERVER_APPS="deegree-* geoserver-* *geonetwork geomajas-* mapserver"
-GEO_APPS="maptiler imagelinker r spatialite-*"
+GEO_TOOLS="maptiler imagelinker r spatialite-* geokettle"
 
 
 mkdir "Desktop GIS"
@@ -86,8 +86,8 @@ for APP in $SERVER_APPS ; do
    mv `basename $APP .desktop`.desktop "Servers"/
 done
 
-mkdir "Geo Tools"  # what to call this?
-for APP in $GEO_APPS ; do
+mkdir "Geo Tools"
+for APP in $GEO_TOOLS ; do
    mv `basename $APP .desktop`.desktop "Geo Tools"/
 done
 
@@ -153,7 +153,7 @@ for APP in $SERVER_APPS ; do
    done
 done
 
-for APP in $GEO_APPS ; do
+for APP in $GEO_TOOLS ; do
    for APPL in `ls $APP.desktop` ; do
       if [ -e "$APPL" ] ; then
          sed -e 's/^Categories=.*/Categories=Geospatial;Geo Tools;/' \
