@@ -73,22 +73,22 @@ GEO_APPS="maptiler imagelinker r spatialite-*"
 
 mkdir "Desktop GIS"
 for APP in $DESKTOP_APPS ; do
-   mv "$APP.desktop" "Desktop GIS"/
+   mv `basename $APP .desktop`.desktop "Desktop GIS"/
 done
 
 mkdir "Navigation and Maps"
 for APP in $NAV_APPS ; do
-   mv $APP.desktop "Navigation and Maps"/
+   mv `basename $APP .desktop`.desktop "Navigation and Maps"/
 done
 
 mkdir "Servers"
 for APP in $SERVER_APPS ; do
-   mv $APP.desktop "Servers"/
+   mv `basename $APP .desktop`.desktop "Servers"/
 done
 
 mkdir "Geo Tools"  # what to call this?
 for APP in $GEO_APPS ; do
-   mv $APP.desktop "Geo Tools"/
+   mv `basename $APP .desktop`.desktop "Geo Tools"/
 done
 
 
