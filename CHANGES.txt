@@ -1,6 +1,12 @@
 Arramagong GISVM
 ================
 
+Version: 3.0 rc3
+================
+6 March 2010
+Documentation and Menu Overhaul
+ISO will be built for testing apps.
+
 Version: 3.0 rc2
 ================
 16 February 2010
