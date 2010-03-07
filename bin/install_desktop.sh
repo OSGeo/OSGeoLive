@@ -51,6 +51,7 @@ cp "$USER_HOME/gisvm/bin/launchassist.sh" "$USER_HOME/"
 chmod 755 "$USER_HOME/launchassist.sh"
 
 
+
 # Ubuntu 9.10 (GNOME but not Xfce) wants to see the ~/Desktop/*.desktop
 # files be executable, and start with this shebang: #!/usr/bin/env xdg-open
 #  By this point all scripts should have run, if they haven't, too bad, they
@@ -69,28 +70,6 @@ DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0_RC1"
 NAV_APPS="MapFish marble gpsdrive opencpn mapnik-* josm gosmore"
 SERVER_APPS="deegree-* geoserver-* *geonetwork geomajas-* mapserver"
 GEO_TOOLS="maptiler imagelinker r spatialite-* geokettle"
-
-
-mkdir "Desktop GIS"
-for APP in $DESKTOP_APPS ; do
-   mv `basename $APP .desktop`.desktop "Desktop GIS"/
-done
-
-mkdir "Navigation and Maps"
-for APP in $NAV_APPS ; do
-   mv `basename $APP .desktop`.desktop "Navigation and Maps"/
-done
-
-mkdir "Servers"
-for APP in $SERVER_APPS ; do
-   mv `basename $APP .desktop`.desktop "Servers"/
-done
-
-mkdir "Geo Tools"
-for APP in $GEO_TOOLS ; do
-   mv `basename $APP .desktop`.desktop "Geo Tools"/
-done
-
 
 
 ##### create and populate the Geospatial menu, add launchers to the panel
@@ -163,6 +142,30 @@ for APP in $GEO_TOOLS ; do
 done
 
 
-# permissions cleanup (if needed)
+
+#### move desktop icons to subfolders
+mkdir "Desktop GIS"
+for APP in $DESKTOP_APPS ; do
+   mv `basename $APP .desktop`.desktop "Desktop GIS"/
+done
+
+mkdir "Navigation and Maps"
+for APP in $NAV_APPS ; do
+   mv `basename $APP .desktop`.desktop "Navigation and Maps"/
+done
+
+mkdir "Servers"
+for APP in $SERVER_APPS ; do
+   mv `basename $APP .desktop`.desktop "Servers"/
+done
+
+mkdir "Geo Tools"
+for APP in $GEO_TOOLS ; do
+   mv `basename $APP .desktop`.desktop "Geo Tools"/
+done
+
+
+
+#### permissions cleanup (if needed)
 chown user:user "$USER_HOME/Desktop/" -R
 chmod a+r "$USER_HOME/Desktop/" -R
