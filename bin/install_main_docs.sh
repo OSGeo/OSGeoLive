@@ -82,7 +82,7 @@ for ITEM in $APPS ; do
    # Add Header to the X_description.html file
    # FIXME, we should use the pre.html file for this, or similar, to make easier
    # to maintain
-   sed -i -e 's/<body>/<body> <div class="header"><div class="banner"><a href="http://www.arramagong.com/"><img src="banner.png"><\/a><\/div><ul>  <li><a href="..\/index.html">Home<\/a></li> | <li><a href="..\/content.html">Contents<\/a><\/li> | <li><a href="..\/contact.html">Contact and Support<\/a><\/li> | <li><a href="..\/tests.html">Tests<\/a><\/li> | <li><a href="..\/sponsors.html">Sponsors<\/a><\/li><\/ul><\/div><br \/>/' "$DEST/doc/${ITEM}_description.html"
+   sed -i -e 's/<body>/<body> <div class="header"><div class="banner"><a href="http://www.arramagong.com/"><img src="banner.png"><\/a><\/div><ul>  <li><a href="..\/index.html">Home<\/a><\/li> | <li><a href="..\/content.html">Contents<\/a><\/li> | <li><a href="..\/contact.html">Contact and Support<\/a><\/li> | <li><a href="..\/tests.html">Tests<\/a><\/li> | <li><a href="..\/sponsors.html">Sponsors<\/a><\/li><\/ul><\/div><br \/>/' "$DEST/doc/${ITEM}_description.html"
 
    # Add Footer to the X_description.html file
    # FIXME, we should use the post.html file for this, or similar, to make easier
