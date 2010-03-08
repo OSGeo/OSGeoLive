@@ -43,11 +43,11 @@ GVSIG_MAN="gvSIG-1_1-man-v1-en.pdf"
 # load user dirs to have the  $XDG_DESKTOP_DIR variable
 if [ -f "$USER_HOME/.config/user-dirs.dirs" ]
 then
-   source $USER_HOME/.config/user-dirs.dirs
-   USER_DESKTOP=$XDG_DESKTOP_DIR
-   echo "\n\n$USER_DESKTOP\n\n"
+   source "$USER_HOME/.config/user-dirs.dirs"
+   USER_DESKTOP="$XDG_DESKTOP_DIR"
+   echo -e "\n\n$USER_DESKTOP\n\n"
 else
-   USER_DESKTOP="USER_HOME/Desktop"
+   USER_DESKTOP="$USER_HOME/Desktop"
 fi
 
 # check required tools are installed
@@ -87,7 +87,7 @@ fi
 # NOTE: maybe this icon will be placed at other folder
 if [ -d $USER_DESKTOP ] ; then
    echo "Copying icon to desktop at $USER_DESKTOP"
-   cp /usr/share/applications/gvsig.desktop $USER_DESKTOP
+   cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP"
 fi
 
 # download documentation 
