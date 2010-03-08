@@ -140,7 +140,7 @@ fi
 
 
 #What logo to use for launching the help?
-
+# HB: IMO wombat roadsign is good- it says "look here" and is friendly
 ICON_FILE="live_GIS_help.desktop"
 
 if [ ! -e "/usr/share/applications/$ICON_FILE" ] ; then
@@ -166,3 +166,4 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 
 
 #Should we embed the password file in the help somehow too?
+# =note that it needs to be installed first! move here from install_desktop.sh if needed=

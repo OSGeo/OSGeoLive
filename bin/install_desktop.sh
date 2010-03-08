@@ -90,7 +90,7 @@ sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
    /etc/xdg/xubuntu/xfce4/panel/panels.xml
 #fi
 
-# and if user accound
+# also modify user account's version, if it exists
 #? filename if [ -e "$USER_HOME/.config/xfce4/panel.xml" ] ; then
 #  if [ `grep -c 'xfce4-menu" id="360"' "$USER_HOME/.config/xfce4/panel.xml"` -eq 0 ] ; then
 #    sed -i -e 's+\(xfce4-menu.*\)+ ...

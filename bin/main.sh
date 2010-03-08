@@ -90,8 +90,8 @@ for SCRIPT in \
   ./install_osgearth.sh \
   ./install_spatialite.sh \
   ./install_beta_and_submenu.sh \
-  ./install_desktop.sh \
   ./install_main_docs.sh \
+  ./install_desktop.sh \
   ./setdown.sh \
 ; do
   echo "===================================================================="
@@ -155,7 +155,7 @@ echo "==============================================================="
 grep -iwn 'ERROR\|^E:' "$LOG_DIR/$MAIN_LOG_FILE" | grep -v libgpg-error-dev
 grep '^..: cannot stat' "$LOG_DIR/$MAIN_LOG_FILE"
 grep '^cp: cannot create regular file' "$LOG_DIR/$MAIN_LOG_FILE"
-grep "^sed: can't read" "$LOG_DIR/$MAIN_LOG_FILE"
+grep "^sed: " "$LOG_DIR/$MAIN_LOG_FILE"
 grep '^ls: cannot access' "$LOG_DIR/$MAIN_LOG_FILE"
 
 echo
