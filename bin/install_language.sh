@@ -26,7 +26,8 @@
 # =======
 # Pick a different language at the login screen
 #
-PACKAGES=""
+# Start off with the Xfce keyboard layout configuration tool
+PACKAGES="xfkc"
 
 #TODO: make an alternate list base on OSGeo chapters
 #TODO: figure out how to do inline comment with name of language, possibly store list in a different file
