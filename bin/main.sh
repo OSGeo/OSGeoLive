@@ -152,8 +152,11 @@ fi
 
 # grep for problems
 echo "==============================================================="
-grep -iwn 'ERROR\|^E:' "${LOG_DIR}/${MAIN_LOG_FILE}" | grep -v libgpg-error-dev
-grep '^..: cannot stat' "${LOG_DIR}/${MAIN_LOG_FILE}"
+grep -iwn 'ERROR\|^E:' "$LOG_DIR/$MAIN_LOG_FILE" | grep -v libgpg-error-dev
+grep '^..: cannot stat' "$LOG_DIR/$MAIN_LOG_FILE"
+grep '^cp: cannot create regular file' "$LOG_DIR/$MAIN_LOG_FILE"
+grep "^sed: can't read" "$LOG_DIR/$MAIN_LOG_FILE"
+grep '^ls: cannot access' "$LOG_DIR/$MAIN_LOG_FILE"
 
 echo
 echo "==============================================================="
