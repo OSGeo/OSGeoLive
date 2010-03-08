@@ -33,7 +33,8 @@ USER_HOME="/home/$USER_NAME"
 
 apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev \
    grass-dev libxml2-dev python-shapely tcl8.5-dev tk8.5-dev \
-   libgl1-mesa-dev libglu1-mesa-dev python-setuptools build-essential gfortran libblas-dev
+   libgl1-mesa-dev libglu1-mesa-dev python-setuptools build-essential \
+   gfortran libblas-dev liblapack-dev
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -81,5 +82,5 @@ fi
 cp -a /usr/share/applications/r.desktop "$USER_HOME/Desktop/"
 
 #Remove build libraries
-apt-get --assume-yes remove python-all-dev libgdal1-dev grass-dev \
+apt-get --assume-yes remove python-all-dev libgdal1-dev \
    libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev libglu1-mesa-dev 
