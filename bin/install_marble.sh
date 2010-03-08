@@ -20,11 +20,13 @@
 # =======
 # sudo ./marble_install.sh
 
-# Requires: 
+
+USER_HOME="/home/user"
+
 
 apt-get install --yes marble marble-data
 
 
 # copy icon to Desktop
-cp /usr/share/applications/kde4/marble.desktop /user/home/Desktop/
+cp /usr/share/applications/kde4/marble.desktop "$USER_HOME/Desktop/"
 
