@@ -92,6 +92,7 @@ for SCRIPT in \
   ./install_beta_and_submenu.sh \
   ./install_main_docs.sh \
   ./install_desktop.sh \
+  ./install_language.sh \
   ./setdown.sh \
 ; do
   echo "===================================================================="

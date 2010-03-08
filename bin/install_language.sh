@@ -57,6 +57,9 @@ for CODE in \
 PACKAGES="$PACKAGES language-pack-$CODE-base language-pack-$CODE"
   #Additional packages may have language packs specific to them ie: firefox	
 done
+
+#Seems to not find the packages without this, might just be a quirk of the test iso
+apt-get update
 apt-get install -q --no-install-recommends $PACKAGES
 
 #TODO: allow select at boot splash screen
