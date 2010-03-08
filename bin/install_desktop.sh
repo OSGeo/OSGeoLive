@@ -121,50 +121,39 @@ sed -e 's/^Name=.*/Name=OSGeo Software Help/' live_GIS_help.desktop \
 
 # create individual menu entries from desktop icons:
 for APP in $DESKTOP_APPS ; do
-   for APPL in `ls $APP.desktop` ; do
-      if [ -e "$APPL" ] ; then
-         sed -e 's/^Categories=.*/Categories=Geospatial;Desktop GIS;/' \
-            "$APPL" > "/usr/share/applications/osgeo-$APPL"
-      fi
-   done
+   if [ -e "$APPL" ] ; then
+      sed -e 's/^Categories=.*/Categories=Geospatial;Desktop GIS;/' \
+	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+   fi
 done
 
 for APP in $NAV_APPS ; do
-   for APPL in `ls $APP.desktop` ; do
-      if [ -e "$APPL" ] ; then
-         sed -e 's/^Categories=.*/Categories=Geospatial;Navigation;/' \
-            "$APPL" > "/usr/share/applications/osgeo-$APPL"
-      fi
-   done
+   if [ -e "$APPL" ] ; then
+      sed -e 's/^Categories=.*/Categories=Geospatial;Navigation;/' \
+	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+   fi
 done
 
 for APP in $SERVER_APPS ; do
-   for APPL in `ls $APP.desktop` ; do
-      if [ -e "$APPL" ] ; then
-         sed -e 's/^Categories=.*/Categories=Geospatial;Geoservers;/' \
-            "$APPL" > "/usr/share/applications/osgeo-$APPL"
-      fi
-   done
+   if [ -e "$APPL" ] ; then
+      sed -e 's/^Categories=.*/Categories=Geospatial;Geoservers;/' \
+	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+   fi
 done
 
 for APP in $GEO_TOOLS ; do
-   for APPL in `ls $APP.desktop` ; do
-      if [ -e "$APPL" ] ; then
-         sed -e 's/^Categories=.*/Categories=Geospatial;Geo Tools;/' \
-            "$APPL" > "/usr/share/applications/osgeo-$APPL"
-      fi
-   done
+   if [ -e "$APPL" ] ; then
+      sed -e 's/^Categories=.*/Categories=Geospatial;Geo Tools;/' \
+	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+   fi
 done
 
 for APP in $DB_APPS ; do
-   for APPL in `ls $APP.desktop` ; do
-      if [ -e "$APPL" ] ; then
-         sed -e 's/^Categories=.*/Categories=Geospatial;Database;/' \
-            "$APPL" > "/usr/share/applications/osgeo-$APPL"
-      fi
-   done
+   if [ -e "$APPL" ] ; then
+      sed -e 's/^Categories=.*/Categories=Geospatial;Database;/' \
+	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+   fi
 done
-
 
 
 
@@ -194,7 +183,6 @@ done
 #for APP in $DB_APPS ; do
 #   mv `basename $APP .desktop`.desktop "Databases"/
 #done
-
 
 
 
