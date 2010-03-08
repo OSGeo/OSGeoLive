@@ -80,21 +80,31 @@ cp "$BUILD_DIR"/../desktop-conf/xfce/xfce4-menu-360.rc /etc/xdg/xubuntu/xfce4/pa
 cp "$BUILD_DIR"/../desktop-conf/xfce/launcher-361.rc /etc/xdg/xubuntu/xfce4/panel/
 cp "$BUILD_DIR"/../desktop-conf/xfce/cpugraph-362.rc /etc/xdg/xubuntu/xfce4/panel/
 
+# also modify user account's version, if it exists
+USER_PANEL="$USER_HOME/.config/xfce4/panel"
+if [ -d "$USER_PANEL" ] ; then
+   cp "$BUILD_DIR"/../desktop-conf/xfce/xfce4-menu-360.rc "$USER_PANEL"
+   cp "$BUILD_DIR"/../desktop-conf/xfce/launcher-361.rc "$USER_PANEL"
+   cp "$BUILD_DIR"/../desktop-conf/xfce/cpugraph-362.rc "$USER_PANEL"
+fi
 
 # edit the panel to add these things
 ## .. if it hasn't already been done
-#if [ `grep -c 'xfce4-menu" id="360"' /etc/xdg/xubuntu/xfce4/panel/panels.xml` -eq 0 ] ; then
-sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
-   -e 's+\(launcher" id="3".*\)+\1\n\t\t\t<item name="launcher" id="361"/>+' \
-   -e 's+\(.*item name="clock"\)+\t\t\t<item name="cpugraph" id="362"/>\n\1+' \
-   /etc/xdg/xubuntu/xfce4/panel/panels.xml
-#fi
-
+if [ `grep -c 'xfce4-menu" id="360"' /etc/xdg/xubuntu/xfce4/panel/panels.xml` -eq 0 ] ; then
+   sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
+      -e 's+\(launcher" id="3".*\)+\1\n\t\t\t<item name="launcher" id="361"/>+' \
+      -e 's+\(.*item name="clock"\)+\t\t\t<item name="cpugraph" id="362"/>\n\1+' \
+      /etc/xdg/xubuntu/xfce4/panel/panels.xml
+fi
 # also modify user account's version, if it exists
-#? filename if [ -e "$USER_HOME/.config/xfce4/panel.xml" ] ; then
-#  if [ `grep -c 'xfce4-menu" id="360"' "$USER_HOME/.config/xfce4/panel.xml"` -eq 0 ] ; then
-#    sed -i -e 's+\(xfce4-menu.*\)+ ...
-## ... (todo)
+if [ -e "$USER_PANEL/panels.xml" ] ; then
+   if [ `grep -c 'xfce4-menu" id="360"' "$USER_PANEL/panels.xml` -eq 0 ] ; then
+      sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
+         -e 's+\(launcher" id="3".*\)+\1\n\t\t\t<item name="launcher" id="361"/>+' \
+         -e 's+\(.*item name="clock"\)+\t\t\t<item name="cpugraph" id="362"/>\n\1+' \
+         "$USER_PANEL/panels.xml"
+   fi
+fi
 
 # pared down copy of /etc/xdg/xubuntu/menus/xfce-applications.menu
 cp "$BUILD_DIR"/../desktop-conf/xfce/xfce-osgeo.menu /usr/local/share/xfce/
