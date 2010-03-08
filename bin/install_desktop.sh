@@ -98,7 +98,7 @@ if [ `grep -c 'xfce4-menu" id="360"' /etc/xdg/xubuntu/xfce4/panel/panels.xml` -e
 fi
 # also modify user account's version, if it exists
 if [ -e "$USER_PANEL/panels.xml" ] ; then
-   if [ `grep -c 'xfce4-menu" id="360"' "$USER_PANEL/panels.xml` -eq 0 ] ; then
+   if [ `grep -c 'xfce4-menu" id="360"' "$USER_PANEL/panels.xml"` -eq 0 ] ; then
       sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
          -e 's+\(launcher" id="3".*\)+\1\n\t\t\t<item name="launcher" id="361"/>+' \
          -e 's+\(.*item name="clock"\)+\t\t\t<item name="cpugraph" id="362"/>\n\1+' \
