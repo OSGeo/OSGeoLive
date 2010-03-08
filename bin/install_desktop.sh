@@ -70,7 +70,7 @@ DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0_RC1"
 NAV_APPS="MapFish marble gpsdrive opencpn mapnik-* josm gosmore"
 SERVER_APPS="deegree-* geoserver-* *geonetwork geomajas-* mapserver"
 GEO_TOOLS="maptiler imagelinker r spatialite-* geokettle"
-
+DB_APPS=""  # pgadmin, sqlitebrowser, etc
 
 ##### create and populate the Geospatial menu, add launchers to the panel
 
@@ -156,6 +156,16 @@ for APP in $GEO_TOOLS ; do
    done
 done
 
+for APP in $DB_APPS ; do
+   for APPL in `ls $APP.desktop` ; do
+      if [ -e "$APPL" ] ; then
+         sed -e 's/^Categories=.*/Categories=Geospatial;Database;/' \
+            "$APPL" > "/usr/share/applications/osgeo-$APPL"
+      fi
+   done
+done
+
+
 
 
 #### move desktop icons to subfolders
@@ -178,6 +188,13 @@ mkdir "Geo Tools"
 for APP in $GEO_TOOLS ; do
    mv `basename $APP .desktop`.desktop "Geo Tools"/
 done
+
+#todo
+#mkdir "Databases"
+#for APP in $DB_APPS ; do
+#   mv `basename $APP .desktop`.desktop "Databases"/
+#done
+
 
 
 

@@ -42,6 +42,14 @@
     </Menu>
 
     <Menu>
+        <Name>Databases</Name>
+        <Directory>xfce-geodatabase.directory</Directory>
+        <Include>
+	    <Category>Database</Category>
+        </Include>
+    </Menu>
+
+    <Menu>
         <Name>Geo Tools</Name>
         <Directory>xfce-geotools.directory</Directory>
         <Include>
