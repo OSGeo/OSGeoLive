@@ -68,7 +68,7 @@ cd "$USER_HOME/Desktop"
 
 DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0_RC1"
 NAV_APPS="MapFish marble gpsdrive opencpn mapnik-* josm gosmore"
-SERVER_APPS="deegree-* geoserver-* *geonetwork geomajas-* mapserver"
+SERVER_APPS="deegree-* geoserver-* *geonetwork* geomajas-* mapserver"
 GEO_TOOLS="maptiler imagelinker r spatialite-* geokettle"
 DB_APPS=""  # pgadmin, sqlitebrowser, etc
 
@@ -121,37 +121,47 @@ sed -e 's/^Name=.*/Name=OSGeo Software Help/' live_GIS_help.desktop \
 
 # create individual menu entries from desktop icons:
 for APP in $DESKTOP_APPS ; do
-   if [ -e "$APP" ] ; then
+   APPL=`basename $APP .desktop`.desktop
+   #echo "[$APP] -> [$APPL]"
+   if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Desktop GIS;/' \
-	 "$APP" > "/usr/share/applications/osgeo-$APP"
+	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
    fi
 done
 
 for APP in $NAV_APPS ; do
-   if [ -e "$APP" ] ; then
+   APPL=`basename $APP .desktop`.desktop
+   #echo "[$APP] -> [$APPL]"
+   if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Navigation;/' \
-	 "$APP" > "/usr/share/applications/osgeo-$APP"
+	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
    fi
 done
 
 for APP in $SERVER_APPS ; do
-   if [ -e "$APP" ] ; then
+   APPL=`basename $APP .desktop`.desktop
+   #echo "[$APP] -> [$APPL]"
+   if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Geoservers;/' \
-	 "$APP" > "/usr/share/applications/osgeo-$APP"
+	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
    fi
 done
 
 for APP in $GEO_TOOLS ; do
-   if [ -e "$APP" ] ; then
+   APPL=`basename $APP .desktop`.desktop
+   #echo "[$APP] -> [$APPL]"
+   if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Geo Tools;/' \
-	 "$APP" > "/usr/share/applications/osgeo-$APP"
+	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
    fi
 done
 
 for APP in $DB_APPS ; do
-   if [ -e "$APP" ] ; then
+   APPL=`basename $APP .desktop`.desktop
+   #echo "[$APP] -> [$APPL]"
+   if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Database;/' \
-	 "$APP" > "/usr/share/applications/osgeo-$APP"
+	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
    fi
 done
 
