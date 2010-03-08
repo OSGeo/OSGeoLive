@@ -150,7 +150,7 @@ if [ ! -e /usr/share/applications/deegree-start.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=start deegree
+Name=Start deegree
 Comment=deegree v2.2
 Categories=Application;Geography;Geoscience;Education;
 Exec=dash $USER_HOME/launchassist.sh $BIN/deegree_start.sh
@@ -169,7 +169,7 @@ if [ ! -e /usr/share/applications/deegree-stop.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=stop deegree
+Name=Stop deegree
 Comment=deegree v2.2
 Categories=Application;Geography;Geoscience;Education;
 Exec=dash $USER_HOME/launchassist.sh  $BIN/deegree_stop.sh
