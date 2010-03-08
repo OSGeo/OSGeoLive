@@ -69,14 +69,14 @@ cd "$TMP"
 # - GDAL could also be removed if GDAL_DATA environment variable is defined etc..
 #   For specific env requirements please review udig.sh script
 
-if [ -f "udig-1.2-M9.linux.gtk.x86.tar.gz" ]
-then
-   echo "udig-1.2-M9.linux.gtk.x86.tar.gz has already been downloaded."
+TARBALL="udig-1.2-RC1.linux.gtk.x86.tar.gz"
+if [ -f "$TARBALL" ] ; then
+   echo "$TARBALL has already been downloaded."
 else
-   wget -c --progress=dot:mega http://udig.refractions.net/files/downloads/udig-1.2-RC1.linux.gtk.x86.tar.gz
+   wget -c --progress=dot:mega "http://udig.refractions.net/files/downloads/$TARBALL"
 fi
 # unpack it and copy it to /usr/lib
-tar -xzf udig-1.2-RC1.linux.gtk.x86.tar.gz -C "$INSTALL_FOLDER"
+tar -xzf "$TARBALL" -C "$INSTALL_FOLDER"
 
 
 ## Configure Application ##
@@ -127,11 +127,11 @@ chown root.users "$DATA_FOLDER/udig-data"
 ## Documentation ##
 
 # Download udig's documentation
-if [ -f "udig-1.2-RC1.html" ]
-then
-   echo "udig-1.2-RC1.html has already been downloaded."
+REL_DOC="udig-1.2-RC1.html"
+if [ -f "$REL_DOC" ] ; then
+   echo "$REL_DOC has already been downloaded."
 else
-   wget -nv http://udig.refractions.net/files/downloads/branches/udig-1.2-RC1.html
+   wget -nv "http://udig.refractions.net/files/downloads/$REL_DOC"
 fi
 
 if [ -f "uDigWalkthrough1.pdf" ]
@@ -150,6 +150,7 @@ fi
 
 #copy into /usr/local/share/udig/udig-docs
 mkdir "$DATA_FOLDER/udig-docs"
-cp udig-1.2-M5.html "$DATA_FOLDER/udig-docs"
+cp "$REL_DOC" "$DATA_FOLDER/udig-docs"
 cp uDigWalkthrough1.pdf "$DATA_FOLDER/udig-docs"
 cp uDigWalkthrough1.pdf "$DATA_FOLDER/udig-docs"
+
