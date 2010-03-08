@@ -132,8 +132,10 @@ install --mode=644 ../LevitusAnnual82.dat /usr/local/mbsystem/share
 ### cleanup ####
 make clean
 apt-get --assume-yes remove $BUILD_DEPENDS
+# not sure why this isn't happening automatically anymore,
+apt-get --assume-yes autoremove
+
 cd ..
-#cd; rm -rf /tmp/build_mbsystem
 
 
 # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
