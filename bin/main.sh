@@ -152,7 +152,7 @@ fi
 
 # grep for problems
 echo "==============================================================="
-grep -iwn 'ERROR\|^E:' ${LOG_DIR}/${MAIN_LOG_FILE}
+grep -iwn 'ERROR\|^E:' ${LOG_DIR}/${MAIN_LOG_FILE} | grep -v libgpg-error-dev
 
 echo
 echo "==============================================================="
