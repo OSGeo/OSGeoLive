@@ -113,6 +113,11 @@ sed -e 's/^Name=.*/Name=OSGeo Software Help/' live_GIS_help.desktop \
    > /usr/share/applications/osgeo-help.desktop
 
 
+# if you want panel transparency turned on edit Apps->Settings->WM Tweaks or
+#  /etc/xdg/xubuntu/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
+#         ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
+#    <property name="use_compositing" type="bool" value="true"/>
+
 
 # create individual menu entries from desktop icons:
 for APP in $DESKTOP_APPS ; do
