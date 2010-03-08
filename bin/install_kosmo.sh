@@ -80,6 +80,9 @@ ln -s $KOSMO_FOLDER/bin/Kosmo.sh /usr/bin/kosmo_2.0_RC1
 # Download desktop link
 wget -nv http://www.opengis.es/descargas/Kosmo_2.0_RC1.desktop
 
+# homogenize icon name
+sed -i -e 's/^Name=Kosmo_2.0_RC1/Name=Kosmo/' Kosmo_2.0_RC1.desktop
+
 # copy it into the Kosmo_2.0_RC1 folder
 cp Kosmo_2.0_RC1.desktop $USER_HOME/Desktop
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/Kosmo_2.0_RC1.desktop
