@@ -50,10 +50,10 @@
     </Menu>
 
     <Menu>
-        <Name>Geo Tools</Name>
-        <Directory>xfce-geotools.directory</Directory>
+        <Name>Spatial Tools</Name>
+        <Directory>xfce-spatialtools.directory</Directory>
         <Include>
-	    <Category>Geo Tools</Category>
+	    <Category>Spatial Tools</Category>
         </Include>
     </Menu>
 </Menu>
