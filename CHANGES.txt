@@ -8,13 +8,13 @@ Version: 3.0 rc4
  * Fix for startup URL; added sleep before launching Firefox
  * Made the osgeo logo brighter
  * Mention tutorials and sample data
- * Changed *Geo Tools* to *Spatial Tools* to avoid name conflict with the …
+ * Changed "Geo Tools" menu to "Spatial Tools" to avoid name conflict with the same named project
  * Normalize icon names
  * More css cleanup
- * Forgot to turn on the language script even though it works, would be great …
+ * Forgot to turn on the language script even though it works
  * Install docs before desktop so help icon exists; catch more sed errors
  * Fix broken URLs, mixed versions
- * Install liblapack.so for compiling RandomFields?, Matrix; leave grass-dev …
+ * Install liblapack.so for compiling RandomFields, Matrix; leave grass-dev installed
  * Avoid a common false positive in the error log
  * Autoremove isn't automatic anymore for some reason
  * Desktop icon move fix
