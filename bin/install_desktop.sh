@@ -30,14 +30,14 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
 chown user:user "$USER_HOME/Desktop/passwords.txt"
 
 # Setup the desktop background
-cp ../desktop-conf/background_dark.jpg \
-     /usr/share/xfce4/backdrops/osgeo-desktop.jpg
+cp ../desktop-conf/blue-wombat.png \
+     /usr/share/xfce4/backdrops/osgeo-desktop.png
 
 #TODO:copy over default image file instead for headless installs, preference for png
 #Has to been run as the regular user
 sudo -u $USER_NAME xfconf-query -c xfce4-desktop \
      -p /backdrop/screen0/monitor0/image-path \
-     -s /usr/share/xfce4/backdrops/osgeo-desktop.jpg
+     -s /usr/share/xfce4/backdrops/osgeo-desktop.png
 # set to stretch style background
 sudo -u $USER_NAME xfconf-query -c xfce4-desktop --create \
      -p /backdrop/screen0/monitor0/image-style  -s 3  -t int
