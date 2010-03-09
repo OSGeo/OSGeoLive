@@ -106,7 +106,7 @@ sed -i s/8080/$GS_PORT/g $GS_HOME/etc/jetty.xml
 cat << EOF > $GS_HOME/bin/start_admin.sh
 $GS_HOME/bin/startup.sh &
 (echo "25" ; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100";  sleep 2) | zenity --progress --auto-close --text "GeoServer starting"
-firefox "http://localhost:$GS_PORT/geoserver/welcome.do"
+sleep 40;firefox "http://localhost:$GS_PORT/geoserver/web/"
 EOF
 
 ## Add a script that will stop GS and notify the user graphically
