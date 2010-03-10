@@ -84,3 +84,6 @@ cp -a /usr/share/applications/r.desktop "$USER_HOME/Desktop/"
 #Remove build libraries
 apt-get --assume-yes remove python-all-dev libgdal1-dev \
    libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev libglu1-mesa-dev 
+
+#cleanup leftovers
+apt-get --assume-yes autoremove
