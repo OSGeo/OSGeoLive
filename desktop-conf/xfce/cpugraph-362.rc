@@ -1,4 +1,4 @@
-UpdateInterval=2
+UpdateInterval=3
 TimeScale=0
 Width=40
 Mode=0
@@ -7,6 +7,6 @@ AssociateCommand=xterm top
 ColorMode=1
 Foreground1=#00B500
 Foreground2=#FF0000
-Background=#FFFFFF
+Background=#000000
 Foreground3=#0000FF
 
