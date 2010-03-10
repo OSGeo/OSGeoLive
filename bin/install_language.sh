@@ -29,7 +29,7 @@
 # Start off with the Xfce keyboard layout configuration tool
 PACKAGES="xfkc"
 
-#TODO: make an alternate list base on OSGeo chapters
+#TODO: make an alternate list based on OSGeo chapters
 #TODO: figure out how to do inline comment with name of language, possibly store list in a different file
 # English is assumed as the 1st language already installed
 for CODE in \
@@ -61,7 +61,7 @@ done
 
 #Seems to not find the packages without this, might just be a quirk of the test iso
 apt-get update
-apt-get install -q --no-install-recommends $PACKAGES
+apt-get install --asume-yes -q --no-install-recommends $PACKAGES
 
 #TODO: allow select at boot splash screen
 
