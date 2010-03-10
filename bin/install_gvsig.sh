@@ -43,12 +43,20 @@ GVSIG_MAN="gvSIG-1_1-man-v1-en.pdf"
 # load user dirs to have the  $XDG_DESKTOP_DIR variable
 if [ -f "$USER_HOME/.config/user-dirs.dirs" ]
 then
+   # FIXME: source is a bashism. use ". " instead?
    source "$USER_HOME/.config/user-dirs.dirs"
    USER_DESKTOP="$XDG_DESKTOP_DIR"
-   echo -e "\n\n$USER_DESKTOP\n\n"
+   echo "\n\n$USER_DESKTOP\n\n"
 else
    USER_DESKTOP="$USER_HOME/Desktop"
 fi
+
+#failsafe
+if [ -z "$USER_DESKTOP" ] ; then
+   USER_DESKTOP="$USER_HOME/Desktop"
+fi
+
+
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
