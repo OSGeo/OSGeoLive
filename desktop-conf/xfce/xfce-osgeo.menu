@@ -12,7 +12,8 @@
     </Include>
 
     <Layout>
-        <Merge type="all"/>
+	<Merge type="all"/>
+	<Menuname>Beta software</Menuname>
 	<Separator/>
 	<Filename>osgeo-help.desktop</Filename>
     </Layout>
