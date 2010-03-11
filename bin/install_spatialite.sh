@@ -72,8 +72,6 @@ wget -c --progress=dot:mega $BASEURL/samples.tar.gz
 
 chown user:users $PKG_DATA/*
 
-ln -s $PKG_DATA $USER_HOME/
-
 ## start icon
 cat << EOF > /usr/share/applications/spatialite-gui.desktop
 [Desktop Entry]
