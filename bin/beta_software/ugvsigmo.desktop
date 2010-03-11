@@ -13,4 +13,4 @@ StartupNotify=false
 ; 
 ; 
 ; Do not modify this:
-Categories=Geobeta;
+Categories=Geospatial;Geobeta;

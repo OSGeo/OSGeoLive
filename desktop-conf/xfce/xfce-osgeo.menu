@@ -56,4 +56,14 @@
 	    <Category>Spatial Tools</Category>
         </Include>
     </Menu>
+
+    <Menu>
+        <Name>Beta software</Name>
+        <Directory>xfce-geobeta.directory</Directory>
+        <Include>
+            <Category>Geobeta</Category>
+        </Include>
+    </Menu>
+
 </Menu>
+
