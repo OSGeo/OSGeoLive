@@ -51,6 +51,15 @@ chmod a+x /usr/share/applications/gosmore.desktop
 cp /usr/share/applications/gosmore.desktop "$USER_HOME/Desktop/"
 
 
+#### future todo
+# install osmrender - it's a renderer from .osm to svg
+#   http://wiki.openstreetmap.org/wiki/Osmarender
+# two implementations to choose from, one in perl, one in xslt
+# download:  http://svn.openstreetmap.org/applications/rendering/osmarender
+#  (both implementations and the stylesheets and other stuff is in that svn co)
+
+
+
 #### install sample OSM data
 mkdir /usr/local/share/osm
 
