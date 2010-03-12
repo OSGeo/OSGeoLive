@@ -68,6 +68,10 @@ mkdir /usr/local/share/ossim
 wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf \
 	--output-document=/usr/local/share/ossim/ossim_users_guide.pdf
 ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/
+
+wget -c --progress=dot:mega http://ossim.telascience.org/ossimdata/Documentation/OSSIM_Whitepaper.pdf \
+        --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
+
 chmod 644 /usr/local/share/ossim/*.pdf
 
 echo "Finished installing Ossim "
