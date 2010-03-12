@@ -14,7 +14,7 @@
 
 # About:
 # =====
-# This script will install a desktop background image and icon for passwords.
+# This script will install a desktop background image and icon for passwords. Create menus and config automatic login.
 
 # Running:
 # =======
@@ -194,7 +194,8 @@ done
 #   mv `basename $APP .desktop`.desktop "Databases"/
 #done
 
-
+####### Setup Automatic or Timed Login #####
+cp ../desktop-conf/custom.conf /etc/gdm/custom.conf
 
 #### permissions cleanup (if needed)
 chown user:user "$USER_HOME/Desktop/" -R
