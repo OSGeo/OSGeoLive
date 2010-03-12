@@ -195,7 +195,7 @@ done
 #done
 
 ####### Setup Automatic or Timed Login #####
-cp ../desktop-conf/custom.conf /etc/gdm/custom.conf
+cp "$BUILD_DIR"/../desktop-conf/custom.conf /etc/gdm/custom.conf
 
 #### permissions cleanup (if needed)
 chown user:user "$USER_HOME/Desktop/" -R
