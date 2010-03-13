@@ -90,11 +90,10 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-# place a gvSIG icon on desktop
-# NOTE: maybe this icon will be placed at other folder
+# place a gvSIG icon on Desktop GIS folder
 if [ -d $USER_DESKTOP ] ; then
-   echo "Copying icon to desktop at $USER_DESKTOP"
-   cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP"
+   echo "Copying icon to desktop at $USER_DESKTOP/Desktop GIS"
+   cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP/Desktop GIS"
 fi
 
 # download documentation 
