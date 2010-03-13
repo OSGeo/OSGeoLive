@@ -23,14 +23,14 @@
 
 # Changelog:
 # ===========
+# 2010-03-13: 
+#   * removed usage of source command
+#
 # 2010-01-04: adapting the script to 1.9 stable release (jsanz@osgeo.org)
 #   * Adapted dependencies
 #   * Changed to the "with-jre" version because the Xubuntu 9.10 version
 #     doesn't have the packages of Java 1.5
 
-
-# echo "ERROR: the gvsig.deb pacakge needs to be updated to work with Ubuntu 9.10. Aborting."
-# exit 1
 
 # live disc's username is "user"
 USER_NAME="user"
@@ -43,8 +43,7 @@ GVSIG_MAN="gvSIG-1_1-man-v1-en.pdf"
 # load user dirs to have the  $XDG_DESKTOP_DIR variable
 if [ -f "$USER_HOME/.config/user-dirs.dirs" ]
 then
-   # FIXME: source is a bashism. use ". " instead?
-   source "$USER_HOME/.config/user-dirs.dirs"
+   . "$USER_HOME/.config/user-dirs.dirs"
    USER_DESKTOP="$XDG_DESKTOP_DIR"
    echo "\n\n$USER_DESKTOP\n\n"
 else
