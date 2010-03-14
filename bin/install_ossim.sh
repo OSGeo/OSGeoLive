@@ -63,6 +63,8 @@ EOF
   update-menus
 fi
 
+
+
 #Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/ossim
 wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf \
@@ -71,6 +73,17 @@ ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/
 
 wget -c --progress=dot:mega http://ossim.telascience.org/ossimdata/Documentation/OSSIM_Whitepaper.pdf \
         --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
+
+mkdir /usr/local/share/ossim/ossim_data
+chmod -R 777 /usr/local/share/ossim/ossim_data
+
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band1.tif  --output-document=/usr/local/share/ossim/ossim_data/band1.tif		
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band2.tif  --output-document=/usr/local/share/ossim/ossim_data/band2.tif
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band3.tif  --output-document=/usr/local/share/ossim/ossim_data/band3.tif
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/SRTM_u03_n041e002.tif  --output-document=/usr/local/share/ossim/ossim_data/SRTM_u03_n041e002.tif
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/kml/Plaza_de_Cataluna.kmz --output-document=/usr/local/share/ossim/ossim_data/Plaza_de_Cataluna.kmz
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/kml/View_towards_Sagrada_Familia.kmz --output-document=/usr/local/share/ossim/ossim_data/View_towards_Sagrada_Familia.kmz
+
 
 chmod 644 /usr/local/share/ossim/*.pdf
 
