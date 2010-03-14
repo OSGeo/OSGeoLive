@@ -83,6 +83,9 @@ wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/SRTM_u03_n041e002.tif  --output-document=/usr/local/share/ossim/ossim_data/SRTM_u03_n041e002.tif
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/kml/Plaza_de_Cataluna.kmz --output-document=/usr/local/share/ossim/ossim_data/Plaza_de_Cataluna.kmz
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/kml/View_towards_Sagrada_Familia.kmz --output-document=/usr/local/share/ossim/ossim_data/View_towards_Sagrada_Familia.kmz
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/landsat.prj --output-document=/usr/local/share/ossim/ossim_data/landsat.prj
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/session.session --output-document=/usr/local/share/ossim/ossim_data/session.session
+
 
 
 chmod 644 /usr/local/share/ossim/*.pdf
