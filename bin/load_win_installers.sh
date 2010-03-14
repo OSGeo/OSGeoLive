@@ -48,7 +48,7 @@ for URL in \
   http://www.gpsbabel.org/plan9.php?dl=gpsbabel-1.3.6.zip \
   http://gpsvp.googlecode.com/files/gpsVPxp_0.4.18.zip \
   http://www.opengis.es/descargas/Kosmo_Desktop_2.0-RC1_windows_jre.zip \
-  http://downloads.sourceforge.net/project/opencpn/opencpn/1.3.6/OpenCPN_136_Setup.exe?use_mirror=transact
+  http://downloads.sourceforge.net/project/opencpn/opencpn/1.3.6/OpenCPN_136_Setup.exe?use_mirror=transact \
 ; do
   wget -c --progress=dot:mega "${URL}"
 done;
