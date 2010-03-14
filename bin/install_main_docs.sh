@@ -31,7 +31,7 @@ DEST="/usr/local/share/livedvd-docs"
 BASE_FILES="banner.png arramagong.css images" # base files to install
 HTML_FILES="contact.html index.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
-APPS=`sed -e 's/#.*$//' ${INSTALL_APPS}`
+APPS=`sed -e 's/#.*$//' "$INSTALL_APPS" | sort`
 VERSION=`cat ../VERSION.txt`
 
 # abiword is required to convert .odt files to .html
