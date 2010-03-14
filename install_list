@@ -1,6 +1,7 @@
 # This file contains a list of projects with install_X.sh scripts and 
 # and documentation to install
-# Projects can be commented out of this list to prevent them being installed
+# Projects can be commented out of this list to prevent their docs from being installed
+# TODO: Use this list to control installation of package and order of installation
 #
 # Other installers, like install_java are called directly
 # from the main.sh script
@@ -13,36 +14,34 @@
 #  5. LiveDVD desktop, docs, etc. (called from main.sh)
 #  6. Cleanup scripts (called from main.sh)
 
-# Java Applications
-geoserver
-gvsig
-ugvsigmobile # beta software
+# Currently in alphabetical order for documentation autogeneration
+# TODO: implement more sophisticated build control and documentation category generation
+deegree
+geokettle
 geomajas
 geonetwork
-deegree
-kosmo
-udig
-openjump
-
-# Postgres Applications
-postgis
-pgrouting
-osm
-mapserver
-geokettle
+geopublishing
+geoserver
 gmt
-
-# Desktop Applications
+gpsdrive
 grass
-qgis
+gvsig
+kosmo
+mapfish
 mapnik
+mapserver
 maptiler
 marble
+mb-system
 octave
 opencpn
-geopublishing
-gpsdrive
-mb-system
-mapfish
-R
+openjump
+osm
 ossim
+pgrouting
+postgis
+qgis
+R
+udig
+ugvsigmobile # beta software
+
