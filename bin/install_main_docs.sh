@@ -112,8 +112,22 @@ done
 # license page end
 #cat ${SRC}/license_post.html >> "$DEST/license.html"
 
+
+
 # Download the Test Plan / Test Results
-wget -c -O ${DEST}/tests.html http://wiki.osgeo.org/wiki/Live_GIS_Disc_Testing
+TMPDIR="/tmp/build_docs"
+mkdir -p "$TMPDIR"
+TMPFILE="$TMPDIR/buildtmp_$$_tests.html"
+
+wget -nv -O "$TMPFILE" \
+  http://wiki.osgeo.org/wiki/Live_GIS_Disc_Testing
+
+FIRSTLINE=`grep -n '<!-- start content -->' "$TMPFILE" | cut -f1 -d:`
+LASTLINE=`grep -n '<!-- end content -->' "$TMPFILE" | cut -f1 -d:`
+head -n "$LASTLINE" "$TMPFILE" | sed -e "1,${FIRSTLINE}d" > "$TMPDIR/tests_inc.html"
+cat "$SRC/pre.html" "$TMPDIR/tests_inc.html" "$SRC/post.html" > "$DEST/tests.html"
+
+
 
 # FIXME
 echo "install_main_docs.sh FIXME: Double-check that the Firefox \
