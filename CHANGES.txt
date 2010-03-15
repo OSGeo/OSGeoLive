@@ -1,6 +1,16 @@
 Arramagong GISVM
 ================
 
+Version: 3.0 rc5
+================
+15 March 2010
+ * Application fixes based on testing
+ * More clean-up, expansion of docs
+ * Clean-up of icons, desktop background, menus
+ * Dataset for OSSIM
+ * Automatic Login
+ * Fixed windows installers download
+
 Version: 3.0 rc4
 ================
 9 March 2010
