@@ -1,24 +1,24 @@
 # please add the names of everyone with SVN write access to this file
 #  - alphabetical by first name
 #  - remove punctuation from email addresses to stop harvesting for junk mail
-name,email,country,osgeo_id
-Alex Mandel, <tech wildintellect com>,USA,wildintellect
-Anton Patrushev,<anton.patrushev gmail com>,?,anton
-Brian Hamlin,<maplabs light42 com>,USA,darkblue_b
-Cameron Shorter,<Cameron.Shorter lisasoft com>,Australia,camerons
-Dane Springmeyer,<dbsgeo gmail com>,USA,springmeyer
-Eric Lemoine,<eric.lemoine camptocamp com>,France,erilem
-Etienne Dube,<etdube gmail com>,Canada,etdube
-Hamish Bowman,<hamish_b yahoo com>,New Zealand,hamish
-Jorge Sanz,<jsanz gvsig org>,Spain,jsanz
-Jody Garnett<jgarnett@gmail.com>, Australia,jive
-Juan Lucas Dominguez,<juan_lucas_dr yahoo com>,Spain,jldominguez
-Judit Mays,<mays lat-lon de>,Germany,jmays
-Klokan Petr Pridal,<klokan klokan cz>,Switzerland/Czech Republic,klokan
-Massimo Di Stefano,<massimodisasha yahoo it>,Italy,epifanio
-Pirmin kalberer,<pka sourcepole com>,Switzerland,pka
-Ricardo Pinho,<rpinho_eng yahoo com br>,Portugal,rpinho
-Sergio Baños,<sbc saig es>, Spain, sbcalvo
-Simon Pigot,<simon.pigot csiro au>,Australia,simonp
-Stefan Hansen,<stefan.hansen lisasoft com>,Australia,shansen
-Stefan A. Tzeggai,<gp geopublishing org>,Germany,alfonx
+Name,Email,Country,Osgeo_id
+Alex Mandel, tech wildintellect com,USA,wildintellect
+Anton Patrushev,anton.patrushev gmail com,?,anton
+Brian Hamlin,maplabs light42 com,USA,darkblue_b
+Cameron Shorter,Cameron.Shorter lisasoft com,Australia,camerons
+Dane Springmeyer,dbsgeo gmail com,USA,springmeyer
+Eric Lemoine,eric.lemoine camptocamp com,France,erilem
+Etienne Dube,etdube gmail com,Canada,etdube
+Hamish Bowman,hamish_b yahoo com,New Zealand,hamish
+Jorge Sanz,jsanz gvsig org,Spain,jsanz
+Jody Garnett,jgarnett gmail com, Australia,jive
+Juan Lucas Dominguez,juan_lucas_dr yahoo com,Spain,jldominguez
+Judit Mays,mays lat-lon de,Germany,jmays
+Klokan Petr Pridal,klokan klokan cz,Switzerland/Czech Republic,klokan
+Massimo Di Stefano,massimodisasha yahoo it,Italy,epifanio
+Pirmin kalberer,pka sourcepole com,Switzerland,pka
+Ricardo Pinho,rpinho_eng yahoo com br,Portugal,rpinho
+Sergio Baños,sbc saig es, Spain, sbcalvo
+Simon Pigot,simon.pigot csiro au,Australia,simonp
+Stefan Hansen,stefan.hansen lisasoft com,Australia,shansen
+Stefan A. Tzeggai,gp geopublishing org,Germany,alfonx

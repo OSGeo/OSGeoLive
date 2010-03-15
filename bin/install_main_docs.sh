@@ -104,6 +104,15 @@ for ITEM in $APPS ; do
    #fi
 done
 
+# Add contributors to the sponsors.html page
+echo "<h1>LiveDVD developers and contributors</h1>" >> ${DEST}/sponsors.html
+echo "<p>Thankyou to all the following people who have contributed installers and packaging help required to build this LiveDVD.</p>" >> ${DEST}/sponsors.html
+echo "<table>" >> ${DEST}/sponsors.html
+grep -v " *#" ${SRC}/../contributors.csv | \
+  sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/' >> ${DEST}/sponsors.html
+echo "</table>" >> ${DEST}/sponsors.html
+echo "<p><i>Source list at: <a href="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv">https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv</a></i></p>" >> ${DEST}/sponsors.html
+
 # Copy post.html into all the html files
 for ITEM in contact.html index.html sponsors.html content.html ; do
   cat ${SRC}/post.html >> "$DEST/$ITEM"
