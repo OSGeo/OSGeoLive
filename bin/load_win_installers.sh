@@ -41,7 +41,7 @@ for URL in \
   http://udig.refractions.net/files/downloads/udig-1.1.1.exe \
   http://linfiniti.com/downloads/QGIS-1.4.0-1-No-GrassSetup.exe \
   http://home.gdal.org/tmp/vcredist_x86.exe \
-  http://download.osgeo.org/livedvd/data/grass/WinGRASS-6.4.SVN-r41287-1-Setup.exe \
+  http://download.osgeo.org/livedvd/data/grass/WinGRASS-6.4.SVN-r41454-1-Setup.exe \
   http://maptools.org/dl/ms4w/ms4w_3.0_beta7.zip \
   http://download.osgeo.org/mapguide/releases/2.0.2/MgServerSetup-2.0.2.3011.exe \
   http://maptiler.googlecode.com/files/maptiler-1.0-beta2-setup.exe \
