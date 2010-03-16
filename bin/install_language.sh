@@ -61,7 +61,7 @@ done
 
 #Seems to not find the packages without this, might just be a quirk of the test iso
 apt-get update
-apt-get install --asume-yes -q --no-install-recommends $PACKAGES
+apt-get install --assume-yes -q --no-install-recommends $PACKAGES
 
 #TODO: allow select at boot splash screen
 
