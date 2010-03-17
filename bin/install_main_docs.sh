@@ -113,6 +113,9 @@ grep -v " *#" ${SRC}/../contributors.csv | \
 echo "</table>" >> ${DEST}/sponsors.html
 echo "<p><i>Source list at: <a href="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv">https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv</a></i></p>" >> ${DEST}/sponsors.html
 
+# Copy disclaimer to content.html
+cat ${SRC}/disclaimer.html >> $DEST/content.html
+
 # Copy post.html into all the html files
 for ITEM in contact.html index.html sponsors.html content.html ; do
   cat ${SRC}/post.html >> "$DEST/$ITEM"
