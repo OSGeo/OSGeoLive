@@ -105,7 +105,7 @@ sed -i s/8080/$GS_PORT/g $GS_HOME/etc/jetty.xml
 ## Add a script that will launch the browser after starting GS
 cat << EOF > $GS_HOME/bin/start_admin.sh
 $GS_HOME/bin/startup.sh &
-(echo "25" ; sleep 10; echo "50"; sleep 10; echo "75"; sleep 10; echo "100";  sleep 10) | zenity --progress --auto-close --text "GeoServer starting"
+(sleep 10; echo "25"; sleep 10; echo "50"; sleep 10; echo "75"; sleep 10; echo "100") | zenity --progress --auto-close --text "GeoServer starting"
 firefox "http://localhost:$GS_PORT/geoserver/web/"
 EOF
 

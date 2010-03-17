@@ -175,6 +175,9 @@ wget -c --progress=dot:mega ftp://ftp.ldeo.columbia.edu/pub/MB-System/MB-SystemE
 cd /usr/local/mbsystem/
 tar xzf /tmp/build_mbsystem/MB-SystemExamples.5.1.0.tar.gz
 mv MB-SystemExamples.5.1.0/ examples/
+chmod -R g+w examples/
+chown -R root.users examples/
+adduser $USER_NAME users
 
 
 #### get and install cookbook tutorial ####
