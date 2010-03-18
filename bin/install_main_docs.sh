@@ -28,6 +28,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SRC="../doc"
 DEST="/usr/local/share/livedvd-docs"
+DEST="/home/cshorter/tmp"
 BASE_FILES="banner.png arramagong.css images" # base files to install
 HTML_FILES="contact.html index.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
@@ -47,13 +48,18 @@ done
 # Copy pre.html into all the html files
 for ITEM in contact.html index.html sponsors.html content.html ; do
   # copy the version number into the <h1>title</h1>
-  sed -e "s/<\/h1>/ version ${VERSION}<\/h1>/" ${SRC}/pre.html > $DEST/$ITEM
+  cat ${SRC}/pre.html > $DEST/$ITEM
 done
 
 # Copy body of html static files
 for ITEM in contact.html index.html sponsors.html content.html; do
   cat ${SRC}/${ITEM} >> $DEST/$ITEM
+
+  # Add version number to header
+  sed -e "s/<h1>Arramagong/<h1>Arramagong ${VERSION}/" ${DEST}/${ITEM} > /tmp/${ITEM}
+  mv /tmp/${ITEM} ${DEST}/${ITEM}
 done
+
 
 # license page start
 #cp -f ${SRC}/license_pre.html "$DEST/license.html"
