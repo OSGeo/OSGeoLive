@@ -1,4 +1,5 @@
 #!/bin/sh
+JAVA_HOME="/usr/lib/jvm/java-6-sun"
 
 dir=`dirname $0`
 cd $dir
@@ -13,4 +14,4 @@ mv logs/geoserver.log.* logs/archive
 # try changing the Xmx parameter if your machine has little RAM
 #java -Xms48m -Xmx256m -Xss2M -XX:MaxPermSize=128m -DSTOP.PORT=8079 -Djava.awt.headless=true -DSTOP.KEY=geonetwork -jar start.jar ../bin/jetty.xml &
 
-java -Xms48m -Xmx512m -Xss2M -XX:MaxPermSize=128m -DSTOP.PORT=8879 -Djava.awt.headless=true -DSTOP.KEY=geonetwork -jar start.jar ../bin/jetty.xml > logs/output.log 2>&1 &
+${JAVA_HOME}/bin/java -Xms48m -Xmx512m -Xss2M -XX:MaxPermSize=128m -DSTOP.PORT=8879 -Djava.awt.headless=true -DSTOP.KEY=geonetwork -jar start.jar ../bin/jetty.xml > logs/output.log 2>&1 &
