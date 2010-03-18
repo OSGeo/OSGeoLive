@@ -36,12 +36,15 @@ mb-system
 octave
 opencpn
 openjump
+osgearth
 osm
 ossim
 pgrouting
 postgis
 qgis
 R
+spatialite
 udig
 ugvsigmobile # beta software
+
 
