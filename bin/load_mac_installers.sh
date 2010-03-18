@@ -51,7 +51,8 @@ cd "$TMP"
 #    PostGIS-1.4.0-4(PG8.3).dmg
 #    Qgis-1.3.0-1-Leopard.dmg
 #    Qgis-1.3.0-1-Snow.dmg
-#
+#    imagelinker-1.7.15-appbundle.dmg
+#    ossimplanet-appbundle-1.8.4.dmg
 
 BASE_URL="http://www.kyngchaos.com/files/software/unixport"
 
@@ -143,3 +144,10 @@ done
 #Add uDig from another source
 PKG="udig-1.2-M6.macosx.cocoa.x86.zip"
 wget -c --progress=dot:mega http://udig.refractions.net/files/downloads/branches/${PKG} -O "$PKG_DIR/$PKG"
+
+#Add Ossim Stuff (Imagelinker, Ossimplanet)
+PKG="imagelinker-1.7.15-appbundle.dmg"
+wget -c --progress=dot:mega http://download.osgeo.org/ossim/installers/mac/${PKG} -O "$PKG_DIR/$PKG"
+PKG="ossimplanet-appbundle-1.8.4.dmg"
+wget -c --progress=dot:mega http://download.osgeo.org/ossim/installers/mac/${PKG} -O "$PKG_DIR/$PKG"
+

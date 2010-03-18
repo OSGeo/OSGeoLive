@@ -49,6 +49,7 @@ for URL in \
   http://gpsvp.googlecode.com/files/gpsVPxp_0.4.18.zip \
   http://www.opengis.es/descargas/Kosmo_Desktop_2.0-RC1_windows_jre.zip \
   http://downloads.sourceforge.net/project/opencpn/opencpn/1.3.6/OpenCPN_136_Setup.exe?use_mirror=transact \
+  http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe \
 ; do
   wget -c --progress=dot:mega "${URL}"
 done;
@@ -71,4 +72,5 @@ done;
   # gpsVP: (500kb)  http://code.google.com/p/gpsvp/
   # Kosmo
   # OpenCPN (8mb)
+  # Ossim (30mb)
 
