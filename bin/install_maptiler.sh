@@ -1,13 +1,16 @@
 #!/bin/sh
+#
 # Installation of MapTiler application
 #
-# In case anything fails please contact: Klokan Petr Pridal <klokan@klokan.cz>
+# Created by Klokan Petr Pridal <petr.pridal@klokantech.com>
 #
-# UbuntuGIS repository added to the Apt (same like in QGIS and GRASS)
-# Hack to start with python2.5
+# Copyright (c) 2010 The Open Source Geospatial Foundation.
+# Licensed under the GNU LGPL.
 
 TMP="/tmp/build_maptiler"
 MAPTILERDEB="maptiler_1.0.beta2_all.deb"
+DATA_FOLDER="/usr/local/share/maptiler"
+TESTDATA_URL="http://download.osgeo.org/gdal/data/gtiff/utm.tif"
 
 #Can't cd to a directory before you make it, may be uneeded now
 mkdir "$TMP"
@@ -50,13 +53,22 @@ else
   exit 1
 fi
 
+# Create the directory for data
+if [ ! -d "$DATA_FOLDER" ] ; then
+   mkdir "$DATA_FOLDER"
+fi
+
+# Download the data for testing 
+cd ${DATA_FOLDER}
+wget -c ${TESTDATA_URL}
+
 # Everything is OK
 echo "MapTiler is installed"
 echo "---------------------"
 echo "To try it you should:"
 echo ""
 echo " 1. Start MapTiler by clicking the icon on the Desktop"
-echo " 2. Load in the second step example raster GEODATA (with georerence/srs)"
+echo " 2. Load in the second step an raster geodata (with georerence/srs), you can try /home/user/data/maptiler/utm.tif"
 echo " 3. Go trough all the steps with 'Next' up to the Render"
 echo " 4. Once the render is finished you can click in the GUI to open a folder with tiles. When you open googlemaps.html or openlayers.html then you see your geodata warped to the overlay of popular interactive web maps as Google Maps."
 echo ""
