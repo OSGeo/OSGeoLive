@@ -28,7 +28,6 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SRC="../doc"
 DEST="/usr/local/share/livedvd-docs"
-DEST="/home/cshorter/tmp"
 BASE_FILES="banner.png arramagong.css images" # base files to install
 HTML_FILES="contact.html index.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
