@@ -37,7 +37,7 @@ for URL in \
   http://home.gdal.org/fwtools/FWTools243.exe \
   http://downloads.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.4.2/geonetwork-install-2.4.2-0.exe?use_mirror=transact \
   http://downloads.sourceforge.net/geoserver/geoserver-2.0.1-ng.exe?use_mirror=transact \
-  ftp://downloads.gvsig.org/gva/descargas/ficheros/11/gvSIG-update-1_1_2-windows-i586.exe \
+  http://forge.osor.eu/frs/download.php/746/gvSIG-1_9-windows-i586-withjre.exe \
   http://udig.refractions.net/files/downloads/udig-1.1.1.exe \
   http://linfiniti.com/downloads/QGIS-1.4.0-1-No-GrassSetup.exe \
   http://home.gdal.org/tmp/vcredist_x86.exe \
