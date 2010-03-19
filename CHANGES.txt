@@ -1,7 +1,7 @@
 Arramagong GISVM
 ================
 
-Version: 3.0 rc6 (final)
+Version: 3.0 Final
 ================
 19 March 2010
  * Various fixes to last few broken applications
