@@ -36,7 +36,7 @@ echo "OSGeo software for Windows:  http://trac.osgeo.org/osgeo4w/" > README.txt
 for URL in \
   http://home.gdal.org/fwtools/FWTools243.exe \
   http://downloads.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.4.2/geonetwork-install-2.4.2-0.exe?use_mirror=transact \
-  http://downloads.sourceforge.net/project/geoserver/GeoServer/1.7.6/geoserver-1.7.6-ng.exe?use_mirror=transact \
+  http://downloads.sourceforge.net/geoserver/geoserver-2.0.1-ng.exe?use_mirror=transact \
   ftp://downloads.gvsig.org/gva/descargas/ficheros/11/gvSIG-update-1_1_2-windows-i586.exe \
   http://udig.refractions.net/files/downloads/udig-1.1.1.exe \
   http://linfiniti.com/downloads/QGIS-1.4.0-1-No-GrassSetup.exe \
