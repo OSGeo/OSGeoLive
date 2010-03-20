@@ -31,6 +31,18 @@
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
+#Install packages from debs if available
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/cran.list \
+     --output-document=/etc/apt/sources.list.d/cran.list
+     
+apt-key adv --keyserver subkeys.pgp.net --recv-key E2A11821
+#Apparently subkeys.pgp.net decided to refuse requests from the vm for a few hours
+# TODO: if key import fails switch to another keyserver
+# pgp.mit.edu keyserver.ubuntu.com
+
+apt-get update
+
+#Plugin interaction with R
 apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev \
    grass-dev libxml2-dev python-shapely tcl8.5-dev tk8.5-dev \
    libgl1-mesa-dev libglu1-mesa-dev python-setuptools build-essential \
@@ -41,17 +53,10 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-
 #Required for QGIS plugins
 easy_install -Z rpy2
 
-#Install packages from debs if available
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/cran.list \
-     --output-document=/etc/apt/sources.list.d/cran.list
-     
-apt-key adv --keyserver subkeys.pgp.net --recv-key E2A11821
-     
-apt-get update
+# R specific packages
 apt-get --assume-yes install r-cran-adapt r-cran-boot \
   r-cran-matrix r-cran-coda r-cran-foreign \
   r-cran-lattice r-cran-lmtest r-cran-maps r-cran-mgcv \
