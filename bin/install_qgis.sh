@@ -117,7 +117,7 @@ chmod 644 /usr/local/share/qgis/*.pdf
 # be careful with 'wget -c', if the file changes on the server the local
 # copy will get corrupted. Wget only knows about filesize, not file 
 # contents, timestamps, or md5sums!
-wget --progress=dot:mega http://www.geofemengineering.it/data/qgis.plugin.14032010.tar.gz  --output-document=/tmp/qgis_plugin.tar.gz
+wget --progress=dot:mega http://www.geofemengineering.it/data/qgis.plugin.20032010.tar.gz  --output-document=/tmp/qgis_plugin.tar.gz
 
 tar xzf /tmp/qgis_plugin.tar.gz  -C /tmp
 cp -R  /tmp/.qgis/python/plugins/ /usr/share/qgis/python/
