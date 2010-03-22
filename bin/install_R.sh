@@ -61,13 +61,7 @@ apt-get --assume-yes install r-cran-adapt r-cran-boot \
   r-cran-matrix r-cran-coda r-cran-foreign \
   r-cran-lattice r-cran-lmtest r-cran-maps r-cran-mgcv \
   r-cran-nlme r-cran-sandwich r-cran-zoo
-
-# a few more as soon as the freeze is thawed
-##apt-get --assume-yes install \
-##   r-cran-vr r-cran-rodbc r-cran-xml r-cran-mapdata
-# and these source packages: sp, gstat, rgdal, and spgrass6
-
-# package does not exist in Jaunty+: r-cran-e1071.
+# package does not exist in Jaunty: r-cran-e1071
 
 
 #Calls R script to do install with feedback to stdout
