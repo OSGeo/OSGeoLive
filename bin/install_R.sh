@@ -60,7 +60,7 @@ apt-get --assume-yes install r-cran-adapt r-cran-boot \
   r-cran-matrix r-cran-coda r-cran-foreign \
   r-cran-lattice r-cran-lmtest r-cran-maps r-cran-mgcv \
   r-cran-nlme r-cran-sandwich r-cran-zoo \
-  r-cran-vr r-cran-rodbc r-cran-xml r-cran-mapdata
+  r-cran-vr r-cran-rodbc r-cran-xml r-cran-mapdata r-cran-mapproj
 
 # package does not exist in Jaunty+: r-cran-e1071.
 
