@@ -116,7 +116,7 @@ echo "<table>" >> ${DEST}/sponsors.html
 grep -v " *#" ${SRC}/../contributors.csv | \
   sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/' >> ${DEST}/sponsors.html
 echo "</table>" >> ${DEST}/sponsors.html
-echo "<p><i>Source list at: <a href="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv">https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv</a></i></p>" >> ${DEST}/sponsors.html
+echo "<p><i>Source list at: <a href="https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/contributors.csv">https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/contributors.csv</a></i></p>" >> ${DEST}/sponsors.html
 
 # Copy disclaimer to content.html
 cat ${SRC}/disclaimer.html >> $DEST/content.html

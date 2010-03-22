@@ -100,7 +100,7 @@ getFromOsgeo()
 {
     rm -f $1
     ## wget -c --progress=dot:mega http://download.deegree.org/LiveDVD/FOSS4G2009/$1
-    wget -c --progress=dot:mega http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/deegree/$1
+    wget -c --progress=dot:mega http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/app-conf/deegree/$1
 }
 
 ### Install Application ###
@@ -135,7 +135,7 @@ chmod 755 $BIN/deegree_st*.sh
 ### install desktop icons ##
 if [ ! -e "/usr/share/icons/deegree_desktop_48x48.png" ] ; then
    #wget -nv "http://download.deegree.org/LiveDVD/FOSS4G2009/deegree_desktop_48x48.png"
-   wget -nv "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/deegree/deegree_desktop_48x48.png"
+   wget -nv "http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/app-conf/deegree/deegree_desktop_48x48.png"
    mv deegree_desktop_48x48.png /usr/share/icons/
 fi
 

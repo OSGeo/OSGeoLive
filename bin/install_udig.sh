@@ -86,7 +86,7 @@ if [ -f "udig.sh" ]
 then
    echo "udig.sh has already been downloaded."
 else
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/udig/udig.sh
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/app-conf/udig/udig.sh
 fi
 # copy it into the udig folder
 cp udig.sh "$UDIG_FOLDER"
@@ -99,7 +99,7 @@ if [ -f "uDig.desktop" ]
 then
    echo "uDig.desktop has already been downloaded."
 else
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/udig/uDig.desktop
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/app-conf/udig/uDig.desktop
 fi
 # copy it into the udig folder
 cp uDig.desktop "$USER_HOME/Desktop"

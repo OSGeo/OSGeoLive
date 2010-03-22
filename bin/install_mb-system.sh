@@ -106,7 +106,7 @@ cd `basename $LATEST .tar.gz`
 #### config build ####
 
 PATCH="install_makefiles.Lenny"
-wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mb-system/$PATCH.patch" \
+wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/app-data/mb-system/$PATCH.patch" \
        -O "$PATCH.patch"
 patch -p0 < "$PATCH.patch"
 

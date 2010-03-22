@@ -32,7 +32,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
 #Install packages from debs if available
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/cran.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/sources.list.d/cran.list \
      --output-document=/etc/apt/sources.list.d/cran.list
      
 apt-key adv --keyserver subkeys.pgp.net --recv-key E2A11821

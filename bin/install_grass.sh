@@ -47,7 +47,7 @@ fi
 
 
 # Add UbuntuGIS repository (same as QGIS)
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 #Add signed key for repositorys LTS and non-LTS

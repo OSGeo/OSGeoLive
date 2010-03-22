@@ -32,7 +32,7 @@ cd "$TMP_DIR"
 
 
 #Add repositories
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 #Add signed key for repositorys LTS and non-LTS
@@ -128,8 +128,8 @@ cp -R  /tmp/.qgis/python/plugins/ /usr/share/qgis/python/
 
 #TODO Include some sample projects using already installed example data
 #post a sample somewhere on qgis website or launchpad to pull
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/qgis/QGIS-Itasca-Example.qgs --output-document=/usr/local/share/qgis/QGIS-Itasca-Example.qgs
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/qgis/QGIS-Grass-Example.qgs --output-document=/usr/local/share/qgis/QGIS-Grass-Example.qgs
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/app-data/qgis/QGIS-Itasca-Example.qgs --output-document=/usr/local/share/qgis/QGIS-Itasca-Example.qgs
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/app-data/qgis/QGIS-Grass-Example.qgs --output-document=/usr/local/share/qgis/QGIS-Grass-Example.qgs
 
 chmod 644 /usr/local/share/qgis/*.qgs
 

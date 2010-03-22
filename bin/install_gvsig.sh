@@ -116,7 +116,7 @@ cp "$GVSIG_MAN" "$GVSIG_DOCS"
 if [ ! -d "$USER_HOME/gvSIG" ] ; then
    mkdir -p "$USER_HOME/gvSIG"
 fi
-wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp \
+wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/app-data/gvsig/sample-project.gvp \
      --output-document=sample-project.gvp
 cp sample-project.gvp "$USER_HOME/gvSIG/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"

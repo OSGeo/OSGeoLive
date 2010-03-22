@@ -34,7 +34,7 @@ apt-get install --yes subversion openssh-server
 
 # check out the install scripts from subversion
 cd $SCRIPT_DIR
-svn co http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk gisvm
+svn co http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3 gisvm
 chown -R user:user gisvm
 cd /home/user
 ln -s ${SCRIPT_DIR}/gisvm .

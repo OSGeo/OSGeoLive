@@ -81,7 +81,7 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   PATCHES="gpsdrive_fix_deps  gpsdrive_osm_fixes  gpsdrive_blue_mapnik"
 
   for PATCH in $PATCHES ; do
-    wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/$PATCH.patch" \
+    wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/app-data/gpsdrive/$PATCH.patch" \
        -O "$PATCH.patch"
     patch -p0 < "$PATCH.patch"
   done
@@ -281,7 +281,7 @@ echo "Convention_Centre   -33.8750   151.2005" > "$USER_HOME/.gpsdrive/way.txt"
 
 # Sydney maps
 #  v0.1, 1.1mb LANDSAT tiles
-#wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/gpsdrive_syd_tileset-0.1.tar.gz"
+#wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/app-data/gpsdrive/gpsdrive_syd_tileset-0.1.tar.gz"
 
 #  v1.1, 70mb LANDSAT + OpenStreetMap tiles
 # move to .au mirror once it becomes avail.

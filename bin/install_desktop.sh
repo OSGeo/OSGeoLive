@@ -25,7 +25,7 @@ USER_HOME="/home/$USER_NAME"
 BUILD_DIR=`pwd`
 
 # Default password list on the desktop to be replaced by html help in the future.
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/doc/passwords.txt \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/arramagong_3/doc/passwords.txt \
     --output-document="$USER_HOME/Desktop/passwords.txt"
 chown user:user "$USER_HOME/Desktop/passwords.txt"
 
