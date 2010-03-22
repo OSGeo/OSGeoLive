@@ -32,9 +32,8 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
 #Install packages from debs if available
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/cran.list \
-     --output-document=/etc/apt/sources.list.d/cran.list
-     
+cp ../sources.list.d/cran.list /etc/apt/sources.list.d/
+
 apt-key adv --keyserver subkeys.pgp.net --recv-key E2A11821
 #Apparently subkeys.pgp.net decided to refuse requests from the vm for a few hours
 # TODO: if key import fails switch to another keyserver
@@ -60,12 +59,14 @@ easy_install -Z rpy2
 apt-get --assume-yes install r-cran-adapt r-cran-boot \
   r-cran-matrix r-cran-coda r-cran-foreign \
   r-cran-lattice r-cran-lmtest r-cran-maps r-cran-mgcv \
-  r-cran-nlme r-cran-sandwich r-cran-zoo
-# package does not exist in Jaunty: r-cran-e1071
+  r-cran-nlme r-cran-sandwich r-cran-zoo \
+  r-cran-vr r-cran-rodbc r-cran-xml r-cran-mapdata
+
+# package does not exist in Jaunty+: r-cran-e1071.
 
 
 #Calls R script to do install with feedback to stdout
-R --no-save < installRpackages.r
+R --no-save < ../apt-conf/R/installRpackages.r
 
 #Add Desktop shortcut
 
@@ -74,7 +75,7 @@ if [ ! -e /usr/share/applications/r.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=R
+Name=R Statistics
 Comment=R Statistical Package
 Categories=Application;Education;Geography;
 Exec=R
@@ -82,6 +83,8 @@ Icon= /usr/share/R/doc/html/logo.jpg
 Terminal=true
 StartupNotify=false
 EOF
+else
+  echo "Icon already present."
 fi
 
 cp -a /usr/share/applications/r.desktop "$USER_HOME/Desktop/"
