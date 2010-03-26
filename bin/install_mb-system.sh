@@ -37,6 +37,7 @@ USER_HOME="/home/$USER_NAME"
 MB_VERSION="5.1.2"
 LATEST="ftp://ftp.ldeo.columbia.edu/pub/MB-System/mbsystem-$MB_VERSION.tar.gz"
 
+BUILD_DIR=`pwd`
 
 #### get dependencies ####
 
@@ -106,9 +107,7 @@ cd `basename $LATEST .tar.gz`
 #### config build ####
 
 PATCH="install_makefiles.Lenny"
-wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mb-system/$PATCH.patch" \
-       -O "$PATCH.patch"
-patch -p0 < "$PATCH.patch"
+patch -p0 < "$BUILD_DIR/../app-data/mb-system/$PATCH.patch"
 
 ./install_makefiles
 

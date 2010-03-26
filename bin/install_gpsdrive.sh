@@ -24,6 +24,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR=/tmp/build_gpsdrive
+BUILD_DIR=`pwd`
 
 
 #### install program ####
@@ -81,9 +82,7 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   PATCHES="gpsdrive_fix_deps  gpsdrive_osm_fixes  gpsdrive_blue_mapnik"
 
   for PATCH in $PATCHES ; do
-    wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/$PATCH.patch" \
-       -O "$PATCH.patch"
-    patch -p0 < "$PATCH.patch"
+     patch -p0 < "$BUILD_DIR/../app-data/gpsdrive/$PATCH.patch"
   done
 
   if [ $? -ne 0 ] ; then

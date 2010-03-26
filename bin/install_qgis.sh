@@ -24,19 +24,13 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR=/tmp/build_qgis
-
-if [ ! -d "$TMP_DIR" ] ; then
-   mkdir "$TMP_DIR"
-fi
-cd "$TMP_DIR"
-
+BUILD_DIR=`pwd`
 
 #Add repositories
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
-     --output-document=/etc/apt/sources.list.d/ubuntugis.list
+cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 
 #Add signed key for repositorys LTS and non-LTS
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
+#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 
 apt-get update
@@ -98,7 +92,6 @@ EOF
 fi
 
 
-
 #Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/qgis
 wget -c --progress=dot:mega http://download.osgeo.org/qgis/doc/manual/qgis-1.0.0_a-gentle-gis-introduction_en.pdf \
@@ -109,6 +102,12 @@ wget -c --progress=dot:mega http://download.osgeo.org/qgis/doc/manual/qgis-1.3.0
 chmod 644 /usr/local/share/qgis/*.pdf
 
 
+if [ ! -d "$TMP_DIR" ] ; then
+   mkdir "$TMP_DIR"
+fi
+cd "$TMP_DIR"
+
+echo "FIXME: use $TMP_DIR not /tmp/"
 
 #TODO Install some popular python plugins
 #Use wget to pull them directly into qgis python path?
@@ -117,19 +116,21 @@ chmod 644 /usr/local/share/qgis/*.pdf
 # be careful with 'wget -c', if the file changes on the server the local
 # copy will get corrupted. Wget only knows about filesize, not file 
 # contents, timestamps, or md5sums!
-wget --progress=dot:mega http://www.geofemengineering.it/data/qgis.plugin.20032010.tar.gz  --output-document=/tmp/qgis_plugin.tar.gz
+wget --progress=dot:mega http://www.geofemengineering.it/data/qgis.plugin.20032010.tar.gz \
+  --output-document=/tmp/qgis_plugin.tar.gz
 
 tar xzf /tmp/qgis_plugin.tar.gz  -C /tmp
 cp -R  /tmp/.qgis/python/plugins/ /usr/share/qgis/python/
 
 #Next line might be optional, unsure
 #chmod -R 777 /usr/share/qgis/python/plugins/*
-# why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories. - might not necessary at all
+# why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
+#   - might not necessary at all
 
 #TODO Include some sample projects using already installed example data
 #post a sample somewhere on qgis website or launchpad to pull
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/qgis/QGIS-Itasca-Example.qgs --output-document=/usr/local/share/qgis/QGIS-Itasca-Example.qgs
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/qgis/QGIS-Grass-Example.qgs --output-document=/usr/local/share/qgis/QGIS-Grass-Example.qgs
+cp "$BUILD_DIR/../app-data/qgis/QGIS-Itasca-Example.qgs" /usr/local/share/qgis/
+cp "$BUILD_DIR/../app-data/qgis/QGIS-Grass-Example.qgs" /usr/local/share/qgis/
 
 chmod 644 /usr/local/share/qgis/*.qgs
 
