@@ -23,6 +23,8 @@
 USER_NAME=user
 USER_HOME="/home/$USER_NAME"
 
+TMP_DIR=/tmp/build_osm
+
 
 apt-get install --assume-yes josm josm-plugins gosmore gpsd
 
@@ -65,6 +67,14 @@ mkdir /usr/local/share/osm
 
 # Auckland:
 cp ../app-data/osm/Auckland.osm.gz /usr/local/share/osm/
+
+
+
+if [ ! -d "$TMP_DIR" ] ; then
+   mkdir "$TMP_DIR"
+fi
+cd "$TMP_DIR"
+
 
 # Barcelona:
 

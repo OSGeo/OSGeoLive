@@ -26,11 +26,12 @@ OL_VERSION="2.8"
 
 mkdir -p "$TMP_DIR"
 cd "$TMP_DIR"
+
 if [ ! -e "OpenLayers-$OL_VERSION.tar.gz" ] ; then
-      wget --progress=dot:mega "http://openlayers.org/download/OpenLayers-$OL_VERSION.tar.gz"
-   else
-      echo "... OpenLayers-$OL_VERSION.tar.gz already downloaded"
-   fi
+    wget --progress=dot:mega "http://openlayers.org/download/OpenLayers-$OL_VERSION.tar.gz"
+else
+    echo "... OpenLayers-$OL_VERSION.tar.gz already downloaded"
+fi
 
 tar xzf "OpenLayers-$OL_VERSION.tar.gz"
 
