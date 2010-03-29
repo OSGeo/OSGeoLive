@@ -116,9 +116,9 @@ then
 else
    wget -c --progress=dot:mega http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.3%20Docs%20%28English%29/ogrs2009_tutorialddata_mod.zip/download
 fi
-#unzip the file into /usr/local/share/openjump-data
-mkdir $DATA_FOLDER/openjump-data
-unzip ogrs2009_tutorialddata_mod.zip -d $DATA_FOLDER/openjump-data
+#unzip the file into /usr/local/share/openjump/data
+mkdir -p "$DATA_FOLDER/openjump/data"
+unzip ogrs2009_tutorialddata_mod.zip -d "$DATA_FOLDER/openjump/data/"
 
 
 ## Documentation ##
@@ -131,6 +131,7 @@ else
    wget -c --progress=dot:mega http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.3%20Docs%20%28English%29/ogrs2009_tutorial.pdf/download
 fi
 
-#copy into /usr/local/share/openjump-docs
-mkdir /usr/local/share/openjump-docs
-cp ogrs2009_tutorial.pdf $DATA_FOLDER/openjump-docs
+#copy into /usr/local/share/openjump/docs
+mkdir -p "$DATA_FOLDER/openjump/docs"
+cp ogrs2009_tutorial.pdf "$DATA_FOLDER/openjump/docs/"
+

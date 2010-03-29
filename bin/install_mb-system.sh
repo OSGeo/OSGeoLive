@@ -185,7 +185,8 @@ cd /tmp/build_mbsystem
 wget -c --progress=dot:mega ftp://ftp.ldeo.columbia.edu/pub/MB-System/mbcookbook.pdf
 cp mbcookbook.pdf /usr/local/mbsystem/
 
-
+# symlink into the livedvd's common data dir
+ln -s /usr/local/mbsystem /usr/local/share/mbsystem
 
 echo "Finished installing MB System."
 
