@@ -58,6 +58,7 @@ rm -fr \
 
 
 # clean out ssh keys which should be machine-unique
+##  ?? move this into build_iso.sh ??
 rm -f /etc/ssh/ssh_host_[rd]sa_key
 # change a stupid sshd default
 sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
