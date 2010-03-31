@@ -56,6 +56,13 @@ rm -fr \
   # /home/user/.config \
   # /home/user/.dbus \
 
+
+# clean out ssh keys which should be machine-unique
+rm -f /etc/ssh/ssh_host_[rd]sa_key
+# change a stupid sshd default
+sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
+
+
 echo "==============================================================="
 echo " Compress image by wiping the virtual disk, filling empty space with zero."
 cat /dev/zero > zero.fill ; sync ; sleep 1 ; sync ; rm -f zero.fill
