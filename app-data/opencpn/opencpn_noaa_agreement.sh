@@ -57,8 +57,8 @@ if [ $? -ne 101 ] ; then
    exit 1
 fi
 
-
-sudo chmod a+r "$DATADIR/charts"
+PASSWORD=user
+echo "$PASSWORD" | sudo -S ln -s "$DATADIR/charts.dist" "$DATADIR/charts"
 
 # clear the decks to force chart-list DB rebuild
 for FILE in chartlist.dat navobj.xml ; do

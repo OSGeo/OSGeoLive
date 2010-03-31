@@ -83,8 +83,8 @@ cp tips.html /usr/local/share/opencpn/doc/
 #  So we use NOAA data from the USA for our examples instead of Sydney Harbour.)
 
 DATADIR="/usr/local/share/opencpn"
-mkdir -p "$DATADIR/charts/BSB_ROOT"
-mkdir -p "$DATADIR/charts/ENC_ROOT"
+mkdir -p "$DATADIR/charts.dist/BSB_ROOT"
+mkdir -p "$DATADIR/charts.dist/ENC_ROOT"
 
 mkdir "$DATADIR/gpx"   # GPX tracks, etc
 mkdir "$DATADIR/grib"  # GRIB weather data downloads:
@@ -127,7 +127,7 @@ for CHART in $RNC_CHARTS ; do
   wget -c -nv "http://www.charts.noaa.gov/RNCs/${CHART}_RNCProdCat.xml"
 done
 
-cd "$DATADIR/charts"
+cd "$DATADIR/charts.dist"
 
 for CHART in $RNC_CHARTS ; do
    unzip "$TMP_DIR/$CHART.zip"
@@ -165,7 +165,7 @@ for CHART in $ENC_CHARTS ; do
   wget -c -nv "http://www.charts.noaa.gov/ENCs/${CHART}_ENCProdCat.xml"
 done
 
-cd "$DATADIR/charts"
+cd "$DATADIR/charts.dist"
 
 for CHART in $ENC_CHARTS ; do
    unzip -u -o "$TMP_DIR/$CHART.zip"
@@ -178,7 +178,6 @@ echo "Chart download complete."
 
 ###  data acceptance in user-init'd run-time script "opencpn_noaa_agreement.sh"
 # for data install license agreement question in the user-run data fetch script:
-chmod a-r "$DATADIR/charts"
 cd "$WD"
 cp ../app-data/opencpn/noaa_agreement.txt "$DATADIR/"
 cp ../app-data/opencpn/opencpn_noaa_agreement.sh /usr/local/bin/
