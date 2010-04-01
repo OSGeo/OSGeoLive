@@ -26,7 +26,7 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR=/tmp/build_osm
 
 
-apt-get install --assume-yes josm josm-plugins gosmore gpsd
+apt-get install --assume-yes josm josm-plugins gosmore gpsd merkaartor
 
 
 #### desktop icons
@@ -51,6 +51,7 @@ EOF
 
 chmod a+x /usr/share/applications/gosmore.desktop
 cp /usr/share/applications/gosmore.desktop "$USER_HOME/Desktop/"
+cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
 
 
 #### future todo
