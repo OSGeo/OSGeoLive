@@ -70,6 +70,7 @@ NAV_APPS="MapFish marble gpsdrive opencpn mapnik-* maptiler josm gosmore merkaar
 SERVER_APPS="deegree-* geoserver-* *geonetwork* geomajas-* mapserver"
 SPATIAL_TOOLS="imagelinker r spatialite-gui geokettle"
 DB_APPS=""  # pgadmin, sqlitebrowser, etc
+RELIEF_APPS="sahana ushahidi"
 
 ##### create and populate the Geospatial menu, add launchers to the panel
 
@@ -164,6 +165,15 @@ for APP in $DB_APPS ; do
    fi
 done
 
+for APP in $RELIEF_APPS ; do
+   APPL=`basename $APP .desktop`.desktop
+   #echo "[$APP] -> [$APPL]"
+   if [ -e "$APPL" ] ; then
+      sed -e 's/^Categories=.*/Categories=Geospatial;Relief;/' \
+	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+   fi
+done
+
 
 
 #### move desktop icons to subfolders
@@ -187,11 +197,23 @@ for APP in $SPATIAL_TOOLS ; do
    mv `basename $APP .desktop`.desktop "Spatial Tools"/
 done
 
+mkdir "Crisis Management"
+for APP in $RELIEF_APPS ; do
+   mv `basename $APP .desktop`.desktop "Crisis Management"/
+done
+
 #todo
 #mkdir "Databases"
 #for APP in $DB_APPS ; do
 #   mv `basename $APP .desktop`.desktop "Databases"/
 #done
+
+
+# Ubuntu One store inappropriate in this context
+#FIXME: what's the exact filename?
+#rm /usr/share/applications/ubuntuone.desktop
+
+
 
 ####### Setup Automatic or Timed Login #####
 cp "$BUILD_DIR"/../desktop-conf/custom.conf /etc/gdm/custom.conf

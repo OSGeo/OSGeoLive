@@ -59,6 +59,14 @@
     </Menu>
 
     <Menu>
+        <Name>Crisis Management</Name>
+        <Directory>xfce-relief.directory</Directory>
+        <Include>
+	    <Category>Relief</Category>
+        </Include>
+    </Menu>
+
+    <Menu>
         <Name>Beta software</Name>
         <Directory>xfce-geobeta.directory</Directory>
         <Include>
