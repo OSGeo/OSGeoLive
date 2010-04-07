@@ -67,6 +67,7 @@ for SCRIPT in \
   ./install_udig.sh \
   ./install_openjump.sh \
   ./install_apache2.sh \
+  ./install_ushahidi.sh \
   ./install_postgis.sh \
   ./install_pgrouting.sh \
   ./install_osm.sh \
