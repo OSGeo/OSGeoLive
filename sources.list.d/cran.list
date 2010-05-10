@@ -1,5 +1,5 @@
 #CRAN Package Archive
 #Australian
-deb http://cran.ms.unimelb.edu.au/bin/linux/ubuntu karmic/ 
+deb http://cran.ms.unimelb.edu.au/bin/linux/ubuntu lucid/ 
 #California
-#deb http://cran.cnr.berkeley.edu/bin/linux/ubuntu karmic/ 
+#deb http://cran.cnr.berkeley.edu/bin/linux/ubuntu lucid/ 
