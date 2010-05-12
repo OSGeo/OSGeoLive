@@ -77,10 +77,30 @@ fi
 cd "$TMP_DIR"
 
 
-# Barcelona:
+# Barcelona data:
+#  Having a sample .osm file around will benefit many applications. In addition
+#  to JOSM and Gosmore, QGIS and Mapnik can also render .osm directly.
+#  grab Barcelona, which can be as easy as:
+#
+# $ wget -O barcelona.osm http://osmxapi.hypercube.telascience.org/api/0.6/map?bbox=1.998653,41.307213,2.343693,41.495207
+#
+# We should also push the .osm file into postgis/postgres with osm2pgsql.
+#
+# $ createdb -T template_postgis osm_barcelona
+# $ osm2pgsql -d osm_barcelona barcelona.osm
+# 
 
 ### Please update to latest data at the last minute! See data dir on server for details.
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/osm/Barcelona.osm.bz2"
-cp Barcelona.osm.bz2 /usr/local/share/osm/
+#wget --progress=dot:mega "http://download.osgeo.org/livedvd/data/osm/Barcelona.osm.bz2"
 
+#download as part of disc build process
+# Downloading from the osmxapi takes me about 6 minutes and is around 20MB.
+# hypercube is near the OSGeo servers at SDSC so should be much faster.
+XAPI_URL="http://osmxapi.hypercube.telascience.org/api/0.6"
+BBOX="1.998653,41.307213,2.343693,41.495207"
+
+wget --progress=dot:mega -O Barcelona.osm  "$XAPI_URL/map?bbox=$BBOX"
+bzip2 Barcelona.osm
+
+cp -f Barcelona.osm.bz2 /usr/local/share/osm/
 
