@@ -179,8 +179,8 @@ echo "Chart download complete."
 ###  data acceptance in user-init'd run-time script "opencpn_noaa_agreement.sh"
 # for data install license agreement question in the user-run data fetch script:
 cd "$WD"
-cp ../app-data/opencpn/noaa_agreement.txt "$DATADIR/"
-cp ../app-data/opencpn/opencpn_noaa_agreement.sh /usr/local/bin/
+cp ../app-conf/opencpn/noaa_agreement.txt "$DATADIR/"
+cp ../app-conf/opencpn/opencpn_noaa_agreement.sh /usr/local/bin/
 apt-get --assume-yes install gxmessage
 
 

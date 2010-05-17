@@ -107,7 +107,7 @@ cd `basename $LATEST .tar.gz`
 #### config build ####
 
 PATCH="install_makefiles.Lenny"
-patch -p0 < "$BUILD_DIR/../app-data/mb-system/$PATCH.patch"
+patch -p0 < "$BUILD_DIR/../app-conf/mb-system/$PATCH.patch"
 
 ./install_makefiles
 
