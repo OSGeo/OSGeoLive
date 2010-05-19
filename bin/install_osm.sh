@@ -26,7 +26,25 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR=/tmp/build_osm
 
 
-apt-get install --assume-yes josm josm-plugins gosmore gpsd merkaartor
+if [ ! -d "$TMP_DIR" ] ; then
+   mkdir "$TMP_DIR"
+fi
+cd "$TMP_DIR"
+
+mkdir /usr/local/share/osm
+
+
+apt-get install --assume-yes josm josm-plugins gosmore gpsd gpsd-clients merkaartor xmlstarlet
+
+
+# that JOSM is badly out of date, so get the latest:
+#   leave it installed to keep dependencies
+#   file name is not versioned so don't use "wget -c"
+wget --progress=dot:mega -O /usr/local/share/osm/josm-tested.jar
+   http://josm.openstreetmap.de/josm-tested.jar
+# replace symlink
+rm /usr/share/josm/josm.jar
+ln -s /usr/local/share/osm/josm-tested.jar /usr/share/josm/josm.jar
 
 
 #### desktop icons
@@ -54,27 +72,43 @@ cp /usr/share/applications/gosmore.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
 
 
-#### future todo
-# install osmrender - it's a renderer from .osm to svg
-#   http://wiki.openstreetmap.org/wiki/Osmarender
-# two implementations to choose from, one in perl, one in xslt
-# download:  http://svn.openstreetmap.org/applications/rendering/osmarender
-#  (both implementations and the stylesheets and other stuff is in that svn co)
-
-
-
-#### install sample OSM data
-mkdir /usr/local/share/osm
-
-# Auckland:
-cp ../app-data/osm/Auckland.osm.gz /usr/local/share/osm/
-
-
-
 if [ ! -d "$TMP_DIR" ] ; then
    mkdir "$TMP_DIR"
 fi
 cd "$TMP_DIR"
+
+mkdir -p /usr/local/share/osm
+
+
+
+# install osmrender - it's a renderer from .osm to svg
+#   http://wiki.openstreetmap.org/wiki/Osmarender
+# two implementations to choose from, one in perl, one using **> xslt <**
+# download:  http://svn.openstreetmap.org/applications/rendering/osmarender
+#  (both implementations and the stylesheets and other stuff is in that svn co)
+# view SVG with Firefox or Inkscape
+
+BASEURL="http://svn.openstreetmap.org/applications/rendering/osmarender"
+FILES="stylesheets/osm-map-features-z17.xml xslt/osmarender.xsl xslt/osmarender xslt/xsltrans"
+for FILE in $FILES ; do
+  wget -nv "$BASEURL/$FILE"
+done
+
+chmod a+x osmarender xsltrans
+sed -i -e 's/OSMARENDER="."/OSMARENDER="/usr/local/share/osm"/' osmarender
+cp osmarender xsltrans /usr/local/bin/
+
+mkdir -p /usr/local/share/osm/xslt
+cp osmarender.xsl /usr/local/share/osm/xslt/
+mkdir -p /usr/local/share/osm/stylesheets
+cp osm-map-features-z17.xml /usr/local/share/osm/stylesheets/
+
+
+
+#### install sample OSM data
+
+# Auckland:
+cp ../app-data/osm/Auckland.osm.gz /usr/local/share/osm/
 
 
 # Barcelona data:
