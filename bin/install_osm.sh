@@ -87,21 +87,24 @@ mkdir -p /usr/local/share/osm
 # download:  http://svn.openstreetmap.org/applications/rendering/osmarender
 #  (both implementations and the stylesheets and other stuff is in that svn co)
 # view SVG with Firefox or Inkscape
+# run with:  osmarender <filename.osm>
 
 BASEURL="http://svn.openstreetmap.org/applications/rendering/osmarender"
-FILES="stylesheets/osm-map-features-z17.xml xslt/osmarender.xsl xslt/osmarender xslt/xsltrans"
+FILES="stylesheets/osm-map-features-z17.xml stylesheets/markers.xml xslt/osmarender.xsl xslt/osmarender xslt/xsltrans"
 for FILE in $FILES ; do
   wget -nv "$BASEURL/$FILE"
 done
 
 chmod a+x osmarender xsltrans
 sed -i -e 's/OSMARENDER="."/OSMARENDER="/usr/local/share/osm"/' osmarender
-cp osmarender xsltrans /usr/local/bin/
+cp osmarender /usr/local/bin/
 
 mkdir -p /usr/local/share/osm/xslt
-cp osmarender.xsl /usr/local/share/osm/xslt/
+cp xsltrans osmarender.xsl /usr/local/share/osm/xslt/
 mkdir -p /usr/local/share/osm/stylesheets
-cp osm-map-features-z17.xml /usr/local/share/osm/stylesheets/
+cp osm-map-features-z17.xml markers.xml /usr/local/share/osm/stylesheets/
+
+svn co "$BASEURL/stylesheets/symbols/" /usr/local/share/osm/stylesheets/symbols/
 
 
 
