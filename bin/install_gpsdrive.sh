@@ -29,7 +29,7 @@ BUILD_DIR=`pwd`
 
 #### install program ####
 
-## packaged version (2.10pre4) is long out of date, so we build 2.10pre7 manually.
+## packaged version (2.10pre4) is long out of date, so we build 2.11svn manually.
 BUILD_LATEST=1
 
 # base packages
@@ -59,14 +59,16 @@ apt-get --assume-yes install sqlite3 sqlitebrowser
 #######################
 ## build latest release
 if [ $BUILD_LATEST -eq 1 ] ; then
-  VERSION="2.10pre7"
+  VERSION="2.11svn"
 
   if [ ! -d "$TMP_DIR" ] ; then
     mkdir "$TMP_DIR"
   fi
   cd "$TMP_DIR"
 
-  wget -c --progress=dot:mega "http://www.gpsdrive.de/packages/gpsdrive-$VERSION.tar.gz"
+  ## FIXME (once known)
+##  wget -c --progress=dot:mega "http://www.gpsdrive.de/packages/gpsdrive-$VERSION.tar.gz"
+  wget http:// ? local ? /gpsdrive_2.11svn2556.tar.gz
 
   tar xzf gpsdrive-$VERSION.tar.gz
   #if [ $? -eq 0 ] ; then
@@ -79,7 +81,7 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   ## --- apply any patches here ---
 
   # fix package dependencies
-  PATCHES="gpsdrive_fix_deps  gpsdrive_osm_fixes  gpsdrive_blue_mapnik"
+  PATCHES="gpsdrive_blue_mapnik"
 
   for PATCH in $PATCHES ; do
      patch -p0 < "$BUILD_DIR/../app-data/gpsdrive/$PATCH.patch"
@@ -106,6 +108,12 @@ EOF
    patch -p0 < "gpsdrive_fix_icon.patch"
 
 
+# FIXME: apply debian/ubuntu-lucid-32.patch to sync package deps for Lucid
+
+  sed -i -e 's/Build with old libgps version (<2.90)" ON)/Build with old libgps version (<2.90)" OFF)/' \
+      DefineOptions.cmake
+
+
   if [ $? -ne 0 ] ; then
      echo "An error occurred patching package. Aborting install."
      exit 1
@@ -115,12 +123,12 @@ EOF
   ### install any missing build-dep packages
 
   # kludge to make sure these make it in there
-  apt-get --assume-yes install libboost-dev libboost-filesystem-dev libboost-serialization-dev
-  apt-get --assume-yes install libmapnik-dev
+  apt-get --assume-yes install libboost-dev libboost-filesystem-dev \
+                               libboost-serialization-dev libmapnik-dev
 
   # explicitly install these so they aren't removed in a later autoclean
-  apt-get --assume-yes install  libgeos-3.1.1 \
-    libboost-serialization1.38.0 libboost-date-time1.38.0
+  apt-get --assume-yes install  libgeos-3.1.0 \
+    libboost-serialization1.40.0 libboost-date-time1.40.0
   # any of these too?
   #  libgssrpc4
   #  libodbcinstq1c2
@@ -130,8 +138,8 @@ EOF
   #  libkdb5-4 
 
 
-  NEEDED_BUILD_PKG=`dpkg-checkbuilddeps 2>&1 | cut -f3 -d: | \
-    sed -e 's/([^)]*)//g' -e 's/| [^ ]*//g' -e 's/|//g'`
+  NEEDED_BUILD_PKG=`dpkg-checkbuilddeps 2>&1 |  grep -v 'is deprecated: use' | \
+    cut -f3 -d: | sed -e 's/([^)]*)//g' -e 's/| [^ ]*//g' -e 's/|//g'`
 
   if [ -n "$NEEDED_BUILD_PKG" ] ; then
      echo "Attempting to (temporarily) install the following packages: $NEEDED_BUILD_PKG"
@@ -201,7 +209,13 @@ EOF
   done
 
   # remove libltdl swap as it's now redundant after testing new dep patch
-  TO_INSTALL=`echo "$TO_INSTALL" | sed -e 's/|//g' -e 's/libltdl3/libltdl7/'`
+#?  TO_INSTALL=`echo "$TO_INSTALL" | sed -e 's/|//g' -e 's/libltdl3/libltdl7/'`
+
+#FIXME: debian/control should have:
+# libboost 1.40.0
+# mapnik0.7
+# postgresql-8.4-postgis
+
 
   if [ -n "$TO_INSTALL" ] ; then
      echo "Attempting to install the following packages: $TO_INSTALL"
