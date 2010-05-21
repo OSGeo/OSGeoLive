@@ -29,7 +29,7 @@ VM="${PACKAGE_NAME}-${VERSION}"
 # remove build stuff no longer of use
 apt-get --yes remove devscripts pbuilder \
    cvs-buildpackage svn-buildpackage \
-   lintian debhelper pkg-config
+   lintian debhelper pkg-config dpkg-dev
 
 # Copy tmp files, apt cache and logs ready for backup
 mkdir /tmp/${VERSION}

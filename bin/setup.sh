@@ -61,11 +61,16 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
 
 # Install build stuff (temporarily?)
 apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
-  cvs-buildpackage svn-buildpackage lintian debhelper pkg-config
+  cvs-buildpackage svn-buildpackage lintian debhelper pkg-config dpkg-dev
 
+# for list of packages taking up the most space install the debian-goodies
+#    package to get `dpigs`. or try `wajig size`
 
-# Uninstall default applications
-apt-get remove --yes gnome-games
+# Uninstall large applications installed by default
+apt-get remove --yes gnome-games-common \
+   gimp gimp-data gimp-help-common gimp-help-en libgimp2.0 \
+   thunderbird pidgin-data
+
 
 # Remove unused home directories
 rm -fr /home/user/Documents
