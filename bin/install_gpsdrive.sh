@@ -66,16 +66,23 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   fi
   cd "$TMP_DIR"
 
-  ## FIXME (once known)
-##  wget -c --progress=dot:mega "http://www.gpsdrive.de/packages/gpsdrive-$VERSION.tar.gz"
-  wget http:// ? local ? /gpsdrive_2.11svn2556.tar.gz
+  ## FIXME (use better home once known/officially released)
+  ##  wget -c --progress=dot:mega "http://www.gpsdrive.de/packages/gpsdrive-$VERSION.tar.gz"
+  FILE=gpsdrive_2.11svn2556.tar.gz
+  wget --progress=dot:mega -O "$FILE" \
+     "http://sites.google.com/site/hamishbowman/${FILE}?attredirects=0"
 
-  tar xzf gpsdrive-$VERSION.tar.gz
+  #tar xzf gpsdrive-$VERSION.tar.gz
   #if [ $? -eq 0 ] ; then
   #  \rm gpsdrive-$VERSION.tar.gz
   #fi
 
-  cd gpsdrive-$VERSION
+  #cd gpsdrive-$VERSION
+
+  # FIXME
+  mkdir gpsdrive-2.11svn
+  cd gpsdrive-2.11svn
+  tar xzf "../$FILE"
 
 
   ## --- apply any patches here ---
@@ -118,6 +125,13 @@ EOF
      echo "An error occurred patching package. Aborting install."
      exit 1
   fi
+
+
+  # use latest libboost, mapnik, postgis packages
+  sed -i -e 's/libboost-\(.*\)1\.3[0-9]\.[0-9]/libboost-\11.40.0/' \
+         -e 's/mapnik0\.[3-6]/mapnik0.7/' \
+         -e 's/postgresql-8\.[2-3]-postgis/postgresql-8.4-postgis/' \
+     debian/control
 
 
   ### install any missing build-dep packages
@@ -210,11 +224,6 @@ EOF
 
   # remove libltdl swap as it's now redundant after testing new dep patch
 #?  TO_INSTALL=`echo "$TO_INSTALL" | sed -e 's/|//g' -e 's/libltdl3/libltdl7/'`
-
-#FIXME: debian/control should have:
-# libboost 1.40.0
-# mapnik0.7
-# postgresql-8.4-postgis
 
 
   if [ -n "$TO_INSTALL" ] ; then
