@@ -43,9 +43,15 @@ apt-get install --yes cgi-mapserver mapserver-bin php5-mapscript python-mapscrip
 
 # Download MapServer data
 [ -d $DATA_DIR ] || mkdir $DATA_DIR
-[ -f $DATA_DIR/mapserver-5.4-html-docs.zip ] || wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-5.4-html-docs.zip" -O $DATA_DIR/mapserver-5.4-html-docs.zip
-[ -f $DATA_DIR/mapserver-itasca-ms54.zip ] || wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-itasca-ms54.zip" -O $DATA_DIR/mapserver-itasca-ms54.zip
-[ -f $DATA_DIR/mapserver-gmap-ms54.zip ] || wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-gmap-ms54.zip" -O $DATA_DIR/mapserver-gmap-ms54.zip
+[ -f $DATA_DIR/mapserver-5.4-html-docs.zip ] || \
+   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-5.4-html-docs.zip" \
+     -O $DATA_DIR/mapserver-5.4-html-docs.zip
+[ -f $DATA_DIR/mapserver-itasca-ms54.zip ] || \
+   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-itasca-ms54.zip" \
+     -O $DATA_DIR/mapserver-itasca-ms54.zip
+[ -f $DATA_DIR/mapserver-gmap-ms54.zip ] || \
+   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-gmap-ms54.zip" \
+     -O $DATA_DIR/mapserver-gmap-ms54.zip
 
 # Install docs and demos
 if [ ! -d $MAPSERVER_DATA ]; then
@@ -72,13 +78,16 @@ if [ ! -d $MAPSERVER_DATA ]; then
 
     # GMap Demo hacks
     # disable javascript by default
-    sed -e 's/^.*\$gbIsHtmlMode = 0;  \/\/ Start.*/\$gbIsHtmlMode = 1; \/\/ JavaScript off by default/' $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml > /tmp/gmap75-js-hack.phtml
+    sed -e 's/^.*\$gbIsHtmlMode = 0;  \/\/ Start.*/\$gbIsHtmlMode = 1; \/\/ JavaScript off by default/' \
+       $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml > /tmp/gmap75-js-hack.phtml
     mv /tmp/gmap75-js-hack.phtml $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml
     # dbase extension is not needed
-    sed -e 's/^.*dl("php_dbase.$dlext");/\/\/dl("php_dbase.$dlext");/' $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml > /tmp/gmap75-dbase-hack.phtml
+    sed -e 's/^.*dl("php_dbase.$dlext");/\/\/dl("php_dbase.$dlext");/' \
+       $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml > /tmp/gmap75-dbase-hack.phtml
     mv  /tmp/gmap75-dbase-hack.phtml $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml
     # Modify the IMAGEPATH to point to /tmp
-    sed -e 's/^.*IMAGEPATH \"\/ms4w\/tmp\/ms_tmp\/\"/IMAGEPATH \"\/tmp\/\"/' $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.map > /tmp/gmap75-mapfile-hack.phtml
+    sed -e 's/^.*IMAGEPATH \"\/ms4w\/tmp\/ms_tmp\/\"/IMAGEPATH \"\/tmp\/\"/' \
+       $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.map > /tmp/gmap75-mapfile-hack.phtml
     mv  /tmp/gmap75-mapfile-hack.phtml $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.map
 fi
 
