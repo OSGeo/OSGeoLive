@@ -19,8 +19,14 @@
 
 USER_HOME="/home/user"
 
+#TODO: install latest version
+# http://zygrib.org/forum/viewtopic.php?f=7&t=156
+# deb http://doc.hausser.ch/debpackages ubuntu-dha lucid
+# wget http://doc.hausser.ch/debpackages/dha-debpackages.key -O - | sudo apt-key add -
+
 
 apt-get --assume-yes install zygrib
+
 
 # don't install the zygrib-maps package, it's 180mb (contains NOAA's GSHHS coastline)
 
