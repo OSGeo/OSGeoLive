@@ -40,7 +40,7 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-apt-get --assume-yes install python2.5 python2.5-dev libpq-dev
+apt-get --assume-yes install python2.6 python2.6-dev libpq-dev
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -66,7 +66,7 @@ chmod a+x $MAPFISH_INSTALL_DIR/go-mapfish-framework-all.py
 ln -sf $MAPFISH_INSTALL_DIR/go-mapfish-framework-all.py $BIN/go-mapfish-framework-all.py
 
 # create a global virtualenv for mapfish
-go-mapfish-framework-all.py --python=python2.5 $MAPFISH_VENV_DIR
+go-mapfish-framework-all.py --python=python2.6 $MAPFISH_VENV_DIR
 
 # install mapfish.app.minimal in mapfish virtualenv
 $MAPFISH_VENV_DIR/bin/easy_install --index-url=http://www.mapfish.org/downloads/all/pkg --allow-hosts=www.mapfish.org mapfish.app.minimal
@@ -86,4 +86,4 @@ cp /usr/share/applications/MapFish.desktop $USER_DIR/Desktop/
 chown $USER_NAME:$USER_NAME $USER_DIR/Desktop/MapFish.desktop
 
 #cleanup
-apt-get --assume-yes remove python2.5-dev libpq-dev
+apt-get --assume-yes remove python2.6-dev libpq-dev
