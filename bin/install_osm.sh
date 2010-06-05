@@ -40,7 +40,7 @@ apt-get install --assume-yes josm josm-plugins gosmore gpsd gpsd-clients merkaar
 # that JOSM is badly out of date, so get the latest:
 #   leave it installed to keep dependencies
 #   file name is not versioned so don't use "wget -c"
-wget --progress=dot:mega -O /usr/local/share/osm/josm-tested.jar
+wget --progress=dot:mega -O /usr/local/share/osm/josm-tested.jar \
    http://josm.openstreetmap.de/josm-tested.jar
 # replace symlink
 rm /usr/share/josm/josm.jar
