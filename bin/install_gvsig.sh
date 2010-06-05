@@ -64,7 +64,7 @@ if [ ! -x "`which wget`" ] ; then
 fi
 
 # install dependencies
-apt-get --assume-yes install libgdal1-1.5.0
+apt-get --assume-yes install libgdal1-1.6.0
 
 # create tmp folders
 TMP="/tmp/build_gvsig"
