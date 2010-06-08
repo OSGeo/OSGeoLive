@@ -32,12 +32,12 @@
 
 DIR=`dirname ${0}`
 VERSION=`cat ${DIR}/../VERSION.txt`
-PACKAGE_NAME="arramagong"
+PACKAGE_NAME="live"
 #VM_DIR="/var/lib/vmware/Virtual Machines/" # Default directory
 VM_DIR="/var/lib/vmware/VirtualMachines/"
 #VM_DIR="/mnt/space/arramagong/vm/${VERSION}"
 #VM_DIR="/data/space/arramagong/vm/"
-VM="arramagong-${VERSION}"
+VM="live-${VERSION}"
 
 # Exit if VM doesn't exist
 if [ `find "${VM_DIR}/${VM}" -name "*.vmdk" -print | wc -l` -eq 0 ] ; then 

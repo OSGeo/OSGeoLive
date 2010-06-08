@@ -7,7 +7,7 @@ Running:
 
 sudo ./bin/main.sh
 #Suggested method of running includes piping all the information to logs
-sudo ./main.sh 2>&1 | tee /var/log/arramagong/main_install.log
+sudo ./main.sh 2>&1 | tee /var/log/live/main_install.log
 
 File Structure:
 ==============

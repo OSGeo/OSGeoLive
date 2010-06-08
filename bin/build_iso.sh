@@ -25,11 +25,11 @@
 
 DIR=`dirname ${0}`
 VERSION=`cat ${DIR}/../VERSION.txt`
-PACKAGE_NAME="arramagong-livedvd"
+PACKAGE_NAME="live"
 ISO_NAME="${PACKAGE_NAME}-${VERSION}"
 WORKDIR="/tmp/remastersys"
 TMP="${WORKDIR}/ISOTMP"
-LOGS="/var/log/arramagong/remastersys.conf"
+LOGS="/var/log/live/remastersys.conf"
 DOCS_SRC="/usr/local/share/livedvd-docs"
 
 #Install remastersys.sh add directories it expects

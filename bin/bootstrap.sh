@@ -40,8 +40,8 @@ cd /home/user
 ln -s ${SCRIPT_DIR}/gisvm .
 
 # make a directory for the install logs
-mkdir /var/log/arramagong/
-chmod a+wr /var/log/arramagong/
+mkdir /var/log/live/
+chmod a+wr /var/log/live/
 
 
 echo "If you have a local copy if the tmp/ directory and wish to"
