@@ -81,6 +81,11 @@ else
    wget -c --progress=dot:mega "$GVSIG_PATH/$GVSIG_PACKAGE"
 fi
 
+
+###### currently broken (wants dropped gdal 1.5.0)
+exit 1
+######
+
 # install the deb package
 dpkg -i "$GVSIG_PACKAGE"
 
