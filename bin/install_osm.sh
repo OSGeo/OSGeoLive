@@ -29,6 +29,7 @@ TMP_DIR=/tmp/build_osm
 if [ ! -d "$TMP_DIR" ] ; then
    mkdir "$TMP_DIR"
 fi
+BUILD_DIR=`pwd`
 cd "$TMP_DIR"
 
 mkdir /usr/local/share/osm
@@ -96,7 +97,7 @@ for FILE in $FILES ; do
 done
 
 chmod a+x osmarender xsltrans
-sed -i -e 's/OSMARENDER="."/OSMARENDER="/usr/local/share/osm"/' osmarender
+sed -i -e 's|OSMARENDER="."|OSMARENDER="/usr/local/share/osm"|' osmarender
 cp osmarender /usr/local/bin/
 
 mkdir -p /usr/local/share/osm/xslt
@@ -111,7 +112,7 @@ svn co "$BASEURL/stylesheets/symbols/" /usr/local/share/osm/stylesheets/symbols/
 #### install sample OSM data
 
 # Auckland:
-cp ../app-data/osm/Auckland.osm.gz /usr/local/share/osm/
+cp "$BUILD_DIR"/../app-data/osm/Auckland.osm.gz /usr/local/share/osm/
 
 
 # Barcelona data:
@@ -133,11 +134,17 @@ cp ../app-data/osm/Auckland.osm.gz /usr/local/share/osm/
 #download as part of disc build process
 # Downloading from the osmxapi takes me about 6 minutes and is around 20MB.
 # hypercube is near the OSGeo servers at SDSC so should be much faster.
-XAPI_URL="http://osmxapi.hypercube.telascience.org/api/0.6"
-BBOX="1.998653,41.307213,2.343693,41.495207"
 
-wget --progress=dot:mega -O Barcelona.osm  "$XAPI_URL/map?bbox=$BBOX"
-bzip2 Barcelona.osm
+if [ ! -e 'Barcelona.osm.bz2' ] ; then
+  XAPI_URL="http://osmxapi.hypercube.telascience.org/api/0.6"
+  BBOX="1.998653,41.307213,2.343693,41.495207"
 
+  wget --progress=dot:mega -O Barcelona.osm  "$XAPI_URL/map?bbox=$BBOX"
+  if [ $? -ne 0 ] ; then
+     echo "ERROR getting osm data"
+     exit 1
+  fi
+  bzip2 Barcelona.osm
+fi
 cp -f Barcelona.osm.bz2 /usr/local/share/osm/
 
