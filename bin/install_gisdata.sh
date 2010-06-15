@@ -57,6 +57,9 @@ wget -c --progress=dot:mega "http://www.naturalearthdata.com/http//www.naturalea
 # Admin 0 - Countries 1:110m
 wget -c --progress=dot:mega "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/110m-admin-0-countries.zip"
 
+# Populated Places (simple, less columns) 1:110m
+wget -c --progress=dot:mega "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/110m-populated-places-simple.zip"
+
 # Land 1:110m
 wget -c --progress=dot:mega "http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/physical/110m-land.zip"
 
