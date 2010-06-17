@@ -19,10 +19,10 @@
 # Install script for Geomajas
 # =============================================================================
 
-TMP="/tmp/build_geomajas"
+TMP="/tmp/geomajas"
 INSTALL_FOLDER="/usr/lib"
 BIN=/usr/bin
-GEOMAJAS_VERSION=1.4.2
+GEOMAJAS_VERSION=1.6.0
 GEOMAJAS_HOME="$INSTALL_FOLDER/geomajas-$GEOMAJAS_VERSION-bin"
 GEOMAJAS_PORT=3420
 USER_NAME="user"
@@ -47,8 +47,8 @@ apt-get install --yes sun-java6-jdk
 
 
 ##### Create the TMP directory
-mkdir -p "$TMP"
-cd "$TMP"
+mkdir $TMP
+cd $TMP
 
 
 
@@ -62,7 +62,7 @@ if [ -f "geomajas-$GS_VERSION-bin.zip" ]
 then
    echo "geomajas-$GS_VERSION-bin.zip has already been downloaded."
 else
-   wget -c --progress=dot:mega "http://files.geomajas.org/release/geomajas-1.4.2-bin.zip"
+   wget -c --progress=dot:mega "http://files.geomajas.org/release/geomajas-$GEOMAJAS_VERSION-bin.zip"
 fi
 
 
@@ -76,7 +76,6 @@ chmod 755 "$GEOMAJAS_HOME/bin/startup.sh"
 chmod 755 "$GEOMAJAS_HOME/bin/shutdown.sh"
 chmod 755 "$GEOMAJAS_HOME/bin/start_geomajas.sh"
 chmod 755 "$GEOMAJAS_HOME/bin/stop_geomajas.sh"
-chmod -R 777 "$GEOMAJAS_HOME/logs"
 
 
 ##### Step4: link from bin directory
@@ -106,7 +105,7 @@ cat << EOF > /usr/share/applications/geomajas-start.desktop
 Type=Application
 Encoding=UTF-8
 Name=Start Geomajas
-Comment=Geomajas 1.4.2
+Comment=Geomajas $GEOMAJAS_VERSION
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/start_geomajas.sh
 Icon=/usr/share/icons/geomajas_icon_48x48.png
@@ -123,7 +122,7 @@ cat << EOF > /usr/share/applications/geomajas-stop.desktop
 Type=Application
 Encoding=UTF-8
 Name=Stop Geomajas
-Comment=Geomajas 1.4.2
+Comment=Geomajas $GEOMAJAS_VERSION
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/stop_geomajas.sh
 Icon=/usr/share/icons/geomajas_icon_48x48.png
