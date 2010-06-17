@@ -185,9 +185,15 @@ fi
  
   # get+install at least one OSM icon set package
   #   see http://www.gpsdrive.de/development/map-icons/overview.en.shtml
+
+  # see what happens if we install the offical icon packages
+  apt-get  --assume-yes install openstreetmap-map-icons-square \
+     openstreetmap-map-icons-scalable openstreetmap-map-icons-classic
+
   echo "Downloading support packages ... (please wait)"
   DL_URL="http://www.gpsdrive.de/debian/pool/squeeze"
 
+  # dupe?
   wget -c -nv "$DL_URL/openstreetmap-map-icons-square.small_16908_all.deb"
   wget -c -nv "$DL_URL/openstreetmap-map-icons-square.big_16908_all.deb"
   wget -c -nv "$DL_URL/openstreetmap-map-icons-classic.small_16908_all.deb"
