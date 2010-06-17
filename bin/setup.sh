@@ -64,6 +64,19 @@ apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
   cvs-buildpackage svn-buildpackage lintian debhelper pkg-config dpkg-dev \
   cmake
 
+
+# add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
+# FIXME: similar thing needed for man pages?
+if [ -d /etc/ld.so.conf.d ] ; then
+   echo "/usr/local/lib" > /etc/ld.so.conf.d/usr_local.conf
+else
+   if [ `grep -c '/usr/local/lib' /etc/ld.so.conf` -eq 0 ] ; then
+      echo "/usr/local/lib" >> /etc/ld.so.conf
+   fi
+fi
+ldconfig
+
+
 # for list of packages taking up the most space install the debian-goodies
 #    package to get `dpigs`. or try `wajig size`
 
