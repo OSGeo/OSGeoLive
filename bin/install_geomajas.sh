@@ -47,8 +47,8 @@ apt-get install --yes sun-java6-jdk
 
 
 ##### Create the TMP directory
-mkdir $TMP
-cd $TMP
+mkdir -p "$TMP"
+cd "$TMP"
 
 
 
