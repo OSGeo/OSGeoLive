@@ -29,6 +29,7 @@ grass
 gvsig
 kosmo
 mapfish
+mapguide
 mapnik
 mapserver
 maptiler
@@ -37,6 +38,7 @@ mb-system
 octave
 opencpn
 openjump
+openlayers
 osgearth
 osm
 ossim
