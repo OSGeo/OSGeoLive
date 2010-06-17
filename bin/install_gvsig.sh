@@ -83,6 +83,7 @@ fi
 
 
 ###### currently broken (wants dropped gdal 1.5.0)
+echo "ERROR: gvSIG package is out of date for Ubuntu Lucid. Needs to depend on newer version of GDAL."
 exit 1
 ######
 
