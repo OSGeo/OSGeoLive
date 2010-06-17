@@ -131,8 +131,8 @@ RNC_CHARTS="
 cd "$TMP_DIR"
 
 for CHART in $RNC_CHARTS ; do
-  wget -c --progress=dot:mega "http://www.charts.noaa.gov/RNCs/$CHART.zip"
-  wget -c -nv "http://www.charts.noaa.gov/RNCs/${CHART}_RNCProdCat.xml"
+  wget -N --progress=dot:mega "http://www.charts.noaa.gov/RNCs/$CHART.zip"
+  wget -N -nv "http://www.charts.noaa.gov/RNCs/${CHART}_RNCProdCat.xml"
 done
 
 cd "$DATADIR/charts.dist"
@@ -176,8 +176,8 @@ ENC_CHARTS="
 cd "$TMP_DIR"
 
 for CHART in $ENC_CHARTS ; do
-  wget -c --progress=dot:mega "http://www.charts.noaa.gov/ENCs/$CHART.zip"
-  wget -c -nv "http://www.charts.noaa.gov/ENCs/${CHART}_ENCProdCat.xml"
+  wget -N --progress=dot:mega "http://www.charts.noaa.gov/ENCs/$CHART.zip"
+  wget -N -nv "http://www.charts.noaa.gov/ENCs/${CHART}_ENCProdCat.xml"
 done
 
 cd "$DATADIR/charts.dist"
@@ -223,7 +223,7 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/.opencpn/"
 
 #### install icon on desktop/menus
 cd "$TMP_DIR"
-wget -nv -c "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/opencpn.png"
+wget -nv "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/opencpn.png"
 cp opencpn.png /usr/share/icons/
 
 cat << EOF > /usr/share/applications/opencpn.desktop
