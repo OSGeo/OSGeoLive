@@ -117,7 +117,7 @@ echo -n "Done\n"
 
 #Add Launch icon to desktop
 #What Icon should be used
-INSTALLED_VERSION=`dpkg -s mapserver | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
+INSTALLED_VERSION=`dpkg -s mapserver-bin | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
 if [ ! -e /usr/share/applications/mapserver.desktop ] ; then
    cat << EOF > /usr/share/applications/mapserver.desktop
 [Desktop Entry]
