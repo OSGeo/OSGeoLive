@@ -48,7 +48,7 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 # create tmp folders
-mkdir "$TMP"
+mkdir -p "$TMP"
 cd "$TMP"
 
 
@@ -69,7 +69,7 @@ cd "$TMP"
 # - GDAL could also be removed if GDAL_DATA environment variable is defined etc..
 #   For specific env requirements please review udig.sh script
 
-TARBALL="udig-1.2-RC1.linux.gtk.x86.tar.gz"
+TARBALL="udig-1.2-RC3.linux.gtk.x86.tar.gz"
 if [ -f "$TARBALL" ] ; then
    echo "$TARBALL has already been downloaded."
 else
@@ -77,6 +77,12 @@ else
 fi
 # unpack it and copy it to /usr/lib
 tar -xzf "$TARBALL" -C "$INSTALL_FOLDER"
+
+if [ $? -ne 0 ] ; then
+   echo "ERROR: expanding $TARBALL"
+   exit 1
+fi
+
 
 
 ## Configure Application ##
@@ -127,7 +133,7 @@ chown root.users "$DATA_FOLDER/udig-data"
 ## Documentation ##
 
 # Download udig's documentation
-REL_DOC="udig-1.2-RC1.html"
+REL_DOC="udig-1.2-RC3.html"
 if [ -f "$REL_DOC" ] ; then
    echo "$REL_DOC has already been downloaded."
 else
