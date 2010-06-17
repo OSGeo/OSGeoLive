@@ -31,7 +31,7 @@
 clean_up() {
    apt-get --assume-yes remove \
       postgresql-server-dev-8.4 \
-      "libboost-dev" \
+      libboost-dev \
       "libboost-graph$BOOST-dev" \
       libcgal-dev
    apt-get --assume-yes autoremove
