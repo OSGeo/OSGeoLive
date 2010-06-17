@@ -92,6 +92,7 @@ for SCRIPT in \
   ./install_spatialite.sh \
   ./install_beta_and_submenu.sh \
   ./install_main_docs.sh \
+  ./install_gisdata.sh \
   ./install_desktop.sh \
   ./install_language.sh \
   ./setdown.sh \
