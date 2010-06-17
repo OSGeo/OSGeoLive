@@ -67,6 +67,7 @@ for SCRIPT in \
   ./install_udig.sh \
   ./install_openjump.sh \
   ./install_apache2.sh \
+  ./install_tomcat6.sh \
   ./install_ushahidi.sh \
   ./install_postgis.sh \
   ./install_pgrouting.sh \
@@ -81,10 +82,13 @@ for SCRIPT in \
   ./install_marble.sh \
   ./install_octave.sh \
   ./install_opencpn.sh \
+  ./install_viking.sh \
+  ./install_zygrib.sh \
   ./install_geopublishing.sh \
   ./install_gpsdrive.sh \
   ./install_mb-system.sh \
   ./install_mapfish.sh \
+  ./install_mapguide.sh \
   ./install_openlayers.sh \
   ./install_R.sh \
   ./install_ossim.sh \
