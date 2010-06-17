@@ -35,6 +35,14 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
+#Add repositories
+
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+     --output-document=/etc/apt/sources.list.d/ubuntugis.list
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+
+apt-get update
 
 ### setup temp ###
 mkdir -p $TMP
@@ -45,19 +53,21 @@ cd $TMP
 ## get spatialite
 echo "Getting and unpacking spatialite"
 
+apt-get install --assume-yes spatialite-bin
+
+
 BASEURL=http://www.gaia-gis.it/spatialite-2.4.0
+PACKAGES="librasterlite-linux-x86-1.0.tar.gz rasterlite-tools-linux-x86-1.0.tar.gz spatialite-gis-linux-x86-1.0.0.tar.gz spatialite-gui-linux-x86-1.3.0.tar.gz"
 
-wget -r --no-parent --accept *linux-x86-*.tar.gz -c --progress=dot:mega $BASEURL/binaries.html
-
-for i in $(find www.gaia-gis.it -type f); do
+for i in $PACKAGES; do
   fn=$(basename $i)
   dir=${fn%.tar.gz}
+  wget -c --progress=dot:mega $BASEURL/$i
   tar xzf $i
   ## unpack it to /usr overwriting eventual existing copy
   cp -r $dir/* $INSTALL_FOLDER
   rm -rf $dir
 done
-#rm -rf www.gaia-gis.it
 
 
 if [ ! -d $PKG_DATA ]
