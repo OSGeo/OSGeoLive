@@ -99,6 +99,9 @@ if [ $BUILD_LATEST -eq 1 ] ; then
      exit 1
   fi
 
+
+# no longer needed? better to use `sed -i` for this anyway..
+if [ 0 -eq 1 ] ; then
   cat << EOF > "gpsdrive_fix_icon.patch"
 --- data/gpsdrive.desktop.ORIG  2009-08-31 01:42:39.000000000 +1200
 +++ data/gpsdrive.desktop       2009-08-31 01:43:19.000000000 +1200
@@ -113,10 +116,10 @@ if [ $BUILD_LATEST -eq 1 ] ; then
  Categories=Graphics;Network;Geography;
 EOF
    patch -p0 < "gpsdrive_fix_icon.patch"
+fi
 
 
-# FIXME: apply debian/ubuntu-lucid-32.patch to sync package deps for Lucid
-
+  #apply debian/ubuntu-lucid-32 patches to sync package deps for Lucid
   sed -i -e 's/Build with old libgps version (<2.90)" ON)/Build with old libgps version (<2.90)" OFF)/' \
       DefineOptions.cmake
 
