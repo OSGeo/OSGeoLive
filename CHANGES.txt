@@ -1,6 +1,20 @@
 Arramagong GISVM
 ================
 
+Version: 4.0alpha4
+==================
+18 June 2010
+
+Version: 4.0alpha3
+==================
+16 June 2010
+Partial build (ran out of disk space with 8Gig)
+
+Version: 4.0alpha1
+==================
+3 June 2010
+Test build against xubuntu 10.04
+
 Version: 3.0 Final
 ================
 19 March 2010
