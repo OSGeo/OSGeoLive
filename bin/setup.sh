@@ -61,7 +61,8 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
 
 # Install build stuff (temporarily?)
 apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
-  cvs-buildpackage svn-buildpackage lintian debhelper pkg-config dpkg-dev
+  cvs-buildpackage svn-buildpackage lintian debhelper pkg-config dpkg-dev \
+  cmake
 
 # for list of packages taking up the most space install the debian-goodies
 #    package to get `dpigs`. or try `wajig size`

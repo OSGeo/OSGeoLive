@@ -31,7 +31,7 @@
 clean_up() {
    apt-get --assume-yes remove \
       postgresql-server-dev-8.4 \
-      "libboost$BOOST-dev" \
+      "libboost-dev" \
       "libboost-graph$BOOST-dev" \
       libcgal-dev
    apt-get --assume-yes autoremove
@@ -46,7 +46,7 @@ BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 LOGS="/var/log/pgrouting.log"
-BOOST="1.38"
+BOOST="1.40"
 ## Setup things... ##
 
 # check required tools are installed
@@ -69,22 +69,22 @@ cd "$TMP"
 apt-get install --yes \
    postgresql-server-dev-8.4 \
    cmake \
-   "libboost$BOOST-dev" \
+   "libboost-dev" \
    "libboost-graph$BOOST-dev" \
-   libcgal3 \
+   libcgal4 \
    libcgal-dev
 
 # Explicitly set which packages you want to keep for runtime 
 #    otherwise there is a good chance they will be auto-cleaned:
 # (prior apt-get installs these, this one is just to remove the auto-tag)
-apt-get install --yes libcgal3 libqt3-mt \
-   libboost-date-time1.38.0 libboost-filesystem1.38.0 \
-   libboost-graph1.38.0 libboost-iostreams1.38.0 \
-   libboost-program-options1.38.0 libboost-python1.38.0 \
-   libboost-regex1.38.0 libboost-serialization1.38.0 \
-   libboost-signals1.38.0 libboost-system1.38.0 \
-   libboost-test1.38.0 libboost-thread1.38.0 \
-   libboost-wave1.38.0 libgmpxx4ldbl
+apt-get install --yes libcgal4 libqt3-mt \
+   libboost-date-time$BOOST.0 libboost-filesystem$BOOST.0 \
+   libboost-graph$BOOST.0 libboost-iostreams$BOOST.0 \
+   libboost-program-options$BOOST.0 libboost-python$BOOST.0 \
+   libboost-regex$BOOST.0 libboost-serialization$BOOST.0 \
+   libboost-signals$BOOST.0 libboost-system$BOOST.0 \
+   libboost-test$BOOST.0 libboost-thread$BOOST.0 \
+   libboost-wave$BOOST.0 libgmpxx4ldbl
 
 
 if [ -f "gaul-devel-0.1849-0.tar.gz" ]
