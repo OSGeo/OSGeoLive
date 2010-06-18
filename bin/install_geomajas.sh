@@ -19,7 +19,7 @@
 # Install script for Geomajas
 # =============================================================================
 
-TMP="/tmp/geomajas"
+TMP="/tmp/build_geomajas"
 INSTALL_FOLDER="/usr/lib"
 BIN=/usr/bin
 GEOMAJAS_VERSION=1.6.0
@@ -47,8 +47,8 @@ apt-get install --yes sun-java6-jdk
 
 
 ##### Create the TMP directory
-mkdir $TMP
-cd $TMP
+mkdir -p "$TMP"
+cd "$TMP"
 
 
 
