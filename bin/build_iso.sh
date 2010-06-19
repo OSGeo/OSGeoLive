@@ -62,8 +62,8 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/remastersys.co
 cp $LOGS /etc/remastersys.conf
 
 #Add Windows and Mac installers by copying files into ISOTMP folder
-./load_win_installers.sh
-./load_mac_installers.sh
+#./load_win_installers.sh
+#./load_mac_installers.sh
 
 # Copy documentation
 cp -pr ${DOCS_SRC} ${TMP}
