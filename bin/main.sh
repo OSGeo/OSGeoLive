@@ -70,7 +70,7 @@ for SCRIPT in \
   ./install_tomcat6.sh \
   ./install_ushahidi.sh \
   ./install_postgis.sh \
-  ./install_pgrouting.sh \
+#  ./install_pgrouting.sh \
   ./install_osm.sh \
   ./install_mapserver.sh \
   ./install_geokettle.sh \

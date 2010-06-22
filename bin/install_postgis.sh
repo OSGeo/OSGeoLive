@@ -43,7 +43,7 @@ apt-get update
 
 
 # how about libpostgis-java ?
-apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis pgadmin3
+apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis pgadmin3 osm2pgsql
 
 
 if [ $? -ne 0 ] ; then

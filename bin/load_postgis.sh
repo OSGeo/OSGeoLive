@@ -35,29 +35,33 @@ cd "$TMP_DIR"
 
 
 ### download data
-URL_BASE="ftp://ftp.ardec.com.au/UPLOADS"
-DL_FILE="medford-gisvm.sql.bz2"
+#URL_BASE="ftp://ftp.ardec.com.au/UPLOADS"
+#DL_FILE="medford-gisvm.sql.bz2"
 
 # download package is not versioned so we really shouldn't use "wget -c"
-wget -c --progress=dot:mega "$URL_BASE/$DL_FILE"
+#wget -c --progress=dot:mega "$URL_BASE/$DL_FILE"
 # -O used to enable auto-overwrite
-wget -nv "$URL_BASE/$DL_FILE.sha1" -O "$DL_FILE.sha1"
+#wget -nv "$URL_BASE/$DL_FILE.sha1" -O "$DL_FILE.sha1"
 
-sha1sum --check "$DL_FILE.sha1"
-if [ $? -ne 0 ] ; then
-   echo "ERROR: checksum failed on download"
-   exit 1
-fi
+#sha1sum --check "$DL_FILE.sha1"
+#if [ $? -ne 0 ] ; then
+#   echo "ERROR: checksum failed on download"
+#   exit 1
+#fi
 
 
 ### create DB and populate it
-sudo -u $POSTGRES_USER createdb --template=template_postgis medford
+sudo -u $POSTGRES_USER createdb --template=template_postgis osm_barcelona
 
 # simplified the script, was too hard to debug with all the commands
 #  attempting to be piped continuously with each other
 
-bzip2 -d "$DL_FILE"
-sed -i "s/mleslie/$POSTGRES_USER/g" `basename $DL_FILE .bz2`
+#bzip2 -d "$DL_FILE"
+#sed -i "s/mleslie/$POSTGRES_USER/g" `basename $DL_FILE .bz2`
 # use the psql --quiet flag!
-sudo -u $POSTGRES_USER psql --quiet -d medford -f `basename $DL_FILE .bz2`
+#sudo -u $POSTGRES_USER psql --quiet -d barcelona -f `basename $DL_FILE .bz2`
 
+#Now importing data from already downloaded sources (osm)
+osm2pgsql -u $POSTGRES_USER -d osm_barcelona -l /tmp/build_osm/Barcelona.osm
+
+#Add additional data sources here, be sparing to minimize duplication of data.
