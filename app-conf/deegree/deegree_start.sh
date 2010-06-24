@@ -2,10 +2,9 @@
 #########################
 ##
 ## deegree start script
-## for OSGeo LiveDVD
+## for FOSS4G2010 LiveDVD
 ##
-## Date:    $Date$
-## Revision:$Revision$
+## author: Judit Mays
 ##
 #########################
 
@@ -40,7 +39,7 @@ export JAVA_OPTS="-Xms256m -Xmx512m -XX:MaxPermSize=256m"
 mkdir -p /tmp/deegree-logs/ /tmp/deegree-work/
 
 ## start tomcat (and deegree webapps)
-bash -c "/usr/lib/deegree-2.2_tomcat-6.0.20/bin/catalina.sh start"
+bash -c "/usr/lib/deegree-2.3_tomcat-6.0.26/apache-tomcat-6.0.26/bin/catalina.sh start"
 
 ## open firefox with index.html 
 ## open as user "user" to avoid problems with already running instances of firefox
