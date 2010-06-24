@@ -2,8 +2,10 @@
 #########################
 ##
 ## deegree stop script
-## author: Judit Mays
+## for OSGeo LiveDVD
 ##
+## Date:    $Date$
+## Revision:$Revision$
 #########################
 
 ## stop tomcat (and deegree webapps):

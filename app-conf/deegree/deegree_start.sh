@@ -2,9 +2,10 @@
 #########################
 ##
 ## deegree start script
-## for FOSS4G2010 LiveDVD
+## for OSGeo LiveDVD
 ##
-## author: Judit Mays
+## Date:    $Date$
+## Revision:$Revision$
 ##
 #########################
 
