@@ -3,6 +3,7 @@
 #  - remove punctuation from email addresses to stop harvesting for junk mail
 Name,Email,Country,Osgeo_id
 Alex Mandel, tech wildintellect com,USA,wildintellect
+Andrea Antonello,andrea.antonello gmail com,Italy,moovida
 Anton Patrushev,anton.patrushev gmail com,?,anton
 Brian Hamlin,maplabs light42 com,USA,darkblue_b
 Cameron Shorter,Cameron.Shorter lisasoft com,Australia,camerons
