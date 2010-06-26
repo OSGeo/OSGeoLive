@@ -38,7 +38,8 @@ apt-get update
 #Install packages
 apt-get --assume-yes install qgis \
    qgis-common qgis-plugin-grass python-qgis python-qgis-common \
-   qgis-plugin-grass-common libgdal1-1.6.0-grass gpsbabel grass-doc
+   qgis-plugin-grass-common gpsbabel grass-doc
+#libgdal1-1.7.0-grass - possibly not needed anymore since qgis-plugin-grass will pull the correct one?
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
