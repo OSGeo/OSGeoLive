@@ -69,19 +69,36 @@ cd "$TMP"
 # - GDAL could also be removed if GDAL_DATA environment variable is defined etc..
 #   For specific env requirements please review udig.sh script
 
-TARBALL="udig-1.2-RC3.linux.gtk.x86.tar.gz"
-if [ -f "$TARBALL" ] ; then
-   echo "$TARBALL has already been downloaded."
+# CASE OF A TAR.GZ
+#TARBALL="udig-1.2-RC3.linux.gtk.x86.tar.gz"
+#if [ -f "$TARBALL" ] ; then
+#   echo "$TARBALL has already been downloaded."
+#else
+#   wget -c --progress=dot:mega "http://udig.refractions.net/files/downloads/$TARBALL"
+#fi
+# unpack it and copy it to /usr/lib
+#tar -xzf "$TARBALL" -C "$INSTALL_FOLDER"
+#
+#if [ $? -ne 0 ] ; then
+#   echo "ERROR: expanding $TARBALL"
+#   exit 1
+#fi
+     
+# CASE OF A ZIP
+ZIP="udig-1.2-RC3.linux.gtk.x86.zip"
+if [ -f "$ZIP" ] ; then
+   echo "$ZIP has already been downloaded."
 else
-   wget -c --progress=dot:mega "http://udig.refractions.net/files/downloads/$TARBALL"
+   wget -c --progress=dot:mega "http://udig.refractions.net/files/downloads/$ZIP"
 fi
 # unpack it and copy it to /usr/lib
-tar -xzf "$TARBALL" -C "$INSTALL_FOLDER"
+unzip "$ZIP" -d "$INSTALL_FOLDER"
 
 if [ $? -ne 0 ] ; then
-   echo "ERROR: expanding $TARBALL"
+   echo "ERROR: expanding $ZIP"
    exit 1
 fi
+
 
 
 
