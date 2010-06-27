@@ -24,12 +24,17 @@
 # =======
 # sudo ./install_mapguide.sh
 
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+USER_DESKTOP="$USER_HOME/Desktop"
 
 TEMPDIR=/tmp/build_mapguide
 URL="http://download.osgeo.org/mapguide/releases/2.2.0/Beta"
 FDOVER=3.5.0-5460_i386
 MGVER=2.2.0-4898_i386
 MAESTROVER=2.0.0-4650_i386
+MGDIR=/usr/local/mapguideopensource-2.2.0
+
 # Create temporary download directory
 mkdir -p ${TEMPDIR}
 pushd ${TEMPDIR}
@@ -38,25 +43,25 @@ pushd ${TEMPDIR}
 apt-get -y install libexpat1 libssl0.9.8 odbcinst1debian1 unixodbc libcurl3 libxslt1.1
 apt-get -y install mono-runtime libmono-winforms2.0-cil
 
-# Resolve CentOS 5.4 / Ubuntu 9.10 shared lib differences with symlinks
-if [ ! -e /lib/libcrypto.so.6 ]; then
-  ln -s /lib/libcrypto.so.0.9.8 /lib/libcrypto.so.6
+# Resolve CentOS 5.4 / Ubuntu 10.04 shared lib differences with symlinks
+if [ ! -e /usr/local/lib/libcrypto.so.6 ]; then
+  ln -s /lib/libcrypto.so.0.9.8 /usr/local/lib/libcrypto.so.6
 fi
 
-if [ ! -e /lib/libssl.so.6 ]; then
-  ln -s /lib/libssl.so.0.9.8 /lib/libssl.so.6
+if [ ! -e /usr/local/lib/libssl.so.6 ]; then
+  ln -s /lib/libssl.so.0.9.8 /usr/local/lib/libssl.so.6
 fi
 
-if [ ! -e /lib/libexpat.so.0 ]; then
-  ln -s /lib/libexpat.so.1.5.2 /lib/libexpat.so.0
+if [ ! -e /usr/local/lib/libexpat.so.0 ]; then
+  ln -s /lib/libexpat.so.1.5.2 /usr/local/lib/libexpat.so.0
 fi
 
-if [ ! -e /usr/lib/libldap-2.3.so.0 ]; then
-  ln -s /usr/lib/libldap-2.4.so.2 /usr/lib/libldap-2.3.so.0
+if [ ! -e /usr/local/lib/libldap-2.3.so.0 ]; then
+  ln -s /usr/lib/libldap-2.4.so.2 /usr/local/lib/libldap-2.3.so.0
 fi
 
-if [ ! -e /usr/lib/liblber-2.3.so.0 ]; then
-  ln -s /usr/lib/liblber-2.4.so.2 /usr/lib/liblber-2.3.so.0
+if [ ! -e /usr/local/lib/liblber-2.3.so.0 ]; then
+  ln -s /usr/lib/liblber-2.4.so.2 /usr/local/lib/liblber-2.3.so.0
 fi
 
 if [ ! -d /var/lock/mgserver ]; then
@@ -94,5 +99,90 @@ done
 # Install Ubuntu Package for Maestro
 dpkg -E -G --install mapguideopensource-maestro_${MAESTROVER}.deb
 
-popd
+# Download icons and scripts for MapGuide and Maestro
+wget -N ${URL}/livedvd/mapguideserver.png -P /usr/share/icons
+wget -N ${URL}/livedvd/mapguidemaestro.png -P /usr/share/icons
+wget -N ${URL}/livedvd/startmapguide.sh -P ${MGDIR}
+chmod ugo+x ${MGDIR}/startmapguide.sh
+wget -N ${URL}/livedvd/stopmapguide.sh -P ${MGDIR}
+chmod ugo+x ${MGDIR}/stopmapguide.sh
 
+# Create shortcuts for MapGuide and Maestro
+if [ ! -e $USER_DESKTOP/mapguideserverstart.desktop ] ; then
+   cat << EOF > $USER_DESKTOP/mapguideserverstart.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=MapGuide\nStart
+Comment=Start MapGuide Server
+Categories=Application;Geography;
+Exec=${MGDIR}/startmapguide.sh
+Icon=/usr/share/icons/mapguideserver.png
+Terminal=true
+StartupNotify=true
+Categories=Application;Geography
+MimeType=
+EOF
+fi
+
+if [ ! -e $USER_DESKTOP/mapguideserverstop.desktop ] ; then
+   cat << EOF > $USER_DESKTOP/mapguideserverstop.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=MapGuide\nStop
+Comment=Stop MapGuide Server
+Categories=Application;Education;Geography;
+Exec=${MGDIR}/stopmapguide.sh
+Icon=/usr/share/icons/mapguideserver.png
+Terminal=true
+StartupNotify=true
+Categories=Application;Geography
+MimeType=
+EOF
+fi
+
+if [ ! -e $USER_DESKTOP/mapguidemaestro.desktop ] ; then
+   cat << EOF > $USER_DESKTOP/mapguidemaestro.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=MapGuide\nMaestro
+Comment=Start MapGuide Maestro
+Categories=Application;Geography;
+Exec=/usr/bin/mono /usr/local/mapguidemaestro-2.0.0/Maestro.exe
+Icon=/usr/share/icons/mapguidemaestro.png
+Terminal=false
+StartupNotify=false
+Categories=Application;Geography
+MimeType=
+EOF
+fi
+
+
+# Replace the MapGuide Server startup script for Ubuntu compatibility
+cat << EOF > ${MGDIR}/server/bin/mgserverd.sh
+#!/bin/bash
+export MENTOR_DICTIONARY_PATH=${MGDIR}/share/gis/coordsys
+export LD_LIBRARY_PATH=/usr/local/fdo-3.5.0/lib:"$LD_LIBRARY_PATH"
+ulimit -s 1024
+
+if [ ! -d /var/lock/mgserver ]; then
+  mkdir /var/lock/mgserver
+fi
+
+pushd ${MGDIR}/server/bin
+./mgserver daemon
+popd
+EOF
+
+chmod ugo+x ${MGDIR}/server/bin/mgserverd.sh
+
+# Download and install Sheboygan sample data
+if [ ! -d ${MGDIR}/webserverextensions/www/phpviewersample ]; then
+wget -N ${URL}/livedvd/sheboygansample.tgz
+cd ${MGDIR}
+tar -zxf ${TEMPDIR}/sheboygansample.tgz
+fi
+
+popd
