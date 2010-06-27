@@ -18,11 +18,11 @@
 
 # Running:
 # =======
-# sudo ./setdown.sh 2>&1 | tee /var/log/live/setdown.log
+# sudo ./setdown.sh 2>&1 | tee /var/log/osgeolive/setdown.log
 
 DIR=`dirname ${0}`
 VERSION=`cat ${DIR}/../VERSION.txt`
-PACKAGE_NAME="live"
+PACKAGE_NAME="osgeolive"
 VM="${PACKAGE_NAME}-${VERSION}"
 
 
@@ -40,7 +40,7 @@ mv /tmp/build* ${VM}-tmp
 mv /tmp/*downloads ${VM}-tmp
 
 ln -s /var/cache/apt/ ${VM}-apt-cache
-ln -s /var/log/live/ ${VM}-log
+ln -s /var/log/osgeolive/ ${VM}-log
 
 # remove the apt-get cache
 apt-get clean

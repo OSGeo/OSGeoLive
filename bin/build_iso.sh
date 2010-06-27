@@ -25,11 +25,11 @@
 
 DIR=`dirname ${0}`
 VERSION=`cat ${DIR}/../VERSION.txt`
-PACKAGE_NAME="live"
+PACKAGE_NAME="osgeolive"
 ISO_NAME="${PACKAGE_NAME}-${VERSION}"
 WORKDIR="/tmp/remastersys"
 TMP="${WORKDIR}/ISOTMP"
-LOGS="/var/log/live/remastersys.conf"
+LOGS="/var/log/osgeolive/remastersys.conf"
 DOCS_SRC="/usr/local/share/livedvd-docs"
 
 #Install remastersys.sh add directories it expects

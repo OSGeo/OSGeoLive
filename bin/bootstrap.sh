@@ -40,8 +40,8 @@ cd /home/user
 ln -s ${SCRIPT_DIR}/gisvm .
 
 # make a directory for the install logs
-mkdir /var/log/live/
-chmod a+wr /var/log/live/
+mkdir /var/log/osgeolive/
+chmod a+wr /var/log/osgeolive/
 
 
 echo "If you have a local copy if the tmp/ directory and wish to"

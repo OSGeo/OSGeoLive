@@ -30,7 +30,7 @@
 # but my scripting skills are not up to that.)
 
 DIR=`dirname $0`
-LOG_DIR="/var/log/live"
+LOG_DIR="/var/log/osgeolive"
 MAIN_LOG_FILE="main_install.log"
 DISK_USAGE_LOG="disk_usage.log"
 
