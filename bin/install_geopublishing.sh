@@ -38,14 +38,13 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7450D04751B576FD
 
 # Install Geopublisher and AtlasStyler and documentation
 apt-get update --yes
-apt-get install --yes --no-install-recommends geopublishing geopublishing-doc
+apt-get install --yes --no-install-recommends geopublisher atlasstyler geopublishing-doc
 
 # The above was simple : just installing .deb
 
 # Now we download some predefined symbols for atlasstyler because the user is probably off-line
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-
 
 wget --cut-dirs=1 -nH -q -c -r http://en.geopublishing.org/openmapsymbols/ -A "*.sld" --exclude-directories="openmapsymbols/svg" -P $USER_HOME/.AtlasStyler/templates
 chown -R $USER_NAME:$USER_NAME $USER_HOME/.AtlasStyler 
