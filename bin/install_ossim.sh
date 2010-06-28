@@ -13,13 +13,22 @@ USER_HOME="/home/$USER_NAME"
 
 #Add repositories
 
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
-     --output-document=/etc/apt/sources.list.d/ubuntugis.list
+#wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+#     --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 
-apt-get update
-apt-get install --assume-yes ossim-bin ossimplanet ossim-doc
+#apt-get update
+#apt-get install --assume-yes ossim-bin ossimplanet ossim-doc
+
+#Install Karmic packages from ubuntugis
+TMP="/tmp/build_ossim"
+mkdir -p "$TMP"
+cd "$TMP"  
+for i in libossim_1.8.3-4_i386.deb ossim-bin_1.8.3-4_i386.deb ossim-doc_1.8.3-4_all.deb ossimplanet_1.8.3-4_i386.deb; do
+  wget -c --progress=dot:mega https://launchpad.net/~ubuntugis/+archive/ubuntugis-unstable/+files/$i
+  dpkg -i $i
+done
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
