@@ -49,6 +49,7 @@ cd beta_software
 
 for SCRIPT in \
     ./install_ugvsigmobile.sh \
+    ./install_qgis_mapserver.sh \
 ; do
   echo "===================================================================="
   echo Starting: $SCRIPT
