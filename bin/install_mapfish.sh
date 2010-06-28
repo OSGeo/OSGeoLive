@@ -61,12 +61,12 @@ then
 fi
 
 # install go-mapfish-framework-all.py script
-wget -P $MAPFISH_INSTALL_DIR -c http://www.mapfish.org/downloads/go-mapfish-framework-all.py
-chmod a+x $MAPFISH_INSTALL_DIR/go-mapfish-framework-all.py
-ln -sf $MAPFISH_INSTALL_DIR/go-mapfish-framework-all.py $BIN/go-mapfish-framework-all.py
+wget -P $MAPFISH_INSTALL_DIR -c http://www.mapfish.org/downloads/go-mapfish-framework-1.2.py
+chmod a+x $MAPFISH_INSTALL_DIR/go-mapfish-framework-1.2.py
+ln -sf $MAPFISH_INSTALL_DIR/go-mapfish-framework-1.2.py $BIN/go-mapfish-framework-1.2.py
 
 # create a global virtualenv for mapfish
-go-mapfish-framework-all.py --python=python2.6 $MAPFISH_VENV_DIR
+go-mapfish-framework-1.2.py --python=python2.6 --no-site-packages $MAPFISH_VENV_DIR
 
 # install mapfish.app.minimal in mapfish virtualenv
 $MAPFISH_VENV_DIR/bin/easy_install --index-url=http://www.mapfish.org/downloads/all/pkg --allow-hosts=www.mapfish.org mapfish.app.minimal
