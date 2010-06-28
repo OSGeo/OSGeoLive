@@ -51,7 +51,7 @@ cd "$TMP_DIR"
 
 
 ### create DB and populate it
-sudo -u $POSTGRES_USER createdb --template=template_postgis osm_barcelona
+sudo -u $POSTGRES_USER createdb --template=template_postgis osm_local
 
 # simplified the script, was too hard to debug with all the commands
 #  attempting to be piped continuously with each other
@@ -62,6 +62,6 @@ sudo -u $POSTGRES_USER createdb --template=template_postgis osm_barcelona
 #sudo -u $POSTGRES_USER psql --quiet -d barcelona -f `basename $DL_FILE .bz2`
 
 #Now importing data from already downloaded sources (osm)
-osm2pgsql -U $POSTGRES_USER -d osm_barcelona -l /tmp/build_osm/Barcelona.osm
+osm2pgsql -U $POSTGRES_USER -d osm_local -l /tmp/build_osm/Barcelona.osm
 
 #Add additional data sources here, be sparing to minimize duplication of data.
