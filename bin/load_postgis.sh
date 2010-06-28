@@ -62,6 +62,7 @@ sudo -u $POSTGRES_USER createdb --template=template_postgis osm_local
 #sudo -u $POSTGRES_USER psql --quiet -d barcelona -f `basename $DL_FILE .bz2`
 
 #Now importing data from already downloaded sources (osm)
+bunzip2 --stdout /tmp/build_osm/Barcelona.osm.bz2 > /tmp/build_osm/Barcelona.osm
 osm2pgsql -U $POSTGRES_USER -d osm_local -l /tmp/build_osm/Barcelona.osm
 
 #Add additional data sources here, be sparing to minimize duplication of data.
