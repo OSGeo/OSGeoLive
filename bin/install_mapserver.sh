@@ -28,7 +28,6 @@
 # sudo rm /etc/apache2/conf.d/mapserver
 # sudo rm -rf /usr/local/share/mapserver/
 # sudo rm -rf /usr/local/www/docs_maps
-# sudo rm /usr/lib/cgi-bin/mapserv54
 
 # live disc's username is "user"
 USER_NAME="user"
@@ -43,12 +42,12 @@ apt-get install --yes cgi-mapserver mapserver-bin php5-mapscript python-mapscrip
 
 # Download MapServer data
 [ -d $DATA_DIR ] || mkdir $DATA_DIR
-[ -f $DATA_DIR/mapserver-5.4-html-docs.zip ] || \
-   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-5.4-html-docs.zip" \
-     -O $DATA_DIR/mapserver-5.4-html-docs.zip
-[ -f $DATA_DIR/mapserver-itasca-ms54.zip ] || \
-   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-itasca-ms54.zip" \
-     -O $DATA_DIR/mapserver-itasca-ms54.zip
+[ -f $DATA_DIR/mapserver-5.6-html-docs.zip ] || \
+   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-5.6-html-docs.zip" \
+     -O $DATA_DIR/mapserver-5.6-html-docs.zip
+[ -f $DATA_DIR/mapserver-itasca-ms56.zip ] || \
+   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-itasca-ms56.zip" \
+     -O $DATA_DIR/mapserver-itasca-ms56.zip
 [ -f $DATA_DIR/mapserver-gmap-ms54.zip ] || \
    wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-gmap-ms54.zip" \
      -O $DATA_DIR/mapserver-gmap-ms54.zip
@@ -57,24 +56,23 @@ apt-get install --yes cgi-mapserver mapserver-bin php5-mapscript python-mapscrip
 if [ ! -d $MAPSERVER_DATA ]; then
     mkdir -p $MAPSERVER_DATA/demos
     echo -n "Extracting MapServer html doc in $MAPSERVER_DATA/....."
-    unzip -q $DATA_DIR/mapserver-5.4-html-docs.zip -d $MAPSERVER_DATA/
+    unzip -q $DATA_DIR/mapserver-5.6-html-docs.zip -d $MAPSERVER_DATA/
     echo -n "Done\nExtracting MapServer gmap demo in $MAPSERVER_DATA/demos/..."
     unzip -q $DATA_DIR/mapserver-gmap-ms54.zip -d $MAPSERVER_DATA/demos/ ms4w/apps/gmap/*
     echo -n "Done\nExtracting MapServer itasca demo in $MAPSERVER_DATA/demos/..."
-    unzip -q $DATA_DIR/mapserver-itasca-ms54.zip -d $MAPSERVER_DATA/demos/ 
+    unzip -q $DATA_DIR/mapserver-itasca-ms56.zip -d $MAPSERVER_DATA/demos/ 
     echo -n "Done\n"
     mv $MAPSERVER_DATA/demos/ms4w/apps/gmap $MAPSERVER_DATA/demos/
-    mv $MAPSERVER_DATA/demos/workshop-5.4 $MAPSERVER_DATA/demos/itasca
-    mv $MAPSERVER_DATA/mapserver-5.4-docs $MAPSERVER_DATA/doc
+    mv $MAPSERVER_DATA/demos/workshop $MAPSERVER_DATA/demos/itasca
+    mv $MAPSERVER_DATA/mapserver-5.6-docs $MAPSERVER_DATA/doc
     rm -rf $MAPSERVER_DATA/demos/ms4w
 
     echo -n "Configuring the system...."
     # Itasca Demo hacks
     mkdir -p /usr/local/www/docs_maps/
-    ln -s $MAPSERVER_DATA/demos/itasca $MAPSERVER_DATA/demos/workshop-5.4
+    ln -s $MAPSERVER_DATA/demos/itasca $MAPSERVER_DATA/demos/workshop
     ln -s /usr/local/share/mapserver/demos /usr/local/www/docs_maps/mapserver_demos
     ln -s /tmp/ /usr/local/www/docs_maps/tmp
-    ln -s /usr/lib/cgi-bin/mapserv /usr/lib/cgi-bin/mapserv54
 
     # GMap Demo hacks
     # disable javascript by default
