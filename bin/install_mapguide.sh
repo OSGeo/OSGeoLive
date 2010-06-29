@@ -28,6 +28,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop"
 
+STARTDIR=`pwd`
 TEMPDIR=/tmp/build_mapguide
 URL="http://download.osgeo.org/mapguide/releases/2.2.0/Beta"
 FDOVER=3.5.0-5460_i386
@@ -37,7 +38,7 @@ MGDIR=/usr/local/mapguideopensource-2.2.0
 
 # Create temporary download directory
 mkdir -p ${TEMPDIR}
-pushd ${TEMPDIR}
+cd ${TEMPDIR}
 
 # Install required packages 
 apt-get -y install libexpat1 libssl0.9.8 odbcinst1debian1 unixodbc libcurl3 libxslt1.1
@@ -185,4 +186,5 @@ cd ${MGDIR}
 tar -zxf ${TEMPDIR}/sheboygansample.tgz
 fi
 
-popd
+cd ${STARTDIR}
+
