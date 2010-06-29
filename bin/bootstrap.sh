@@ -29,8 +29,9 @@ SCRIPT_DIR=/usr/local/share
 # copy in pre-downloaded data files. flavour to suit or just skip 
 # rsync -avz cshorter@192.168.2.166::/media/Shorter/repository/livedvd/Arramagong_tmp/ /tmp/
 
-# install subversion and sshd (so you can log into the VM remotely)
-apt-get install --yes subversion openssh-server
+# install subversion and sshd and vnc (so you can log into the VM remotely)
+apt-get install --yes \
+  subversion \
 
 # check out the install scripts from subversion
 cd $SCRIPT_DIR

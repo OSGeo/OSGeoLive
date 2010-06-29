@@ -56,6 +56,7 @@ rm -rf /tmp/build_gisvm_error.log
 #  6. Cleanup scripts
 
 for SCRIPT in \
+  ./install_services.sh \
   ./setup.sh \
   ./install_java.sh \
   ./install_geoserver.sh \
