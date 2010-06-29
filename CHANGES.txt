@@ -1,6 +1,10 @@
 Arramagong GISVM
 ================
 
+Version: 4.0alpha6
+==================
+30 June 2010
+
 Version: 4.0alpha5
 ==================
 28 June 2010
