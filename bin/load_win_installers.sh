@@ -50,6 +50,7 @@ for URL in \
   http://www.opengis.es/descargas/Kosmo_Desktop_2.0-RC1_windows_jre.zip \
   http://downloads.sourceforge.net/project/opencpn/opencpn/1.3.6/OpenCPN_136_Setup.exe?use_mirror=transact \
   http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe \
+  http://download.osgeo.org/mapguide/releases/2.2.0/Beta/MapGuideOpenSource-2.2.0.4829-Beta1.exe \
 ; do
   wget -c --progress=dot:mega "${URL}"
 done;
@@ -73,4 +74,5 @@ done;
   # Kosmo
   # OpenCPN (8mb)
   # Ossim (30mb)
+  # MapGuide Open Source (120mb)
 
