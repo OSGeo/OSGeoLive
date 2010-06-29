@@ -59,7 +59,6 @@ for SCRIPT in \
   ./setup.sh \
   ./install_java.sh \
   ./install_geoserver.sh \
-  ./install_gvsig.sh \
   ./install_geomajas.sh \
   ./install_geonetwork.sh \
   ./install_deegree.sh \
@@ -69,8 +68,7 @@ for SCRIPT in \
   ./install_apache2.sh \
   ./install_tomcat6.sh \
   ./install_ushahidi.sh \
-  ./install_postgis.sh \
-#  ./install_pgrouting.sh \
+  ./install_postgis.sh \ #  ./install_pgrouting.sh \
   ./install_osm.sh \
   ./install_mapserver.sh \
   ./install_geokettle.sh \
@@ -99,6 +97,7 @@ for SCRIPT in \
   ./install_gisdata.sh \
   ./install_desktop.sh \
   ./install_language.sh \
+  ./install_gvsig.sh \ # install_gvsig introduces gdal dependencies which effects following installs
   ./setdown.sh \
 ; do
   echo "===================================================================="
