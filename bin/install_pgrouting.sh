@@ -1,10 +1,11 @@
 #!/bin/sh
-######################################################
+###############################################################
 # 
-# Purpose: Installation of pgRouting on Xubuntu 9.04
-# Author:  Anton Patrushev <anton.patrushev@gmail.com>
+# Purpose: Installation of pgRouting on Ubuntu 10.04
+# Authors: Anton Patrushev <anton.patrushev@georepublic.de>
+#          Daniel Kastl <daniel.kastl@georepublic.de>
 #
-######################################################
+###############################################################
 # Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
@@ -22,159 +23,100 @@
 
 # About:
 # =====
-# This script will install pgRouting into Xubuntu 
+# This script will install the following software
+#       - pgRouting library
+#       - osm2pgrouting converter
+#       - pgRouting workshop
+#
+# NOTE: To make use of OSM sample data "install_osm.sh" should be run first  
+#       Import of OSM sample data and converter can take some time   
 
 # Running:
 # =======
 # sudo ./install_pgrouting.sh
 
-clean_up() {
-   apt-get --assume-yes remove \
-      postgresql-server-dev-8.4 \
-      libboost-dev \
-      "libboost-graph$BOOST-dev" \
-      libcgal-dev
-   apt-get --assume-yes autoremove
-}
-
-TMP="/tmp/build_pgrouting"
-INSTALL_FOLDER="$TMP/pgrouting"
-POSTGIS_VERSION="8.4"
-POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/"
-POSTLBS_FOLDER="/usr/share/postlbs"
-BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-LOGS="/var/log/pgrouting.log"
-BOOST="1.40"
-## Setup things... ##
 
-# check required tools are installed
-if [ ! -x "`which wget`" ] ; then
- echo "ERROR: wget is required, please install it and try again" 
- exit 1
+TMP="/tmp/build_pgrouting"
+OSM_FILE="/usr/local/share/osm/Barcelona.osm.bz2"
+OSM_DB="pgrouting"
+
+POSTGIS_VERSION="8.4"
+POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/postgis-1.5/"
+POSTLBS_FOLDER="/usr/share/postlbs"
+
+
+# Add pgRouting launchpad repository
+add-apt-repository ppa:georepublic/pgrouting
+apt-get update
+
+# Install pgRouting packages
+apt-get --assume-yes install gaul-devel \
+	postgresql-8.4-pgrouting \
+	postgresql-8.4-pgrouting-dd \
+	postgresql-8.4-pgrouting-tsp
+	
+if [ $? -ne 0 ] ; then
+   echo 'ERROR: pgRouting Package install failed! Aborting.'
+   exit 1
 fi
 
+# TODO: Install osm2pgrouting package
+sudo apt-get --assume-yes install osm2pgrouting
 
-if [ ! -x "`which psql`" ] ; then
- echo "ERROR: PostgreSQL is required, please install it and try again" 
- exit 1
-fi
+# TODO: Install workshop material
+#sudo apt-get --assume-yes install pgrouting-workshop
 
-# create tmp folders
+# Create tmp folders
 mkdir "$TMP"
 cd "$TMP"
 
-# install libraries
-apt-get install --yes \
-   postgresql-server-dev-8.4 \
-   cmake \
-   "libboost-dev" \
-   "libboost-graph$BOOST-dev" \
-   libcgal4 \
-   libcgal-dev
-
-# Explicitly set which packages you want to keep for runtime 
-#    otherwise there is a good chance they will be auto-cleaned:
-# (prior apt-get installs these, this one is just to remove the auto-tag)
-apt-get install --yes libcgal4 libqt3-mt \
-   libboost-date-time$BOOST.0 libboost-filesystem$BOOST.0 \
-   libboost-graph$BOOST.0 libboost-iostreams$BOOST.0 \
-   libboost-program-options$BOOST.0 libboost-python$BOOST.0 \
-   libboost-regex$BOOST.0 libboost-serialization$BOOST.0 \
-   libboost-signals$BOOST.0 libboost-system$BOOST.0 \
-   libboost-test$BOOST.0 libboost-thread$BOOST.0 \
-   libboost-wave$BOOST.0 libgmpxx4ldbl
-
-
-if [ -f "gaul-devel-0.1849-0.tar.gz" ]
-then
- echo "gaul-devel-0.1849-0.tar.gz has already been downloaded."
-else
- wget -nv "http://downloads.sourceforge.net/gaul/gaul-devel-0.1849-0.tar.gz"
-fi
-
-tar -xzf gaul-devel-0.1849-0.tar.gz
-cd gaul-devel-0.1849-0/
-
-./configure --disable-slang
-
-make
-
-if [ $? -ne 0 ] ; then
-   clean_up
-   echo "ERROR (pgrouting): gaul build failed. Aborting install script."
-   exit 1
-fi
-
-make install
-ldconfig
-
-cd "$TMP"
-
-# get pgRouting
-svn checkout -r 356 http://pgrouting.postlbs.org/svn/pgrouting/trunk pgrouting
-
-# get sample data
-if [ -f "sydney.tar.gz" ]
-then
- echo "sydney.tar.gz has already been downloaded."
-else
- wget --progress=dot:mega http://files.postlbs.org/foss4g2009/sydney.tar.gz
-fi
-
-# unpack sample data
-tar -xzf sydney.tar.gz -C "$TMP"
-
-# unpack and compile pgRouting
-#tar -xzf pgRouting-1.03.tgz -C "$TMP"
-
-cd "$INSTALL_FOLDER"
-
-cmake -DWITH_TSP=ON -DWITH_DD=ON .
-make
-
-if [ $? -ne 0 ] ; then
-   clean_up
-   echo "ERROR: pgRouting build failed. Aborting install script."
-   exit 1
-fi
-
-# we are already root
-make install
-
-clean_up
-
-# create routing database
-sudo -u $USER_NAME createdb sydney
-sudo -u $USER_NAME createlang plpgsql sydney
-
-cd ..
+# create $OSM_DB database
+createdb -U $USER_NAME $OSM_DB
+createlang -U $USER_NAME plpgsql $OSM_DB
 
 # add PostGIS functions
-sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/postgis.sql sydney
-sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/spatial_ref_sys.sql sydney
+psql -U $USER_NAME -f $POSTGIS_FOLDER/postgis.sql $OSM_DB
+psql -U $USER_NAME -f $POSTGIS_FOLDER/spatial_ref_sys.sql $OSM_DB
 
-# add pgRouting functions
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_core.sql sydney
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_core_wrappers.sql sydney
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_topology.sql sydney
+# add pgRouting core functions
+psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_core.sql $OSM_DB
+psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_core_wrappers.sql $OSM_DB
+psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_topology.sql $OSM_DB
 
 # add pgRouting TSP functions
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_tsp.sql sydney
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql sydney
+psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_tsp.sql $OSM_DB
+psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql $OSM_DB
 
-# add pgRouting Driving Distance functions
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd.sql sydney
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd_wrappers.sql sydney
+# TODO: add pgRouting Driving Distance functions
+#psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_dd.sql $OSM_DB
+#psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_dd_wrappers.sql $OSM_DB
 
-# add data to the database
-sudo -u $USER_NAME psql -c "DROP TABLE geometry_columns"  sydney
-sudo -u $USER_NAME psql --quiet -f schema.sql  sydney
-sudo -u $USER_NAME psql --quiet -f sydney.sql  sydney
+# Process sample data that comes with "install_osm.sh"
+if [ ! -e "$OSM_FILE" ]
+then
+	echo "ERROR: $OSM_FILE sample data is not available"
+	exit 1
+else
+	# unpack sample data
+	bunzip2 $OSM_FILE -c > "$TMP/sampledata.osm"
+	
+	# TODO: run osm2pgrouting converter
+	# NOTE: Conversion can take a a few minutes depending on the extent of the sample data.
+	# Assuming that the sample data won't be very big, it should be OK to run the conversion here, 
+	# otherwise it should be done in advance somehow (TODO).
+	#osm2pgrouting -file "$TMP/sampledata.osm" -conf mapconfig.xml -dbname $OSM_DB -user $USER_NAME -clean 
 
-# testing pgRouting functions
-# Renable once we figure out how to get rid of user interaction
-sudo -u $USER_NAME psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM dijkstra_sp_delta('sydney', 101, 114, 0.003)"  sydney
-sudo -u $USER_NAME psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM astar_sp_delta('sydney', 101, 114, 0.003)"  sydney
-sudo -u $USER_NAME psql -c "SELECT gid, AsText(the_geom) AS the_geom FROM shootingstar_sp('sydney', 8, 24, 0.1, 'length', true, true)"  sydney
+	# Simple pgRouting test queries
+	# Renable once we figure out how to get rid of user interaction
+	#psql -U $USER_NAME -c "SELECT gid, AsText(the_geom) AS the_geom FROM dijkstra_sp_delta('ways', 1, 20, 0.003)"  $OSM_DB
+	#psql -U $USER_NAME -c "SELECT gid, AsText(the_geom) AS the_geom FROM astar_sp_delta('ways', 1, 20, 0.003)"  $OSM_DB
+	#psql -U $USER_NAME -c "SELECT gid, AsText(the_geom) AS the_geom FROM shootingstar_sp('ways', 1, 20, 0.1, 'length', true, true)"  $OSM_DB
+fi
+
+# TODO: Configure workshop and make files accessible to the LiveDVD user
+#chown -R $USER_NAME:$USER_NAME /var/www/pgrouting
+#sudo -u $USER_NAME ln -s /var/www/pgrouting $USER_HOME/pgrouting
+
+echo "Finished installing pgRouting and pgRouting tools."
