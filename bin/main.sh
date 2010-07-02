@@ -55,6 +55,10 @@ rm -rf /tmp/build_gisvm_error.log
 #  5. LiveDVD desktop, docs, etc.
 #  6. Cleanup scripts
 
+#  ./install_pgrouting.sh \
+# install_gvsig introduces gdal dependencies which effects following installs
+
+
 for SCRIPT in \
   ./install_services.sh \
   ./setup.sh \
@@ -68,8 +72,9 @@ for SCRIPT in \
   ./install_openjump.sh \
   ./install_apache2.sh \
   ./install_tomcat6.sh \
+  ./install_sahana.sh \
   ./install_ushahidi.sh \
-  ./install_postgis.sh \ #  ./install_pgrouting.sh \
+  ./install_postgis.sh \
   ./install_osm.sh \
   ./install_mapserver.sh \
   ./install_geokettle.sh \
@@ -98,7 +103,7 @@ for SCRIPT in \
   ./install_gisdata.sh \
   ./install_desktop.sh \
   ./install_language.sh \
-  ./install_gvsig.sh \ # install_gvsig introduces gdal dependencies which effects following installs
+  ./install_gvsig.sh \
   ./setdown.sh \
 ; do
   echo "===================================================================="
