@@ -54,15 +54,16 @@ apt-get update
 # Install pgRouting packages
 apt-get --assume-yes install gaul-devel \
 	postgresql-8.4-pgrouting \
-	postgresql-8.4-pgrouting-dd \
 	postgresql-8.4-pgrouting-tsp
+	# TODO: remove QT4 dependency to be able to install the following package:
+	#postgresql-8.4-pgrouting-dd \
 	
 if [ $? -ne 0 ] ; then
    echo 'ERROR: pgRouting Package install failed! Aborting.'
    exit 1
 fi
 
-# TODO: Install osm2pgrouting package
+# Install osm2pgrouting package
 sudo apt-get --assume-yes install osm2pgrouting
 
 # TODO: Install workshop material
@@ -102,11 +103,15 @@ else
 	# unpack sample data
 	bunzip2 $OSM_FILE -c > "$TMP/sampledata.osm"
 	
-	# TODO: run osm2pgrouting converter
+	# Run osm2pgrouting converter
 	# NOTE: Conversion can take a a few minutes depending on the extent of the sample data.
 	# Assuming that the sample data won't be very big, it should be OK to run the conversion here, 
 	# otherwise it should be done in advance somehow (TODO).
-	#osm2pgrouting -file "$TMP/sampledata.osm" -conf mapconfig.xml -dbname $OSM_DB -user $USER_NAME -clean 
+	#osm2pgrouting 	-file "$TMP/sampledata.osm" \
+	#				-conf "/usr/share/osm2pgrouting/mapconfig.xml" \
+	#				-dbname $OSM_DB \
+	#				-user $USER_NAME \
+	#				-clean 
 
 	# Simple pgRouting test queries
 	# Renable once we figure out how to get rid of user interaction
