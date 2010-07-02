@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2010 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 #
 # This script is free software; you can redistribute it and/or modify it
@@ -43,7 +43,7 @@ fi
 cd "$TMP_DIR"
 
 wget -c --progress=dot:mega \
-  "http://downloads.sourceforge.net/project/opencpn/opencpn/1.3.6/opencpn_1.3.6_i386.deb"
+  "http://downloads.sourceforge.net/project/opencpn/opencpn/2.1.0/opencpn_2.1.624a-1_i386.deb"
 
 # recommended:
 apt-get --assume-yes install gpsd gpsd-clients python-gps
@@ -60,7 +60,7 @@ DEPS="libgl1-mesa-glx libglu1-mesa \
 
 apt-get --assume-yes install $DEPS
 
-dpkg -i "opencpn_1.3.6_i386.deb"
+dpkg -i "opencpn_2.1.624a-1_i386.deb"
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
