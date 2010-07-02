@@ -43,7 +43,7 @@ OSM_FILE="/usr/local/share/osm/Barcelona.osm.bz2"
 OSM_DB="pgrouting"
 
 POSTGIS_VERSION="8.4"
-POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/postgis-1.5/"
+POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/"
 POSTLBS_FOLDER="/usr/share/postlbs"
 
 
@@ -74,25 +74,25 @@ mkdir "$TMP"
 cd "$TMP"
 
 # create $OSM_DB database
-createdb -U $USER_NAME $OSM_DB
-createlang -U $USER_NAME plpgsql $OSM_DB
+sudo -u $USER_NAME createdb $OSM_DB
+sudo -u $USER_NAME createlang plpgsql $OSM_DB
 
 # add PostGIS functions
-psql -U $USER_NAME -f $POSTGIS_FOLDER/postgis.sql $OSM_DB
-psql -U $USER_NAME -f $POSTGIS_FOLDER/spatial_ref_sys.sql $OSM_DB
+sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/postgis.sql $OSM_DB
+sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/spatial_ref_sys.sql $OSM_DB
 
 # add pgRouting core functions
-psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_core.sql $OSM_DB
-psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_core_wrappers.sql $OSM_DB
-psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_topology.sql $OSM_DB
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_core.sql $OSM_DB
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_core_wrappers.sql $OSM_DB
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_topology.sql $OSM_DB
 
 # add pgRouting TSP functions
-psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_tsp.sql $OSM_DB
-psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql $OSM_DB
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_tsp.sql $OSM_DB
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql $OSM_DB
 
 # TODO: add pgRouting Driving Distance functions
-#psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_dd.sql $OSM_DB
-#psql -U $USER_NAME -f $POSTLBS_FOLDER/routing_dd_wrappers.sql $OSM_DB
+#sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd.sql $OSM_DB
+#sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd_wrappers.sql $OSM_DB
 
 # Process sample data that comes with "install_osm.sh"
 if [ ! -e "$OSM_FILE" ]
