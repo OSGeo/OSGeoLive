@@ -19,9 +19,11 @@
 # ==========
 # sudo apt-get remove python-mapnik
 # rm -rf /usr/local/lib/python2.6/dist-packages/tilelite*
+# rm -rf /usr/local/share/mapnik/
 # rm /usr/local/bin/liteserv.py
 
 # will fetch Mapnik 0.6.1 on Ubuntu 9.10
+# will fetch Mapnik 0.7.0 on Ubuntu 10.4
 apt-get install --yes python-mapnik
 
 if [ $? -ne 0 ] ; then
@@ -88,7 +90,7 @@ Name=Start Mapnik & TileLite
 Comment=Mapnik tile-serving using TileLite Server
 Categories=Application;Geography;Geoscience;Education;
 Exec=liteserv.py /usr/local/share/mapnik/demo/population.xml
-Icon=browser
+Icon=gnome-globe
 Terminal=true
 StartupNotify=false
 EOF
@@ -105,7 +107,7 @@ Name=Mapnik Introduction
 Comment=Mapnik Introduction
 Categories=Application;Geography;Geoscience;Education;
 Exec=firefox /usr/local/share/livedvd-docs/doc/mapnik_description.html
-Icon=browser
+Icon=gnome-globe
 Terminal=false
 StartupNotify=false
 EOF

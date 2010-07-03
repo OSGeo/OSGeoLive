@@ -66,8 +66,8 @@ cd "$USER_HOME/Desktop"
 # grep '\.desktop' * | sed -e 's/\.desktop.*/.desktop/' -e 's+^.*[/" ]++' | sort | uniq
 
 DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0_RC1 spatialite-gis zygrib"
-NAV_APPS="MapFish marble gpsdrive opencpn mapnik-* maptiler josm gosmore merkaartor viking"
-SERVER_APPS="deegree-* geoserver-* *geonetwork* geomajas-* mapserver"
+NAV_APPS="MapFish marble gpsdrive opencpn maptiler josm gosmore merkaartor viking"
+SERVER_APPS="deegree-* geoserver-* *geonetwork* geomajas-* mapserver mapnik-*"
 SPATIAL_TOOLS="imagelinker r spatialite-gui geokettle"
 DB_APPS=""  # pgadmin, sqlitebrowser, etc
 RELIEF_APPS="sahana ushahidi"
