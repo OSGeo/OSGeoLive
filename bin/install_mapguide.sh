@@ -73,17 +73,17 @@ fi
 # Download Ubuntu packages for FDO
 for file in core gdal kingoracle ogr postgis sdf shp sqlite wfs wms
 do
-  wget -N ${URL}/fdo-${file}_${FDOVER}.deb
+  wget --progress=dot:mega -N ${URL}/fdo-${file}_${FDOVER}.deb
 done
 
 # Download Ubuntu packages for MapGuide
 for file in common server webextensions httpd
 do
-  wget -N ${URL}/mapguideopensource-${file}_${MGVER}.deb
+  wget -N --progress=dot:mega ${URL}/mapguideopensource-${file}_${MGVER}.deb
 done
 
 # Download Ubuntu package for Maestro
-wget -N ${URL}/mapguideopensource-maestro_${MAESTROVER}.deb
+wget -N --progress=dot:mega ${URL}/mapguideopensource-maestro_${MAESTROVER}.deb
 
 # Install Ubuntu packages for FDO
 for file in core gdal kingoracle ogr postgis sdf shp sqlite wfs wms
@@ -101,11 +101,11 @@ done
 dpkg -E -G --install mapguideopensource-maestro_${MAESTROVER}.deb
 
 # Download icons and scripts for MapGuide and Maestro
-wget -N ${URL}/livedvd/mapguideserver.png -P /usr/share/icons
-wget -N ${URL}/livedvd/mapguidemaestro.png -P /usr/share/icons
-wget -N ${URL}/livedvd/startmapguide.sh -P ${MGDIR}
+wget -nv -N ${URL}/livedvd/mapguideserver.png -P /usr/share/icons
+wget -nv -N ${URL}/livedvd/mapguidemaestro.png -P /usr/share/icons
+wget -nv -N ${URL}/livedvd/startmapguide.sh -P ${MGDIR}
 chmod ugo+x ${MGDIR}/startmapguide.sh
-wget -N ${URL}/livedvd/stopmapguide.sh -P ${MGDIR}
+wget -nv -N ${URL}/livedvd/stopmapguide.sh -P ${MGDIR}
 chmod ugo+x ${MGDIR}/stopmapguide.sh
 
 # Create shortcuts for MapGuide and Maestro
@@ -181,7 +181,7 @@ chmod ugo+x ${MGDIR}/server/bin/mgserverd.sh
 
 # Download and install Sheboygan sample data
 if [ ! -d ${MGDIR}/webserverextensions/www/phpviewersample ]; then
-wget -N ${URL}/livedvd/sheboygansample.tgz
+wget --progress=dot:mega -N ${URL}/livedvd/sheboygansample.tgz
 cd ${MGDIR}
 tar -zxf ${TEMPDIR}/sheboygansample.tgz
 fi
