@@ -56,14 +56,14 @@ fi
 easy_install -Z rpy2
 
 # R specific packages
-apt-get --assume-yes install r-cran-adapt r-cran-boot \
+apt-get --assume-yes install r-cran-boot \
   r-cran-matrix r-cran-coda r-cran-foreign \
   r-cran-lattice r-cran-lmtest r-cran-maps r-cran-mgcv \
   r-cran-nlme r-cran-sandwich r-cran-zoo \
   r-cran-vr r-cran-rodbc r-cran-xml r-cran-mapdata r-cran-mapproj
 
-# package does not exist in Jaunty+: r-cran-e1071.
-
+# package does not exist in Jaunty+: r-cran-e1071
+# not found in Lucid: r-cran-adapt
 
 #Calls R script to do install with feedback to stdout
 R --no-save < ../app-conf/R/installRpackages.r
