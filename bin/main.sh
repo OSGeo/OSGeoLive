@@ -167,7 +167,7 @@ grep '^..: cannot stat' "$LOG_DIR/$MAIN_LOG_FILE"
 grep '^cp: cannot create regular file' "$LOG_DIR/$MAIN_LOG_FILE"
 grep "^sed: " "$LOG_DIR/$MAIN_LOG_FILE"
 grep '^ls: cannot access' "$LOG_DIR/$MAIN_LOG_FILE"
-grep -iwn 'FIXME' "$LOG_DIR/$MAIN_LOG_FILE"
+grep -iwn 'FIXME\|failed' "$LOG_DIR/$MAIN_LOG_FILE"
 
 echo
 echo "==============================================================="
