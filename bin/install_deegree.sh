@@ -111,6 +111,8 @@ getWithMd5 deegree-2.3_tomcat-6.0.26.tar.gz
 
 ## unpack as root, chmod everything to be group/world readable
 tar xzf deegree-2.3_tomcat-6.0.26.tar.gz -o -C $INSTALL_FOLDER
+#debug:
+ls $INSTALL_FOLDER/
 chmod -R go+r $INSTALL_FOLDER/deegree-2.3_tomcat-6.0.26
 
 ### Configure Application ###
