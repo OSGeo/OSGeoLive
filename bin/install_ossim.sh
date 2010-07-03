@@ -21,7 +21,9 @@ USER_HOME="/home/$USER_NAME"
 #apt-get update
 #apt-get install --assume-yes ossim-bin ossimplanet ossim-doc
 
-#Install Karmic packages from ubuntugis
+apt-get --assume-yes install libopenthreads12 libgeotiff1.2
+
+#Install packages from ubuntugis
 TMP="/tmp/build_ossim"
 mkdir -p "$TMP"
 cd "$TMP"  
