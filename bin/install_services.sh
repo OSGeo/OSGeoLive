@@ -16,8 +16,4 @@
 # =====
 # This script will install ssh and VNC services
 
-apt-get install --yes \
-  openssh-server \ 
-  vnc4server \
-
- 
+apt-get --assume-yes install openssh-server vnc4server
