@@ -67,7 +67,7 @@ else
    wget --progress=dot:mega "$GEOKETTLE_BASE_URL/$GEOKETTLE_FILENAME" -O $GEOKETTLE_FILENAME
 fi
 # unpack it
-unzip "$GEOKETTLE_FILENAME" -d "$TMP"
+unzip -q "$GEOKETTLE_FILENAME" -d "$TMP"
 # move the contents to /opt/geokettle
 mv "$TMP/$GEOKETTLE_BASENAME" "$GEOKETTLE_FOLDER"
 
