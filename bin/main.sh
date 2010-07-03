@@ -76,6 +76,7 @@ for SCRIPT in \
   ./install_postgis.sh \
   ./install_osm.sh \
   ./install_mapserver.sh \
+  ./install_mapbender.sh \
   ./install_geokettle.sh \
   ./install_gmt.sh \
   ./install_grass.sh \

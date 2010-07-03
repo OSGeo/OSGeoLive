@@ -112,12 +112,12 @@ fi
 
 # uncompress mapbender
 unzip -q -o mapbender_osgeo.zip 
-rm -rf $INSTALL_DIR/mapbender
-cp -R $INSTALLFILE $INSTALL_DIR/mapbender
-chmod -R uga+r $INSTALL_DIR/mapbender
-chown -R www-data:www-data $INSTALL_DIR/mapbender
-chown -R user $INSTALL_DIR/mapbender/resources
-chown -R user $INSTALL_DIR/mapbender/tools
+rm -rf "$INSTALL_DIR/mapbender"
+cp -R "$INSTALLFILE" "$INSTALL_DIR/mapbender"
+chmod -R uga+r "$INSTALL_DIR/mapbender"
+chown -R www-data:www-data "$INSTALL_DIR/mapbender"
+chown -R user "$INSTALL_DIR/mapbender/resources"
+chown -R user "$INSTALL_DIR/mapbender/tools"
 
 
 
@@ -126,8 +126,8 @@ chown -R user $INSTALL_DIR/mapbender/tools
 cd $INSTALL_DIR/mapbender/resources/db
 chmod +x install_2.6.sh 
 sudo -u $USER_NAME ./install_2.6.sh localhost 5432 $MAPBENDER_DATABASE_NAME $MAPBENDER_DATABASE_TEMPLATE $MAPBENDER_DATABASE_USER
-chown -R www-data:www-data $INSTALL_DIR/mapbender/resources
-chown -R www-data:www-data $INSTALL_DIR/mapbender/tools
+chown -R www-data:www-data "$INSTALL_DIR/mapbender/resources"
+chown -R www-data:www-data "$INSTALL_DIR/mapbender/tools"
 
 #Create apache2 configuration for mapbender
 echo "#Configure apache for mapbender " > /etc/apache2/conf.d/mapbender
