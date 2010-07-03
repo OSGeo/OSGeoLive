@@ -66,7 +66,7 @@ apt-get --assume-yes install r-cran-adapt r-cran-boot \
 
 
 #Calls R script to do install with feedback to stdout
-R --no-save < ../apt-conf/R/installRpackages.r
+R --no-save < ../app-conf/R/installRpackages.r
 
 #Add Desktop shortcut
 
