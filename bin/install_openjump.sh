@@ -60,7 +60,7 @@ else
    wget -c --progress=dot:mega http://sourceforge.net/projects/jump-pilot/files/OpenJUMP/1.3/openjump-v1.3.zip/download
 fi
 # unpack it and copy it to /usr/lib
-unzip openjump-v1.3.zip -d $INSTALL_FOLDER
+unzip -q openjump-v1.3.zip -d $INSTALL_FOLDER
 
 
 ## Configure Application ##
@@ -118,7 +118,7 @@ else
 fi
 #unzip the file into /usr/local/share/openjump/data
 mkdir -p "$DATA_FOLDER/openjump/data"
-unzip ogrs2009_tutorialddata_mod.zip -d "$DATA_FOLDER/openjump/data/"
+unzip -q ogrs2009_tutorialddata_mod.zip -d "$DATA_FOLDER/openjump/data/"
 
 
 ## Documentation ##
