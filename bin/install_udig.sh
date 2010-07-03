@@ -92,7 +92,7 @@ else
    wget -c --progress=dot:mega "http://udig.refractions.net/files/downloads/$ZIP"
 fi
 # unpack it and copy it to /usr/lib
-unzip "$ZIP" -d "$INSTALL_FOLDER"
+unzip -q "$ZIP" -d "$INSTALL_FOLDER"
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: expanding $ZIP"
@@ -141,7 +141,7 @@ fi
 
 #unzip the file into /usr/local/share/udig-data
 mkdir "$DATA_FOLDER/udig-data"
-unzip data-v1_2.zip -d "$DATA_FOLDER/udig-data"
+unzip -q data-v1_2.zip -d "$DATA_FOLDER/udig-data"
 chmod g+w "$DATA_FOLDER/udig-data"
 adduser $USER_NAME users
 chown root.users "$DATA_FOLDER/udig-data"
