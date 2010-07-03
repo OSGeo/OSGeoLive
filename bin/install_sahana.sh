@@ -16,7 +16,7 @@
 # =====
 # This script will install Sahana
 
-# Requires: Apache2, PHP5
+# Requires: Apache2, PHP5, MySQL
 
 #see also
 # http://eden.sahanafoundation.org/wiki/InstallationGuidelinesLinux
