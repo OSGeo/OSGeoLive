@@ -82,3 +82,21 @@ chown www-data /usr/local/share/sahana/conf
 
 # ...
 
+
+#Add Launch icon to desktop
+if [ ! -e /usr/share/applications/sahana.desktop ] ; then
+   cat << EOF > /usr/share/applications/sahana.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Sahana
+Comment=Sahana Agasti
+Categories=Application;Internet;Relief;
+Exec=firefox http://localhost/sahana/
+Icon=gnome-globe
+Terminal=false
+StartupNotify=false
+EOF
+fi
+cp /usr/share/applications/sahana.desktop "$USER_HOME/Desktop/"
+
