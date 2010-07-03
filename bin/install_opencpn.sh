@@ -138,7 +138,7 @@ done
 cd "$DATADIR/charts.dist"
 
 for CHART in $RNC_CHARTS ; do
-   unzip "$TMP_DIR/$CHART.zip"
+   unzip -u -o "$TMP_DIR/$CHART.zip"
    cp "$TMP_DIR/${CHART}_RNCProdCat.xml" BSB_ROOT/
 done
 
