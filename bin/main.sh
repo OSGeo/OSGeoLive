@@ -55,9 +55,6 @@ rm -rf /tmp/build_gisvm_error.log
 #  5. LiveDVD desktop, docs, etc.
 #  6. Cleanup scripts
 
-#  ./install_pgrouting.sh \
-
-
 for SCRIPT in \
   ./setup.sh \
   ./install_services.sh \
@@ -74,6 +71,7 @@ for SCRIPT in \
   ./install_sahana.sh \
   ./install_ushahidi.sh \
   ./install_postgis.sh \
+  ./install_pgrouting.sh \
   ./install_osm.sh \
   ./install_mapserver.sh \
   ./install_mapbender.sh \
