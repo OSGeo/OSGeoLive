@@ -168,6 +168,10 @@ fi
   fi
 
   # ... and if that didn't work, try another way ...
+
+  # dpkg-dev and pbuilder are installed by setup.sh, but somewhere got removed?!
+  apt-get --assume-yes install dpkg-dev pbuilder
+
   /usr/lib/pbuilder/pbuilder-satisfydepends
 
 
