@@ -121,9 +121,10 @@ Exec=${MGDIR}/startmapguide.sh
 Icon=/usr/share/icons/mapguideserver.png
 Terminal=true
 StartupNotify=true
-Categories=Application;Geography
+Categories=Application
 MimeType=
 EOF
+cp $USER_DESKTOP/mapguideserverstart.desktop /usr/share/applications
 fi
 
 if [ ! -e $USER_DESKTOP/mapguideserverstop.desktop ] ; then
@@ -138,9 +139,10 @@ Exec=${MGDIR}/stopmapguide.sh
 Icon=/usr/share/icons/mapguideserver.png
 Terminal=true
 StartupNotify=true
-Categories=Application;Geography
+Categories=Application
 MimeType=
 EOF
+cp $USER_DESKTOP/mapguideserverstop.desktop /usr/share/applications
 fi
 
 if [ ! -e $USER_DESKTOP/mapguidemaestro.desktop ] ; then
@@ -155,9 +157,10 @@ Exec=/usr/bin/mono /usr/local/mapguidemaestro-2.0.0/Maestro.exe
 Icon=/usr/share/icons/mapguidemaestro.png
 Terminal=false
 StartupNotify=false
-Categories=Application;Geography
+Categories=Application
 MimeType=
 EOF
+cp $USER_DESKTOP/mapguidemaestro.desktop /usr/share/applications
 fi
 
 
