@@ -79,7 +79,7 @@ wget -c --progress=dot:mega \
 mkdir -p "$DATA_FOLDER/natural_earth"
 
 for file in *.zip ; do
-  unzip" $file" -d "$DATA_FOLDER/natural_earth"
+  unzip "$file" -d "$DATA_FOLDER/natural_earth"
 done
 
 
