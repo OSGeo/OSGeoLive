@@ -96,7 +96,7 @@ for SCRIPT in \
   ./install_ossim.sh \
   ./install_osgearth.sh \
   ./install_spatialite.sh \
-  ./install_beta_and_submenu.sh \
+  ./install_beta.sh \
   ./install_main_docs.sh \
   ./install_gisdata.sh \
   ./install_desktop.sh \

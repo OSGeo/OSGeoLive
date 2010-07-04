@@ -34,7 +34,7 @@
 # Running:
 # =======
 #
-# sudo ./install_beta_and_submenu.sh
+# sudo ./install_beta.sh
 #
 # --------------- Start: ---------------------
 
@@ -64,6 +64,16 @@ for SCRIPT in \
   echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
   echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
 done
+
+
+##
+## Menu is now handled by install_desktop.sh ##
+
+exit 0
+
+
+
+# dead code:
 
 # #################################################
 # #################################################
@@ -115,4 +125,4 @@ cp ./*.desktop /usr/share/applications
 #
 # it should appear in the geobeta submenu
 
-echo "Finished: install_beta_and_submenu.sh"
+echo "Finished: install_beta.sh"
