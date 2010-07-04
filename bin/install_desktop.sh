@@ -65,7 +65,7 @@ cd "$USER_HOME/Desktop"
 ### get list of *.desktop from bin/install_*.sh :
 # grep '\.desktop' * | sed -e 's/\.desktop.*/.desktop/' -e 's+^.*[/" ]++' | sort | uniq
 
-DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0_RC1 spatialite-gis zygrib"
+DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0 spatialite-gis zygrib"
 NAV_APPS="MapFish marble gpsdrive opencpn maptiler josm gosmore merkaartor viking"
 SERVER_APPS="deegree-* geoserver-* *geonetwork* geomajas-* mapserver mapnik-* mapguide*"
 SPATIAL_TOOLS="imagelinker r spatialite-gui geokettle"
