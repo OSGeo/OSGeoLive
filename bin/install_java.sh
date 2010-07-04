@@ -20,4 +20,9 @@ add-apt-repository "deb http://archive.canonical.com/ lucid partner"
 apt-get update
 
 apt-get --assume-yes remove openjdk-6-jre
+### wtf? why is the above removing the unrelated pdftk??
+apt-get --assume-yes install pdftk
+
 apt-get --assume-yes install java-common sun-java6-bin sun-java6-jre sun-java6-jdk
+
+
