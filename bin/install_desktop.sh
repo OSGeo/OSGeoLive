@@ -29,7 +29,7 @@ cp ../doc/passwords.txt "$USER_HOME/Desktop/"
 chown user:user "$USER_HOME/Desktop/passwords.txt"
 
 # Setup the desktop background
-cp ../desktop-conf/background_dark.jpg \
+cp ../desktop-conf/bg2.png \
      /usr/share/xfce4/backdrops/osgeo-desktop.png
 
 #TODO:copy over default image file instead for headless installs, preference for png
