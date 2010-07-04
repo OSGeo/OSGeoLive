@@ -24,7 +24,6 @@
 # Hamish Bowman <hamish_b yahoo com>
 #
 
-
 POSTGRES_USER="user"
 TMP_DIR="/tmp/build_postgis"
 
@@ -35,6 +34,12 @@ cd "$TMP_DIR"
 
 
 ### download data
+## July10 - rely on a reference download of OSM data
+##  provided by ** install_osm.sh **, instead of getting it here
+##  File name will change from time to time.
+
+OSM_FILE="/usr/local/share/osm/Barcelona.osm.bz2"
+
 #URL_BASE="ftp://ftp.ardec.com.au/UPLOADS"
 #DL_FILE="medford-gisvm.sql.bz2"
 
@@ -49,20 +54,25 @@ cd "$TMP_DIR"
 #   exit 1
 #fi
 
-
 ### create DB and populate it
 sudo -u $POSTGRES_USER createdb --template=template_postgis osm_local
 
-# simplified the script, was too hard to debug with all the commands
+# v3 - simplified the script, was too hard to debug with all the commands
 #  attempting to be piped continuously with each other
-
 #bzip2 -d "$DL_FILE"
 #sed -i "s/mleslie/$POSTGRES_USER/g" `basename $DL_FILE .bz2`
 # use the psql --quiet flag!
 #sudo -u $POSTGRES_USER psql --quiet -d barcelona -f `basename $DL_FILE .bz2`
 
-#Now importing data from already downloaded sources (osm)
-bunzip2 --stdout /tmp/build_osm/Barcelona.osm.bz2 > /tmp/build_osm/Barcelona.osm
-osm2pgsql -U $POSTGRES_USER -d osm_local -l /tmp/build_osm/Barcelona.osm
+## July10 - 
+## Now importing data from already downloaded sources (osm)
+
+if [ ! -e "$OSM_FILE" ]
+then
+	echo "ERROR: $OSM_FILE sample data is not available"
+	exit 1
+else
+	osm2pgsql -U $POSTGRES_USER -d osm_local -l /usr/local/share/osm/Barcelona.osm.bz2
+fi
 
 #Add additional data sources here, be sparing to minimize duplication of data.

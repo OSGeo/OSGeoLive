@@ -71,8 +71,9 @@ for SCRIPT in \
   ./install_sahana.sh \
   ./install_ushahidi.sh \
   ./install_postgis.sh \
-  ./install_pgrouting.sh \
   ./install_osm.sh \
+  ./load_postgis.sh \
+  ./install_pgrouting.sh \
   ./install_mapserver.sh \
   ./install_mapbender.sh \
   ./install_geokettle.sh \

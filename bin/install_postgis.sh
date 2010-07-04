@@ -86,6 +86,9 @@ sudo -u $USER_NAME psql -d template_postgis -f "$pgis_file"
 sudo -u $USER_NAME psql -d template_postgis \
    -f /usr/share/postgresql/$PG_VERSION/contrib/spatial_ref_sys.sql 
 
+# from install_gpsdrive - verify not necessary..
+#echo GRANT ALL ON geometry_columns TO $USER_NAME | sudo -u postgres psql -Upostgres gis
+#echo GRANT ALL ON spatial_ref_sys  TO $USER_NAME | sudo -u postgres psql -Upostgres gis
 
 #include pgadmin3 profile for connection
 for FILE in  pgadmin3  pgpass  ; do
@@ -98,6 +101,5 @@ done
 
 
 ### load data ###
-cd "$BIN_DIR"
-
-./load_postgis.sh
+#cd "$BIN_DIR"
+# Jul10 moved load_postgis.sh to main.sh

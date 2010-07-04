@@ -128,6 +128,7 @@ cp "$BUILD_DIR"/../app-data/osm/Auckland.osm.gz /usr/local/share/osm/
 # $ osm2pgsql -d osm_barcelona barcelona.osm
 # 
 
+## Jul10 - dynamic download replaces static file
 ### Please update to latest data at the last minute! See data dir on server for details.
 #wget --progress=dot:mega "http://download.osgeo.org/livedvd/data/osm/Barcelona.osm.bz2"
 
