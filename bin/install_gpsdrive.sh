@@ -343,10 +343,9 @@ chmod -R g+rwX /usr/local/share/gpsdrive/maps
 sed -e 4594,4863d "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
   > "$USER_HOME/.gpsdrive/osm.xml"
 
-
-#if [ $? -eq 0 ] ; then
-#   rm -rf "$TMP_DIR"
-#fi
+# change DB name from "gis" to "osm_local" as per install_osm.sh
+sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local</Parameter>+' \
+  "$USER_HOME/.gpsdrive/osm.xml"
 
 
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/.gpsdrive"
