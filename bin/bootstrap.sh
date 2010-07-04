@@ -29,9 +29,7 @@ SCRIPT_DIR=/usr/local/share
 # copy in pre-downloaded data files. flavour to suit or just skip 
 # rsync -avz cshorter@192.168.2.166::/media/Shorter/repository/livedvd/Arramagong_tmp/ /tmp/
 
-# install subversion and sshd and vnc (so you can log into the VM remotely)
-apt-get install --yes \
-  subversion \
+apt-get --assume-yes install subversion
 
 # check out the install scripts from subversion
 cd $SCRIPT_DIR
@@ -42,6 +40,8 @@ ln -s ${SCRIPT_DIR}/gisvm .
 
 # make a directory for the install logs
 mkdir /var/log/osgeolive/
+
+# FIXME: a+w is to be avoided always!
 chmod a+wr /var/log/osgeolive/
 
 
