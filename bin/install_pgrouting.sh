@@ -43,9 +43,13 @@ OSM_FILE="/usr/local/share/osm/Barcelona.osm.bz2"
 OSM_DB="pgrouting"
 
 POSTGIS_VERSION="8.4"
-POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/postgis-1.5/"
 POSTLBS_FOLDER="/usr/share/postlbs"
 
+# PostGIS 1.4
+#POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/"
+
+# PostGIS 1.5
+POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/postgis-1.5/"
 
 # Add pgRouting launchpad repository
 add-apt-repository ppa:georepublic/pgrouting
@@ -54,9 +58,8 @@ apt-get update
 # Install pgRouting packages
 apt-get --assume-yes install gaul-devel \
 	postgresql-8.4-pgrouting \
+	postgresql-8.4-pgrouting-dd \
 	postgresql-8.4-pgrouting-tsp
-	# TODO: remove QT4 dependency to be able to install the following package:
-	#postgresql-8.4-pgrouting-dd \
 	
 if [ $? -ne 0 ] ; then
    echo 'ERROR: pgRouting Package install failed! Aborting.'
@@ -107,11 +110,11 @@ else
 	# NOTE: Conversion can take a a few minutes depending on the extent of the sample data.
 	# Assuming that the sample data won't be very big, it should be OK to run the conversion here, 
 	# otherwise it should be done in advance somehow (TODO).
-	#osm2pgrouting 	-file "$TMP/sampledata.osm" \
-	#				-conf "/usr/share/osm2pgrouting/mapconfig.xml" \
-	#				-dbname $OSM_DB \
-	#				-user $USER_NAME \
-	#				-clean 
+	osm2pgrouting 	-file "$TMP/sampledata.osm" \
+					-conf "/usr/share/osm2pgrouting/mapconfig.xml" \
+					-dbname $OSM_DB \
+					-user $USER_NAME \
+					-clean 
 
 	# Simple pgRouting test queries
 	# Renable once we figure out how to get rid of user interaction
