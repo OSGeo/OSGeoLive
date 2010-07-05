@@ -63,6 +63,7 @@ for SCRIPT in \
   ./install_geomajas.sh \
   ./install_geonetwork.sh \
   ./install_deegree.sh \
+  ./install_52nWPS.sh \
   ./install_kosmo.sh \
   ./install_udig.sh \
   ./install_openjump.sh \
