@@ -43,7 +43,7 @@ OSM_FILE="/usr/local/share/osm/Barcelona.osm.bz2"
 OSM_DB="pgrouting"
 
 POSTGIS_VERSION="8.4"
-POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/"
+POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/postgis-1.5/"
 POSTLBS_FOLDER="/usr/share/postlbs"
 
 
