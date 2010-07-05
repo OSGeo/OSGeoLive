@@ -83,7 +83,7 @@ pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis-1.5/postgis.sql"
 
 
 sudo -u $USER_NAME psql -d template_postgis -f "$pgis_file"
-sudo -u $USER_NAME psql --exit-on-error -d template_postgis \
+sudo -u $USER_NAME psql -v ON_ERROR_STOP=1 -d template_postgis \
    -f /usr/share/postgresql/$PG_VERSION/contrib/postgis-1.5/spatial_ref_sys.sql 
 
 # from install_gpsdrive - verify not necessary..
