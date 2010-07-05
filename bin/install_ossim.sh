@@ -89,7 +89,9 @@ wget -c --progress=dot:mega http://ossim.telascience.org/ossimdata/Documentation
 #Download data used to test the application
 mkdir /usr/local/share/ossim/ossim_data 
 mkdir -p /usr/share/ossim/elevation/elev 
+# why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
 chmod -R 777 /usr/local/share/ossim/ossim_data 
+
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band1.tif  --output-document=/usr/local/share/ossim/ossim_data/band1.tif           
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band2.tiff  --output-document=/usr/local/share/ossim/ossim_data/band2.tif
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band3.tiff  --output-document=/usr/local/share/ossim/ossim_data/band3.tif

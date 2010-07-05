@@ -60,6 +60,7 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
+# why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
 chmod -R 777 $KOSMO_FOLDER
 
 ## execute the links.sh script
@@ -72,6 +73,7 @@ rm $KOSMO_FOLDER/bin/Kosmo.sh
 wget -c --progress=dot:mega http://www.kosmoland.es/public/kosmo/v_2.0/binaries/Kosmo.sh
 cp Kosmo.sh $KOSMO_FOLDER/bin/
 chown $USER_NAME:$USER_NAME $KOSMO_FOLDER/bin/Kosmo.sh
+# why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
 chmod 777 $KOSMO_FOLDER/bin/Kosmo.sh
 
 # create link to startup script
@@ -86,6 +88,7 @@ sed -i -e 's/^Name=Kosmo_2.0/Name=Kosmo/' Kosmo_2.0.desktop
 # copy it into the Kosmo_2.0 folder
 cp Kosmo_2.0.desktop $USER_HOME/Desktop
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/Kosmo_2.0.desktop
+# why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
 chmod 777 $USER_HOME/Desktop/Kosmo_2.0.desktop
 
 
