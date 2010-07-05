@@ -14,15 +14,22 @@
 
 # About:
 # =====
-# This script will install gvSIG 1.9 (BN1253) using
+# This script will install gvSIG 1.10 (BN1255) using
 # a deb package. It will also download the gvSIG manual
 
 # Running:
 # =======
 # sudo ./install_gvsig.sh
 
+# Important note:
+#     You should accept the SUN license for JAI and JAI I/O 
+#     binaries installation.
+
 # Changelog:
 # ===========
+# 2010-07-02:
+#   * updated to gvSIG 1.10 (BN 1255)
+#
 # 2010-03-13: 
 #   * removed usage of source command
 #
@@ -35,36 +42,19 @@
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-GVSIG_PACKAGE="gvsig-withjre_1.9.0-1253_i386.deb"
-GVSIG_PATH="http://gvsig-desktop.forge.osor.eu/downloads/people/iver"
+USER_DESKTOP="$USER_HOME/Desktop"
+
+GVSIG_PACKAGE="gvsig_1.10-1255_i386.deb"
+GVSIG_PATH="http://gvsig-desktop.forge.osor.eu/downloads/people/scolab"
 GVSIG_DOCS="/usr/local/share/gvsig"
 GVSIG_MAN="gvSIG-1_1-man-v1-en.pdf"
-
-# load user dirs to have the  $XDG_DESKTOP_DIR variable
-if [ -f "$USER_HOME/.config/user-dirs.dirs" ]
-then
-   . "$USER_HOME/.config/user-dirs.dirs"
-   USER_DESKTOP="$XDG_DESKTOP_DIR"
-   echo "\n\n$USER_DESKTOP\n\n"
-else
-   USER_DESKTOP="$USER_HOME/Desktop"
-fi
-
-#failsafe
-if [ -z "$USER_DESKTOP" ] ; then
-   USER_DESKTOP="$USER_HOME/Desktop"
-fi
-
-
+GVSIG_MAN_URL=http://forge.osor.eu/docman/view.php/89/329/gvSIG-1_1-man-v1-en.pdf
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
    echo "ERROR: wget is required, please install it and try again" 
    exit 1
 fi
-
-# install dependencies
-apt-get --assume-yes install libgdal1-1.6.0
 
 # create tmp folders
 TMP="/tmp/build_gvsig"
@@ -73,23 +63,11 @@ if [ ! -d $TMP ] ; then
 fi
 cd "$TMP"
 
-# get deb package with the jre "gvsig-withjre"
-if [ -f "$GVSIG_PACKAGE" ]
-then
-   echo "$GVSIG_PACKAGE has already been downloaded."
-else
-   wget -c --progress=dot:mega "$GVSIG_PATH/$GVSIG_PACKAGE"
-fi
-
-
-###### currently broken (wants dropped gdal 1.5.0)
-echo "ERROR: gvSIG package is out of date for Ubuntu Lucid. Needs to depend on newer version of GDAL."
-exit 1
-######
+# get deb package 
+wget -c --progress=dot:mega "$GVSIG_PATH/$GVSIG_PACKAGE"
 
 # install the deb package
 dpkg -i "$GVSIG_PACKAGE"
-
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: gvsig package failed to install"
@@ -109,7 +87,7 @@ if [ -f "$GVSIG_MAN" ]
 then
    echo "$GVSIG_MAN has already been downloaded."
 else
-   wget -c --progress=dot:mega "http://forge.osor.eu/docman/view.php/89/329/gvSIG-1_1-man-v1-en.pdf"
+   wget -c --progress=dot:mega $GVSIG_MAN_URL
 fi
 
 if [ ! -d "$GVSIG_DOCS" ] ; then
@@ -127,5 +105,4 @@ wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-da
 cp sample-project.gvp "$USER_HOME/gvSIG/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
 
-
-echo "gvSIG Done!"
+echo "gvSIG installation Done!"
