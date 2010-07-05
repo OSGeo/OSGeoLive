@@ -1,6 +1,20 @@
 Arramagong GISVM
 ================
 
+Version: 4.0rc1
+==================
+5 July 2010
+ * 52nWPS installer added
+ * updated gvSIG sample project and install script 
+ * updated QGIS plugin url from Massimo 
+ * Updated Kosmo version from 2.0 RC1 to final 2.0 2
+ * Add MapGuide to desktop shortcut install script
+ * update for new Lucid dir structure 
+ * fresh start on the desktop image 
+ * fixup a few mapnik related issues 
+ * Added MapGuide Open Source Windows Installer 
+ * Fixes to Postgis/pgrouting/osm/mapnik related interactions
+
 Version: 4.0alpha6
 ==================
 30 June 2010

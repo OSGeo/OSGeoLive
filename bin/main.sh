@@ -21,7 +21,7 @@
 
 # Running:
 # =======
-# sudo ./main.sh 2>&1 | tee /home/user/main_install.log
+# sudo ./main.sh 2>&1 | tee /var/log/osgeolive/main_install.log
 
 # Customisation:
 # =============
