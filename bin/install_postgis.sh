@@ -26,7 +26,6 @@ BIN_DIR=`pwd`
 #Not to be confused with PGIS_Version, this has one less number and period to correspond to install paths
 PG_VERSION="8.4"
 
-
 ##  Use UbuntuGIS ppa.launchpad repo version, change to main one once it becomes
 #    available there (Ubuntu 10.04/Lucid)
 # postgis 1.4 is in the UbuntuGIS repository
@@ -74,7 +73,8 @@ sudo -u $USER_NAME psql -1 -d postgres -c "UPDATE pg_database SET datistemplate=
 
 
 #pgis_file="/usr/share/postgresql-8.3-postgis/lwpostgis.sql"
-pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis.sql"
+## Jul10 TODO resolve location of postgis.sql
+pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis-1.5/postgis.sql"
 
 # or is it this one:   ???
 #if [ -e /usr/share/postgresql/8.4/contrib/postgis.sql ] ; then
@@ -84,7 +84,7 @@ pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis.sql"
 
 sudo -u $USER_NAME psql -d template_postgis -f "$pgis_file"
 sudo -u $USER_NAME psql -d template_postgis \
-   -f /usr/share/postgresql/$PG_VERSION/contrib/spatial_ref_sys.sql 
+   -f /usr/share/postgresql/$PG_VERSION/contrib/postgis-1.5/spatial_ref_sys.sql 
 
 # from install_gpsdrive - verify not necessary..
 #echo GRANT ALL ON geometry_columns TO $USER_NAME | sudo -u postgres psql -Upostgres gis
