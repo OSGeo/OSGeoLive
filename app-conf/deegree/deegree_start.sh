@@ -40,7 +40,7 @@ export JAVA_OPTS="-Xms256m -Xmx512m -XX:MaxPermSize=256m"
 mkdir -p /tmp/deegree-logs/ /tmp/deegree-work/
 
 ## start tomcat (and deegree webapps)
-bash -c "/usr/lib/deegree-2.3_tomcat-6.0.26/apache-tomcat-6.0.26/bin/catalina.sh start"
+bash -c "/usr/lib/apache-tomcat-6.0.26/bin/catalina.sh start"
 
 ## open firefox with index.html 
 ## open as user "user" to avoid problems with already running instances of firefox
