@@ -67,10 +67,10 @@ if [ $? -ne 0 ] ; then
 fi
 
 # Install osm2pgrouting package
-sudo apt-get --assume-yes install osm2pgrouting
+apt-get --assume-yes install osm2pgrouting
 
 # TODO: Install workshop material
-#sudo apt-get --assume-yes install pgrouting-workshop
+#apt-get --assume-yes install pgrouting-workshop
 
 # Create tmp folders
 mkdir "$TMP"
@@ -122,9 +122,5 @@ else
 	#psql -U $USER_NAME -c "SELECT gid, AsText(the_geom) AS the_geom FROM astar_sp_delta('ways', 1, 20, 0.003)"  $OSM_DB
 	#psql -U $USER_NAME -c "SELECT gid, AsText(the_geom) AS the_geom FROM shootingstar_sp('ways', 1, 20, 0.1, 'length', true, true)"  $OSM_DB
 fi
-
-# TODO: Configure workshop and make files accessible to the LiveDVD user
-#chown -R $USER_NAME:$USER_NAME /var/www/pgrouting
-#sudo -u $USER_NAME ln -s /var/www/pgrouting $USER_HOME/pgrouting
 
 echo "Finished installing pgRouting and pgRouting tools."
