@@ -70,7 +70,7 @@ fi
 apt-get --assume-yes install osm2pgrouting
 
 # TODO: Install workshop material
-#apt-get --assume-yes install pgrouting-workshop
+apt-get --assume-yes install pgrouting-workshop
 
 # Create tmp folders
 mkdir "$TMP"
