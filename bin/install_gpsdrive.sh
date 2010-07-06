@@ -301,7 +301,7 @@ fi
 cat << EOF > "$USER_HOME/.gpsdrive/gpsdriverc"
 lastlong = 2.1557
 lastlat = 41.3703
-scalewanted = 5000
+scalewanted = 2500
 dashboard_3 = 12
 autobestmap = 0
 mapnik_caching = 0
