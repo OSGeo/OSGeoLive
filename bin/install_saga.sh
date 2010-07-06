@@ -8,6 +8,10 @@
 # Licensed under the GNU LGPL.
 # lucid: saga 2.0.4 is provided in ubuntugis and ubuntugis/unstable
 # maverick: saga 2.0.4 is provided in universe
+
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+
 # Add repositories
 cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 
