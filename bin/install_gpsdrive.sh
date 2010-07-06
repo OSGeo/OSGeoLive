@@ -299,8 +299,8 @@ fi
 
 # program defaults
 cat << EOF > "$USER_HOME/.gpsdrive/gpsdriverc"
-lastlong = 151.2001
-lastlat = -33.8753
+lastlong = 2.15
+lastlat = 41.373
 scalewanted = 5000
 dashboard_3 = 12
 autobestmap = 0
@@ -311,16 +311,18 @@ EOF
 
 
 # add any waypoints you want to see displayed
-echo "Convention_Centre   -33.8750   151.2005" > "$USER_HOME/.gpsdrive/way.txt"
-
+echo "Sydney_Convention_Centre   -33.8750   151.2005" > "$USER_HOME/.gpsdrive/way.txt"
+echo "Palacio_de_Congresos_de_Barcelona  41.373  2.15" >> "$USER_HOME/.gpsdrive/way.txt"
 
 # Sydney maps
+if [ 0 -eq 1 ] ; then
 #  v0.1, 1.1mb LANDSAT tiles
 #wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/gpsdrive_syd_tileset-0.1.tar.gz"
 
 #  v1.1, 70mb LANDSAT + OpenStreetMap tiles
 # move to .au mirror once it becomes avail.
-wget -c --progress=dot:mega "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/gpsdrive_syd_tileset-1.1.tar.gz?use_mirror=internode"
+wget -c --progress=dot:mega \
+  "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/gpsdrive_syd_tileset-1.1.tar.gz?use_mirror=internode"
 
 mkdir -p /usr/local/share/gpsdrive
 cd /usr/local/share/gpsdrive/
@@ -337,6 +339,7 @@ ln -s /usr/local/share/gpsdrive/maps "$USER_HOME/.gpsdrive/maps"
 adduser $USER_NAME users
 chown -R root.users /usr/local/share/gpsdrive/maps
 chmod -R g+rwX /usr/local/share/gpsdrive/maps
+fi
 
 
 # bypass Mapnik wanting 300mb World Boundaries DB to be installed
