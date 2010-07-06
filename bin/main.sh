@@ -67,6 +67,7 @@ for SCRIPT in \
   ./install_kosmo.sh \
   ./install_udig.sh \
   ./install_openjump.sh \
+  ./install_gvsig.sh \
   ./install_apache2.sh \
   ./install_tomcat6.sh \
   ./install_sahana.sh \
