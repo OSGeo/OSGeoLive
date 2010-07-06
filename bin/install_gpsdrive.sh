@@ -299,8 +299,8 @@ fi
 
 # program defaults
 cat << EOF > "$USER_HOME/.gpsdrive/gpsdriverc"
-lastlong = 2.15
-lastlat = 41.373
+lastlong = 2.1557
+lastlat = 41.3703
 scalewanted = 5000
 dashboard_3 = 12
 autobestmap = 0
