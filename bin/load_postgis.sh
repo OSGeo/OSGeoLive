@@ -72,7 +72,7 @@ then
 	echo "ERROR: $OSM_FILE sample data is not available"
 	exit 1
 else
-	osm2pgsql -U $POSTGRES_USER -d osm_local -l /usr/local/share/osm/Barcelona.osm.bz2
+	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER -d osm_local -l /usr/local/share/osm/Barcelona.osm.bz2
 fi
 
 #Add additional data sources here, be sparing to minimize duplication of data.
