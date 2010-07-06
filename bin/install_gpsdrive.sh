@@ -312,7 +312,7 @@ EOF
 
 # add any waypoints you want to see displayed
 echo "Sydney_Convention_Centre   -33.8750   151.2005" > "$USER_HOME/.gpsdrive/way.txt"
-echo "Palacio_de_Congresos_de_Barcelona  41.373  2.15" >> "$USER_HOME/.gpsdrive/way.txt"
+echo "Palacio_de_Congresos_de_Barcelona  41.3724  2.1518" >> "$USER_HOME/.gpsdrive/way.txt"
 
 # Sydney maps
 if [ 0 -eq 1 ] ; then
