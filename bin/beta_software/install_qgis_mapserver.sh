@@ -44,7 +44,7 @@ cd "$TMP"
 echo "Getting and unpacking qgis_mapserver"
 
 #Dependencies
-apt-get install --assume-yes qgis apache2-mpm-worker libapache2-mod-fcgid
+apt-get install --assume-yes qgis libapache2-mod-fcgid
 
 
 BASEURL=http://geoserver.sourcepole.ch/

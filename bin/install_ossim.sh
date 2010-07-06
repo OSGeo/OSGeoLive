@@ -21,7 +21,7 @@ USER_HOME="/home/$USER_NAME"
 #apt-get update
 #apt-get install --assume-yes ossim-bin ossimplanet ossim-doc
 
-apt-get --assume-yes install libopenthreads12 libgeotiff1.2
+apt-get --assume-yes install libopenthreads12 libgeotiff1.2 libavcodec-extra-52 libavdevice52 libavformat52 libavutil-extra-49 libopenscenegraph56 libswscale0
 
 #Install packages from ubuntugis
 TMP="/tmp/build_ossim"
