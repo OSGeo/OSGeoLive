@@ -111,10 +111,6 @@ svn co "$BASEURL/stylesheets/symbols/" /usr/local/share/osm/stylesheets/symbols/
 
 #### install sample OSM data
 
-# Auckland:
-cp "$BUILD_DIR"/../app-data/osm/Auckland.osm.gz /usr/local/share/osm/
-
-
 # Barcelona data:
 #  Having a sample .osm file around will benefit many applications. In addition
 #  to JOSM and Gosmore, QGIS and Mapnik can also render .osm directly.
