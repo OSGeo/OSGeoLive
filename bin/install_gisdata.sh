@@ -45,16 +45,16 @@ cd "$TMP"
 # Download natural earth datasets:
 
 BASE_URL="http://www.naturalearthdata.com"
-SCALE="110m"  # 1:100 million
+SCALE="10m"  # 1:10 million
 
-# Simple Populated Places 1:110m
-#    http://www.naturalearthdata.com/downloads/110m-cultural-vectors/
-# Admin 0 - Countries 1:110m
-# Populated Places (simple, less columns) 1:110m
-# Land 1:110m
-# Ocean 1:110m
-# Lakes + Reservoirs 1:110m
-# Rivers, Lake Ceterlines 1:110m
+# Simple Populated Places 1:10m
+#    http://www.naturalearthdata.com/downloads/10m-cultural-vectors/
+# Admin 0 - Countries 1:10m
+# Populated Places (simple, less columns) 1:10m
+# Land 1:10m
+# Ocean 1:10m
+# Lakes + Reservoirs 1:10m
+# Rivers, Lake Ceterlines 1:10m
 LAYERS="
 cultural/$SCALE-populated-places-simple
 cultural/$SCALE-admin-0-countries
@@ -66,7 +66,7 @@ physical/$SCALE-rivers-lake-centerlines
 "
 
 for LAYER in $LAYERS ; do
-   wget -nv  -O "`basename $LAYER`.zip" \
+   wget -N --progress=dot:mega -O "`basename $LAYER`.zip" \
      "$BASE_URL/http//www.naturalearthdata.com/download/$SCALE/$LAYER.zip"
 done
 
