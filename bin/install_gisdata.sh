@@ -59,6 +59,7 @@ LAYERS="
 cultural/$SCALE-populated-places-simple
 cultural/$SCALE-admin-0-countries
 cultural/$SCALE-populated-places-simple
+cultural/$SCALE-urban-area
 physical/$SCALE-land
 physical/$SCALE-ocean
 physical/$SCALE-lakes
@@ -66,7 +67,7 @@ physical/$SCALE-rivers-lake-centerlines
 "
 
 for LAYER in $LAYERS ; do
-   wget -N --progress=dot:mega -O "`basename $LAYER`.zip" \
+   wget --progress=dot:mega -O "`basename $LAYER`.zip" \
      "$BASE_URL/http//www.naturalearthdata.com/download/$SCALE/$LAYER.zip"
 done
 
