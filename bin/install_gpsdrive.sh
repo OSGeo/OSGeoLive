@@ -99,6 +99,12 @@ if [ $BUILD_LATEST -eq 1 ] ; then
      exit 1
   fi
 
+  # local database name is "osm_local"
+  sed -i -e 's/"gis"/"osm_local"/' src/database.c
+
+  # installed mapnik version is 0.7
+  sed -i -e 's+/usr/lib/mapnik/0.5+/usr/lib/mapnik/0.7+' src/gpsdrive_config.c
+
 
 # no longer needed? better to use `sed -i` for this anyway..
 if [ 0 -eq 1 ] ; then
@@ -360,9 +366,6 @@ sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">o
 
 # ensure fonts are loaded for Mapnik
 apt-get --assume-yes install ttf-dejavu-extra
-
-# kludge to get around outdated hardcoded path (argh)
-ln -s /usr/lib/mapnik/0.7 /usr/lib/mapnik/0.5
 
 
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/.gpsdrive"
