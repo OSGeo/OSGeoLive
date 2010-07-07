@@ -30,18 +30,11 @@
 # the existing one as template. Your script should not create two .desktop files,
 # only the one inside the folder ./beta_software
 # Add a call to your install sh script here (under "for SCRIPT in \")
-#
-# Running:
-# =======
-#
-# sudo ./install_beta.sh
-#
-# --------------- Start: ---------------------
 
 
-echo "===================================================================="
+echo "--------------------------------------------------------------------"
 echo "Starting installation of beta software..."
-echo "===================================================================="
+echo "--------------------------------------------------------------------"
 echo Disk Usage1:, main.sh, `df | grep "Filesystem" | sed -e "s/  */,/g"`, date
 echo Disk Usage2:, main.sh, `df | grep " /$" | sed -e "s/  */,/g"`, `date`
 	
@@ -51,9 +44,9 @@ for SCRIPT in \
     ./install_ugvsigmobile.sh \
     ./install_qgis_mapserver.sh \
 ; do
-  echo "===================================================================="
+  echo "--------------------------------------------------------------------"
   echo Starting: $SCRIPT
-  echo "===================================================================="
+  echo "--------------------------------------------------------------------"
   sh $SCRIPT
   if [ $? -ne 0 ] ; then
     echo '!!! possible failure in '"$SCRIPT" >> /tmp/build_gisvm_error.log
