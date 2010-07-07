@@ -347,7 +347,8 @@ fi
 
 
 # bypass Mapnik wanting 300mb World Boundaries DB to be installed
-sed -e 4594,4863d "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
+sed -e 4857,4863d -e 4594,4621d \
+  "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
   > "$USER_HOME/.gpsdrive/osm.xml"
 
 # change DB name from "gis" to "osm_local" as per install_osm.sh
