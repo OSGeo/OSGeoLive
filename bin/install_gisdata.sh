@@ -22,7 +22,7 @@
 ##################################################
 
 TMP="/tmp/build_gisdata"
-DATA_FOLDER="/usr/local/share/data/gisdata"
+DATA_FOLDER="/usr/local/share/data"
  
 ## Setup things... ##
 if [ ! -d "$DATA_FOLDER" ] ; then
