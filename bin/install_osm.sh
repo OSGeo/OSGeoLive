@@ -35,7 +35,8 @@ cd "$TMP_DIR"
 mkdir /usr/local/share/osm
 
 
-apt-get install --assume-yes josm josm-plugins gosmore gpsd gpsd-clients merkaartor xmlstarlet
+apt-get install --assume-yes josm josm-plugins gosmore gpsd gpsd-clients \
+   merkaartor xmlstarlet osm2pgsql
 
 
 # that JOSM is badly out of date, so get the latest:

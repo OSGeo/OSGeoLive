@@ -21,6 +21,8 @@
 # sudo /etc/init.d/postgresql-8.4 start
 
 USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+
 TMP_DIR="/tmp/build_postgis"
 BIN_DIR=`pwd`
 #Not to be confused with PGIS_Version, this has one less number and period to correspond to install paths
@@ -35,14 +37,14 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugi
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 #Add signed key for repositorys LTS and non-LTS
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
+#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 
 apt-get update
 
 
 # how about libpostgis-java ?
-apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis pgadmin3 osm2pgsql
+apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis pgadmin3
 
 
 if [ $? -ne 0 ] ; then
@@ -92,11 +94,13 @@ sudo -u $USER_NAME psql -v ON_ERROR_STOP=1 -d template_postgis \
 
 #include pgadmin3 profile for connection
 for FILE in  pgadmin3  pgpass  ; do
-   wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/postgis/$FILE" \
-      --output-document="/home/$USER_NAME/.$FILE"
+   #wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/postgis/$FILE" \
+   #   --output-document="/home/$USER_NAME/.$FILE"
 
-    chown $USER_NAME:$USER_NAME "/home/$USER_NAME/.$FILE"
-    chmod 600 "/home/$USER_NAME/.$FILE"
+    cp ../app-conf/postgis/"$FILE" "$USER_HOME/.$FILE"
+
+    chown $USER_NAME:$USER_NAME "$USER_HOME/.$FILE"
+    chmod 600 "$USER_HOME/.$FILE"
 done
 
 
