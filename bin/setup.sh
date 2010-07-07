@@ -102,6 +102,7 @@ fi
 
 # Link to the project data files
 cd /home/user
+mkdir -p /usr/local/share/data --verbose
 ln -s /usr/local/share/data data
 
 # and there was music and laughter and much rejoicing
