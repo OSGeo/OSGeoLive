@@ -91,7 +91,7 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   PATCHES="gpsdrive_blue_mapnik"
 
   for PATCH in $PATCHES ; do
-     patch -p0 < "$BUILD_DIR/../app-data/gpsdrive/$PATCH.patch"
+     patch -p0 < "$BUILD_DIR/../app-conf/gpsdrive/$PATCH.patch"
   done
 
   if [ $? -ne 0 ] ; then
@@ -326,8 +326,6 @@ echo "FOSS4G_2010_Codesprint_venue 41.35996 2.06179" >> "$USER_HOME/.gpsdrive/wa
 
 # Sydney maps
 if [ 0 -eq 1 ] ; then
-#  v0.1, 1.1mb LANDSAT tiles
-#wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gpsdrive/gpsdrive_syd_tileset-0.1.tar.gz"
 
 #  v1.1, 70mb LANDSAT + OpenStreetMap tiles
 # move to .au mirror once it becomes avail.
@@ -352,13 +350,16 @@ chmod -R g+rwX /usr/local/share/gpsdrive/maps
 fi
 
 
-# bypass Mapnik wanting 300mb World Boundaries DB to be installed
-sed -e 4857,4863d -e 4594,4621d \
-  "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
-  > "$USER_HOME/.gpsdrive/osm.xml"
-
 # fool the hardcoded bastard
 mkdir -p /usr/share/mapnik/world_boundaries
+
+# bypass Mapnik wanting 300mb World Boundaries DB to be installed
+sed -e 4857,4864d -e 4594,4621d \
+  "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
+  > "$TMP_DIR/osm.xml.1"
+
+cat "$TMP_DIR/osm.xml.1" "$BUILD_DIR"/../app-conf/gpsdrive/gpsdrive_osmxml.patch \
+  > "$USER_HOME/.gpsdrive/osm.xml"
 
 # change DB name from "gis" to "osm_local" as per install_osm.sh
 sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local</Parameter>+' \
@@ -387,63 +388,3 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/gpsdrive.desktop"
 #
 
 echo "Finished installing GpsDrive."
-
-
-cat << EOF
-
-== Testing ==
-
-=== If no GPS is plugged in ===
-* Double click on the GpsDrive desktop icon
-* You should see a map of downtown Sydney, after about 10 seconds
-a waypoint marker for the Convention Centre should appear.
-* Set the map scale to 1:10,000 either by dragging the slider at the
-bottom or by using the +,- buttons (not magnifying glass)
-* Enter Explore Mode by pressing the "e" key or in the Map Control button.
-* Use the arrow keys or left mouse button to move off screen.
-* Right click to set destination and leave Explore Mode
-
-==== Downloading maps ====
-* Change the scale setting to 1:1,000,000 you should see a continental map 
-* Enter Explore Mode again ("e") and left click on the great barrier reef
-* Options -> Map -> Download
-** Map source: NASA LANDSAT, Scale: 1:500,000, [Download Map]
-** When download is complete click [ok] then change the preferred scale
-slider to 1:500,000
-** This will be of more use in remote areas.
-* Explore to the coast, click on an airport, headland, or some other
-conspicuous feature. You might want to use the magnifying glass buttons
-to zoom in on it better. Use a right click set the target on some other
-conspicuous feature nearby then demagnify back out.
-* Options -> Map -> Download
-** Map source: OpenStreetMap, Scale: 1:150,000, left-click on map to center
-the green preview over your target and what looks like a populated area.
-** [Download Map]
-** When download is complete click [ok] then change the preferred scale
-slider to 1:150,000 and you should see a (rather rural) road map. This will
-be more interesting in built up areas.
-
-==== Overlay a GPX track ====
-* In the ~/.gpsdrive/tracks/ directory you will find australia.gpx
-which is a track line following the coastline.
-* Options -> Import -> GPX track
-* Hidden folders are hidden in the file picker, but just start typing
-~/.gpsdrive and hit enter. You should then see the tracks/ directory
-and be able to load australia.gpx.
-* A red trace should appear along the coastline.
-* Check that it lines up well with the coast as shown in map tiles of
-varying scale.
-
-=== If a GPS is plugged in ===
-* Make sure gpsd is running by starting "xgps" from the command line.
-* The program will automatically detect gpsd and jump to your current
-position. This should bring up a continental map as you won't have any
-map tiles downloaded for your area yet.
-* See the above "Downloading Maps" section to get some local tiles.
-* If you have a local GPX track of some roads try loading that and making
-sure everything lines up, as detailed in the above "Overlay a GPX track"
-section.
-
-That's it.
-
-EOF
