@@ -85,6 +85,8 @@ chown www-data /usr/local/share/sahana/conf
 
 
 #Add Launch icon to desktop
+cp ../app-conf/sahana/gnome-default-dlg.png /usr/share/pixmaps/
+
 if [ ! -e /usr/share/applications/sahana.desktop ] ; then
    cat << EOF > /usr/share/applications/sahana.desktop
 [Desktop Entry]
@@ -94,7 +96,7 @@ Name=Sahana
 Comment=Sahana Agasti
 Categories=Application;Internet;Relief;
 Exec=firefox http://localhost/sahana/
-Icon=gnome-globe
+Icon=gnome-default-dlg
 Terminal=false
 StartupNotify=false
 EOF
