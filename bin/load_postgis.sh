@@ -56,6 +56,7 @@ OSM_FILE="/usr/local/share/osm/Barcelona.osm.bz2"
 
 ### create DB and populate it
 sudo -u $POSTGRES_USER createdb --template=template_postgis osm_local
+sudo -u $POSTGRES_USER createdb --template=template_postgis osm_local_smerc
 
 # v3 - simplified the script, was too hard to debug with all the commands
 #  attempting to be piped continuously with each other
@@ -72,7 +73,14 @@ then
 	echo "ERROR: $OSM_FILE sample data is not available"
 	exit 1
 else
-	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER -d osm_local -l /usr/local/share/osm/Barcelona.osm.bz2
+	# lat/lon
+	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
+	     --database osm_local --latlong \
+	     /usr/local/share/osm/Barcelona.osm.bz2
+	# spherical merc
+	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
+	     --database osm_local_smerc --merc \
+	     /usr/local/share/osm/Barcelona.osm.bz2
 fi
 
 #Add additional data sources here, be sparing to minimize duplication of data.

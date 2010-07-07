@@ -99,8 +99,8 @@ if [ $BUILD_LATEST -eq 1 ] ; then
      exit 1
   fi
 
-  # local database name is "osm_local"
-  sed -i -e 's/"gis"/"osm_local"/' src/database.c
+  # local database name is "osm_local_smerc"
+  sed -i -e 's/"gis"/"osm_local_smerc"/' src/database.c
 
   # installed mapnik version is 0.7
   sed -i -e 's+/usr/lib/mapnik/0.5+/usr/lib/mapnik/0.7+' src/gpsdrive_config.c
@@ -361,8 +361,8 @@ sed -e 4857,4864d -e 4594,4621d \
 cat "$TMP_DIR/osm.xml.1" "$BUILD_DIR"/../app-conf/gpsdrive/gpsdrive_osmxml.patch \
   > "$USER_HOME/.gpsdrive/osm.xml"
 
-# change DB name from "gis" to "osm_local" as per install_osm.sh
-sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local</Parameter>+' \
+# change DB name from "gis" to "osm_local_smerc" as per install_osm.sh
+sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local_smerc</Parameter>+' \
   "$USER_HOME/.gpsdrive/osm.xml"
 
 # ensure fonts are loaded for Mapnik
