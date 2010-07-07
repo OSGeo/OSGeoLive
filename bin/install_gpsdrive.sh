@@ -361,6 +361,9 @@ sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">o
 # ensure fonts are loaded for Mapnik
 apt-get --assume-yes install ttf-dejavu-extra
 
+# kludge to get around outdated hardcoded path (argh)
+ln -s /usr/lib/mapnik/0.7 /usr/lib/mapnik/0.5
+
 
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/.gpsdrive"
 
