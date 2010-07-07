@@ -66,7 +66,7 @@ Name=Ushahidi
 Comment=Ushahidi
 Categories=Application;Internet;Relief;
 Exec=firefox /var/www/ushahidi/readme.html
-Icon=gnome-globe
+Icon=access
 Terminal=false
 StartupNotify=false
 EOF
