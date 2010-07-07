@@ -135,7 +135,7 @@ wget -N --progress=dot:mega \
 
 if [ ! -e 'Barcelona.osm.bz2' ] ; then
   XAPI_URL="http://osmxapi.hypercube.telascience.org/api/0.6"
-  BBOX="1.998653,41.307213,2.343693,41.495207"
+  BBOX="1.998653,41.27,2.343693,41.495207"
 
   wget --progress=dot:mega -O Barcelona.osm  "$XAPI_URL/map?bbox=$BBOX"
   if [ $? -ne 0 ] ; then
