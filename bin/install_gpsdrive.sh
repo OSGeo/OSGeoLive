@@ -144,8 +144,9 @@ fi
                                libboost-serialization-dev libmapnik-dev
 
   # explicitly install these so they aren't removed in a later autoclean
-  apt-get --assume-yes install  libgeos-3.1.0 \
+  apt-get --assume-yes install  libgeos-3.1.0 libxml-simple-perl \
     libboost-serialization1.40.0 libboost-date-time1.40.0
+
   # any of these too?
   #  libgssrpc4
   #  libodbcinstq1c2
