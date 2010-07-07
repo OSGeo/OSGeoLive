@@ -58,6 +58,7 @@ rm -rf /tmp/build_gisvm_error.log
 for SCRIPT in \
   ./setup.sh \
   ./install_services.sh \
+  ./install_mysql.sh \
   ./install_java.sh \
   ./install_geoserver.sh \
   ./install_geomajas.sh \

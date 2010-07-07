@@ -51,7 +51,8 @@ mkdir /usr/local/share/sahana
 ln -s  /usr/local/share/sahana/www /var/www/sahana
 
 invoke-rc.d apache2 restart
-invoke-rc.d mysql restart
+#invoke-rc.d mysql restart
+service mysql restart
 
 # check mysql extention is installed with: "php -m | grep mysql"
 
