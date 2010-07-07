@@ -125,9 +125,9 @@ svn co "$BASEURL/stylesheets/symbols/" /usr/local/share/osm/stylesheets/symbols/
 # $ osm2pgsql -d osm_barcelona barcelona.osm
 # 
 
-## Jul10 - dynamic download replaces static file
 ### Please update to latest data at the last minute! See data dir on server for details.
-#wget --progress=dot:mega "http://download.osgeo.org/livedvd/data/osm/Barcelona.osm.bz2"
+wget -N --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/osm/Barcelona.osm.bz2"
 
 #download as part of disc build process
 # Downloading from the osmxapi takes me about 6 minutes and is around 20MB.
