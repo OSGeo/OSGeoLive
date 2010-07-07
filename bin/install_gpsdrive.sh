@@ -308,9 +308,10 @@ fi
 cat << EOF > "$USER_HOME/.gpsdrive/gpsdriverc"
 lastlong = 2.1557
 lastlat = 41.3703
-scalewanted = 2500
+scalewanted = 10000
 dashboard_3 = 12
 autobestmap = 0
+mapnik = 1
 mapnik_caching = 0
 minsecmode = 2
 friendsname = LiveDVD
@@ -357,7 +358,7 @@ mkdir -p /usr/share/mapnik/world_boundaries
 sed -e 4857,4864d -e 4594,4607d \
     -e 's+/usr/share/mapnik/world_boundaries/processed_p+/usr/local/share/data/natural_earth/10m_land+' \
     -e 's/Layer name="coast-poly".*/Layer name="coast-poly" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
-    -e 's+/usr/share/mapnik/world_boundaries/builtup_area+/usr/local/share/data/natural_earth/10m_urban_area+' \
+    -e 's+/usr/share/mapnik/world_boundaries/builtup_area+/usr/local/share/data/natural_earth/10m-urban-area+' \
     -e 's/Layer name="buildup".*/Layer name="builtup" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
       "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
   > "$TMP_DIR/osm.xml.1"
