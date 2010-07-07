@@ -358,6 +358,9 @@ mkdir -p /usr/share/mapnik/world_boundaries
 sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local</Parameter>+' \
   "$USER_HOME/.gpsdrive/osm.xml"
 
+# ensure fonts are loaded for Mapnik
+apt-get --assume-yes install ttf-dejavu-extra
+
 
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/.gpsdrive"
 
