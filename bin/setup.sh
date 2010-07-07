@@ -102,7 +102,7 @@ fi
 
 # Link to the project data files
 cd /home/user
-ln -s /usr/local/share data
+ln -s /usr/local/share/data data
 
 # and there was music and laughter and much rejoicing
 adduser user audio
