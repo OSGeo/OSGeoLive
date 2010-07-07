@@ -351,6 +351,9 @@ sed -e 4857,4863d -e 4594,4621d \
   "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
   > "$USER_HOME/.gpsdrive/osm.xml"
 
+# fool the hardcoded bastard
+mkdir -p /usr/share/mapnik/world_boundaries
+
 # change DB name from "gis" to "osm_local" as per install_osm.sh
 sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local</Parameter>+' \
   "$USER_HOME/.gpsdrive/osm.xml"
