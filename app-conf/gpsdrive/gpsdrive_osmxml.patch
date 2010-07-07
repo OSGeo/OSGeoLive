@@ -1,10 +1,3 @@
-  <Layer name="coast-poly" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">
-    <StyleName>coast-poly</StyleName>
-    <Datasource>
-      <Parameter name="type">shape</Parameter>
-      <Parameter name="file">/usr/local/share/data/natural_earth/10m_land</Parameter>
-    </Datasource>
-  </Layer>
   <Layer name="places" status="on" srs="+proj=longlat +datum=WGS84 +no_defs">
     <StyleName>places</StyleName>
     <Datasource>

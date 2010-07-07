@@ -354,8 +354,12 @@ fi
 mkdir -p /usr/share/mapnik/world_boundaries
 
 # bypass Mapnik wanting 300mb World Boundaries DB to be installed
-sed -e 4857,4864d -e 4594,4621d \
-  "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
+sed -e 4857,4864d -e 4594,4607d \
+    -e 's+/usr/share/mapnik/world_boundaries/processed_p+/usr/local/share/data/natural_earth/10m_land+' \
+    -e 's/Layer name="coast-poly".*/Layer name="coast-poly" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
+    -e 's+/usr/share/mapnik/world_boundaries/builtup_area+/usr/local/share/data/natural_earth/10m_urban_area+' \
+    -e 's/Layer name="buildup".*/Layer name="builtup" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
+      "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
   > "$TMP_DIR/osm.xml.1"
 
 cat "$TMP_DIR/osm.xml.1" "$BUILD_DIR"/../app-conf/gpsdrive/gpsdrive_osmxml.patch \
