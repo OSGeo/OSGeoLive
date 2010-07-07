@@ -148,17 +148,12 @@ cp -f Barcelona.osm.bz2 /usr/local/share/osm/
 
 
 ## get latest osm2pgsql from OSM svn (thanks Dane)
-apt-get --assume-yes install libxml2-dev libbz2-dev  libxml2 libbz2-1.0
-
 cd "$TMP_DIR"
-mkdir -p osm2pgsql --verbose
-cd osm2pgsql
+wget -c --progress=dot:mega \
+   http://download.osgeo.org/livedvd/data/osm/osm2pgsql_0.69.svn22215.lucid_i386.deb
 
-svn co http://svn.openstreetmap.org/applications/utils/export/osm2pgsql osm2pgsql-trunk
+#install deps
+apt-get --assume-yes install libxml2 libbz2-1.0 libgeos-3.2.2 libproj0
 
-cd osm2pgsql-trunk
-./autogen.sh
-./configure
-make && make install
+dpkg -i osm2pgsql_0.69.svn22215.lucid_i386.deb
 
-apt-get --assume-yes remove libxml2-dev libbz2-dev
