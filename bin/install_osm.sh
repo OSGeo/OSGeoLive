@@ -145,6 +145,8 @@ if [ ! -e 'Barcelona.osm.bz2' ] ; then
   bzip2 Barcelona.osm
 fi
 cp -f Barcelona.osm.bz2 /usr/local/share/osm/
+mkdir -p /usr/local/share/data/osm --verbose
+ln -s /usr/local/share/osm/Barcelona.osm.bz2 /usr/local/share/data/osm
 
 
 ## get latest osm2pgsql from OSM svn (thanks Dane)
