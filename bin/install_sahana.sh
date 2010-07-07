@@ -30,7 +30,7 @@ mkdir -p "$TMP_DIR"
 
 # Install dependencies.
 apt-get --assume-yes install apache2 mysql-server libapache2-mod-php5 \
-  php5-gd php5-mysql
+  php5-gd php5-mysql php5-cli
 
 if [ ! -x "`which wget`" ] ; then
     echo "ERROR: wget is required, please install it and try again"
@@ -67,9 +67,6 @@ service mysql restart
 # chown apache www/res/OpenLayers/files
 # chown apache www/res/img/markers
 
-## FIXME
-#chmod a+w /usr/local/share/sahana/www/tmp
-#chmod a+w /usr/local/share/sahana/conf
 chown www-data /usr/local/share/sahana/www/tmp
 chown www-data /usr/local/share/sahana/conf
 
