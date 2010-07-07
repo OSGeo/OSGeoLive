@@ -58,7 +58,7 @@ if [ $? -ne 101 ] ; then
 fi
 
 PASSWORD=user
-echo "$PASSWORD" | sudo -S ln -s "$DATADIR/charts.dist" "$DATADIR/charts"
+echo "$PASSWORD" | sudo -S ln -s "$DATADIR/c.dist" "$DATADIR/charts"
 
 # clear the decks to force chart-list DB rebuild
 for FILE in chartlist.dat navobj.xml ; do

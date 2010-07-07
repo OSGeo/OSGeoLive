@@ -83,8 +83,8 @@ cp tips.html /usr/local/share/opencpn/doc/
 #  So we use NOAA data from the USA for our examples instead of Sydney Harbour.)
 
 DATADIR="/usr/local/share/opencpn"
-mkdir -p "$DATADIR/charts.dist/BSB_ROOT"
-mkdir -p "$DATADIR/charts.dist/ENC_ROOT"
+mkdir -p "$DATADIR/c.dist/BSB_ROOT"
+mkdir -p "$DATADIR/c.dist/ENC_ROOT"
 
 mkdir "$DATADIR/gpx"   # GPX tracks, etc
 mkdir "$DATADIR/grib"  # GRIB weather data downloads:
@@ -135,7 +135,7 @@ for CHART in $RNC_CHARTS ; do
   wget -N -nv "http://www.charts.noaa.gov/RNCs/${CHART}_RNCProdCat.xml"
 done
 
-cd "$DATADIR/charts.dist"
+cd "$DATADIR/c.dist"
 
 for CHART in $RNC_CHARTS ; do
    unzip -u -o "$TMP_DIR/$CHART.zip"
@@ -180,7 +180,7 @@ for CHART in $ENC_CHARTS ; do
   wget -N -nv "http://www.charts.noaa.gov/ENCs/${CHART}_ENCProdCat.xml"
 done
 
-cd "$DATADIR/charts.dist"
+cd "$DATADIR/c.dist"
 
 for CHART in $ENC_CHARTS ; do
    unzip -u -o "$TMP_DIR/$CHART.zip"
