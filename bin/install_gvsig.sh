@@ -74,10 +74,13 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
+
+rm $TMP/$GVSIG_PACKAGE 
+
 # place a gvSIG icon on desktop
 if [ -d $USER_DESKTOP ] ; then
-   echo "Copying icon to desktop at $USER_DESKTOP"
-   cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP"
+   echo "Copying icon to desktop at $USER_DESKTOP/Desktop GIS"
+		  cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP/Desktop GIS"
 fi
 
 # download documentation 
