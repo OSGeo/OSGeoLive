@@ -356,7 +356,7 @@ mkdir -p /usr/share/mapnik/world_boundaries
 
 # bypass Mapnik wanting 300mb World Boundaries DB to be installed
 sed -e 4857,4864d -e 4594,4607d \
-    -e 's+/usr/share/mapnik/world_boundaries/processed_p+/usr/local/share/data/natural_earth/10m_land+' \
+    -e 's+/usr/share/mapnik/world_boundaries/processed_p+/usr/local/share/osm/barcelona_coastline_box/barcelona_coastline_box+' \
     -e 's/Layer name="coast-poly".*/Layer name="coast-poly" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
     -e 's+/usr/share/mapnik/world_boundaries/builtup_area+/usr/local/share/data/natural_earth/10m-urban-area+' \
     -e 's/Layer name="buildup".*/Layer name="builtup" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
