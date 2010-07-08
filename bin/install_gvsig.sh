@@ -79,8 +79,8 @@ rm $TMP/$GVSIG_PACKAGE
 
 # place a gvSIG icon on desktop
 if [ -d $USER_DESKTOP ] ; then
-   echo "Copying icon to desktop at $USER_DESKTOP/Desktop GIS"
-		  cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP/Desktop GIS"
+   echo "Copying icon to desktop at $USER_DESKTOP"
+   cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP"
 fi
 
 # download documentation 
