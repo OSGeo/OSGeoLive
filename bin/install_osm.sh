@@ -159,3 +159,48 @@ apt-get --assume-yes install libxml2 libbz2-1.0 libgeos-3.2.2 libproj0
 
 dpkg -i osm2pgsql_0.69.svn22215.lucid_i386.deb
 
+
+# 
+# ### Make hi-res OSM coastline a shapefile polygon for Mapnik rendering
+# 
+# # Xapi OSM extractor:  http://wiki.openstreetmap.org/wiki/Xapi
+# wget -O barcelona_coastline.osm \
+#    "http://osmxapi.hypercube.telascience.org/api/0.6/way[natural=coastline][bbox=1.5,41.0,2.5,41.75]"
+# 
+# # GRASS GIS commands to turn the .osm coastline segment into a closed shapefile polygon
+# v.in.gpsbabel -r in=barcelona_coastline.osm format=osm \
+#   out=barcelona_coastline
+# 
+# eval `v.info -g barcelona_coastline`
+#  north=41.562324
+#  south=41.163893
+#  east=2.515893
+#  west=1.462335
+# 
+# echo "
+# L 4
+#  $west $south
+#  $west 41.75
+#  $east 41.75
+#  $east $north
+# " | v.in.ascii -n format=standard out=barcelona_ul_box --o
+# 
+# v.patch in=barcelona_coastline,barcelona_ul_box out=barcelona_coastline_box1
+# v.type in=barcelona_coastline_box1 out=barcelona_coastline_box2 type=line,boundary
+# v.centroids in=barcelona_coastline_box2 out=barcelona_coastline_box
+# g.remove v=barcelona_coastline_box1,barcelona_coastline_box2
+# 
+# v.out.ogr -c in=barcelona_coastline_box dsn=barcelona_coastline_box type=area
+# 
+# tar czf barcelona_coastline_box.tgz barcelona_coastline_box/
+# 
+FILE="barcelona_coastline_box.tgz"
+wget -N --progress=dot "http://download.osgeo.org/livedvd/data/osm/$FILE"
+tar xzf "$FILE"
+mv `basename $FILE .tgz` /usr/local/share/osm/
+
+
+
+
+
+
