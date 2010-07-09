@@ -355,7 +355,7 @@ fi
 mkdir -p /usr/share/mapnik/world_boundaries
 
 # bypass Mapnik wanting 300mb World Boundaries DB to be installed, use Natural Earth instead.
-sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share/data/natural_earth/10m-admin-0-countries+' \
+sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share/data/natural_earth/10m_land+' \
     -e 's/Layer name="world-1".*/Layer name="world-1" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
     \
     -e 's+/usr/share/mapnik/world_boundaries/world_bnd_m+/usr/local/share/data/natural_earth/10m_land+' \
