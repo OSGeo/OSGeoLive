@@ -371,7 +371,7 @@ sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share
     -e 's/Layer name="places".*/Layer name="builtup" status="on" srs="+proj=longlat +datum=WGS84 +no_defs">/' \
     \
     "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
-    > "$TMP_DIR/osm.xml"
+    > "$USER_HOME/.gpsdrive/osm.xml"
 
 # change DB name from "gis" to "osm_local_smerc" as per install_osm.sh
 sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local_smerc</Parameter>+' \
