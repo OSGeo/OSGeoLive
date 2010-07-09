@@ -319,10 +319,12 @@ EOF
 
 
 # add any waypoints you want to see displayed
-echo "Sydney_Convention_Centre   -33.8750   151.2005" > "$USER_HOME/.gpsdrive/way.txt"
-echo "FOSS4G_2010:_Montjuic_-_Hall_5  41.3724  2.1518" >> "$USER_HOME/.gpsdrive/way.txt"
-echo "FOSS4G_2010_Workshops_venue 41.389456 2.113296" >> "$USER_HOME/.gpsdrive/way.txt"
-echo "FOSS4G_2010_Codesprint_venue 41.35996 2.06179" >> "$USER_HOME/.gpsdrive/way.txt"
+cat << EOF > "$USER_HOME/.gpsdrive/way.txt"
+Sydney_Convention_Centre        -33.8750  151.2005
+FOSS4G_2010_Workshops_venue     41.389456 2.113296
+FOSS4G_2010_Codesprint_venue    41.35996  2.06179
+FOSS4G_2010:_Montjuic_-_Hall_5  41.3724   2.1518
+EOF
 
 
 # Sydney maps
