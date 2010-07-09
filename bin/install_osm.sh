@@ -198,8 +198,7 @@ FILE="barcelona_coastline_box.tgz"
 wget -N --progress=dot "http://download.osgeo.org/livedvd/data/osm/$FILE"
 tar xzf "$FILE"
 mv `basename $FILE .tgz` /usr/local/share/osm/
-
-
+ln -s /usr/local/share/osm/`basename $FILE .tgz` /usr/local/share/data/osm
 
 
 

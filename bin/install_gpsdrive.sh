@@ -354,17 +354,24 @@ fi
 # fool the hardcoded bastard
 mkdir -p /usr/share/mapnik/world_boundaries
 
-# bypass Mapnik wanting 300mb World Boundaries DB to be installed
-sed -e 4857,4864d -e 4594,4607d \
+# bypass Mapnik wanting 300mb World Boundaries DB to be installed, use Natural Earth instead.
+sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share/data/natural_earth/10m-admin-0-countries+' \
+    -e 's/Layer name="world-1".*/Layer name="world-1" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
+    \
+    -e 's+/usr/share/mapnik/world_boundaries/world_bnd_m+/usr/local/share/data/natural_earth/10m_land+' \
+    -e 's/Layer name="world".*/Layer name="world" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
+    \
     -e 's+/usr/share/mapnik/world_boundaries/processed_p+/usr/local/share/osm/barcelona_coastline_box/barcelona_coastline_box+' \
     -e 's/Layer name="coast-poly".*/Layer name="coast-poly" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
+    \
     -e 's+/usr/share/mapnik/world_boundaries/builtup_area+/usr/local/share/data/natural_earth/10m-urban-area+' \
     -e 's/Layer name="buildup".*/Layer name="builtup" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
-      "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
-  > "$TMP_DIR/osm.xml.1"
-
-cat "$TMP_DIR/osm.xml.1" "$BUILD_DIR"/../app-conf/gpsdrive/gpsdrive_osmxml.patch \
-  > "$USER_HOME/.gpsdrive/osm.xml"
+    \
+    -e 's+/usr/share/mapnik/world_boundaries/places+/usr/local/share/data/natural_earth/10m_populated_places_simple+' \
+    -e 's/Layer name="places".*/Layer name="builtup" status="on" srs="+proj=longlat +datum=WGS84 +no_defs">/' \
+    \
+    "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
+    > "$TMP_DIR/osm.xml"
 
 # change DB name from "gis" to "osm_local_smerc" as per install_osm.sh
 sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local_smerc</Parameter>+' \
