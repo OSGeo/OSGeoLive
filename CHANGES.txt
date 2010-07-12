@@ -1,7 +1,14 @@
 Arramagong GISVM
 ================
 
-Version: 4.0rc1
+Version: 4.0beta2
+==================
+12 July 2010
+ * Updates to documentation, workshops
+ * Change world data to 1:10 mil to save space
+ * Fixes to various app installers
+
+Version: 4.0beta1(prev 4.0rc1)
 ==================
 5 July 2010
  * 52nWPS installer added
