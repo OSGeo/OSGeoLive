@@ -25,6 +25,7 @@
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
+BUILD_DIR=`pwd`
 TMP_DIR="/tmp/build_sahana"
 mkdir -p "$TMP_DIR"
 
@@ -82,7 +83,7 @@ chown www-data /usr/local/share/sahana/conf
 
 
 #Add Launch icon to desktop
-cp ../app-conf/sahana/gnome-default-dlg.png /usr/share/pixmaps/
+cp "$BUILD_DIR"/../app-conf/sahana/gnome-default-dlg.png /usr/share/pixmaps/
 
 if [ ! -e /usr/share/applications/sahana.desktop ] ; then
    cat << EOF > /usr/share/applications/sahana.desktop
