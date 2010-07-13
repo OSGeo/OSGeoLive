@@ -75,7 +75,7 @@ then
    echo "52nWPS.tar.gz has already been downloaded."
 else
    wget -c --progress=dot:mega "http://52north.org/download/Geoprocessing/OSGeo-LiveDVD/52nWPS.tar.gz"
- tar xvzf 52nWPS.tar.gz
+ tar xzf 52nWPS.tar.gz
  mkdir -p "$INSTALL_FOLDER" --verbose
 
  mv $TMP/52nWPS "$INSTALL_FOLDER"/
