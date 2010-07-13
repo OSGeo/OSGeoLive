@@ -16,16 +16,17 @@ USER_HOME="/home/$USER_NAME"
 cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 
 #Add signed key for repositorys LTS and non-LTS
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
+#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 
 apt-get update
-apt-get install --yes saga libsaga
+apt-get --assume-yes install saga libsaga
 
 # Additional documentation
 mkdir -p /usr/local/share/saga
 cd /usr/local/share/saga
-wget -c --progress=dot:mega http://sourceforge.net/projects/saga-gis/files/SAGA%20-%20Documentation/SAGA%202%20User%20Guide/SAGA2_UserGuide_Cimmery_20070401.pdf/download
+wget -c --progress=dot:mega \
+  http://sourceforge.net/projects/saga-gis/files/SAGA%20-%20Documentation/SAGA%202%20User%20Guide/SAGA2_UserGuide_Cimmery_20070401.pdf/download
 
 # Desktop icon
 cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
