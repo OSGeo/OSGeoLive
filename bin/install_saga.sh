@@ -20,7 +20,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 
 apt-get update
-apt-get install saga libsaga
+apt-get install --yes saga libsaga
 
 # Additional documentation
 mkdir -p /usr/local/share/saga
