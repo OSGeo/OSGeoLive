@@ -77,23 +77,28 @@ mkdir "$TMP"
 cd "$TMP"
 
 # create $OSM_DB database
+echo "create $OSM_DB database"
 sudo -u $USER_NAME createdb $OSM_DB
 sudo -u $USER_NAME createlang plpgsql $OSM_DB
 
 # add PostGIS functions
+echo "add PostGIS functions"
 sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/postgis.sql $OSM_DB
 sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/spatial_ref_sys.sql $OSM_DB
 
 # add pgRouting core functions
+echo "add pgRouting core functions"
 sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_core.sql $OSM_DB
 sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_core_wrappers.sql $OSM_DB
 sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_topology.sql $OSM_DB
 
 # add pgRouting TSP functions
+echo "add pgRouting TSP functions"
 sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_tsp.sql $OSM_DB
 sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql $OSM_DB
 
 # TODO: add pgRouting Driving Distance functions
+#echo "add pgRouting Driving Distance functions"
 #sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd.sql $OSM_DB
 #sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd_wrappers.sql $OSM_DB
 
@@ -104,12 +109,14 @@ then
 	exit 1
 else
 	# unpack sample data
+	echo "unpack sample data"
 	bunzip2 $OSM_FILE -c > "$TMP/sampledata.osm"
 	
 	# Run osm2pgrouting converter
 	# NOTE: Conversion can take a a few minutes depending on the extent of the sample data.
 	# Assuming that the sample data won't be very big, it should be OK to run the conversion here, 
 	# otherwise it should be done in advance somehow (TODO).
+	echo "Run osm2pgrouting converter"
 	sudo -u $USER_NAME osm2pgrouting -file "$TMP/sampledata.osm" \
 					-conf "/usr/share/osm2pgrouting/mapconfig.xml" \
 					-dbname $OSM_DB \
