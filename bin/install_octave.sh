@@ -18,6 +18,6 @@
 #  
 
 
-apt-get install --yes octave3.0 octave-mapping gnuplot
+apt-get install --yes octave3.2 octave-mapping gnuplot
 
 
