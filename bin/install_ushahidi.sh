@@ -20,7 +20,9 @@
 # =======
 # sudo ./install_ushahidi.sh
 
-# Requires: Apache2, PHP5
+# Requires: Apache2, PHP5 mysql-server
+#
+# more install instructions can be found here /usr/share/ushahidi/readme.html
 #
 # Uninstall:
 # ============
@@ -29,20 +31,21 @@
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
+BUILD_DIR=`pwd`
 TMP_DIR="/tmp/build_ushahidi"
 mkdir -p "$TMP_DIR"
 
 # Install ushahidi dependencies.
 echo "Installing ushahidi"
 
-apt-get install --yes  php5 php5-mcrypt php5-curl 
-
+apt-get --assume-yes install php5 php5-mcrypt php5-curl apache2 mysql-server libapache2-mod-php5 php5-mysql 
 if [ ! -x "`which wget`" ] ; then
     echo "ERROR: wget is required, please install it and try again"
     exit 1
 fi
 
 cd "$TMP_DIR"
+
 if [ ! -e "ushahidi.tgz" ] ; then 
    wget -O ushahidi.tgz --progress=dot:mega \
       "http://assets.ushahidi.com/downloads/ushahidi.tgz"
@@ -52,11 +55,16 @@ fi
 
 # uncompress ushahidi
 tar xzf "ushahidi.tgz"
-cp -R ushahidi/ /var/www/
-chmod -R uga+r /var/www/ushahidi
-chown -R www-data:www-data /var/www/ushahidi
+mkdir /usr/local/share/ushahidi
+
+cp -R ushahidi/ /usr/local/share/
+
+ln -s /usr/local/share/ushahidi /var/www/ushahidi
+
+chown -R www-data:www-data /usr/local/share/ushahidi
 
 #Add Launch icon to desktop
+cp "$BUILD_DIR"/../app-conf/ushahidi/ushahidi-gnome.png /usr/share/pixmaps/
 if [ ! -e /usr/share/applications/ushahidi.desktop ] ; then
    cat << EOF > /usr/share/applications/ushahidi.desktop
 [Desktop Entry]
@@ -65,7 +73,7 @@ Encoding=UTF-8
 Name=Ushahidi
 Comment=Ushahidi
 Categories=Application;Internet;Relief;
-Exec=firefox /var/www/ushahidi/readme.html
+Exec=firefox http://localhost/ushahidi
 Icon=access
 Terminal=false
 StartupNotify=false
