@@ -315,6 +315,8 @@ mapnik = 1
 mapnik_caching = 0
 minsecmode = 2
 friendsname = LiveDVD
+showbutton_trackrestart = 0
+showbutton_trackclear = 0
 EOF
 
 
