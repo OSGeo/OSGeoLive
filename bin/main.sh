@@ -83,6 +83,7 @@ for SCRIPT in \
   ./install_gmt.sh \
   ./install_grass.sh \
   ./install_qgis.sh \
+  ./install_saga.sh \
   ./install_mapnik.sh \
   ./install_maptiler.sh \
   ./install_marble.sh \
@@ -102,7 +103,6 @@ for SCRIPT in \
   ./install_spatialite.sh \
   ./install_beta.sh \
   ./install_main_docs.sh \
-  ./install_saga.sh \
   ./install_gisdata.sh \
   ./install_desktop.sh \
   ./install_language.sh \
