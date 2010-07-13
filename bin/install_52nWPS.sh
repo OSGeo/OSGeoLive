@@ -1,4 +1,4 @@
-!/bin/sh
+#!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
