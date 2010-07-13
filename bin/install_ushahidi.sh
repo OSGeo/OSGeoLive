@@ -31,7 +31,6 @@
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-BUILD_DIR=`pwd`
 TMP_DIR="/tmp/build_ushahidi"
 mkdir -p "$TMP_DIR"
 
@@ -64,7 +63,6 @@ ln -s /usr/local/share/ushahidi /var/www/ushahidi
 chown -R www-data:www-data /usr/local/share/ushahidi
 
 #Add Launch icon to desktop
-cp "$BUILD_DIR"/../app-conf/ushahidi/ushahidi-gnome.png /usr/share/pixmaps/
 if [ ! -e /usr/share/applications/ushahidi.desktop ] ; then
    cat << EOF > /usr/share/applications/ushahidi.desktop
 [Desktop Entry]
