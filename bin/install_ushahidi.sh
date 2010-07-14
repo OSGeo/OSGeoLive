@@ -57,10 +57,18 @@ tar xzf "ushahidi.tgz"
 mkdir /usr/local/share/ushahidi
 
 cp -R ushahidi/ /usr/local/share/
-
 ln -s /usr/local/share/ushahidi /var/www/ushahidi
-
 chown -R www-data:www-data /usr/local/share/ushahidi
+
+
+## (Note: on installing mysql-server you should have been prompted to
+##  create a new root password. Repeat that here)
+MYSQL_ADMIN_PW="user"
+echo "
+CREATE DATABASE ushahidi;
+GRANT ALL PRIVILEGES ON ushahidi.* TO 'user'@'localhost' IDENTIFIED BY 'user';
+" | mysql -u root -p "$MYSQL_ADMIN_PW"
+
 
 #Add Launch icon to desktop
 if [ ! -e /usr/share/applications/ushahidi.desktop ] ; then
