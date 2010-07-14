@@ -16,5 +16,5 @@
 # =====
 # This script will install mysql (put it up front because it has an interactive prompt)
 
-apt-get install --yes mysql-server
+apt-get install --yes mysql-server mysql-admin
 
