@@ -70,6 +70,29 @@ GRANT ALL PRIVILEGES ON ushahidi.* TO 'user'@'localhost' IDENTIFIED BY 'user';
 " | mysql -u root -p "$MYSQL_ADMIN_PW"
 
 
+# tweak apache to allow Clean URLs
+cat << EOF > "$TMP_DIR/allow_htaccess.patch"
+--- /etc/apache2/sites-enabled/000-default.ORIG	2010-07-14 20:49:54.6 +1200
++++ /etc/apache2/sites-enabled/000-default	2010-07-14 20:50:07.9 +1200
+@@ -8,7 +8,7 @@
+ 	</Directory>
+ 	<Directory /var/www/>
+ 		Options Indexes FollowSymLinks MultiViews
+-		AllowOverride None
++		AllowOverride All
+ 		Order allow,deny
+ 		allow from all
+ 	</Directory>
+EOF
+
+if [ `grep -c 'AllowOverride All' /etc/apache2/sites-enabled/000-default` -eq 0 ] ; then
+  patch -p0 < "$TMP_DIR/allow_htaccess.patch"
+fi
+
+a2enmod rewrite
+service apache2 restart
+
+
 #Add Launch icon to desktop
 if [ ! -e /usr/share/applications/ushahidi.desktop ] ; then
    cat << EOF > /usr/share/applications/ushahidi.desktop
