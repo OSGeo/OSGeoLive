@@ -27,7 +27,7 @@
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SRC="../doc"
-DEST="/usr/local/share/livedvd-docs"
+DEST="/usr/local/share/osgeolive-docs"
 BASE_FILES="banner.png arramagong.css images" # base files to install
 HTML_FILES="contact.html index.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
@@ -39,6 +39,7 @@ apt-get install --yes abiword
 
 mkdir -p $DEST/doc
 
+# Copy style sheets and images
 for ITEM in $BASE_FILES ; do
    # keep it at one file per line, as missing files tell us what is missing
    cp -prf ${SRC}/"$ITEM" "$DEST/"
@@ -58,6 +59,13 @@ for ITEM in contact.html index.html sponsors.html content.html; do
   sed -e "s/<h1>Arramagong/<h1>Arramagong ${VERSION}/" ${DEST}/${ITEM} > /tmp/${ITEM}
   mv /tmp/${ITEM} ${DEST}/${ITEM}
 done
+
+# Build the application overview pages
+cd ../doc/overview/
+make html
+rm -fr ${DEST}/overview/
+mv _build/html ${DEST}/overview/
+cd ../../bin
 
 
 # license page start
@@ -96,7 +104,17 @@ for ITEM in $APPS ; do
 
    # Copy Definitions:
    if [ -e "${SRC}/descriptions/${ITEM}_definition.html" ] ; then
-      cat "${SRC}/descriptions/${ITEM}_definition.html" >> "$DEST/content.html"
+     cp "${SRC}/descriptions/${ITEM}_definition.html" "/tmp/${ITEM}_definition.html"
+     if [ -e "${DEST}/overview/${ITEM}-overview.html" ] ; then
+       echo Found ${ITEM}_overview.html
+       # point the definition file at the overview doc instead of the
+       # description doc 
+       sed -i -e \
+         "s#doc/${ITEM}_description.html#overview/${ITEM}-overview.html#" \
+         "/tmp/${ITEM}_definition.html"
+     fi
+     cat "/tmp/${ITEM}_definition.html" >> "$DEST/content.html"
+     rm "/tmp/${ITEM}_definition.html"
    else
      echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_definition.html"
    fi
@@ -129,8 +147,6 @@ done
 # license page end
 #cat ${SRC}/license_post.html >> "$DEST/license.html"
 
-
-
 # Download the Test Plan / Test Results
 TMPDIR="/tmp/build_docs"
 mkdir -p "$TMPDIR"
@@ -158,11 +174,11 @@ home page is now set to file://$DEST/index.html"
 #   to been started at least once to set it up
 
 # edit ~user/.mozilla/firefox/$RANDOM.default/prefs.js:
-#   user_pref("browser.startup.homepage", "file:///usr/local/share/livedvd-docs/index.html");
+#   user_pref("browser.startup.homepage", "file:///usr/local/share/osgeolive-docs/index.html");
 
 PREFS_FILE=`find "$USER_HOME/.mozilla/firefox/" | grep -w default/prefs.js | head -n 1`
 if [ -n "$PREFS_FILE" ] ; then
-   sed -i -e 's+\(homepage", "\)[^"]*+\1file:///usr/local/share/livedvd-docs/index.html+' \
+   sed -i -e 's+\(homepage", "\)[^"]*+\1file:///usr/local/share/osgeolive-docs/index.html+' \
       "$PREFS_FILE"
 
    # firefox snafu: needed for web apps to work if network is not there
@@ -188,7 +204,7 @@ Encoding=UTF-8
 Name=Help
 Comment=Live Demo Help
 Categories=Application;Education;Geography;
-Exec=firefox /usr/local/share/livedvd-docs/index.html
+Exec=firefox /usr/local/share/osgeolive-docs/index.html
 Icon=/usr/local/share/icons/arramagong-wombat-small.png
 Terminal=false
 StartupNotify=false
