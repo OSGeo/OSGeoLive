@@ -217,6 +217,7 @@ fi
   CUSTOM_PKGS="gpsdrive*.deb openstreetmap-map*.deb"
 
   # install package dependencies
+  #### TODO: replace all this mess with "gdebi"
   echo "Checking if local.deb needs are already installed ..."
   EXTRA_PKGS="osm2pgsql"
   for PKG in $CUSTOM_PKGS ; do
