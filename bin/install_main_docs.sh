@@ -105,12 +105,11 @@ for ITEM in $APPS ; do
    # Copy Definitions:
    if [ -e "${SRC}/descriptions/${ITEM}_definition.html" ] ; then
      cp "${SRC}/descriptions/${ITEM}_definition.html" "/tmp/${ITEM}_definition.html"
-     if [ -e "${DEST}/overview/${ITEM}-overview.html" ] ; then
-       echo Found ${ITEM}_overview.html
+     if [ -e "${DEST}/overview/${ITEM}_overview.html" ] ; then
        # point the definition file at the overview doc instead of the
        # description doc 
        sed -i -e \
-         "s#doc/${ITEM}_description.html#overview/${ITEM}-overview.html#" \
+         "s#doc/${ITEM}_description.html#overview/${ITEM}_overview.html#" \
          "/tmp/${ITEM}_definition.html"
      fi
      cat "/tmp/${ITEM}_definition.html" >> "$DEST/content.html"
