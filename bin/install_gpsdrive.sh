@@ -318,6 +318,8 @@ minsecmode = 2
 friendsname = LiveDVD
 showbutton_trackrestart = 0
 showbutton_trackclear = 0
+icon_theme = classic.small
+osmdbfile = /usr/share/gpsdrive/spain.db
 EOF
 
 
@@ -329,31 +331,10 @@ FOSS4G_2010_Codesprint_venue    41.35996  2.06179
 FOSS4G_2010:_Montjuic_-_Hall_5  41.3724   2.1518
 EOF
 
-
-# Sydney maps
-if [ 0 -eq 1 ] ; then
-
-#  v1.1, 70mb LANDSAT + OpenStreetMap tiles
-# move to .au mirror once it becomes avail.
-wget -c --progress=dot:mega \
-  "http://downloads.sourceforge.net/project/gpsdrive/additional%20data/gpsdrive_syd_tileset-1.1.tar.gz?use_mirror=internode"
-
-mkdir -p /usr/local/share/gpsdrive
-cd /usr/local/share/gpsdrive/
-
-tar xzf "$TMP_DIR"/gpsdrive_syd_tileset-*.tar.gz
-
-cd "$USER_HOME/.gpsdrive/"
-
-# better to mkdir maps here then symlink in mapsets, with the big
-#  mapnik/ one as read-only?? (so not loaded into RAM)
-ln -s /usr/local/share/gpsdrive/maps "$USER_HOME/.gpsdrive/maps"
-
-# allow users to download new data to /usr/local/share/gpsdrive
-adduser $USER_NAME users
-chown -R root.users /usr/local/share/gpsdrive/maps
-chmod -R g+rwX /usr/local/share/gpsdrive/maps
-fi
+#download latest OSM POIs for Spain
+wget -N --progress=dot:mega  http://poi.gpsdrive.de/spain.db.bz2
+bzip2 -d spain.db.bz2
+mv spain.db /usr/share/gpsdrive/
 
 
 # fool the hardcoded bastard
@@ -391,17 +372,5 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/.gpsdrive"
 cp /usr/share/applications/gpsdrive.desktop "$USER_HOME/Desktop/"
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/gpsdrive.desktop"
 
-
-
-#### install OSM data for Mapnik Support ####
-#
-# - Download OSM planet file from
-#  http://www.osmaustralia.org/osmausextract.php
-#    or
-#  http://downloads.cloudmade.com/oceania/australia
-#
-# - Set up PostGIS Database and import data
-#  see https://sourceforge.net/apps/mediawiki/gpsdrive/index.php?title=Setting_up_Mapnik
-#
 
 echo "Finished installing GpsDrive."
