@@ -53,3 +53,9 @@ PACKAGE="qgis_mapserver.tgz"
 wget -c --progress=dot:mega "$BASEURL/$PACKAGE"
 cd /
 tar xzf "$TMP/$PACKAGE"
+
+#CGI for testing
+ln -s qgis_mapserv.fcgi /usr/lib/cgi-bin/qgis_mapserv
+
+#Sample project
+ln -s /usr/local/share/qgis/QGIS-Itasca-Example.qgs /usr/lib/cgi-bin/
