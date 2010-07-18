@@ -27,7 +27,8 @@
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SRC="../doc"
-DEST="/usr/local/share/osgeolive-docs"
+#DEST="/usr/local/share/osgeolive-docs"
+DEST="/home/cshorter/tmp/osgeolive-docs"
 BASE_FILES="banner.png arramagong.css images" # base files to install
 HTML_FILES="contact.html index.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
@@ -67,6 +68,12 @@ rm -fr ${DEST}/overview/
 mv _build/html ${DEST}/overview/
 cd ../../bin
 
+# Build the application quick start pages
+cd ../doc/quickstart/
+make html
+rm -fr ${DEST}/quickstart/
+mv _build/html ${DEST}/quickstart/
+cd ../../bin
 
 # license page start
 #cp -f ${SRC}/license_pre.html "$DEST/license.html"
@@ -112,6 +119,15 @@ for ITEM in $APPS ; do
          "s#doc/${ITEM}_description.html#overview/${ITEM}_overview.html#" \
          "/tmp/${ITEM}_definition.html"
      fi
+
+     if [ -e "${DEST}/quickstart/${ITEM}_quickstart.html" ] ; then
+       # Add link to Quick Start, if it exists
+       echo "Inserting Quick Start for ${ITEM}"
+       sed -i -e \
+         "s#<.li>#<p>[<a href='quickstart/${ITEM}_quickstart.html'>Quick Start</a>]</p></li>#" \
+         "/tmp/${ITEM}_definition.html"
+     fi
+
      cat "/tmp/${ITEM}_definition.html" >> "$DEST/content.html"
      rm "/tmp/${ITEM}_definition.html"
    else
