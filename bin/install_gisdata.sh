@@ -83,7 +83,8 @@ for file in *.zip ; do
   unzip "$file" -d "$DATA_FOLDER/natural_earth"
 done
 
-
+chmod a+r "$DATA_FOLDER/natural_earth"
+chmod a+r "$DATA_FOLDER/natural_earth/*"
 
 ###############################
 # Link to Open Street Map data  (e.g. FOSS4G host city)
