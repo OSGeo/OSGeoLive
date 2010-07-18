@@ -85,6 +85,7 @@ done
 
 chmod a+r "$DATA_FOLDER/natural_earth"
 chmod a+r "$DATA_FOLDER/natural_earth/*"
+chmod u-wx "$DATA_FOLDER/natural_earth/*"
 
 ###############################
 # Link to Open Street Map data  (e.g. FOSS4G host city)
