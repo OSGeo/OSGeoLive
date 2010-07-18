@@ -27,8 +27,7 @@
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SRC="../doc"
-#DEST="/usr/local/share/osgeolive-docs"
-DEST="/home/cshorter/tmp/osgeolive-docs"
+DEST="/usr/local/share/osgeolive-docs"
 BASE_FILES="banner.png arramagong.css images" # base files to install
 HTML_FILES="contact.html index.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
