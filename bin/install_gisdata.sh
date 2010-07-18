@@ -83,9 +83,10 @@ for file in *.zip ; do
   unzip "$file" -d "$DATA_FOLDER/natural_earth"
 done
 
-chmod a+r "$DATA_FOLDER/natural_earth"
-chmod a+r "$DATA_FOLDER/natural_earth/*"
-chmod u-wx "$DATA_FOLDER/natural_earth/*"
+chmod a+r "$DATA_FOLDER/natural_earth"     ## read the data dir
+chmod a+r "$DATA_FOLDER/natural_earth/*"   ##  and all files in it
+chmod u-wx "$DATA_FOLDER/natural_earth/*"  ## no, don't exec a data file
+chmod -R +X "$DATA_FOLDER/natural_earth"   ## but keep x on directories
 
 ###############################
 # Link to Open Street Map data  (e.g. FOSS4G host city)
