@@ -45,7 +45,7 @@ apt-get update
 apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev \
    grass-dev libxml2-dev python-shapely tcl8.5-dev tk8.5-dev \
    libgl1-mesa-dev libglu1-mesa-dev python-setuptools build-essential \
-   gfortran libblas-dev liblapack-dev
+   gfortran libblas-dev liblapack-dev libsprng2-dev libsprng2
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -60,7 +60,7 @@ apt-get --assume-yes install r-cran-boot \
   r-cran-matrix r-cran-coda r-cran-foreign \
   r-cran-lattice r-cran-lmtest r-cran-maps r-cran-mgcv \
   r-cran-nlme r-cran-sandwich r-cran-zoo \
-  r-cran-vr r-cran-rodbc r-cran-xml r-cran-mapdata r-cran-mapproj
+  r-cran-vr r-cran-rodbc r-cran-xml r-cran-mapdata r-cran-mapproj 
 
 # package does not exist in Jaunty+: r-cran-e1071
 # not found in Lucid: r-cran-adapt
@@ -91,7 +91,7 @@ cp -a /usr/share/applications/r.desktop "$USER_HOME/Desktop/"
 
 #Remove build libraries
 apt-get --assume-yes remove python-all-dev libgdal1-dev \
-   libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev libglu1-mesa-dev 
+   libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev libglu1-mesa-dev libsprng2-dev
 
 #cleanup leftovers
 apt-get --assume-yes autoremove

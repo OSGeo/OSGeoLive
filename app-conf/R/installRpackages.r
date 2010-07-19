@@ -5,7 +5,7 @@ packagelist <- c("boot","class","classInt","DCluster","digest","epitools","gpcli
 for (i in packagelist) {
 	#Generic Version followed by Australian Repos
 	#install.packages(i, repos= "http://cran.r-project.org", lib = "/usr/local/lib/R/site-library/" , dependencies = TRUE)
-	install.packages(i, repos= "http://cran.ms.unimelb.edu.au/", lib = "/usr/local/lib/R/site-library/" , dependencies = TRUE)
+	install.packages(i, repos= "http://cran.ms.unimelb.edu.au/", lib = "/usr/local/lib/R/site-library/")
 	output <- paste("Finished installing",i,sep=" ")
 	print(output)
 }
