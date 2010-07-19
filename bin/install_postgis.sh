@@ -53,7 +53,6 @@ if [ $? -ne 0 ] ; then
 fi
 
 
-
 ### config ###
 
 #set default user/password to the system user for easy login
@@ -73,12 +72,10 @@ sudo -u $USER_NAME createlang plpgsql template_postgis
 sudo -u $USER_NAME psql -1 -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';" 
 
 
-
-#pgis_file="/usr/share/postgresql-8.3-postgis/lwpostgis.sql"
-## Jul10 TODO resolve location of postgis.sql
+## Jul10 resolved location of postgis.sql
 pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis-1.5/postgis.sql"
 
-# or is it this one:   ???
+# not this one:
 #if [ -e /usr/share/postgresql/8.4/contrib/postgis.sql ] ; then
 #   pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis.sql"
 #fi
@@ -88,9 +85,6 @@ sudo -u $USER_NAME psql --quiet -d template_postgis -f "$pgis_file"
 sudo -u $USER_NAME psql --quiet -v ON_ERROR_STOP=1 -d template_postgis \
    -f /usr/share/postgresql/$PG_VERSION/contrib/postgis-1.5/spatial_ref_sys.sql 
 
-# from install_gpsdrive - verify not necessary..
-#echo GRANT ALL ON geometry_columns TO $USER_NAME | sudo -u postgres psql -Upostgres gis
-#echo GRANT ALL ON spatial_ref_sys  TO $USER_NAME | sudo -u postgres psql -Upostgres gis
 
 #include pgadmin3 profile for connection
 for FILE in  pgadmin3  pgpass  ; do
