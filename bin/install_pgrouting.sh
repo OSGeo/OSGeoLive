@@ -83,19 +83,19 @@ sudo -u $USER_NAME createlang plpgsql $OSM_DB
 
 # add PostGIS functions
 echo "add PostGIS functions"
-sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/postgis.sql $OSM_DB
-sudo -u $USER_NAME psql -f $POSTGIS_FOLDER/spatial_ref_sys.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $POSTGIS_FOLDER/postgis.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $POSTGIS_FOLDER/spatial_ref_sys.sql $OSM_DB
 
 # add pgRouting core functions
 echo "add pgRouting core functions"
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_core.sql $OSM_DB
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_core_wrappers.sql $OSM_DB
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_topology.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_core.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_core_wrappers.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_topology.sql $OSM_DB
 
 # add pgRouting TSP functions
 echo "add pgRouting TSP functions"
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_tsp.sql $OSM_DB
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_tsp.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql $OSM_DB
 
 # TODO: add pgRouting Driving Distance functions
 #echo "add pgRouting Driving Distance functions"
