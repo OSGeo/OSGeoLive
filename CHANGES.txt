@@ -1,6 +1,13 @@
 Arramagong GISVM
 ================
 
+Version: 4.0beta3
+==================
+19 July 2010
+ * Documentation updates, including screenshots
+ * Fixes installers for SAGA, Mysql, etc.
+ * Sample data set cleaning
+
 Version: 4.0beta2
 ==================
 12 July 2010
