@@ -85,8 +85,7 @@ for file in *.zip ; do
 done
 
 chmod a+r "$DATA_FOLDER/natural_earth"     ## read the data dir
-chmod a+r "$DATA_FOLDER/natural_earth/*"   ##  and all files in it
-chmod u-wx "$DATA_FOLDER/natural_earth/*"  ## no, don't exec a data file
+chmod 444 "$DATA_FOLDER/natural_earth/*"   ##  and all files in it
 chmod -R +X "$DATA_FOLDER/natural_earth"   ## but keep x on directories
 
 ##--------------------------------------
