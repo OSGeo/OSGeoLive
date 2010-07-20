@@ -22,11 +22,11 @@ USER_HOME="/home/user"
 #install latest version
 # http://zygrib.org/forum/viewtopic.php?f=7&t=156
 
-wget http://doc.hausser.ch/debpackages/dha-debpackages.key \
+wget -nv http://doc.hausser.ch/debpackages/dha-debpackages.key \
    -O - | sudo apt-key add -
 
 echo "deb http://doc.hausser.ch/debpackages ubuntu-dha lucid" \
-   > /etc/apt/sources.list.d/zygrib.source
+   > /etc/apt/sources.list.d/zygrib.list
 
 apt-get update
 
