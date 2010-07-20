@@ -19,10 +19,16 @@
 
 USER_HOME="/home/user"
 
-#TODO: install latest version
+#install latest version
 # http://zygrib.org/forum/viewtopic.php?f=7&t=156
-# deb http://doc.hausser.ch/debpackages ubuntu-dha lucid
-# wget http://doc.hausser.ch/debpackages/dha-debpackages.key -O - | sudo apt-key add -
+
+wget http://doc.hausser.ch/debpackages/dha-debpackages.key \
+   -O - | sudo apt-key add -
+
+echo "deb http://doc.hausser.ch/debpackages ubuntu-dha lucid" \
+   > /etc/apt/sources.list.d/zygrib.source
+
+apt-get update
 
 
 apt-get --assume-yes install zygrib
