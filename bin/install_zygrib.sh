@@ -38,4 +38,4 @@ apt-get --assume-yes install zygrib
 
 
 # copy icon to Desktop
-cp /usr/share/applications/zygrib.desktop "$USER_HOME/Desktop/"
+cp /usr/local/share/applications/zyGrib.desktop "$USER_HOME/Desktop/zygrib.desktop"
