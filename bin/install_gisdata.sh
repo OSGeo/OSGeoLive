@@ -23,6 +23,7 @@
 
 TMP="/tmp/build_gisdata"
 DATA_FOLDER="/usr/local/share/data"
+POSTGRES_USER="user"
  
 ## Setup things... ##
 if [ ! -d "$DATA_FOLDER" ] ; then
@@ -92,14 +93,14 @@ chmod -R +X "$DATA_FOLDER/natural_earth"   ## but keep x on directories
 ## load natural earth data into postgis
 
 SRC_DIR="$DATA_FOLDER/natural_earth"
-createdb natural_earth -T template_postgis
+sudo -u $POSTGRES_USER createdb natural_earth -T template_postgis
 
 for n in $SRC_DIR/*shp;
 do
-  shp2pgsql -W LATIN1 -s 4326 -I -g the_geom $n | psql --quiet natural_earth
+  shp2pgsql -W LATIN1 -s 4326 -I -g the_geom $n | sudo -u $POSTGRES_USER psql --quiet natural_earth
 done
 
-psql natural_earth --quiet -c "vacuum analyze"
+sudo -u $POSTGRES_USER psql natural_earth --quiet -c "vacuum analyze"
 
 ###############################
 # Link to Open Street Map data  (e.g. FOSS4G host city)
