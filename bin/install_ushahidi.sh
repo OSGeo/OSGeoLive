@@ -67,7 +67,7 @@ MYSQL_ADMIN_PW="user"
 echo "
 CREATE DATABASE ushahidi;
 GRANT ALL PRIVILEGES ON ushahidi.* TO 'user'@'localhost' IDENTIFIED BY 'user';
-" | mysql -u root -p "$MYSQL_ADMIN_PW"
+" | mysql -u root -p"$MYSQL_ADMIN_PW"
 
 
 # tweak apache to allow Clean URLs
