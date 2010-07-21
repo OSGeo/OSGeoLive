@@ -36,6 +36,8 @@ VERSION=`cat ../VERSION.txt`
 
 # abiword is required to convert .odt files to .html
 apt-get install --yes abiword
+apt-get --assume-yes install python-sphinx
+
 
 mkdir -p $DEST/doc
 
