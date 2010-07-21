@@ -45,6 +45,7 @@ ossim
 pgrouting
 postgis
 qgis
+qgis_mapserver
 R
 spatialite
 udig
