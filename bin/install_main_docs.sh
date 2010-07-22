@@ -54,7 +54,7 @@ for ITEM in contact.html index.html sponsors.html content.html ; do
 done
 
 # Add contributors to the sponsors.html page
-echo "<h1>Live GIS Disc developers and contributors</h1>" >> ${DEST}/sponsors.html
+echo "<h1>OSGeo Live GIS Disc developers and contributors</h1>" >> ${DEST}/sponsors.html
 echo "<p>Thank you to all the following people who have contributed their
  programming time and help to make this Live DVD possible.</p>" >> ${DEST}/sponsors.html
 echo "<table>" >> ${DEST}/sponsors.html
