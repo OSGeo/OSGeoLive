@@ -30,12 +30,11 @@ echo "deb http://doc.hausser.ch/debpackages ubuntu-dha lucid" \
 
 apt-get update
 
-
 apt-get --assume-yes install zygrib
-
 
 # don't install the zygrib-maps package, it's 180mb (contains NOAA's GSHHS coastline)
 
-
 # copy icon to Desktop
 cp /usr/local/share/applications/zyGrib.desktop "$USER_HOME/Desktop/zygrib.desktop"
+
+ln -s /usr/local/bin/zyGrib /usr/local/bin/zygrib
