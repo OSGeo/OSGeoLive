@@ -53,12 +53,24 @@ for ITEM in contact.html index.html sponsors.html content.html ; do
   cat ${SRC}/pre.html > $DEST/$ITEM
 done
 
+# Add contributors to the sponsors.html page
+echo "<h1>Live GIS Disc developers and contributors</h1>" >> ${DEST}/sponsors.html
+echo "<p>Thank you to all the following people who have contributed their
+ programming time and help to make this Live DVD possible.</p>" >> ${DEST}/sponsors.html
+echo "<table>" >> ${DEST}/sponsors.html
+grep -v " *#" ${SRC}/../contributors.csv | cut -f1-3 -d, | \
+  sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/' \
+      -e 's+<td>\(Name\|Email\|Country\)</td>+<td><u>\1</u></td>+' \
+      >> ${DEST}/sponsors.html
+echo "</table>" >> ${DEST}/sponsors.html
+echo '<p><i>Source list at: <a href="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv">https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv</a></i></p>' >> ${DEST}/sponsors.html
+
 # Copy body of html static files
 for ITEM in contact.html index.html sponsors.html content.html; do
   cat ${SRC}/${ITEM} >> $DEST/$ITEM
 
   # Add version number to header
-  sed -e "s/<h1>Arramagong/<h1>Arramagong ${VERSION}/" ${DEST}/${ITEM} > /tmp/${ITEM}
+  sed -e "s/<h1>OSGeo Live GIS Disc/<h1>OSGeo Live GIS Disc ${VERSION}/" ${DEST}/${ITEM} > /tmp/${ITEM}
   mv /tmp/${ITEM} ${DEST}/${ITEM}
 done
 
@@ -103,7 +115,7 @@ for ITEM in $APPS ; do
    # Add Header to the X_description.html file
    # FIXME, we should use the pre.html file for this, or similar, to make easier
    # to maintain
-   sed -i -e 's/<body>/<body> <div class="header"><div class="banner"><a href="http:\/\/www.arramagong.com\/"><img src="..\/banner.png"><\/a><\/div><ul>  <li><a href="..\/index.html">Home<\/a><\/li> | <li><a href="..\/content.html">Contents<\/a><\/li> | <li><a href="..\/contact.html">Contact and Support<\/a><\/li> | <li><a href="..\/tests.html">Tests<\/a><\/li> | <li><a href="..\/sponsors.html">Sponsors<\/a><\/li><\/ul><\/div><br \/>/' "$DEST/doc/${ITEM}_description.html"
+   sed -i -e 's/<body>/<body> <div class="header"><div class="banner"><a href="http:\/\/live.osgeo.org\/"><img src="..\/banner.png"><\/a><\/div><ul>  <li><a href="..\/index.html">Home<\/a><\/li> | <li><a href="..\/content.html">Contents<\/a><\/li> | <li><a href="..\/contact.html">Contact and Support<\/a><\/li> | <li><a href="..\/tests.html">Tests<\/a><\/li> | <li><a href="..\/sponsors.html">Sponsors<\/a><\/li><\/ul><\/div><br \/>/' "$DEST/doc/${ITEM}_description.html"
 
    # Add Footer to the X_description.html file
    # FIXME, we should use the post.html file for this, or similar, to make easier
@@ -142,15 +154,6 @@ for ITEM in $APPS ; do
    #  echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_license.html"
    #fi
 done
-
-# Add contributors to the sponsors.html page
-echo "<h1>LiveDVD developers and contributors</h1>" >> ${DEST}/sponsors.html
-echo "<p>Thankyou to all the following people who have contributed installers and packaging help required to build this LiveDVD.</p>" >> ${DEST}/sponsors.html
-echo "<table>" >> ${DEST}/sponsors.html
-grep -v " *#" ${SRC}/../contributors.csv | \
-  sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/' >> ${DEST}/sponsors.html
-echo "</table>" >> ${DEST}/sponsors.html
-echo "<p><i>Source list at: <a href="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv">https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv</a></i></p>" >> ${DEST}/sponsors.html
 
 # Copy disclaimer to content.html
 cat ${SRC}/disclaimer.html >> $DEST/content.html
@@ -204,9 +207,9 @@ if [ -n "$PREFS_FILE" ] ; then
 fi
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
-#\cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
-wget -nv  -O /usr/local/share/icons/arramagong-wombat-small.png \
-  "http://svn.osgeo.org/osgeo/livedvd/artwork/backgrounds/arramagong/arramagong-wombat-small.png"
+\cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
+#wget -nv  -O /usr/local/share/icons/arramagong-wombat-small.png \
+#  "http://svn.osgeo.org/osgeo/livedvd/artwork/backgrounds/arramagong/arramagong-wombat-small.png"
 
 #What logo to use for launching the help?
 # HB: IMO wombat roadsign is good- it says "look here" and is friendly
