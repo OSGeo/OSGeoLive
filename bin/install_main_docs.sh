@@ -60,7 +60,7 @@ echo "<p>Thank you to all the following people who have contributed their
 echo "<table>" >> ${DEST}/sponsors.html
 grep -v " *#" ${SRC}/../contributors.csv | cut -f1-3 -d, | \
   sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/' \
-      -e 's+<td>\(Name\|Email\|Country\)</td>+<td><u>\1</u></td>+' \
+      -e 's+<td>\(Name\|Email\|Country\)</td>+<td><u>\1</u></td>+g' \
       >> ${DEST}/sponsors.html
 echo "</table>" >> ${DEST}/sponsors.html
 echo '<p><i>Source list at: <a href="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv">https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv</a></i></p>' >> ${DEST}/sponsors.html
