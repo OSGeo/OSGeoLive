@@ -69,7 +69,7 @@ fi
 # Install osm2pgrouting package
 apt-get --assume-yes install osm2pgrouting
 
-# TODO: Install workshop material
+# Install workshop material
 apt-get --assume-yes install pgrouting-workshop
 
 # Create tmp folders
@@ -116,8 +116,8 @@ else
 	# NOTE: Conversion can take a a few minutes depending on the extent of the sample data.
 	# Assuming that the sample data won't be very big, it should be OK to run the conversion here, 
 	# otherwise it should be done in advance somehow (TODO).
-	echo "Run osm2pgrouting converter"
-	sudo -u $USER_NAME osm2pgrouting -file "$TMP/sampledata.osm" \
+	echo "Run osm2pgrouting converter (this may take a while)"
+	osm2pgrouting -file "$TMP/sampledata.osm" \
 					-conf "/usr/share/osm2pgrouting/mapconfig.xml" \
 					-dbname $OSM_DB \
 					-user $USER_NAME \
