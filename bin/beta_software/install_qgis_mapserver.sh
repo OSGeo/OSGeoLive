@@ -21,9 +21,12 @@
 # sudo ./install_qgis_mapserver.sh
 
 TMP="/tmp/build_qgis_mapserver"
+BUILD_DIR=`pwd`
 INSTALL_FOLDER="/usr/local"
 DATA_FOLDER="/usr/local/share"
 PKG_DATA=$DATA_FOLDER/qgis_mapserver
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
 
 ### Setup things... ###
  
@@ -50,12 +53,35 @@ apt-get install --assume-yes qgis libapache2-mod-fcgid
 BASEURL=http://geoserver.sourcepole.ch/
 PACKAGE="qgis_mapserver.tgz"
 
-wget -c --progress=dot:mega "$BASEURL/$PACKAGE"
+wget --progress=dot:mega "$BASEURL/$PACKAGE"
 cd /
 tar xzf "$TMP/$PACKAGE"
+ldconfig
 
 #CGI for testing
 ln -s qgis_mapserv.fcgi /usr/lib/cgi-bin/qgis_mapserv
 
 #Sample project
 ln -s /usr/local/share/qgis/QGIS-Itasca-Example.qgs /usr/lib/cgi-bin/
+
+#Unpack demo viewer
+mkdir -p $PKG_DATA
+cd $PKG_DATA
+tar xzf "$BUILD_DIR/../../app-data/qgis-mapserver/mapviewer.tgz"
+
+# Create Desktop Shortcut for Demo viewer
+cat << EOF > /usr/share/applications/qgis-mapserver.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=QGIS Mapserver
+Comment=QGIS Mapserver
+Categories=Application;Geography;Geoscience;Education;
+Exec=firefox $PKG_DATA/mapviewer.html
+Icon=gnome-globe
+Terminal=false
+StartupNotify=false
+EOF
+
+cp -a /usr/share/applications/qgis-mapserver.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/qgis-mapserver.desktop"
