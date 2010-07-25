@@ -22,6 +22,7 @@
 
 TMP="/tmp/build_qgis_mapserver"
 BUILD_DIR=`pwd`
+APP_DATA_DIR="$BUILD_DIR/../../app-data/qgis-mapserver"
 INSTALL_FOLDER="/usr/local"
 DATA_FOLDER="/usr/local/share"
 PKG_DATA=$DATA_FOLDER/qgis_mapserver
@@ -56,7 +57,6 @@ PACKAGE="qgis_mapserver.tgz"
 wget --progress=dot:mega "$BASEURL/$PACKAGE"
 cd /
 tar xzf "$TMP/$PACKAGE"
-ldconfig
 
 #CGI for testing
 ln -s qgis_mapserv.fcgi /usr/lib/cgi-bin/qgis_mapserv
@@ -67,7 +67,8 @@ ln -s /usr/local/share/qgis/QGIS-Itasca-Example.qgs /usr/lib/cgi-bin/
 #Unpack demo viewer
 mkdir -p $PKG_DATA
 cd $PKG_DATA
-tar xzf "$BUILD_DIR/../../app-data/qgis-mapserver/mapviewer.tgz"
+cp "$APP_DATA_DIR/mapviewer.html" .
+tar xzf "$APP_DATA_DIR/mapfish-client-libs.tgz"
 
 # Create Desktop Shortcut for Demo viewer
 cat << EOF > /usr/share/applications/qgis-mapserver.desktop

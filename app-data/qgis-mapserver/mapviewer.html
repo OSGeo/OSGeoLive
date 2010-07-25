@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>QGIS Mapserver</title>
+
+    <link rel="stylesheet" type="text/css" href="./lib/ext/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="./lib/mapfish/mapfish.css" />
+
+    <script type="text/javascript" src="./lib/ext/adapter/ext/ext-base.js"></script>
+    <script type="text/javascript" src="./lib/ext/ext-all.js"></script>
+
+    <script type="text/javascript" src="./lib/mapfish/MapFish.js"></script>
+    
+    <script type="text/javascript">
+    // reference local blank image
+    Ext.BLANK_IMAGE_URL = './lib/ext/resources/images/default/s.gif';
+     
+    // create namespace
+    Ext.namespace('qgismapserver');
+     
+    // create application
+    qgismapserver.app = function() {  
+        // private vars:
+        var map, toolbarItems = [], viewport, vectorLayer;
+
+        // private functions
+        var createMap = function() {
+            map = new OpenLayers.Map({
+                projection: "EPSG:4326",
+                controls: [], 
+                maxExtent: new OpenLayers.Bounds(-180, -90, 180, 90),
+                scales: [
+                    442943842.5, 221471921.25, 110735960.625, 55367980.3125, 27683990.15625,
+                    13841995.078125, 6920997.5390625, 3460498.76953125, 1730249.384765625,
+                    865124.6923828125, 432562.34619140625, 216281.17309570312, 108140.58654785156,
+                    54070.29327392578
+                ]
+            });
+        };
+        
+        var createWmsLayer = function(name, url, params, options) {
+            map.addLayer(new OpenLayers.Layer.WMS(name, url, params, options));
+        };
+        
+        var createVectorLayer = function() {
+            vectorLayer = new OpenLayers.Layer.Vector("vector", {
+                displayInLayerSwitcher: false
+            });
+            map.addLayer(vectorLayer);
+            
+            vectorLayer.events.register('featureadded', vectorLayer, function(){
+                var l = this.features.length;
+                var msg = (l==1) ? 'There is one feature on map' : 'There are now ' + l + ' features on map';
+                qgismapserver.app.setStatus(msg);
+            });
+            
+            return vectorLayer;
+        };
+        
+        var addMapControls = function() {
+            // navigation control
+            var navControl = new OpenLayers.Control.Navigation({
+                type: OpenLayers.Control.TYPE_TOGGLE,
+                zoomWheelEnabled: true
+            });
+            map.addControl(navControl);
+            navControl.activate();
+        };
+        
+        var createViewport = function() {
+            viewport = new Ext.Viewport({
+                layout: 'border',
+                items: [
+                    new Ext.BoxComponent({
+                        region: 'north',
+                        el: 'north',
+                        height: 32,
+                        margins: {left: 5,top: 5}
+                    }), {
+                        region: 'west',
+                        title: 'LayerTree',
+                        width: 200,
+                        border: true,
+                        margins: '5 0 0 5',
+                        frame: false,
+                        split: true,
+                        layout: 'fit',
+                        collapsible: true,
+                        items: [{ 
+                            xtype: 'layertree',
+                            map: map, 
+                            border: false 
+                        }]
+                    },{
+                        region: 'center',
+                        layout: 'fit',
+                        frame: false,
+                        border: true,
+                        margins: '5 5 0 0',
+                        items: [{
+                            xtype: 'gx_mappanel',
+                            map: map,
+                            tbar: toolbarItems,
+                            border: false,
+                            //center: new OpenLayers.LonLat(5,45),
+                            //zoom: 6
+                        }]
+                    },{
+                        region: 'south',
+                        id: 'statusBar',
+                        border: false,
+                        bodyStyle: 'text-align:left;padding:0px;',
+                        height: 25,
+                        margins: '5 0 0 0',
+                        frame: true,
+                        html: 'a status bar'
+                    }
+                ]
+            });
+        };
+        
+        var createToolbar = function() {
+            var action;
+
+            var createSeparator = function() {
+               toolbarItems.push(" ");
+               toolbarItems.push("-");
+               toolbarItems.push(" ");
+            };
+
+            action = new GeoExt.Action({
+                control: new OpenLayers.Control.ZoomToMaxExtent(),
+                map: map,
+                iconCls: 'zoomfull',
+                toggleGroup: 'map',
+                tooltip: 'Zoom to full extent'
+            });
+
+            toolbarItems.push(action);
+
+            createSeparator();
+
+            action = new GeoExt.Action({
+                control: new OpenLayers.Control.ZoomBox(),
+                tooltip: 'Zoom in: click in the map or use the left mouse button and drag to create a rectangle',
+                map: map,
+                iconCls: 'zoomin',
+                toggleGroup: 'map'
+            });
+
+            toolbarItems.push(action);
+
+            action = new GeoExt.Action({
+                control: new OpenLayers.Control.ZoomBox({
+                    out: true
+                }),
+                tooltip: 'Zoom out: click in the map or use the left mouse button and drag to create a rectangle',
+                map: map,
+                iconCls: 'zoomout',
+                toggleGroup: 'map'
+            });
+
+            toolbarItems.push(action);
+
+            action = new GeoExt.Action({
+                control: new OpenLayers.Control.DragPan({
+                    isDefault: true
+                }),
+                tooltip: 'Pan map: keep the left mouse button pressed and drag the map',
+                map: map,
+                iconCls: 'pan',
+                toggleGroup: 'map'
+            });
+
+            toolbarItems.push(action);
+
+            createSeparator();
+
+            action = new GeoExt.Action({
+                control: new OpenLayers.Control.DrawFeature(vectorLayer, OpenLayers.Handler.Point),
+                tooltip: 'Draw a point on the map',
+                map: map,
+                iconCls: 'drawpoint',
+                toggleGroup: 'map'
+            });
+
+            toolbarItems.push(action);
+
+
+            action = new GeoExt.Action({
+                control: new OpenLayers.Control.DrawFeature(vectorLayer, OpenLayers.Handler.Path),
+                tooltip: 'Draw a linestring on the map',
+                map: map,
+                iconCls: 'drawline',
+                toggleGroup: 'map'
+            });
+
+            toolbarItems.push(action);
+
+
+            action = new GeoExt.Action({
+                control: new OpenLayers.Control.DrawFeature(vectorLayer, OpenLayers.Handler.Polygon),
+                tooltip: 'Draw a polygon on the map',
+                map: map,
+                iconCls: 'drawpolygon',
+                toggleGroup: 'map'
+            });
+
+            toolbarItems.push(action);
+
+            createSeparator();
+
+            ctrl = new OpenLayers.Control.NavigationHistory();
+            map.addControl(ctrl);
+
+            action = new GeoExt.Action({
+                   tooltip: "Previous view",
+                   control: ctrl.previous,
+                   iconCls: 'back',
+                   disabled: true
+               });
+            toolbarItems.push(action);
+
+            action = new GeoExt.Action({
+                   tooltip: "Next view",
+                   control: ctrl.next,
+                   iconCls: 'next',
+                   disabled: true
+               });
+            toolbarItems.push(action);
+
+            createSeparator();
+        };
+        
+        // public space:
+        return {
+            // for debug, we make this property public:
+            vector: null,
+            
+            setStatus: function(text) {
+                Ext.getCmp('statusBar').body.dom.innerHTML = text;
+            },
+            
+            init: function() {
+                Ext.QuickTips.init();
+                createMap();
+                createWmsLayer(
+                    "Natural Earth", 
+                    "http://localhost/cgi-bin/qgis_mapserv?map=/usr/local/share/qgis/QGIS-NaturalEarth-Example.qgs",
+                    {layers: 'HYP_50M_SR_W,10m_lakes,10m_rivers_lake_centerlines'}, 
+                    {isBaseLayer: true}
+                );
+                
+                this.vector = createVectorLayer();
+                // vector layer is now accessible via qgismapserver.app.vector
+                
+                addMapControls();
+                createToolbar();
+                createViewport();
+                
+                // display some text in the status bar:
+                this.setStatus('Status: information');
+            }
+        };
+    }(); // end of app
+    
+    Ext.onReady(qgismapserver.app.init, qgismapserver.app);
+     
+     </script>
+     <style type="text/css">
+        .float-left {
+          float: left;
+        }
+        .clear-left {
+          clear: left;
+        }
+     </style>
+  </head>
+
+  <body>
+    <div id="north">
+       <p style="font-size:16pt;color:#15428B;font-weight:bold">QGIS Mapserver</p>
+    </div>
+  </body>
+</html>
