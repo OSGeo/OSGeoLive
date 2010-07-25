@@ -114,7 +114,7 @@ if [ ! -e $USER_DESKTOP/mapguideserverstart.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=MapGuide\nStart
+Name=Start MapGuide
 Comment=Start MapGuide Server
 Categories=Application;Geography;
 Exec=${MGDIR}/startmapguide.sh
@@ -132,7 +132,7 @@ if [ ! -e $USER_DESKTOP/mapguideserverstop.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=MapGuide\nStop
+Name=Stop MapGuide
 Comment=Stop MapGuide Server
 Categories=Application;Education;Geography;
 Exec=${MGDIR}/stopmapguide.sh
@@ -168,7 +168,7 @@ fi
 cat << EOF > ${MGDIR}/server/bin/mgserverd.sh
 #!/bin/bash
 export MENTOR_DICTIONARY_PATH=${MGDIR}/share/gis/coordsys
-export LD_LIBRARY_PATH=/usr/local/fdo-3.5.0/lib:"$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH=/usr/local/fdo-3.5.0/lib:/usr/local/lib:"$LD_LIBRARY_PATH"
 ulimit -s 1024
 
 if [ ! -d /var/lock/mgserver ]; then
@@ -181,6 +181,12 @@ popd
 EOF
 
 chmod ugo+x ${MGDIR}/server/bin/mgserverd.sh
+
+# Replace the Apache envvars file to fix Ubuntu compatibility issues
+cat << EOF > ${MGDIR}/webserverextensions/apache2/bin/envvars
+export MENTOR_DICTIONARY_PATH=${MGDIR}/share/gis/coordsys
+export LD_LIBRARY_PATH=/usr/local/fdo-3.5.0/lib:/usr/local/lib:${MGDIR}/lib:${MGDR}/webserverextensions/lib:${MGDIR}/webserverextensions/php/lib:"$LD_LIBRARY_PATH"
+EOF
 
 # Download and install Sheboygan sample data
 if [ ! -d ${MGDIR}/webserverextensions/www/phpviewersample ]; then
