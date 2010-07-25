@@ -150,7 +150,7 @@ if [ ! -e $USER_DESKTOP/mapguidemaestro.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=MapGuide\nMaestro
+Name=MapGuide Maestro
 Comment=Start MapGuide Maestro
 Categories=Application;Geography;
 Exec=/usr/bin/mono /usr/local/mapguidemaestro-2.0.0/Maestro.exe
