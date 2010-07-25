@@ -25,6 +25,8 @@ VERSION=`cat ${DIR}/../VERSION.txt`
 PACKAGE_NAME="osgeolive"
 VM="${PACKAGE_NAME}-${VERSION}"
 
+# now that everything is installed rebuild library search cache
+ldconfig
 
 # remove build stuff no longer of use
 apt-get --yes remove devscripts pbuilder \
