@@ -28,7 +28,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SRC="../doc"
 DEST="/usr/local/share/osgeolive-docs"
-BASE_FILES="banner.png arramagong.css images" # base files to install
+BASE_FILES="banner.png osgeolive.css images" # base files to install
 HTML_FILES="contact.html index.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
 APPS=`sed -e 's/#.*$//' "$INSTALL_APPS" | sort`
@@ -110,7 +110,7 @@ for ITEM in $APPS ; do
    # Link to the arramagong style file
    # FIXME, we should use the pre.html file for this, or similar, to make easier
    # to maintain
-   sed -i -e 's/<head>/<head><link href="..\/arramagong.css" type="text\/css" rel="stylesheet"\/>/' "$DEST/doc/${ITEM}_description.html"
+   sed -i -e 's/<head>/<head><link href="..\/osgeolive.css" type="text\/css" rel="stylesheet"\/>/' "$DEST/doc/${ITEM}_description.html"
 
    # Add Header to the X_description.html file
    # FIXME, we should use the pre.html file for this, or similar, to make easier
