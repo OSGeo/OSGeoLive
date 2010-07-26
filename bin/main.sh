@@ -91,7 +91,8 @@ for SCRIPT in \
   ./install_opencpn.sh \
   ./install_viking.sh \
   ./install_zygrib.sh \
-  ./install_geopublishing.sh \
+  ./install_geopublisher.sh \
+  ./install_atlasstyler.sh \
   ./install_gpsdrive.sh \
   ./install_mb-system.sh \
   ./install_mapfish.sh \
