@@ -1,0 +1,6 @@
+#Geopublishing Repository for Geopublsiher and AtlasStyler stable releases
+deb http://de.geopublishing.org/repository lucid main
+
+# Sun JRE is in partner repoitory since lucid, but it is not required anymore for geopublishing software.
+# deb http://archive.canonical.com/ubuntu lucid partner
+
