@@ -1,9 +1,10 @@
 Arramagong GISVM
 ================
 
-Version: 4.0rc4
+Version: 4.0rc5
 ==================
 27 July 2010
+ * Fix for gpsdrive
  * Conversion of most documents to rst format
  * Documentation updates
  * Minor fixes to sample data loading
