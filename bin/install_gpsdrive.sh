@@ -205,10 +205,10 @@ fi
   DL_URL="http://www.gpsdrive.de/debian/pool/squeeze"
 
   # dupe?
-  wget -c -nv "$DL_URL/openstreetmap-map-icons-square.small_16908_all.deb"
-  wget -c -nv "$DL_URL/openstreetmap-map-icons-square.big_16908_all.deb"
-  wget -c -nv "$DL_URL/openstreetmap-map-icons-classic.small_16908_all.deb"
-  wget -c -nv "$DL_URL/openstreetmap-map-icons_16908_all.deb"
+  wget -c -nv "$DL_URL/openstreetmap-map-icons-square.small_21934_all.deb"
+  wget -c -nv "$DL_URL/openstreetmap-map-icons-square.big_21934_all.deb"
+  wget -c -nv "$DL_URL/openstreetmap-map-icons-classic.small_21934_all.deb"
+  wget -c -nv "$DL_URL/openstreetmap-map-icons_21934_all.deb"
 
   # holy cow, mapnik-world-boundaries.deb is 300mb!
   #wget -c "$DL_URL/openstreetmap-mapnik-world-boundaries_16662_all.deb"
