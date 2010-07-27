@@ -28,6 +28,9 @@ cd /usr/local/share/saga
 wget -c --progress=dot:mega \
   http://sourceforge.net/projects/saga-gis/files/SAGA%20-%20Documentation/SAGA%202%20User%20Guide/SAGA2_UserGuide_Cimmery_20070401.pdf/download
 
+# Demo dataset
+wget http://zadeh.ugent.be/~johan/saga/DGM_30m_Mt.St.Helens_SRTM.grd
+
 # Desktop icon
 cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
 
