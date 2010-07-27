@@ -1,6 +1,13 @@
 Arramagong GISVM
 ================
 
+Version: 4.0rc4
+==================
+27 July 2010
+ * Conversion of most documents to rst format
+ * Documentation updates
+ * Minor fixes to sample data loading
+
 Version: 4.0beta3
 ==================
 19 July 2010
