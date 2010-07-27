@@ -42,3 +42,4 @@ chmod -R uga+r /var/www/openlayers
 #TODO: Create local example that uses data from the many wms/wfs sources on the live disc
 
 echo "Finished installing OpenLayers $OL_VERSION."
+
