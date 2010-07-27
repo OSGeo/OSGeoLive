@@ -211,7 +211,7 @@ fi
   wget -c -nv "$DL_URL/openstreetmap-map-icons_21934_all.deb"
 
   # holy cow, mapnik-world-boundaries.deb is 300mb!
-  #wget -c "$DL_URL/openstreetmap-mapnik-world-boundaries_16662_all.deb"
+  #wget -c "$DL_URL/openstreetmap-mapnik-world-boundaries_17758_all.deb"
 
 
   CUSTOM_PKGS="gpsdrive*.deb openstreetmap-map*.deb"
