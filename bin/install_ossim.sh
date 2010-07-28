@@ -10,6 +10,7 @@
 
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
+BUILD_DIR=`pwd`
 APP_DATA_DIR="$BUILD_DIR/../app-data/ossim"
 DATA_FOLDER="/usr/local/share/data"
 
