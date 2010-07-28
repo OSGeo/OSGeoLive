@@ -147,7 +147,7 @@ Terminal=false
 StartupNotify=false
 EOF
 fi
-cp /usr/share/applications/mapbender.desktop "$USER_HOME/Desktop/Navigation and Maps"
+cp /usr/share/applications/mapbender.desktop "$USER_HOME/Desktop/"
 
 
 echo "Done installing Mapbender"
