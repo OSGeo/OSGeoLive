@@ -189,7 +189,7 @@ cat "$SRC/pre.html" "$TMPDIR/tests_inc.html" "$SRC/post.html" > "$DEST/tests.htm
 # FIXME
 echo "install_main_docs.sh FIXME: Double-check that the Firefox \
 home page is now set to file://$DEST/index.html"
-# ~user/mozilla/ has to exist first, so firefox would have need
+# ~user/.mozilla/ has to exist first, so firefox would have need
 #   to been started at least once to set it up
 
 # edit ~user/.mozilla/firefox/$RANDOM.default/prefs.js:
@@ -205,6 +205,26 @@ if [ -n "$PREFS_FILE" ] ; then
    # maybe being online won't stick, but we may as well try:
    echo 'user_pref("network.online", true);' >> "$PREFS_FILE"
 fi
+
+# reset the homepage for the main ubuntu-firefox theme too (if present)
+if [ -e /etc/xul-ext/ubufox.js  ] ; then
+   mkdir -p /usr/local/share/osgeo-desktop
+
+   sed -i -e 's+^//pref("browser.startup.homepage".*+pref("browser.startup.homepage", "file:/usr/local/share/osgeo-desktop/osgeo_livedvd-homepage.properties");+' \
+       /etc/xul-ext/ubufox.js
+
+   sed -e 's+^browser.startup.homepage=+browser.startup.homepage=/usr/local/share/osgeolive-docs/index.html+' \
+       /usr/share/doc/ubufox/example-homepage.properties \
+       > /usr/local/share/osgeo-desktop/osgeo_livedvd-homepage.properties
+
+   sed -i -e 's+HOMEPAGE_OFFLINE = "file:///usr/share/ubuntu-artwork/home/index.html"+HOMEPAGE_OFFLINE = "file:///usr/local/share/osgeolive-docs/index.html"+' \
+          -e 's+HOMEPAGE_ONLINE_PREFIX = "http://start.ubuntu.com/10.04/"+HOMEPAGE_ONLINE_PREFIX = "file:///usr/local/share/osgeolive-docs/index.html"+' \
+       /usr/share/xul-ext/ubufox/components/aboutHome.js
+fi     
+
+# how about this one?
+#echo 'pref("browser.startup.homepage", "file:..."' >> /etc/firefox/pref/firefox.js
+
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
 \cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
