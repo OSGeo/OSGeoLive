@@ -224,7 +224,7 @@ Name=Help
 Comment=Live Demo Help
 Categories=Application;Education;Geography;
 Exec=firefox /usr/local/share/osgeolive-docs/index.html
-Icon=/usr/local/share/icons/arramagong-wombat-small.png
+Icon=/usr/share/icons/oxygen/32x32/categories/system-help.png
 Terminal=false
 StartupNotify=false
 EOF
