@@ -94,7 +94,7 @@ wget -c --progress=dot:mega http://ossim.telascience.org/ossimdata/Documentation
 KML_DATA=$DATA_FOLDER/kml
 RASTER_DATA=$DATA_FOLDER/raster
 ELEV_DATA=/usr/share/ossim/elevation/elev
-QUICKSTART=/usr/share/ossim/quickstart
+QUICKSTART=/usr/local/share/ossim/quickstart
 mkdir -p $KML_DATA
 mkdir -p $RASTER_DATA
 mkdir -p $ELEV_DATA
@@ -115,7 +115,6 @@ wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N41E002.omd --output-document=/usr/share/ossim/elevation/elev/N41E002.omd  
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N42E002.hgt --output-document=/usr/share/ossim/elevation/elev/N42E002.hgt 
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N42E002.omd --output-document=/usr/share/ossim/elevation/elev/N42E002.omd 
-chown -R $USER:users /usr/share/ossim/elevation/elev/*
 
 cp -r $APP_DATA_DIR $QUICKSTART
 ln -s $QUICKSTART $USER_HOME/ossim
