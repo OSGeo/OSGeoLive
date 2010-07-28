@@ -19,9 +19,10 @@
 #
 # Authors:
 # =======
-# Mark Leslie <mark.s.leslie@gmail.com>
 # Alex Mandel <tech@wildintellect.com>
+# Brian Hamlin <maplabs-at-light42-dot-com>
 # Hamish Bowman <hamish_b yahoo com>
+# Mark Leslie <mark.s.leslie@gmail.com>
 #
 
 POSTGRES_USER="user"
@@ -40,7 +41,6 @@ cd "$TMP_DIR"
 
 OSM_FILE="/usr/local/share/osm/Barcelona.osm.bz2"
 
-#URL_BASE="ftp://ftp.ardec.com.au/UPLOADS"
 #DL_FILE="medford-gisvm.sql.bz2"
 
 # download package is not versioned so we really shouldn't use "wget -c"
