@@ -55,8 +55,7 @@ BASEURL=http://geoserver.sourcepole.ch/
 PACKAGE="qgis_mapserver.tgz"
 
 wget --progress=dot:mega "$BASEURL/$PACKAGE"
-cd /
-tar xzf "$TMP/$PACKAGE"
+(cd / && tar xzf "$TMP/$PACKAGE")
 
 #CGI for testing
 ln -s qgis_mapserv.fcgi /usr/lib/cgi-bin/qgis_mapserv

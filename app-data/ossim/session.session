@@ -1,0 +1,266 @@
+<?xml version='1.0'?>
+
+<ossimPlanetQt>
+   <ossimPlanetQtLegend version="1">
+      <ossimPlanetTextureLayerGroup>
+         <name>Image Operation Layer</name>
+         <description>Top layer for various applications of GPU algorithms</description>
+         <id/>
+         <enableFlag>1</enableFlag>
+         <transparentColor>
+            <enableFlag>0</enableFlag>
+            <color>0 0 0</color>
+         </transparentColor>
+         <filterType>bilinear</filterType>
+         <ossimPlanetExtents>
+            <minLat>-90</minLat>
+            <maxLat>90</maxLat>
+            <minLon>-180</minLon>
+            <maxLon>180</maxLon>
+            <minScale>0</minScale>
+            <maxScale>4.5035996273705e+15</maxScale>
+            <minHeight>-4.5035996273705e+15</minHeight>
+            <maxHeight>4.5035996273705e+15</maxHeight>
+            <minDate>
+               <ossimDate version="1">
+                  <month>1</month>
+                  <day>1</day>
+                  <year>1</year>
+                  <hour>0</hour>
+                  <minutes>0</minutes>
+                  <seconds>0</seconds>
+                  <fractionalSecond>0</fractionalSecond>
+               </ossimDate>
+            </minDate>
+            <maxDate>
+               <ossimDate version="1">
+                  <month>12</month>
+                  <day>31</day>
+                  <year>11899</year>
+                  <hour>0</hour>
+                  <minutes>0</minutes>
+                  <seconds>0</seconds>
+                  <fractionalSecond>0</fractionalSecond>
+               </ossimDate>
+            </maxDate>
+         </ossimPlanetExtents>
+      </ossimPlanetTextureLayerGroup>
+      <ossimPlanetTextureLayerGroup>
+         <name>Image Layers</name>
+         <description>Root Image layer used to populate the planetary viewer</description>
+         <id/>
+         <enableFlag>1</enableFlag>
+         <transparentColor>
+            <enableFlag>0</enableFlag>
+            <color>0 0 0</color>
+         </transparentColor>
+         <filterType>bilinear</filterType>
+         <ossimPlanetExtents>
+            <minLat>-90</minLat>
+            <maxLat>90</maxLat>
+            <minLon>-180</minLon>
+            <maxLon>180</maxLon>
+            <minScale>0</minScale>
+            <maxScale>4.5035996273705e+15</maxScale>
+            <minHeight>-4.5035996273705e+15</minHeight>
+            <maxHeight>4.5035996273705e+15</maxHeight>
+            <minDate>
+               <ossimDate version="1">
+                  <month>1</month>
+                  <day>1</day>
+                  <year>1</year>
+                  <hour>0</hour>
+                  <minutes>0</minutes>
+                  <seconds>0</seconds>
+                  <fractionalSecond>0</fractionalSecond>
+               </ossimDate>
+            </minDate>
+            <maxDate>
+               <ossimDate version="1">
+                  <month>12</month>
+                  <day>31</day>
+                  <year>11899</year>
+                  <hour>0</hour>
+                  <minutes>0</minutes>
+                  <seconds>0</seconds>
+                  <fractionalSecond>0</fractionalSecond>
+               </ossimDate>
+            </maxDate>
+         </ossimPlanetExtents>
+         <ossimPlanetOssimImageLayer>
+            <name>band1.tif</name>
+            <description>ossimPlanetTextureLayer</description>
+            <id/>
+            <enableFlag>1</enableFlag>
+            <transparentColor>
+               <enableFlag>0</enableFlag>
+               <color>0 0 0</color>
+            </transparentColor>
+            <filterType>bilinear</filterType>
+            <ossimPlanetExtents>
+               <minLat>41.0019323600359</minLat>
+               <maxLat>41.9985954131831</maxLat>
+               <minLon>2.00630527885795</minLon>
+               <maxLon>3.00047850773347</maxLon>
+               <minScale>27.9693300464341</minScale>
+               <maxScale>458249.503480776</maxScale>
+               <minHeight>-4.5035996273705e+15</minHeight>
+               <maxHeight>4.5035996273705e+15</maxHeight>
+               <minDate>
+                  <ossimDate version="1">
+                     <month>1</month>
+                     <day>1</day>
+                     <year>1</year>
+                     <hour>0</hour>
+                     <minutes>0</minutes>
+                     <seconds>0</seconds>
+                     <fractionalSecond>0</fractionalSecond>
+                  </ossimDate>
+               </minDate>
+               <maxDate>
+                  <ossimDate version="1">
+                     <month>12</month>
+                     <day>31</day>
+                     <year>11899</year>
+                     <hour>0</hour>
+                     <minutes>0</minutes>
+                     <seconds>0</seconds>
+                     <fractionalSecond>0</fractionalSecond>
+                  </ossimDate>
+               </maxDate>
+            </ossimPlanetExtents>
+            <ossimPlanetLookAt>
+               <latitude>41.5002638866095</latitude>
+               <longitude>2.50339189329571</longitude>
+               <altitude>0</altitude>
+               <range>137801.457502789</range>
+               <roll>0</roll>
+               <tilt>0</tilt>
+               <heading>0</heading>
+               <altitudeMode>clampToGround</altitudeMode>
+            </ossimPlanetLookAt>
+            <filename>/home/user/data/raster/band1.tif</filename>
+            <entry>0</entry>
+            <histogramStretchMode>Linear Auto Min Max</histogramStretchMode>
+            <histogramStretchEnabled>1</histogramStretchEnabled>
+         </ossimPlanetOssimImageLayer>
+         <ossimPlanetTextureLayerGroup>
+            <name>OSSIM Socket Image Group</name>
+            <description>ossimPlanetTextureLayerGroup</description>
+            <id/>
+            <enableFlag>1</enableFlag>
+            <transparentColor>
+               <enableFlag>0</enableFlag>
+               <color>0 0 0</color>
+            </transparentColor>
+            <filterType>bilinear</filterType>
+            <ossimPlanetExtents>
+               <minLat>-90</minLat>
+               <maxLat>90</maxLat>
+               <minLon>-180</minLon>
+               <maxLon>180</maxLon>
+               <minScale>0</minScale>
+               <maxScale>4.5035996273705e+15</maxScale>
+               <minHeight>-4.5035996273705e+15</minHeight>
+               <maxHeight>4.5035996273705e+15</maxHeight>
+               <minDate>
+                  <ossimDate version="1">
+                     <month>1</month>
+                     <day>1</day>
+                     <year>1</year>
+                     <hour>0</hour>
+                     <minutes>0</minutes>
+                     <seconds>0</seconds>
+                     <fractionalSecond>0</fractionalSecond>
+                  </ossimDate>
+               </minDate>
+               <maxDate>
+                  <ossimDate version="1">
+                     <month>12</month>
+                     <day>31</day>
+                     <year>11899</year>
+                     <hour>0</hour>
+                     <minutes>0</minutes>
+                     <seconds>0</seconds>
+                     <fractionalSecond>0</fractionalSecond>
+                  </ossimDate>
+               </maxDate>
+            </ossimPlanetExtents>
+         </ossimPlanetTextureLayerGroup>
+         <ossimPlanetOssimImageLayer>
+            <name>earth.jpg</name>
+            <description>ossimPlanetTextureLayer</description>
+            <id/>
+            <enableFlag>1</enableFlag>
+            <transparentColor>
+               <enableFlag>0</enableFlag>
+               <color>0 0 0</color>
+            </transparentColor>
+            <filterType>bilinear</filterType>
+            <ossimPlanetExtents>
+               <minLat>-90</minLat>
+               <maxLat>89.9333333333333</maxLat>
+               <minLon>-179.933333333333</minLon>
+               <maxLon>180</maxLon>
+               <minScale>14892.5263643591</minScale>
+               <maxScale>3903986431.25856</maxScale>
+               <minHeight>-4.5035996273705e+15</minHeight>
+               <maxHeight>4.5035996273705e+15</maxHeight>
+               <minDate>
+                  <ossimDate version="1">
+                     <month>1</month>
+                     <day>1</day>
+                     <year>1</year>
+                     <hour>0</hour>
+                     <minutes>0</minutes>
+                     <seconds>0</seconds>
+                     <fractionalSecond>0</fractionalSecond>
+                  </ossimDate>
+               </minDate>
+               <maxDate>
+                  <ossimDate version="1">
+                     <month>12</month>
+                     <day>31</day>
+                     <year>11899</year>
+                     <hour>0</hour>
+                     <minutes>0</minutes>
+                     <seconds>0</seconds>
+                     <fractionalSecond>0</fractionalSecond>
+                  </ossimDate>
+               </maxDate>
+            </ossimPlanetExtents>
+            <ossimPlanetLookAt>
+               <latitude>-0.0666666666666429</latitude>
+               <longitude>0.0666666666666229</longitude>
+               <altitude>0</altitude>
+               <range>44955946.7650101</range>
+               <roll>0</roll>
+               <tilt>0</tilt>
+               <heading>0</heading>
+               <altitudeMode>clampToGround</altitudeMode>
+            </ossimPlanetLookAt>
+            <filename>/usr/share/ossim/images/reference/earth.jpg</filename>
+            <entry>0</entry>
+            <histogramStretchMode>None</histogramStretchMode>
+            <histogramStretchEnabled>0</histogramStretchEnabled>
+         </ossimPlanetOssimImageLayer>
+      </ossimPlanetTextureLayerGroup>
+      <ossimPlanetKml>
+         <name>Location</name>
+      </ossimPlanetKml>
+      <ossimPlanetVideoLayer>
+         <name>Video</name>
+      </ossimPlanetVideoLayer>
+   </ossimPlanetQtLegend>
+   <ossimPlanetManipulator>
+      <View>
+         <latitude>41.3617412194752</latitude>
+         <longitude>2.170902</longitude>
+         <altitude>2874.27826717962</altitude>
+         <heading>0</heading>
+         <pitch>44.9745442194752</pitch>
+         <roll>0</roll>
+      </View>
+   </ossimPlanetManipulator>
+</ossimPlanetQt>
+

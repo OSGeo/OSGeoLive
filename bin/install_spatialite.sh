@@ -22,7 +22,7 @@
 
 TMP="/tmp/build_spatialite"
 INSTALL_FOLDER="/usr/local"
-DATA_FOLDER="/usr/local/share"
+DATA_FOLDER="/usr/local/share/data"
 PKG_DATA=$DATA_FOLDER/spatialite
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
@@ -84,7 +84,8 @@ fi
 wget -N --progress=dot:mega "$BASEURL/samples.tar.gz"
 (cd "$PKG_DATA" && tar xzf "$TMP/samples.tar.gz")
 
-chown "$USER_NAME":users "$PKG_DATA"/* -R
+chgrp -R users $PKG_DATA
+chmod -R g+w $PKG_DATA
 
 ## start icon
 cat << EOF > /usr/share/applications/spatialite-gui.desktop

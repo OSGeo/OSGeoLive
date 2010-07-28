@@ -1,0 +1,393 @@
+<?xml version='1.0'?>
+
+<object type="ossimQtProject">
+   <object name="data" type="ossimDataManager">
+      <object name="object1" type="ossimImageChain">
+         <property name="description" value="Image chain: /home/user/data/raster/band1.tif"/>
+         <property name="enabled" value="1"/>
+         <property name="id" value="32"/>
+         <property name="input_list_fixed" value="1"/>
+         <property name="number_inputs" value="0"/>
+         <property name="number_outputs" value="3"/>
+         <object name="object1" type="ossimTiffTileSource">
+            <property name="apply_color_palette_flag" value="1"/>
+            <property name="description"/>
+            <property name="enabled" value="1"/>
+            <property name="filename" value="/home/user/data/raster/band1.tif"/>
+            <property name="id" value="24"/>
+            <property name="input_list_fixed" value="1"/>
+            <property name="number_inputs" value="0"/>
+            <property name="number_outputs" value="1"/>
+            <property name="output_connection1" value="36"/>
+            <property name="output_list_fixed" value="0"/>
+            <property name="overview_file" value="/home/user/data/raster/band1.ovr"/>
+            <property name="start_res_level" value="0"/>
+         </object>
+         <object name="object2" type="ossimHistogramRemapper">
+            <property name="description"/>
+            <property name="enabled" value="1"/>
+            <property name="id" value="36"/>
+            <property name="input_connection1" value="24"/>
+            <property name="input_list_fixed" value="1"/>
+            <object name="max_output_value">
+               <property name="band1" value="255"/>
+            </object>
+            <object name="mid_point">
+               <property name="band1" value="0"/>
+            </object>
+            <object name="min_output_value">
+               <property name="band1" value="51"/>
+            </object>
+            <object name="normalized_high_clip_point">
+               <property name="band1" value="1"/>
+            </object>
+            <object name="normalized_low_clip_point">
+               <property name="band1" value="0"/>
+            </object>
+            <property name="number_bands" value="1"/>
+            <property name="number_inputs" value="1"/>
+            <property name="number_outputs" value="1"/>
+            <property name="output_connection1" value="35"/>
+            <property name="output_list_fixed" value="0"/>
+            <property name="scalar_type" value="ossim_uint8"/>
+            <property name="stretch_mode" value="linear_one_piece"/>
+         </object>
+         <object name="object3" type="ossimCacheTileSource">
+            <property name="description"/>
+            <property name="enable_cache" value="1"/>
+            <property name="enabled" value="1"/>
+            <property name="id" value="35"/>
+            <property name="input_connection1" value="36"/>
+            <property name="input_list_fixed" value="1"/>
+            <property name="number_inputs" value="1"/>
+            <property name="number_outputs" value="1"/>
+            <property name="output_connection1" value="34"/>
+            <property name="output_list_fixed" value="0"/>
+            <property name="tile_size_xy" value="(64,64)"/>
+         </object>
+         <object name="object4" type="ossimImageRenderer">
+            <property name="description"/>
+            <property name="enabled" value="1"/>
+            <property name="id" value="34"/>
+            <property name="input_connection1" value="35"/>
+            <property name="input_list_fixed" value="1"/>
+            <property name="max_levels_to_compute" value="999999"/>
+            <property name="number_inputs" value="1"/>
+            <property name="number_outputs" value="1"/>
+            <property name="output_connection1" value="33"/>
+            <property name="output_list_fixed" value="0"/>
+            <object name="resampler">
+               <property name="magnify_type" value="nearest neighbor"/>
+               <property name="minify_type" value="nearest neighbor"/>
+               <property name="scale_x" value="0.820357302867385"/>
+               <property name="scale_y" value="0.820357302867384"/>
+            </object>
+         </object>
+         <object name="object5" type="ossimCacheTileSource">
+            <property name="description"/>
+            <property name="enable_cache" value="1"/>
+            <property name="enabled" value="1"/>
+            <property name="id" value="33"/>
+            <property name="input_connection1" value="34"/>
+            <property name="input_list_fixed" value="1"/>
+            <property name="number_inputs" value="1"/>
+            <property name="number_outputs" value="0"/>
+            <property name="output_list_fixed" value="0"/>
+            <property name="tile_size_xy" value="(64,64)"/>
+         </object>
+         <property name="output_connection1" value="49"/>
+         <property name="output_connection2" value="43"/>
+         <property name="output_connection3" value="44"/>
+         <property name="output_list_fixed" value="0"/>
+      </object>
+      <object name="object2" type="ossimImageChain">
+         <property name="description" value="Image chain: /home/user/data/raster/band2.tif"/>
+         <property name="enabled" value="1"/>
+         <property name="id" value="60"/>
+         <property name="input_list_fixed" value="1"/>
+         <property name="number_inputs" value="0"/>
+         <property name="number_outputs" value="3"/>
+         <object name="object1" type="ossimTiffTileSource">
+            <property name="apply_color_palette_flag" value="1"/>
+            <property name="description"/>
+            <property name="enabled" value="1"/>
+            <property name="filename" value="/home/user/data/raster/band2.tif"/>
+            <property name="id" value="52"/>
+            <property name="input_list_fixed" value="1"/>
+            <property name="number_inputs" value="0"/>
+            <property name="number_outputs" value="1"/>
+            <property name="output_connection1" value="64"/>
+            <property name="output_list_fixed" value="0"/>
+            <property name="overview_file" value="/home/user/data/raster/band2.ovr"/>
+            <property name="start_res_level" value="0"/>
+         </object>
+         <object name="object2" type="ossimHistogramRemapper">
+            <property name="description"/>
+            <property name="enabled" value="1"/>
+            <property name="id" value="64"/>
+            <property name="input_connection1" value="52"/>
+            <property name="input_list_fixed" value="1"/>
+            <object name="max_output_value">
+               <property name="band1" value="255"/>
+            </object>
+            <object name="mid_point">
+               <property name="band1" value="0"/>
+            </object>
+            <object name="min_output_value">
+               <property name="band1" value="30"/>
+            </object>
+            <object name="normalized_high_clip_point">
+               <property name="band1" value="1"/>
+            </object>
+            <object name="normalized_low_clip_point">
+               <property name="band1" value="0"/>
+            </object>
+            <property name="number_bands" value="1"/>
+            <property name="number_inputs" value="1"/>
+            <property name="number_outputs" value="1"/>
+            <property name="output_connection1" value="63"/>
+            <property name="output_list_fixed" value="0"/>
+            <property name="scalar_type" value="ossim_uint8"/>
+            <property name="stretch_mode" value="linear_one_piece"/>
+         </object>
+         <object name="object3" type="ossimCacheTileSource">
+            <property name="description"/>
+            <property name="enable_cache" value="1"/>
+            <property name="enabled" value="1"/>
+            <property name="id" value="63"/>
+            <property name="input_connection1" value="64"/>
+            <property name="input_list_fixed" value="1"/>
+            <property name="number_inputs" value="1"/>
+            <property name="number_outputs" value="1"/>
+            <property name="output_connection1" value="62"/>
+            <property name="output_list_fixed" value="0"/>
+            <property name="tile_size_xy" value="(64,64)"/>
+         </object>
+         <object name="object4" type="ossimImageRenderer">
+            <property name="description"/>
+            <property name="enabled" value="1"/>
+            <property name="id" value="62"/>
+            <property name="input_connection1" value="63"/>
+            <property name="input_list_fixed" value="1"/>
+            <property name="max_levels_to_compute" value="999999"/>
+            <property name="number_inputs" value="1"/>
+            <property name="number_outputs" value="1"/>
+            <property name="output_connection1" value="61"/>
+            <property name="output_list_fixed" value="0"/>
+            <object name="resampler">
+               <property name="magnify_type" value="nearest neighbor"/>
+               <property name="minify_type" value="nearest neighbor"/>
+               <property name="scale_x" value="0.819941617963955"/>
+               <property name="scale_y" value="0.819941617963955"/>
+            </object>
+         </object>
+         <object name="object5" type="ossimCacheTileSource">
+            <property name="description"/>
+            <property name="enable_cache" value="1"/>
+            <property name="enabled" value="1"/>
+            <property name="id" value="61"/>
+            <property name="input_connection1" value="62"/>
+            <property name="input_list_fixed" value="1"/>
+            <property name="number_inputs" value="1"/>
+            <property name="number_outputs" value="0"/>
+            <property name="output_list_fixed" value="0"/>
+            <property name="tile_size_xy" value="(64,64)"/>
+         </object>
+         <property name="output_connection1" value="77"/>
+         <property name="output_connection2" value="71"/>
+         <property name="output_connection3" value="72"/>
+         <property name="output_list_fixed" value="0"/>
+      </object>
+      <object name="object3" type="ossimImageChain">
+         <property name="description" value="Image chain: /home/user/data/raster/band3.tif"/>
+         <property name="enabled" value="1"/>
+         <property name="id" value="88"/>
+         <property name="input_list_fixed" value="1"/>
+         <property name="number_inputs" value="0"/>
+         <property name="number_outputs" value="3"/>
+         <object name="object1" type="ossimTiffTileSource">
+            <property name="apply_color_palette_flag" value="1"/>
+            <property name="description"/>
+            <property name="enabled" value="1"/>
+            <property name="filename" value="/home/user/data/raster/band3.tif"/>
+            <property name="id" value="80"/>
+            <property name="input_list_fixed" value="1"/>
+            <property name="number_inputs" value="0"/>
+            <property name="number_outputs" value="1"/>
+            <property name="output_connection1" value="92"/>
+            <property name="output_list_fixed" value="0"/>
+            <property name="overview_file" value="/home/user/data/raster/band3.ovr"/>
+            <property name="start_res_level" value="0"/>
+         </object>
+         <object name="object2" type="ossimHistogramRemapper">
+            <property name="description"/>
+            <property name="enabled" value="1"/>
+            <property name="id" value="92"/>
+            <property name="input_connection1" value="80"/>
+            <property name="input_list_fixed" value="1"/>
+            <object name="max_output_value">
+               <property name="band1" value="255"/>
+            </object>
+            <object name="mid_point">
+               <property name="band1" value="0"/>
+            </object>
+            <object name="min_output_value">
+               <property name="band1" value="20"/>
+            </object>
+            <object name="normalized_high_clip_point">
+               <property name="band1" value="1"/>
+            </object>
+            <object name="normalized_low_clip_point">
+               <property name="band1" value="0"/>
+            </object>
+            <property name="number_bands" value="1"/>
+            <property name="number_inputs" value="1"/>
+            <property name="number_outputs" value="1"/>
+            <property name="output_connection1" value="91"/>
+            <property name="output_list_fixed" value="0"/>
+            <property name="scalar_type" value="ossim_uint8"/>
+            <property name="stretch_mode" value="linear_one_piece"/>
+         </object>
+         <object name="object3" type="ossimCacheTileSource">
+            <property name="description"/>
+            <property name="enable_cache" value="1"/>
+            <property name="enabled" value="1"/>
+            <property name="id" value="91"/>
+            <property name="input_connection1" value="92"/>
+            <property name="input_list_fixed" value="1"/>
+            <property name="number_inputs" value="1"/>
+            <property name="number_outputs" value="1"/>
+            <property name="output_connection1" value="90"/>
+            <property name="output_list_fixed" value="0"/>
+            <property name="tile_size_xy" value="(64,64)"/>
+         </object>
+         <object name="object4" type="ossimImageRenderer">
+            <property name="description"/>
+            <property name="enabled" value="1"/>
+            <property name="id" value="90"/>
+            <property name="input_connection1" value="91"/>
+            <property name="input_list_fixed" value="1"/>
+            <property name="max_levels_to_compute" value="999999"/>
+            <property name="number_inputs" value="1"/>
+            <property name="number_outputs" value="1"/>
+            <property name="output_connection1" value="89"/>
+            <property name="output_list_fixed" value="0"/>
+            <object name="resampler">
+               <property name="magnify_type" value="nearest neighbor"/>
+               <property name="minify_type" value="nearest neighbor"/>
+               <property name="scale_x" value="0.806932814040779"/>
+               <property name="scale_y" value="0.806932814040774"/>
+            </object>
+         </object>
+         <object name="object5" type="ossimCacheTileSource">
+            <property name="description"/>
+            <property name="enable_cache" value="1"/>
+            <property name="enabled" value="1"/>
+            <property name="id" value="89"/>
+            <property name="input_connection1" value="90"/>
+            <property name="input_list_fixed" value="1"/>
+            <property name="number_inputs" value="1"/>
+            <property name="number_outputs" value="0"/>
+            <property name="output_list_fixed" value="0"/>
+            <property name="tile_size_xy" value="(64,64)"/>
+         </object>
+         <property name="output_connection1" value="105"/>
+         <property name="output_connection2" value="99"/>
+         <property name="output_connection3" value="100"/>
+         <property name="output_list_fixed" value="0"/>
+      </object>
+   </object>
+   <property name="description"/>
+   <object name="display0" type="ossimQtImageWindow">
+      <property name="center_ground" value="41.4990048377803 2.50508612170211"/>
+      <property name="description"/>
+      <property name="id" value="49"/>
+      <property name="input_connection1" value="32"/>
+      <property name="input_list_fixed" value="0"/>
+      <property name="number_inputs" value="1"/>
+      <property name="number_outputs" value="0"/>
+      <property name="output_list_fixed" value="0"/>
+      <property name="position" value="0 0"/>
+      <property name="show_state" value="shown"/>
+      <property name="size" value="333 290"/>
+      <object name="view" type="ossimEquDistCylProjection">
+         <property name="central_meridian" value="2.00630527885795"/>
+         <property name="datum" value="WGE"/>
+         <property name="elevation_lookup_flag" value="0"/>
+         <property name="ellipse_code" value="WE"/>
+         <property name="ellipse_name" value="WGS 84"/>
+         <property name="false_easting_northing" value="(0,0)"/>
+         <property name="false_easting_northing_units" value="meters"/>
+         <property name="major_axis" value="6378137"/>
+         <property name="minor_axis" value="6356752.3142"/>
+         <property name="origin_latitude" value="41.9985954131831"/>
+         <property name="pixel_scale_units" value="degrees"/>
+         <property name="pixel_scale_xy" value="(0.00330353725631214,0.00245499054251967)"/>
+         <property name="tie_point_units" value="degrees"/>
+         <property name="tie_point_xy" value="(2.00778762464547,41.9974938227948)"/>
+      </object>
+   </object>
+   <object name="display1" type="ossimQtImageWindow">
+      <property name="center_ground" value="41.4964867401221 2.50881342419619"/>
+      <property name="description"/>
+      <property name="id" value="77"/>
+      <property name="input_connection1" value="60"/>
+      <property name="input_list_fixed" value="0"/>
+      <property name="number_inputs" value="1"/>
+      <property name="number_outputs" value="0"/>
+      <property name="output_list_fixed" value="0"/>
+      <property name="position" value="341 0"/>
+      <property name="show_state" value="shown"/>
+      <property name="size" value="333 290"/>
+      <object name="view" type="ossimEquDistCylProjection">
+         <property name="central_meridian" value="1.99918951955107"/>
+         <property name="datum" value="WGE"/>
+         <property name="elevation_lookup_flag" value="0"/>
+         <property name="ellipse_code" value="WE"/>
+         <property name="ellipse_name" value="WGS 84"/>
+         <property name="false_easting_northing" value="(0,0)"/>
+         <property name="false_easting_northing_units" value="meters"/>
+         <property name="major_axis" value="6378137"/>
+         <property name="minor_axis" value="6356752.3142"/>
+         <property name="origin_latitude" value="41.9960773155248"/>
+         <property name="pixel_scale_units" value="degrees"/>
+         <property name="pixel_scale_xy" value="(0.00330353725631214,0.00245499054251967)"/>
+         <property name="tie_point_units" value="degrees"/>
+         <property name="tie_point_xy" value="(2.00067186533859,41.9949757251365)"/>
+      </object>
+   </object>
+   <object name="display2" type="ossimQtImageWindow">
+      <property name="center_ground" value="41.4967284857086 2.51190346749112"/>
+      <property name="description"/>
+      <property name="id" value="105"/>
+      <property name="input_connection1" value="88"/>
+      <property name="input_list_fixed" value="0"/>
+      <property name="number_inputs" value="1"/>
+      <property name="number_outputs" value="0"/>
+      <property name="output_list_fixed" value="0"/>
+      <property name="position" value="341 240"/>
+      <property name="show_state" value="shown"/>
+      <property name="size" value="333 290"/>
+      <object name="view" type="ossimUtmProjection">
+         <property name="central_meridian" value="3"/>
+         <property name="datum" value="WGE"/>
+         <property name="elevation_lookup_flag" value="0"/>
+         <property name="ellipse_code" value="WE"/>
+         <property name="ellipse_name" value="WGS 84"/>
+         <property name="false_easting_northing" value="(500000,0)"/>
+         <property name="false_easting_northing_units" value="meters"/>
+         <property name="hemisphere" value="N"/>
+         <property name="major_axis" value="6378137"/>
+         <property name="minor_axis" value="6356752.3142"/>
+         <property name="origin_latitude" value="0"/>
+         <property name="pcs_code" value="32631"/>
+         <property name="pixel_scale_units" value="meters"/>
+         <property name="pixel_scale_xy" value="(277.385749385749,277.385749385749)"/>
+         <property name="srs_name" value="EPSG:32631"/>
+         <property name="tie_point_units" value="meters"/>
+         <property name="tie_point_xy" value="(417272.692874693,4650339.30712531)"/>
+         <property name="zone" value="31"/>
+      </object>
+   </object>
+</object>
+

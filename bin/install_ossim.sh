@@ -10,6 +10,8 @@
 
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
+APP_DATA_DIR="$BUILD_DIR/../app-data/ossim"
+DATA_FOLDER="/usr/local/share/data"
 
 #Add repositories
 
@@ -88,19 +90,23 @@ wget -c --progress=dot:mega http://ossim.telascience.org/ossimdata/Documentation
 
 
 #Download data used to test the application
-mkdir /usr/local/share/ossim/ossim_data 
-mkdir -p /usr/share/ossim/elevation/elev 
-# why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
-chmod -R 777 /usr/local/share/ossim/ossim_data 
+KML_DATA=$DATA_FOLDER/kml
+RASTER_DATA=$DATA_FOLDER/raster
+ELEV_DATA=/usr/share/ossim/elevation/elev
+QUICKSTART=/usr/share/ossim/quickstart
+mkdir -p $KML_DATA
+mkdir -p $RASTER_DATA
+mkdir -p $ELEV_DATA
 
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band1.tif  --output-document=/usr/local/share/ossim/ossim_data/band1.tif           
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band2.tiff  --output-document=/usr/local/share/ossim/ossim_data/band2.tif
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band3.tiff  --output-document=/usr/local/share/ossim/ossim_data/band3.tif
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/SRTM_u03_n041e002.tif  --output-document=/usr/local/share/ossim/ossim_data/SRTM_u03_n041e002.tif
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/kml/Plaza_de_Cataluna.kmz --output-document=/usr/local/share/ossim/ossim_data/Plaza_de_Cataluna.kmz
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/kml/View_towards_Sagrada_Familia.kmz --output-document=/usr/local/share/ossim/ossim_data/View_towards_Sagrada_Familia.kmz
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/landsatrgb.prj --output-document=/usr/local/share/ossim/ossim_data/landsatrgb.prj
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/session.session --output-document=/usr/local/share/ossim/ossim_data/session.session
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band1.tif  --output-document=$RASTER_DATA/band1.tif           
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band2.tiff  --output-document=$RASTER_DATA/band2.tif
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band3.tiff  --output-document=$RASTER_DATA/band3.tif
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/SRTM_u03_n041e002.tif  --output-document=$RASTER_DATA/SRTM_u03_n041e002.tif
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/kml/Plaza_de_Cataluna.kmz --output-document=$KML_DATA/Plaza_de_Cataluna.kmz
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/kml/View_towards_Sagrada_Familia.kmz --output-document=$KML_DATA/View_towards_Sagrada_Familia.kmz
+#wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/landsatrgb.prj --output-document=$PKG_DATA/landsatrgb.prj
+#wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/session.session --output-document=$PKG_DATA/session.session
+ossim-img2rr $RASTER_DATA/band1.tif $RASTER_DATA/band2.tif $RASTER_DATA/band3.tif
  
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N40E002.hgt --output-document=/usr/share/ossim/elevation/elev/N40E002.hgt 
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N40E002.omd --output-document=/usr/share/ossim/elevation/elev/N40E002.omd 
@@ -108,7 +114,16 @@ wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N41E002.omd --output-document=/usr/share/ossim/elevation/elev/N41E002.omd  
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N42E002.hgt --output-document=/usr/share/ossim/elevation/elev/N42E002.hgt 
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N42E002.omd --output-document=/usr/share/ossim/elevation/elev/N42E002.omd 
-ossim-img2rr /usr/local/share/ossim/ossim_data/band1.tif /usr/local/share/ossim/ossim_data/band2.tif /usr/local/share/ossim/ossim_data/band3.tif
+chown -R $USER:users /usr/share/ossim/elevation/elev/*
+
+cp -r $APP_DATA_DIR $QUICKSTART
+ln -s $QUICKSTART $USER_HOME/ossim
+
+for dir in $QUICKSTART $KML_DATA $RASTER_DATA; do
+  chgrp -R users $dir
+  chmod -R g+w $dir
+done
+
 chmod 644 /usr/local/share/ossim/*.pdf
 
 echo "Finished installing Ossim "
