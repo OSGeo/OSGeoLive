@@ -94,7 +94,8 @@ chown -R user $INSTALL_DIR/mapbender/tools
 
 cd $INSTALL_DIR/mapbender/resources/db
 chmod +x install_2.6.sh 
-sudo -u $USER_NAME ./install_2.6.sh localhost 5432 $MAPBENDER_DATABASE_NAME $MAPBENDER_DATABASE_TEMPLATE $MAPBENDER_DATABASE_USER
+sudo -u $USER_NAME ./install_2.6.sh localhost 5432 \
+   $MAPBENDER_DATABASE_NAME $MAPBENDER_DATABASE_TEMPLATE $MAPBENDER_DATABASE_USER
 chown -R www-data:www-data $INSTALL_DIR/mapbender/resources
 chown -R www-data:www-data $INSTALL_DIR/mapbender/tools
 
@@ -127,8 +128,8 @@ echo "RedirectMatch ^.*owsproxy.([^i][\w\d]+)\/([\w\d]+)\/?$ http://localhost/ow
 ### install desktop icon ##
 echo "Installing Mapbender desktop icon"
 if [ ! -e "/usr/share/icons/mapbender_desktop_48x48.png" ] ; then
-   wget "https://svn.osgeo.org/mapbender/trunk/build/osgeolive/mapbender_desktop_48x48.png"
-   \mv mapbender_desktop_48x48.png /usr/share/icons/
+   wget -nv -N "https://svn.osgeo.org/mapbender/trunk/build/osgeolive/mapbender_desktop_48x48.png"
+   \cp mapbender_desktop_48x48.png /usr/share/icons/
 fi
 
 
