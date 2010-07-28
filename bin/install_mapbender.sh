@@ -124,6 +124,12 @@ echo "RedirectMatch ^.*owsproxy.([^i][\w\d]+)\/([\w\d]+)\/?$ http://localhost/ow
 #Restart apache2 for mapbender
 /etc/init.d/apache2 force-reload
 
+### install desktop icon ##
+echo "Installing Mapbender desktop icon"
+if [ ! -e "/usr/share/icons/mapbender_desktop_48x48.png" ] ; then
+   wget "https://svn.osgeo.org/mapbender/trunk/build/osgeolive/mapbender_desktop_48x48.png"
+   \mv mapbender_desktop_48x48.png /usr/share/icons/
+fi
 
 
 #Add Launch icon to desktop
@@ -136,7 +142,7 @@ Name=Mapbender
 Comment=Mapbender
 Categories=Application;Geography;Geoscience;Education;
 Exec=firefox http://localhost/mapbender/
-Icon=gnome-globe
+Icon=/usr/share/icons/mapbender_desktop_48x48.png
 Terminal=false
 StartupNotify=false
 EOF
