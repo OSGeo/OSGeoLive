@@ -67,7 +67,7 @@ cd "$USER_HOME/Desktop"
 
 DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0 spatialite-gis zygrib saga_gui"
 NAV_APPS="MapFish marble gpsdrive opencpn maptiler josm gosmore merkaartor viking"
-SERVER_APPS="deegree-* geoserver-* *geonetwork* geomajas-* mapserver mapnik-* mapguide* 52n-* mapbender"
+SERVER_APPS="deegree-* geoserver-* *geonetwork* geomajas-* mapserver mapnik-* mapguide* 52n-* mapbender qgis-mapserver"
 SPATIAL_TOOLS="imagelinker r spatialite-gui geokettle"
 DB_APPS=""  # pgadmin, sqlitebrowser, etc
 RELIEF_APPS="sahana ushahidi"
