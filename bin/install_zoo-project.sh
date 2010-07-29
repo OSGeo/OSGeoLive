@@ -38,19 +38,22 @@
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-ZOO_TMP=/tmp
+ZOO_TMP=/tmp/build_zoo
 
 ZOO_APACHE_CONF="/etc/apache2/conf.d/zoo-project"
 
+mkdir -p "$ZOO_TMP"
+
 # Download ZOO Project LiveDVD tarball.
-wget -c http://zoo-project.org/dl/zoo-livedvd.tar.bz2 -O $ZOO_TMP/zoo-livedvd.tar.bz2
+wget -N --progress=dot:mega "http://zoo-project.org/dl/zoo-livedvd.tar.bz2" \
+     -O "$ZOO_TMP/zoo-livedvd.tar.bz2"
 
 # Uncompress ZOO Project LiveDVD tarball.
-tar -xjpf $ZOO_TMP/zoo-livedvd.tar.bz2 -C /
+tar -xjpf "$ZOO_TMP/zoo-livedvd.tar.bz2" -C /
 
 echo -n "Apache configuration update ..."
 # Add ZOO Project apache configuration
-cat << EOF > $ZOO_APACHE_CONF
+cat << EOF > "$ZOO_APACHE_CONF"
 
         <Directory /var/www/zoo/>
                 Options Indexes FollowSymLinks MultiViews
@@ -82,7 +85,7 @@ StartupNotify=false
 Categories=Education;Geography;
 EOF
 fi
-cp /usr/share/applications/zoo-project.desktop "$USER_HOME/Desktop/Servers"
+cp /usr/share/applications/zoo-project.desktop "$USER_HOME/Desktop/"
 
 
 # Reload Apache
