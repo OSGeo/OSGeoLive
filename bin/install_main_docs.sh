@@ -208,23 +208,15 @@ fi
 
 # reset the homepage for the main ubuntu-firefox theme too (if present)
 if [ -e /etc/xul-ext/ubufox.js  ] ; then
-   mkdir -p /usr/local/share/osgeo-desktop
-
-   sed -i -e 's+^//pref("browser.startup.homepage".*+pref("browser.startup.homepage", "file:/usr/local/share/osgeo-desktop/osgeo_livedvd-homepage.properties");+' \
+   sed -i -e 's+^//pref("browser.startup.homepage".*+pref("browser.startup.homepage", "file:///usr/local/share/osgeolive-docs/index.html");+' \
        /etc/xul-ext/ubufox.js
-
-   sed -e 's+^browser.startup.homepage=+browser.startup.homepage=/usr/local/share/osgeolive-docs/index.html+' \
-       /usr/share/doc/ubufox/example-homepage.properties \
-       > /usr/local/share/osgeo-desktop/osgeo_livedvd-homepage.properties
-
-   sed -i -e 's+HOMEPAGE_OFFLINE = "file:///usr/share/ubuntu-artwork/home/index.html"+HOMEPAGE_OFFLINE = "file:///usr/local/share/osgeolive-docs/index.html"+' \
-          -e 's+HOMEPAGE_ONLINE_PREFIX = "http://start.ubuntu.com/10.04/"+HOMEPAGE_ONLINE_PREFIX = "file:///usr/local/share/osgeolive-docs/index.html"+' \
-       /usr/share/xul-ext/ubufox/components/aboutHome.js
 fi     
 
 # how about this one?
-#echo 'pref("browser.startup.homepage", "file:..."' >> /etc/firefox/pref/firefox.js
-
+if [ `grep -c 'osgeolive' /etc/firefox/pref/firefox.js` -eq 0 ] ; then
+   echo 'pref("browser.startup.homepage", "file:///usr/local/share/osgeolive-docs/index.html"' \
+      >> /etc/firefox/pref/firefox.js
+fi
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
 \cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
@@ -234,6 +226,7 @@ fi
 #What logo to use for launching the help?
 # HB: IMO wombat roadsign is good- it says "look here" and is friendly
 ICON_FILE="live_GIS_help.desktop"
+# perhaps: Icon=/usr/share/icons/oxygen/32x32/categories/system-help.png
 
 if [ ! -e "/usr/share/applications/$ICON_FILE" ] ; then
    cat << EOF > "/usr/share/applications/$ICON_FILE"
@@ -244,7 +237,7 @@ Name=Help
 Comment=Live Demo Help
 Categories=Application;Education;Geography;
 Exec=firefox /usr/local/share/osgeolive-docs/index.html
-Icon=/usr/share/icons/oxygen/32x32/categories/system-help.png
+Icon=/usr/local/share/icons/arramagong-wombat-small.png
 Terminal=false
 StartupNotify=false
 EOF
