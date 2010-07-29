@@ -186,8 +186,7 @@ cat "$SRC/pre.html" "$TMPDIR/tests_inc.html" "$SRC/post.html" > "$DEST/tests.htm
 
 
 
-# FIXME
-echo "install_main_docs.sh FIXME: Double-check that the Firefox \
+echo "install_main_docs.sh: Double-check that the Firefox \
 home page is now set to file://$DEST/index.html"
 # ~user/.mozilla/ has to exist first, so firefox would have need
 #   to been started at least once to set it up
