@@ -35,10 +35,18 @@
     </Menu>
 
     <Menu>
-        <Name>Servers</Name>
+        <Name>Web Services</Name>
         <Directory>xfce-geoservers.directory</Directory>
         <Include>
 	    <Category>Geoservers</Category>
+        </Include>
+    </Menu>
+
+    <Menu>
+        <Name>Browser Clients</Name>
+        <Directory>xfce-geoclients.directory</Directory>
+        <Include>
+	    <Category>Geoclients</Category>
         </Include>
     </Menu>
 

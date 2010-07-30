@@ -21,12 +21,35 @@
 # sudo ./install_desktop.sh
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-
 BUILD_DIR=`pwd`
+
+
+################################################
+
+DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0
+              spatialite-gis zygrib saga_gui"
+
+NAV_APPS="marble gpsdrive opencpn josm gosmore merkaartor viking"
+
+WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver
+              qgis-mapserver zoo-project 52n-*"
+
+BROWSER_CLIENTS="geomajas-* mapbender MapFish mapguide*"
+
+SPATIAL_TOOLS="imagelinker r spatialite-gui geokettle openlayers
+               maptiler mapnik-*"
+
+DB_APPS=""  # pgadmin, sqlitebrowser, etc  (this one is automatic)
+
+RELIEF_APPS="sahana ushahidi"
+
+################################################
+
 
 # Default password list on the desktop to be replaced by html help in the future.
 cp ../doc/passwords.txt "$USER_HOME/Desktop/"
 chown user:user "$USER_HOME/Desktop/passwords.txt"
+
 
 # Setup the desktop background
 cp ../desktop-conf/bg3.png \
@@ -58,31 +81,14 @@ chmod 755 "$USER_HOME/launchassist.sh"
 #-uncomment if needed for Xubuntu
 ##chmod u+x "$USER_HOME"/Desktop/*.desktop
 
-
-#### attempt to clean up the desktop icons
-cd "$USER_HOME/Desktop"
-
 ### get list of *.desktop from bin/install_*.sh :
 # grep '\.desktop' * | sed -e 's/\.desktop.*/.desktop/' -e 's+^.*[/" ]++' | sort | uniq
 
 
-
-
-DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0 spatialite-gis zygrib saga_gui"
-
-NAV_APPS="MapFish marble gpsdrive opencpn maptiler josm gosmore merkaartor viking"
-
-SERVER_APPS="deegree-* geoserver-* *geonetwork* geomajas-*
-             mapserver mapnik-* mapguide* 52n-* mapbender
-             qgis-mapserver zoo-project"
-
-SPATIAL_TOOLS="imagelinker r spatialite-gui geokettle"
-
-DB_APPS=""  # pgadmin, sqlitebrowser, etc
-
-RELIEF_APPS="sahana ushahidi"
-
-
+####################################
+#### sort out the desktop icons ####
+####################################
+cd "$USER_HOME/Desktop"
 
 
 ##### create and populate the Geospatial menu, add launchers to the panel
@@ -92,6 +98,7 @@ mkdir /usr/local/share/xfce
 cp "$BUILD_DIR"/../desktop-conf/xfce/xfce4-menu-360.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 cp "$BUILD_DIR"/../desktop-conf/xfce/launcher-361.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 cp "$BUILD_DIR"/../desktop-conf/xfce/cpugraph-362.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
+#cp "$BUILD_DIR"/../desktop-conf/xfce/keyboard_i18n-363.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 
 # also modify user account's version, if it exists
 USER_PANEL="$USER_HOME/.config/xfce4/panel"
@@ -99,6 +106,7 @@ if [ -d "$USER_PANEL" ] ; then
    cp "$BUILD_DIR"/../desktop-conf/xfce/xfce4-menu-360.rc "$USER_PANEL"
    cp "$BUILD_DIR"/../desktop-conf/xfce/launcher-361.rc "$USER_PANEL"
    cp "$BUILD_DIR"/../desktop-conf/xfce/cpugraph-362.rc "$USER_PANEL"
+   #cp "$BUILD_DIR"/../desktop-conf/xfce/keyboard_i18n-363.rc "$USER_PANEL"
 fi
 
 # edit the panel to add these things
@@ -151,11 +159,20 @@ for APP in $NAV_APPS ; do
    fi
 done
 
-for APP in $SERVER_APPS ; do
+for APP in $WEB_SERVICES ; do
    APPL=`basename $APP .desktop`.desktop
    #echo "[$APP] -> [$APPL]"
    if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Geoservers;/' \
+	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+   fi
+done
+
+for APP in $BROWSER_CLIENTS ; do
+   APPL=`basename $APP .desktop`.desktop
+   #echo "[$APP] -> [$APPL]"
+   if [ -e "$APPL" ] ; then
+      sed -e 's/^Categories=.*/Categories=Geospatial;Geoclients;/' \
 	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
    fi
 done
@@ -200,9 +217,14 @@ for APP in $NAV_APPS ; do
    mv `basename $APP .desktop`.desktop "Navigation and Maps"/
 done
 
-mkdir "Servers"
-for APP in $SERVER_APPS ; do
-   mv `basename $APP .desktop`.desktop "Servers"/
+mkdir "Web Services"
+for APP in $WEB_SERVICES ; do
+   mv `basename $APP .desktop`.desktop "Web Services"/
+done
+
+mkdir "Browser Clients"
+for APP in $BROWSER_CLIENTS ; do
+   mv `basename $APP .desktop`.desktop "Browser Clients"/
 done
 
 mkdir "Spatial Tools"
@@ -215,7 +237,7 @@ for APP in $RELIEF_APPS ; do
    mv `basename $APP .desktop`.desktop "Crisis Management"/
 done
 
-#todo
+#happens automatically; not needed
 #mkdir "Databases"
 #for APP in $DB_APPS ; do
 #   mv `basename $APP .desktop`.desktop "Databases"/

@@ -3,5 +3,5 @@ Version=1.0
 Encoding=UTF-8
 Type=Directory
 Icon=media-playlist-shuffle
-Name=Web Services
-Comment=Geospatially enabled map servers
+Name=Browser Clients
+Comment=Geospatially enabled map applications
