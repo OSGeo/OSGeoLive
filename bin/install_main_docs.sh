@@ -55,8 +55,8 @@ done
 
 # Add contributors to the sponsors.html page
 echo "<h1>OSGeo Live GIS Disc developers and contributors</h1>" >> ${DEST}/sponsors.html
-echo "<p>Thank you to all the following people who have contributed their
- programming time and help to make this Live DVD possible.</p>" >> ${DEST}/sponsors.html
+echo "<p>Thank you to all the following people who have bundled and polished
+ applications on OSGeo-Live.</p>" >> ${DEST}/sponsors.html
 echo "<table>" >> ${DEST}/sponsors.html
 grep -v " *#" ${SRC}/../contributors.csv | cut -f1-3 -d, | \
   sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/' \
@@ -86,6 +86,13 @@ cd ../doc/quickstart/
 make html
 rm -fr ${DEST}/quickstart/
 mv _build/html ${DEST}/quickstart/
+cd ../../bin
+
+# Build the standard overview pages
+cd ../doc/standards/
+make html
+rm -fr ${DEST}/standards/
+mv _build/html ${DEST}/standards/
 cd ../../bin
 
 # license page start
