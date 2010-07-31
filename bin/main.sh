@@ -151,12 +151,15 @@ echo "==============================================================="
 echo "Package    |Megabytes used by install script" | tr '|' '\t'
 grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | \
   cut -f2,5 -d, | cut -f2- -d_ | \
-  grep -v '^,\|setup.sh\|setdown.sh' | sed -e 's/\.sh,/    \t/' | \
+  grep -v '^,\|main.sh\|setdown.sh' | sed -e 's/\.sh,/    \t/' | \
   awk 'BEGIN { PREV=0; } 
 	{ if(PREV == 0) { PREV = $2; }
 	printf("%s", $1);
 	if($1 == "R" || $1 == "osm" || $1 == "gmt") { printf("\t") }
-	print "    \t" $2 - PREV;
+	if($1 == "qgis_mapserver" || $1 == "geopublisher")
+	     { printf("\t") }
+	else { printf("    \t") }
+	print $2 - PREV;
 	PREV = $2 }' | sort  -nr -k2 | uniq
 
 echo "==============================================================="
