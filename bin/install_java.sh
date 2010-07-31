@@ -19,7 +19,7 @@
 add-apt-repository "deb http://archive.canonical.com/ lucid partner"
 apt-get update
 
-apt-get --assume-yes remove openjdk-6-jre
+apt-get --assume-yes remove openjdk-6-jre openjdk-6-jre-headless
 
 apt-get --assume-yes install java-common sun-java6-bin \
      sun-java6-jre sun-java6-jdk
