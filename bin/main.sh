@@ -38,8 +38,8 @@ DISK_USAGE_LOG="disk_usage.log"
 echo "===================================================================="
 echo "Starting master.sh for version: `cat ${DIR}/../VERSION.txt`"
 echo "===================================================================="
-echo Disk Usage1:, main.sh, `df | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, main.sh, `df | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo Disk Usage1:, main.sh, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, main.sh, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
 
 # Print out the current svn version
 svn info ..
