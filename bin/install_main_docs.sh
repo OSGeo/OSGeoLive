@@ -54,7 +54,7 @@ for ITEM in contact.html index.html sponsors.html content.html ; do
 done
 
 # Add contributors to the sponsors.html page
-echo "<h1>OSGeo Live GIS Disc developers and contributors</h1>" >> ${DEST}/sponsors.html
+echo "<h1>OSGeo-Live developers and contributors</h1>" >> ${DEST}/sponsors.html
 echo "<p>Thank you to all the following people who have bundled and polished
  applications on OSGeo-Live.</p>" >> ${DEST}/sponsors.html
 echo "<table>" >> ${DEST}/sponsors.html
@@ -70,7 +70,7 @@ for ITEM in contact.html index.html sponsors.html content.html; do
   cat ${SRC}/${ITEM} >> $DEST/$ITEM
 
   # Add version number to header
-  sed -e "s/<h1>OSGeo Live GIS Disc/<h1>OSGeo Live GIS Disc ${VERSION}/" ${DEST}/${ITEM} > /tmp/${ITEM}
+  sed -e "s/<h1>OSGeo-Live/<h1>OSGeo-Live ${VERSION}/" ${DEST}/${ITEM} > /tmp/${ITEM}
   mv /tmp/${ITEM} ${DEST}/${ITEM}
 done
 
