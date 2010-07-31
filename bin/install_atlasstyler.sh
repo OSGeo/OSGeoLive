@@ -27,8 +27,10 @@
 # =======
 # Any Java 1.6, Sun preferred
 
+cp ../sources.list.d/geopublishing.list /etc/apt/sources.list.d/
 # Get and import the key that the .deb packages are signed with
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7450D04751B576FD
+apt-get update
 
 # Install Geopublisher and AtlasStyler and documentation
 apt-get install --yes --no-install-recommends atlasstyler
@@ -37,6 +39,10 @@ apt-get install --yes --no-install-recommends atlasstyler
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
-wget --cut-dirs=1 -nH -q -c -r http://en.geopublishing.org/openmapsymbols/ -A "*.sld" --exclude-directories="openmapsymbols/svg" -P $USER_HOME/.AtlasStyler/templates
+wget --cut-dirs=1 -nH -q -c -r \
+   http://en.geopublishing.org/openmapsymbols/ -A "*.sld" \
+   --exclude-directories="openmapsymbols/svg" \
+   -P $USER_HOME/.AtlasStyler/templates
+
 chown -R $USER_NAME:$USER_NAME $USER_HOME/.AtlasStyler 
 

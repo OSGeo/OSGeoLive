@@ -26,8 +26,12 @@
 # =======
 # Any Java 1.6, Sun preferred
 
+
+cp ../sources.list.d/geopublishing.list /etc/apt/sources.list.d/
 # Get and import the key that the .deb packages are signed with
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7450D04751B576FD
+apt-get update
+
 
 # Install Geopublisher and AtlasStyler and documentation
 apt-get install --yes --no-install-recommends geopublisher geopublishing-doc
