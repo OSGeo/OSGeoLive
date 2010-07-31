@@ -98,7 +98,7 @@ mkdir /usr/local/share/xfce
 cp "$BUILD_DIR"/../desktop-conf/xfce/xfce4-menu-360.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 cp "$BUILD_DIR"/../desktop-conf/xfce/launcher-361.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 cp "$BUILD_DIR"/../desktop-conf/xfce/cpugraph-362.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
-#cp "$BUILD_DIR"/../desktop-conf/xfce/keyboard_i18n-363.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
+cp "$BUILD_DIR"/../desktop-conf/xfce/xkb-plugin-363.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 
 # also modify user account's version, if it exists
 USER_PANEL="$USER_HOME/.config/xfce4/panel"
@@ -106,7 +106,7 @@ if [ -d "$USER_PANEL" ] ; then
    cp "$BUILD_DIR"/../desktop-conf/xfce/xfce4-menu-360.rc "$USER_PANEL"
    cp "$BUILD_DIR"/../desktop-conf/xfce/launcher-361.rc "$USER_PANEL"
    cp "$BUILD_DIR"/../desktop-conf/xfce/cpugraph-362.rc "$USER_PANEL"
-   #cp "$BUILD_DIR"/../desktop-conf/xfce/keyboard_i18n-363.rc "$USER_PANEL"
+   cp "$BUILD_DIR"/../desktop-conf/xfce/xkb-plugin-363.rc "$USER_PANEL"
 fi
 
 # edit the panel to add these things
@@ -115,6 +115,7 @@ if [ `grep -c 'xfce4-menu" id="360"' /etc/xdg/xdg-xubuntu/xfce4/panel/panels.xml
    sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
       -e 's+\(launcher" id="3".*\)+\1\n\t\t\t<item name="launcher" id="361"/>+' \
       -e 's+\(.*item name="clock"\)+\t\t\t<item name="cpugraph" id="362"/>\n\1+' \
+      -e 's+\(.*item name="clock"\)+\t\t\t<item name="xkb-plugin" id="363"/>\n\1+' \
       /etc/xdg/xdg-xubuntu/xfce4/panel/panels.xml
 fi
 # also modify user account's version, if it exists
@@ -123,6 +124,7 @@ if [ -e "$USER_PANEL/panels.xml" ] ; then
       sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
          -e 's+\(launcher" id="3".*\)+\1\n\t\t\t<item name="launcher" id="361"/>+' \
          -e 's+\(.*item name="clock"\)+\t\t\t<item name="cpugraph" id="362"/>\n\1+' \
+         -e 's+\(.*item name="clock"\)+\t\t\t<item name="xkb-plugin" id="363"/>\n\1+' \
          "$USER_PANEL/panels.xml"
    fi
 fi
@@ -237,17 +239,11 @@ for APP in $RELIEF_APPS ; do
    mv `basename $APP .desktop`.desktop "Crisis Management"/
 done
 
-#happens automatically; not needed
+# admin tools already added automatically
 #mkdir "Databases"
 #for APP in $DB_APPS ; do
 #   mv `basename $APP .desktop`.desktop "Databases"/
 #done
-
-
-# Ubuntu One store inappropriate in this context
-#FIXME: what's the exact filename?
-#rm /usr/share/applications/ubuntuone.desktop
-
 
 
 ####### Setup Automatic or Timed Login #####
