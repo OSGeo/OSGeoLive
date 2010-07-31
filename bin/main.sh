@@ -141,7 +141,10 @@ dpkg-query --show --showformat='${Package;-50}\t${Installed-Size}\t${Status}\n' 
 
 # check install sizes
 echo "==============================================================="
-grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | tee ${LOG_DIR}/${DISK_USAGE_LOG}
+echo "Writing disk usage stats to $LOG_DIR/$DISK_USAGE_LOG ..."
+echo "Disk Usage1:,package,Filesystem,1K-blocks,Used,Available,Use%,Mounted_on,date" \
+       > "$LOG_DIR/$DISK_USAGE_LOG"
+grep "Disk Usage2:" "$LOG_DIR/$MAIN_LOG_FILE" >> "$LOG_DIR/$DISK_USAGE_LOG"
 
 echo "==============================================================="
 # to be interesting this should really focus on diff to prior, not absolute value
