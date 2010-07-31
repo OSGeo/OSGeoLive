@@ -5,7 +5,7 @@
 # Author:  Sergio Banos Calvo <sbc@saig.es> - SAIG <info@saig.es>
 #
 #################################################
-# Copyright (c) 2009 Open Geospatial Foundation
+# Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2010 SAIG
 #
 # Licensed under the GNU GPL.
