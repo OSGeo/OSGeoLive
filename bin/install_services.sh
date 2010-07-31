@@ -17,3 +17,11 @@
 # This script will install ssh and VNC services
 
 apt-get --assume-yes install openssh-server vnc4server
+
+
+# For security reasons these must be removed.
+#  If you need them, generate fresh ones with:
+#    sudo ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key
+#    sudo ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
+rm -rf /etc/ssh/ssh_host_[dr]sa_key*
+
