@@ -34,5 +34,5 @@ wget http://zadeh.ugent.be/~johan/saga/DGM_30m_Mt.St.Helens_SRTM.grd
 # cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
 # temporarily disabled: a custom .desktop file with a 64x64 logo is used - to be fixed in the package
 wget http://zadeh.ugent.be/~johan/saga/saga_gui_64x64.png --output-document=/usr/share/pixmaps/saga_gui_64x64.png
-wget http://zadeh.ugent.be/~johan/saga/saga_gui.desktop --output-document="$USER_HOME/Desktop/"
+wget http://zadeh.ugent.be/~johan/saga/saga_gui.desktop --output-document="$USER_HOME/Desktop/saga_gui.desktop"
 
