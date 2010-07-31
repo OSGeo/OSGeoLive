@@ -7,7 +7,6 @@
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # lucid: saga 2.0.4 is provided in ubuntugis and ubuntugis/unstable
-# maverick: saga 2.0.4 is provided in universe
 
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
@@ -32,5 +31,8 @@ wget -c --progress=dot:mega \
 wget http://zadeh.ugent.be/~johan/saga/DGM_30m_Mt.St.Helens_SRTM.grd
 
 # Desktop icon
-cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
+# cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
+# temporarily disabled: a custom .desktop file with a 64x64 logo is used - to be fixed in the package
+wget http://zadeh.ugent.be/~johan/saga/saga_gui_64x64.png --output-document=/usr/share/pixmaps/saga_gui_64x64.png
+wget http://zadeh.ugent.be/~johan/saga/saga_gui.desktop --output-document="$USER_HOME/Desktop/"
 
