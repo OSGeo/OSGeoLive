@@ -59,6 +59,8 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   evince ghostscript a2ps pdftk netpbm qiv \
   lynx mutt mc xchat rxvt units scrot
 
+apt-get install --yes gdebi fslint
+
 # Install build stuff (temporarily?)
 apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
   cvs-buildpackage svn-buildpackage lintian debhelper pkg-config dpkg-dev \
