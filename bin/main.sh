@@ -152,7 +152,7 @@ grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | \
   awk 'BEGIN { PREV=0; } 
 	{ if(PREV == 0) { PREV = $2; }
 	printf("%s", $1);
-	if($1 == "R" || $1 == "osm") { printf("\t") }
+	if($1 == "R" || $1 == "osm" || $1 == "gmt") { printf("\t") }
 	print "    \t" $2 - PREV;
 	PREV = $2 }' | sort  -nr -k2 | uniq
 
