@@ -2,6 +2,6 @@
 Version=1.0
 Encoding=UTF-8
 Type=Directory
-Icon=sqlitebrowser.png
+Icon=sqlitebrowser
 Name=Databases
 Comment=
