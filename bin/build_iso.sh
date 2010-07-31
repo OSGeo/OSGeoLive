@@ -24,13 +24,13 @@
 
 
 DIR=`dirname ${0}`
-VERSION=`cat ${DIR}/../VERSION.txt`
+VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeolive"
 ISO_NAME="${PACKAGE_NAME}-${VERSION}"
 WORKDIR="/tmp/remastersys"
-TMP="${WORKDIR}/ISOTMP"
+TMP="$WORKDIR/ISOTMP"
 LOGS="/var/log/osgeolive/remastersys.conf"
-DOCS_SRC="/usr/local/share/livedvd-docs"
+DOCS_SRC="/usr/local/share/osgeolive-docs"
 
 #Install remastersys.sh add directories it expects
 mkdir -p $TMP
@@ -44,7 +44,7 @@ mkdir -p $WORKDIR/dummysys/sys
 mkdir -p $WORKDIR/dummysys/mnt
 mkdir -p $WORKDIR/dummysys/media/cdrom
 mkdir -p $WORKDIR/dummysys/var
-chmod ug+rwx,o+rwt $WORKDIR/dummysys/tmp
+chmod ug+rwx,o+rwt "$WORKDIR"/dummysys/tmp
 
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/remastersys.list \
      --output-document=/etc/apt/sources.list.d/remastersys.list
@@ -58,15 +58,15 @@ apt-get --assume-yes --force-yes install remastersys
 #Configure
 #ie set exclude folders in /etc/remastersys.conf
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/remastersys.conf \
-     --output-document=$LOGS
-cp $LOGS /etc/remastersys.conf
+     --output-document="$LOGS"
+cp "$LOGS" /etc/remastersys.conf
 
 #Add Windows and Mac installers by copying files into ISOTMP folder
 #./load_win_installers.sh
 #./load_mac_installers.sh
 
 # Copy documentation
-cp -pr ${DOCS_SRC} ${TMP}
+cp -pr "$DOCS_SRC" "$TMP"
 
 #Update the file search index
 updatedb

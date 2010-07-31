@@ -31,6 +31,7 @@
 
 DIR=`dirname $0`
 LOG_DIR="/var/log/osgeolive"
+DOC_DIR="/usr/local/share/osgeolive-docs"
 MAIN_LOG_FILE="main_install.log"
 DISK_USAGE_LOG="disk_usage.log"
 
@@ -125,8 +126,6 @@ done
 
 
 # write installed package manifest
-## better to write to /usr/local/share/livedvd-docs ?
-DOC_DIR="/usr/local/share/livedvd-docs"
 if [ ! -d "$DOC_DIR" ] ; then
    mkdir -p "$DOC_DIR"
 fi
