@@ -251,7 +251,7 @@ fi
 
 \cp -a "/usr/share/applications/$ICON_FILE" "$USER_HOME/Desktop/"
 chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
-# executable bit needed for Ubunti 9.10's GNOME. Also make the first line
+# executable bit needed for Ubuntu 9.10's GNOME. Also make the first line
 #   of the *.desktop files read "#!/usr/bin/env xdg-open"
 #chmod u+x "$USER_HOME/Desktop/$ICON_FILE"
 
