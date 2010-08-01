@@ -117,13 +117,19 @@ else
 	# Assuming that the sample data won't be very big, it should be OK to run the conversion here, 
 	# otherwise it should be done in advance somehow (TODO).
 	echo "Run osm2pgrouting converter (this may take a while)"
-	sudo su $USER_NAME
 	sudo -u $USER_NAME osm2pgrouting -file "$TMP/sampledata.osm" \
-									  -conf "/usr/share/osm2pgrouting/mapconfig.xml" \
-									  -dbname $OSM_DB \
-									  -user $USER_NAME \
-									  -host localhost \
-									  -clean 
+	    -conf usr/share/osm2pgrouting/mapconfig.xml \
+	    -dbname $OSM_DB \
+	    -user $USER_NAME \
+	    -host localhost \
+	    -clean
+#debug:
+	echo "[sudo -u $USER_NAME osm2pgrouting -file $TMP/sampledata.osm \
+	    -conf /usr/share/osm2pgrouting/mapconfig.xml \
+	    -dbname $OSM_DB \
+	    -user $USER_NAME \
+	    -host localhost \
+	    -clean]"
 
 	# Simple pgRouting test queries
 	# Renable once we figure out how to get rid of user interaction
