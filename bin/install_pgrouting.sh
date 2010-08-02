@@ -118,7 +118,7 @@ else
 	# otherwise it should be done in advance somehow (TODO).
 	echo "Run osm2pgrouting converter (this may take a while)"
 	sudo -u $USER_NAME osm2pgrouting -file "$TMP/sampledata.osm" \
-	    -conf usr/share/osm2pgrouting/mapconfig.xml \
+	    -conf /usr/share/osm2pgrouting/mapconfig.xml \
 	    -dbname $OSM_DB \
 	    -user $USER_NAME \
 	    -host localhost \
