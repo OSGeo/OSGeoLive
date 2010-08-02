@@ -55,8 +55,8 @@ done
 
 # Add contributors to the sponsors.html page
 echo "<h1>OSGeo-Live developers and contributors</h1>" >> ${DEST}/sponsors.html
-echo "<p>Thank you to all the following people who have bundled and polished
- applications on OSGeo-Live.</p>" >> ${DEST}/sponsors.html
+echo "<p>Thank you to all the following people who have contributed to
+the development of this live DVD and VM:</p>" >> ${DEST}/sponsors.html
 echo "<table>" >> ${DEST}/sponsors.html
 grep -v " *#" ${SRC}/../contributors.csv | cut -f1-3 -d, | \
   sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/' \
