@@ -34,7 +34,7 @@ PACKAGES="grass grass-doc python-opengl python-wxgtk2.8 avce00 \
 
 MODERN_VERSION="6.4"
 
-
+BUILD_DIR=`pwd`
 TMP_DIR=/tmp/build_grass
 mkdir "$TMP_DIR"
 
@@ -156,6 +156,10 @@ EOF
 fi
 
 
+#copy over prebuilt font list
+cp -f "$BUILD_DIR"/../app-conf/grass/fontcap /usr/lib/grass64/etc/
+
+
 
 #### install desktop icon ####
 if [ ! -e "/usr/share/icons/grass-48x48.png" ] ; then
@@ -198,36 +202,5 @@ EOF
 fi
 
 
-# rm -rf "$TMP_DIR"
-
-
-
 echo "Finished installing GRASS $INSTALLED_VERSION."
 
-
-
-
-cat << EOF
-
-== Testing ==
-
-* Double click on the GRASS desktop icon
-* You should see a slick "Welcome to GRASS" GUI
-* Select Spearfish60 for location, User1 for mapset
-* Click on [Start Grass]
-* In the Layer Manager GUI window add a raster layer
-** On the toolbar click the icon with a + and a checkerboard
-** On map to be displayed pull down the list and select elevation.dem
-from the PERMANENT mapset and click [ok]
-*  In the Layer Manager GUI window add a vector layer
-** On the toolbar click the icon with a + and a "V" line
-** For input map name pull down the list and select roads from the
-PERMANENT mapset and click [ok]
-* Over in the Map Display window toolbar click on the eyeball icon to render
-: You should now see the maps displayed
-
-That's it.
-
-see also https://trac.osgeo.org/grass/wiki/HowToTestGrass6
-
-EOF
