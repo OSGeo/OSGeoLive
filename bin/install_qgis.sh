@@ -125,6 +125,13 @@ tar xzf "$TMP_DIR"/qgis_plugin.tar.gz  -C "$TMP_DIR"
 #cp -R  "$TMP_DIR"/.qgis/python/plugins/ /usr/share/qgis/python/
 cp -R  "$TMP_DIR"/plugins/ /usr/share/qgis/python/
 
+
+## currently broken with QGIS 1.5.0
+rm -rf /usr/share/qgis/python/plugins/contour
+rm -rf /usr/share/qgis/python/plugins/geofeeds
+rm -rf /usr/share/qgis/python/plugins/HomeRange_plugin
+
+
 #Next line might be optional, unsure
 #chmod -R 777 /usr/share/qgis/python/plugins/*
 # why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
