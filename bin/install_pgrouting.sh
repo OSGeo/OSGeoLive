@@ -111,7 +111,7 @@ else
 	# unpack sample data
 	echo "unpack sample data"
 	bunzip2 $OSM_FILE -c > "$TMP/sampledata.osm"
-	
+
 	# Run osm2pgrouting converter
 	# NOTE: Conversion can take a a few minutes depending on the extent of the sample data.
 	# Assuming that the sample data won't be very big, it should be OK to run the conversion here, 
@@ -123,13 +123,6 @@ else
 	    -user $USER_NAME \
 	    -host localhost \
 	    -clean
-#debug:
-	echo "[sudo -u $USER_NAME osm2pgrouting -file $TMP/sampledata.osm \
-	    -conf /usr/share/osm2pgrouting/mapconfig.xml \
-	    -dbname $OSM_DB \
-	    -user $USER_NAME \
-	    -host localhost \
-	    -clean]"
 
 	# Simple pgRouting test queries
 	# Renable once we figure out how to get rid of user interaction
