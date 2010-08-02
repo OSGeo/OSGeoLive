@@ -108,7 +108,6 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
-echo "FIXME: use $TMP_DIR not /tmp/"
 
 #TODO Install some popular python plugins
 #Use wget to pull them directly into qgis python path?
@@ -120,10 +119,11 @@ echo "FIXME: use $TMP_DIR not /tmp/"
 DATAURL="http://www.geofemengineering.it/data/plugins.tar.gz"
 
 wget --progress=dot:mega "$DATAURL" \
-     --output-document=/tmp/qgis_plugin.tar.gz
+     --output-document="$TMP_DIR"/qgis_plugin.tar.gz
 
-tar xzf /tmp/qgis_plugin.tar.gz  -C /tmp
-cp -R  /tmp/.qgis/python/plugins/ /usr/share/qgis/python/
+tar xzf "$TMP_DIR"/qgis_plugin.tar.gz  -C "$TMP_DIR"
+#cp -R  "$TMP_DIR"/.qgis/python/plugins/ /usr/share/qgis/python/
+cp -R  "$TMP_DIR"/plugins/ /usr/share/qgis/python/
 
 #Next line might be optional, unsure
 #chmod -R 777 /usr/share/qgis/python/plugins/*
