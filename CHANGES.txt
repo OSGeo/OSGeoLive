@@ -1,6 +1,13 @@
 Arramagong GISVM
 ================
 
+Version: 4.0rc6
+==================
+2 August 2010
+ * Fixes to outstanding bugs
+ * Lots of updates to docs and new docs
+ * Full list http://trac.osgeo.org/osgeo/log/livedvd/gisvm/trunk
+
 Version: 4.0rc5
 ==================
 27 July 2010
