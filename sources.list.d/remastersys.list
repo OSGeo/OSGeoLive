@@ -1,2 +1,4 @@
 # Remastersys
-deb http://www.geekconnection.org/remastersys/repository lucid/
+# Before updating check http://www.geekconnection.org/remastersys/ubuntu.html
+# Karmic and Lucid share the same repo currently
+deb http://www.geekconnection.org/remastersys/repository karmic/
