@@ -24,6 +24,9 @@
 TMP_DIR="/tmp/build_openlayers"
 OL_VERSION="2.9.1"
 
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+
 BUILD_DIR=`pwd`
 mkdir -p "$TMP_DIR"
 cd "$TMP_DIR"
