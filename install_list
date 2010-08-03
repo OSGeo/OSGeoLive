@@ -48,6 +48,7 @@ postgis
 qgis
 qgis_mapserver
 R
+saga
 spatialite
 udig
 sahana
