@@ -42,7 +42,7 @@ fi
 cd "$TMP_DIR"
 
 wget -c  --progress=dot:mega \
-   "http://launchpad.net/sahana-agasti/0.6/0.6.4/+download/sahana-0.6.4.tgz"
+   "http://launchpad.net/sahana-agasti/krakatoa/0.6.4/+download/sahana-0.6.4.tgz"
 
 tar xzf sahana-0.6.4.tgz
 
