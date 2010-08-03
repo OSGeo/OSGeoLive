@@ -11,8 +11,7 @@
 # and maybe more?
 
 echo"
-Welcome to the OSGeo Live GIS DVD - Barcelona 2010
-
+Welcome to the OSGeo-Live GIS DVD.
 Have a nice time. There's beer in the fridge.
 " | gxmessage -file - -title "Welcome to the OSGeo Live GIS Disc"
 
