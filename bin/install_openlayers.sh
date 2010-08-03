@@ -24,6 +24,7 @@
 TMP_DIR="/tmp/build_openlayers"
 OL_VERSION="2.9.1"
 
+BUILD_DIR=`pwd`
 mkdir -p "$TMP_DIR"
 cd "$TMP_DIR"
 
@@ -38,8 +39,32 @@ tar xzf "OpenLayers-$OL_VERSION.tar.gz"
 cp -R OpenLayers-$OL_VERSION/ /var/www/openlayers
 chmod -R uga+r /var/www/openlayers
 
+
 #TODO: Launch script and icon for OpenLayers to take you to a documentation page and examples listing
+#Add Launch icon to desktop
+cp "$BUILD_DIR"/../doc/images/project_logos/logo-OpenLayers.png \
+    /usr/share/pixmaps/openlayers.png
+
+if [ ! -e /usr/share/applications/openlayers.desktop ] ; then
+   cat << EOF > /usr/share/applications/openlayers.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=OpenLayers Examples
+Comment=Sample constructions
+Categories=Application;Internet;
+Exec=firefox http://localhost/openlayers/examples/
+Icon=openlayers
+Terminal=false
+StartupNotify=false
+EOF
+fi
+cp /usr/share/applications/openlayers.desktop "$USER_HOME/Desktop/"
+
+
+
 #TODO: Create local example that uses data from the many wms/wfs sources on the live disc
+
 
 echo "Finished installing OpenLayers $OL_VERSION."
 
