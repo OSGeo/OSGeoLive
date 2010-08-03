@@ -144,6 +144,8 @@ cp "$BUILD_DIR/../app-data/qgis/QGIS-Grass-Example.qgs" /usr/local/share/qgis/
 cp "$BUILD_DIR/../app-data/qgis/QGIS-NaturalEarth-Example.qgs" /usr/local/share/qgis/
 
 chmod 644 /usr/local/share/qgis/*.qgs
+#Link example to the home directory
+ln -s /usr/local/share/qgis/ "$USER_HOME"/qgis-examples
 
 #add a connection for postgis if it's installed
 QGIS_CONFIG="/home/$USER_NAME/.config/QuantumGIS/QGIS.conf"
