@@ -270,7 +270,7 @@ mkdir -p "$USER_HOME"/.config/autostart
 cp /usr/local/share/osgeo-desktop/welcome_message.desktop \
    "$USER_HOME"/.config/autostart/
 
-cp "$BUILD_DIR"/desktop-conf/welcome_message.* \
+cp "$BUILD_DIR"/../desktop-conf/welcome_message.* \
    /usr/local/share/osgeo-desktop/
 
 cp /usr/local/share/osgeo-desktop/welcome_message.txt "$USER_HOME"/
