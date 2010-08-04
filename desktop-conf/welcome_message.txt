@@ -22,4 +22,4 @@ The living FAQ can be found here:
 
 
 Happy mapping!
-The OSGeo Live GIS disc and VM Team
+The OSGeo Live GIS Team
