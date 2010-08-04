@@ -38,6 +38,7 @@ Have a nice time. There's beer in the fridge.
 " > /usr/local/share/osgeo-desktop/welcome_message.txt
 
 cp /usr/local/share/osgeo-desktop/welcome_message.txt /home/user/
+chown user.user /home/user/welcome_message.txt
 fi
 ########################
 
@@ -51,5 +52,5 @@ if [ -z "$AWAKE" ] || [ "$AWAKE" -gt 10 ] ; then
 fi
 
 gxmessage -file /usr/local/share/osgeo-desktop/welcome_message.txt \
-   -title "Welcome to the OSGeo Live GIS Disc"
+   -title "Welcome"
 
