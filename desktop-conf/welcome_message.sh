@@ -28,8 +28,8 @@ cp /usr/local/share/osgeo-desktop/welcome_message.desktop \
    /home/user/.config/autostart/
    
 # better to put this file in SVN as desktop-conf/welcome_message.txt
-#cp ../desktop-conf/welcome_message.txt \
-#   /usr/local/share/osgeo-desktop/welcome_message.txt
+#cp ../desktop-conf/welcome_message.* \
+#   /usr/local/share/osgeo-desktop/
 
 echo "
 Welcome to the OSGeo Live GIS DVD.
