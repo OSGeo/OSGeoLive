@@ -17,6 +17,7 @@
 # Currently in alphabetical order for documentation autogeneration
 # TODO: implement more sophisticated build control and documentation category generation
 #   (... now fixed?)
+52nWPS
 atlasstyler
 deegree
 geokettle
@@ -29,6 +30,7 @@ gpsdrive
 grass
 gvsig
 kosmo
+mapbender
 mapfish
 mapguide
 mapnik
