@@ -43,7 +43,6 @@ for URL in \
   http://home.gdal.org/tmp/vcredist_x86.exe \
   http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.0RC6-1-Setup.exe \
   http://maptools.org/dl/ms4w/ms4w_3.0_beta7.zip \
-  http://download.osgeo.org/mapguide/releases/2.0.2/MgServerSetup-2.0.2.3011.exe \
   http://download.osgeo.org/mapguide/releases/2.2.0/Beta/MapGuideOpenSource-2.2.0.4829-Beta1.exe \
   http://maptiler.googlecode.com/files/maptiler-1.0-beta2-setup.exe \
   http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.4.1-Setup.exe \
