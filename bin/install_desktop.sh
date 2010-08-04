@@ -252,3 +252,7 @@ cp "$BUILD_DIR"/../desktop-conf/custom.conf /etc/gdm/custom.conf
 #### permissions cleanup (if needed)
 chown user:user "$USER_HOME/Desktop/" -R
 chmod a+r "$USER_HOME/Desktop/" -R
+
+#### remove xscreensaver by default
+apt-get --assume-yes remove xscreensaver
+
