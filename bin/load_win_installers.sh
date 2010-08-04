@@ -36,7 +36,7 @@ echo "OSGeo software for Windows:  http://trac.osgeo.org/osgeo4w/" > README.txt
 for URL in \
   http://home.gdal.org/fwtools/FWTools247.exe \
   http://downloads.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.4.2/geonetwork-install-2.4.2-0.exe?use_mirror=transact \
-  http://downloads.sourceforge.net/geoserver/geoserver-2.0.1-ng.exe?use_mirror=transact \
+  http://downloads.sourceforge.net/geoserver/geoserver-2.0.2-bin.zip \
   http://forge.osor.eu/frs/download.php/746/gvSIG-1_9-windows-i586-withjre.exe \
   http://udig.refractions.net/files/downloads/udig-1.1.1.exe \
   http://linfiniti.com/downloads/QGIS-1.4.0-1-No-GrassSetup.exe \
@@ -44,13 +44,13 @@ for URL in \
   http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.0RC6-1-Setup.exe \
   http://maptools.org/dl/ms4w/ms4w_3.0_beta7.zip \
   http://download.osgeo.org/mapguide/releases/2.0.2/MgServerSetup-2.0.2.3011.exe \
+  http://download.osgeo.org/mapguide/releases/2.2.0/Beta/MapGuideOpenSource-2.2.0.4829-Beta1.exe \
   http://maptiler.googlecode.com/files/maptiler-1.0-beta2-setup.exe \
   http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.4.1-Setup.exe \
   http://gpsvp.googlecode.com/files/gpsVPxp_0.4.20.zip \
   http://www.kosmoland.es/public/kosmo/v_2.0/binaries/Kosmo_Desktop_2.0_windows_jre.zip \
   http://downloads.sourceforge.net/project/opencpn/opencpn/2.1.0/opencpn_210_setup.exe?use_mirror=transact \
   http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe \
-  http://download.osgeo.org/mapguide/releases/2.2.0/Beta/MapGuideOpenSource-2.2.0.4829-Beta1.exe \
   http://sourceforge.net/projects/saga-gis/files/SAGA%20-%202.0/SAGA%202.0.5/saga_2.0.5_mswvc9_setup.exe/download \
 ; do
   wget -c --progress=dot:mega "${URL}"
