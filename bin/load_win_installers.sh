@@ -51,6 +51,7 @@ for URL in \
   http://downloads.sourceforge.net/project/opencpn/opencpn/2.1.0/opencpn_210_setup.exe?use_mirror=transact \
   http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe \
   http://download.osgeo.org/mapguide/releases/2.2.0/Beta/MapGuideOpenSource-2.2.0.4829-Beta1.exe \
+  http://sourceforge.net/projects/saga-gis/files/SAGA%20-%202.0/SAGA%202.0.5/saga_2.0.5_mswvc9_setup.exe/download \
 ; do
   wget -c --progress=dot:mega "${URL}"
 done;
@@ -75,4 +76,4 @@ done;
   # OpenCPN (8mb)
   # Ossim (30mb)
   # MapGuide Open Source (120mb)
-
+  # SAGA (5.6mb)
