@@ -14,5 +14,5 @@ if [ -z "$AWAKE" ] || [ "$AWAKE" -gt 10 ] ; then
 fi
 
 gxmessage -file /usr/local/share/osgeo-desktop/welcome_message.txt \
-   -title "Welcome"
+   -title "Welcome" -center
 
