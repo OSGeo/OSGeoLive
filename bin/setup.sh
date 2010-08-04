@@ -87,6 +87,9 @@ apt-get remove --yes gnome-games-common \
    gimp gimp-data gimp-help-common gimp-help-en libgimp2.0 \
    thunderbird pidgin-data
 
+# remove xscreensaver by default
+apt-get --assume-yes remove xscreensaver
+
 
 # Remove unused home directories
 rm -fr /home/user/Documents

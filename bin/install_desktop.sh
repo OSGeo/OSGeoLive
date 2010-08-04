@@ -246,13 +246,39 @@ done
 #done
 
 
-####### Setup Automatic or Timed Login #####
+##### Setup Automatic or Timed Login #####
 cp "$BUILD_DIR"/../desktop-conf/custom.conf /etc/gdm/custom.conf
+
+
+
+##### Setup timed welcome message
+mkdir -p /usr/local/share/osgeo-desktop
+
+cat << EOF > "/usr/local/share/osgeo-desktop/welcome_message.desktop"
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Welcome message
+Comment=Live Demo welcome message
+Exec=/usr/local/share/osgeo-desktop/welcome_message.sh
+Terminal=false
+StartupNotify=false
+Hidden=false
+EOF
+
+mkdir -p "$USER_HOME"/.config/autostart
+cp /usr/local/share/osgeo-desktop/welcome_message.desktop \
+   "$USER_HOME"/.config/autostart/
+
+cp ../desktop-conf/welcome_message.* \
+   /usr/local/share/osgeo-desktop/
+
+cp /usr/local/share/osgeo-desktop/welcome_message.txt "$USER_HOME"/
+chown user.user "$USER_HOME"/welcome_message.txt
+
+
 
 #### permissions cleanup (if needed)
 chown user:user "$USER_HOME/Desktop/" -R
 chmod a+r "$USER_HOME/Desktop/" -R
-
-#### remove xscreensaver by default
-apt-get --assume-yes remove xscreensaver
 

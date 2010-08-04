@@ -1,0 +1,25 @@
+Welcome to the OSGeo Live GIS DVD.
+
+
+See the road-sign Help icon on the Desktop for
+information about the Live disc and virtual-machine,
+including a synopsis of bundled geospatial packages
+and a series of quick-start short tutorials.
+
+Program installers for Macintosh OSX and Microsoft
+Windows can be found in the MacInstallers and
+WindowsInstallers directories.
+
+Passwords for various things can be found in the
+passwords.txt file on the Desktop.
+
+If you need to become "root" (the UNIX super-user)
+open a Terminal and type "sudo su".
+
+The living FAQ can be found here:
+  http://wiki.osgeo.org/wiki/Live_GIS_Disc_FAQ
+
+
+
+Happy mapping!
+The OSGeo Live GIS disc and VM Team
