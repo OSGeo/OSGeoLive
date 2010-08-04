@@ -22,7 +22,6 @@
 # cd ${CD}/mac
 # sudo ./load_mac_installers.sh
 
-# Requires: nothing
 
 #Add the files to the directory where remastersys wants them
 #TMP="/tmp/build_mac_installers"
@@ -30,35 +29,10 @@ TMP="/tmp/remastersys/ISOTMP/MacInstallers"
 mkdir -p "$TMP"
 cd "$TMP"
 
-# 
-# 1 Base Packages (Frameworks)
-#    1_UnixImageIO_Framework-1.0.32a.dmg (UnixImageIO_Framework-1.0.32a.dmg)
-#    2_PROJ_Framework-4.6.1-4.dmg (PROJ_Framework-4.6.1-4.dmg)
-#    3_GEOS_Framework-3.1.1-4.dmg (GEOS_Framework-3.1.1-4.dmg)
-#    4_SQLite3_Framework-3.6.17-3.dmg (SQLite3_Framework-3.6.17-3.dmg)
-#    5_spatialite_tools-2.3.1.zip (spatialite_tools-2.3.1.zip)
-#    6_FreeType_Framework-2.3.9-2.dmg (FreeType_Framework-2.3.9-2.dmg)
-#    7_GDAL_Framework-1.6.2-3.dmg (GDAL_Framework-1.6.2-3.dmg)
-#    8_rgdal-0.6.12-1.zip (rgdal-0.6.12-1.zip)
-# 2 Support Packages
-#    PHP5-5.2.10-3.dmg
-#    PostgreSQL-8.3.8-1.dmg
-# 3 End-User Packages
-#    GRASS-6.4-RC5-3-Leo.dmg
-#    GRASS-6.4-RC5-2-Snow.dmg
-#    MapServer-5.4.2-2.dmg
-#    pgRouting-1.0.3-3(PG8.3).dmg
-#    PostGIS-1.4.0-4(PG8.3).dmg
-#    Qgis-1.3.0-1-Leopard.dmg
-#    Qgis-1.3.0-1-Snow.dmg
-#    imagelinker-1.7.15-appbundle.dmg
-#    ossimplanet-appbundle-1.8.4.dmg
-
 BASE_URL="http://www.kyngchaos.com/files/software/unixport"
 
-
 cat << EOF > README.txt
-OSGeo Macintosh installers for OSX Leopard and Snow Leopard
+OSGeo Macintosh installers for OSX Snow Leopard
 
  by William Kyngesburye
     http://www.kyngchaos.com
@@ -79,31 +53,39 @@ share common support libraries, and that these components can be safely
 upgraded in future without rendering the other programs unusable.
 
 
+
+GeoServer:  geoserver-2.0.2-bin.zip in the Windows Installers cache
+            also works on a Mac.
+
+
 Happy Mapping!
 EOF
 
 
+# 1 Base Packages (Frameworks)
 A_PKG="
-UnixImageIO_Framework-1.0.32a.dmg
-PROJ_Framework-4.6.1-4.dmg
-GEOS_Framework-3.1.1-4.dmg
-SQLite3_Framework-3.6.17-3.dmg
+GDAL_Complete-1.7.dmg
+cairo_Framework-1.8.10-3.dmg
+FreeType_Framework-2.4.1-1.dmg
+GSL_Framework-1.14-1.dmg
 spatialite_tools-2.3.1.zip
-FreeType_Framework-2.3.9-2.dmg
-GDAL_Framework-1.6.2-3.dmg
-rgdal-0.6.12-1.zip
+rgdal-0.6.26-1.zip
 "
 
-B_PKG="PHP5-5.2.10-3.dmg PostgreSQL-8.3.8-1.dmg"
+# 2 Support Packages
+B_PKG="
+PHP5-5.2.14-1.dmg
+PostgreSQL-8.4.4-2.dmg
+"
 
+# 3 End-User Packages
 C_PKG="
-GRASS-6.4-RC5-3-Leo.dmg
-GRASS-6.4-RC5-2-Snow.dmg
-MapServer-5.4.2-2.dmg
-pgRouting-1.0.3-3(PG8.3).dmg
-PostGIS-1.4.0-4(PG8.3).dmg
-Qgis-1.3.0-1-Leopard.dmg
-Qgis-1.3.0-1-Snow.dmg
+GRASS-6.4-RC6-2-Snow.dmg
+MapServer-5.6.5-1.dmg
+PostGIS-1.5.1-1.dmg
+WKTRaster-0.1.6d-r5759.dmg
+pgRouting-1.0.3-4.dmg
+Qgis-1.5.0-1-Snow.dmg
 "
 
 
@@ -141,13 +123,25 @@ for PKG in $C_PKG ; do
   sleep 1
 done
 
+
 #Add uDig from another source
-PKG="udig-1.2-M6.macosx.cocoa.x86.zip"
-wget -c --progress=dot:mega http://udig.refractions.net/files/downloads/branches/${PKG} -O "$PKG_DIR/$PKG"
+PKG="udig-1.2-M9.macosx.cocoa.x86.zip"
+wget -c --progress=dot:mega \
+   http://udig.refractions.net/files/downloads/branches/${PKG} -O "$PKG_DIR/$PKG"
 
 #Add Ossim Stuff (Imagelinker, Ossimplanet)
 PKG="imagelinker-1.7.15-appbundle.dmg"
-wget -c --progress=dot:mega http://download.osgeo.org/ossim/installers/mac/${PKG} -O "$PKG_DIR/$PKG"
+wget -c --progress=dot:mega \
+   http://download.osgeo.org/ossim/installers/mac/"$PKG" -O "$PKG_DIR/$PKG"
 PKG="ossimplanet-appbundle-1.8.4.dmg"
-wget -c --progress=dot:mega http://download.osgeo.org/ossim/installers/mac/${PKG} -O "$PKG_DIR/$PKG"
+wget -c --progress=dot:mega \
+   http://download.osgeo.org/ossim/installers/mac/"$PKG" -O "$PKG_DIR/$PKG"
 
+#Add GeoServer
+# geoserver-2.0.2-bin.zip from ../WindowsInstallers/ is cross platform
+# do symlinks work here?
+
+#Add R-stats
+PKG="R-2.11.1.pkg"
+wget -c --progress=dot:mega \
+   http://cran.stat.ucla.edu/bin/macosx/"$PKG" -O "$PKG_DIR/$PKG"
