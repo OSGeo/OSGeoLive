@@ -2,7 +2,7 @@
 
 #################################################
 # 
-# Purpose: Compress and package the Arramagong / GISVM images
+# Purpose: Compress and package the Live DVD image
 # Author:  Cameron Shorter
 #
 #################################################
@@ -96,7 +96,7 @@ echo "  https://username@svn.osgeo.org/osgeo/livedvd/gisvm/trunk/download/index.
 echo 
 
 echo "<a name='${VERSION}'></a>"
-echo "<h3>Arramagong LiveDVD - ${VERSION}</h3>"
+echo "<h3>OSGeo Live GIS - ${VERSION}</h3>"
 echo `date "+%d %B %Y"`
 echo "<ul>"
 for FILE in ${PACKAGE_NAME}-${VERSION}.7z* ; do
