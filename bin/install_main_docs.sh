@@ -22,22 +22,18 @@
 # =======
 # sudo ./install_main_docs.sh
 
-# Requires: abiword for the build process (but abiword can be deleted after that)
 
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SRC="../doc"
-DEST="/usr/local/share/osgeolive-docs"
+DEST="/home/cshorter/tmp/osgeolive-docs"
 BASE_FILES="banner.png osgeolive.css images" # base files to install
 HTML_FILES="contact.html index.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
 APPS=`sed -e 's/#.*$//' "$INSTALL_APPS" | sort`
 VERSION=`cat ../VERSION.txt`
 
-# abiword is required to convert .odt files to .html
-apt-get install --yes abiword
 apt-get --assume-yes install python-sphinx
-
 
 mkdir -p $DEST/doc
 
@@ -102,43 +98,43 @@ for ITEM in $APPS ; do
    # Publish Descriptions:
 
    # Convert .odt description to html if doc exists
-   if [ -e "${SRC}/descriptions/${ITEM}_description.odt" ] ; then
-      abiword --to "${DEST}/doc/${ITEM}_description.html" "${SRC}/descriptions/${ITEM}_description.odt"
+   #if [ -e "${SRC}/descriptions/${ITEM}_description.odt" ] ; then
+   #   abiword --to "${DEST}/doc/${ITEM}_description.html" "${SRC}/descriptions/${ITEM}_description.odt"
 
    # Otherwise, copy the HTML
-   else
-     if [ -e "${SRC}/descriptions/${ITEM}_description.html" ] ; then
-       cp -f "${SRC}/descriptions/${ITEM}_description.html" "$DEST/doc/"
-     else
-       echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_description.html"
-     fi
-   fi
+   #else
+   #  if [ -e "${SRC}/descriptions/${ITEM}_description.html" ] ; then
+   #    cp -f "${SRC}/descriptions/${ITEM}_description.html" "$DEST/doc/"
+   #  else
+   #    echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_description.html"
+   #  fi
+   #fi
 
    # Link to the arramagong style file
    # FIXME, we should use the pre.html file for this, or similar, to make easier
    # to maintain
-   sed -i -e 's/<head>/<head><link href="..\/osgeolive.css" type="text\/css" rel="stylesheet"\/>/' "$DEST/doc/${ITEM}_description.html"
+   #sed -i -e 's/<head>/<head><link href="..\/osgeolive.css" type="text\/css" rel="stylesheet"\/>/' "$DEST/doc/${ITEM}_description.html"
 
    # Add Header to the X_description.html file
    # FIXME, we should use the pre.html file for this, or similar, to make easier
    # to maintain
-   sed -i -e 's/<body>/<body> <div class="header"><div class="banner"><a href="http:\/\/live.osgeo.org\/"><img src="..\/banner.png"><\/a><\/div><ul>  <li><a href="..\/index.html">Home<\/a><\/li> | <li><a href="..\/content.html">Contents<\/a><\/li> | <li><a href="..\/contact.html">Contact and Support<\/a><\/li> | <li><a href="..\/tests.html">Tests<\/a><\/li> | <li><a href="..\/sponsors.html">Sponsors<\/a><\/li><\/ul><\/div><br \/>/' "$DEST/doc/${ITEM}_description.html"
+   #sed -i -e 's/<body>/<body> <div class="header"><div class="banner"><a href="http:\/\/live.osgeo.org\/"><img src="..\/banner.png"><\/a><\/div><ul>  <li><a href="..\/index.html">Home<\/a><\/li> | <li><a href="..\/content.html">Contents<\/a><\/li> | <li><a href="..\/contact.html">Contact and Support<\/a><\/li> | <li><a href="..\/tests.html">Tests<\/a><\/li> | <li><a href="..\/sponsors.html">Sponsors<\/a><\/li><\/ul><\/div><br \/>/' "$DEST/doc/${ITEM}_description.html"
 
    # Add Footer to the X_description.html file
    # FIXME, we should use the post.html file for this, or similar, to make easier
    # to maintain
-   sed -i -e 's/<\/body>/<div class="footer"> <div class="copyright">\&copy; The Open Source Geospatial Foundation and LISAsoft 2010<\/div> <\/body>/' "$DEST/doc/${ITEM}_description.html"
+   #sed -i -e 's/<\/body>/<div class="footer"> <div class="copyright">\&copy; The Open Source Geospatial Foundation and LISAsoft 2010<\/div> <\/body>/' "$DEST/doc/${ITEM}_description.html"
 
    # Copy Definitions:
    if [ -e "${SRC}/descriptions/${ITEM}_definition.html" ] ; then
      cp "${SRC}/descriptions/${ITEM}_definition.html" "/tmp/${ITEM}_definition.html"
-     if [ -e "${DEST}/overview/${ITEM}_overview.html" ] ; then
-       # point the definition file at the overview doc instead of the
-       # description doc 
-       sed -i -e \
-         "s#doc/${ITEM}_description.html#overview/${ITEM}_overview.html#" \
-         "/tmp/${ITEM}_definition.html"
-     fi
+     #if [ -e "${DEST}/overview/${ITEM}_overview.html" ] ; then
+     #  # point the definition file at the overview doc instead of the
+     #  # description doc 
+     #  sed -i -e \
+     #    "s#doc/${ITEM}_description.html#overview/${ITEM}_overview.html#" \
+     #    "/tmp/${ITEM}_definition.html"
+     #fi
 
      if [ -e "${DEST}/quickstart/${ITEM}_quickstart.html" ] ; then
        # Add link to Quick Start, if it exists
