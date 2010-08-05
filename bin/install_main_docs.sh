@@ -63,7 +63,7 @@ grep -v " *#" ${SRC}/../contributors.csv | cut -f1-3 -d, | \
       -e 's+<td>\(Name\|Email\|Country\)</td>+<td><u>\1</u></td>+g' \
       >> ${DEST}/sponsors.html
 echo "</table>" >> ${DEST}/sponsors.html
-echo '<p><i>Source list at: <a href="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv">https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv</a></i></p>' >> ${DEST}/sponsors.html
+#echo '<p><i>Source list at: <a href="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv">https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv</a></i></p>' >> ${DEST}/sponsors.html
 
 # Copy body of html static files
 for ITEM in contact.html index.html sponsors.html content.html; do
