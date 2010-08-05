@@ -65,8 +65,8 @@ EOF
 # 1 Base Packages (Frameworks)
 A_PKG="
 GDAL_Complete-1.7.dmg
-cairo_Framework-1.8.10-3.dmg
 FreeType_Framework-2.4.1-1.dmg
+cairo_Framework-1.8.10-3.dmg
 GSL_Framework-1.14-1.dmg
 spatialite_tools-2.3.1.zip
 rgdal-0.6.26-1.zip
