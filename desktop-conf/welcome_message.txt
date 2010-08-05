@@ -14,7 +14,7 @@ Passwords for various things can be found in the
 passwords.txt file on the Desktop.
 
 If you need to become "root" (the UNIX super-user)
-open a Terminal and type "sudo su".
+open a Terminal and type "sudo su", then password="user".
 
 The living FAQ can be found here:
   http://wiki.osgeo.org/wiki/Live_GIS_Disc_FAQ
