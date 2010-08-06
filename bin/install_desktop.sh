@@ -26,21 +26,28 @@ BUILD_DIR=`pwd`
 
 ################################################
 
+#Desktop apps part 1 (traditional analytic GIS)
 DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0
               spatialite-gis zygrib saga_gui"
 
+#Desktop apps part 2 (geodata viewers and editors)
 NAV_APPS="marble gpsdrive opencpn josm gosmore merkaartor viking"
 
+#Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver
-              qgis-mapserver zoo-project 52n-*"
+              qgis-mapserver zoo-project 52n-* mapguide*"
 
-BROWSER_CLIENTS="geomajas-* mapbender MapFish mapguide*"
+#Server apps part 2 (web based viewers; data only flows down to user)
+BROWSER_CLIENTS="geomajas-* mapbender MapFish"
 
+#Infrastructure and miscellanea
 SPATIAL_TOOLS="imagelinker r spatialite-gui geokettle openlayers
                maptiler mapnik-*"
 
+#Future home of PostGIS and Spatialite; pgRouting???
 DB_APPS=""  # pgadmin, sqlitebrowser, etc  (this one is automatic)
 
+#Server apps part 3 (public good theme)
 RELIEF_APPS="sahana ushahidi"
 
 ################################################
