@@ -43,7 +43,8 @@ ldconfig
 
 wget http://www.geofemengineering.it/data/ossim_settings.tar.gz
 tar -zxvf ossim_settings.tar.gz
-mv ossim_settings /usr/share/ossim
+mv ossim_settings ossim
+mv ossim /usr/share/ossim
 
 mv /usr/share/ossim/images/ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
 mv /usr/share/ossim/images/ossim.xpm /usr/share/pixmaps/ossim.xpm
