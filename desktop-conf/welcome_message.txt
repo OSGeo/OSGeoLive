@@ -10,7 +10,8 @@ To change the language, log out (Applications menu) and
 along the bottom of the login screen is the language menu. 
 Once you log back in (the password if you need it is
 "user"), there is a flag icon on the top menu bar that lets
-you pick the keyboard layout.
+you pick the keyboard layout. You can also set it via the
+menus with Applications > System > Language Support.
 
 Program installers for Macintosh OSX and Microsoft Windows
 can be found in the MacInstallers and WindowsInstallers
