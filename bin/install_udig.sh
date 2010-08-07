@@ -32,16 +32,21 @@
 TMP="/tmp/build_udig"
 INSTALL_FOLDER="/usr/lib"
 UDIG_FOLDER="$INSTALL_FOLDER/udig"
-DATA_FOLDER="/usr/local/share/udig"
+DOCS_FOLDER="/usr/local/share/udig"
+DATA_GLOBAL="/usr/local/share/data"
+
 BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
  
 ## Setup things... ##
-if [ ! -d "$DATA_FOLDER" ] ; then
-   mkdir "$DATA_FOLDER"
+if [ ! -d "$DOCS_FOLDER" ] ; then
+   mkdir "$DOCS_FOLDER"
 fi
- 
+if [ ! -d "$DATA_GLOBAL" ] ; then
+   mkdir "$DATA_GLOBAL"
+fi
+
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
    echo "ERROR: wget is required, please install it and try again" 
@@ -69,21 +74,6 @@ cd "$TMP"
 # - GDAL could also be removed if GDAL_DATA environment variable is defined etc..
 #   For specific env requirements please review udig.sh script
 
-# CASE OF A TAR.GZ
-#TARBALL="udig-1.2-RC3.linux.gtk.x86.tar.gz"
-#if [ -f "$TARBALL" ] ; then
-#   echo "$TARBALL has already been downloaded."
-#else
-#   wget -c --progress=dot:mega "http://udig.refractions.net/files/downloads/$TARBALL"
-#fi
-# unpack it and copy it to /usr/lib
-#tar -xzf "$TARBALL" -C "$INSTALL_FOLDER"
-#
-#if [ $? -ne 0 ] ; then
-#   echo "ERROR: expanding $TARBALL"
-#   exit 1
-#fi
-     
 # CASE OF A ZIP
 ZIP="udig-1.2-RC3.linux.gtk.x86.zip"
 if [ -f "$ZIP" ] ; then
@@ -140,12 +130,11 @@ else
 fi
 
 #unzip the file into /usr/local/share/udig-data
-mkdir "$DATA_FOLDER/udig-data"
-unzip -q data-v1_2.zip -d "$DATA_FOLDER/udig-data"
-chmod g+w "$DATA_FOLDER/udig-data"
+mkdir "$DATA_GLOBAL/udig-data"
+unzip -q data-v1_2.zip -d "$DATA_GLOBAL/udig-data"
+chmod g+w "$DATA_GLOBAL/udig-data"
 adduser $USER_NAME users
-chown root.users "$DATA_FOLDER/udig-data"
-
+chown root.users "$DATA_GLOBAL/udig-data"
 
 ## Documentation ##
 
@@ -172,8 +161,8 @@ else
 fi
 
 #copy into /usr/local/share/udig/udig-docs
-mkdir "$DATA_FOLDER/udig-docs"
-cp "$REL_DOC" "$DATA_FOLDER/udig-docs"
-cp uDigWalkthrough1.pdf "$DATA_FOLDER/udig-docs"
-cp uDigWalkthrough1.pdf "$DATA_FOLDER/udig-docs"
+mkdir "$DOCS_FOLDER/udig-docs"
+cp "$REL_DOC" "$DOCS_FOLDER/udig-docs"
+cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
+cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
 
