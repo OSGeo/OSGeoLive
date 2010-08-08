@@ -15,14 +15,11 @@
         <sld:FeatureTypeName>Feature</sld:FeatureTypeName>
         <sld:SemanticTypeIdentifier>generic:geometry</sld:SemanticTypeIdentifier>
         <sld:SemanticTypeIdentifier>colorbrewer:equalinterval:oranges</sld:SemanticTypeIdentifier>
-<sld:Rule>
-
+        <sld:Rule>
           <sld:Name>Other Cities</sld:Name>
           <sld:Title>Other Cities</sld:Title>
           <sld:Abstract>Abstract</sld:Abstract>
           <sld:ElseFilter />
-
-          
           <sld:MaxScaleDenominator>1e7</sld:MaxScaleDenominator>
           <sld:PointSymbolizer>
             <sld:Graphic>
@@ -72,7 +69,6 @@
                 <ogc:Literal>normal</ogc:Literal>
               </sld:CssParameter>
             </sld:Font>
-           
             <sld:LabelPlacement>
               <sld:PointPlacement>
                 <sld:AnchorPoint>
@@ -116,18 +112,15 @@
             <sld:VendorOption name="spaceAround">2</sld:VendorOption>
           </sld:TextSymbolizer>
         </sld:Rule>        
-<sld:Rule>
+        <sld:Rule>
           <sld:Name>Capitals</sld:Name>
           <sld:Title>Capitals</sld:Title>
           <sld:Abstract>Abstract</sld:Abstract>
           <ogc:Filter>
-
             <ogc:PropertyIsEqualTo>
               <ogc:PropertyName>ADM0CAP</ogc:PropertyName>
               <ogc:Literal>1</ogc:Literal>
             </ogc:PropertyIsEqualTo>
-
-
           </ogc:Filter>
           <sld:MinScaleDenominator>1</sld:MinScaleDenominator>
           <sld:MaxScaleDenominator>1e9</sld:MaxScaleDenominator>
@@ -219,11 +212,9 @@
             <sld:Priority>
               <ogc:PropertyName>LABELRANK</ogc:PropertyName>
             </sld:Priority>
-
             <sld:VendorOption name="spaceAround">2</sld:VendorOption>
           </sld:TextSymbolizer>
         </sld:Rule>
-        
       </sld:FeatureTypeStyle>
     </sld:UserStyle>
   </sld:UserLayer>
