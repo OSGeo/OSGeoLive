@@ -33,7 +33,7 @@ libexpat1 libpng3 libgdal1-1.7.0-grass libfftw3-3 libqt3-mt
 
 cd /tmp/build_ossim
 wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim.tar.gz 
-tar -zxvf ossim.tar.gz
+tar -zxf ossim.tar.gz
 mv ossim /usr/local/
 echo "/usr/local/ossim/
 /usr/local/ossim/lib" >> ossim.conf
@@ -42,7 +42,7 @@ ldconfig
 
 mkdir /usr/share/ossim/
 wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_settings.tar.gz 
-tar -zxvf ossim_settings.tar.gz
+tar -zxf ossim_settings.tar.gz
 mv ossim_settings/* /usr/share/ossim/
 
 mv /usr/share/ossim/images/ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
@@ -98,11 +98,11 @@ fi
 
 #Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/ossim
-wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf \
+wget -N --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf \
 	--output-document=/usr/local/share/ossim/ossim_users_guide.pdf
 ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/
 
-wget -c --progress=dot:mega http://ossim.telascience.org/ossimdata/Documentation/OSSIM_Whitepaper.pdf \
+wget -N --progress=dot:mega http://ossim.telascience.org/ossimdata/Documentation/OSSIM_Whitepaper.pdf \
         --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
 
 
@@ -117,22 +117,36 @@ mkdir -p $KML_DATA
 mkdir -p $RASTER_DATA
 mkdir -p $ELEV_DATA
 
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band1.tif  --output-document=$RASTER_DATA/band1.tif           
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band2.tiff  --output-document=$RASTER_DATA/band2.tif
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band3.tiff  --output-document=$RASTER_DATA/band3.tif
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/SRTM_u03_n041e002.tif  --output-document=$RASTER_DATA/SRTM_u03_n041e002.tif
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/kml/Plaza_de_Cataluna.kmz --output-document=$KML_DATA/Plaza_de_Cataluna.kmz
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/kml/View_towards_Sagrada_Familia.kmz --output-document=$KML_DATA/View_towards_Sagrada_Familia.kmz
-#wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/landsatrgb.prj --output-document=$PKG_DATA/landsatrgb.prj
-#wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/session.session --output-document=$PKG_DATA/session.session
+wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band1.tif  \
+--output-document=$RASTER_DATA/band1.tif           
+wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band2.tiff  \
+--output-document=$RASTER_DATA/band2.tif
+wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band3.tiff  \
+--output-document=$RASTER_DATA/band3.tif
+wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/SRTM_u03_n041e002.tif  \
+--output-document=$RASTER_DATA/SRTM_u03_n041e002.tif
+wget -N --progress=dot:mega http://www.geofemengineering.it/data/kml/Plaza_de_Cataluna.kmz \
+--output-document=$KML_DATA/Plaza_de_Cataluna.kmz
+wget -N --progress=dot:mega http://www.geofemengineering.it/data/kml/View_towards_Sagrada_Familia.kmz \
+--output-document=$KML_DATA/View_towards_Sagrada_Familia.kmz
+#wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/landsatrgb.prj \
+#--output-document=$PKG_DATA/landsatrgb.prj
+#wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/session.session \
+#--output-document=$PKG_DATA/session.session
 ossim-img2rr $RASTER_DATA/band1.tif $RASTER_DATA/band2.tif $RASTER_DATA/band3.tif
  
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N40E002.hgt --output-document=/usr/share/ossim/elevation/elev/N40E002.hgt 
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N40E002.omd --output-document=/usr/share/ossim/elevation/elev/N40E002.omd 
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N41E002.hgt --output-document=/usr/share/ossim/elevation/elev/N41E002.hgt 
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N41E002.omd --output-document=/usr/share/ossim/elevation/elev/N41E002.omd  
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N42E002.hgt --output-document=/usr/share/ossim/elevation/elev/N42E002.hgt 
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N42E002.omd --output-document=/usr/share/ossim/elevation/elev/N42E002.omd 
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N40E002.hgt \
+--output-document=/usr/share/ossim/elevation/elev/N40E002.hgt 
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N40E002.omd \
+--output-document=/usr/share/ossim/elevation/elev/N40E002.omd 
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N41E002.hgt \
+--output-document=/usr/share/ossim/elevation/elev/N41E002.hgt 
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N41E002.omd \
+--output-document=/usr/share/ossim/elevation/elev/N41E002.omd  
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N42E002.hgt \
+--output-document=/usr/share/ossim/elevation/elev/N42E002.hgt 
+wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N42E002.omd \
+--output-document=/usr/share/ossim/elevation/elev/N42E002.omd 
 
 cp -r $APP_DATA_DIR $QUICKSTART
 ln -s $QUICKSTART $USER_HOME/ossim
