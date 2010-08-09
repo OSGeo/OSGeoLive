@@ -41,10 +41,10 @@ USER_HOME="/home/$USER_NAME"
  
 ## Setup things... ##
 if [ ! -d "$DOCS_FOLDER" ] ; then
-   mkdir "$DOCS_FOLDER"
+   mkdir -p "$DOCS_FOLDER"
 fi
 if [ ! -d "$DATA_GLOBAL" ] ; then
-   mkdir "$DATA_GLOBAL"
+   mkdir -p "$DATA_GLOBAL"
 fi
 
 # check required tools are installed
@@ -130,7 +130,7 @@ else
 fi
 
 #unzip the file into /usr/local/share/udig-data
-mkdir "$DATA_GLOBAL/udig-data"
+mkdir -p "$DATA_GLOBAL/udig-data"
 unzip -q data-v1_2.zip -d "$DATA_GLOBAL/udig-data"
 chmod g+w "$DATA_GLOBAL/udig-data"
 adduser $USER_NAME users
@@ -161,7 +161,7 @@ else
 fi
 
 #copy into /usr/local/share/udig/udig-docs
-mkdir "$DOCS_FOLDER/udig-docs"
+mkdir -p "$DOCS_FOLDER/udig-docs"
 cp "$REL_DOC" "$DOCS_FOLDER/udig-docs"
 cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
 cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
