@@ -13,6 +13,8 @@ USER_HOME="/home/$USER_NAME"
 BUILD_DIR=`pwd`
 APP_DATA_DIR="$BUILD_DIR/../app-data/ossim"
 DATA_FOLDER="/usr/local/share/data"
+#OSSIM_VERSION=1.8.6
+#BUILD_DATE=20100729
 
 #Add repositories
 
