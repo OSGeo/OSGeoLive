@@ -109,7 +109,6 @@ for SCRIPT in \
   ./install_gisdata.sh \
   ./install_desktop.sh \
   ./install_language.sh \
-  ./install_zoo-project.sh \
   ./setdown.sh \
 ; do
   echo "===================================================================="
