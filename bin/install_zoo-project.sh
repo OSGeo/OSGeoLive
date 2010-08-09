@@ -86,6 +86,7 @@ Categories=Education;Geography;
 EOF
 fi
 cp /usr/share/applications/zoo-project.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/zoo-project.desktop"
 
 
 # Reload Apache
