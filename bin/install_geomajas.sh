@@ -87,6 +87,10 @@ if [ ! -e "$BIN/geomajas_stop.sh" ] ; then
 fi
 
 
+##### Step5: Make the logs directory writable
+chmod 777 "$GEOMAJAS_HOME/logs"
+
+
 
 # =============================================================================
 # Setting up quick-start desktop icons
