@@ -75,7 +75,7 @@ cd "$TMP"
 #   For specific env requirements please review udig.sh script
 
 # CASE OF A ZIP
-ZIP="udig-1.2-RC3.linux.gtk.x86.zip"
+ZIP="udig-1.2.0.linux.gtk.x86.zip"
 if [ -f "$ZIP" ] ; then
    echo "$ZIP has already been downloaded."
 else
@@ -139,7 +139,7 @@ chown root.users "$DATA_GLOBAL/udig-data"
 ## Documentation ##
 
 # Download udig's documentation
-REL_DOC="udig-1.2-RC3.html"
+REL_DOC="udig-1.2.0.html"
 if [ -f "$REL_DOC" ] ; then
    echo "$REL_DOC has already been downloaded."
 else
