@@ -29,6 +29,8 @@ wget -c --progress=dot:mega \
 
 # Demo dataset
 wget http://zadeh.ugent.be/~johan/saga/DGM_30m_Mt.St.Helens_SRTM.grd
+# Link demo dataset to user_home
+ln -s /usr/local/share/saga/ $USER_HOME/saga
 
 # Desktop icon
 # cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
