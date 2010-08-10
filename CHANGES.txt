@@ -1,9 +1,9 @@
 OSGeo Live GIS Disc
 ===================
 
-[DRAFT] Version: 4.0rc7
+Version: 4.0rc7
 ==================
-[DATE] August 2010
+9 August 2010
  * Lots of updates to docs
  * Added welcome message
  * Enabled Mac and Windows installers
