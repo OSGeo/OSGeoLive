@@ -46,3 +46,9 @@ wget --cut-dirs=1 -nH -q -c -r \
 
 chown -R $USER_NAME:$USER_NAME $USER_HOME/.AtlasStyler 
 
+# Now we create a .properties file which predefines that AtlasStyler open-file-dialog will start in the data directory, and the export directory points to the desktop
+rm -rf $USER_HOME/.AtlasStyler/atlasStyler.properties
+echo "lastImportDirectory=$USER_HOME/data/natural_earth" > $USER_HOME/.AtlasStyler/atlasStyler.properties
+echo "lastExportDirectory=$USER_HOME/Desktop" >> $USER_HOME/.AtlasStyler/atlasStyler.properties
+
+
