@@ -27,60 +27,42 @@
 # sudo rm -r /etc/apache2/conf.d/pywps
 
 
-
-
-
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-PYWPS_TMP="/tmp/pywps"
+PYWPS_TMP="/tmp/build_pywps"
 PYWPS_VERSION="foss4g2010"
 PYWPS_WWW="/var/www/pywps"
 PYWPS_CONF="/etc/apache2/conf.d/pywps"
 PYWPS_WRAPPER="pywps.cgi"
 PYWPS_SVN="http://svn.wald.intevation.org/svn/pywps/branches/pywps-$PYWPS_VERSION"
 
-apt-get install subversion
+
+apt-get --assume-yes install subversion python-minimal
+
 mkdir -p "$PYWPS_TMP"
 chmod 755 -R "$PYWPS_TMP"
 
-
-# check required tools are installed
-if [ ! -x "`which svn`" ] ; then
-	echo "ERROR: Its necessary a SVN client to download the code"
-	exit 1
-fi
-
-if [ ! -x "`which python`" ] ; then
-	echo "ERROR: Its necessary python and distutils to install pywps"
-	exit 1
-fi
-
-if [ ! -x "`which svn`" ] ; then
-	echo "ERROR: Its necessary a SVN client to download the code"
-	exit 1
-fi
-
-
-echo -n "fetching pywps-$PYWPS_VERSION..."
+echo "fetching pywps-$PYWPS_VERSION..."
 
 #downloading pyWPS SVN for FOSS4G
 cd ${PYWPS_TMP}
 svn checkout $PYWPS_SVN
 
 #Setting up pyWPS
-echo -n "Installing pywps-$PYWPS_VERSION..."
+echo "Installing pywps-$PYWPS_VERSION..."
 cd "$PYWPS_TMP/pywps-$PYWPS_VERSION/"
 python setup.py install
 
 
 
-echo -n "Apache configuration update ..."
+echo "Apache configuration update ..."
 # Adding CGI-BIN to apache and pywps directory
 
 mkdir -p "$PYWPS_WWW"
 #chmod -R 755 "$PYWPS_WWW"
 cd "$PYWPS_WWW"
+
 #Index Page
 cat << EOF > "index.html"
 
@@ -113,7 +95,7 @@ cat << EOF > "$PYWPS_CONF"
 
 EOF
 
-echo -n "Post-install processing..."
+echo "Post-install processing..."
 PYWPS_WHICH="`which wps.py`"
 #Linking to /usr/bin/wps.py (using which just in case....)
 ln -s "$PYWPS_WHICH" "$PYWPS_WWW"
@@ -124,7 +106,7 @@ cp $PYWPS_TMP/pywps-$PYWPS_VERSION/tests/processes/* $PYWPS_WWW/processes
 
 
 
-echo -n "Creating wrapper script..."
+echo "Creating wrapper script..."
 #Making wrapper script
 cat << EOF > "$PYWPS_WRAPPER"		        
 #!/bin/sh
@@ -147,10 +129,13 @@ EOF
 
 # Make it executable
 chmod 755 "$PYWPS_WRAPPER"
+
 #Editing the pywps.cfg
-echo -n "editing pywps.cfg..."
+echo "editing pywps.cfg..."
 #cat /pywps.cfg |sed -e "/abstract=.*/abstract=PyWPS for FOSS4G 2010 example installation" >pywps.cfg
-cat "$PYWPS_TMP/pywps-$PYWPS_VERSION/pywps/default.cfg" | sed -e "s/abstract=.*/abstract=PyWPS for FOSS4G 2010 example installation/g" > "$PYWPS_WWW/pywps.cfg"
+cat "$PYWPS_TMP/pywps-$PYWPS_VERSION/pywps/default.cfg" | \
+   sed -e "s/abstract=.*/abstract=PyWPS for FOSS4G 2010 example installation/g" \
+   > "$PYWPS_WWW/pywps.cfg"
 
 sed -i -e 's|serveraddress=.*|serveraddress=http://localhost/pywps|g' ${PYWPS_WWW}/pywps.cfg
 sed -i -e 's|outputUrl=.*|outputUrl=http://localhost/pywps/wpsoutputs|g' ${PYWPS_WWW}/pywps.cfg # | to avoid problems with //
@@ -160,10 +145,11 @@ sed -i -e "s|outputPath=.*|outputPath=$PYWPS_WWW/wpsoutputs|g" ${PYWPS_WWW}/pywp
 mkdir -p "$PYWPS_WWW/wpsoutputs"
 
 # Execute and read permissions 
-chmod -R 777 "$PYWPS_WWW/wpsoutputs"
+#chmod -R 777 "$PYWPS_WWW/wpsoutputs"
+chown -R www-data.www-data "$PYWPS_WWW/wpsoutputs"
 
 
-echo -n "Done\n"
+echo "Done."
 
 #Add Launch icon to desktop
 #What Icon should be used
