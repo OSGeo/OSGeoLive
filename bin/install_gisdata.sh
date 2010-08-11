@@ -36,6 +36,13 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
+# check required tools are installed
+if [ ! -x "`which atlasstyler`" ] ; then
+   echo "ERROR: atlasstyler is required as a tool to create .fix and .qix files for all shapefiles, please install it with bin/install_atlasstyler.sh and try again" 
+   exit 1
+fi
+
+
 # create tmp folders
 mkdir "$TMP"
 cd "$TMP"
@@ -83,6 +90,13 @@ mkdir -p "$DATA_FOLDER/natural_earth"
 for file in *.zip ; do
   unzip "$file" -d "$DATA_FOLDER/natural_earth"
 done
+
+
+# Add Geotools .fix and .qix files to all Shapefiles. Normally Geotools application would create these
+# files when opeing the Shapefile, but since the data-dir is read-only, we do it here. 
+# This REQUIRES that install_atlasstyler.sh has been executed before (which is checked above)
+find "$DATA_FOLDER/natural_earth" -iname "*.shp" -exec atlasstyler "addFix={}" \;
+
 
 chmod a+r "$DATA_FOLDER/natural_earth"     ## read the data dir
 chmod 444  $DATA_FOLDER/natural_earth/*    ##  and all files in it
