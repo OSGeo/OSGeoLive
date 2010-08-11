@@ -21,6 +21,7 @@
 # the web page "http://www.fsf.org/licenses/lgpl.html".
 ##################################################
 
+
 TMP="/tmp/build_gisdata"
 DATA_FOLDER="/usr/local/share/data"
 POSTGRES_USER="user"
@@ -38,8 +39,10 @@ fi
 
 # check required tools are installed
 if [ ! -x "`which atlasstyler`" ] ; then
-   echo "ERROR: atlasstyler is required as a tool to create .fix and .qix files for all shapefiles, please install it with bin/install_atlasstyler.sh and try again" 
-   exit 1
+   echo "ERROR: atlasstyler is required as a tool to create .fix and .qix files for all shapefiles, please install it with bin/install_atlasstyler.sh and try again"
+   HAS_ATLASSTYLER=0
+else
+   HAS_ATLASSTYLER=1
 fi
 
 
@@ -74,15 +77,16 @@ physical/$SCALE-lakes
 physical/$SCALE-rivers-lake-centerlines
 "
 
-for LAYER in $LAYERS ; do
-   wget --progress=dot:mega -O "`basename $LAYER`.zip" \
-     "$BASE_URL/http//www.naturalearthdata.com/download/$SCALE/$LAYER.zip"
-done
+if [ ! -e $TMP/"$SCALE-populated-places-simple.zip" ]; then
+  for LAYER in $LAYERS ; do
+     wget --progress=dot:mega -O "`basename $LAYER`.zip" \
+       "$BASE_URL/http//www.naturalearthdata.com/download/$SCALE/$LAYER.zip"
+  done
 
-# Raster basemap -- Cross Blended Hypso with Shaded Relief and Water 1:50 million (40mb)
-wget -c --progress=dot:mega \
-   "$BASE_URL/http//www.naturalearthdata.com/download/50m/raster/HYP_50M_SR_W.zip"
-
+  # Raster basemap -- Cross Blended Hypso with Shaded Relief and Water 1:50 million (40mb)
+  wget -c --progress=dot:mega \
+     "$BASE_URL/http//www.naturalearthdata.com/download/50m/raster/HYP_50M_SR_W.zip"
+fi
 
 # Unzip files into the gisdata directory
 mkdir -p "$DATA_FOLDER/natural_earth"
@@ -92,10 +96,12 @@ for file in *.zip ; do
 done
 
 
-# Add Geotools .fix and .qix files to all Shapefiles. Normally Geotools application would create these
-# files when opeing the Shapefile, but since the data-dir is read-only, we do it here. 
-# This REQUIRES that install_atlasstyler.sh has been executed before (which is checked above)
-find "$DATA_FOLDER/natural_earth" -iname "*.shp" -exec atlasstyler "addFix={}" \;
+if [ $HAS_ATLASSTYLER = 1 ]; then
+  # Add Geotools .fix and .qix files to all Shapefiles. Normally Geotools application would create these
+  # files when opeing the Shapefile, but since the data-dir is read-only, we do it here. 
+  # This REQUIRES that install_atlasstyler.sh has been executed before (which is checked above)
+  find "$DATA_FOLDER/natural_earth" -iname "*.shp" -exec atlasstyler "addFix={}"
+fi
 
 
 chmod a+r "$DATA_FOLDER/natural_earth"     ## read the data dir
