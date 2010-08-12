@@ -133,9 +133,9 @@ dpkg --get-selections > "$DOC_DIR/package_manifest.txt"
 
 
 echo "==============================================================="
-echo "Show top 50 packages hogging the most space on the disc:"
+echo "Show top 75 packages hogging the most space on the disc:"
 dpkg-query --show --showformat='${Package;-50}\t${Installed-Size}\t${Status}\n' \
-  | sort -k 2 -n | grep -v deinstall | tac | head -n 50 | \
+  | sort -k 2 -n | grep -v deinstall | tac | head -n 75 | \
   awk '{printf "%.3f MB \t %s\n", $2/(1024), $1}'
 
 # check install sizes
