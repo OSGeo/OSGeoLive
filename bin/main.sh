@@ -88,7 +88,6 @@ for SCRIPT in \
   ./install_mapnik.sh \
   ./install_maptiler.sh \
   ./install_marble.sh \
-  ./install_octave.sh \
   ./install_opencpn.sh \
   ./install_viking.sh \
   ./install_zygrib.sh \
