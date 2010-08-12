@@ -58,3 +58,11 @@ echo "lastPgDatabase=natural_earth" >> $USER_HOME/.AtlasStyler/atlasStyler.prope
 echo "lastPgUsername=user" >> $USER_HOME/.AtlasStyler/atlasStyler.properties
 echo "lastPgPort=5432" >> $USER_HOME/.AtlasStyler/atlasStyler.properties
 
+
+# Create a desktop icon
+mkdir -p "$USER_HOME/Desktop/"
+cp /usr/share/applications/atlasstyler.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/atlasstyler.desktop"
+
+
+

@@ -41,3 +41,7 @@ apt-get install --yes --no-install-recommends geopublisher geopublishing-doc
 # Now we create a .properties file which predefines that Geopublisher open-file-dialog will start in the directory recommended in the quickstart 
 mkdir -p $USER_HOME/.Geopublisher
 echo "LastOpenAtlasFolder=$USER_HOME/Desktop/ChartDemoAtlas" > $USER_HOME/.Geopublisher/geopublisher.properties
+
+# Create a desktop icon
+# cp /usr/share/applications/geopublisher.desktop "$USER_HOME/Desktop/"
+# chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/geopublisher.desktop"
