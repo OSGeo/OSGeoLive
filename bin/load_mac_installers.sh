@@ -125,9 +125,10 @@ done
 
 
 #Add uDig from another source
-PKG="udig-1.2-M9.macosx.cocoa.x86.zip"
-wget -c --progress=dot:mega \
-   http://udig.refractions.net/files/downloads/branches/${PKG} -O "$PKG_DIR/$PKG"
+#( sorry udig, no space :-( )
+#PKG="udig-1.2-M9.macosx.cocoa.x86.zip"
+#wget -c --progress=dot:mega \
+#   http://udig.refractions.net/files/downloads/branches/${PKG} -O "$PKG_DIR/$PKG"
 
 #Add Ossim Stuff (Imagelinker, Ossimplanet)
 PKG="imagelinker-1.7.15-appbundle.dmg"

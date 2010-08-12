@@ -38,7 +38,6 @@ for URL in \
   http://downloads.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.4.2/geonetwork-install-2.4.2-0.exe?use_mirror=transact \
   http://downloads.sourceforge.net/geoserver/geoserver-2.0.2-bin.zip \
   http://forge.osor.eu/frs/download.php/746/gvSIG-1_9-windows-i586-withjre.exe \
-  http://udig.refractions.net/files/downloads/udig-1.1.1.exe \
   http://linfiniti.com/downloads/QGIS-1.4.0-1-No-GrassSetup.exe \
   http://home.gdal.org/tmp/vcredist_x86.exe \
   http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.0RC6-1-Setup.exe \
@@ -47,7 +46,6 @@ for URL in \
   http://maptiler.googlecode.com/files/maptiler-1.0-beta2-setup.exe \
   http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.4.1-Setup.exe \
   http://gpsvp.googlecode.com/files/gpsVPxp_0.4.20.zip \
-  http://www.kosmoland.es/public/kosmo/v_2.0/binaries/Kosmo_Desktop_2.0_windows_jre.zip \
   http://downloads.sourceforge.net/project/opencpn/opencpn/2.1.0/opencpn_210_setup.exe?use_mirror=transact \
   http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe \
   http://sourceforge.net/projects/saga-gis/files/SAGA%20-%202.0/SAGA%202.0.5/saga_2.0.5_mswvc9_setup.exe/download \
@@ -57,6 +55,10 @@ done;
 
 #FIXME:
 \mv "plan9.php?dl=gpsbabel-1.3.6.zip" gpsbabel-1.3.6.zip
+
+#( sorry udig and kosmo, no space :-( )
+#  http://www.kosmoland.es/public/kosmo/v_2.0/binaries/Kosmo_Desktop_2.0_windows_jre.zip \
+#  http://udig.refractions.net/files/downloads/udig-1.1.1.exe \
 
 
   # FWTools
