@@ -53,9 +53,9 @@ apt-get update
 # Install some useful stuff
 apt-get install --yes wget less zip unzip bzip2 p7zip \
   cvs cvsutils subversion subversion-tools bzr bzrtools gnuit mercurial \
-  openssh-client lftp sl smbclient usbutils wireless-tools \
+  openssh-client lftp sl usbutils wireless-tools \
   locate diff patch fuseiso menu \
-  vim emacs nedit nano screen \
+  vim nedit nano screen \
   evince ghostscript a2ps pdftk netpbm qiv \
   lynx mutt mc xchat rxvt units scrot
 
