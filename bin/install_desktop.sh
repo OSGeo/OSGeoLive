@@ -28,7 +28,7 @@ BUILD_DIR=`pwd`
 
 #Desktop apps part 1 (traditional analytic GIS)
 DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0
-              spatialite-gis zygrib saga_gui"
+              spatialite-gis zygrib saga_gui atlasstyler geopublisher"
 
 #Desktop apps part 2 (geodata viewers and editors)
 NAV_APPS="marble gpsdrive opencpn josm gosmore merkaartor viking"
