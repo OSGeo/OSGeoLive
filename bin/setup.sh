@@ -56,7 +56,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   openssh-client lftp sl usbutils wireless-tools \
   locate diff patch fuseiso menu \
   vim nedit nano screen \
-  evince ghostscript a2ps pdftk netpbm qiv \
+  evince ghostscript a2ps netpbm qiv \
   lynx mutt mc xchat rxvt units scrot
 
 apt-get install --yes gdebi fslint

@@ -26,4 +26,5 @@ apt-get --assume-yes install java-common sun-java6-bin \
 
 ### see if we can reinstall this without bringing in the kitchen sink
 ###   otherwise we'll drop it
-apt-get --assume-yes install pdftk
+#apt-get --assume-yes install pdftk
+
