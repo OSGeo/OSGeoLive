@@ -44,5 +44,5 @@ echo "LastOpenAtlasFolder=$USER_HOME/Desktop/ChartDemoAtlas" \
    > $USER_HOME/.Geopublisher/geopublisher.properties
 
 # Create a desktop icon
-#cp /usr/share/applications/geopublisher.desktop "$USER_HOME/Desktop/"
-#chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/geopublisher.desktop"
+cp /usr/share/applications/geopublisher.desktop "$USER_HOME/Desktop/"
+chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/geopublisher.desktop"
