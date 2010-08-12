@@ -100,7 +100,7 @@ if [ $HAS_ATLASSTYLER = 1 ]; then
   # Add Geotools .fix and .qix files to all Shapefiles. Normally Geotools application would create these
   # files when opeing the Shapefile, but since the data-dir is read-only, we do it here. 
   # This REQUIRES that install_atlasstyler.sh has been executed before (which is checked above)
-  find "$DATA_FOLDER/natural_earth" -iname "*.shp" -exec atlasstyler "addFix={}"
+  find "$DATA_FOLDER/natural_earth" -iname "*.shp" -exec atlasstyler "addFix={}" \;
 fi
 
 
