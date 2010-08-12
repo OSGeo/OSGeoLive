@@ -32,12 +32,14 @@ cp ../sources.list.d/geopublishing.list /etc/apt/sources.list.d/
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7450D04751B576FD
 apt-get update
 
-# Install Geopublisher and AtlasStyler and documentation
-apt-get install --yes --no-install-recommends atlasstyler
+# Install AtlasStyler and documentation
+apt-get install --yes --no-install-recommends atlasstyler geopublishing-doc
 
 # Now we download some predefined symbols for atlasstyler because the user is probably off-line
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
+
+mkdir -p $USER_HOME/.AtlasStyler
 
 wget --cut-dirs=1 -nH -q -c -r \
    http://en.geopublishing.org/openmapsymbols/ -A "*.sld" \
@@ -47,7 +49,6 @@ wget --cut-dirs=1 -nH -q -c -r \
 chown -R $USER_NAME:$USER_NAME $USER_HOME/.AtlasStyler 
 
 # Now we create a .properties file which predefines that AtlasStyler open-file-dialog will start in the data directory, and the export directory points to the desktop.
-rm -rf $USER_HOME/.AtlasStyler/atlasStyler.properties
 echo "lastImportDirectory=$USER_HOME/data/natural_earth" > $USER_HOME/.AtlasStyler/atlasStyler.properties
 echo "lastExportDirectory=$USER_HOME/Desktop" >> $USER_HOME/.AtlasStyler/atlasStyler.properties
 # Also predefine, that adding a PG datasource will open with the OSGeoLive defaults
