@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version: 4.0final
+==================
+13 August 2010
+ * Cut down on space by removing unecessary applications
+ * More updates to docs
+ * Cleanup of Geospatial Menu
+
 Version: 4.0rc7
 ==================
 9 August 2010
