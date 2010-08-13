@@ -1,7 +1,7 @@
 OSGeo Live GIS Disc
 ===================
 
-Version: 4.0final
+Version: 4.0rc9
 ==================
 13 August 2010
  * Cut down on space by removing unecessary applications
