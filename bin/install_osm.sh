@@ -134,7 +134,8 @@ svn co "$BASEURL/stylesheets/symbols/" /usr/local/share/osm/stylesheets/symbols/
 # hypercube is near the OSGeo servers at SDSC so should be much faster.
 
 if [ ! -e 'Barcelona.osm.bz2' ] ; then
-  XAPI_URL="http://osmxapi.hypercube.telascience.org/api/0.6"
+  #XAPI_URL="http://osmxapi.hypercube.telascience.org/api/0.6"
+  XAPI_URL="http://xapi.openstreetmap.org/api/0.6"
   BBOX="1.998653,41.27,2.343693,41.495207"
 
   wget --progress=dot:mega -O Barcelona.osm  "$XAPI_URL/map?bbox=$BBOX"
