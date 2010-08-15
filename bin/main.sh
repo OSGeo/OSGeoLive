@@ -37,13 +37,16 @@ DISK_USAGE_LOG="disk_usage.log"
 
 
 echo "===================================================================="
-echo "Starting master.sh for version: `cat ${DIR}/../VERSION.txt`"
+echo "Starting main.sh for version: `cat ${DIR}/../VERSION.txt`"
 echo "===================================================================="
 echo Disk Usage1:, main.sh, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
 echo Disk Usage2:, main.sh, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
 
-# Print out the current svn version
-svn info ..
+# Print out the current svn revision
+#  (doesn't work with `svn export`)
+if [ -d ../.svn ] ; then
+   svn info ..
+fi
 
 # clear the decks
 rm -rf /tmp/build_gisvm_error.log
