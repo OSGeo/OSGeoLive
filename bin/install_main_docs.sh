@@ -27,7 +27,6 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SRC="../doc"
 DEST="/usr/local/share/osgeolive-docs"
-#DEST="/home/cshorter/tmp/osgeolive-docs"
 BASE_FILES="banner.png osgeolive.css images" # base files to install
 HTML_FILES="contact.html index.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
@@ -76,12 +75,17 @@ cd ../doc/overview/
 make html
 rm -fr ${DEST}/overview/
 mv _build/html ${DEST}/overview/
+rm ${DEST}/overview/genindex.html
+# Replace the genindex (which doesn't populate) with overview.html
+ln -s ${DEST}/overview/overview.html ${DEST}/overview/genindex.html
 cd ../../bin
 
 # Build the application quick start pages
 cd ../doc/quickstart/
 make html
 rm -fr ${DEST}/quickstart/
+rm ${DEST}/quickstart/genindex.html
+ln -s ${DEST}/quickstart/quickstart.html ${DEST}/quickstart/genindex.html
 mv _build/html ${DEST}/quickstart/
 cd ../../bin
 
@@ -90,6 +94,8 @@ cd ../doc/standards/
 make html
 rm -fr ${DEST}/standards/
 mv _build/html ${DEST}/standards/
+rm ${DEST}/standards/genindex.html
+ln -s ${DEST}/standards/standards.html ${DEST}/standards/genindex.html
 cd ../../bin
 
 # license page start
