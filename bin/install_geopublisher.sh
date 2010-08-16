@@ -43,6 +43,9 @@ mkdir -p $USER_HOME/.Geopublisher
 echo "LastOpenAtlasFolder=$USER_HOME/Desktop/ChartDemoAtlas" \
    > $USER_HOME/.Geopublisher/geopublisher.properties
 
+# Change the owner of the user's local Geopublisher settings to user:user
+chown -R $USER_NAME:$USER_NAME $USER_HOME/.Geopublisher
+
 # Create a desktop icon
 cp /usr/share/applications/geopublisher.desktop "$USER_HOME/Desktop/"
 chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/geopublisher.desktop"
