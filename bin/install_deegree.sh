@@ -101,7 +101,7 @@ getFromOsgeo()
     echo "FIXME: don't use wget for local files, just copy from local svn checkout."
     rm -f $1
     ## wget -c --progress=dot:mega http://download.deegree.org/LiveDVD/FOSS4G2010/$1
-    wget -nv http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/deegree/$1
+    wget -nv http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_4/app-conf/deegree/$1
 }
 
 ### Install Application ###
@@ -137,7 +137,7 @@ chmod 755 $BIN/deegree_st*.sh
 if [ ! -e "/usr/share/icons/deegree_desktop_48x48.png" ] ; then
    #wget -nv "http://download.deegree.org/LiveDVD/FOSS4G2010/deegree_desktop_48x48.png"
    echo "FIXME: don't use wget for local files, just copy from local svn checkout."
-   wget -nv "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/deegree/deegree_desktop_48x48.png"
+   wget -nv "http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_4/app-conf/deegree/deegree_desktop_48x48.png"
    mv deegree_desktop_48x48.png /usr/share/icons/
 fi
 

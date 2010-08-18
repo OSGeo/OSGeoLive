@@ -70,7 +70,7 @@ if [ -f "openjump.sh" ]
 then
    echo "openjump.sh has already been downloaded."
 else
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.sh
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_4/app-conf/openjump/openjump.sh
 fi
 # copy it into the openjump folder
 cp openjump.sh $OJ_FOLDER/bin
@@ -90,7 +90,7 @@ if [ -f "openjump.icon" ]
 then
    echo "openjump.icon has already been downloaded."
 else
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.ico
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_4/app-conf/openjump/openjump.ico
 fi
 # copy it into the openjump folder
 cp openjump.ico $OJ_FOLDER
@@ -100,7 +100,7 @@ if [ -f "openjump.desktop" ]
 then
    echo "openjump.desktop has already been downloaded."
 else
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.desktop
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_4/app-conf/openjump/openjump.desktop
 fi
 # copy it into the openjump folder
 cp openjump.desktop $USER_HOME/Desktop
