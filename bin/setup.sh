@@ -92,9 +92,11 @@ apt-get --assume-yes remove xscreensaver
 
 
 # Remove unused home directories
+#?? rm -fr /home/user/Downloads
 rm -fr /home/user/Documents
 rm -fr /home/user/Music
 rm -fr /home/user/Pictures
+rm -fr /home/user/Public
 rm -fr /home/user/Templates
 rm -fr /home/user/Videos
 
