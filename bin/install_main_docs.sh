@@ -28,7 +28,7 @@ USER_HOME="/home/$USER_NAME"
 SRC="../doc"
 DEST="/usr/local/share/osgeolive-docs"
 BASE_FILES="banner.png osgeolive.css images" # base files to install
-HTML_FILES="contact.html index.html sponsors.html"
+HTML_FILES="contact.html index.html download.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
 APPS=`sed -e 's/#.*$//' "$INSTALL_APPS" | sort`
 VERSION=`cat ../VERSION.txt`
@@ -44,7 +44,7 @@ for ITEM in $BASE_FILES ; do
 done
 
 # Copy pre.html into all the html files
-for ITEM in contact.html index.html sponsors.html content.html ; do
+for ITEM in ${HTML_FILES} ; do
   # copy the version number into the <h1>title</h1>
   cat ${SRC}/pre.html > $DEST/$ITEM
 done
@@ -62,11 +62,11 @@ echo "</table>" >> ${DEST}/sponsors.html
 #echo '<p><i>Source list at: <a href="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv">https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv</a></i></p>' >> ${DEST}/sponsors.html
 
 # Copy body of html static files
-for ITEM in contact.html index.html sponsors.html content.html; do
+for ITEM in ${HTML_FILES}; do
   cat ${SRC}/${ITEM} >> $DEST/$ITEM
 
   # Add version number to header
-  sed -e "s/<h1>OSGeo-Live/<h1>OSGeo-Live ${VERSION}/" ${DEST}/${ITEM} > /tmp/${ITEM}
+  sed -e "s/\(<h1>.*\)\(OSGeo-Live\)/\1\2 ${VERSION}/" ${DEST}/${ITEM} > /tmp/${ITEM}
   mv /tmp/${ITEM} ${DEST}/${ITEM}
 done
 
@@ -169,7 +169,7 @@ done
 cat ${SRC}/disclaimer.html >> $DEST/content.html
 
 # Copy post.html into all the html files
-for ITEM in contact.html index.html sponsors.html content.html ; do
+for ITEM in ${HTML_FILES} ; do
   cat ${SRC}/post.html >> "$DEST/$ITEM"
 done
 
