@@ -49,26 +49,31 @@ for ITEM in ${HTML_FILES} ; do
   cat ${SRC}/pre.html > $DEST/$ITEM
 done
 
+# Copy body of html static files
+for ITEM in ${HTML_FILES}; do
+  cat ${SRC}/${ITEM} >> $DEST/$ITEM
+done
+
 # Add contributors to the sponsors.html page
-echo "<h1>OSGeo-Live developers and contributors</h1>" >> ${DEST}/sponsors.html
+echo "<h1>OSGeo-Live contributors</h1>" >> ${DEST}/sponsors.html
 echo "<p>Thank you to all the following people who have contributed to
-the development of this live DVD and VM:</p>" >> ${DEST}/sponsors.html
+the development of OSGeo-Live:</p>" >> ${DEST}/sponsors.html
 echo "<table>" >> ${DEST}/sponsors.html
 grep -v " *#" ${SRC}/../contributors.csv | cut -f1-3 -d, | \
   sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/' \
       -e 's+<td>\(Name\|Email\|Country\)</td>+<td><u>\1</u></td>+g' \
       >> ${DEST}/sponsors.html
 echo "</table>" >> ${DEST}/sponsors.html
-#echo '<p><i>Source list at: <a href="https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv">https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/contributors.csv</a></i></p>' >> ${DEST}/sponsors.html
 
-# Copy body of html static files
+# Add OSGeo Sponsors to sponsors page
+  cat ${SRC}/sponsors_osgeo.html >> $DEST/sponsors.html
+
+# Add version to all <h1> headers which contain OSGeo-Live
 for ITEM in ${HTML_FILES}; do
-  cat ${SRC}/${ITEM} >> $DEST/$ITEM
-
-  # Add version number to header
   sed -e "s/\(<h1>.*\)\(OSGeo-Live\)/\1\2 ${VERSION}/" ${DEST}/${ITEM} > /tmp/${ITEM}
   mv /tmp/${ITEM} ${DEST}/${ITEM}
 done
+
 
 # Build the application overview pages
 cd ../doc/overview/
