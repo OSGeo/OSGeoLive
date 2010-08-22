@@ -81,6 +81,7 @@ make html
 rm -fr ${DEST}/overview/
 mv _build/html ${DEST}/overview/
 rm ${DEST}/overview/genindex.html
+ln -s ${DEST}/overview/overview.html ${DEST}/overview/index.html
 # Replace the genindex (which doesn't populate) with overview.html
 ln -s ${DEST}/overview/overview.html ${DEST}/overview/genindex.html
 cd ../../bin
@@ -89,7 +90,9 @@ cd ../../bin
 cd ../doc/quickstart/
 make html
 rm -fr ${DEST}/quickstart/
+mv _build/html ${DEST}/quickstart/
 rm ${DEST}/quickstart/genindex.html
+ln -s ${DEST}/quickstart/quickstart.html ${DEST}/quickstart/index.html
 ln -s ${DEST}/quickstart/quickstart.html ${DEST}/quickstart/genindex.html
 mv _build/html ${DEST}/quickstart/
 cd ../../bin
@@ -100,11 +103,9 @@ make html
 rm -fr ${DEST}/standards/
 mv _build/html ${DEST}/standards/
 rm ${DEST}/standards/genindex.html
+ln -s ${DEST}/standards/standards.html ${DEST}/standards/index.html
 ln -s ${DEST}/standards/standards.html ${DEST}/standards/genindex.html
 cd ../../bin
-
-# license page start
-#cp -f ${SRC}/license_pre.html "$DEST/license.html"
 
 for ITEM in $APPS ; do
    # Publish Descriptions:
