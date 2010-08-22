@@ -32,6 +32,7 @@ HTML_FILES="contact.html index.html download.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
 APPS=`sed -e 's/#.*$//' "$INSTALL_APPS" | sort`
 VERSION=`cat ../VERSION.txt`
+TMP_FILE="/tmp/install_main_docs$$"
 
 apt-get --assume-yes install python-sphinx
 
@@ -68,13 +69,6 @@ echo "</table>" >> ${DEST}/sponsors.html
 # Add OSGeo Sponsors to sponsors page
   cat ${SRC}/sponsors_osgeo.html >> $DEST/sponsors.html
 
-# Add version to all <h1> headers which contain OSGeo-Live
-for ITEM in ${HTML_FILES}; do
-  sed -e "s/\(<h1>.*\)\(OSGeo-Live\)/\1\2 ${VERSION}/" ${DEST}/${ITEM} > /tmp/${ITEM}
-  mv /tmp/${ITEM} ${DEST}/${ITEM}
-done
-
-
 # Build the application overview pages
 cd ../doc/overview/
 make html
@@ -106,6 +100,12 @@ rm ${DEST}/standards/genindex.html
 ln -s ${DEST}/standards/standards.html ${DEST}/standards/index.html
 ln -s ${DEST}/standards/standards.html ${DEST}/standards/genindex.html
 cd ../../bin
+
+# Add version to all <h1> headers which contain OSGeo-Live
+for ITEM in quickstart/quickstart.html overview/overview.html ${HTML_FILES}; do
+  sed -e "s/\(<h1>.*\)\(OSGeo-Live\)/\1\2 ${VERSION}/" ${DEST}/${ITEM} > ${TMP_FILE}
+  mv ${TMP_FILE} ${DEST}/${ITEM}
+done
 
 for ITEM in $APPS ; do
    # Publish Descriptions:
