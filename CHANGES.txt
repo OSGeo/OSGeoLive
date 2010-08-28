@@ -2,6 +2,7 @@ OSGeo Live GIS Disc
 ===================
 Version: 4.0.1
 ===================
+28 August 2010
  * New iso based on hand edits to 4.0rc9
  * List of Corrections http://wiki.osgeo.org/wiki/Live_GIS_Disc/Errata/4.0.0
  * Refreshed the Docs
