@@ -37,6 +37,9 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
+
+
+### TODO: remove this once 4.0 is unfrozen; fix write permissions instead in package install scripts
 # check required tools are installed
 if [ ! -x "`which atlasstyler`" ] ; then
    echo "ERROR: atlasstyler is required as a tool to create .fix and .qix files for all shapefiles, please install it with bin/install_atlasstyler.sh and try again"
