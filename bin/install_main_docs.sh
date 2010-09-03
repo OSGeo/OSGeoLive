@@ -50,11 +50,6 @@ for ITEM in ${HTML_FILES} ; do
   cat ${SRC}/pre.html > $DEST/$ITEM
 done
 
-# Copy body of html static files
-for ITEM in ${HTML_FILES}; do
-  cat ${SRC}/${ITEM} >> $DEST/$ITEM
-done
-
 # Add contributors to the sponsors.html page
 echo "<h1>OSGeo-Live contributors</h1>" >> ${DEST}/sponsors.html
 echo "<p>Thank you to all the following people who have contributed to
@@ -64,7 +59,14 @@ grep -v " *#" ${SRC}/../contributors.csv | cut -f1-3 -d, | \
   sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/' \
       -e 's+<td>\(Name\|Email\|Country\)</td>+<td><u>\1</u></td>+g' \
       >> ${DEST}/sponsors.html
-echo "</table>" >> ${DEST}/sponsors.html
+echo "</table><br><hr>" >> ${DEST}/sponsors.html
+
+
+# Copy body of html static files
+for ITEM in ${HTML_FILES}; do
+  cat ${SRC}/${ITEM} >> $DEST/$ITEM
+done
+
 
 # Add OSGeo Sponsors to sponsors page
   cat ${SRC}/sponsors_osgeo.html >> $DEST/sponsors.html
