@@ -71,37 +71,18 @@ done
 # Add OSGeo Sponsors to sponsors page
   cat ${SRC}/sponsors_osgeo.html >> $DEST/sponsors.html
 
-# Build the application overview pages
-cd ../doc/overview/
-make html
-rm -fr ${DEST}/overview/
-mv _build/html ${DEST}/overview/
-rm ${DEST}/overview/genindex.html
-ln -s ${DEST}/overview/overview.html ${DEST}/overview/index.html
-# Replace the genindex (which doesn't populate) with overview.html
-ln -s ${DEST}/overview/overview.html ${DEST}/overview/genindex.html
-cd ../../bin
-
-# Build the application quick start pages
-cd ../doc/quickstart/
-make html
-rm -fr ${DEST}/quickstart/
-mv _build/html ${DEST}/quickstart/
-rm ${DEST}/quickstart/genindex.html
-ln -s ${DEST}/quickstart/quickstart.html ${DEST}/quickstart/index.html
-ln -s ${DEST}/quickstart/quickstart.html ${DEST}/quickstart/genindex.html
-mv _build/html ${DEST}/quickstart/
-cd ../../bin
-
-# Build the standard overview pages
-cd ../doc/standards/
-make html
-rm -fr ${DEST}/standards/
-mv _build/html ${DEST}/standards/
-rm ${DEST}/standards/genindex.html
-ln -s ${DEST}/standards/standards.html ${DEST}/standards/index.html
-ln -s ${DEST}/standards/standards.html ${DEST}/standards/genindex.html
-cd ../../bin
+# Build the overview, quickstart and standards pages
+for PAGE_TYPE in overview quickstart standards; do
+  cd ../doc/${PAGE_TYPE}/
+  make html
+  rm -fr ${DEST}/${PAGE_TYPE}/
+  mv _build/html ${DEST}/${PAGE_TYPE}/
+  rm ${DEST}/${PAGE_TYPE}/genindex.html
+  ln -s ${DEST}/${PAGE_TYPE}/${PAGE_TYPE}.html ${DEST}/${PAGE_TYPE}/index.html
+  # Replace the genindex (which doesn't populate) with ${PAGE_TYPE}.html
+  ln -s ${DEST}/${PAGE_TYPE}/${PAGE_TYPE}.html ${DEST}/${PAGE_TYPE}/genindex.html
+  cd ../../bin
+done
 
 # Add version to all <h1> headers which contain OSGeo-Live
 for ITEM in quickstart/quickstart.html overview/overview.html ${HTML_FILES}; do
