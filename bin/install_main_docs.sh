@@ -83,6 +83,26 @@ for PAGE_TYPE in overview quickstart standards; do
   ln -s ${DEST}/${PAGE_TYPE}/${PAGE_TYPE}.html ${DEST}/${PAGE_TYPE}/genindex.html
   cd ../../bin
 done
+# Build the overview, quickstart and standards pages for each suppored language
+for LANG in en; do
+  rm -fr ${DEST}/${LANG}
+  mkdir ${DEST}/${LANG}
+  for PAGE_TYPE in overview quickstart standards; do
+    # if the directory overview, quickstart directory exists for lang, then
+    #   publish it.
+    if [ -e "../doc/${LANG}/${PAGE_TYPE}" ] ; then
+      echo "Building pages for ${LANG}/${PAGE_TYPE}"
+      cd ../doc/${LANG}/${PAGE_TYPE}/
+      make html
+      mv _build/html ${DEST}/${LANG}/${PAGE_TYPE}
+      rm ${DEST}/${LANG}/${PAGE_TYPE}/genindex.html
+      ln -s ${DEST}/${LANG}/${PAGE_TYPE}/${PAGE_TYPE}.html ${DEST}/${LANG}/${PAGE_TYPE}/index.html
+      # Replace the genindex (which doesn't populate) with ${PAGE_TYPE}.html
+      ln -s ${DEST}/${LANG}/${PAGE_TYPE}/${PAGE_TYPE}.html ${DEST}/${LANG}/${PAGE_TYPE}/genindex.html
+      cd ../../../bin
+    fi
+  done
+done
 
 # Add version to all <h1> headers which contain OSGeo-Live
 for ITEM in quickstart/quickstart.html overview/overview.html ${HTML_FILES}; do
