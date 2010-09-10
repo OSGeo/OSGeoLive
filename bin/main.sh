@@ -35,6 +35,14 @@ DOC_DIR="/usr/local/share/osgeolive-docs"
 MAIN_LOG_FILE="main_install.log"
 DISK_USAGE_LOG="disk_usage.log"
 
+
+# 
+# Detect language code from $LANG environment.
+# It is used for showing welcoming message of running locale. (inside install_desktop.sh)
+# Adding more supported language codes is needed.
+# 
+# It is not tested whether this change works. Please test.
+#
 case `echo $LANG | sed 's/_.*//'` in
     ja)
         LANG_CODE="ja"
