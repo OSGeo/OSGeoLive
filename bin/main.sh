@@ -35,6 +35,18 @@ DOC_DIR="/usr/local/share/osgeolive-docs"
 MAIN_LOG_FILE="main_install.log"
 DISK_USAGE_LOG="disk_usage.log"
 
+case `echo $LANG | sed 's/_.*//'` in
+    ja)
+        LANG_CODE="ja"
+        ;;
+    de)
+        LANG_CODE="de"
+        ;;
+    *)
+        LANG_CODE="en"
+        ;;
+esac
+export LANG_CODE
 
 echo "===================================================================="
 echo "Starting main.sh for version: `cat ${DIR}/../VERSION.txt`"
