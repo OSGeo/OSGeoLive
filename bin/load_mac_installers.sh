@@ -65,7 +65,7 @@ EOF
 # 1 Base Packages (Frameworks)
 A_PKG="
 GDAL_Complete-1.7.dmg
-FreeType_Framework-2.4.1-1.dmg
+FreeType_Framework-2.4.2-1a.dmg
 cairo_Framework-1.8.10-3.dmg
 GSL_Framework-1.14-1.dmg
 spatialite_tools-2.3.1.zip
@@ -80,12 +80,12 @@ PostgreSQL-8.4.4-2.dmg
 
 # 3 End-User Packages
 C_PKG="
-GRASS-6.4-RC6-2-Snow.dmg
+GRASS-6.4.0-3-Snow.dmg
 MapServer-5.6.5-1.dmg
 PostGIS-1.5.1-1.dmg
 WKTRaster-0.1.6d-r5759.dmg
 pgRouting-1.0.3-4.dmg
-Qgis-1.5.0-1-Snow.dmg
+Qgis-1.5.0-2-Snow.dmg
 "
 
 
