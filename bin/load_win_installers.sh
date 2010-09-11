@@ -38,9 +38,9 @@ for URL in \
   http://downloads.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.4.2/geonetwork-install-2.4.2-0.exe?use_mirror=transact \
   http://downloads.sourceforge.net/geoserver/geoserver-2.0.2-bin.zip \
   http://forge.osor.eu/frs/download.php/746/gvSIG-1_9-windows-i586-withjre.exe \
-  http://linfiniti.com/downloads/QGIS-1.4.0-1-No-GrassSetup.exe \
+  http://www.qgis.org/downloads/QGIS-OSGeo4W-1.5.0-14109-Setup.exe \
   http://home.gdal.org/tmp/vcredist_x86.exe \
-  http://download.osgeo.org/livedvd/data/grass/WinGRASS-6.4.SVN-r43125-1-Setup.exe \
+  http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.0-1-Setup.exe \
   http://maptools.org/dl/ms4w/ms4w_3.0_beta7.zip \
   http://download.osgeo.org/mapguide/releases/2.2.0/Beta/MapGuideOpenSource-2.2.0.4829-Beta1.exe \
   http://maptiler.googlecode.com/files/maptiler-1.0-beta2-setup.exe \
@@ -54,7 +54,7 @@ for URL in \
 done;
 
 #FIXME:
-\mv "plan9.php?dl=gpsbabel-1.3.6.zip" gpsbabel-1.3.6.zip
+#\mv "plan9.php?dl=gpsbabel-1.3.6.zip" gpsbabel-1.3.6.zip
 
 #( sorry udig and kosmo, no space :-( )
 #  http://www.kosmoland.es/public/kosmo/v_2.0/binaries/Kosmo_Desktop_2.0_windows_jre.zip \
@@ -64,17 +64,18 @@ done;
   # FWTools
   # geonetwork
   # geoserver
-  # gvSIG
-  # ms4w
-  # QGIS
-  # udig
-  # WinGRASS
-  # MapGuide Open Source
-  # MapTiler
   # GpsBabel + GUI (1.2mb)
   # gpsVP: (500kb)  http://code.google.com/p/gpsvp/
+  # gvSIG
   # Kosmo
+  # MapGuide Open Source
+  # MapGuide Open Source (120mb)
+  # MapTiler
+  # ms4w
   # OpenCPN (8mb)
   # Ossim (30mb)
-  # MapGuide Open Source (120mb)
+  # QGIS
   # SAGA (5.6mb)
+  # udig
+  # WinGRASS
+
