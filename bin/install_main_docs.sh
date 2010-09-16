@@ -71,18 +71,6 @@ done
 # Add OSGeo Sponsors to sponsors page
   cat ${SRC}/sponsors_osgeo.html >> $DEST/sponsors.html
 
-# Build the overview, quickstart and standards pages
-for PAGE_TYPE in overview quickstart standards; do
-  cd ../doc/${PAGE_TYPE}/
-  make html
-  rm -fr ${DEST}/${PAGE_TYPE}/
-  mv _build/html ${DEST}/${PAGE_TYPE}/
-  rm ${DEST}/${PAGE_TYPE}/genindex.html
-  ln -s ${DEST}/${PAGE_TYPE}/${PAGE_TYPE}.html ${DEST}/${PAGE_TYPE}/index.html
-  # Replace the genindex (which doesn't populate) with ${PAGE_TYPE}.html
-  ln -s ${DEST}/${PAGE_TYPE}/${PAGE_TYPE}.html ${DEST}/${PAGE_TYPE}/genindex.html
-  cd ../../bin
-done
 # Build the overview, quickstart and standards pages for each suppored language
 for LANG in en; do
   rm -fr ${DEST}/${LANG}
@@ -102,6 +90,11 @@ for LANG in en; do
       cd ../../../bin
     fi
   done
+done
+
+# As interum measure, have old doc directories link to en/ doc directories
+for PAGE_TYPE in overview quickstart standards; do
+  ln -s ${DEST}/en/${PAGE_TYPE} ${DEST}/${PAGE_TYPE}
 done
 
 # Add version to all <h1> headers which contain OSGeo-Live
