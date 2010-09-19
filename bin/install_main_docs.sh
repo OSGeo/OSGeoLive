@@ -27,7 +27,6 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SRC="../doc"
 DEST="/usr/local/share/osgeolive-docs"
-BASE_FILES="banner.png osgeolive.css" # base files to install
 HTML_FILES="contact.html index.html download.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
 APPS=`sed -e 's/#.*$//' "$INSTALL_APPS" | sort`
@@ -51,14 +50,18 @@ apt-get --assume-yes install python-sphinx
 #echo "</table><br><hr>" >> ${DEST}/sponsors.html
 
 
-# The index.html file redirects to the English en/index.html
-cp ../doc/{index.html,banner.png} ${DEST}
-
 # Build the documentation, using sphinx to convert RST to HTML
 # Build docs separately for each Language directory
-for LANG in en de; do
+for LANG in en de es it ja ; do
   rm -fr ${DEST}/${LANG}
   cd ../doc/${LANG}
+
+  #if [ ${LANG} -ne "en" ] ; then
+    ln -s ../en/Makefile .
+    ln -s ../en/conf.py .
+    ln -s ../en/disclaimer.rst .
+  #fi
+
   make html
   mv _build/html ${DEST}/${LANG}
 
@@ -98,6 +101,12 @@ for LANG in en de; do
 
   cd ../../bin
 done
+
+# Copy the banner.html file into the images
+cp ../doc/images/banner.png ${DEST}/en/_images
+
+# The index.html file redirects to the English en/index.html
+cp ../doc/index.html ${DEST}
 
 
 # Download the Test Plan / Test Results
