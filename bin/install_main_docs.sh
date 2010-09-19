@@ -27,7 +27,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SRC="../doc"
 DEST="/usr/local/share/osgeolive-docs"
-BASE_FILES="banner.png osgeolive.css images" # base files to install
+BASE_FILES="banner.png osgeolive.css" # base files to install
 HTML_FILES="contact.html index.html download.html sponsors.html"
 INSTALL_APPS=../install_list # List applications to install 
 APPS=`sed -e 's/#.*$//' "$INSTALL_APPS" | sort`
@@ -36,147 +36,69 @@ TMP_FILE="/tmp/install_main_docs$$"
 
 apt-get --assume-yes install python-sphinx
 
-mkdir -p $DEST/doc
 
-# Copy style sheets and images
-for ITEM in $BASE_FILES ; do
-   # keep it at one file per line, as missing files tell us what is missing
-   cp -prf ${SRC}/"$ITEM" "$DEST/"
-done
 
-# Copy pre.html into all the html files
-for ITEM in ${HTML_FILES} ; do
-  # copy the version number into the <h1>title</h1>
-  cat ${SRC}/pre.html > $DEST/$ITEM
-done
-
+# TODO
 # Add contributors to the sponsors.html page
-echo "<h1>OSGeo-Live contributors</h1>" >> ${DEST}/sponsors.html
-echo "<p>Thank you to all the following people who have contributed to
-the development of OSGeo-Live:</p>" >> ${DEST}/sponsors.html
-echo "<table>" >> ${DEST}/sponsors.html
-grep -v " *#" ${SRC}/../contributors.csv | cut -f1-3 -d, | \
-  sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/' \
-      -e 's+<td>\(Name\|Email\|Country\)</td>+<td><u>\1</u></td>+g' \
-      >> ${DEST}/sponsors.html
-echo "</table><br><hr>" >> ${DEST}/sponsors.html
+#echo "<h1>OSGeo-Live contributors</h1>" >> ${DEST}/sponsors.html
+#echo "<p>Thank you to all the following people who have contributed to
+#the development of OSGeo-Live:</p>" >> ${DEST}/sponsors.html
+#echo "<table>" >> ${DEST}/sponsors.html
+#grep -v " *#" ${SRC}/../contributors.csv | cut -f1-3 -d, | \
+#  sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/' \
+#      -e 's+<td>\(Name\|Email\|Country\)</td>+<td><u>\1</u></td>+g' \
+#      >> ${DEST}/sponsors.html
+#echo "</table><br><hr>" >> ${DEST}/sponsors.html
 
 
-# Copy body of html static files
-for ITEM in ${HTML_FILES}; do
-  cat ${SRC}/${ITEM} >> $DEST/$ITEM
-done
+# The index.html file redirects to the English en/index.html
+cp ../doc/{index.html,banner.png} ${DEST}
 
-
-# Add OSGeo Sponsors to sponsors page
-  cat ${SRC}/sponsors_osgeo.html >> $DEST/sponsors.html
-
-# Build the overview, quickstart and standards pages for each suppored language
-for LANG in en; do
+# Build the documentation, using sphinx to convert RST to HTML
+# Build docs separately for each Language directory
+for LANG in en de; do
   rm -fr ${DEST}/${LANG}
-  mkdir ${DEST}/${LANG}
+  cd ../doc/${LANG}
+  make html
+  mv _build/html ${DEST}/${LANG}
+
+  # Correct the index.html files in each directory
   for PAGE_TYPE in overview quickstart standards; do
-    # if the directory overview, quickstart directory exists for lang, then
-    #   publish it.
     if [ -e "../doc/${LANG}/${PAGE_TYPE}" ] ; then
-      echo "Building pages for ${LANG}/${PAGE_TYPE}"
-      cd ../doc/${LANG}/${PAGE_TYPE}/
-      make html
-      mv _build/html ${DEST}/${LANG}/${PAGE_TYPE}
+      cd ${PAGE_TYPE}/
       rm ${DEST}/${LANG}/${PAGE_TYPE}/genindex.html
       ln -s ${DEST}/${LANG}/${PAGE_TYPE}/${PAGE_TYPE}.html ${DEST}/${LANG}/${PAGE_TYPE}/index.html
       # Replace the genindex (which doesn't populate) with ${PAGE_TYPE}.html
       ln -s ${DEST}/${LANG}/${PAGE_TYPE}/${PAGE_TYPE}.html ${DEST}/${LANG}/${PAGE_TYPE}/genindex.html
-      cd ../../../bin
+      cd ..
     fi
   done
+
+  # Correct the relative links in headers for the top level directory
+  for ITEM in ${HTML_FILES}; do
+    #  for ITEM2 in {HTML_FILES} overview/overview.html standards/standards.html; do
+    #    sed -e "s#\(../\)\($ITEM2\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
+    #  done
+
+    # I can't work out how to make use of the variable inside sed, so expanding
+    # the for loop below
+    sed -e "s#\(../\)\(contact.html\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
+    sed -e "s#\(../\)\(index.html\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
+    sed -e "s#\(../\)\(download.html\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
+    sed -e "s#\(../\)\(sponsors.html\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
+    sed -e "s#\(../\)\(overview/overview.html\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
+    sed -e "s#\(../\)\(standards/standards.html\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
+  done
+
+  # Add version to all <h1> headers which contain OSGeo-Live
+  for ITEM in quickstart/quickstart.html overview/overview.html ${HTML_FILES}; do
+    sed -e "s/\(<h1>.*\)\(OSGeo-Live\)/\1\2 ${VERSION}/" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE}
+    mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
+  done
+
+  cd ../../bin
 done
 
-# As interum measure, have old doc directories link to en/ doc directories
-for PAGE_TYPE in overview quickstart standards; do
-  ln -s ${DEST}/en/${PAGE_TYPE} ${DEST}/${PAGE_TYPE}
-done
-
-# Add version to all <h1> headers which contain OSGeo-Live
-for ITEM in quickstart/quickstart.html overview/overview.html ${HTML_FILES}; do
-  sed -e "s/\(<h1>.*\)\(OSGeo-Live\)/\1\2 ${VERSION}/" ${DEST}/${ITEM} > ${TMP_FILE}
-  mv ${TMP_FILE} ${DEST}/${ITEM}
-done
-
-for ITEM in $APPS ; do
-   # Publish Descriptions:
-
-   # Convert .odt description to html if doc exists
-   #if [ -e "${SRC}/descriptions/${ITEM}_description.odt" ] ; then
-   #   abiword --to "${DEST}/doc/${ITEM}_description.html" "${SRC}/descriptions/${ITEM}_description.odt"
-
-   # Otherwise, copy the HTML
-   #else
-   #  if [ -e "${SRC}/descriptions/${ITEM}_description.html" ] ; then
-   #    cp -f "${SRC}/descriptions/${ITEM}_description.html" "$DEST/doc/"
-   #  else
-   #    echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_description.html"
-   #  fi
-   #fi
-
-   # Link to the arramagong style file
-   # FIXME, we should use the pre.html file for this, or similar, to make easier
-   # to maintain
-   #sed -i -e 's/<head>/<head><link href="..\/osgeolive.css" type="text\/css" rel="stylesheet"\/>/' "$DEST/doc/${ITEM}_description.html"
-
-   # Add Header to the X_description.html file
-   # FIXME, we should use the pre.html file for this, or similar, to make easier
-   # to maintain
-   #sed -i -e 's/<body>/<body> <div class="header"><div class="banner"><a href="http:\/\/live.osgeo.org\/"><img src="..\/banner.png"><\/a><\/div><ul>  <li><a href="..\/index.html">Home<\/a><\/li> | <li><a href="..\/content.html">Contents<\/a><\/li> | <li><a href="..\/contact.html">Contact and Support<\/a><\/li> | <li><a href="..\/tests.html">Tests<\/a><\/li> | <li><a href="..\/sponsors.html">Sponsors<\/a><\/li><\/ul><\/div><br \/>/' "$DEST/doc/${ITEM}_description.html"
-
-   # Add Footer to the X_description.html file
-   # FIXME, we should use the post.html file for this, or similar, to make easier
-   # to maintain
-   #sed -i -e 's/<\/body>/<div class="footer"> <div class="copyright">\&copy; The Open Source Geospatial Foundation and LISAsoft 2010<\/div> <\/body>/' "$DEST/doc/${ITEM}_description.html"
-
-   # Copy Definitions:
-   if [ -e "${SRC}/descriptions/${ITEM}_definition.html" ] ; then
-     cp "${SRC}/descriptions/${ITEM}_definition.html" "/tmp/${ITEM}_definition.html"
-     #if [ -e "${DEST}/overview/${ITEM}_overview.html" ] ; then
-     #  # point the definition file at the overview doc instead of the
-     #  # description doc 
-     #  sed -i -e \
-     #    "s#doc/${ITEM}_description.html#overview/${ITEM}_overview.html#" \
-     #    "/tmp/${ITEM}_definition.html"
-     #fi
-
-     if [ -e "${DEST}/quickstart/${ITEM}_quickstart.html" ] ; then
-       # Add link to Quick Start, if it exists
-       echo "Inserting Quick Start for ${ITEM}"
-       sed -i -e \
-         "s#<.li>#<p>[<a href='quickstart/${ITEM}_quickstart.html'>Quick Start</a>]</p></li>#" \
-         "/tmp/${ITEM}_definition.html"
-     fi
-
-     cat "/tmp/${ITEM}_definition.html" >> "$DEST/content.html"
-     rm "/tmp/${ITEM}_definition.html"
-   else
-     echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_definition.html"
-   fi
-
-   # Copy Licenses:
-   #if [ -e "${SRC}/descriptions/${ITEM}_license.html" ] ; then
-   #   cat "${SRC}/descriptions/${ITEM}_license.html" >> "$DEST/license.html"
-   #else
-   #  echo "ERROR: install_main_docs.sh: missing doc/descriptions/${ITEM}_license.html"
-   #fi
-done
-
-# Copy disclaimer to content.html
-cat ${SRC}/disclaimer.html >> $DEST/content.html
-
-# Copy post.html into all the html files
-for ITEM in ${HTML_FILES} ; do
-  cat ${SRC}/post.html >> "$DEST/$ITEM"
-done
-
-# license page end
-#cat ${SRC}/license_post.html >> "$DEST/license.html"
 
 # Download the Test Plan / Test Results
 TMPDIR="/tmp/build_docs"
