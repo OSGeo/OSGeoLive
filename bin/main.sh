@@ -50,6 +50,12 @@ case `echo $LANG | sed 's/_.*//'` in
     de)
         LANG_CODE="de"
         ;;
+    it)
+        LANG_CODE="it"
+        ;;
+    es)
+        LANG_CODE="es"
+        ;;
     *)
         LANG_CODE="en"
         ;;
