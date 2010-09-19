@@ -280,8 +280,16 @@ cp /usr/local/share/osgeo-desktop/welcome_message.desktop \
 #
 # LANG_CODE is defined in main.sh
 #
-cp "$BUILD_DIR/../doc/$LANG_CODE"/welcome_message.* \
-   /usr/local/share/osgeo-desktop/
+#cp "$BUILD_DIR/../doc/$LANG_CODE"/welcome_message.* \
+#   /usr/local/share/osgeo-desktop/
+   
+if [ -e "$BUILD_DIR/../doc/$LANG_CODE"/welcome_message.txt ] ; then
+  cp "$BUILD_DIR/../doc/$LANG_CODE"/welcome_message.txt \
+    /usr/local/share/osgeo-desktop/
+else
+  cp "$BUILD_DIR/../doc/en"/welcome_message.txt \
+    /usr/local/share/osgeo-desktop/
+fi
 
 cp /usr/local/share/osgeo-desktop/welcome_message.txt "$USER_HOME"/
 chown user.user "$USER_HOME"/welcome_message.txt
