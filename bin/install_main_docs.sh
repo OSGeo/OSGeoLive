@@ -27,87 +27,15 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SRC="../doc"
 DEST="/usr/local/share/osgeolive-docs"
-HTML_FILES="contact.html index.html download.html sponsors.html"
-INSTALL_APPS=../install_list # List applications to install 
-APPS=`sed -e 's/#.*$//' "$INSTALL_APPS" | sort`
-VERSION=`cat ../VERSION.txt`
-TMP_FILE="/tmp/install_main_docs$$"
 
 apt-get --assume-yes install python-sphinx
 
-
-
-# TODO
-# Add contributors to the sponsors.html page
-#echo "<h1>OSGeo-Live contributors</h1>" >> ${DEST}/sponsors.html
-#echo "<p>Thank you to all the following people who have contributed to
-#the development of OSGeo-Live:</p>" >> ${DEST}/sponsors.html
-#echo "<table>" >> ${DEST}/sponsors.html
-#grep -v " *#" ${SRC}/../contributors.csv | cut -f1-3 -d, | \
-#  sed -e 's/^/<tr><td>/' -e 's/,/<\/td><td>/g' -e 's/$/<\/td><\/tr>/' \
-#      -e 's+<td>\(Name\|Email\|Country\)</td>+<td><u>\1</u></td>+g' \
-#      >> ${DEST}/sponsors.html
-#echo "</table><br><hr>" >> ${DEST}/sponsors.html
-
-
-# Build the documentation, using sphinx to convert RST to HTML
-# Build docs separately for each Language directory
-for LANG in en de es it ja ; do
-  rm -fr ${DEST}/${LANG}
-  cd ../doc/${LANG}
-
-  #if [ ${LANG} -ne "en" ] ; then
-    ln -s ../en/Makefile .
-    ln -s ../en/conf.py .
-    ln -s ../en/disclaimer.rst .
-  #fi
-
-  make html
-  mv _build/html ${DEST}/${LANG}
-
-  # Correct the index.html files in each directory
-  for PAGE_TYPE in overview quickstart standards; do
-    if [ -e "../doc/${LANG}/${PAGE_TYPE}" ] ; then
-      cd ${PAGE_TYPE}/
-      rm ${DEST}/${LANG}/${PAGE_TYPE}/genindex.html
-      ln -s ${DEST}/${LANG}/${PAGE_TYPE}/${PAGE_TYPE}.html ${DEST}/${LANG}/${PAGE_TYPE}/index.html
-      # Replace the genindex (which doesn't populate) with ${PAGE_TYPE}.html
-      ln -s ${DEST}/${LANG}/${PAGE_TYPE}/${PAGE_TYPE}.html ${DEST}/${LANG}/${PAGE_TYPE}/genindex.html
-      cd ..
-    fi
-  done
-
-  # Correct the relative links in headers for the top level directory
-  for ITEM in ${HTML_FILES}; do
-    #  for ITEM2 in {HTML_FILES} overview/overview.html standards/standards.html; do
-    #    sed -e "s#\(../\)\($ITEM2\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
-    #  done
-
-    # I can't work out how to make use of the variable inside sed, so expanding
-    # the for loop below
-    sed -e "s#\(../\)\(contact.html\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
-    sed -e "s#\(../\)\(index.html\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
-    sed -e "s#\(../\)\(download.html\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
-    sed -e "s#\(../\)\(sponsors.html\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
-    sed -e "s#\(../\)\(overview/overview.html\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
-    sed -e "s#\(../\)\(standards/standards.html\)#\2#" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE};mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
-  done
-
-  # Add version to all <h1> headers which contain OSGeo-Live
-  for ITEM in quickstart/quickstart.html overview/overview.html ${HTML_FILES}; do
-    sed -e "s/\(<h1>.*\)\(OSGeo-Live\)/\1\2 ${VERSION}/" ${DEST}/${LANG}/${ITEM} > ${TMP_FILE}
-    mv ${TMP_FILE} ${DEST}/${LANG}/${ITEM}
-  done
-
-  cd ../../bin
-done
-
-# Copy the banner.html file into the images
-cp ../doc/images/banner.png ${DEST}/en/_images
-
-# The index.html file redirects to the English en/index.html
-cp ../doc/index.html ${DEST}
-
+cd ../doc
+make clean
+make html
+rm -fr ${DEST}/*
+mv _build/html/* ${DEST}
+cd ../bin
 
 # Download the Test Plan / Test Results
 TMPDIR="/tmp/build_docs"
@@ -127,8 +55,6 @@ FIRSTLINE=`grep -n '<!-- start content -->' "$TMPFILE" | cut -f1 -d:`
 LASTLINE=`grep -n '<!-- end content -->' "$TMPFILE" | cut -f1 -d:`
 head -n "$LASTLINE" "$TMPFILE" | sed -e "1,${FIRSTLINE}d" > "$TMPDIR/tests_inc.html"
 cat "$SRC/pre.html" "$TMPDIR/tests_inc.html" "$SRC/post.html" > "$DEST/tests.html"
-
-
 
 echo "install_main_docs.sh: Double-check that the Firefox \
 home page is now set to file://$DEST/index.html"
