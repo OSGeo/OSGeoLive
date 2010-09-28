@@ -42,12 +42,6 @@ TMPDIR="/tmp/build_docs"
 mkdir -p "$TMPDIR"
 TMPFILE="$TMPDIR/buildtmp_$$_tests.html"
 
-# Create Symbolic link to Windows and Mac Installer directory on DVD
-# (index.html references these directories)
-# --probably better to put these in another script--
-ln -s /cdrom/WindowsInstallers "$DEST"/..
-ln -s /cdrom/MacInstallers "$DEST"/..
-
 wget -nv -O "$TMPFILE" \
   http://wiki.osgeo.org/wiki/Live_GIS_Disc_Testing
 
