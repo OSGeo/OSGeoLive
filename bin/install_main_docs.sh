@@ -37,19 +37,6 @@ rm -fr ${DEST}/*
 mv _build/html/* ${DEST}
 cd ../bin
 
-# Download the Test Plan / Test Results
-TMPDIR="/tmp/build_docs"
-mkdir -p "$TMPDIR"
-TMPFILE="$TMPDIR/buildtmp_$$_tests.html"
-
-wget -nv -O "$TMPFILE" \
-  http://wiki.osgeo.org/wiki/Live_GIS_Disc_Testing
-
-FIRSTLINE=`grep -n '<!-- start content -->' "$TMPFILE" | cut -f1 -d:`
-LASTLINE=`grep -n '<!-- end content -->' "$TMPFILE" | cut -f1 -d:`
-head -n "$LASTLINE" "$TMPFILE" | sed -e "1,${FIRSTLINE}d" > "$TMPDIR/tests_inc.html"
-cat "$SRC/pre.html" "$TMPDIR/tests_inc.html" "$SRC/post.html" > "$DEST/tests.html"
-
 echo "install_main_docs.sh: Double-check that the Firefox \
 home page is now set to file://$DEST/index.html"
 # ~user/.mozilla/ has to exist first, so firefox would have need
