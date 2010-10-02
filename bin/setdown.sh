@@ -33,7 +33,20 @@ apt-get --yes remove devscripts pbuilder \
    cvs-buildpackage svn-buildpackage \
    lintian debhelper pkg-config dpkg-dev
 
-# Copy tmp files, apt cache and logs ready for backup
+
+#### Check how much space is wasted by double files in /usr
+# Checking which duplicate files are present can be useful to save
+#  disk space manually.
+# The actual hardlinking of duplicate /usr files is done at the last
+#  minute in build_iso.sh.
+FSLINT_LOG=/tmp/build_lint/dupe_files.txt
+mkdir -p `dirname "$FSLINT_LOG"`
+echo "Scanning for duplicate files ..."
+/usr/share/fslint/fslint/findup --summary /usr /opt /lib > "$FSLINT_LOG"
+/usr/share/fslint/fslint/fstool/dupwaste < "$FSLINT_LOG"
+
+
+#### Copy tmp files, apt cache and logs ready for backup
 mkdir /tmp/${VERSION}
 cd /tmp/${VERSION}
 

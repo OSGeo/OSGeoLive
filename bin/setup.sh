@@ -52,7 +52,7 @@ apt-get update
 
 # Install some useful stuff
 apt-get install --yes wget less zip unzip bzip2 p7zip \
-  cvs cvsutils subversion subversion-tools bzr bzrtools gnuit mercurial \
+  cvs cvsutils subversion subversion-tools gnuit mercurial \
   openssh-client lftp sl usbutils wireless-tools \
   locate diff patch fuseiso menu \
   vim nedit nano screen \
@@ -85,9 +85,9 @@ ldconfig
 # Uninstall large applications installed by default
 apt-get remove --yes gnome-games-common \
    gimp gimp-data gimp-help-common gimp-help-en libgimp2.0 \
-   thunderbird pidgin-data
+   thunderbird pidgin-data hplip hplip-data
 
-# remove xscreensaver by default
+# remove xscreensaver as it tends to saturate VM bandwidth
 apt-get --assume-yes remove xscreensaver
 
 

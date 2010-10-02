@@ -1,5 +1,13 @@
 OSGeo Live GIS Disc
 ===================
+
+Version: 4.1.svn
+===================
+[unreleased]
+ * Doc translations
+ * Most html now rewritten in reST format
+ * Merge duplicate files in ISO (saving >600mb)
+
 Version: 4.0.1
 ===================
 28 August 2010

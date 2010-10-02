@@ -32,7 +32,7 @@ TMP="$WORKDIR/ISOTMP"
 LOGS="/var/log/osgeolive/remastersys.conf"
 DOCS_SRC="/usr/local/share/osgeolive-docs"
 
-#Install remastersys.sh add directories it expects
+# Install remastersys.sh add directories it expects
 mkdir -p $TMP
 mkdir -p $WORKDIR/ISOTMP/casper
 mkdir -p $WORKDIR/ISOTMP/preseed
@@ -55,25 +55,31 @@ apt-get update
 # no !@#$%!%#@ GPG key
 apt-get --assume-yes --force-yes install remastersys
 
-#Configure
-#ie set exclude folders in /etc/remastersys.conf
+# Configure
+# ie set exclude folders in /etc/remastersys.conf
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/remastersys.conf \
      --output-document="$LOGS"
 cp "$LOGS" /etc/remastersys.conf
 
-#Add Windows and Mac installers by copying files into ISOTMP folder
+# Add Windows and Mac installers by copying files into ISOTMP folder
 ./load_win_installers.sh
 ./load_mac_installers.sh
 
 # Copy documentation
 cp -pr "$DOCS_SRC" "$TMP"
 
-#Update the file search index
+# To save space merge duplicates in /usr, /opt, and /lib using hardlinks
+echo "Hardlinking duplicate files in /usr, /opt, and /lib ..."
+df -h /usr /opt /lib | uniq # report how much place is free before hardlinking
+/usr/share/fslint/fslint/findup -m /usr /opt /lib
+df -h /usr /opt /lib | uniq # report how much place is free after hardlinking
+
+# Update the file search index
 updatedb
 
-#quick name check
+# quick name check
 echo "Now creating ${ISO_NAME}.iso"
 
-#Create iso, only uncomment once it's working
+# Create iso, only uncomment once it's working
 remastersys backup ${ISO_NAME}.iso
 
