@@ -35,6 +35,9 @@ make clean
 make html
 rm -fr ${DEST}/*
 mv _build/html/* ${DEST}
+#Copy the osgeolive main css to the docs directory
+cp osgeolive.css ${DEST}
+
 cd ../bin
 
 echo "install_main_docs.sh: Double-check that the Firefox \
