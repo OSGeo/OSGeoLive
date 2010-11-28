@@ -25,7 +25,8 @@
 # cd to the svn document directory
 cd `dirname ${0}`/../doc
 
-echo "dir/file,docname,version,directory,language,username,project"
+echo "dir/file,docname,version,directory,language,username,project,last updated:" `date`
+
 #List doc svn version numbers
 #  svn list -v -R \
 #Only look at rst source docs
