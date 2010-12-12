@@ -31,6 +31,9 @@ echo "dir/file,docname,version,directory,language,username,project,last updated:
 #  svn list -v -R \
 #Only look at rst source docs
 # | grep ".rst$" \
+# The template files have been removed from subversion, but are still picked
+# up by svn list.
+# | grep -v "/template_" \
 #Ignore doc/index.rst which is just an autoforward to doc/en/index.rst
 # | grep -v " index.rst$" \
 #Ignore directories
@@ -52,6 +55,7 @@ echo "dir/file,docname,version,directory,language,username,project,last updated:
 #cat list.txt \
 svn list -v -R \
   | grep ".rst$" \
+  | grep -v "/template_" \
   | grep -v " index.rst$" \
   | grep -v "/$"  \
   | sed -e's#\( [^/]*\)/\([^/]*$\)#\1/./\2#' \
