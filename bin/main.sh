@@ -118,6 +118,7 @@ for SCRIPT in \
   ./install_maptiler.sh \
   ./install_marble.sh \
   ./install_opencpn.sh \
+  ./install_prune.sh \
   ./install_viking.sh \
   ./install_zygrib.sh \
   ./install_geopublisher.sh \
