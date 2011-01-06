@@ -33,10 +33,9 @@ apt-get --assume-yes install python-sphinx
 cd ../doc
 make clean
 make html
+mkdir -p ${DEST}
 rm -fr ${DEST}/*
 mv _build/html/* ${DEST}
-#Copy the osgeolive main css to the docs directory
-cp osgeolive.css ${DEST}
 
 cd ../bin
 
