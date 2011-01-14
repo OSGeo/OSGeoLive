@@ -28,7 +28,7 @@ add-apt-repository ppa:otb/orfeotoolbox-stable-ubuntugis
 apt-get update
 
 #Install applications, can we eliminate some? otbapp-legacy?
-apt-get install libotb otbapp monteverdi
+apt-get --assume-yes install libotb otbapp monteverdi
 
 #QGIS plugin can't do this for now since it requires a recompile of QGIS according to the docs
 #hg clone http://hg.orfeo-toolbox.org/OTB-Qgis-plugins
