@@ -30,5 +30,38 @@ apt-get update
 #Install applications, can we eliminate some? otbapp-legacy?
 apt-get --assume-yes install libotb otbapp monteverdi
 
+
+# live disc's username is "user"
+DATA_DIR=$USER_HOME/gisvm/app-data/otb
+OTB_DATA=/usr/local/share/otb
+
+# Download OrfeoToolBox data and documentation
+[ -d $DATA_DIR ] || mkdir $DATA_DIR
+[ -f $DATA_DIR/OTBSoftwareGuide.pdf ] || \
+   wget -c "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
+     -O $DATA_DIR/OTBSoftwareGuide.pdf
+[ -f $DATA_DIR/OTB-Data-Examples.tgz ] || \
+   wget -c "http://www.orfeo-toolbox.org/packages/OTB-Data-Examples.tgz" \
+     -O $DATA_DIR/OTB-Data-Examples.tgz
+
+# Install docs and demos
+if [ ! -d $OTB_DATA ]; then
+    mkdir -p $OTB_DATA/demos
+    echo -n "Moving  OTB pdf  doc in $OTB_DATA/....."
+    mv $DATA_DIR/OTBSoftwareGuide.pdf $OTB_DATA/
+
+    echo -n "Done\nExtracting OTB data examples $OTB_DATA/demos/..."
+    tar -xzvf -q $DATA_DIR/OTB-Data-Examples.tgz -d $OTB_DATA/demos/ 
+    echo -n "Done\n"
+fi
+
+#TODO
+#Add Launch icon to desktop
+#What Icon should be used?
+
+
 #QGIS plugin can't do this for now since it requires a recompile of QGIS according to the docs
 #hg clone http://hg.orfeo-toolbox.org/OTB-Qgis-plugins
+
+
+
