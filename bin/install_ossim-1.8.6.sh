@@ -26,9 +26,13 @@ DATA_FOLDER="/usr/local/share/data"
 
 # install main dependencies
 
+apt-fget -f install --assume-yes --force-yes
+
 apt-get install --assume-yes --force-yes libtiff4 libgeotiff1.2 libgdal1-1.7.0 \
   libfreetype6 libcurl3 libopenscenegraph56 libqt4-opengl \
-  libexpat1 libpng3 libgdal1-1.7.0-grass libfftw3-3 libqt3-mt
+  libexpat1 libpng3 libgdal1-1.7.0-grass libfftw3-3 libqt3-mt 
+  
+
 
 
 # download ossim
@@ -61,10 +65,19 @@ fi
 
 # Additional dependence for Grass / Qgis plug-in :
 #
+
 apt-get install --assume-yes --force-yes grass qgis python-pysqlite2 python-pygame python-scipy \
-   python-serial python-psycopg2
+   python-serial python-psycopg2 proj-bin \
+   libqt4-core python-distutils-extra python-setuptools python-qscintilla2 spyder
 
-
+cd /home/user/
+svn co http://svn.osgeo.org/ossim/trunk/gsoc/PlanetSasha PlanetSasha
+chmod -R 777 PlanetSasha
+cp PlanetSasha/grass_script/r.planet.py /usr/lib/grass64/script/
+cp PlanetSasha/grass_script/v.planet.py /usr/lib/grass64/script/
+cp PlanetSasha/grass_script/ogrTovrt.py /usr/lib/grass64/script/
+cp PlanetSasha/grass_script/d.png.legend /usr/lib/grass64/script/
+mkdir 
 
 
 cp /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
@@ -113,12 +126,19 @@ wget -N --progress=dot:mega http://ossim.telascience.org/ossimdata/Documentation
 KML_DATA=$DATA_FOLDER/kml
 RASTER_DATA=$DATA_FOLDER/raster
 ELEV_DATA=/usr/share/ossim/elevation/elev
+VRT_DATA=$DATA_FOLDER/vrt
 QUICKSTART=/usr/local/share/ossim/quickstart
 
 
 mkdir -p $KML_DATA
 mkdir -p $RASTER_DATA
 mkdir -p $ELEV_DATA
+mkdir -p $VRT_DATA
+
+chmod -R 777 $RASTER_DATA
+chmod -R 777 $KML_DATA
+chmod -R 777 $ELEV_DATA
+chmod -R 777 $VRT_DATA
 
 wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band1.tif  \
 --output-document=$RASTER_DATA/band1.tif           
@@ -132,10 +152,12 @@ wget -N --progress=dot:mega http://www.geofemengineering.it/data/kml/Plaza_de_Ca
 --output-document=$KML_DATA/Plaza_de_Cataluna.kmz
 wget -N --progress=dot:mega http://www.geofemengineering.it/data/kml/View_towards_Sagrada_Familia.kmz \
 --output-document=$KML_DATA/View_towards_Sagrada_Familia.kmz
+
 #wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/landsatrgb.prj \
 #--output-document=$PKG_DATA/landsatrgb.prj
 #wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/session.session \
 #--output-document=$PKG_DATA/session.session
+
 ossim-img2rr $RASTER_DATA/band1.tif $RASTER_DATA/band2.tif $RASTER_DATA/band3.tif
  
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N40E002.hgt \
