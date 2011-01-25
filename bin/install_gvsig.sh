@@ -27,6 +27,9 @@
 
 # Changelog:
 # ===========
+# 2011-01-24:
+#   * updated to gvSIG 1.10 final version (BN 1264)
+#
 # 2010-07-02:
 #   * updated to gvSIG 1.10 (BN 1255)
 #
@@ -44,8 +47,8 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop"
 
-GVSIG_PACKAGE="gvsig_1.10-1255_i386.deb"
-GVSIG_PATH="http://gvsig-desktop.forge.osor.eu/downloads/people/scolab"
+GVSIG_PACKAGE="gvsig_1.10-1264_i386.deb"
+GVSIG_PATH="http://gvsig-desktop.forge.osor.eu/downloads/people/scolab/deb"
 GVSIG_DOCS="/usr/local/share/gvsig"
 GVSIG_MAN="gvSIG-1_1-man-v1-en.pdf"
 GVSIG_MAN_URL=http://forge.osor.eu/docman/view.php/89/329/gvSIG-1_1-man-v1-en.pdf
@@ -77,10 +80,11 @@ fi
 
 rm $TMP/$GVSIG_PACKAGE 
 
+DESKTOP_GIS="$USER_DESKTOP/Desktop GIS"
 # place a gvSIG icon on desktop
-if [ -d $USER_DESKTOP ] ; then
-   echo "Copying icon to desktop at $USER_DESKTOP"
-   cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP"
+if [ -d $DESKTOP_GIS ] ; then
+   echo "Copying icon to desktop at $DESKTOP_GIS"
+   cp /usr/share/applications/gvsig.desktop "$DESTOP_GIS"
 fi
 
 # download documentation 
