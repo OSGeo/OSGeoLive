@@ -51,7 +51,9 @@ GVSIG_PACKAGE="gvsig_1.10-1264_i386.deb"
 GVSIG_PATH="http://gvsig-desktop.forge.osor.eu/downloads/people/scolab/deb"
 GVSIG_DOCS="/usr/local/share/gvsig"
 GVSIG_MAN="gvSIG-1_1-man-v1-en.pdf"
-GVSIG_MAN_URL=http://forge.osor.eu/docman/view.php/89/329/gvSIG-1_1-man-v1-en.pdf
+GVSIG_MAN2="gvSIG19_new_features.tar.gz"
+GVSIG_MAN2_URL=http://forge.osor.eu/docman/view.php/89/585/$GVSIG_MAN2
+GVSIG_MAN_URL=http://forge.osor.eu/docman/view.php/89/329/$GVSIG_MAN
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
@@ -80,11 +82,10 @@ fi
 
 rm $TMP/$GVSIG_PACKAGE 
 
-DESKTOP_GIS="$USER_DESKTOP/Desktop GIS"
 # place a gvSIG icon on desktop
-if [ -d $DESKTOP_GIS ] ; then
-   echo "Copying icon to desktop at $DESKTOP_GIS"
-   cp /usr/share/applications/gvsig.desktop "$DESTOP_GIS"
+if [ -d $USER_DESKTOP ] ; then
+   echo "Copying icon to desktop at $USER_DESKTOP"
+   cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP"
 fi
 
 # download documentation 
@@ -95,12 +96,17 @@ then
    echo "$GVSIG_MAN has already been downloaded."
 else
    wget -c --progress=dot:mega $GVSIG_MAN_URL
+   wget -c --progress=dot:mega $GVSIG_MAN2_URL
 fi
 
 if [ ! -d "$GVSIG_DOCS" ] ; then
    mkdir -p "$GVSIG_DOCS"
 fi
 cp "$GVSIG_MAN" "$GVSIG_DOCS"
+mv "$GVSIG_MAN2" "$GVSIG_DOCS"
+cd $GVSIG_DOCS
+tar -xvzf $GVSIG_MAN2
+cd "$TMP"
 
 
 # download gvSIG sample project
