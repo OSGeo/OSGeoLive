@@ -22,40 +22,15 @@
 
 TMP="/tmp/build_qgis_mapserver"
 BUILD_DIR=`pwd`
-APP_DATA_DIR="$BUILD_DIR/../../app-data/qgis-mapserver"
+APP_DATA_DIR="$BUILD_DIR/../app-data/qgis-mapserver"
 INSTALL_FOLDER="/usr/local"
 DATA_FOLDER="/usr/local/share"
 PKG_DATA=$DATA_FOLDER/qgis_mapserver
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
-### Setup things... ###
- 
-## check required tools are installed
-if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install it and try again" 
-   exit 1
-fi
-
-
-### setup temp ###
-mkdir -p "$TMP"
-cd "$TMP"
-
-### Download and unpack qgis_mapserver ###
-
 ## get qgis_mapserver
-echo "Getting and unpacking qgis_mapserver"
-
-#Dependencies
-apt-get install --assume-yes qgis libapache2-mod-fcgid
-
-
-BASEURL=http://geoserver.sourcepole.ch/
-PACKAGE="qgis_mapserver.tgz"
-
-wget --progress=dot:mega "$BASEURL/$PACKAGE"
-(cd / && tar xzf "$TMP/$PACKAGE")
+apt-get install --assume-yes qgis-mapserver libapache2-mod-fcgid
 
 #CGI for testing
 ln -s qgis_mapserv.fcgi /usr/lib/cgi-bin/qgis_mapserv

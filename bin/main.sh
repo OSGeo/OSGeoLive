@@ -113,6 +113,7 @@ for SCRIPT in \
   ./install_gmt.sh \
   ./install_grass.sh \
   ./install_qgis.sh \
+  ./install_qgis_mapserver.sh \
   ./install_saga.sh \
   ./install_mapnik.sh \
   ./install_maptiler.sh \

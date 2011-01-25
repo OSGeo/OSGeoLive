@@ -41,7 +41,7 @@ echo Disk Usage2:, main.sh, `df | grep " /$" | sed -e "s/  */,/g"`, `date`
 cd beta_software
 
 for SCRIPT in \
-    ./install_qgis_mapserver.sh \
+    \
 ; do
   echo "--------------------------------------------------------------------"
   echo Starting: $SCRIPT
