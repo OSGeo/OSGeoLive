@@ -101,7 +101,7 @@ if [ ! -e /usr/share/applications/52n-start.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Start 52NorthWPS
-Comment=52North WPS v2.0.0 
+Comment=52North WPS 2.0RC6 
 Categories=Geospatial;Servers;
 Exec=dash $INSTALL_FOLDER/52nWPS/52n-start.sh
 Icon=/usr/share/icons/52n.png
@@ -120,7 +120,7 @@ if [ ! -e /usr/share/applications/52n-stop.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Stop 52NorthWPS
-Comment=52North WPS v2.0.0
+Comment=52North WPS 2.0RC6
 Categories=Geospatial;Servers;
 Exec=dash $INSTALL_FOLDER/52nWPS/tomcat6/apache-tomcat-6.0.26/bin/shutdown.sh
 Icon=/usr/share/icons/52n.png
