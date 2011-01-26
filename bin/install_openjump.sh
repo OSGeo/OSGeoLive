@@ -60,12 +60,11 @@ if [ -f "openjump-v1.4.zip" ]
 then
    echo "openjump-v1.4.zip has already been downloaded."
 else
-   wget -c --progress=dot:mega 
-http://sourceforge.net/projects/jump-pilot/files/OpenJUMP/1.4/openjump-v1.4.zip/download
+   wget -c --progress=dot:mega \
+http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/1.4/openjump-1.4.zip
 fi
 # unpack it and copy it to /usr/lib
-unzip -q openjump-v1.4.zip -d $INSTALL_FOLDER
-
+unzip -q openjump-1.4.zip -d $INSTALL_FOLDER
 
 ## Configure Application ##
 
