@@ -2,7 +2,10 @@
 #################################################
 # 
 # Purpose: Installation of openjump into Xubuntu
-# Author:  Stefan Hansen <shansen@lisasoft.com>
+#  Author:  Stefan Hansen <shansen@lisasoft.com>
+#
+# Changes:
+#  25Jan11  Update script to openJUMP 1.4
 #
 #################################################
 # Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
@@ -33,7 +36,7 @@
 TMP="/tmp/build_openjump"
 INSTALL_FOLDER="/usr/lib"
 DATA_FOLDER="/usr/local/share"
-OJ_FOLDER="$INSTALL_FOLDER/openjump-1.3"
+OJ_FOLDER="$INSTALL_FOLDER/openjump-1.4"
 BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
@@ -53,14 +56,15 @@ cd "$TMP"
 ## Install Application ##
 
 # get openjump
-if [ -f "openjump-v1.3.zip" ]
+if [ -f "openjump-v1.4.zip" ]
 then
-   echo "openjump-v1.3.zip has already been downloaded."
+   echo "openjump-v1.4.zip has already been downloaded."
 else
-   wget -c --progress=dot:mega http://sourceforge.net/projects/jump-pilot/files/OpenJUMP/1.3/openjump-v1.3.zip/download
+   wget -c --progress=dot:mega 
+http://sourceforge.net/projects/jump-pilot/files/OpenJUMP/1.4/openjump-v1.4.zip/download
 fi
 # unpack it and copy it to /usr/lib
-unzip -q openjump-v1.3.zip -d $INSTALL_FOLDER
+unzip -q openjump-v1.4.zip -d $INSTALL_FOLDER
 
 
 ## Configure Application ##
