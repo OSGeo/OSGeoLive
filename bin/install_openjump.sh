@@ -36,7 +36,7 @@
 TMP="/tmp/build_openjump"
 INSTALL_FOLDER="/usr/lib"
 DATA_FOLDER="/usr/local/share"
-OJ_FOLDER="$INSTALL_FOLDER/openjump-1.4"
+OJ_FOLDER="$INSTALL_FOLDER/openjump-1.4.0"
 BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
