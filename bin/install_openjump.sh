@@ -117,7 +117,8 @@ if [ -f "ogrs2009_tutorialddata_mod.zip" ]
 then
    echo "ogrs2009_tutorialddata_mod.zip has already been downloaded."
 else
-   wget -c --progress=dot:mega http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.3%20Docs%20%28English%29/ogrs2009_tutorialddata_mod.zip/download
+   wget -c --progress=dot:mega -O ogrs2009_tutorialddata_mod.zip \
+http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.3%20Docs%20%28English%29/ogrs2009_tutorialddata_mod.zip/download
 fi
 #unzip the file into /usr/local/share/openjump/data
 mkdir -p "$DATA_FOLDER/openjump/data"
@@ -131,7 +132,8 @@ if [ -f "ogrs2009_tutorial.pdf" ]
 then
    echo "ogrs2009_tutorial.pdf has already been downloaded."
 else
-   wget -c --progress=dot:mega http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.3%20Docs%20%28English%29/ogrs2009_tutorial.pdf/download
+   wget -c --progress=dot:mega -O ogrs2009_tutorial.pdf \
+http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.3%20Docs%20%28English%29/ogrs2009_tutorial.pdf/download
 fi
 
 #copy into /usr/local/share/openjump/docs
