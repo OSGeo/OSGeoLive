@@ -1,0 +1,193 @@
+#!/bin/sh
+# Copyright (c) 2011 The Open Source Geospatial Foundation.
+# Licensed under the GNU LGPL.
+# 
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation, either version 2.1 of the License,
+# or any later version.  This library is distributed in the hope that
+# it will be useful, but WITHOUT ANY WARRANTY, without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Lesser General Public License for more details, either
+# in the "LICENSE.LGPL.txt" file distributed with this software or at
+# web page "http://www.fsf.org/licenses/lgpl.html".
+#
+# Version: 2011-01-28
+# Author: e.h.juerrens@52north.org
+# TODO
+# - more log output during install
+# - add different data sets (small, medium, large) using a parameter beginning
+#	this script
+# - maybe delete war file after set-up in tomcat (?) -> save space on disc
+#
+# About:
+# =====
+# This script will install 52nSOS
+#
+#
+# =============================================================================
+# Install script for 52nSOS
+# =============================================================================
+#
+# Variables
+# -----------------------------------------------------------------------------
+TMP="/tmp/build_52nSOS"
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+SOS_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
+SOS_TAR_NAME="52n-sensorweb-sos-osgeolive.tar.gz"
+SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
+SOS_WEB_APP_NAME="52nSOSv3.1.1"
+SOS_POSTGRESQL_SCRIPT_NAME="postgresql-8.4"
+SOS_TOMCAT_SCRIPT_NAME="tomcat6"
+# -----------------------------------------------------------------------------
+#
+#
+# =============================================================================
+# Pre install checks
+# =============================================================================
+# 1 wget
+# 2 java
+# 3 postgresql
+# 4 tomcat6
+#
+#
+#
+# 1 WGET
+# It is required to download the 52North SOS package:
+#
+if [ ! -x "`which wget`" ] ; then
+   echo "ERROR: wget is required, please install it and try again" 
+   exit 1
+fi
+#
+#
+#
+# 2 Java Sun JDK 6 is required:
+#
+if [ ! -x "`which java`" ] ; then
+	apt-get update
+	#
+	apt-get --assume-yes remove openjdk-6-jre
+	apt-get --assume-yes install java-common sun-java6-bin sun-java6-jre sun-java6-jdk
+	echo export JAVA_HOME=/usr/lib/jvm/java-6-sun >> ~/.bashrc
+fi
+#
+#
+#
+# 3 postgresql
+if [ -f /etc/init.d/$SOS_POSTGRESQL_SCRIPT_NAME ] ; then
+   	echo "$SOS_POSTGRESQL_SCRIPT_NAME service script found in /etc/init.d/."
+else
+	echo "$SOS_POSTGRESQL_SCRIPT_NAME not found. Installing it..."
+	apt-get install --yes $SOS_POSTGRESQL_SCRIPT_NAME
+fi
+#
+#
+#
+# 4 tomcat6
+if [ -f /etc/init.d/$SOS_TOMCAT_SCRIPT_NAME ] ; then
+   	echo "$SOS_TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
+else
+	echo "$SOS_TOMCAT_SCRIPT_NAME not found. Installing it..."
+	apt-get install --yes $SOS_TOMCAT_SCRIPT_NAME $SOS_TOMCAT_SCRIPT_NAME-admin
+fi
+#
+#
+#
+#
+# =============================================================================
+# The 52North SOS installation process
+# =============================================================================
+# 1 Download and Extract
+# 2 Database set-up:
+# 2.1 set-up SOS database using sql scripts
+# 2.2 insert data
+# 3 tomcat set-up
+# 3.1 mv war to webapps folder
+# 3.2 change owner of war file
+#
+#
+# 1 Download 52nSOS and extract tar.gz
+#
+# create the TMP directory
+mkdir -p "$TMP"
+cd "$TMP"
+#
+# download tar.gz from 52north.org server
+if [ -f "$SOS_TAR_NAME" ]
+then
+   	echo "$SOS_TAR_NAME has already been downloaded."
+else
+   	wget -c --progress=dot:mega "$SOS_TAR_URL$SOS_TAR_NAME"
+fi
+#
+# extract tar, if folders are not there
+ 	tar xzf $SOS_TAR_NAME
+ 	#
+ 	# copy logo
+	if [ ! -e /usr/share/icons/52nSOS.png ] ; then
+ 		mv 52nSOS.png /usr/share/icons/
+	fi
+ 	#
+ 	# copy start script
+	if [ ! -e $USER_HOME/Desktop/52nSOS-start.sh ] ; then
+ 		mv 52nSOS-start.sh $USER_HOME/Desktop/
+ 		chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.sh"
+	fi
+#
+#
+#
+# 2 database set-up
+#
+# we need to stop tomcat6 around this process
+/etc/init.d/tomcat6 stop
+su postgres -c "psql -f $TMP/SOS-structure.sql"
+su postgres -c "psql -f $TMP/STRUCTURE-in-SOS.sql"
+su postgres -c "psql -f $TMP/DATA.sql"
+/etc/init.d/tomcat6 start
+#
+#
+#
+# 3 check for tomcat set-up: look for service script in /etc/init.d/
+#
+if (test ! -d $TOMCAT_WEBAPPS/$SOS_WEB_APP_NAME) then
+	mv $TMP/$SOS_WEB_APP_NAME.war "$SOS_INSTALL_FOLDER"/
+ 	chown -R tomcat6:tomcat6 $SOS_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war
+else
+	echo "$SOS_WEB_APP_NAME already installed in tomcat"
+fi
+#
+#
+#
+# Desktop set-up
+# =============================================================================
+#
+if(test ! -d $USER_HOME/Desktop) then
+    mkdir -p $USER_HOME/Desktop
+fi
+#
+#
+#
+# icon
+# Relies on launchassist in home dir
+if [ ! -e /usr/share/applications/52nSOS-start.desktop ] ; then
+   cat << EOF > /usr/share/applications/52nSOS-start.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Start 52NorthSOS
+Comment=52North SOS v3.1.1 
+Categories=Geospatial;Servers;
+Exec=dash $USER_HOME/Desktop/52nSOS-start.sh
+Icon=/usr/share/icons/52nSOS.png
+Terminal=false
+EOF
+fi
+#
+#
+cp -a /usr/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
+#
+# We just crossed the finish line
+#
