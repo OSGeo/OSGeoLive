@@ -70,12 +70,12 @@ cd "$TMP"
 
 ##### Step1 and Step2: Download 52nWPS 
 
-if [ -f "52nWPS.tar.gz" ]
+if [ -f "52n-wps-rc6.tar.gz" ]
 then
-   echo "52nWPS.tar.gz has already been downloaded."
+   echo "52n-wps-rc6.tar.gz has already been downloaded."
 else
-   wget -c --progress=dot:mega "http://52north.org/download/Geoprocessing/OSGeo-LiveDVD/52nWPS.tar.gz"
- tar xzf 52nWPS.tar.gz
+   wget -c --progress=dot:mega "http://52north.org/files/geoprocessing/OSGeoLiveDVD/52n-wps-rc6.tar.gz"
+ tar xzf 52n-wps-rc6.tar.gz
  mkdir -p "$INSTALL_FOLDER" --verbose
 
  mv $TMP/52nWPS "$INSTALL_FOLDER"/
@@ -87,7 +87,7 @@ fi
 
 
 
-if(test ! -d $USER_HOME/Desktop) then
+if(test ! -d $USER_HOME/Desktop); then
     mkdir $USER_HOME/Desktop
 fi
 
