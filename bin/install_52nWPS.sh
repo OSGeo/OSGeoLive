@@ -11,27 +11,20 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
 # About:
 # =====
 # This script will install 52nWPS
-
-
 # =============================================================================
 # Install script for 52nWPS
 # =============================================================================
-
 TMP="/tmp/build_52nWPS"
 INSTALL_FOLDER="/usr/local"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-
-
 # =============================================================================
 # Pre install checks
 # =============================================================================
-
-##### WGET is required to download the Geomajas package:
+# WGET is required to download the Geomajas package:
 if [ ! -x "`which wget`" ] ; then
    echo "ERROR: wget is required, please install it and try again" 
    exit 1
@@ -131,4 +124,3 @@ fi
 cp -a /usr/share/applications/52n-stop.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52n-stop.desktop"
 chown -R $USER_NAME:$USER_NAME $INSTALL_FOLDER/52nWPS/
-
