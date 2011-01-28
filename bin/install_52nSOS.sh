@@ -34,12 +34,17 @@
 TMP="/tmp/build_52nSOS"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-SOS_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
+TOMCAT_USER_NAME="tomcat6"
+SOS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
+SOS_INSTALL_FOLDER="/usr/local/52nSOS"
 SOS_TAR_NAME="52n-sensorweb-sos-osgeolive.tar.gz"
 SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
 SOS_WEB_APP_NAME="52nSOSv3.1.1"
 SOS_POSTGRESQL_SCRIPT_NAME="postgresql-8.4"
 SOS_TOMCAT_SCRIPT_NAME="tomcat6"
+SOS_START_SCRIPT="52nSOS-start.sh"
+SOS_ICON_NAME="52nSOS.png"
+SOS_DATA_SET="DATA.sql"
 # -----------------------------------------------------------------------------
 #
 #
@@ -126,14 +131,15 @@ fi
  	tar xzf $SOS_TAR_NAME
  	#
  	# copy logo
-	if [ ! -e /usr/share/icons/52nSOS.png ] ; then
- 		mv 52nSOS.png /usr/share/icons/
+	if [ ! -e /usr/share/icons/$SOS_ICON_NAME ] ; then
+ 		mv $SOS_ICON_NAME /usr/share/icons/
 	fi
  	#
  	# copy start script
-	if [ ! -e $USER_HOME/Desktop/52nSOS-start.sh ] ; then
- 		mv 52nSOS-start.sh $USER_HOME/Desktop/
- 		chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.sh"
+	if [ ! -e $SOS_INSTALL_FOLDER/$SOS_START_SCRIPT ] ; then
+		mkdir -p $SOS_INSTALL_FOLDER
+ 		mv $SOS_START_SCRIPT $SOS_INSTALL_FOLDER
+ 		chown -R $USER_NAME:$USER_NAME "$SOS_INSTALL_FOLDER/$SOS_START_SCRIPT"
 	fi
 #
 #
@@ -141,19 +147,19 @@ fi
 # 2 database set-up
 #
 # we need to stop tomcat6 around this process
-/etc/init.d/tomcat6 stop
+/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME stop
 su postgres -c "psql -f $TMP/SOS-structure.sql"
 su postgres -c "psql -f $TMP/STRUCTURE-in-SOS.sql"
-su postgres -c "psql -f $TMP/DATA.sql"
-/etc/init.d/tomcat6 start
+su postgres -c "psql -f $TMP/$SOS_DATA_SET"
+/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME start
 #
 #
 #
 # 3 check for tomcat set-up: look for service script in /etc/init.d/
 #
 if (test ! -d $TOMCAT_WEBAPPS/$SOS_WEB_APP_NAME) then
-	mv $TMP/$SOS_WEB_APP_NAME.war "$SOS_INSTALL_FOLDER"/
- 	chown -R tomcat6:tomcat6 $SOS_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war
+	mv $TMP/$SOS_WEB_APP_NAME.war "$SOS_WAR_INSTALL_FOLDER"/
+ 	chown -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME $SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war
 else
 	echo "$SOS_WEB_APP_NAME already installed in tomcat"
 fi
@@ -179,8 +185,8 @@ Encoding=UTF-8
 Name=Start 52NorthSOS
 Comment=52North SOS v3.1.1 
 Categories=Geospatial;Servers;
-Exec=dash $USER_HOME/Desktop/52nSOS-start.sh
-Icon=/usr/share/icons/52nSOS.png
+Exec=dash $SOS_INSTALL_FOLDER/$SOS_START_SCRIPT
+Icon=/usr/share/icons/$SOS_ICON_NAME
 Terminal=false
 EOF
 fi
