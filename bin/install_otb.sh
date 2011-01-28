@@ -21,6 +21,9 @@
 # monteverdi
 # TODO: list all the apps, preferably Qt versions in /usr/bin/?
 
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+
 #Add repositories
 apt-add-repository ppa:ubuntugis/ubuntugis-unstable  
 add-apt-repository ppa:otb/orfeotoolbox-stable-ubuntugis 
@@ -28,8 +31,15 @@ add-apt-repository ppa:otb/orfeotoolbox-stable-ubuntugis
 apt-get update
 
 #Install applications, can we eliminate some? otbapp-legacy?
+#otbapp legacy provide standalone application which are demonstrators of some OTB functionnalities
+#Lot's of these applications have been ported in modules in monteverdi but there are still remainning applications
+#in the legacy not available in monteverdi (simple viewer manager, vector database/raster registration...
+#Monteverdi is perhap's sufficient in a first approach,if you need to save space we  can eliminate otbapp-legacy
 apt-get --assume-yes install libotb otbapp monteverdi
 
+#### install desktop icon ####
+cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop" 
 
 # live disc's username is "user"
 DATA_DIR=$USER_HOME/gisvm/app-data/otb
@@ -55,13 +65,9 @@ if [ ! -d $OTB_DATA ]; then
     echo -n "Done\n"
 fi
 
-#TODO
-#Add Launch icon to desktop
-#What Icon should be used?
 
-
-#QGIS plugin can't do this for now since it requires a recompile of QGIS according to the docs
-#hg clone http://hg.orfeo-toolbox.org/OTB-Qgis-plugins
+#MONTEVERDI plugin can't do this for now since it requires a recompile of MONTEVERDI according to the docs
+#hg clone http://hg.orfeo-toolbox.org/OTB-QGis-plugins
 
 
 
