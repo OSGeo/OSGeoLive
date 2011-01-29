@@ -70,17 +70,17 @@ SCALE="10m"  # 1:10 million
 # Lakes + Reservoirs 1:10m
 # Rivers, Lake Ceterlines 1:10m
 LAYERS="
-cultural/$SCALE-populated-places-simple
-cultural/$SCALE-admin-0-countries
-cultural/$SCALE-populated-places-simple
-cultural/$SCALE-urban-area
-physical/$SCALE-land
-physical/$SCALE-ocean
-physical/$SCALE-lakes
-physical/$SCALE-rivers-lake-centerlines
+cultural/$SCALE_populated_places_simple
+cultural/$SCALE_admin_0_countries
+cultural/$SCALE_admin_1_states_provinces_shp
+cultural/$SCALE_urban_areas
+physical/$SCALE_land
+physical/$SCALE_ocean
+physical/$SCALE_lakes
+physical/$SCALE_rivers_lake_centerlines
 "
 
-if [ ! -e $TMP/"$SCALE-populated-places-simple.zip" ]; then
+if [ ! -e $TMP/"$SCALE_populated_places_simple.zip" ]; then
   for LAYER in $LAYERS ; do
      wget --progress=dot:mega -O "`basename $LAYER`.zip" \
        "$BASE_URL/http//www.naturalearthdata.com/download/$SCALE/$LAYER.zip"
