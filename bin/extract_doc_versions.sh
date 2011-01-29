@@ -21,6 +21,12 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 ##################################################
 
+# This script extracts out the subversion version of osgeo-live documents in
+# a format suitable to be copied into the OSGeo-Live translation status
+# stored here:
+# https://spreadsheets.google.com/ccc?key=0AlRFyY1XenjJdFRDbjFyWHg1MlNTRm10QXk0UWEzWlE&hl=en_GB&authkey=CPTB6uIE#gid=7
+
+
 
 # cd to the svn document directory
 cd `dirname ${0}`/../doc
@@ -58,7 +64,6 @@ svn list -v -R \
   | grep -v "/template_" \
   | grep -v " index.rst$" \
   | grep -v "/$"  \
-  | sed -e's#\( [^/]*\)/\([^/]*$\)#\1/./\2#' \
   | sed -e's#/# #g' \
   | awk '{print $7"/"$8"/"$9","$9","$1","$8","$7","$2","$9}' \
   | sed -e's/,\.,/,".",/' \
@@ -66,3 +71,14 @@ svn list -v -R \
   | sed -e's/_quickstart.rst$//' \
   | sed -e's/.rst$//' \
 
+# cd to the svn bin directory
+cd `dirname ${0}`/../bin
+
+echo "INSTALL SCRIPTS:"
+echo "dir/file,docname,version,directory,language,username,project,last updated:" `date`
+
+#cat list.txt \
+svn list -v -R \
+  | grep -v "/$"  \
+  | awk '{print "bin/"$7","$7","$1",bin,,"$2",,"$4" "$5" "$6}' \
+  | sed -e's/,\.,/,".",/' \
