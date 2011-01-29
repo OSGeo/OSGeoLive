@@ -69,15 +69,20 @@ SCALE="10m"  # 1:10 million
 # Ocean 1:10m
 # Lakes + Reservoirs 1:10m
 # Rivers, Lake Ceterlines 1:10m
+
 LAYERS="
-cultural/$SCALE_populated_places_simple
-cultural/$SCALE_admin_0_countries
-cultural/$SCALE_admin_1_states_provinces_shp
-cultural/$SCALE_urban_areas
-physical/$SCALE_land
-physical/$SCALE_ocean
-physical/$SCALE_lakes
-physical/$SCALE_rivers_lake_centerlines
+cultural/$SCALE-populated-places-simple
+cultural/$SCALE-admin-0-countries
+cultural/$SCALE-admin-1-states-provinces-shp
+cultural/$SCALE-urban-area
+physical/$SCALE-geography-regions-polys
+physical/$SCALE-geography-regions-points
+physical/$SCALE-geography-regions-elevation-points
+physical/$SCALE-geography-marine-polys
+physical/$SCALE-land
+physical/$SCALE-ocean
+physical/$SCALE-lakes
+physical/$SCALE-rivers-lake-centerlines
 "
 
 if [ ! -e $TMP/"$SCALE_populated_places_simple.zip" ]; then
