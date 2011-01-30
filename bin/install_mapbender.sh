@@ -33,7 +33,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_mapbender"
 INSTALLURL="http://www.mapbender.org/download/"
-INSTALLFILE="mapbender_osgeolive"
+INSTALLFILE="mapbender2.7_osgeolive4.5"
 INSTALL_DIR="/var/www"
 MAPBENDER_DATABASE_NAME="mapbender" 
 MAPBENDER_DATABASE_TEMPLATE="template_postgis"
@@ -72,15 +72,15 @@ fi
 # download and unzip sources...
 
 cd "$TMP_DIR"
-if [ ! -e mapbender_osgeo.zip ] ; then 
-   wget -O mapbender_osgeo.zip --progress=dot:mega \
+if [ ! -e $INSTALLFILE.zip ] ; then 
+   wget -O $INSTALLFILE.zip --progress=dot:mega \
       "$INSTALLURL""$INSTALLFILE".zip
 else
     echo "... Mapbender already downloaded"
 fi
 
 # uncompress mapbender
-unzip -q -o mapbender_osgeo.zip 
+unzip -q -o $INSTALLFILE.zip
 rm -rf $INSTALL_DIR/mapbender
 cp -R $INSTALLFILE $INSTALL_DIR/mapbender
 chmod -R uga+r $INSTALL_DIR/mapbender
@@ -90,11 +90,11 @@ chown -R user $INSTALL_DIR/mapbender/tools
 
 
 
-# create mabpender database 
+# create mapbender database 
 
 cd $INSTALL_DIR/mapbender/resources/db
-chmod +x install_2.6.sh 
-sudo -u $USER_NAME ./install_2.6.sh localhost 5432 \
+chmod +x install_2.7_osgeolive.sh 
+sudo -u $USER_NAME ./install_2.7_osgeolive.sh localhost 5432 \
    $MAPBENDER_DATABASE_NAME $MAPBENDER_DATABASE_TEMPLATE $MAPBENDER_DATABASE_USER
 chown -R www-data:www-data $INSTALL_DIR/mapbender/resources
 chown -R www-data:www-data $INSTALL_DIR/mapbender/tools
