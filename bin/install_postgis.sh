@@ -14,11 +14,17 @@
 
 # About:
 # =====
-# This script will install postgres 8.4, postgis 1.4 and pgadmin3
-
+# This script will install postgres 8.4, postgis 1.5, and pgadmin3
+# 
+#   Q. how about libpostgis-java ?
+#
 # Running:
 # =======
+# sudo ./install_postgis.sh
+#
+# --- to start postgres -----
 # sudo /etc/init.d/postgresql-8.4 start
+#
 
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
@@ -30,7 +36,7 @@ PG_VERSION="8.4"
 
 ##  Use UbuntuGIS ppa.launchpad repo version, change to main one once it becomes
 #    available there (Ubuntu 10.04/Lucid)
-# postgis 1.4 is in the UbuntuGIS repository
+# postgis is in the UbuntuGIS repository
 
 #Add repositories
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
@@ -42,16 +48,13 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 
 apt-get update
 
-
-# how about libpostgis-java ?
+##----------------------------------------------------------------------
 apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis pgadmin3
-
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
-
 
 ### config ###
 
@@ -74,11 +77,6 @@ sudo -u $USER_NAME psql -1 -d postgres -c "UPDATE pg_database SET datistemplate=
 
 ## Jul10 resolved location of postgis.sql
 pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis-1.5/postgis.sql"
-
-# not this one:
-#if [ -e /usr/share/postgresql/8.4/contrib/postgis.sql ] ; then
-#   pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis.sql"
-#fi
 
 
 sudo -u $USER_NAME psql --quiet -d template_postgis -f "$pgis_file"
