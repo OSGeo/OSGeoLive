@@ -42,8 +42,10 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
+PKG="opencpn_2.3.1-1_i386.deb"
+
 wget -c --progress=dot:mega \
-  "http://downloads.sourceforge.net/project/opencpn/opencpn/2.1.0/opencpn_2.1.624a-1_i386.deb"
+  "http://downloads.sourceforge.net/project/opencpn/opencpn/2.3.1/$PKG"
 
 # recommended:
 apt-get --assume-yes install gpsd gpsd-clients python-gps
@@ -60,7 +62,7 @@ DEPS="libgl1-mesa-glx libglu1-mesa \
 
 apt-get --assume-yes install $DEPS
 
-dpkg -i "opencpn_2.1.624a-1_i386.deb"
+dpkg -i "$PKG"
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
