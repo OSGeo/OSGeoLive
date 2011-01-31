@@ -1,4 +1,4 @@
-#! /bin/bash -ex
+#! /bin/sh
 #################################################
 # 
 # Purpose: Installation of Sahana Eden into Xubuntu
@@ -41,7 +41,7 @@ if [[ ${gotroot} != "0" ]]; then
 fi
 
 # live disc's username is "user"
-INSTALL_DIR="/usr/lib"
+INSTALL_DIR="/usr/local/lib"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SAHANA_CONF="/etc/apache2/conf.d/sahana"
@@ -55,14 +55,12 @@ mkdir -p "$TMP_DIR"
 # Update from repos
 apt-get update
 # Install dependencies and support tools
+# Installed already by setup.sh
+# wget make g++ bzip2
 DEBIAN_FRONTEND=noninteractive apt-get -y \
     -o DPkg::Options::=--force-confdef \
     -o DPkg::Options::=--force-confold \
     install \
-	wget \
-	bzip2 \
-	make \
-	g++ \
 	zlib1g-dev \
 	libgeos-c1 \
 	bzr \
@@ -83,17 +81,18 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 
 # Install python-tweepy
 echo -e "deb http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu lucid main \n
-deb-src http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu lucid main" >> /etc/apt/sources.list 
+deb-src http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu lucid main" > /etc/apt/sources.list.d/python-tweepy.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C7917B12
 apt-get update
 apt-get install --yes python-tweepy
 
-# Install PostGIS
-wget -cnv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
-     --output-document=/etc/apt/sources.list.d/ubuntugis.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
-apt-get update
-apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis
+# Install PostGIS 1.5
+# should be done already by install_postgis.sh
+#wget -cnv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+#     --output-document=/etc/apt/sources.list.d/ubuntugis.list
+#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
+#apt-get update
+#apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis
 
 # Download and Install Geraldo
 wget -c --no-check-certificate https://sourceforge.net/projects/geraldo/files/geraldo/Geraldo%200.4-final/Geraldo-0.4-final.tar.gz -O "$TMP_DIR/Geraldo-0.4-final.tar.gz"
@@ -115,11 +114,11 @@ su -c - postgres "createlang plpgsql -d sahana"
 cat << EOF > "$TMP_DIR/sahana.sql"
 ALTER ROLE sahana WITH PASSWORD 'sahana';
 EOF
-su -c - postgres "psql -d sahana -f "$TMP_DIR/sahana.sql
+su -c - postgres "psql -q -d sahana -f "$TMP_DIR/sahana.sql
 
 # Import GIS template
-su -c - postgres "psql -d sahana -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql"
-su -c - postgres "psql -d sahana -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql"
+su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql"
+su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql"
 
 # Add web2py account
 # - with mod_proxy we now run web2py as 'user'
@@ -191,6 +190,8 @@ fi
 sed -i 's|EDITING_CONFIG_FILE = False|EDITING_CONFIG_FILE = True|' "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 sed -i 's|127.0.0.1:8000|127.0.0.1|' "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 sed -i 's|deployment_settings.gis.spatialdb = False|deployment_settings.gis.spatialdb = True|' "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
+# Denver FOSS4G
+sed -i 's|deployment_settings.L10n.utc_offset = "UTC +0000"|deployment_settings.L10n.utc_offset = "UTC -0700"|' "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
 # Stream Edit 000_config.py for Postgres Database
 sed -i 's|database.db_type = "sqlite"|database.db_type = "postgres"|' "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
@@ -211,7 +212,7 @@ cat << EOF >> "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
         db[table].insert(
             email = 'admin',
             password = hmac.new(auth.settings.hmac_key, 'admin', alg).hexdigest(),
-            utc_offset = '+0630',
+            utc_offset = '-0700',
             first_name = 'Admin',
             last_name = 'User'
         )
@@ -243,7 +244,7 @@ UPDATE public.gis_location SET the_geom = ST_SetSRID(ST_GeomFromText(wkt), 4326)
 EOF
 # Add Geometry Column
 if [ -e "$TMP_DIR/geometry.sql" ]; then
-    su -c - postgres "psql -d sahana -f '$TMP_DIR'/geometry.sql"
+    su -c - postgres "psql -q -d sahana -f '$TMP_DIR'/geometry.sql"
 fi
 
 # AutoPopulate (from http://eden.sahanafoundation.org/wiki/InstallationGuidelinesPostgreSQL#AddGeometrycolumntogis_location)
@@ -269,7 +270,7 @@ CREATE TRIGGER s3_locations_update
 EOF
 # Import Autopopulate
 if [ -e "$TMP_DIR/autopopulate.sql" ]; then
-    su -c - postgres "psql -d sahana -f '$TMP_DIR'/autopopulate.sql"
+    su -c - postgres "psql -q -d sahana -f '$TMP_DIR'/autopopulate.sql"
 fi
 
 
@@ -283,12 +284,12 @@ a2enmod proxy_http
 
 #Create Sahana Conf for Apache2
 cat << EOF > "$SAHANA_CONF"
-  Alias /eden/static /usr/lib/web2py/applications/eden/static
+  Alias /eden/static /usr/local/lib/web2py/applications/eden/static
   ProxyRequests off
-  #WSGIScriptAlias /eden/ /usr/lib/web2py/wsgihandler.py
-  #WSGIDaemonProcess web2py user=web2py group=web2py home=/usr/lib/web2py maximum-requests=1000
+  #WSGIScriptAlias /eden/ /usr/local/lib/web2py/wsgihandler.py
+  #WSGIDaemonProcess web2py user=web2py group=web2py home=/usr/local/lib/web2py maximum-requests=1000
   # serve static files directly
-  <Directory /usr/lib/web2py/applications/eden/static/>
+  <Directory /usr/local/lib/web2py/applications/eden/static/>
     Order Allow,Deny
     Allow from all
   </Directory>
@@ -301,7 +302,7 @@ cat << EOF > "$SAHANA_CONF"
      #ProxyHTMLURLMap http://127.0.0.1:8000/eden/ /eden
   </Location>
   # everything else goes over WSGI (but this doesn't work on a subfolder)
-  #<Directory /usr/lib/web2py>
+  #<Directory /usr/local/lib/web2py>
   #  AllowOverride None
   #  Order Allow,Deny
   #  Deny from all
@@ -321,9 +322,10 @@ apache2ctl restart
 
 # Create startup script
 cat << EOF > /usr/local/bin/start_sahana.sh
-#!/bin/bash
-cd /usr/lib/web2py
+#!/bin/sh
+cd /usr/local/lib/web2py
 python web2py.py -a admin &
+sleep 1
 firefox http://localhost/eden &
 EOF
 chmod +x /usr/local/bin/start_sahana.sh

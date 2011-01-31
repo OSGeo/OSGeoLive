@@ -101,9 +101,9 @@ for SCRIPT in \
   ./install_gvsig.sh \
   ./install_apache2.sh \
   ./install_tomcat6.sh \
-  ./install_sahana.sh \
   ./install_ushahidi.sh \
   ./install_postgis.sh \
+  ./install_sahana.sh \
   ./install_osm.sh \
   ./load_postgis.sh \
   ./install_pgrouting.sh \
