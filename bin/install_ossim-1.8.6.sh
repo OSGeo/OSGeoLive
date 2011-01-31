@@ -67,17 +67,28 @@ fi
 #
 
 apt-get install --assume-yes --force-yes grass qgis python-pysqlite2 python-pygame python-scipy \
-   python-serial python-psycopg2 proj-bin \
-   libqt4-core python-distutils-extra python-setuptools python-qscintilla2 spyder
+   python-serial python-psycopg2 proj-bin python-lxml \
+   libqt4-core python-distutils-extra python-setuptools python-qscintilla2 
+   # spyder
 
-cd /home/user/
-svn co http://svn.osgeo.org/ossim/trunk/gsoc/PlanetSasha PlanetSasha
+mkdir $USER_HOME/Desktop/PlanetSasha
+chmod -R 777 $USER_HOME/Desktop/PlanetSasha
+
+svn co http://svn.osgeo.org/ossim/trunk/gsoc/PlanetSasha $USER_HOME/Desktop/PlanetSasha
 chmod -R 777 PlanetSasha
-cp PlanetSasha/grass_script/r.planet.py /usr/lib/grass64/script/
-cp PlanetSasha/grass_script/v.planet.py /usr/lib/grass64/script/
-cp PlanetSasha/grass_script/ogrTovrt.py /usr/lib/grass64/script/
-cp PlanetSasha/grass_script/d.png.legend /usr/lib/grass64/script/
-mkdir 
+
+cp $USER_HOME/Desktop/PlanetSasha/grass_script/r.planet.py /usr/lib/grass64/scripts/
+cp $USER_HOME/Desktop/PlanetSasha/grass_script/v.planet.py /usr/lib/grass64/scripts/
+cp $USER_HOME/Desktop/PlanetSasha/grass_script/ogrTovrt.py /usr/lib/grass64/scripts/
+cp $USER_HOME/Desktop/PlanetSasha/grass_script/d.png.legend /usr/lib/grass64/scripts/
+
+
+hg clone https://spyderlib.googlecode.com/hg/ spyderlib
+cd spyderlib
+python setup.py install
+cd ..
+rm -rf spyderlib
+
 
 
 cp /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
