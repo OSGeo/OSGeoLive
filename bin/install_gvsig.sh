@@ -105,7 +105,7 @@ fi
 cp "$GVSIG_MAN" "$GVSIG_DOCS"
 mv "$GVSIG_MAN2" "$GVSIG_DOCS"
 cd $GVSIG_DOCS
-tar -xvzf $GVSIG_MAN2
+tar -xzf $GVSIG_MAN2
 cd "$TMP"
 
 
