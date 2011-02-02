@@ -136,7 +136,6 @@ for SCRIPT in \
   ./install_zoo-project.sh \
   ./install_52nSOS.sh \
   ./install_otb.sh \
-  ./install_beta.sh \
   ./install_main_docs.sh \
   ./install_gisdata.sh \
   ./install_desktop.sh \
