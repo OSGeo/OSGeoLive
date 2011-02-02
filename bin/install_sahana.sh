@@ -36,7 +36,7 @@
 # Check for Root User
 gotroot=$(id -u)
 if [[ ${gotroot} != "0" ]]; then
-	echo -e "This script must run with root privileges."
+	echo "This script must run with root privileges."
 	exit 100
 fi
 
@@ -80,7 +80,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 	python-psycopg2
 
 # Install python-tweepy
-echo -e "deb http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu lucid main \n
+echo "deb http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu lucid main
 deb-src http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu lucid main" > /etc/apt/sources.list.d/python-tweepy.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C7917B12
 apt-get update
@@ -88,15 +88,15 @@ apt-get install --yes python-tweepy
 
 # Install PostGIS 1.5
 # should be done already by install_postgis.sh
-#wget -cnv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+#wget -c --progress=dot:mega -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
 #     --output-document=/etc/apt/sources.list.d/ubuntugis.list
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 #apt-get update
 #apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis
 
 # Download and Install Geraldo
-wget -c --no-check-certificate https://sourceforge.net/projects/geraldo/files/geraldo/Geraldo%200.4-final/Geraldo-0.4-final.tar.gz -O "$TMP_DIR/Geraldo-0.4-final.tar.gz"
-tar xvzf "$TMP_DIR"/Geraldo-0.4-final.tar.gz -C "$TMP_DIR"
+wget -c --progress=dot:mega --no-check-certificate https://sourceforge.net/projects/geraldo/files/geraldo/Geraldo%200.4-final/Geraldo-0.4-final.tar.gz -O "$TMP_DIR/Geraldo-0.4-final.tar.gz"
+tar xzf "$TMP_DIR"/Geraldo-0.4-final.tar.gz -C "$TMP_DIR"
 cd "$TMP_DIR"/Geraldo-0.4-final
 python setup.py install
 
@@ -129,8 +129,8 @@ su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/8.4/contrib/postgis
 # Download web2py
 rm -rf "$INSTALL_DIR"/web2py
 #bzr checkout --lightweight -r 2922 lp:~mdipierro/web2py/devel "$INSTALL_DIR"/web2py 
-wget -c http://eden.sahanafoundation.org/downloads/web2py_src-1.91.6.zip -O "$TMP_DIR/web2py_src-1.91.6.zip"
-unzip "$TMP_DIR"/web2py_src-1.91.6.zip -d "$INSTALL_DIR"
+wget -c --progress=dot:mega http://eden.sahanafoundation.org/downloads/web2py_src-1.91.6.zip -O "$TMP_DIR/web2py_src-1.91.6.zip"
+unzip -q "$TMP_DIR"/web2py_src-1.91.6.zip -d "$INSTALL_DIR"
 #cp "$INSTALL_DIR"/web2py/routes.example.py "$INSTALL_DIR"/web2py/routes.py
 
 if [ ! -f "$INSTALL_DIR/web2py/routes.py" ]; then
