@@ -29,28 +29,30 @@
 # Start off with the Xfce keyboard layout configuration tool
 PACKAGES="xfkc"
 
-#TODO: make an alternate list based on OSGeo chapters
-#TODO: figure out how to do inline comment with name of language, possibly store list in a different file
+#Alternate list based on Live translations and OSGeo chapters
+#https://spreadsheets.google.com/ccc?key=0AlRFyY1XenjJdFRDbjFyWHg1MlNTRm10QXk0UWEzWlE&hl=en
 # English is assumed as the 1st language already installed
 for CODE in \
-  zh \
-  es \
-  hi \
-  ar \
-  bn \
-  pt \
-  ru \
-  ja \
-  de \
-  pa \
-  fr \
-  te \
-  vi \
-  mr \
-  ko \
-  ta \
-  it \
-  tr \
+ de \
+ el \
+ en \
+ es \
+ it \
+ ja \
+ pl \
+ ro \
+ fi \
+ fr \
+ he \
+ hi \
+ ko \
+ pt \
+ th \
+ vi \
+ zh \
+ ar \
+ id \
+ ru \
 ; do
   #Currently simulates in order to test for packages and how much space it will take
   #These meta packages also pull openoffice, so we'll have to do it the harder way
