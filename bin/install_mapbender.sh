@@ -72,7 +72,7 @@ fi
 # download and unzip sources...
 
 cd "$TMP_DIR"
-if [ ! -e $INSTALLFILE.zip ] ; then 
+if [ ! -f "$INSTALLFILE.zip" ] ; then 
    wget -O $INSTALLFILE.zip --progress=dot:mega \
       "$INSTALLURL""$INSTALLFILE".zip
 else
