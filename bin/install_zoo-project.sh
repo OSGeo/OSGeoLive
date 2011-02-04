@@ -31,7 +31,6 @@
 # sudo rm -rf /usr/lib/cgi-bin/*zcfg
 # sudo rm -rf /usr/lib/cgi-bin/ogr_service*
 # sudo rm -rf /usr/lib/cgi-bin/main.cfg
-# sudo rm -rf /usr/lib/cgi-bin/main.cfg
 # sudo rm -rf /usr/share/applications/zoo-project.desktop
 # sudo rm -rf /home/user/Desktop/Servers/zoo-project.desktop
 
@@ -45,7 +44,7 @@ ZOO_APACHE_CONF="/etc/apache2/conf.d/zoo-project"
 mkdir -p "$ZOO_TMP"
 
 # Download ZOO Project LiveDVD tarball.
-wget -N --progress=dot:mega "http://zoo-project.org/dl/zoo-livedvd.tar.bz2" \
+wget -N --progress=dot:mega "http://zoo-project.org/dl/zoo-livedvd-2011.tar.bz2" \
      -O "$ZOO_TMP/zoo-livedvd.tar.bz2"
 
 # Uncompress ZOO Project LiveDVD tarball.
