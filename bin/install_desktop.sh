@@ -35,17 +35,17 @@ NAV_APPS="marble gpsdrive opencpn josm gosmore merkaartor viking"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver
-              qgis-mapserver zoo-project 52n-* mapguide*"
+              qgis-mapserver zoo-project 52n-* mapguide* *rasdaman*"
 
 #Server apps part 2 (web based viewers; data only flows down to user)
 BROWSER_CLIENTS="geomajas-* mapbender MapFish"
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="imagelinker r spatialite-gui geokettle openlayers
-               maptiler mapnik-*"
+SPATIAL_TOOLS="imagelinker r geokettle openlayers
+               maptiler mapnik-* monteverdi"
 
 #Future home of PostGIS and Spatialite; pgRouting???
-DB_APPS=""  # pgadmin, sqlitebrowser, etc  (this one is automatic)
+DB_APPS="spatialite-gui"  # pgadmin, sqlitebrowser, etc  (this one is automatic)
 
 #Server apps part 3 (public good theme)
 RELIEF_APPS="sahana ushahidi"

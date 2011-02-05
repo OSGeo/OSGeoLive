@@ -66,6 +66,7 @@ su - $USER_NAME start_rasdaman.sh
 
 cd ../
 
+#TODO: relocate this out of svn tree
 wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/rasdaman/rasdaman_data.tar.gz
 tar xzf rasdaman_data.tar.gz -C .
 
@@ -138,7 +139,7 @@ fi
 
 
 if [ ! -e /usr/share/applications/Earthlook.desktop ] ; then
-   cat << EOF > /usr/share/applications/Earthlook.desktop
+   cat << EOF > /usr/share/applications/rasdaman-Earthlook.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8

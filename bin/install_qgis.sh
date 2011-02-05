@@ -97,8 +97,9 @@ fi
 mkdir /usr/local/share/qgis
 wget -c --progress=dot:mega http://download.osgeo.org/qgis/doc/manual/qgis-1.0.0_a-gentle-gis-introduction_en.pdf \
 	--output-document=/usr/local/share/qgis/qgis-1.0.0_a-gentle-gis-introduction_en.pdf
-wget -c --progress=dot:mega http://download.osgeo.org/qgis/doc/manual/qgis-1.4.0_user_guide_en.pdf \
-	--output-document=/usr/local/share/qgis/qgis-1.4.0_user_guide_en.pdf
+#TODO: Consider including translations
+wget -c --progress=dot:mega http://download.osgeo.org/qgis/doc/manual/qgis-1.6.0_user_guide_en.pdf \
+	--output-document=/usr/local/share/qgis/qgis-1.6.0_user_guide_en.pdf
 
 chmod 644 /usr/local/share/qgis/*.pdf
 
@@ -117,7 +118,7 @@ cd "$TMP_DIR"
 # copy will get corrupted. Wget only knows about filesize, not file 
 # contents, timestamps, or md5sums!
 DATAURL="http://www.geofemengineering.it/data/plugins.tar.gz"
-
+#TODO use a python script and the QGIS API to pull these within QGIS from online repo
 wget --progress=dot:mega "$DATAURL" \
      --output-document="$TMP_DIR"/qgis_plugin.tar.gz
 
