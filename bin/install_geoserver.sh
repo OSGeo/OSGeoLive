@@ -25,7 +25,7 @@
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/lib"
 BIN=/usr/bin
-GS_VERSION="2.0.2"
+GS_VERSION="2.1-RC1"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 USER_NAME="user"
@@ -57,36 +57,39 @@ if [ -f "geoserver-$GS_VERSION-bin.zip" ]
 then
    echo "geoserver-$GS_VERSION-bin.zip has already been downloaded."
 else
-   wget -c --progress=dot:mega "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-bin.zip/download"
+   wget -c --progress=dot:mega \
+   -O geoserver-$GS_VERSION-bin.zip \
+   "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-bin.zip/download"
 fi
 ## unpack it to /usr/lib overwriting eventual existing copy
 echo "Unpacking GeoServer in $GS_HOME"
 unzip -o -q geoserver-$GS_VERSION-bin.zip -d $INSTALL_FOLDER
 
 ### get the RESTConfig extension
-echo "Getting GeoServer RESTConfig extension"
-if [ -f "geoserver-$GS_VERSION-restconfig-plugin.zip" ]
-then
-   echo "geoserver-$GS_VERSION-restconfig-plugin.zip has already been downloaded."
-else
-   wget "http://sourceforge.net/projects/geoserver/files/GeoServer%20Extensions/$GS_VERSION/geoserver-$GS_VERSION-restconfig-plugin.zip/download"
-fi
+#echo "Getting GeoServer RESTConfig extension"
+#if [ -f "geoserver-$GS_VERSION-restconfig-plugin.zip" ]
+#then
+#   echo "geoserver-$GS_VERSION-restconfig-plugin.zip has already been downloaded."
+#else
+#   wget 
+#"http://sourceforge.net/projects/geoserver/files/GeoServer%20Extensions/$GS_VERSION/geoserver-$GS_VERSION-restconfig-plugin.zip/download"
+#fi
 ## unpack it
-echo "Installing GeoServer RESTConfig extensions"
-unzip -o -q geoserver-$GS_VERSION-restconfig-plugin.zip -d $GS_HOME/webapps/geoserver/WEB-INF/lib
+#echo "Installing GeoServer RESTConfig extensions"
+#unzip -o -q geoserver-$GS_VERSION-restconfig-plugin.zip -d $GS_HOME/webapps/geoserver/WEB-INF/lib
 
 ### get the styler extension
-echo "Getting GeoServer Styler extension"
+#echo "Getting GeoServer Styler extension"
 # yes, it says 1.7.3 because it has not changed since then
-if [ -f "styler-1.7.3.zip" ]
-then
-   echo "styler-1.7.3.zip"
-else
-   wget "http://downloads.sourceforge.net/geoserver/styler-1.7.3.zip"
-fi
+#if [ -f "styler-1.7.3.zip" ]
+#then
+#   echo "styler-1.7.3.zip"
+#else
+#   wget "http://downloads.sourceforge.net/geoserver/styler-1.7.3.zip"
+#fi
 ## unpack it
-echo "Installing GeoServer styler extension"
-unzip -o -q styler-1.7.3.zip -d $GS_HOME/data_dir/www
+#echo "Installing GeoServer styler extension"
+#unzip -o -q styler-1.7.3.zip -d $GS_HOME/data_dir/www
 
 ### Configure Application ###
 
@@ -160,7 +163,9 @@ if [ -f "geoserver-$GS_VERSION-htmldoc.zip" ]
 then
    echo "geoserver-$GS_VERSION-htmldoc.zip has already been downloaded"
 else
-  wget --progress=dot:mega "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-htmldoc.zip/download"
+  wget --progress=dot:mega \
+  -O geoserver-$GS_VERSION-htmldoc.zip \
+  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-htmldoc.zip/download"
 fi
 ## unpack it
 echo "Installing GeoServer documentation"
@@ -169,9 +174,8 @@ unzip -o -q geoserver-$GS_VERSION-htmldoc.zip -d $DOC_DIR
 
 ### install desktop icons ##
 echo "Installing GeoServer icons"
-if [ ! -e "/usr/share/icons/geoserver_desktop_48x48.png" ] ; then
-   wget "http://atlas.openplans.org/~aaime/geoserver_desktop_48x48.png" 
-   \mv geoserver_desktop_48x48.png /usr/share/icons/
+if [ ! -e "/usr/share/icons/geoserver_48x48.logo.png" ] ; then
+   mv /home/user/gisvm/desktop-conf/geoserver_48x48.logo.png /usr/share/icons/
 fi
 
 ## start icon
@@ -183,7 +187,7 @@ Name=Start GeoServer
 Comment=GeoServer ${GS_VERSION}
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/geoserver_start_admin.sh
-Icon=/usr/share/icons/geoserver_desktop_48x48.png
+Icon=/usr/share/icons/geoserver_48x48.logo.png
 Terminal=false
 EOF
 
@@ -199,7 +203,7 @@ Name=Stop GeoServer
 Comment=GeoServer ${GS_VERSION}
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/geoserver_stop_notify.sh
-Icon=/usr/share/icons/geoserver_desktop_48x48.png
+Icon=/usr/share/icons/geoserver_48x48.logo.png
 Terminal=false
 EOF
 
@@ -215,7 +219,7 @@ Name=Admin GeoServer
 Comment=GeoServer ${GS_VERSION}
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/firefox "http://localhost:$GS_PORT/geoserver/welcome.do"
-Icon=/usr/share/icons/geoserver_desktop_48x48.png
+Icon=/usr/share/icons/geoserver_48x48.logo.png
 Terminal=false
 EOF
 
@@ -231,7 +235,7 @@ Name=Style GeoServer
 Comment=GeoServer ${GS_VERSION} Styler Extension
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/firefox "http://localhost:$GS_PORT/geoserver/www/styler"
-Icon=/usr/share/icons/geoserver_desktop_48x48.png
+Icon=/usr/share/icons/geoserver_48x48.logo.png
 Terminal=false
 EOF
 
@@ -244,7 +248,7 @@ Name=GeoServer documentation
 Comment=GeoServer ${GS_VERSION} Documentation
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/firefox "$DOC_DIR/user/index.html"
-Icon=/usr/share/icons/geoserver_desktop_48x48.png
+Icon=/usr/share/icons/geoserver_48x48.logo.png
 Terminal=false
 EOF
 
