@@ -48,26 +48,26 @@ OTB_DATA=/usr/local/share/otb
 # Download OrfeoToolBox data and documentation
 [ -d $DATA_DIR ] || mkdir $DATA_DIR
 [ -f $DATA_DIR/OTBSoftwareGuide.pdf ] || \
-   wget -c "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
+   wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
      -O $DATA_DIR/OTBSoftwareGuide.pdf
 [ -f $DATA_DIR/OTB-Data-Examples.tgz ] || \
-   wget -c "http://www.orfeo-toolbox.org/packages/OTB-Data-Examples.tgz" \
+   wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTB-Data-Examples.tgz" \
      -O $DATA_DIR/OTB-Data-Examples.tgz
 
 # Install docs and demos
-if [ ! -d $OTB_DATA ]; then
-    mkdir -p $OTB_DATA/demos
-    echo -n "Moving  OTB pdf  doc in $OTB_DATA/....."
-    mv $DATA_DIR/OTBSoftwareGuide.pdf $OTB_DATA/
+if [ ! -d "$OTB_DATA" ]; then
+    mkdir -p "$OTB_DATA/demos"
+    echo "Moving  OTB pdf  doc in $OTB_DATA/....."
+    mv "$DATA_DIR/OTBSoftwareGuide.pdf" "$OTB_DATA/"
 
-    echo -n "Done\nExtracting OTB data examples $OTB_DATA/demos/..."
-    tar -xzvf -q $DATA_DIR/OTB-Data-Examples.tgz -d $OTB_DATA/demos/ 
-    echo -n "Done\n"
+    echo "Done"
+    echo "Extracting OTB data examples $OTB_DATA/demos/..."
+    tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/ 
+    echo "Done"
 fi
 
 
 #MONTEVERDI plugin can't do this for now since it requires a recompile of MONTEVERDI according to the docs
 #hg clone http://hg.orfeo-toolbox.org/OTB-QGis-plugins
-
 
 
