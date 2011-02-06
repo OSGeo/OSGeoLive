@@ -67,7 +67,7 @@ su - $USER_NAME start_rasdaman.sh
 cd ../
 
 #TODO: relocate this out of svn tree
-wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/rasdaman/rasdaman_data.tar.gz
+wget --progress=dot:mega https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/rasdaman/rasdaman_data.tar.gz
 tar xzf rasdaman_data.tar.gz -C .
 
 #import demo data into rasdaman

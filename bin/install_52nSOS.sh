@@ -148,9 +148,9 @@ fi
 #
 # we need to stop tomcat6 around this process
 /etc/init.d/$SOS_TOMCAT_SCRIPT_NAME stop
-su postgres -c "psql -f $TMP/SOS-structure.sql"
-su postgres -c "psql -f $TMP/STRUCTURE-in-SOS.sql"
-su postgres -c "psql -f $TMP/$SOS_DATA_SET"
+su postgres -c "psql -q -f $TMP/SOS-structure.sql"
+su postgres -c "psql -q -f $TMP/STRUCTURE-in-SOS.sql"
+su postgres -c "psql -q -f $TMP/$SOS_DATA_SET"
 /etc/init.d/$SOS_TOMCAT_SCRIPT_NAME start
 #
 #
