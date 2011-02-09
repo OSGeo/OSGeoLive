@@ -47,6 +47,22 @@ SOS_ICON_NAME="52nSOS.png"
 SOS_DATA_SET="DATA.sql"
 # -----------------------------------------------------------------------------
 #
+echo "52nSOS install started"
+echo "$TMP"
+echo "$USER_NAME"
+echo "$USER_HOME"
+echo "$TOMCAT_USER_NAME"
+echo "$SOS_WAR_INSTALL_FOLDER"
+echo "$SOS_INSTALL_FOLDER"
+echo "$SOS_TAR_NAME"
+echo "$SOS_TAR_URL"
+echo "$SOS_WEB_APP_NAME"
+echo "$SOS_POSTGRESQL_SCRIPT_NAME"
+echo "$SOS_TOMCAT_SCRIPT_NAME"
+echo "$SOS_START_SCRIPT"
+echo "$SOS_ICON_NAME"
+echo "$SOS_DATA_SET"
+#
 #
 # =============================================================================
 # Pre install checks
@@ -197,3 +213,4 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
 #
 # We just crossed the finish line
 #
+echo "52nSOS install finished"
