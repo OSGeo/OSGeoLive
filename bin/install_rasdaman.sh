@@ -32,7 +32,7 @@ WCPS_PASSWORD="UD0b9uTt"
 
 
 #get and install required packages
-PACKAGES="git-core make autoconf automake libtool gawk flex bison ant g++ gcc cpp libstdc++6 openjdk-6-jdk tomcat6 libreadline-dev libssl-dev libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev libhdf4g-dev libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
+PACKAGES="git-core make autoconf automake libtool gawk flex bison ant g++ gcc cpp libstdc++6 libreadline-dev libssl-dev libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev libhdf4g-dev libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
 apt-get update && apt-key update &&  apt-get install --yes $PACKAGES
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
@@ -46,7 +46,7 @@ git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
 cd rasdaman
 mkdir /var/log/rasdaman
 chmod 777 /var/log/rasdaman
-./configure --prefix=/usr/local --with-logdir=/var/log/rasdaman  && make clean && 
+./configure --prefix=/usr/local --with-logdir=/var/log/rasdaman  && 
 make
 make install
 if [ $? -ne 0 ] ; then
@@ -72,23 +72,16 @@ tar xzf rasdaman_data.tar.gz -C .
 
 #import demo data into rasdaman
 cd rasdaman_data/DataImport
-make drop
 make all
 
 #copy demo applications into tomcat webapps directory
 cd ../
-rm -r  /var/lib/tomcat6/webapps/earthlook
-rm -r  /var/lib/tomcat6/webapps/gwtWebView
-rm -r  /var/lib/tomcat6/webapps/petascope
-rm -r  /var/lib/tomcat6/webapps/JavaBridgeTemplate5541.war
 mv rasdaman/* /var/lib/tomcat6/webapps/
 chmod -R 777 /var/lib/tomcat6/webapps/earthlook
 
 #create and insert data into rasdaman/petascope metadata database
-su - $USER_NAME -c "dropuser $WCPS_USER"
 su - $USER_NAME -c "createuser $WCPS_USER --superuser"
 su - $USER_NAME -c "psql -c \"ALTER ROLE $WCPS_USER  with PASSWORD '$WCPS_PASSWORD';\""
-su - $USER_NAME -c "dropdb wcpsdb"
 su - $USER_NAME -c "createdb -T template0 $WCPS_DATABASE"
 su - $USER_NAME -c "pg_restore -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
 if [ $? -ne 0 ] ; then
