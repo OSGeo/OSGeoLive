@@ -35,6 +35,9 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
+# install high res world coastline (currently disabled due to disc space concerns)
+#echo "2" | sudo gmt-coastline-download
+
 
 # add GMT apps to the PATH if not already done
 if [ `grep -c '/usr/lib/gmt/bin' "$USER_HOME/.bashrc"` -eq 0 ] ; then
