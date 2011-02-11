@@ -22,7 +22,7 @@
 # Then open a web browser and go to http://localhost/OpenLayers/
 
 TMP_DIR="/tmp/build_openlayers"
-OL_VERSION="2.9.1"
+OL_VERSION="2.10"
 
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
