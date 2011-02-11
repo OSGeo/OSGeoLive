@@ -349,12 +349,12 @@ cat << EOF > /usr/local/bin/start_sahana.sh
 cd /usr/local/lib/web2py
 python web2py.py -a admin &
 sleep 1
-firefox http://localhost/eden &
+firefox http://localhost:8000/eden &
 EOF
 chmod +x /usr/local/bin/start_sahana.sh
 
 # Add Launch icon to desktop
-#cp "$BUILD_DIR"/../app-conf/sahana/gnome-default-dlg.png /usr/share/pixmaps/
+cp "$BUILD_DIR"/../app-conf/sahana/sahana.png /usr/share/icons/
 
 cat << EOF > /usr/share/applications/sahana.desktop
 [Desktop Entry]
@@ -364,7 +364,7 @@ Name=Sahana
 Comment=Sahana Eden
 Categories=Application;Internet;
 Exec=/usr/local/bin/start_sahana.sh
-Icon=gnome-default-dlg
+Icon=/usr/share/icons/sahana.png
 Terminal=false
 StartupNotify=false
 EOF
