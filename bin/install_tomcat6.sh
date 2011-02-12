@@ -25,3 +25,6 @@ apt-get install --yes tomcat6 tomcat6-admin
 #Add the following lines to <tomcat-users> in /etc/tomcat6/tomcat-users.xml
 #<role rolename="manager"/>
 #<user username="user" password="user" roles="manager"/>
+
+cp ../app-conf/tomcat/tomcat-users.xml /etc/tomcat6/tomcat-users.xml
+chown tomcat6:tomcat6 /etc/tomcat6/tomcat-users.xml
