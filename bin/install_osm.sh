@@ -148,7 +148,7 @@ fi
 cp -f Barcelona.osm.bz2 /usr/local/share/osm/
 mkdir -p /usr/local/share/data/osm --verbose
 ln -s /usr/local/share/osm/Barcelona.osm.bz2 /usr/local/share/data/osm
-
+ln -s /usr/local/share/data/osm/Barcelona.osm.bz2 /usr/local/share/data/osm/Sample_city.osm.bz2
 
 ## get latest osm2pgsql from OSM svn (thanks Dane)
 cd "$TMP_DIR"
