@@ -150,8 +150,8 @@ routes_onerror = [
     ]
 EOF
 
-# Install Sahana Eden
-bzr checkout --lightweight -r1755 lp:sahana-eden \
+# Install Sahana Eden 0.5.4
+bzr checkout --lightweight -r1767 lp:sahana-eden \
    "$INSTALL_DIR/web2py/applications/eden"
 
 # Create Eden Directories
