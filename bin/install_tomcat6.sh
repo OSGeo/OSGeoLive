@@ -26,5 +26,9 @@ apt-get install --yes tomcat6 tomcat6-admin
 #<role rolename="manager"/>
 #<user username="user" password="user" roles="manager"/>
 
-cp ../app-conf/tomcat/tomcat-users.xml /etc/tomcat6/tomcat-users.xml
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+BUILD_DIR="$USER_HOME/gisvm"
+
+cp "$BUILD_DIR"/app-conf/tomcat/tomcat-users.xml /etc/tomcat6/tomcat-users.xml
 chown tomcat6:tomcat6 /etc/tomcat6/tomcat-users.xml
