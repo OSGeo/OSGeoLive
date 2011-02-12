@@ -26,7 +26,7 @@
 # About:
 # =====
 # This script will install geonetwork into Xubuntu
-# stable version: v2.4.2 (12 October 2009) (also the manuals)
+# stable version: v2.6.3 (18 January 2011) (also the manuals)
 # based on Jetty + Geoserver + McKoi
 # Installed at /usr/lib/geonetwork
 # Port number =8880
@@ -42,7 +42,7 @@
 # To enter geonetwork, start browser with url:
 # http://localhost:8880/geonetwork
 #
-# GeoNetwork version 2.4.2 runs with java-sun-1.5 or java-sun-1.6.
+# GeoNetwork version 2.6.3 runs with java-sun-1.5 or java-sun-1.6.
 # It can be installed into servlet containers: jetty and tomcat. Jetty is   
 # bundled with the installer.
 #
@@ -71,20 +71,20 @@ cd "$TMP"
 
 
 # get geonetwork
-if [ -f "geonetwork-install-2.4.2-0.jar" ]
+if [ -f "geonetwork-install-2.6.3-0.jar" ]
 then
-   echo "geonetwork-install-2.4.2-0.jar has already been downloaded."
+   echo "geonetwork-install-2.6.3-0.jar has already been downloaded."
 else
-   wget -c --progress=dot:mega http://freefr.dl.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.4.2/geonetwork-install-2.4.2-0.jar
+   wget -c --progress=dot:mega http://freefr.dl.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.6.3/geonetwork-install-2.6.3-0.jar
 fi
 
-# get geonetwork doco
-if [ -f "GeoNetwork_opensource_v240_Manual.pdf" ]
-then
-   echo "GeoNetwork_opensource_v240_Manual.pdf has already been downloaded."
-else
-   wget --progress=dot:binary http://transact.dl.sourceforge.net/project/geonetwork/Documentation/v2.4.0/GeoNetwork_opensource_v240_Manual.pdf
-fi
+# get geonetwork doco - not just yet - has to be uploaded
+#if [ -f "GeoNetwork_opensource_v263_Manual.pdf" ]
+#then
+#   echo "GeoNetwork_opensource_v263_Manual.pdf has already been downloaded."
+#else
+#   wget --progress=dot:binary http://transact.dl.sourceforge.net/project/geonetwork/Documentation/v2.6.3/GeoNetwork_opensource_v263_Manual.pdf
+#fi
 
 
 ## Get Install config files ##
@@ -105,12 +105,12 @@ else
    wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/jetty.xml
 fi
 
-# Download mapServers.xml file to find default GeoServer layers Port 8880
-if [ -f "mapServers.xml" ]
+# Download config-gui.xml file to find default GeoServer layers Port 8880
+if [ -f "config-gui.xml" ]
 then
-   echo "mapServers.xml has already been downloaded."
+   echo "config-gui.xml has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/mapServers.xml
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/config-gui.xml
 fi
 
 # Download start-geonetwork.sh file with mods to work from any directory
@@ -135,14 +135,14 @@ if [ -d "$GEONETWORK_FOLDER" ]
 then
 	( cd $GEONETWORK_FOLDER/bin; ./stop-geonetwork.sh )
 fi
-sudo java -jar geonetwork-install-2.4.2-0.jar install.xml
+sudo java -jar geonetwork-install-2.6.3-0.jar install.xml
 
 
 # copy jetty.xml to $GEONETWORK_FOLDER/bin
 sudo cp jetty.xml $GEONETWORK_FOLDER/bin/jetty.xml
 
-# copy mapServers.xml to $GEONETWORK_FOLDER/web/intermap/WEB-INF
-sudo cp mapServers.xml $GEONETWORK_FOLDER/web/intermap/WEB-INF/mapServers.xml
+# copy config-gui.xml to $GEONETWORK_FOLDER/web/geonetwork/WEB-INF
+sudo cp config-gui.xml $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/config-gui.xml
 
 # copy start-geonetwork.sh to $GEONETWORK_FOLDER/bin
 sudo cp start-geonetwork.sh $GEONETWORK_FOLDER/bin/start-geonetwork.sh
@@ -183,10 +183,10 @@ cp geonetwork.desktop $USER_HOME/Desktop/geonetwork.desktop
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/geonetwork.desktop
 
 #Manual is being put into /usr/local/share and linked to the geonetwork documentation
-mkdir /usr/local/share/geonetwork
-cp GeoNetwork_opensource_v240_Manual.pdf /usr/local/share/geonetwork/GeoNetwork_opensource_v240_Manual.pdf
-chmod 644 /usr/local/share/geonetwork/*.pdf
-#cp GeoNetwork_opensource_v240_Manual.pdf $USER_HOME/Desktop
-#chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/GeoNetwork_opensource_v240_Manual.pdf
+mkdir -p /usr/local/share/geonetwork
+#cp GeoNetwork_opensource_v263_Manual.pdf /usr/local/share/geonetwork/GeoNetwork_opensource_v263_Manual.pdf
+#chmod 644 /usr/local/share/geonetwork/*.pdf
+#cp GeoNetwork_opensource_v263_Manual.pdf $USER_HOME/Desktop
+#chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/GeoNetwork_opensource_v263_Manual.pdf
 
 exit 0
