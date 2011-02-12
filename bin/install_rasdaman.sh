@@ -32,7 +32,7 @@ WCPS_PASSWORD="UD0b9uTt"
 
 
 #get and install required packages
-PACKAGES="git-core make autoconf automake libtool gawk flex bison ant g++ gcc cpp libstdc++6 libreadline-dev libssl-dev libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev libhdf4g-dev libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
+PACKAGES="git-core make autoconf automake libtool gawk flex bison ant g++ gcc cpp libstdc++6 libreadline-dev libssl-dev openjdk-6-jdk libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev libhdf4g-dev libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
 apt-get update && apt-key update &&  apt-get install --yes $PACKAGES
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
@@ -42,12 +42,10 @@ fi
 
 #download and install rasdaman
 git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git 
-# git not working now becuase trac is down
 cd rasdaman
 mkdir /var/log/rasdaman
 chmod 777 /var/log/rasdaman
-./configure --prefix=/usr/local --with-logdir=/var/log/rasdaman  && 
-make
+./configure --prefix=/usr/local --with-logdir=/var/log/rasdaman  && make
 make install
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
@@ -93,6 +91,7 @@ su - $USER_NAME stop_rasdaman.sh
 su - $USER_NAME start_rasdaman.sh
 
 #clean up
+apt-get autoremove  openjdk-6-jdk
 cd ../
 rm rasdaman* -rf
 
@@ -103,8 +102,8 @@ if [ ! -e /usr/share/applications/Start_Rasdaman_Server.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name="Start Rasdaman Server"
-Comment="Start Rasdaman Server"
+Name=Start Rasdaman Server
+Comment=Start Rasdaman Server
 Categories=Application;Education;Geography;
 Exec=start_rasdaman.sh
 Icon=gnome-globe
