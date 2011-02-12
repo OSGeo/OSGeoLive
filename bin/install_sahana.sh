@@ -45,7 +45,7 @@ INSTALL_DIR="/usr/local/lib"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 SAHANA_CONF="/etc/apache2/conf.d/sahana"
-BUILD_DIR=`pwd`
+BUILD_DIR="$USER_HOME/gisvm"
 TMP_DIR="/tmp/build_sahana"
 WEBSERVER="apache2"
 PG_VERSION="8.4"
@@ -348,13 +348,22 @@ cat << EOF > /usr/local/bin/start_sahana.sh
 #!/bin/sh
 cd /usr/local/lib/web2py
 python web2py.py -a admin &
-sleep 1
-firefox http://localhost:8000/eden &
+##-- 12Feb11 longer delay at startup
+DELAY=40
+(
+for TIME in \`seq \$DELAY\` ; do
+  sleep 1
+  echo "\$TIME \$DELAY" | awk '{print int(0.5+100*\$1/\$2)}'
+done
+) | zenity --progress --auto-close --text "Sahana starting"
+zenity --info --text "Starting web browser ..."
+firefox "http://localhost:8000/eden"
 EOF
+
 chmod +x /usr/local/bin/start_sahana.sh
 
 # Add Launch icon to desktop
-cp "$BUILD_DIR"/../app-conf/sahana/sahana.png /usr/share/icons/
+cp "$BUILD_DIR"/app-conf/sahana/sahana.png /usr/share/icons/
 
 cat << EOF > /usr/share/applications/sahana.desktop
 [Desktop Entry]
