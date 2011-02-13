@@ -1,6 +1,12 @@
 OSGeo Live GIS Disc
 ===================
 
+Version: 4.1alpha2
+===================
+5 February 2011
+ * New Applications - Rasdaman, Orfeo, Prune
+ * First build with some translations of docs
+
 Version: 4.1.svn
 ===================
 [unreleased]
