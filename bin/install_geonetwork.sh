@@ -129,6 +129,30 @@ else
    wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/stop-geonetwork.sh
 fi
 
+# Download data-db-mckoi.sql file - changed port number 8880
+if [ -f "data-db-mckoi.sql" ]
+then
+   echo "data-db-mckoi.sql has already been downloaded."
+else
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/data-db-mckoi.sql
+fi
+
+# Download iso-19139-basins-in-africa.mef file - changed port number 8880
+if [ -f "iso-19139-basins-in-africa.mef" ]
+then
+   echo "iso-19139-basins-in-africa.mef has already been downloaded."
+else
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/iso-19139-basins-in-africa.mef
+fi
+
+# Download iso-19139-physiographic.mef file - changed port number 8880
+if [ -f "iso-19139-physiographic.mef" ]
+then
+   echo "iso-19139-physiographic.mef has already been downloaded."
+else
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/iso-19139-physiographic.mef
+fi
+
 
 ## Install Application ##
 if [ -d "$GEONETWORK_FOLDER" ]
@@ -149,6 +173,15 @@ sudo cp start-geonetwork.sh $GEONETWORK_FOLDER/bin/start-geonetwork.sh
 
 # copy stop-geonetwork.sh to $GEONETWORK_FOLDER/bin
 sudo cp stop-geonetwork.sh $GEONETWORK_FOLDER/bin/stop-geonetwork.sh
+
+# copy data-db-mckoi.sql to $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/data-db-mckoi.sql
+sudo cp data-db-mckoi.sql $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/data-db-mckoi.sql
+
+# copy iso-19139-basins-in-africa.mef to $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-basins-in-africa.mef
+sudo cp iso-19139-basins-in-africa.mef $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-basins-in-africa.mef
+
+# copy iso-19139-physiographic.mef to $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-physiographic.mef
+sudo cp iso-19139-physiographic.mef $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-physiographic.mef
 
 # fix permissions on installed software
 sudo chown -R $USER_NAME:$USER_NAME $GEONETWORK_FOLDER
