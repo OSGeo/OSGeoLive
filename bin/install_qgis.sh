@@ -50,12 +50,13 @@ fi
 #Install optional packages that some plugins use
 apt-get --assume-yes install python-psycopg2 \
    python-gdal python-matplotlib python-qt4-sql \
-   libqt4-sql-psql python-qwt5-qt4
+   libqt4-sql-psql python-qwt5-qt4 python-tk python-sqlalchemy
 
 
 #Make sure old qt uim isn't installed
 apt-get --assume-yes remove uim-qt uim-qt3
 
+easy_install owslib
 
 #### install desktop icon ####
 INSTALLED_VERSION=`dpkg -s qgis | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
@@ -117,6 +118,9 @@ cd "$TMP_DIR"
 # be careful with 'wget -c', if the file changes on the server the local
 # copy will get corrupted. Wget only knows about filesize, not file 
 # contents, timestamps, or md5sums!
+
+# old plugins are stored on DATAURL="http://www.geofemengineering.it/data/plugins_old2.tar.gz"
+
 DATAURL="http://www.geofemengineering.it/data/plugins.tar.gz"
 #TODO use a python script and the QGIS API to pull these within QGIS from online repo
 wget --progress=dot:mega "$DATAURL" \
