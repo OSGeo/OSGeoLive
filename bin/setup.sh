@@ -55,7 +55,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   cvs cvsutils subversion subversion-tools gnuit mercurial \
   openssh-client lftp sl usbutils wireless-tools \
   locate diff patch fuseiso menu \
-  vim nedit nano screen \
+  vim medit nano screen \
   evince ghostscript a2ps netpbm qiv \
   lynx mutt mc xchat rxvt units scrot
 
