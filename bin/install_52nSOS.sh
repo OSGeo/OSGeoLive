@@ -42,9 +42,12 @@ SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
 SOS_WEB_APP_NAME="52nSOSv3.1.1"
 SOS_POSTGRESQL_SCRIPT_NAME="postgresql-8.4"
 SOS_TOMCAT_SCRIPT_NAME="tomcat6"
-SOS_START_SCRIPT="52nSOS-start.sh"
+#SOS_START_SCRIPT="52nSOS-start.sh"
 SOS_ICON_NAME="52nSOS.png"
 SOS_DATA_SET="DATA.sql"
+SOS_URL="http://localhost:8080/52nSOSv3.1.1/"
+SOS_QUICKSTART_URL="file:///usr/local/share/osgeolive-docs/en/quickstart/52nSOS_quickstart.html"
+SOS_OVERVIEW_URL="file:///usr/local/share/osgeolive-docs/en/overview/52nSOS_overview.html"
 # -----------------------------------------------------------------------------
 #
 echo "52nSOS install started"
@@ -59,9 +62,12 @@ echo "$SOS_TAR_URL"
 echo "$SOS_WEB_APP_NAME"
 echo "$SOS_POSTGRESQL_SCRIPT_NAME"
 echo "$SOS_TOMCAT_SCRIPT_NAME"
-echo "$SOS_START_SCRIPT"
+#echo "$SOS_START_SCRIPT"
 echo "$SOS_ICON_NAME"
 echo "$SOS_DATA_SET"
+echo "$SOS_URL"
+echo "$SOS_QUICKSTART_URL"
+echo "$SOS_OVERVIEW_URL"
 #
 #
 # =============================================================================
@@ -150,14 +156,14 @@ fi
 	if [ ! -e /usr/share/icons/$SOS_ICON_NAME ] ; then
  		mv $SOS_ICON_NAME /usr/share/icons/
 	fi
- 	#
- 	# copy start script
-	if [ ! -e $SOS_INSTALL_FOLDER/$SOS_START_SCRIPT ] ; then
-		mkdir -p $SOS_INSTALL_FOLDER
- 		mv $SOS_START_SCRIPT $SOS_INSTALL_FOLDER
- 		chown -R $USER_NAME:$USER_NAME "$SOS_INSTALL_FOLDER/$SOS_START_SCRIPT"
- 		chmod u+x,g+x,o+x "$SOS_INSTALL_FOLDER/$SOS_START_SCRIPT"
-	fi
+# 	#
+# 	# copy start script
+#	if [ ! -e $SOS_INSTALL_FOLDER/$SOS_START_SCRIPT ] ; then
+#		mkdir -p $SOS_INSTALL_FOLDER
+# 		mv $SOS_START_SCRIPT $SOS_INSTALL_FOLDER
+# 		chown -R $USER_NAME:$USER_NAME "$SOS_INSTALL_FOLDER/$SOS_START_SCRIPT"
+# 		chmod u+x,g+x,o+x "$SOS_INSTALL_FOLDER/$SOS_START_SCRIPT"
+#	fi
 #
 #
 #
@@ -202,7 +208,7 @@ Encoding=UTF-8
 Name=Start 52NorthSOS
 Comment=52North SOS v3.1.1 
 Categories=Geospatial;Servers;
-Exec=dash $SOS_INSTALL_FOLDER/$SOS_START_SCRIPT
+Exec=firefox $SOS_URL $SOS_QUICKSTART_URL $SOS_OVERVIEW_URL
 Icon=/usr/share/icons/$SOS_ICON_NAME
 Terminal=false
 EOF
