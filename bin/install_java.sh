@@ -16,6 +16,11 @@
 # =====
 # This script will install sun jre 6 and jdk 6
 
+#Next 2 lines make it possible to accept the licence agreement interactively
+#Source http://coreyhulen.org/2010/04/11/unattended-java-install-on-linux/
+export DEBIAN_FRONTEND=noninteractive
+echo "sun-java6-jdk shared/accepted-sun-dlj-v1-1 boolean true" | debconf-set-selections
+
 add-apt-repository "deb http://archive.canonical.com/ lucid partner"
 apt-get update
 

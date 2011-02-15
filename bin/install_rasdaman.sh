@@ -33,7 +33,7 @@ WCPS_PASSWORD="UD0b9uTt"
 
 #get and install required packages
 PACKAGES="git-core make autoconf automake libtool gawk flex bison ant g++ gcc cpp libstdc++6 libreadline-dev libssl-dev openjdk-6-jdk libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev libhdf4g-dev libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
-apt-get update && apt-key update &&  apt-get install --yes $PACKAGES
+apt-get update && apt-key update &&  apt-get install --assume-yes $PACKAGES
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
    exit 1
@@ -91,7 +91,7 @@ su - $USER_NAME stop_rasdaman.sh
 su - $USER_NAME start_rasdaman.sh
 
 #clean up
-apt-get autoremove  openjdk-6-jdk
+apt-get autoremove --assume-yes openjdk-6-jdk
 cd ../
 rm rasdaman* -rf
 
