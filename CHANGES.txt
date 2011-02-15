@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version: 4.1alpha3
+===================
+14 February 2011
+ * Updated Applications - Geonetwork, Mapfish, OpenLayers
+ * Multiple updated Overview, Quickstart and Translations
+ * Fixes to Sahana, 52North, Rasdaman
+
 Version: 4.1alpha2
 ===================
 5 February 2011
