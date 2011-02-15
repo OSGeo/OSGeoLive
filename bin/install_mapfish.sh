@@ -25,12 +25,13 @@ BIN="/usr/bin"
 USER_NAME="user"
 USER_DIR="/home/user"
 
-CONF_DIR="/etc"
-MAPFISH_CONF_DIR="$CONF_DIR/mapfish"
+APACHE_CONF="/etc/apache2/conf.d/mapfish"
+TOMCAT_SERVER_CONF="/etc/tomcat6/server.xml"
 
 INSTALL_DIR="/usr/lib"
 MAPFISH_INSTALL_DIR="$INSTALL_DIR/mapfish"
-MAPFISH_VENV_DIR="$MAPFISH_INSTALL_DIR/mapfish-venv"
+
+OLDPWD=`pwd`
 
  
 ## Setup things... ##
@@ -40,50 +41,96 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-apt-get --assume-yes install python2.6 python2.6-dev libpq-dev
+apt-get --assume-yes install python2.6 python2.6-dev \
+    cgi-mapserver postgis postgresql-8.4-postgis tomcat6\
+    libpq-dev libapache2-mod-fcgid libapache2-mod-wsgi
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
 
+echo "Create $MAPFISH_INSTALL_DIR directory"
+mkdir -p $MAPFISH_INSTALL_DIR
 
-if [ ! -d $MAPFISH_CONF_DIR ]
-then
-    echo "Create $MAPFISH_CONF_DIR directory"
-    mkdir $MAPFISH_CONF_DIR
+cd $MAPFISH_INSTALL_DIR
+rm -fr MapfishSample
+svn co http://mapfish.org/svn/mapfish/sample/trunk MapfishSample
+cd MapfishSample
+
+# generate buildout_osgeolive.cfg
+cat << EOF > buildout_osgeolive.cfg
+[buildout]
+extends = buildout.cfg
+parts += print deploy-print
+index = http://pypi.camptocamp.net/pypi/
+
+[deploy-print]
+output = /var/lib/tomcat6/webapps/print-mapfishsample-\${vars:instanceid}.war
+
+[vars]
+apache-entry-point = /mapfishsample_2.0/
+instanceid = osgeolive
+mapserv_host = localhost
+print_host = localhost
+pg_version = 8.4
+EOF
+
+if [ ! -f ./buildout/bin/buildout ] ; then
+    python bootstrap.py --distribute --version 1.5.2
 fi
 
-if [ ! -d $MAPFISH_INSTALL_DIR ]
-then
-    echo "Create $MAPFISH_INSTALL_DIR directory"
-    mkdir $MAPFISH_INSTALL_DIR
+./buildout/bin/buildout -c buildout_osgeolive.cfg
+
+# set default user/password to www-data
+sudo -u postgres createuser --superuser www-data
+echo "alter role \"www-data\" with password 'www-data'" > /tmp/mapfish_www-data.sql
+sudo -u postgres psql -f /tmp/mapfish_www-data.sql
+
+sudo -u postgres dropdb v2.0_mapfishsample
+sudo -u postgres ./geodata/create_database.bash -p
+
+# add proj 900913 if not exists
+grep "<900913>" /usr/share/proj/epsg
+if [ $? -ne 0 ] ; then
+    echo "" >> /usr/share/proj/epsg
+    echo "<900913> +proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs" >> /usr/share/proj/epsg
 fi
 
-# install go-mapfish-framework-all.py script
-wget -P $MAPFISH_INSTALL_DIR -c http://www.mapfish.org/downloads/go-mapfish-framework-1.2.py
-chmod a+x $MAPFISH_INSTALL_DIR/go-mapfish-framework-1.2.py
-ln -sf $MAPFISH_INSTALL_DIR/go-mapfish-framework-1.2.py $BIN/go-mapfish-framework-1.2.py
+# update tomcat server.xml conf to enable ajp
+wget -O $TOMCAT_SERVER_CONF http://www.mapfish.org/downloads/foss4g_livedvd/server.xml
+/etc/init.d/tomcat6 restart
 
-# create a global virtualenv for mapfish
-go-mapfish-framework-1.2.py --python=python2.6 --no-site-packages $MAPFISH_VENV_DIR
-
-# install mapfish.app.minimal in mapfish virtualenv
-$MAPFISH_VENV_DIR/bin/easy_install --index-url=http://www.mapfish.org/downloads/all/pkg --allow-hosts=www.mapfish.org mapfish.app.minimal
-
-$MAPFISH_VENV_DIR/bin/paster make-config mapfish.app.minimal $MAPFISH_CONF_DIR/minimal.ini
-
-# install launchers
-wget -P $MAPFISH_INSTALL_DIR -c http://www.mapfish.org/downloads/foss4g_livedvd/start_in_browser.sh
-chmod a+x $MAPFISH_INSTALL_DIR/start_in_browser.sh
-wget -P $BIN -c http://www.mapfish.org/downloads/foss4g_livedvd/mapfish
-chmod a+x $BIN/mapfish
+# configure apache
+a2enmod proxy_ajp
+a2enmod fcgid
+a2enmod wsgi
+a2enmod headers
+a2enmod expires
+a2enmod rewrite
+cat << EOF > $APACHE_CONF
+Include $MAPFISH_INSTALL_DIR/MapfishSample/apache/*.conf
+EOF
+apache2ctl restart
 
 # install menu and desktop shortcuts
 wget -P $MAPFISH_INSTALL_DIR -c http://www.mapfish.org/downloads/foss4g_livedvd/mapfish.png
-wget -P /usr/share/applications -c http://www.mapfish.org/downloads/foss4g_livedvd/MapFish.desktop
+cat << EOF > /usr/share/applications/MapFish.desktop
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=MapFish
+Comment=View MapFish sample application in browser
+Categories=Application;Geography;Geoscience;Education;
+Exec="sensible-browser http://localhost/mapfishsample/osgeolive/wsgi/"
+Icon=/usr/lib/mapfish/mapfish.png
+Terminal=false
+StartupNotify=false
+EOF
 cp /usr/share/applications/MapFish.desktop $USER_DIR/Desktop/
 chown $USER_NAME:$USER_NAME $USER_DIR/Desktop/MapFish.desktop
 
 #cleanup
 apt-get --assume-yes remove libpq-dev
+cd $OLDPWD
