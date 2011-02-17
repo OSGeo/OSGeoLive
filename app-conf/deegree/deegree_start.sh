@@ -35,7 +35,7 @@ export JAVA_OPTS="-Xmx1024M -XX:MaxPermSize=256m"
 bash -c "/usr/lib/deegree-live-demo/start-deegree.sh"
 
 # TODO proper browser startup after Tomcat started
-sleep 5
+sleep 10
 if(test -x $(which firefox)) then
   firefox http://localhost:8080
 elif(test -x $(which $BROWSER)) then
