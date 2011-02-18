@@ -9,38 +9,41 @@
 ##
 #########################
 
-#!/bin/bash
+## set JAVA_HOME
 
-if (test ! -z $JAVA_HOME) then
-  $JAVA_HOME/bin/java -classpath deegree-javacheck.jar org.deegree.JavaCheck
-elif (test -x $(which java)) then
-  java -classpath deegree-javacheck.jar org.deegree.JavaCheck
+if(test -z $JAVA_HOME) then
+  javaversion="noJava"
 else
-  for jdir in $HOME/jdk* /usr/lib/j2* /usr/java/* /cygdrive/c/j2* /usr/local/j2* /usr/lib/jvm/java-6*
-  do
-    if (test -d $jdir) then
-      if (test -x $jdir/bin/java) then
-        export JAVA_HOME=$jdir
-      fi
+  javaversion=$($JAVA_HOME/bin/java -version 2>&1 |head -1 |awk 'BEGIN{FS="\""}{print $2}'|awk 'BEGIN{FS="_"}{print $1}')
+fi
+
+## use Java5 if available, otherwise use Java6 
+if(test -z "$JAVA_HOME" -o $javaversion = 1.6.0 -o $javaversion = 1.4.2) then
+  for file in /usr/lib/jvm/*java*6*sun* /usr/lib/jvm/*java*5*sun*
+  do 
+    if(test -x $file/bin/java) then
+      export JAVA_HOME=$file
     fi
   done
-  $JAVA_HOME/java -classpath deegree-javacheck.jar org.deegree.JavaCheck
 fi
 
-RETVAL=$?
-[ $RETVAL -ne 0 ] && exit
+##
+if(test -z $JAVA_HOME) then
+  echo "JAVA_HOME could not be set. deegree will not be started."
+  return
+fi
+
+
+## set JAVA_OPTS
+export JAVA_OPTS="-Xms256m -Xmx512m -XX:MaxPermSize=256m"
+
+mkdir -p /tmp/deegree-logs/ /tmp/deegree-work/
 
 ## start tomcat (and deegree webapps)
-export JAVA_OPTS="-Xmx1024M -XX:MaxPermSize=256m"
-bash -c "/usr/lib/deegree-live-demo/start-deegree.sh"
+bash -c "/usr/lib/apache-tomcat-6.0.26/bin/catalina.sh start"
 
-# TODO proper browser startup after Tomcat started
-sleep 10
-if(test -x $(which firefox)) then
-  firefox http://localhost:8080
-elif(test -x $(which $BROWSER)) then
-  $BROWSER http://localhost:8080
-fi
+## open firefox with index.html 
+## open as user "user" to avoid problems with already running instances of firefox
+sleep 7
+sudo -u user firefox -new-tab http://localhost:8081/ &
 
-# Wait forever
-cat
