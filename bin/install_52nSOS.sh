@@ -176,7 +176,7 @@ fi
 su postgres -c "psql -q -f $TMP/SOS-structure.sql"
 su postgres -c "psql -q -f $TMP/STRUCTURE-in-SOS.sql"
 su postgres -c "psql -q -f $TMP/$SOS_DATA_SET"
-"/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME start"
+"/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" start
 #
 #
 #
