@@ -29,6 +29,15 @@ apt-get --assume-yes remove openjdk-6-jre openjdk-6-jre-headless
 apt-get --assume-yes install java-common sun-java6-bin \
      sun-java6-jre sun-java6-jdk
 
+
+if [ `grep -c 'JAVA_HOME' /etc/rc.local` -eq 0 ] ; then
+    sed -i -e 's|exit 0|JAVA_HOME=/usr/lib/jvm/java-6-sun|' /etc/rc.local
+    echo "export JAVA_HOME" >> /etc/rc.local
+    echo >> /etc/rc.local
+    echo "exit 0" >> /etc/rc.local
+fi
+
+
 ### see if we can reinstall this without bringing in the kitchen sink
 ###   otherwise we'll drop it
 #apt-get --assume-yes install pdftk
