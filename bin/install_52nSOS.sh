@@ -97,27 +97,28 @@ if [ ! -x "`which java`" ] ; then
 	#
 	apt-get --assume-yes remove openjdk-6-jre
 	apt-get --assume-yes install java-common sun-java6-bin sun-java6-jre sun-java6-jdk
-	echo export JAVA_HOME=/usr/lib/jvm/java-6-sun >> ~/.bashrc
+	# this should probably be taken care of system-wide in /etc/rc.local if not already:
+	echo "export JAVA_HOME=/usr/lib/jvm/java-6-sun" >> ~/.bashrc
 fi
 #
 #
 #
 # 3 postgresql
-if [ -f /etc/init.d/$SOS_POSTGRESQL_SCRIPT_NAME ] ; then
+if [ -f "/etc/init.d/$SOS_POSTGRESQL_SCRIPT_NAME" ] ; then
    	echo "$SOS_POSTGRESQL_SCRIPT_NAME service script found in /etc/init.d/."
 else
 	echo "$SOS_POSTGRESQL_SCRIPT_NAME not found. Installing it..."
-	apt-get install --yes $SOS_POSTGRESQL_SCRIPT_NAME
+	apt-get install --yes "$SOS_POSTGRESQL_SCRIPT_NAME"
 fi
 #
 #
 #
 # 4 tomcat6
-if [ -f /etc/init.d/$SOS_TOMCAT_SCRIPT_NAME ] ; then
+if [ -f "/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" ] ; then
    	echo "$SOS_TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
 else
 	echo "$SOS_TOMCAT_SCRIPT_NAME not found. Installing it..."
-	apt-get install --yes $SOS_TOMCAT_SCRIPT_NAME $SOS_TOMCAT_SCRIPT_NAME-admin
+	apt-get install --yes "$SOS_TOMCAT_SCRIPT_NAME" "${SOS_TOMCAT_SCRIPT_NAME}-admin"
 fi
 #
 #
@@ -145,22 +146,23 @@ cd "$TMP"
 if [ -f "$SOS_TAR_NAME" ]
 then
    	echo "$SOS_TAR_NAME has already been downloaded."
+	# but was is sucessful?
 else
    	wget -c --progress=dot:mega "$SOS_TAR_URL$SOS_TAR_NAME"
 fi
 #
 # extract tar, if folders are not there
- 	tar xzf $SOS_TAR_NAME
+ 	tar xzf "$SOS_TAR_NAME"
  	#
  	# copy logo
-	if [ ! -e /usr/share/icons/$SOS_ICON_NAME ] ; then
- 		mv $SOS_ICON_NAME /usr/share/icons/
+	if [ ! -e "/usr/share/icons/$SOS_ICON_NAME" ] ; then
+ 		mv "$SOS_ICON_NAME" /usr/share/icons/
 	fi
 # 	#
 # 	# copy start script
-#	if [ ! -e $SOS_INSTALL_FOLDER/$SOS_START_SCRIPT ] ; then
-#		mkdir -p $SOS_INSTALL_FOLDER
-# 		mv $SOS_START_SCRIPT $SOS_INSTALL_FOLDER
+#	if [ ! -e "$SOS_INSTALL_FOLDER/$SOS_START_SCRIPT" ] ; then
+#		mkdir -p "$SOS_INSTALL_FOLDER"
+# 		mv "$SOS_START_SCRIPT" "$SOS_INSTALL_FOLDER"
 # 		chown -R $USER_NAME:$USER_NAME "$SOS_INSTALL_FOLDER/$SOS_START_SCRIPT"
 # 		chmod u+x,g+x,o+x "$SOS_INSTALL_FOLDER/$SOS_START_SCRIPT"
 #	fi
@@ -170,19 +172,20 @@ fi
 # 2 database set-up
 #
 # we need to stop tomcat6 around this process
-/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME stop
+"/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" stop
 su postgres -c "psql -q -f $TMP/SOS-structure.sql"
 su postgres -c "psql -q -f $TMP/STRUCTURE-in-SOS.sql"
 su postgres -c "psql -q -f $TMP/$SOS_DATA_SET"
-/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME start
+"/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME start"
 #
 #
 #
 # 3 check for tomcat set-up: look for service script in /etc/init.d/
 #
-if (test ! -d $TOMCAT_WEBAPPS/$SOS_WEB_APP_NAME) then
-	mv $TMP/$SOS_WEB_APP_NAME.war "$SOS_WAR_INSTALL_FOLDER"/
- 	chown -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME $SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war
+if (test ! -d "$TOMCAT_WEBAPPS/$SOS_WEB_APP_NAME") then
+	mv "$TMP/$SOS_WEB_APP_NAME.war" "$SOS_WAR_INSTALL_FOLDER"/
+ 	chown -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
+	   "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war"
 else
 	echo "$SOS_WEB_APP_NAME already installed in tomcat"
 fi
@@ -192,8 +195,8 @@ fi
 # Desktop set-up
 # =============================================================================
 #
-if(test ! -d $USER_HOME/Desktop) then
-    mkdir -p $USER_HOME/Desktop
+if(test ! -d "$USER_HOME/Desktop") then
+    mkdir -p "$USER_HOME/Desktop"
 fi
 #
 #
@@ -215,8 +218,8 @@ EOF
 fi
 #
 #
-cp -a /usr/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
+cp /usr/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
 #
 # We just crossed the finish line
 #
