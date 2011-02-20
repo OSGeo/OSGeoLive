@@ -56,7 +56,7 @@ mkdir -p $MAPFISH_INSTALL_DIR
 
 cd $MAPFISH_INSTALL_DIR
 rm -fr MapfishSample
-svn co http://mapfish.org/svn/mapfish/sample/trunk MapfishSample
+svn export http://mapfish.org/svn/mapfish/sample/trunk MapfishSample
 cd MapfishSample
 
 # generate buildout_osgeolive.cfg
