@@ -95,12 +95,9 @@ fi
 echo creating users and metadata database
 su - $USER_NAME -c "createuser $WCPS_USER --superuser"
 su - $USER_NAME -c "psql template1 --quiet -c \"ALTER ROLE $WCPS_USER  with PASSWORD '$WCPS_PASSWORD';\""
-echo 2
 test_WCPSDB=$(su - $USER_NAME -c "psql --quiet  --list | grep \"$WCPS_DATABASE \" ")
-echo 3
 if [ "$test_WCPSDB" == "" ]; then
 	su - $USER_NAME -c "createdb  -T template0 $WCPS_DATABASE"
-echo 4	
 su - $USER_NAME -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
 	if [ $? -ne 0 ] ; then
 		echo "ERROR: can not insert data into metadata database."
