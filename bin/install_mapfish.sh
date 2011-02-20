@@ -27,6 +27,7 @@ USER_DIR="/home/user"
 APACHE_CONF="/etc/apache2/conf.d/mapfish"
 TOMCAT_SERVER_CONF="/etc/tomcat6/server.xml"
 
+MAPFISH_TMP_DIR="/tmp/mapfish"
 MAPFISH_INSTALL_DIR="/usr/lib/mapfish"
 
 OLDPWD=`pwd`
@@ -48,6 +49,9 @@ if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
+
+echo "Create $MAPFISH_TMP_DIR directory"
+mkdir -p $MAPFISH_TMP_DIR
 
 echo "Create $MAPFISH_INSTALL_DIR directory"
 mkdir -p $MAPFISH_INSTALL_DIR
@@ -83,8 +87,8 @@ fi
 
 # set default user/password to www-data
 sudo -u postgres createuser --superuser www-data
-echo "alter role \"www-data\" with password 'www-data'" > /tmp/mapfish_www-data.sql
-sudo -u postgres psql --quiet -f /tmp/mapfish_www-data.sql
+echo "alter role \"www-data\" with password 'www-data'" > $MAPFISH_TMP_DIR/mapfish_www-data.sql
+sudo -u postgres psql --quiet -f $MAPFISH_TMP_DIR/mapfish_www-data.sql
 
 sudo -u postgres dropdb v2.0_mapfishsample
 sudo -u postgres ./geodata/create_database.bash -p
