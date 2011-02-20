@@ -86,7 +86,7 @@ fi
 # set default user/password to www-data
 sudo -u postgres createuser --superuser www-data
 echo "alter role \"www-data\" with password 'www-data'" > /tmp/mapfish_www-data.sql
-sudo -u postgres psql -f /tmp/mapfish_www-data.sql
+sudo -u postgres psql --quiet -f /tmp/mapfish_www-data.sql
 
 sudo -u postgres dropdb v2.0_mapfishsample
 sudo -u postgres ./geodata/create_database.bash -p
