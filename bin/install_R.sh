@@ -62,6 +62,8 @@ apt-get --assume-yes install r-cran-boot \
   r-cran-nlme r-cran-sandwich r-cran-zoo \
   r-cran-vr r-cran-rodbc r-cran-xml r-cran-mapdata r-cran-mapproj 
 
+apt-get --assume-yes install r-cran-rgtk2 r-cran-rjava
+
 # package does not exist in Jaunty+: r-cran-e1071
 # not found in Lucid: r-cran-adapt
 
