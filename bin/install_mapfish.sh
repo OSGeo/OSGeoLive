@@ -101,7 +101,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 # update tomcat server.xml conf to enable ajp
-wget -O $TOMCAT_SERVER_CONF http://www.mapfish.org/downloads/foss4g_livedvd/server.xml
+wget -nv -O $TOMCAT_SERVER_CONF http://www.mapfish.org/downloads/foss4g_livedvd/server.xml
 /etc/init.d/tomcat6 restart
 
 # configure apache
@@ -117,7 +117,7 @@ EOF
 apache2ctl restart
 
 # install menu and desktop shortcuts
-wget -P $MAPFISH_INSTALL_DIR -c http://www.mapfish.org/downloads/foss4g_livedvd/mapfish.png
+wget -nv -P $MAPFISH_INSTALL_DIR http://www.mapfish.org/downloads/foss4g_livedvd/mapfish.png
 cat << EOF > /usr/share/applications/MapFish.desktop
 [Desktop Entry]
 Version=1.0
