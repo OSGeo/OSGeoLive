@@ -26,9 +26,7 @@ DATA_FOLDER="/usr/local/share/data"
 
 # install main dependencies
 
-apt-fget -f install --assume-yes --force-yes
-
-apt-get install --assume-yes --force-yes libtiff4 libgeotiff1.2 libgdal1-1.7.0 \
+apt-get install --assume-yes libtiff4 libgeotiff1.2 libgdal1-1.7.0 \
   libfreetype6 libcurl3 libopenscenegraph56 libqt4-opengl \
   libexpat1 libpng3 libgdal1-1.7.0-grass libfftw3-3 libqt3-mt 
   
@@ -66,22 +64,30 @@ fi
 # Additional dependence for Grass / Qgis plug-in :
 #
 
-apt-get install --assume-yes --force-yes grass qgis python-pysqlite2 python-pygame python-scipy \
+apt-get install --assume-yes grass qgis python-pysqlite2 python-pygame python-scipy \
    python-serial python-psycopg2 proj-bin python-lxml \
    libqt4-core python-distutils-extra python-setuptools python-qscintilla2 
    # spyder
+#???? apt-get install --assume-yes --force-yes python-scipy
+
 
 mkdir $USER_HOME/Desktop/PlanetSasha
+#FIXME: Please do not use "chmod 777". Add to the "users" group and chmod g+w instead.
 chmod -R 777 $USER_HOME/Desktop/PlanetSasha
 
+#FIXME: do not checkout directly to $USER_HOME. Use "svn export" to /usr/local/share/data/
+#  instead, or svn co to /tmp/build_ossim/ then copy dir to /usr/local/share/data/ and
+#  symlink into $HOME.
 svn co http://svn.osgeo.org/ossim/trunk/gsoc/PlanetSasha $USER_HOME/Desktop/PlanetSasha
-chmod -R 777 PlanetSasha
+#FIXME: Do not use chmod 777. see above.
+chmod -R 777 $USER_HOME/Desktop/PlanetSasha
 
 cp $USER_HOME/Desktop/PlanetSasha/grass_script/r.planet.py /usr/lib/grass64/scripts/
 cp $USER_HOME/Desktop/PlanetSasha/grass_script/v.planet.py /usr/lib/grass64/scripts/
 cp $USER_HOME/Desktop/PlanetSasha/grass_script/ogrTovrt.py /usr/lib/grass64/scripts/
 cp $USER_HOME/Desktop/PlanetSasha/grass_script/d.png.legend /usr/lib/grass64/scripts/
 
+#FIXME: python-sphinx package needs to be installed first?
 
 hg clone https://spyderlib.googlecode.com/hg/ spyderlib
 cd spyderlib
@@ -125,12 +131,14 @@ fi
 
 #Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/ossim
+#FIXME: -N is not compatible with -O.
 wget -N --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf \
 	--output-document=/usr/local/share/ossim/ossim_users_guide.pdf
 ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/
 
-wget -N --progress=dot:mega http://ossim.telascience.org/ossimdata/Documentation/OSSIM_Whitepaper.pdf \
-        --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
+#dead url: wget -N --progress=dot:mega http://ossim.telascience.org/ossimdata/Documentation/OSSIM_Whitepaper.pdf \
+wget --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/docs/pdfs/OSSIM_Whitepaper.pdf" \
+   --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
 
 
 #Download data used to test the application
@@ -146,6 +154,7 @@ mkdir -p $RASTER_DATA
 mkdir -p $ELEV_DATA
 mkdir -p $VRT_DATA
 
+#FIXME: Do not use chmod 777.
 chmod -R 777 $RASTER_DATA
 chmod -R 777 $KML_DATA
 chmod -R 777 $ELEV_DATA
@@ -187,7 +196,7 @@ wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev
 cp -r $APP_DATA_DIR $QUICKSTART
 ln -s $QUICKSTART $USER_HOME/ossim
 
-for dir in $QUICKSTART $KML_DATA $RASTER_DATA; do
+for dir in $QUICKSTART $KML_DATA $RASTER_DATA ; do
   chgrp -R users $dir
   chmod -R g+w $dir
 done
