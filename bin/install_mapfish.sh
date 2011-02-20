@@ -21,7 +21,6 @@
 # =======
 # sudo ./install_mapfish.sh
 
-BIN="/usr/bin"
 USER_NAME="user"
 USER_DIR="/home/user"
 
