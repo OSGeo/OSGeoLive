@@ -149,6 +149,7 @@ cp "$BUILD_DIR/../app-data/qgis/QGIS-Grass-Example.qgs" /usr/local/share/qgis/
 cp "$BUILD_DIR/../app-data/qgis/QGIS-NaturalEarth-Example.qgs" /usr/local/share/qgis/
 
 chmod 644 /usr/local/share/qgis/*.qgs
+chown $USER_NAME.$USER_NAME /usr/local/share/qgis/*.qgs
 #Link example to the home directory
 ln -s /usr/local/share/qgis/ "$USER_HOME"/qgis-examples
 

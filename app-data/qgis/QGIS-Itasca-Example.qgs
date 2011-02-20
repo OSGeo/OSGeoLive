@@ -1,13 +1,13 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" version="1.5.0-Tethys">
+<qgis projectname="" version="1.6.0-Trunk">
     <title></title>
     <mapcanvas>
         <units>degrees</units>
         <extent>
-            <xmin>428466.760136</xmin>
-            <ymin>5200892.338416</ymin>
-            <xmax>505797.797407</xmax>
-            <ymax>5261826.755358</ymax>
+            <xmin>374113.699978</xmin>
+            <ymin>5205775.672552</ymin>
+            <xmax>514523.865050</xmax>
+            <ymax>5306359.735393</ymax>
         </extent>
         <projections>0</projections>
         <destinationsrs>
@@ -111,19 +111,8 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
-            <edittypes>
-                <edittype type="0" name="ELEVATION"/>
-                <edittype type="0" name="LAT"/>
-                <edittype type="0" name="LON"/>
-                <edittype type="0" name="NAME"/>
-                <edittype type="0" name="QUADNAME"/>
-            </edittypes>
-            <editform></editform>
-            <editforminit></editforminit>
-            <annotationform></annotationform>
             <displayfield>NAME</displayfield>
             <label>1</label>
-            <attributeactions/>
             <labelfield>NAME</labelfield>
             <labelattributes>
                 <label fieldname="NAME" text="Label"/>
@@ -145,6 +134,17 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
+            <edittypes>
+                <edittype type="0" name="ELEVATION"/>
+                <edittype type="0" name="LAT"/>
+                <edittype type="0" name="LON"/>
+                <edittype type="0" name="NAME"/>
+                <edittype type="0" name="QUADNAME"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>ctybdpy220090926195218921</id>
@@ -184,22 +184,8 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
-            <edittypes>
-                <edittype type="0" name="AREA"/>
-                <edittype type="0" name="COUN"/>
-                <edittype type="0" name="CTY_ABBR"/>
-                <edittype type="0" name="CTY_FIPS"/>
-                <edittype type="0" name="CTY_NAME"/>
-                <edittype type="0" name="ISLAND"/>
-                <edittype type="0" name="PERIMETER"/>
-                <edittype type="0" name="RECNO"/>
-            </edittypes>
-            <editform></editform>
-            <editforminit></editforminit>
-            <annotationform></annotationform>
             <displayfield>AREA</displayfield>
             <label>0</label>
-            <attributeactions/>
             <labelattributes>
                 <label fieldname="" text="Label"/>
                 <family fieldname="" name="Sans Serif"/>
@@ -220,6 +206,20 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
+            <edittypes>
+                <edittype type="0" name="AREA"/>
+                <edittype type="0" name="COUN"/>
+                <edittype type="0" name="CTY_ABBR"/>
+                <edittype type="0" name="CTY_FIPS"/>
+                <edittype type="0" name="CTY_NAME"/>
+                <edittype type="0" name="ISLAND"/>
+                <edittype type="0" name="PERIMETER"/>
+                <edittype type="0" name="RECNO"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>ctyrdln320090926195218953</id>
@@ -259,21 +259,8 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
-            <edittypes>
-                <edittype type="0" name="LENGTH"/>
-                <edittype type="0" name="LFEET"/>
-                <edittype type="0" name="LKILOMETER"/>
-                <edittype type="0" name="LMILES"/>
-                <edittype type="0" name="ROAD_CLASS"/>
-                <edittype type="0" name="ROAD_NAME"/>
-                <edittype type="0" name="ROAD_NUM"/>
-            </edittypes>
-            <editform></editform>
-            <editforminit></editforminit>
-            <annotationform></annotationform>
             <displayfield>LENGTH</displayfield>
             <label>0</label>
-            <attributeactions/>
             <labelattributes>
                 <label fieldname="" text="Label"/>
                 <family fieldname="" name="Sans Serif"/>
@@ -294,6 +281,19 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
+            <edittypes>
+                <edittype type="0" name="LENGTH"/>
+                <edittype type="0" name="LFEET"/>
+                <edittype type="0" name="LKILOMETER"/>
+                <edittype type="0" name="LMILES"/>
+                <edittype type="0" name="ROAD_CLASS"/>
+                <edittype type="0" name="ROAD_NAME"/>
+                <edittype type="0" name="ROAD_NUM"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>drgidx20090926195219059</id>
@@ -333,15 +333,8 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
-            <edittypes>
-                <edittype type="0" name="LOCATION"/>
-            </edittypes>
-            <editform></editform>
-            <editforminit></editforminit>
-            <annotationform></annotationform>
             <displayfield>LOCATION</displayfield>
             <label>1</label>
-            <attributeactions/>
             <labelfield>LOCATION</labelfield>
             <labelattributes>
                 <label fieldname="LOCATION" text="Label"/>
@@ -363,6 +356,13 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
+            <edittypes>
+                <edittype type="0" name="LOCATION"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>lakespy220090926195219074</id>
@@ -402,24 +402,8 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
-            <edittypes>
-                <edittype type="0" name="ACRES"/>
-                <edittype type="0" name="AREA"/>
-                <edittype type="0" name="DOWLKNUM"/>
-                <edittype type="0" name="DOW_VERIF"/>
-                <edittype type="0" name="ELEVATION"/>
-                <edittype type="0" name="LAKE_CLASS"/>
-                <edittype type="0" name="LAKE_NAME"/>
-                <edittype type="0" name="PERFEET"/>
-                <edittype type="0" name="PERIMETER"/>
-                <edittype type="0" name="USCLASS"/>
-            </edittypes>
-            <editform></editform>
-            <editforminit></editforminit>
-            <annotationform></annotationform>
             <displayfield>AREA</displayfield>
             <label>0</label>
-            <attributeactions/>
             <labelattributes>
                 <label fieldname="" text="Label"/>
                 <family fieldname="" name="Sans Serif"/>
@@ -440,6 +424,22 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
+            <edittypes>
+                <edittype type="0" name="ACRES"/>
+                <edittype type="0" name="AREA"/>
+                <edittype type="0" name="DOWLKNUM"/>
+                <edittype type="0" name="DOW_VERIF"/>
+                <edittype type="0" name="ELEVATION"/>
+                <edittype type="0" name="LAKE_CLASS"/>
+                <edittype type="0" name="LAKE_NAME"/>
+                <edittype type="0" name="PERFEET"/>
+                <edittype type="0" name="PERIMETER"/>
+                <edittype type="0" name="USCLASS"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>majrdln320090926195219144</id>
@@ -479,21 +479,8 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
-            <edittypes>
-                <edittype type="0" name="LENGTH"/>
-                <edittype type="0" name="LFEET"/>
-                <edittype type="0" name="LKILOMETER"/>
-                <edittype type="0" name="LMILES"/>
-                <edittype type="0" name="ROAD_CLASS"/>
-                <edittype type="0" name="ROAD_NAME"/>
-                <edittype type="0" name="ROAD_NUM"/>
-            </edittypes>
-            <editform></editform>
-            <editforminit></editforminit>
-            <annotationform></annotationform>
             <displayfield>LENGTH</displayfield>
             <label>0</label>
-            <attributeactions/>
             <labelattributes>
                 <label fieldname="" text="Label"/>
                 <family fieldname="" name="Sans Serif"/>
@@ -514,6 +501,19 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
+            <edittypes>
+                <edittype type="0" name="LENGTH"/>
+                <edittype type="0" name="LFEET"/>
+                <edittype type="0" name="LKILOMETER"/>
+                <edittype type="0" name="LMILES"/>
+                <edittype type="0" name="ROAD_CLASS"/>
+                <edittype type="0" name="ROAD_NAME"/>
+                <edittype type="0" name="ROAD_NUM"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <attributeactions/>
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" minLabelScale="0" maxLabelScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>mcdrdln320090926195219197</id>
@@ -553,12 +553,8 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
-            <editform></editform>
-            <editforminit></editforminit>
-            <annotationform></annotationform>
             <displayfield>LENGTH</displayfield>
             <label>0</label>
-            <attributeactions/>
             <labelattributes>
                 <label fieldname="" text="Label"/>
                 <family fieldname="" name="Sans Serif"/>
@@ -579,6 +575,10 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>plsscpy320090926195219227</id>
@@ -618,23 +618,8 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
-            <edittypes>
-                <edittype type="0" name="ACRES"/>
-                <edittype type="0" name="AREA"/>
-                <edittype type="0" name="PERFEET"/>
-                <edittype type="0" name="PERIMETER"/>
-                <edittype type="0" name="RANG"/>
-                <edittype type="0" name="RDIR"/>
-                <edittype type="0" name="SECT"/>
-                <edittype type="0" name="TOWN"/>
-                <edittype type="0" name="TRSMATCH"/>
-            </edittypes>
-            <editform></editform>
-            <editforminit></editforminit>
-            <annotationform></annotationform>
             <displayfield>AREA</displayfield>
             <label>1</label>
-            <attributeactions/>
             <labelfield>TRSMATCH</labelfield>
             <labelattributes>
                 <label fieldname="TRSMATCH" text="Label"/>
@@ -656,6 +641,21 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
+            <edittypes>
+                <edittype type="0" name="ACRES"/>
+                <edittype type="0" name="AREA"/>
+                <edittype type="0" name="PERFEET"/>
+                <edittype type="0" name="PERIMETER"/>
+                <edittype type="0" name="RANG"/>
+                <edittype type="0" name="RDIR"/>
+                <edittype type="0" name="SECT"/>
+                <edittype type="0" name="TOWN"/>
+                <edittype type="0" name="TRSMATCH"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <attributeactions/>
         </maplayer>
     </projectlayers>
     <properties>

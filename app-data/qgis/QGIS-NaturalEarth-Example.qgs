@@ -1,13 +1,13 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" version="1.5.0-Tethys">
+<qgis projectname="" version="1.6.0-Trunk">
     <title></title>
     <mapcanvas>
         <units>degrees</units>
         <extent>
-            <xmin>-174.517116</xmin>
-            <ymin>-125.861524</ymin>
-            <xmax>184.645370</xmax>
-            <ymax>157.147181</ymax>
+            <xmin>-189.000000</xmin>
+            <ymin>-135.391821</ymin>
+            <xmax>189.000000</xmax>
+            <ymax>135.391821</ymax>
         </extent>
         <projections>0</projections>
         <destinationsrs>
@@ -96,20 +96,8 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
-            <edittypes>
-                <edittype type="0" name="Delta"/>
-                <edittype type="0" name="FeatureCla"/>
-                <edittype type="0" name="Name1"/>
-                <edittype type="0" name="Name2"/>
-                <edittype type="0" name="Note"/>
-                <edittype type="0" name="ScaleRank"/>
-            </edittypes>
-            <editform></editform>
-            <editforminit></editforminit>
-            <annotationform></annotationform>
             <displayfield>FeatureCla</displayfield>
             <label>0</label>
-            <attributeactions/>
             <labelattributes>
                 <label fieldname="" text="Label"/>
                 <family fieldname="" name="Sans Serif"/>
@@ -130,6 +118,18 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
+            <edittypes>
+                <edittype type="0" name="Delta"/>
+                <edittype type="0" name="FeatureCla"/>
+                <edittype type="0" name="Name1"/>
+                <edittype type="0" name="Name2"/>
+                <edittype type="0" name="Note"/>
+                <edittype type="0" name="ScaleRank"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>10m_land20100719082900615</id>
@@ -169,17 +169,8 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
-            <edittypes>
-                <edittype type="0" name="FeatureCla"/>
-                <edittype type="0" name="Note"/>
-                <edittype type="0" name="ScaleRank"/>
-            </edittypes>
-            <editform></editform>
-            <editforminit></editforminit>
-            <annotationform></annotationform>
             <displayfield>ScaleRank</displayfield>
             <label>0</label>
-            <attributeactions/>
             <labelattributes>
                 <label fieldname="" text="Label"/>
                 <family fieldname="" name="Sans Serif"/>
@@ -200,6 +191,15 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
+            <edittypes>
+                <edittype type="0" name="FeatureCla"/>
+                <edittype type="0" name="Note"/>
+                <edittype type="0" name="ScaleRank"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>10m_ocean20100719082900623</id>
@@ -239,15 +239,8 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
-            <edittypes>
-                <edittype type="0" name="RecNum"/>
-            </edittypes>
-            <editform></editform>
-            <editforminit></editforminit>
-            <annotationform></annotationform>
             <displayfield>RecNum</displayfield>
             <label>0</label>
-            <attributeactions/>
             <labelattributes>
                 <label fieldname="" text="Label"/>
                 <family fieldname="" name="Sans Serif"/>
@@ -268,6 +261,13 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
+            <edittypes>
+                <edittype type="0" name="RecNum"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>10m_populated_places_simple20100719082900629</id>
@@ -378,6 +378,28 @@
                     <texturepath></texturepath>
                 </symbol>
             </graduatedsymbol>
+            <displayfield>SCALERANK</displayfield>
+            <label>0</label>
+            <labelattributes>
+                <label fieldname="" text="Label"/>
+                <family fieldname="" name="Sans Serif"/>
+                <size fieldname="" units="pt" value="12"/>
+                <bold fieldname="" on="0"/>
+                <italic fieldname="" on="0"/>
+                <underline fieldname="" on="0"/>
+                <strikeout fieldname="" on="0"/>
+                <color fieldname="" red="0" blue="0" green="0"/>
+                <x fieldname=""/>
+                <y fieldname=""/>
+                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
+                <angle fieldname="" value="0" auto="0"/>
+                <alignment fieldname="" value="center"/>
+                <buffercolor fieldname="" red="255" blue="255" green="255"/>
+                <buffersize fieldname="" units="pt" value="1"/>
+                <bufferenabled fieldname="" on=""/>
+                <multilineenabled fieldname="" on=""/>
+                <selectedonly on=""/>
+            </labelattributes>
             <edittypes>
                 <edittype type="0" name="ADM0CAP"/>
                 <edittype type="0" name="ADM0NAME"/>
@@ -417,29 +439,7 @@
             <editform></editform>
             <editforminit></editforminit>
             <annotationform></annotationform>
-            <displayfield>SCALERANK</displayfield>
-            <label>0</label>
             <attributeactions/>
-            <labelattributes>
-                <label fieldname="" text="Label"/>
-                <family fieldname="" name="Sans Serif"/>
-                <size fieldname="" units="pt" value="12"/>
-                <bold fieldname="" on="0"/>
-                <italic fieldname="" on="0"/>
-                <underline fieldname="" on="0"/>
-                <strikeout fieldname="" on="0"/>
-                <color fieldname="" red="0" blue="0" green="0"/>
-                <x fieldname=""/>
-                <y fieldname=""/>
-                <offset x="0" y="0" units="pt" yfieldname="" xfieldname=""/>
-                <angle fieldname="" value="0" auto="0"/>
-                <alignment fieldname="" value="center"/>
-                <buffercolor fieldname="" red="255" blue="255" green="255"/>
-                <buffersize fieldname="" units="pt" value="1"/>
-                <bufferenabled fieldname="" on=""/>
-                <multilineenabled fieldname="" on=""/>
-                <selectedonly on=""/>
-            </labelattributes>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>10m_rivers_lake_centerlines20100719082900647</id>
@@ -479,20 +479,8 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
-            <edittypes>
-                <edittype type="0" name="FeatureCla"/>
-                <edittype type="0" name="Name"/>
-                <edittype type="0" name="Name_alt"/>
-                <edittype type="0" name="Note"/>
-                <edittype type="0" name="RiverNum"/>
-                <edittype type="0" name="ScaleRank"/>
-            </edittypes>
-            <editform></editform>
-            <editforminit></editforminit>
-            <annotationform></annotationform>
             <displayfield>ScaleRank</displayfield>
             <label>0</label>
-            <attributeactions/>
             <labelattributes>
                 <label fieldname="" text="Label"/>
                 <family fieldname="" name="Sans Serif"/>
@@ -513,6 +501,18 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
+            <edittypes>
+                <edittype type="0" name="FeatureCla"/>
+                <edittype type="0" name="Name"/>
+                <edittype type="0" name="Name_alt"/>
+                <edittype type="0" name="Note"/>
+                <edittype type="0" name="RiverNum"/>
+                <edittype type="0" name="ScaleRank"/>
+            </edittypes>
+            <editform></editform>
+            <editforminit></editforminit>
+            <annotationform></annotationform>
+            <attributeactions/>
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
             <id>HYP_50M_SR_W20100719084154256</id>
