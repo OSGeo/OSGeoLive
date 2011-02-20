@@ -25,16 +25,19 @@
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
+RASDAMAN_HOME="/usr/local/rasdaman"
+TMP="/tmp/build_rasdaman"
 
 #set the postgresql database username and password. Note that if this is changed, /var/lib/tomcat6/webapps/petascope/setting.properties must be modified to reflect the changes
 WCPS_DATABASE="wcpsdb"
 WCPS_USER="wcpsuser"
 WCPS_PASSWORD="UD0b9uTt"
 
-
-TMP="/tmp/build_rasdaman"
 mkdir "$TMP"
 cd "$TMP"
+if [ ! -d "$RASDAMAN_HOME" ]; then
+	mkdir $RASDAMAN_HOME
+fi
 
 #get and install required packages
 PACKAGES="git-core make autoconf automake libtool gawk flex bison ant g++ gcc cpp libstdc++6 libreadline-dev libssl-dev openjdk-6-jdk libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev libhdf4g-dev libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
@@ -48,38 +51,44 @@ fi
 #download and install rasdaman
 git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git 
 cd rasdaman
-mkdir /var/log/rasdaman
-chown ${USER_NAME} /var/log/rasdaman -R
-chmod  777  /var/log/rasdaman -R
-./configure --prefix=/usr/local --with-logdir=/var/log/rasdaman  && make
+mkdir $RASDAMAN_HOME/log
+chown ${USER_NAME} $RASDAMAN_HOME/log/ -R
+./configure --with-logdir=$RASDAMAN_HOME/log --prefix=$RASDAMAN_HOME  && make
 make install
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
    exit 1
 fi
-${j}bar”
-chown ${USER_NAME} /usr/local/bin/* -R
-chmod 774 /usr/local/bin/*
-sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" /usr/local/bin/create_db.sh
+
+chown ${USER_NAME} $RASDAMAN_HOME/bin/* 
+chmod 774 $RASDAMAN_HOME/bin/*
+sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" $RASDAMAN_HOME/bin/create_db.sh
+
+# add rasdaman to the $PATH if not present
+if [ `grep -c $RASDAMAN_HOME/rasdaman/bin $USER_HOME/.bashrc` -eq 0 ] ; then
+   echo 'export PATH=$PATH:'$RASDAMAN_HOME/bin >> "$USER_HOME/.bashrc"
+fi
 
 #test if rasbase exists, if not create rasbase database
 test_RASBASE=$(su - $USER_NAME -c "psql --quiet  --list | grep \"RASBASE \" ")
-if [ "$test_RASBASE" == "" ]; then
-	su - $USER_NAME create_db.sh
+if [ -z "$test_RASBASE" ] ; then
+	su - $USER_NAME $RASDAMAN_HOME/bin/create_db.sh
 fi
 
-
-su - $USER_NAME start_rasdaman.sh
+su - $USER_NAME $RASDAMAN_HOME/bin/start_rasdaman.sh
 
 cd ../
 
-wget -c --progress=dot:mega http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/rasdaman_data.tar.gz
+#download, extract, and import demo data into rasdaman
+wget --progress=dot:mega http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/rasdaman_data.tar.gz
 
 tar xzf rasdaman_data.tar.gz -C .
 
-#import demo data into rasdaman
+export PATH=$PATH:$RASDAMAN_HOME/bin
 echo importing data...
 cd rasdaman_data/DataImport
+sed -i "s/\/usr\/local\/bin\/insertdemo.sh/\/usr\/local\/rasdaman\/bin\/insertdemo.sh/g" demodata/Makefile
+sed -i "s/PATH+=\":\$(RASGEO)\/bin\"/MAP=lena/g" lena/Makefile
 make all
 
 #copy demo applications into tomcat webapps directory
@@ -98,22 +107,21 @@ su - $USER_NAME -c "psql template1 --quiet -c \"ALTER ROLE $WCPS_USER  with PASS
 test_WCPSDB=$(su - $USER_NAME -c "psql --quiet  --list | grep \"$WCPS_DATABASE \" ")
 if [ "$test_WCPSDB" == "" ]; then
 	su - $USER_NAME -c "createdb  -T template0 $WCPS_DATABASE"
-su - $USER_NAME -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
+	su - $USER_NAME -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
 	if [ $? -ne 0 ] ; then
 		echo "ERROR: can not insert data into metadata database."
 		exit 1
 	fi
 fi
 
-echo cleaning up...
-su - $USER_NAME stop_rasdaman.sh
-su - $USER_NAME start_rasdaman.sh
-
 #clean up
+echo cleaning up...
+su - $USER_NAME $RASDAMAN_HOME/bin/stop_rasdaman.sh
+su - $USER_NAME $RASDAMAN_HOME/bin/start_rasdaman.sh
+
 apt-get autoremove --assume-yes openjdk-6-jdk libreadline-dev libssl-dev libncurses5-dev libtiff4-dev libjpeg62-dev libhdf4g-dev libpng12-dev libnetpbm10-dev
 apt-get install openjdk-6-jre libecpg6 --assume-yes
-cd ../
-rm rasdaman* -rf
+
 rm "$TMP" -rf
 #add rasdaman/earthlook to the ubuntu menu icons
 if [ ! -e /usr/share/applications/start_rasdaman_server.desktop ] ; then
@@ -121,8 +129,8 @@ if [ ! -e /usr/share/applications/start_rasdaman_server.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=start rasdaman server
-Comment=start rasdaman server
+Name=Start Rasdaman Server
+Comment=Start Rasdaman Server
 Categories=Geospatial;Servers;
 Exec=start_rasdaman.sh
 Icon=gnome-globe
@@ -136,8 +144,8 @@ if [ ! -e /usr/share/applications/stop_rasdaman_server.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=stop rasdaman server
-Comment=stop rasdaman server
+Name=Stop Rasdaman Server
+Comment=Stop Rasdaman Server
 Categories=Geospatial;Servers;
 Exec=stop_rasdaman.sh
 Icon=gnome-globe
@@ -152,8 +160,8 @@ if [ ! -e /usr/share/applications/rasdaman-earthlook-demo.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=rasdaman-earthlook demo
-Comment=rasdaman demo and tutorial
+Name=Rasdaman-Earthlook Demo
+Comment=Rasdaman Demo and Tutorial
 Categories=Geospatial;Servers;
 Exec=firefox  http://localhost:8080/earthlook
 Icon=gnome-globe
