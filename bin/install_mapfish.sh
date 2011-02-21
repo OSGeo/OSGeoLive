@@ -28,7 +28,7 @@ APACHE_CONF="/etc/apache2/conf.d/mapfish"
 TOMCAT_SERVER_CONF="/etc/tomcat6/server.xml"
 
 MAPFISH_TMP_DIR="/tmp/build_mapfish"
-MAPFISH_INSTALL_DIR="/usr/lib/mapfish"
+MAPFISH_INSTALL_DIR="/usr/local/lib/mapfish"
 
 OLDPWD=`pwd`
 
