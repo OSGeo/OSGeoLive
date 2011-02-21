@@ -138,9 +138,6 @@ wget -N --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossim_user
 	--output-document=/usr/local/share/ossim/ossim_users_guide.pdf
 ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/
 
-#dead url: wget -N --progress=dot:mega http://ossim.telascience.org/ossimdata/Documentation/OSSIM_Whitepaper.pdf \
-wget --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/docs/pdfs/OSSIM_Whitepaper.pdf" \
-   --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
 # pdf temporary stored on my ftp, waiting to add it on ossim download page.   
 wget --progress=dot:mega "http://www.geofemengineering.it/data/OSSIM_Whitepaper.pdf" \
     --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
