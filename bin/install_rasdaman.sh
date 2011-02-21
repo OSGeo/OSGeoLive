@@ -28,7 +28,9 @@ USER_HOME="/home/$USER_NAME"
 RASDAMAN_HOME="/usr/local/rasdaman"
 TMP="/tmp/build_rasdaman"
 
-#set the postgresql database username and password. Note that if this is changed, /var/lib/tomcat6/webapps/petascope/setting.properties must be modified to reflect the changes
+#set the postgresql database username and password.
+# Note that if this is changed, /var/lib/tomcat6/webapps/petascope/setting.properties
+# must be modified to reflect the changes
 WCPS_DATABASE="wcpsdb"
 WCPS_USER="wcpsuser"
 WCPS_PASSWORD="UD0b9uTt"
@@ -40,8 +42,13 @@ if [ ! -d "$RASDAMAN_HOME" ]; then
 fi
 
 #get and install required packages
-PACKAGES="git-core make autoconf automake libtool gawk flex bison ant g++ gcc cpp libstdc++6 libreadline-dev libssl-dev openjdk-6-jdk libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev libhdf4g-dev libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
+PACKAGES="git-core make autoconf automake libtool gawk flex bison \
+ ant g++ gcc cpp libstdc++6 libreadline-dev libssl-dev openjdk-6-jdk \
+ libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev \
+ libhdf4g-dev libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
+
 apt-get update && apt-key update &&  apt-get install --assume-yes $PACKAGES
+
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
    exit 1
@@ -95,7 +102,7 @@ make all
 #copy demo applications into tomcat webapps directory
 cd ../
 
-if [ ! -d "/var/lib/tomcat6/webapps/earthlook" ]; then
+if [ ! -d "/var/lib/tomcat6/webapps/earthlook" ] ; then
 	echo moving earthlook folder into tomcat webapps...
 	mv rasdaman/* /var/lib/tomcat6/webapps/
 fi
@@ -106,7 +113,7 @@ echo creating users and metadata database
 su - $USER_NAME -c "createuser $WCPS_USER --superuser"
 su - $USER_NAME -c "psql template1 --quiet -c \"ALTER ROLE $WCPS_USER  with PASSWORD '$WCPS_PASSWORD';\""
 test_WCPSDB=$(su - $USER_NAME -c "psql --quiet  --list | grep \"$WCPS_DATABASE \" ")
-if [ "$test_WCPSDB" == "" ]; then
+if [ -z "$test_WCPSDB" ] ; then
 	su - $USER_NAME -c "createdb  -T template0 $WCPS_DATABASE"
 	su - $USER_NAME -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
 	if [ $? -ne 0 ] ; then
@@ -120,7 +127,9 @@ echo cleaning up...
 su - $USER_NAME $RASDAMAN_HOME/bin/stop_rasdaman.sh
 su - $USER_NAME $RASDAMAN_HOME/bin/start_rasdaman.sh
 
-apt-get autoremove --assume-yes openjdk-6-jdk libreadline-dev libssl-dev libncurses5-dev libtiff4-dev libjpeg62-dev libhdf4g-dev libpng12-dev libnetpbm10-dev
+apt-get autoremove --assume-yes openjdk-6-jdk libreadline-dev \
+   libssl-dev libncurses5-dev libtiff4-dev libjpeg62-dev libhdf4g-dev \
+   libpng12-dev libnetpbm10-dev
 apt-get install openjdk-6-jre libecpg6 --assume-yes
 
 rm "$TMP" -rf
