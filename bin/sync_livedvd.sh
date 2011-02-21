@@ -31,9 +31,9 @@
 # user's password = <you should know this>
 
 
-USER=${1}
+USER="$1"
 
-#if [ $USER == "-h" || ! $USER ] ; then
+#if [ $USER = "-h" || ! $USER ] ; then
 if [ ! $USER ] ; then
   echo "Usage: ${0} <your osgeo username>"
   echo " This script is intended to be run from the LiveDVD."
