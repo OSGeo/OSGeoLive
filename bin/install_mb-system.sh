@@ -90,6 +90,7 @@ tar xzf `basename $LATEST`
 
 
 ### get the Levitus annual water temperature profile database
+# http://gcmd.nasa.gov/records/GCMD_LEVITUS_1982.html
 # needed for mblevitus program, uncompressed it is 16mb.
 wget -c --progress=dot:mega ftp://ftp.ldeo.columbia.edu/pub/MB-System/annual.gz
 
