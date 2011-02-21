@@ -84,7 +84,8 @@ wget --progress=dot:mega http://kahlua.eecs.jacobs-university.de/~earthlook/osge
 
 tar xzf rasdaman_data.tar.gz -C .
 
-export PATH=$PATH:$RASDAMAN_HOME/bin
+PATH="$PATH:$RASDAMAN_HOME/bin"
+export PATH
 echo importing data...
 cd rasdaman_data/DataImport
 sed -i "s/\/usr\/local\/bin\/insertdemo.sh/\/usr\/local\/rasdaman\/bin\/insertdemo.sh/g" demodata/Makefile
