@@ -23,8 +23,8 @@
 # Requires: Sun Java 6 runtime
 
 TMP="/tmp/build_geoserver"
-INSTALL_FOLDER="/usr/lib"
-BIN=/usr/bin
+INSTALL_FOLDER="/usr/local/lib"
+BIN=/usr/local/bin
 GS_VERSION="2.1-RC2"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
