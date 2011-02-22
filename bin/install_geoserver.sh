@@ -218,7 +218,7 @@ Encoding=UTF-8
 Name=Admin GeoServer
 Comment=GeoServer ${GS_VERSION}
 Categories=Application;Geography;Geoscience;Education;
-Exec=$BIN/firefox "http://localhost:$GS_PORT/geoserver/welcome.do"
+Exec=firefox "http://localhost:$GS_PORT/geoserver/welcome.do"
 Icon=/usr/share/icons/geoserver_48x48.logo.png
 Terminal=false
 EOF
@@ -234,7 +234,7 @@ Encoding=UTF-8
 Name=Style GeoServer
 Comment=GeoServer ${GS_VERSION} Styler Extension
 Categories=Application;Geography;Geoscience;Education;
-Exec=$BIN/firefox "http://localhost:$GS_PORT/geoserver/www/styler"
+Exec=firefox "http://localhost:$GS_PORT/geoserver/www/styler"
 Icon=/usr/share/icons/geoserver_48x48.logo.png
 Terminal=false
 EOF
@@ -247,7 +247,7 @@ Encoding=UTF-8
 Name=GeoServer documentation
 Comment=GeoServer ${GS_VERSION} Documentation
 Categories=Application;Geography;Geoscience;Education;
-Exec=$BIN/firefox "$DOC_DIR/user/index.html"
+Exec=firefox "$DOC_DIR/user/index.html"
 Icon=/usr/share/icons/geoserver_48x48.logo.png
 Terminal=false
 EOF
