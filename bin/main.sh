@@ -139,6 +139,7 @@ for SCRIPT in \
   ./install_rasdaman.sh\
   ./install_main_docs.sh \
   ./install_gisdata.sh \
+  ./install_edutools.sh \
   ./install_desktop.sh \
   ./install_language.sh \
   ./setdown.sh \
