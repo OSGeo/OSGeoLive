@@ -25,7 +25,7 @@
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/lib"
 BIN=/usr/bin
-GS_VERSION="2.1-RC1"
+GS_VERSION="2.1-RC2"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 USER_NAME="user"
