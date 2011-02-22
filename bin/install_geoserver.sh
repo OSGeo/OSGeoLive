@@ -65,32 +65,6 @@ fi
 echo "Unpacking GeoServer in $GS_HOME"
 unzip -o -q geoserver-$GS_VERSION-bin.zip -d $INSTALL_FOLDER
 
-### get the RESTConfig extension
-#echo "Getting GeoServer RESTConfig extension"
-#if [ -f "geoserver-$GS_VERSION-restconfig-plugin.zip" ]
-#then
-#   echo "geoserver-$GS_VERSION-restconfig-plugin.zip has already been downloaded."
-#else
-#   wget 
-#"http://sourceforge.net/projects/geoserver/files/GeoServer%20Extensions/$GS_VERSION/geoserver-$GS_VERSION-restconfig-plugin.zip/download"
-#fi
-## unpack it
-#echo "Installing GeoServer RESTConfig extensions"
-#unzip -o -q geoserver-$GS_VERSION-restconfig-plugin.zip -d $GS_HOME/webapps/geoserver/WEB-INF/lib
-
-### get the styler extension
-#echo "Getting GeoServer Styler extension"
-# yes, it says 1.7.3 because it has not changed since then
-#if [ -f "styler-1.7.3.zip" ]
-#then
-#   echo "styler-1.7.3.zip"
-#else
-#   wget "http://downloads.sourceforge.net/geoserver/styler-1.7.3.zip"
-#fi
-## unpack it
-#echo "Installing GeoServer styler extension"
-#unzip -o -q styler-1.7.3.zip -d $GS_HOME/data_dir/www
-
 ### Configure Application ###
 
 ## We need to make sure the scripts use the proper JDK version ##
