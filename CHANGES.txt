@@ -1,11 +1,12 @@
 OSGeo Live GIS Disc
 ===================
 
-Version: 4.5beta1
+Version: 4.5beta2
 ===================
-22 February 2011
+23 February 2011
  * Multiple updated Overview, Quickstart and Translations
  * Fixes to Mapfish, 52North, Rasdaman, and a few other minor edits
+ * Retrying build after beta1 failed to get GPG keys for packages
 
 Version: 4.5alpha3
 ===================

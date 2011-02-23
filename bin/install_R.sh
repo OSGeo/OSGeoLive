@@ -34,7 +34,11 @@ USER_HOME="/home/$USER_NAME"
 #Install packages from debs if available
 cp ../sources.list.d/cran.list /etc/apt/sources.list.d/
 
-apt-key adv --keyserver subkeys.pgp.net --recv-key E2A11821
+#old key
+#apt-key adv --keyserver subkeys.pgp.net --recv-key E2A11821
+#new key as of 2/2011, package manager changed
+apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+
 #Apparently subkeys.pgp.net decided to refuse requests from the vm for a few hours
 # TODO: if key import fails switch to another keyserver
 # pgp.mit.edu keyserver.ubuntu.com
