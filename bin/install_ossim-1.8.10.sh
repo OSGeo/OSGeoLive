@@ -40,7 +40,8 @@ cd /tmp/build_ossim
 wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim.tar.gz 
 tar -zxf ossim.tar.gz
 mv ossim /usr/local/
-echo "/usr/local/ossim/" >> ossim.conf
+echo "/usr/local/ossim/
+/usr/local/ossim/lib/" >> ossim.conf
 mv ossim.conf /etc/ld.so.conf.d/
 ldconfig
 
