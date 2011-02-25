@@ -126,12 +126,22 @@ svn co "$BASEURL/stylesheets/symbols/" /usr/local/share/osm/stylesheets/symbols/
 # 
 
 ### Please update to latest data at the last minute! See data dir on server for details.
-#wget -N --progress=dot:mega \
-#   "http://download.osgeo.org/livedvd/data/osm/Barcelona.osm.bz2"
+wget -N --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/osm/Barcelona.osm.bz2"
 
 #download as part of disc build process
 # Downloading from the osmxapi takes me about 6 minutes and is around 20MB.
 # hypercube is near the OSGeo servers at SDSC so should be much faster.
+
+# Xapi is dying,
+#   http://thread.gmane.org/gmane.comp.gis.openstreetmap/56097/
+# long live Xapi,
+#   https://github.com/iandees/xapi-servlet
+# for our simple "planet extract" needs, maybe OSM3S or Trapi would be
+#  a better fit anyway?
+#   http://wiki.openstreetmap.org/wiki/OSM3S/install
+#   http://78.46.81.38/#section.download_area
+#   http://wiki.openstreetmap.org/wiki/Trapi
 
 if [ ! -e 'Barcelona.osm.bz2' ] ; then
   #XAPI_URL="http://osmxapi.hypercube.telascience.org/api/0.6"
