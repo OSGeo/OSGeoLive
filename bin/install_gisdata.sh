@@ -37,10 +37,7 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-
-
-### TODO: remove this once 4.0 is unfrozen; fix write permissions instead in package install scripts
-# check required tools are installed
+# TODO: revisit this, for now check required tools are installed
 if [ ! -x "`which atlasstyler`" ] ; then
    echo "ERROR: atlasstyler is required as a tool to create .fix and .qix files for all shapefiles, please install it with bin/install_atlasstyler.sh and try again"
    HAS_ATLASSTYLER=0
@@ -54,22 +51,18 @@ mkdir "$TMP"
 cd "$TMP"
 
 
-
 ###############################
-# Download natural earth datasets:
+# Process natural earth datasets:
+
+mkdir -p "$DATA_FOLDER/natural_earth"
+
+USE_NE_UNMODIFIED=false		# live 4.5b1 process hack
+
+if $USE_NE_UNMODIFIED; then
 
 BASE_URL="http://www.naturalearthdata.com"
 SCALE="10m"  # 1:10 million
-
-# Simple Populated Places 1:10m
-#    http://www.naturalearthdata.com/downloads/10m-cultural-vectors/
-# Admin 0 - Countries 1:10m
-# Populated Places (simple, less columns) 1:10m
-# Land 1:10m
-# Ocean 1:10m
-# Lakes + Reservoirs 1:10m
-# Rivers, Lake Ceterlines 1:10m
-
+	
 LAYERS="
 cultural/$SCALE-populated-places-simple
 cultural/$SCALE-admin-0-countries
@@ -84,24 +77,31 @@ physical/$SCALE-ocean
 physical/$SCALE-lakes
 physical/$SCALE-rivers-lake-centerlines
 "
+	
+	if [ ! -e $TMP/"$SCALE_populated_places_simple.zip" ]; then
+	  for LAYER in $LAYERS ; do
+		 wget --progress=dot:mega -O "`basename $LAYER`.zip" \
+		   "$BASE_URL/http//www.naturalearthdata.com/download/$SCALE/$LAYER.zip"
+	  done
+	
+	  # Raster basemap -- Cross Blended Hypso with Shaded Relief and Water 1:50 million (40mb)
+	  wget -c --progress=dot:mega \
+		 "$BASE_URL/http//www.naturalearthdata.com/download/50m/raster/HYP_50M_SR_W.zip"
+	fi
 
-if [ ! -e $TMP/"$SCALE_populated_places_simple.zip" ]; then
-  for LAYER in $LAYERS ; do
-     wget --progress=dot:mega -O "`basename $LAYER`.zip" \
-       "$BASE_URL/http//www.naturalearthdata.com/download/$SCALE/$LAYER.zip"
-  done
+	# Unzip files into the gisdata directory
+	for file in *.zip ; do
+	  unzip "$file" -d "$DATA_FOLDER/natural_earth"
+	done
 
-  # Raster basemap -- Cross Blended Hypso with Shaded Relief and Water 1:50 million (40mb)
-  wget -c --progress=dot:mega \
-     "$BASE_URL/http//www.naturalearthdata.com/download/50m/raster/HYP_50M_SR_W.zip"
+else
+    ## live 4.5b1 process hack
+    wget -c --progress=dot:mega http://216.93.176.108/all_10m_cleaned_renamed.tgz
+    tar xzf all_10m_cleaned_renamed.tgz
+    for tDir in 10m_*; do
+      mv $tDir/* "$DATA_FOLDER/natural_earth/"
+    done
 fi
-
-# Unzip files into the gisdata directory
-mkdir -p "$DATA_FOLDER/natural_earth"
-
-for file in *.zip ; do
-  unzip "$file" -d "$DATA_FOLDER/natural_earth"
-done
 
 
 if [ $HAS_ATLASSTYLER = 1 ]; then
@@ -138,5 +138,4 @@ if [ -e "/usr/local/share/osm/$CITY.osm.bz2" ] ; then
 else
    echo "ERROR: $CITY.osm.bz2 not found. Run install_osm.sh first."
 fi
-
 
