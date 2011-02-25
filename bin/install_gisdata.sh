@@ -96,7 +96,7 @@ physical/$SCALE-rivers-lake-centerlines
 
 else
     ## live 4.5b1 process hack
-    wget -c --progress=dot:mega http://216.93.176.108/all_10m_cleaned_renamed.tgz
+    wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/nearth/all_10m_cleaned_renamed.tgz
     tar xzf all_10m_cleaned_renamed.tgz
     for tDir in 10m_*; do
       mv $tDir/* "$DATA_FOLDER/natural_earth/"
