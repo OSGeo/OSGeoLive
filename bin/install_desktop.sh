@@ -62,14 +62,27 @@ chown user:user "$USER_HOME/Desktop/passwords.txt"
 cp ../desktop-conf/bg4_livedvd4.png \
      /usr/share/xfce4/backdrops/osgeo-desktop.png
 
-#TODO:copy over default image file instead for headless installs, preference for png
+#Done:support for headless installs with or without user existing, preference for png
+#Only works if user is not logged into XFCE session
+# Puts the desktop background into the spot where it would be used for new user creation
+mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/
+cp ../desktop-conf/xfce-desktop.xml \
+     /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce-desktop.xml
+#Copy it to the existing user
+cp /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce-desktop.xml \
+     "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce-desktop.xml"
+#Note: Style int 3 means stretched
+#Not sure if this is necessary
+chown user.user "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce-desktop.xml"
+
+#Old version in case we need to revert, or if you're logged into the current XFCE session
 #Has to been run as the regular user
-sudo -u $USER_NAME xfconf-query -c xfce4-desktop \
-     -p /backdrop/screen0/monitor0/image-path \
-     -s /usr/share/xfce4/backdrops/osgeo-desktop.png
+#sudo -u $USER_NAME xfconf-query -c xfce4-desktop \
+#     -p /backdrop/screen0/monitor0/image-path \
+#     -s /usr/share/xfce4/backdrops/osgeo-desktop.png
 # set to stretch style background
-sudo -u $USER_NAME xfconf-query -c xfce4-desktop --create \
-     -p /backdrop/screen0/monitor0/image-style  -s 3  -t int
+#sudo -u $USER_NAME xfconf-query -c xfce4-desktop --create \
+#     -p /backdrop/screen0/monitor0/image-style  -s 3  -t int
 
 
 
