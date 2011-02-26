@@ -129,13 +129,3 @@ done
 
 sudo -u $POSTGRES_USER psql natural_earth --quiet -c "vacuum analyze"
 
-###############################
-# Link to Open Street Map data  (e.g. FOSS4G host city)
-CITY="Barcelona"
-if [ -e "/usr/local/share/osm/$CITY.osm.bz2" ] ; then
-   mkdir -p "$DATA_FOLDER/osm" --verbose
-   ln -s "/usr/local/share/osm/$CITY.osm.bz2" "$DATA_FOLDER/osm/feature_city.osm.bz2"
-else
-   echo "ERROR: $CITY.osm.bz2 not found. Run install_osm.sh first."
-fi
-

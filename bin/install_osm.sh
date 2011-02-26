@@ -111,23 +111,23 @@ svn co "$BASEURL/stylesheets/symbols/" /usr/local/share/osm/stylesheets/symbols/
 
 
 #### install sample OSM data
-
-# Barcelona data:
+CITY="Barcelona"
+# City OSM data:
 #  Having a sample .osm file around will benefit many applications. In addition
 #  to JOSM and Gosmore, QGIS and Mapnik can also render .osm directly.
-#  grab Barcelona, which can be as easy as:
+#  grab $CITY, which can be as easy as:
 #
-# $ wget -O barcelona.osm http://osmxapi.hypercube.telascience.org/api/0.6/map?bbox=1.998653,41.307213,2.343693,41.495207
+# $ wget -O $CITY.osm http://osmxapi.hypercube.telascience.org/api/0.6/map?bbox=1.998653,41.307213,2.343693,41.495207
 #
 # We should also push the .osm file into postgis/postgres with osm2pgsql.
 #
-# $ createdb -T template_postgis osm_barcelona
-# $ osm2pgsql -d osm_barcelona barcelona.osm
+# $ createdb -T template_postgis osm_$CITY
+# $ osm2pgsql -d osm_$CITY $CITY.osm
 # 
 
 ### Please update to latest data at the last minute! See data dir on server for details.
 wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/osm/Barcelona.osm.bz2"
+   "http://download.osgeo.org/livedvd/data/osm/$CITY.osm.bz2"
 
 #download as part of disc build process
 # Downloading from the osmxapi takes me about 6 minutes and is around 20MB.
@@ -137,28 +137,26 @@ wget -N --progress=dot:mega \
 #   http://thread.gmane.org/gmane.comp.gis.openstreetmap/56097/
 # long live Xapi,
 #   https://github.com/iandees/xapi-servlet
-# for our simple "planet extract" needs, maybe OSM3S or Trapi would be
-#  a better fit anyway?
+# for our simple "planet extract" needs, maybe OSM3S would be a better fit anyway?
 #   http://wiki.openstreetmap.org/wiki/OSM3S/install
 #   http://78.46.81.38/#section.download_area
-#   http://wiki.openstreetmap.org/wiki/Trapi
 
-if [ ! -e 'Barcelona.osm.bz2' ] ; then
+if [ ! -e "$CITY.osm.bz2" ] ; then
   #XAPI_URL="http://osmxapi.hypercube.telascience.org/api/0.6"
   XAPI_URL="http://xapi.openstreetmap.org/api/0.6"
   BBOX="1.998653,41.27,2.343693,41.495207"
 
-  wget --progress=dot:mega -O Barcelona.osm  "$XAPI_URL/map?bbox=$BBOX"
+  wget --progress=dot:mega -O "$CITY.osm"  "$XAPI_URL/map?bbox=$BBOX"
   if [ $? -ne 0 ] ; then
      echo "ERROR getting osm data"
      exit 1
   fi
-  bzip2 Barcelona.osm
+  bzip2 "$CITY.osm"
 fi
-cp -f Barcelona.osm.bz2 /usr/local/share/osm/
+cp -f "$CITY.osm.bz2" /usr/local/share/osm/
 mkdir -p /usr/local/share/data/osm --verbose
-ln -s /usr/local/share/osm/Barcelona.osm.bz2 /usr/local/share/data/osm
-ln -s /usr/local/share/data/osm/Barcelona.osm.bz2 /usr/local/share/data/osm/Sample_city.osm.bz2
+ln -s /usr/local/share/osm/"$CITY.osm.bz2" /usr/local/share/data/osm
+ln -s /usr/local/share/data/osm/"$CITY.osm.bz2" /usr/local/share/data/osm/feature_city.osm.bz2
 
 ## get latest osm2pgsql from OSM svn (thanks Dane)
 cd "$TMP_DIR"
