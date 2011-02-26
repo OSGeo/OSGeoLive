@@ -108,7 +108,7 @@ else
 fi
 
 ## Get Raster basemap -- Cross Blended Hypso with Shaded Relief and Water 1:50 million (40mb)
-RFILE=HYP_50M_SR_W.zip
+RFILE="HYP_50M_SR_W.zip"
 wget -c --progress=dot:mega \
 	"$BASE_URL/http//www.naturalearthdata.com/download/50m/raster/$RFILE"
 unzip "$RFILE" -d "$DATA_FOLDER/natural_earth"
