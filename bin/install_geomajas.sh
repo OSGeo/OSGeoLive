@@ -21,7 +21,7 @@
 
 TMP="/tmp/build_geomajas"
 INSTALL_FOLDER="/usr/local/lib"
-BIN=/usr/bin
+BIN=/usr/local/bin
 GEOMAJAS_VERSION=1.8.0
 GEOMAJAS_HOME="$INSTALL_FOLDER/geomajas-$GEOMAJAS_VERSION-bin"
 GEOMAJAS_PORT=3420
