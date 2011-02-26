@@ -20,7 +20,7 @@
 # =============================================================================
 
 TMP="/tmp/build_geomajas"
-INSTALL_FOLDER="/usr/local/lib"
+INSTALL_FOLDER="/usr/lib"  ## hard-wired to repo scripts
 BIN=/usr/local/bin
 GEOMAJAS_VERSION=1.8.0
 GEOMAJAS_HOME="$INSTALL_FOLDER/geomajas-$GEOMAJAS_VERSION-bin"
