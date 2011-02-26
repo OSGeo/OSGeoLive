@@ -130,7 +130,7 @@ for SCRIPT in \
   ./install_mapguide.sh \
   ./install_openlayers.sh \
   ./install_R.sh \
-  ./install_ossim-1.8.10.sh \
+  ./install_ossim.sh \
   ./install_osgearth.sh \
   ./install_spatialite.sh \
   ./install_zoo-project.sh \
