@@ -21,7 +21,6 @@
 # the web page "http://www.fsf.org/licenses/lgpl.html".
 ##################################################
 
-
 TMP="/tmp/build_gisdata"
 DATA_FOLDER="/usr/local/share/data"
 POSTGRES_USER="user"
@@ -45,7 +44,7 @@ else
    HAS_ATLASSTYLER=1
 fi
 
-
+##------------------------
 # create tmp folders
 mkdir "$TMP"
 cd "$TMP"
@@ -86,16 +85,12 @@ physical/$SCALE-ocean
 physical/$SCALE-lakes
 physical/$SCALE-rivers-lake-centerlines
 "
-	
+
 	if [ ! -e $TMP/"$SCALE_populated_places_simple.zip" ]; then
 	  for LAYER in $LAYERS ; do
 		 wget --progress=dot:mega -O "`basename $LAYER`.zip" \
 		   "$BASE_URL/http//www.naturalearthdata.com/download/$SCALE/$LAYER.zip"
-	  done
-	
-	  # Raster basemap -- Cross Blended Hypso with Shaded Relief and Water 1:50 million (40mb)
-	  wget -c --progress=dot:mega \
-		 "$BASE_URL/http//www.naturalearthdata.com/download/50m/raster/HYP_50M_SR_W.zip"
+	  done	
 	fi
 
 	# Unzip files into the gisdata directory
@@ -112,7 +107,13 @@ else
     done
 fi
 
+## Get Raster basemap -- Cross Blended Hypso with Shaded Relief and Water 1:50 million (40mb)
+RFILE=HYP_50M_SR_W.zip
+wget -c --progress=dot:mega \
+	"$BASE_URL/http//www.naturalearthdata.com/download/50m/raster/$RFILE"
+unzip "$RFILE" -d "$DATA_FOLDER/natural_earth"
 
+##--------------------------------
 if [ $HAS_ATLASSTYLER = 1 ]; then
   # Add Geotools .fix and .qix files to all Shapefiles. Normally Geotools application would create these
   # files when opeing the Shapefile, but since the data-dir is read-only, we do it here. 
@@ -120,7 +121,7 @@ if [ $HAS_ATLASSTYLER = 1 ]; then
   find "$DATA_FOLDER/natural_earth" -iname "*.shp" -exec atlasstyler "addFix={}" \;
 fi
 
-
+##--------------------------------
 chmod a+r "$DATA_FOLDER/natural_earth"     ## read the data dir
 chmod 444  $DATA_FOLDER/natural_earth/*    ##  and all files in it
 chmod -R +X "$DATA_FOLDER/natural_earth"   ## but keep x on directories
