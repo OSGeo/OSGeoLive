@@ -72,6 +72,11 @@ unzip -o -q geomajas-$GEOMAJAS_VERSION-bin.zip -d $INSTALL_FOLDER
 
 
 ##### Step3: Make the scripts executable
+chmod 755 "$GEOMAJAS_HOME"
+chmod 755 "$GEOMAJAS_HOME/bin"
+chmod 755 "$GEOMAJAS_HOME/etc"
+chmod 755 "$GEOMAJAS_HOME/lib"
+
 chmod 755 "$GEOMAJAS_HOME/bin/startup.sh"
 chmod 755 "$GEOMAJAS_HOME/bin/shutdown.sh"
 chmod 755 "$GEOMAJAS_HOME/bin/start_geomajas.sh"
@@ -88,7 +93,6 @@ fi
 
 
 ##### Step5: Make the logs directory writable
-chmod 755 "$GEOMAJAS_HOME"
 chmod 777 "$GEOMAJAS_HOME/logs"
 
 
