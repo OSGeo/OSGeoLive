@@ -55,11 +55,12 @@ cd "$TMP"
 
 mkdir -p "$DATA_FOLDER/natural_earth"
 
+BASE_URL="http://www.naturalearthdata.com"
+
 USE_NE_UNMODIFIED=false		# live 4.5b1 process hack
 
 if $USE_NE_UNMODIFIED; then
 
-BASE_URL="http://www.naturalearthdata.com"
 SCALE="10m"  # 1:10 million
 
 # Simple Populated Places 1:10m 
