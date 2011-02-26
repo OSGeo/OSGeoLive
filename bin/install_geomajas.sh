@@ -20,7 +20,7 @@
 # =============================================================================
 
 TMP="/tmp/build_geomajas"
-INSTALL_FOLDER="/usr/lib"
+INSTALL_FOLDER="/usr/local/lib"
 BIN=/usr/bin
 GEOMAJAS_VERSION=1.8.0
 GEOMAJAS_HOME="$INSTALL_FOLDER/geomajas-$GEOMAJAS_VERSION-bin"
@@ -88,6 +88,7 @@ fi
 
 
 ##### Step5: Make the logs directory writable
+chmod 755 "$GEOMAJAS_HOME"
 chmod 777 "$GEOMAJAS_HOME/logs"
 
 
