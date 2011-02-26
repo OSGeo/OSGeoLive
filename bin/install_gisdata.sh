@@ -51,8 +51,8 @@ mkdir "$TMP"
 cd "$TMP"
 
 
-###############################
-# Process natural earth datasets:
+##################################
+# Download natural earth datasets:
 
 mkdir -p "$DATA_FOLDER/natural_earth"
 
@@ -62,7 +62,16 @@ if $USE_NE_UNMODIFIED; then
 
 BASE_URL="http://www.naturalearthdata.com"
 SCALE="10m"  # 1:10 million
-	
+
+# Simple Populated Places 1:10m 
+#    http://www.naturalearthdata.com/downloads/10m-cultural-vectors/ 
+# Admin 0 - Countries 1:10m 
+# Populated Places (simple, less columns) 1:10m 
+# Land 1:10m 
+# Ocean 1:10m 
+# Lakes + Reservoirs 1:10m 
+# Rivers, Lake Ceterlines 1:10m 
+
 LAYERS="
 cultural/$SCALE-populated-places-simple
 cultural/$SCALE-admin-0-countries
