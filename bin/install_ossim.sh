@@ -13,8 +13,8 @@ USER_HOME="/home/$USER_NAME"
 BUILD_DIR=`pwd`
 APP_DATA_DIR="$BUILD_DIR/../app-data/ossim"
 DATA_FOLDER="/usr/local/share/data"
-#OSSIM_VERSION=1.8.6
-#BUILD_DATE=20100729
+#OSSIM_VERSION=1.8.10
+#BUILD_DATE=20110223
 
 #Add repositories
 
@@ -28,7 +28,7 @@ DATA_FOLDER="/usr/local/share/data"
 
 apt-get install --assume-yes libtiff4 libgeotiff1.2 libgdal1-1.7.0 \
   libfreetype6 libcurl3 libopenscenegraph56 libqt4-opengl \
-  libexpat1 libpng3 libgdal1-1.7.0-grass libfftw3-3 libqt3-mt 
+  libexpat1 libpng3 libgdal1-1.7.0-grass libfftw3-3 libqt3-mt libopenmpi1.3
   
 
 
@@ -41,7 +41,7 @@ wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim.tar.gz
 tar -zxf ossim.tar.gz
 mv ossim /usr/local/
 echo "/usr/local/ossim/
-/usr/local/ossim/lib" >> ossim.conf
+/usr/local/ossim/lib/" >> ossim.conf
 mv ossim.conf /etc/ld.so.conf.d/
 ldconfig
 
@@ -123,7 +123,7 @@ if [ ! -e /usr/share/menu/ossimplanet ] ; then
 ?package(ossimplanet):needs="X11"\
   section="Applications/Science/Geoscience"\
   title="Ossimplanet"\
-  command="/usr/local/ossim/ossimplanet"\
+  command="/usr/local/ossim/bin/ossimplanet"\
   icon="/usr/share/pixmaps/ossimPlanet.xpm"
 EOF
   update-menus
