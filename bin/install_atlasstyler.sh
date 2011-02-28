@@ -41,9 +41,9 @@ USER_HOME="/home/$USER_NAME"
 
 mkdir -p $USER_HOME/.AtlasStyler
 
-wget --cut-dirs=1 -nH -q -c -r \
-   http://en.geopublishing.org/openmapsymbols/ -A "*.sld" \
-   --exclude-directories="openmapsymbols/svg" \
+wget --cut-dirs=0 -nH -q -c -r \
+   http://freemapsymbols.org/ -A "*.sld" \
+   --exclude-directories="svg" \
    -P $USER_HOME/.AtlasStyler/templates
 
 # Now we create a .properties file which predefines that AtlasStyler open-file-dialog will start in the data directory, and the export directory points to the desktop.
