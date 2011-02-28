@@ -93,6 +93,7 @@ fi
 
 
 ##### Step5: Make the logs directory writable
+echo "GeoMajas FIXME: Do not use 777 if at all possible."
 chmod 777 "$GEOMAJAS_HOME/logs"
 
 
