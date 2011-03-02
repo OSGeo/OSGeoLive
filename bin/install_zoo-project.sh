@@ -88,7 +88,7 @@ cp /usr/share/applications/zoo-project.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/zoo-project.desktop"
 
 rm /etc/ld.so.conf.d/zoo-project.conf
-cat > /etc/ld.conf.so/zoo-project.conf <<EOF
+cat > /etc/ld.so.conf.d/zoo-project.conf <<EOF
 /usr/lib/jvm/java-6-sun/jre/lib/i386/server
 EOF
 
