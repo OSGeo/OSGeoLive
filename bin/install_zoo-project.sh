@@ -85,7 +85,7 @@ Categories=Education;Geography;
 EOF
 fi
 cp /usr/share/applications/zoo-project.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/zoo-project.desktop"
+chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/zoo-project.desktop"
 
 rm /etc/ld.so.conf.d/zoo-project.conf
 cat > /etc/ld.so.conf.d/zoo-project.conf <<EOF
