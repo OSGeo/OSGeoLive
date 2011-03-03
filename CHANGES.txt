@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version: 4.5beta3
+===================
+3 March 2011
+ * Multiple updated Overview, Quickstart and Translations
+ * Fixes to Mapfish, Saga, Zoo, Geomajas, Atlasstyler, QGIS Plugins
+ * Using cached build folders.
+
 Version: 4.5beta2
 ===================
 23 February 2011
