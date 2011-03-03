@@ -50,11 +50,7 @@ wget --cut-dirs=0 -nH -q -c -r \
 echo "lastImportDirectory=$USER_HOME/data/natural_earth" > $USER_HOME/.AtlasStyler/atlasStyler.properties
 echo "lastExportDirectory=$USER_HOME/Desktop" >> $USER_HOME/.AtlasStyler/atlasStyler.properties
 # Also predefine, that adding a PG datasource will open with the OSGeoLive defaults
-echo "lastPgHost=localhost" >> $USER_HOME/.AtlasStyler/atlasStyler.properties
-echo "lastPgTable=10m_land" >> $USER_HOME/.AtlasStyler/atlasStyler.properties
-echo "lastPgDatabase=natural_earth" >> $USER_HOME/.AtlasStyler/atlasStyler.properties
-echo "lastPgUsername=user" >> $USER_HOME/.AtlasStyler/atlasStyler.properties
-echo "lastPgPort=5432" >> $USER_HOME/.AtlasStyler/atlasStyler.properties
+echo "dbList=postgis|postgresql\://localhost/user|localhost|5432|user|user|natural_earth|true|public@" >> $USER_HOME/.AtlasStyler/atlasStyler.properties
 
 # Change the owner of the user's local AtlasStyler settings to user:user
 chown -R $USER_NAME:$USER_NAME $USER_HOME/.AtlasStyler
