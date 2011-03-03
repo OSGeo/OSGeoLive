@@ -127,7 +127,7 @@ Name=MapFish
 Comment=View MapFish sample application in browser
 Categories=Application;Geography;Geoscience;Education;
 Exec=sensible-browser http://localhost/mapfishsample/osgeolive/wsgi/
-Icon=/usr/lib/mapfish/mapfish.png
+Icon=/usr/local/lib/mapfish/mapfish.png
 Terminal=false
 StartupNotify=false
 EOF
