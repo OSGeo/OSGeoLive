@@ -95,7 +95,7 @@ PATH="$PATH:$RASDAMAN_HOME/bin"
 export PATH
 echo importing data...
 cd rasdaman_data/DataImport
-sed -i "s/\/usr\/local\/bin\/insertdemo.sh/\/usr\/local\/rasdaman\/bin\/insertdemo.sh/g" demodata/Makefile
+sed -i "s/\/usr\/local\/bin\/insertdemo.sh localhost 7001 \/usr\/local\/share\/rasdaman\/examples\/images rasadmin rasadmin/\/usr\/local\/rasdaman\/bin\/insertdemo.sh localhost 7001 \/usr\/local\/rasdaman\/share\/rasdaman\/examples\/images rasadmin rasadmin /g"  demodata/Makefile
 sed -i "s/PATH+=\":\$(RASGEO)\/bin\"/MAP=lena/g" lena/Makefile
 make all
 
@@ -142,9 +142,9 @@ Encoding=UTF-8
 Name=Start Rasdaman Server
 Comment=Start Rasdaman Server
 Categories=Application;Education;Geography;
-Exec=start_rasdaman.sh
+Exec=/usr/local/rasdaman/bin/start_rasdaman.sh
 Icon=gnome-globe
-Terminal=false
+Terminal=true
 StartupNotify=false
 EOF
 fi
@@ -157,9 +157,9 @@ Encoding=UTF-8
 Name=Stop Rasdaman Server
 Comment=Stop Rasdaman Server
 Categories=Application;Education;Geography;
-Exec=stop_rasdaman.sh
+Exec=/usr/local/rasdaman/bin/stop_rasdaman.sh
 Icon=gnome-globe
-Terminal=false
+Terminal=true
 StartupNotify=false
 EOF
 fi
