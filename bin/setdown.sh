@@ -54,9 +54,10 @@ mkdir ${VM}-tmp
 mv /tmp/build* ${VM}-tmp
 mv /tmp/*downloads ${VM}-tmp
 
-ln -s /var/cache/apt/ ${VM}-apt-cache
 ln -s /var/log/osgeolive/ ${VM}-log
 
+#Copy the cache to tmp for backing up
+cp -R /var/cache/apt/ ${VM}-apt-cache
 # remove the apt-get cache
 apt-get clean
 
