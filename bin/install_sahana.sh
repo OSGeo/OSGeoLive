@@ -96,11 +96,11 @@ apt-get install --yes python-tweepy
 #apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis
 
 # Download and Install Geraldo
-wget -c --progress=dot:mega --no-check-certificate \
-   "https://sourceforge.net/projects/geraldo/files/geraldo/Geraldo%200.4-final/Geraldo-0.4-final.tar.gz" \
-   -O "$TMP_DIR/Geraldo-0.4-final.tar.gz"
-tar xzf "$TMP_DIR"/Geraldo-0.4-final.tar.gz -C "$TMP_DIR"
-cd "$TMP_DIR"/Geraldo-0.4-final
+wget -c --progress=dot:mega \
+   "http://pypi.python.org/packages/source/G/Geraldo/Geraldo-0.4.10-stable.tar.gz" \
+   -O "$TMP_DIR/Geraldo-0.4.10-stable.tar.gz"
+tar xzf "$TMP_DIR"/Geraldo-0.4.10-stable.tar.gz -C "$TMP_DIR"
+cd "$TMP_DIR"/Geraldo-0.4.10-stable
 python setup.py install
 
 # Add DB User
