@@ -197,7 +197,7 @@ fi
 # Stream Edit 000_config.py
 sed -i 's|EDITING_CONFIG_FILE = False|EDITING_CONFIG_FILE = True|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
-sed -i 's|127.0.0.1:8014|127.0.0.1|' \
+sed -i 's|127.0.0.1:8000|127.0.0.1|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 sed -i 's|deployment_settings.gis.spatialdb = False|deployment_settings.gis.spatialdb = True|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
@@ -320,9 +320,9 @@ cat << EOF > "$SAHANA_CONF"
   <Location "/eden">
      Order deny,allow
      Allow from all
-     ProxyPass http://localhost:8014/eden
-     ProxyPassReverse http://localhost:8014/
-     #ProxyHTMLURLMap http://127.0.0.1:8014/eden/ /eden
+     ProxyPass http://localhost:8000/eden
+     ProxyPassReverse http://localhost:8000/
+     #ProxyHTMLURLMap http://127.0.0.1:8000/eden/ /eden
   </Location>
   # everything else goes over WSGI (but this doesn't work on a subfolder)
   #<Directory /usr/local/lib/web2py>
@@ -357,7 +357,7 @@ for TIME in \`seq \$DELAY\` ; do
 done
 ) | zenity --progress --auto-close --text "Sahana starting"
 zenity --info --text "Starting web browser ..."
-firefox "http://localhost:8014/eden"
+firefox "http://localhost:8000/eden"
 EOF
 
 chmod +x /usr/local/bin/start_sahana.sh
