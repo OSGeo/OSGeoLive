@@ -57,12 +57,12 @@ fi
 
 # download TileLite sources
 ## some problems with filenames, substitute package --Live 4.5b3
-#wget -c --progress=dot:mega http://bitbucket.org/springmeyer/tilelite/get/tip.zip
+#wget -N --progress=dot:mega http://bitbucket.org/springmeyer/tilelite/get/tip.zip
 #unzip -o tip.zip
-wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/mapnik/tilelite.tgz
-tar xzf tilelite.tgz
 #rm tip.zip # We wish to backup files downloaded. The tmp directory is automatically emptied upon computer shutdown.
-cd $TMP/tilelite
+wget -N --progress=dot:mega http://download.osgeo.org/livedvd/data/mapnik/tilelite.tgz
+tar xzf tilelite.tgz
+cd "$TMP/tilelite"
 
 # install tilelite using the standard python installation tools
 python setup.py install # will install 'tilelite.py' in dist-packages and 'liteserv.py' in default bin directory
