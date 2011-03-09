@@ -56,8 +56,11 @@ then
 fi
 
 # download TileLite sources
-wget -c --progress=dot:mega http://bitbucket.org/springmeyer/tilelite/get/tip.zip
-unzip -o tip.zip
+## some problems with filenames, substitute package --Live 4.5b3
+#wget -c --progress=dot:mega http://bitbucket.org/springmeyer/tilelite/get/tip.zip
+#unzip -o tip.zip
+wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/mapnik/tilelite.tgz
+tar xzf tilelite.tgz
 #rm tip.zip # We wish to backup files downloaded. The tmp directory is automatically emptied upon computer shutdown.
 cd $TMP/tilelite
 
