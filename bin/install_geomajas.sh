@@ -96,7 +96,8 @@ fi
 echo "GeoMajas FIXME: Do not use 777 if at all possible."
 chmod 777 "$GEOMAJAS_HOME/logs"
 
-
+#####Make the webapps folder accessible
+chmod -R 755 "$GEOMAJAS_HOME/webapps"
 
 # =============================================================================
 # Setting up quick-start desktop icons
