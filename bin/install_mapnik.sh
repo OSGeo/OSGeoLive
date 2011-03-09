@@ -76,7 +76,7 @@ rm -fr $TMP/tilelite
 # Create startup script for TileLite Mapnik Server
 cat << EOF > $BIN/mapnik_start_tilelite.sh
 #!/bin/sh
-liteserv.py /usr/local/share/mapnik/demo/population.xml
+liteserv.py --port 8012 /usr/local/share/mapnik/demo/population.xml
 EOF
 
 chmod 755 $BIN/mapnik_start_tilelite.sh
@@ -92,7 +92,7 @@ Encoding=UTF-8
 Name=Start Mapnik & TileLite
 Comment=Mapnik tile-serving using TileLite Server
 Categories=Application;Geography;Geoscience;Education;
-Exec=liteserv.py --port 8012 /usr/local/share/mapnik/demo/population.xml
+Exec=mapnik_start_tilelite.sh
 Icon=gnome-globe
 Terminal=true
 StartupNotify=false
