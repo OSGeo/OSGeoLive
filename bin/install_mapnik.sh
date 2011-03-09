@@ -37,7 +37,7 @@ DATA_FOLDER="/usr/local/share"
 MAPNIK_DATA=$DATA_FOLDER/mapnik
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-BIN="/usr/bin"
+BIN="/usr/local/bin"
 
 mkdir -p $TMP
 cd "$TMP"
