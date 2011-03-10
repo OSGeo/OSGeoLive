@@ -59,7 +59,7 @@ chown user:user "$USER_HOME/Desktop/passwords.txt"
 
 
 # Setup the desktop background
-wget --progress=dot:mega https://svn.osgeo.org/osgeo/livedvd/artwork/backgrounds/4.5/OSGeo_Live_4_5.png /usr/share/xfce4/backdrops/osgeo-desktop.png
+wget --progress=dot:mega https://svn.osgeo.org/osgeo/livedvd/artwork/backgrounds/4.5/OSGeo_Live_4_5.png --output-document=/usr/share/xfce4/backdrops/osgeo-desktop.png
 #cp ../desktop-conf/bg4_livedvd4.png \
 #     /usr/share/xfce4/backdrops/osgeo-desktop.png
 
@@ -67,14 +67,14 @@ wget --progress=dot:mega https://svn.osgeo.org/osgeo/livedvd/artwork/backgrounds
 #Only works if user is not logged into XFCE session
 # Puts the desktop background into the spot where it would be used for new user creation
 mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/
-cp ../desktop-conf/xfce/xfce-desktop.xml \
-     /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce-desktop.xml
+cp ../desktop-conf/xfce/xfce4-desktop.xml \
+     /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
 #Copy it to the existing user
-cp /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce-desktop.xml \
-     "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce-desktop.xml"
+cp /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml \
+     "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
 #Note: Style int 3 means stretched
 #Not sure if this is necessary
-chown user.user "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce-desktop.xml"
+chown user.user "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
 
 #Old version in case we need to revert, or if you're logged into the current XFCE session
 #Has to been run as the regular user
