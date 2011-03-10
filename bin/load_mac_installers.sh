@@ -29,7 +29,7 @@ TMP="/tmp/remastersys/ISOTMP/MacInstallers"
 mkdir -p "$TMP"
 cd "$TMP"
 
-BASE_URL="http://www.kyngchaos.com/files/software/unixport"
+BASE_URL="http://www.kyngchaos.com/files/software"
 
 cat << EOF > README.txt
 OSGeo Macintosh installers for OSX Snow Leopard
@@ -64,28 +64,28 @@ EOF
 
 # 1 Base Packages (Frameworks)
 A_PKG="
-GDAL_Complete-1.7.dmg
-FreeType_Framework-2.4.2-1a.dmg
-cairo_Framework-1.8.10-3.dmg
-GSL_Framework-1.14-1.dmg
-spatialite_tools-2.3.1.zip
-rgdal-0.6.26-1.zip
+frameworks/GDAL_Complete-1.8.dmg
+frameworks/FreeType_Framework-2.4.4-1.dmg
+frameworks/cairo_Framework-1.8.10-3.dmg
+frameworks/GSL_Framework-1.14-1.dmg
+frameworks/spatialite_tools-2.3.1.zip
+frameworks/rgdal-0.6.33-1.zip
 "
 
 # 2 Support Packages
 B_PKG="
-PHP5-5.2.14-1.dmg
-PostgreSQL-8.4.4-2.dmg
+php/PHP5-5.3.5-2.dmg
+postgresql/PostgreSQL-8.4.5-1.dmg
 "
 
 # 3 End-User Packages
 C_PKG="
-GRASS-6.4.0-3-Snow.dmg
-MapServer-5.6.5-1.dmg
-PostGIS-1.5.1-1.dmg
-WKTRaster-0.1.6d-r5759.dmg
-pgRouting-1.0.3-4.dmg
-Qgis-1.5.0-2-Snow.dmg
+grass/GRASS-6.4.1RC1-3-Snow.dmg
+mapserver/MapServer-5.6.5-1.dmg
+postgresql/PostGIS-1.5.2-1.dmg
+postgresql/WKTRaster-0.1.6d-r5997.dmg
+postgresql/pgRouting-1.0.3-4.dmg
+qgis/Qgis-1.6.0-2-Snow.dmg
 "
 
 
@@ -96,8 +96,10 @@ mkdir "$PKG_DIR"
 i=0
 for PKG in $A_PKG ; do
   i=`expr $i + 1`
+  #Split the prefix off
+  END=${PKG##*/}
   wget -c --progress=dot:mega "$BASE_URL/$PKG" \
-    -O "$PKG_DIR/${i}_$PKG"
+    -O "$PKG_DIR/${i}_$END"
   sleep 1
 done
 
@@ -107,8 +109,10 @@ PKG_DIR="B__Support_Packages"
 mkdir "$PKG_DIR"
 
 for PKG in $B_PKG ; do
+  #Split the prefix off
+  END=${PKG##*/}
   wget -c --progress=dot:mega "$BASE_URL/$PKG" \
-    -O "$PKG_DIR/$PKG"
+    -O "$PKG_DIR/$END"
   sleep 1
 done
 
@@ -118,6 +122,8 @@ PKG_DIR="C__End_User_Packages"
 mkdir "$PKG_DIR"
 
 for PKG in $C_PKG ; do
+  #Split the prefix off
+  END=${PKG##*/}
   wget -c --progress=dot:mega "$BASE_URL/$PKG" \
     -O "$PKG_DIR/$PKG"
   sleep 1
@@ -143,6 +149,6 @@ wget -c --progress=dot:mega \
 # do symlinks work here?
 
 #Add R-stats
-PKG="R-2.11.1.pkg"
+PKG="R-2.12.2.pkg"
 wget -c --progress=dot:mega \
    http://cran.stat.ucla.edu/bin/macosx/"$PKG" -O "$PKG_DIR/$PKG"
