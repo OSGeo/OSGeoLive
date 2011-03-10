@@ -132,6 +132,7 @@ fi
 # 2.1 set-up SOS database using sql scripts
 # 2.2 insert data
 # 3 tomcat set-up
+# 3.0 check for webapps folder in $SOS_WAR_INSTALL_FOLDER
 # 3.1 mv war to webapps folder
 # 3.2 change owner of war file
 #
@@ -179,8 +180,14 @@ su postgres -c "psql -q -f $TMP/$SOS_DATA_SET"
 "/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" start
 #
 #
+# 3.0 check for tomcat webapps folder
 #
-# 3 check for tomcat set-up: look for service script in /etc/init.d/
+if(test ! -d "$SOS_WAR_INSTALL_FOLDER") then
+    mkdir -p "$SOS_WAR_INSTALL_FOLDER"
+fi
+#
+#
+# 3.1 check for tomcat set-up: look for service script in /etc/init.d/
 #
 if (test ! -d "$TOMCAT_WEBAPPS/$SOS_WEB_APP_NAME") then
 	mv "$TMP/$SOS_WEB_APP_NAME.war" "$SOS_WAR_INSTALL_FOLDER"/
