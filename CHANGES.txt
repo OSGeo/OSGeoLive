@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version: 4.5rc1
+===================
+9 March 2011
+ * Multiple updated Overview, Quickstart and Translations
+ * All Critical tickets fixed
+ * Using cached build folders.
+
 Version: 4.5beta3
 ===================
 3 March 2011
