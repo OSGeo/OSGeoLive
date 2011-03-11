@@ -39,6 +39,10 @@ apt-get install --assume-yes josm josm-plugins gosmore gpsd gpsd-clients \
    merkaartor xmlstarlet
 
 
+
+### TODO: install osmosis as well.
+
+
 # that JOSM is badly out of date, so get the latest:
 #   leave it installed to keep dependencies
 #   file name is not versioned so don't use "wget -c"
@@ -47,6 +51,14 @@ wget --progress=dot:mega -O /usr/local/share/osm/josm-tested.jar \
 # replace symlink
 rm /usr/share/josm/josm.jar
 ln -s /usr/local/share/osm/josm-tested.jar /usr/share/josm/josm.jar
+
+# pre-seed the josmrc file to make the default window size fit on a smaller display
+mkdir -p "$USER_HOME"/.josm
+cat << EOF > "$USER_HOME"/.josm/preferences
+gui.geometry=800x600+40+40
+gui.maximized=false
+EOF
+chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
 
 
 #### desktop icons
