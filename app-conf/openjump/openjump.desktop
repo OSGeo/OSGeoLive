@@ -1,4 +1,3 @@
-
 [Desktop Entry]
 Version=1.0
 Encoding=UTF-8
@@ -7,7 +6,7 @@ Name=Open Jump
 Comment=
 Categories=Application;
 Exec=openjump
-Icon=/usr/lib/openjump-1.3/openjump.ico
+Icon=/usr/lib/openjump-1.4.0/openjump.ico
 Terminal=false
 StartupNotify=false
 GenericName=
