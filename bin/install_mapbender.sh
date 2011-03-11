@@ -44,7 +44,7 @@ mkdir -p "$TMP_DIR"
 # Install mapbender dependencies.
 echo "Installing mapbender"
 
-apt-get install --assume-yes php5 php5-imagick php5-pgsql 
+apt-get install --assume-yes php5 php5-imagick php5-pgsql php5-gd
 
 if [ ! -x "`which wget`" ] ; then
     apt-get --assume-yes install wget
