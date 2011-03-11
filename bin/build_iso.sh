@@ -22,10 +22,11 @@
 # sudo ./build_iso.sh
 #
 
-
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
 DIR=`dirname ${0}`
 VERSION=`cat "$DIR"/../VERSION.txt`
-PACKAGE_NAME="osgeolive"
+PACKAGE_NAME="osgeo-live"
 ISO_NAME="${PACKAGE_NAME}-${VERSION}"
 WORKDIR="/tmp/remastersys"
 TMP="$WORKDIR/ISOTMP"
@@ -80,6 +81,10 @@ updatedb
 # quick name check
 echo "Now creating ${ISO_NAME}.iso"
 
+#Copy the home dir to /etc/skel
+cp -RnpP ${USER_HOME}/* /etc/skel/
+chown -RP root:root /etc/skel/
+
 # Create iso, only uncomment once it's working
-remastersys backup ${ISO_NAME}.iso
+remastersys dist ${ISO_NAME}.iso
 

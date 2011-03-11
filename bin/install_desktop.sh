@@ -261,10 +261,10 @@ for APP in $RELIEF_APPS ; do
 done
 
 # admin tools already added automatically
-#mkdir "Databases"
-#for APP in $DB_APPS ; do
-#   mv `basename $APP .desktop`.desktop "Databases"/
-#done
+mkdir "Databases"
+for APP in $DB_APPS ; do
+   mv `basename $APP .desktop`.desktop "Databases"/
+done
 
 
 ##### Setup Automatic or Timed Login #####
