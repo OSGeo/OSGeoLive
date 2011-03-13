@@ -56,7 +56,7 @@ mv /usr/share/ossim/imagelinker.desktop /usr/share/applications/imagelinker.desk
 mv /usr/share/ossim/ossimplanet.desktop /usr/share/applications/ossimplanet.desktop
 
 if [ `grep -c '/usr/local/ossim' "$USER_HOME/.bashrc"` -eq 0 ] ; then
-   echo 'PATH="$PATH:/usr/local/ossim:/usr/local/ossim/bin"' >> "$USER_HOME/.bashrc"
+   echo 'PATH="$PATH:/usr/local/ossim"' >> "$USER_HOME/.bashrc"
    echo "export PATH" >> "$USER_HOME/.bashrc"
    #source "$USER_HOME/.bashrc"
 fi
@@ -112,7 +112,7 @@ if [ ! -e /usr/share/menu/imagelinker ] ; then
 ?package(imagelinker):needs="X11"\
   section="Applications/Science/Geoscience"\
   title="Imagelinker"\
-  command="/usr/local/ossim/bin/imagelinker"\
+  command="/usr/local/ossim/imagelinker"\
   icon="/usr/share/pixmaps/ossim.xpm"
 EOF
   update-menus
@@ -123,7 +123,7 @@ if [ ! -e /usr/share/menu/ossimplanet ] ; then
 ?package(ossimplanet):needs="X11"\
   section="Applications/Science/Geoscience"\
   title="Ossimplanet"\
-  command="/usr/local/ossim/bin/ossimplanet"\
+  command="/usr/local/ossim/ossimplanet"\
   icon="/usr/share/pixmaps/ossimPlanet.xpm"
 EOF
   update-menus
@@ -156,7 +156,7 @@ mkdir -p $RASTER_DATA
 mkdir -p $ELEV_DATA
 mkdir -p $VRT_DATA
 
-#FIXME: Do not use chmod 777.
+#Fixme: ** DO NOT use chmod 777 **
 chmod -R 777 $RASTER_DATA
 chmod -R 777 $KML_DATA
 chmod -R 777 $ELEV_DATA
