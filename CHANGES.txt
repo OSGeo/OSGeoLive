@@ -1,12 +1,18 @@
 OSGeo Live GIS Disc
 ===================
+Version: 4.5rc2
+===================
+14 March 2011
+ * Fix for iso build
+ * Updates to translations
+ * Using cached build folders
 
 Version: 4.5rc1
 ===================
 9 March 2011
  * Multiple updated Overview, Quickstart and Translations
  * All Critical tickets fixed
- * Using cached build folders.
+ * Using cached build folders
 
 Version: 4.5beta3
 ===================
