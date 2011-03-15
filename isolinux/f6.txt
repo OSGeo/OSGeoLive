@@ -1,0 +1,23 @@
+0fSPECIAL BOOT PARAMETERS - VARIOUS HARDWARE07                                    09F607
+
+You can use the following boot parameters at the 0fboot:07 prompt, 
+in combination with the boot method (see <09F307>).
+If you use hex numbers you have to use the 0x prefix (e.g., 0x300).
+0f
+HARDWARE                               PARAMETER TO SPECIFY07
+IBM PS/1 or ValuePoint (IDE disk)      0fhd=0bcylinders0f,0bheads0f,0bsectors07
+Some IBM ThinkPads                     0ffloppy.floppy=thinkpad07
+IBM Pentium Microchannel               0fmca-pentium no-hlt07
+Protect I/O port regions               0freserve=0biobase0f,0bextent07[0f,0b...07]
+Workaround faulty FPU (old machines)   0fno38707
+Laptops with screen display problems   0fvga=77107
+Force use of generic IDE driver        0fgeneric.all_generic_ide=107
+
+If you experience lockups or other hardware failures,
+disable buggy APIC interrupt routing   0fnoapic nolapic07
+
+For example:
+
+  boot: live vga=771 noapic nolapic
+
+Press F1control and F then 1 for the help index, or ENTER to 

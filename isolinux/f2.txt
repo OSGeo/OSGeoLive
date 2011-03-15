@@ -1,0 +1,23 @@
+0fPREREQUISITES FOR RUNNING UBUNTU07                                              09F207
+
+You must have at least 384 megabytes of RAM to use this Ubuntu live system.
+
+The live system does not require any space on your hard disk. However,
+existing Linux swap partitions on the disk will be used if available.
+
+See the FAQ for more information; this document is available at the Ubuntu
+web site, 0fhttp://www.ubuntu.com/07
+
+
+
+
+
+
+
+
+
+
+
+
+
+Press F1control and F then 1 for the help index, or ENTER to 

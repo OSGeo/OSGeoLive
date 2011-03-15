@@ -1,0 +1,23 @@
+0fRESCUING A BROKEN SYSTEM07                                                      09F407
+
+There is no dedicated rescue mode on this disc. However, since the disc
+provides a complete user environment, it is possible to use the
+command-line and/or graphical tools provided to rescue a broken system,
+and to use a web browser to search for help. Extensive advice is available
+online for most kinds of problems that might cause your normal system to
+fail to boot correctly.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Press F1control and F then 1 for the help index, or ENTER to 
