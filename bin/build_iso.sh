@@ -62,6 +62,15 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/remastersys.co
      --output-document="$LOGS"
 cp "$LOGS" /etc/remastersys.conf
 
+# grab copy of custom isolinux
+wget -nv http://osprey.ucdavis.edu/downloads/osgeo/gisvm/isolinux.tar.gz \
+	--output-document="$WORKDIR"/isolinux.tar.gz
+
+tar xzf "$WORKDIR"/isolinux.tar.gz  -C "$WORKDIR"
+cp -R  "$WORKDIR"/isolinux/ /etc/remastersys/customisolinux
+#Not sure if this is necessary but can't hurt to make them read only
+chmod -R uga-w /etc/remastersys/customisolinux/
+
 # Add Windows and Mac installers by copying files into ISOTMP folder
 #./load_win_installers.sh
 #./load_mac_installers.sh
@@ -82,9 +91,12 @@ updatedb
 echo "Now creating ${ISO_NAME}.iso"
 
 #Copy the home dir to /etc/skel
-cp -RnpP ${USER_HOME}/* /etc/skel/
-chown -RP root:root /etc/skel/
+#cp -RnpP ${USER_HOME}/* /etc/skel/
+#chown -RP root:root /etc/skel/
 
-# Create iso, only uncomment once it's working
-remastersys dist ${ISO_NAME}.iso
+#TMP fix for bug in 2.0.18-1
+sed -i -e 's:rm -rf $WORKDIR/dummysys/etc/gdm/custom.conf:#Removed:' /usr/bin/remastersys
+
+# Create iso, only uncomment once it's working, currently backup mode, TODO: convert to dist mode
+remastersys backup ${ISO_NAME}.iso
 
