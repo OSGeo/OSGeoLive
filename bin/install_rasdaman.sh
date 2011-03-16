@@ -56,7 +56,10 @@ fi
 
 
 #download and install rasdaman
-git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git 
+#If folder already exists skip the git clone and used cached version
+if [ ! -d  rasdaman ] ; then
+	git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git 
+fi
 cd rasdaman
 mkdir $RASDAMAN_HOME/log
 chown ${USER_NAME} $RASDAMAN_HOME/log/ -R
@@ -87,7 +90,7 @@ su - $USER_NAME $RASDAMAN_HOME/bin/start_rasdaman.sh
 cd ../
 
 #download, extract, and import demo data into rasdaman
-wget --progress=dot:mega http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/rasdaman_data.tar.gz
+wget -c --progress=dot:mega http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/rasdaman_data.tar.gz
 
 tar xzf rasdaman_data.tar.gz -C .
 
