@@ -67,7 +67,7 @@ wget -nv http://osprey.ucdavis.edu/downloads/osgeo/gisvm/isolinux.tar.gz \
 	--output-document="$WORKDIR"/isolinux.tar.gz
 
 tar xzf "$WORKDIR"/isolinux.tar.gz  -C "$WORKDIR"
-cp -R  "$WORKDIR"/isolinux/ /etc/remastersys/customisolinux
+cp -R  "$WORKDIR"/isolinux/* /etc/remastersys/customisolinux/
 #Not sure if this is necessary but can't hurt to make them read only
 chmod -R uga-w /etc/remastersys/customisolinux/
 
