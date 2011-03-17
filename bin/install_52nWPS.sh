@@ -66,12 +66,18 @@ else
 fi
 
 tar xzf 52n-wps-rc6.tar.gz
-mkdir -p "$INSTALL_FOLDER" --verbose
+
+if [ ! -e "$INSTALL_FOLDER" ] ; then
+   mkdir -p "$INSTALL_FOLDER" --verbose
+fi
+
 
 mv $TMP/52nWPS "$INSTALL_FOLDER"/
-mv $INSTALL_FOLDER/52nWPS/52n.png /usr/share/icons/
 
 
+if [ ! -e "/usr/share/icons/52n.png" ] ; then
+  mv $INSTALL_FOLDER/52nWPS/52n.png /usr/share/icons/
+fi
 
 mkdir -p -v "$USER_HOME/Desktop"
 
