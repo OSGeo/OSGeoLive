@@ -74,7 +74,6 @@ frameworks/rgdal-0.6.33-1.zip
 
 # 2 Support Packages
 B_PKG="
-php/PHP5-5.3.5-2.dmg
 postgresql/PostgreSQL-8.4.5-1.dmg
 "
 
