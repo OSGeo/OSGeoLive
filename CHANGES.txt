@@ -1,5 +1,13 @@
 OSGeo Live GIS Disc
 ===================
+Version: 4.5
+===================
+17 March 2011
+ * Icon Fixes
+ * Download Corrections
+ * Update Documentation and Translation
+ * Using cached build folders
+
 Version: 4.5rc3
 ===================
 14 March 2011
