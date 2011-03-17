@@ -72,7 +72,7 @@ if [ ! -e "$INSTALL_FOLDER" ] ; then
 fi
 
 
-mv $TMP/52nWPS "$INSTALL_FOLDER"/
+cp -R $TMP/52nWPS "$INSTALL_FOLDER"/
 
 
 if [ ! -e "/usr/share/icons/52n.png" ] ; then
