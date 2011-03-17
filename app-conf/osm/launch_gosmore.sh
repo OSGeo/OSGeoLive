@@ -19,6 +19,7 @@ gxmessage -buttons "Generate,Cancel" -default "Generate" \
 # 102  2nd button
 
 if [ $? -eq 101 ] ; then
+   cd
    bzip2 -dc /usr/local/share/data/osm/feature_city.osm.bz2 | gosmore rebuild
 
    gxmessage '"gosmore.pak" created. Press [Ok] to launch Gosmore.'
