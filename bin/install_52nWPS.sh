@@ -35,25 +35,19 @@ fi
 ##### Java Sun JDK 6 is required:
 
 if [ ! -x "`which java`" ] ; then
+   add-apt-repository "deb http://archive.canonical.com/ lucid partner"
+   apt-get update
 
-add-apt-repository "deb http://archive.canonical.com/ lucid partner"
-apt-get update
-
-apt-get --assume-yes remove openjdk-6-jre
-apt-get --assume-yes install java-common sun-java6-bin sun-java6-jre sun-java6-jdk
-echo export JAVA_HOME=/usr/lib/jvm/java-6-sun >> ~/.bashrc
-
+   apt-get --assume-yes remove openjdk-6-jre
+   apt-get --assume-yes install java-common sun-java6-bin sun-java6-jre sun-java6-jdk
+   echo export JAVA_HOME=/usr/lib/jvm/java-6-sun >> ~/.bashrc
 fi
-
-
 
 
 
 ##### Create the TMP directory
 mkdir -p "$TMP"
 cd "$TMP"
-
-
 
 
 # =============================================================================
@@ -67,24 +61,19 @@ if [ -f "52n-wps-rc6.tar.gz" ]
 then
    echo "52n-wps-rc6.tar.gz has already been downloaded."
 else
-   wget -c --progress=dot:mega "http://52north.org/files/geoprocessing/OSGeoLiveDVD/52n-wps-rc6.tar.gz"
- tar xzf 52n-wps-rc6.tar.gz
- mkdir -p "$INSTALL_FOLDER" --verbose
-
- mv $TMP/52nWPS "$INSTALL_FOLDER"/
- mv $INSTALL_FOLDER/52nWPS/52n.png /usr/share/icons/
-
+   wget -c --progress=dot:mega \
+      "http://52north.org/files/geoprocessing/OSGeoLiveDVD/52n-wps-rc6.tar.gz"
 fi
 
+tar xzf 52n-wps-rc6.tar.gz
+mkdir -p "$INSTALL_FOLDER" --verbose
+
+mv $TMP/52nWPS "$INSTALL_FOLDER"/
+mv $INSTALL_FOLDER/52nWPS/52n.png /usr/share/icons/
 
 
 
-
-if(test ! -d $USER_HOME/Desktop); then
-    mkdir $USER_HOME/Desktop
-fi
-
-
+mkdir -p -v "$USER_HOME/Desktop"
 
 ## start icon
 ##Relies on launchassist in home dir
