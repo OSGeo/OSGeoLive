@@ -98,12 +98,8 @@ fi
 cp openjump.ico "$OJ_FOLDER"
 
 # Download desktop link
-if [ -f "openjump.desktop" ]
-then
-   echo "openjump.desktop has already been downloaded."
-else
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.desktop
-fi
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.desktop \
+   -O openjump.desktop
 # copy it into the openjump folder
 cp openjump.desktop $USER_HOME/Desktop
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/openjump.desktop
