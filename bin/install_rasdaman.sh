@@ -58,7 +58,9 @@ fi
 #download and install rasdaman
 #If folder already exists skip the git clone and used cached version
 if [ ! -d  rasdaman ] ; then
-	git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git 
+	#git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
+	wget -c www.rasdaman.com/Download/rasdaman_2011-03-17.tgz
+	tar xzf rasdaman_2011-03-17.tgz
 fi
 cd rasdaman
 mkdir $RASDAMAN_HOME/log
@@ -135,7 +137,8 @@ apt-get autoremove --assume-yes openjdk-6-jdk libreadline-dev \
    libpng12-dev libnetpbm10-dev
 apt-get install openjdk-6-jre libecpg6 --assume-yes
 
-rm "$TMP" -rf
+#Don't delete the tmp files, so we can stash them in a cache
+#rm "$TMP" -rf
 #add rasdaman/earthlook to the ubuntu menu icons
 if [ ! -e /usr/share/applications/start_rasdaman_server.desktop ] ; then
    cat << EOF > /usr/share/applications/start_rasdaman_server.desktop
