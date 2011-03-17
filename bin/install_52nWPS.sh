@@ -76,7 +76,7 @@ mv $TMP/52nWPS "$INSTALL_FOLDER"/
 
 
 if [ ! -e "/usr/share/icons/52n.png" ] ; then
-  mv $INSTALL_FOLDER/52nWPS/52n.png /usr/share/icons/
+  cp $INSTALL_FOLDER/52nWPS/52n.png /usr/share/icons/
 fi
 
 mkdir -p -v "$USER_HOME/Desktop"
