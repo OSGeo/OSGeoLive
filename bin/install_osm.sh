@@ -73,7 +73,7 @@ cat << EOF > /usr/share/applications/gosmore.desktop
 Version=1.0
 Name=Gosmore
 Comment=Viewer for OpenStreetMap.com
-Exec=/usr/bin/gosmore
+Exec=/usr/local/bin/launch_gosmore.sh
 Icon=josm-32
 StartupNotify=false
 Terminal=false
@@ -84,6 +84,9 @@ EOF
 chmod a+x /usr/share/applications/gosmore.desktop
 cp /usr/share/applications/gosmore.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
+
+
+cp "$BUILD_DIR/app-conf/osm/launch_gosmore.sh" /usr/local/bin/
 
 
 if [ ! -d "$TMP_DIR" ] ; then
