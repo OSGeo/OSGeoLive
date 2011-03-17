@@ -69,8 +69,7 @@ unzip -q openjump-1.4.zip -d $INSTALL_FOLDER
 ## Configure Application ##
 
 # Download desktop icon
-if [ -f "openjump.sh" ]
-then
+if [ -f "openjump.sh" ] ; then
    echo "openjump.sh has already been downloaded."
 else
    wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.sh
@@ -89,14 +88,14 @@ chown $USER_NAME:$USER_NAME $USER_HOME/.jump
 chown $USER_NAME:$USER_NAME $USER_HOME/.jump/workbench-properties.xml
 
 # Download desktop icon
-if [ -f "openjump.icon" ]
-then
+if [ -f openjump.ico ] ; then
    echo "openjump.icon has already been downloaded."
 else
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.ico
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.ico \
+       -O openjump.ico
 fi
 # copy it into the openjump folder
-cp openjump.ico $OJ_FOLDER
+cp openjump.ico "$OJ_FOLDER"
 
 # Download desktop link
 if [ -f "openjump.desktop" ]
