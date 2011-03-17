@@ -86,7 +86,7 @@ cp /usr/share/applications/gosmore.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
 
 
-cp "$BUILD_DIR/app-conf/osm/launch_gosmore.sh" /usr/local/bin/
+cp "$BUILD_DIR/../app-conf/osm/launch_gosmore.sh" /usr/local/bin/
 
 
 if [ ! -d "$TMP_DIR" ] ; then
