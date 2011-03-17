@@ -51,24 +51,26 @@ SOS_OVERVIEW_URL="file:///usr/local/share/osgeolive-docs/en/overview/52nSOS_over
 # -----------------------------------------------------------------------------
 #
 echo "52nSOS install started"
-echo "$TMP"
-echo "$USER_NAME"
-echo "$USER_HOME"
-echo "$TOMCAT_USER_NAME"
-echo "$SOS_WAR_INSTALL_FOLDER"
-echo "$SOS_INSTALL_FOLDER"
-echo "$SOS_TAR_NAME"
-echo "$SOS_TAR_URL"
-echo "$SOS_WEB_APP_NAME"
-echo "$SOS_POSTGRESQL_SCRIPT_NAME"
-echo "$SOS_TOMCAT_SCRIPT_NAME"
-#echo "$SOS_START_SCRIPT"
-echo "$SOS_ICON_NAME"
-echo "$SOS_DATA_SET"
-echo "$SOS_URL"
-echo "$SOS_QUICKSTART_URL"
-echo "$SOS_OVERVIEW_URL"
-#
+if [ -n "$DEBUG" ] ; then
+   echo "$TMP"
+   echo "$USER_NAME"
+   echo "$USER_HOME"
+   echo "$TOMCAT_USER_NAME"
+   echo "$SOS_WAR_INSTALL_FOLDER"
+   echo "$SOS_INSTALL_FOLDER"
+   echo "$SOS_TAR_NAME"
+   echo "$SOS_TAR_URL"
+   echo "$SOS_WEB_APP_NAME"
+   echo "$SOS_POSTGRESQL_SCRIPT_NAME"
+   echo "$SOS_TOMCAT_SCRIPT_NAME"
+   #echo "$SOS_START_SCRIPT"
+   echo "$SOS_ICON_NAME"
+   echo "$SOS_DATA_SET"
+   echo "$SOS_URL"
+   echo "$SOS_QUICKSTART_URL"
+   echo "$SOS_OVERVIEW_URL"
+fi
+
 #
 # =============================================================================
 # Pre install checks
@@ -84,8 +86,7 @@ echo "$SOS_OVERVIEW_URL"
 # It is required to download the 52North SOS package:
 #
 if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install it and try again" 
-   exit 1
+   apt-get install wget
 fi
 #
 #
@@ -144,22 +145,21 @@ mkdir -p "$TMP"
 cd "$TMP"
 #
 # download tar.gz from 52north.org server
-if [ -f "$SOS_TAR_NAME" ]
-then
-   	echo "$SOS_TAR_NAME has already been downloaded."
-	# but was is sucessful?
+if [ -f "$SOS_TAR_NAME" ] ; then
+   echo "$SOS_TAR_NAME has already been downloaded."
+   # but was is sucessful?
 else
-   	wget -c --progress=dot:mega "$SOS_TAR_URL$SOS_TAR_NAME"
+   wget -c --progress=dot:mega "$SOS_TAR_URL$SOS_TAR_NAME"
 fi
-#
+
 # extract tar, if folders are not there
- 	tar xzf "$SOS_TAR_NAME"
- 	#
- 	# copy logo
-	if [ ! -e "/usr/share/icons/$SOS_ICON_NAME" ] ; then
- 		mv "$SOS_ICON_NAME" /usr/share/icons/
-	fi
-# 	#
+tar xzf "$SOS_TAR_NAME"
+#
+# copy logo
+if [ ! -e "/usr/share/icons/$SOS_ICON_NAME" ] ; then
+   mv "$SOS_ICON_NAME" /usr/share/icons/
+fi
+
 # 	# copy start script
 #	if [ ! -e "$SOS_INSTALL_FOLDER/$SOS_START_SCRIPT" ] ; then
 #		mkdir -p "$SOS_INSTALL_FOLDER"
@@ -182,9 +182,8 @@ su postgres -c "psql -q -f $TMP/$SOS_DATA_SET"
 #
 # 3.0 check for tomcat webapps folder
 #
-if(test ! -d "$SOS_WAR_INSTALL_FOLDER") then
-    mkdir -p "$SOS_WAR_INSTALL_FOLDER"
-fi
+mkdir -p -v "$SOS_WAR_INSTALL_FOLDER"
+
 #
 #
 # 3.1 check for tomcat set-up: look for service script in /etc/init.d/
@@ -201,13 +200,9 @@ fi
 #
 # Desktop set-up
 # =============================================================================
-#
-if(test ! -d "$USER_HOME/Desktop") then
-    mkdir -p "$USER_HOME/Desktop"
-fi
-#
-#
-#
+
+mkdir -p -v "$USER_HOME/Desktop"
+
 # icon
 # Relies on launchassist in home dir
 if [ ! -e /usr/share/applications/52nSOS-start.desktop ] ; then
@@ -223,8 +218,8 @@ Icon=/usr/share/icons/$SOS_ICON_NAME
 Terminal=false
 EOF
 fi
-#
-#
+
+
 cp /usr/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
 #
