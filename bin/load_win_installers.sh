@@ -52,14 +52,10 @@ EOF
 
 for URL in \
   http://download.osgeo.org/osgeo4w/osgeo4w-setup.exe \
-  http://downloads.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.4.2/geonetwork-install-2.4.2-0.exe?use_mirror=cdnetworks-us-2 \
-  http://downloads.sourceforge.net/geoserver/geoserver-2.0.2-bin.zip \
   http://forge.osor.eu/frs/download.php/1279/gvSIG-1_10-1264-final-win-i586-withjre-j1_5.exe \
   http://qgis.org/downloads/QGIS-OSGeo4W-1.6.0-14615-Setup-2.exe \
   http://home.gdal.org/tmp/vcredist_x86.exe \
   http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.1RC1-1-Setup.exe \
-  http://maptools.org/dl/ms4w/ms4w_3.0.1.zip \
-  http://download.osgeo.org/mapguide/releases/2.2.0/RC3/MapGuideOpenSource-2.2.0.5518-RC3.exe \
   http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.4.2-Setup.exe \
   http://gpsvp.googlecode.com/files/gpsVPxp_0.4.20.zip \
   http://downloads.sourceforge.net/project/opencpn/opencpn/2.3.1/opencpn_2.3.1_setup.exe?use_mirror=cdnetworks-us-2 \

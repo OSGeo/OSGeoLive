@@ -81,10 +81,7 @@ postgresql/PostgreSQL-8.4.5-1.dmg
 # 3 End-User Packages
 C_PKG="
 grass/GRASS-6.4.1RC1-3-Snow.dmg
-mapserver/MapServer-5.6.5-1.dmg
 postgresql/PostGIS-1.5.2-1.dmg
-postgresql/WKTRaster-0.1.6d-r5997.dmg
-postgresql/pgRouting-1.0.3-4.dmg
 qgis/Qgis-1.6.0-2-Snow.dmg
 "
 
@@ -125,7 +122,7 @@ for PKG in $C_PKG ; do
   #Split the prefix off
   END=${PKG##*/}
   wget -c --progress=dot:mega "$BASE_URL/$PKG" \
-    -O "$PKG_DIR/$PKG"
+    -O "$PKG_DIR/$END"
   sleep 1
 done
 
