@@ -108,5 +108,5 @@ if [ "$1" = "mini" ] ; then
 else
 	# quick name check
 	echo "Now creating $ISO_NAME.iso"
-	remastersys backup $ISO_NAME.iso
+	remastersys backup "$ISO_NAME.iso"
 fi
