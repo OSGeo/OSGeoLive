@@ -71,9 +71,12 @@ cp "$LOGS" /etc/remastersys.conf
 #Not sure if this is necessary but can't hurt to make them read only
 #chmod -R uga-w /etc/remastersys/customisolinux/
 
-# Add Windows and Mac installers by copying files into ISOTMP folder
-#./load_win_installers.sh
-#./load_mac_installers.sh
+#TODO: if not mini include, else rm ISOTMP/Mac&Win folders to make sure it's a mini
+if [ ${1} != "mini" ]; then
+	# Add Windows and Mac installers by copying files into ISOTMP folder
+	./load_win_installers.sh
+	./load_mac_installers.sh
+fi
 
 # Copy documentation
 cp -pr "$DOCS_SRC" "$TMP"
@@ -87,8 +90,7 @@ df -h /usr /opt /lib | uniq # report how much place is free after hardlinking
 # Update the file search index
 updatedb
 
-# quick name check
-echo "Now creating ${ISO_NAME}.iso"
+
 
 #Copy the home dir to /etc/skel
 #cp -RnpP ${USER_HOME}/* /etc/skel/
@@ -98,5 +100,13 @@ echo "Now creating ${ISO_NAME}.iso"
 sed -i -e 's:rm -rf $WORKDIR/dummysys/etc/gdm/custom.conf:#Removed:' /usr/bin/remastersys
 
 # Create iso, only uncomment once it's working, currently backup mode, TODO: convert to dist mode
-remastersys backup ${ISO_NAME}.iso
-
+# TODO: if mini name it mini
+if [ ${1} = "mini" ]; then
+	# quick name check
+	echo "Now creating ${ISO_NAME}-mini.iso"
+	remastersys backup ${ISO_NAME}-mini.iso
+else
+	# quick name check
+	echo "Now creating ${ISO_NAME}.iso"
+	remastersys backup ${ISO_NAME}.iso
+fi
