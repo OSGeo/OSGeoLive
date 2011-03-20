@@ -72,7 +72,7 @@ cp "$LOGS" /etc/remastersys.conf
 #chmod -R uga-w /etc/remastersys/customisolinux/
 
 #TODO: if not mini include, else rm ISOTMP/Mac&Win folders to make sure it's a mini
-if [ ${1} != "mini" ]; then
+if [ "$1" != "mini" ] ; then
 	# Add Windows and Mac installers by copying files into ISOTMP folder
 	./load_win_installers.sh
 	./load_mac_installers.sh
@@ -101,12 +101,12 @@ sed -i -e 's:rm -rf $WORKDIR/dummysys/etc/gdm/custom.conf:#Removed:' /usr/bin/re
 
 # Create iso, only uncomment once it's working, currently backup mode, TODO: convert to dist mode
 # TODO: if mini name it mini
-if [ ${1} = "mini" ]; then
+if [ "$1" = "mini" ] ; then
 	# quick name check
 	echo "Now creating ${ISO_NAME}-mini.iso"
 	remastersys backup ${ISO_NAME}-mini.iso
 else
 	# quick name check
-	echo "Now creating ${ISO_NAME}.iso"
-	remastersys backup ${ISO_NAME}.iso
+	echo "Now creating $ISO_NAME.iso"
+	remastersys backup "$ISO_NAME.iso"
 fi
