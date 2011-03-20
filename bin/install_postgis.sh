@@ -39,7 +39,7 @@ PG_VERSION="8.4"
 # postgis is in the UbuntuGIS repository
 
 #Add repositories
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_4_5/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 #Add signed key for repositorys LTS and non-LTS
@@ -86,7 +86,7 @@ sudo -u $USER_NAME psql --quiet -v ON_ERROR_STOP=1 -d template_postgis \
 
 #include pgadmin3 profile for connection
 for FILE in  pgadmin3  pgpass  ; do
-   #wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/postgis/$FILE" \
+   #wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_4_5/app-conf/postgis/$FILE" \
    #   --output-document="/home/$USER_NAME/.$FILE"
 
     cp ../app-conf/postgis/"$FILE" "$USER_HOME/.$FILE"

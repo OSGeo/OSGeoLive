@@ -47,7 +47,7 @@ mkdir -p $WORKDIR/dummysys/media/cdrom
 mkdir -p $WORKDIR/dummysys/var
 chmod ug+rwx,o+rwt "$WORKDIR"/dummysys/tmp
 
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/remastersys.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_4_5/sources.list.d/remastersys.list \
      --output-document=/etc/apt/sources.list.d/remastersys.list
 
 # apt-get update
@@ -58,7 +58,7 @@ apt-get --assume-yes --force-yes install remastersys
 
 # Configure
 # ie set exclude folders in /etc/remastersys.conf
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/remastersys.conf \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_4_5/app-data/remastersys.conf \
      --output-document="$LOGS"
 cp "$LOGS" /etc/remastersys.conf
 
