@@ -38,13 +38,24 @@ OSGeo Windows installers
  by Alex Mandel
 
 TO INSTALL:
-To install the application simply double click on the appropriate exe or unzip a zip and read the README for each application. Some applications have 64bit version but only 32bit have been included here for compatibility, check the web for newer or alternate versions. For more information about the projects please read the help included in the live disc or visit http://live.osgeo.org
+To install the application simply double click on the appropriate exe or
+unzip a zip and read the README for each application. Some applications
+have 64bit version but only 32bit have been included here for
+compatibility, check the web for newer or alternate versions. For more
+information about the projects please read the help included in the live
+disc or visit http://live.osgeo.org
 
-osgeo4w-setup.exe is an application to help you install applications on windows. Some of the same applications included here are also available via OSGeo4w. The OSGeo4w tool includes the ability to manage upgrades, install additional libraries and ensure compatability between mulitple applications. Visit http://trac.osgeo.org/osgeo4w/ for more information.
+osgeo4w-setup.exe is an application to help you install applications on
+windows. Some of the same applications included here are also available
+via OSGeo4w. The OSGeo4w tool includes the ability to manage upgrades,
+install additional libraries and ensure compatability between mulitple
+applications. Visit http://trac.osgeo.org/osgeo4w/ for more information.
 
-vcredist_x86.exe is the  Runtime from Microsoft, it is required for many of the other applications to work.
+vcredist_x86.exe is the  Runtime from Microsoft, it is required for many
+of the other applications to work.
 
-GeoServer:  geoserver-2.0.2-bin.zip in the Windows Installers cache also works on a Mac.
+GeoServer:  geoserver-2.0.2-bin.zip in the Windows Installers cache also
+works on a Mac.
 
 Happy Mapping!
 EOF
@@ -62,7 +73,10 @@ for URL in \
   http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe \
   http://sourceforge.net/projects/saga-gis/files/SAGA%20-%202.0/SAGA%202.0.6/saga_2.0.6_win32_setup.exe?use_mirror=cdnetworks-us-2 \
 ; do
-  wget -c --progress=dot:mega "${URL}"
+  # sourceforge filename sanitation:
+  OUTFILE=`basename "$URL" | cut -f1 -d'?'`
+
+  wget -c --progress=dot:mega "$URL" -O "$OUTFILE"
 done;
 
 #Disabled because they are very outdated
