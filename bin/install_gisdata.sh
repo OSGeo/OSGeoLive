@@ -1,11 +1,14 @@
 #!/bin/sh
 #################################################
 # 
-# Purpose: Install a sample of the Natural Earth Datasets
+# Purpose: Install common geodata, including:
+#    - A sample of the Natural Earth Datasets
+#    - The OSGeo North Carolina common dataset
+#    [OpenStreetMap data is installed by the install_osm script]
 # Source:  http://www.naturalearthdata.com
 #
 #################################################
-# Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2011 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL.
@@ -139,4 +142,29 @@ do
 done
 
 sudo -u $POSTGRES_USER psql natural_earth --quiet -c "vacuum analyze"
+
+
+
+#################################################
+#   TODO:  decide to ship the NC data or not.   #
+#################################################
+# Download the North Carolina sample dataset
+#  contact: geodata at lists dot osgeo.org
+# about: http://www.grassbook.org/data_menu3rd.php
+# license: Creative Commons
+# metadata index: http://www.grassbook.org/ncexternal/nc_datalist.html
+
+# grab shapefiles, geotiffs, and KMLs (~100mb total)
+FILES="shape rast_geotiff kml"
+BASE_URL="http://grass.osgeo.org/sampledata/north_carolina"
+
+cd "$TMP"
+mkdir nc_data && cd nc_data
+for FILE in $FILES ; do
+  wget -N --progress=dot:mega "$BASE_URL/nc_$FILE.tar.gz""
+done
+
+mkdir -p "$DATA_FOLDER/north_carolina"
+cp -f *.gz "$DATA_FOLDER/north_carolina"
+
 
