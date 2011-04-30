@@ -161,10 +161,16 @@ BASE_URL="http://grass.osgeo.org/sampledata/north_carolina"
 cd "$TMP"
 mkdir nc_data && cd nc_data
 for FILE in $FILES ; do
-  wget -N --progress=dot:mega "$BASE_URL/nc_$FILE.tar.gz""
+   wget -N --progress=dot:mega "$BASE_URL/nc_$FILE.tar.gz""
 done
 
+#and install them ...
 mkdir -p "$DATA_FOLDER/north_carolina"
-cp -f *.gz "$DATA_FOLDER/north_carolina"
-
+cd "$DATA_FOLDER/north_carolina"
+for FILE in $FILES ; do
+   mkdir -p $FILE
+   cd $FILE
+   tar xzf "$TMP/nc_data/nc_$FILE.tar.gz"
+   cd ..
+done
 
