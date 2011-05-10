@@ -30,7 +30,7 @@
 
 USER_NAME="user"
 TMP="/tmp/build_libLAS"
-INSTALL_FOLDER="/usr/local/lib"
+INSTALL_FOLDER="/usr/local/share"
 LIBLAS_FOLDER="$INSTALL_FOLDER/libLAS"
 BIN="/usr/local/bin"
 USER_HOME="/home/$USER_NAME"
@@ -50,7 +50,7 @@ cd $TMP
 
 # install pre-requisites
 apt-get install --yes cmake
-apt-get install --yes libboost1.42-dev libboost-program-options-dev libboost-thread1.42-dev libboost-serialization1.42-dev
+apt-get install --yes libboost1.40-dev libboost-program-options-dev libboost-thread1.40-dev libboost-serialization1.40-dev
 
 # get libLAS
 wget -c --progress=dot:mega http://download.osgeo.org/liblas/libLAS-1.6.1.tar.gz
@@ -70,7 +70,7 @@ cd makefiles
 ## execute cmake script
 cmake -G "Unix Makefiles" ../
 
-## build  check status...
+## build  TODO check status...
 make
 
 ## 
@@ -78,4 +78,22 @@ make install
 
 ##
 ldconfig
+
+## Python libraries ##
+cd python
+python setup.py build
+python setup.py install
+
+
+## Shared Resources ##
+mkdir $LIBLAS_FOLDER
+mkdir $LIBLAS_FOLDER/python
+
+cp -R examples scripts tests  $LIBLAS_FOLDER/python/
+
+cd ..
+cp -R doc $LIBLAS_FOLDER/
+cp -R test $LIBLAS_FOLDER/
+cp LICENSE.txt NEWS README.txt $LIBLAS_FOLDER/
+
 
