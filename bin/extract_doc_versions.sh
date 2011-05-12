@@ -58,12 +58,12 @@ echo "dir/file,docname,version,directory,language,username,project,last updated:
 # | sed -e's/.rst$//' \
 
 
-#cat list.txt \
 svn list -v -R \
   | grep ".rst$" \
   | grep -v "/template_" \
   | grep -v " index.rst$" \
   | grep -v "/$"  \
+  | sed -e's#\( [^/]*\)/\([^/]*$\)#\1/./\2#' \
   | sed -e's#/# #g' \
   | awk '{print $7"/"$8"/"$9","$9","$1","$8","$7","$2","$9}' \
   | sed -e's/,\.,/,".",/' \
