@@ -31,7 +31,7 @@
 # cd to the svn document directory
 cd `dirname ${0}`/../doc
 
-echo "dir/file,docname,version,directory,language,username,project,last updated:" `date`
+echo "dir/file,docname,version,directory,language,username,date,project,last updated:" `date`
 
 #List doc svn version numbers
 #  svn list -v -R \
@@ -49,7 +49,7 @@ echo "dir/file,docname,version,directory,language,username,project,last updated:
 #Insert space delimiters between dirs
 # | sed -e's#/# #g' \
 #Reorder and insert commas
-# | awk '{print $9","$1","$8","$7","$2","$9}' \
+# | awk '{print $7"/"$8"/"$9","$9","$1","$8","$7","$2","$9,",",$4," ",$5," ",$6}' \
 # change . to "." so that it is read as a string instead of number
 # | sed -e's/,\.,/,".",/' \
 #Extract project name from filename
@@ -58,6 +58,7 @@ echo "dir/file,docname,version,directory,language,username,project,last updated:
 # | sed -e's/.rst$//' \
 
 
+#cat list.txt \
 svn list -v -R \
   | grep ".rst$" \
   | grep -v "/template_" \
@@ -65,7 +66,7 @@ svn list -v -R \
   | grep -v "/$"  \
   | sed -e's#\( [^/]*\)/\([^/]*$\)#\1/./\2#' \
   | sed -e's#/# #g' \
-  | awk '{print $7"/"$8"/"$9","$9","$1","$8","$7","$2","$9}' \
+  | awk '{print $7"/"$8"/"$9","$9","$1","$8","$7","$2",",$4,$5,$6","$9}' \
   | sed -e's/,\.,/,".",/' \
   | sed -e's/_overview.rst$//' \
   | sed -e's/_quickstart.rst$//' \
@@ -75,10 +76,12 @@ svn list -v -R \
 cd `dirname ${0}`/../bin
 
 echo "INSTALL SCRIPTS:"
-echo "dir/file,docname,version,directory,language,username,project,last updated:" `date`
+echo "dir/file,docname,version,directory,language,username,date,project,last updated:" `date`
 
-#cat list.txt \
+#cat list2.txt \
 svn list -v -R \
   | grep -v "/$"  \
-  | awk '{print "bin/"$7","$7","$1",bin,,"$2",,"$4" "$5" "$6}' \
+  | awk '{print "bin/"$7","$7","$1",bin,,"$2","$4" "$5" "$6","$7}' \
+  | sed -e's#,install_\([^,]*\).sh$#,\1#' \
   | sed -e's/,\.,/,".",/' \
+  #| sed -e's#\(install_\)\([^,]*[.sh$\)#\2#' \
