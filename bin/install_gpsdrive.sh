@@ -350,7 +350,7 @@ sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share
     -e 's+/usr/share/mapnik/world_boundaries/processed_p+/usr/local/share/osm/barcelona_coastline_box/barcelona_coastline_box+' \
     -e 's/Layer name="coast-poly".*/Layer name="coast-poly" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
     \
-    -e 's+/usr/share/mapnik/world_boundaries/builtup_area+/usr/local/share/data/natural_earth/10m-urban-area+' \
+    -e 's+/usr/share/mapnik/world_boundaries/builtup_area+/usr/local/share/data/natural_earth/10m_urban_areas+' \
     -e 's/Layer name="buildup".*/Layer name="builtup" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
     \
     -e 's+/usr/share/mapnik/world_boundaries/places+/usr/local/share/data/natural_earth/10m_populated_places_simple+' \
