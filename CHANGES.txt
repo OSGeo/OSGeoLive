@@ -6,6 +6,7 @@ Version: 4.5.0a
 [Unreleased]
  * Sync to renamed Natural Earth layers so GpsDrive's Mapnik works
  * Sanitize MS Windows installer names so install to USB stick works
+ * Revive welcome message script
 
 Version: 4.5.0
 ===================
