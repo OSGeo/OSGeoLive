@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
-Version: 4.5
+
+Version: 4.5.0a
+===================
+[Unreleased]
+ * Sync to renamed Natural Earth layers so GpsDrive's Mapnik works
+ * Sanitize MS Windows installer names to install to USB stick works
+
+Version: 4.5.0
 ===================
 17 March 2011
  * Icon Fixes
