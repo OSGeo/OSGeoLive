@@ -62,7 +62,10 @@ for URL in \
   http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe \
   http://sourceforge.net/projects/saga-gis/files/SAGA%20-%202.0/SAGA%202.0.6/saga_2.0.6_win32_setup.exe?use_mirror=cdnetworks-us-2 \
 ; do
-  wget -c --progress=dot:mega "${URL}"
+  # sourceforge filename sanitation:
+  OUTFILE=`basename "$URL" | cut -f1 -d'?'`
+
+  wget -c --progress=dot:mega "$URL" -O "$OUTFILE"
 done;
 
 #Disabled because they are very outdated
