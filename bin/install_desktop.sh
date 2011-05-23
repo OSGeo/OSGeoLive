@@ -291,12 +291,15 @@ mkdir -p "$USER_HOME"/.config/autostart
 cp /usr/local/share/osgeo-desktop/welcome_message.desktop \
    "$USER_HOME"/.config/autostart/
 
+cp "$BUILD_DIR/../desktop-conf/welcome_message.sh" \
+   /usr/local/share/osgeo-desktop/
+
 #
 # LANG_CODE is defined in main.sh
 #
 #cp "$BUILD_DIR/../doc/$LANG_CODE"/welcome_message.* \
 #   /usr/local/share/osgeo-desktop/
-   
+
 if [ -e "$BUILD_DIR/../doc/$LANG_CODE"/welcome_message.txt ] ; then
   cp "$BUILD_DIR/../doc/$LANG_CODE"/welcome_message.txt \
     /usr/local/share/osgeo-desktop/
