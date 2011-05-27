@@ -159,9 +159,10 @@ FILES="shape rast_geotiff kml"
 BASE_URL="http://grass.osgeo.org/sampledata/north_carolina"
 
 cd "$TMP"
-mkdir nc_data && cd nc_data
+mkdir -p nc_data
+cd nc_data
 for FILE in $FILES ; do
-   wget -N --progress=dot:mega "$BASE_URL/nc_$FILE.tar.gz""
+   wget -N --progress=dot:mega "$BASE_URL/nc_$FILE.tar.gz"
 done
 
 #and install them ...
