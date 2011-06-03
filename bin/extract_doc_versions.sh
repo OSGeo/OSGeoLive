@@ -28,8 +28,12 @@
 
 
 
+# Store the script root directory for later
+cd `dirname ${0}`
+scriptDir=`pwd`
+
 # cd to the svn document directory
-cd `dirname ${0}`/../doc
+cd ${scriptDir}/../doc
 
 echo "dir/file,docname,version,directory,language,username,date,project,last updated:" `date`
 
@@ -73,7 +77,7 @@ svn list -v -R \
   | sed -e's/.rst$//' \
 
 # cd to the svn bin directory
-cd `dirname ${0}`/../bin
+cd ${scriptDir}
 
 echo "INSTALL SCRIPTS:"
 echo "dir/file,docname,version,directory,language,username,date,project,last updated:" `date`
