@@ -1,12 +1,12 @@
 #!/bin/sh
 ###############################################################
 # 
-# Purpose: Installation of pgRouting on Ubuntu 10.04
+# Purpose: Installation of pgRouting on Ubuntu 11.04
 # Authors: Anton Patrushev <anton.patrushev@georepublic.de>
 #          Daniel Kastl <daniel.kastl@georepublic.de>
 #
 ###############################################################
-# Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2011 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
 # 
@@ -97,10 +97,10 @@ echo "add pgRouting TSP functions"
 sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_tsp.sql $OSM_DB
 sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql $OSM_DB
 
-# TODO: add pgRouting Driving Distance functions
-#echo "add pgRouting Driving Distance functions"
-#sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd.sql $OSM_DB
-#sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd_wrappers.sql $OSM_DB
+# add pgRouting Driving Distance functions
+echo "add pgRouting Driving Distance functions"
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd.sql $OSM_DB
+sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd_wrappers.sql $OSM_DB
 
 # Process sample data that comes with "install_osm.sh"
 if [ ! -e "$OSM_FILE" ]
