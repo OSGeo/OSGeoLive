@@ -96,12 +96,12 @@ apt-get install --yes python-tweepy
 #apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis
 
 # Download and Install Geraldo
-wget -c --progress=dot:mega \
-   "http://pypi.python.org/packages/source/G/Geraldo/Geraldo-0.4.10-stable.tar.gz" \
-   -O "$TMP_DIR/Geraldo-0.4.10-stable.tar.gz"
-tar xzf "$TMP_DIR"/Geraldo-0.4.10-stable.tar.gz -C "$TMP_DIR"
-cd "$TMP_DIR"/Geraldo-0.4.10-stable
-python setup.py install
+#wget -c --progress=dot:mega \
+#   "http://pypi.python.org/packages/source/G/Geraldo/Geraldo-0.4.10-stable.tar.gz" \
+#   -O "$TMP_DIR/Geraldo-0.4.10-stable.tar.gz"
+#tar xzf "$TMP_DIR"/Geraldo-0.4.10-stable.tar.gz -C "$TMP_DIR"
+#cd "$TMP_DIR"/Geraldo-0.4.10-stable
+#python setup.py install
 
 # Add DB User
 su -c - postgres "createuser -s sahana" && true
@@ -133,9 +133,9 @@ su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/8.4/contrib/postgis
 rm -rf "$INSTALL_DIR"/web2py
 #bzr checkout --lightweight -r 2922 lp:~mdipierro/web2py/devel "$INSTALL_DIR"/web2py 
 wget -c --progress=dot:mega \
-   "http://eden.sahanafoundation.org/downloads/web2py_src-1.91.6.zip" \
-   -O "$TMP_DIR/web2py_src-1.91.6.zip"
-unzip -q "$TMP_DIR"/web2py_src-1.91.6.zip -d "$INSTALL_DIR"
+   "http://eden.sahanafoundation.org/downloads/web2py_src-1.96.4.zip" \
+   -O "$TMP_DIR/web2py_src-1.96.4.zip"
+unzip -q "$TMP_DIR"/web2py_src-1.96.4.zip -d "$INSTALL_DIR"
 #cp "$INSTALL_DIR"/web2py/routes.example.py "$INSTALL_DIR"/web2py/routes.py
 
 if [ ! -f "$INSTALL_DIR/web2py/routes.py" ] ; then
@@ -150,8 +150,8 @@ routes_onerror = [
     ]
 EOF
 
-# Install Sahana Eden 0.5.4
-bzr checkout --lightweight -r1767 lp:sahana-eden \
+# Install Sahana Eden 0.5.5
+bzr checkout --lightweight -r2391 lp:sahana-eden \
    "$INSTALL_DIR/web2py/applications/eden"
 
 # Create Eden Directories
@@ -242,7 +242,7 @@ cat << EOF >> "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
     db.commit()
 EOF
 
-# Configure Eden to make use of local GeoData (Use local GeoServer's WMS Browser?)
+# Configure Eden to make use of local GeoData
 sed -i 's|wmsbrowser_url = "http://geo.eden.sahanafoundation.org/geoserver/wms?service=WMS&request=GetCapabilities"|wmsbrowser_url = "http://localhost:8082/geoserver/wms?service=WMS\&request=GetCapabilities"|' \
    "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
 
@@ -255,8 +255,13 @@ sudo -H -u "$USER_NAME" python web2py.py -S eden -M \
 # Stream Edit 000_config.py to disable migration
 sed -i 's|deployment_settings.base.migrate = True|deployment_settings.base.migrate = False|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
-sed -i 's|deployment_settings.base.prepopulate = True|deployment_settings.base.prepopulate = False|' \
+sed -i 's|deployment_settings.base.prepopulate = 1|deployment_settings.base.prepopulate = 0|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
+
+# Compile scripts to optimsie performance
+cd "$INSTALL_DIR/web2py"
+sudo -H -u "$USER_NAME" python web2py.py -S eden -M \
+   -R applications/eden/static/scripts/tools/compile.py
 
 # Prepare to Add Geometry Column
 #   (from http://eden.sahanafoundation.org/wiki/InstallationGuidelinesPostgreSQL#AddGeometrycolumntogis_location)
