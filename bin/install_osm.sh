@@ -126,13 +126,16 @@ svn co "$BASEURL/stylesheets/symbols/" /usr/local/share/osm/stylesheets/symbols/
 
 
 #### install sample OSM data
-CITY="Barcelona"
+
+CITY="Denver"
+BBOX="39.5506,-105.2147,39.9139,-104.594"
+
 # City OSM data:
 #  Having a sample .osm file around will benefit many applications. In addition
 #  to JOSM and Gosmore, QGIS and Mapnik can also render .osm directly.
-#  grab $CITY, which can be as easy as:
+#  grab $CITY, which can be as easy as:  (s,w,n,e)
 #
-# $ wget -O $CITY.osm http://osmxapi.hypercube.telascience.org/api/0.6/map?bbox=1.998653,41.307213,2.343693,41.495207
+# $ wget -O $CITY.osm http://osmxapi.hypercube.telascience.org/api/0.6/map?bbox=$BBOX
 #
 # We should also push the .osm file into postgis/postgres with osm2pgsql.
 #
@@ -141,8 +144,8 @@ CITY="Barcelona"
 # 
 
 ### Please update to latest data at the last minute! See data dir on server for details.
-wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/osm/$CITY.osm.bz2"
+#wget -N --progress=dot:mega \
+#   "http://download.osgeo.org/livedvd/data/osm/$CITY.osm.bz2"
 
 #download as part of disc build process
 # Downloading from the osmxapi takes me about 6 minutes and is around 20MB.
@@ -157,9 +160,9 @@ wget -N --progress=dot:mega \
 #   http://78.46.81.38/#section.download_area
 
 if [ ! -e "$CITY.osm.bz2" ] ; then
-  #XAPI_URL="http://osmxapi.hypercube.telascience.org/api/0.6"
-  XAPI_URL="http://xapi.openstreetmap.org/api/0.6"
-  BBOX="1.998653,41.27,2.343693,41.495207"
+  #XAPI_URL="http://xapi.openstreetmap.org/api/0.6"
+  #XAPI_URL="http://open.mapquestapi.com/xapi/api/0.6"
+  XAPI_URL="http://jxapi.openstreetmap.org/xapi/api/0.6"
 
   wget --progress=dot:mega -O "$CITY.osm"  "$XAPI_URL/map?bbox=$BBOX"
   if [ $? -ne 0 ] ; then
@@ -218,11 +221,11 @@ dpkg -i osm2pgsql_0.69.svn22215.lucid_i386.deb
 # 
 # tar czf barcelona_coastline_box.tgz barcelona_coastline_box/
 # 
-FILE="barcelona_coastline_box.tgz"
-wget -N --progress=dot "http://download.osgeo.org/livedvd/data/osm/$FILE"
-tar xzf "$FILE"
-mv `basename $FILE .tgz` /usr/local/share/osm/
-ln -s /usr/local/share/osm/`basename $FILE .tgz` /usr/local/share/data/osm
+#FILE="barcelona_coastline_box.tgz"
+#wget -N --progress=dot "http://download.osgeo.org/livedvd/data/osm/$FILE"
+#tar xzf "$FILE"
+#mv `basename $FILE .tgz` /usr/local/share/osm/
+#ln -s /usr/local/share/osm/`basename $FILE .tgz` /usr/local/share/data/osm
 
 
 

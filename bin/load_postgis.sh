@@ -39,7 +39,7 @@ cd "$TMP_DIR"
 ##  provided by ** install_osm.sh **, instead of getting it here
 ##  File name will change from time to time.
 
-OSM_FILE="/usr/local/share/osm/Barcelona.osm.bz2"
+OSM_FILE="/usr/local/share/osm/Denver.osm.bz2"
 
 #DL_FILE="medford-gisvm.sql.bz2"
 
@@ -63,7 +63,7 @@ sudo -u $POSTGRES_USER createdb --template=template_postgis osm_local_smerc
 #bzip2 -d "$DL_FILE"
 #sed -i "s/mleslie/$POSTGRES_USER/g" `basename $DL_FILE .bz2`
 # use the psql --quiet flag!
-#sudo -u $POSTGRES_USER psql --quiet -d barcelona -f `basename $DL_FILE .bz2`
+#sudo -u $POSTGRES_USER psql --quiet -d denver -f `basename $DL_FILE .bz2`
 
 ## July10 - 
 ## Now importing data from already downloaded sources (osm)
@@ -76,11 +76,11 @@ else
 	# lat/lon
 	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
 	     --database osm_local --latlong \
-	     /usr/local/share/osm/Barcelona.osm.bz2
+	     /usr/local/share/osm/Denver.osm.bz2
 	# spherical merc
 	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
 	     --database osm_local_smerc --merc \
-	     /usr/local/share/osm/Barcelona.osm.bz2
+	     /usr/local/share/osm/Denver.osm.bz2
 fi
 
 #Add additional data sources here, be sparing to minimize duplication of data.
