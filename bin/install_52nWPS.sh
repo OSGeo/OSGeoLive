@@ -35,7 +35,7 @@ fi
 ##### Java Sun JDK 6 is required:
 
 if [ ! -x "`which java`" ] ; then
-   add-apt-repository "deb http://archive.canonical.com/ lucid partner"
+   add-apt-repository "deb http://archive.canonical.com/ natty partner"
    apt-get update
 
    apt-get --assume-yes remove openjdk-6-jre

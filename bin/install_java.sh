@@ -21,7 +21,7 @@
 export DEBIAN_FRONTEND=noninteractive
 echo "sun-java6-jdk shared/accepted-sun-dlj-v1-1 boolean true" | debconf-set-selections
 
-add-apt-repository "deb http://archive.canonical.com/ lucid partner"
+add-apt-repository "deb http://archive.canonical.com/ natty partner"
 apt-get update
 
 apt-get --assume-yes remove openjdk-6-jre openjdk-6-jre-headless
