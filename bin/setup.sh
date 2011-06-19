@@ -52,19 +52,17 @@ apt-get update
 
 # Install some useful stuff
 apt-get install --yes wget less zip unzip bzip2 p7zip \
-  cvs cvsutils subversion subversion-tools gnuit mercurial \
+  cvs cvsutils subversion subversion-tools mercurial git \
   openssh-client lftp sl usbutils wireless-tools \
   locate diff patch fuseiso menu \
-  vim medit nedit nano screen \
-  evince ghostscript a2ps netpbm qiv \
-  lynx mutt mc xchat rxvt units scrot
-
-apt-get install --yes gdebi fslint
+  vim medit nedit nano screen iotop \
+  okular ghostscript a2ps netpbm qiv \
+  lynx mutt mc xchat rxvt units scrot \
+  gdebi fslint
 
 # Install build stuff (temporarily?)
 apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
-  cvs-buildpackage svn-buildpackage lintian debhelper pkg-config dpkg-dev \
-  cmake
+  svn-buildpackage lintian debhelper pkg-config dpkg-dev cmake
 
 
 # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
@@ -129,3 +127,5 @@ set prefer-visible-bell
 "\e[6~": history-search-forward
 EOF
 chown user.user /home/user/.inputrc
+
+

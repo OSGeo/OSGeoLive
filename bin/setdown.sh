@@ -30,7 +30,7 @@ ldconfig
 
 # remove build stuff no longer of use
 apt-get --yes remove devscripts pbuilder \
-   cvs-buildpackage svn-buildpackage \
+   svn-buildpackage \
    lintian debhelper pkg-config dpkg-dev
 
 
@@ -47,8 +47,8 @@ echo "Scanning for duplicate files ..."
 
 
 #### Copy tmp files, apt cache and logs ready for backup
-mkdir /tmp/${VERSION}
-cd /tmp/${VERSION}
+mkdir "/tmp/$VERSION"
+cd "/tmp/$VERSION"
 
 mkdir ${VM}-tmp
 mv /tmp/build* ${VM}-tmp
