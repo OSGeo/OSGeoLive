@@ -128,14 +128,11 @@ svn co "$BASEURL/stylesheets/symbols/" /usr/local/share/osm/stylesheets/symbols/
 #### install sample OSM data
 
 CITY="Denver"
-BBOX="39.5506,-105.2147,39.9139,-104.594"
+BBOX="-105.2147,39.5506,-104.594,39.9139"
 
 # City OSM data:
 #  Having a sample .osm file around will benefit many applications. In addition
 #  to JOSM and Gosmore, QGIS and Mapnik can also render .osm directly.
-#  grab $CITY, which can be as easy as:  (s,w,n,e)
-#
-# $ wget -O $CITY.osm http://osmxapi.hypercube.telascience.org/api/0.6/map?bbox=$BBOX
 #
 # We should also push the .osm file into postgis/postgres with osm2pgsql.
 #
@@ -164,7 +161,7 @@ if [ ! -e "$CITY.osm.bz2" ] ; then
   #XAPI_URL="http://open.mapquestapi.com/xapi/api/0.6"
   XAPI_URL="http://jxapi.openstreetmap.org/xapi/api/0.6"
 
-  wget --progress=dot:mega -O "$CITY.osm"  "$XAPI_URL/map?bbox=$BBOX"
+  wget --progress=dot:mega -O "$CITY.osm"  "$XAPI_URL/*[bbox=$BBOX]"
   if [ $? -ne 0 ] ; then
      echo "ERROR getting osm data"
      exit 1
@@ -174,7 +171,8 @@ fi
 cp -f "$CITY.osm.bz2" /usr/local/share/osm/
 mkdir -p /usr/local/share/data/osm --verbose
 ln -s /usr/local/share/osm/"$CITY.osm.bz2" /usr/local/share/data/osm
-ln -s /usr/local/share/data/osm/"$CITY.osm.bz2" /usr/local/share/data/osm/feature_city.osm.bz2
+ln -s /usr/local/share/data/osm/"$CITY.osm.bz2" \
+   /usr/local/share/data/osm/feature_city.osm.bz2
 
 ## get latest osm2pgsql from OSM svn (thanks Dane)
 cd "$TMP_DIR"
