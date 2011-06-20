@@ -137,6 +137,7 @@ for SCRIPT in \
   ./install_52nSOS.sh \
   ./install_otb.sh \
   ./install_rasdaman.sh\
+  ./install_tinyows.sh\
   ./install_main_docs.sh \
   ./install_gisdata.sh \
   ./install_edutools.sh \
