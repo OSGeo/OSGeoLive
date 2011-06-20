@@ -27,7 +27,7 @@ DATA_FOLDER="/usr/local/share/data"
 # install main dependencies
 
 apt-get install --assume-yes libtiff4 libgeotiff1.2 libgdal1-1.7.0 \
-  libfreetype6 libcurl3 libopenscenegraph56 libqt4-opengl \
+  libfreetype6 libcurl3 libopenscenegraph65 libqt4-opengl \
   libexpat1 libpng3 libgdal1-1.7.0-grass libfftw3-3 libqt3-mt libopenmpi1.3
   
 

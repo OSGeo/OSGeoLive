@@ -41,7 +41,7 @@ BUILD_DIR=`pwd`
 
 #### get dependencies ####
 
-DEPENDS="gmt gv lesstif2 libnetcdf4 libgl1-mesa-glx libglu1-mesa csh proj libfftw3-3"
+DEPENDS="gmt gv lesstif2 libnetcdf6 libgl1-mesa-glx libglu1-mesa csh proj libfftw3-3"
 BUILD_DEPENDS="libgmt-dev lesstif2-dev libnetcdf-dev libglu1-mesa-dev libgl1-mesa-dev libfftw3-dev"
 
 PACKAGES="$DEPENDS $BUILD_DEPENDS"

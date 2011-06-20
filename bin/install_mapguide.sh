@@ -41,7 +41,7 @@ mkdir -p ${TEMPDIR}
 cd ${TEMPDIR}
 
 # Install required packages 
-apt-get -y install libexpat1 libssl0.9.8 odbcinst1debian1 unixodbc libcurl3 libxslt1.1
+apt-get -y install libexpat1 libssl0.9.8 odbcinst1debian2 unixodbc libcurl3 libxslt1.1
 apt-get -y install mono-runtime libmono-winforms2.0-cil
 
 # Resolve CentOS 5.4 / Ubuntu 10.04 shared lib differences with symlinks
