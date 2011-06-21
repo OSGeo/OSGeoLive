@@ -139,8 +139,8 @@ for SCRIPT in \
   ./install_otb.sh \
   ./install_rasdaman.sh\
   ./install_tinyows.sh\
-  ./install_main_docs.sh \
   ./install_gisdata.sh \
+  ./install_main_docs.sh \
   ./install_edutools.sh \
   ./install_desktop.sh \
   ./install_language.sh \
