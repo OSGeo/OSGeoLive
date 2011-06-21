@@ -116,6 +116,7 @@ for SCRIPT in \
   ./install_qgis_mapserver.sh \
   ./install_saga.sh \
   ./install_mapnik.sh \
+  ./install_mapproxy.sh \
   ./install_maptiler.sh \
   ./install_marble.sh \
   ./install_opencpn.sh \
