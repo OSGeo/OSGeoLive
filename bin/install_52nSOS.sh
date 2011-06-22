@@ -46,8 +46,8 @@ SOS_TOMCAT_SCRIPT_NAME="tomcat6"
 SOS_ICON_NAME="52nSOS.png"
 SOS_DATA_SET="DATA.sql"
 SOS_URL="http://localhost:8080/52nSOSv3.1.1/"
-SOS_QUICKSTART_URL="file:///usr/local/share/osgeolive-docs/en/quickstart/52nSOS_quickstart.html"
-SOS_OVERVIEW_URL="file:///usr/local/share/osgeolive-docs/en/overview/52nSOS_overview.html"
+SOS_QUICKSTART_URL="http://localhost/en/quickstart/52nSOS_quickstart.html"
+SOS_OVERVIEW_URL="http://localhost/en/overview/52nSOS_overview.html"
 # -----------------------------------------------------------------------------
 #
 echo "52nSOS install started"

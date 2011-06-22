@@ -31,7 +31,7 @@ ISO_NAME="${PACKAGE_NAME}-${VERSION}"
 WORKDIR="/tmp/remastersys"
 TMP="$WORKDIR/ISOTMP"
 LOGS="/var/log/osgeolive/remastersys.conf"
-DOCS_SRC="/usr/local/share/osgeolive-docs"
+DOCS_SRC="/var/www"
 
 # Install remastersys.sh add directories it expects
 mkdir -p $TMP
@@ -79,7 +79,7 @@ if [ "$1" != "mini" ] ; then
 fi
 
 # Copy documentation
-cp -pr "$DOCS_SRC" "$TMP"
+cp -pr "$DOCS_SRC" "${TMP}/osgeolive-docs"
 
 # To save space merge duplicates in /usr, /opt, and /lib using hardlinks
 echo "Hardlinking duplicate files in /usr, /opt, and /lib ..."

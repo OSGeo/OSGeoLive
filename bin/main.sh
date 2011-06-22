@@ -31,7 +31,7 @@
 
 DIR=`dirname $0`
 LOG_DIR="/var/log/osgeolive"
-DOC_DIR="/usr/local/share/osgeolive-docs"
+DOC_DIR="/var/www"
 MAIN_LOG_FILE="main_install.log"
 DISK_USAGE_LOG="disk_usage.log"
 
