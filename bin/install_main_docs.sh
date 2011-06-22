@@ -25,19 +25,46 @@
 
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-SRC="../doc"
-DEST="/usr/local/share/osgeolive-docs"
+DEST="/var/www"
+DATA_FOLDER="/usr/local/share/data"
+BIN_DIR=`pwd`
+
 
 apt-get --assume-yes install python-sphinx
 
-cd ../doc
+# Use sphynx to build the OSGeo-Live documentation
+cd ${BIN_DIR}/../doc
 make clean
 make html
-mkdir -p ${DEST}
-rm -fr ${DEST}/*
-mv _build/html/* ${DEST}
 
-cd ../bin
+# Create target directory if it doesn't exist
+mkdir -p ${DEST}
+
+# Remove then replace target documentation, leaving other files
+cd ${BIN_DIR}/../doc/_build/html
+for FILE in `ls` ; do
+  rm -fr ${DEST}/${FILE}
+done
+mv * ${DEST}
+
+# Create symbolic links to project specific documentation
+cd ${DEST}
+# PDF
+ln -s /usr/local/share/udig/udig-docs .
+ln -s /usr/local/mbsystem .
+ln -s /usr/local/share/qgis .
+ln -s /usr/share/doc/geopublishing .
+# HTML
+ln -s /usr/share/doc/gmt/html gmt
+ln -s /usr/local/share/mapnik/demo mapnik
+ln -s /usr/local/share/opencpn/doc opencpn
+ln -s /usr/local/share/ushahidi .
+
+# Create symbolic links to project specific data
+mkdir -p ${DATA_FOLDER}
+ln -s ${DATA_FOLDER} .
+
+cd ${BIN_DIR}
 
 echo "install_main_docs.sh: Double-check that the Firefox \
 home page is now set to file://$DEST/index.html"
