@@ -54,11 +54,18 @@ ln -s /usr/local/share/udig/udig-docs .
 ln -s /usr/local/mbsystem .
 ln -s /usr/local/share/qgis .
 ln -s /usr/share/doc/geopublishing .
+ln -s /usr/local/share/saga .
 # HTML
-ln -s /usr/share/doc/gmt/html gmt
+ln -s /usr/share/doc/gmt .
+ln -s /usr/share/doc/gmt-examples .
+ln -s /usr/share/doc/gmt-tutorial .
 ln -s /usr/local/share/mapnik/demo mapnik
 ln -s /usr/local/share/opencpn/doc opencpn
 ln -s /usr/local/share/ushahidi .
+ln -s /usr/local/share/otb .
+ln -s /usr/local/share/ossim .
+# Data
+ln -s /usr/local/share/data .
 
 # Create symbolic links to project specific data
 mkdir -p ${DATA_FOLDER}
