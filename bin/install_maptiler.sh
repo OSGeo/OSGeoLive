@@ -13,10 +13,11 @@ DATA_FOLDER="/usr/local/share/maptiler"
 TESTDATA_URL="http://download.osgeo.org/gdal/data/gtiff/utm.tif"
 
 #Can't cd to a directory before you make it, may be uneeded now
-mkdir "$TMP"
+mkdir -p "$TMP"
 #cd "$TMP"
 
 #Add repositories
+echo "FIXME: don't use wget for local files, just copy from local svn checkout."
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
    --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
@@ -39,8 +40,9 @@ fi
 
 # If MapTiler is not installed then download the .deb package and install it
 if [ `dpkg -l maptiler | grep -c '^ii'` -eq 0 ] ; then
-  wget -c "http://maptiler.googlecode.com/files/$MAPTILERDEB" --output-document="${TMP}/${MAPTILERDEB}"
-  dpkg -i "${TMP}/${MAPTILERDEB}"
+  wget -c --progress=dot:mega "http://maptiler.googlecode.com/files/$MAPTILERDEB" \
+     --output-document="$TMP/$MAPTILERDEB"
+  dpkg -i "$TMP/$MAPTILERDEB"
   #rm "$MAPTILERDEB"
 fi
 
@@ -59,8 +61,8 @@ if [ ! -d "$DATA_FOLDER" ] ; then
 fi
 
 # Download the data for testing 
-cd ${DATA_FOLDER}
-wget -c ${TESTDATA_URL}
+cd "$DATA_FOLDER"
+wget -N --progress=dot:mega "$TESTDATA_URL"
 
 # Everything is OK
 echo "MapTiler is installed"
