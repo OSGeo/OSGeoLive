@@ -17,5 +17,6 @@
 # This script will install additional tools for education (workshops, etc.)
 
 # Python development
+#  eric is a full featured Python IDE written in PyQt.
 apt-get --assume-yes install eric
 
