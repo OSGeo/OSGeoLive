@@ -151,7 +151,7 @@ routes_onerror = [
 EOF
 
 # Install Sahana Eden 0.5.5
-bzr checkout --lightweight -r2391 lp:sahana-eden \
+bzr checkout --lightweight -r2438 lp:sahana-eden \
    "$INSTALL_DIR/web2py/applications/eden"
 
 # Create Eden Directories
@@ -258,8 +258,9 @@ sed -i 's|deployment_settings.base.migrate = True|deployment_settings.base.migra
 sed -i 's|deployment_settings.base.prepopulate = 1|deployment_settings.base.prepopulate = 0|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
-# Compile scripts to optimsie performance
+# Compile scripts to optimise performance
 cd "$INSTALL_DIR/web2py"
+chown "$USER_NAME" .
 sudo -H -u "$USER_NAME" python web2py.py -S eden -M \
    -R applications/eden/static/scripts/tools/compile.py
 
