@@ -19,6 +19,11 @@
 #
 
 
+#HB June 2011
+echo "TODO: GpsDrive needs updating for Natty."
+exit 1
+
+
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
