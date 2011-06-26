@@ -28,15 +28,16 @@ wget -c --progress=dot:mega \
   http://sourceforge.net/projects/saga-gis/files/SAGA%20-%20Documentation/SAGA%202%20User%20Guide/SAGA2_UserGuide_Cimmery_20070401.pdf/download
 
 # Demo dataset
-wget http://zadeh.ugent.be/~johan/saga/DGM_30m_Mt.St.Helens_SRTM.grd
+wget -N --progress=dot:mega \
+  http://zadeh.ugent.be/~johan/saga/DGM_30m_Mt.St.Helens_SRTM.grd
 # Link demo dataset to user_home
 ln -s /usr/local/share/saga/ $USER_HOME/saga
 
 # Desktop icon
 # temporarily disabled: a custom .desktop file with a 64x64 logo is used - to be fixed in the package
-wget http://zadeh.ugent.be/~johan/saga/saga_gui_64x64.png \
+wget -nv http://zadeh.ugent.be/~johan/saga/saga_gui_64x64.png \
    --output-document=/usr/share/pixmaps/saga_gui_64x64.png
-wget http://zadeh.ugent.be/~johan/saga/saga_gui.desktop \
+wget -nv http://zadeh.ugent.be/~johan/saga/saga_gui.desktop \
    --output-document=/usr/share/applications/saga_gui.desktop
 
 cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
