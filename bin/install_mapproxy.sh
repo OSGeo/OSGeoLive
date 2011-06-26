@@ -24,14 +24,14 @@ cd "$TMP"
 
 
 echo "Downloading: $MAPPROXY_DEB_URL"
-wget --timestamping --continue "$MAPPROXY_DEB_URL"
+wget --timestamping --continue --progress=dot:mega "$MAPPROXY_DEB_URL"
 if [ $? -ne 0 ] ; then
    echo "ERROR: download failed"
    exit 1
 fi
 
 echo "Downloading: $MAPPROXY_DOCS_URL"
-wget --timestamping --continue "$MAPPROXY_DOCS_URL"
+wget --timestamping --continue --progress=dot:mega "$MAPPROXY_DOCS_URL"
 if [ $? -ne 0 ] ; then
    echo "ERROR: download failed"
    exit 1
