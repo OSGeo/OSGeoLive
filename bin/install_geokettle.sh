@@ -53,7 +53,7 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 # create tmp folders
-mkdir "$TMP"
+mkdir -p "$TMP"
 cd "$TMP"
 
 
