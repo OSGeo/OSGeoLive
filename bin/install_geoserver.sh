@@ -69,12 +69,8 @@ unzip -o -q geoserver-$GS_VERSION-bin.zip -d $INSTALL_FOLDER
 
 ## We need to make sure the scripts use the proper JDK version ##
 echo "Configuring GeoServer script"
-#############
-echo "FIXME: 'export FOO=bar' is a Bashism and will not work with Ubuntu's #!/bin/sh  (which is dash)"
-# use `FOO=bar; export FOO`  instead.
-#############
-sed -i "1 i # Force usage of Sun JDK\nexport JAVA_HOME=/usr/lib/jvm/java-6-sun\n# Force proper GeoServer home\nexport GEOSERVER_HOME=$GS_HOME\n" $GS_HOME/bin/startup.sh
-sed -i "1 i # Force usage of Sun JDK\nexport JAVA_HOME=/usr/lib/jvm/java-6-sun\n# Force proper GeoServer home\nexport GEOSERVER_HOME=$GS_HOME\n" $GS_HOME/bin/shutdown.sh
+sed -i "1 i # Force usage of Sun JDK\nJAVA_HOME=/usr/lib/jvm/java-6-sun;export JAVA_HOME\n# Force proper GeoServer home\nGEOSERVER_HOME=$GS_HOME;export GEOSERVER_HOME\n" $GS_HOME/bin/startup.sh
+sed -i "1 i # Force usage of Sun JDK\nJAVA_HOME=/usr/lib/jvm/java-6-sun; export JAVA_HOME \n# Force proper GeoServer home\nGEOSERVER_HOME=$GS_HOME;export GEOSERVER_HOME\n" $GS_HOME/bin/shutdown.sh
 
 ## Make Jetty run on a different port
 sed -i s/8080/$GS_PORT/g $GS_HOME/etc/jetty.xml
