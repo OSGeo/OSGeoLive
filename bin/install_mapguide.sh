@@ -37,8 +37,8 @@ MAESTROVER=2.0.0-4650_i386
 MGDIR=/usr/local/mapguideopensource-2.2.0
 
 # Create temporary download directory
-mkdir -p ${TEMPDIR}
-cd ${TEMPDIR}
+mkdir -p "$TEMPDIR"
+cd "$TEMPDIR"
 
 # Install required packages 
 apt-get -y install libexpat1 libssl0.9.8 odbcinst unixodbc libcurl3 libxslt1.1
@@ -89,6 +89,10 @@ wget -N --progress=dot:mega ${URL}/mapguideopensource-maestro_${MAESTROVER}.deb
 for file in core gdal kingoracle ogr postgis sdf shp sqlite wfs wms
 do
   dpkg -E -G --install fdo-${file}_${FDOVER}.deb
+  if [ $? -ne 0 ] ; then
+    echo "ERROR in dpkg install"
+    exit 1
+  fi
 done
 
 # Install Ubuntu packages for MapGuide
@@ -180,20 +184,21 @@ pushd ${MGDIR}/server/bin
 popd
 EOF
 
-chmod ugo+x ${MGDIR}/server/bin/mgserverd.sh
+chmod ugo+x "$MGDIR/server/bin/mgserverd.sh"
 
 # Replace the Apache envvars file to fix Ubuntu compatibility issues
 cat << EOF > ${MGDIR}/webserverextensions/apache2/bin/envvars
 export MENTOR_DICTIONARY_PATH=${MGDIR}/share/gis/coordsys
-export LD_LIBRARY_PATH=/usr/local/fdo-3.5.0/lib:/usr/local/lib:${MGDIR}/lib:${MGDR}/webserverextensions/lib:${MGDIR}/webserverextensions/php/lib:"$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH=/usr/local/fdo-3.5.0/lib:/usr/local/lib:${MGDIR}/lib:${MGDIR}/webserverextensions/lib:${MGDIR}/webserverextensions/php/lib:"$LD_LIBRARY_PATH"
 EOF
 
 # Download and install Sheboygan sample data
 if [ ! -d ${MGDIR}/webserverextensions/www/phpviewersample ]; then
-wget --progress=dot:mega -N ${URL}/livedvd/sheboygansample.tgz
-cd ${MGDIR}
-tar -zxf ${TEMPDIR}/sheboygansample.tgz
+  wget --progress=dot:mega -N ${URL}/livedvd/sheboygansample.tgz
+  cd "$MGDIR"
+  tar -zxf "$TEMPDIR/sheboygansample.tgz"
 fi
 
-cd ${STARTDIR}
+#not needed, exiting the script does that automatically..
+cd "$STARTDIR"
 
