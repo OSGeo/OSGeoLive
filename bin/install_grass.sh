@@ -54,7 +54,7 @@ cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 
-apt-get update
+apt-get update --quiet
 
 
 apt-get --assume-yes install $PACKAGES
