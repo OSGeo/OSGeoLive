@@ -72,6 +72,7 @@ unzip -q openjump-1.4.zip -d $INSTALL_FOLDER
 if [ -f "openjump.sh" ] ; then
    echo "openjump.sh has already been downloaded."
 else
+   echo "FIXME: don't use wget for local files, just copy from local svn checkout."
    wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.sh
 fi
 # copy it into the openjump folder
@@ -91,6 +92,7 @@ chown $USER_NAME:$USER_NAME $USER_HOME/.jump/workbench-properties.xml
 if [ -f openjump.ico ] ; then
    echo "openjump.icon has already been downloaded."
 else
+   echo "FIXME: don't use wget for local files, just copy from local svn checkout."
    wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.ico \
        -O openjump.ico
 fi
@@ -98,6 +100,7 @@ fi
 cp openjump.ico "$OJ_FOLDER"
 
 # Download desktop link
+echo "FIXME: don't use wget for local files, just copy from local svn checkout."
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.desktop \
    -O openjump.desktop
 # copy it into the openjump folder
