@@ -73,7 +73,7 @@ apt-get --assume-yes install osm2pgrouting
 apt-get --assume-yes install pgrouting-workshop
 
 # Create tmp folders
-mkdir "$TMP"
+mkdir -p "$TMP"
 cd "$TMP"
 
 # create $OSM_DB database
