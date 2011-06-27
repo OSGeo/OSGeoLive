@@ -54,6 +54,7 @@ ln -s /usr/local/share/udig/udig-docs .
 ln -s /usr/local/mbsystem .
 ln -s /usr/local/share/qgis .
 ln -s /usr/share/doc/geopublishing .
+ln -s /usr/share/doc/mapserver .
 ln -s /usr/local/share/saga .
 # HTML
 ln -s /usr/share/doc/gmt .
