@@ -45,11 +45,14 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 DATA_DIR=$USER_HOME/gisvm/app-data/otb
 OTB_DATA=/usr/local/share/otb
 
-# Download OrfeoToolBox data and documentation
+# Download OrfeoToolBox data and documentation (software guide and cookbook
 [ -d $DATA_DIR ] || mkdir $DATA_DIR
 [ -f $DATA_DIR/OTBSoftwareGuide.pdf ] || \
    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
      -O $DATA_DIR/OTBSoftwareGuide.pdf
+[ -f $DATA_DIR/OTBCookBook.pdf ] || \
+   wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBCookBook.pdf" \
+     -O $DATA_DIR/OTBCookBook.pdf
 [ -f $DATA_DIR/OTB-Data-Examples.tgz ] || \
    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTB-Data-Examples.tgz" \
      -O $DATA_DIR/OTB-Data-Examples.tgz
@@ -59,7 +62,9 @@ if [ ! -d "$OTB_DATA" ]; then
     mkdir -p "$OTB_DATA/demos"
     echo "Moving  OTB pdf  doc in $OTB_DATA/....."
     mv "$DATA_DIR/OTBSoftwareGuide.pdf" "$OTB_DATA/"
-
+    echo "Done"
+    echo "Moving  OTB cookbook pdf  doc in $OTB_DATA/....."
+    mv "$DATA_DIR/OTBCookBook.pdf" "$OTB_DATA/"
     echo "Done"
     echo "Extracting OTB data examples $OTB_DATA/demos/..."
     tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/ 
