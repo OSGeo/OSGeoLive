@@ -12,11 +12,11 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 BIN="/usr/local/bin"
 TMP="/tmp/build_mapproxy"
-MAPPROXY_VERSION="1.1.0"
+MAPPROXY_VERSION="1.1.1"
 MAPPROXY_DEB_FILE="mapproxy_${MAPPROXY_VERSION}_all.deb"
-MAPPROXY_DEB_URL="http://bogosoft.com/misc/${MAPPROXY_DEB_FILE}"
-MAPPROXY_DOCS_FILE="mapproxy-docs-${MAPPROXY_VERSION}.tar.gz"
-MAPPROXY_DOCS_URL="http://bogosoft.com/misc/${MAPPROXY_DOCS_FILE}"
+MAPPROXY_DEB_URL="http://mapproxy.org/static/rel/${MAPPROXY_DEB_FILE}"
+MAPPROXY_DOCS_FILE="MapProxy-docs-${MAPPROXY_VERSION}.tar.gz"
+MAPPROXY_DOCS_URL="http://mapproxy.org/static/rel/${MAPPROXY_DOCS_FILE}"
 MAPPROXY_DIR="/usr/local/share/mapproxy"
 
 mkdir -p "$TMP"
@@ -44,9 +44,9 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-mkdir -p $MAPPROXY_DIR/
+mkdir -p $MAPPROXY_DIR/docs
 echo "Extracting docs: $MAPPROXY_DOCS_FILE"
-tar -xz -C $MAPPROXY_DIR -f $MAPPROXY_DOCS_FILE
+tar -xz --strip-components 1 -C $MAPPROXY_DIR/docs -f $MAPPROXY_DOCS_FILE
 if [ $? -ne 0 ] ; then
    echo "ERROR: docs install failed"
    exit 1
