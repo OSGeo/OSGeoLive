@@ -19,11 +19,6 @@
 #
 
 
-#HB June 2011
-echo "TODO: GpsDrive needs updating for Natty."
-exit 1
-
-
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
@@ -35,12 +30,13 @@ BUILD_DIR=`pwd`
 #### install program ####
 
 ## packaged version (2.10pre4) is long out of date, so we build 2.11svn manually.
-BUILD_LATEST=1
+BUILD_LATEST=0
 
 # base packages
 if [ "$BUILD_LATEST" -eq 0 ] ; then
    # install very old pre-packaged version
-   PACKAGES="gpsd gpsd-clients python-gps gpsdrive"
+   #PACKAGES="gpsd gpsd-clients python-gps gpsdrive"
+   PACKAGES="gpsd gpsd-clients python-gps"
 else
    # important pre-req
    PACKAGES="gpsd gpsd-clients python-gps"
@@ -59,6 +55,40 @@ fi
 
 # highly useful
 apt-get --assume-yes install sqlite3 sqlitebrowser
+
+
+
+#######################
+## use prebuilt debs
+
+if [ $BUILD_LATEST -eq 0 ] ; then
+  if [ ! -d "$TMP_DIR" ] ; then
+    mkdir "$TMP_DIR"
+  fi
+  cd "$TMP_DIR"
+
+  URL="http://download.osgeo.org/livedvd/data/gpsdrive/natty"
+  MAIN_FILE=gpsdrive_2.11_i386.deb
+  EXTRA_FILES="
+    gpsdrive-friendsd_2.11_i386.deb
+    gpsdrive-utils_2.11_i386.deb
+    openstreetmap-map-icons-classic.small_25996_all.deb
+    openstreetmap-map-icons-square.big_25996_all.deb
+    openstreetmap-map-icons-square.small_25996_all.deb
+    openstreetmap-map-icons_25996_all.deb"
+
+  wget -c --progress=dot:mega "$URL/$MAIN_FILE"
+  for FILE in $EXTRA_FILES ; do
+     wget -c -nv "$URL/$FILE"
+  done
+
+  dpkg -i openstreetmap-map-icons-*.deb
+  gdebi --non-interactive gpsdrive-friendsd_2.11_i386.deb
+  gdebi --non-interactive gpsdrive-utils_2.11_i386.deb
+  gdebi --non-interactive gpsdrive_2.11_i386.deb
+
+fi
+
 
 
 #######################
@@ -142,7 +172,7 @@ fi
 
 
   # use latest libboost, mapnik, postgis packages
-  sed -i -e 's/libboost-\(.*\)1\.3[0-9]\.[0-9]/libboost-\11.40.0/' \
+  sed -i -e 's/libboost-\(.*\)1\.3[0-9]\.[0-9]/libboost-\11.42.0/' \
          -e 's/mapnik0\.[3-6]/mapnik0.7/' \
          -e 's/postgresql-8\.[2-3]-postgis/postgresql-8.4-postgis/' \
      debian/control
@@ -155,8 +185,8 @@ fi
                                libboost-serialization-dev libmapnik-dev
 
   # explicitly install these so they aren't removed in a later autoclean
-  apt-get --assume-yes install  libgeos-3.1.0 libxml-simple-perl \
-    libboost-serialization1.40.0 libboost-date-time1.40.0
+  apt-get --assume-yes install  libgeos-3.2.2 libxml-simple-perl \
+    libboost-serialization1.42.0 libboost-date-time1.42.0
 
   # any of these too?
   #  libgssrpc4
@@ -186,10 +216,20 @@ fi
 
   /usr/lib/pbuilder/pbuilder-satisfydepends
 
+  #fix + use system copy
+  rm -f cmake/Modules/FindGTK2.cmake
+  sed -i -e 's+/usr/local/lib64+/usr/lib/i386-linux-gnu+' \
+       /usr/share/cmake-2.8/Modules/FindGTK2.cmake
 
+  #fix unneeded package (?scripts/osm/perl_lib/Geo/Gpsdrive/getstreet.pm 
+  #   http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=580588 )
+  sed -i -e 's+^\t libtext-query-perl+#\t libtext-query-perl+' debian/control
+
+  
   # build package
   # - debuild and co. should already be installed by setup.sh
-  debuild binary
+  #debuild binary
+  debuild -i -uc -us -b
   if [ $? -ne 0 ] ; then
      echo "An error occurred building package. Aborting install."
      exit 1
@@ -207,19 +247,21 @@ fi
      openstreetmap-map-icons-scalable openstreetmap-map-icons-classic
 
   echo "Downloading support packages ... (please wait)"
-  DL_URL="http://www.gpsdrive.de/debian/pool/squeeze"
+  DL_URL="http://www.gpsdrive.de/ubuntu/pool/natty"
 
   # dupe?
-  wget -c -nv "$DL_URL/openstreetmap-map-icons-square.small_21934_all.deb"
-  wget -c -nv "$DL_URL/openstreetmap-map-icons-square.big_21934_all.deb"
-  wget -c -nv "$DL_URL/openstreetmap-map-icons-classic.small_21934_all.deb"
-  wget -c -nv "$DL_URL/openstreetmap-map-icons_21934_all.deb"
+  wget -c -nv "$DL_URL/openstreetmap-map-icons-square.small_25996_all.deb"
+  wget -c -nv "$DL_URL/openstreetmap-map-icons-square.big_25996_all.deb"
+  wget -c -nv "$DL_URL/openstreetmap-map-icons-classic.small_25996_all.deb"
+  wget -c -nv "$DL_URL/openstreetmap-map-icons_25996_all.deb"
+  wget -c -nv "$DL_URL/openstreetmap-map-icons_25996_all.deb"
 
   # holy cow, mapnik-world-boundaries.deb is 300mb!
   #wget -c "$DL_URL/openstreetmap-mapnik-world-boundaries_17758_all.deb"
 
+  dpkg -i openstreetmap-map*.deb
 
-  CUSTOM_PKGS="gpsdrive*.deb openstreetmap-map*.deb"
+  CUSTOM_PKGS="gpsdrive*.deb"
 
   # install package dependencies
   #### TODO: replace all this mess with "gdebi"
@@ -282,13 +324,16 @@ fi
   fi
   # don't worry (too much) if the above fails, it's just removing cruft.
   # we really want a --assume-no switch to only remove if perfectly safe
+
+  #cleanup, need to assume otherwise it prompts
+  apt-get --assume-yes autoremove
+
 fi
 ##
 ## end self-build
 #######################
 
-#cleanup, need to assume otherwise it prompts
-apt-get --assume-yes autoremove
+
 
 
 #### install data ####
@@ -312,9 +357,9 @@ fi
 
 # program defaults
 cat << EOF > "$USER_HOME/.gpsdrive/gpsdriverc"
-lastlong = 2.1557
-lastlat = 41.3703
-scalewanted = 10000
+lastlong = -105.8
+lastlat = 39.7
+scalewanted = 100000
 dashboard_3 = 12
 autobestmap = 0
 mapnik = 1
@@ -324,22 +369,21 @@ friendsname = LiveDVD
 showbutton_trackrestart = 0
 showbutton_trackclear = 0
 icon_theme = classic.small
-osmdbfile = /usr/share/gpsdrive/spain.db
+#osmdbfile = /usr/share/gpsdrive/denver.db
 EOF
 
 
 # add any waypoints you want to see displayed
 cat << EOF > "$USER_HOME/.gpsdrive/way.txt"
 Sydney_Convention_Centre        -33.8750  151.2005
-FOSS4G_2010_Workshops_venue     41.389456 2.113296
-FOSS4G_2010_Codesprint_venue    41.35996  2.06179
-FOSS4G_2010:_Montjuic_-_Hall_5  41.3724   2.1518
+Barcelona_Convention_Centre      41.3724    2.1518
+FOSS4G_2011_city_of_venue        39.7    -105.8
 EOF
 
-#download latest OSM POIs for Spain
-wget -N --progress=dot:mega  http://poi.gpsdrive.de/spain.db.bz2
-bzip2 -d spain.db.bz2
-mv spain.db /usr/share/gpsdrive/
+#download latest OSM POIs for Denver (does not exist yet!)
+#wget -N --progress=dot:mega  http://poi.gpsdrive.de/denver.db.bz2
+#bzip2 -d denver.db.bz2
+#mv denver.db /usr/share/gpsdrive/
 
 
 # fool the hardcoded bastard
