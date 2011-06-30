@@ -73,7 +73,7 @@ index = http://pypi.camptocamp.net/pypi/
 output = /var/lib/tomcat6/webapps/print-mapfishsample-\${vars:instanceid}.war
 
 [vars]
-apache-entry-point = /mapfishsample_2.0/
+apache-entry-point = /mapfishsample_2.2/
 instanceid = osgeolive
 mapserv_host = localhost
 print_host = localhost
