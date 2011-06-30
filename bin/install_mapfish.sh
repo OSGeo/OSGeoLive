@@ -91,8 +91,8 @@ sudo -u postgres createuser --superuser www-data
 echo "alter role \"www-data\" with password 'www-data'" > $MAPFISH_TMP_DIR/mapfish_www-data.sql
 sudo -u postgres psql --quiet -f $MAPFISH_TMP_DIR/mapfish_www-data.sql
 
-sudo -u postgres dropdb v2.0_mapfishsample
-sudo -u postgres ./geodata/create_database.bash -p
+# drop, then create and populate database
+sudo -u postgres ./geodata/create_database.bash -p -d
 
 # add proj 900913 if not exists
 grep "<900913>" /usr/share/proj/epsg
