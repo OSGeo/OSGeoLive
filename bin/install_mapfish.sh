@@ -43,6 +43,7 @@ fi
 apt-get --assume-yes install python2.6 python2.6-dev \
     cgi-mapserver postgis postgresql-8.4-postgis tomcat6 \
     libpq-dev libapache2-mod-fcgid libapache2-mod-wsgi \
+    patch
     #TODO: firebug no longer in repos
 
 if [ $? -ne 0 ] ; then
@@ -101,7 +102,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 # update tomcat server.xml conf to enable ajp
-wget -nv -O $TOMCAT_SERVER_CONF http://www.mapfish.org/downloads/foss4g_livedvd/server.xml
+wget -O - http://www.mapfish.org/downloads/foss4g_livedvd/tomcat-server.xml.patch | patch $TOMCAT_SERVER_CONF
 /etc/init.d/tomcat6 restart
 
 # configure apache
