@@ -141,8 +141,8 @@ BBOX="-105.2147,39.5506,-104.594,39.9139"
 # 
 
 ### Please update to latest data at the last minute! See data dir on server for details.
-#wget -N --progress=dot:mega \
-#   "http://download.osgeo.org/livedvd/data/osm/$CITY.osm.bz2"
+wget -N --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/osm/$CITY.osm.bz2"
 
 #download as part of disc build process
 # Downloading from the osmxapi takes me about 6 minutes and is around 20MB.
