@@ -50,25 +50,46 @@ cd $TMP
 
 # install pre-requisites
 apt-get install --yes cmake
-apt-get install --yes libboost1.40-dev libboost-program-options-dev libboost-thread1.40-dev libboost-serialization1.40-dev
+apt-get install --yes libboost1.40-dev libboost-program-options-dev libboost-thread1.40-dev libboost-serialization1.40-dev libgdal1-1.8.0 libgdal-dev libgeotiff-dev libgeotiff2
 
 # get libLAS
-wget -c --progress=dot:mega http://download.osgeo.org/liblas/libLAS-1.6.1.tar.gz
+wget -c --progress=dot:mega http://download.osgeo.org/liblas/libLAS-1.7.0b2.tar.gz
+wget -c --progress=dot:mega http://download.osgeo.org/laszip/laszip-2.0.1.tar.gz
 
 # unpack it
-tar xzf libLAS-1.6.1.tar.gz
+tar xzf laszip-2.0.1.tar.gz
+tar xzf libLAS-1.7.0b2.tar.gz
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: libLAS download failed."
    exit 1
 fi
 
-cd libLAS-1.6.1
+cd laszip-2.0.1
+cmake -G "Unix Makefiles" . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release
+make
+make install
+ldconfig
+
+cd ../libLAS-1.7.0b2
 mkdir makefiles
 cd makefiles
 
 ## execute cmake script
-cmake -G "Unix Makefiles" ../
+cmake -G "Unix Makefiles" ../ \
+        -DBoost_INCLUDE_DIR=/usr/include \
+        -DBoost_LIBRARY_DIRS=/usr/lib \
+        -DGDAL_CONFIG=/usr/bin/gdal-config \
+        -DGEOTIFF_INCLUDE_DIR=/usr/include/geotiff \
+        -DGEOTIFF_LIBRARY=/usr/lib/libgeotiff.so \
+        -DLASZIP_INCLUDE=/usr/include/laszip \
+        -DLASZIP_LIBRARY=/usr/lib/liblaszip.so \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DCMAKE_BUILD_TYPE=Release \
+        -DWITH_GDAL=ON \
+        -DWITH_GEOTIFF=ON \
+        -DWITH_LASZIP=ON
+
 
 ## build  TODO check status...
 make
@@ -80,14 +101,14 @@ make install
 ldconfig
 
 ## Python libraries ##
-cd python
+cd ../python
 python setup.py build
 python setup.py install
 
 
 ## Shared Resources ##
-mkdir $LIBLAS_FOLDER
-mkdir $LIBLAS_FOLDER/python
+mkdir -p $LIBLAS_FOLDER
+mkdir -p $LIBLAS_FOLDER/python
 
 cp -R examples scripts tests  $LIBLAS_FOLDER/python/
 
