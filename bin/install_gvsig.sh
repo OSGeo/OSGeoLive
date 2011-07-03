@@ -27,6 +27,9 @@
 
 # Changelog:
 # ===========
+# 2011-07-03:
+#   * updated to gvSIG 1.11, removed docs (BN 1305)
+#
 # 2011-01-24:
 #   * updated to gvSIG 1.10 final version (BN 1264)
 #
@@ -45,15 +48,10 @@
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-USER_DESKTOP="$USER_HOME/Desktop"
+USER_DESKTOP="$USER_HOME/Desktop" 
 
-GVSIG_PACKAGE="gvsig_1.10-1264_i386.deb"
-GVSIG_PATH="http://gvsig-desktop.forge.osor.eu/downloads/people/scolab/deb"
-GVSIG_DOCS="/usr/local/share/gvsig"
-GVSIG_MAN="gvSIG-1_1-man-v1-en.pdf"
-GVSIG_MAN2="gvSIG19_new_features.tar.gz"
-GVSIG_MAN2_URL=http://forge.osor.eu/docman/view.php/89/585/$GVSIG_MAN2
-GVSIG_MAN_URL=http://forge.osor.eu/docman/view.php/89/329/$GVSIG_MAN
+GVSIG_PACKAGE="gvsig_1.11-1305_i386.deb"
+GVSIG_PATH="http://test.scolab.es/pub/gvSIG"
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
@@ -69,9 +67,16 @@ fi
 cd "$TMP"
 
 # get deb package 
-wget -c --progress=dot:mega "$GVSIG_PATH/$GVSIG_PACKAGE"
+if [ ! -e $GVSIG_PACKAGE ] ; then
+   wget --progress=dot:mega "$GVSIG_PATH/$GVSIG_PACKAGE"
+fi
+
+# remove it if it's present at the system
+echo "Purging previous versions of gvSIG"
+apt-get -y purge gvsig
 
 # install the deb package
+echo "Installing gvSIG package"
 dpkg -i "$GVSIG_PACKAGE"
 
 if [ $? -ne 0 ] ; then
@@ -79,43 +84,35 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-
 rm $TMP/$GVSIG_PACKAGE 
 
 # place a gvSIG icon on desktop
 if [ -d $USER_DESKTOP ] ; then
    echo "Copying icon to desktop at $USER_DESKTOP"
    cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP"
+   chown $USER_NAME:$USER_NAME "$USER_DESKTOP/gvsig.desktop"
+   chmod +x "$USER_DESKTOP/gvsig.desktop"   
 fi
 
-# download documentation 
-# note: at this time (January 2010) the last updated version of the
-#       gvSIG manual is for the 1.1.2 version of gvSIG
-if [ -f "$GVSIG_MAN" ]
-then
-   echo "$GVSIG_MAN has already been downloaded."
-else
-   wget -c --progress=dot:mega $GVSIG_MAN_URL
-   wget -c --progress=dot:mega $GVSIG_MAN2_URL
+echo "Creating the gvSIG folder with a custom config and sample project"
+if [ -d "$USER_HOME/gvSIG" ] ; then
+   rm -rf "$USER_HOME/gvSIG"
 fi
-
-if [ ! -d "$GVSIG_DOCS" ] ; then
-   mkdir -p "$GVSIG_DOCS"
-fi
-cp "$GVSIG_MAN" "$GVSIG_DOCS"
-mv "$GVSIG_MAN2" "$GVSIG_DOCS"
-cd $GVSIG_DOCS
-tar -xzf $GVSIG_MAN2
-cd "$TMP"
-
+mkdir -p  "$USER_HOME/gvSIG"
 
 # download gvSIG sample project
-if [ ! -d "$USER_HOME/gvSIG" ] ; then
-   mkdir -p "$USER_HOME/gvSIG"
-fi
 wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp \
-     --output-document=sample-project.gvp
-cp sample-project.gvp "$USER_HOME/gvSIG/"
+     --output-document="$USER_HOME/gvSIG/sample-project.gvp"
+
+# download and set up default andami config
+wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/andami-config.xml \
+     --output-document="$USER_HOME/gvSIG/andami-config.xml"
+
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
+
+# download and set up a custom startup script
+wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/gvSIG.sh \
+     --output-document="/opt/gvSIG_1.11/bin/gvSIG.sh"
+
 
 echo "gvSIG installation Done!"
