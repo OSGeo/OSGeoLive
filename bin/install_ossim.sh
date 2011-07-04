@@ -13,8 +13,8 @@ USER_HOME="/home/$USER_NAME"
 BUILD_DIR=`pwd`
 APP_DATA_DIR="$BUILD_DIR/../app-data/ossim"
 DATA_FOLDER="/usr/local/share/data"
-#OSSIM_VERSION=1.8.10
-#BUILD_DATE=20110223
+#OSSIM_VERSION=1.8.12
+#BUILD_DATE=20110704
 
 #Add repositories
 
@@ -55,8 +55,8 @@ mv /usr/share/ossim/images/ossim.xpm /usr/share/pixmaps/ossim.xpm
 mv /usr/share/ossim/imagelinker.desktop /usr/share/applications/imagelinker.desktop
 mv /usr/share/ossim/ossimplanet.desktop /usr/share/applications/ossimplanet.desktop
 
-if [ `grep -c '/usr/local/ossim' "$USER_HOME/.bashrc"` -eq 0 ] ; then
-   echo 'PATH="$PATH:/usr/local/ossim"' >> "$USER_HOME/.bashrc"
+if [ `grep -c '/usr/local/ossim/bin/' "$USER_HOME/.bashrc"` -eq 0 ] ; then
+   echo 'PATH="$PATH:/usr/local/ossim/bin/"' >> "$USER_HOME/.bashrc"
    echo "export PATH" >> "$USER_HOME/.bashrc"
    #source "$USER_HOME/.bashrc"
 fi
@@ -112,7 +112,7 @@ if [ ! -e /usr/share/menu/imagelinker ] ; then
 ?package(imagelinker):needs="X11"\
   section="Applications/Science/Geoscience"\
   title="Imagelinker"\
-  command="/usr/local/ossim/imagelinker"\
+  command="/usr/local/ossim/bin/imagelinker"\
   icon="/usr/share/pixmaps/ossim.xpm"
 EOF
   update-menus
@@ -123,7 +123,7 @@ if [ ! -e /usr/share/menu/ossimplanet ] ; then
 ?package(ossimplanet):needs="X11"\
   section="Applications/Science/Geoscience"\
   title="Ossimplanet"\
-  command="/usr/local/ossim/ossimplanet"\
+  command="/usr/local/ossim/bin/ossimplanet"\
   icon="/usr/share/pixmaps/ossimPlanet.xpm"
 EOF
   update-menus
