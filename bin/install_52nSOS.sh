@@ -39,13 +39,14 @@ SOS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
 SOS_TAR_NAME="52n-sensorweb-sos-osgeolive.tar.gz"
 SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
-SOS_WEB_APP_NAME="52nSOSv3.1.1"
+# when changing this, adjust the name in line 215, too,
+# and the quickstart, which links to this, too
+SOS_WEB_APP_NAME="52nSOS"
 SOS_POSTGRESQL_SCRIPT_NAME="postgresql-8.4"
 SOS_TOMCAT_SCRIPT_NAME="tomcat6"
-#SOS_START_SCRIPT="52nSOS-start.sh"
 SOS_ICON_NAME="52nSOS.png"
 SOS_DATA_SET="DATA.sql"
-SOS_URL="http://localhost:8080/52nSOSv3.1.1/"
+SOS_URL="http://localhost:8080/$SOS_WEB_APP_NAME"
 SOS_QUICKSTART_URL="http://localhost/en/quickstart/52nSOS_quickstart.html"
 SOS_OVERVIEW_URL="http://localhost/en/overview/52nSOS_overview.html"
 # -----------------------------------------------------------------------------
@@ -63,7 +64,6 @@ if [ -n "$DEBUG" ] ; then
    echo "$SOS_WEB_APP_NAME"
    echo "$SOS_POSTGRESQL_SCRIPT_NAME"
    echo "$SOS_TOMCAT_SCRIPT_NAME"
-   #echo "$SOS_START_SCRIPT"
    echo "$SOS_ICON_NAME"
    echo "$SOS_DATA_SET"
    echo "$SOS_URL"
@@ -174,16 +174,32 @@ fi
 #
 # we need to stop tomcat6 around this process
 "/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" stop
-su postgres -c "psql -q -f $TMP/SOS-structure.sql"
-su postgres -c "psql -q -f $TMP/STRUCTURE-in-SOS.sql"
-su postgres -c "psql -q -f $TMP/$SOS_DATA_SET"
+if [ -n "$DEBUG" ] ; then
+	echo "installing SOS datastructe structure in Postgresql DB..."
+fi
+su postgres -c "psql -q -f $TMP/SOS-structure.sql &> /dev/null"
+if [ -n "$DEBUG" ] ; then
+	echo "done."
+	echo "installing structure in SOS (offerings, procedures,...) ... "
+fi
+su postgres -c "psql -q -f $TMP/STRUCTURE-in-SOS.sql &> /dev/null"
+if [ -n "$DEBUG" ] ; then
+	echo "done."
+	echo "installing observations in SOS using $SOS_DATA_SET.sql"
+fi
+su postgres -c "psql -q -f $TMP/$SOS_DATA_SET.sql &> /dev/null"
+if [ -n "$DEBUG" ] ; then
+	echo "done."
+fi
 "/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" start
 #
 #
 # 3.0 check for tomcat webapps folder
 #
 mkdir -p -v "$SOS_WAR_INSTALL_FOLDER"
-
+if [ -n "$DEBUG" ] ; then
+	echo "install dir created/found."
+fi
 #
 #
 # 3.1 check for tomcat set-up: look for service script in /etc/init.d/
@@ -192,6 +208,9 @@ if (test ! -d "$TOMCAT_WEBAPPS/$SOS_WEB_APP_NAME") then
 	mv "$TMP/$SOS_WEB_APP_NAME.war" "$SOS_WAR_INSTALL_FOLDER"/
  	chown -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
 	   "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war"
+	if [ -n "$DEBUG" ] ; then
+		echo "52nSOS deployed via mv to webapps dir."
+	fi
 else
 	echo "$SOS_WEB_APP_NAME already installed in tomcat"
 fi
@@ -211,7 +230,7 @@ if [ ! -e /usr/share/applications/52nSOS-start.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Start 52NorthSOS
-Comment=52North SOS v3.1.1 
+Comment=52North SOS
 Categories=Geospatial;Servers;
 Exec=firefox $SOS_URL $SOS_QUICKSTART_URL $SOS_OVERVIEW_URL
 Icon=/usr/share/icons/$SOS_ICON_NAME
@@ -219,10 +238,13 @@ Terminal=false
 EOF
 fi
 
-
 cp /usr/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
 #
 # We just crossed the finish line
 #
-echo "52nSOS install finished"
+echo "                                                                         "
+echo "                         52nSOS install finished                         "
+echo "#########################################################################"
+echo "                                                                         "
+echo "                                                                         "
