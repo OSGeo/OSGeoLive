@@ -128,7 +128,7 @@ for SCRIPT in \
   ./install_gpsdrive.sh \
   ./install_mb-system.sh \
   ./install_mapfish.sh \
-  ./install_mapguide.sh \
+#  ./install_mapguide.sh \
   ./install_openlayers.sh \
   ./install_R.sh \
   ./install_ossim.sh \
@@ -137,8 +137,9 @@ for SCRIPT in \
   ./install_zoo-project.sh \
   ./install_52nSOS.sh \
   ./install_otb.sh \
-  ./install_rasdaman.sh\
-  ./install_tinyows.sh\
+  ./install_rasdaman.sh \
+  ./install_tinyows.sh \
+  ./install_pycsw.sh \
   ./install_gisdata.sh \
   ./install_main_docs.sh \
   ./install_edutools.sh \

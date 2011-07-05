@@ -1,5 +1,13 @@
 OSGeo Live GIS Disc
 ===================
+Version: 5.0alpha
+===================
+5 July 2011
+ * Xubuntu 11.04 Natty Narwhal
+ * Updated translations
+ * Updated documentation licensing
+ * New Pycsw, Mapproxy
+
 Version: 4.5
 ===================
 17 March 2011
