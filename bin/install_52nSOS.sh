@@ -12,17 +12,16 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-# Version: 2011-01-28
+# Version: 2011-07-05
 # Author: e.h.juerrens@52north.org
 # TODO
-# - more log output during install
 # - add different data sets (small, medium, large) using a parameter beginning
 #	this script
 # - maybe delete war file after set-up in tomcat (?) -> save space on disc
 #
 # About:
 # =====
-# This script will install 52nSOS
+# This script installs 52nSOS
 #
 #
 # =============================================================================
@@ -174,32 +173,32 @@ fi
 #
 # we need to stop tomcat6 around this process
 "/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" stop
-if [ -n "$DEBUG" ] ; then
-	echo "installing SOS datastructe structure in Postgresql DB..."
-fi
+#if [ -n "$DEBUG" ] ; then
+#	echo "installing SOS datastructe structure in Postgresql DB..."
+#fi
 su postgres -c "psql -q -f $TMP/SOS-structure.sql &> /dev/null"
-if [ -n "$DEBUG" ] ; then
-	echo "done."
-	echo "installing structure in SOS (offerings, procedures,...) ... "
-fi
+#if [ -n "$DEBUG" ] ; then
+#	echo "done."
+#	echo "installing structure in SOS (offerings, procedures,...) ... "
+#fi
 su postgres -c "psql -q -f $TMP/STRUCTURE-in-SOS.sql &> /dev/null"
-if [ -n "$DEBUG" ] ; then
-	echo "done."
-	echo "installing observations in SOS using $SOS_DATA_SET.sql"
-fi
+#if [ -n "$DEBUG" ] ; then
+#	echo "done."
+#	echo "installing observations in SOS using $SOS_DATA_SET.sql"
+#fi
 su postgres -c "psql -q -f $TMP/$SOS_DATA_SET.sql &> /dev/null"
-if [ -n "$DEBUG" ] ; then
-	echo "done."
-fi
+#if [ -n "$DEBUG" ] ; then
+#	echo "done."
+#fi
 "/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" start
 #
 #
 # 3.0 check for tomcat webapps folder
 #
 mkdir -p -v "$SOS_WAR_INSTALL_FOLDER"
-if [ -n "$DEBUG" ] ; then
-	echo "install dir created/found."
-fi
+#if [ -n "$DEBUG" ] ; then
+#	echo "install dir created/found."
+#fi
 #
 #
 # 3.1 check for tomcat set-up: look for service script in /etc/init.d/
@@ -208,9 +207,9 @@ if (test ! -d "$TOMCAT_WEBAPPS/$SOS_WEB_APP_NAME") then
 	mv "$TMP/$SOS_WEB_APP_NAME.war" "$SOS_WAR_INSTALL_FOLDER"/
  	chown -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
 	   "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war"
-	if [ -n "$DEBUG" ] ; then
-		echo "52nSOS deployed via mv to webapps dir."
-	fi
+#	if [ -n "$DEBUG" ] ; then
+#		echo "52nSOS deployed via mv to webapps dir."
+#	fi
 else
 	echo "$SOS_WEB_APP_NAME already installed in tomcat"
 fi
