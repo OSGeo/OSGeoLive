@@ -29,8 +29,10 @@
 # =======
 # sudo ./install_udig.sh
 
+
 TMP="/tmp/build_udig"
 INSTALL_FOLDER="/usr/lib"
+UDIG_VERSION="1.2.2"
 UDIG_FOLDER="$INSTALL_FOLDER/udig"
 DOCS_FOLDER="/usr/local/share/udig"
 DATA_GLOBAL="/usr/local/share/data"
@@ -75,7 +77,7 @@ cd "$TMP"
 #   For specific env requirements please review udig.sh script
 
 # CASE OF A ZIP
-ZIP="udig-1.2.0.linux.gtk.x86.zip"
+ZIP="udig-$UDIG_VERSION.linux.gtk.x86.zip"
 if [ -f "$ZIP" ] ; then
    echo "$ZIP has already been downloaded."
 else
@@ -119,27 +121,10 @@ cp uDig.desktop "$USER_HOME/Desktop"
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/uDig.desktop"
 
 
-## Sample Data ##
-
-# Download udig's sample data
-if [ -f "data-v1_2.zip" ]
-then
-   echo "data-v1_2.zip has already been downloaded."
-else
-   wget -c --progress=dot:mega http://udig.refractions.net/docs/data-v1_2.zip # changed from 1_1 to include index
-fi
-
-#unzip the file into /usr/local/share/udig-data
-mkdir -p "$DATA_GLOBAL/udig-data"
-unzip -q data-v1_2.zip -d "$DATA_GLOBAL/udig-data"
-chmod g+w "$DATA_GLOBAL/udig-data"
-adduser $USER_NAME users
-chown root.users "$DATA_GLOBAL/udig-data"
-
 ## Documentation ##
 
 # Download udig's documentation
-REL_DOC="udig-1.2.0.html"
+REL_DOC="udig-$UDIG_VERSION.html"
 if [ -f "$REL_DOC" ] ; then
    echo "$REL_DOC has already been downloaded."
 else
