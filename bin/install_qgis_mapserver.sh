@@ -49,8 +49,8 @@ cat << EOF > /usr/share/applications/qgis-mapserver.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=QGIS Mapserver
-Comment=QGIS Mapserver
+Name=QGIS Server
+Comment=QGIS Server
 Categories=Application;Geography;Geoscience;Education;
 Exec=firefox $PKG_DATA/mapviewer.html
 Icon=gnome-globe
