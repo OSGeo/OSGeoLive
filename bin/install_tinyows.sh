@@ -38,3 +38,6 @@ if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
+
+#Setup sample config
+sudo cp ../app-conf/tinyows/tinyows.xml /etc/
