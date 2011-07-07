@@ -19,8 +19,12 @@
 # rasdaman GmbH.
 #
 # For more information please see <http://www.rasdaman.org>
-# or contact Peter Baumann via <baumann@rasdaman.com>.      
+# or contact Peter Baumann via <baumann@rasdaman.com>.     
 #
+
+# rasdaman src to be used
+RASDAMAN_LOCATION="http://www.rasdaman.com/Download"
+RASDAMAN_TARBALL="rasdaman_8-2.tgz"
 
 # live disc's username is "user"
 USER_NAME="user"
@@ -38,14 +42,14 @@ WCPS_PASSWORD="UD0b9uTt"
 mkdir "$TMP"
 cd "$TMP"
 if [ ! -d "$RASDAMAN_HOME" ]; then
-	mkdir $RASDAMAN_HOME
+        mkdir $RASDAMAN_HOME
 fi
 
 #get and install required packages
 PACKAGES="git-core make autoconf automake libtool gawk flex bison \
  ant g++ gcc cpp libstdc++6 libreadline-dev libssl-dev openjdk-6-jdk \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev \
- libhdf4g-dev libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
+ libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
 
 apt-get update && apt-key update &&  apt-get install --assume-yes $PACKAGES
 
@@ -58,9 +62,9 @@ fi
 #download and install rasdaman
 #If folder already exists skip the git clone and used cached version
 if [ ! -d  rasdaman ] ; then
-	#git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
-	wget -c www.rasdaman.com/Download/rasdaman_2011-03-17.tgz
-	tar xzf rasdaman_2011-03-17.tgz
+        #git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
+        wget -c $RASDAMAN_LOCATION/$RASDAMAN_TARBALL
+        tar xzf $RASDAMAN_TARBALL
 fi
 cd rasdaman
 mkdir $RASDAMAN_HOME/log
@@ -72,7 +76,7 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-chown ${USER_NAME} $RASDAMAN_HOME/bin/* 
+chown ${USER_NAME} $RASDAMAN_HOME/bin/*
 chmod 774 $RASDAMAN_HOME/bin/*
 sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" $RASDAMAN_HOME/bin/create_db.sh
 
@@ -84,7 +88,7 @@ fi
 #test if rasbase exists, if not create rasbase database
 test_RASBASE=$(su - $USER_NAME -c "psql --quiet  --list | grep \"RASBASE \" ")
 if [ -z "$test_RASBASE" ] ; then
-	su - $USER_NAME $RASDAMAN_HOME/bin/create_db.sh
+        su - $USER_NAME $RASDAMAN_HOME/bin/create_db.sh
 fi
 
 su - $USER_NAME $RASDAMAN_HOME/bin/start_rasdaman.sh
@@ -108,8 +112,8 @@ make all
 cd ../
 
 if [ ! -d "/var/lib/tomcat6/webapps/earthlook" ] ; then
-	echo moving earthlook folder into tomcat webapps...
-	mv rasdaman/* /var/lib/tomcat6/webapps/
+        echo moving earthlook folder into tomcat webapps...
+        mv rasdaman/* /var/lib/tomcat6/webapps/
 fi
 
 
@@ -119,12 +123,12 @@ su - $USER_NAME -c "createuser $WCPS_USER --superuser"
 su - $USER_NAME -c "psql template1 --quiet -c \"ALTER ROLE $WCPS_USER  with PASSWORD '$WCPS_PASSWORD';\""
 test_WCPSDB=$(su - $USER_NAME -c "psql --quiet  --list | grep \"$WCPS_DATABASE \" ")
 if [ -z "$test_WCPSDB" ] ; then
-	su - $USER_NAME -c "createdb  -T template0 $WCPS_DATABASE"
-	su - $USER_NAME -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
-	if [ $? -ne 0 ] ; then
-		echo "ERROR: can not insert data into metadata database."
-		exit 1
-	fi
+        su - $USER_NAME -c "createdb  -T template0 $WCPS_DATABASE"
+        su - $USER_NAME -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
+        if [ $? -ne 0 ] ; then
+                echo "ERROR: can not insert data into metadata database."
+                exit 1
+        fi
 fi
 
 #clean up
@@ -189,4 +193,3 @@ fi
 cp /usr/share/applications/stop_rasdaman_server.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/start_rasdaman_server.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/rasdaman-earthlook-demo.desktop "$USER_HOME/Desktop/"
-
