@@ -30,10 +30,10 @@
 cp ../sources.list.d/geopublishing.list /etc/apt/sources.list.d/
 # Get and import the key that the .deb packages are signed with
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7450D04751B576FD
-apt-get update
+apt-get -qq update
 
 # Install AtlasStyler and documentation
-apt-get install --yes --no-install-recommends atlasstyler geopublishing-doc
+apt-get -qq install --yes --no-install-recommends atlasstyler geopublishing-doc
 
 # Now we download some predefined symbols for atlasstyler because the user is probably off-line
 USER_NAME="user"

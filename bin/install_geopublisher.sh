@@ -32,11 +32,11 @@ USER_HOME="/home/$USER_NAME"
 cp ../sources.list.d/geopublishing.list /etc/apt/sources.list.d/
 # Get and import the key that the .deb packages are signed with
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7450D04751B576FD
-apt-get update
+apt-get -qq update
 
 
 # Install Geopublisher and documentation
-apt-get install --yes --no-install-recommends geopublisher geopublishing-doc
+apt-get -qq install --yes --no-install-recommends geopublisher geopublishing-doc
 
 # Now we create a .properties file which predefines that Geopublisher open-file-dialog will start in the directory recommended in the quickstart 
 mkdir -p $USER_HOME/.Geopublisher
