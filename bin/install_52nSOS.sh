@@ -36,15 +36,15 @@ USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat6"
 SOS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
-SOS_TAR_NAME="52n-sensorweb-sos-osgeolive.tar.gz"
+SOS_TAR_NAME="52n-sensorweb-sos-osgeolive-5.0.0.tar.gz"
 SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
 # when changing this, adjust the name in line 215, too,
 # and the quickstart, which links to this, too
 SOS_WEB_APP_NAME="52nSOS"
-SOS_POSTGRESQL_SCRIPT_NAME="postgresql-8.4"
+SOS_POSTGRESQL_SCRIPT_NAME="postgresql"
 SOS_TOMCAT_SCRIPT_NAME="tomcat6"
 SOS_ICON_NAME="52nSOS.png"
-SOS_DATA_SET="DATA.sql"
+SOS_DATA_SET="DATA"
 SOS_URL="http://localhost:8080/$SOS_WEB_APP_NAME"
 SOS_QUICKSTART_URL="http://localhost/en/quickstart/52nSOS_quickstart.html"
 SOS_OVERVIEW_URL="http://localhost/en/overview/52nSOS_overview.html"
@@ -146,13 +146,18 @@ cd "$TMP"
 # download tar.gz from 52north.org server
 if [ -f "$SOS_TAR_NAME" ] ; then
    echo "$SOS_TAR_NAME has already been downloaded."
-   # but was is sucessful?
+   # but was it sucessful?
 else
-   wget -c --progress=dot:mega "$SOS_TAR_URL$SOS_TAR_NAME"
+#
+#	TODO is this new command working?
+#
+	rm -r "$TMP"/*
+   	wget -c --progress=dot:mega "$SOS_TAR_URL$SOS_TAR_NAME"
 fi
 
 # extract tar, if folders are not there
-tar xzf "$SOS_TAR_NAME"
+tar vxzf "$SOS_TAR_NAME"
+echo "$SOS_TAR_NAME extracted"
 #
 # copy logo
 if [ ! -e "/usr/share/icons/$SOS_ICON_NAME" ] ; then
@@ -203,7 +208,7 @@ mkdir -p -v "$SOS_WAR_INSTALL_FOLDER"
 #
 # 3.1 check for tomcat set-up: look for service script in /etc/init.d/
 #
-if (test ! -d "$TOMCAT_WEBAPPS/$SOS_WEB_APP_NAME") then
+if (test ! -d "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME") then
 	mv "$TMP/$SOS_WEB_APP_NAME.war" "$SOS_WAR_INSTALL_FOLDER"/
  	chown -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
 	   "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war"
