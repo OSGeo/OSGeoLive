@@ -225,5 +225,5 @@ exit
 ########################################################
 
 # Build the iso should be done later
-./build_iso.sh
+# ./build_iso.sh
 
