@@ -1,18 +1,18 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" version="1.6.0-Trunk">
-    <title></title>
+<qgis projectname="Natural Earth" version="1.7.0-Wroclaw">
+    <title>Natural Earth</title>
     <mapcanvas>
         <units>degrees</units>
         <extent>
             <xmin>-189.000000</xmin>
-            <ymin>-135.391821</ymin>
+            <ymin>-155.427632</ymin>
             <xmax>189.000000</xmax>
-            <ymax>135.391821</ymax>
+            <ymax>155.427632</ymax>
         </extent>
         <projections>0</projections>
         <destinationsrs>
             <spatialrefsys>
-                <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                 <srsid>3452</srsid>
                 <srid>4326</srid>
                 <authid>EPSG:4326</authid>
@@ -24,34 +24,34 @@
         </destinationsrs>
     </mapcanvas>
     <legend>
-        <legendlayer open="true" checked="Qt::Unchecked" name="10m_populated_places_simple">
+        <legendlayer open="true" checked="Qt::Unchecked" name="10m_populated_places_simple" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="10m_populated_places_simple20100719082900629" visible="0"/>
             </filegroup>
         </legendlayer>
         <legendgroup open="true" checked="Qt::PartiallyChecked" name="Water">
-            <legendlayer open="true" checked="Qt::Checked" name="10m_rivers_lake_centerlines">
+            <legendlayer open="true" checked="Qt::Checked" name="10m_rivers_lake_centerlines" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="10m_rivers_lake_centerlines20100719082900647" visible="1"/>
                 </filegroup>
             </legendlayer>
-            <legendlayer open="true" checked="Qt::Checked" name="10m_lakes">
+            <legendlayer open="true" checked="Qt::Checked" name="10m_lakes" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="10m_lakes20100719082900581" visible="1"/>
                 </filegroup>
             </legendlayer>
-            <legendlayer open="true" checked="Qt::Unchecked" name="10m_ocean">
+            <legendlayer open="true" checked="Qt::Unchecked" name="10m_ocean" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="10m_ocean20100719082900623" visible="0"/>
                 </filegroup>
             </legendlayer>
         </legendgroup>
-        <legendlayer open="true" checked="Qt::Checked" name="HYP_50M_SR_W">
+        <legendlayer open="true" checked="Qt::Checked" name="HYP_50M_SR_W" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="HYP_50M_SR_W20100719084154256" visible="1"/>
             </filegroup>
         </legendlayer>
-        <legendlayer open="true" checked="Qt::Unchecked" name="10m_land">
+        <legendlayer open="true" checked="Qt::Unchecked" name="10m_land" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="10m_land20100719082900615" visible="0"/>
             </filegroup>
@@ -64,7 +64,7 @@
             <layername>10m_lakes</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -75,8 +75,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -96,6 +96,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>FeatureCla</displayfield>
             <label>0</label>
             <labelattributes>
@@ -137,7 +138,7 @@
             <layername>10m_land</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -148,8 +149,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -169,6 +170,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>ScaleRank</displayfield>
             <label>0</label>
             <labelattributes>
@@ -207,7 +209,7 @@
             <layername>10m_ocean</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -218,8 +220,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -239,6 +241,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>RecNum</displayfield>
             <label>0</label>
             <labelattributes>
@@ -275,7 +278,7 @@
             <layername>10m_populated_places_simple</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -286,8 +289,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <classificationattribute>POP_MAX</classificationattribute>
             <graduatedsymbol>
                 <mode>Quantile</mode>
@@ -378,6 +381,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </graduatedsymbol>
+            <customproperties/>
             <displayfield>SCALERANK</displayfield>
             <label>0</label>
             <labelattributes>
@@ -447,7 +451,7 @@
             <layername>10m_rivers_lake_centerlines</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -458,8 +462,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -479,6 +483,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>ScaleRank</displayfield>
             <label>0</label>
             <labelattributes>
@@ -520,7 +525,7 @@
             <layername>HYP_50M_SR_W</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -532,7 +537,7 @@
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
             <customproperties/>
-            <provider></provider>
+            <provider>gdal</provider>
             <rasterproperties>
                 <mDrawingStyle>MultiBandColor</mDrawingStyle>
                 <mColorShadingAlgorithm>UndefinedShader</mColorShadingAlgorithm>
@@ -562,21 +567,50 @@
                     </minMaxEntry>
                 </contrastEnhancementMinMaxValues>
                 <mNoDataValue mValidNoDataValue="false">-9999.000000</mNoDataValue>
+                <singleValuePixelList>
+                    <pixelListEntry pixelValue="-32768.000000" percentTransparent="100"/>
+                </singleValuePixelList>
+                <threeValuePixelList>
+                    <pixelListEntry red="-32768.000000" blue="-32768.000000" green="-32768.000000" percentTransparent="100"/>
+                </threeValuePixelList>
             </rasterproperties>
         </maplayer>
     </projectlayers>
     <properties>
+        <WMSServiceAbstract type="QString"></WMSServiceAbstract>
+        <WMSContactPerson type="QString"></WMSContactPerson>
+        <Identify>
+            <disabledLayers type="QStringList">
+                <value>HYP_50M_SR_W20100719084154256</value>
+            </disabledLayers>
+        </Identify>
+        <WMSContactPhone type="QString"></WMSContactPhone>
+        <SpatialRefSys>
+            <ProjectCRSProj4String type="QString">+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs +towgs84=0,0,0</ProjectCRSProj4String>
+        </SpatialRefSys>
         <Gui>
             <SelectionColorBluePart type="int">0</SelectionColorBluePart>
             <CanvasColorGreenPart type="int">255</CanvasColorGreenPart>
             <CanvasColorRedPart type="int">255</CanvasColorRedPart>
             <SelectionColorRedPart type="int">255</SelectionColorRedPart>
+            <SelectionColorAlphaPart type="int">255</SelectionColorAlphaPart>
             <SelectionColorGreenPart type="int">255</SelectionColorGreenPart>
             <CanvasColorBluePart type="int">255</CanvasColorBluePart>
         </Gui>
+        <Paths>
+            <Absolute type="bool">true</Absolute>
+        </Paths>
+        <WMSContactMail type="QString"></WMSContactMail>
+        <WMSCrsList type="QStringList">
+            <value>EPSG:4326</value>
+        </WMSCrsList>
         <PositionPrecision>
             <DecimalPlaces type="int">2</DecimalPlaces>
             <Automatic type="bool">true</Automatic>
         </PositionPrecision>
+        <WMSAddWktGeometry type="bool">false</WMSAddWktGeometry>
+        <WMSContactOrganization type="QString"></WMSContactOrganization>
+        <WMSServiceCapabilities type="bool">false</WMSServiceCapabilities>
+        <WMSServiceTitle type="QString"></WMSServiceTitle>
     </properties>
 </qgis>

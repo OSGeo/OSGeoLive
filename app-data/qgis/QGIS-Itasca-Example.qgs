@@ -1,18 +1,18 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" version="1.6.0-Trunk">
-    <title></title>
+<qgis projectname="Itasca Example" version="1.7.0-Wroclaw">
+    <title>Itasca Example</title>
     <mapcanvas>
         <units>degrees</units>
         <extent>
             <xmin>374113.699978</xmin>
-            <ymin>5205775.672552</ymin>
+            <ymin>5198333.261098</ymin>
             <xmax>514523.865050</xmax>
-            <ymax>5306359.735393</ymax>
+            <ymax>5313802.146847</ymax>
         </extent>
         <projections>0</projections>
         <destinationsrs>
             <spatialrefsys>
-                <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                 <srsid>3452</srsid>
                 <srid>4326</srid>
                 <authid>EPSG:4326</authid>
@@ -25,52 +25,52 @@
     </mapcanvas>
     <legend>
         <legendgroup open="true" checked="Qt::Unchecked" name="Indexes">
-            <legendlayer open="true" checked="Qt::Unchecked" name="Topo Map Index">
+            <legendlayer open="true" checked="Qt::Unchecked" name="Topo Map Index" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="drgidx20090926195219059" visible="0"/>
                 </filegroup>
             </legendlayer>
-            <legendlayer open="true" checked="Qt::Unchecked" name="Public Land Survey">
+            <legendlayer open="true" checked="Qt::Unchecked" name="Public Land Survey" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="plsscpy320090926195219227" visible="0"/>
                 </filegroup>
             </legendlayer>
         </legendgroup>
-        <legendlayer open="true" checked="Qt::Checked" name="airports">
+        <legendlayer open="true" checked="Qt::Checked" name="airports" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="airports20090926195218796" visible="1"/>
             </filegroup>
         </legendlayer>
         <legendgroup open="true" checked="Qt::Checked" name="Roads">
-            <legendlayer open="true" checked="Qt::Checked" name="Major Roads">
+            <legendlayer open="true" checked="Qt::Checked" name="Major Roads" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="majrdln320090926195219144" visible="1"/>
                 </filegroup>
             </legendlayer>
-            <legendlayer open="true" checked="Qt::Checked" name="County Roads">
+            <legendlayer open="true" checked="Qt::Checked" name="County Roads" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="ctyrdln320090926195218953" visible="1"/>
                 </filegroup>
             </legendlayer>
-            <legendlayer open="true" checked="Qt::Checked" name="mcdrdln3">
+            <legendlayer open="true" checked="Qt::Checked" name="mcdrdln3" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="mcdrdln320090926195219197" visible="1"/>
                 </filegroup>
             </legendlayer>
         </legendgroup>
-        <legendlayer open="true" checked="Qt::Checked" name="Lakes">
+        <legendlayer open="true" checked="Qt::Checked" name="Lakes" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="lakespy220090926195219074" visible="1"/>
             </filegroup>
         </legendlayer>
-        <legendlayer open="true" checked="Qt::Checked" name="County Boundaries">
+        <legendlayer open="true" checked="Qt::Checked" name="County Boundaries" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="ctybdpy220090926195218921" visible="1"/>
             </filegroup>
         </legendlayer>
     </legend>
     <Composer title="Composer 1" visible="1">
-        <Composition printResolution="300" paperWidth="297" snapGridOffsetX="0" snapGridResolution="0" snapGridOffsetY="0" snapping="0" paperHeight="210"/>
+        <Composition printResolution="300" paperWidth="297" snapGridOffsetX="0" snapGridResolution="0" snapGridOffsetY="0" snapping="0" paperHeight="210" printAsRaster="0"/>
     </Composer>
     <projectlayers layercount="8">
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
@@ -79,7 +79,7 @@
             <layername>airports</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -90,8 +90,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -111,6 +111,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>NAME</displayfield>
             <label>1</label>
             <labelfield>NAME</labelfield>
@@ -152,7 +153,7 @@
             <layername>County Boundaries</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -163,8 +164,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -184,6 +185,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>AREA</displayfield>
             <label>0</label>
             <labelattributes>
@@ -227,7 +229,7 @@
             <layername>County Roads</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -238,8 +240,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -259,6 +261,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>LENGTH</displayfield>
             <label>0</label>
             <labelattributes>
@@ -301,7 +304,7 @@
             <layername>Topo Map Index</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -312,8 +315,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>48</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -333,6 +336,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>LOCATION</displayfield>
             <label>1</label>
             <labelfield>LOCATION</labelfield>
@@ -370,7 +374,7 @@
             <layername>Lakes</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -381,8 +385,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>127</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -402,6 +406,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>AREA</displayfield>
             <label>0</label>
             <labelattributes>
@@ -447,7 +452,7 @@
             <layername>Major Roads</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -458,8 +463,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -479,6 +484,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>LENGTH</displayfield>
             <label>0</label>
             <labelattributes>
@@ -521,7 +527,7 @@
             <layername>mcdrdln3</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -532,8 +538,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -553,6 +559,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>LENGTH</displayfield>
             <label>0</label>
             <labelattributes>
@@ -586,7 +593,7 @@
             <layername>Public Land Survey</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                    <proj4>+proj=longlat +ellps=WGS84 +towgs84=0,0,0,0,0,0,0 +no_defs</proj4>
                     <srsid>3452</srsid>
                     <srid>4326</srid>
                     <authid>EPSG:4326</authid>
@@ -597,8 +604,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">ogr</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -618,6 +625,7 @@
                     <texturepath></texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>AREA</displayfield>
             <label>1</label>
             <labelfield>TRSMATCH</labelfield>
@@ -659,17 +667,35 @@
         </maplayer>
     </projectlayers>
     <properties>
+        <WMSServiceAbstract type="QString"></WMSServiceAbstract>
+        <WMSContactPerson type="QString"></WMSContactPerson>
+        <Identify>
+            <disabledLayers type="QStringList"/>
+        </Identify>
+        <WMSContactPhone type="QString"></WMSContactPhone>
         <Gui>
             <SelectionColorBluePart type="int">0</SelectionColorBluePart>
             <CanvasColorGreenPart type="int">255</CanvasColorGreenPart>
             <CanvasColorRedPart type="int">255</CanvasColorRedPart>
             <SelectionColorRedPart type="int">255</SelectionColorRedPart>
+            <SelectionColorAlphaPart type="int">255</SelectionColorAlphaPart>
             <SelectionColorGreenPart type="int">255</SelectionColorGreenPart>
             <CanvasColorBluePart type="int">255</CanvasColorBluePart>
         </Gui>
+        <Paths>
+            <Absolute type="bool">true</Absolute>
+        </Paths>
+        <WMSContactMail type="QString"></WMSContactMail>
+        <WMSCrsList type="QStringList">
+            <value>EPSG:4326</value>
+        </WMSCrsList>
         <PositionPrecision>
             <DecimalPlaces type="int">2</DecimalPlaces>
             <Automatic type="bool">true</Automatic>
         </PositionPrecision>
+        <WMSAddWktGeometry type="bool">false</WMSAddWktGeometry>
+        <WMSContactOrganization type="QString"></WMSContactOrganization>
+        <WMSServiceCapabilities type="bool">false</WMSServiceCapabilities>
+        <WMSServiceTitle type="QString"></WMSServiceTitle>
     </properties>
 </qgis>
