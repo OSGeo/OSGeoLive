@@ -83,9 +83,9 @@ if [ $BUILD_LATEST -eq 0 ] ; then
   done
 
   dpkg -i openstreetmap-map-icons*.deb
-  gdebi --non-interactive gpsdrive-friendsd_2.11_i386.deb
-  gdebi --non-interactive gpsdrive-utils_2.11_i386.deb
-  gdebi --non-interactive gpsdrive_2.11_i386.deb
+  gdebi --non-interactive --quiet gpsdrive-friendsd_2.11_i386.deb
+  gdebi --non-interactive --quiet gpsdrive-utils_2.11_i386.deb
+  gdebi --non-interactive --quiet gpsdrive_2.11_i386.deb
 
 fi
 

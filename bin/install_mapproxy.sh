@@ -38,7 +38,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 echo "Installing: $MAPPROXY_DEB_FILE"
-gdebi --non-interactive $MAPPROXY_DEB_FILE
+gdebi --non-interactive --quiet "$MAPPROXY_DEB_FILE"
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed"
    exit 1
