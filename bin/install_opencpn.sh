@@ -225,7 +225,8 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/.opencpn/"
 
 #### install icon on desktop/menus
 cd "$TMP_DIR"
-wget -nv "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/opencpn.png"
+wget -nv "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/opencpn.png" \
+  -O opencpn.png
 cp opencpn.png /usr/share/icons/
 
 cat << EOF > /usr/share/applications/opencpn.desktop
