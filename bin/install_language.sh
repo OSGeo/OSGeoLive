@@ -49,7 +49,7 @@ for CODE in \
  pt \
  th \
  vi \
- zh \
+ zh-hans \
  ar \
  id \
  ru \
