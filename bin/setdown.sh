@@ -52,7 +52,7 @@ cd "/tmp/$VERSION"
 
 mkdir ${VM}-tmp
 mv /tmp/build* ${VM}-tmp
-mv /tmp/*downloads ${VM}-tmp
+#mv /tmp/*downloads ${VM}-tmp
 
 ln -s /var/log/osgeolive/ ${VM}-log
 
