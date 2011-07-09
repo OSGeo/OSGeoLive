@@ -29,12 +29,12 @@
 
 VERSION=1.0.0
 
-echo -n 'Installing pycsw $VERSION'
+echo "Installing pycsw $VERSION"
 
-echo -n 'Installing dependencies ...'
+echo 'Installing dependencies ...'
 
 # install dependencies
-apt-get install apache2 python-lxml python-sqlalchemy python-shapely
+apt-get install --yes apache2 python-lxml python-sqlalchemy python-shapely
 
 # live disc's username is "user"
 USER_NAME=user
@@ -43,26 +43,27 @@ USER_HOME=/home/$USER_NAME
 WEB=/var/www
 
 # package specific settings
-PYCSW_HOME=$WEB/pycsw
+PYCSW_HOME="$WEB/pycsw"
 PYCSW_TMP=/tmp/build_pycsw
 PYCSW_APACHE_CONF=/etc/apache2/conf.d/pycsw
 
 mkdir -p "$PYCSW_TMP"
 
-echo -n 'Downloading package ...'
+echo 'Downloading package ...'
 
 # Download pycsw LiveDVD tarball.
-wget -N --progress=dot:mega "https://sourceforge.net/projects/pycsw/files/$VERSION/pycsw-$VERSION.tar.gz/download" \
+wget -N --progress=dot:mega \
+     "https://sourceforge.net/projects/pycsw/files/$VERSION/pycsw-$VERSION.tar.gz/download" \
      -O "$PYCSW_TMP/pycsw-$VERSION.tar.gz"
 
-echo -n 'Extracting package ...'
+echo 'Extracting package ...'
 
 # Uncompress pycsw LiveDVD tarball.
-tar -zxvf "$PYCSW_TMP/pycsw-$VERSION.tar.gz" -C "$PYCSW_TMP"
+tar zxf "$PYCSW_TMP/pycsw-$VERSION.tar.gz" -C "$PYCSW_TMP"
 mv "$PYCSW_TMP/pycsw-$VERSION" "$PYCSW_TMP/pycsw"
 mv "$PYCSW_TMP/pycsw" $WEB
 
-echo -n "Updating Apache configuration ..."
+echo "Updating Apache configuration ..."
 # Add pycsw apache configuration
 cat << EOF > "$PYCSW_APACHE_CONF"
 
@@ -74,12 +75,12 @@ cat << EOF > "$PYCSW_APACHE_CONF"
 
 EOF
 
-echo -n "Generating configuration files ..."
+echo "Generating configuration files ..."
 # Add pycsw configuration files
 
 cp $PYCSW_HOME/default-sample.cfg $PYCSW_HOME/default.cfg
 
-echo -n "Done\n"
+echo "Done."
 
 #Add Launch icon to desktop
 if [ ! -e /usr/share/applications/pycsw.desktop ] ; then
@@ -97,8 +98,11 @@ StartupNotify=false
 Categories=Education;Geography;
 EOF
 fi
+
 cp /usr/share/applications/pycsw.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/pycsw.desktop"
 
 # Reload Apache
 /etc/init.d/apache2 force-reload
+
+
