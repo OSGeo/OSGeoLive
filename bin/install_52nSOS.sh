@@ -156,7 +156,7 @@ else
 fi
 
 # extract tar, if folders are not there
-tar vxzf "$SOS_TAR_NAME"
+tar xzf "$SOS_TAR_NAME"
 echo "$SOS_TAR_NAME extracted"
 #
 # copy logo
