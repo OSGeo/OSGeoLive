@@ -40,4 +40,5 @@ if [ $? -ne 0 ] ; then
 fi
 
 #Setup sample config
-sudo cp ../app-conf/tinyows/tinyows.xml /etc/
+### HB: put into /usr/local/share/tinyows/ and not /etc?
+cp ../app-conf/tinyows/tinyows.xml /etc/
