@@ -27,7 +27,9 @@
 # Pick a different language at the login screen
 #
 # Start off with the Xfce keyboard layout configuration tool
-PACKAGES="xfkc"
+### ubuntu 11.04: xfkc no longer exists:
+#PACKAGES="xfkc"
+PACKAGES=""
 
 #Alternate list based on Live translations and OSGeo chapters
 #https://spreadsheets.google.com/ccc?key=0AlRFyY1XenjJdFRDbjFyWHg1MlNTRm10QXk0UWEzWlE&hl=en
