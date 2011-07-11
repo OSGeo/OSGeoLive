@@ -54,7 +54,7 @@ echo 'Downloading package ...'
 # Download pycsw LiveDVD tarball.
 wget -N --progress=dot:mega \
      "https://sourceforge.net/projects/pycsw/files/$VERSION/pycsw-$VERSION.tar.gz/download" \
-     -O "$PYCSW_TMP/pycsw-$VERSION.tar.gz"
+     "$PYCSW_TMP/pycsw-$VERSION.tar.gz"
 
 echo 'Extracting package ...'
 
