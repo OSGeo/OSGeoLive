@@ -59,7 +59,7 @@ chown user:user "$USER_HOME/Desktop/passwords.txt"
 
 
 # Setup the desktop background
-wget --progress=dot:mega http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/live-dvd-FOSS4G_sm.png --output-document=/usr/share/xfce4/backdrops/osgeo-desktop.png
+wget --progress=dot:mega http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/live-dvd-FOSS4G_sm2.png --output-document=/usr/share/xfce4/backdrops/osgeo-desktop.png
 #wget --progress=dot:mega https://svn.osgeo.org/osgeo/livedvd/artwork/backgrounds/4.5/OSGeo_Live_4_5.png --output-document=/usr/share/xfce4/backdrops/osgeo-desktop.png
 #cp ../desktop-conf/bg4_livedvd4.png \
 #     /usr/share/xfce4/backdrops/osgeo-desktop.png
