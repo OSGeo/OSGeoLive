@@ -60,13 +60,9 @@ fi
 easy_install -Z rpy2
 
 # R specific packages
-apt-get --assume-yes install r-cran-boot \
-  r-cran-matrix r-cran-coda r-cran-foreign \
-  r-cran-lattice r-cran-lmtest r-cran-maps r-cran-mgcv \
-  r-cran-nlme r-cran-sandwich r-cran-zoo \
-  r-cran-vr r-cran-rodbc r-cran-xml r-cran-mapdata r-cran-mapproj 
+apt-get --assume-yes install r-recommended 
 
-apt-get --assume-yes install r-cran-rgtk2 r-cran-rjava
+#apt-get --assume-yes install r-cran-rgtk2 r-cran-rjava
 
 # package does not exist in Jaunty+: r-cran-e1071
 # not found in Lucid: r-cran-adapt

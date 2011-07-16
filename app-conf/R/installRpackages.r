@@ -1,6 +1,12 @@
-packagelist <- c("boot","class","classInt","DCluster","digest","epitools","gpclib","graph","gstat","maptools","Matrix","pgirmess","pkgDepTools","R2WinBUGS","RandomFields","RBGL","RColorBrewer","rgdal","Rgraphviz","sp","spam","spatialkernel","spatstat","spdep","spgrass6","spgwr","splancs","tripack","xtable","rggobi","automaps","iplots")
+core <- c("classInt", "DCluster", "deldir", "geoR", "gstat", "maptools",
+"RandomFields", "raster", "RColorBrewer", "rgdal", "sp", "spatstat",
+"spdep", "splancs" )
 
-#packagelist2 <- c("ade4","adehabitat","ads","akima","ash","aspace","automap","clustTool","diseasemapping","ecespa","fields","GEOmap","geomapdata","geonames","geoR","geoRglm","GeoXp","glmmBUGS","gmaps","gmt","grasp","hdeco","mapdata","mapproj","MBA","ModelMap","ncdf","ncf","pastecs","PBSmapping","PBSmodelling","ramps","RArcInfo","regress","RgoogleMaps","RPyGeo","RSAGA","RSurvey","sgeostat","shapefiles","spatclus","spatgraphs","spatialCovariance","SpatialExtremes","spatialkernel","spBayes","spsurvey","SQLiteMap","tgp","tossm","trip","tripEstimation","vegan","VR")
+#optional <- c("ade4", "adehabitat", "adehabitatHR", "adehabitatHS", "adehabitatLT", "adehabitatMA", "ads", "akima", "ash", "aspace", "automap", "CircSpatial", "clustTool", "CompRandFld", "constrainedKriging", "cshapes", "diseasemapping", "DSpat", "ecespa", "fields", "FieldSim", "gdistance", "Geneland", "GEOmap", "geomapdata", "geonames", "geoRglm", "geosphere", "GeoXp", "glmmBUGS", "gmaps", "gmt", "Guerry", "hdeco", "intamap", "mapdata", "mapproj", "maps", "MarkedPointProcess", "MBA", "ModelMap", "ncdf", "ncf", "nlme", "pastecs", "PBSmapping", "PBSmodelling", "psgp", "ramps", "RArcInfo", "regress", "rgeos", "RgoogleMaps", "RPyGeo", "RSAGA", "RSurvey", "rworldmap", "sgeostat", "shapefiles", "sparr", "spatcounts", "spatgraphs", "spatial", "spatialCovariance", "SpatialExtremes", "spatialkernel", "spatialsegregation", "spBayes", "spcosa", "spgrass6", "spgwr", "sphet", "spsurvey", "SQLiteMap", "Stem", "tgp", "trip", "tripack", "tripEstimation", "UScensus2000", "vardiag", "vegan") 
+
+#non-spatial <- c("RPostgresql","RSQLite","RODBC")
+
+packagelist <- core
 
 for (i in packagelist) {
 	#Generic Version followed by Australian Repos
