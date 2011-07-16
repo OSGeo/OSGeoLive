@@ -125,6 +125,7 @@ for SCRIPT in \
   ./install_zygrib.sh \
   ./install_geopublisher.sh \
   ./install_atlasstyler.sh \
+  ./install_liblas.sh \
   ./install_gpsdrive.sh \
   ./install_mb-system.sh \
   ./install_mapfish.sh \
