@@ -1,5 +1,15 @@
 OSGeo Live GIS Disc
 ===================
+
+Version 5.0~beta1
+===================
+16 July 2011
+ * Updated Documentation
+ * Updated Translations
+ * New Liblas
+ * Draft Artwork
+ * Revised R packages
+
 Version: 5.0alpha
 ===================
 5 July 2011
