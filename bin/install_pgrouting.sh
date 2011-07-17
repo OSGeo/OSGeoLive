@@ -99,8 +99,8 @@ sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql $OSM
 
 # add pgRouting Driving Distance functions
 echo "add pgRouting Driving Distance functions"
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd.sql $OSM_DB
-sudo -u $USER_NAME psql -f $POSTLBS_FOLDER/routing_dd_wrappers.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_dd.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_dd_wrappers.sql $OSM_DB
 
 # Process sample data that comes with "install_osm.sh"
 if [ ! -e "$OSM_FILE" ]
