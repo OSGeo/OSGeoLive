@@ -2,8 +2,8 @@
 ###############################################################
 # 
 # Purpose: Installation of pgRouting on Ubuntu 11.04
-# Authors: Anton Patrushev <anton.patrushev@georepublic.de>
-#          Daniel Kastl <daniel.kastl@georepublic.de>
+# Authors: Anton Patrushev <anton@georepublic.de>
+#          Daniel Kastl <daniel@georepublic.de>
 #
 ###############################################################
 # Copyright (c) 2011 Open Source Geospatial Foundation (OSGeo)
@@ -43,7 +43,7 @@ OSM_FILE="/usr/local/share/osm/Denver.osm.bz2"
 OSM_DB="pgrouting"
 
 POSTGIS_VERSION="8.4"
-POSTLBS_FOLDER="/usr/share/postlbs"
+PGROUTING_FOLDER="/usr/share/postlbs"
 
 # PostGIS 1.4
 #POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/"
@@ -88,19 +88,19 @@ sudo -u $USER_NAME psql --quiet -f $POSTGIS_FOLDER/spatial_ref_sys.sql $OSM_DB
 
 # add pgRouting core functions
 echo "add pgRouting core functions"
-sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_core.sql $OSM_DB
-sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_core_wrappers.sql $OSM_DB
-sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_topology.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $PGROUTING_FOLDER/routing_core.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $PGROUTING_FOLDER/routing_core_wrappers.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $PGROUTING_FOLDER/routing_topology.sql $OSM_DB
 
 # add pgRouting TSP functions
 echo "add pgRouting TSP functions"
-sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_tsp.sql $OSM_DB
-sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_tsp_wrappers.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $PGROUTING_FOLDER/routing_tsp.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $PGROUTING_FOLDER/routing_tsp_wrappers.sql $OSM_DB
 
 # add pgRouting Driving Distance functions
 echo "add pgRouting Driving Distance functions"
-sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_dd.sql $OSM_DB
-sudo -u $USER_NAME psql --quiet -f $POSTLBS_FOLDER/routing_dd_wrappers.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $PGROUTING_FOLDER/routing_dd.sql $OSM_DB
+sudo -u $USER_NAME psql --quiet -f $PGROUTING_FOLDER/routing_dd_wrappers.sql $OSM_DB
 
 # Process sample data that comes with "install_osm.sh"
 if [ ! -e "$OSM_FILE" ]
