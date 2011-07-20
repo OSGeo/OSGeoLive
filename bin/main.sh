@@ -139,6 +139,7 @@ for SCRIPT in \
   ./install_otb.sh \
   ./install_rasdaman.sh \
   ./install_tinyows.sh \
+  ./install_52nWSS.sh \
   ./install_pycsw.sh \
   ./install_gisdata.sh \
   ./install_main_docs.sh \
