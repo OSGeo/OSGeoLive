@@ -34,7 +34,7 @@ DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0
 NAV_APPS="marble gpsdrive opencpn josm gosmore merkaartor viking zygrib"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
-WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver
+WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
               qgis-mapserver zoo-project 52n* mapguide* *[Rr]asdaman*"
 
 #Server apps part 2 (web based viewers; data only flows down to user)
