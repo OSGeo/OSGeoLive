@@ -51,6 +51,7 @@ if [ $? -ne 0 ] ; then
    echo "ERROR: docs install failed"
    exit 1
 fi
+ln -sf $MAPPROXY_DIR/docs /var/www/mapproxy
 
 echo "Creating Scripts/Links"
 # Create startup script for MapProxy Server
