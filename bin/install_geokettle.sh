@@ -2,12 +2,13 @@
 #################################################
 #
 # Purpose: Installation of GeoKettle in Ubuntu
-# Author:  Etienne Dube <etdube (at) gmail.com>
+# Authors: Etienne Dube, Thierry Badard
+#          <tbadard@spatialytics.com>
 #          Based on uDig install script by
 #          Stefan Hansen.
 #
 #################################################
-# Copyright (c) 2009 GeoSOA research group, Laval University
+# Copyright (c) 2009-2011 Spatialytics, (c) 2007-2009 GeoSOA Research group
 #
 # Licensed under the GNU LGPL.
 #
@@ -36,14 +37,16 @@
 # sudo ./install_geokettle.sh
 
 TMP="/tmp/build_geokettle"
-GEOKETTLE_BASE_URL="http://downloads.sourceforge.net/project/geokettle/geokettle/3.2.0-20090609"
-GEOKETTLE_BASENAME="geokettle-3.2.0-20090609-bin"
+GEOKETTLE_BASE_URL="http://downloads.sourceforge.net/project/geokettle/geokettle-2.x/2.0-RC1"
+GEOKETTLE_BASENAME="geokettle-2.0-RC1-with_plugins"
 GEOKETTLE_FILENAME="$GEOKETTLE_BASENAME.zip"
 INSTALL_FOLDER="/opt"
 GEOKETTLE_FOLDER="$INSTALL_FOLDER/geokettle"
 BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
+#DESKTOP="Bureau"
+DESKTOP="Desktop"
 
 ## Setup things... ##
 
@@ -53,13 +56,13 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 # create tmp folders
-mkdir -p "$TMP"
+mkdir -p "$TMP/$GEOKETTLE_BASENAME"
 cd "$TMP"
 
 
 ## Install Application ##
 
-# get udig
+# get geokettle
 if [ -f "$GEOKETTLE_FILENAME" ]
 then
    echo "$GEOKETTLE_FILENAME has already been downloaded."
@@ -67,9 +70,12 @@ else
    wget --progress=dot:mega "$GEOKETTLE_BASE_URL/$GEOKETTLE_FILENAME" -O $GEOKETTLE_FILENAME
 fi
 # unpack it
-unzip -q "$GEOKETTLE_FILENAME" -d "$TMP"
-# move the contents to /opt/geokettle
-mv "$TMP/$GEOKETTLE_BASENAME" "$GEOKETTLE_FOLDER"
+unzip -q "$GEOKETTLE_FILENAME" -d "$TMP/$GEOKETTLE_BASENAME"
+# move the contents to /opt/geokettle and clean the temp directory
+cd "$TMP/$GEOKETTLE_BASENAME"
+mv * "$GEOKETTLE_FOLDER"
+cd ..
+rmdir "$TMP/$GEOKETTLE_BASENAME" 
 
 ## Configure Application ##
 
@@ -77,18 +83,17 @@ mv "$TMP/$GEOKETTLE_BASENAME" "$GEOKETTLE_FOLDER"
 chmod a+x "$GEOKETTLE_FOLDER"/*.sh
 
 # Create desktop icon
-# FIXME: Desktop folder may be named differently in localized setups (if the language is not English)
-cat << EOF > "$USER_HOME/Desktop/geokettle.desktop"
+cat << EOF > "$USER_HOME/$DESKTOP/geokettle.desktop"
 [Desktop Entry]
 Name=GeoKettle
 Exec=$GEOKETTLE_FOLDER/spoon.sh
 Path=$GEOKETTLE_FOLDER
-Icon=$GEOKETTLE_FOLDER/spoon.png
+Icon=$GEOKETTLE_FOLDER/ui/images/geokettle.png
 Type=Application
 Categories=Application;
 EOF
 
 # make the desktop icon owned by $USER_NAME and executable
-chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geokettle.desktop"
-chmod a+x "$USER_HOME/Desktop/geokettle.desktop"
+chown $USER_NAME:$USER_NAME "$USER_HOME/$DESKTOP/geokettle.desktop"
+chmod a+x "$USER_HOME/$DESKTOP/geokettle.desktop"
 
