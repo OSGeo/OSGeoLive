@@ -23,7 +23,7 @@
 
 # About:
 # =====
-# This script will install Kosmo 2.0 into Xubuntu
+# This script will install Kosmo 2.0.1 into Xubuntu
 
 # Running:
 # =======
@@ -32,7 +32,7 @@
 USER_NAME="user"
 TMP="/tmp/build_kosmo"
 INSTALL_FOLDER="/usr/lib"
-KOSMO_FOLDER="$INSTALL_FOLDER/Kosmo-2.0"
+KOSMO_FOLDER="$INSTALL_FOLDER/Kosmo-2.0.1"
 BIN="/usr/bin"
 USER_HOME="/home/$USER_NAME"
 
@@ -50,10 +50,10 @@ cd "$TMP"
 ## Install Application ##
 
 # get kosmo
-wget -c --progress=dot:mega http://www.kosmoland.es/public/kosmo/v_2.0/binaries/Kosmo_Desktop_2.0_linux_jre.tar.gz
+wget -c --progress=dot:mega http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/kosmo_desktop_2.0.1_linux_jre.tar.gz
 
 # unpack it and copy it to /usr/lib
-tar xzf Kosmo_Desktop_2.0_linux_jre.tar.gz -C $INSTALL_FOLDER
+tar xzf kosmo_desktop_2.0.1_linux_jre.tar.gz -C $INSTALL_FOLDER
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: Kosmo download failed."
@@ -70,25 +70,25 @@ cd $TMP
 
 # get correct kosmo.sh
 rm $KOSMO_FOLDER/bin/Kosmo.sh
-wget -c --progress=dot:mega http://www.kosmoland.es/public/kosmo/v_2.0/binaries/Kosmo.sh
+wget -c --progress=dot:mega http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/Kosmo.sh
 cp Kosmo.sh $KOSMO_FOLDER/bin/
 chown $USER_NAME:$USER_NAME $KOSMO_FOLDER/bin/Kosmo.sh
 # why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
 chmod 777 $KOSMO_FOLDER/bin/Kosmo.sh
 
 # create link to startup script
-ln -s $KOSMO_FOLDER/bin/Kosmo.sh /usr/bin/kosmo_2.0
+ln -s $KOSMO_FOLDER/bin/Kosmo.sh /usr/bin/kosmo_2.0.1
 
 # Download desktop link
-wget -nv http://www.kosmoland.es/public/kosmo/v_2.0/binaries/Kosmo_2.0.desktop
+wget -nv http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/Kosmo_2.0.1.desktop
 
 # homogenize icon name
-sed -i -e 's/^Name=Kosmo_2.0/Name=Kosmo/' Kosmo_2.0.desktop
+sed -i -e 's/^Name=Kosmo_2.0.1/Name=Kosmo/' Kosmo_2.0.1.desktop
 
-# copy it into the Kosmo_2.0 folder
-cp Kosmo_2.0.desktop $USER_HOME/Desktop
-chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/Kosmo_2.0.desktop
+# copy it into the Kosmo_2.0.1 folder
+cp Kosmo_2.0.1.desktop $USER_HOME/Desktop
+chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/Kosmo_2.0.1.desktop
 # why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
-chmod 777 $USER_HOME/Desktop/Kosmo_2.0.desktop
+chmod 777 $USER_HOME/Desktop/Kosmo_2.0.1.desktop
 
 
