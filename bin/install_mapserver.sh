@@ -42,29 +42,23 @@ apt-get install --yes cgi-mapserver mapserver-bin php5-mapscript python-mapscrip
 
 # Download MapServer data
 [ -d $DATA_DIR ] || mkdir $DATA_DIR
-[ -f $DATA_DIR/mapserver-5.6-html-docs.zip ] || \
-   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-5.6-html-docs.zip" \
-     -O $DATA_DIR/mapserver-5.6-html-docs.zip
-[ -f $DATA_DIR/mapserver-itasca-ms56.zip ] || \
-   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-itasca-ms56.zip" \
-     -O $DATA_DIR/mapserver-itasca-ms56.zip
-#[ -f $DATA_DIR/mapserver-gmap-ms54.zip ] || \
-#   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-gmap-ms54.zip" \
-#     -O $DATA_DIR/mapserver-gmap-ms54.zip
+[ -f $DATA_DIR/mapserver-6.0-html-docs.zip ] || \
+   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-6.0-html-docs.zip" \
+     -O $DATA_DIR/mapserver-6.0-html-docs.zip
+[ -f $DATA_DIR/mapserver-itasca-ms60.zip ] || \
+   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-itasca-ms60.zip" \
+     -O $DATA_DIR/mapserver-itasca-ms60.zip
 
 # Install docs and demos
 if [ ! -d $MAPSERVER_DATA ]; then
     mkdir -p $MAPSERVER_DATA/demos
     echo -n "Extracting MapServer html doc in $MAPSERVER_DATA/....."
-    unzip -q $DATA_DIR/mapserver-5.6-html-docs.zip -d $MAPSERVER_DATA/
-#    echo -n "Done\nExtracting MapServer gmap demo in $MAPSERVER_DATA/demos/..."
-#    unzip -q $DATA_DIR/mapserver-gmap-ms54.zip -d $MAPSERVER_DATA/demos/ ms4w/apps/gmap/*
+    unzip -q $DATA_DIR/mapserver-6.0-html-docs.zip -d $MAPSERVER_DATA/
     echo -n "Done\nExtracting MapServer itasca demo in $MAPSERVER_DATA/demos/..."
-    unzip -q $DATA_DIR/mapserver-itasca-ms56.zip -d $MAPSERVER_DATA/demos/ 
+    unzip -q $DATA_DIR/mapserver-itasca-ms60.zip -d $MAPSERVER_DATA/demos/ 
     echo -n "Done\n"
-#    mv $MAPSERVER_DATA/demos/ms4w/apps/gmap $MAPSERVER_DATA/demos/
     mv $MAPSERVER_DATA/demos/workshop $MAPSERVER_DATA/demos/itasca
-    mv $MAPSERVER_DATA/mapserver-5.6-docs $MAPSERVER_DATA/doc
+    mv $MAPSERVER_DATA/mapserver-6.0-docs $MAPSERVER_DATA/doc
     rm -rf $MAPSERVER_DATA/demos/ms4w
 
     echo -n "Configuring the system...."
@@ -73,20 +67,6 @@ if [ ! -d $MAPSERVER_DATA ]; then
     ln -s $MAPSERVER_DATA/demos/itasca $MAPSERVER_DATA/demos/workshop
     ln -s /usr/local/share/mapserver/demos /usr/local/www/docs_maps/mapserver_demos
     ln -s /tmp/ /usr/local/www/docs_maps/tmp
-
-    # GMap Demo hacks
-    # disable javascript by default
-#    sed -e 's/^.*\$gbIsHtmlMode = 0;  \/\/ Start.*/\$gbIsHtmlMode = 1; \/\/ JavaScript off by default/' \
-#       $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml > /tmp/gmap75-js-hack.phtml
-#    mv /tmp/gmap75-js-hack.phtml $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml
-#    # dbase extension is not needed
-#    sed -e 's/^.*dl("php_dbase.$dlext");/\/\/dl("php_dbase.$dlext");/' \
-#       $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml > /tmp/gmap75-dbase-hack.phtml
-#    mv  /tmp/gmap75-dbase-hack.phtml $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.phtml
-#    # Modify the IMAGEPATH to point to /tmp
-#    sed -e 's/^.*IMAGEPATH \"\/ms4w\/tmp\/ms_tmp\/\"/IMAGEPATH \"\/tmp\/\"/' \
-#       $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.map > /tmp/gmap75-mapfile-hack.phtml
-#    mv  /tmp/gmap75-mapfile-hack.phtml $MAPSERVER_DATA/demos/gmap/htdocs/gmap75.map
 fi
 
 # Add MapServer apache configuration
