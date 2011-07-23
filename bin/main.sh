@@ -141,6 +141,7 @@ for SCRIPT in \
   ./install_tinyows.sh \
   ./install_52nWSS.sh \
   ./install_pycsw.sh \
+  ./install_geomoose.sh \
   ./install_gisdata.sh \
   ./install_main_docs.sh \
   ./install_edutools.sh \
