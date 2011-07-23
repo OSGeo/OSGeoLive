@@ -26,7 +26,7 @@ cd `dirname ${0}`
 BUILD_DIR=`pwd`
 
 # Title
-echo '"Document","Contributor(s)","License(s)"'
+#echo '"Document","Contributor(s)","License(s)"'
 
 for DIR in  ../doc/en/overview ../doc/en/quickstart ;  do
   cd $BUILD_DIR/$DIR
