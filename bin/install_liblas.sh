@@ -49,7 +49,6 @@ cd $TMP
 ## Install ##
 
 # install pre-requisites
-## 16jul11  libboost1.42 available, 1.40 not? *sigh*
 apt-get install --yes cmake
 apt-get install --yes libboost1.42-dev libboost-program-options-dev libboost-thread1.42-dev libboost-serialization1.42-dev libgdal1-1.8.0 libgdal-dev libgeotiff-dev libgeotiff2
 
