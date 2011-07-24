@@ -133,6 +133,7 @@ fi
 
 # edit the panel to add these things
 ## .. if it hasn't already been done
+### TODO: the panel now appears to be in /home/user/.config/xfce4$ less xfconf/xfce-perchannel-xml/xfce4-panel.xml
 if [ `grep -c 'xfce4-menu" id="360"' /etc/xdg/xdg-xubuntu/xfce4/panel/panels.xml` -eq 0 ] ; then
    sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
       -e 's+\(launcher" id="3".*\)+\1\n\t\t\t<item name="launcher" id="361"/>+' \

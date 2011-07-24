@@ -1,6 +1,14 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 5.0beta2
+==================
+24 July 2011
+ * New Geomoose, Updated SAGA
+ * Fixes UDig, 52North
+ * Updated Docs
+ * Updated Translations
+
 Version 5.0~beta1
 ===================
 16 July 2011
