@@ -26,7 +26,7 @@
 # About:
 # =====
 # This script will install geonetwork into Xubuntu
-# stable version: v2.6.3 (18 January 2011) (also the manuals)
+# stable version: v2.6.4 (24 May 2011) (also the manuals)
 # based on Jetty + Geoserver + McKoi
 # Installed at /usr/lib/geonetwork
 # Port number =8880
@@ -42,7 +42,7 @@
 # To enter geonetwork, start browser with url:
 # http://localhost:8880/geonetwork
 #
-# GeoNetwork version 2.6.3 runs with java-sun-1.5 or java-sun-1.6.
+# GeoNetwork version 2.6.4 runs with java-sun-1.5 or java-sun-1.6.
 # It can be installed into servlet containers: jetty and tomcat. Jetty is   
 # bundled with the installer.
 #
@@ -71,19 +71,19 @@ cd "$TMP"
 
 
 # get geonetwork
-if [ -f "geonetwork-install-2.6.3-0.jar" ]
+if [ -f "geonetwork-install-2.6.4-0.jar" ]
 then
-   echo "geonetwork-install-2.6.3-0.jar has already been downloaded."
+   echo "geonetwork-install-2.6.4-0.jar has already been downloaded."
 else
-   wget -c --progress=dot:mega http://freefr.dl.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.6.3/geonetwork-install-2.6.3-0.jar
+   wget -c --progress=dot:mega http://freefr.dl.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.6.4/geonetwork-install-2.6.4-0.jar
 fi
 
 # get geonetwork doco - not just yet - has to be uploaded
-#if [ -f "GeoNetwork_opensource_v263_Manual.pdf" ]
+#if [ -f "GeoNetwork_opensource_v264_Manual.pdf" ]
 #then
-#   echo "GeoNetwork_opensource_v263_Manual.pdf has already been downloaded."
+#   echo "GeoNetwork_opensource_v264_Manual.pdf has already been downloaded."
 #else
-#   wget --progress=dot:binary http://transact.dl.sourceforge.net/project/geonetwork/Documentation/v2.6.3/GeoNetwork_opensource_v263_Manual.pdf
+#   wget --progress=dot:binary http://transact.dl.sourceforge.net/project/geonetwork/Documentation/v2.6.4/GeoNetwork_opensource_v264_Manual.pdf
 #fi
 
 
@@ -159,7 +159,7 @@ if [ -d "$GEONETWORK_FOLDER" ]
 then
 	( cd $GEONETWORK_FOLDER/bin; ./stop-geonetwork.sh )
 fi
-sudo java -jar geonetwork-install-2.6.3-0.jar install.xml
+sudo java -jar geonetwork-install-2.6.4-0.jar install.xml
 
 
 # copy jetty.xml to $GEONETWORK_FOLDER/bin
@@ -217,9 +217,9 @@ chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/geonetwork.desktop
 
 #Manual is being put into /usr/local/share and linked to the geonetwork documentation
 mkdir -p /usr/local/share/geonetwork
-#cp GeoNetwork_opensource_v263_Manual.pdf /usr/local/share/geonetwork/GeoNetwork_opensource_v263_Manual.pdf
+#cp GeoNetwork_opensource_v264_Manual.pdf /usr/local/share/geonetwork/GeoNetwork_opensource_v264_Manual.pdf
 #chmod 644 /usr/local/share/geonetwork/*.pdf
-#cp GeoNetwork_opensource_v263_Manual.pdf $USER_HOME/Desktop
-#chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/GeoNetwork_opensource_v263_Manual.pdf
+#cp GeoNetwork_opensource_v264_Manual.pdf $USER_HOME/Desktop
+#chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/GeoNetwork_opensource_v264_Manual.pdf
 
 exit 0
