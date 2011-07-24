@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -59,7 +59,7 @@ chown user:user "$USER_HOME/Desktop/passwords.txt"
 
 
 # Setup the desktop background
-wget --progress=dot:mega http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/live-dvd-FOSS4G_sm2.png --output-document=/usr/share/xfce4/backdrops/osgeo-desktop.png
+wget --progress=dot:mega http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/live-dvd-FOSS4G_sm2a.png --output-document=/usr/share/xfce4/backdrops/osgeo-desktop.png
 #wget --progress=dot:mega https://svn.osgeo.org/osgeo/livedvd/artwork/backgrounds/4.5/OSGeo_Live_4_5.png --output-document=/usr/share/xfce4/backdrops/osgeo-desktop.png
 #cp ../desktop-conf/bg4_livedvd4.png \
 #     /usr/share/xfce4/backdrops/osgeo-desktop.png
