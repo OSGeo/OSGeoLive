@@ -71,7 +71,10 @@ else
 fi
 # unpack it
 unzip -q "$GEOKETTLE_FILENAME" -d "$TMP/$GEOKETTLE_BASENAME"
+
 # move the contents to /opt/geokettle and clean the temp directory
+mkdir -p "$GEOKETTLE_FOLDER"
+
 cd "$TMP/$GEOKETTLE_BASENAME"
 mv * "$GEOKETTLE_FOLDER"
 cd ..
