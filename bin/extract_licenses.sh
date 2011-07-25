@@ -22,34 +22,35 @@
 ##################################################
 
 # Store the script root directory for later
-cd `dirname ${0}`
+cd `dirname "$0"`
 BUILD_DIR=`pwd`
 
 # Title
 #echo '"Document","Contributor(s)","License(s)"'
 
 for DIR in  ../doc/en/overview ../doc/en/quickstart ;  do
-  cd $BUILD_DIR/$DIR
+  cd "$BUILD_DIR/$DIR"
 
-  for FILE in  `ls *.rst` ;  do
+  for FILE in *.rst ;  do
     # Document
     echo -n "\""
-    echo -n $FILE | sed -e 's/.rst$//'
+    echo -n "$FILE" | sed -e 's/.rst$//'
     echo -n "\",\""
 
     # Contributors
-    awk '/^:Author:/{printf("%s;", $0)}' $FILE | \
+    awk '/^:Author:/{printf("%s;", $0)}' "$FILE" | \
       sed -e 's/:Author:\s*//g'
 
-    awk '/^:Reviewer:/{printf("%s;", $0)}' $FILE | \
+    awk '/^:Reviewer:/{printf("%s;", $0)}' "$FILE" | \
       sed -e 's/:Reviewer:\s*//g'
 
 
     # License(s)
     echo -n "\",\""
-    awk '/^:License:/{printf("%s", $0)}' $FILE | \
+    awk '/^:License:/{printf("%s", $0)}' "$FILE" | \
       sed -e 's/:License:\s*//g'
     echo "\""
 
   done
 done
+
