@@ -1,10 +1,10 @@
 <tinyows online_resource="http://127.0.0.1/cgi-bin/tinyows"
 	 schema_dir="/usr/share/tinyows/schema/">
 
-  <pg host="localhost" user="user" password="user" dbname="natural_earth" port="5432" />
-  
+  <pg host="127.0.0.1" user="user" password="user" dbname="pgrouting" port="5432"/>
+
   <metadata name="TinyOWS Server"
-	    title="TinyOWS Server - Natural Earth" />
+	    title="TinyOWS Server - Demo Service" />
 
   <contact name="TinyOWS Server"
     	   site="http://www.tinyows.org/"
@@ -14,14 +14,7 @@
 	 writable="1"
 	 prefix="tows"
 	 server="http://www.tinyows.org/"
-         name="10m_geography_regions_points"
-         title="Geography Regions (Points)" />
-
-  <layer retrievable="1"
-	 writable="1"
-	 prefix="tows"
-	 server="http://www.tinyows.org/"
-         name="10m_geography_regions_polys"
-         title="Geography Regions (Polygons)" />
+         name="ways"
+         title="Ways" />
 
 </tinyows>
