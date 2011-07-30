@@ -1,6 +1,14 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 5.0beta3
+=================
+30 July 2011
+ * Fresh downloads (no cache)
+ * ISO and VM to be built
+ * Updated Docs
+ * Updated Translations
+
 Version 5.0beta2
 ==================
 24 July 2011
