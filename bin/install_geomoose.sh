@@ -21,7 +21,7 @@
 # =======
 # sudo ./install_geomoose.sh
 
-apt-get install php5-sqlite
+apt-get --assume-yes install php5-sqlite
 
 USER_NAME="user"
 USER_DIR="/home/user"
