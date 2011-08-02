@@ -102,7 +102,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 # update tomcat server.xml conf to enable ajp
-wget -O - http://www.mapfish.org/downloads/foss4g_livedvd/tomcat-server.xml.patch | patch $TOMCAT_SERVER_CONF
+wget -O - http://www.mapfish.org/downloads/foss4g_livedvd/tomcat-server.xml.patch | patch -N $TOMCAT_SERVER_CONF
 /etc/init.d/tomcat6 restart
 
 # configure apache
