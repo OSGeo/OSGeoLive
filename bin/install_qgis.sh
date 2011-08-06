@@ -160,15 +160,19 @@ if [ -e "$QGIS_CONFIG" ] && \
 	cat >> "/home/$USER_NAME/.config/QuantumGIS/QGIS.conf" <<EOF
 
 [PostgreSQL]
-connections\selected=local
-connections\local\host=localhost
-connections\local\database=postgres
-connections\local\port=5432
-connections\local\username=user
-connections\local\password=user
-connections\local\publicOnly=false
-connections\local\geometryColumnsOnly=false
-connections\local\save=true
+connections\selected=NaturalEarth
+connections\NaturalEarth\service=
+connections\NaturalEarth\host=localhost
+connections\NaturalEarth\database=natural_earth
+connections\NaturalEarth\port=5432
+connections\NaturalEarth\username=user
+connections\NaturalEarth\password=user
+connections\NaturalEarth\publicOnly=false
+connections\NaturalEarth\allowGeometrylessTables=false
+connections\NaturalEarth\sslmode=1
+connections\NaturalEarth\saveUsername=true
+connections\NaturalEarth\savePassword=true
+connections\NaturalEarth\estimatedMetadata=false
 EOF
 fi
 
