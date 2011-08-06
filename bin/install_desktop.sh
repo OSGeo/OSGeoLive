@@ -27,7 +27,7 @@ BUILD_DIR=`pwd`
 ################################################
 
 #Desktop apps part 1 (traditional analytic GIS)
-DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo_2.0
+DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo
               spatialite-gis saga_gui atlasstyler geopublisher"
 
 #Desktop apps part 2 (geodata viewers and editors)
@@ -35,10 +35,10 @@ NAV_APPS="marble gpsdrive opencpn josm gosmore merkaartor viking zygrib"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
-              qgis-mapserver zoo-project 52n* mapguide* *[Rr]asdaman*"
+              qgis-mapserver zoo-project 52n* mapguide* *[Rr]asdaman* pycsw"
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="geomajas-* mapbender MapFish"
+BROWSER_CLIENTS="geomajas-* mapbender MapFish GeoMOOSE"
 
 #Infrastructure and miscellanea
 SPATIAL_TOOLS="imagelinker r geokettle openlayers
