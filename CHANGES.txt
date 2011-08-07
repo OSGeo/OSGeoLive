@@ -1,5 +1,13 @@
 OSGeo Live GIS Disc
 ===================
+Version 5.0beta4
+=================
+6 August 2011
+ * Fresh downloads (no cache)
+ * ISO and VM to be built
+ * Updated Docs
+ * Updated Translations
+ * Minor Fixes to UDig, QGIS, R
 
 Version 5.0beta3
 =================
