@@ -27,7 +27,7 @@ BUILD_DIR=`pwd`
 ################################################
 
 #Desktop apps part 1 (traditional analytic GIS)
-DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet Kosmo
+DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet *Kosmo*
               spatialite-gis saga_gui atlasstyler geopublisher"
 
 #Desktop apps part 2 (geodata viewers and editors)
