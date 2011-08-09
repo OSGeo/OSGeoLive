@@ -64,12 +64,12 @@ EOF
 for URL in \
   http://download.osgeo.org/osgeo4w/osgeo4w-setup.exe \
   http://forge.osor.eu/frs/download.php/1279/gvSIG-1_10-1264-final-win-i586-withjre-j1_5.exe \
-  http://qgis.org/downloads/QGIS-OSGeo4W-1.6.0-14615-Setup-2.exe \
+  http://qgis.org/downloads/QGIS-OSGeo4W-1.7.0-b55a00e73-Setup.exe \
   http://home.gdal.org/tmp/vcredist_x86.exe \
-  http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.1RC1-1-Setup.exe \
+  http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.1-1-Setup.exe \
   http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.4.2-Setup.exe \
-  http://gpsvp.googlecode.com/files/gpsVPxp_0.4.20.zip \
-  http://downloads.sourceforge.net/project/opencpn/opencpn/2.3.1/opencpn_2.3.1_setup.exe?use_mirror=cdnetworks-us-2 \
+  http://gpsvp.googlecode.com/files/gpsVPxp_0.4.22.zip \
+  http://downloads.sourceforge.net/project/opencpn/opencpn/2.5.0/opencpn_2.5.0_setup.exe?use_mirror=cdnetworks-us-2 \
   http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe \
   http://sourceforge.net/projects/saga-gis/files/SAGA%20-%202.0/SAGA%202.0.6/saga_2.0.6_win32_setup.exe?use_mirror=cdnetworks-us-2 \
 ; do

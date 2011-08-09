@@ -42,10 +42,10 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
-PKG="opencpn_2.3.1-1_i386.deb"
+PKG="opencpn_2.5.0-2_i386.deb"
 
 wget -c --progress=dot:mega \
-  "http://downloads.sourceforge.net/project/opencpn/opencpn/2.3.1/$PKG"
+  "http://opencpn.org/sites/default/files/users/taifun/$PKG"
 
 # recommended:
 apt-get --assume-yes install gpsd gpsd-clients python-gps
