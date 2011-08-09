@@ -61,6 +61,10 @@ EOF
 chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
 
 
+#### a handy python utility
+svn co http://svn.openstreetmap.org/applications/utils/python_lib/OsmApi .
+cp OsmApi.py /usr/lib/python2.7/
+
 #### desktop icons
 echo '#!/usr/bin/env xdg-open' > "$USER_HOME"/Desktop/josm.desktop
 cat /usr/share/applications/josm.desktop >> "$USER_HOME"/Desktop/josm.desktop
