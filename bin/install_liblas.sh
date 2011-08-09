@@ -42,15 +42,19 @@ if [ ! -x "`which wget`" ] ; then
    echo "ERROR: wget is required, please install it and try again" 
    exit 1
 fi
+
 # create tmp folders
-mkdir $TMP
-cd $TMP
+mkdir -p "$TMP"
+cd "$TMP"
+
 
 ## Install ##
 
 # install pre-requisites
 apt-get install --yes cmake
-apt-get install --yes libboost1.42-dev libboost-program-options-dev libboost-thread1.42-dev libboost-serialization1.42-dev libgdal1-1.8.0 libgdal-dev libgeotiff-dev libgeotiff2
+apt-get install --yes libboost1.42-dev libboost-program-options-dev \
+   libboost-thread1.42-dev libboost-serialization1.42-dev libgdal1-1.8.0 \
+   libgdal-dev libgeotiff-dev libgeotiff2
 
 # get libLAS
 wget -c --progress=dot:mega http://download.osgeo.org/liblas/libLAS-1.7.0b2.tar.gz
@@ -66,6 +70,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 cd laszip-2.0.1
+# fixme: please install to /usr/local/
 cmake -G "Unix Makefiles" . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release
 make
 make install
@@ -107,14 +112,27 @@ python setup.py install
 
 
 ## Shared Resources ##
-mkdir -p $LIBLAS_FOLDER
-mkdir -p $LIBLAS_FOLDER/python
+mkdir -p "$LIBLAS_FOLDER"
+mkdir -p "$LIBLAS_FOLDER/python"
 
-cp -R examples scripts tests  $LIBLAS_FOLDER/python/
+cp -R examples scripts tests  "$LIBLAS_FOLDER/python/"
 
 cd ..
-cp -R doc $LIBLAS_FOLDER/
-cp -R test $LIBLAS_FOLDER/
-cp LICENSE.txt NEWS README.txt $LIBLAS_FOLDER/
+cp -R doc "$LIBLAS_FOLDER/"
+cp -R test "$LIBLAS_FOLDER/"
+cp LICENSE.txt NEWS README.txt "$LIBLAS_FOLDER/"
+
+
+## cleanup dev packages
+#make sure these stay installed
+apt-get --yes install libboost-date-time1.42.0 \
+   libboost-program-options1.42.0 libboost-serialization1.42.0
+
+#cmake is cleaned up by setdown.sh
+apt-get --yes remove libboost1.42-dev libboost-program-options-dev \
+   libboost-thread1.42-dev libboost-serialization1.42-dev \
+   libgdal-dev libgeotiff-dev
+
+echo "FIXME: make sure we haven't lost any important automatically installed pkgs"
 
 
