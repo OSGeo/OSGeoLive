@@ -33,6 +33,14 @@ TMP="$WORKDIR/ISOTMP"
 LOGS="/var/log/osgeolive/remastersys.conf"
 DOCS_SRC="/var/www"
 
+
+# removal of stuff we like on the VM, but not strictly needed on the ISO
+apt-get remove --yes linux-headers-2.6.38-10
+#just in case alex forgets :)
+apt-get remove --yes linux-image-2.6.38-8-generic
+
+
+
 # Install remastersys.sh add directories it expects
 mkdir -p $TMP
 mkdir -p $WORKDIR/ISOTMP/casper
