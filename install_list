@@ -37,7 +37,7 @@ mapnik
 mapserver
 maptiler
 marble
-mb-system
+#mb-system # works fine, but we don't have the disc space right now
 #octave    # geo aspect not on par
 opencpn
 openjump

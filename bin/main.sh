@@ -127,7 +127,6 @@ for SCRIPT in \
   ./install_atlasstyler.sh \
   ./install_liblas.sh \
   ./install_gpsdrive.sh \
-  ./install_mb-system.sh \
   ./install_mapfish.sh \
   ./install_openlayers.sh \
   ./install_R.sh \
@@ -162,6 +161,9 @@ for SCRIPT in \
   echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
   echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
 done
+
+# works, but ran out of disc space:
+#    ./install_mb-system.sh
 
 
 # write installed package manifest
