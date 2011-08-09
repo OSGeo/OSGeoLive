@@ -171,12 +171,13 @@ sources:
     type: tile
     url: http://127.0.0.1:8012/%(z)d/%(x)d/%(y)d.png
     origin: nw
+    transparent: true
 
   mapnik:
     type: mapnik
     mapfile: /usr/local/share/mapnik/demo/population.xml
 
-  # TODO: MapServer example on LiveDVD does not as WMS
+  # TODO: MapServer example on LiveDVD (4.5) does not work as WMS
   # mapserver:
   #   type: wms
   #   supported_srs: ['epsg:26915']
