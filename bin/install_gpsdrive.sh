@@ -357,9 +357,9 @@ fi
 
 # program defaults
 cat << EOF > "$USER_HOME/.gpsdrive/gpsdriverc"
-lastlong = -105.8
-lastlat = 39.7
-scalewanted = 100000
+lastlong = -104.9895
+lastlat = 39.7424
+scalewanted = 3000
 dashboard_3 = 12
 autobestmap = 0
 mapnik = 1
@@ -377,7 +377,8 @@ EOF
 cat << EOF > "$USER_HOME/.gpsdrive/way.txt"
 Sydney_Convention_Centre        -33.8750  151.2005
 Barcelona_Convention_Centre      41.3724    2.1518
-FOSS4G_2011_city_of_venue        39.7    -105.8
+FOSS4G_2011_(Sheraton_Denver)    39.74251 -104.9891
+OSM_State_of_the_Map_2011        39.7457  -105.0034
 EOF
 
 #download latest OSM POIs for Denver (does not exist yet!)
@@ -396,7 +397,7 @@ sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share
     -e 's+/usr/share/mapnik/world_boundaries/world_bnd_m+/usr/local/share/data/natural_earth/10m_land+' \
     -e 's/Layer name="world".*/Layer name="world" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
     \
-    -e 's+/usr/share/mapnik/world_boundaries/processed_p+/usr/local/share/osm/barcelona_coastline_box/barcelona_coastline_box+' \
+    -e 's+/usr/share/mapnik/world_boundaries/processed_p+/usr/local/share/data/natural_earth/10m_land+' \
     -e 's/Layer name="coast-poly".*/Layer name="coast-poly" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
     \
     -e 's+/usr/share/mapnik/world_boundaries/builtup_area+/usr/local/share/data/natural_earth/10m_urban_areas+' \
