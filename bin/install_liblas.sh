@@ -74,8 +74,7 @@ fi
 ## begin build
 
 cd $LASZIP_REV
-# fixme: please install to /usr/local/
-cmake -G "Unix Makefiles" . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release
+cmake -G "Unix Makefiles" . -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release
 
 ##--------------------------------------
 make
