@@ -198,8 +198,8 @@ echo "Chart download complete."
 cd "$WD"
 cp ../app-conf/opencpn/noaa_agreement.txt "$DATADIR/"
 cp ../app-conf/opencpn/opencpn_noaa_agreement.sh /usr/local/bin/
+cp ../app-conf/opencpn/launch_opencpn.sh /usr/local/bin/
 apt-get --assume-yes install gxmessage
-
 
 
 #### pre-set config file with data paths and initial position
@@ -236,7 +236,7 @@ Encoding=UTF-8
 Name=OpenCPN
 Comment=GPS Navigation. You need to setup Gpsd manually
 Categories=Application;Education;Geography;
-Exec=/usr/local/bin/opencpn
+Exec=/usr/local/bin/launch_opencpn.sh
 Icon=/usr/share/icons/opencpn.png
 Terminal=false
 EOF
