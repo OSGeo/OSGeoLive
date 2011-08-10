@@ -80,11 +80,11 @@ home page is now set to file://$DEST/index.html"
 #   to been started at least once to set it up
 
 # edit ~user/.mozilla/firefox/$RANDOM.default/prefs.js:
-#   user_pref("browser.startup.homepage", "file:///usr/local/share/osgeolive-docs/index.html");
+#   user_pref("browser.startup.homepage", "http://localhost");
 
 PREFS_FILE=`find "$USER_HOME/.mozilla/firefox/" | grep -w default/prefs.js | head -n 1`
 if [ -n "$PREFS_FILE" ] ; then
-   sed -i -e 's+\(homepage", "\)[^"]*+\1file:///usr/local/share/osgeolive-docs/index.html+' \
+   sed -i -e 's+\(homepage", "\)[^"]*+\1http://localhost+' \
       "$PREFS_FILE"
 
    # firefox snafu: needed for web apps to work if network is not there
@@ -95,14 +95,14 @@ fi
 
 # reset the homepage for the main ubuntu-firefox theme too (if present)
 if [ -e /etc/xul-ext/ubufox.js  ] ; then
-   sed -i -e 's+^//pref("browser.startup.homepage".*+pref("browser.startup.homepage", "file:///usr/local/share/osgeolive-docs/index.html");+' \
+   sed -i -e 's+^//pref("browser.startup.homepage".*+pref("browser.startup.homepage", "http://localhost");+' \
        /etc/xul-ext/ubufox.js
 fi     
 
 # how about this one?
-if [ `grep -c 'osgeolive' /etc/firefox/pref/firefox.js` -eq 0 ] ; then
-   echo 'pref("browser.startup.homepage", "file:///usr/local/share/osgeolive-docs/index.html"' \
-      >> /etc/firefox/pref/firefox.js
+if [ `grep -c 'localhost' /etc/firefox/pref/syspref.js` -eq 0 ] ; then
+   echo 'pref("browser.startup.homepage", "http://localhost";' \
+      >> /etc/firefox/pref/syspref.js
 fi
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
