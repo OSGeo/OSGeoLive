@@ -85,6 +85,13 @@ rmdir "$TMP/$GEOKETTLE_BASENAME"
 # make shell scripts executable
 chmod a+x "$GEOKETTLE_FOLDER"/*.sh
 
+## remove unnecessary runtime libs 10Aug11
+rm -rf /opt/geokettle/libext/geometry/libgdal/win32
+rm -rf /opt/geokettle/libext/geometry/libgdal/win64
+rm -rf /opt/geokettle/libext/geometry/libgdal/osx
+rm -rf /opt/geokettle/libext/geometry/libgdal/linux/x86_64
+
+##---------------------------------------------------------------
 # Create desktop icon
 cat << EOF > "$USER_HOME/$DESKTOP/geokettle.desktop"
 [Desktop Entry]
