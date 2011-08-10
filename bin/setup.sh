@@ -88,10 +88,15 @@ apt-get remove --yes gnome-games-common \
 # remove xscreensaver as it tends to saturate VM bandwidth
 apt-get --assume-yes remove xscreensaver
 
+# Perhaps this is the original version before updates?
+apt-get --assume-yes remove linux-image-2.6.38-8-generic
+
 # this will clear out 96mb (uncompressed), but users who want the
 # nvidia proprietary driver will need to reinstall it. ah well.
 #Version must be kept up to date (removes 3 packages)
 apt-get --assume-yes remove linux-headers-2.6.38-8
+apt-get --assume-yes remove linux-headers-2.6.38-10
+
 
 # Remove unused home directories
 #?? rm -fr /home/user/Downloads
