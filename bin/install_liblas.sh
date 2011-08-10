@@ -1,14 +1,14 @@
 #!/bin/sh
 #################################################
-# 
-# Purpose: Install libLAS 
+#
+# Purpose: Install libLAS
 # Author:  Brian Hamlin dbb maplabs@light42.com
 #
 #################################################
 # Copyright (c) 2011 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU GPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -35,6 +35,10 @@ LIBLAS_FOLDER="$INSTALL_FOLDER/libLAS"
 BIN="/usr/local/bin"
 USER_HOME="/home/$USER_NAME"
 
+LIBLAS_REV="libLAS-1.7.0b2"
+LASZIP_REV="laszip-2.0.1"
+
+##-----------------------------------------------------
 ## Setup things... ##
 
 # check required tools are installed
@@ -47,9 +51,6 @@ fi
 mkdir -p "$TMP"
 cd "$TMP"
 
-
-## Install ##
-
 # install pre-requisites
 apt-get install --yes cmake
 apt-get install --yes libboost1.42-dev libboost-program-options-dev \
@@ -57,26 +58,42 @@ apt-get install --yes libboost1.42-dev libboost-program-options-dev \
    libgdal-dev libgeotiff-dev libgeotiff2
 
 # get libLAS
-wget -c --progress=dot:mega http://download.osgeo.org/liblas/libLAS-1.7.0b2.tar.gz
-wget -c --progress=dot:mega http://download.osgeo.org/laszip/laszip-2.0.1.tar.gz
+wget -c --progress=dot:mega http://download.osgeo.org/liblas/$LIBLAS_REV.tar.gz
+wget -c --progress=dot:mega http://download.osgeo.org/laszip/$LASZIP_REV.tar.gz
 
 # unpack it
-tar xzf laszip-2.0.1.tar.gz
-tar xzf libLAS-1.7.0b2.tar.gz
+tar xzf $LIBLAS_REV.tar.gz
+tar xzf $LASZIP_REV.tar.gz
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: libLAS download failed."
    exit 1
 fi
 
-cd laszip-2.0.1
+##--------------------------------------
+## begin build
+
+cd $LASZIP_REV
 # fixme: please install to /usr/local/
 cmake -G "Unix Makefiles" . -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release
+
+##--------------------------------------
 make
+if [ $? -ne 0 ] ; then
+   echo "ERROR: laszip make failed."
+   exit 1
+fi
+
 make install
+if [ $? -ne 0 ] ; then
+   echo "ERROR: laszip install failed."
+   exit 1
+fi
+
 ldconfig
 
-cd ../libLAS-1.7.0b2
+##--------------------------------------
+cd ../$LIBLAS_REV
 mkdir makefiles
 cd makefiles
 
@@ -95,12 +112,20 @@ cmake -G "Unix Makefiles" ../ \
         -DWITH_GEOTIFF=ON \
         -DWITH_LASZIP=ON
 
-
-## build  TODO check status...
+##-----------------------------------
+## build - check status...
 make
+if [ $? -ne 0 ] ; then
+   echo "ERROR: libLAS make failed."
+   exit 1
+fi
 
-## 
+##
 make install
+if [ $? -ne 0 ] ; then
+   echo "ERROR: libLAS install failed."
+   exit 1
+fi
 
 ##
 ldconfig
@@ -123,12 +148,13 @@ cp -R test "$LIBLAS_FOLDER/"
 cp LICENSE.txt NEWS README.txt "$LIBLAS_FOLDER/"
 
 
+##------------------------------------------------------------
 ## cleanup dev packages
-#make sure these stay installed
+##   make sure these stay installed
 apt-get --yes install libboost-date-time1.42.0 \
    libboost-program-options1.42.0 libboost-serialization1.42.0
 
-#cmake is cleaned up by setdown.sh
+# note - cmake is cleaned up by setdown.sh
 apt-get --yes remove libboost1.42-dev libboost-program-options-dev \
    libboost-thread1.42-dev libboost-serialization1.42-dev \
    libgdal-dev libgeotiff-dev
