@@ -18,17 +18,18 @@ DATA_FOLDER="/usr/local/share/data"
 
 #Add repositories
 
-#wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
-#     --output-document=/etc/apt/sources.list.d/ubuntugis.list
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+     --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
-#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 
+sudo apt-get update
 
 # install main dependencies
 
-apt-get install --assume-yes libtiff4 libgeotiff1.2 libgdal1-1.7.0 \
+apt-get install --assume-yes libtiff4 libgeotiff1.2 libgdal1-1.8.0 \
   libfreetype6 libcurl3 libopenscenegraph65 libqt4-opengl \
-  libexpat1 libpng3 libgdal1-1.7.0-grass libfftw3-3 libqt3-mt libopenmpi1.3
+  libexpat1 libpng3 libgdal1-1.8.0-grass libfftw3-3 libqt3-mt libopenmpi1.3 libqt4-qt3support
   
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
