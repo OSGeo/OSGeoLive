@@ -118,21 +118,8 @@ cd "$USER_HOME/Desktop"
 if [ `grep -c 'value="Geospatial Apps"' /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml` -eq 0 ] ; then
   sed -i -e 's+\(<value type="int" value="1"/>\)+\1\n\t<value type="int" value="365"/>\n\t<value type="int" value="360"/>\n\t<value type="int" value="366"/>+' \
          -e 's+<value type="int" value="6"/>+<value type="int" value="362"/>+' \
-	 -e 's+^\(  </property>\)+
-    <property name="plugin-365" type="string" value="separator">
-      <property name="style" type="uint" value="3"/>
-    </property>
-    <property name="plugin-366" type="string" value="separator">
-      <property name="style" type="uint" value="3"/>
-    </property>
-    <property name="plugin-360" type="string" value="applicationsmenu">
-      <property name="custom-menu" type="bool" value="true"/>
-      <property name="custom-menu-file" type="string" value="/usr/local/share/xfce/xfce-osgeo.menu"/>
-      <property name="button-icon" type="string" value="gnome-globe"/>
-      <property name="button-title" type="string" value="Geospatial Apps"/>
-    </property>
-    <property name="plugin-362" type="string" value="cpugraph"/>
-\1+' /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml
+	 -e 's+^\(  </property>\)+<property name="plugin-365" type="string" value="separator">\n      <property name="style" type="uint" value="3"/>\n    </property>\n    <property name="plugin-366" type="string" value="separator">\n      <property name="style" type="uint" value="3"/>\n    </property>\n    <property name="plugin-360" type="string" value="applicationsmenu">\n      <property name="custom-menu" type="bool" value="true"/>\n      <property name="custom-menu-file" type="string" value="/usr/local/share/xfce/xfce-osgeo.menu"/>\n      <property name="button-icon" type="string" value="gnome-globe"/>\n      <property name="button-title" type="string" value="Geospatial Apps"/>\n    </property>\n    <property name="plugin-362" type="string" value="cpugraph"/>\n\1+' \
+	    /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml
 fi
 
 if [ -e "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" ] ; then
