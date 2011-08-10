@@ -61,7 +61,16 @@ DejaVuSerif-Italic|DejaVu Serif Italic|1|/usr/share/fonts/truetype/ttf-dejavu/De
 DejaVuSerifCondensed|DejaVu Serif Condensed|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerifCondensed.ttf|0|utf-8|
 DejaVuSerifCondensed-Bold|DejaVu Serif Condensed Bold|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerifCondensed-Bold.ttf|0|utf-8|
 DejaVuSerifCondensed-BoldItalic|DejaVu Serif Condensed Bold Italic|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerifCondensed-BoldItalic.ttf|0|utf-8|
-DejaVuSerifCondensed-Italic|DejaVu Serif Condensed|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerifCondensed-Italic.ttf|0|utf-8|
+DejaVuSerifCondensed-Italic|DejaVu Serif Condensed Italic|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerifCondensed-Italic.ttf|0|utf-8|
+DroidSans|Droid Sans Regular|1|/usr/share/fonts/truetype/ttf-droid/DroidSans.ttf|0|utf-8|
+DroidSans-Bold|Droid Sans Bold|1|/usr/share/fonts/truetype/ttf-droid/DroidSans-Bold.ttf|0|utf-8|
+DroidSansFallback|Droid Sans Fallback Regular|1|/usr/share/fonts/truetype/ttf-droid/DroidSansFallback.ttf|0|utf-8|
+DroidSansJapanese|Droid Sans Japanese Regular|1|/usr/share/fonts/truetype/ttf-droid/DroidSansJapanese.ttf|0|utf-8|
+DroidSansMono|Droid Sans Mono Regular|1|/usr/share/fonts/truetype/ttf-droid/DroidSansMono.ttf|0|utf-8|
+DroidSerif-Bold|Droid Serif Bold|1|/usr/share/fonts/truetype/ttf-droid/DroidSerif-Bold.ttf|0|utf-8|
+DroidSerif-BoldItalic|Droid Serif Bold Italic|1|/usr/share/fonts/truetype/ttf-droid/DroidSerif-BoldItalic.ttf|0|utf-8|
+DroidSerif-Italic|Droid Serif Italic|1|/usr/share/fonts/truetype/ttf-droid/DroidSerif-Italic.ttf|0|utf-8|
+DroidSerif-Regular|Droid Serif Regular|1|/usr/share/fonts/truetype/ttf-droid/DroidSerif-Regular.ttf|0|utf-8|
 esint10|esint10 regular|1|/usr/share/fonts/truetype/ttf-lyx/esint10.ttf|0|utf-8|
 eufm10|eufm10 Regular|1|/usr/share/fonts/truetype/ttf-lyx/eufm10.ttf|0|utf-8|
 FreeMono|FreeMono Medium|1|/usr/share/fonts/truetype/freefont/FreeMono.ttf|0|utf-8|
@@ -155,6 +164,7 @@ Purisa-BoldOblique|Purisa BoldOblique|1|/usr/share/fonts/truetype/thai/Purisa-Bo
 Purisa-Oblique|Purisa Oblique|1|/usr/share/fonts/truetype/thai/Purisa-Oblique.ttf|0|utf-8|
 Rachana_04|Rachana Regular|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/Rachana_04.ttf|0|utf-8|
 Rekha|Rekha Medium|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/Rekha.ttf|0|utf-8|
+rsfs10|rsfs10 Roman|1|/usr/share/fonts/truetype/ttf-lyx/rsfs10.ttf|0|utf-8|
 s050000l|Standard Symbols L Regular|1|/usr/share/fonts/type1/gsfonts/s050000l.pfb|0|utf-8|
 Saab|Saab Regular|1|/usr/share/fonts/truetype/ttf-punjabi-fonts/Saab.ttf|0|utf-8|
 Sawasdee|Sawasdee Regular|1|/usr/share/fonts/truetype/thai/Sawasdee.ttf|0|utf-8|
@@ -179,6 +189,12 @@ TlwgTypo-Bold|Tlwg Typo Bold|1|/usr/share/fonts/truetype/thai/TlwgTypo-Bold.ttf|
 TlwgTypo-BoldOblique|Tlwg Typo BoldOblique|1|/usr/share/fonts/truetype/thai/TlwgTypo-BoldOblique.ttf|0|utf-8|
 TlwgTypo-Oblique|Tlwg Typo Oblique|1|/usr/share/fonts/truetype/thai/TlwgTypo-Oblique.ttf|0|utf-8|
 ttf-japanese-gothic|TakaoPGothic Regular|1|/usr/share/fonts/truetype/ttf-japanese-gothic.ttf|0|utf-8|
+Ubuntu-B|Ubuntu Bold|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf|0|utf-8|
+Ubuntu-BI|Ubuntu Bold Italic|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-BI.ttf|0|utf-8|
+Ubuntu-L|Ubuntu Light|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-L.ttf|0|utf-8|
+Ubuntu-LI|Ubuntu Light Italic|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-LI.ttf|0|utf-8|
+Ubuntu-R|Ubuntu Regular|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf|0|utf-8|
+Ubuntu-RI|Ubuntu Italic|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-RI.ttf|0|utf-8|
 Umpush|Umpush Book|1|/usr/share/fonts/truetype/thai/Umpush.ttf|0|utf-8|
 Umpush-Bold|Umpush Bold|1|/usr/share/fonts/truetype/thai/Umpush-Bold.ttf|0|utf-8|
 Umpush-BoldOblique|Umpush BoldOblique|1|/usr/share/fonts/truetype/thai/Umpush-BoldOblique.ttf|0|utf-8|
