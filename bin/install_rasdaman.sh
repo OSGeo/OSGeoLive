@@ -139,7 +139,9 @@ su - $USER_NAME $RASDAMAN_HOME/bin/start_rasdaman.sh
 apt-get autoremove --assume-yes openjdk-6-jdk libreadline-dev \
    libssl-dev libncurses5-dev libtiff4-dev libjpeg62-dev libhdf4g-dev \
    libpng12-dev libnetpbm10-dev
-apt-get install openjdk-6-jre libecpg6 --assume-yes
+
+# Sun's Java should already be present..
+apt-get install libecpg6 --assume-yes
 
 #Don't delete the tmp files, so we can stash them in a cache
 #rm "$TMP" -rf
