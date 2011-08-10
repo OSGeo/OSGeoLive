@@ -58,11 +58,9 @@ cp ../doc/passwords.txt "$USER_HOME/Desktop/"
 chown user:user "$USER_HOME/Desktop/passwords.txt"
 
 
-# Setup the desktop background
-wget --progress=dot:mega http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/desktop-conf/live-dvd-FOSS4G_sm2a.png --output-document=/usr/share/xfce4/backdrops/osgeo-desktop.png
-#wget --progress=dot:mega https://svn.osgeo.org/osgeo/livedvd/artwork/backgrounds/4.5/OSGeo_Live_4_5.png --output-document=/usr/share/xfce4/backdrops/osgeo-desktop.png
-#cp ../desktop-conf/bg4_livedvd4.png \
-#     /usr/share/xfce4/backdrops/osgeo-desktop.png
+# Setup the desktop background image
+cp ../desktop-conf/live-dvd-FOSS4G_sm2a.png \
+   /usr/share/xfce4/backdrops/osgeo-desktop.png
 
 #Done:support for headless installs with or without user existing, preference for png
 #Only works if user is not logged into XFCE session
@@ -90,7 +88,7 @@ chown user.user "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-deskt
 
 #Add the launchhelp script which allows other apps to provide sudo
 #    launching with the password already embedded
-#Geonetwork and deegree needs this right now
+#Geonetwork and deegree need this right now
 cp "$USER_HOME/gisvm/bin/launchassist.sh" "$USER_HOME/"
 chmod 755 "$USER_HOME/launchassist.sh"
 
@@ -115,42 +113,41 @@ cd "$USER_HOME/Desktop"
 
 ##### create and populate the Geospatial menu, add launchers to the panel
 
-mkdir /usr/local/share/xfce
-# OSGeo menu, Terminal launcher, and CPU load for top taskbar:
-cp "$BUILD_DIR"/../desktop-conf/xfce/xfce4-menu-360.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
-cp "$BUILD_DIR"/../desktop-conf/xfce/launcher-361.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
+## OSGeo menu and CPU load for top taskbar:
+
+if [ `grep -c 'value="Geospatial Apps"' /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml` -eq 0 ] ; then
+  sed -i -e 's+\(<value type="int" value="1"/>\)+\1\n\t<value type="int" value="365"/>\n\t<value type="int" value="360"/>\n\t<value type="int" value="366"/>+' \
+         -e 's+<value type="int" value="6"/>+<value type="int" value="362"/>+' \
+	 -e 's+^\(  </property>\)+
+    <property name="plugin-365" type="string" value="separator">
+      <property name="style" type="uint" value="3"/>
+    </property>
+    <property name="plugin-366" type="string" value="separator">
+      <property name="style" type="uint" value="3"/>
+    </property>
+    <property name="plugin-360" type="string" value="applicationsmenu">
+      <property name="custom-menu" type="bool" value="true"/>
+      <property name="custom-menu-file" type="string" value="/usr/local/share/xfce/xfce-osgeo.menu"/>
+      <property name="button-icon" type="string" value="gnome-globe"/>
+      <property name="button-title" type="string" value="Geospatial Apps"/>
+    </property>
+    <property name="plugin-362" type="string" value="cpugraph"/>
+\1+' /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml
+fi
+
+if [ -e "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" ] ; then
+  cp -f /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml \
+     "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
+fi
+
 cp "$BUILD_DIR"/../desktop-conf/xfce/cpugraph-362.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
-cp "$BUILD_DIR"/../desktop-conf/xfce/xkb-plugin-363.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 
-# also modify user account's version, if it exists
-USER_PANEL="$USER_HOME/.config/xfce4/panel"
-if [ -d "$USER_PANEL" ] ; then
-   cp "$BUILD_DIR"/../desktop-conf/xfce/xfce4-menu-360.rc "$USER_PANEL"
-   cp "$BUILD_DIR"/../desktop-conf/xfce/launcher-361.rc "$USER_PANEL"
-   cp "$BUILD_DIR"/../desktop-conf/xfce/cpugraph-362.rc "$USER_PANEL"
-   cp "$BUILD_DIR"/../desktop-conf/xfce/xkb-plugin-363.rc "$USER_PANEL"
-fi
 
-# edit the panel to add these things
-## .. if it hasn't already been done
-### TODO: the panel now appears to be in /home/user/.config/xfce4$ less xfconf/xfce-perchannel-xml/xfce4-panel.xml
-if [ `grep -c 'xfce4-menu" id="360"' /etc/xdg/xdg-xubuntu/xfce4/panel/panels.xml` -eq 0 ] ; then
-   sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
-      -e 's+\(launcher" id="3".*\)+\1\n\t\t\t<item name="launcher" id="361"/>+' \
-      -e 's+\(.*item name="clock"\)+\t\t\t<item name="cpugraph" id="362"/>\n\1+' \
-      -e 's+\(.*item name="clock"\)+\t\t\t<item name="xkb-plugin" id="363"/>\n\1+' \
-      /etc/xdg/xdg-xubuntu/xfce4/panel/panels.xml
-fi
-# also modify user account's version, if it exists
-if [ -e "$USER_PANEL/panels.xml" ] ; then
-   if [ `grep -c 'xfce4-menu" id="360"' "$USER_PANEL/panels.xml"` -eq 0 ] ; then
-      sed -i -e 's+\(xfce4-menu.*\)+\1\n\t\t\t<item name="xfce4-menu" id="360"/>+' \
-         -e 's+\(launcher" id="3".*\)+\1\n\t\t\t<item name="launcher" id="361"/>+' \
-         -e 's+\(.*item name="clock"\)+\t\t\t<item name="cpugraph" id="362"/>\n\1+' \
-         -e 's+\(.*item name="clock"\)+\t\t\t<item name="xkb-plugin" id="363"/>\n\1+' \
-         "$USER_PANEL/panels.xml"
-   fi
-fi
+# --OBSOLETE-- ?
+#cp "$BUILD_DIR"/../desktop-conf/xfce/xkb-plugin-363.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
+
+
+mkdir /usr/local/share/xfce
 
 # pared down copy of /etc/xdg/xdg-xubuntu/menus/xfce-applications.menu
 cp "$BUILD_DIR"/../desktop-conf/xfce/xfce-osgeo.menu /usr/local/share/xfce/
