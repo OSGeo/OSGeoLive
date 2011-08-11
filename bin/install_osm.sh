@@ -134,6 +134,10 @@ svn co "$BASEURL/stylesheets/symbols/" /usr/local/share/osm/stylesheets/symbols/
 CITY="Denver"
 BBOX="-105.2147,39.5506,-104.594,39.9139"
 
+# Denver is too big a city for some of our examples, so we download a smaller version too:
+#CITY="Denver_CBD"
+#BBOX="-105.028,39.709,-104.956,39.79"
+
 # City OSM data:
 #  Having a sample .osm file around will benefit many applications. In addition
 #  to JOSM and Gosmore, QGIS and Mapnik can also render .osm directly.
@@ -147,6 +151,7 @@ BBOX="-105.2147,39.5506,-104.594,39.9139"
 ### Please update to latest data at the last minute! See data dir on server for details.
 wget -N --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/osm/$CITY.osm.bz2"
+
 
 #download as part of disc build process
 # Downloading from the osmxapi takes me about 6 minutes and is around 20MB.
@@ -172,11 +177,21 @@ if [ ! -e "$CITY.osm.bz2" ] ; then
   fi
   bzip2 "$CITY.osm"
 fi
+
+
 cp -f "$CITY.osm.bz2" /usr/local/share/osm/
 mkdir -p /usr/local/share/data/osm --verbose
 ln -s /usr/local/share/osm/"$CITY.osm.bz2" /usr/local/share/data/osm
 ln -s /usr/local/share/data/osm/"$CITY.osm.bz2" \
    /usr/local/share/data/osm/feature_city.osm.bz2
+
+####
+wget -N --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/osm/Denver_CBD.osm.bz2"
+cp -f "Denver_CBD.osm.bz2" /usr/local/share/osm/
+ln -s /usr/local/share/osm/Denver_CBD.osm.bz2 /usr/local/share/data/osm
+####
+
 
 ## get latest osm2pgsql from OSM svn (thanks Dane)
 cd "$TMP_DIR"
@@ -228,7 +243,6 @@ dpkg -i osm2pgsql_0.69.svn22215.lucid_i386.deb
 #tar xzf "$FILE"
 #mv `basename $FILE .tgz` /usr/local/share/osm/
 #ln -s /usr/local/share/osm/`basename $FILE .tgz` /usr/local/share/data/osm
-
 
 
 

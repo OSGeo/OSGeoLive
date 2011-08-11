@@ -76,7 +76,7 @@ else
 	# lat/lon
 	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
 	     --database osm_local --latlong \
-	     /usr/local/share/osm/Denver.osm.bz2
+	     /usr/local/share/osm/Denver_CBD.osm.bz2
 	# spherical merc
 	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
 	     --database osm_local_smerc --merc \

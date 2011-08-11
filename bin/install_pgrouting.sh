@@ -39,7 +39,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_pgrouting"
-OSM_FILE="/usr/local/share/osm/Denver.osm.bz2"
+OSM_FILE="/usr/local/share/osm/Denver_CBD.osm.bz2"
 OSM_DB="pgrouting"
 
 POSTGIS_VERSION="8.4"
