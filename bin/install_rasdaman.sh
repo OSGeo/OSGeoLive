@@ -42,7 +42,7 @@ WCPS_PASSWORD="UD0b9uTt"
 mkdir "$TMP"
 cd "$TMP"
 if [ ! -d "$RASDAMAN_HOME" ]; then
-        mkdir $RASDAMAN_HOME
+        mkdir "$RASDAMAN_HOME"
 fi
 
 #get and install required packages
@@ -63,22 +63,24 @@ fi
 #If folder already exists skip the git clone and used cached version
 if [ ! -d  rasdaman ] ; then
         #git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
-        wget -c $RASDAMAN_LOCATION/$RASDAMAN_TARBALL
-        tar xzf $RASDAMAN_TARBALL
+        wget -c "$RASDAMAN_LOCATION/$RASDAMAN_TARBALL"
+        tar xzf "$RASDAMAN_TARBALL"
 fi
+
 cd rasdaman
-mkdir $RASDAMAN_HOME/log
-chown ${USER_NAME} $RASDAMAN_HOME/log/ -R
-./configure --with-logdir=$RASDAMAN_HOME/log --prefix=$RASDAMAN_HOME  && make
+mkdir "$RASDAMAN_HOME/log"
+chown "$USER_NAME" "$RASDAMAN_HOME/log/" -R
+
+./configure --with-logdir="$RASDAMAN_HOME"/log --prefix="$RASDAMAN_HOME"  && make
 make install
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
    exit 1
 fi
 
-chown ${USER_NAME} $RASDAMAN_HOME/bin/*
-chmod 774 $RASDAMAN_HOME/bin/*
-sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" $RASDAMAN_HOME/bin/create_db.sh
+chown "$USER_NAME" "$RASDAMAN_HOME"/bin/*
+chmod 774 "$RASDAMAN_HOME"/bin/*
+sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" "$RASDAMAN_HOME"/bin/create_db.sh
 
 # add rasdaman to the $PATH if not present
 if [ `grep -c $RASDAMAN_HOME/rasdaman/bin $USER_HOME/.bashrc` -eq 0 ] ; then
@@ -91,22 +93,26 @@ if [ -z "$test_RASBASE" ] ; then
         su - $USER_NAME $RASDAMAN_HOME/bin/create_db.sh
 fi
 
-su - $USER_NAME $RASDAMAN_HOME/bin/start_rasdaman.sh
+su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
 cd ../
 
 #download, extract, and import demo data into rasdaman
-wget -c --progress=dot:mega http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/rasdaman_data.tar.gz
+wget -c --progress=dot:mega \
+   http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/rasdaman_data.tar.gz
 
 tar xzf rasdaman_data.tar.gz -C .
 
 PATH="$PATH:$RASDAMAN_HOME/bin"
 export PATH
+
 echo importing data...
 cd rasdaman_data/DataImport
 sed -i "s/\/usr\/local\/bin\/insertdemo.sh localhost 7001 \/usr\/local\/share\/rasdaman\/examples\/images rasadmin rasadmin/\/usr\/local\/rasdaman\/bin\/insertdemo.sh localhost 7001 \/usr\/local\/rasdaman\/share\/rasdaman\/examples\/images rasadmin rasadmin /g"  demodata/Makefile
 sed -i "s/PATH+=\":\$(RASGEO)\/bin\"/MAP=lena/g" lena/Makefile
+
 make all
+
 
 #copy demo applications into tomcat webapps directory
 cd ../
@@ -123,18 +129,18 @@ su - $USER_NAME -c "createuser $WCPS_USER --superuser"
 su - $USER_NAME -c "psql template1 --quiet -c \"ALTER ROLE $WCPS_USER  with PASSWORD '$WCPS_PASSWORD';\""
 test_WCPSDB=$(su - $USER_NAME -c "psql --quiet  --list | grep \"$WCPS_DATABASE \" ")
 if [ -z "$test_WCPSDB" ] ; then
-        su - $USER_NAME -c "createdb  -T template0 $WCPS_DATABASE"
-        su - $USER_NAME -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
+        su - "$USER_NAME" -c "createdb  -T template0 $WCPS_DATABASE"
+        su - "$USER_NAME" -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
         if [ $? -ne 0 ] ; then
-                echo "ERROR: can not insert data into metadata database."
-                exit 1
+            echo "ERROR: can not insert data into metadata database."
+            exit 1
         fi
 fi
 
 #clean up
 echo cleaning up...
-su - $USER_NAME $RASDAMAN_HOME/bin/stop_rasdaman.sh
-su - $USER_NAME $RASDAMAN_HOME/bin/start_rasdaman.sh
+su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
+su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
 apt-get autoremove --assume-yes openjdk-6-jdk libreadline-dev \
    libssl-dev libncurses5-dev libtiff4-dev libjpeg62-dev libhdf4g-dev \
@@ -145,9 +151,10 @@ apt-get install libecpg6 --assume-yes
 
 #Don't delete the tmp files, so we can stash them in a cache
 #rm "$TMP" -rf
+
+
 #add rasdaman/earthlook to the ubuntu menu icons
-if [ ! -e /usr/share/applications/start_rasdaman_server.desktop ] ; then
-   cat << EOF > /usr/share/applications/start_rasdaman_server.desktop
+cat << EOF > /usr/share/applications/start_rasdaman_server.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -159,10 +166,9 @@ Icon=gnome-globe
 Terminal=true
 StartupNotify=false
 EOF
-fi
 
-if [ ! -e /usr/share/applications/stop_rasdaman_server.desktop ] ; then
-   cat << EOF > /usr/share/applications/stop_rasdaman_server.desktop
+
+cat << EOF > /usr/share/applications/stop_rasdaman_server.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -174,11 +180,9 @@ Icon=gnome-globe
 Terminal=true
 StartupNotify=false
 EOF
-fi
 
 
-if [ ! -e /usr/share/applications/rasdaman-earthlook-demo.desktop ] ; then
-   cat << EOF > /usr/share/applications/rasdaman-earthlook-demo.desktop
+cat << EOF > /usr/share/applications/rasdaman-earthlook-demo.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -190,7 +194,6 @@ Icon=gnome-globe
 Terminal=false
 StartupNotify=false
 EOF
-fi
 
 cp /usr/share/applications/stop_rasdaman_server.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/start_rasdaman_server.desktop "$USER_HOME/Desktop/"
