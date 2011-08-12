@@ -24,7 +24,7 @@
 
 # rasdaman src to be used
 RASDAMAN_LOCATION="http://www.rasdaman.com/Download"
-RASDAMAN_TARBALL="rasdaman_8-2.tgz"
+RASDAMAN_TARBALL="rasdaman_8-2-1.tgz"
 
 # live disc's username is "user"
 USER_NAME="user"
