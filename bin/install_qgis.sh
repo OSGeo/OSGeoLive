@@ -121,7 +121,8 @@ cd "$TMP_DIR"
 
 # old plugins are stored on DATAURL="http://www.geofemengineering.it/data/plugins_old2.tar.gz"
 
-DATAURL="http://www.geofemengineering.it/data/plugins.tar.gz"
+DATAURL="http://osprey.ucdavis.edu/downloads/osgeo/gisvm/qgis-plugins-osgeo-live5.tar.gz"
+
 #TODO use a python script and the QGIS API to pull these within QGIS from online repo
 wget --progress=dot:mega "$DATAURL" \
      --output-document="$TMP_DIR"/qgis_plugin.tar.gz
@@ -132,9 +133,9 @@ cp -R  "$TMP_DIR"/plugins/ /usr/share/qgis/python/
 
 
 ## currently broken with QGIS 1.5.0
-rm -rf /usr/share/qgis/python/plugins/contour
-rm -rf /usr/share/qgis/python/plugins/geofeeds
-rm -rf /usr/share/qgis/python/plugins/HomeRange_plugin
+#rm -rf /usr/share/qgis/python/plugins/contour
+#rm -rf /usr/share/qgis/python/plugins/geofeeds
+#rm -rf /usr/share/qgis/python/plugins/HomeRange_plugin
 
 
 #Next line might be optional, unsure

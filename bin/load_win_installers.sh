@@ -63,7 +63,7 @@ EOF
 
 for URL in \
   http://download.osgeo.org/osgeo4w/osgeo4w-setup.exe \
-  http://forge.osor.eu/frs/download.php/1279/gvSIG-1_10-1264-final-win-i586-withjre-j1_5.exe \
+  http://forge.osor.eu/frs/download.php/1570/gvSIG-1_11-1305-final-win-i586-j1_5.exe \
   http://qgis.org/downloads/QGIS-OSGeo4W-1.7.0-b55a00e73-Setup.exe \
   http://home.gdal.org/tmp/vcredist_x86.exe \
   http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.1-1-Setup.exe \
