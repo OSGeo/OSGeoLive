@@ -41,10 +41,6 @@ for DIR in  ../doc/en/overview ../doc/en/quickstart ;  do
     awk '/^:Author:/{printf("%s;", $0)}' "$FILE" | \
       sed -e 's/:Author:\s*//g'
 
-    awk '/^:Reviewer:/{printf("%s;", $0)}' "$FILE" | \
-      sed -e 's/:Reviewer:\s*//g'
-
-
     # License(s)
     echo -n "\",\""
     awk '/^:License:/{printf("%s", $0)}' "$FILE" | \
