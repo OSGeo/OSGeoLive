@@ -62,9 +62,9 @@ fi
 #download and install rasdaman
 #If folder already exists skip the git clone and used cached version
 if [ ! -d  rasdaman ] ; then
-        #git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
-        wget -c "$RASDAMAN_LOCATION/$RASDAMAN_TARBALL"
-        tar xzf "$RASDAMAN_TARBALL"
+    #git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
+    wget -c --progress=dot:mega "$RASDAMAN_LOCATION/$RASDAMAN_TARBALL"
+    tar xzf "$RASDAMAN_TARBALL"
 fi
 
 cd rasdaman
@@ -138,16 +138,18 @@ if [ -z "$test_WCPSDB" ] ; then
 fi
 
 #clean up
-echo cleaning up...
+echo "cleaning up..."
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
-apt-get autoremove --assume-yes openjdk-6-jdk libreadline-dev \
+apt-get remove --assume-yes openjdk-6-jdk libreadline-dev \
    libssl-dev libncurses5-dev libtiff4-dev libjpeg62-dev libhdf4g-dev \
    libpng12-dev libnetpbm10-dev
 
+apt-get autoremove
+
 # Sun's Java should already be present..
-apt-get install libecpg6 --assume-yes
+apt-get install --assume-yes libecpg6
 
 #Don't delete the tmp files, so we can stash them in a cache
 #rm "$TMP" -rf
