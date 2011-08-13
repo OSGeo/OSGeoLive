@@ -31,8 +31,9 @@ ldconfig
 # remove build stuff no longer of use
 apt-get --yes remove devscripts pbuilder \
    svn-buildpackage \
-   lintian debhelper pkg-config dpkg-dev \
-   gnome-user-guide xfwm4-themes
+   lintian debhelper pkg-config dpkg-dev
+
+apt-get autoremove
 
 
 #### Check how much space is wasted by double files in /usr
@@ -75,7 +76,6 @@ rm -fr \
 
 
 # clean out ssh keys which should be machine-unique
-##  ?? move this into build_iso.sh ??
 rm -f /etc/ssh/ssh_host_[rd]sa_key
 # change a stupid sshd default
 sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config

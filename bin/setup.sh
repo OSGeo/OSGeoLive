@@ -58,7 +58,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   vim medit nedit nano screen iotop \
   okular ghostscript a2ps netpbm qiv \
   lynx mutt mc xchat rxvt units scrot \
-  gdebi fslint
+  gdebi fslint sgt-puzzles
 
 # Install build stuff (temporarily?)
 apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
@@ -83,7 +83,8 @@ ldconfig
 # Uninstall large applications installed by default
 apt-get remove --yes gnome-games-common \
    gimp gimp-data gimp-help-common gimp-help-en libgimp2.0 \
-   thunderbird pidgin-data hplip hplip-data
+   thunderbird pidgin-data hplip hplip-data \
+   gnome-user-guide xfwm4-themes
 
 # remove xscreensaver as it tends to saturate VM bandwidth
 apt-get --assume-yes remove xscreensaver
