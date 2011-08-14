@@ -90,7 +90,7 @@ if [ ! -e /usr/share/applications/pycsw.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=PyCSW
+Name=pycsw
 Comment=pycsw catalog server
 Categories=Application;Education;Geography;
 Exec=firefox http://localhost/pycsw/tester/index.html
