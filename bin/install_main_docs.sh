@@ -53,7 +53,7 @@ cd ${DEST}
 ln -s /usr/local/share/udig/udig-docs .
 ln -s /usr/local/mbsystem .
 ln -s /usr/local/share/qgis .
-ln -s /usr/share/doc/geopublishing .
+ln -s /usr/share/doc/geopublishing-doc geopublishing
 ln -s /usr/local/share/saga .
 # HTML
 ln -s /usr/share/doc/gmt .
