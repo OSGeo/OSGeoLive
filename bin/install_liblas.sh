@@ -103,8 +103,8 @@ cmake -G "Unix Makefiles" ../ \
         -DGDAL_CONFIG=/usr/bin/gdal-config \
         -DGEOTIFF_INCLUDE_DIR=/usr/include/geotiff \
         -DGEOTIFF_LIBRARY=/usr/lib/libgeotiff.so \
-        -DLASZIP_INCLUDE=/usr/include/laszip \
-        -DLASZIP_LIBRARY=/usr/lib/liblaszip.so \
+        -DLASZIP_INCLUDE=/usr/local/include/laszip \
+        -DLASZIP_LIBRARY=/usr/local/lib/liblaszip.so \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DCMAKE_BUILD_TYPE=Release \
         -DWITH_GDAL=ON \
