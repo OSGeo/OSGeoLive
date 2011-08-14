@@ -55,7 +55,7 @@ cd "$TMP"
 apt-get install --yes cmake
 apt-get install --yes libboost1.42-dev libboost-program-options-dev \
    libboost-thread1.42-dev libboost-serialization1.42-dev libgdal1-1.8.0 \
-   libgdal-dev libgeotiff-dev libgeotiff2
+   libgdal1-dev libgeotiff-dev libgeotiff2
 
 # get libLAS
 wget -c --progress=dot:mega http://download.osgeo.org/liblas/$LIBLAS_REV.tar.gz
@@ -152,12 +152,15 @@ cp LICENSE.txt NEWS README.txt "$LIBLAS_FOLDER/"
 ##   make sure these stay installed
 apt-get --yes install libboost-date-time1.42.0 \
    libboost-program-options1.42.0 libboost-serialization1.42.0
+##how about this one??
+apt-get --yes install libodbcinstq1c2
 
 # note - cmake is cleaned up by setdown.sh
 apt-get --yes remove libboost1.42-dev libboost-program-options-dev \
    libboost-thread1.42-dev libboost-serialization1.42-dev \
-   libgdal-dev libgeotiff-dev
+   libgdal1-dev libgeotiff-dev
 
+apt-get autoremove
 echo "FIXME: make sure we haven't lost any important automatically installed pkgs"
 
 
