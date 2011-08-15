@@ -30,6 +30,7 @@
 TMP="/tmp/build_52nWSS"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
+BIN="/usr/local/bin"
 TOMCAT_USER_NAME="tomcat6"
 WSS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
 WSS_INSTALL_FOLDER="/usr/local/52nWSS"
@@ -163,6 +164,25 @@ fi
 
 mkdir -p -v "$USER_HOME/Desktop"
 
+## add a script to handle startup 15aug11
+cat << EOF > $BIN/52n_wss_start.sh
+#!/bin/sh
+
+DELAY=30
+
+(
+for TIME in \`seq \$DELAY\` ; do
+  sleep 1
+  echo "\$TIME \$DELAY" | awk '{print int(0.5+100*\$1/\$2)}'
+done
+) | zenity --progress --auto-close --text "52North WSS starting"
+
+# how to set 5 sec timeout?
+zenity --info --text "Starting web browser ..."
+firefox $WSS_URL $WSS_QUICKSTART_URL $WSS_OVERVIEW_URL
+EOF
+
+
 # icon
 # Relies on launchassist in home dir
 if [ ! -e /usr/share/applications/$WSS_DESKTOP_STARTER_NAME ] ; then
@@ -173,7 +193,7 @@ Encoding=UTF-8
 Name=Start 52NorthWSS
 Comment=52North WSS
 Categories=Geospatial;Servers;
-Exec=firefox $WSS_URL $WSS_QUICKSTART_URL $WSS_OVERVIEW_URL
+Exec=$BIN/52n_wss_start.sh
 Icon=/usr/share/icons/$WSS_ICON_NAME
 Terminal=false
 EOF
