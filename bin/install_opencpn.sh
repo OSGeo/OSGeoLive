@@ -134,6 +134,10 @@ cd "$TMP_DIR"
 
 for CHART in $RNC_CHARTS ; do
   wget -N --progress=dot:mega "http://www.charts.noaa.gov/RNCs/$CHART.zip"
+  if [ $? -ne 0 ] ; then
+     # try try again
+     wget -N --progress=dot:mega "http://www.charts.noaa.gov/RNCs/$CHART.zip"
+  fi
   wget -N -nv "http://www.charts.noaa.gov/RNCs/${CHART}_RNCProdCat.xml"
 done
 
@@ -179,6 +183,10 @@ cd "$TMP_DIR"
 
 for CHART in $ENC_CHARTS ; do
   wget -N --progress=dot:mega "http://www.charts.noaa.gov/ENCs/$CHART.zip"
+  if [ $? -ne 0 ] ; then
+     # try try again
+    wget -N --progress=dot:mega "http://www.charts.noaa.gov/ENCs/$CHART.zip"
+  fi
   wget -N -nv "http://www.charts.noaa.gov/ENCs/${CHART}_ENCProdCat.xml"
 done
 
