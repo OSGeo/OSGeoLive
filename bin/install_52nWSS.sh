@@ -182,6 +182,8 @@ zenity --info --text "Starting web browser ..."
 firefox $WSS_URL $WSS_QUICKSTART_URL $WSS_OVERVIEW_URL
 EOF
 
+chmod 755 $BIN/52n_wss_start.sh
+
 
 # icon
 # Relies on launchassist in home dir
