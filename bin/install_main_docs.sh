@@ -51,7 +51,9 @@ mv * ${DEST}
 cd ${DEST}
 # PDF
 ln -s /usr/local/share/udig/udig-docs .
-ln -s /usr/local/mbsystem .
+if [ -d /usr/local/mbsystem ] ; then
+   ln -s /usr/local/mbsystem .
+fi
 ln -s /usr/local/share/qgis .
 ln -s /usr/share/doc/geopublishing-doc geopublishing
 ln -s /usr/local/share/saga .
