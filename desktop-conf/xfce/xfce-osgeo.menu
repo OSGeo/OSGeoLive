@@ -8,7 +8,7 @@
     <DefaultDirectoryDirs/>
 
     <Include>
-        <Filename>osgeo-help.desktop</Filename>
+	<Filename>osgeo-help.desktop</Filename>
     </Include>
 
     <Layout>
@@ -19,67 +19,122 @@
     </Layout>
  
     <Menu>
-        <Name>Desktop GIS</Name>
-        <Directory>xfce-desktopgis.directory</Directory>
-        <Include>
-            <Category>Desktop GIS</Category>
-        </Include>
+	<Name>Desktop GIS</Name>
+	<Directory>xfce-desktopgis.directory</Directory>
+	<Include>
+	    <Category>Desktop GIS</Category>
+	</Include>
     </Menu>
     
     <Menu>
-        <Name>Navigation and Maps</Name>
-        <Directory>xfce-navigation.directory</Directory>
-        <Include>
+	<Name>Navigation and Maps</Name>
+	<Directory>xfce-navigation.directory</Directory>
+	<Include>
 	    <Category>Navigation</Category>
-        </Include>
+	</Include>
     </Menu>
 
     <Menu>
-        <Name>Web Services</Name>
-        <Directory>xfce-geoservers.directory</Directory>
-        <Include>
+	<Name>Web Services</Name>
+	<Directory>xfce-geoservers.directory</Directory>
+	<Include>
 	    <Category>Geoservers</Category>
-        </Include>
+	</Include>
+
+	<Exclude>
+	    <Category>52North</Category>
+	</Exclude>
+	<Menu>
+	    <Name>52North</Name>
+	    <Directory>52North.directory</Directory>
+	    <Include>
+		<Category>52North</Category>
+	    </Include>
+	</Menu>
+
+	<Exclude>
+	    <Category>deegree</Category>
+	</Exclude>
+	<Menu>
+	    <Name>deegree</Name>
+	    <Directory>deegree.directory</Directory>
+	    <Include>
+		<Category>deegree</Category>
+	    </Include>
+	</Menu>
+
+	<Exclude>
+	    <Category>GeoNetwork</Category>
+	</Exclude>
+	<Menu>
+	    <Name>GeoNetwork</Name>
+	    <Directory>GeoNetwork.directory</Directory>
+	    <Include>
+		<Category>GeoNetwork</Category>
+	    </Include>
+	</Menu>
+
+	<Exclude>
+	    <Category>GeoServer</Category>
+	</Exclude>
+	<Menu>
+	    <Name>GeoServer</Name>
+	    <Directory>GeoServer.directory</Directory>
+	    <Include>
+		<Category>GeoServer</Category>
+	    </Include>
+	</Menu>
+
+	<Exclude>
+	    <Category>MapProxy</Category>
+	</Exclude>
+	<Menu>
+	    <Name>MapProxy</Name>
+	    <Directory>MapProxy.directory</Directory>
+	    <Include>
+		<Category>MapProxy</Category>
+	    </Include>
+	</Menu>
     </Menu>
 
     <Menu>
-        <Name>Browser Clients</Name>
-        <Directory>xfce-geoclients.directory</Directory>
-        <Include>
+	<Name>Browser Clients</Name>
+	<Directory>xfce-geoclients.directory</Directory>
+	<Include>
 	    <Category>Geoclients</Category>
-        </Include>
+	</Include>
     </Menu>
 
     <Menu>
-        <Name>Databases</Name>
-        <Directory>xfce-geodatabase.directory</Directory>
-        <Include>
+	<Name>Databases</Name>
+	<Directory>xfce-geodatabase.directory</Directory>
+	<Include>
 	    <Category>Database</Category>
-        </Include>
+	</Include>
     </Menu>
 
     <Menu>
-        <Name>Spatial Tools</Name>
-        <Directory>xfce-spatialtools.directory</Directory>
-        <Include>
+	<Name>Spatial Tools</Name>
+	<Directory>xfce-spatialtools.directory</Directory>
+	<Include>
 	    <Category>Spatial Tools</Category>
-        </Include>
+	</Include>
     </Menu>
 
     <Menu>
-        <Name>Crisis Management</Name>
-        <Directory>xfce-relief.directory</Directory>
-        <Include>
+	<Name>Crisis Management</Name>
+	<Directory>xfce-relief.directory</Directory>
+	<Include>
 	    <Category>Relief</Category>
-        </Include>
+	</Include>
     </Menu>
 
     <Menu>
-        <Name>Beta software</Name>
-        <Directory>xfce-geobeta.directory</Directory>
-        <Include>
-            <Category>Geobeta</Category>
-        </Include>
+	<Name>Beta software</Name>
+	<Directory>xfce-geobeta.directory</Directory>
+	<Include>
+	    <Category>Geobeta</Category>
+	</Include>
     </Menu>
 
 </Menu>
