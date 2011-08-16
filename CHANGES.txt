@@ -1,11 +1,18 @@
 OSGeo Live GIS Disc
 ===================
+Version 5.0rc1
+=================
+ * Doc generation fixes
+ * Additional translation
+ * Corrections to space saving
+ * Fixes to several applications that failed in beta5
+
 Version 5.0beta5
 11 August 2011
 =================
  * Space saving cleanup
  * More Translations, Minor fixes to Doc generation
- * 
+ * Vm, mini and full ISO built
 
 Version 5.0beta4
 =================

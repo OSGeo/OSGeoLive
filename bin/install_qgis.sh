@@ -155,26 +155,12 @@ chown $USER_NAME.$USER_NAME /usr/local/share/qgis/*.qgs
 ln -s /usr/local/share/qgis/ "$USER_HOME"/qgis-examples
 
 #add a connection for postgis if it's installed
-QGIS_CONFIG="/home/$USER_NAME/.config/QuantumGIS/QGIS.conf"
-if [ -e "$QGIS_CONFIG" ] && \
-   [ `grep -c '\[PostgreSQL\]' "$QGIS_CONFIG"` -eq 0 ] ; then
-	cat >> "/home/$USER_NAME/.config/QuantumGIS/QGIS.conf" <<EOF
+QGIS_CONFIG_PATH="/home/$USER_NAME/.config/QuantumGIS/"
 
-[PostgreSQL]
-connections\selected=NaturalEarth
-connections\NaturalEarth\service=
-connections\NaturalEarth\host=localhost
-connections\NaturalEarth\database=natural_earth
-connections\NaturalEarth\port=5432
-connections\NaturalEarth\username=user
-connections\NaturalEarth\password=user
-connections\NaturalEarth\publicOnly=false
-connections\NaturalEarth\allowGeometrylessTables=false
-connections\NaturalEarth\sslmode=1
-connections\NaturalEarth\saveUsername=true
-connections\NaturalEarth\savePassword=true
-connections\NaturalEarth\estimatedMetadata=false
-EOF
-fi
+mkdir -p $QGIS_CONFIG_PATH
+cp "$BUILD_DIR/../app-conf/qgis/QGIS.conf" "$QGIS_CONFIG_PATH"
+
+chmod 644 /home/$USER_NAME/.config/QuantumGIS/QGIS.conf
+chown $USER_NAME.$USER_NAME /home/$USER_NAME/.config/QuantumGIS/QGIS.conf
 
 echo "Finished installing QGIS $INSTALLED_VERSION."
