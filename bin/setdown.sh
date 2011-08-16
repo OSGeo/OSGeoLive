@@ -33,7 +33,7 @@ apt-get --yes remove devscripts pbuilder \
    svn-buildpackage \
    lintian debhelper pkg-config dpkg-dev
 
-apt-get autoremove
+apt-get --yes autoremove
 
 
 #### Check how much space is wasted by double files in /usr
