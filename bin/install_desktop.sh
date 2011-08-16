@@ -189,7 +189,7 @@ for APP in $WEB_SERVICES ; do
         *) unset GROUP;;
       esac
       if [ -n "$GROUP" ] ; then
-         sed -i -e 's/^\(Categories=.*\)/\1$GROUP;/' \
+         sed -i -e "s/^\(Categories=.*\)/\1$GROUP;/" \
              "/usr/share/applications/osgeo-$APPL"
       fi
    fi
