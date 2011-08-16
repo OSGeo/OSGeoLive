@@ -99,8 +99,8 @@ mkdir /usr/local/share/qgis
 wget -c --progress=dot:mega http://download.osgeo.org/qgis/doc/manual/qgis-1.0.0_a-gentle-gis-introduction_en.pdf \
 	--output-document=/usr/local/share/qgis/qgis-1.0.0_a-gentle-gis-introduction_en.pdf
 #TODO: Consider including translations
-wget -c --progress=dot:mega http://download.osgeo.org/qgis/doc/manual/qgis-1.6.0_user_guide_en.pdf \
-	--output-document=/usr/local/share/qgis/qgis-1.6.0_user_guide_en.pdf
+wget -c --progress=dot:mega http://download.osgeo.org/qgis/doc/manual/qgis-1.7.0_user_guide_en.pdf \
+	--output-document=/usr/local/share/qgis/qgis-1.7.0_user_guide_en.pdf
 
 chmod 644 /usr/local/share/qgis/*.pdf
 
