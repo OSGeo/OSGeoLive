@@ -34,13 +34,13 @@
 	</Include>
 
 	<Exclude>
-	    <Category>OSM</Category>
+	    <Category>OpenStreetMap</Category>
 	</Exclude>
 	<Menu>
 	    <Name>OpenStreetMap</Name>
 	    <Directory>OpenStreetMap.directory</Directory>
 	    <Include>
-		<Category>OSM</Category>
+		<Category>OpenStreetMap</Category>
 	    </Include>
 	</Menu>
     </Menu>

@@ -172,7 +172,7 @@ for APP in $NAV_APPS ; do
 	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
 
       case "$APP" in
-	 josm | merkaartor | gosmore) GROUP=OSM;;
+	 josm | merkaartor | gosmore) GROUP=OpenStreetMap;;
 	 *) unset GROUP;;
       esac
       if [ -n "$GROUP" ] ; then
@@ -324,13 +324,13 @@ EOF
 done
 
 #### OpenStreetMap submenu
-APP=OSM
+APP=OpenStreetMap
 cat << EOF > "/etc/xdg/menus/applications-merged/$APP.menu"
 <!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
 <Menu>
 <Name>Applications</Name>
   <Menu>
-  <Name>OpenStreetMap</Name>
+  <Name>Navigation and Maps</Name>
     <Menu>
     <Name>$APP</Name>
     <Directory>$APP.directory</Directory>
