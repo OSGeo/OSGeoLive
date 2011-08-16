@@ -51,7 +51,7 @@ for CODE in \
  pt \
  th \
  vi \
- zh-hans \
+ zh-hant \
  ar \
  id \
  ru \

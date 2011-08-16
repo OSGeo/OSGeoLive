@@ -160,7 +160,7 @@ apt-get --yes remove libboost1.42-dev libboost-program-options-dev \
    libboost-thread1.42-dev libboost-serialization1.42-dev \
    libgdal1-dev libgeotiff-dev
 
-apt-get autoremove
+apt-get --yes autoremove
 echo "FIXME: make sure we haven't lost any important automatically installed pkgs"
 
 
