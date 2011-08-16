@@ -170,6 +170,14 @@ for APP in $NAV_APPS ; do
    if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Navigation;/' \
 	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+      case "$APPL" in
+	 josm | merkaartor | gosmore) GROUP=OSM;;
+	 *) unset GROUP;;
+      esac
+      if [ -n "$GROUP" ] ; then
+         sed -i -e "s/^\(Categories=.*\)/\1$GROUP;/" \
+             "/usr/share/applications/osgeo-$APPL"
+      fi
    fi
 done
 
@@ -313,6 +321,36 @@ Name=$APP
 EOF
 
 done
+
+#### OpenStreetMap submenu
+APP=OSM
+cat << EOF > "/etc/xdg/menus/applications-merged/$APP.menu"
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+<Menu>
+<Name>Applications</Name>
+  <Menu>
+  <Name>OpenStreetMap</Name>
+    <Menu>
+    <Name>$APP</Name>
+    <Directory>$APP.directory</Directory>
+    <Include>
+    <Category>$APP</Category>
+    </Include>
+    </Menu>
+  </Menu> 
+</Menu> 
+EOF
+
+APP_ICON=josm-32
+
+cat << EOF > "/usr/share/desktop-directories/$APP.directory"
+[Desktop Entry]
+Encoding=UTF-8
+Type=Directory
+Comment=
+Icon=$APP_ICON
+Name=$APP
+EOF
 
 
 

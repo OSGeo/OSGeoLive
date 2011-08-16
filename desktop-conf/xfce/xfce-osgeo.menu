@@ -32,6 +32,17 @@
 	<Include>
 	    <Category>Navigation</Category>
 	</Include>
+
+	<Exclude>
+	    <Category>OSM</Category>
+	</Exclude>
+	<Menu>
+	    <Name>OpenStreetMap</Name>
+	    <Directory>OpenStreetMap.directory</Directory>
+	    <Include>
+		<Category>OSM</Category>
+	    </Include>
+	</Menu>
     </Menu>
 
     <Menu>
