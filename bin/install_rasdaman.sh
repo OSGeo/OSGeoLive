@@ -54,11 +54,11 @@ PACKAGES="git-core make autoconf automake libtool gawk flex bison \
 
 pkg_cleanup()
 {
-  apt-get remove --assume-yes openjdk-6-jdk libreadline-dev \
+  apt-get --yes remove openjdk-6-jdk libreadline-dev \
    libssl-dev libncurses5-dev libtiff4-dev libjpeg62-dev libhdf4g-dev \
    libpng12-dev libnetpbm10-dev
 
-  apt-get autoremove
+  apt-get --yes autoremove
 }
 
 
