@@ -170,7 +170,8 @@ for APP in $NAV_APPS ; do
    if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Navigation;/' \
 	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
-      case "$APPL" in
+
+      case "$APP" in
 	 josm | merkaartor | gosmore) GROUP=OSM;;
 	 *) unset GROUP;;
       esac
