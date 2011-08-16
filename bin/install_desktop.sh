@@ -179,6 +179,19 @@ for APP in $WEB_SERVICES ; do
    if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Geoservers;/' \
 	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+
+      case "$APPL" in
+        geoserver-*) GROUP=GeoServer;;
+        *geonetwork*) GROUP=GeoNetwork;;
+        mapproxy-*) GROUP=MapProxy;;
+        52n*) GROUP=52North;;
+        deegree-*) GROUP=deegree;;
+        *) unset GROUP;;
+      esac
+      if [ -n "$GROUP" ] ; then
+         sed -i -e 's/^\(Categories=.*\)/\1$GROUP;/' \
+             "/usr/share/applications/osgeo-$APPL"
+      fi
    fi
 done
 
@@ -256,6 +269,51 @@ mkdir "Databases"
 for APP in $DB_APPS ; do
    mv `basename $APP .desktop`.desktop "Databases"/
 done
+
+
+### web-services sub menu infrastructure
+mkdir -p /etc/xdg/menus/applications-merged/
+
+APP_GROUPS="GeoServer GeoNetwork MapProxy 52North deegree"
+
+for APP in $APP_GROUPS ; do
+   cat << EOF > "/etc/xdg/menus/applications-merged/$APP.menu"
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+<Menu>
+<Name>Applications</Name>
+  <Menu>
+  <Name>Geoservers</Name>
+    <Menu>
+    <Name>$APP</Name>
+    <Directory>$APP.directory</Directory>
+    <Include>
+    <Category>$APP</Category>
+    </Include>
+    </Menu>
+  </Menu> 
+</Menu> 
+EOF
+
+   case "$APP" in
+     GeoServer) APP_ICON=/usr/share/icons/geoserver_48x48.logo.png;;
+     GeoNetwork) APP_ICON=/usr/lib/geonetwork/bin/ico/gn.ico;;
+     MapProxy) APP_ICON=gnome-globe;;
+     52North) APP_ICON=/usr/share/icons/52n.png;;
+     deegree) APP_ICON=/usr/share/icons/deegree_desktop_48x48.png;;
+     *) unset APP_ICON;;
+   esac
+
+   cat << EOF > "/usr/share/desktop-directories/$APP.directory"
+[Desktop Entry]
+Encoding=UTF-8
+Type=Directory
+Comment=
+Icon=$APP_ICON
+Name=$APP
+EOF
+
+done
+
 
 
 ##### Setup Automatic or Timed Login #####
