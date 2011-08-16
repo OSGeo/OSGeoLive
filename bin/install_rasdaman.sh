@@ -51,6 +51,18 @@ PACKAGES="git-core make autoconf automake libtool gawk flex bison \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev \
  libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
 
+
+pkg_cleanup()
+{
+  apt-get remove --assume-yes openjdk-6-jdk libreadline-dev \
+   libssl-dev libncurses5-dev libtiff4-dev libjpeg62-dev libhdf4g-dev \
+   libpng12-dev libnetpbm10-dev
+
+  apt-get autoremove
+}
+
+
+
 apt-get update && apt-key update &&  apt-get install --assume-yes $PACKAGES
 
 if [ $? -ne 0 ] ; then
@@ -72,9 +84,11 @@ mkdir "$RASDAMAN_HOME/log"
 chown "$USER_NAME" "$RASDAMAN_HOME/log/" -R
 
 ./configure --with-logdir="$RASDAMAN_HOME"/log --prefix="$RASDAMAN_HOME"  && make
+
 make install
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
+   pkg_cleanup
    exit 1
 fi
 
@@ -90,7 +104,7 @@ fi
 #test if rasbase exists, if not create rasbase database
 test_RASBASE=$(su - $USER_NAME -c "psql --quiet  --list | grep \"RASBASE \" ")
 if [ -z "$test_RASBASE" ] ; then
-        su - $USER_NAME $RASDAMAN_HOME/bin/create_db.sh
+   su - $USER_NAME $RASDAMAN_HOME/bin/create_db.sh
 fi
 
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
@@ -129,12 +143,13 @@ su - $USER_NAME -c "createuser $WCPS_USER --superuser"
 su - $USER_NAME -c "psql template1 --quiet -c \"ALTER ROLE $WCPS_USER  with PASSWORD '$WCPS_PASSWORD';\""
 test_WCPSDB=$(su - $USER_NAME -c "psql --quiet  --list | grep \"$WCPS_DATABASE \" ")
 if [ -z "$test_WCPSDB" ] ; then
-        su - "$USER_NAME" -c "createdb  -T template0 $WCPS_DATABASE"
-        su - "$USER_NAME" -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
-        if [ $? -ne 0 ] ; then
-            echo "ERROR: can not insert data into metadata database."
-            exit 1
-        fi
+    su - "$USER_NAME" -c "createdb  -T template0 $WCPS_DATABASE"
+    su - "$USER_NAME" -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
+    if [ $? -ne 0 ] ; then
+	echo "ERROR: can not insert data into metadata database."
+    	pkg_cleanup
+	exit 1
+    fi
 fi
 
 #clean up
@@ -142,11 +157,7 @@ echo "cleaning up..."
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
-apt-get remove --assume-yes openjdk-6-jdk libreadline-dev \
-   libssl-dev libncurses5-dev libtiff4-dev libjpeg62-dev libhdf4g-dev \
-   libpng12-dev libnetpbm10-dev
-
-apt-get autoremove
+pkg_cleanup
 
 # Sun's Java should already be present..
 apt-get install --assume-yes libecpg6
