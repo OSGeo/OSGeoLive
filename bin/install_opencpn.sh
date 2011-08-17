@@ -222,9 +222,9 @@ GRIBDirectory=$DATADIR/grib
 ChartDir1=$DATADIR/charts/BSB_ROOT
 ChartDir2=$DATADIR/charts/ENC_ROOT
 [Settings/GlobalState]
-VPLatLon="   40.58,  -71.02"
-VPScale=0.00135726
-OwnShipLatLon="   40.58,   -71.02"
+VPLatLon="   40.39,  -73.27"
+VPScale=0.0048
+OwnShipLatLon="   40.337,   -73.272"
 nBoundaryStyle=79
 EOF
 
