@@ -140,7 +140,8 @@ mkdir /usr/local/share/ossim
 #FIXME: -N is not compatible with -O.
 wget -N --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf \
 	--output-document=/usr/local/share/ossim/ossim_users_guide.pdf
-ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/
+
+echo "FIXME: doesn't exist ==> 'ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/'"
 
 # pdf temporary stored on my ftp, waiting to add it on ossim download page.   
 wget --progress=dot:mega "http://www.geofemengineering.it/data/OSSIM_Whitepaper.pdf" \
@@ -148,56 +149,58 @@ wget --progress=dot:mega "http://www.geofemengineering.it/data/OSSIM_Whitepaper.
 
 
 #Download data used to test the application
-KML_DATA=$DATA_FOLDER/kml
-RASTER_DATA=$DATA_FOLDER/raster
+KML_DATA="$DATA_FOLDER/kml"
+RASTER_DATA="$DATA_FOLDER/raster"
 ELEV_DATA=/usr/share/ossim/elevation/elev
-VRT_DATA=$DATA_FOLDER/vrt
+echo "FIXME: does VRT data actually exist anymore?"
+VRT_DATA="$DATA_FOLDER/vrt"
 QUICKSTART=/usr/local/share/ossim/quickstart
 
 
-mkdir -p $KML_DATA
-mkdir -p $RASTER_DATA
-mkdir -p $ELEV_DATA
-mkdir -p $VRT_DATA
+mkdir -p "$KML_DATA"
+mkdir -p "$RASTER_DATA"
+mkdir -p "$ELEV_DATA"
+mkdir -p "$VRT_DATA"
 
-#Fixme: ** DO NOT use chmod 777 **
-chmod -R 777 $RASTER_DATA
-chmod -R 777 $KML_DATA
-chmod -R 777 $ELEV_DATA
-chmod -R 777 $VRT_DATA
+#** DO NOT use chmod 777 **
+for ITEM in $RASTER_DATA $KML_DATA $ELEV_DATA $VRT_DATA ; do
+   chmod -R 775 "$ITEM"
+   chgrp -R users "$ITEM"
+done
+
 
 wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band1.tif  \
---output-document=$RASTER_DATA/band1.tif           
+  --output-document=$RASTER_DATA/band1.tif           
 wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band2.tiff  \
---output-document=$RASTER_DATA/band2.tif
+  --output-document=$RASTER_DATA/band2.tif
 wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band3.tiff  \
---output-document=$RASTER_DATA/band3.tif
+  --output-document=$RASTER_DATA/band3.tif
 wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/SRTM_u03_n041e002.tif  \
---output-document=$RASTER_DATA/SRTM_u03_n041e002.tif
+  --output-document=$RASTER_DATA/SRTM_u03_n041e002.tif
 wget -N --progress=dot:mega http://www.geofemengineering.it/data/kml/Plaza_de_Cataluna.kmz \
---output-document=$KML_DATA/Plaza_de_Cataluna.kmz
+  --output-document=$KML_DATA/Plaza_de_Cataluna.kmz
 wget -N --progress=dot:mega http://www.geofemengineering.it/data/kml/View_towards_Sagrada_Familia.kmz \
---output-document=$KML_DATA/View_towards_Sagrada_Familia.kmz
+  --output-document=$KML_DATA/View_towards_Sagrada_Familia.kmz
 
 #wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/landsatrgb.prj \
-#--output-document=$PKG_DATA/landsatrgb.prj
+#  --output-document=$PKG_DATA/landsatrgb.prj
 #wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/session.session \
-#--output-document=$PKG_DATA/session.session
+#  --output-document=$PKG_DATA/session.session
 
 ossim-img2rr $RASTER_DATA/band1.tif $RASTER_DATA/band2.tif $RASTER_DATA/band3.tif
  
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N40E002.hgt \
---output-document=/usr/share/ossim/elevation/elev/N40E002.hgt 
+  --output-document=/usr/share/ossim/elevation/elev/N40E002.hgt 
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N40E002.omd \
---output-document=/usr/share/ossim/elevation/elev/N40E002.omd 
+  --output-document=/usr/share/ossim/elevation/elev/N40E002.omd 
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N41E002.hgt \
---output-document=/usr/share/ossim/elevation/elev/N41E002.hgt 
+  --output-document=/usr/share/ossim/elevation/elev/N41E002.hgt 
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N41E002.omd \
---output-document=/usr/share/ossim/elevation/elev/N41E002.omd  
+  --output-document=/usr/share/ossim/elevation/elev/N41E002.omd  
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N42E002.hgt \
---output-document=/usr/share/ossim/elevation/elev/N42E002.hgt 
+  --output-document=/usr/share/ossim/elevation/elev/N42E002.hgt 
 wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N42E002.omd \
---output-document=/usr/share/ossim/elevation/elev/N42E002.omd 
+  --output-document=/usr/share/ossim/elevation/elev/N42E002.omd 
 
 cp -r $APP_DATA_DIR $QUICKSTART
 ln -s $QUICKSTART $USER_HOME/ossim
