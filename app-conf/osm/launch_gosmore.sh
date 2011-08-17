@@ -20,10 +20,11 @@ gxmessage -buttons "Generate,Cancel" -default "Generate" \
 
 if [ $? -eq 101 ] ; then
    cd
-   gxmessage 'Building "gosmore.pak", please wait ...' &
+   gxmessage -timeout 10 \
+      'Building "gosmore.pak", please wait ...' &
 
    nice bzip2 -dc /usr/local/share/data/osm/feature_city.osm.bz2 | \
-      gosmore rebuild
+      nice gosmore rebuild
 else
    exec gosmore
 fi
