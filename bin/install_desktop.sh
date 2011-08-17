@@ -135,6 +135,10 @@ fi
 cp "$BUILD_DIR"/../desktop-conf/xfce/cpugraph-362.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 
 
+# two workspaces
+sed -i -e 's+\("workspace_count" type="int" value=\)"1"+\1"2"+' \
+   /usr/share/xubuntu/xdg-gdm/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
+
 # --OBSOLETE-- ?
 #cp "$BUILD_DIR"/../desktop-conf/xfce/xkb-plugin-363.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 
