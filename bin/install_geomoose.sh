@@ -33,7 +33,7 @@ cd /tmp/build-geomoose
 # Download and extract GeoMOOSE 2.4
 wget -c --progress=dot:mega \
    "http://www.geomoose.org/downloads/geomoose-2.4.tar.gz"
-wget -c --progress=dot:mega \
+wget -c -nv \
    "http://www.geomoose.org/downloads/geomoose-2.4-mapserver-6.patch"
 
 tar -xzf geomoose-2.4.tar.gz
