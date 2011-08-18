@@ -31,8 +31,10 @@ mkdir -p /tmp/build-geomoose
 cd /tmp/build-geomoose
 
 # Download and extract GeoMOOSE 2.4
-wget -c "http://www.geomoose.org/downloads/geomoose-2.4.tar.gz"
-wget -c "http://www.geomoose.org/downloads/geomoose-2.4-mapserver-6.patch"
+wget -c --progress=dot:mega \
+   "http://www.geomoose.org/downloads/geomoose-2.4.tar.gz"
+wget -c --progress=dot:mega \
+   "http://www.geomoose.org/downloads/geomoose-2.4-mapserver-6.patch"
 
 tar -xzf geomoose-2.4.tar.gz
 
@@ -45,7 +47,8 @@ cd /usr/local/geomoose
 mv /tmp/build-geomoose/geomoose*/* .
 
 # Configure GeoMOOSE 2.4 (Builds configuration files from templates)
-./configure --with-url-path=/geomoose --with-temp-directory=/tmp/ --with-mapfile-root=/usr/local/geomoose/maps/
+./configure --with-url-path=/geomoose --with-temp-directory=/tmp/ \
+   --with-mapfile-root=/usr/local/geomoose/maps/
 
 # Setup htdocs directory to be available to apache
 ln -s /usr/local/geomoose/htdocs /var/www/geomoose
@@ -96,6 +99,7 @@ Icon=/usr/share/icons/geomoose.png
 Terminal=false
 StartupNotify=false
 EOF
+
 cp /usr/share/applications/GeoMOOSE.desktop $USER_DIR/Desktop/
 chown $USER_NAME:$USER_NAME $USER_DIR/Desktop/GeoMOOSE.desktop
 
