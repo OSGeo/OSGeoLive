@@ -146,8 +146,6 @@ sudo -u $POSTGRES_USER psql natural_earth --quiet -c "vacuum analyze"
 
 
 #################################################
-#   TODO:  decide to ship the NC data or not.   #
-#################################################
 # Download the North Carolina sample dataset
 #  contact: geodata at lists dot osgeo.org
 # about: http://www.grassbook.org/data_menu3rd.php
