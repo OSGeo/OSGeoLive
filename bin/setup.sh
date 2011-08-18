@@ -63,6 +63,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
 # some xfce desktop widgets for i18n and laptops
 apt-get install --yes xfce4-xkb-plugin xfce4-power-manager \
    xfce4-wavelan-plugin xfce4-battery-plugin
+apt-get remove --yes indicator-messages
 
 # Install build stuff (temporarily?)
 apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
