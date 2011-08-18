@@ -172,6 +172,8 @@ for FILE in $FILES ; do
    mkdir -p $FILE
    cd $FILE
    tar xzf "$TMP/nc_data/nc_$FILE.tar.gz"
+   mv nc*/* .
+   rmdir nc*/
    cd ..
 done
 
