@@ -18,8 +18,8 @@
 
 #attempt at setting the root password without the need for interaction
 PASSWORD="user"
-echo mysql-server-5.0 mysql-server/root_password password $PASSWORD | debconf-set-selections
-echo mysql-server-5.0 mysql-server/root_password_again password $PASSWORD | debconf-set-selections
+echo mysql-server-5.1 mysql-server/root_password password $PASSWORD | debconf-set-selections
+echo mysql-server-5.1 mysql-server/root_password_again password $PASSWORD | debconf-set-selections
 
 apt-get install --yes mysql-server mysql-admin
 
