@@ -25,7 +25,7 @@ USER_HOME="/home/$USER_NAME"
 
 
 PACKAGES="gmt gmt-doc gmt-doc-pdf gmt-coast-low \
-   gmt-examples gmt-tutorial gmt-tutorial-pdf"
+   gmt-examples gmt-tutorial gmt-tutorial-pdf gv"
 
 
 apt-get --assume-yes install $PACKAGES
