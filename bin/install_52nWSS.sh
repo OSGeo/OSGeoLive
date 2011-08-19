@@ -164,26 +164,6 @@ fi
 
 mkdir -p -v "$USER_HOME/Desktop"
 
-## add a script to handle startup 15aug11
-cat << EOF > $BIN/52n_wss_start.sh
-#!/bin/sh
-
-DELAY=30
-
-(
-for TIME in \`seq \$DELAY\` ; do
-  sleep 1
-  echo "\$TIME \$DELAY" | awk '{print int(0.5+100*\$1/\$2)}'
-done
-) | zenity --progress --auto-close --text "52North WSS starting"
-
-# how to set 5 sec timeout?
-zenity --info --text "Starting web browser ..."
-firefox $WSS_URL $WSS_QUICKSTART_URL $WSS_OVERVIEW_URL
-EOF
-
-chmod 755 $BIN/52n_wss_start.sh
-
 
 # icon
 # Relies on launchassist in home dir
@@ -195,7 +175,7 @@ Encoding=UTF-8
 Name=Start 52NorthWSS
 Comment=52North WSS
 Categories=Geospatial;Servers;
-Exec=$BIN/52n_wss_start.sh
+Exec=firefox $WSS_URL $WSS_QUICKSTART_URL $WSS_OVERVIEW_URL
 Icon=/usr/share/icons/$WSS_ICON_NAME
 Terminal=false
 EOF
