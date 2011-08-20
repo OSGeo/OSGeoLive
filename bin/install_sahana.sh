@@ -72,13 +72,12 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 	python-dev \
 	ipython \
 	python-lxml \
-	python-serial \
+	python-dateutil \
 	python-setuptools \
 	python-shapely \
 	python-imaging \
 	python-reportlab \
 	python-xlwt \
-	python-xlrd \
 	libapache2-mod-wsgi \
 	postgresql-8.4 \
 	python-psycopg2
