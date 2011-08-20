@@ -48,7 +48,11 @@ SAHANA_CONF="/etc/apache2/conf.d/sahana"
 BUILD_DIR="$USER_HOME/gisvm"
 TMP_DIR="/tmp/build_sahana"
 WEBSERVER="apache2"
+# PostgreSQL
 PG_VERSION="8.4"
+# Geoserver
+GS_VERSION="2.1.1"
+GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"
 
 mkdir -p "$TMP_DIR"
 
@@ -151,7 +155,7 @@ routes_onerror = [
 EOF
 
 # Install Sahana Eden 0.5.5
-bzr checkout --lightweight -r2438 lp:sahana-eden \
+bzr checkout --lightweight -r2688 lp:sahana-eden \
    "$INSTALL_DIR/web2py/applications/eden"
 
 # Create Eden Directories
@@ -212,12 +216,12 @@ sed -i 's|database.password = "password"|database.password = "sahana"|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
 # Configure Eden for Denver (FOSS4G 2011)
-sed -i 's|lat = "51.8"|lat = "39.739167"|' \
-   "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
-sed -i 's|lon = "-1.3"|lon = "-104.984722"|' \
-   "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
-sed -i 's|zoom = 7|zoom = 10|' \
-   "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
+sed -i 's|lat = "22.593723263"|lat = "39.739167"|' \
+   "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
+sed -i 's|lon = "5.28516253"|lon = "-104.984722"|' \
+   "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
+sed -i 's|zoom = 2|zoom = 10|' \
+   "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
 cat << EOF >> "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
     # Create Login
@@ -350,11 +354,15 @@ EOF
 apache2ctl restart
 
 # Create startup script
-cat << EOF > /usr/local/bin/start_sahana.sh
+START_SCRIPT="/usr/local/bin/start_sahana.sh"
+cat << EOF > "$START_SCRIPT"
 #!/bin/sh
-cd /usr/local/lib/web2py
+EOF
+# Start Geoserver, since we can make use of it
+echo "$GS_HOME/bin/startup.sh &" >> "$START_SCRIPT"
+echo "cd $INSTALL_DIR/web2py" >> "$START_SCRIPT"
+cat << EOF >> "$START_SCRIPT"
 python web2py.py -a admin &
-##-- 12Feb11 longer delay at startup
 DELAY=40
 (
 for TIME in \`seq \$DELAY\` ; do
@@ -366,7 +374,7 @@ zenity --info --text "Starting web browser ..."
 firefox "http://localhost:8000/eden"
 EOF
 
-chmod +x /usr/local/bin/start_sahana.sh
+chmod +x "$START_SCRIPT"
 
 # Add Launch icon to desktop
 cp "$BUILD_DIR"/app-conf/sahana/sahana.png /usr/share/icons/
