@@ -26,7 +26,7 @@ cd `dirname "$0"`
 BUILD_DIR=`pwd`
 
 # Title
-#echo '"Document","Contributor(s)","License(s)"'
+#echo '"Document","Authors(s)", Reviewer(s),"License(s)"'
 
 for DIR in  ../doc/en/overview ../doc/en/quickstart ;  do
   cd "$BUILD_DIR/$DIR"
@@ -37,9 +37,14 @@ for DIR in  ../doc/en/overview ../doc/en/quickstart ;  do
     echo -n "$FILE" | sed -e 's/.rst$//'
     echo -n "\",\""
 
-    # Contributors
+    # Authors
     awk '/^:Author:/{printf("%s;", $0)}' "$FILE" | \
       sed -e 's/:Author:\s*//g'
+
+    # Reviewers
+    echo -n "\",\""
+    awk '/^:Reviewer:/{printf("%s;", $0)}' "$FILE" | \
+      sed -e 's/:Reviewer:\s*//g'
 
     # License(s)
     echo -n "\",\""
