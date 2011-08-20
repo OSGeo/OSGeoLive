@@ -197,6 +197,7 @@ for APP in $WEB_SERVICES ; do
         mapproxy-*) GROUP=MapProxy;;
         52n*) GROUP=52North;;
         deegree-*) GROUP=deegree;;
+	*rasdaman*) GROUP=Rasdaman;;
         *) unset GROUP;;
       esac
       if [ -n "$GROUP" ] ; then
@@ -280,12 +281,16 @@ mkdir "Databases"
 for APP in $DB_APPS ; do
    mv `basename $APP .desktop`.desktop "Databases"/
 done
+# TODO
+for ITEM in sqlitebrowser ; do
+   cp "/usr/share/applications/$ITEM.desktop" "Databases"/
+done
 
 
 ### web-services sub menu infrastructure
 mkdir -p /etc/xdg/menus/applications-merged/
 
-APP_GROUPS="GeoServer GeoNetwork MapProxy 52North deegree"
+APP_GROUPS="GeoServer GeoNetwork MapProxy 52North deegree Rasdaman"
 
 for APP in $APP_GROUPS ; do
    cat << EOF > "/etc/xdg/menus/applications-merged/$APP.menu"
@@ -311,6 +316,7 @@ EOF
      MapProxy) APP_ICON=gnome-globe;;
      52North) APP_ICON=/usr/share/icons/52n.png;;
      deegree) APP_ICON=/usr/share/icons/deegree_desktop_48x48.png;;
+     Rasdaman) APP_ICON=gnome-globe;;
      *) unset APP_ICON;;
    esac
 
