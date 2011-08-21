@@ -32,22 +32,26 @@ for DIR in  ../doc/en/overview ../doc/en/quickstart ;  do
   cd "$BUILD_DIR/$DIR"
 
   for FILE in *.rst ;  do
+    if [ "$FILE" = "overview.rst" ] ||  [ "$FILE" = "quickstart.rst" ] ; then
+        continue
+    fi
+
     # Document
-    echo -n "\""
+    echo -n '"'
     echo -n "$FILE" | sed -e 's/.rst$//'
-    echo -n "\",\""
+    echo -n '","'
 
     # Authors
-    awk '/^:Author:/{printf("%s;", $0)}' "$FILE" | \
-      sed -e 's/:Author:\s*//g'
+    awk '/^:Author:/{printf("%s; ", $0)}' "$FILE" | \
+      sed -e 's/:Author:\s*//g' -e 's/; $//'
 
     # Reviewers
-    echo -n "\",\""
-    awk '/^:Reviewer:/{printf("%s;", $0)}' "$FILE" | \
-      sed -e 's/:Reviewer:\s*//g'
+    echo -n '","'
+    awk '/^:Reviewer:/{printf("%s; ", $0)}' "$FILE" | \
+      sed -e 's/:Reviewer:\s*//g' -e 's/; $//'
 
     # License(s)
-    echo -n "\",\""
+    echo -n '","'
     awk '/^:License:/{printf("%s", $0)}' "$FILE" | \
       sed -e 's/:License:\s*//g'
     echo "\""
