@@ -106,17 +106,6 @@
 		<Category>MapProxy</Category>
 	    </Include>
 	</Menu>
-
-	<Exclude>
-	    <Category>Rasdaman</Category>
-	</Exclude>
-	<Menu>
-	    <Name>Rasdaman</Name>
-	    <Directory>Rasdaman.directory</Directory>
-	    <Include>
-		<Category>Rasdaman</Category>
-	    </Include>
-	</Menu>
     </Menu>
 
     <Menu>
@@ -133,6 +122,17 @@
 	<Include>
 	    <Category>Database</Category>
 	</Include>
+
+	<Exclude>
+	    <Category>Rasdaman</Category>
+	</Exclude>
+	<Menu>
+	    <Name>Rasdaman</Name>
+	    <Directory>Rasdaman.directory</Directory>
+	    <Include>
+		<Category>Rasdaman</Category>
+	    </Include>
+	</Menu>
     </Menu>
 
     <Menu>
