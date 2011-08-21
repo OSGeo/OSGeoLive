@@ -285,13 +285,13 @@ for APP in $RELIEF_APPS ; do
    mv `basename $APP .desktop`.desktop "Crisis Management"/
 done
 
-# admin tools already added automatically
+# admin tools already added automatically to the menu ...
 mkdir "Databases"
 for APP in $DB_APPS ; do
    mv `basename $APP .desktop`.desktop "Databases"/
 done
-# TODO
-for ITEM in sqlitebrowser ; do
+# ... but need to be manually copied into the desktop folders
+for ITEM in sqlitebrowser pgadmin3 MySQLAdministrator ; do
    cp "/usr/share/applications/$ITEM.desktop" "Databases"/
 done
 
