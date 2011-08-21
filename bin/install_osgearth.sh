@@ -37,3 +37,9 @@ if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
+
+
+cat << EOF > /etc/profile.d/osgearth.sh
+OSG_FILE_PATH=/usr/share/osgearth
+export OSG_FILE_PATH
+EOF
