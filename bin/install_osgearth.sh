@@ -31,7 +31,7 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugi
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 
 apt-get update
-apt-get install --assume-yes osgearth
+apt-get install --assume-yes osgearth osgearth-data
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
