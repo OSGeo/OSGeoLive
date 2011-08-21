@@ -31,15 +31,16 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugi
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 
 apt-get update
-apt-get install --assume-yes osgearth osgearth-data
+apt-get install --assume-yes osgearth osgearth-data openscenegraph
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
 
-
+# pre-set the enviro var
 cat << EOF > /etc/profile.d/osgearth.sh
 OSG_FILE_PATH=/usr/share/osgearth
 export OSG_FILE_PATH
 EOF
+
