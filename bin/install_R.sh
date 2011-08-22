@@ -97,3 +97,15 @@ apt-get --assume-yes remove python-all-dev libgdal1-dev \
 
 #cleanup leftovers
 apt-get --assume-yes autoremove
+
+
+
+
+## fix for broken PDFs, fixed in upstream SVN Aug 2011  (bug #769)
+mkdir /tmp/build_R
+cd /tmp/build_R
+wget -N --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/R/spgrass6_pdf.zip"
+unzip spgrass6_pdf.zip
+\cp -f *.pdf /usr/local/lib/R/site-library/spgrass6/doc/
+
