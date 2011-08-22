@@ -59,7 +59,7 @@ mkdir -p "$TMP"
 cd "$TMP"
 
 #Dependency for Udig to load web views correctly
-apt-get install xulrunner-1.9.2
+apt-get --assume-yes install xulrunner-1.9.2
 
 ## Install Application ##
 
