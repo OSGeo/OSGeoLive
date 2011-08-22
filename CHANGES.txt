@@ -1,6 +1,16 @@
 OSGeo Live GIS Disc
 ===================
+
+Version 5.0rc2
+22 August 2011
+=================
+ * Updated translations, screen shots
+ * Fixes to most outstanding bugs
+ * Extensive testing passed
+ * Menus and launchers revised
+
 Version 5.0rc1
+15 August 2011
 =================
  * Doc generation fixes
  * Additional translation
