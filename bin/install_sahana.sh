@@ -136,9 +136,9 @@ su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/8.4/contrib/postgis
 rm -rf "$INSTALL_DIR"/web2py
 #bzr checkout --lightweight -r 2922 lp:~mdipierro/web2py/devel "$INSTALL_DIR"/web2py 
 wget -c --progress=dot:mega \
-   "http://eden.sahanafoundation.org/downloads/web2py_src-1.96.4.zip" \
-   -O "$TMP_DIR/web2py_src-1.96.4.zip"
-unzip -q "$TMP_DIR"/web2py_src-1.96.4.zip -d "$INSTALL_DIR"
+   "http://eden.sahanafoundation.org/downloads/web2py_src-1.98.2.zip" \
+   -O "$TMP_DIR/web2py_src-1.98.2.zip"
+unzip -q "$TMP_DIR"/web2py_src-1.98.2.zip -d "$INSTALL_DIR"
 #cp "$INSTALL_DIR"/web2py/routes.example.py "$INSTALL_DIR"/web2py/routes.py
 
 if [ ! -f "$INSTALL_DIR/web2py/routes.py" ] ; then
