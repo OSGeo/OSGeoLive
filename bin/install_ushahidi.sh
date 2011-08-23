@@ -37,7 +37,9 @@ mkdir -p "$TMP_DIR"
 # Install ushahidi dependencies.
 echo "Installing ushahidi"
 
-apt-get --assume-yes install php5 php5-mcrypt php5-curl apache2 mysql-server libapache2-mod-php5 php5-mysql 
+apt-get --assume-yes install php5 php5-mcrypt php5-curl apache2 \
+   mysql-server libapache2-mod-php5 php5-mysql 
+
 if [ ! -x "`which wget`" ] ; then
     echo "ERROR: wget is required, please install it and try again"
     exit 1
@@ -63,11 +65,12 @@ chown -R www-data:www-data /usr/local/share/ushahidi
 
 ## (Note: on installing mysql-server you should have been prompted to
 ##  create a new root password. Repeat that here)
+MYSQL_ADMIN_NM="user"
 MYSQL_ADMIN_PW="user"
 echo "
 CREATE DATABASE ushahidi;
 GRANT ALL PRIVILEGES ON ushahidi.* TO 'user'@'localhost' IDENTIFIED BY 'user';
-" | mysql -u root -p"$MYSQL_ADMIN_PW"
+" | mysql -u"$MYSQL_ADMIN_NM" -p"$MYSQL_ADMIN_PW"
 
 
 # tweak apache to allow Clean URLs
