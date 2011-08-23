@@ -29,6 +29,7 @@ apt-get --assume-yes remove openjdk-6-jre openjdk-6-jre-headless
 apt-get --assume-yes install java-common sun-java6-bin \
      sun-java6-jre sun-java6-jdk
 
+apt-get --assume-yes install gsfonts-x11
 
 if [ `grep -c 'JAVA_HOME' /etc/rc.local` -eq 0 ] ; then
     sed -i -e 's|exit 0|JAVA_HOME=/usr/lib/jvm/java-6-sun|' /etc/rc.local
