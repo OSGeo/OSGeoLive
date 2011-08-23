@@ -54,9 +54,9 @@ PACKAGES="git-core make autoconf automake libtool gawk flex bison \
 
 pkg_cleanup()
 {
-  apt-get --yes remove openjdk-6-jdk libreadline-dev \
+  apt-get --yes remove openjdk-6-jdk openjdk-6-jre-headless \
    libncurses5-dev libtiff4-dev libjpeg62-dev libhdf4g-dev \
-   libpng12-dev libnetpbm10-dev
+   libpng12-dev libnetpbm10-dev libreadline-dev
 
   apt-get --yes autoremove
 }
@@ -69,6 +69,9 @@ if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
    exit 1
 fi
+
+# keep this one or symlink from the installed libhdf4-0-alt?  (trac #772)
+#apt-get install --assume-yes libhdf4-0
 
 
 #download and install rasdaman
