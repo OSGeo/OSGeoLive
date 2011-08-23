@@ -49,7 +49,8 @@ fi
 PACKAGES="make autoconf automake libtool gawk flex bison \
  g++ gcc cpp libstdc++6 libreadline-dev libssl-dev openjdk-6-jdk \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev \
- libhdf4-0 libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
+ libhdf4-0 libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget\
+ libtiff4 libnetpbm10 libpng12-0"
 
 
 pkg_cleanup()
@@ -60,8 +61,8 @@ pkg_cleanup()
 
   apt-get --yes autoremove
   
-  # these are removed by autoremove but are needed
-  apt-get install --no-install-recommends --assume-yes libtiff4 libnetpbm10 libpng12
+  # these are removed by autoremove? or is it only the case on debian with no X server
+  apt-get install --no-install-recommends --assume-yes libtiff4 libnetpbm10 libpng12-0
 }
 
 
