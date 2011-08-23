@@ -82,6 +82,13 @@ fi
 # Copy documentation
 cp -pr "$DOCS_SRC" "${TMP}/osgeolive-docs"
 
+
+# save space on ISO by removing the .svn/ dirs
+for DIR in `find /usr/local/share/gisvm | grep '\.svn$'` ; do
+   rm -rf "$DIR"
+done
+
+
 # To save space merge duplicates in /usr, /opt, and /lib using hardlinks
 echo "Hardlinking duplicate files in /usr, /opt, and /lib ..."
 df -h /usr /opt /lib | uniq # report how much place is free before hardlinking
