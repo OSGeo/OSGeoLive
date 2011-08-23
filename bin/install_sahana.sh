@@ -174,6 +174,7 @@ chown "$USER_NAME" \
 	"$INSTALL_DIR/web2py/applications/admin/databases" \
 	"$INSTALL_DIR/web2py/applications/admin/errors" \
 	"$INSTALL_DIR/web2py/applications/admin/sessions" \
+	"$INSTALL_DIR/web2py/applications/eden" \
 	"$INSTALL_DIR/web2py/applications/eden/cache" \
 	"$INSTALL_DIR/web2py/applications/eden/cron" \
 	"$INSTALL_DIR/web2py/applications/eden/databases" \
