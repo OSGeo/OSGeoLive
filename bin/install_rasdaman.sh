@@ -59,6 +59,9 @@ pkg_cleanup()
    libpng12-dev libnetpbm10-dev libreadline-dev
 
   apt-get --yes autoremove
+  
+  # these are removed by autoremove but are needed
+  apt-get install --no-install-recommends --assume-yes libtiff4 libnetpbm10 libpng12
 }
 
 
