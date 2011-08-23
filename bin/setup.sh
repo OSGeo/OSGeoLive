@@ -105,7 +105,7 @@ apt-get --assume-yes remove linux-image-2.6.38-8-generic
 # nvidia proprietary driver will need to reinstall it. ah well.
 #Version must be kept up to date (removes 3 packages)
 apt-get --assume-yes remove linux-headers-2.6.38-8
-apt-get --assume-yes remove linux-headers-2.6.38-10
+apt-get --assume-yes remove linux-headers-2.6.38-11
 
 
 # Remove unused home directories
