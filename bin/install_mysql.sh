@@ -29,3 +29,14 @@ EOF
 
 apt-get install --yes mysql-server mysql-admin
 
+
+
+## well maybe that didn't work, let's see...
+MYSQL_ADMIN_NM=`grep -w '^user' /etc/mysql/debian.cnf | head -n 1 | cut -f2 -d'=' | awk '{print $1}'`
+MYSQL_ADMIN_PW=`grep -w '^password' /etc/mysql/debian.cnf | head -n 1 | cut -f2 -d'=' | awk '{print $1}'`
+
+echo ".. MySQL admin name is <$MYSQL_ADMIN_NM>. (see /etc/mysql/debian.cnf)"
+
+echo "
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'user';
+" | mysql -u"$MYSQL_ADMIN_NM" -p"$MYSQL_ADMIN_PW"
