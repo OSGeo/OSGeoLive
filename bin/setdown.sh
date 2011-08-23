@@ -76,7 +76,7 @@ rm -fr \
 
 
 # clean out ssh keys which should be machine-unique
-rm -f /etc/ssh/ssh_host_[rd]sa_key
+rm -f /etc/ssh/ssh_host_*_key*
 # change a stupid sshd default
 sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 
