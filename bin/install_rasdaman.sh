@@ -39,23 +39,23 @@ WCPS_DATABASE="wcpsdb"
 WCPS_USER="wcpsuser"
 WCPS_PASSWORD="UD0b9uTt"
 
-mkdir "$TMP"
+mkdir -p "$TMP"
 cd "$TMP"
 if [ ! -d "$RASDAMAN_HOME" ]; then
         mkdir "$RASDAMAN_HOME"
 fi
 
 #get and install required packages
-PACKAGES="git-core make autoconf automake libtool gawk flex bison \
- ant g++ gcc cpp libstdc++6 libreadline-dev libssl-dev openjdk-6-jdk \
+PACKAGES="make autoconf automake libtool gawk flex bison \
+ g++ gcc cpp libstdc++6 libreadline-dev libssl-dev openjdk-6-jdk \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev \
- libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
+ libhdf4-0 libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
 
 
 pkg_cleanup()
 {
   apt-get --yes remove openjdk-6-jdk openjdk-6-jre-headless \
-   libncurses5-dev libtiff4-dev libjpeg62-dev libhdf4g-dev \
+   libncurses5-dev libtiff4-dev libjpeg62-dev \
    libpng12-dev libnetpbm10-dev libreadline-dev
 
   apt-get --yes autoremove
@@ -63,7 +63,7 @@ pkg_cleanup()
 
 
 
-apt-get update && apt-key update &&  apt-get install --assume-yes $PACKAGES
+apt-get update && apt-key update &&  apt-get install --no-install-recommends --assume-yes $PACKAGES
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
@@ -83,7 +83,7 @@ if [ ! -d  rasdaman ] ; then
 fi
 
 cd rasdaman
-mkdir "$RASDAMAN_HOME/log"
+mkdir -p "$RASDAMAN_HOME/log"
 chown "$USER_NAME" "$RASDAMAN_HOME/log/" -R
 
 ./configure --with-logdir="$RASDAMAN_HOME"/log --prefix="$RASDAMAN_HOME"  && make
