@@ -39,4 +39,5 @@ echo ".. MySQL admin name is <$MYSQL_ADMIN_NM>. (see /etc/mysql/debian.cnf)"
 
 echo "
 CREATE USER 'user'@'localhost' IDENTIFIED BY 'user';
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost' WITH GRANT OPTION;
 " | mysql -u"$MYSQL_ADMIN_NM" -p"$MYSQL_ADMIN_PW"
