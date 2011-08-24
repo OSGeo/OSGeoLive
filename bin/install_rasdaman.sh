@@ -47,7 +47,7 @@ fi
 
 #get and install required packages
 PACKAGES="make autoconf automake libtool gawk flex bison \
- g++ gcc cpp libstdc++6 libreadline-dev libssl-dev openjdk-6-jdk \
+ g++ gcc cpp libstdc++6 libreadline-dev libssl-dev \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev \
  libhdf4-0 libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
 
