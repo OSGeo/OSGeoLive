@@ -1,6 +1,11 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 5.0rc3a
+23 August 2011
+=================
+ * Build with fix to rasdaman for checking space
+
 Version 5.0rc2
 22 August 2011
 =================
