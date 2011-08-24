@@ -49,20 +49,14 @@ fi
 PACKAGES="make autoconf automake libtool gawk flex bison \
  g++ gcc cpp libstdc++6 libreadline-dev libssl-dev openjdk-6-jdk \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev \
- libhdf4-0 libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget\
- libtiff4 libnetpbm10 libpng12-0"
+ libhdf4-0 libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
 
 
 pkg_cleanup()
 {
-  apt-get --yes remove openjdk-6-jdk openjdk-6-jre-headless \
-   libncurses5-dev libtiff4-dev libjpeg62-dev \
-   libpng12-dev libnetpbm10-dev libreadline-dev
+  apt-get --yes remove preview-latex-style tex-common texlive-base texlive-binaries texlive-common texlive-doc-base texlive-extra-utils texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures libtool bison comerr-dev doxygen doxygen-latex flex krb5-multidev latex-xcolor libecpg-dev libjpeg62-dev libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev libpq-dev libreadline-dev libreadline6-dev libtiff4-dev luatex openjdk-6-jdk libgssrpc4 libkadm5clnt-mit7 libkadm5srv-mit7 libkdb5-4
 
   apt-get --yes autoremove
-  
-  # these are removed by autoremove? or is it only the case on debian with no X server
-  apt-get install --no-install-recommends --assume-yes libtiff4 libnetpbm10 libpng12-0
 }
 
 
