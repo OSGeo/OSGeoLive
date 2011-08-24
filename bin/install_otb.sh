@@ -52,9 +52,9 @@ OTB_DATA=/usr/local/share/otb
 [ -f $DATA_DIR/OTBCookBook.pdf ] || \
    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBCookBook.pdf" \
      -O $DATA_DIR/OTBCookBook.pdf
-[ -f $DATA_DIR/OTB-Data-Examples.tgz ] || \
-   wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTB-Data-Examples.tgz" \
-     -O $DATA_DIR/OTB-Data-Examples.tgz
+#[ -f $DATA_DIR/OTB-Data-Examples.tgz ] || \
+   #wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTB-Data-Examples.tgz" \
+     #-O $DATA_DIR/OTB-Data-Examples.tgz
 
 # Install docs and demos
 if [ ! -d "$OTB_DATA" ]; then
@@ -65,9 +65,9 @@ if [ ! -d "$OTB_DATA" ]; then
     echo "Moving  OTB cookbook pdf  doc in $OTB_DATA/....."
     mv "$DATA_DIR/OTBCookBook.pdf" "$OTB_DATA/"
     echo "Done"
-    echo "Extracting OTB data examples $OTB_DATA/demos/..."
-    tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/ 
-    echo "Done"
+    #echo "Extracting OTB data examples $OTB_DATA/demos/..."
+    #tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/ 
+    #echo "Done"
 fi
 
 
