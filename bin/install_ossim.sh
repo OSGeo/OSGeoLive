@@ -54,6 +54,12 @@ wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_settings.
 tar -zxf ossim_settings.tar.gz
 mv ossim_settings/* /usr/share/ossim/
 
+#patch for ticket https://trac.osgeo.org/osgeo/ticket/647 
+sed 's/OsssimPlanet/OssimPlanet/g' /usr/share/ossim/ossimplanet.desktop > /usr/share/ossim/ossimplanet.desktop_2
+sed 's/OsssimPlanet/OssimPlanet/g' /usr/share/ossim/osgeo-ossimplanet.desktop > /usr/share/ossim/osgeo-ossimplanet.desktop_2
+mv /usr/share/ossim/ossimplanet.desktop_2 /usr/share/ossim/ossimplanet.desktop
+mv /usr/share/ossim/osgeo-ossimplanet.desktop_2 /usr/share/ossim/osgeo-ossimplanet.desktop
+
 mv /usr/share/ossim/images/ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
 mv /usr/share/ossim/images/ossim.xpm /usr/share/pixmaps/ossim.xpm
 mv /usr/share/ossim/imagelinker.desktop /usr/share/applications/imagelinker.desktop
