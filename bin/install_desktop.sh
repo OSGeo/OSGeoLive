@@ -140,6 +140,11 @@ cp "$BUILD_DIR"/../desktop-conf/xfce/xkb-plugin-363.rc /etc/xdg/xdg-xubuntu/xfce
 # two workspaces
 sed -i -e 's+\("workspace_count" type="int" value=\)"1"+\1"2"+' \
    /usr/share/xubuntu/xdg-gdm/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
+# on the ISO version the home dir has already been populated:
+USER_PANEL_CONF="$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml"
+if [ -e "$USER_PANEL_CONF" ] ; then
+   sed -i -e 's+\("workspace_count" type="int" value=\)"1"+\1"2"+' "$USER_PANEL_CONF"
+fi
 
 
 mkdir /usr/local/share/xfce
