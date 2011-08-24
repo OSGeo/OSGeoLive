@@ -59,3 +59,16 @@ chown -R $USER_NAME:$USER_NAME $USER_HOME/.AtlasStyler
 # Create a desktop icon
 cp /usr/share/applications/atlasstyler.desktop "$USER_HOME/Desktop/"
 chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/atlasstyler.desktop"
+
+
+## for some unknown reason the startup script is losing its exe bit on the ISO ?!!
+#   (trac #771)
+cat << EOF >> /usr/bin/atlasstyler
+
+# try, try again ..
+if [ $? -ne 0 ] ; then
+   . ./start_Atlasstyler.sh ${1} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9} ${10} ${11} ${12} ${13} ${14} ${15} ${16} ${17}
+fi
+EOF
+
+#?or? if [ ! -x /usr/share/atlasstyler/start_Atlasstyler.sh ] ; then
