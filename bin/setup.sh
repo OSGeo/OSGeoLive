@@ -82,6 +82,10 @@ fi
 ldconfig
 
 
+# so we can see why things fail to start..
+sed -i -e 's/^VERBOSE=no/VERBOSE=yes/' /etc/default/rcS
+
+
 # for list of packages taking up the most space install the debian-goodies
 #    package to get `dpigs`. or try `wajig size`
 
