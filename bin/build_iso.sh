@@ -83,6 +83,50 @@ fi
 cp -pr "$DOCS_SRC" "${TMP}/osgeolive-docs"
 
 
+############################################
+#### 5.0rc3:  logout, shutdown, and reboot seem broken on the ISO.
+# offer some emergency alternatives.
+cat << EOF > /home/user/Desktop/osgeo-logout.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Log out
+Comment=Takes you back to the login screen (in case the menu item is broken)
+Categories=Application;
+Exec=killall xfce4-session
+Icon=system-log-out
+Terminal=false
+EOF
+
+cat << EOF > /home/user/Desktop/osgeo-reboot.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Reboot
+Comment=Reboots the system (in case the menu item is broken)
+Categories=Application;
+Exec=echo user | sudo -S reboot
+Icon=reload
+Terminal=false
+EOF
+
+cat << EOF > /home/user/Desktop/osgeo-halt.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Shut down
+Comment=Shut down the system (in case the menu item is broken)
+Categories=Application;
+Exec=echo user | sudo -S halt
+Icon=gnome-session-halt
+Terminal=false
+EOF
+
+chown user.user /home/user/Desktop/osgeo-*.desktop
+############################################
+
+
+
 # save space on ISO by removing the .svn/ dirs
 for DIR in `find /usr/local/share/gisvm | grep '\.svn$'` ; do
    rm -rf "$DIR"
