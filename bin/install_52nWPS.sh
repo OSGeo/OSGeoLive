@@ -119,3 +119,7 @@ fi
 cp -a /usr/share/applications/52n-stop.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52n-stop.desktop"
 chown -R $USER_NAME:$USER_NAME $INSTALL_FOLDER/52nWPS/
+
+
+# something screwed up with the ISO permissions:
+chgrp tomcat6 /usr/local/52nWPS/tomcat6/apache-tomcat-6.0.26/bin/*.sh

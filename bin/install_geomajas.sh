@@ -142,3 +142,7 @@ EOF
 
 cp -a /usr/share/applications/geomajas-stop.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geomajas-stop.desktop"
+
+
+# something possibly screwed up with the ISO permissions:
+chgrp tomcat6 /usr/lib/geomajas-1.8.0-bin/bin/*.sh

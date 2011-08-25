@@ -163,3 +163,8 @@ fi
 
 cp -a /usr/share/applications/deegree-stop.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/deegree-stop.desktop"
+
+
+
+# something screwed up with the ISO permissions:
+chgrp tomcat6 /usr/lib/deegree-3.1-pre8_tomcat-6.0.32/bin/*.sh

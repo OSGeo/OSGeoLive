@@ -38,3 +38,4 @@ chown tomcat6:tomcat6 /etc/tomcat6/tomcat-users.xml
 
 # something screwed up with the ISO permissions:
 chgrp tomcat6 /usr/share/tomcat6/bin/*.sh
+adduser user tomcat6
