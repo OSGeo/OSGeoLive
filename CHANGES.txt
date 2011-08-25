@@ -1,5 +1,10 @@
 OSGeo Live GIS Disc
 ===================
+Version 5.0
+25 August 2011
+=================
+ * Fixes to Geomajas and Rasdaman
+ * Logout and Shutdown shortcut workaround for ISO
 
 Version 5.0rc3a
 23 August 2011
