@@ -91,6 +91,8 @@ apt-get remove --yes gnome-games-common \
    thunderbird pidgin-data hplip hplip-data \
    gnome-user-guide xfwm4-themes
 
+apt-get remove --yes libsane
+
 # since GIMP is removed we have to replace an xUbuntu default icon
 sed -i -e 's+gimp\.desktop+xfce4-dict\.desktop+' \
    /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml
