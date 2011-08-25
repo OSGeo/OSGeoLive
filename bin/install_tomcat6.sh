@@ -30,5 +30,11 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 BUILD_DIR="$USER_HOME/gisvm"
 
-cp "$BUILD_DIR"/app-conf/tomcat/tomcat-users.xml /etc/tomcat6/tomcat-users.xml
+cp "$BUILD_DIR"/app-conf/tomcat/tomcat-users.xml \
+   /etc/tomcat6/tomcat-users.xml
+
 chown tomcat6:tomcat6 /etc/tomcat6/tomcat-users.xml
+
+
+# something screwed up with the ISO permissions:
+chgrp tomcat6 /usr/share/tomcat6/bin/*.sh
