@@ -105,7 +105,7 @@ Encoding=UTF-8
 Name=Reboot
 Comment=Reboots the system (in case the menu item is broken)
 Categories=Application;
-Exec=echo user | sudo -S reboot
+Exec=/usr/local/bin/osgeo-reboot.sh
 Icon=reload
 Terminal=false
 EOF
@@ -117,12 +117,24 @@ Encoding=UTF-8
 Name=Shut down
 Comment=Shut down the system (in case the menu item is broken)
 Categories=Application;
-Exec=echo user | sudo -S halt
+Exec=/usr/local/bin/osgeo-halt.sh
 Icon=gnome-session-halt
 Terminal=false
 EOF
 
 chown user.user /home/user/Desktop/osgeo-*.desktop
+
+cat << EOF > /usr/local/bin/osgeo-reboot.sh
+#!/bin/sh
+echo user | sudo -S reboot
+EOF
+chmod a+x /usr/local/bin/osgeo-reboot.sh
+
+cat << EOF > /usr/local/bin/osgeo-halt.sh
+#!/bin/sh
+echo user | sudo -S halt
+EOF
+chmod a+x /usr/local/bin/osgeo-halt.sh
 ############################################
 
 
