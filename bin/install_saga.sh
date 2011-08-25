@@ -11,12 +11,13 @@
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
-# Add repositories
-cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
-
-#Add signed key for repositorys LTS and non-LTS
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+# # Add repositories
+# cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
+# 
+# #Add signed key for repositorys LTS and non-LTS
+# #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF
+# apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+apt-add-repository ppa:johanvdw/saga-gis
 
 apt-get update
 apt-get --assume-yes install saga libsaga
