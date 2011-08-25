@@ -123,3 +123,10 @@ chown -R $USER_NAME:$USER_NAME $INSTALL_FOLDER/52nWPS/
 
 # something screwed up with the ISO permissions:
 chgrp tomcat6 /usr/local/52nWPS/tomcat6/apache-tomcat-6.0.26/bin/*.sh
+
+
+# upstream's startup script had quoting issues, replace it:
+echo
+ diff -u /usr/local/52nWPS/52n-start.sh ../app-conf/52n/52nWPS-start.sh
+echo
+cp -f ../app-conf/52n/52nWPS-start.sh /usr/local/52nWPS/52n-start.sh
