@@ -39,3 +39,8 @@ chown tomcat6:tomcat6 /etc/tomcat6/tomcat-users.xml
 # something screwed up with the ISO permissions:
 chgrp tomcat6 /usr/share/tomcat6/bin/*.sh
 adduser user tomcat6
+
+### ogl5.0 hack: tomcat and apache should be installed before Java, but aren't.
+chgrp tomcat6 /usr/local/52nWPS/tomcat6/apache-tomcat-6.0.26/bin/*.sh
+chgrp tomcat6 /usr/lib/deegree-3.1-pre8_tomcat-6.0.32/bin/*.sh
+chgrp tomcat6 /usr/lib/geomajas-1.8.0-bin/bin/*.sh
