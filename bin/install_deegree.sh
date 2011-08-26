@@ -47,6 +47,7 @@ BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 PASSWORD="user"
+BUILD_DIR=`pwd`
 
 
 ### Setup things... ###
@@ -168,3 +169,6 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/deegree-stop.desktop"
 
 # something screwed up with the ISO permissions:
 chgrp tomcat6 /usr/lib/deegree-3.1-pre8_tomcat-6.0.32/bin/*.sh
+
+## last minute hack to work around conflict with system's tomcat (both want port 8080?)
+cp -f "$BUILD_DIR"/../app-conf/deegree/deegree_st*.sh "$BIN"/
