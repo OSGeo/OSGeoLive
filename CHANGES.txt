@@ -1,6 +1,10 @@
 OSGeo Live GIS Disc
 ===================
 Version 5.0
+=================
+ * Fixes to Tomcat based apps to fight fslint changing permissions in the iso.
+
+Version 5.0rc4
 25 August 2011
 =================
  * Fixes to Geomajas and Rasdaman
