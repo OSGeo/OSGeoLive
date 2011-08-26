@@ -21,6 +21,7 @@ TMP="/tmp/build_52nWPS"
 INSTALL_FOLDER="/usr/local"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
+BUILD_DIR=`pwd`
 # =============================================================================
 # Pre install checks
 # =============================================================================
@@ -127,6 +128,6 @@ chgrp tomcat6 /usr/local/52nWPS/tomcat6/apache-tomcat-6.0.26/bin/*.sh
 
 # upstream's startup script had quoting issues, replace it:
 echo
- diff -u /usr/local/52nWPS/52n-start.sh ../app-conf/52n/52nWPS-start.sh
+ diff -u /usr/local/52nWPS/52n-start.sh "$BUILD_DIR"/../app-conf/52n/52nWPS-start.sh
 echo
-cp -f ../app-conf/52n/52nWPS-start.sh /usr/local/52nWPS/52n-start.sh
+cp -f "$BUILD_DIR"/../app-conf/52n/52nWPS-start.sh /usr/local/52nWPS/52n-start.sh
