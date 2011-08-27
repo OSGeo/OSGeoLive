@@ -198,17 +198,18 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-admin.desktop"
 
 ## styler console icon
 ########## DEAD URL ###################
-cat << EOF > /usr/share/applications/geoserver-styler.desktop
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=Style GeoServer
-Comment=GeoServer ${GS_VERSION} Styler Extension
-Categories=Application;Geography;Geoscience;Education;
-Exec=firefox "http://localhost:$GS_PORT/geoserver/www/styler"
-Icon=/usr/share/icons/geoserver_48x48.logo.png
-Terminal=false
-EOF
+# fgdrf : commentet, never referenced in quickstart guide
+#cat << EOF > /usr/share/applications/geoserver-styler.desktop
+#[Desktop Entry]
+#Type=Application
+#Encoding=UTF-8
+#Name=Style GeoServer
+#Comment=GeoServer ${GS_VERSION} Styler Extension
+#Categories=Application;Geography;Geoscience;Education;
+#Exec=firefox "http://localhost:$GS_PORT/geoserver/www/styler"
+#Icon=/usr/share/icons/geoserver_48x48.logo.png
+#Terminal=false
+#EOF
 
 ## documentation icon
 cat << EOF > /usr/share/applications/geoserver-docs.desktop
