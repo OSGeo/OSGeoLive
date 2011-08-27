@@ -188,7 +188,7 @@ Encoding=UTF-8
 Name=Admin GeoServer
 Comment=GeoServer ${GS_VERSION}
 Categories=Application;Geography;Geoscience;Education;
-Exec=firefox "http://localhost:$GS_PORT/geoserver/welcome.do"
+Exec=firefox "http://localhost:$GS_PORT/geoserver/"
 Icon=/usr/share/icons/geoserver_48x48.logo.png
 Terminal=false
 EOF
@@ -197,6 +197,7 @@ cp -a /usr/share/applications/geoserver-admin.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-admin.desktop"
 
 ## styler console icon
+########## DEAD URL ###################
 cat << EOF > /usr/share/applications/geoserver-styler.desktop
 [Desktop Entry]
 Type=Application
