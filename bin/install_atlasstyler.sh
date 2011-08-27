@@ -66,8 +66,8 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/atlasstyler.desktop"
 cat << EOF >> /usr/bin/atlasstyler
 
 # try, try again ..
-if [ $? -ne 0 ] ; then
-   . ./start_Atlasstyler.sh ${1} ${2} ${3} ${4} ${5} ${6} ${7} ${8} ${9} ${10} ${11} ${12} ${13} ${14} ${15} ${16} ${17}
+if [ \$? -ne 0 ] ; then
+   . ./start_AtlasStyler.sh \${1} \${2} \${3} \${4} \${5} \${6} \${7} \${8} \${9} \${10} \${11} \${12} \${13} \${14} \${15} \${16} \${17}
 fi
 EOF
 
