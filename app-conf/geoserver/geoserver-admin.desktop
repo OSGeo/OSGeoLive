@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Admin GeoServer
+Comment=GeoServer 2.1.1
+Categories=Application;Geography;Geoscience;Education;
+Exec=firefox "http://localhost:8082/geoserver/"
+Icon=/usr/share/icons/geoserver_48x48.logo.png
+Terminal=false
