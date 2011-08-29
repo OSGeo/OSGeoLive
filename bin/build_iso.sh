@@ -167,8 +167,9 @@ sed -i -e 's:rm -rf $WORKDIR/dummysys/etc/gdm/custom.conf:#Removed:' /usr/bin/re
 # TODO: if mini name it mini
 if [ "$1" = "mini" ] ; then
 	# quick name check
-	echo "Now creating ${ISO_NAME}-mini.iso"
-	remastersys backup ${ISO_NAME}-mini.iso
+	ISO_NAME="${PACKAGE_NAME}-mini-${VERSION}"
+	echo "Now creating ${ISO_NAME}.iso"
+	remastersys backup ${ISO_NAME}.iso
 else
 	# quick name check
 	echo "Now creating $ISO_NAME.iso"
