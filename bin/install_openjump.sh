@@ -73,7 +73,7 @@ if [ -f "openjump.sh" ] ; then
    echo "openjump.sh has already been downloaded."
 else
    echo "FIXME: don't use wget for local files, just copy from local svn checkout."
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.sh
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/openjump/openjump.sh
 fi
 # copy it into the openjump folder
 cp openjump.sh $OJ_FOLDER/bin
@@ -93,7 +93,7 @@ if [ -f openjump.ico ] ; then
    echo "openjump.icon has already been downloaded."
 else
    echo "FIXME: don't use wget for local files, just copy from local svn checkout."
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.ico \
+   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/openjump/openjump.ico \
        -O openjump.ico
 fi
 # copy it into the openjump folder
@@ -101,7 +101,7 @@ cp openjump.ico "$OJ_FOLDER"
 
 # Download desktop link
 echo "FIXME: don't use wget for local files, just copy from local svn checkout."
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.desktop \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/openjump/openjump.desktop \
    -O openjump.desktop
 # copy it into the openjump folder
 cp openjump.desktop $USER_HOME/Desktop

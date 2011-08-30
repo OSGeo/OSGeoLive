@@ -94,7 +94,7 @@ if [ -f "install.xml" ]
 then
    echo "install.xml has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/install.xml
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/geonetwork/install.xml
 fi
 
 # Download jetty.xml file to listen on all addresses and change Port to 8880 
@@ -102,7 +102,7 @@ if [ -f "jetty.xml" ]
 then
    echo "jetty.xml has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/jetty.xml
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/geonetwork/jetty.xml
 fi
 
 # Download config-gui.xml file to find default GeoServer layers Port 8880
@@ -110,7 +110,7 @@ if [ -f "config-gui.xml" ]
 then
    echo "config-gui.xml has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/config-gui.xml
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/geonetwork/config-gui.xml
 fi
 
 # Download start-geonetwork.sh file with mods to work from any directory
@@ -118,7 +118,7 @@ if [ -f "start-geonetwork.sh" ]
 then
    echo "start-geonetwork.sh has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/start-geonetwork.sh
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/geonetwork/start-geonetwork.sh
 fi
 
 # Download stop-geonetwork.sh file with mods to work from any directory
@@ -126,7 +126,7 @@ if [ -f "stop-geonetwork.sh" ]
 then
    echo "stop-geonetwork.sh has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/stop-geonetwork.sh
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/geonetwork/stop-geonetwork.sh
 fi
 
 # Download data-db-mckoi.sql file - changed port number 8880
@@ -134,7 +134,7 @@ if [ -f "data-db-mckoi.sql" ]
 then
    echo "data-db-mckoi.sql has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/data-db-mckoi.sql
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/geonetwork/data-db-mckoi.sql
 fi
 
 # Download iso-19139-basins-in-africa.mef file - changed port number 8880
@@ -142,7 +142,7 @@ if [ -f "iso-19139-basins-in-africa.mef" ]
 then
    echo "iso-19139-basins-in-africa.mef has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/iso-19139-basins-in-africa.mef
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/geonetwork/iso-19139-basins-in-africa.mef
 fi
 
 # Download iso-19139-physiographic.mef file - changed port number 8880
@@ -150,7 +150,7 @@ if [ -f "iso-19139-physiographic.mef" ]
 then
    echo "iso-19139-physiographic.mef has already been downloaded."
 else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/iso-19139-physiographic.mef
+   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/geonetwork/iso-19139-physiographic.mef
 fi
 
 
@@ -191,7 +191,7 @@ if [ -f "start_geonetwork.desktop" ]
 then
 	echo "start_geonetwork.desktop has already been downloaded"
 else
-	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/start_geonetwork.desktop
+	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/geonetwork/start_geonetwork.desktop
 fi
 cp start_geonetwork.desktop $USER_HOME/Desktop/start_geonetwork.desktop
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/start_geonetwork.desktop
@@ -201,7 +201,7 @@ if [ -f "stop_geonetwork.desktop" ]
 then
 	echo "stop_geonetwork.desktop has already been downloaded"
 else
-	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/stop_geonetwork.desktop
+	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/geonetwork/stop_geonetwork.desktop
 fi
 cp stop_geonetwork.desktop $USER_HOME/Desktop/stop_geonetwork.desktop
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/stop_geonetwork.desktop
@@ -210,7 +210,7 @@ if [ -f "geonetwork.desktop" ]
 then
 	echo "geonetwork.desktop has already been downloaded"
 else
-	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/geonetwork.desktop
+	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/app-conf/geonetwork/geonetwork.desktop
 fi
 cp geonetwork.desktop $USER_HOME/Desktop/geonetwork.desktop
 chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/geonetwork.desktop

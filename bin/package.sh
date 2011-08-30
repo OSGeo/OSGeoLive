@@ -92,7 +92,7 @@ split -d -a 1 -b 1500M  ${PACKAGE_NAME}-${VERSION}.7z  ${PACKAGE_NAME}-${VERSION
 
 
 echo "Add the following lines to"
-echo "  https://username@svn.osgeo.org/osgeo/livedvd/gisvm/trunk/download/index.html"
+echo "  https://username@svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_0/download/index.html"
 echo 
 
 echo "<a name='${VERSION}'></a>"
