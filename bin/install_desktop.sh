@@ -60,7 +60,7 @@ chown user:user "$USER_HOME/Desktop/passwords.txt"
 
 
 # Setup the desktop background image
-cp ../desktop-conf/live-dvd-FOSS4G_sm2a.png \
+cp ../desktop-conf/live-dvd-FOSS4G_sans.png \
    /usr/share/xfce4/backdrops/osgeo-desktop.png
 
 #Done:support for headless installs with or without user existing, preference for png
