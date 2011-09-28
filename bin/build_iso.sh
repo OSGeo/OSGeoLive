@@ -126,12 +126,14 @@ chown user.user /home/user/Desktop/osgeo-*.desktop
 
 cat << EOF > /usr/local/bin/osgeo-reboot.sh
 #!/bin/sh
+sync
 echo user | sudo -S reboot
 EOF
 chmod a+x /usr/local/bin/osgeo-reboot.sh
 
 cat << EOF > /usr/local/bin/osgeo-halt.sh
 #!/bin/sh
+sync
 echo user | sudo -S halt
 EOF
 chmod a+x /usr/local/bin/osgeo-halt.sh
