@@ -74,6 +74,9 @@ fi
 
 #download and install rasdaman
 #If folder already exists skip the git clone and used cached version
+
+echo "FIXME: use a better test to avoid stale installs"
+
 if [ ! -d  rasdaman ] ; then
     #git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
     wget -c --progress=dot:mega "$RASDAMAN_LOCATION/$RASDAMAN_TARBALL"
