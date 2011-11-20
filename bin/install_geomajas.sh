@@ -62,7 +62,8 @@ if [ -f "geomajas-$GS_VERSION-bin.zip" ]
 then
    echo "geomajas-$GS_VERSION-bin.zip has already been downloaded."
 else
-   wget -c --progress=dot:mega "http://files.geomajas.org/release/geomajas-$GEOMAJAS_VERSION-bin.zip"
+   wget -c --progress=dot:mega \
+      "http://files.geomajas.org/release/geomajas-$GEOMAJAS_VERSION-bin.zip"
 fi
 
 
@@ -93,7 +94,7 @@ fi
 
 
 ##### Step5: Make the logs directory writable
-echo "GeoMajas FIXME: Do not use 777 if at all possible."
+echo "GeoMajas FIXME: *** Do not use 777 if at all possible. ***"
 chmod 777 "$GEOMAJAS_HOME/logs"
 
 #####Make the webapps folder accessible
