@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2010 The Open Source Geospatial Foundation.
+# Copyright (c) 2010-2011 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -19,6 +19,11 @@
 # Homepage: http://activityworkshop.net/software/prune/
 # 
 
+# live disc's username is "user"
+USER_NAME="user"
+USER_HOME="/home/$USER_NAME"
+
+
 #Add repositories
 
 # it's in UbuntuGIS's unstable-ppa.
@@ -34,3 +39,7 @@ if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed!'
    exit 1
 fi
+
+cp /usr/share/applications/gpsprune.desktop "$USER_HOME/Desktop/"
+
+

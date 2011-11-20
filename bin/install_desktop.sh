@@ -31,7 +31,7 @@ DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet *Kosmo*
               spatialite-gis saga_gui atlasstyler geopublisher"
 
 #Desktop apps part 2 (geodata viewers and editors)
-NAV_APPS="marble gpsdrive opencpn josm gosmore merkaartor viking zygrib"
+NAV_APPS="marble gpsdrive opencpn josm gosmore merkaartor viking zygrib gpsprune"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
