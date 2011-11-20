@@ -90,6 +90,8 @@ for SCRIPT in \
   ./install_services.sh \
   ./install_mysql.sh \
   ./install_java.sh \
+  ./install_apache2.sh \
+  ./install_tomcat6.sh \
   ./install_geoserver.sh \
   ./install_geomajas.sh \
   ./install_geonetwork.sh \
@@ -99,8 +101,6 @@ for SCRIPT in \
   ./install_udig.sh \
   ./install_openjump.sh \
   ./install_gvsig.sh \
-  ./install_apache2.sh \
-  ./install_tomcat6.sh \
   ./install_postgis.sh \
   ./install_osm.sh \
   ./load_postgis.sh \
@@ -163,6 +163,7 @@ for SCRIPT in \
 done
 
 # works, but ran out of disc space:
+#    ./install_mapguide.sh
 #    ./install_mb-system.sh
 
 
