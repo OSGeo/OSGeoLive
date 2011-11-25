@@ -1,11 +1,12 @@
 #!/bin/sh
 #################################################
 # 
-# Purpose: Installation of R, R-spatial packages and python dependencies needed by some qgis plug-in into Xubuntu
+# Purpose: Installation of R, R-spatial packages and python dependencies
+#	   needed by some qgis plug-in into Xubuntu
 # Author:  Massimo Di Stefano <info@geofemengineering.it>
 #
 #################################################
-# Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2011 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 GeofemEngineering 
 #
 # Licensed under the GNU LGPL.
@@ -20,14 +21,16 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 ##################################################
-
+#
 # About:
 # =====
-# This script will install : R and spatial packages plus python dependencies needed by qgis plugins into Xubuntu
-
+# This script will install : R and spatial packages plus python
+# dependencies needed by qgis plugins into Xubuntu
+#
 # Running:
 # =======
 # sudo ./install_PyDep_and_R.sh
+
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
@@ -70,8 +73,12 @@ apt-get --assume-yes install r-recommended
 #Calls R script to do install with feedback to stdout
 R --no-save < ../app-conf/R/installRpackages.r
 
-#Add Desktop shortcut
 
+# add user to the staff group so that they can install system-wide packages
+adduser "$USER_NAME" staff
+
+
+#Add Desktop shortcut
 if [ ! -e /usr/share/applications/r.desktop ] ; then
    cat << EOF > /usr/share/applications/r.desktop
 [Desktop Entry]
@@ -97,7 +104,6 @@ apt-get --assume-yes remove python-all-dev libgdal1-dev \
 
 #cleanup leftovers
 apt-get --assume-yes autoremove
-
 
 
 
