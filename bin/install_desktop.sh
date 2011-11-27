@@ -147,13 +147,15 @@ if [ -e "$USER_PANEL_CONF" ] ; then
 fi
 
 
-mkdir /usr/local/share/xfce
+mkdir -p /usr/local/share/xfce
+mkdir -p /usr/local/share/applications
+
 
 # pared down copy of /etc/xdg/xdg-xubuntu/menus/xfce-applications.menu
 cp "$BUILD_DIR"/../desktop-conf/xfce/xfce-osgeo.menu /usr/local/share/xfce/
 cp "$BUILD_DIR"/../desktop-conf/xfce/xfce-*.directory /usr/share/desktop-directories/
 sed -e 's/^Name=.*/Name=OSGeo Software Help/' live_GIS_help.desktop \
-   > /usr/share/applications/osgeo-help.desktop
+   > /usr/local/share/applications/osgeo-help.desktop
 
 
 # if you want panel transparency turned on edit Apps->Settings->WM Tweaks or
@@ -168,7 +170,7 @@ for APP in $DESKTOP_APPS ; do
    #echo "[$APP] -> [$APPL]"
    if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Desktop GIS;/' \
-	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
    fi
 done
 
@@ -177,7 +179,7 @@ for APP in $NAV_APPS ; do
    #echo "[$APP] -> [$APPL]"
    if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Navigation;/' \
-	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
 
       case "$APP" in
 	 josm | merkaartor | gosmore) GROUP=OpenStreetMap;;
@@ -185,7 +187,7 @@ for APP in $NAV_APPS ; do
       esac
       if [ -n "$GROUP" ] ; then
          sed -i -e "s/^\(Categories=.*\)/\1$GROUP;/" \
-             "/usr/share/applications/osgeo-$APPL"
+             "/usr/local/share/applications/osgeo-$APPL"
       fi
    fi
 done
@@ -195,7 +197,7 @@ for APP in $WEB_SERVICES ; do
    #echo "[$APP] -> [$APPL]"
    if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Geoservers;/' \
-	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
 
       case "$APPL" in
         geoserver-*) GROUP=GeoServer;;
@@ -207,7 +209,7 @@ for APP in $WEB_SERVICES ; do
       esac
       if [ -n "$GROUP" ] ; then
          sed -i -e "s/^\(Categories=.*\)/\1$GROUP;/" \
-             "/usr/share/applications/osgeo-$APPL"
+             "/usr/local/share/applications/osgeo-$APPL"
       fi
    fi
 done
@@ -217,7 +219,7 @@ for APP in $BROWSER_CLIENTS ; do
    #echo "[$APP] -> [$APPL]"
    if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Geoclients;/' \
-	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
    fi
 done
 
@@ -226,7 +228,7 @@ for APP in $SPATIAL_TOOLS ; do
    #echo "[$APP] -> [$APPL]"
    if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Spatial Tools;/' \
-	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
    fi
 done
 
@@ -235,7 +237,7 @@ for APP in $DB_APPS ; do
    #echo "[$APP] -> [$APPL]"
    if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Database;/' \
-	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
 
       case "$APPL" in
 	*asdaman*) GROUP=Rasdaman;;
@@ -243,7 +245,7 @@ for APP in $DB_APPS ; do
       esac
       if [ -n "$GROUP" ] ; then
          sed -i -e "s/^\(Categories=.*\)/\1$GROUP;/" \
-             "/usr/share/applications/osgeo-$APPL"
+             "/usr/local/share/applications/osgeo-$APPL"
       fi
    fi
 done
@@ -253,7 +255,7 @@ for APP in $RELIEF_APPS ; do
    #echo "[$APP] -> [$APPL]"
    if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Relief;/' \
-	 "$APPL" > "/usr/share/applications/osgeo-$APPL"
+	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
    fi
 done
 
