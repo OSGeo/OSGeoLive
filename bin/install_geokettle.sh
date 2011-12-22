@@ -37,8 +37,8 @@
 # sudo ./install_geokettle.sh
 
 TMP="/tmp/build_geokettle"
-GEOKETTLE_BASE_URL="http://downloads.sourceforge.net/project/geokettle/geokettle-2.x/2.0-RC1"
-GEOKETTLE_BASENAME="geokettle-2.0-RC1-with_plugins"
+GEOKETTLE_BASE_URL="http://downloads.sourceforge.net/project/geokettle/geokettle-2.x/2.0"
+GEOKETTLE_BASENAME="geokettle-2.0-with_plugins"
 GEOKETTLE_FILENAME="$GEOKETTLE_BASENAME.zip"
 INSTALL_FOLDER="/opt"
 GEOKETTLE_FOLDER="$INSTALL_FOLDER/geokettle"
