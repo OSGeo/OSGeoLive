@@ -51,7 +51,7 @@ WEBSERVER="apache2"
 # PostgreSQL
 PG_VERSION="8.4"
 # Geoserver
-GS_VERSION="2.1.1"
+GS_VERSION="2.1.3"
 GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"
 
 mkdir -p "$TMP_DIR"
