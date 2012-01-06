@@ -12,7 +12,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 BIN="/usr/local/bin"
 TMP="/tmp/build_mapproxy"
-MAPPROXY_VERSION="1.1.1"
+MAPPROXY_VERSION="1.3.0-1"
 MAPPROXY_DEB_FILE="mapproxy_${MAPPROXY_VERSION}_all.deb"
 MAPPROXY_DEB_URL="http://mapproxy.org/static/rel/${MAPPROXY_DEB_FILE}"
 MAPPROXY_DOCS_FILE="MapProxy-docs-${MAPPROXY_VERSION}.tar.gz"
@@ -106,7 +106,7 @@ services:
   demo:
   kml:
   tms:
-    # needs no arguments
+  wmts:
   wms:
     # srs: ['EPSG:4326', 'EPSG:900913']
     # image_formats: ['image/jpeg', 'image/png']
@@ -139,9 +139,9 @@ layers:
   - name: mapnik
     title: World population (Mapnik, uncached)
     sources: [mapnik]
-  # - name: mapserver
-  #   title: Mapserver (Itasca)
-  #   sources: [mapserver]
+  - name: mapserver
+    title: Mapserver (Itasca)
+    sources: [mapserver]
   - name: geoserver
     title: US Population (Geoserver WMS)
     sources: [geoserver]
@@ -170,7 +170,7 @@ sources:
   tilelite:
     type: tile
     url: http://127.0.0.1:8012/%(z)d/%(x)d/%(y)d.png
-    origin: nw
+    grid: global_mercator_inverse
     transparent: true
 
   mapnik:
@@ -178,16 +178,16 @@ sources:
     mapfile: /usr/local/share/mapnik/demo/population.xml
 
   # TODO: MapServer example on LiveDVD (4.5) does not work as WMS
-  # mapserver:
-  #   type: wms
-  #   supported_srs: ['epsg:26915']
-  #   req:
-  #     url: http://localhost/cgi-bin/mapserv?
-  #     layers: airports,cities,lakespy2,dlgstln2,roads,twprgpy3
-  #     map: /usr/local/www/docs_maps/mapserver_demos/workshop/itasca.map
-  #   coverage:
-  #     bbox: 363016.590190,5148502.940313,588593.999470,5374080.349593
-  #     bbox_srs: 'epsg:26915'
+  mapserver:
+    type: wms
+    supported_srs: ['epsg:26915']
+    req:
+      url: http://localhost/cgi-bin/mapserv?
+      layers: airports,cities,lakespy2,dlgstln2,roads,twprgpy3
+      map: /usr/local/www/docs_maps/mapserver_demos/workshop/itasca.map
+    coverage:
+      bbox: 363016.590190,5148502.940313,588593.999470,5374080.349593
+      bbox_srs: 'epsg:26915'
 
  # overlay_full_example:
   #   type: wms
@@ -213,6 +213,9 @@ grids:
   global_geodetic_sqrt2:
     base: GLOBAL_GEODETIC
     res_factor: 'sqrt2'
+  global_mercator_inverse:
+    base: GLOBAL_MERCATOR
+    origin: nw
   # grid_full_example:
   #   tile_size: [512, 512]
   #   srs: 'EPSG:900913'
