@@ -36,7 +36,7 @@
 TMP="/tmp/build_openjump"
 INSTALL_FOLDER="/usr/lib"
 DATA_FOLDER="/usr/local/share"
-OJ_FOLDER="$INSTALL_FOLDER/openjump-1.4.0"
+OJ_FOLDER="$INSTALL_FOLDER/openjump-core-1.5.0"
 BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
@@ -56,15 +56,15 @@ cd "$TMP"
 ## Install Application ##
 
 # get openjump
-if [ -f "openjump-v1.4.zip" ]
+if [ -f "openjump-core-1.5.0.zip" ]
 then
-   echo "openjump-v1.4.zip has already been downloaded."
+   echo "openjump-core-1.5.0.zip has already been downloaded."
 else
    wget -c --progress=dot:mega \
-http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/1.4/openjump-1.4.zip
+http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/1.5.0/openjump-core-1.5.0.zip
 fi
 # unpack it and copy it to /usr/lib
-unzip -q openjump-1.4.zip -d $INSTALL_FOLDER
+unzip -q openjump-core-1.5.0.zip -d $INSTALL_FOLDER
 
 ## Configure Application ##
 
@@ -78,9 +78,9 @@ fi
 # copy it into the openjump folder
 cp openjump.sh $OJ_FOLDER/bin
 #make startup script executable
-chmod 755 $OJ_FOLDER/bin/openjump.sh
+chmod 755 $OJ_FOLDER/bin/oj_linux.sh
 # create link to startup script
-ln -s $OJ_FOLDER/bin/openjump.sh /usr/bin/openjump
+ln -s $OJ_FOLDER/bin/oj_linux.sh /usr/bin/openjump
 
 #copy config-files to user's home
 mkdir $USER_HOME/.jump
@@ -111,30 +111,29 @@ chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/openjump.desktop
 ## Sample Data ##
 
 # Download openjump's sample data
-if [ -f "ogrs2009_tutorialddata_mod.zip" ]
+if [ -f "ojtutorial_general_2011_data.zip" ]
 then
-   echo "ogrs2009_tutorialddata_mod.zip has already been downloaded."
+   echo "ojtutorial_general_2011_data.zip has already been downloaded."
 else
-   wget -c --progress=dot:mega -O ogrs2009_tutorialddata_mod.zip \
-http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.3%20Docs%20%28English%29/ogrs2009_tutorialddata_mod.zip/download
+   wget -c --progress=dot:mega -O ojtutorial_general_2011_data.zip \
+http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.4%20Tutorials/ojtutorial_general_2011_data.zip/download
 fi
 #unzip the file into /usr/local/share/openjump/data
 mkdir -p "$DATA_FOLDER/openjump/data"
-unzip -q ogrs2009_tutorialddata_mod.zip -d "$DATA_FOLDER/openjump/data/"
+unzip -q ojtutorial_general_2011_data.zip -d "$DATA_FOLDER/openjump/data/"
 
 
 ## Documentation ##
 
-# Download openjump's documentation
-if [ -f "ogrs2009_tutorial.pdf" ]
+# Download openjump's tutorial
+if [ -f "ojtutorial_general_2011.pdf" ]
 then
-   echo "ogrs2009_tutorial.pdf has already been downloaded."
+   echo "ojtutorial_general_2011.pdf has already been downloaded."
 else
-   wget -c --progress=dot:mega -O ogrs2009_tutorial.pdf \
-http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.3%20Docs%20%28English%29/ogrs2009_tutorial.pdf/download
+   wget -c --progress=dot:mega -O ojtutorial_general_2011.pdf \
+http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.4%20Tutorials/ojtutorial_general_2011.pdf/download
 fi
-
 #copy into /usr/local/share/openjump/docs
 mkdir -p "$DATA_FOLDER/openjump/docs"
-cp ogrs2009_tutorial.pdf "$DATA_FOLDER/openjump/docs/"
+cp ojtutorial_general_2011.pdf "$DATA_FOLDER/openjump/docs/"
 
