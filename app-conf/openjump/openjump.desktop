@@ -2,11 +2,11 @@
 Version=1.0
 Encoding=UTF-8
 Type=Application
-Name=Open Jump
+Name=OpenJUMP
 Comment=
 Categories=Application;
 Exec=openjump
-Icon=/usr/lib/openjump-1.4.0/openjump.ico
+Icon=/usr/lib/openjump-core-1.5.0/openjump.ico
 Terminal=false
 StartupNotify=false
 GenericName=
