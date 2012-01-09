@@ -1,5 +1,10 @@
 OSGeo Live GIS Disc
 ===================
+
+Version 5.5beta1
+===================
+ * upgrade geoserver from 2.1.1 to 2.1.3
+ 
 Version 5.0
 =================
  * Fixes to Tomcat based apps to fight fslint changing permissions in the iso.
