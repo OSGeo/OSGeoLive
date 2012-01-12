@@ -22,8 +22,9 @@ mkdir -p "$TMP"
 cd "$TMP"
 
 # Download and uncompress openjdk
-wget -c --progress=doc:mega http://download.oracle.com/otn-pub/java/jdk/7/jdk-7-linux-i586.tar.gz
+wget -c --progress=dot:mega http://download.oracle.com/otn-pub/java/jdk/7/jdk-7-linux-i586.tar.gz
 tar -zxvf jdk-7-linux-i586.tar.gz
 
 # Move JDK 7 directory to place where it should be. Right, to the /usr/lib/jvm/jdk1.7.0 directory. Use this command for that
+mkdir -p /usr/lib/jvm
 mv ./jdk1.7.0/ /usr/lib/jvm/jdk1.7.0
