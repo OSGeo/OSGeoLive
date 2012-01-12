@@ -90,6 +90,7 @@ for SCRIPT in \
   ./install_services.sh \
   ./install_mysql.sh \
   ./install_java.sh \
+  ./install_openjdk.sh \
   ./install_apache2.sh \
   ./install_tomcat6.sh \
   ./install_geoserver.sh \
