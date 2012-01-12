@@ -2,12 +2,16 @@
 #################################################
 # 
 # Purpose: Installation of openjump into Xubuntu
-#  Author:  Stefan Hansen <shansen@lisasoft.com>
+# Authors:  Stefan Hansen <shansen@lisasoft.com>
+#           edso <edso[AT]users.sourceforge.net> 
+#
 #
 # Changes:
-#  25Jan11  Update script to openJUMP 1.4
+#  25 Jan 2011  Update script to openJUMP 1.4
+#   8 Jan 2012  changes for OJ 1.5
 #
 #################################################
+# Copyright (c) 2011 Edgar Soldin, openjump team
 # Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 LISAsoft
 #
@@ -30,110 +34,92 @@
 
 # Running:
 # =======
-# sudo ./install_openjump.sh
+# sudo ./install_openjump.sh [--clean,--force]
 
 
 TMP="/tmp/build_openjump"
-INSTALL_FOLDER="/usr/lib"
-DATA_FOLDER="/usr/local/share"
-OJ_FOLDER="$INSTALL_FOLDER/openjump-core-1.5.0"
-BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
+
+PKG_NAME=OpenJUMP
+PKG_VERSION=1.5
+PKG_FOLDER=$PKG_NAME-$PKG_VERSION
+
+PKG_HOME=/usr/lib/$PKG_FOLDER
+PKG_DATA=/usr/local/share/$PKG_NAME
+PKG_LINK=/usr/bin/openjump
+PKG_DESKTOP=$USER_HOME/Desktop/openjump.desktop
+PKG_SUCCESS=$PKG_HOME/.installed
+
+## get file defs from online file list below
+URL_LIST=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osgeo-5.5.files
+
+#URL_PKG=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP_snapshots/OpenJUMP-20120108-r2597-CORE.zip
+#URL_ICON=http://jump-pilot.svn.sourceforge.net/viewvc/jump-pilot/core/trunk/icon/openjump_icon3.svg
+#URL_DATA=http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.4%20Tutorials/ojtutorial_general_2011_data.zip
+#URL_DOC=http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.4%20Tutorials/ojtutorial_general_2011.pdf
 
 ## Setup things... ##
  
 # check required tools are installed
-if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install it and try again" 
-   exit 1
+if [ -f $PKG_SUCCESS ] && [ -z "$1" ]; then
+  echo "Use --force to reinstall."
+  exit 1 
+elif [ ! -x "`which wget`" ] ; then
+  echo "ERROR: wget is required, please install it and try again" 
+  exit 1
 fi
+
+# cleanup
+(rm -rfv $TMP $PKG_HOME $PKG_DESKTOP $PKG_LINK $PKG_DATA $USER_HOME/.openjump) 2>/dev/null
+[ "$1" = "--clean" ] && exit
+
 # create tmp folders
+rm -rf "$TMP"
 mkdir -p "$TMP"
 cd "$TMP"
 
-
+## get file list ##
+wget $URL_LIST && \
+eval $(cat $(basename $URL_LIST)) &&\
 ## Install Application ##
-
-# get openjump
-if [ -f "openjump-core-1.5.0.zip" ]
-then
-   echo "openjump-core-1.5.0.zip has already been downloaded."
-else
-   wget -c --progress=dot:mega \
-http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/1.5.0/openjump-core-1.5.0.zip
-fi
-# unpack it and copy it to /usr/lib
-unzip -q openjump-core-1.5.0.zip -d $INSTALL_FOLDER
-
-## Configure Application ##
-
-# Download desktop icon
-if [ -f "openjump.sh" ] ; then
-   echo "openjump.sh has already been downloaded."
-else
-   echo "FIXME: don't use wget for local files, just copy from local svn checkout."
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.sh
-fi
-# copy it into the openjump folder
-cp openjump.sh $OJ_FOLDER/bin
-#make startup script executable
-chmod 755 $OJ_FOLDER/bin/oj_linux.sh
+wget $URL_PKG && \
+unzip -q $(basename $URL_PKG) -d app && \
+mv app/$(ls -1 app | head -1) $PKG_FOLDER && rm -rf app &&\
+# get icon
+wget $URL_ICON -O $PKG_FOLDER/icon.svg  && \
+# set permissions
+chmod 644 -R $PKG_FOLDER &&\
+chmod 755 $PKG_FOLDER/bin/oj_linux.sh &&\
+chmod a+X -R $PKG_FOLDER &&\
+mv $PKG_FOLDER $PKG_HOME &&\
 # create link to startup script
-ln -s $OJ_FOLDER/bin/oj_linux.sh /usr/bin/openjump
-
-#copy config-files to user's home
-mkdir $USER_HOME/.jump
-cp $OJ_FOLDER/bin/workbench-properties.xml $USER_HOME/.jump
-chown $USER_NAME:$USER_NAME $USER_HOME/.jump
-chown $USER_NAME:$USER_NAME $USER_HOME/.jump/workbench-properties.xml
-
-# Download desktop icon
-if [ -f openjump.ico ] ; then
-   echo "openjump.icon has already been downloaded."
-else
-   echo "FIXME: don't use wget for local files, just copy from local svn checkout."
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.ico \
-       -O openjump.ico
-fi
-# copy it into the openjump folder
-cp openjump.ico "$OJ_FOLDER"
-
-# Download desktop link
-echo "FIXME: don't use wget for local files, just copy from local svn checkout."
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/openjump/openjump.desktop \
-   -O openjump.desktop
-# copy it into the openjump folder
-cp openjump.desktop $USER_HOME/Desktop
-chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/openjump.desktop
-
-
+ln -sf $PKG_HOME/bin/oj_linux.sh /usr/bin/openjump &&\
+# create desktop link
+( cat >$PKG_DESKTOP <<END
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=OpenJUMP
+Comment=
+Categories=Application;
+Exec=openjump
+Icon=$PKG_HOME/icon.svg
+Terminal=false
+StartupNotify=false
+GenericName=
+Path=
+END
+) &&\
 ## Sample Data ##
-
-# Download openjump's sample data
-if [ -f "ojtutorial_general_2011_data.zip" ]
-then
-   echo "ojtutorial_general_2011_data.zip has already been downloaded."
-else
-   wget -c --progress=dot:mega -O ojtutorial_general_2011_data.zip \
-http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.4%20Tutorials/ojtutorial_general_2011_data.zip/download
-fi
-#unzip the file into /usr/local/share/openjump/data
-mkdir -p "$DATA_FOLDER/openjump/data"
-unzip -q ojtutorial_general_2011_data.zip -d "$DATA_FOLDER/openjump/data/"
-
-
+wget $URL_DATA &&\
+mkdir -p "$PKG_DATA/sample_data" &&\
+unzip -j -q $(basename $URL_DATA) -x '*/.*' -d "$PKG_DATA/sample_data" &&\
 ## Documentation ##
-
-# Download openjump's tutorial
-if [ -f "ojtutorial_general_2011.pdf" ]
-then
-   echo "ojtutorial_general_2011.pdf has already been downloaded."
-else
-   wget -c --progress=dot:mega -O ojtutorial_general_2011.pdf \
-http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.4%20Tutorials/ojtutorial_general_2011.pdf/download
-fi
-#copy into /usr/local/share/openjump/docs
-mkdir -p "$DATA_FOLDER/openjump/docs"
-cp ojtutorial_general_2011.pdf "$DATA_FOLDER/openjump/docs/"
-
+wget $URL_DOC &&\
+cp $(basename $URL_DOC) "$PKG_DATA/" &&\
+## set proper permissions ##
+chmod 644 -R $PKG_DATA &&\
+chmod a+X -R $PKG_DATA &&\
+touch $PKG_SUCCESS
