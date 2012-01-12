@@ -112,6 +112,9 @@ GenericName=
 Path=
 END
 ) &&\
+## set proper permissions to desktop link ##
+chmod 644 -R $PKG_DESKTOP &&\
+chown user.user $PKG_DESKTOP &&\
 ## Sample Data ##
 wget $URL_DATA &&\
 mkdir -p "$PKG_DATA/sample_data" &&\
