@@ -32,15 +32,6 @@ apt-get --assume-yes install java-common sun-java6-bin \
 apt-get --assume-yes install gsfonts-x11
 
 
-# this won't work, because the script is not sourced, it's run and so the
-#  enviro variable will not propagate back to the partent process.
-if [ `grep -c 'JAVA_HOME' /etc/rc.local` -eq 0 ] ; then
-    sed -i -e 's|exit 0|JAVA_HOME=/usr/lib/jvm/java-6-sun|' /etc/rc.local
-    echo "export JAVA_HOME" >> /etc/rc.local
-    echo >> /etc/rc.local
-    echo "exit 0" >> /etc/rc.local
-fi
-## try it this way instead:
 cat << EOF > /etc/profile.d/set_JAVA_HOME.sh
 JAVA_HOME=/usr/lib/jvm/java-6-sun
 export JAVA_HOME
