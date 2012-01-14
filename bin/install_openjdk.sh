@@ -15,6 +15,13 @@
 # About:
 # =====
 # This script will install openjdk version 7
+#
+# for Natty see also http://brunoreis.com/tech/intalling-java-ubuntu-natty/
+#
+# for Ubuntu >=11.10 openjdk-7 is in the official archives:
+#apt-get install openjdk-7-jre icedtea-plugin ttf-dejavu-extra
+# (or `apt-get install openjdk-7-jdk`)
+
 
 TMP="/tmp/build_openjdk"
 USER_NAME="user"
@@ -29,9 +36,9 @@ wget -c --progress=dot:mega \
 tar -zxvf jdk-7-linux-i586.tar.gz
 
 # Move JDK 7 directory to the /usr/lib/jvm/jdk1.7.0 directory.
-#FIXME: use /usr/local/ not /usr for custom installs if at all possible
 mkdir -p /usr/lib/jvm
 mv ./jdk1.7.0/ /usr/lib/jvm/jdk1.7.0
+ln -s /usr/lib/jvm/jdk1.7.0 /usr/lib/jvm/java-7-sun
 
 
 # make it easy for developers to switch VMs
@@ -39,6 +46,6 @@ if [ `grep -c JAVA_HOME "$USER_HOME/.profile"` -eq 0 ] ; then
    echo >> "$USER_HOME/.profile"
    echo "# Uncomment the following line to use the OpenJDK java VM" \
       >> "$USER_HOME/.profile"
-   echo "#JAVA_HOME=/usr/lib/jvm/jdk1.7.0; export JAVA_HOME" \
+   echo "#JAVA_HOME=/usr/lib/jvm/java-7-sun; export JAVA_HOME" \
       >> "$USER_HOME/.profile"
 fi
