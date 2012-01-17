@@ -12,7 +12,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 BIN="/usr/local/bin"
 TMP="/tmp/build_mapproxy"
-MAPPROXY_VERSION="1.3.0-1"
+MAPPROXY_VERSION="1.3.0-2"
 MAPPROXY_DEB_FILE="mapproxy_${MAPPROXY_VERSION}_all.deb"
 MAPPROXY_DEB_URL="http://mapproxy.org/static/rel/${MAPPROXY_DEB_FILE}"
 MAPPROXY_DOCS_FILE="MapProxy-docs-${MAPPROXY_VERSION}.tar.gz"
@@ -177,7 +177,6 @@ sources:
     type: mapnik
     mapfile: /usr/local/share/mapnik/demo/population.xml
 
-  # TODO: MapServer example on LiveDVD (4.5) does not work as WMS
   mapserver:
     type: wms
     supported_srs: ['epsg:26915']
