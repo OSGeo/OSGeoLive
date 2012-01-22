@@ -14,7 +14,7 @@
 
 # About:
 # =====
-# This script will install postgres 8.4, postgis 1.5, and pgadmin3
+# This script will install postgres 9.1, postgis 1.5, and pgadmin3
 # 
 #   Q. how about libpostgis-java ?
 #
@@ -32,7 +32,7 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_postgis"
 BIN_DIR=`pwd`
 #Not to be confused with PGIS_Version, this has one less number and period to correspond to install paths
-PG_VERSION="8.4"
+PG_VERSION="9.1"
 
 ##  Use UbuntuGIS ppa.launchpad repo version, change to main one once it becomes
 #    available there (Ubuntu 10.04/Lucid)
