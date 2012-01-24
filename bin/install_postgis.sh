@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -14,8 +14,8 @@
 
 # About:
 # =====
-# This script will install postgres 9.1, postgis 1.5, and pgadmin3
-# 
+# This script will install postgres 8.4, postgis 1.5, and pgadmin3
+#
 #   Q. how about libpostgis-java ?
 #
 # Running:
@@ -32,7 +32,7 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_postgis"
 BIN_DIR=`pwd`
 #Not to be confused with PGIS_Version, this has one less number and period to correspond to install paths
-PG_VERSION="9.1"
+PG_VERSION="8.4"
 
 ##  Use UbuntuGIS ppa.launchpad repo version, change to main one once it becomes
 #    available there (Ubuntu 10.04/Lucid)
@@ -68,10 +68,10 @@ sudo -u postgres psql -f /tmp/build_postgre.sql
 sudo -u $USER_NAME createdb $USER_NAME
 
 #configure template postgis database
-sudo -u $USER_NAME createdb -E UTF8 template_postgis 
+sudo -u $USER_NAME createdb -E UTF8 template_postgis
 sudo -u $USER_NAME createlang plpgsql template_postgis
 # Allows non-superusers the ability to create from this template, from GeoDjango manual
-sudo -u $USER_NAME psql -1 -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';" 
+sudo -u $USER_NAME psql -1 -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';"
 
 
 ## Jul10 resolved location of postgis.sql
@@ -80,7 +80,7 @@ pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis-1.5/postgis.sql"
 
 sudo -u $USER_NAME psql --quiet -d template_postgis -f "$pgis_file"
 sudo -u $USER_NAME psql --quiet -v ON_ERROR_STOP=1 -d template_postgis \
-   -f /usr/share/postgresql/$PG_VERSION/contrib/postgis-1.5/spatial_ref_sys.sql 
+   -f /usr/share/postgresql/$PG_VERSION/contrib/postgis-1.5/spatial_ref_sys.sql
 
 
 #include pgadmin3 profile for connection
