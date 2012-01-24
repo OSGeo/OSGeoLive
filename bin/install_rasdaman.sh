@@ -24,7 +24,7 @@
 
 # rasdaman src to be used
 RASDAMAN_LOCATION="http://www.rasdaman.com/Download"
-RASDAMAN_TARBALL="rasdaman_8-2-1.tgz"
+RASDAMAN_TARBALL="rasdaman_8-3.tgz"
 
 # live disc's username is "user"
 USER_NAME="user"
@@ -35,8 +35,8 @@ TMP="/tmp/build_rasdaman"
 #set the postgresql database username and password.
 # Note that if this is changed, /var/lib/tomcat6/webapps/petascope/setting.properties
 # must be modified to reflect the changes
-WCPS_DATABASE="wcpsdb"
-WCPS_USER="wcpsuser"
+WCPS_DATABASE="petascopedb"
+WCPS_USER="petauser"
 WCPS_PASSWORD="UD0b9uTt"
 
 mkdir -p "$TMP"
@@ -49,12 +49,15 @@ fi
 PACKAGES="make autoconf automake libtool gawk flex bison \
  g++ gcc cpp libstdc++6 libreadline-dev libssl-dev \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev \
- libhdf4-0 libpng12-dev libnetpbm10-dev doxygen tomcat6 php5-cgi wget"
+ libhdf4-0 libpng12-dev libnetpbm10-dev tomcat6 php5-cgi \
+ wget libgdal1-dev openjdk-6-jdk libnetcdf-dev"
 
 
 pkg_cleanup()
 {
-  apt-get --yes remove preview-latex-style tex-common texlive-base texlive-binaries texlive-common texlive-doc-base texlive-extra-utils texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures libtool bison comerr-dev doxygen doxygen-latex flex krb5-multidev latex-xcolor libecpg-dev libjpeg62-dev libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev libpq-dev libreadline-dev libreadline6-dev libtiff4-dev luatex openjdk-6-jdk libgssrpc4 libkadm5clnt-mit7 libkadm5srv-mit7 libkdb5-4
+  apt-get --yes remove preview-latex-style tex-common texlive-base texlive-binaries texlive-common texlive-doc-base texlive-extra-utils texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures libtool bison comerr-dev doxygen doxygen-latex flex krb5-multidev latex-xcolor libecpg-dev libjpeg62-dev libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev libpq-dev libreadline-dev libreadline6-dev libtiff4-dev luatex openjdk-6-jdk libgssrpc4 libkadm5clnt-mit7 libkadm5srv-mit7 libkdb5-4 libgdal1-dev libnetcdf-dev
+  # remove jdk
+  apt-get --yes remove ca-certificates-java libaccess-bridge-java libaccess-bridge-java-jni libnss3-1d openjdk-6-jdk openjdk-6-jre openjdk-6-jre-headless openjdk-6-jre-lib tzdata-java
 
   apt-get --yes autoremove
 }
@@ -68,9 +71,17 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-# keep this one or symlink from the installed libhdf4-0-alt?  (trac #772)
-#apt-get install --assume-yes libhdf4-0
-
+# symlink from the installed libdfalt
+ln -s /usr/lib/libdfalt.a /usr/lib/libdf.a
+ln -s /usr/lib/libdfalt.la /usr/lib/libdf.la
+ln -s /usr/lib/libdfalt.so /usr/lib/libdf.so
+ln -s /usr/lib/libdfalt.so.0 /usr/lib/libdf.so.0
+ln -s /usr/lib/libdfalt.so.0.0.0 /usr/lib/libdf.so.0.0.0
+ln -s /usr/lib/libmfhdfalt.a /usr/lib/libmfhdf.a
+ln -s /usr/lib/libmfhdfalt.la /usr/lib/libmfhdf.la
+ln -s /usr/lib/libmfhdfalt.so /usr/lib/libmfhdf.so
+ln -s /usr/lib/libmfhdfalt.so.0 /usr/lib/libmfhdf.so.0
+ln -s /usr/lib/libmfhdfalt.so.0.0.0 /usr/lib/libmfhdf.so.0.0.0
 
 #download and install rasdaman
 #If folder already exists skip the git clone and used cached version
@@ -87,15 +98,47 @@ cd rasdaman
 mkdir -p "$RASDAMAN_HOME/log"
 chown "$USER_NAME" "$RASDAMAN_HOME/log/" -R
 
-./configure --with-logdir="$RASDAMAN_HOME"/log --prefix="$RASDAMAN_HOME"  && make
+# TODO: remove
+export RMANHOME="$RASDAMAN_HOME"
+rm -rf /usr/local/rasdaman/share/raswct
+
+autoreconf -fi
+./configure --with-logdir="$RASDAMAN_HOME"/log --prefix="$RASDAMAN_HOME" --with-netcdf --with-hdf4
+if [ $? -ne 0 ] ; then
+   echo "ERROR: configure failed."
+   #pkg_cleanup
+   exit 1
+fi
+
+make
+if [ $? -ne 0 ] ; then
+   echo "ERROR: compilation failed."
+   #pkg_cleanup
+   exit 1
+fi
+
+# TODO: remove once the Makefile has been fixed
+sed -i -e "s|MKDIR = mkdir|MKDIR = mkdir -p|" applications/raswct/Makefile
+sed -i -e "s|INSTALL = share/raswct|INSTALL = share/rasdaman/raswct|" applications/raswct/Makefile
 
 make install
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
-   pkg_cleanup
+   #pkg_cleanup
    exit 1
 fi
+sed -i -e "s/ -host [^ ]*/ -host $HOSTNAME/" "$RASDAMAN_HOME"/etc/rasmgr.conf
 
+# setup rasview
+mv rview rview.bin
+cp "$RASDAMAN_HOME"/share/rasdaman/errtxts* "$RASDAMAN_HOME"/bin/
+RASVIEWSCRIPT="$RASDAMAN_HOME"/bin/rasview
+echo "#!/bin/bash" > $RASVIEWSCRIPT
+echo "export RASVIEWHOME=$RASDAMAN_HOME/bin" >> $RASVIEWSCRIPT
+echo "cd $RASVIEWHOME && ./rview.bin" >> $RASVIEWSCRIPT
+chmod +x $RASVIEWSCRIPT
+
+# setup permissions
 chown "$USER_NAME" "$RASDAMAN_HOME"/bin/*
 chmod 774 "$RASDAMAN_HOME"/bin/*
 sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" "$RASDAMAN_HOME"/bin/create_db.sh
@@ -111,21 +154,49 @@ if [ -z "$test_RASBASE" ] ; then
    su - $USER_NAME $RASDAMAN_HOME/bin/create_db.sh
 fi
 
+
+# needed to start the RPC server
+sed -i -e 's/OPTIONS="-w"/OPTIONS="-w -i"/' /etc/init.d/rpcbind
+/etc/init.d/rpcbind restart
+
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
+
+#-------------------------------------------------------------------------------
+# setup petascope
+
+# create petascope database/user
+echo creating users and metadata database
+su - $USER_NAME -c "createuser $WCPS_USER --superuser"
+su - $USER_NAME -c "psql template1 --quiet -c \"ALTER ROLE $WCPS_USER  with PASSWORD '$WCPS_PASSWORD';\""
+test_WCPSDB=$(su - $USER_NAME -c "psql --quiet  --list | grep \"$WCPS_DATABASE \" ")
+if [ -z "$test_WCPSDB" ] ; then
+    su - "$USER_NAME" -c "createdb  -T template0 $WCPS_DATABASE"
+fi
+
+cd applications/petascope
+cp src/main/resources/settings.properties db
+sed -i "s/^metadata_user=.\+/metadata_user=$WCPS_USER/" db/settings.properties
+sed -i "s/^metadata_pass=.\+/metadata_pass=$WCPS_PASSWORD/" db/settings.properties
+echo "ccip_hack=true" >> db/settings.properties
+make setupdb
+make deploy CATALINA_HOME=/var/lib/tomcat6
+
+cd -
 
 cd ../
 
-#download, extract, and import demo data into rasdaman
+#-------------------------------------------------------------------------------
+# download, extract, and import demo data into rasdaman
 wget -c --progress=dot:mega \
-   http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/rasdaman_data.tar.gz
+   http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/rasdaman_data_8-3.tar.gz
 
-tar xzf rasdaman_data.tar.gz -C .
+tar xzf rasdaman_data_8-3.tar.gz -C .
 
 PATH="$PATH:$RASDAMAN_HOME/bin"
 export PATH
 
 echo importing data...
-cd rasdaman_data/DataImport
+cd rasdaman_data_8-3/DataImport
 sed -i "s/\/usr\/local\/bin\/insertdemo.sh localhost 7001 \/usr\/local\/share\/rasdaman\/examples\/images rasadmin rasadmin/\/usr\/local\/rasdaman\/bin\/insertdemo.sh localhost 7001 \/usr\/local\/rasdaman\/share\/rasdaman\/examples\/images rasadmin rasadmin /g"  demodata/Makefile
 sed -i "s/PATH+=\":\$(RASGEO)\/bin\"/MAP=lena/g" lena/Makefile
 
@@ -142,26 +213,26 @@ fi
 
 
 #create and insert data into rasdaman/petascope metadata database
-echo creating users and metadata database
-su - $USER_NAME -c "createuser $WCPS_USER --superuser"
-su - $USER_NAME -c "psql template1 --quiet -c \"ALTER ROLE $WCPS_USER  with PASSWORD '$WCPS_PASSWORD';\""
-test_WCPSDB=$(su - $USER_NAME -c "psql --quiet  --list | grep \"$WCPS_DATABASE \" ")
-if [ -z "$test_WCPSDB" ] ; then
-    su - "$USER_NAME" -c "createdb  -T template0 $WCPS_DATABASE"
-    su - "$USER_NAME" -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
-    if [ $? -ne 0 ] ; then
-	echo "ERROR: can not insert data into metadata database."
-    	pkg_cleanup
-	exit 1
-    fi
-fi
+#echo creating users and metadata database
+#su - $USER_NAME -c "createuser $WCPS_USER --superuser"
+#su - $USER_NAME -c "psql template1 --quiet -c \"ALTER ROLE $WCPS_USER  with PASSWORD '$WCPS_PASSWORD';\""
+#test_WCPSDB=$(su - $USER_NAME -c "psql --quiet  --list | grep \"$WCPS_DATABASE \" ")
+#if [ -z "$test_WCPSDB" ] ; then
+#    su - "$USER_NAME" -c "createdb  -T template0 $WCPS_DATABASE"
+#    su - "$USER_NAME" -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
+#    if [ $? -ne 0 ] ; then
+#	echo "ERROR: can not insert data into metadata database."
+#    	pkg_cleanup
+#	exit 1
+#    fi
+#fi
 
 #clean up
 echo "cleaning up..."
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
-pkg_cleanup
+#pkg_cleanup
 
 # Sun's Java should already be present..
 apt-get install --assume-yes libecpg6
@@ -222,8 +293,7 @@ cp /usr/share/applications/rasdaman-earthlook-demo.desktop "$USER_HOME/Desktop/"
 ###   at boot time.
 if [ `grep -c 'rasdaman' /etc/rc.local` -eq 0 ] ; then
     sed -i -e 's|exit 0||' /etc/rc.local
-    echo 'sed -i -e "s/host osgeo-live/host $HOSTNAME/" /usr/local/rasdaman/bin/rasmgr.conf' >> /etc/rc.local
-    echo 'sed -i -e "s/host osgeo-live/host $HOSTNAME/" /usr/local/rasdaman/etc/rasmgr.conf' >> /etc/rc.local
+    echo 'sed -i -e "s/ -host [^ ]*/ -host $HOSTNAME/" /usr/local/rasdaman/etc/rasmgr.conf' >> /etc/rc.local
     echo >> /etc/rc.local
     echo "exit 0" >> /etc/rc.local
 fi
