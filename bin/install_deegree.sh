@@ -1,7 +1,7 @@
 #!/bin/bash
 #################################################################################
 #
-# Purpose: Installation of v3.1-pre8-with-tomcat_6.0.32-all-in-one into Xubuntu
+# Purpose: Installation of deegree-webservices-3.2-pre3-with-apache-tomcat_6.0.35-all-in-one into Xubuntu
 # Author:  Judit Mays <mays@lat-lon.de>, Johannes Kuepper <kuepper@lat-lon.de>
 # Credits: Stefan Hansen <shansen@lisasoft.com>
 #          H.Bowman <hamish_b  yahoo com>
@@ -27,11 +27,9 @@
 
 # About:
 # =====
-# This script will install deegree-tomcat-all-in-one into Xubuntu
+# This script will install deegree-webservices-tomcat-all-in-one into Xubuntu
 #
-# deegree version 3.1-pre8 runs with java-sun-1.6
-#
-# It should be installed into servlet container Tomcat 6.0.x
+# deegree webservices version 3.2-pre3 runs with java-sun-1.6 on Apache Tomcat 6.0.35
 #
 
 # Running:
@@ -42,7 +40,7 @@
 
 TMP="/tmp/build_deegree"
 INSTALL_FOLDER="/usr/lib"
-DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-3.1-pre8_tomcat-6.0.32"
+DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.2-pre3_apache-tomcat-6.0.35"
 BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
@@ -69,7 +67,7 @@ cd "$TMP"
 getWithMd5()
 {
     rm -f $1.md5
-    wget -nv http://download.deegree.org/LiveDVD/FOSS4G2011/$1.md5
+    wget -nv http://download.deegree.org/LiveDVD/FOSS4G2012/$1.md5
 
     if (test -f $1) then
         if(md5sum -c $1.md5) then
@@ -78,10 +76,10 @@ getWithMd5()
         else
             echo "md5 hash is not correct. Downloading $1 again."
             rm -f $1
-            wget -c --progress=dot:mega http://download.deegree.org/LiveDVD/FOSS4G2011/$1
+            wget -c --progress=dot:mega http://download.deegree.org/LiveDVD/FOSS4G2012/$1
         fi
     else
-        wget -c --progress=dot:mega http://download.deegree.org/LiveDVD/FOSS4G2011/$1
+        wget -c --progress=dot:mega http://download.deegree.org/LiveDVD/FOSS4G2012/$1
     fi
 
     if (md5sum -c $1.md5) then
@@ -95,10 +93,10 @@ getWithMd5()
 ### Install Application ###
 
 ## get deegree-tomcat-all-in-one
-getWithMd5 deegree-3.1-pre8_tomcat-6.0.32.tar.gz
+getWithMd5 deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz
 
 ## unpack as root, chmod everything to be group/world readable
-tar xzf deegree-3.1-pre8_tomcat-6.0.32.tar.gz -o -C $INSTALL_FOLDER
+tar xzf deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz -o -C $INSTALL_FOLDER
 chmod -R go+r $DEEGREE_FOLDER/*
 
 ### Configure Application ###
@@ -119,7 +117,7 @@ chmod 755 $BIN/deegree_st*.sh
 
 ### install desktop icons ##
 if [ ! -e "/usr/share/icons/deegree_desktop_48x48.png" ] ; then
-   wget -nv "http://download.deegree.org/LiveDVD/FOSS4G2011/deegree_desktop_48x48.png"
+   wget -nv "http://download.deegree.org/LiveDVD/FOSS4G2012/deegree_desktop_48x48.png"
    mv deegree_desktop_48x48.png /usr/share/icons/
 fi
 
@@ -135,8 +133,8 @@ if [ ! -e /usr/share/applications/deegree-start.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Start deegree
-Comment=deegree v3.1-pre8
-Categories=Application;Geography;Geoscience;Education;
+Comment=deegree webservices 3.2-pre3
+Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
 Exec=dash $USER_HOME/launchassist.sh $BIN/deegree_start.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
 Terminal=false
@@ -154,8 +152,8 @@ if [ ! -e /usr/share/applications/deegree-stop.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Stop deegree
-Comment=deegree v3.1-pre8
-Categories=Application;Geography;Geoscience;Education;
+Comment=deegree webservices 3.2-pre3
+Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
 Exec=dash $USER_HOME/launchassist.sh  $BIN/deegree_stop.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
 Terminal=false
@@ -166,9 +164,8 @@ cp -a /usr/share/applications/deegree-stop.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/deegree-stop.desktop"
 
 
-
 # something screwed up with the ISO permissions:
-chgrp tomcat6 /usr/lib/deegree-3.1-pre8_tomcat-6.0.32/bin/*.sh
+chgrp tomcat6 /usr/lib/deegree-webservices-3.2-pre3_apache-tomcat-6.0.35/bin/*.sh
 
 ## last minute hack to work around conflict with system's tomcat (both want port 8080?)
 cp -f "$BUILD_DIR"/../app-conf/deegree/deegree_st*.sh "$BIN"/
