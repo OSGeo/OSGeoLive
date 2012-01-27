@@ -383,8 +383,10 @@ EOF
 
 #download latest OSM POIs for Denver (does not exist yet!)
 #wget -N --progress=dot:mega  http://poi.gpsdrive.de/denver.db.bz2
-#bzip2 -d denver.db.bz2
-#mv denver.db /usr/share/gpsdrive/
+wget -N --progress=dot:mega \
+  http://download.osgeo.org/livedvd/data/osm/Denver_poi.db.bz2
+bzip2 -d Denver_poi.db.bz2
+mv Denver_poi.db /usr/share/gpsdrive/
 
 
 # fool the hardcoded bastard
