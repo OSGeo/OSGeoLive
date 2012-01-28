@@ -34,7 +34,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
 
-MB_VERSION="5.2.1880"
+MB_VERSION="5.3.1917"
 LATEST="ftp://ftp.ldeo.columbia.edu/pub/MB-System/mbsystem-$MB_VERSION.tar.gz"
 
 BUILD_DIR=`pwd`
