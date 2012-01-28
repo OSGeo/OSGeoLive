@@ -71,7 +71,7 @@ elif [ ! -x "`which wget`" ] ; then
 fi
 
 # cleanup
-(rm -rfv $TMP $PKG_HOME $PKG_DESKTOP $PKG_LINK $PKG_DATA $USER_HOME/.openjump) 2>/dev/null
+(rm -rfv "$TMP" "$PKG_HOME" "$PKG_DESKTOP" "$PKG_LINK" "$PKG_DATA" "$USER_HOME/.openjump") 2>/dev/null
 [ "$1" = "--clean" ] && exit
 
 # create tmp folders
@@ -80,10 +80,10 @@ mkdir -p "$TMP"
 cd "$TMP"
 
 ## get file list ##
-wget $URL_LIST && \
-eval $(cat $(basename $URL_LIST)) &&\
+wget "$URL_LIST" && \
+eval $(cat $(basename "$URL_LIST")) &&\
 ## Install Application ##
-wget $URL_PKG && \
+wget "$URL_PKG" && \
 unzip -q $(basename $URL_PKG) -d app && \
 mv app/$(ls -1 app | head -1) $PKG_FOLDER && rm -rf app &&\
 # get icon
