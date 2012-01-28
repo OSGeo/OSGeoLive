@@ -197,7 +197,7 @@ grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | \
   awk 'BEGIN { PREV=0; } 
 	{ if(PREV == 0) { PREV = $2; }
 	printf("%s", $1);
-	if($1 == "R" || $1 == "osm" || $1 == "gmt") { printf("\t") }
+	if($1 == "R" || $1 == "osm" || $1 == "gmt" || $1 == "otb") { printf("\t") }
 	if($1 == "qgis_mapserver" || $1 == "geopublisher")
 	     { printf("\t") }
 	else { printf("    \t") }
