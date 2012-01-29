@@ -369,7 +369,7 @@ friendsname = LiveDVD
 showbutton_trackrestart = 0
 showbutton_trackclear = 0
 icon_theme = classic.small
-#osmdbfile = /usr/share/gpsdrive/denver.db
+osmdbfile = /usr/share/gpsdrive/Denver_poi.db
 EOF
 
 
