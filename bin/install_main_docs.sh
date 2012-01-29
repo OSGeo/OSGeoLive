@@ -141,3 +141,11 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 
 #Should we embed the password file in the help somehow too?
 # =note that it needs to be installed first! move here from install_desktop.sh if needed=
+
+
+# Download the Ubuntu users' manual PDF (CC By SA 3.0)
+mkdir -p /usr/local/share/doc
+wget -N --progress=dot:mega \
+  "http://ubuntu-manual.org/download/10.10/en_US/screen" \
+  -O "/usr/local/share/doc/Getting_Started_with_Ubuntu_10.10.pdf"
+
