@@ -14,15 +14,15 @@
 
 # About:
 # =====
-# This script will install OpenLayers 2.8
+# This script will install OpenLayers 2.11
 
 # Running:
 # =======
 # sudo service apache2 start
-# Then open a web browser and go to http://localhost/OpenLayers/
+# Then open a web browser and go to http://localhost/openLayers/
 
 TMP_DIR="/tmp/build_openlayers"
-OL_VERSION="2.10"
+OL_VERSION="2.11"
 
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
@@ -38,6 +38,12 @@ else
 fi
 
 tar xzf "OpenLayers-$OL_VERSION.tar.gz"
+
+if [ -d "/var/www/openlayers" ] ; then
+    echo -n "Removing existing OpenLayers directory (/var/www/openlayers)... "
+    rm -fr /var/www/openlayers
+    echo "Done"
+fi
 
 cp -R OpenLayers-$OL_VERSION/ /var/www/openlayers
 chmod -R uga+r /var/www/openlayers
