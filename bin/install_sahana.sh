@@ -48,8 +48,10 @@ SAHANA_CONF="/etc/apache2/conf.d/sahana"
 BUILD_DIR="$USER_HOME/gisvm"
 TMP_DIR="/tmp/build_sahana"
 WEBSERVER="apache2"
+# FIXME: Script doesn't currently use this var
+PORT="8007"
 # PostgreSQL
-PG_VERSION="8.4"
+#PG_VERSION="8.4"
 # Geoserver
 GS_VERSION="2.1.3"
 GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"
@@ -65,26 +67,26 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
     -o DPkg::Options::=--force-confdef \
     -o DPkg::Options::=--force-confold \
     install \
+	git-core \
+    unzip \
 	zlib1g-dev \
 	libgeos-c1 \
-	bzr \
-	python2.6 \
 	python-dev \
-	ipython \
 	python-lxml \
 	python-dateutil \
-	python-setuptools \
 	python-shapely \
 	python-imaging \
 	python-reportlab \
+	python-xlrd \
 	python-xlwt \
+	python-numpy \
+	python-matplotlib \
 	libapache2-mod-wsgi \
-	postgresql-8.4 \
 	python-psycopg2
 
 # Install python-tweepy
-echo "deb http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu lucid main
-deb-src http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu lucid main" \
+echo "deb http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu natty main
+deb-src http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu natty main" \
    > /etc/apt/sources.list.d/python-tweepy.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C7917B12
 apt-get update
@@ -97,14 +99,6 @@ apt-get install --yes python-tweepy
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 #apt-get update
 #apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis
-
-# Download and Install Geraldo
-#wget -c --progress=dot:mega \
-#   "http://pypi.python.org/packages/source/G/Geraldo/Geraldo-0.4.10-stable.tar.gz" \
-#   -O "$TMP_DIR/Geraldo-0.4.10-stable.tar.gz"
-#tar xzf "$TMP_DIR"/Geraldo-0.4.10-stable.tar.gz -C "$TMP_DIR"
-#cd "$TMP_DIR"/Geraldo-0.4.10-stable
-#python setup.py install
 
 # Add DB User
 su -c - postgres "createuser -s sahana" && true
@@ -134,32 +128,36 @@ su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/8.4/contrib/postgis
 
 # Download web2py
 rm -rf "$INSTALL_DIR"/web2py
-#bzr checkout --lightweight -r 2922 lp:~mdipierro/web2py/devel "$INSTALL_DIR"/web2py 
-W2P_FILE="web2py_src-1.99.2.zip"
+W2P_FILE="web2py_src-1.99.4.zip"
 wget -c --progress=dot:mega \
    "http://eden.sahanafoundation.org/downloads/$W2P_FILE" \
    -O "$TMP_DIR/$W2P_FILE"
-
 unzip -q "$TMP_DIR/$W2P_FILE" -d "$INSTALL_DIR"
-#cp "$INSTALL_DIR"/web2py/routes.example.py "$INSTALL_DIR"/web2py/routes.py
 
-if [ ! -f "$INSTALL_DIR/web2py/routes.py" ] ; then
-	cp "$INSTALL_DIR/web2py/routes.example.py" "$INSTALL_DIR/web2py/routes.py"
-fi
-cat << EOF >> "$INSTALL_DIR/web2py/routes.py"
-
+cat << EOF > "$INSTALL_DIR/web2py/routes.py"
+default_application = 'eden'
+default_controller = 'default'
+default_function = 'index'
 routes_onerror = [
-        ('eden/401', '/eden/default/user/login'),
+        ('eden/400', '!'),
+        ('eden/401', '!'),
         ('eden/*', '/eden/errors/index'),
         ('*/*', '/eden/errors/index'),
     ]
 EOF
 
-# Install Sahana Eden 0.5.5
-bzr checkout --lightweight -r2689 lp:sahana-eden \
-   "$INSTALL_DIR/web2py/applications/eden"
+# Install Sahana Eden 0.5.6
+cd "$INSTALL_DIR/web2py/applications"
+git clone git://github.com/flavour/eden.git
+cd eden
+git checkout df5ab61b2bb629b371067a72354736dc40aa0f7e
+git reset --hard
 
 # Create Eden Directories
+mkdir -p "$INSTALL_DIR/web2py/applications/eden/cache"
+mkdir -p "$INSTALL_DIR/web2py/applications/eden/databases"
+mkdir -p "$INSTALL_DIR/web2py/applications/eden/errors"
+mkdir -p "$INSTALL_DIR/web2py/applications/eden/sessions"
 mkdir -p "$INSTALL_DIR/web2py/applications/eden/uploads/gis_cache"
 mkdir -p "$INSTALL_DIR/web2py/applications/eden/uploads/images"
 mkdir -p "$INSTALL_DIR/web2py/applications/eden/uploads/tracks"
@@ -208,7 +206,7 @@ sed -i 's|127.0.0.1:8000|127.0.0.1|' \
 sed -i 's|deployment_settings.gis.spatialdb = False|deployment_settings.gis.spatialdb = True|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 # Denver FOSS4G
-sed -i 's|deployment_settings.L10n.utc_offset = "UTC +0000"|deployment_settings.L10n.utc_offset = "UTC -0700"|' \
+sed -i 's|deployment_settings.L10n.utc_offset = "UTC +0000"|deployment_settings.L10n.utc_offset = "UTC +0800"|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
 # Stream Edit 000_config.py for Postgres Database
@@ -218,12 +216,12 @@ sed -i 's|database.password = "password"|database.password = "sahana"|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
 # Configure Eden for Denver (FOSS4G 2011)
-sed -i 's|lat = "22.593723263"|lat = "39.739167"|' \
-   "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
-sed -i 's|lon = "5.28516253"|lon = "-104.984722"|' \
-   "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
-sed -i 's|zoom = 2|zoom = 10|' \
-   "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
+sed -i 's|22.593723263|39.907497741441354|' \
+   "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
+sed -i 's|5.28516253|116.397228240974|' \
+  "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
+sed -i 's|,2,|,12,|' \
+   "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
 
 cat << EOF >> "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
     # Create Login
@@ -236,7 +234,7 @@ cat << EOF >> "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
         db[table].insert(
             email = 'admin',
             password = hmac.new(auth.settings.hmac_key, 'admin', alg).hexdigest(),
-            utc_offset = '-0700',
+            utc_offset = '+0800',
             first_name = 'Admin',
             last_name = 'User'
         )
@@ -249,8 +247,8 @@ cat << EOF >> "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
 EOF
 
 # Configure Eden to make use of local GeoData
-sed -i 's|wmsbrowser_url = "http://geo.eden.sahanafoundation.org/geoserver/wms?service=WMS&request=GetCapabilities"|wmsbrowser_url = "http://localhost:8082/geoserver/wms?service=WMS\&request=GetCapabilities"|' \
-   "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
+sed -i 's|-180,180,"|-180,180,"http://localhost:8082/geoserver/wms?service=WMS\&request=GetCapabilities"|' \
+   "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
 
 # Perform the initial database Migration/Prepopulation 
 cd "$INSTALL_DIR/web2py"
@@ -332,9 +330,9 @@ cat << EOF > "$SAHANA_CONF"
   <Location "/eden">
      Order deny,allow
      Allow from all
-     ProxyPass http://localhost:8000/eden
-     ProxyPassReverse http://localhost:8000/
-     #ProxyHTMLURLMap http://127.0.0.1:8000/eden/ /eden
+     ProxyPass http://localhost:8007/eden
+     ProxyPassReverse http://localhost:8007/
+     #ProxyHTMLURLMap http://127.0.0.1:8007/eden/ /eden
   </Location>
   # everything else goes over WSGI (but this doesn't work on a subfolder)
   #<Directory /usr/local/lib/web2py>
@@ -364,7 +362,7 @@ EOF
 echo "$GS_HOME/bin/startup.sh &" >> "$START_SCRIPT"
 echo "cd $INSTALL_DIR/web2py" >> "$START_SCRIPT"
 cat << EOF >> "$START_SCRIPT"
-python web2py.py -a admin &
+python web2py.py -a admin -p 8007 &
 DELAY=40
 (
 for TIME in \`seq \$DELAY\` ; do
@@ -373,7 +371,7 @@ for TIME in \`seq \$DELAY\` ; do
 done
 ) | zenity --progress --auto-close --text "Sahana starting"
 zenity --info --text "Starting web browser ..."
-firefox "http://localhost:8000/eden"
+firefox "http://localhost:8007/eden"
 EOF
 
 chmod +x "$START_SCRIPT"
