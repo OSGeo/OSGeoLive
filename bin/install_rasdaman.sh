@@ -23,8 +23,9 @@
 #
 
 # rasdaman src to be used
+VERSION=8.3.0
 RASDAMAN_LOCATION="http://www.rasdaman.com/Download"
-RASDAMAN_TARBALL="rasdaman_8-3.tgz"
+RASDAMAN_TARBALL="rasdaman-$VERSION.tar.gz"
 
 # live disc's username is "user"
 USER_NAME="user"
@@ -50,7 +51,7 @@ PACKAGES="make autoconf automake libtool gawk flex bison \
  g++ gcc cpp libstdc++6 libreadline-dev libssl-dev \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg62-dev \
  libhdf4-0 libpng12-dev libnetpbm10-dev tomcat6 php5-cgi \
- wget libgdal1-dev openjdk-6-jdk libnetcdf-dev"
+ wget libgdal1-dev openjdk-6-jdk libnetcdf-dev rpcbind"
 
 
 pkg_cleanup()
@@ -94,45 +95,36 @@ if [ ! -d  rasdaman ] ; then
     tar xzf "$RASDAMAN_TARBALL"
 fi
 
-cd rasdaman
+cd rasdaman-$VERSION
 mkdir -p "$RASDAMAN_HOME/log"
 chown "$USER_NAME" "$RASDAMAN_HOME/log/" -R
 
-# TODO: remove
-export RMANHOME="$RASDAMAN_HOME"
-rm -rf /usr/local/rasdaman/share/raswct
-
-autoreconf -fi
 ./configure --with-logdir="$RASDAMAN_HOME"/log --prefix="$RASDAMAN_HOME" --with-netcdf --with-hdf4
 if [ $? -ne 0 ] ; then
    echo "ERROR: configure failed."
-   #pkg_cleanup
+   pkg_cleanup
    exit 1
 fi
 
 make
 if [ $? -ne 0 ] ; then
    echo "ERROR: compilation failed."
-   #pkg_cleanup
+   pkg_cleanup
    exit 1
 fi
-
-# TODO: remove once the Makefile has been fixed
-sed -i -e "s|MKDIR = mkdir|MKDIR = mkdir -p|" applications/raswct/Makefile
-sed -i -e "s|INSTALL = share/raswct|INSTALL = share/rasdaman/raswct|" applications/raswct/Makefile
 
 make install
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
-   #pkg_cleanup
+   pkg_cleanup
    exit 1
 fi
 sed -i -e "s/ -host [^ ]*/ -host $HOSTNAME/" "$RASDAMAN_HOME"/etc/rasmgr.conf
 
-# setup rasview
+# setup rasdaview
 mv rview rview.bin
 cp "$RASDAMAN_HOME"/share/rasdaman/errtxts* "$RASDAMAN_HOME"/bin/
-RASVIEWSCRIPT="$RASDAMAN_HOME"/bin/rasview
+RASVIEWSCRIPT="$RASDAMAN_HOME"/bin/rasdaview
 echo "#!/bin/bash" > $RASVIEWSCRIPT
 echo "export RASVIEWHOME=$RASDAMAN_HOME/bin" >> $RASVIEWSCRIPT
 echo "cd $RASVIEWHOME && ./rview.bin" >> $RASVIEWSCRIPT
@@ -178,7 +170,7 @@ cp src/main/resources/settings.properties db
 sed -i "s/^metadata_user=.\+/metadata_user=$WCPS_USER/" db/settings.properties
 sed -i "s/^metadata_pass=.\+/metadata_pass=$WCPS_PASSWORD/" db/settings.properties
 echo "ccip_hack=true" >> db/settings.properties
-make setupdb
+su - $USER_NAME make setupdb
 make deploy CATALINA_HOME=/var/lib/tomcat6
 
 cd -
@@ -211,28 +203,13 @@ if [ ! -d "/var/lib/tomcat6/webapps/earthlook" ] ; then
         mv rasdaman/* /var/lib/tomcat6/webapps/
 fi
 
-
-#create and insert data into rasdaman/petascope metadata database
-#echo creating users and metadata database
-#su - $USER_NAME -c "createuser $WCPS_USER --superuser"
-#su - $USER_NAME -c "psql template1 --quiet -c \"ALTER ROLE $WCPS_USER  with PASSWORD '$WCPS_PASSWORD';\""
-#test_WCPSDB=$(su - $USER_NAME -c "psql --quiet  --list | grep \"$WCPS_DATABASE \" ")
-#if [ -z "$test_WCPSDB" ] ; then
-#    su - "$USER_NAME" -c "createdb  -T template0 $WCPS_DATABASE"
-#    su - "$USER_NAME" -c "pg_restore  -d $WCPS_DATABASE $(pwd)/wcpsdb -O"
-#    if [ $? -ne 0 ] ; then
-#	echo "ERROR: can not insert data into metadata database."
-#    	pkg_cleanup
-#	exit 1
-#    fi
-#fi
-
 #clean up
 echo "cleaning up..."
+/etc/init.d/rpcbind start
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
-#pkg_cleanup
+pkg_cleanup
 
 # Sun's Java should already be present..
 apt-get install --assume-yes libecpg6
