@@ -36,9 +36,9 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 apt-get update
 
 #Install packages
-apt-get --assume-yes install qgis=1.7.2 \
-   qgis-common=1.7.2 qgis-plugin-grass=1.7.2 python-qgis=1.7.2 python-qgis-common=1.7.2 \
-   qgis-plugin-grass-common=1.7.2 gpsbabel grass-doc python-rpy2
+apt-get --assume-yes install qgis=1.7.1 \
+   qgis-common=1.7.1 qgis-plugin-grass=1.7.1 python-qgis=1.7.1 python-qgis-common=1.7.1 \
+   qgis-plugin-grass-common=1.7.1 gpsbabel grass-doc python-rpy2
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
