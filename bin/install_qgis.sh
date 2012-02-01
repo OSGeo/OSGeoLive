@@ -39,7 +39,6 @@ apt-get update
 apt-get --assume-yes install qgis=1.7.2 \
    qgis-common=1.7.2 qgis-plugin-grass=1.7.2 python-qgis=1.7.2 python-qgis-common=1.7.2 \
    qgis-plugin-grass-common=1.7.2 gpsbabel grass-doc python-rpy2
-#libgdal1-1.7.0-grass - possibly not needed anymore since qgis-plugin-grass will pull the correct one?
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
