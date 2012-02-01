@@ -216,12 +216,19 @@ sed -i 's|database.password = "password"|database.password = "sahana"|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
 # Configure Eden for Denver (FOSS4G 2011)
-sed -i 's|22.593723263|39.907497741441354|' \
+sed -i 's|22.593723263|39.739167|' \
    "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
-sed -i 's|5.28516253|116.397228240974|' \
+sed -i 's|5.28516253|-104.984722|' \
   "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
-sed -i 's|,2,|,12,|' \
+sed -i 's|,2,|,10,|' \
    "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
+# Configure Eden for Beijing (FOSS4G 2012)
+#sed -i 's|22.593723263|39.907497741441354|' \
+#   "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
+#sed -i 's|5.28516253|116.397228240974|' \
+#  "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
+#sed -i 's|,2,|,12,|' \
+#   "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
 
 cat << EOF >> "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
     # Create Login
