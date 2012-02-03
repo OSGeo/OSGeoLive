@@ -46,6 +46,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 PASSWORD="user"
 BUILD_DIR=`pwd`
+TOMCAT_PORT=8033
 
 
 ### Setup things... ###
@@ -167,5 +168,26 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/deegree-stop.desktop"
 # something screwed up with the ISO permissions:
 chgrp tomcat6 /usr/lib/deegree-webservices-3.2-pre3_apache-tomcat-6.0.35/bin/*.sh
 
-## last minute hack to work around conflict with system's tomcat (both want port 8080?)
+
+## last minute hack to work around conflict with system's tomcat
+##    (both want to use port 8080; deegree loses)
 cp -f "$BUILD_DIR"/../app-conf/deegree/deegree_st*.sh "$BIN"/
+
+# forcibly change to another port
+cd "$DEEGREE_FOLDER"
+sed -i -e "s/8080/$TOMCAT_PORT/" conf/server.xml
+
+cd webapps/deegree-webservices/
+FILES_TO_EDIT="
+console/wms/js/sextante.js
+console/wps/openlayers-demo/proxy.jsp
+console/wps/openlayers-demo/sextante.js
+resources/deegree-workspaces/deegree-workspace-csw/services/.svn/text-base/main.xml.svn-base
+resources/deegree-workspaces/deegree-workspace-csw/services/main.xml
+"
+
+sed -i -e "s/localhost:8080/localhost:$TOMCAT_PORT/g" \
+       -e "s/127.0.0.1:8080/127.0.0.1:$TOMCAT_PORT/g" \
+   $FILES_TO_EDIT
+
+

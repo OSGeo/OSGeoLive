@@ -13,6 +13,6 @@ kill -9 $pid
 
 
 ## restart system's tomcat (port 8080 conflict??)
-sleep 2
-echo "user" | sudo -S /etc/init.d/tomcat6 start
+#sleep 2
+#echo "user" | sudo -S /etc/init.d/tomcat6 start
 
