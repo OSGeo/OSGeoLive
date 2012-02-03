@@ -23,6 +23,7 @@
 # sudo ./install_pycsw.sh
 #
 # Requires: Apache2, python-lxml, python-shapely and python-sqlalchemy
+# python-pyproj
 #
 # Uninstall:
 # ============
@@ -36,7 +37,8 @@ echo "Installing pycsw $VERSION"
 echo 'Installing dependencies ...'
 
 # install dependencies
-apt-get install --yes apache2 python-lxml python-sqlalchemy python-shapely
+apt-get install --yes apache2 python-lxml python-sqlalchemy python-shapely \
+python-pyproj
 
 # live disc's username is "user"
 USER_NAME=user
