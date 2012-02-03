@@ -1,6 +1,17 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 5.5beta2
+===================
+ * OpenJDK 7 installation script
+ * openjump 1.5 installer updated
+ * update mapproxy install script to final 1.3.0
+ * OSM POIs for Denver
+ * updated to version 1.4 for naturalearth 
+ * Updated OpenLayers install script to version 2.11
+ * Added pycsw to list of projects
+ * Updated QGIS to 1.7.3-2 
+
 Version 5.5beta1
 ===================
  * upgrade geoserver from 2.1.1 to 2.1.3
