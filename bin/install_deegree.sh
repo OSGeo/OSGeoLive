@@ -175,7 +175,11 @@ cp -f "$BUILD_DIR"/../app-conf/deegree/deegree_st*.sh "$BIN"/
 
 # forcibly change to another port
 cd "$DEEGREE_FOLDER"
-sed -i -e "s/8080/$TOMCAT_PORT/" conf/server.xml
+sed -i -e "s/8080/$TOMCAT_PORT/" \
+       -e 's/8005/8006/' \
+       -e 's/8443/8444/' \
+   conf/server.xml
+
 
 cd webapps/deegree-webservices/
 FILES_TO_EDIT="
