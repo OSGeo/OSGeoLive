@@ -56,16 +56,32 @@ PACKAGES="make autoconf automake libtool gawk flex bison \
 
 pkg_cleanup()
 {
-  apt-get --yes remove preview-latex-style tex-common texlive-base texlive-binaries texlive-common texlive-doc-base texlive-extra-utils texlive-latex-base texlive-latex-extra texlive-latex-recommended texlive-pictures libtool bison comerr-dev doxygen doxygen-latex flex krb5-multidev latex-xcolor libecpg-dev libjpeg62-dev libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev libpq-dev libreadline-dev libreadline6-dev libtiff4-dev luatex openjdk-6-jdk libgssrpc4 libkadm5clnt-mit7 libkadm5srv-mit7 libkdb5-4 libgdal1-dev libnetcdf-dev
+   # be careful that no other project on the disc wanted any of these!
+
+  apt-get --yes remove preview-latex-style tex-common texlive-base \
+     texlive-binaries texlive-common texlive-doc-base texlive-extra-utils
+     texlive-latex-base texlive-latex-extra texlive-latex-recommended \
+     texlive-pictures libtool bison comerr-dev doxygen doxygen-latex \
+     flex krb5-multidev latex-xcolor libecpg-dev libjpeg62-dev \
+     libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
+     libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
+     luatex openjdk-6-jdk libgssrpc4 libkadm5clnt-mit7 libkadm5srv-mit7 \
+     libkdb5-4 libgdal1-dev libnetcdf-dev
   # remove jdk
-  apt-get --yes remove ca-certificates-java libaccess-bridge-java libaccess-bridge-java-jni libnss3-1d openjdk-6-jdk openjdk-6-jre openjdk-6-jre-headless openjdk-6-jre-lib tzdata-java
+  apt-get --yes remove ca-certificates-java libaccess-bridge-java \
+     libaccess-bridge-java-jni libnss3-1d openjdk-6-jdk openjdk-6-jre \
+     openjdk-6-jre-headless openjdk-6-jre-lib tzdata-java
 
   apt-get --yes autoremove
 }
 
 
 
-apt-get update && apt-key update &&  apt-get install --no-install-recommends --assume-yes $PACKAGES
+apt-get update
+
+apt-key update
+
+apt-get install --no-install-recommends --assume-yes $PACKAGES
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
@@ -95,11 +111,13 @@ if [ ! -d  rasdaman ] ; then
     tar xzf "$RASDAMAN_TARBALL"
 fi
 
-cd rasdaman-$VERSION
+cd "rasdaman-$VERSION"
 mkdir -p "$RASDAMAN_HOME/log"
 chown "$USER_NAME" "$RASDAMAN_HOME/log/" -R
 
-./configure --with-logdir="$RASDAMAN_HOME"/log --prefix="$RASDAMAN_HOME" --with-netcdf --with-hdf4
+./configure --with-logdir="$RASDAMAN_HOME"/log \
+    --prefix="$RASDAMAN_HOME" --with-netcdf --with-hdf4
+
 if [ $? -ne 0 ] ; then
    echo "ERROR: configure failed."
    pkg_cleanup
@@ -133,7 +151,8 @@ chmod +x $RASVIEWSCRIPT
 # setup permissions
 chown "$USER_NAME" "$RASDAMAN_HOME"/bin/*
 chmod 774 "$RASDAMAN_HOME"/bin/*
-sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" "$RASDAMAN_HOME"/bin/create_db.sh
+sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" \
+   "$RASDAMAN_HOME"/bin/create_db.sh
 
 # add rasdaman to the $PATH if not present
 if [ `grep -c $RASDAMAN_HOME/rasdaman/bin $USER_HOME/.bashrc` -eq 0 ] ; then
