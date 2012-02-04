@@ -186,7 +186,6 @@ FILES_TO_EDIT="
 console/wms/js/sextante.js
 console/wps/openlayers-demo/proxy.jsp
 console/wps/openlayers-demo/sextante.js
-resources/deegree-workspaces/deegree-workspace-csw/services/.svn/text-base/main.xml.svn-base
 resources/deegree-workspaces/deegree-workspace-csw/services/main.xml
 "
 
