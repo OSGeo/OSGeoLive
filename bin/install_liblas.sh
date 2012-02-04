@@ -35,7 +35,7 @@ LIBLAS_FOLDER="$INSTALL_FOLDER/libLAS"
 BIN="/usr/local/bin"
 USER_HOME="/home/$USER_NAME"
 
-LIBLAS_REV="libLAS-1.7.0b2"
+LIBLAS_REV="libLAS-1.7.0"
 LASZIP_REV="laszip-2.0.1"
 
 ##-----------------------------------------------------
