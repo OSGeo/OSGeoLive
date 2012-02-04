@@ -142,7 +142,6 @@ for SCRIPT in \
   ./install_52nWSS.sh \
   ./install_pycsw.sh \
   ./install_geomoose.sh \
-  ./install_mapguide.sh \
   ./install_mb-system.sh \
   ./load_gisdata.sh \
   ./install_main_docs.sh \
@@ -166,7 +165,7 @@ for SCRIPT in \
 done
 
 # works, but ran out of disc space:
-#    ./install_mapguide.sh
+#    ./install_mapguide.sh  (currently doesn't work with natty)
 #    ./install_mb-system.sh
 
 
