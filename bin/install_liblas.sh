@@ -53,7 +53,7 @@ cd "$TMP"
 
 # install pre-requisites
 apt-get install --yes cmake
-apt-get install --yes libboost1.42-dev libboost-program-options-dev \
+apt-get install --yes libboost1.42-dev libboost-program-options1.42-dev \
    libboost-thread1.42-dev libboost-serialization1.42-dev libgdal1-1.8.0 \
    libgdal1-dev libgeotiff-dev libgeotiff2
 
