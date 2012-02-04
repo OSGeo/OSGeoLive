@@ -33,7 +33,7 @@ cd "$TMP"
 # Download and uncompress openjdk
 wget -c --progress=dot:mega \
    "http://download.oracle.com/otn-pub/java/jdk/7/jdk-7-linux-i586.tar.gz"
-tar -zxvf jdk-7-linux-i586.tar.gz
+tar -zxf jdk-7-linux-i586.tar.gz
 
 # Move JDK 7 directory to the /usr/lib/jvm/jdk1.7.0 directory.
 mkdir -p /usr/lib/jvm
