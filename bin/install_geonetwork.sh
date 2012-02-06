@@ -51,12 +51,14 @@
 # sudo ./install_geonetwork.sh
 
 TMP="/tmp/build_geonetwork"
+#FIXME: please use /usr/local not /usr for things not in a .deb
 INSTALL_FOLDER="/usr/lib"
 GEONETWORK_FOLDER="$INSTALL_FOLDER/geonetwork"
 BIN="/usr/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
- 
+BUILD_DIR="`pwd`"
+
 ## Setup things... ##
  
 # check required tools are installed
@@ -65,6 +67,7 @@ if [ ! -x "`which wget`" ] ; then
    echo "ERROR: wget is required, please install it and try again" 
    exit 1
 fi
+
 # create tmp folders
 mkdir -p "$TMP"
 cd "$TMP"
@@ -75,7 +78,8 @@ if [ -f "geonetwork-install-2.6.4-0.jar" ]
 then
    echo "geonetwork-install-2.6.4-0.jar has already been downloaded."
 else
-   wget -c --progress=dot:mega http://freefr.dl.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.6.4/geonetwork-install-2.6.4-0.jar
+   wget -c --progress=dot:mega \
+     "http://freefr.dl.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.6.4/geonetwork-install-2.6.4-0.jar"
 fi
 
 # get geonetwork doco - not just yet - has to be uploaded
@@ -83,137 +87,68 @@ fi
 #then
 #   echo "GeoNetwork_opensource_v264_Manual.pdf has already been downloaded."
 #else
-#   wget --progress=dot:binary http://transact.dl.sourceforge.net/project/geonetwork/Documentation/v2.6.4/GeoNetwork_opensource_v264_Manual.pdf
+#   wget --progress=dot:binary \
+#      http://transact.dl.sourceforge.net/project/geonetwork/Documentation/v2.6.4/GeoNetwork_opensource_v264_Manual.pdf
 #fi
 
 
 ## Get Install config files ##
-
-# Download XML file that defines install location = 
-if [ -f "install.xml" ]
-then
-   echo "install.xml has already been downloaded."
-else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/install.xml
-fi
-
+# Download XML file that defines install location
 # Download jetty.xml file to listen on all addresses and change Port to 8880 
-if [ -f "jetty.xml" ]
-then
-   echo "jetty.xml has already been downloaded."
-else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/jetty.xml
-fi
+#   config-gui.xml file to find default GeoServer layers Port 8880
+#   start-geonetwork.sh file with mods to work from any directory
+#   stop-geonetwork.sh file with mods to work from any directory
+#   data-db-mckoi.sql file - changed port number 8880
+#   iso-19139-basins-in-africa.mef file - changed port number 8880
+#   iso-19139-physiographic.mef file - changed port number 8880
 
-# Download config-gui.xml file to find default GeoServer layers Port 8880
-if [ -f "config-gui.xml" ]
-then
-   echo "config-gui.xml has already been downloaded."
-else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/config-gui.xml
-fi
+FILES="
+install.xml
+jetty.xml
+config-gui.xml
+start-geonetwork.sh
+stop-geonetwork.sh
+data-db-mckoi.sql
+iso-19139-basins-in-africa.mef
+iso-19139-physiographic.mef
+"
 
-# Download start-geonetwork.sh file with mods to work from any directory
-if [ -f "start-geonetwork.sh" ]
-then
-   echo "start-geonetwork.sh has already been downloaded."
-else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/start-geonetwork.sh
-fi
+for FILE in $FILES ; do
+   cp -f -v "$BUILD_DIR/../app-conf/geonetwork/$FILE" .
+done
 
-# Download stop-geonetwork.sh file with mods to work from any directory
-if [ -f "stop-geonetwork.sh" ]
-then
-   echo "stop-geonetwork.sh has already been downloaded."
-else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/stop-geonetwork.sh
-fi
-
-# Download data-db-mckoi.sql file - changed port number 8880
-if [ -f "data-db-mckoi.sql" ]
-then
-   echo "data-db-mckoi.sql has already been downloaded."
-else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/data-db-mckoi.sql
-fi
-
-# Download iso-19139-basins-in-africa.mef file - changed port number 8880
-if [ -f "iso-19139-basins-in-africa.mef" ]
-then
-   echo "iso-19139-basins-in-africa.mef has already been downloaded."
-else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/iso-19139-basins-in-africa.mef
-fi
-
-# Download iso-19139-physiographic.mef file - changed port number 8880
-if [ -f "iso-19139-physiographic.mef" ]
-then
-   echo "iso-19139-physiographic.mef has already been downloaded."
-else
-   wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/iso-19139-physiographic.mef
-fi
 
 
 ## Install Application ##
 if [ -d "$GEONETWORK_FOLDER" ]
 then
-	( cd $GEONETWORK_FOLDER/bin; ./stop-geonetwork.sh )
+	( cd "$GEONETWORK_FOLDER/bin"; ./stop-geonetwork.sh )
 fi
-sudo java -jar geonetwork-install-2.6.4-0.jar install.xml
+java -jar geonetwork-install-2.6.4-0.jar install.xml
 
 
-# copy jetty.xml to $GEONETWORK_FOLDER/bin
-sudo cp jetty.xml $GEONETWORK_FOLDER/bin/jetty.xml
-
-# copy config-gui.xml to $GEONETWORK_FOLDER/web/geonetwork/WEB-INF
-sudo cp config-gui.xml $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/config-gui.xml
-
-# copy start-geonetwork.sh to $GEONETWORK_FOLDER/bin
-sudo cp start-geonetwork.sh $GEONETWORK_FOLDER/bin/start-geonetwork.sh
-
-# copy stop-geonetwork.sh to $GEONETWORK_FOLDER/bin
-sudo cp stop-geonetwork.sh $GEONETWORK_FOLDER/bin/stop-geonetwork.sh
-
-# copy data-db-mckoi.sql to $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/data-db-mckoi.sql
-sudo cp data-db-mckoi.sql $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/data-db-mckoi.sql
-
-# copy iso-19139-basins-in-africa.mef to $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-basins-in-africa.mef
-sudo cp iso-19139-basins-in-africa.mef $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-basins-in-africa.mef
-
-# copy iso-19139-physiographic.mef to $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-physiographic.mef
-sudo cp iso-19139-physiographic.mef $GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-physiographic.mef
+cp -f jetty.xml "$GEONETWORK_FOLDER/bin/jetty.xml"
+cp -f config-gui.xml "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/config-gui.xml"
+cp -f start-geonetwork.sh "$GEONETWORK_FOLDER/bin/start-geonetwork.sh"
+cp -f stop-geonetwork.sh "$GEONETWORK_FOLDER/bin/stop-geonetwork.sh"
+cp -f data-db-mckoi.sql \
+   "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/data-db-mckoi.sql"
+cp -f iso-19139-basins-in-africa.mef \
+   "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-basins-in-africa.mef"
+cp -f iso-19139-physiographic.mef \
+   "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-physiographic.mef"
 
 # fix permissions on installed software
-sudo chown -R $USER_NAME:$USER_NAME $GEONETWORK_FOLDER
+chown -R "$USER_NAME:$USER_NAME" "$GEONETWORK_FOLDER"
+
 
 # create startup, shutdown, open browser and doco desktop entries
-if [ -f "start_geonetwork.desktop" ]
-then
-	echo "start_geonetwork.desktop has already been downloaded"
-else
-	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/start_geonetwork.desktop
-fi
-cp start_geonetwork.desktop $USER_HOME/Desktop/start_geonetwork.desktop
-chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/start_geonetwork.desktop
+for FILE in start_geonetwork stop_geonetwork geonetwork ; do
+   cp -f -v "$BUILD_DIR/../app-conf/geonetwork/$FILE.desktop" .
+   cp -f "$FILE.desktop" "$USER_HOME/Desktop/$FILE.desktop"
+   chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/$FILE.desktop"
+done
 
-
-if [ -f "stop_geonetwork.desktop" ]
-then
-	echo "stop_geonetwork.desktop has already been downloaded"
-else
-	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/stop_geonetwork.desktop
-fi
-cp stop_geonetwork.desktop $USER_HOME/Desktop/stop_geonetwork.desktop
-chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/stop_geonetwork.desktop
-
-if [ -f "geonetwork.desktop" ]
-then
-	echo "geonetwork.desktop has already been downloaded"
-else
-	wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/geonetwork/geonetwork.desktop
-fi
-cp geonetwork.desktop $USER_HOME/Desktop/geonetwork.desktop
-chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/geonetwork.desktop
 
 #Manual is being put into /usr/local/share and linked to the geonetwork documentation
 mkdir -p /usr/local/share/geonetwork
