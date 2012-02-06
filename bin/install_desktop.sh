@@ -424,6 +424,23 @@ cp /usr/local/share/osgeo-desktop/welcome_message.txt "$USER_HOME"/
 chown user.user "$USER_HOME"/welcome_message.txt
 
 
+##### Setup workshop installation icon
+WORKSHOP_INSTALL_FILE="workshop_installation.desktop"
+cat << EOF > "/usr/share/applications/$WORKSHOP_INSTALL_FILE"
+[Desktop Entry]
+Name=Workshop Installation
+Comment=Installation for OSGeo-live based workshops
+Exec=firefox http://trac.osgeo.org/osgeo/wiki/Live_GIS_Workshop_Install
+Icon=softwarecenter
+Terminal=false
+Type=Application
+Categories=Application;Education;Geography;
+StartupNotify=true
+EOF
+
+\cp -a "/usr/share/applications/$WORKSHOP_INSTALL_FILE" "$USER_HOME/Desktop/"
+chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$WORKSHOP_INSTALL_FILE"
+
 
 #### permissions cleanup (if needed)
 chown user:user "$USER_HOME/Desktop/" -R
