@@ -1,6 +1,12 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 5.5beta3
+===================
+ * Documentation updates
+ * Fixed various Tomcat conflicts
+ * Removed experimental script for Mapguide
+
 Version 5.5beta2
 ===================
  * OpenJDK 7 installation script
