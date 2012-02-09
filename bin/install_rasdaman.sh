@@ -59,7 +59,7 @@ pkg_cleanup()
    # be careful that no other project on the disc wanted any of these!
 
   apt-get --yes remove preview-latex-style tex-common texlive-base \
-     texlive-binaries texlive-common texlive-doc-base texlive-extra-utils
+     texlive-binaries texlive-common texlive-doc-base texlive-extra-utils \
      texlive-latex-base texlive-latex-extra texlive-latex-recommended \
      texlive-pictures libtool bison comerr-dev doxygen doxygen-latex \
      flex krb5-multidev latex-xcolor libecpg-dev libjpeg62-dev \
@@ -137,10 +137,9 @@ if [ $? -ne 0 ] ; then
    pkg_cleanup
    exit 1
 fi
-sed -i -e "s/ -host [^ ]*/ -host $HOSTNAME/" "$RASDAMAN_HOME"/etc/rasmgr.conf
 
 # setup rasdaview
-mv rview rview.bin
+mv "$RASDAMAN_HOME"/bin/rview "$RASDAMAN_HOME"/bin/rview.bin
 cp "$RASDAMAN_HOME"/share/rasdaman/errtxts* "$RASDAMAN_HOME"/bin/
 RASVIEWSCRIPT="$RASDAMAN_HOME"/bin/rasdaview
 echo "#!/bin/bash" > $RASVIEWSCRIPT
