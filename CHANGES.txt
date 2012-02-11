@@ -1,6 +1,14 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 5.5beta4
+===================
+ * Documentation updates
+ * New Desktop Image
+ * New VMWare Quickstart
+ * QGIS tutorial link
+ * Various fixes to Tomcat based software
+
 Version 5.5beta3
 ===================
  * Documentation updates
