@@ -150,6 +150,14 @@ if [ "$FINAL_BUILD" = "true" ] ; then
 fi
 
 
+# For security reasons these must be removed.
+#  If you need them, generate fresh ones with:
+#    sudo ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key
+#    sudo ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
+# This is a fail-safe repeat of the action which happens in install_services.sh
+rm -rf /etc/ssh/ssh_host_[dr]sa_key*
+
+
 # To save space merge duplicates in /usr, /opt, and /lib using hardlinks
 echo "Hardlinking duplicate files in /usr, /opt, and /lib ..."
 df -h /usr /opt /lib | uniq # report how much place is free before hardlinking
