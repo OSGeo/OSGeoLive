@@ -149,5 +149,5 @@ wget -N --progress=dot:mega \
   "http://ubuntu-manual.org/download/10.10/en_US/screen" \
   -O "/usr/local/share/doc/Getting_Started_with_Ubuntu_10.10.pdf"
 ln -s /usr/local/share/doc/Getting_Started_with_Ubuntu_10.10.pdf \
-  "$USER_HOME/Desktop/Getting_Started_with_Ubuntu.pdf"
+  "$USER_HOME/Desktop/Getting Started with Ubuntu.pdf"
 
