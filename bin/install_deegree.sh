@@ -39,17 +39,14 @@
 ###########################
 
 TMP="/tmp/build_deegree"
-INSTALL_FOLDER="/usr/lib"
+INSTALL_FOLDER="/usr/local/lib"
 DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.2-pre3_apache-tomcat-6.0.35"
-BIN="/usr/bin"
+BIN="/usr/local/bin"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 PASSWORD="user"
 BUILD_DIR=`pwd`
 TOMCAT_PORT=8033
-
-## NOTE 12feb12 - prefer /usr/local/bin  and  /usr/local/lib  for installs
-##  -dbb
 
 
 ### Setup things... ###
@@ -100,26 +97,23 @@ getWithMd5()
 getWithMd5 deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz
 
 ## unpack as root, chmod everything to be group/world readable
-tar xzf deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz -o -C $INSTALL_FOLDER
-chmod -R go+r $DEEGREE_FOLDER/*
+tar xzf deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz \
+   -o -C "$INSTALL_FOLDER"
 
-## NOTE 12feb12 - the result of the chmod is currently a root:root perm 700 dir
-##  dbb            is that really want is desired ??
+chmod a+rx "$DEEGREE_FOLDER"
+chmod -R go+r "$DEEGREE_FOLDER"/*
+
 
 ### Configure Application ###
 
-## NOTE 12feb12 - that long library directory name no longer matches the names
-##  dbb            in the start.sh and stop.sh scripts
-
-
 ## Download startup script for deegree
 getWithMd5 deegree_start.sh
-## copy it into the /usr/bin folder
+## copy it into the /usr/local/bin folder
 cp deegree_start.sh $BIN
 
 ## Download shutdown script for deegree
 getWithMd5 deegree_stop.sh
-## copy it into the /usr/bin folder
+## copy it into the /usr/local/bin folder
 cp deegree_stop.sh $BIN
 
 ## make start and stop script executable
@@ -176,12 +170,13 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/deegree-stop.desktop"
 
 
 # something screwed up with the ISO permissions:
-chgrp tomcat6 /usr/lib/deegree-webservices-3.2-pre3_apache-tomcat-6.0.35/bin/*.sh
+chgrp tomcat6 "$DEEGREE_FOLDER"/bin/*.sh
+chmod ug+x "$DEEGREE_FOLDER"/bin/*.sh
 
 
 ## last minute hack to work around conflict with system's tomcat
 ##    (both want to use port 8080; deegree loses)
-cp -f "$BUILD_DIR"/../app-conf/deegree/deegree_st*.sh "$BIN"/
+cp -f "$BUILD_DIR"/../app-conf/deegree/deegree_start.sh "$BIN"/
 
 # forcibly change to another port
 cd "$DEEGREE_FOLDER"

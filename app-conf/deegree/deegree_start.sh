@@ -8,12 +8,14 @@
 ##
 #########################
 
+DEE_DIR="/usr/local/lib/deegree-webservices-3.2-pre3_apache-tomcat-6.0.35"
+
 ## stop system's tomcat (port 8080 conflict)
 #echo "user" | sudo -S /etc/init.d/tomcat6 stop
 #sleep 2
 
 ## start tomcat (and deegree webapps)
-sudo bash -c "/usr/lib/deegree-3.1-pre8_tomcat-6.0.32/bin/catalina.sh run" &
+sudo bash -c "$DEE_DIR/bin/catalina.sh run" &
 
 ## sleep for 5 sec, due to the tomcat hasn't started yet
 sleep 5
