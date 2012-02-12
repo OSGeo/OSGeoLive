@@ -48,6 +48,9 @@ PASSWORD="user"
 BUILD_DIR=`pwd`
 TOMCAT_PORT=8033
 
+## NOTE 12feb12 - prefer /usr/local/bin  and  /usr/local/lib  for installs
+##  -dbb
+
 
 ### Setup things... ###
 
@@ -100,7 +103,14 @@ getWithMd5 deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz
 tar xzf deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz -o -C $INSTALL_FOLDER
 chmod -R go+r $DEEGREE_FOLDER/*
 
+## NOTE 12feb12 - the result of the chmod is currently a root:root perm 700 dir
+##  dbb            is that really want is desired ??
+
 ### Configure Application ###
+
+## NOTE 12feb12 - that long library directory name no longer matches the names
+##  dbb            in the start.sh and stop.sh scripts
+
 
 ## Download startup script for deegree
 getWithMd5 deegree_start.sh
