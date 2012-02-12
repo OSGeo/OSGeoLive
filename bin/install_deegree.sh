@@ -102,7 +102,10 @@ tar xzf deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz \
 
 chmod a+rx "$DEEGREE_FOLDER"
 chmod -R go+r "$DEEGREE_FOLDER"/*
+chmod -R a+X "$DEEGREE_FOLDER"/webapps/deegree-webservices/*
 
+# moved to /usr/local/
+sed -i -e "s+/usr/lib/deegree+$BIN/deegree+" "$DEEGREE_FOLDER/bin/catalina.sh"
 
 ### Configure Application ###
 
@@ -114,10 +117,10 @@ cp deegree_start.sh $BIN
 ## Download shutdown script for deegree
 getWithMd5 deegree_stop.sh
 ## copy it into the /usr/local/bin folder
-cp deegree_stop.sh $BIN
+cp deegree_stop.sh "$BIN"
 
 ## make start and stop script executable
-chmod 755 $BIN/deegree_st*.sh
+chmod 755 "$BIN"/deegree_st*.sh
 
 
 ### install desktop icons ##
@@ -199,3 +202,7 @@ sed -i -e "s/localhost:8080/localhost:$TOMCAT_PORT/g" \
    $FILES_TO_EDIT
 
 
+# if it's going to install 140mb of data, at least symlink it to the
+# data folder so others can use the geotiffs too
+ln -s "$DEEGREE_FOLDER"/webapps/deegree-webservices/resources/deegree-workspaces/deegree-workspace-utah/data/utah \
+     /usr/local/share/data/utah
