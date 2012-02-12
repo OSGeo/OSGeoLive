@@ -1,5 +1,7 @@
 #CRAN Package Archive
 #Australian
 #deb http://cran.ms.unimelb.edu.au/bin/linux/ubuntu natty/ 
-#California
-deb http://cran.cnr.berkeley.edu/bin/linux/ubuntu natty/ 
+#California (IPv6 troubles)
+#deb http://cran.cnr.berkeley.edu/bin/linux/ubuntu natty/
+#Austria (R master site)
+deb http://cran.at.r-project.org/bin/linux/ubuntu natty/
