@@ -190,7 +190,7 @@ chmod ug+x "$DEEGREE_FOLDER"/bin/*.sh
  echo
  cat "$BIN"/deegree_start.sh
  echo
-cp -f "$BUILD_DIR"/../app-conf/deegree/deegree_start.sh "$BIN"/
+#cp -f "$BUILD_DIR"/../app-conf/deegree/deegree_start.sh "$BIN"/
 
  echo
  grep '80' "$DEEGREE_FOLDER"/conf/server.xml
