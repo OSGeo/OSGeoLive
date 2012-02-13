@@ -100,11 +100,19 @@ getWithMd5 deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz
 tar xzf deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz \
    -o -C "$INSTALL_FOLDER"
 
+ #indents are debug msgs to see if these things are really fixed or not
+ echo
+ ls -la "$DEEGREE_FOLDER"
 chmod a+rx "$DEEGREE_FOLDER"
 chmod -R go+r "$DEEGREE_FOLDER"/*
+ echo
+ ls -la "$DEEGREE_FOLDER"/webapps/deegree-webservices/
+ echo
 chmod -R a+X "$DEEGREE_FOLDER"/webapps/deegree-webservices/*
 
 # moved to /usr/local/
+ grep '/usr/lib/deegree' "$DEEGREE_FOLDER/bin/catalina.sh"
+ echo
 sed -i -e "s+/usr/lib/deegree+$BIN/deegree+" "$DEEGREE_FOLDER/bin/catalina.sh"
 
 ### Configure Application ###
@@ -179,8 +187,14 @@ chmod ug+x "$DEEGREE_FOLDER"/bin/*.sh
 
 ## last minute hack to work around conflict with system's tomcat
 ##    (both want to use port 8080; deegree loses)
+ echo
+ cat "$BIN"/deegree_start.sh
+ echo
 cp -f "$BUILD_DIR"/../app-conf/deegree/deegree_start.sh "$BIN"/
 
+ echo
+ grep '80' "$DEEGREE_FOLDER"/conf/server.xml
+ echo
 # forcibly change to another port
 cd "$DEEGREE_FOLDER"
 sed -i -e "s/8080/$TOMCAT_PORT/" \
@@ -196,6 +210,10 @@ console/wps/openlayers-demo/proxy.jsp
 console/wps/openlayers-demo/sextante.js
 resources/deegree-workspaces/deegree-workspace-csw/services/main.xml
 "
+ #debug:
+ echo
+ grep '8080' $FILES_TO_EDIT
+ echo
 
 sed -i -e "s/localhost:8080/localhost:$TOMCAT_PORT/g" \
        -e "s/127.0.0.1:8080/127.0.0.1:$TOMCAT_PORT/g" \
