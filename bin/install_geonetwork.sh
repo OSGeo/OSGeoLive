@@ -163,3 +163,7 @@ mkdir -p /usr/local/share/data/raster/
 ln -s /usr/lib/geonetwork/data/geoserver_data/coverages/BlueMarble_world/bluemarble_jpeg_small.tiff \
       /usr/local/share/data/raster/BlueMarble_small.tiff
 
+mkdir -p /usr/local/share/data/vector/
+ln -s  /usr/lib/geonetwork/data/geoserver_data/data/boundaries \
+      /usr/local/share/data/vector/global_boundaries
+

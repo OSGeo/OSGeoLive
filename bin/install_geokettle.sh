@@ -108,6 +108,7 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/$DESKTOP/geokettle.desktop"
 chmod a+x "$USER_HOME/$DESKTOP/geokettle.desktop"
 
 # share data with the rest of the disc
+mkdir -p /usr/local/share/data/vector
 ln -s /opt/geokettle/samples/transformations/geokettle/files \
-      /usr/local/share/data/geokettle
+      /usr/local/share/data/vector/geokettle
 

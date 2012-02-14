@@ -149,6 +149,7 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geomajas-stop.desktop"
 chgrp tomcat6 /usr/lib/geomajas-1.8.0-bin/bin/*.sh
 
 # share data with the rest of the disc
+mkdir -p /usr/local/share/data/vector
 ln -s /usr/lib/geomajas-1.8.0-bin/webapps/showcase/WEB-INF/classes/org/geomajas/example/gwt/shapefile \
-      /usr/local/share/data/geomajas
+      /usr/local/share/data/vector/geomajas
 

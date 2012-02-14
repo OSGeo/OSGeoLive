@@ -52,6 +52,7 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/geopublisher.desktop"
 
 
 # share data with the rest of the disc
+mkdir -p /usr/local/share/data/vector
 ln -s /usr/share/doc/geopublishing-doc/tutorial_Geopublisher_1 \
-      /usr/local/share/data/geopublisher
+      /usr/local/share/data/vector/geopublisher
 

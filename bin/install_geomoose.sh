@@ -104,6 +104,7 @@ cp /usr/share/applications/GeoMOOSE.desktop $USER_DIR/Desktop/
 chown $USER_NAME:$USER_NAME $USER_DIR/Desktop/GeoMOOSE.desktop
 
 # share data with the rest of the disc
+mkdir -p /usr/local/share/data/vector
 ln -s /usr/local/geomoose/maps/demo \
-      /usr/local/share/data/geomoose
+      /usr/local/share/data/vector/geomoose
 

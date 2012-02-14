@@ -129,5 +129,6 @@ touch $PKG_SUCCESS
 
 
 # share data with the rest of the disc
+mkdir -p /usr/local/share/data/vector
 ln -s /usr/local/share/OpenJUMP/sample_data \
-      /usr/local/share/data/openjump
+      /usr/local/share/data/vector/openjump
