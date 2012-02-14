@@ -49,3 +49,9 @@ chown -R $USER_NAME:$USER_NAME $USER_HOME/.Geopublisher
 # Create a desktop icon
 cp /usr/share/applications/geopublisher.desktop "$USER_HOME/Desktop/"
 chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/geopublisher.desktop"
+
+
+# share data with the rest of the disc
+ln -s /usr/share/doc/geopublishing-doc/tutorial_Geopublisher_1 \
+      /usr/local/share/data/geopublisher
+

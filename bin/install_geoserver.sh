@@ -230,3 +230,9 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-docs.desktop"
 ## clean up eventual leftover Jetty cache directory
 echo "Cleaning up Jetty JSP cache in /tmp"
 rm -rf /tmp/Jetty*geoserver*
+
+
+# share data with the rest of the disc
+ln -s  /usr/lib/geonetwork/data/geoserver_data/data/boundaries \
+      /usr/local/share/data/global_boundaries
+

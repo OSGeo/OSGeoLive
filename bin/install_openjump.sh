@@ -126,3 +126,8 @@ cp $(basename $URL_DOC) "$PKG_DATA/" &&\
 chmod 644 -R $PKG_DATA &&\
 chmod a+X -R $PKG_DATA &&\
 touch $PKG_SUCCESS
+
+
+# share data with the rest of the disc
+ln -s /usr/local/share/OpenJUMP/sample_data \
+      /usr/local/share/data/openjump

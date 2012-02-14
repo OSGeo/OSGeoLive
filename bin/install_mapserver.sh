@@ -114,6 +114,11 @@ fi
 cp /usr/share/applications/mapserver.desktop "$USER_HOME/Desktop/"
 
 
+# share data with the rest of the disc
+ln -s /usr/local/share/mapserver/demos/itasca/data \
+      /usr/local/share/data/itasca
+
+
 # Reload Apache
 /etc/init.d/apache2 force-reload
 

@@ -117,3 +117,9 @@ EOF
 
 cp -a /usr/share/applications/mapnik-intro.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/mapnik-intro.desktop"
+
+# share data with the rest of the disc
+mkdir -p /usr/local/share/data/vector
+ln -s /usr/local/share/mapnik/demo \
+      /usr/local/share/data/vector/world_merc
+

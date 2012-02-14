@@ -107,3 +107,7 @@ EOF
 chown $USER_NAME:$USER_NAME "$USER_HOME/$DESKTOP/geokettle.desktop"
 chmod a+x "$USER_HOME/$DESKTOP/geokettle.desktop"
 
+# share data with the rest of the disc
+ln -s /opt/geokettle/samples/transformations/geokettle/files \
+      /usr/local/share/data/geokettle
+

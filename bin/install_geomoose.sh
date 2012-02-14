@@ -103,3 +103,7 @@ EOF
 cp /usr/share/applications/GeoMOOSE.desktop $USER_DIR/Desktop/
 chown $USER_NAME:$USER_NAME $USER_DIR/Desktop/GeoMOOSE.desktop
 
+# share data with the rest of the disc
+ln -s /usr/local/geomoose/maps/demo \
+      /usr/local/share/data/geomoose
+

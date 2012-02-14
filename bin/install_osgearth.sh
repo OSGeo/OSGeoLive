@@ -44,3 +44,8 @@ OSG_FILE_PATH=/usr/share/osgearth
 export OSG_FILE_PATH
 EOF
 
+# share data with the rest of the disc
+mkdir -p /usr/local/share/data/raster
+ln -s /usr/share/osgearth/data/world.tif \
+      /usr/local/share/data/raster/
+

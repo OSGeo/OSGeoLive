@@ -147,3 +147,8 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geomajas-stop.desktop"
 
 # something possibly screwed up with the ISO permissions:
 chgrp tomcat6 /usr/lib/geomajas-1.8.0-bin/bin/*.sh
+
+# share data with the rest of the disc
+ln -s /usr/lib/geomajas-1.8.0-bin/webapps/showcase/WEB-INF/classes/org/geomajas/example/gwt/shapefile \
+      /usr/local/share/data/geomajas
+

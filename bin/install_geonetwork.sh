@@ -157,4 +157,9 @@ mkdir -p /usr/local/share/geonetwork
 #cp GeoNetwork_opensource_v264_Manual.pdf $USER_HOME/Desktop
 #chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/GeoNetwork_opensource_v264_Manual.pdf
 
-exit 0
+
+# share data with the rest of the disc
+mkdir -p /usr/local/share/data/raster/
+ln -s /usr/lib/geonetwork/data/geoserver_data/coverages/BlueMarble_world/bluemarble_jpeg_small.tiff \
+      /usr/local/share/data/raster/BlueMarble_small.tiff
+
