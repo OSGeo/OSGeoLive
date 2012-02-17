@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 5.5beta5
+===================
+ * MetaCRS fixed
+ * R problematic mirror fixed
+ * pycsw installation fixed
+ * deegree installation fixed
+
 Version 5.5beta4
 ===================
  * Documentation updates
