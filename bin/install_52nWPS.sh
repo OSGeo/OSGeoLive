@@ -79,6 +79,7 @@ cp -R $TMP/52nWPS "$INSTALL_FOLDER"/
 if [ ! -e "/usr/share/icons/52n.png" ] ; then
   cp $INSTALL_FOLDER/52nWPS/52n.png /usr/share/icons/
 fi
+chmod +x $INSTALL_FOLDER/52nWPS/tomcat6/apache-tomcat-6.0.26/bin/set*.sh
 
 mkdir -p -v "$USER_HOME/Desktop"
 
