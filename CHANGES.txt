@@ -1,6 +1,11 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 5.5rc1
+===================
+ * 52NorthWPS fixed
+ * zyGrib installation fixed
+
 Version 5.5beta5
 ===================
  * MetaCRS fixed
