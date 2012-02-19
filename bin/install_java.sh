@@ -21,7 +21,7 @@
 export DEBIAN_FRONTEND=noninteractive
 echo "sun-java6-jdk shared/accepted-sun-dlj-v1-1 boolean true" | debconf-set-selections
 
-add-apt-repository "deb http://archive.canonical.com/ natty partner"
+#add-apt-repository "deb http://archive.canonical.com/ natty partner"
 add-apt-repository "deb http://ppa.launchpad.net/duh/sun-java6/ubuntu natty main"
 apt-get update
 
