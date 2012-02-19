@@ -43,7 +43,7 @@ fi
 apt-get --assume-yes install python2.6 python2.6-dev \
     cgi-mapserver postgis postgresql-8.4-postgis tomcat6 \
     libpq-dev libapache2-mod-fcgid libapache2-mod-wsgi \
-    patch
+    patch python-setuptools
     #TODO: firebug no longer in repos
 
 if [ $? -ne 0 ] ; then
