@@ -52,11 +52,7 @@ ensures the minimum amount of disk space is used by programs which
 share common support libraries, and that these components can be safely
 upgraded in future without rendering the other programs unusable.
 
-
-
-GeoServer:  geoserver-2.0.2-bin.zip in the Windows Installers cache
-            also works on a Mac.
-
+Current files install on Snow Leopard (10.6) or newer.
 
 Happy Mapping!
 EOF
@@ -67,21 +63,21 @@ A_PKG="
 frameworks/GDAL_Complete-1.8.dmg
 frameworks/FreeType_Framework-2.4.6-1-snow.dmg
 frameworks/cairo_Framework-1.10.2-3-snow.dmg
-frameworks/GSL_Framework-1.15-1-snow.dmg
+frameworks/GSL_Framework-1.15-2.dmg
 frameworks/spatialite_tools-2.3.1.zip
 frameworks/rgdal-0.6.33-3.zip
 "
 
 # 2 Support Packages
 B_PKG="
-postgresql/PostgreSQL-8.4.5-1.dmg
+postgresql/PostgreSQL-9.1.2-1.dmg
 "
 
 # 3 End-User Packages
 C_PKG="
 grass/GRASS-6.4.1-5-Snow.dmg
-postgresql/PostGIS-1.5.2-1.dmg
-qgis/Qgis-1.7.0-3-Snow.dmg
+postgresql/PostGIS-1.5.3-2.dmg
+qgis/Qgis-1.7.3-1.dmg
 "
 
 
@@ -145,6 +141,6 @@ wget -c --progress=dot:mega \
 # do symlinks work here?
 
 #Add R-stats
-PKG="R-2.13.1.pkg"
+PKG="R-2.14.1.pkg"
 wget -c --progress=dot:mega \
    http://cran.stat.ucla.edu/bin/macosx/"$PKG" -O "$PKG_DIR/$PKG"
