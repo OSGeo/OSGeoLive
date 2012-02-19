@@ -166,7 +166,6 @@ done
 
 # works, but ran out of disc space:
 #    ./install_mapguide.sh  (currently doesn't work with natty)
-#    ./install_mb-system.sh
 
 
 # write installed package manifest
