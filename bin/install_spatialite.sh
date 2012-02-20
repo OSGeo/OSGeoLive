@@ -56,6 +56,9 @@ apt-get install --assume-yes spatialite-bin
 
 
 BASEURL=http://www.gaia-gis.it/spatialite-2.4.0
+# New trento.sqlite downloaded from download.osgeo.org 
+OSGEO_URL=http://download.osgeo.org/livedvd/data/spatialite
+SQLITE_DB=trento.sqlite.tar.gz
 PACKAGES="
  librasterlite-linux-x86-1.0.tar.gz
  rasterlite-tools-linux-x86-1.0.tar.gz
@@ -81,8 +84,8 @@ then
 fi
 
 # download sample data
-wget -N --progress=dot:mega "$BASEURL/samples.tar.gz"
-(cd "$PKG_DATA" && tar xzf "$TMP/samples.tar.gz")
+wget -N --progress=dot:mega "${OSGEO_URL}/${SQLITE_DB}"
+(cd "$PKG_DATA" && tar xzf "${TMP}/${SQLITE_DB}")
 
 chgrp -R users $PKG_DATA
 chmod -R g+w $PKG_DATA
