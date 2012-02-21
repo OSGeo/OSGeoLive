@@ -36,9 +36,9 @@ cd $SCRIPT_DIR
 
 # Use "svn export" instead of "svn checkout" to save space by not having the
 #   cached .svn/ files stored locally
-#svn export http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk gisvm
+svn export http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk gisvm
+#svn checkout http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk gisvm
 
-svn checkout http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk gisvm
 chown -R user:user gisvm
 cd /home/user
 ln -s ${SCRIPT_DIR}/gisvm .
