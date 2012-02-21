@@ -1,18 +1,18 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" version="1.6.0-Trunk">
+<qgis projectname="" version="1.7.3-Wroclaw">
     <title></title>
     <mapcanvas>
         <units>degrees</units>
         <extent>
             <xmin>589259.436464</xmin>
-            <ymin>4913670.500000</ymin>
+            <ymin>4912584.372092</ymin>
             <xmax>609750.563536</xmax>
-            <ymax>4928349.500000</ymax>
+            <ymax>4929435.627908</ymax>
         </extent>
         <projections>0</projections>
         <destinationsrs>
             <spatialrefsys>
-                <proj4>+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs</proj4>
+                <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
                 <srsid>3452</srsid>
                 <srid>4326</srid>
                 <authid>EPSG:4326</authid>
@@ -24,43 +24,43 @@
         </destinationsrs>
     </mapcanvas>
     <legend>
-        <legendlayer open="true" checked="Qt::Checked" name="roads_net 1">
+        <legendlayer open="true" checked="Qt::Checked" name="roads_net 1" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="roads_net_120090926194919440" visible="1"/>
             </filegroup>
         </legendlayer>
-        <legendlayer open="true" checked="Qt::Checked" name="quads">
+        <legendlayer open="true" checked="Qt::Checked" name="quads" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="quads20090926194905153" visible="1"/>
             </filegroup>
         </legendlayer>
-        <legendlayer open="true" checked="Qt::Checked" name="bugsites">
+        <legendlayer open="true" checked="Qt::Checked" name="bugsites" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="bugsites20090926194853448" visible="1"/>
             </filegroup>
         </legendlayer>
-        <legendlayer open="true" checked="Qt::Checked" name="archsites">
+        <legendlayer open="true" checked="Qt::Checked" name="archsites" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="archsites20090926194844789" visible="1"/>
             </filegroup>
         </legendlayer>
-        <legendlayer open="true" checked="Qt::Checked" name="elevation.10m">
+        <legendlayer open="true" checked="Qt::Checked" name="elevation.10m" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="elevation_10m20090926194834831" visible="1"/>
             </filegroup>
         </legendlayer>
     </legend>
     <Composer title="Composer 1" visible="1">
-        <Composition printResolution="300" paperWidth="297" snapGridOffsetX="0" snapGridResolution="0" snapGridOffsetY="0" snapping="0" paperHeight="210"/>
+        <Composition printResolution="300" paperWidth="297" snapGridOffsetX="0" snapGridResolution="0" snapGridOffsetY="0" snapping="0" paperHeight="210" printAsRaster="0"/>
     </Composer>
     <projectlayers layercount="5">
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>archsites20090926194844789</id>
-            <datasource>/home/user/grassdata/spearfish60/PERMANENT/archsites/1_point</datasource>
+            <datasource>./grassdata/spearfish60/PERMANENT/archsites/1_point</datasource>
             <layername>archsites</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=utm +zone=13 +ellps=clrk66 +datum=NAD27 +units=m +no_defs</proj4>
+                    <proj4>+proj=utm +zone=13 +datum=NAD27 +units=m +no_defs</proj4>
                     <srsid>2142</srsid>
                     <srid>26713</srid>
                     <authid>EPSG:26713</authid>
@@ -71,8 +71,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">grass</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -89,9 +89,10 @@
                     <outlinewidth>0.26</outlinewidth>
                     <fillcolor red="0" blue="255" green="0"/>
                     <fillpattern>SolidPattern</fillpattern>
-                    <texturepath></texturepath>
+                    <texturepath>/usr/local/share/qgis</texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>cat</displayfield>
             <label>0</label>
             <labelattributes>
@@ -118,18 +119,18 @@
                 <edittype type="0" name="cat"/>
                 <edittype type="0" name="str1"/>
             </edittypes>
-            <editform></editform>
+            <editform>/usr/local/share/qgis</editform>
             <editforminit></editforminit>
-            <annotationform></annotationform>
+            <annotationform>/usr/local/share/qgis</annotationform>
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" minLabelScale="0" maxLabelScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>bugsites20090926194853448</id>
-            <datasource>/home/user/grassdata/spearfish60/PERMANENT/bugsites/1_point</datasource>
+            <datasource>./grassdata/spearfish60/PERMANENT/bugsites/1_point</datasource>
             <layername>bugsites</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=utm +zone=13 +ellps=clrk66 +datum=NAD27 +units=m +no_defs</proj4>
+                    <proj4>+proj=utm +zone=13 +datum=NAD27 +units=m +no_defs</proj4>
                     <srsid>2142</srsid>
                     <srid>26713</srid>
                     <authid>EPSG:26713</authid>
@@ -140,8 +141,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">grass</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -158,9 +159,10 @@
                     <outlinewidth>0.26</outlinewidth>
                     <fillcolor red="42" blue="20" green="190"/>
                     <fillpattern>SolidPattern</fillpattern>
-                    <texturepath></texturepath>
+                    <texturepath>/usr/local/share/qgis</texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>cat</displayfield>
             <label>0</label>
             <labelattributes>
@@ -183,18 +185,18 @@
                 <multilineenabled fieldname="" on=""/>
                 <selectedonly on=""/>
             </labelattributes>
-            <editform></editform>
+            <editform>/usr/local/share/qgis</editform>
             <editforminit></editforminit>
-            <annotationform></annotationform>
+            <annotationform>/usr/local/share/qgis</annotationform>
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
             <id>elevation_10m20090926194834831</id>
-            <datasource>/home/user/grassdata/spearfish60/PERMANENT/cellhd/elevation.10m</datasource>
+            <datasource>./grassdata/spearfish60/PERMANENT/cellhd/elevation.10m</datasource>
             <layername>elevation.10m</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=utm +zone=13 +ellps=clrk66 +datum=NAD27 +units=m +no_defs</proj4>
+                    <proj4>+proj=utm +zone=13 +datum=NAD27 +units=m +no_defs</proj4>
                     <srsid>2142</srsid>
                     <srid>26713</srid>
                     <authid>EPSG:26713</authid>
@@ -206,7 +208,7 @@
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
             <customproperties/>
-            <provider></provider>
+            <provider>gdal</provider>
             <rasterproperties>
                 <mDrawingStyle>PalettedColor</mDrawingStyle>
                 <mColorShadingAlgorithm>ColorRampShader</mColorShadingAlgorithm>
@@ -2089,11 +2091,11 @@
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>quads20090926194905153</id>
-            <datasource>/home/user/grassdata/spearfish60/PERMANENT/quads/1_polygon</datasource>
+            <datasource>./grassdata/spearfish60/PERMANENT/quads/1_polygon</datasource>
             <layername>quads</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=utm +zone=13 +ellps=clrk66 +datum=NAD27 +units=m +no_defs</proj4>
+                    <proj4>+proj=utm +zone=13 +datum=NAD27 +units=m +no_defs</proj4>
                     <srsid>2142</srsid>
                     <srid>26713</srid>
                     <authid>EPSG:26713</authid>
@@ -2104,8 +2106,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">grass</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -2122,9 +2124,10 @@
                     <outlinewidth>0.56</outlinewidth>
                     <fillcolor red="255" blue="255" green="255"/>
                     <fillpattern>NoBrush</fillpattern>
-                    <texturepath></texturepath>
+                    <texturepath>/usr/local/share/qgis</texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>cat</displayfield>
             <label>0</label>
             <labelattributes>
@@ -2150,18 +2153,18 @@
             <edittypes>
                 <edittype type="0" name="cat"/>
             </edittypes>
-            <editform></editform>
+            <editform>/usr/local/share/qgis</editform>
             <editforminit></editforminit>
-            <annotationform></annotationform>
+            <annotationform>/usr/local/share/qgis</annotationform>
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>roads_net_120090926194919440</id>
-            <datasource>/home/user/grassdata/spearfish60/PERMANENT/roads_net/1_line</datasource>
+            <datasource>./grassdata/spearfish60/PERMANENT/roads_net/1_line</datasource>
             <layername>roads_net 1</layername>
             <srs>
                 <spatialrefsys>
-                    <proj4>+proj=utm +zone=13 +ellps=clrk66 +datum=NAD27 +units=m +no_defs</proj4>
+                    <proj4>+proj=utm +zone=13 +datum=NAD27 +units=m +no_defs</proj4>
                     <srsid>2142</srsid>
                     <srid>26713</srid>
                     <authid>EPSG:26713</authid>
@@ -2172,8 +2175,8 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <customproperties/>
             <provider encoding="System">grass</provider>
+            <vectorjoins/>
             <singlesymbol>
                 <symbol>
                     <lowervalue></lowervalue>
@@ -2190,9 +2193,10 @@
                     <outlinewidth>0.26</outlinewidth>
                     <fillcolor red="0" blue="0" green="0"/>
                     <fillpattern>NoBrush</fillpattern>
-                    <texturepath></texturepath>
+                    <texturepath>/usr/local/share/qgis</texturepath>
                 </symbol>
             </singlesymbol>
+            <customproperties/>
             <displayfield>cat</displayfield>
             <label>0</label>
             <labelattributes>
@@ -2219,9 +2223,9 @@
                 <edittype type="0" name="cat"/>
                 <edittype type="0" name="label"/>
             </edittypes>
-            <editform></editform>
+            <editform>/usr/local/share/qgis</editform>
             <editforminit></editforminit>
-            <annotationform></annotationform>
+            <annotationform>/usr/local/share/qgis</annotationform>
             <attributeactions/>
         </maplayer>
     </projectlayers>
@@ -2231,6 +2235,9 @@
             <WorkingGisdbase type="QString">/home/user/grassdata</WorkingGisdbase>
             <WorkingMapset type="QString">PERMANENT</WorkingMapset>
         </GRASS>
+        <Paths>
+            <Absolute type="bool">false</Absolute>
+        </Paths>
         <Gui>
             <SelectionColorBluePart type="int">0</SelectionColorBluePart>
             <CanvasColorGreenPart type="int">255</CanvasColorGreenPart>
