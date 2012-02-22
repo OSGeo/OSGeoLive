@@ -138,7 +138,7 @@ DATAURL="http://download.osgeo.org/livedvd/data/qgis/qgis-plugins-5.5.tar.gz"
 wget --progress=dot:mega "$DATAURL" \
      --output-document="$TMP_DIR"/qgis_plugin.tar.gz
 
-tar xzf "$TMP_DIR"/qgis_plugin.tar.gz  -C "$TMP_DIR"
+tar xzf "$TMP_DIR"/qgis_plugin.tar.gz  -C "$TMP_DIR/plugins"
 #cp -R  "$TMP_DIR"/.qgis/python/plugins/ /usr/share/qgis/python/
 cp -R  "$TMP_DIR"/plugins/ /usr/share/qgis/python/
 
