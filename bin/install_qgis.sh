@@ -30,7 +30,7 @@ BUILD_DIR=`pwd`
 cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 
 #Add signed key for repositorys LTS and non-LTS
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DD
+#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 
 apt-get update
@@ -135,7 +135,7 @@ cp -R _build/html /usr/local/share/qgis/tutorials
 DATAURL="http://download.osgeo.org/livedvd/data/qgis/qgis-plugins-5.5.tar.gz"
 
 #TODO use a python script and the QGIS API to pull these within QGIS from online repo
-mkdir "$TMP_DIR"/plugins
+mkdir -p "$TMP_DIR"/plugins
 
 wget --progress=dot:mega "$DATAURL" \
      --output-document="$TMP_DIR"/qgis_plugin.tar.gz
