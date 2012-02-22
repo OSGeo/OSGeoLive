@@ -35,9 +35,9 @@ apt-get --assume-yes install subversion
 cd $SCRIPT_DIR
 
 # Use "svn export" instead of "svn checkout" to save space by not having the
-#   cached .svn/ files stored locally
-svn export http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk gisvm
-#svn checkout http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk gisvm
+#   cached .svn/ files stored locally  (n.b. later cleansed by build_iso.sh)
+#svn export http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk gisvm
+svn checkout http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk gisvm
 
 chown -R user:user gisvm
 cd /home/user

@@ -141,13 +141,10 @@ chmod a+x /usr/local/bin/osgeo-halt.sh
 
 
 # save space on ISO by removing the .svn/ dirs
-### better to control this in bootstrap.sh by uncommenting the 'svn export' line!
-FINAL_BUILD=true
-if [ "$FINAL_BUILD" = "true" ] ; then
-   for DIR in `find /usr/local/share/gisvm | grep '\.svn$'` ; do
-      rm -rf "$DIR"
-   done
-fi
+#   (or control this in bootstrap.sh by uncommenting the 'svn export' line)
+for DIR in `find /usr/local/share/gisvm | grep '\.svn$'` ; do
+   rm -rf "$DIR"
+done
 
 
 # For security reasons these must be removed.
