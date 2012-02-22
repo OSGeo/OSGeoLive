@@ -35,6 +35,8 @@ wget -c --progress=dot:mega \
    "http://www.geomoose.org/downloads/geomoose-2.4.tar.gz"
 wget -c -nv \
    "http://www.geomoose.org/downloads/geomoose-2.4-mapserver-6.patch"
+wget -c -nv \
+   "http://www.geomoose.org/downloads/geomoose-2.4-mapbook.xml.in.patch"
 
 tar -xzf geomoose-2.4.tar.gz
 
@@ -46,10 +48,6 @@ cd /usr/local/geomoose
 
 mv /tmp/build-geomoose/geomoose*/* .
 
-# Configure GeoMOOSE 2.4 (Builds configuration files from templates)
-./configure --with-url-path=/geomoose --with-temp-directory=/tmp/ \
-   --with-mapfile-root=/usr/local/geomoose/maps/
-
 # Setup htdocs directory to be available to apache
 ln -s /usr/local/geomoose/htdocs /var/www/geomoose
 
@@ -57,7 +55,11 @@ ln -s /usr/local/geomoose/htdocs /var/www/geomoose
 # Patches are submitted upstream and will likely be included
 # (or their equivlent) in GeoMOOSE 2.6.
 patch -p1 < /tmp/build-geomoose/geomoose-2.4-mapserver-6.patch
+patch -p1 < /tmp/build-geomoose/geomoose-2.4-mapbook.xml.in.patch
 
+# Configure GeoMOOSE 2.4 (Builds configuration files from templates)
+./configure --with-url-path=/geomoose --with-temp-directory=/tmp/ \
+   --with-mapfile-root=/usr/local/geomoose/maps/
 
 ## Install icon
 base64 -d > /usr/share/icons/geomoose.png <<'EOF'
