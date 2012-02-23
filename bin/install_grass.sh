@@ -149,8 +149,8 @@ mkdir -p "$USER_HOME/grassdata/addons"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata/addons"
 
 
-if [ `grep -c 'GRASS_PAGER=' "$USER_HOME/.bashrc"` -eq 0 ] ; then
-   cat << EOF >> "$USER_HOME/.bashrc"
+if [ `grep -c 'GRASS_PAGER=' "$USER_HOME/.profile"` -eq 0 ] ; then
+   cat << EOF >> "$USER_HOME/.profile"
 
 GRASS_PAGER=more
 GRASS_ADDON_PATH=~/grassdata/addons
