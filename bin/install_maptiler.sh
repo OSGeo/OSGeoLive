@@ -18,7 +18,7 @@ mkdir -p "$TMP"
 
 #Add repositories
 echo "FIXME: don't use wget for local files, just copy from local svn checkout."
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_5/sources.list.d/ubuntugis.list \
    --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 #Add signed key for repositorys LTS and non-LTS  (not needed?)

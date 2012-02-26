@@ -27,7 +27,7 @@ USER_HOME="/home/$USER_NAME"
 #Add repositories
 
 # it's in UbuntuGIS's unstable-ppa.
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_5/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160

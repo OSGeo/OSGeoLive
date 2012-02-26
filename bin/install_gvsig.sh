@@ -101,17 +101,17 @@ fi
 mkdir -p  "$USER_HOME/gvSIG"
 
 # download gvSIG sample project
-wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp \
+wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_5/app-data/gvsig/sample-project.gvp \
      --output-document="$USER_HOME/gvSIG/sample-project.gvp"
 
 # download and set up default andami config
-wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/andami-config.xml \
+wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_5/app-conf/gvsig/andami-config.xml \
      --output-document="$USER_HOME/gvSIG/andami-config.xml"
 
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
 
 # download and set up a custom startup script
-wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/gvSIG.sh \
+wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_5_5/app-conf/gvsig/gvSIG.sh \
      --output-document="/opt/gvSIG_1.11/bin/gvSIG.sh"
 
 
