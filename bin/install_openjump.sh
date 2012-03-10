@@ -1,9 +1,9 @@
 #!/bin/sh
 #################################################
-# 
+#
 # Purpose: Installation of openjump into Xubuntu
 # Authors:  Stefan Hansen <shansen@lisasoft.com>
-#           edso <edso[AT]users.sourceforge.net> 
+#           edso <edso[AT]users.sourceforge.net>
 #
 #
 # Changes:
@@ -16,7 +16,7 @@
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -47,7 +47,7 @@ PKG_FOLDER=$PKG_NAME-$PKG_VERSION
 
 PKG_HOME=/usr/lib/$PKG_FOLDER
 PKG_DATA=/usr/local/share/$PKG_NAME
-PKG_LINK=/usr/bin/openjump
+PKG_LINK=/usr/local/bin/openjump
 PKG_DESKTOP=$USER_HOME/Desktop/openjump.desktop
 PKG_SUCCESS=$PKG_HOME/.installed
 
@@ -60,11 +60,11 @@ URL_LIST=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osge
 #URL_DOC=http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.4%20Tutorials/ojtutorial_general_2011.pdf
 
 ## Setup things... ##
- 
+
 # check required tools are installed
 if [ -f $PKG_SUCCESS ] && [ -z "$1" ]; then
   echo "Use --force to reinstall."
-  exit 1 
+  exit 1
 elif [ ! -x "`which wget`" ] ; then
   echo "ERROR: wget is required, please install it and try again" 
   exit 1
