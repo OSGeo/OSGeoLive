@@ -34,7 +34,7 @@ apt-get update
 #Lot's of these applications have been ported in modules in monteverdi but there are still remainning applications
 #in the legacy not available in monteverdi (simple viewer manager, vector database/raster registration...
 #Monteverdi is perhap's sufficient in a first approach,if you need to save space we  can eliminate otbapp-legacy
-apt-get --assume-yes install libotb otbapp monteverdi
+apt-get --assume-yes install libotb monteverdi
 
 #### install desktop icon ####
 cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
@@ -72,6 +72,7 @@ fi
 
 
 #MONTEVERDI plugin can't do this for now since it requires a recompile of MONTEVERDI according to the docs
+#TODO install otb qgis plugins when it will be available with debian packages
 #hg clone http://hg.orfeo-toolbox.org/OTB-QGis-plugins
 
 
