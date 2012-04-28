@@ -14,7 +14,13 @@
 
 # About:
 # =====
-# This script will install sun jre 6 and jdk 6
+# This script will install jre 7 and jdk 7
+
+# java 7 is now only from official ubuntu repos
+
+echo TODO
+exit 1
+
 
 #Next 2 lines make it possible to accept the licence agreement interactively
 #Source http://coreyhulen.org/2010/04/11/unattended-java-install-on-linux/

@@ -90,7 +90,6 @@ for SCRIPT in \
   ./install_services.sh \
   ./install_mysql.sh \
   ./install_java.sh \
-  ./install_openjdk.sh \
   ./install_apache2.sh \
   ./install_tomcat6.sh \
   ./install_geoserver.sh \
@@ -166,6 +165,10 @@ done
 
 # works, but ran out of disc space:
 #    ./install_mapguide.sh  (currently doesn't work with natty)
+
+# no longer needed as now in ubuntu main, see install_java.sh:
+#  ./install_openjdk.sh \
+
 
 
 # write installed package manifest

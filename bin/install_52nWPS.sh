@@ -34,15 +34,15 @@ fi
 
 
 ##### Java Sun JDK 6 is required:
-
-if [ ! -x "`which java`" ] ; then
-   add-apt-repository "deb http://archive.canonical.com/ natty partner"
-   apt-get update
-
-   apt-get --assume-yes remove openjdk-6-jre
-   apt-get --assume-yes install java-common sun-java6-bin sun-java6-jre sun-java6-jdk
-   echo export JAVA_HOME=/usr/lib/jvm/java-6-sun >> ~/.bashrc
-fi
+# but not available
+#if [ ! -x "`which java`" ] ; then
+#   add-apt-repository "deb http://archive.canonical.com/ precise partner"
+#   apt-get update
+#
+#   apt-get --assume-yes remove openjdk-6-jre
+#   apt-get --assume-yes install java-common sun-java6-bin sun-java6-jre sun-java6-jdk
+#   echo export JAVA_HOME=/usr/lib/jvm/java-6-sun >> ~/.bashrc
+#fi
 
 
 

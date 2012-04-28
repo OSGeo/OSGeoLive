@@ -85,8 +85,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 	python-psycopg2
 
 # Install python-tweepy
-echo "deb http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu natty main
-deb-src http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu natty main" \
+echo "deb http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu precise main
+deb-src http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu precise main" \
    > /etc/apt/sources.list.d/python-tweepy.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C7917B12
 apt-get update

@@ -67,7 +67,7 @@ if [ $BUILD_LATEST -eq 0 ] ; then
   fi
   cd "$TMP_DIR"
 
-  URL="http://download.osgeo.org/livedvd/data/gpsdrive/natty"
+  URL="http://download.osgeo.org/livedvd/data/gpsdrive/precise"
   MAIN_FILE=gpsdrive_2.11_i386.deb
   EXTRA_FILES="
     gpsdrive-friendsd_2.11_i386.deb
@@ -247,7 +247,7 @@ fi
      openstreetmap-map-icons-scalable openstreetmap-map-icons-classic
 
   echo "Downloading support packages ... (please wait)"
-  DL_URL="http://www.gpsdrive.de/ubuntu/pool/natty"
+  DL_URL="http://www.gpsdrive.de/ubuntu/pool/precise"
 
   # dupe?
   wget -c -nv "$DL_URL/openstreetmap-map-icons-square.small_25996_all.deb"

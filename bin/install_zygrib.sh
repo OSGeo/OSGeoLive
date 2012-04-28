@@ -25,7 +25,7 @@ USER_HOME="/home/user"
 wget -nv http://doc.hausser.ch/debpackages/dha-debpackages.key \
    -O - | sudo apt-key add -
 
-echo "deb http://doc.hausser.ch/debpackages ubuntu-dha natty" \
+echo "deb http://doc.hausser.ch/debpackages ubuntu-dha precise" \
    > /etc/apt/sources.list.d/zygrib.list
 
 apt-get update
