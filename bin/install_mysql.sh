@@ -27,7 +27,8 @@ mysql-server-5.1  mysql-server/root_password_again  password $PASSWORD
 mysql-server-5.1  mysql-server/root_password_again  seen true
 EOF
 
-apt-get install --yes mysql-server mysql-admin
+#apt-get install --yes mysql-server mysql-admin
+apt-get install --yes mysql-server
 
 
 
