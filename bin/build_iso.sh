@@ -86,6 +86,7 @@ cp -pr "$DOCS_SRC" "${TMP}/osgeolive-docs"
 ############################################
 #### 5.0rc3:  logout, shutdown, and reboot seem broken on the ISO.
 # offer some emergency alternatives.
+if [ "maybe it" = "is fixed" ] ; then
 cat << EOF > /home/user/Desktop/osgeo-logout.desktop
 [Desktop Entry]
 Type=Application
@@ -137,6 +138,7 @@ sync
 echo user | sudo -S halt
 EOF
 chmod a+x /usr/local/bin/osgeo-halt.sh
+fi
 ############################################
 
 
