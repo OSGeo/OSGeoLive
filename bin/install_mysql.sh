@@ -21,10 +21,10 @@ PASSWORD="user"
 
 # pre-seed answers to installer questions:
 cat << EOF | debconf-set-selections
-mysql-server-5.1  mysql-server/root_password  password $PASSWORD
-mysql-server-5.1  mysql-server/root_password  seen true
-mysql-server-5.1  mysql-server/root_password_again  password $PASSWORD
-mysql-server-5.1  mysql-server/root_password_again  seen true
+mysql-server-5.5  mysql-server/root_password  password $PASSWORD
+mysql-server-5.5  mysql-server/root_password  seen true
+mysql-server-5.5  mysql-server/root_password_again  password $PASSWORD
+mysql-server-5.5  mysql-server/root_password_again  seen true
 EOF
 
 #apt-get install --yes mysql-server mysql-admin
