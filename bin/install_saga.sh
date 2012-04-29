@@ -17,7 +17,7 @@ USER_HOME="/home/$USER_NAME"
 # #Add signed key for repositorys LTS and non-LTS
 # #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF
 # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
-apt-add-repository ppa:johanvdw/saga-gis
+apt-add-repository --yes ppa:johanvdw/saga-gis
 
 apt-get update
 apt-get --assume-yes install saga libsaga
