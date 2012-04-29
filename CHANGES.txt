@@ -1,6 +1,10 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0alpha1
+===================
+ * Upgrading to Xubuntu 12.04 LTS
+
 Version 5.5
 ===================
  * Documentation updates
