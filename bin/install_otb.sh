@@ -25,7 +25,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
 #Add repositories
-apt-add-repository ppa:otb/orfeotoolbox-stable    
+apt-add-repository --yes ppa:otb/orfeotoolbox-stable    
 
 apt-get update
 
