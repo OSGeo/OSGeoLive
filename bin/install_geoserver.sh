@@ -42,8 +42,8 @@ fi
 
 
 ### Install proper Sun JDK
-echo "Installing Sun JDK 6"
-apt-get install --yes sun-java6-jdk
+#echo "Installing Sun JDK 6"
+#apt-get install --yes sun-java6-jdk
 
 ### setup temp ###
 mkdir -p $TMP
