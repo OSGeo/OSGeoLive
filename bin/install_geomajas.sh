@@ -42,8 +42,8 @@ fi
 
 
 ##### Java Sun JDK 6 is required:
-echo "Installing Sun JDK 6"
-apt-get install --yes sun-java6-jdk
+#echo "Installing Sun JDK 6"
+#apt-get install --yes sun-java6-jdk
 
 
 ##### Create the TMP directory
