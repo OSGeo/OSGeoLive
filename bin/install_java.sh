@@ -18,6 +18,8 @@
 
 # java 7 is now only from official ubuntu repos
 
+apt-get install default-jdk default-jre
+
 echo TODO
 exit 1
 
