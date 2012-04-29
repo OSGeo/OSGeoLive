@@ -1,5 +1,5 @@
 #!/bin/sh
-JAVA_HOME="/usr/lib/jvm/java-6-sun"
+JAVA_HOME="/usr/lib/jvm/default-java"
 dir=`dirname $0`
 cd $dir
 
