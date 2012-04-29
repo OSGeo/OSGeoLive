@@ -52,7 +52,7 @@ PGROUTING_FOLDER="/usr/share/postlbs"
 POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/postgis-1.5/"
 
 # Add pgRouting launchpad repository
-add-apt-repository ppa:georepublic/pgrouting
+add-apt-repository --yes ppa:georepublic/pgrouting
 apt-get update
 
 # Install pgRouting packages
