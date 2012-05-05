@@ -1,0 +1,127 @@
+--- ./softwarecenter/backend/channel_impl/aptchannels.py.ORIG	2012-05-05 19:36:41.028053218 +1200
++++ ./softwarecenter/backend/channel_impl/aptchannels.py	2012-05-05 19:44:03.276054415 +1200
+@@ -200,7 +200,7 @@
+ 
+         dist_channel = None
+         partner_channel = None
+-        for_purchase_channel = None
++#        for_purchase_channel = None
+         new_apps_channel = None
+         ppa_channels = []
+         other_channels = []
+@@ -260,13 +260,13 @@
+                                               installed_only=installed_only)
+ 
+         # create a "magic" channel to display items available for purchase
+-        for_purchase_query = xapian.Query("AH" +
+-            AVAILABLE_FOR_PURCHASE_MAGIC_CHANNEL_NAME)
+-        for_purchase_channel = SoftwareChannel("For Purchase",
+-            "software-center-agent", None,
+-            channel_icon=None,  # FIXME:  need an icon
+-            channel_query=for_purchase_query,
+-            installed_only=installed_only)
++#        for_purchase_query = xapian.Query("AH" +
++#            AVAILABLE_FOR_PURCHASE_MAGIC_CHANNEL_NAME)
++#        for_purchase_channel = SoftwareChannel("For Purchase",
++#            "software-center-agent", None,
++#            channel_icon=None,  # FIXME:  need an icon
++#            channel_query=for_purchase_query,
++#            installed_only=installed_only)
+ 
+         # set them in order
+         channels = []
+@@ -274,8 +274,8 @@
+             channels.append(dist_channel)
+         if partner_channel is not None:
+             channels.append(partner_channel)
+-        if get_distro().PURCHASE_APP_URL:
+-            channels.append(for_purchase_channel)
++#        if get_distro().PURCHASE_APP_URL:
++#            channels.append(for_purchase_channel)
+         if new_apps_channel is not None:
+             channels.append(new_apps_channel)
+         channels.extend(ppa_channels)
+--- ./softwarecenter/db/appfilter.py.ORIG	2012-05-05 21:02:43.216228939 +1200
++++ ./softwarecenter/db/appfilter.py	2012-05-05 21:07:51.340223486 +1200
+@@ -86,9 +86,11 @@
+         if self.available_only:
+             # an item is considered available if it is either found
+             # in the cache or is available for purchase
+-            if (not pkgname in self.cache and
+-                not doc.get_value(XapianValues.ARCHIVE_CHANNEL) ==
+-                    AVAILABLE_FOR_PURCHASE_MAGIC_CHANNEL_NAME):
++            if (not pkgname in self.cache):
++                return False
++#            if (not pkgname in self.cache and
++#                not doc.get_value(XapianValues.ARCHIVE_CHANNEL) ==
++#                    AVAILABLE_FOR_PURCHASE_MAGIC_CHANNEL_NAME):
+                 return False
+         if self.installed_only:
+             if (not pkgname in self.cache or
+--- ./softwarecenter/ui/gtk3/views/catview_gtk.py.ORIG	2012-05-05 20:43:49.428228404 +1200
++++ ./softwarecenter/ui/gtk3/views/catview_gtk.py	2012-05-05 20:50:44.388237081 +1200
+@@ -241,7 +241,8 @@
+         return
+ 
+     def _on_db_reopen(self, db):
+-        self._update_whats_new_content()
++	pass
++#        self._update_whats_new_content()
+ 
+     def _on_refresh_review_stats(self, reviews_loader, review_stats):
+         self._update_top_rated_content()
+@@ -249,11 +250,11 @@
+     def _build_homepage_view(self):
+         # these methods add sections to the page
+         # changing order of methods changes order that they appear in the page
+-        self._append_banner_ads()
++#        self._append_banner_ads()
+ 
+         self.top_hbox = Gtk.HBox(spacing=StockEms.SMALL)
+         top_hbox_alignment = Gtk.Alignment()
+-        top_hbox_alignment.set_padding(0, 0, StockEms.MEDIUM - 2,
++        top_hbox_alignment.set_padding(10, 0, StockEms.MEDIUM - 2,
+             StockEms.MEDIUM - 2)
+         top_hbox_alignment.add(self.top_hbox)
+         self.vbox.pack_start(top_hbox_alignment, False, False, 0)
+@@ -263,7 +264,7 @@
+         self.right_column = Gtk.Box.new(Gtk.Orientation.VERTICAL, self.SPACING)
+         self.top_hbox.pack_start(self.right_column, True, True, 0)
+ 
+-        self._append_whats_new()
++#        self._append_whats_new()
+         self._append_top_rated()
+         self._append_recommended_for_you()
+         self._append_appcount()
+@@ -499,7 +500,7 @@
+         self._supported_only = supported_only
+ 
+         self._update_top_rated_content()
+-        self._update_whats_new_content()
++#        self._update_whats_new_content()
+         self._update_recommended_for_you_content()
+         self._update_appcount()
+         return
+--- ./softwarecenter/ui/gtk3/widgets/buttons.py.ORIG	2012-05-05 20:28:58.968226769 +1200
++++ ./softwarecenter/ui/gtk3/widgets/buttons.py	2012-05-05 20:29:55.588224535 +1200
+@@ -250,7 +250,7 @@
+         price = details.price or _("Free")
+         if price == '0.00':
+             # TRANSLATORS: Free here means Gratis
+-            price = _("Free")
++            price = _("Gratis")
+         # TRANSLATORS: Free here means Gratis
+         if price != _("Free"):
+             price = 'US$ ' + price
+--- ./softwarecenter/ui/gtk3/widgets/exhibits.py.ORIG	2012-05-05 20:17:31.612226518 +1200
++++ ./softwarecenter/ui/gtk3/widgets/exhibits.py	2012-05-05 20:20:54.984225418 +1200
+@@ -120,7 +120,8 @@
+         self.show_all()
+         self.loader = SimpleFileDownloader()
+         self.loader.connect("file-download-complete",
+-                            self.on_download_complete)
++                            self.on_download_error)
++#                            self.on_download_complete)
+         self.loader.connect("error",
+                             self.on_download_error)
+         self.exhibit = None

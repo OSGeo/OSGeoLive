@@ -14,7 +14,8 @@
 
 # About:
 # =====
-# This script will install a desktop background image and icon for passwords. Create menus and config automatic login.
+# This script will install a desktop background image and icon for passwords.
+# Create menus and config automatic login.
 
 # Running:
 # =======
@@ -445,4 +446,20 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$WORKSHOP_INSTALL_FILE"
 #### permissions cleanup (if needed)
 chown user:user "$USER_HOME/Desktop/" -R
 chmod a+r "$USER_HOME/Desktop/" -R
+
+
+#### FOSS the Software center
+cd /usr/share/software-center/
+patch -p0 -N -r - --quiet < "$BUILD_DIR/../desktop-conf/FOSScenter.patch"
+PYCs=`grep ORIG FOSScenter.patch | sed -e 's/\.ORIG.*//' -e 's/.[^\.]*//' -e 's/$/c/'`
+rm -f $PYCs
+#fixme:  pycompile -p ... ?? (running software-center as root will rebuild them)
+rm -rf "$USER/.cache/software-center/"
+
+
+#### replace the software center on the Apps menu with the more usefule Synaptic
+# .. TODO   (right click the Apps menu, properties, edit, add synaptic-pkexec, 
+#       name it package manager to keep the width narrow; then create a patch)
+#  Maybe leave the lower app bar as software-center so users can still get to
+#       it if they want to.
 
