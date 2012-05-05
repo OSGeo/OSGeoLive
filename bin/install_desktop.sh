@@ -448,7 +448,7 @@ chown user:user "$USER_HOME/Desktop/" -R
 chmod a+r "$USER_HOME/Desktop/" -R
 
 
-#### FOSS the Software center
+#### FOSS the Software Center
 cd /usr/share/software-center/
 patch -p0 -N -r - --quiet < "$BUILD_DIR/../desktop-conf/FOSScenter.patch"
 PYCs=`grep ORIG FOSScenter.patch | sed -e 's/\.ORIG.*//' -e 's/.[^\.]*//' -e 's/$/c/'`
@@ -457,9 +457,17 @@ rm -f $PYCs
 rm -rf "$USER/.cache/software-center/"
 
 
-#### replace the software center on the Apps menu with the more usefule Synaptic
+#### replace the Software Center on the Apps menu with the more useful Synaptic
 # .. TODO   (right click the Apps menu, properties, edit, add synaptic-pkexec, 
 #       name it package manager to keep the width narrow; then create a patch)
 #  Maybe leave the lower app bar as software-center so users can still get to
 #       it if they want to.
+
+
+#### the default xUbuntu 12.04 theme has 1px wide window borders which
+# makes it extremely tricky to resize them. tweak the theme so that
+# window borders are 4px wide so they are easier to grab.
+cp -f "$BUILD_DIR"/../desktop-conf/xfce/greybird_theme/*.xpm \
+   /usr/share/themes/Greybird/xfwm4/
+
 
