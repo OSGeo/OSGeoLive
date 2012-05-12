@@ -16,36 +16,24 @@
 # =====
 # This script will install openjdk version 7
 #
-# for Natty see also http://brunoreis.com/tech/intalling-java-ubuntu-natty/
-#
 # for Ubuntu >=11.10 openjdk-7 is in the official archives:
 #apt-get install openjdk-7-jre icedtea-plugin ttf-dejavu-extra
-# (or `apt-get install openjdk-7-jdk`)
+#  (icedtea is now to be dropped?)
 
-
-TMP="/tmp/build_openjdk"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
-mkdir -p "$TMP"
-cd "$TMP"
 
-# Download and uncompress openjdk
-wget -c --progress=dot:mega \
-   "http://download.oracle.com/otn-pub/java/jdk/7/jdk-7-linux-i586.tar.gz"
-tar -zxf jdk-7-linux-i586.tar.gz
-
-# Move JDK 7 directory to the /usr/lib/jvm/jdk1.7.0 directory.
-mkdir -p /usr/lib/jvm
-mv ./jdk1.7.0/ /usr/lib/jvm/jdk1.7.0
-ln -s /usr/lib/jvm/jdk1.7.0 /usr/lib/jvm/java-7-sun
+apt-get --assume-yes install openjdk-7-jre openjdk-7-jdk \
+   openjdk-7-jre-headless ttf-dejavu-extra
 
 
 # make it easy for developers to switch VMs
 if [ `grep -c JAVA_HOME "$USER_HOME/.profile"` -eq 0 ] ; then
-   echo >> "$USER_HOME/.profile"
-   echo "# Uncomment the following line to use the OpenJDK java VM" \
-      >> "$USER_HOME/.profile"
-   echo "#JAVA_HOME=/usr/lib/jvm/java-7-sun; export JAVA_HOME" \
-      >> "$USER_HOME/.profile"
+   cat << EOF >> "$USER_HOME/.profile"
+
+### Uncomment the following line to use the OpenJDK java VM version 7
+#JAVA_HOME=/usr/lib/jvm/java-7-sun; export JAVA_HOME
+
+EOF
 fi

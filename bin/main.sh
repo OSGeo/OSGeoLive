@@ -163,11 +163,8 @@ for SCRIPT in \
   echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
 done
 
-# works, but ran out of disc space:
+# works(?), but ran out of disc space:
 #    ./install_mapguide.sh  (currently doesn't work with natty)
-
-# no longer needed as now in ubuntu main, see install_java.sh:
-#  ./install_openjdk.sh \
 
 
 

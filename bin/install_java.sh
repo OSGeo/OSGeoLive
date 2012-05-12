@@ -14,40 +14,21 @@
 
 # About:
 # =====
-# This script will install jre 7 and jdk 7
-
-# java 7 is now only from official ubuntu repos
+# This script will install Jave JRE and Java JDK
 
 apt-get install --yes default-jdk default-jre
 
-echo TODO
-exit 1
-
-
-#Next 2 lines make it possible to accept the licence agreement interactively
-#Source http://coreyhulen.org/2010/04/11/unattended-java-install-on-linux/
-export DEBIAN_FRONTEND=noninteractive
-echo "sun-java6-jdk shared/accepted-sun-dlj-v1-1 boolean true" | debconf-set-selections
-
-#add-apt-repository "deb http://archive.canonical.com/ natty partner"
-add-apt-repository "deb http://ppa.launchpad.net/duh/sun-java6/ubuntu natty main"
-apt-get update
-
-apt-get --assume-yes remove openjdk-6-jre openjdk-6-jre-headless
-
-apt-get --assume-yes install java-common sun-java6-bin \
-     sun-java6-jre sun-java6-jdk
-
 apt-get --assume-yes install gsfonts-x11
 
+exit
 
-cat << EOF > /etc/profile.d/set_JAVA_HOME.sh
-JAVA_HOME=/usr/lib/jvm/java-6-sun
-export JAVA_HOME
-EOF
 
+# in case of emergency break glass:
+#cat << EOF > /etc/profile.d/set_JAVA_HOME.sh
+#JAVA_HOME=/usr/lib/jvm/java-6-sun
+#export JAVA_HOME
+#EOF
 
 ### see if we can reinstall this without bringing in the kitchen sink
 ###   otherwise we'll drop it
 #apt-get --assume-yes install pdftk
-
