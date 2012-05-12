@@ -31,29 +31,20 @@ USER_HOME="/home/$USER_NAME"
 
 TMP_DIR="/tmp/build_postgis"
 BIN_DIR=`pwd`
-#Not to be confused with PGIS_Version, this has one less number and period to correspond to install paths
+# Not to be confused with PGIS_Version, this has one less number and period
+#  to correspond to install paths
 PG_VERSION="9.1"
 
-##  Use UbuntuGIS ppa.launchpad repo version, change to main one once it becomes
-#    available there (Ubuntu 10.04/Lucid)
-# postgis is in the UbuntuGIS repository
 
-#Add repositories
-cp -f ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
-
-#Add signed key for repositorys LTS and non-LTS
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
-
-apt-get update
-
-##----------------------------------------------------------------------
+# now avail from mainline
 apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis pgadmin3
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
+
+
 
 ### config ###
 
@@ -71,7 +62,9 @@ sudo -u $USER_NAME createdb $USER_NAME
 sudo -u $USER_NAME createdb -E UTF8 template_postgis
 sudo -u $USER_NAME createlang plpgsql template_postgis
 # Allows non-superusers the ability to create from this template, from GeoDjango manual
-sudo -u $USER_NAME psql -1 -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';"
+sudo -u $USER_NAME psql -1 -d postgres \
+  -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';"
+
 
 
 ## Jul10 resolved location of postgis.sql
@@ -93,5 +86,4 @@ done
 
 
 ### load data ###
-#cd "$BIN_DIR"
-# Jul10 moved load_postgis.sh to main.sh
+#see load_postgis.sh
