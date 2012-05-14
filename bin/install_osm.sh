@@ -131,10 +131,14 @@ svn co "$BASEURL/stylesheets/symbols/" /usr/local/share/osm/stylesheets/symbols/
 
 #### install sample OSM data
 
-CITY="Denver"
-BBOX="-105.2147,39.5506,-104.594,39.9139"
+CITY="Beijing"
+BBOX="116.25,39.85,116.5,40"
+# visualize:
+#http://www.openstreetmap.org/?box=yes&bbox=116.25,39.85,116.5,40
 
-# Denver is too big a city for some of our examples, so we download a smaller version too:
+
+# Perhaps it is too big a city for some of our examples, so we download
+# a smaller version too:
 #CITY="Denver_CBD"
 #BBOX="-105.028,39.709,-104.956,39.79"
 
@@ -193,15 +197,8 @@ ln -s /usr/local/share/osm/Denver_CBD.osm.bz2 /usr/local/share/data/osm
 ####
 
 
-## get latest osm2pgsql from OSM svn (thanks Dane)
-cd "$TMP_DIR"
-wget -c --progress=dot:mega \
-   http://download.osgeo.org/livedvd/data/osm/osm2pgsql_0.69.svn22215.lucid_i386.deb
 
-#install deps
-apt-get --assume-yes install libxml2 libbz2-1.0 libgeos-3.2.2 libproj0
-
-dpkg -i osm2pgsql_0.69.svn22215.lucid_i386.deb
+apt-get --assume-yes install osm2pgsql
 
 
 # 
