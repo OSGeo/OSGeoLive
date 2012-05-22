@@ -19,6 +19,15 @@
 #
 
 
+
+
+echo "The GpsDrive package is not yet ready for Ubuntu 12.04"
+exit 0
+
+
+
+
+
 # live disc's username is "user"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
@@ -43,8 +52,10 @@ else
 fi
 
 # add some useful Recommends
-PACKAGES="$PACKAGES espeak gdal-bin gpsbabel graphicsmagick-imagemagick-compat \
-   postgresql-8.4-postgis python-mapnik speech-dispatcher"
+PACKAGES="$PACKAGES espeak gdal-bin gpsbabel \
+   graphicsmagick-imagemagick-compat \
+   postgresql-9.1-postgis python-mapnik2 \
+   speech-dispatcher"
 
 apt-get --assume-yes install  $PACKAGES
 
@@ -137,8 +148,10 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   # local database name is "osm_local_smerc"
   sed -i -e 's/"gis"/"osm_local_smerc"/' src/database.c
 
-  # installed mapnik version is 0.7
-  sed -i -e 's+/usr/lib/mapnik/0.5+/usr/lib/mapnik/0.7+' src/gpsdrive_config.c
+  # installed mapnik version is 2.0
+  MAPNIK_VER=2.0
+  sed -i -e "s+/usr/lib/mapnik/0.5+/usr/lib/mapnik/$MAPNIK_VER+" src/gpsdrive_config.c
+  sed -i -e 's+^      mapnik$+      mapnik2+' cmake/Modules/FindMapnik.cmake
 
 
 # no longer needed? better to use `sed -i` for this anyway..
@@ -172,21 +185,23 @@ fi
 
 
   # use latest libboost, mapnik, postgis packages
-  sed -i -e 's/libboost-\(.*\)1\.3[0-9]\.[0-9]/libboost-\11.42.0/' \
-         -e 's/mapnik0\.[3-6]/mapnik0.7/' \
-         -e 's/postgresql-8\.[2-3]-postgis/postgresql-8.4-postgis/' \
+  BOOST_VER=1.46.0
+  PGIS_VER=9.1
+  sed -i -e "s/libboost-\(.*\)1\.3[0-9]\.[0-9]/libboost-\1$BOOST_VER/" \
+         -e 's/mapnik0\.[3-6]/mapnik2-2.0/' \
+	 -e 's/libmapnik-dev/libmapnik2-dev/' \
+         -e "s/postgresql-8\.[2-3]-postgis/postgresql-$PGIS_VER-postgis/" \
      debian/control
-
 
   ### install any missing build-dep packages
 
   # kludge to make sure these make it in there
-  apt-get --assume-yes install libboost-dev libboost-filesystem-dev \
-                               libboost-serialization-dev libmapnik-dev
+  apt-get --assume-yes install libboost1.46-dev libboost-filesystem1.46-dev \
+                               libboost-serialization1.46-dev libmapnik-dev
 
   # explicitly install these so they aren't removed in a later autoclean
   apt-get --assume-yes install  libgeos-3.2.2 libxml-simple-perl \
-    libboost-serialization1.42.0 libboost-date-time1.42.0
+    libboost-serialization1.46.0 libboost-date-time1.46.0
 
   # any of these too?
   #  libgssrpc4
