@@ -36,12 +36,14 @@ USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat6"
 SOS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
-SOS_TAR_NAME="52n-sensorweb-sos-osgeolive-5.0.0.tar.gz"
+SOS_TAR_NAME="52n-sensorweb-sos-osgeolive-6.0.0.tar.gz"
 SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
 # when changing this, adjust the name in line 215, too,
 # and the quickstart, which links to this, too
 SOS_WEB_APP_NAME="52nSOS"
 SOS_POSTGRESQL_SCRIPT_NAME="postgresql"
+PGOPTIONS='--client-min-messages=warning'
+SOS_DB_NAME="52nSOS"
 SOS_TOMCAT_SCRIPT_NAME="tomcat6"
 SOS_ICON_NAME="52nSOS.png"
 SOS_DATA_SET="DATA"
@@ -50,26 +52,26 @@ SOS_QUICKSTART_URL="http://localhost/en/quickstart/52nSOS_quickstart.html"
 SOS_OVERVIEW_URL="http://localhost/en/overview/52nSOS_overview.html"
 # -----------------------------------------------------------------------------
 #
-echo "52nSOS install started"
-if [ -n "$DEBUG" ] ; then
-   echo "$TMP"
-   echo "$USER_NAME"
-   echo "$USER_HOME"
-   echo "$TOMCAT_USER_NAME"
-   echo "$SOS_WAR_INSTALL_FOLDER"
-   echo "$SOS_INSTALL_FOLDER"
-   echo "$SOS_TAR_NAME"
-   echo "$SOS_TAR_URL"
-   echo "$SOS_WEB_APP_NAME"
-   echo "$SOS_POSTGRESQL_SCRIPT_NAME"
-   echo "$SOS_TOMCAT_SCRIPT_NAME"
-   echo "$SOS_ICON_NAME"
-   echo "$SOS_DATA_SET"
-   echo "$SOS_URL"
-   echo "$SOS_QUICKSTART_URL"
-   echo "$SOS_OVERVIEW_URL"
-fi
-
+echo "[$(date +%M:%S)]: 52nSOS install started"
+echo "TMP: $TMP"
+echo "USER_NAME: $USER_NAME"
+echo "USER_HOME: $USER_HOME"
+echo "TOMCAT_USER_NAME: $TOMCAT_USER_NAME"
+echo "SOS_WAR_INSTALL_FOLDER: $SOS_WAR_INSTALL_FOLDER"
+echo "SOS_INSTALL_FOLDER: $SOS_INSTALL_FOLDER"
+echo "SOS_TAR_NAME: $SOS_TAR_NAME"
+echo "SOS_TAR_URL: $SOS_TAR_URL"
+echo "SOS_WEB_APP_NAME: $SOS_WEB_APP_NAME"
+echo "SOS_POSTGRESQL_SCRIPT_NAME: $SOS_POSTGRESQL_SCRIPT_NAME"
+echo "PGOPTIONS: $PGOPTIONS"
+echo "SOS_DB_NAME: $SOS_DB_NAME"
+echo "SOS_TOMCAT_SCRIPT_NAME: $SOS_TOMCAT_SCRIPT_NAME"
+echo "SOS_ICON_NAME: $SOS_ICON_NAME"
+echo "SOS_DATA_SET: $SOS_DATA_SET"
+echo "SOS_URL: $SOS_URL"
+echo "SOS_QUICKSTART_URL: $SOS_QUICKSTART_URL"
+echo "SOS_OVERVIEW_URL: $SOS_OVERVIEW_URL"
+#
 #
 # =============================================================================
 # Pre install checks
@@ -90,35 +92,32 @@ fi
 #
 #
 #
-# 2 Java Sun JDK 6 is required:
+# 2 Check for OpenJDK
 #
 if [ ! -x "`which java`" ] ; then
 	apt-get update
 	#
-	apt-get --assume-yes remove openjdk-6-jre
-	apt-get --assume-yes install java-common sun-java6-bin sun-java6-jre sun-java6-jdk
-	# this should probably be taken care of system-wide in /etc/rc.local if not already:
-	echo "export JAVA_HOME=/usr/lib/jvm/java-6-sun" >> ~/.bashrc
+	apt-get --assume-yes install openjdk-6-jre
 fi
 #
 #
 #
 # 3 postgresql
 if [ -f "/etc/init.d/$SOS_POSTGRESQL_SCRIPT_NAME" ] ; then
-   	echo "$SOS_POSTGRESQL_SCRIPT_NAME service script found in /etc/init.d/."
+   	echo "[$(date +%M:%S)]: $SOS_POSTGRESQL_SCRIPT_NAME service script found in /etc/init.d/."
 else
-	echo "$SOS_POSTGRESQL_SCRIPT_NAME not found. Installing it..."
-	apt-get install --yes "$SOS_POSTGRESQL_SCRIPT_NAME"
+	echo "[$(date +%M:%S)]: $SOS_POSTGRESQL_SCRIPT_NAME not found. Installing it..."
+	apt-get install --assume-yes "$SOS_POSTGRESQL_SCRIPT_NAME"
 fi
 #
 #
 #
 # 4 tomcat6
 if [ -f "/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" ] ; then
-   	echo "$SOS_TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
+   	echo "[$(date +%M:%S)]: $SOS_TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
 else
-	echo "$SOS_TOMCAT_SCRIPT_NAME not found. Installing it..."
-	apt-get install --yes "$SOS_TOMCAT_SCRIPT_NAME" "${SOS_TOMCAT_SCRIPT_NAME}-admin"
+	echo "[$(date +%M:%S)]: $SOS_TOMCAT_SCRIPT_NAME not found. Installing it..."
+	apt-get install --assume-yes "$SOS_TOMCAT_SCRIPT_NAME" "${SOS_TOMCAT_SCRIPT_NAME}-admin"
 fi
 #
 #
@@ -145,78 +144,103 @@ cd "$TMP"
 #
 # download tar.gz from 52north.org server
 if [ -f "$SOS_TAR_NAME" ] ; then
-   echo "$SOS_TAR_NAME has already been downloaded."
+   echo "[$(date +%M:%S)]: $SOS_TAR_NAME has already been downloaded."
    # but was it sucessful?
 else
 #
 #	TODO is this new command working?
 #
-	rm -r "$TMP"/*
+	rm -v -r "$TMP"/*
    	wget -c --progress=dot:mega "$SOS_TAR_URL$SOS_TAR_NAME"
 fi
-
+#
 # extract tar, if folders are not there
 tar xzf "$SOS_TAR_NAME"
-echo "$SOS_TAR_NAME extracted"
+echo "[$(date +%M:%S)]: $SOS_TAR_NAME extracted"
 #
 # copy logo
 if [ ! -e "/usr/share/icons/$SOS_ICON_NAME" ] ; then
-   mv "$SOS_ICON_NAME" /usr/share/icons/
+   mv -v "$SOS_ICON_NAME" /usr/share/icons/
 fi
-
-# 	# copy start script
-#	if [ ! -e "$SOS_INSTALL_FOLDER/$SOS_START_SCRIPT" ] ; then
-#		mkdir -p "$SOS_INSTALL_FOLDER"
-# 		mv "$SOS_START_SCRIPT" "$SOS_INSTALL_FOLDER"
-# 		chown -R $USER_NAME:$USER_NAME "$SOS_INSTALL_FOLDER/$SOS_START_SCRIPT"
-# 		chmod u+x,g+x,o+x "$SOS_INSTALL_FOLDER/$SOS_START_SCRIPT"
-#	fi
-#
 #
 #
 # 2 database set-up
 #
 # we need to stop tomcat6 around this process
 "/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" stop
-#if [ -n "$DEBUG" ] ; then
-#	echo "installing SOS datastructe structure in Postgresql DB..."
+echo "[$(date +%M:%S)]: installing SOS datastructe structure in Postgresql DB..."
 #fi
-su postgres -c "psql -q -f $TMP/SOS-structure.sql &> /dev/null"
-#if [ -n "$DEBUG" ] ; then
-#	echo "done."
-#	echo "installing structure in SOS (offerings, procedures,...) ... "
-#fi
-su postgres -c "psql -q -f $TMP/STRUCTURE-in-SOS.sql &> /dev/null"
-#if [ -n "$DEBUG" ] ; then
-#	echo "done."
-#	echo "installing observations in SOS using $SOS_DATA_SET.sql"
-#fi
-su postgres -c "psql -q -f $TMP/$SOS_DATA_SET.sql &> /dev/null"
-#if [ -n "$DEBUG" ] ; then
-#	echo "done."
-#fi
+#
+#	Check postgis_template installation
+#
+POSTGIS="`su postgres -c 'psql -l' | grep template_postgis | wc -l`"
+if [ $POSTGIS -gt 0 ] ; then
+	echo "[$(date +%M:%S)]: database template_postgis already installed"
+else 
+	echo "[$(date +%M:%S)]: Installing template_postgis"
+	su postgres -c 'createdb -E UTF8 -U postgres template_postgis'
+	su postgres -c 'createlang -d template_postgis plpgsql;'
+	su postgres -c 'psql -U postgres -d template_postgis -c"CREATE EXTENSION hstore;"'
+	su postgres -c 'psql -U postgres -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql'
+	su postgres -c 'psql -U postgres -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql'
+	su postgres -c 'psql -U postgres -d template_postgis -c"select postgis_lib_version();"'
+	su postgres -c 'psql -U postgres -d template_postgis -c "GRANT ALL ON geometry_columns TO PUBLIC;"'
+	su postgres -c 'psql -U postgres -d template_postgis -c "GRANT ALL ON spatial_ref_sys TO PUBLIC;"'
+	su postgres -c 'psql -U postgres -d template_postgis -c "GRANT ALL ON geography_columns TO PUBLIC;"'
+	echo "[$(date +%M:%S)]: finished postgis_template set-up"
+fi
+#
+#	Check for database installation
+#
+SOS_DB_EXISTS="`su postgres -c 'psql -l' | grep $SOS_DB_NAME | wc -l`"
+if [ $SOS_DB_EXISTS -gt 0 ] ; then
+	echo "[$(date +%M:%S)]: SOS db $SOS_DB_NAME exists -> drop it"
+	su postgres -c "dropdb $SOS_DB_NAME"
+fi
+echo "[$(date +%M:%S)]: Create SOS db"
+su postgres -c "createdb -T template_postgis $SOS_DB_NAME"
+echo "[$(date +%M:%S)]: DB $SOS_DB_NAME created"
+#
+#	Set-Up 52nSOS database model
+
+su postgres -c "PGOPTIONS='$PGOPTIONS' psql -d $SOS_DB_NAME -q -f $TMP/SOS-structure.sql"
+echo "[$(date +%M:%S)]: $SOS_DB_NAME -> SOS database model created"
+#
+#	Set-Up Example data model 
+#
+su postgres -c "psql -d $SOS_DB_NAME -q -f $TMP/STRUCTURE-in-SOS.sql"
+echo "[$(date +%M:%S)]: $SOS_DB_NAME -> Example data model created"
+#
+#	Insert example observations
+#
+su postgres -c "psql -d $SOS_DB_NAME -q -f $TMP/$SOS_DATA_SET.sql"
+echo "[$(date +%M:%S)]: $SOS_DB_NAME -> Example observations inserted"
+echo "[$(date +%M:%S)]: Database set-up finished"
+#
+#	Change password of postgres to "user" while user "user" is not present
+#
+su postgres -c "psql -c \"ALTER USER postgres WITH PASSWORD 'user';\""
+echo "[$(date +%M:%S)]: password for user Postgres changed to user"
+#
+#	Restart tomcat after database set-up
+#
 "/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" start
 #
 #
 # 3.0 check for tomcat webapps folder
 #
 mkdir -p -v "$SOS_WAR_INSTALL_FOLDER"
-#if [ -n "$DEBUG" ] ; then
-#	echo "install dir created/found."
-#fi
 #
 #
 # 3.1 check for tomcat set-up: look for service script in /etc/init.d/
 #
 if (test ! -d "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME") then
-	mv "$TMP/$SOS_WEB_APP_NAME.war" "$SOS_WAR_INSTALL_FOLDER"/
- 	chown -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
+	mv -v "$TMP/$SOS_WEB_APP_NAME.war" "$SOS_WAR_INSTALL_FOLDER"/
+ 	chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
 	   "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war"
-#	if [ -n "$DEBUG" ] ; then
-#		echo "52nSOS deployed via mv to webapps dir."
-#	fi
+	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME installed in tomcat webapps folder"
 else
-	echo "$SOS_WEB_APP_NAME already installed in tomcat"
+	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME already installed in tomcat"
 fi
 #
 #
@@ -241,14 +265,13 @@ Icon=/usr/share/icons/$SOS_ICON_NAME
 Terminal=false
 EOF
 fi
-
-cp /usr/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
-chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
+#
+cp -v /usr/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
+chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
 #
 # We just crossed the finish line
 #
-echo "                                                                         "
+echo "[$(date +%M:%S)]                                                         "
 echo "                         52nSOS install finished                         "
 echo "#########################################################################"
-echo "                                                                         "
-echo "                                                                         "
+
