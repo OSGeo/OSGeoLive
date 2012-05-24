@@ -58,7 +58,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   vim medit nedit nano screen iotop \
   okular ghostscript a2ps netpbm qiv \
   lynx mutt mc xchat rxvt units scrot \
-  gdebi fslint sgt-puzzles
+  gdebi fslint arandr sgt-puzzles
 
 # some xfce desktop widgets for i18n and laptops
 apt-get install --yes xfce4-xkb-plugin xfce4-power-manager \
