@@ -1,6 +1,14 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0alpha2
+===================
+ * updated Postgres to 9.1
+ * fix for Xubuntu window resizing
+ * PostGIS installed from mainline
+ * fix to get sphinx build back working 
+ * new stable release for mb-system
+
 Version 6.0alpha1
 ===================
  * Upgrading to Xubuntu 12.04 LTS
