@@ -53,8 +53,8 @@ cd "$TMP"
 
 # install pre-requisites
 apt-get install --yes cmake
-apt-get install --yes libboost1.42-dev libboost-program-options1.42-dev \
-   libboost-thread1.42-dev libboost-serialization1.42-dev libgdal1-1.8.0 \
+apt-get install --yes libboost1.46-dev libboost-program-options1.46-dev \
+   libboost-thread1.46-dev libboost-serialization1.46-dev \
    libgdal1-dev libgeotiff-dev libgeotiff2
 
 # get libLAS
