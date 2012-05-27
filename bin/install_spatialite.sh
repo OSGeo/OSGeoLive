@@ -68,7 +68,8 @@ BASEURL=http://www.gaia-gis.it/spatialite-2.4.0
 # rasterlite-tools-linux-x86-1.0.tar.gz
 # spatialite-gis-linux-x86-1.0.0.tar.gz
 # spatialite-gui-linux-x86-1.3.0.tar.gz"
-PACKAGES="spatialite-gis-linux-x86-1.0.0.tar.gz"
+PACKAGES="spatialite-gis-linux-x86-1.0.0.tar.gz
+	spatialite-gui-linux-x86-1.3.0.tar.gz"
 for i in $PACKAGES; do
   dir=`basename $i .tar.gz`
   wget -c --progress=dot:mega "$BASEURL/$i"
