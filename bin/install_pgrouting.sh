@@ -42,14 +42,14 @@ TMP="/tmp/build_pgrouting"
 OSM_FILE="/usr/local/share/osm/Denver_CBD.osm.bz2"
 OSM_DB="pgrouting"
 
-POSTGIS_VERSION="8.4"
+POSTGRES_VERSION="9.1"
 PGROUTING_FOLDER="/usr/share/postlbs"
 
 # PostGIS 1.4
-#POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/"
+#POSTGIS_FOLDER="/usr/share/postgresql/$POSTGRES_VERSION/contrib/"
 
 # PostGIS 1.5
-POSTGIS_FOLDER="/usr/share/postgresql/$POSTGIS_VERSION/contrib/postgis-1.5/"
+POSTGIS_FOLDER="/usr/share/postgresql/$POSTGRES_VERSION/contrib/postgis-1.5/"
 
 # Add pgRouting launchpad repository
 add-apt-repository --yes ppa:georepublic/pgrouting
@@ -57,9 +57,9 @@ apt-get update
 
 # Install pgRouting packages
 apt-get --assume-yes install gaul-devel \
-	postgresql-8.4-pgrouting \
-	postgresql-8.4-pgrouting-dd \
-	postgresql-8.4-pgrouting-tsp
+	postgresql-9.1-pgrouting \
+	postgresql-9.1-pgrouting-dd \
+	postgresql-9.1-pgrouting-tsp
 	
 if [ $? -ne 0 ] ; then
    echo 'ERROR: pgRouting Package install failed! Aborting.'
@@ -79,7 +79,7 @@ cd "$TMP"
 # create $OSM_DB database
 echo "create $OSM_DB database"
 sudo -u $USER_NAME createdb $OSM_DB
-sudo -u $USER_NAME createlang plpgsql $OSM_DB
+#sudo -u $USER_NAME createlang plpgsql $OSM_DB
 
 # add PostGIS functions
 echo "add PostGIS functions"
