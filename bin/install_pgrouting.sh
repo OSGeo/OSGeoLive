@@ -39,7 +39,7 @@ USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_pgrouting"
-OSM_FILE="/usr/local/share/osm/Denver_CBD.osm.bz2"
+OSM_FILE="/usr/local/share/data/osm/feature_city.osm.bz2"
 OSM_DB="pgrouting"
 
 POSTGRES_VERSION="9.1"
@@ -123,12 +123,6 @@ else
 	    -user $USER_NAME \
 	    -host localhost \
 	    -clean
-
-	# Simple pgRouting test queries
-	# Renable once we figure out how to get rid of user interaction
-	#psql -U $USER_NAME -c "SELECT gid, AsText(the_geom) AS the_geom FROM dijkstra_sp_delta('ways', 1, 20, 0.003)"  $OSM_DB
-	#psql -U $USER_NAME -c "SELECT gid, AsText(the_geom) AS the_geom FROM astar_sp_delta('ways', 1, 20, 0.003)"  $OSM_DB
-	#psql -U $USER_NAME -c "SELECT gid, AsText(the_geom) AS the_geom FROM shootingstar_sp('ways', 1, 20, 0.1, 'length', true, true)"  $OSM_DB
 fi
 
 echo "Finished installing pgRouting and pgRouting tools."
