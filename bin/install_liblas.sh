@@ -150,14 +150,14 @@ cp LICENSE.txt NEWS README.txt "$LIBLAS_FOLDER/"
 ##------------------------------------------------------------
 ## cleanup dev packages
 ##   make sure these stay installed
-apt-get --yes install libboost-date-time1.42.0 \
-   libboost-program-options1.42.0 libboost-serialization1.42.0
+apt-get --yes install libboost-date-time1.46.0 \
+   libboost-program-options1.46.0 libboost-serialization1.46.0
 ##how about this one??
 apt-get --yes install libodbcinstq1c2
 
 # note - cmake is cleaned up by setdown.sh
-apt-get --yes remove libboost1.42-dev libboost-program-options-dev \
-   libboost-thread1.42-dev libboost-serialization1.42-dev \
+apt-get --yes remove libboost1.46-dev libboost-program-options-dev \
+   libboost-thread1.46-dev libboost-serialization1.46-dev \
    libgdal1-dev libgeotiff-dev
 
 apt-get --yes autoremove
