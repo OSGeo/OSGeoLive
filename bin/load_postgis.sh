@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2009 Mark Leslie
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -35,13 +35,12 @@ cd "$TMP_DIR"
 
 
 ### download data
+## May12  - standardize data file name
 ## July10 - rely on a reference download of OSM data
 ##  provided by ** install_osm.sh **, instead of getting it here
 ##  File name will change from time to time.
 
-OSM_FILE="/usr/local/share/osm/Denver.osm.bz2"
-
-#DL_FILE="medford-gisvm.sql.bz2"
+OSM_FILE="/usr/local/share/data/osm/feature_city.osm.bz2"
 
 # download package is not versioned so we really shouldn't use "wget -c"
 #wget -c --progress=dot:mega "$URL_BASE/$DL_FILE"
