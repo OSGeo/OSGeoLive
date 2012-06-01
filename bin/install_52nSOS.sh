@@ -17,7 +17,6 @@
 # TODO
 # - add different data sets (small, medium, large) using a parameter beginning
 #	this script
-# - maybe delete war file after set-up in tomcat (?) -> save space on disc
 #
 # About:
 # =====
@@ -97,7 +96,7 @@ fi
 if [ ! -x "`which java`" ] ; then
 	apt-get update
 	#
-	apt-get --assume-yes install openjdk-6-jre
+	apt-get --assume-yes install openjdk-7-jre
 fi
 #
 #
@@ -216,11 +215,6 @@ echo "[$(date +%M:%S)]: $SOS_DB_NAME -> Example data model created"
 su postgres -c "psql -d $SOS_DB_NAME -q -f $TMP/$SOS_DATA_SET.sql"
 echo "[$(date +%M:%S)]: $SOS_DB_NAME -> Example observations inserted"
 echo "[$(date +%M:%S)]: Database set-up finished"
-#
-#	Change password of postgres to "user" while user "user" is not present
-#
-su postgres -c "psql -c \"ALTER USER postgres WITH PASSWORD 'user';\""
-echo "[$(date +%M:%S)]: password for user Postgres changed to user"
 #
 #	Restart tomcat after database set-up
 #
