@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2011 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -11,123 +11,182 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
+#
+# Version: 2012-05-29
+# Author: e.h.juerrens@52north.org, b.pross@52north.org (modified for WPS)
+# TODO
+# - maybe delete war file after set-up in tomcat (?) -> save space on disc
+#
 # About:
 # =====
-# This script will install 52nWPS
+# This script installs the 52North WPS
+#
+#
 # =============================================================================
 # Install script for 52nWPS
 # =============================================================================
+#
+# Variables
+# -----------------------------------------------------------------------------
 TMP="/tmp/build_52nWPS"
-INSTALL_FOLDER="/usr/local"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-BUILD_DIR=`pwd`
+TOMCAT_USER_NAME="tomcat6"
+WPS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
+WPS_TAR_NAME="52nWPS-3.0.tar.gz"
+WPS_TAR_URL="http://52north.org/files/geoprocessing/OSGeoLiveDVD/"
+# when changing this, adjust the name in line 215, too,
+# and the quickstart, which links to this, too
+WPS_WEB_APP_NAME="52nWPS"
+WPS_TOMCAT_SCRIPT_NAME="tomcat6"
+WPS_ICON_NAME="52n.png"
+WPS_URL="http://localhost:8080/$WPS_WEB_APP_NAME"
+WPS_QUICKSTART_URL="http://localhost/en/quickstart/52nWPS_quickstart.html"
+WPS_OVERVIEW_URL="http://localhost/en/overview/52nWPS_overview.html"
+# -----------------------------------------------------------------------------
+#
+echo "[$(date +%M:%S)]: 52nWPS install started"
+echo "TMP: $TMP"
+echo "USER_NAME: $USER_NAME"
+echo "USER_HOME: $USER_HOME"
+echo "TOMCAT_USER_NAME: $TOMCAT_USER_NAME"
+echo "WPS_WAR_INSTALL_FOLDER: $WPS_WAR_INSTALL_FOLDER"
+echo "WPS_TAR_NAME: $WPS_TAR_NAME"
+echo "WPS_TAR_URL: $WPS_TAR_URL"
+echo "WPS_WEB_APP_NAME: $WPS_WEB_APP_NAME"
+echo "WPS_TOMCAT_SCRIPT_NAME: $WPS_TOMCAT_SCRIPT_NAME"
+echo "WPS_ICON_NAME: $WPS_ICON_NAME"
+echo "WPS_URL: $WPS_URL"
+echo "WPS_QUICKSTART_URL: $WPS_QUICKSTART_URL"
+echo "WPS_OVERVIEW_URL: $WPS_OVERVIEW_URL"
+#
+#
 # =============================================================================
 # Pre install checks
 # =============================================================================
-# WGET is required to download the Geomajas package:
-if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install it and try again" 
-   exit 1
-fi
-
-
-
-##### Java Sun JDK 6 is required:
-# but not available
-#if [ ! -x "`which java`" ] ; then
-#   add-apt-repository "deb http://archive.canonical.com/ precise partner"
-#   apt-get update
+# 1 wget
+# 2 java
+# 3 tomcat6
 #
-#   apt-get --assume-yes remove openjdk-6-jre
-#   apt-get --assume-yes install java-common sun-java6-bin sun-java6-jre sun-java6-jdk
-#   echo export JAVA_HOME=/usr/lib/jvm/java-6-sun >> ~/.bashrc
-#fi
-
-
-
-##### Create the TMP directory
+#
+#
+# 1 WGET
+# It is required to download the 52North WPS package:
+#
+if [ ! -x "`which wget`" ] ; then
+   apt-get install wget
+fi
+#
+#
+#
+# 2 Check for OpenJDK
+#
+if [ ! -x "`which java`" ] ; then
+	apt-get update
+	#
+	apt-get --assume-yes install openjdk-7-jre
+fi
+#
+#
+#
+# 3 tomcat6
+if [ -f "/etc/init.d/$WPS_TOMCAT_SCRIPT_NAME" ] ; then
+   	echo "[$(date +%M:%S)]: $WPS_TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
+else
+	echo "[$(date +%M:%S)]: $WPS_TOMCAT_SCRIPT_NAME not found. Installing it..."
+	apt-get install --assume-yes "$WPS_TOMCAT_SCRIPT_NAME" "${WPS_TOMCAT_SCRIPT_NAME}-admin"
+fi
+#
+#
+#
+#
+# =============================================================================
+# The 52North WPS installation process
+# =============================================================================
+# 1 Download and Extract
+# 2 tomcat set-up
+# 2.0 check for webapps folder in $WPS_WAR_INSTALL_FOLDER
+# 2.1 mv war to webapps folder
+# 2.2 change owner of war file
+#
+#
+# 1 Download 52nWPS and extract tar.gz
+#
+# create the TMP directory
 mkdir -p "$TMP"
 cd "$TMP"
-
-
-# =============================================================================
-# The 52nWPS installation process
-# =============================================================================
-
-
-##### Step1 and Step2: Download 52nWPS 
-
-if [ -f "52n-wps-rc6.tar.gz" ]
-then
-   echo "52n-wps-rc6.tar.gz has already been downloaded."
+#
+# download tar.gz from 52north.org server
+if [ -f "$WPS_TAR_NAME" ] ; then
+   echo "[$(date +%M:%S)]: $WPS_TAR_NAME has already been downloaded."
+   # but was it sucessful?
 else
-   wget -c --progress=dot:mega \
-      "http://52north.org/files/geoprocessing/OSGeoLiveDVD/52n-wps-rc6.tar.gz"
+#
+#	TODO is this new command working?
+#
+	rm -v -r "$TMP"/*
+   	wget -c --progress=dot:mega "$WPS_TAR_URL$WPS_TAR_NAME"
 fi
-
-tar xzf 52n-wps-rc6.tar.gz
-
-if [ ! -e "$INSTALL_FOLDER" ] ; then
-   mkdir -p "$INSTALL_FOLDER" --verbose
+#
+# extract tar, if folders are not there
+if [ -f "$WPS_WEB_APP_NAME.war" ] ; then
+   echo "[$(date +%M:%S)]: $WPS_WEB_APP_NAME.war has already been extracted."
+else
+   tar xzf "$WPS_TAR_NAME"
+   echo "[$(date +%M:%S)]: $WPS_TAR_NAME extracted"
 fi
-
-
-cp -R $TMP/52nWPS "$INSTALL_FOLDER"/
-
-
-if [ ! -e "/usr/share/icons/52n.png" ] ; then
-  cp $INSTALL_FOLDER/52nWPS/52n.png /usr/share/icons/
+#
+# copy logo
+if [ ! -e "/usr/share/icons/$WPS_ICON_NAME" ] ; then
+   mv -v "$WPS_ICON_NAME" /usr/share/icons/
 fi
+#
+#
+# 2.0 check for tomcat webapps folder
+#
+mkdir -p -v "$WPS_WAR_INSTALL_FOLDER"
+#
+#
+# 2.1 check for tomcat set-up: look for service script in /etc/init.d/
+#
+if (test ! -d "$WPS_WAR_INSTALL_FOLDER/$WPS_WEB_APP_NAME") then
+	mv -v "$TMP/$WPS_WEB_APP_NAME.war" "$WPS_WAR_INSTALL_FOLDER"/
+ 	chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
+	   "$WPS_WAR_INSTALL_FOLDER/$WPS_WEB_APP_NAME.war"
+	echo "[$(date +%M:%S)]: $WPS_WEB_APP_NAME installed in tomcat webapps folder"
+else
+	echo "[$(date +%M:%S)]: $WPS_WEB_APP_NAME already installed in tomcat"
+fi
+#
+#
+#
+# Desktop set-up
+# =============================================================================
 
 mkdir -p -v "$USER_HOME/Desktop"
 
-## start icon
-##Relies on launchassist in home dir
-if [ ! -e /usr/share/applications/52n-start.desktop ] ; then
-   cat << EOF > /usr/share/applications/52n-start.desktop
+# icon
+# Relies on launchassist in home dir
+if [ ! -e /usr/share/applications/52nWPS-start.desktop ] ; then
+   cat << EOF > /usr/share/applications/52nWPS-start.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
 Name=Start 52NorthWPS
-Comment=52North WPS 2.0RC6 
+Comment=52North WPS
 Categories=Geospatial;Servers;
-Exec=dash $INSTALL_FOLDER/52nWPS/52n-start.sh
-Icon=/usr/share/icons/52n.png
+Exec=firefox $WPS_URL $WPS_QUICKSTART_URL $WPS_OVERVIEW_URL
+Icon=/usr/share/icons/$WPS_ICON_NAME
 Terminal=false
 EOF
 fi
+#
+cp -v /usr/share/applications/52nWPS-start.desktop "$USER_HOME/Desktop/"
+chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nWPS-start.desktop"
+#
+# We just crossed the finish line
+#
+echo "[$(date +%M:%S)]                                                         "
+echo "                         52nWPS install finished                         "
+echo "#########################################################################"
 
-cp -a /usr/share/applications/52n-start.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52n-start.desktop"
-
-## stop icon
-##Relies on launchassist in home dir
-if [ ! -e /usr/share/applications/52n-stop.desktop ] ; then
-   cat << EOF > /usr/share/applications/52n-stop.desktop
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=Stop 52NorthWPS
-Comment=52North WPS 2.0RC6
-Categories=Geospatial;Servers;
-Exec=dash $INSTALL_FOLDER/52nWPS/tomcat6/apache-tomcat-6.0.26/bin/shutdown.sh
-Icon=/usr/share/icons/52n.png
-Terminal=false
-EOF
-fi
-
-cp -a /usr/share/applications/52n-stop.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52n-stop.desktop"
-chown -R $USER_NAME:$USER_NAME $INSTALL_FOLDER/52nWPS/
-
-
-# something screwed up with the ISO permissions:
-chgrp tomcat6 /usr/local/52nWPS/tomcat6/apache-tomcat-6.0.26/bin/*.sh
-
-
-# upstream's startup script had quoting issues, replace it:
-echo
- diff -u /usr/local/52nWPS/52n-start.sh "$BUILD_DIR"/../app-conf/52n/52nWPS-start.sh
-echo
-cp -f "$BUILD_DIR"/../app-conf/52n/52nWPS-start.sh /usr/local/52nWPS/52n-start.sh
