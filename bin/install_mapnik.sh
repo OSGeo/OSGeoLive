@@ -22,8 +22,6 @@
 # rm -rf /usr/local/share/mapnik/
 # rm /usr/local/bin/liteserv.py
 
-# will fetch Mapnik 0.6.1 on Ubuntu 9.10
-# will fetch Mapnik 0.7.0 on Ubuntu 10.4
 # package name change in precise
 apt-get install --yes python-mapnik2 python-werkzeug
 
