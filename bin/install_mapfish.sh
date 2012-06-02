@@ -21,8 +21,10 @@
 # =======
 # sudo ./install_mapfish.sh
 
-USER_NAME="user"
-USER_DIR="/home/user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_DIR="/home/$USER_NAME"
 
 APACHE_CONF="/etc/apache2/conf.d/mapfish"
 TOMCAT_SERVER_CONF="/etc/tomcat6/server.xml"

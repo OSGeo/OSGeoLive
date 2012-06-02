@@ -28,7 +28,9 @@
 # Variables
 # -----------------------------------------------------------------------------
 TMP="/tmp/build_52nWSS"
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 BIN="/usr/local/bin"
 TOMCAT_USER_NAME="tomcat6"

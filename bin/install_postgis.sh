@@ -26,7 +26,9 @@
 # sudo /etc/init.d/postgresql-8.4 start
 #
 
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR="/tmp/build_postgis"

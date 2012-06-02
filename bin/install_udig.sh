@@ -38,7 +38,9 @@ DOCS_FOLDER="/usr/local/share/udig"
 DATA_GLOBAL="/usr/local/share/data"
 
 BIN="/usr/bin"
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
  
 ## Setup things... ##

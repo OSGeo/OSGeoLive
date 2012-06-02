@@ -34,7 +34,9 @@ fi
 TMP="/tmp/build_mapnik"
 DATA_FOLDER="/usr/local/share"
 MAPNIK_DATA=$DATA_FOLDER/mapnik
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 BIN="/usr/local/bin"
 

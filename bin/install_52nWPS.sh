@@ -29,7 +29,9 @@
 # Variables
 # -----------------------------------------------------------------------------
 TMP="/tmp/build_52nWPS"
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat6"
 WPS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"

@@ -55,7 +55,9 @@ TMP="/tmp/build_geonetwork"
 INSTALL_FOLDER="/usr/lib"
 GEONETWORK_FOLDER="$INSTALL_FOLDER/geonetwork"
 BIN="/usr/bin"
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 BUILD_DIR="`pwd`"
 

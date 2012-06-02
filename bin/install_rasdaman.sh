@@ -28,7 +28,9 @@ RASDAMAN_LOCATION="http://www.rasdaman.com/Download"
 RASDAMAN_TARBALL="rasdaman-$VERSION.tar.gz"
 
 # live disc's username is "user"
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 RASDAMAN_HOME="/usr/local/rasdaman"
 TMP="/tmp/build_rasdaman"

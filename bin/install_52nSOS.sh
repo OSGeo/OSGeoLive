@@ -30,7 +30,9 @@
 # Variables
 # -----------------------------------------------------------------------------
 TMP="/tmp/build_52nSOS"
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat6"
 SOS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"

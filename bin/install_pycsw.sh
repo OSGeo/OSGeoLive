@@ -25,6 +25,12 @@
 # Requires: Apache2, python-lxml, python-shapely and python-sqlalchemy
 
 
+# live disc's username is "user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
+
 VERSION=1.2.0
 
 echo "Installing pycsw $VERSION"
@@ -32,7 +38,8 @@ echo "Installing pycsw $VERSION"
 echo 'Installing dependencies ...'
 
 # install dependencies
-apt-get install --yes apache2 python-lxml python-sqlalchemy python-shapely python-pyproj
+apt-get install --yes apache2 python-lxml python-sqlalchemy \
+   python-shapely python-pyproj
 
 echo 'Installing pycsw ...'
 
@@ -40,9 +47,6 @@ add-apt-repository --yes ppa:gcpp-kalxas/ppa-tzotsos
 apt-get update
 apt-get install --yes pycsw
 
-# live disc's username is "user"
-USER_NAME=user
-USER_HOME=/home/$USER_NAME
 
 cp /usr/share/applications/pycsw.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/pycsw.desktop"

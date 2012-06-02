@@ -37,7 +37,9 @@ apt-get -q install --yes --no-install-recommends atlasstyler geopublishing-doc
 
 # Now we download some predefined symbols for atlasstyler because the user
 #  is probably off-line
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 mkdir -p "$USER_HOME/.AtlasStyler"

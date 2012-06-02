@@ -28,7 +28,9 @@
 # =======
 # sudo ./install_liblas.sh
 
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 TMP="/tmp/build_libLAS"
 INSTALL_FOLDER="/usr/local/share"
 LIBLAS_FOLDER="$INSTALL_FOLDER/libLAS"

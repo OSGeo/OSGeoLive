@@ -35,7 +35,9 @@
 # sudo rm -rf /home/user/Desktop/Servers/zoo-project.desktop
 
 # live disc's username is "user"
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 ZOO_TMP=/tmp/build_zoo
 

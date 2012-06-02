@@ -43,7 +43,9 @@ GEOKETTLE_FILENAME="$GEOKETTLE_BASENAME.zip"
 INSTALL_FOLDER="/opt"
 GEOKETTLE_FOLDER="$INSTALL_FOLDER/geokettle"
 BIN="/usr/bin"
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 #DESKTOP="Bureau"
 DESKTOP="Desktop"

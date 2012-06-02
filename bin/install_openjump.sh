@@ -38,7 +38,9 @@
 
 
 TMP="/tmp/build_openjump"
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 PKG_NAME=OpenJUMP

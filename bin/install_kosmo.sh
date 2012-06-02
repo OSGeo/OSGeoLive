@@ -29,7 +29,9 @@
 # =======
 # sudo ./install_kosmo.sh
 
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 TMP="/tmp/build_kosmo"
 INSTALL_FOLDER="/usr/lib"
 KOSMO_FOLDER="$INSTALL_FOLDER/Kosmo-2.0.1"

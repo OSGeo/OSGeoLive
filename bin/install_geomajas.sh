@@ -25,7 +25,9 @@ BIN=/usr/local/bin
 GEOMAJAS_VERSION=1.8.0
 GEOMAJAS_HOME="$INSTALL_FOLDER/geomajas-$GEOMAJAS_VERSION-bin"
 GEOMAJAS_PORT=3420
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 

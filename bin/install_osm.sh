@@ -20,7 +20,9 @@
 # =======
 # sudo ./install_osm.sh
 
-USER_NAME=user
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR=/tmp/build_osm

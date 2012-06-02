@@ -31,7 +31,9 @@
 # =======
 # sudo ./install_PyDep_and_R.sh
 
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 #Install packages from debs if available

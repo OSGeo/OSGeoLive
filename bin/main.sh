@@ -35,6 +35,8 @@ DOC_DIR="/var/www"
 MAIN_LOG_FILE="main_install.log"
 DISK_USAGE_LOG="disk_usage.log"
 
+USER_NAME="user"
+export USER_NAME
 
 # 
 # Detect language code from $LANG environment.

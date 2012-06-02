@@ -28,7 +28,9 @@ BIN=/usr/local/bin
 GS_VERSION="2.1.3"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 DOC_DIR=$USER_HOME/gisvm/app-data/geoserver/doc
 

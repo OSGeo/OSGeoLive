@@ -21,7 +21,9 @@
 # monteverdi
 # TODO: list all the apps, preferably Qt versions in /usr/bin/?
 
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 #Add repositories

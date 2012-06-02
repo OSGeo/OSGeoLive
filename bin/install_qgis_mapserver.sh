@@ -26,7 +26,9 @@ APP_DATA_DIR="$BUILD_DIR/../app-data/qgis-mapserver"
 INSTALL_FOLDER="/usr/local"
 DATA_FOLDER="/usr/local/share"
 PKG_DATA=$DATA_FOLDER/qgis_mapserver
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 ## get qgis_mapserver

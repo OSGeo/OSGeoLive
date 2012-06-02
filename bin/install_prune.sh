@@ -20,7 +20,9 @@
 # 
 
 # live disc's username is "user"
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 

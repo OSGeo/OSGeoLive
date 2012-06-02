@@ -24,7 +24,9 @@ TMP="/tmp/build_spatialite"
 INSTALL_FOLDER="/usr/local"
 DATA_FOLDER="/usr/local/share/data"
 PKG_DATA=$DATA_FOLDER/spatialite
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 ### Setup things... ###

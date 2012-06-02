@@ -42,7 +42,9 @@ fi
 
 # live disc's username is "user"
 INSTALL_DIR="/usr/local/lib"
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 SAHANA_CONF="/etc/apache2/conf.d/sahana"
 BUILD_DIR="$USER_HOME/gisvm"

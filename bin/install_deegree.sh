@@ -42,7 +42,9 @@ TMP="/tmp/build_deegree"
 INSTALL_FOLDER="/usr/local/lib"
 DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.2-pre3_apache-tomcat-6.0.35"
 BIN="/usr/local/bin"
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 PASSWORD="user"
 BUILD_DIR=`pwd`

@@ -20,7 +20,9 @@
 #apt-get install openjdk-7-jre icedtea-plugin ttf-dejavu-extra
 #  (icedtea is now to be dropped?)
 
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 

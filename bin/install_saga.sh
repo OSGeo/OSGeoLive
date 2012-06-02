@@ -8,7 +8,9 @@
 # Licensed under the GNU LGPL.
 # lucid: saga 2.0.4 is provided in ubuntugis and ubuntugis/unstable
 
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 # # Add repositories

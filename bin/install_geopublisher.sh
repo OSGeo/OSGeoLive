@@ -26,7 +26,9 @@
 # =======
 # Any Java 1.6, Sun preferred
 
-USER_NAME="user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 cp ../sources.list.d/geopublishing.list /etc/apt/sources.list.d/

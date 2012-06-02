@@ -23,8 +23,10 @@
 
 apt-get --assume-yes install php5-sqlite
 
-USER_NAME="user"
-USER_DIR="/home/user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_DIR="/home/$USER_NAME"
 
 mkdir -p /tmp/build-geomoose
 
