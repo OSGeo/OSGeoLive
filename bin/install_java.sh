@@ -16,7 +16,8 @@
 # =====
 # This script will install Jave JRE and Java JDK
 
-apt-get install --yes default-jdk default-jre
+#apt-get install --yes default-jdk default-jre
+apt-get install --yes openjdk-7-jdk openjdk-7-jre
 
 apt-get --assume-yes install gsfonts-x11
 
