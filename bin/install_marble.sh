@@ -20,8 +20,10 @@
 # =======
 # sudo ./marble_install.sh
 
-
-USER_HOME="/home/user"
+if [ -z "$USER_NAME" ] ; then 
+   USER_NAME="user" 
+fi 
+USER_HOME="/home/$USER_NAME"
 
 
 apt-get install --yes marble marble-data

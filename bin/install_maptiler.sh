@@ -48,8 +48,8 @@ fi
 
 # Test if installation was correct and create the Desktop icon
 if [ -e /usr/share/applications/maptiler.desktop ] ; then
-  cp /usr/share/applications/maptiler.desktop ~user/Desktop/
-  chown user:user ~user/Desktop/maptiler.desktop
+  cp /usr/share/applications/maptiler.desktop "$USER_HOME"/Desktop/
+  chown "$USER_NAME"."$USER_NAME" "$USER_HOME"/Desktop/maptiler.desktop
 else
   echo "ERROR: Installation of the MapTiler failed."
   exit 1

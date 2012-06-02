@@ -59,7 +59,7 @@ RELIEF_APPS="sahana ushahidi"
 
 # Default password list on the desktop to be replaced by html help in the future.
 cp ../doc/passwords.txt "$USER_HOME/Desktop/"
-chown user:user "$USER_HOME/Desktop/passwords.txt"
+chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 
 
 # Setup the desktop background image
@@ -77,7 +77,7 @@ cp /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml \
      "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
 #Note: Style int 3 means stretched
 #Not sure if this is necessary
-chown user.user "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
+chown "$USER_NAME"."$USER_NAME" "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
 
 #Old version in case we need to revert, or if you're logged into the current XFCE session
 #Has to been run as the regular user
@@ -424,7 +424,7 @@ else
 fi
 
 cp /usr/local/share/osgeo-desktop/welcome_message.txt "$USER_HOME"/
-chown user.user "$USER_HOME"/welcome_message.txt
+chown "$USER_NAME"."$USER_NAME" "$USER_HOME"/welcome_message.txt
 
 
 ##### Setup workshop installation icon
@@ -446,7 +446,7 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$WORKSHOP_INSTALL_FILE"
 
 
 #### permissions cleanup (if needed)
-chown user:user "$USER_HOME/Desktop/" -R
+chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/" -R
 chmod a+r "$USER_HOME/Desktop/" -R
 
 

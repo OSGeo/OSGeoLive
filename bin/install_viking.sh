@@ -16,8 +16,10 @@
 # =====
 # This script will install marble
 
-
-USER_HOME="/home/user"
+if [ -z "$USER_NAME" ] ; then 
+   USER_NAME="user" 
+fi 
+USER_HOME="/home/$USER_NAME"
 
 
 apt-get --assume-yes install viking gpsbabel gpsd

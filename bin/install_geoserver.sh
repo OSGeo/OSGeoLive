@@ -147,7 +147,8 @@ unzip -o -q geoserver-$GS_VERSION-htmldoc.zip -d $DOC_DIR
 ### install desktop icons ##
 echo "Installing GeoServer icons"
 if [ ! -e "/usr/share/icons/geoserver_48x48.logo.png" ] ; then
-   cp /home/user/gisvm/desktop-conf/geoserver_48x48.logo.png /usr/share/icons/
+   cp "/home/$USER_NAME/gisvm/desktop-conf/geoserver_48x48.logo.png" \
+       /usr/share/icons/
 fi
 
 ## start icon

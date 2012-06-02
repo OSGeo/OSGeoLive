@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -26,21 +26,26 @@
 
 SCRIPT_DIR=/usr/local/share
 
+if [ -z "$USER_NAME" ] ; then 
+   USER_NAME="user" 
+fi 
+USER_HOME="/home/$USER_NAME"
+
 # copy in pre-downloaded data files. flavour to suit or just skip 
 # rsync -avz cshorter@192.168.2.166::/media/Shorter/repository/livedvd/Arramagong_tmp/ /tmp/
 
 apt-get --assume-yes install subversion
 
 # check out the install scripts from subversion
-cd $SCRIPT_DIR
+cd "$SCRIPT_DIR"
 
 # Use "svn export" instead of "svn checkout" to save space by not having the
 #   cached .svn/ files stored locally  (n.b. later cleansed by build_iso.sh)
 #svn export http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk gisvm
-svn checkout http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk gisvm
+svn checkout "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk" gisvm
 
-chown -R user:user gisvm
-cd /home/user
+chown -R "$USER_NAME":"$USER_NAME" gisvm
+cd "$USER_HOME"
 ln -s ${SCRIPT_DIR}/gisvm .
 
 # make a directory for the install logs

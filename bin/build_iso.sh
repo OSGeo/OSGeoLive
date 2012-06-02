@@ -26,6 +26,8 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+USER_PASS="user"
+
 DIR=`dirname ${0}`
 VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeo-live"
@@ -89,7 +91,7 @@ cp -pr "$DOCS_SRC" "${TMP}/osgeolive-docs"
 #### 5.0rc3:  logout, shutdown, and reboot seem broken on the ISO.
 # offer some emergency alternatives.
 if [ "maybe it" = "is fixed" ] ; then
-cat << EOF > /home/user/Desktop/osgeo-logout.desktop
+cat << EOF > "/home/$USER_NAME/Desktop/osgeo-logout.desktop"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -101,7 +103,7 @@ Icon=system-log-out
 Terminal=false
 EOF
 
-cat << EOF > /home/user/Desktop/osgeo-reboot.desktop
+cat << EOF > "/home/$USER_NAME/Desktop/osgeo-reboot.desktop"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -113,7 +115,7 @@ Icon=reload
 Terminal=false
 EOF
 
-cat << EOF > /home/user/Desktop/osgeo-halt.desktop
+cat << EOF > "/home/$USER_NAME/Desktop/osgeo-halt.desktop"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -125,19 +127,19 @@ Icon=gnome-session-halt
 Terminal=false
 EOF
 
-chown user.user /home/user/Desktop/osgeo-*.desktop
+chown "$USER_NAME"."$USER_NAME" /home/"$USER_NAME"/Desktop/osgeo-*.desktop
 
 cat << EOF > /usr/local/bin/osgeo-reboot.sh
 #!/bin/sh
 sync
-echo user | sudo -S reboot
+echo "$USER_PASS" | sudo -S reboot
 EOF
 chmod a+x /usr/local/bin/osgeo-reboot.sh
 
 cat << EOF > /usr/local/bin/osgeo-halt.sh
 #!/bin/sh
 sync
-echo user | sudo -S halt
+echo "$USER_PASS" | sudo -S halt
 EOF
 chmod a+x /usr/local/bin/osgeo-halt.sh
 fi

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -20,6 +20,12 @@
 # Running:
 # =======
 # sudo ./setup.sh
+
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
+
 
 if [ "`uname -m`" != "i686" ] ; then
    echo "WARNING: Current system is not i686; any binaries built may be tied to current system (`uname -m`)"
@@ -115,13 +121,13 @@ apt-get --assume-yes remove linux-headers-2.6.38-11
 
 
 # Remove unused home directories
-#?? rm -fr /home/user/Downloads
-rm -fr /home/user/Documents
-rm -fr /home/user/Music
-rm -fr /home/user/Pictures
-rm -fr /home/user/Public
-rm -fr /home/user/Templates
-rm -fr /home/user/Videos
+#?? rm -fr "$USER_HOME"/Downloads
+rm -fr "$USER_HOME"/Documents
+rm -fr "$USER_HOME"/Music
+rm -fr "$USER_HOME"/Pictures
+rm -fr "$USER_HOME"/Public
+rm -fr "$USER_HOME"/Templates
+rm -fr "$USER_HOME"/Videos
 
 # rename dangerous icon
 # this probably won't work here because ubiquity isn't loaded until remastersys step
@@ -131,19 +137,19 @@ if [ -e /usr/share/applications/ubiquity-gtkui.desktop ] ; then
 fi
 
 # Link to the project data files
-cd /home/user
+cd "$USER_HOME"
 mkdir -p /usr/local/share/data --verbose
 ln -s /usr/local/share/data data
-chown user.user data
+chown "$USER_NAME":"$USER_NAME" data
 
 # and there was music and laughter and much rejoicing
 adduser user audio
 
 # highly useful tricks
-echo "alias ll='ls -l'" >> /home/user/.bashrc
-chown user.user /home/user/.bashrc
+echo "alias ll='ls -l'" >> "$USER_HOME"/.bashrc
+chown "$USER_NAME":"$USER_NAME" "$USER_HOME"/.bashrc
 
-cat << EOF >> /home/user/.inputrc
+cat << EOF >> "$USER_HOME"/.inputrc
 # a conference talk full of terminal beeps is no good
 set prefer-visible-bell
 
@@ -151,6 +157,6 @@ set prefer-visible-bell
 "\e[5~": history-search-backward
 "\e[6~": history-search-forward
 EOF
-chown user.user /home/user/.inputrc
+chown "$USER_NAME":"$USER_NAME" "$USER_HOME"/.inputrc
 
 

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -19,6 +19,11 @@
 # Running:
 # =======
 # sudo ./setdown.sh 2>&1 | tee /var/log/osgeolive/setdown.log
+
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
 
 DIR=`dirname ${0}`
 VERSION=`cat ${DIR}/../VERSION.txt`
@@ -52,27 +57,27 @@ echo "Scanning for duplicate files ..."
 mkdir "/tmp/$VERSION"
 cd "/tmp/$VERSION"
 
-mkdir ${VM}-tmp
-mv /tmp/build* ${VM}-tmp
+mkdir "${VM}-tmp"
+mv /tmp/build* "${VM}-tmp"
 #mv /tmp/*downloads ${VM}-tmp
 
-ln -s /var/log/osgeolive/ ${VM}-log
+ln -s /var/log/osgeolive/ "${VM}-log"
 
 #Copy the cache to tmp for backing up
-cp -R /var/cache/apt/ ${VM}-apt-cache
+cp -R /var/cache/apt/ "${VM}-apt-cache"
 # remove the apt-get cache
 apt-get clean
 
 rm -fr \
-  /home/user/.bash_history \
-  /home/user/.ssh \
-  /home/user/.subversion \
+  "$USER_HOME"/.bash_history \
+  "$USER_HOME"/.ssh \
+  "$USER_HOME"/.subversion \
   # /tmp/* \ # tmp is cleared during shutdown
 
   # Do we need the following:
-  # /home/user/.cache \
-  # /home/user/.config \
-  # /home/user/.dbus \
+  # "$USER_HOME"/.cache \
+  # "$USER_HOME"/.config \
+  # "$USER_HOME"/.dbus \
 
 
 # clean out ssh keys which should be machine-unique

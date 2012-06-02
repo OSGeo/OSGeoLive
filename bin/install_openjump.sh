@@ -115,10 +115,10 @@ Path=
 END
 ) &&\
 ## set proper permissions to desktop link ##
-chmod 644 -R $PKG_DESKTOP &&\
-chown user.user $PKG_DESKTOP &&\
+chmod 644 -R "$PKG_DESKTOP" &&\
+chown "$USER_NAME"."$USER_NAME" "$PKG_DESKTOP" &&\
 ## Sample Data ##
-wget $URL_DATA &&\
+wget "$URL_DATA" &&\
 mkdir -p "$PKG_DATA/sample_data" &&\
 unzip -j -q $(basename $URL_DATA) -x '*/.*' -d "$PKG_DATA/sample_data" &&\
 ## Documentation ##

@@ -16,8 +16,10 @@
 # =====
 # This script will install the zyGrib viewer (1.4mb installed)
 
-
-USER_HOME="/home/user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
 
 #install latest version
 # http://zygrib.org/forum/viewtopic.php?f=7&t=156
@@ -35,6 +37,7 @@ apt-get --assume-yes install zygrib
 # don't install the zygrib-maps package, it's 180mb (contains NOAA's GSHHS coastline)
 
 # copy icon to Desktop
-cp /usr/local/share/applications/zyGrib.desktop "$USER_HOME/Desktop/zygrib.desktop"
+cp /usr/local/share/applications/zyGrib.desktop \
+   "$USER_HOME/Desktop/zygrib.desktop"
 
 ln -s /usr/local/bin/zyGrib /usr/local/bin/zygrib
