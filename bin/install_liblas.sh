@@ -51,6 +51,8 @@ fi
 mkdir -p "$TMP"
 cd "$TMP"
 
+echo "FIXME: libLAS should be supplied in .deb form. This is low hanging fruit."
+
 # install pre-requisites
 apt-get install --yes cmake
 apt-get install --yes libboost1.46-dev libboost-program-options1.46-dev \
@@ -58,12 +60,14 @@ apt-get install --yes libboost1.46-dev libboost-program-options1.46-dev \
    libgdal1-dev libgeotiff-dev libgeotiff2
 
 # get libLAS
-wget -c --progress=dot:mega http://download.osgeo.org/liblas/$LIBLAS_REV.tar.gz
-wget -c --progress=dot:mega http://download.osgeo.org/laszip/$LASZIP_REV.tar.gz
+wget -c --progress=dot:mega \
+   "http://download.osgeo.org/liblas/$LIBLAS_REV.tar.gz"
+wget -c --progress=dot:mega \
+   "http://download.osgeo.org/laszip/$LASZIP_REV.tar.gz"
 
 # unpack it
-tar xzf $LIBLAS_REV.tar.gz
-tar xzf $LASZIP_REV.tar.gz
+tar xzf "$LIBLAS_REV.tar.gz"
+tar xzf "$LASZIP_REV.tar.gz"
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: libLAS download failed."
@@ -73,7 +77,7 @@ fi
 ##--------------------------------------
 ## begin build
 
-cd $LASZIP_REV
+cd "$LASZIP_REV"
 cmake -G "Unix Makefiles" . -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release
 
 ##--------------------------------------
@@ -92,7 +96,7 @@ fi
 ldconfig
 
 ##--------------------------------------
-cd ../$LIBLAS_REV
+cd ../"$LIBLAS_REV"
 mkdir makefiles
 cd makefiles
 
@@ -161,6 +165,6 @@ apt-get --yes remove libboost1.46-dev libboost-program-options-dev \
    libgdal1-dev libgeotiff-dev
 
 apt-get --yes autoremove
-echo "FIXME: make sure we haven't lost any important automatically installed pkgs"
+echo "FIXME: (libLAS) make sure we haven't lost any important automatically installed pkgs"
 
 
