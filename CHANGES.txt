@@ -1,6 +1,22 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0alpha3
+===================
+
+ * switched to openjdk7
+ * mapnik package name fixed
+ * fix for #902 (http 404 if user selects same language twice)
+ * fix for spatialite
+ * updated OSM
+ * pgRouting fixed to use Postgres 9.1
+ * Added data for Feature_city
+ * Update to 52nWPS
+ * Fix for OTB
+ * definition of USER_NAME in main.sh
+ * Osmosis added
+ * OSM extract for Beijing ready
+
 Version 6.0alpha2
 ===================
  * updated Postgres to 9.1
