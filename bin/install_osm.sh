@@ -171,11 +171,11 @@ wget -N --progress=dot:mega \
 #   http://78.46.81.38/#section.download_area
 
 if [ ! -e "$CITY.osm.bz2" ] ; then
-  #XAPI_URL="http://xapi.openstreetmap.org/api/0.6"
-  #XAPI_URL="http://open.mapquestapi.com/xapi/api/0.6"
-  XAPI_URL="http://jxapi.openstreetmap.org/xapi/api/0.6"
+  #XAPI_URL="http://xapi.openstreetmap.org/api/0.6/"
+  #XAPI_URL="http://open.mapquestapi.com/xapi/api/0.6/"
+  XAPI_URL="http://jxapi.openstreetmap.org/xapi/api/0.6/"
 
-  wget --progress=dot:mega -O "$CITY.osm"  "$XAPI_URL/*[bbox=$BBOX]"
+  wget --progress=dot:mega -O "$CITY.osm"  "${XAPI_URL}*[bbox=$BBOX]"
   if [ $? -ne 0 ] ; then
      echo "ERROR getting osm data"
      exit 1
@@ -191,10 +191,10 @@ ln -s /usr/local/share/data/osm/"$CITY.osm.bz2" \
    /usr/local/share/data/osm/feature_city.osm.bz2
 
 ####
-wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/osm/Denver_CBD.osm.bz2"
-cp -f "Denver_CBD.osm.bz2" /usr/local/share/osm/
-ln -s /usr/local/share/osm/Denver_CBD.osm.bz2 /usr/local/share/data/osm
+#wget -N --progress=dot:mega \
+#   "http://download.osgeo.org/livedvd/data/osm/Denver_CBD.osm.bz2"
+#cp -f "Denver_CBD.osm.bz2" /usr/local/share/osm/
+#ln -s /usr/local/share/osm/Denver_CBD.osm.bz2 /usr/local/share/data/osm
 ####
 
 

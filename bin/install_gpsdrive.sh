@@ -25,7 +25,7 @@ echo "The GpsDrive package is not yet ready for Ubuntu 12.04"
 exit 0
 
 
-
+CITY=Beijing
 
 
 # live disc's username is "user"
@@ -386,7 +386,7 @@ friendsname = LiveDVD
 showbutton_trackrestart = 0
 showbutton_trackclear = 0
 icon_theme = classic.small
-osmdbfile = /usr/share/gpsdrive/Denver_poi.db
+osmdbfile = /usr/share/gpsdrive/${CITY}_poi.db
 EOF
 
 
@@ -396,14 +396,15 @@ Sydney_Convention_Centre        -33.8750  151.2005
 Barcelona_Convention_Centre      41.3724    2.1518
 FOSS4G_2011_(Sheraton_Denver)    39.74251 -104.9891
 OSM_State_of_the_Map_2011        39.7457  -105.0034
+Beijing                          40.0      116.5
 EOF
 
-#download latest OSM POIs for Denver (does not exist yet!)
-#wget -N --progress=dot:mega  http://poi.gpsdrive.de/denver.db.bz2
+#download latest OSM POIs for host city
+#wget -N --progress=dot:mega  http://poi.gpsdrive.de/$COUNTRY.db.bz2
 wget -N --progress=dot:mega \
-  http://download.osgeo.org/livedvd/data/osm/Denver_poi.db.bz2
-bzip2 -d Denver_poi.db.bz2
-mv Denver_poi.db /usr/share/gpsdrive/
+  http://download.osgeo.org/livedvd/data/osm/${CITY}_poi.db.bz2
+bzip2 -d "${CITY}_poi.db.bz2"
+mv "${CITY}_poi.db" /usr/share/gpsdrive/
 
 
 # fool the hardcoded bastard
