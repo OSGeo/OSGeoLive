@@ -91,7 +91,7 @@ cp -pr "$DOCS_SRC" "${TMP}/osgeolive-docs"
 #### 5.0rc3:  logout, shutdown, and reboot seem broken on the ISO.
 # offer some emergency alternatives.
 if [ "maybe it" = "is fixed" ] ; then
-cat << EOF > "/home/$USER_NAME/Desktop/osgeo-logout.desktop"
+cat << EOF > "$USER_HOME/Desktop/osgeo-logout.desktop"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -103,7 +103,7 @@ Icon=system-log-out
 Terminal=false
 EOF
 
-cat << EOF > "/home/$USER_NAME/Desktop/osgeo-reboot.desktop"
+cat << EOF > "$USER_HOME/Desktop/osgeo-reboot.desktop"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -115,7 +115,7 @@ Icon=reload
 Terminal=false
 EOF
 
-cat << EOF > "/home/$USER_NAME/Desktop/osgeo-halt.desktop"
+cat << EOF > "$USER_HOME/Desktop/osgeo-halt.desktop"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -127,7 +127,7 @@ Icon=gnome-session-halt
 Terminal=false
 EOF
 
-chown "$USER_NAME"."$USER_NAME" /home/"$USER_NAME"/Desktop/osgeo-*.desktop
+chown "$USER_NAME"."$USER_NAME" "$USER_HOME"/Desktop/osgeo-*.desktop
 
 cat << EOF > /usr/local/bin/osgeo-reboot.sh
 #!/bin/sh

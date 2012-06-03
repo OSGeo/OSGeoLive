@@ -32,7 +32,7 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-DOC_DIR=$USER_HOME/gisvm/app-data/geoserver/doc
+DOC_DIR="$USER_HOME/gisvm/app-data/geoserver/doc"
 
 ### Setup things... ###
  
@@ -147,7 +147,7 @@ unzip -o -q geoserver-$GS_VERSION-htmldoc.zip -d $DOC_DIR
 ### install desktop icons ##
 echo "Installing GeoServer icons"
 if [ ! -e "/usr/share/icons/geoserver_48x48.logo.png" ] ; then
-   cp "/home/$USER_NAME/gisvm/desktop-conf/geoserver_48x48.logo.png" \
+   cp "$USER_HOME/gisvm/desktop-conf/geoserver_48x48.logo.png" \
        /usr/share/icons/
 fi
 

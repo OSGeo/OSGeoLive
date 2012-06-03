@@ -170,12 +170,12 @@ chown $USER_NAME.$USER_NAME /usr/local/share/qgis/*.qgs
 ln -s /usr/local/share/qgis/ "$USER_HOME"/qgis-examples
 
 #add a connection for postgis if it's installed
-QGIS_CONFIG_PATH="/home/$USER_NAME/.config/QuantumGIS/"
+QGIS_CONFIG_PATH="$USER_HOME/.config/QuantumGIS/"
 
 mkdir -p $QGIS_CONFIG_PATH
 cp "$BUILD_DIR/../app-conf/qgis/QGIS.conf" "$QGIS_CONFIG_PATH"
 
-chmod 644 /home/$USER_NAME/.config/QuantumGIS/QGIS.conf
-chown $USER_NAME.$USER_NAME /home/$USER_NAME/.config/QuantumGIS/QGIS.conf
+chmod 644 "$USER_HOME/.config/QuantumGIS/QGIS.conf"
+chown $USER_NAME.$USER_NAME "$USER_HOME/.config/QuantumGIS/QGIS.conf"
 
 echo "Finished installing QGIS $INSTALLED_VERSION."

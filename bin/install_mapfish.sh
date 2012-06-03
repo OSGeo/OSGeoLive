@@ -24,7 +24,7 @@
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
-USER_DIR="/home/$USER_NAME"
+USER_HOME="/home/$USER_NAME"
 
 APACHE_CONF="/etc/apache2/conf.d/mapfish"
 TOMCAT_SERVER_CONF="/etc/tomcat6/server.xml"
@@ -134,8 +134,8 @@ Icon=/usr/local/lib/mapfish/mapfish.png
 Terminal=false
 StartupNotify=false
 EOF
-cp /usr/share/applications/MapFish.desktop $USER_DIR/Desktop/
-chown $USER_NAME:$USER_NAME $USER_DIR/Desktop/MapFish.desktop
+cp /usr/share/applications/MapFish.desktop "$USER_HOME/Desktop/"
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/MapFish.desktop"
 
 #cleanup
 apt-get --assume-yes remove libpq-dev

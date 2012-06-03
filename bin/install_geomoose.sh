@@ -26,7 +26,7 @@ apt-get --assume-yes install php5-sqlite
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
-USER_DIR="/home/$USER_NAME"
+USER_HOME="/home/$USER_NAME"
 
 mkdir -p /tmp/build-geomoose
 
@@ -104,8 +104,8 @@ Terminal=false
 StartupNotify=false
 EOF
 
-cp /usr/share/applications/GeoMOOSE.desktop $USER_DIR/Desktop/
-chown $USER_NAME:$USER_NAME $USER_DIR/Desktop/GeoMOOSE.desktop
+cp /usr/share/applications/GeoMOOSE.desktop "$USER_HOME"/Desktop/
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/GeoMOOSE.desktop"
 
 # share data with the rest of the disc
 mkdir -p /usr/local/share/data/vector
