@@ -81,24 +81,19 @@ if [ $BUILD_LATEST -eq 0 ] ; then
   cd "$TMP_DIR"
 
   URL="http://download.osgeo.org/livedvd/data/gpsdrive/precise"
-  MAIN_FILE=gpsdrive_2.11_i386.deb
+  MAIN_FILE="gpsdrive_2.12+svn_i386.deb"
   EXTRA_FILES="
-    gpsdrive-friendsd_2.11_i386.deb
-    gpsdrive-utils_2.11_i386.deb
-    openstreetmap-map-icons-classic.small_25996_all.deb
-    openstreetmap-map-icons-square.big_25996_all.deb
-    openstreetmap-map-icons-square.small_25996_all.deb
-    openstreetmap-map-icons_25996_all.deb"
+    gpsdrive-friendsd_2.12+svn_i386.deb
+    gpsdrive-utils_2.12+svn_i386.deb"
 
   wget -c --progress=dot:mega "$URL/$MAIN_FILE"
   for FILE in $EXTRA_FILES ; do
      wget -c -nv "$URL/$FILE"
   done
 
-  dpkg -i openstreetmap-map-icons*.deb
-  gdebi --non-interactive --quiet gpsdrive-friendsd_2.11_i386.deb
-  gdebi --non-interactive --quiet gpsdrive-utils_2.11_i386.deb
-  gdebi --non-interactive --quiet gpsdrive_2.11_i386.deb
+  gdebi --non-interactive --quiet gpsdrive-friendsd_2.12+svn_i386.deb
+  gdebi --non-interactive --quiet gpsdrive-utils_2.12+svn_i386.deb
+  gdebi --non-interactive --quiet gpsdrive_2.12+svn_i386.deb
 
 fi
 
@@ -107,7 +102,7 @@ fi
 #######################
 ## build latest release
 if [ $BUILD_LATEST -eq 1 ] ; then
-  VERSION="2.11svn"
+  VERSION="2.12svn"
 
   if [ ! -d "$TMP_DIR" ] ; then
     mkdir "$TMP_DIR"
@@ -116,7 +111,7 @@ if [ $BUILD_LATEST -eq 1 ] ; then
 
   ## FIXME (use better home once known/officially released)
   ##  wget -c --progress=dot:mega "http://www.gpsdrive.de/packages/gpsdrive-$VERSION.tar.gz"
-  FILE=gpsdrive_2.11svn2556.tar.gz
+  FILE=gpsdrive_2.12svn2638.tar.gz
   wget --progress=dot:mega -O "$FILE" \
      "http://sites.google.com/site/hamishbowman/${FILE}?attredirects=0"
 
@@ -128,8 +123,8 @@ if [ $BUILD_LATEST -eq 1 ] ; then
   #cd gpsdrive-$VERSION
 
   # FIXME
-  mkdir gpsdrive-2.11svn
-  cd gpsdrive-2.11svn
+  mkdir gpsdrive-2.12svn
+  cd gpsdrive-2.12svn
   tar xzf "../$FILE"
 
 
@@ -174,26 +169,6 @@ EOF
    patch -p0 < "gpsdrive_fix_icon.patch"
 fi
 
-
-  #apply debian/ubuntu-lucid-32 patches to sync package deps for Lucid
-  sed -i -e 's/Build with old libgps version (<2.90)" ON)/Build with old libgps version (<2.90)" OFF)/' \
-      DefineOptions.cmake
-
-
-  if [ $? -ne 0 ] ; then
-     echo "An error occurred patching package. Aborting install."
-     exit 1
-  fi
-
-
-  # use latest libboost, mapnik, postgis packages
-  BOOST_VER=1.46.0
-  PGIS_VER=9.1
-  sed -i -e "s/libboost-\(.*\)1\.3[0-9]\.[0-9]/libboost-\1$BOOST_VER/" \
-         -e 's/mapnik0\.[3-6]/mapnik2-2.0/' \
-	 -e 's/libmapnik-dev/libmapnik2-dev/' \
-         -e "s/postgresql-8\.[2-3]-postgis/postgresql-$PGIS_VER-postgis/" \
-     debian/control
 
   ### install any missing build-dep packages
 
@@ -263,16 +238,8 @@ fi
   apt-get  --assume-yes install openstreetmap-map-icons-square \
      openstreetmap-map-icons-scalable openstreetmap-map-icons-classic
 
-  echo "Downloading support packages ... (please wait)"
-  DL_URL="http://www.gpsdrive.de/ubuntu/pool/precise"
-
-  # dupe?
-  wget -c -nv "$DL_URL/openstreetmap-map-icons-square.small_25996_all.deb"
-  wget -c -nv "$DL_URL/openstreetmap-map-icons-square.big_25996_all.deb"
-  wget -c -nv "$DL_URL/openstreetmap-map-icons-classic.small_25996_all.deb"
-  wget -c -nv "$DL_URL/openstreetmap-map-icons_25996_all.deb"
-  wget -c -nv "$DL_URL/openstreetmap-map-icons_25996_all.deb"
-
+  #echo "Downloading support packages ... (please wait)"
+  #DL_URL="http://www.gpsdrive.de/ubuntu/pool/precise"
   # holy cow, mapnik-world-boundaries.deb is 300mb!
   #wget -c "$DL_URL/openstreetmap-mapnik-world-boundaries_17758_all.deb"
 
@@ -392,17 +359,17 @@ EOF
 
 # add any waypoints you want to see displayed
 cat << EOF > "$USER_HOME/.gpsdrive/way.txt"
-Sydney_Convention_Centre        -33.8750  151.2005
-Barcelona_Convention_Centre      41.3724    2.1518
+Sydney_Convention_Centre        -33.8750   151.2005
+Barcelona_Convention_Centre      41.3724     2.1518
 FOSS4G_2011_(Sheraton_Denver)    39.74251 -104.9891
 OSM_State_of_the_Map_2011        39.7457  -105.0034
-Beijing                          40.0      116.5
+Beijing_Conference_Center        40.0195   116.4218
 EOF
 
 #download latest OSM POIs for host city
 #wget -N --progress=dot:mega  http://poi.gpsdrive.de/$COUNTRY.db.bz2
 wget -N --progress=dot:mega \
-  http://download.osgeo.org/livedvd/data/osm/${CITY}_poi.db.bz2
+  "http://download.osgeo.org/livedvd/data/osm/${CITY}_poi.db.bz2"
 bzip2 -d "${CITY}_poi.db.bz2"
 mv "${CITY}_poi.db" /usr/share/gpsdrive/
 
@@ -433,6 +400,8 @@ sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share
 # change DB name from "gis" to "osm_local_smerc" as per install_osm.sh
 sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local_smerc</Parameter>+' \
   "$USER_HOME/.gpsdrive/osm.xml"
+sed -i -e 's/mapnik_postgis_dbname = gis/mapnik_postgis_dbname = osm_local_smerc/' \
+  "$USER_HOME/.gpsdrive/gpsdriverc"
 
 # ensure fonts are loaded for Mapnik
 apt-get --assume-yes install ttf-dejavu-extra

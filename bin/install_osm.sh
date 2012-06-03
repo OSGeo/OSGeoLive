@@ -137,6 +137,11 @@ BBOX="116.25,39.85,116.5,40"
 # visualize:
 #http://www.openstreetmap.org/?box=yes&bbox=116.25,39.85,116.5,40
 
+#bigger area: (split up for download, then recombined in JOSM) 
+#BBOX_N="116.15,39.75,116.62,39.95"
+#BBOX_S="116.15,39.94,116.62,40.11"
+
+
 
 # Perhaps it is too big a city for some of our examples, so we download
 # a smaller version too:
