@@ -102,7 +102,7 @@ for SCRIPT in \
   ./install_kosmo.sh \
   ./install_udig.sh \
   ./install_openjump.sh \
-  ./install_gvsig.sh \
+#  ./install_gvsig.sh \
   ./install_postgis.sh \
   ./install_osm.sh \
   ./load_postgis.sh \
