@@ -102,7 +102,6 @@ for SCRIPT in \
   ./install_kosmo.sh \
   ./install_udig.sh \
   ./install_openjump.sh \
-#  ./install_gvsig.sh \
   ./install_postgis.sh \
   ./install_osm.sh \
   ./load_postgis.sh \
@@ -167,7 +166,7 @@ done
 
 # works(?), but ran out of disc space:
 #    ./install_mapguide.sh  (currently doesn't work with natty)
-
+#  ./install_gvsig.sh \
 
 
 # write installed package manifest
