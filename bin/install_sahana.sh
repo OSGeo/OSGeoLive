@@ -53,7 +53,7 @@ WEBSERVER="apache2"
 # FIXME: Script doesn't currently use this var
 PORT="8007"
 # PostgreSQL
-#PG_VERSION="8.4"
+#PG_VERSION="9.1"
 # Geoserver
 GS_VERSION="2.1.3"
 GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"
@@ -119,8 +119,8 @@ EOF
 su -c - postgres "psql -q -d sahana -f $TMP_DIR/sahana.sql"
 
 # Import GIS template
-su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/8.4/contrib/postgis-1.5/postgis.sql"
-su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/8.4/contrib/postgis-1.5/spatial_ref_sys.sql"
+su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql"
+su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql"
 
 # Add web2py account
 # - with mod_proxy we now run web2py as 'user'

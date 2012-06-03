@@ -14,7 +14,7 @@
 
 # About:
 # =====
-# This script will install postgres 8.4, postgis 1.5, and pgadmin3
+# This script will install postgres, postgis, and pgadmin3
 #
 #   Q. how about libpostgis-java ?
 #
@@ -23,7 +23,7 @@
 # sudo ./install_postgis.sh
 #
 # --- to start postgres -----
-# sudo /etc/init.d/postgresql-8.4 start
+# sudo /etc/init.d/postgresql-9.1 start
 #
 
 if [ -z "$USER_NAME" ] ; then

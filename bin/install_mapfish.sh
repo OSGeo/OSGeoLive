@@ -42,8 +42,8 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-apt-get --assume-yes install python2.6 python2.6-dev \
-    cgi-mapserver postgis postgresql-8.4-postgis tomcat6 \
+apt-get --assume-yes install python python-dev \
+    cgi-mapserver postgis postgresql-9.1-postgis tomcat6 \
     libpq-dev libapache2-mod-fcgid libapache2-mod-wsgi \
     patch python-setuptools
     #TODO: firebug no longer in repos
@@ -79,7 +79,7 @@ apache-entry-point = /mapfishsample_2.2/
 instanceid = osgeolive
 mapserv_host = localhost
 print_host = localhost
-pg_version = 8.4
+pg_version = 9.1
 EOF
 
 if [ ! -f ./buildout/bin/buildout ] ; then
@@ -90,8 +90,9 @@ fi
 
 # set default user/password to www-data
 sudo -u postgres createuser --superuser www-data
-echo "alter role \"www-data\" with password 'www-data'" > $MAPFISH_TMP_DIR/mapfish_www-data.sql
-sudo -u postgres psql --quiet -f $MAPFISH_TMP_DIR/mapfish_www-data.sql
+echo "alter role \"www-data\" with password 'www-data'" \
+   > "$MAPFISH_TMP_DIR/mapfish_www-data.sql"
+sudo -u postgres psql --quiet -f "$MAPFISH_TMP_DIR/mapfish_www-data.sql"
 
 # drop, then create and populate database
 sudo -u postgres ./geodata/create_database.bash -p -d
@@ -104,7 +105,9 @@ if [ $? -ne 0 ] ; then
 fi
 
 # update tomcat server.xml conf to enable ajp
-wget -O - http://www.mapfish.org/downloads/foss4g_livedvd/tomcat-server.xml.patch | patch -N $TOMCAT_SERVER_CONF
+wget -O - "http://www.mapfish.org/downloads/foss4g_livedvd/tomcat-server.xml.patch" \
+    | patch -N "$TOMCAT_SERVER_CONF"
+
 /etc/init.d/tomcat6 restart
 
 # configure apache

@@ -18,7 +18,7 @@
 # Uninstall:
 # ==========
 # sudo apt-get remove python-mapnik
-# rm -rf /usr/local/lib/python2.6/dist-packages/tilelite*
+# rm -rf /usr/local/lib/python2.7/dist-packages/tilelite*
 # rm -rf /usr/local/share/mapnik/
 # rm /usr/local/bin/liteserv.py
 
