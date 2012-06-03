@@ -40,9 +40,8 @@ mkdir /usr/local/share/osm
 apt-get install --assume-yes josm josm-plugins gosmore gpsd gpsd-clients \
    merkaartor xmlstarlet
 
-
-
-### TODO: install osmosis as well.
+### install osmosis as well.
+apt-get install --assume-yes osmosis
 
 
 # that JOSM is badly out of date, so get the latest:
