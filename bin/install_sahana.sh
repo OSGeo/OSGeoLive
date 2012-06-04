@@ -86,13 +86,18 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 	libapache2-mod-wsgi \
 	python-psycopg2
 
+
 # Install python-tweepy
-echo "deb http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu precise main
-deb-src http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu precise main" \
-   > /etc/apt/sources.list.d/python-tweepy.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C7917B12
-apt-get update
-apt-get install --yes python-tweepy
+
+echo "FIXME: (sahana)  chris-lea PPA for Ubuntu 12.04 doesn't exist yet."
+
+##echo "deb http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu precise main
+##deb-src http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu precise main" \
+##   > /etc/apt/sources.list.d/python-tweepy.list
+##apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C7917B12
+##apt-get update
+##apt-get install --yes python-tweepy
+
 
 # Install PostGIS 1.5
 # should be done already by install_postgis.sh
