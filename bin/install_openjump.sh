@@ -54,6 +54,7 @@ PKG_DESKTOP=$USER_HOME/Desktop/openjump.desktop
 PKG_SUCCESS=$PKG_HOME/.installed
 
 ## get file defs from online file list below
+echo 'FIX ME: osgeo5.5 files => osgeo6.0 files'
 URL_LIST=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osgeo-5.5.files
 
 #URL_PKG=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP_snapshots/OpenJUMP-20120108-r2597-CORE.zip
