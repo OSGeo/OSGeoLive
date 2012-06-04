@@ -30,9 +30,9 @@ USER_HOME="/home/$USER_NAME"
 
 #### install grass ####
 
-PACKAGES="grass grass-doc python-opengl python-wxgtk2.8 avce00 \
+PACKAGES="grass grass-doc grass-dev python-opengl python-wxgtk2.8 avce00 \
   e00compr gdal-bin proj-bin python-gdal gpsbabel xml2 sqlitebrowser \
-  dbview libtiff-tools"
+  dbview libtiff-tools python-rpy2 gnuplot"
 
 MODERN_VERSION="6.4"
 
