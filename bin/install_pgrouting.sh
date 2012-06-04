@@ -124,7 +124,8 @@ else
 	    -dbname $OSM_DB \
 	    -user $USER_NAME \
 	    -host localhost \
-	    -clean
+	    -clean \
+	  > pgrouting_import.log
 fi
 
 echo "Finished installing pgRouting and pgRouting tools."
