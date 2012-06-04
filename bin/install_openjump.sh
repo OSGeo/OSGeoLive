@@ -82,21 +82,26 @@ mkdir -p "$TMP"
 cd "$TMP"
 
 ## get file list ##
-wget "$URL_LIST" && \
-eval $(cat $(basename "$URL_LIST")) &&\
+wget -nv "$URL_LIST" && \
+  eval $(cat $(basename "$URL_LIST")) &&\
+
 ## Install Application ##
-wget "$URL_PKG" && \
-unzip -q $(basename $URL_PKG) -d app && \
-mv app/$(ls -1 app | head -1) $PKG_FOLDER && rm -rf app &&\
+wget -c --progress=dot:mega "$URL_PKG" && \
+  unzip -q $(basename $URL_PKG) -d app && \
+  mv app/$(ls -1 app | head -1) $PKG_FOLDER && rm -rf app &&\
+
 # get icon
-wget $URL_ICON -O $PKG_FOLDER/icon.svg  && \
+wget -nv "$URL_ICON" -O $PKG_FOLDER/icon.svg  && \
+
 # set permissions
 chmod 644 -R $PKG_FOLDER &&\
 chmod 755 $PKG_FOLDER/bin/oj_linux.sh &&\
 chmod a+X -R $PKG_FOLDER &&\
 mv $PKG_FOLDER $PKG_HOME &&\
+
 # create link to startup script
 ln -sf $PKG_HOME/bin/oj_linux.sh /usr/bin/openjump &&\
+
 # create desktop link
 ( cat >$PKG_DESKTOP <<END
 [Desktop Entry]
@@ -114,19 +119,23 @@ GenericName=
 Path=
 END
 ) &&\
+
 ## set proper permissions to desktop link ##
 chmod 644 -R "$PKG_DESKTOP" &&\
 chown "$USER_NAME"."$USER_NAME" "$PKG_DESKTOP" &&\
+
 ## Sample Data ##
-wget "$URL_DATA" &&\
+wget -N --progress=dot:mega "$URL_DATA" &&\
 mkdir -p "$PKG_DATA/sample_data" &&\
 unzip -j -q $(basename $URL_DATA) -x '*/.*' -d "$PKG_DATA/sample_data" &&\
+
 ## Documentation ##
-wget $URL_DOC &&\
-cp $(basename $URL_DOC) "$PKG_DATA/" &&\
+wget -N --progress=dot:mega "$URL_DOC" &&\
+cp $(basename "$URL_DOC") "$PKG_DATA/" &&\
+
 ## set proper permissions ##
-chmod 644 -R $PKG_DATA &&\
-chmod a+X -R $PKG_DATA &&\
+chmod 644 -R "$PKG_DATA" &&\
+chmod a+X -R "$PKG_DATA" &&\
 touch $PKG_SUCCESS
 
 
@@ -134,3 +143,5 @@ touch $PKG_SUCCESS
 mkdir -p /usr/local/share/data/vector
 ln -s /usr/local/share/OpenJUMP/sample_data \
       /usr/local/share/data/vector/openjump
+
+
