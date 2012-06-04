@@ -44,10 +44,17 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
-PKG="opencpn_2.5.0-2_i386.deb"
+URL="http://download.osgeo.org/livedvd/data/opencpn/precise/i386"
+PKGS="
+opencpn-data_2.5.0+dfsg-0_all.deb
+opencpn-doc_2.5.0+dfsg-0_all.deb
+opencpn_2.5.0+dfsg-0_i386.deb
+opencpn-plugins_2.5.0+dfsg-0_i386.deb
+"
+for PKG in $PKGS ; do
+   wget -c --progress=dot:mega "$URL/$PKG"
+done
 
-wget -c --progress=dot:mega \
-  "http://opencpn.org/sites/default/files/users/taifun/$PKG"
 
 # recommended:
 apt-get --assume-yes install gpsd gpsd-clients python-gps
@@ -64,7 +71,7 @@ DEPS="libgl1-mesa-glx libglu1-mesa \
 
 apt-get --assume-yes install $DEPS
 
-dpkg -i "$PKG"
+dpkg -i $PKGS
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
