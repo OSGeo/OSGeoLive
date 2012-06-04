@@ -26,6 +26,7 @@
 #
 
 POSTGRES_USER="user"
+CITY="Beijing"
 TMP_DIR="/tmp/build_postgis"
 
 if [ ! -d "$TMP_DIR" ] ; then
@@ -75,11 +76,11 @@ else
 	# lat/lon
 	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
 	     --database osm_local --latlong \
-	     /usr/local/share/osm/Denver_CBD.osm.bz2
+	     /usr/local/share/osm/$CITY.osm.bz2
 	# spherical merc
 	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
 	     --database osm_local_smerc --merc \
-	     /usr/local/share/osm/Denver.osm.bz2
+	     /usr/local/share/osm/$CITY.osm.bz2
 fi
 
 #Add additional data sources here, be sparing to minimize duplication of data.
