@@ -64,7 +64,7 @@ pkg_cleanup()
      texlive-binaries texlive-common texlive-doc-base texlive-extra-utils \
      texlive-latex-base texlive-latex-extra texlive-latex-recommended \
      texlive-pictures libtool bison comerr-dev doxygen doxygen-latex \
-     flex krb5-multidev latex-xcolor libecpg-dev libjpeg62-dev \
+     flex krb5-multidev latex-xcolor libecpg-dev libjpeg-dev \
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
      luatex openjdk-6-jdk libgssrpc4 libkadm5clnt-mit7 libkadm5srv-mit7 \
@@ -79,7 +79,7 @@ pkg_cleanup()
 
 
 
-apt-get update
+#apt-get update
 
 apt-key update
 
@@ -108,35 +108,35 @@ ln -s /usr/lib/libmfhdfalt.so.0.0.0 /usr/lib/libmfhdf.so.0.0.0
 echo "FIXME: use a better test to avoid stale installs"
 
 if [ ! -d  rasdaman ] ; then
-    #git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
-    wget -c --progress=dot:mega "$RASDAMAN_LOCATION/$RASDAMAN_TARBALL"
-    tar xzf "$RASDAMAN_TARBALL"
+    git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
+    #wget -c --progress=dot:mega "$RASDAMAN_LOCATION/$RASDAMAN_TARBALL"
+    #tar xzf "$RASDAMAN_TARBALL"
 fi
 
-cd "rasdaman-$VERSION"
+cd "rasdaman"
 mkdir -p "$RASDAMAN_HOME/log"
 chown "$USER_NAME" "$RASDAMAN_HOME/log/" -R
 
 ./configure --with-logdir="$RASDAMAN_HOME"/log \
-    --prefix="$RASDAMAN_HOME" --with-netcdf --with-hdf4
+    --prefix="$RASDAMAN_HOME" --with-netcdf --with-hdf4 LIBS='-lecpg -lgdal1.7.0'
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: configure failed."
-   pkg_cleanup
+   #pkg_cleanup
    exit 1
 fi
 
 make
 if [ $? -ne 0 ] ; then
    echo "ERROR: compilation failed."
-   pkg_cleanup
+   #pkg_cleanup
    exit 1
 fi
 
 make install
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
-   pkg_cleanup
+   #pkg_cleanup
    exit 1
 fi
 
@@ -229,7 +229,7 @@ echo "cleaning up..."
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
-pkg_cleanup
+#pkg_cleanup
 
 # Sun's Java should already be present..
 apt-get install --assume-yes libecpg6
