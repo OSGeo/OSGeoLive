@@ -53,7 +53,7 @@ PACKAGES="make autoconf automake libtool gawk flex bison \
  g++ gcc cpp libstdc++6 libreadline-dev libssl-dev \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg-dev \
  libhdf4-0 libpng12-dev libnetpbm10-dev tomcat6 php5-cgi \
- wget libgdal1-dev openjdk-6-jdk libnetcdf-dev rpcbind"
+ wget libgdal1-dev openjdk-7-jdk libnetcdf-dev rpcbind"
 
 
 pkg_cleanup()
@@ -67,12 +67,12 @@ pkg_cleanup()
      flex krb5-multidev latex-xcolor libecpg-dev libjpeg-dev \
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
-     luatex openjdk-6-jdk libgssrpc4 libkadm5clnt-mit7 libkadm5srv-mit7 \
+     luatex openjdk-7-jdk libgssrpc4 libkadm5clnt-mit7 libkadm5srv-mit7 \
      libkdb5-4 libgdal1-dev libnetcdf-dev
   # remove jdk
   apt-get --yes remove ca-certificates-java libaccess-bridge-java \
-     libaccess-bridge-java-jni libnss3-1d openjdk-6-jdk openjdk-6-jre \
-     openjdk-6-jre-headless openjdk-6-jre-lib tzdata-java
+     libaccess-bridge-java-jni libnss3-1d openjdk-7-jdk openjdk-7-jre \
+     openjdk-7-jre-headless openjdk-7-jre-lib tzdata-java
 
   apt-get --yes autoremove
 }
