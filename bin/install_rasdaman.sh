@@ -122,21 +122,21 @@ chown "$USER_NAME" "$RASDAMAN_HOME/log/" -R
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: configure failed."
-   #pkg_cleanup
+   pkg_cleanup
    exit 1
 fi
 
 make
 if [ $? -ne 0 ] ; then
    echo "ERROR: compilation failed."
-   #pkg_cleanup
+   pkg_cleanup
    exit 1
 fi
 
 make install
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
-   #pkg_cleanup
+   pkg_cleanup
    exit 1
 fi
 
@@ -229,7 +229,7 @@ echo "cleaning up..."
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
-#pkg_cleanup
+pkg_cleanup
 
 # Sun's Java should already be present..
 apt-get install --assume-yes libecpg6
