@@ -158,6 +158,10 @@ sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share
 sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local_smerc</Parameter>+' \
   "$USER_HOME/.gpsdrive/osm.xml"
 
+# avoid shapefile column name mismatch:
+sed -i -e 's|\[place_name\]</TextSymbolizer>|[NAME]</TextSymbolizer>|' \
+  "$USER_HOME/.gpsdrive/osm.xml"
+
 
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/.gpsdrive"
 
