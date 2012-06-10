@@ -76,10 +76,12 @@ else
 	# lat/lon
 	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
 	     --database osm_local --latlong \
+	     --style /usr/share/osm2pgsql/default.style \
 	     /usr/local/share/osm/$CITY.osm.bz2
 	# spherical merc
 	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
 	     --database osm_local_smerc --merc \
+	     --style /usr/share/osm2pgsql/default.style \
 	     /usr/local/share/osm/$CITY.osm.bz2
 fi
 
