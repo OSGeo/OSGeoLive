@@ -158,9 +158,11 @@ sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share
 sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local_smerc</Parameter>+' \
   "$USER_HOME/.gpsdrive/osm.xml"
 
-# avoid shapefile column name mismatch:
+# avoid shapefile column city name mismatch & tweak its map scale render rule:
 sed -i -e 's|\[place_name\]</TextSymbolizer>|[NAME]</TextSymbolizer>|' \
+       -e 's|<MaxScaleDenominator>10000000</|<MaxScaleDenominator>500000</|' \
   "$USER_HOME/.gpsdrive/osm.xml"
+
 
 
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/.gpsdrive"
