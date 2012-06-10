@@ -107,7 +107,7 @@ friendsname = LiveDVD
 showbutton_trackrestart = 0
 showbutton_trackclear = 0
 icon_theme = classic.small
-osmdbfile = /usr/share/data/osm/${CITY}_poi.db
+osmdbfile = /usr/local/share/data/osm/${CITY}_poi.db
 mapnik_postgis_dbname = osm_local_smerc
 EOF
 
@@ -126,8 +126,8 @@ EOF
 wget -N --progress=dot:mega \
   "http://download.osgeo.org/livedvd/data/osm/${CITY}_poi.db.bz2"
 bzip2 -d "${CITY}_poi.db.bz2"
-mkdir -p /usr/share/data/osm/
-mv "${CITY}_poi.db" /usr/share/data/osm/
+mkdir -p /usr/local/share/data/osm/
+mv "${CITY}_poi.db" /usr/local/share/data/osm/
 
 
 # fool the hardcoded bastard
