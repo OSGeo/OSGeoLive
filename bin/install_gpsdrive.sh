@@ -55,14 +55,6 @@ fi
 
 
 
-#####################################################################
-echo "The GpsDrive package is not yet ready for Ubuntu 12.04"
-exit 0
-#####################################################################
-
-
-
-
 #######################
 ## use prebuilt debs
 
@@ -71,7 +63,7 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
-URL="http://download.osgeo.org/livedvd/data/gpsdrive/precise"
+URL="http://download.osgeo.org/livedvd/data/gpsdrive/precise/i386"
 MAIN_FILE="gpsdrive_2.12+svn_i386.deb"
 EXTRA_FILES="
   gpsdrive-friendsd_2.12+svn_i386.deb
