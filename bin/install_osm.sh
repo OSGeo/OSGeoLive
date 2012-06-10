@@ -191,7 +191,7 @@ fi
 
 cp -f "$CITY.osm.bz2" /usr/local/share/osm/
 mkdir -p /usr/local/share/data/osm --verbose
-ln -s /usr/local/share/osm/"$CITY.osm.bz2" /usr/local/share/data/osm
+ln -s /usr/local/share/osm/"$CITY.osm.bz2" /usr/local/share/data/osm/
 ln -s /usr/local/share/data/osm/"$CITY.osm.bz2" \
    /usr/local/share/data/osm/feature_city.osm.bz2
 

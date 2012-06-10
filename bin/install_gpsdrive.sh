@@ -126,9 +126,10 @@ EOF
 wget -N --progress=dot:mega \
   "http://download.osgeo.org/livedvd/data/osm/${CITY}_poi.db.bz2"
 bzip2 -d "${CITY}_poi.db.bz2"
+mkdir -p /usr/local/share/osm/
 mkdir -p /usr/local/share/data/osm/
-mv "${CITY}_poi.db" /usr/local/share/data/osm/
-
+mv "${CITY}_poi.db" /usr/local/share/osm/
+ln -s /usr/local/share/osm/"${CITY}_poi.db" /usr/local/share/data/osm/feature_city_poi.db
 
 # fool the hardcoded bastard
 mkdir -p /usr/share/mapnik/world_boundaries
