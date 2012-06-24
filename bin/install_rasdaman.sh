@@ -67,12 +67,12 @@ pkg_cleanup()
      flex krb5-multidev latex-xcolor libecpg-dev libjpeg-dev \
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
-     luatex openjdk-7-jdk libgssrpc4 libkadm5clnt-mit7 libkadm5srv-mit7 \
+     luatex libgssrpc4 libkadm5clnt-mit7 libkadm5srv-mit7 \
      libkdb5-4 libgdal1-dev libnetcdf-dev
   # remove jdk
   apt-get --yes remove ca-certificates-java libaccess-bridge-java \
-     libaccess-bridge-java-jni libnss3-1d openjdk-7-jdk openjdk-7-jre \
-     openjdk-7-jre-headless openjdk-7-jre-lib tzdata-java
+     libaccess-bridge-java-jni libnss3-1d \
+     tzdata-java
 
   apt-get --yes autoremove
 }
@@ -101,17 +101,21 @@ ln -s /usr/lib/libmfhdfalt.la /usr/lib/libmfhdf.la
 ln -s /usr/lib/libmfhdfalt.so /usr/lib/libmfhdf.so
 ln -s /usr/lib/libmfhdfalt.so.0 /usr/lib/libmfhdf.so.0
 ln -s /usr/lib/libmfhdfalt.so.0.0.0 /usr/lib/libmfhdf.so.0.0.0
+ln -s /usr/lib/libgdal1.7.0.so.1 /usr/lib/libgdal1.7.0.so
 
 #download and install rasdaman
 #If folder already exists skip the git clone and used cached version
 
 echo "FIXME: use a better test to avoid stale installs"
 
-if [ ! -d  rasdaman ] ; then
-    git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
-    #wget -c --progress=dot:mega "$RASDAMAN_LOCATION/$RASDAMAN_TARBALL"
-    #tar xzf "$RASDAMAN_TARBALL"
+if [  -d  rasdaman ] ; then
+    rm -rf rasdaman
 fi
+
+git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
+#wget -c --progress=dot:mega "$RASDAMAN_LOCATION/$RASDAMAN_TARBALL"
+#tar xzf "$RASDAMAN_TARBALL"
+
 
 cd "rasdaman"
 mkdir -p "$RASDAMAN_HOME/log"
