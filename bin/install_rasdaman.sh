@@ -104,9 +104,8 @@ ln -s /usr/lib/libmfhdfalt.so.0.0.0 /usr/lib/libmfhdf.so.0.0.0
 ln -s /usr/lib/libgdal1.7.0.so.1 /usr/lib/libgdal1.7.0.so
 
 #download and install rasdaman
-#If folder already exists skip the git clone and used cached version
+#If folder already exists, delete it and download the latest version
 
-echo "FIXME: use a better test to avoid stale installs"
 
 if [  -d  rasdaman ] ; then
     rm -rf rasdaman
