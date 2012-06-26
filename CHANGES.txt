@@ -1,6 +1,19 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0alpha4
+===================
+
+ * postgis data fixes for Beijing
+ * opencpn update
+ * gvsig installation fixed
+ * fix the inconsistency issue of libtiff4-dev and libjpeg62-dev
+ * rasdaman switched to openjdk7
+ * osm data install path tweaks
+ * work around osm2pgsql bug in Ubuntu 12.04
+ * enable gpsdrive download
+ * added eoxserver as beta installer
+
 Version 6.0alpha3
 ===================
 
