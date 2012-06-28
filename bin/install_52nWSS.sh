@@ -132,7 +132,8 @@ if [ -f "$WSS_TAR_NAME" ] ; then
    echo "$WSS_TAR_NAME has already been downloaded."
    # but was it sucessful?
 else
-   wget -c --progress=dot:mega "$WSS_TAR_URL/$WSS_TAR_NAME"
+   wget -c --no-check-certificate --progress=dot:mega \
+	"$WSS_TAR_URL/$WSS_TAR_NAME"
 fi
 
 # extract tar, if folders are not there
