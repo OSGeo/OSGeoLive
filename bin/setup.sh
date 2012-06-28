@@ -116,8 +116,9 @@ apt-get --assume-yes remove linux-image-2.6.38-8-generic
 # this will clear out 96mb (uncompressed), but users who want the
 # nvidia proprietary driver will need to reinstall it. ah well.
 #Version must be kept up to date (removes 3 packages)
-apt-get --assume-yes remove linux-headers-2.6.38-13
-apt-get --assume-yes remove linux-headers-2.6.38-11
+apt-get --assume-yes remove linux-headers-3.2.0-25
+apt-get --assume-yes remove linux-headers-3.2.0-24
+apt-get --assume-yes remove linux-headers-3.2.0-23
 
 
 # Remove unused home directories
