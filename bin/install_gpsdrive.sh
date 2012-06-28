@@ -64,19 +64,19 @@ fi
 cd "$TMP_DIR"
 
 URL="http://download.osgeo.org/livedvd/data/gpsdrive/precise/i386"
-MAIN_FILE="gpsdrive_2.12+svn_i386.deb"
+MAIN_FILE="gpsdrive_2.12+svn2685-1_i386.deb"
 EXTRA_FILES="
-  gpsdrive-friendsd_2.12+svn_i386.deb
-  gpsdrive-utils_2.12+svn_i386.deb"
+  gpsdrive-friendsd_2.12+svn2685-1_i386.deb
+  gpsdrive-utils_2.12+svn2685-1_i386.deb"
 
 wget -c --progress=dot:mega "$URL/$MAIN_FILE"
 for FILE in $EXTRA_FILES ; do
    wget -c -nv "$URL/$FILE"
 done
 
-gdebi --non-interactive --quiet gpsdrive-friendsd_2.12+svn_i386.deb
-gdebi --non-interactive --quiet gpsdrive-utils_2.12+svn_i386.deb
-gdebi --non-interactive --quiet gpsdrive_2.12+svn_i386.deb
+gdebi --non-interactive --quiet gpsdrive-friendsd_2.12+svn2685-1_i386.deb
+gdebi --non-interactive --quiet gpsdrive-utils_2.12+svn2685-1_i386.deb
+gdebi --non-interactive --quiet gpsdrive_2.12+svn2685-1_i386.deb
 
 
 
