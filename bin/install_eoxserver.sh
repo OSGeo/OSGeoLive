@@ -86,6 +86,8 @@ pip install --upgrade pyspatialite
 # Create demonstration instance
 [ -d "$DATA_DIR" ] || mkdir -p "$DATA_DIR"
 cd "$DATA_DIR"
+chmod g+w .
+chgrp users .
 if [ ! -d eoxserver_demonstration ] ; then
     echo "Creating EOxServer demonstration instance"
     eoxserver-admin.py create_instance eoxserver_demonstration \
@@ -100,15 +102,18 @@ if [ ! -d eoxserver_demonstration ] ; then
        "http://eoxserver.org/export/head/downloads/EOxServer_autotest-0.2.0.tar.gz"
     echo "Extracting demonstration data in `pwd`."
     tar -xzf EOxServer_autotest-0.2.0.tar.gz
-    mv EOxServer_autotest-0.2.0/data/fixtures/* data/fixtures/
-    mkdir data/meris/
+    mv EOxServer_autotest-0.2.0/data/fixtures/auth_data.json \
+        EOxServer_autotest-0.2.0/data/fixtures/initial_rangetypes.json \
+        data/fixtures/
+    mkdir -p data/meris/
     mv EOxServer_autotest-0.2.0/data/meris/README data/meris/
-    mkdir data/meris/mosaic_MER_FRS_1P_RGB_reduced/
-    mv EOxServer_autotest-0.2.0/data/meris/mosaic_MER_FRS_1P_RGB_reduced/* data/meris/mosaic_MER_FRS_1P_RGB_reduced/
+    mv EOxServer_autotest-0.2.0/data/meris/mosaic_MER_FRS_1P_RGB_reduced/ \
+        data/meris/
     rm EOxServer_autotest-0.2.0.tar.gz
     rm -r EOxServer_autotest-0.2.0/
-    python manage.py loaddata auth_data.json initial_rangetypes.json \
-        testing_base.json testing_asar_base.json
+    chmod g+w -R .
+    chgrp users -R .
+    python manage.py loaddata auth_data.json initial_rangetypes.json
     python manage.py eoxs_add_dataset_series --id MER_FRS_1P_RGB_reduced
     python manage.py eoxs_register_dataset \
         --data-files "$DATA_DIR"/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_RGB_reduced/*.tif \
@@ -133,6 +138,9 @@ os.environ["DJANGO_SETTINGS_MODULE"] = "eoxserver_demonstration.settings"
 application = WSGIHandler()
 EOF
 fi
+chmod g+w "$DATA_DIR"/eoxserver_demonstration/wsgi.py
+chgrp users "$DATA_DIR"/eoxserver_demonstration/wsgi.py
+
 
 # Add Apache configuration
 cat << EOF > "$APACHE_CONF"
@@ -143,7 +151,6 @@ Alias /eoxserver "$DATA_DIR/eoxserver_demonstration/wsgi.py"
 ################################################################################
 #Restrict wsgi threads in order to run non thread safe code:
 WSGIDaemonProcess ows processes=10 threads=1
-WSGIProcessGroup ows
 ################################################################################
 
 <Directory "$DATA_DIR/eoxserver_demonstration">
@@ -152,6 +159,7 @@ WSGIProcessGroup ows
     AddHandler wsgi-script .py
     ############################################################################
     #Restrict wsgi threads in order to run non thread safe code:
+    WSGIProcessGroup ows
     WSGIRestrictProcess ows
     SetEnv PROCESS_GROUP ows
     ############################################################################
@@ -191,12 +199,16 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/eoxserver.desktop"
 
 # EOxServer Documentation
 echo "Getting EOxServer documentation"
-[ -d "$DOC_DIR" ] || mkdir "$DOC_DIR"
+[ -d "$DOC_DIR" ] || mkdir -p "$DOC_DIR"
 cd "$DOC_DIR"
+chmod g+w .
+chgrp users .
 wget -c "http://eoxserver.org/export/head/downloads/EOxServer_documentation-0.2.0.pdf" \
   -O EOxServer_documentation-0.2.0.pdf
-ln -s EOxServer_documentation-0.2.0.pdf EOxServer_documentation.pdf
-ln -s "$DOC_DIR" /var/www/eoxserver-docs
+ln -sf EOxServer_documentation-0.2.0.pdf EOxServer_documentation.pdf
+chmod g+w -R EOxServer_documentation*
+chgrp users -R EOxServer_documentation*
+ln -sTf "$DOC_DIR" /var/www/eoxserver-docs
 
 # Add Documentation Launch icon to desktop
 if [ ! -e /usr/share/applications/eoxserver-docs.desktop ] ; then
