@@ -34,6 +34,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 RASDAMAN_HOME="/usr/local/rasdaman"
 TMP="/tmp/build_rasdaman"
+WARDIR="/var/lib/tomcat6/webapps"
 
 #set the postgresql database username and password.
 # Note that if this is changed, /var/lib/tomcat6/webapps/petascope/setting.properties
@@ -121,7 +122,7 @@ mkdir -p "$RASDAMAN_HOME/log"
 chown "$USER_NAME" "$RASDAMAN_HOME/log/" -R
 
 ./configure --with-logdir="$RASDAMAN_HOME"/log \
-    --prefix="$RASDAMAN_HOME" --with-netcdf --with-hdf4 LIBS='-lecpg -lgdal1.7.0'
+    --prefix="$RASDAMAN_HOME" --with-wardir="$WARDIR" --with-netcdf --with-hdf4 LIBS='-lecpg -lgdal1.7.0'
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: configure failed."
@@ -192,9 +193,12 @@ cd applications/petascope
 cp src/main/resources/settings.properties db
 sed -i "s/^metadata_user=.\+/metadata_user=$WCPS_USER/" db/settings.properties
 sed -i "s/^metadata_pass=.\+/metadata_pass=$WCPS_PASSWORD/" db/settings.properties
+echo `pwd`
+sed -i "s/\`hostname\`/\"127.0.0.1\"/" /tmp/build_rasdaman/rasdaman/applications/petascope/db/update_db.sh
 echo "ccip_hack=true" >> db/settings.properties
-su - $USER_NAME make setupdb
-make deploy CATALINA_HOME=/var/lib/tomcat6
+cp db/settings.properties src/main/resources/settings.properties
+su - $USER_NAME -c "cd $TMP/rasdaman/applications/petascope && make setupdb"
+make install
 
 cd -
 
