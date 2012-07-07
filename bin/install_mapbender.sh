@@ -35,7 +35,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_mapbender"
 INSTALLURL="http://www.mapbender.org/download/"
-INSTALLFILE="mapbender2.7_osgeolive4.5"
+INSTALLFILE="mapbender2.7_osgeolive6.0"
 INSTALL_DIR="/var/www"
 MAPBENDER_DATABASE_NAME="mapbender" 
 MAPBENDER_DATABASE_TEMPLATE="template_postgis"
