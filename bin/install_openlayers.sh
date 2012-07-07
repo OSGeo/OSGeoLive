@@ -14,7 +14,7 @@
 
 # About:
 # =====
-# This script will install OpenLayers 2.11
+# This script will install OpenLayers 2.12
 
 # Running:
 # =======
@@ -22,7 +22,7 @@
 # Then open a web browser and go to http://localhost/openLayers/
 
 TMP_DIR="/tmp/build_openlayers"
-OL_VERSION="2.11"
+OL_VERSION="2.12"
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
