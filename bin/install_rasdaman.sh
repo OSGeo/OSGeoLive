@@ -84,7 +84,7 @@ pkg_cleanup()
 
 apt-key update
 
-apt-get install --no-install-recommends --assume-yes $PACKAGES
+apt-get  -f install  --no-install-recommends --assume-yes $PACKAGES
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
@@ -174,7 +174,10 @@ fi
 # needed to start the RPC server
 sed -i -e 's/OPTIONS="-w"/OPTIONS="-w -i"/' /etc/init.d/rpcbind
 /etc/init.d/rpcbind restart
+# needed to set the host name if it's empty
+sed -i -e "s/ -host [^ ]*/ -host $HOSTNAME/" $RASDAMAN_HOME/etc/rasmgr.conf
 
+su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
 #-------------------------------------------------------------------------------
@@ -197,6 +200,11 @@ echo `pwd`
 sed -i "s/\`hostname\`/\"127.0.0.1\"/" /tmp/build_rasdaman/rasdaman/applications/petascope/db/update_db.sh
 echo "ccip_hack=true" >> db/settings.properties
 cp db/settings.properties src/main/resources/settings.properties
+#Download metadata for petascopedb
+wget -c --progress=dot:mega \
+   http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/update0.sql
+cp updata0.sql db/updata0.sql
+#set up petascope db
 su - $USER_NAME -c "cd $TMP/rasdaman/applications/petascope && make setupdb"
 make install
 
