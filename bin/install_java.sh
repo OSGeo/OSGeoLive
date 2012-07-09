@@ -21,12 +21,13 @@ apt-get install --yes openjdk-7-jdk openjdk-7-jre
 
 apt-get --assume-yes install gsfonts-x11
 
-exit
+ln -s /usr/lib/jvm/java-7-openjdk-i386 /usr/lib/jvm/default-java
 
+exit
 
 # in case of emergency break glass:
 #cat << EOF > /etc/profile.d/set_JAVA_HOME.sh
-#JAVA_HOME=/usr/lib/jvm/java-6-sun
+#JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386
 #export JAVA_HOME
 #EOF
 
