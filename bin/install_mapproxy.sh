@@ -14,7 +14,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 BIN="/usr/local/bin"
 TMP="/tmp/build_mapproxy"
-MAPPROXY_VERSION="1.3.0-2"
+MAPPROXY_VERSION="1.4.0"
 MAPPROXY_DEB_FILE="mapproxy_${MAPPROXY_VERSION}_all.deb"
 MAPPROXY_DEB_URL="http://mapproxy.org/static/rel/${MAPPROXY_DEB_FILE}"
 MAPPROXY_DOCS_FILE="MapProxy-docs-${MAPPROXY_VERSION}.tar.gz"
@@ -110,7 +110,7 @@ services:
   tms:
   wmts:
   wms:
-    # srs: ['EPSG:4326', 'EPSG:900913']
+    srs: ['EPSG:4326', 'EPSG:900913', 'EPSG:3857', 'EPSG:4258', 'EPSG:26915']
     # image_formats: ['image/jpeg', 'image/png']
     md:
       # metadata used in capabilities documents
@@ -120,7 +120,7 @@ services:
       contact:
         person: Your Name Here
         position: Technical Director
-        organization: 
+        organization:
         address: Fakestreet 123
         city: Somewhere
         postcode: 12345
@@ -168,7 +168,7 @@ sources:
     coverage:
       bbox: -124.73142200000001,24.955967,-66.969849,49.371735
       bbox_srs: 'EPSG:4326'
-  
+
   tilelite:
     type: tile
     url: http://127.0.0.1:8012/%(z)d/%(x)d/%(y)d.png
@@ -177,6 +177,7 @@ sources:
 
   mapnik:
     type: mapnik
+    use_mapnik2: true
     mapfile: /usr/local/share/mapnik/demo/population.xml
 
   mapserver:
@@ -208,7 +209,7 @@ sources:
   #     # # always request in this format
   #     # format: image/png
   #     map: /home/map/mapserver.map
-    
+
 
 grids:
   global_geodetic_sqrt2:
