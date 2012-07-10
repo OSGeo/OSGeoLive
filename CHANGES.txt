@@ -1,6 +1,21 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0beta1
+===================
+
+ * Upgraded OpenLayers to 2.12
+ * spatialite_gui fixed
+ * Upgraded Mapbender version to 2.7.3 and added WMS 1.3.0
+ * JAVA_HOME fixed by soft link of openjdk7 to default-java (#915)
+ * gvSIG removed until there is a fix for java 7
+ * fixed petascope setupdb for rasdaman
+ * zygrib desktop icon fixed
+ * fixed Maptiler desktop launcher installation
+ * Upgraded mapproxy to 1.4.0
+ * minor data and script cleanups 
+ * documentation updated
+
 Version 6.0alpha4
 ===================
 
