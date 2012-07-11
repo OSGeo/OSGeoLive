@@ -20,7 +20,8 @@
 # =======
 # sudo ./install_geoserver.sh
 
-# Requires: Sun Java 6 runtime
+# Requires: Sun Java 6 compatible runtime
+#
 
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/local/lib"
