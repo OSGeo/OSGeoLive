@@ -27,8 +27,8 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 #Add repositories
-#apt-add-repository --yes ppa:otb/orfeotoolbox-stable
-apt-add-repository --yes ppa:otb/orfeotoolbox-nightly   
+apt-add-repository --yes ppa:otb/orfeotoolbox-stable
+#apt-add-repository --yes ppa:otb/orfeotoolbox-nightly   
 
 apt-get update
 
