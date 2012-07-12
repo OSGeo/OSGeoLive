@@ -24,7 +24,7 @@
 
 # rasdaman src to be used
 VERSION=8.3.0
-RASDAMAN_LOCATION="http://www.rasdaman.com/Download"
+RASDAMAN_LOCATION="http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo"
 RASDAMAN_TARBALL="rasdaman-$VERSION.tar.gz"
 
 # live disc's username is "user"
@@ -35,6 +35,7 @@ USER_HOME="/home/$USER_NAME"
 RASDAMAN_HOME="/usr/local/rasdaman"
 TMP="/tmp/build_rasdaman"
 WARDIR="/var/lib/tomcat6/webapps"
+TMP_PETASCOPE="$TMP/rasdaman/applications/petascope"
 
 #set the postgresql database username and password.
 # Note that if this is changed, /var/lib/tomcat6/webapps/petascope/setting.properties
@@ -112,9 +113,10 @@ if [  -d  rasdaman ] ; then
     rm -rf rasdaman
 fi
 
-git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
-#wget -c --progress=dot:mega "$RASDAMAN_LOCATION/$RASDAMAN_TARBALL"
-#tar xzf "$RASDAMAN_TARBALL"
+#git clone git://kahlua.eecs.jacobs-university.de/rasdaman.git
+
+wget -c --progress=dot:mega "$RASDAMAN_LOCATION/$RASDAMAN_TARBALL"
+tar xzmf "$RASDAMAN_TARBALL"
 
 
 cd "rasdaman"
@@ -192,20 +194,32 @@ if [ -z "$test_WCPSDB" ] ; then
     su - "$USER_NAME" -c "createdb  -T template0 $WCPS_DATABASE"
 fi
 
-cd applications/petascope
-cp src/main/resources/settings.properties db
-sed -i "s/^metadata_user=.\+/metadata_user=$WCPS_USER/" db/settings.properties
-sed -i "s/^metadata_pass=.\+/metadata_pass=$WCPS_PASSWORD/" db/settings.properties
-echo `pwd`
-sed -i "s/\`hostname\`/\"127.0.0.1\"/" /tmp/build_rasdaman/rasdaman/applications/petascope/db/update_db.sh
-echo "ccip_hack=true" >> db/settings.properties
-cp db/settings.properties src/main/resources/settings.properties
-#Download metadata for petascopedb
-wget -c --progress=dot:mega \
-   http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/update0.sql
-cp updata0.sql db/updata0.sql
+cd $TMP_PETASCOPE
+
+sed -i "s/^metadata_user=.\+/metadata_user=$WCPS_USER/" $TMP_PETASCOPE/src/main/resources/settings.properties
+sed -i "s/^metadata_pass=.\+/metadata_pass=$WCPS_PASSWORD/" $TMP_PETASCOPE/src/main/resources/settings.properties
+
+#sed -i "s/\`hostname\`/\"127.0.0.1\"/" $TMP_PETASCOPE/db/update_db.sh
+echo "ccip_hack=true" >>$TMP_PETASCOPE/src/main/resources/settings.properties
+#Download petascope metadata scripte for the demo
+#wget -c --progress=dot:mega  http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/update0.sql
+#cp updata0.sql $TMP_PETASCOPE/db/updata0.sql
 #set up petascope db
-su - $USER_NAME -c "cd $TMP/rasdaman/applications/petascope && make setupdb"
+#su - $USER_NAME -c "cd $TMP/rasdaman/applications/petascope && make setupdb"
+/etc/init.d/tomcat6 stop
+su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/droptables.sql"
+        
+        # inserting the database updates
+        su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update0.sql"
+
+        su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update1.sql"
+        su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update2.sql"
+        su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update3.sql"
+        su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update4.sql"
+        su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update5.sql"
+ 
+        echo Updated database 
+/etc/init.d/tomcat6 start
 make install
 
 cd -
@@ -217,7 +231,7 @@ cd ../
 wget -c --progress=dot:mega \
    http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/rasdaman_data_8-3.tar.gz
 
-tar xzf rasdaman_data_8-3.tar.gz -C .
+tar xzmf rasdaman_data_8-3.tar.gz -C .
 
 PATH="$PATH:$RASDAMAN_HOME/bin"
 export PATH
@@ -233,16 +247,21 @@ make all
 #copy demo applications into tomcat webapps directory
 cd ../
 
-if [ ! -d "/var/lib/tomcat6/webapps/earthlook" ] ; then
-        echo moving earthlook folder into tomcat webapps...
-        mv rasdaman/* /var/lib/tomcat6/webapps/
+if [ -d "/var/lib/tomcat6/webapps/earthlook" ] ; then
+        rm -rf /var/lib/tomcat6/webapps/earthlook
 fi
+       
+echo moving earthlook folder into tomcat webapps...
+mv rasdaman/* /var/lib/tomcat6/webapps/
+
+
+
 
 #clean up
 echo "cleaning up..."
 /etc/init.d/rpcbind start
-su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
-su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
+#su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
+#su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
 pkg_cleanup
 
