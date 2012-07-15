@@ -54,7 +54,7 @@ USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop" 
 
 GVSIG_PACKAGE="gvsig_1.11-1305_i386_OSGeoLive.deb"
-GVSIG_PACK="https://dl.dropbox.com/s/8h0lm1gewzvuage"
+GVSIG_PACK="http://aiolos.survey.ntua.gr/gisvm/6.0/gvsig_1.11-1305_i386_OSGeoLive.deb"
 # Notice to upload the gvSIG Package somwhere, when it's fixed
 # please, remove this two lines and let the script continue
 echo "FIX the path to download gvSIG deb package"
