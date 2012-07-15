@@ -143,6 +143,7 @@ for SCRIPT in \
   ./install_pycsw.sh \
   ./install_geomoose.sh \
   ./install_mb-system.sh \
+  ./install_gvsig.sh \
   ./load_gisdata.sh \
   ./install_main_docs.sh \
   ./install_edutools.sh \
@@ -166,7 +167,6 @@ done
 
 # works(?), but ran out of disc space:
 #    ./install_mapguide.sh  (currently doesn't work with natty)
-#    ./install_gvsig.sh  (currently breaks build, needs java 6)
 
 
 # write installed package manifest
