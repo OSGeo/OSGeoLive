@@ -14,19 +14,19 @@
 
 # About:
 # =====
-# This script will install gvSIG 1.10 (BN1255) using
-# a deb package. It will also download the gvSIG manual
+# This script will install gvSIG 1.11 (BN1305) using
+# a deb package.
 
 # Running:
 # =======
 # sudo ./install_gvsig.sh
 
-# Important note:
-#     You should accept the SUN license for JAI and JAI I/O 
-#     binaries installation.
-
 # Changelog:
 # ===========
+# 2012-07-15
+#   * Updated to use a new 1.11 package with dependencies
+#     solved and minor changes to this script
+#
 # 2011-07-03:
 #   * updated to gvSIG 1.11, removed docs (BN 1305)
 #
@@ -49,11 +49,16 @@
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
+
 USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop" 
 
-GVSIG_PACKAGE="gvsig_1.11-1305_i386.deb"
-GVSIG_PATH="http://test.scolab.es/pub/gvSIG"
+GVSIG_PACKAGE="gvsig_1.11-1305_i386_OSGeoLive.deb"
+GVSIG_PATH="http://FIXME"
+# Notice to upload the gvSIG Package somwhere, when it's fixed
+# please, remove this two lines and let the script continue
+echo "FIX the path to download gvSIG deb package"
+exit 1
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
@@ -77,7 +82,7 @@ fi
 echo "Purging previous versions of gvSIG"
 apt-get -y purge gvsig
 
-# install the deb package
+# install the deb package forcing the version
 echo "Installing gvSIG package"
 dpkg -i "$GVSIG_PACKAGE"
 
@@ -96,7 +101,7 @@ if [ -d $USER_DESKTOP ] ; then
    chmod +x "$USER_DESKTOP/gvsig.desktop"   
 fi
 
-echo "Creating the gvSIG folder with a custom config and sample project"
+echo "Creating the gvSIG folder with a sample project"
 if [ -d "$USER_HOME/gvSIG" ] ; then
    rm -rf "$USER_HOME/gvSIG"
 fi
@@ -106,15 +111,6 @@ mkdir -p  "$USER_HOME/gvSIG"
 wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp \
      --output-document="$USER_HOME/gvSIG/sample-project.gvp"
 
-# download and set up default andami config
-wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/andami-config.xml \
-     --output-document="$USER_HOME/gvSIG/andami-config.xml"
-
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
-
-# download and set up a custom startup script
-wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/gvSIG.sh \
-     --output-document="/opt/gvSIG_1.11/bin/gvSIG.sh"
-
 
 echo "gvSIG installation Done!"
