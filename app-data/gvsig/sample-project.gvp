@@ -7,9 +7,9 @@
     <property key="isAbsolutePath" value="true"/>
     <property key="numExtents" value="0"/>
     <property key="numCameras" value="0"/>
-    <property key="data-source-count" value="162"/>
+    <property key="data-source-count" value="166"/>
     <property key="numDocuments" value="3"/>
-    <property key="modificationDate" value="Jul 3, 2011"/>
+    <property key="modificationDate" value="Jul 15, 2012"/>
     <property key="name" value="sample-project.gvp"/>
     <property key="owner" value=""/>
     <property key="selectionColor" value="255,255,0,255"/>
@@ -59,14 +59,14 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms_3e8ea62d_123c6d42c0b__7f91"/>
-        <property key="file" value="/usr/local/share/openjump-data/landcover2000.dbf"/>
+        <property key="gdbmsname" value="gdbms_3e8ea62d_123c6d42c0b__7ff8"/>
+        <property key="file" value="/usr/local/share/openjump-data/wsmunicipalities.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms_3e8ea62d_123c6d42c0b__7ff8"/>
-        <property key="file" value="/usr/local/share/openjump-data/wsmunicipalities.dbf"/>
+        <property key="gdbmsname" value="gdbms_3e8ea62d_123c6d42c0b__7f91"/>
+        <property key="file" value="/usr/local/share/openjump-data/landcover2000.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -227,14 +227,14 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fe3"/>
-        <property key="file" value="/opt/gvSIG_1.11/bin/gvSIG/extensiones/org.gvsig.extended-symbology/docs/line.dbf"/>
+        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fb9"/>
+        <property key="file" value="/usr/local/share/udig/udig-data/cities.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fb9"/>
-        <property key="file" value="/usr/local/share/udig/udig-data/cities.dbf"/>
+        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fe3"/>
+        <property key="file" value="/opt/gvSIG_1.11/bin/gvSIG/extensiones/org.gvsig.extended-symbology/docs/line.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -251,20 +251,14 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms_3e8ea62d_123c6d42c0b__7ffb"/>
-        <property key="file" value="/usr/local/share/openjump-data/subwatershed.dbf"/>
-        <property key="driverName" value="gdbms dbf driver"/>
-    </xml-tag>
-    <xml-tag>
-        <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_3e8ea62d_123c6d42c0b__7f8f"/>
         <property key="file" value="/usr/local/share/openjump-data/landcover2000.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fe9"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_0_countries.dbf"/>
+        <property key="gdbmsname" value="gdbms_3e8ea62d_123c6d42c0b__7ffb"/>
+        <property key="file" value="/usr/local/share/openjump-data/subwatershed.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -275,14 +269,20 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
+        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fe9"/>
+        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_0_countries.dbf"/>
+        <property key="driverName" value="gdbms dbf driver"/>
+    </xml-tag>
+    <xml-tag>
+        <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_3e8ea62d_123c6d42c0b__7ffa"/>
         <property key="file" value="/usr/local/share/openjump-data/waternetwork.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fdd"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_land.dbf"/>
+        <property key="gdbmsname" value="gdbms_3e8ea62d_123c6d42c0b__7f8c"/>
+        <property key="file" value="/usr/local/share/openjump-data/hedgerow.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -293,8 +293,8 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms_3e8ea62d_123c6d42c0b__7f8c"/>
-        <property key="file" value="/usr/local/share/openjump-data/hedgerow.dbf"/>
+        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fdd"/>
+        <property key="file" value="/usr/local/share/data/natural_earth/10m_land.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -599,8 +599,8 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fed"/>
-        <property key="file" value="/usr/local/share/openjump-data/frenchprovinces.dbf"/>
+        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__63aa"/>
+        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -611,8 +611,8 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__63aa"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_points.dbf"/>
+        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fed"/>
+        <property key="file" value="/usr/local/share/openjump-data/frenchprovinces.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -623,14 +623,14 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fef"/>
-        <property key="file" value="/usr/local/share/openjump-data/waternetwork.dbf"/>
+        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fec"/>
+        <property key="file" value="/opt/gvSIG_1.11/bin/gvSIG/extensiones/org.gvsig.extended-symbology/docs/bg-polygon.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fec"/>
-        <property key="file" value="/opt/gvSIG_1.11/bin/gvSIG/extensiones/org.gvsig.extended-symbology/docs/bg-polygon.dbf"/>
+        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fef"/>
+        <property key="file" value="/usr/local/share/openjump-data/waternetwork.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -665,19 +665,13 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff2"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_0_countries.dbf"/>
-        <property key="driverName" value="gdbms dbf driver"/>
-    </xml-tag>
-    <xml-tag>
-        <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7ff5"/>
         <property key="file" value="/usr/local/share/openjump-data/departement22.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff3"/>
+        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff2"/>
         <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_0_countries.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
@@ -689,14 +683,20 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff4"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_ocean.dbf"/>
+        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff3"/>
+        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_0_countries.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7ff7"/>
         <property key="file" value="/usr/local/share/openjump-data/frenchprovinces.dbf"/>
+        <property key="driverName" value="gdbms dbf driver"/>
+    </xml-tag>
+    <xml-tag>
+        <property key="type" value="otherDriverFile"/>
+        <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff4"/>
+        <property key="file" value="/usr/local/share/data/natural_earth/10m_ocean.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -761,19 +761,13 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7ef1"/>
-        <property key="file" value="/usr/local/share/udig/udig-data/cities.dbf"/>
-        <property key="driverName" value="gdbms dbf driver"/>
-    </xml-tag>
-    <xml-tag>
-        <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7ff1"/>
         <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_elevation_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7ef0"/>
+        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7ef1"/>
         <property key="file" value="/usr/local/share/udig/udig-data/cities.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
@@ -781,6 +775,12 @@
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7ff2"/>
         <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_points.dbf"/>
+        <property key="driverName" value="gdbms dbf driver"/>
+    </xml-tag>
+    <xml-tag>
+        <property key="type" value="otherDriverFile"/>
+        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7ef0"/>
+        <property key="file" value="/usr/local/share/udig/udig-data/cities.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -821,26 +821,26 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fda"/>
-        <property key="file" value="/usr/local/share/openjump-data/subwatershed.dbf"/>
-        <property key="driverName" value="gdbms dbf driver"/>
-    </xml-tag>
-    <xml-tag>
-        <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7ee7"/>
         <property key="file" value="/usr/local/share/udig/udig-data/countries.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
-        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fdb"/>
-        <property key="file" value="/usr/local/share/openjump-data/watershed.dbf"/>
+        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fda"/>
+        <property key="file" value="/usr/local/share/openjump-data/subwatershed.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7ee8"/>
         <property key="file" value="/usr/local/share/udig/udig-data/cities.dbf"/>
+        <property key="driverName" value="gdbms dbf driver"/>
+    </xml-tag>
+    <xml-tag>
+        <property key="type" value="otherDriverFile"/>
+        <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fdb"/>
+        <property key="file" value="/usr/local/share/openjump-data/watershed.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -947,6 +947,12 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
+        <property key="gdbmsname" value="gdbms_519339d6_1388ad90ebf__7ff0"/>
+        <property key="file" value="/usr/local/share/data/natural_earth/10m_lakes.dbf"/>
+        <property key="driverName" value="gdbms dbf driver"/>
+    </xml-tag>
+    <xml-tag>
+        <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fd7"/>
         <property key="file" value="/usr/local/share/udig/udig-data/bc_border.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
@@ -959,14 +965,32 @@
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
+        <property key="gdbmsname" value="gdbms_519339d6_1388ad90ebf__7ff2"/>
+        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_elevation_points.dbf"/>
+        <property key="driverName" value="gdbms dbf driver"/>
+    </xml-tag>
+    <xml-tag>
+        <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fd9"/>
         <property key="file" value="/usr/local/share/openjump-data/municipalities22.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
+        <property key="gdbmsname" value="gdbms_519339d6_1388ad90ebf__7ff1"/>
+        <property key="file" value="/usr/local/share/data/natural_earth/10m_rivers_lake_centerlines.dbf"/>
+        <property key="driverName" value="gdbms dbf driver"/>
+    </xml-tag>
+    <xml-tag>
+        <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fd3"/>
         <property key="file" value="/usr/local/share/udig/udig-data/data-v1_2/bc_voting_areas.dbf"/>
+        <property key="driverName" value="gdbms dbf driver"/>
+    </xml-tag>
+    <xml-tag>
+        <property key="type" value="otherDriverFile"/>
+        <property key="gdbmsname" value="gdbms_519339d6_1388ad90ebf__7ff3"/>
+        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_elevation_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -999,67 +1023,67 @@
             <property key="className" value="com.iver.cit.gvsig.fmap.MapContext"/>
             <xml-tag>
                 <property key="className" value="com.iver.cit.gvsig.fmap.ViewPort"/>
-                <property key="adjustedExtentX" value="-110.56234090502268"/>
-                <property key="adjustedExtentY" value="35.02539287656014"/>
-                <property key="adjustedExtentW" value="11.33151894542388"/>
-                <property key="adjustedExtentH" value="9.17313438439076"/>
+                <property key="adjustedExtentX" value="-180.0"/>
+                <property key="adjustedExtentY" value="-124.24593967519951"/>
+                <property key="adjustedExtentW" value="360.00000000010004"/>
+                <property key="adjustedExtentH" value="248.49187935041707"/>
                 <property key="backColor" value="191,223,255,255"/>
-                <property key="dist1pixel" value="0.01541703287512064"/>
-                <property key="dist3pixel" value="0.046251099556684494"/>
+                <property key="dist1pixel" value="0.41763341426849365"/>
+                <property key="dist3pixel" value="1.252900242805481"/>
                 <property key="distanceUnits" value="1"/>
-                <property key="extentX" value="-110.56234090502268"/>
-                <property key="extentY" value="35.02539287656014"/>
-                <property key="extentW" value="11.33151894542388"/>
-                <property key="extentH" value="9.17313438439076"/>
+                <property key="extentX" value="-180.0"/>
+                <property key="extentY" value="-89.99999999998201"/>
+                <property key="extentW" value="360.00000000010004"/>
+                <property key="extentH" value="179.99999999998207"/>
                 <property key="mapUnits" value="8"/>
                 <property key="offsetX" value="0.0"/>
                 <property key="offsetY" value="0.0"/>
                 <property key="proj" value="EPSG:4326"/>
-                <property key="scale" value="0.0"/>
+                <property key="scale" value="2.394444444443779"/>
                 <xml-tag>
                     <property key="className" value="com.iver.cit.gvsig.fmap.ExtentHistory"/>
                     <property key="num" value="10"/>
                     <property key="numrec" value="10"/>
-                    <property key="extent0X" value="-105.17912876449661"/>
-                    <property key="extent0Y" value="39.60865542159546"/>
-                    <property key="extent0W" value="0.32"/>
-                    <property key="extent0H" value="0.32"/>
-                    <property key="extent1X" value="-105.37465372146734"/>
-                    <property key="extent1Y" value="39.47757108424606"/>
-                    <property key="extent1W" value="0.64"/>
-                    <property key="extent1H" value="0.64"/>
-                    <property key="extent2X" value="-105.76680518446217"/>
-                    <property key="extent2Y" value="39.215402409547266"/>
-                    <property key="extent2W" value="1.28"/>
-                    <property key="extent2H" value="1.28"/>
-                    <property key="extent3X" value="-106.55331120855855"/>
-                    <property key="extent3Y" value="38.69106506014967"/>
-                    <property key="extent3W" value="2.56"/>
-                    <property key="extent3H" value="2.56"/>
-                    <property key="extent4X" value="-107.5226743755121"/>
-                    <property key="extent4Y" value="37.24142650593281"/>
-                    <property key="extent4W" value="5.12"/>
-                    <property key="extent4H" value="5.12"/>
-                    <property key="extent5X" value="-110.06064339444498"/>
-                    <property key="extent5Y" value="34.58889638545088"/>
-                    <property key="extent5W" value="10.24"/>
-                    <property key="extent5H" value="10.24"/>
-                    <property key="extent6X" value="-115.13658143231072"/>
-                    <property key="extent6Y" value="29.37196006875552"/>
-                    <property key="extent6W" value="20.48"/>
-                    <property key="extent6H" value="20.48"/>
-                    <property key="extent7X" value="-113.85387736059818"/>
-                    <property key="extent7Y" value="30.43882568436476"/>
-                    <property key="extent7W" value="17.9145918565749"/>
-                    <property key="extent7H" value="18.34626876878152"/>
-                    <property key="extent8X" value="-105.47626185727393"/>
-                    <property key="extent8Y" value="39.15330334953598"/>
-                    <property key="extent8W" value="1.1593608499263617"/>
-                    <property key="extent8H" value="0.917313438439076"/>
-                    <property key="extent9X" value="-110.69338568194254"/>
-                    <property key="extent9Y" value="35.02539287656014"/>
-                    <property key="extent9W" value="11.593608499263617"/>
-                    <property key="extent9H" value="9.17313438439076"/>
+                    <property key="extent0X" value="-7.031682958878128"/>
+                    <property key="extent0Y" value="49.09716385868004"/>
+                    <property key="extent0W" value="7.947477662233524"/>
+                    <property key="extent0H" value="7.841511293403741"/>
+                    <property key="extent1X" value="-11.150390906343532"/>
+                    <property key="extent1Y" value="42.678985707608405"/>
+                    <property key="extent1W" value="15.894955324467048"/>
+                    <property key="extent1H" value="15.683022586807482"/>
+                    <property key="extent2X" value="-18.465276060873897"/>
+                    <property key="extent2Y" value="31.60861682280312"/>
+                    <property key="extent2W" value="31.789910648934097"/>
+                    <property key="extent2H" value="31.366045173614964"/>
+                    <property key="extent3X" value="-33.09504636993463"/>
+                    <property key="extent3Y" value="9.467879053192561"/>
+                    <property key="extent3W" value="63.57982129786819"/>
+                    <property key="extent3H" value="62.73209034722993"/>
+                    <property key="extent4X" value="-62.35458698805609"/>
+                    <property key="extent4Y" value="-34.813596486028565"/>
+                    <property key="extent4W" value="127.15964259573639"/>
+                    <property key="extent4H" value="125.46418069445986"/>
+                    <property key="extent5X" value="-135.00156756300288"/>
+                    <property key="extent5Y" value="-87.95136713309391"/>
+                    <property key="extent5W" value="254.31928519147277"/>
+                    <property key="extent5H" value="250.9283613889197"/>
+                    <property key="extent6X" value="-30.193526906111458"/>
+                    <property key="extent6Y" value="18.32417416103678"/>
+                    <property key="extent6W" value="46.81184557003377"/>
+                    <property key="extent6H" value="35.003452092908134"/>
+                    <property key="extent7X" value="-45.53983131007219"/>
+                    <property key="extent7Y" value="4.675769311365038"/>
+                    <property key="extent7W" value="93.62369114006754"/>
+                    <property key="extent7H" value="70.00690418581627"/>
+                    <property key="extent8X" value="-180.0"/>
+                    <property key="extent8Y" value="-89.99999999998201"/>
+                    <property key="extent8W" value="360.00000000010004"/>
+                    <property key="extent8H" value="179.99999999998207"/>
+                    <property key="extent9X" value="22.134570765717427"/>
+                    <property key="extent9Y" value="-20.255220417630028"/>
+                    <property key="extent9W" value="5.429234338748614"/>
+                    <property key="extent9H" value="5.429234338748614"/>
                 </xml-tag>
             </xml-tag>
             <xml-tag>
@@ -1075,11 +1099,11 @@
                 <property key="LayerNames" value="HYP_50M_SR_W.tif ,Oceans ,Land ,Countries ,States/Provinces ,Marine polygons ,Lakes ,Rivers ,Urban areas ,Populated places ,Geography region elevation points ,Geography region points"/>
                 <xml-tag>
                     <property key="className" value="org.gvsig.fmap.raster.layers.FLyrRasterSE"/>
-                    <property key="active" value="true"/>
+                    <property key="active" value="false"/>
                     <property key="name" value="HYP_50M_SR_W.tif"/>
                     <property key="minScale" value="-1.0"/>
                     <property key="maxScale" value="-1.0"/>
-                    <property key="visible" value="false"/>
+                    <property key="visible" value="true"/>
                     <property key="proj" value="EPSG:4326"/>
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
@@ -1090,6 +1114,7 @@
                     <property key="raster.bandR" value="0"/>
                     <property key="raster.bandG" value="1"/>
                     <property key="raster.bandB" value="2"/>
+                    <property key="raster.file0" value="/usr/local/share/data/natural_earth/HYP_50M_SR_W/HYP_50M_SR_W.tif"/>
                 </xml-tag>
                 <xml-tag>
                     <property key="className" value="com.iver.cit.gvsig.fmap.layers.FLyrVect"/>
@@ -1097,7 +1122,7 @@
                     <property key="name" value="Oceans"/>
                     <property key="minScale" value="-1.0"/>
                     <property key="maxScale" value="-1.0"/>
-                    <property key="visible" value="true"/>
+                    <property key="visible" value="false"/>
                     <property key="proj" value="EPSG:4326"/>
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
@@ -1185,7 +1210,7 @@
                     <property key="name" value="Land"/>
                     <property key="minScale" value="-1.0"/>
                     <property key="maxScale" value="-1.0"/>
-                    <property key="visible" value="true"/>
+                    <property key="visible" value="false"/>
                     <property key="proj" value="EPSG:4326"/>
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
@@ -1617,7 +1642,7 @@
                     <property key="active" value="false"/>
                     <property key="name" value="Lakes"/>
                     <property key="minScale" value="-1.0"/>
-                    <property key="maxScale" value="-1.0"/>
+                    <property key="maxScale" value="1.0E8"/>
                     <property key="visible" value="true"/>
                     <property key="proj" value="EPSG:4326"/>
                     <property key="transparency" value="255"/>
@@ -1745,7 +1770,7 @@
                     <property key="active" value="false"/>
                     <property key="name" value="Rivers"/>
                     <property key="minScale" value="-1.0"/>
-                    <property key="maxScale" value="-1.0"/>
+                    <property key="maxScale" value="1.0E8"/>
                     <property key="visible" value="true"/>
                     <property key="proj" value="EPSG:4326"/>
                     <property key="transparency" value="255"/>
@@ -1953,7 +1978,7 @@
                     <property key="name" value="Populated places"/>
                     <property key="minScale" value="1.5E7"/>
                     <property key="maxScale" value="3.0E7"/>
-                    <property key="visible" value="true"/>
+                    <property key="visible" value="false"/>
                     <property key="proj" value="EPSG:4326"/>
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
@@ -2026,10 +2051,10 @@
                 </xml-tag>
                 <xml-tag>
                     <property key="className" value="com.iver.cit.gvsig.fmap.layers.FLyrVect"/>
-                    <property key="active" value="false"/>
+                    <property key="active" value="true"/>
                     <property key="name" value="Geography region elevation points"/>
                     <property key="minScale" value="-1.0"/>
-                    <property key="maxScale" value="-1.0"/>
+                    <property key="maxScale" value="1.0E8"/>
                     <property key="visible" value="true"/>
                     <property key="proj" value="EPSG:4326"/>
                     <property key="transparency" value="255"/>
@@ -2249,7 +2274,7 @@
                     <property key="name" value="Geography region points"/>
                     <property key="minScale" value="-1.0"/>
                     <property key="maxScale" value="-1.0"/>
-                    <property key="visible" value="false"/>
+                    <property key="visible" value="true"/>
                     <property key="proj" value="EPSG:4326"/>
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
@@ -2503,12 +2528,12 @@
             <xml-tag>
                 <property key="className" value="com.iver.cit.gvsig.fmap.ViewPort"/>
                 <property key="adjustedExtentX" value="-179.99998938710382"/>
-                <property key="adjustedExtentY" value="-159.8555051500032"/>
+                <property key="adjustedExtentY" value="-182.3999088175181"/>
                 <property key="adjustedExtentW" value="359.99998938710394"/>
-                <property key="adjustedExtentH" value="319.7111819105688"/>
+                <property key="adjustedExtentH" value="364.7999892455986"/>
                 <property key="backColor" value="255,255,255,255"/>
-                <property key="dist1pixel" value="1.2996389865875244"/>
-                <property key="dist3pixel" value="3.8989169597625732"/>
+                <property key="dist1pixel" value="2.3999998569488525"/>
+                <property key="dist3pixel" value="7.199999809265137"/>
                 <property key="distanceUnits" value="1"/>
                 <property key="extentX" value="-179.99998938710382"/>
                 <property key="extentY" value="-89.99982838943765"/>
@@ -2518,7 +2543,7 @@
                 <property key="offsetX" value="0.0"/>
                 <property key="offsetY" value="0.0"/>
                 <property key="proj" value="EPSG:4326"/>
-                <property key="scale" value="0.0"/>
+                <property key="scale" value="0.41666667895011156"/>
                 <xml-tag>
                     <property key="className" value="com.iver.cit.gvsig.fmap.ExtentHistory"/>
                     <property key="num" value="1"/>
@@ -2723,7 +2748,7 @@
     <xml-tag>
         <property key="className" value="ProjectTable"/>
         <property key="comment"/>
-        <property key="creationDate" value="7/3/11 7:15 PM"/>
+        <property key="creationDate" value="7/15/12 3:34 PM"/>
         <property key="name" value="Table of attributes: 10m_geography_regions_points.shp"/>
         <property key="owner"/>
         <property key="numTables" value="0"/>
@@ -2787,7 +2812,7 @@
             <property key="isCuadricula" value="true"/>
             <property key="isEditable" value="true"/>
             <property key="numBehind" value="-2"/>
-            <property key="numBefore" value="23"/>
+            <property key="numBefore" value="28"/>
             <xml-tag>
                 <property key="className" value="com.iver.cit.gvsig.project.documents.layout.Attributes"/>
                 <property key="DPI" value="300"/>
@@ -2825,7 +2850,7 @@
                 <property key="m_Selected" value="0"/>
                 <property key="tag"/>
                 <property key="m_rotation" value="0.0"/>
-                <property key="level" value="17"/>
+                <property key="level" value="24"/>
                 <property key="num" value="0"/>
                 <property key="m_Mode" value="0"/>
                 <property key="m_typeScale" value="0"/>
@@ -2837,76 +2862,76 @@
                 <property key="m_Scale" value="54.0"/>
                 <property key="viewName" value="Natural Earth (SHP)"/>
                 <property key="indice" value="0"/>
-                <property key="extentX" value="-110.56234090502268"/>
-                <property key="extentY" value="35.02539287656014"/>
-                <property key="extentW" value="11.33151894542388"/>
-                <property key="extentH" value="9.17313438439076"/>
+                <property key="extentX" value="-180.0"/>
+                <property key="extentY" value="-124.24593967519951"/>
+                <property key="extentW" value="360.00000000010004"/>
+                <property key="extentH" value="248.49187935041707"/>
                 <property key="showGrid" value="true"/>
                 <xml-tag>
                     <property key="className" value="com.iver.cit.gvsig.fmap.MapContext"/>
                     <xml-tag>
                         <property key="className" value="com.iver.cit.gvsig.fmap.ViewPort"/>
                         <property key="adjustedExtentX" value="-110.56234090502268"/>
-                        <property key="adjustedExtentY" value="34.32869912584692"/>
+                        <property key="adjustedExtentY" value="35.02539287656014"/>
                         <property key="adjustedExtentW" value="11.33151894542388"/>
-                        <property key="adjustedExtentH" value="10.566521885817206"/>
+                        <property key="adjustedExtentH" value="9.17313438439076"/>
                         <property key="backColor" value="191,223,255,255"/>
-                        <property key="dist1pixel" value="0.023906158283352852"/>
-                        <property key="dist3pixel" value="0.0717184767127037"/>
+                        <property key="dist1pixel" value="0.01541703287512064"/>
+                        <property key="dist3pixel" value="0.046251099556684494"/>
                         <property key="distanceUnits" value="1"/>
-                        <property key="extentX" value="-110.56234090502268"/>
-                        <property key="extentY" value="35.02539287656014"/>
-                        <property key="extentW" value="11.33151894542388"/>
-                        <property key="extentH" value="9.17313438439076"/>
+                        <property key="extentX" value="-180.0"/>
+                        <property key="extentY" value="-124.24593967519951"/>
+                        <property key="extentW" value="360.00000000010004"/>
+                        <property key="extentH" value="248.49187935041707"/>
                         <property key="mapUnits" value="8"/>
-                        <property key="offsetX" value="77.0"/>
-                        <property key="offsetY" value="81.0"/>
+                        <property key="offsetX" value="0.0"/>
+                        <property key="offsetY" value="0.0"/>
                         <property key="proj" value="EPSG:4326"/>
-                        <property key="scale" value="41.83022614028458"/>
+                        <property key="scale" value="0.0"/>
                         <xml-tag>
                             <property key="className" value="com.iver.cit.gvsig.fmap.ExtentHistory"/>
                             <property key="num" value="10"/>
                             <property key="numrec" value="10"/>
-                            <property key="extent0X" value="-105.17912876449661"/>
-                            <property key="extent0Y" value="39.60865542159546"/>
-                            <property key="extent0W" value="0.32"/>
-                            <property key="extent0H" value="0.32"/>
-                            <property key="extent1X" value="-105.37465372146734"/>
-                            <property key="extent1Y" value="39.47757108424606"/>
-                            <property key="extent1W" value="0.64"/>
-                            <property key="extent1H" value="0.64"/>
-                            <property key="extent2X" value="-105.76680518446217"/>
-                            <property key="extent2Y" value="39.215402409547266"/>
-                            <property key="extent2W" value="1.28"/>
-                            <property key="extent2H" value="1.28"/>
-                            <property key="extent3X" value="-106.55331120855855"/>
-                            <property key="extent3Y" value="38.69106506014967"/>
-                            <property key="extent3W" value="2.56"/>
-                            <property key="extent3H" value="2.56"/>
-                            <property key="extent4X" value="-107.5226743755121"/>
-                            <property key="extent4Y" value="37.24142650593281"/>
-                            <property key="extent4W" value="5.12"/>
-                            <property key="extent4H" value="5.12"/>
-                            <property key="extent5X" value="-110.06064339444498"/>
-                            <property key="extent5Y" value="34.58889638545088"/>
-                            <property key="extent5W" value="10.24"/>
-                            <property key="extent5H" value="10.24"/>
-                            <property key="extent6X" value="-115.13658143231072"/>
-                            <property key="extent6Y" value="29.37196006875552"/>
-                            <property key="extent6W" value="20.48"/>
-                            <property key="extent6H" value="20.48"/>
-                            <property key="extent7X" value="-113.85387736059818"/>
-                            <property key="extent7Y" value="30.43882568436476"/>
-                            <property key="extent7W" value="17.9145918565749"/>
-                            <property key="extent7H" value="18.34626876878152"/>
-                            <property key="extent8X" value="-105.47626185727393"/>
-                            <property key="extent8Y" value="39.15330334953598"/>
-                            <property key="extent8W" value="1.1593608499263617"/>
-                            <property key="extent8H" value="0.917313438439076"/>
-                            <property key="extent9X" value="-110.69338568194254"/>
-                            <property key="extent9Y" value="35.02539287656014"/>
-                            <property key="extent9W" value="11.593608499263617"/>
-                            <property key="extent9H" value="9.17313438439076"/>
+                            <property key="extent0X" value="-8.738097686512647"/>
+                            <property key="extent0Y" value="49.09716385868004"/>
+                            <property key="extent0W" value="11.360307117502563"/>
+                            <property key="extent0H" value="7.841511293403741"/>
+                            <property key="extent1X" value="-14.56322036161257"/>
+                            <property key="extent1Y" value="42.678985707608405"/>
+                            <property key="extent1W" value="22.720614235005126"/>
+                            <property key="extent1H" value="15.683022586807482"/>
+                            <property key="extent2X" value="-25.290934971411975"/>
+                            <property key="extent2Y" value="31.60861682280312"/>
+                            <property key="extent2W" value="45.44122847001025"/>
+                            <property key="extent2H" value="31.366045173614964"/>
+                            <property key="extent3X" value="-46.746364191010784"/>
+                            <property key="extent3Y" value="9.467879053192561"/>
+                            <property key="extent3W" value="90.8824569400205"/>
+                            <property key="extent3H" value="62.73209034722993"/>
+                            <property key="extent4X" value="-89.6572226302084"/>
+                            <property key="extent4Y" value="-34.813596486028565"/>
+                            <property key="extent4W" value="181.764913880041"/>
+                            <property key="extent4H" value="125.46418069445986"/>
+                            <property key="extent5X" value="-189.6068388473075"/>
+                            <property key="extent5Y" value="-87.95136713309391"/>
+                            <property key="extent5W" value="363.529827760082"/>
+                            <property key="extent5H" value="250.9283613889197"/>
+                            <property key="extent6X" value="-32.143045889234756"/>
+                            <property key="extent6Y" value="18.32417416103678"/>
+                            <property key="extent6W" value="50.710883536280356"/>
+                            <property key="extent6H" value="35.003452092908134"/>
+                            <property key="extent7X" value="-49.438869276318776"/>
+                            <property key="extent7Y" value="4.675769311365038"/>
+                            <property key="extent7W" value="101.42176707256071"/>
+                            <property key="extent7H" value="70.00690418581627"/>
+                            <property key="extent8X" value="-180.0"/>
+                            <property key="extent8Y" value="-124.24593967519951"/>
+                            <property key="extent8W" value="360.00000000010004"/>
+                            <property key="extent8H" value="248.49187935041707"/>
+                            <property key="extent9X" value="20.91641482584694"/>
+                            <property key="extent9Y" value="-20.255220417630028"/>
+                            <property key="extent9W" value="7.865546218489589"/>
+                            <property key="extent9H" value="5.429234338748614"/>
                         </xml-tag>
                     </xml-tag>
                     <xml-tag>
@@ -2922,11 +2947,11 @@
                         <property key="LayerNames" value="HYP_50M_SR_W.tif ,Oceans ,Land ,Countries ,States/Provinces ,Marine polygons ,Lakes ,Rivers ,Urban areas ,Populated places ,Geography region elevation points ,Geography region points"/>
                         <xml-tag>
                             <property key="className" value="org.gvsig.fmap.raster.layers.FLyrRasterSE"/>
-                            <property key="active" value="true"/>
+                            <property key="active" value="false"/>
                             <property key="name" value="HYP_50M_SR_W.tif"/>
                             <property key="minScale" value="-1.0"/>
                             <property key="maxScale" value="-1.0"/>
-                            <property key="visible" value="false"/>
+                            <property key="visible" value="true"/>
                             <property key="proj" value="EPSG:4326"/>
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
@@ -2937,6 +2962,7 @@
                             <property key="raster.bandR" value="0"/>
                             <property key="raster.bandG" value="1"/>
                             <property key="raster.bandB" value="2"/>
+                            <property key="raster.file0" value="/usr/local/share/data/natural_earth/HYP_50M_SR_W/HYP_50M_SR_W.tif"/>
                         </xml-tag>
                         <xml-tag>
                             <property key="className" value="com.iver.cit.gvsig.fmap.layers.FLyrVect"/>
@@ -2944,7 +2970,7 @@
                             <property key="name" value="Oceans"/>
                             <property key="minScale" value="-1.0"/>
                             <property key="maxScale" value="-1.0"/>
-                            <property key="visible" value="true"/>
+                            <property key="visible" value="false"/>
                             <property key="proj" value="EPSG:4326"/>
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
@@ -3032,7 +3058,7 @@
                             <property key="name" value="Land"/>
                             <property key="minScale" value="-1.0"/>
                             <property key="maxScale" value="-1.0"/>
-                            <property key="visible" value="true"/>
+                            <property key="visible" value="false"/>
                             <property key="proj" value="EPSG:4326"/>
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
@@ -3470,7 +3496,7 @@
                             <property key="active" value="false"/>
                             <property key="name" value="Lakes"/>
                             <property key="minScale" value="-1.0"/>
-                            <property key="maxScale" value="-1.0"/>
+                            <property key="maxScale" value="1.0E8"/>
                             <property key="visible" value="true"/>
                             <property key="proj" value="EPSG:4326"/>
                             <property key="transparency" value="255"/>
@@ -3601,7 +3627,7 @@
                             <property key="active" value="false"/>
                             <property key="name" value="Rivers"/>
                             <property key="minScale" value="-1.0"/>
-                            <property key="maxScale" value="-1.0"/>
+                            <property key="maxScale" value="1.0E8"/>
                             <property key="visible" value="true"/>
                             <property key="proj" value="EPSG:4326"/>
                             <property key="transparency" value="255"/>
@@ -3812,7 +3838,7 @@
                             <property key="name" value="Populated places"/>
                             <property key="minScale" value="1.5E7"/>
                             <property key="maxScale" value="3.0E7"/>
-                            <property key="visible" value="true"/>
+                            <property key="visible" value="false"/>
                             <property key="proj" value="EPSG:4326"/>
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
@@ -3885,10 +3911,10 @@
                         </xml-tag>
                         <xml-tag>
                             <property key="className" value="com.iver.cit.gvsig.fmap.layers.FLyrVect"/>
-                            <property key="active" value="false"/>
+                            <property key="active" value="true"/>
                             <property key="name" value="Geography region elevation points"/>
                             <property key="minScale" value="-1.0"/>
-                            <property key="maxScale" value="-1.0"/>
+                            <property key="maxScale" value="1.0E8"/>
                             <property key="visible" value="true"/>
                             <property key="proj" value="EPSG:4326"/>
                             <property key="transparency" value="255"/>
@@ -4111,7 +4137,7 @@
                             <property key="name" value="Geography region points"/>
                             <property key="minScale" value="-1.0"/>
                             <property key="maxScale" value="-1.0"/>
-                            <property key="visible" value="false"/>
+                            <property key="visible" value="true"/>
                             <property key="proj" value="EPSG:4326"/>
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
@@ -4366,10 +4392,10 @@
                 <xml-tag>
                     <property key="className" value="FFrameGrid"/>
                     <property key="m_name" value="FFrame"/>
-                    <property key="x" value="0.6338028169014087"/>
-                    <property key="y" value="0.8028169014084507"/>
-                    <property key="w" value="21.042253521126757"/>
-                    <property key="h" value="19.690140845070424"/>
+                    <property key="x" value="0.0"/>
+                    <property key="y" value="0.0"/>
+                    <property key="w" value="0.0"/>
+                    <property key="h" value="0.0"/>
                     <property key="m_Selected" value="0"/>
                     <property key="tag"/>
                     <property key="m_rotation" value="0.0"/>
@@ -4383,7 +4409,6 @@
                     <property key="isLine" value="true"/>
                     <property key="sizeFont" value="12"/>
                     <property key="textColor" value="0,0,0,255"/>
-                    <property key="index" value="0"/>
                     <xml-tag>
                         <property key="className" value="com.iver.cit.gvsig.fmap.core.symbols.SimpleLineSymbol"/>
                         <property key="isShapeVisible" value="true"/>
@@ -4430,8 +4455,8 @@
                 <property key="m_Selected" value="0"/>
                 <property key="tag"/>
                 <property key="m_rotation" value="0.0"/>
-                <property key="level" value="18"/>
-                <property key="num" value="1"/>
+                <property key="level" value="25"/>
+                <property key="num" value="0"/>
                 <property key="m_Mode" value="0"/>
                 <property key="m_typeScale" value="0"/>
                 <property key="m_extension" value="0"/>
@@ -4442,10 +4467,10 @@
                 <property key="m_Scale" value="0.0"/>
                 <property key="viewName" value="Natural Earth (SHP)"/>
                 <property key="indice" value="0"/>
-                <property key="extentX" value="-179.99998938710382"/>
-                <property key="extentY" value="-89.99982838943765"/>
-                <property key="extentW" value="359.99998938710394"/>
-                <property key="extentH" value="179.9998283894377"/>
+                <property key="extentX" value="-180.0"/>
+                <property key="extentY" value="-124.24593967519951"/>
+                <property key="extentW" value="360.00000000010004"/>
+                <property key="extentH" value="248.49187935041707"/>
                 <property key="showGrid" value="false"/>
                 <property key="index" value="0"/>
                 <xml-tag>
@@ -4453,66 +4478,66 @@
                     <xml-tag>
                         <property key="className" value="com.iver.cit.gvsig.fmap.ViewPort"/>
                         <property key="adjustedExtentX" value="-179.99998938710382"/>
-                        <property key="adjustedExtentY" value="-141.26573281497477"/>
+                        <property key="adjustedExtentY" value="-159.8555051500032"/>
                         <property key="adjustedExtentW" value="359.99998938710394"/>
-                        <property key="adjustedExtentH" value="282.53163724051194"/>
+                        <property key="adjustedExtentH" value="319.7111819105688"/>
                         <property key="backColor" value="255,255,255,255"/>
-                        <property key="dist1pixel" value="2.2784810066223145"/>
-                        <property key="dist3pixel" value="6.835443019866943"/>
+                        <property key="dist1pixel" value="1.2996389865875244"/>
+                        <property key="dist3pixel" value="3.8989169597625732"/>
                         <property key="distanceUnits" value="1"/>
-                        <property key="extentX" value="-179.99998938710382"/>
-                        <property key="extentY" value="-89.99982838943765"/>
-                        <property key="extentW" value="359.99998938710394"/>
-                        <property key="extentH" value="179.9998283894377"/>
+                        <property key="extentX" value="-180.0"/>
+                        <property key="extentY" value="-124.24593967519951"/>
+                        <property key="extentW" value="360.00000000010004"/>
+                        <property key="extentH" value="248.49187935041707"/>
                         <property key="mapUnits" value="1"/>
-                        <property key="offsetX" value="584.0"/>
-                        <property key="offsetY" value="400.00000000000006"/>
+                        <property key="offsetX" value="0.0"/>
+                        <property key="offsetY" value="0.0"/>
                         <property key="proj" value="EPSG:4326"/>
-                        <property key="scale" value="0.43888890182745083"/>
+                        <property key="scale" value="0.0"/>
                         <xml-tag>
                             <property key="className" value="com.iver.cit.gvsig.fmap.ExtentHistory"/>
                             <property key="num" value="10"/>
                             <property key="numrec" value="10"/>
-                            <property key="extent0X" value="-179.99998938710382"/>
-                            <property key="extent0Y" value="-89.99982838943765"/>
-                            <property key="extent0W" value="359.99998938710394"/>
-                            <property key="extent0H" value="179.9998283894377"/>
+                            <property key="extent0X" value="-189.6068388473075"/>
+                            <property key="extent0Y" value="-87.95136713309391"/>
+                            <property key="extent0W" value="363.529827760082"/>
+                            <property key="extent0H" value="250.9283613889197"/>
                             <property key="extent1X" value="-110.56234090502268"/>
-                            <property key="extent1Y" value="34.32869912584692"/>
+                            <property key="extent1Y" value="35.02539287656014"/>
                             <property key="extent1W" value="11.33151894542388"/>
-                            <property key="extent1H" value="10.566521885817206"/>
-                            <property key="extent2X" value="-179.99998938710382"/>
-                            <property key="extent2Y" value="-89.99982838943765"/>
-                            <property key="extent2W" value="359.99998938710394"/>
-                            <property key="extent2H" value="179.9998283894377"/>
+                            <property key="extent1H" value="9.17313438439076"/>
+                            <property key="extent2X" value="-32.143045889234756"/>
+                            <property key="extent2Y" value="18.32417416103678"/>
+                            <property key="extent2W" value="50.710883536280356"/>
+                            <property key="extent2H" value="35.003452092908134"/>
                             <property key="extent3X" value="-110.56234090502268"/>
-                            <property key="extent3Y" value="34.32869912584692"/>
+                            <property key="extent3Y" value="35.02539287656014"/>
                             <property key="extent3W" value="11.33151894542388"/>
-                            <property key="extent3H" value="10.566521885817206"/>
-                            <property key="extent4X" value="-179.99998938710382"/>
-                            <property key="extent4Y" value="-89.99982838943765"/>
-                            <property key="extent4W" value="359.99998938710394"/>
-                            <property key="extent4H" value="179.9998283894377"/>
+                            <property key="extent3H" value="9.17313438439076"/>
+                            <property key="extent4X" value="-49.438869276318776"/>
+                            <property key="extent4Y" value="4.675769311365038"/>
+                            <property key="extent4W" value="101.42176707256071"/>
+                            <property key="extent4H" value="70.00690418581627"/>
                             <property key="extent5X" value="-110.56234090502268"/>
-                            <property key="extent5Y" value="34.32869912584692"/>
+                            <property key="extent5Y" value="35.02539287656014"/>
                             <property key="extent5W" value="11.33151894542388"/>
-                            <property key="extent5H" value="10.566521885817206"/>
-                            <property key="extent6X" value="-179.99998938710382"/>
-                            <property key="extent6Y" value="-89.99982838943765"/>
-                            <property key="extent6W" value="359.99998938710394"/>
-                            <property key="extent6H" value="179.9998283894377"/>
+                            <property key="extent5H" value="9.17313438439076"/>
+                            <property key="extent6X" value="-180.0"/>
+                            <property key="extent6Y" value="-124.24593967519951"/>
+                            <property key="extent6W" value="360.00000000010004"/>
+                            <property key="extent6H" value="248.49187935041707"/>
                             <property key="extent7X" value="-110.56234090502268"/>
-                            <property key="extent7Y" value="34.32869912584692"/>
+                            <property key="extent7Y" value="35.02539287656014"/>
                             <property key="extent7W" value="11.33151894542388"/>
-                            <property key="extent7H" value="10.566521885817206"/>
-                            <property key="extent8X" value="-179.99998938710382"/>
-                            <property key="extent8Y" value="-89.99982838943765"/>
-                            <property key="extent8W" value="359.99998938710394"/>
-                            <property key="extent8H" value="179.9998283894377"/>
+                            <property key="extent7H" value="9.17313438439076"/>
+                            <property key="extent8X" value="20.91641482584694"/>
+                            <property key="extent8Y" value="-20.255220417630028"/>
+                            <property key="extent8W" value="7.865546218489589"/>
+                            <property key="extent8H" value="5.429234338748614"/>
                             <property key="extent9X" value="-110.56234090502268"/>
-                            <property key="extent9Y" value="34.32869912584692"/>
+                            <property key="extent9Y" value="35.02539287656014"/>
                             <property key="extent9W" value="11.33151894542388"/>
-                            <property key="extent9H" value="10.566521885817206"/>
+                            <property key="extent9H" value="9.17313438439076"/>
                         </xml-tag>
                     </xml-tag>
                     <xml-tag>
@@ -4716,7 +4741,7 @@
                 <property key="m_Selected" value="0"/>
                 <property key="tag"/>
                 <property key="m_rotation" value="0.0"/>
-                <property key="level" value="19"/>
+                <property key="level" value="26"/>
                 <property key="num" value="0"/>
                 <property key="m_type" value="24"/>
                 <xml-tag>
@@ -4763,7 +4788,7 @@
                 <property key="m_Selected" value="0"/>
                 <property key="tag"/>
                 <property key="m_rotation" value="0.0"/>
-                <property key="level" value="20"/>
+                <property key="level" value="27"/>
                 <property key="num" value="0"/>
                 <xml-tag>
                     <property key="className" value="FFrameText"/>
@@ -4866,7 +4891,7 @@
                 <property key="m_Selected" value="0"/>
                 <property key="tag"/>
                 <property key="m_rotation" value="0.0"/>
-                <property key="level" value="21"/>
+                <property key="level" value="28"/>
                 <property key="num" value="1"/>
                 <xml-tag>
                     <property key="className" value="FFrameGraphics"/>
@@ -4958,7 +4983,54 @@
             <property key="isNotClosable" value="false"/>
             <property key="AdditionalInfo"/>
             <property key="className" value="com.iver.cit.gvsig.project.document.gui.ProjectWindow"/>
+            <property key="zPosition" value="2"/>
+        </xml-tag>
+        <xml-tag>
+            <property key="name" value="ViewInfoProperties"/>
+            <property key="X" value="0"/>
+            <property key="Y" value="0"/>
+            <property key="Width" value="1024"/>
+            <property key="Height" value="620"/>
+            <property key="isVisible" value="true"/>
+            <property key="isResizable" value="true"/>
+            <property key="isMaximizable" value="true"/>
+            <property key="isModal" value="false"/>
+            <property key="isModeless" value="false"/>
+            <property key="isClosed" value="false"/>
+            <property key="isNotClosable" value="false"/>
+            <property key="AdditionalInfo"/>
+            <property key="isMaximized" value="true"/>
+            <property key="normalX" value="-1"/>
+            <property key="normalY" value="-1"/>
+            <property key="normalWidth" value="500"/>
+            <property key="normalHeight" value="340"/>
+            <property key="documentType" value="ProjectView"/>
+            <property key="documentName" value="Natural Earth (SHP)"/>
             <property key="zPosition" value="1"/>
+            <xml-tag>
+                <property key="name" value="windowData"/>
+                <property key="GraphicLocator.isPalette" value="false"/>
+                <property key="GraphicLocator.Height" value="152"/>
+                <property key="MainDivider.Y" value="0"/>
+                <property key="MainDivider.X" value="0"/>
+                <property key="MapControl.Height" value="595"/>
+                <property key="TOCDivider.Location" value="435"/>
+                <property key="TOC.Height" value="434"/>
+                <property key="TOCDivider.Y" value="1"/>
+                <property key="TOCDivider.X" value="1"/>
+                <property key="MainDivider.Location" value="153"/>
+                <property key="MainDivider.Width" value="1023"/>
+                <property key="MainWindow.X" value="0"/>
+                <property key="TOCDivider.Height" value="595"/>
+                <property key="TOC.Width" value="150"/>
+                <property key="MainWindow.Width" value="1023"/>
+                <property key="TOCDivider.Width" value="152"/>
+                <property key="MainWindow.Y" value="0"/>
+                <property key="MapControl.Width" value="862"/>
+                <property key="GraphicLocator.Width" value="150"/>
+                <property key="MainWindow.Height" value="597"/>
+                <property key="MainDivider.Height" value="597"/>
+            </xml-tag>
         </xml-tag>
     </xml-tag>
 </xml-tag>
