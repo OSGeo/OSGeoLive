@@ -54,11 +54,8 @@ USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop" 
 
 GVSIG_PACKAGE="gvsig_1.11-1305_i386_OSGeoLive.deb"
-GVSIG_PACK="http://aiolos.survey.ntua.gr/gisvm/6.0/gvsig_1.11-1305_i386_OSGeoLive.deb"
-# Notice to upload the gvSIG Package somwhere, when it's fixed
-# please, remove this two lines and let the script continue
-echo "FIX the path to download gvSIG deb package"
-exit 1
+GVSIG_PATH="http://aiolos.survey.ntua.gr/gisvm/6.0/"
+#GVSIG_PATH="http://download.osgeo.org/livedvd/data/gvsig/"
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
