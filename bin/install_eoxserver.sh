@@ -28,8 +28,8 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-DATA_DIR="$USER_HOME/gisvm/app-data/eoxserver"
-DOC_DIR="$USER_HOME/gisvm/app-data/eoxserver/doc"
+DATA_DIR="/usr/local/share/gisvm/app-data/eoxserver"
+DOC_DIR="/usr/local/share/gisvm/app-data/eoxserver/doc"
 APACHE_CONF="/etc/apache2/conf.d/eoxserver"
 TMP_DIR=/tmp/build_eoxserver
 
