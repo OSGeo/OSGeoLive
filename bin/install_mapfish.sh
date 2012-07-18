@@ -80,6 +80,7 @@ instanceid = osgeolive
 mapserv_host = localhost
 print_host = localhost
 pg_version = 9.1
+mapserver_jpeg_driver = AGG/JPEG
 EOF
 
 if [ ! -f ./buildout/bin/buildout ] ; then
