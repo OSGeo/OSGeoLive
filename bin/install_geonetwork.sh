@@ -169,3 +169,19 @@ mkdir -p /usr/local/share/data/vector/
 ln -s  /usr/lib/geonetwork/data/geoserver_data/data/boundaries \
       /usr/local/share/data/vector/global_boundaries
 
+# Minor fix to disable GWC as per #932
+cd /usr/lib/geonetwork/web
+mkdir geoserver
+mv geoserver.war geoserver/.
+cd geoserver/
+unzip geoserver.war
+cd WEB-INF/lib
+rm geowebcache-1.2.2.jar
+rm gwc-2.0.2.jar
+rm web-gwc-2.0.2.jar
+cd ../../
+rm geoserver.war
+zip -r geoserver.war *
+mv geoserver.war ../.
+cd ..
+rm -fr geoserver
