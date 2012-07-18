@@ -177,5 +177,6 @@ cp "$BUILD_DIR/../app-conf/qgis/QGIS.conf" "$QGIS_CONFIG_PATH"
 
 chmod 644 "$USER_HOME/.config/QuantumGIS/QGIS.conf"
 chown $USER_NAME.$USER_NAME "$USER_HOME/.config/QuantumGIS/QGIS.conf"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/.qgis"
 
 echo "Finished installing QGIS $INSTALLED_VERSION."
