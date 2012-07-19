@@ -69,7 +69,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
 # some xfce desktop widgets for i18n and laptops
 apt-get install --yes xfce4-xkb-plugin xfce4-power-manager \
    xfce4-wavelan-plugin xfce4-battery-plugin
-apt-get remove --yes indicator-messages
+
 
 # Install build stuff (temporarily?)
 apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
@@ -99,9 +99,7 @@ sed -i -e 's/^VERBOSE=no/VERBOSE=yes/' /etc/default/rcS
 apt-get remove --yes gnome-games-common \
    gimp gimp-data gimp-help-common gimp-help-en libgimp2.0 \
    thunderbird pidgin-data hplip hplip-data \
-   gnome-user-guide xfwm4-themes
-
-apt-get remove --yes libsane
+   gnome-user-guide xfwm4-themes libsane
 
 # since GIMP is removed we have to replace an xUbuntu default icon
 sed -i -e 's+gimp\.desktop+xfce4-dict\.desktop+' \
@@ -109,6 +107,14 @@ sed -i -e 's+gimp\.desktop+xfce4-dict\.desktop+' \
 
 # remove xscreensaver as it tends to saturate VM bandwidth
 apt-get --assume-yes remove xscreensaver
+
+# pls add "why" here
+apt-get remove --yes indicator-messages
+
+#buggy in 12.04:
+# but does it want to take the rest of the xubuntu desktop with it?
+#apt-get remove --yes blueman
+
 
 # Perhaps this is the original version before updates?
 apt-get --assume-yes remove linux-image-2.6.38-8-generic
