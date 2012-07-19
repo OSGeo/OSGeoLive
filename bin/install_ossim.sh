@@ -31,7 +31,7 @@ sudo apt-get update
 echo 'TODO: libgeotiff2 is current, libgeotiff1.2 called'
 apt-get install --assume-yes libtiff4 libgeotiff1.2 libgdal1-1.8.0 \
   libfreetype6 libcurl3 libopenscenegraph65 libqt4-opengl \
-  libexpat1 libpng3 libgdal1-1.8.0-grass libfftw3-3 libqt3-mt libopenmpi1.3 libqt4-qt3support
+  libexpat1 libpng3 libgdal1-1.8.0-grass libfftw3-3 libqt3-mt libopenmpi1.3 libqt4-qt3support ossim-core
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
