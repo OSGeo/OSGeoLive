@@ -68,6 +68,11 @@ cp OsmApi.py /usr/lib/python2.7/
 
 #### desktop icons
 echo '#!/usr/bin/env xdg-open' > "$USER_HOME"/Desktop/josm.desktop
+#Hack to make josm launch with openjdk7
+cp -f -v "$BUILD_DIR/../app-conf/osm/launch_josm.sh" /usr/local/bin/
+chmod a+x /usr/local/bin/josmlauncher.sh
+sed -i "s|Exec=josm|/Exec=/usr/local/bin/launch_josm.sh|g" /usr/share/applications/josm.desktop
+#End of openjdk7 fix
 cat /usr/share/applications/josm.desktop >> "$USER_HOME"/Desktop/josm.desktop
 chmod a+x "$USER_HOME"/Desktop/josm.desktop
 
