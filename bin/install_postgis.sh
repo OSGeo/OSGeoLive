@@ -39,14 +39,14 @@ PG_VERSION="9.1"
 
 
 # now avail from mainline
-apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis pgadmin3
+apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
 
-
+apt-get install --yes pgadmin3
 
 ### config ###
 
