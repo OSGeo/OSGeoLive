@@ -1,6 +1,21 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0beta2
+===================
+
+ * Rasdaman fixed (#934)
+ * fixed sphinx markup
+ * ZOO-project demo fixed (#929)
+ * gvSIG openjdk7 issue fixed
+ * Geonetwork map issue fixed (#932)
+ * QGIS permission issue fixed (#914)
+ * updated ubuntu manual to 12.04 
+ * Fixed the spatialite launchers prob (#935)
+ * blueman removed (#945)
+ * josm fix applied (#933)
+ * Mapfish fixed.
+
 Version 6.0beta1
 ===================
 
