@@ -183,13 +183,22 @@ sed -i -e 's:rm -rf $WORKDIR/dummysys/etc/gdm/custom.conf:#Removed:' /usr/bin/re
 
 # Create iso, only uncomment once it's working, currently backup mode, TODO: convert to dist mode
 # TODO: if mini name it mini
+
+#Experimental dist variant, comment out and swap to backup below
+#Do we need to change the user to ubuntu in all scripts for this method?
+cp -a /home/user/*  /etc/skel
+chown -hR root:root /etc/skel
+
 if [ "$1" = "mini" ] ; then
 	# quick name check
 	ISO_NAME="${PACKAGE_NAME}-mini-${VERSION}"
 	echo "Now creating ${ISO_NAME}.iso"
-	remastersys backup ${ISO_NAME}.iso
+	#remastersys backup ${ISO_NAME}.iso
+	remastersys dist ${ISO_NAME}.iso
+
 else
 	# quick name check
 	echo "Now creating $ISO_NAME.iso"
-	remastersys backup "$ISO_NAME.iso"
+	#remastersys backup ${ISO_NAME}.iso
+	remastersys dist "$ISO_NAME.iso"
 fi
