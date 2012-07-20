@@ -1,6 +1,17 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0beta3
+===================
+
+ * ossim-core added
+ * josm fixed
+ * gosmore removed until new deb is available
+ * rasdaman demo fixed
+ * zygrib downgrade
+ * mb-system installation fixed
+ * documentation updated
+
 Version 6.0beta2
 ===================
 
