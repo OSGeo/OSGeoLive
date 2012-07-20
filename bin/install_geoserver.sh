@@ -49,8 +49,8 @@ fi
 #apt-get install --yes sun-java6-jdk
 
 ### setup temp ###
-mkdir -p $TMP
-cd $TMP
+mkdir -p "$TMP"
+cd "$TMP"
 
 ### Download and unpack GeoServer ###
 
@@ -148,7 +148,7 @@ unzip -o -q geoserver-$GS_VERSION-htmldoc.zip -d $DOC_DIR
 ### install desktop icons ##
 echo "Installing GeoServer icons"
 if [ ! -e "/usr/share/icons/geoserver_48x48.logo.png" ] ; then
-   cp "$USER_HOME/gisvm/desktop-conf/geoserver_48x48.logo.png" \
+   cp "$USER_HOME/gisvm/app-conf/geoserver/geoserver_48x48.logo.png" \
        /usr/share/icons/
 fi
 
