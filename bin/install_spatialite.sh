@@ -129,7 +129,6 @@ cp $BUILD_TMP/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.png /usr/share
 
 #############################
 ### Clean up
-cd ~
-rm -rf $BUILD_TMP
+rm -rf "$BUILD_TMP"
 apt-get --yes purge $DEV_PKGS
 
