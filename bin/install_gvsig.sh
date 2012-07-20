@@ -54,8 +54,8 @@ USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop" 
 
 GVSIG_PACKAGE="gvsig_1.11-1305_i386_OSGeoLive.deb"
-GVSIG_PATH="http://aiolos.survey.ntua.gr/gisvm/6.0/"
-#GVSIG_PATH="http://download.osgeo.org/livedvd/data/gvsig/"
+#GVSIG_URL="http://aiolos.survey.ntua.gr/gisvm/6.0/"
+GVSIG_URL="http://download.osgeo.org/livedvd/data/gvsig/"
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
@@ -72,7 +72,7 @@ cd "$TMP"
 
 # get deb package 
 if [ ! -e $GVSIG_PACKAGE ] ; then
-   wget --progress=dot:mega "$GVSIG_PATH/$GVSIG_PACKAGE"
+   wget --progress=dot:mega "$GVSIG_URL/$GVSIG_PACKAGE"
 fi
 
 # remove it if it's present at the system
