@@ -72,6 +72,7 @@ pkg_cleanup()
      luatex libgssrpc4 libkadm5clnt-mit7 libkadm5srv-mit7 \
      libkdb5-4 libgdal1-dev libnetcdf-dev
   # remove jdk
+  echo 'FIXME: be careful that no other project on the disc wanted any of these!'
   apt-get --yes remove ca-certificates-java libaccess-bridge-java \
      libaccess-bridge-java-jni libnss3-1d \
      tzdata-java
@@ -85,6 +86,7 @@ pkg_cleanup()
 
 apt-key update
 
+echo "FIXME: is 'apt-get -f' really needed here? what's broken?"
 apt-get  -f install  --no-install-recommends --assume-yes $PACKAGES
 
 if [ $? -ne 0 ] ; then
@@ -165,7 +167,7 @@ sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" \
 
 # add rasdaman to the $PATH if not present
 if [ `grep -c $RASDAMAN_HOME/rasdaman/bin $USER_HOME/.bashrc` -eq 0 ] ; then
-   echo 'export PATH=$PATH:'$RASDAMAN_HOME/bin >> "$USER_HOME/.bashrc"
+   echo "export PATH=\"\$PATH:$RASDAMAN_HOME/bin\"" >> "$USER_HOME/.bashrc"
 fi
 
 #test if rasbase exists, if not create rasbase database
