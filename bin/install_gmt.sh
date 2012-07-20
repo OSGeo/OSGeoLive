@@ -26,9 +26,11 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 
-PACKAGES="gmt gmt-doc gmt-doc-pdf gmt-coast-low \
+PACKAGES="gmt gmt-doc gmt-coast-low \
    gmt-examples gmt-tutorial gmt-tutorial-pdf gv"
 
+# pkg not installed to save 15mb disc space:
+#   gmt-doc-pdf
 
 apt-get --assume-yes install $PACKAGES
 
