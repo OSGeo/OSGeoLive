@@ -37,8 +37,14 @@ cd "$TMP_DIR"
 mkdir /usr/local/share/osm
 
 
-apt-get install --assume-yes josm josm-plugins gosmore gpsd gpsd-clients \
+apt-get install --assume-yes josm josm-plugins gpsd gpsd-clients \
    merkaartor xmlstarlet
+
+#broken in ubuntu 12.04 (gets stuck in a loop)
+# see  http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=652084
+#apt-get install --assume-yes gosmore
+# HB: I'll rebuild the deb without optimizations. stand by..
+
 
 ### install osmosis as well.
 apt-get install --assume-yes osmosis
@@ -52,6 +58,9 @@ wget --progress=dot:mega -O /usr/local/share/osm/josm-tested.jar \
 # replace symlink
 rm /usr/share/josm/josm.jar
 ln -s /usr/local/share/osm/josm-tested.jar /usr/share/josm/josm.jar
+
+#Hack to make josm launch with openjdk7
+sed -i -e 's/openjdk-6-jre/openjdk-*-jre/' /usr/bin/josm
 
 # pre-seed the josmrc file to make the default window size fit on a smaller display
 mkdir -p "$USER_HOME"/.josm
@@ -68,11 +77,6 @@ cp OsmApi.py /usr/lib/python2.7/
 
 #### desktop icons
 echo '#!/usr/bin/env xdg-open' > "$USER_HOME"/Desktop/josm.desktop
-#Hack to make josm launch with openjdk7
-cp -f -v "$BUILD_DIR/../app-conf/osm/launch_josm.sh" /usr/local/bin/
-chmod a+x /usr/local/bin/josmlauncher.sh
-sed -i "s|Exec=josm|/Exec=/usr/local/bin/launch_josm.sh|g" /usr/share/applications/josm.desktop
-#End of openjdk7 fix
 cat /usr/share/applications/josm.desktop >> "$USER_HOME"/Desktop/josm.desktop
 chmod a+x "$USER_HOME"/Desktop/josm.desktop
 
@@ -92,7 +96,7 @@ Categories=Education;Science;Geoscience;
 EOF
 
 chmod a+x /usr/share/applications/gosmore.desktop
-cp /usr/share/applications/gosmore.desktop "$USER_HOME/Desktop/"
+#cp /usr/share/applications/gosmore.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
 
 
