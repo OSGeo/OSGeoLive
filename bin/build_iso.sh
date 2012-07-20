@@ -58,7 +58,9 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/remaster
 # apt-get update
 apt-get update
 
-# no !@#$%!%#@ GPG key
+#Yes there is a key now
+wget -O - http://www.remastersys.com/ubuntu/remastersys.gpg.key | apt-key add -
+
 apt-get --assume-yes --force-yes install remastersys
 
 # Configure
