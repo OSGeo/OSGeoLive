@@ -22,22 +22,25 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 #install latest version
+#   (July 2012: doesn't exist for 12.04LTS)
 # http://zygrib.org/forum/viewtopic.php?f=7&t=156
-
-wget -nv http://doc.hausser.ch/debpackages/dha-debpackages.key \
-   -O - | sudo apt-key add -
-
-echo "deb http://doc.hausser.ch/debpackages ubuntu-dha precise" \
-   > /etc/apt/sources.list.d/zygrib.list
-
-apt-get update
+#
+#wget -nv http://doc.hausser.ch/debpackages/dha-debpackages.key \
+#   -O - | sudo apt-key add -
+#
+#echo "deb http://doc.hausser.ch/debpackages ubuntu-dha oneiric" \
+#   > /etc/apt/sources.list.d/zygrib.list
+#
+#apt-get update
 
 apt-get --assume-yes install zygrib
 
 # don't install the zygrib-maps package, it's 180mb (contains NOAA's GSHHS coastline)
 
 # copy icon to Desktop
-cp /usr/local/share/applications/zyGrib.desktop \
+cp /usr/share/applications/zygrib.desktop \
    "$USER_HOME/Desktop/zygrib.desktop"
 
-ln -s /usr/local/bin/zyGrib /usr/bin/zyGrib
+# de-uppercase the executable
+ln -s /usr/bin/zyGrib /usr/local/bin/zygrib
+
