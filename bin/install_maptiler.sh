@@ -12,6 +12,13 @@ MAPTILERDEB="maptiler_1.0.beta2_all.deb"
 DATA_FOLDER="/usr/local/share/maptiler"
 TESTDATA_URL="http://download.osgeo.org/gdal/data/gtiff/utm.tif"
 
+# live disc's username is "user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
+
+
 #Can't cd to a directory before you make it, may be uneeded now
 mkdir -p "$TMP"
 #cd "$TMP"
@@ -48,8 +55,8 @@ fi
 
 # Test if installation was correct and create the Desktop icon
 if [ -e /usr/share/applications/maptiler.desktop ] ; then
-  cp /usr/share/applications/maptiler.desktop /home/"$USER_NAME"/Desktop/
-  chown "$USER_NAME"."$USER_NAME" /home/"$USER_NAME"/Desktop/maptiler.desktop
+  cp /usr/share/applications/maptiler.desktop "$USER_HOME"/Desktop/
+  chown "$USER_NAME"."$USER_NAME" "$USER_HOME"/Desktop/maptiler.desktop
 else
   echo "ERROR: Installation of the MapTiler failed."
   exit 1
