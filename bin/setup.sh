@@ -113,7 +113,7 @@ apt-get remove --yes indicator-messages
 
 #buggy in 12.04:
 # but does it want to take the rest of the xubuntu desktop with it?
-#apt-get remove --yes blueman
+apt-get remove --yes blueman
 
 
 # Perhaps this is the original version before updates?
