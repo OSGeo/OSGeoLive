@@ -93,6 +93,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 # symlink from the installed libdfalt
+echo "FIXME: please put custom stuff in /usr/local/lib so we can know about devations from the base install. Better: compile against 12.04's libraries"
 ln -s /usr/lib/libdfalt.a /usr/lib/libdf.a
 ln -s /usr/lib/libdfalt.la /usr/lib/libdf.la
 ln -s /usr/lib/libdfalt.so /usr/lib/libdf.so
@@ -103,11 +104,12 @@ ln -s /usr/lib/libmfhdfalt.la /usr/lib/libmfhdf.la
 ln -s /usr/lib/libmfhdfalt.so /usr/lib/libmfhdf.so
 ln -s /usr/lib/libmfhdfalt.so.0 /usr/lib/libmfhdf.so.0
 ln -s /usr/lib/libmfhdfalt.so.0.0.0 /usr/lib/libmfhdf.so.0.0.0
-ln -s /usr/lib/libgdal1.7.0.so.1 /usr/lib/libgdal1.7.0.so
+ln -s /usr/lib/libgdal1.7.0.so.1 /usr/local/lib/libgdal1.7.0.so
+ldconfig
 
 #download and install rasdaman
 #If folder already exists, delete it and download the latest version
-
+echo "FIXME: use a better test to avoid stale installs & gratuitous downloads" 
 
 if [  -d  rasdaman ] ; then
     rm -rf rasdaman
