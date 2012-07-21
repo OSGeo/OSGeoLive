@@ -37,7 +37,8 @@ UDIG_FOLDER="$INSTALL_FOLDER/udig"
 DOCS_FOLDER="/usr/local/share/udig"
 DATA_GLOBAL="/usr/local/share/data"
 
-JAVA_INSTALL_FOLDER=/usr/lib/jvm/java-7-openjdk-i386/jre
+#JAVA_INSTALL_FOLDER=/usr/lib/jvm/java-7-openjdk-i386/jre
+JAVA_INSTALL_FOLDER=/usr/lib/jvm/default-java/jre
 
 BIN="/usr/bin"
 if [ -z "$USER_NAME" ] ; then
