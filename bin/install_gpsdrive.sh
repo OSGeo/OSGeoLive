@@ -19,7 +19,7 @@
 #
 
 
-CITY=Beijing
+CITY=Nottingham
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -110,13 +110,15 @@ Sydney_Convention_Centre        -33.8750   151.2005
 Barcelona_Convention_Centre      41.3724     2.1518
 FOSS4G_2011_(Sheraton_Denver)    39.74251 -104.9891
 OSM_State_of_the_Map_2011        39.7457  -105.0034
-Beijing_Conference_Center        40.0195   116.4218
+Business_School_South_(Jubilee)  52.9517  -1.1864
+East_Midlands_Conference_Centre  52.9387  -1.2034
 EOF
+
 
 #download latest OSM POIs for host city
 #wget -N --progress=dot:mega  http://poi.gpsdrive.de/$COUNTRY.db.bz2
 wget -N --progress=dot:mega \
-  "http://download.osgeo.org/livedvd/data/osm/${CITY}_poi.db.bz2"
+  "http://download.osgeo.org/livedvd/data/osm/$CITY/${CITY}_poi.db.bz2"
 bzip2 -d "${CITY}_poi.db.bz2"
 mkdir -p /usr/local/share/osm/
 mkdir -p /usr/local/share/data/osm/

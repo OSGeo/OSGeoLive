@@ -26,7 +26,7 @@
 #
 
 POSTGRES_USER="user"
-CITY="Beijing"
+CITY="Nottingham"
 TMP_DIR="/tmp/build_postgis"
 
 if [ ! -d "$TMP_DIR" ] ; then
@@ -77,7 +77,7 @@ else
 	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
 	     --database osm_local --latlong \
 	     --style /usr/share/osm2pgsql/default.style \
-	     /usr/local/share/osm/$CITY.osm.bz2
+	     /usr/local/share/osm/${CITY}_CBD.osm.bz2
 	# spherical merc
 	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
 	     --database osm_local_smerc --merc \

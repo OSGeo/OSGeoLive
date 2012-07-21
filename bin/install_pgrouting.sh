@@ -41,7 +41,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_pgrouting"
-OSM_FILE="/usr/local/share/data/osm/feature_city.osm.bz2"
+OSM_FILE="/usr/local/share/data/osm/feature_city_CBD.osm.bz2"
 OSM_DB="pgrouting"
 
 POSTGRES_VERSION="9.1"

@@ -135,28 +135,25 @@ cp xsltrans osmarender.xsl /usr/local/share/osm/xslt/
 mkdir -p /usr/local/share/osm/stylesheets
 cp osm-map-features-z17.xml markers.xml /usr/local/share/osm/stylesheets/
 
-svn co "$BASEURL/stylesheets/symbols/" /usr/local/share/osm/stylesheets/symbols/
-
+svn co "$BASEURL/stylesheets/symbols/" \
+   /usr/local/share/osm/stylesheets/symbols/
 
 
 #### install sample OSM data
 
-CITY="Beijing"
-BBOX="116.25,39.85,116.5,40"
+CITY="Nottingham"
+BBOX="-1.25,52.888,-1.06,53.02"
 # visualize:
-#http://www.openstreetmap.org/?box=yes&bbox=116.25,39.85,116.5,40
+#http://www.openstreetmap.org/?box=yes&bbox=$BBOX
 
-#bigger area: (split up for download, then recombined in JOSM) 
-#BBOX_N="116.15,39.75,116.62,39.95"
-#BBOX_S="116.15,39.94,116.62,40.11"
-
-
-
-# Perhaps it is too big a city for some of our examples, so we download
-# a smaller version too:
-#CITY="Denver_CBD"
-#BBOX="-105.028,39.709,-104.956,39.79"
-
+# Perhaps it is too detailed a city for some of our examples, so we
+#  provide a smaller version too:
+#CITY="Nottingham_CBD"
+#BBOX="-1.2,52.93,-1.1,52.985"
+# *** TODO: next time we do an extract move it SW a bit to get
+#           better coverage around the university campus
+#
+#
 # City OSM data:
 #  Having a sample .osm file around will benefit many applications. In addition
 #  to JOSM and Gosmore, QGIS and Mapnik can also render .osm directly.
@@ -169,7 +166,7 @@ BBOX="116.25,39.85,116.5,40"
 
 ### Please update to latest data at the last minute! See data dir on server for details.
 wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/osm/$CITY.osm.bz2"
+   "http://download.osgeo.org/livedvd/data/osm/$CITY/$CITY.osm.bz2"
 
 
 #download as part of disc build process
@@ -187,9 +184,14 @@ wget -N --progress=dot:mega \
 if [ ! -e "$CITY.osm.bz2" ] ; then
   #XAPI_URL="http://xapi.openstreetmap.org/api/0.6/"
   #XAPI_URL="http://open.mapquestapi.com/xapi/api/0.6/"
-  XAPI_URL="http://jxapi.openstreetmap.org/xapi/api/0.6/"
+  #XAPI_URL="http://jxapi.openstreetmap.org/xapi/api/0.6/"
+  # Overpass server with Xapi compatibility layer
+  XAPI_URL="http://www.overpass-api.de/api/xapi?"
+  # needed for Overpass server:
+  XAPI_EXTRA="[@meta]"
 
-  wget --progress=dot:mega -O "$CITY.osm"  "${XAPI_URL}*[bbox=$BBOX]"
+  wget --progress=dot:mega -O "$CITY.osm" \
+       "${XAPI_URL}*[bbox=$BBOX]$XAPI_EXTRA"
   if [ $? -ne 0 ] ; then
      echo "ERROR getting osm data"
      exit 1
@@ -205,14 +207,16 @@ ln -s /usr/local/share/data/osm/"$CITY.osm.bz2" \
    /usr/local/share/data/osm/feature_city.osm.bz2
 
 ####
-#wget -N --progress=dot:mega \
-#   "http://download.osgeo.org/livedvd/data/osm/Denver_CBD.osm.bz2"
-#cp -f "Denver_CBD.osm.bz2" /usr/local/share/osm/
-#ln -s /usr/local/share/osm/Denver_CBD.osm.bz2 /usr/local/share/data/osm
+# Smaller extract for pgRouting examples
+wget -N --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/osm/$CITY/${CITY}_CBD.osm.bz2"
+cp -f "${CITY}_CBD.osm.bz2" /usr/local/share/osm/
+ln -s /usr/local/share/osm/${CITY}_CBD.osm.bz2 /usr/local/share/data/osm
+ln -s /usr/local/share/data/osm/"${CITY}_CBD.osm.bz2" \
+   /usr/local/share/data/osm/feature_city_CBD.osm.bz2
+
+
 ####
-
-
-
 apt-get --assume-yes install osm2pgsql
 
 
