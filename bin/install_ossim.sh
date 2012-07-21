@@ -31,10 +31,10 @@ sudo apt-get update
 apt-get install --assume-yes ossim-core
 
 # install main dependencies
-echo 'TODO: libgeotiff2 is current, libgeotiff1.2 called'
-apt-get install --assume-yes libtiff4 libgeotiff1.2 libgdal1-1.8.0 \
-  libfreetype6 libcurl3 libopenscenegraph65 libqt4-opengl \
-  libexpat1 libpng3 libgdal1-1.8.0-grass libfftw3-3 libqt3-mt libopenmpi1.3 libqt4-qt3support 
+apt-get install --assume-yes libtiff4 libgeotiff2 libgdal1-1.9.0 \
+  libfreetype6 libcurl3 libopenscenegraph80 libqt4-opengl \
+  libexpat1 libpng3 libgdal1-1.9.0-grass libfftw3-3 libqt3-mt \
+  libopenmpi1.3 libqt4-qt3support 
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'

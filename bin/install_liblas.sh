@@ -159,7 +159,7 @@ cp LICENSE.txt NEWS README.txt "$LIBLAS_FOLDER/"
 apt-get --yes install libboost-date-time1.46.1 \
    libboost-program-options1.46.1 libboost-serialization1.46.1
 ##how about this one??
-apt-get --yes install libodbcinstq1c2
+apt-get --yes install libodbcinst1debian2
 
 # note - cmake is cleaned up by setdown.sh
 apt-get --yes remove libboost1.46-dev libboost-program-options-dev \

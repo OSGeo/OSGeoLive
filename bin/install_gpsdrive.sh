@@ -266,7 +266,6 @@ if [ $BUILD_LATEST -eq 1 ] ; then
 
   # any of these too?
   #  libgssrpc4
-  #  libodbcinstq1c2
   #  libpcrecpp0
   #  libpthread-stubs0
   #  libtiffxx0c2

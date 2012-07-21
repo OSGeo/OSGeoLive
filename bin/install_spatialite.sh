@@ -43,7 +43,7 @@ if [ ! -e /etc/apt/sources.list.d/ubuntugis.list ] ; then
    cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 fi
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
-apt-get update
+apt-get -q update
 
 ### setup temp ###
 mkdir -p "$BUILD_TMP"
@@ -62,7 +62,9 @@ apt-get install --assume-yes librasterlite1 rasterlite-bin # spatialite-gui
 
 ##########################
 ### Now get dependencies for compiling GUI apps
-DEV_PKGS="libwxgtk2.8-dev libgeos-dev libgeos++-dev libgeotiff-dev libcairo2-dev libfreexl-dev libspatialite-dev libhpdf-dev librasterlite-dev"
+DEV_PKGS="libwxgtk2.8-dev libgeos-dev libgeos++-dev \
+  libgeotiff-dev libcairo2-dev libfreexl-dev libspatialite-dev \
+  libhpdf-dev librasterlite-dev libproj-dev"
 apt-get --yes install $DEV_PKGS
 
 ### librasterlite is missing pkg-config file
@@ -107,28 +109,36 @@ then
     mkdir -p "$PKG_DATA"
 fi
 
-wget -N --progress=dot:mega "${OSGEO_URL}/${SQLITE_DB}"
-(cd "$PKG_DATA" && tar xzf "${BUILD_TMP}/${SQLITE_DB}")
+wget -N --progress=dot:mega "$OSGEO_URL/$SQLITE_DB"
+(cd "$PKG_DATA" && tar xzf "$BUILD_TMP/$SQLITE_DB")
 
 chgrp -R users $PKG_DATA
 chmod -R g+w $PKG_DATA
 
 #############################
 ### GUI start icons ###
-cp $BUILD_TMP/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop /usr/share/applications/
-cp $BUILD_TMP/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop /usr/local/share/applications/
-cp $BUILD_TMP/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop $USER_HOME/Desktop/
-chown $USER.$USER $USER_HOME/Desktop/spatialite-gui.desktop
-cp $BUILD_TMP/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.png /usr/share/pixmaps/
+cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
+    /usr/share/applications/
+cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
+    /usr/local/share/applications/
+cp $BUILD_TMP/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
+    "$USER_HOME"/Desktop/
+chown "$USER.$USER" "$USER_HOME"/Desktop/spatialite-gui.desktop
+cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.png \
+    /usr/share/pixmaps/
 
-cp $BUILD_TMP/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop /usr/share/applications/
-cp $BUILD_TMP/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop /usr/local/share/applications/
-cp $BUILD_TMP/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop $USER_HOME/Desktop/
-chown $USER.$USER $USER_HOME/Desktop/spatialite-gis.desktop
-cp $BUILD_TMP/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.png /usr/share/pixmaps/
+cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
+    /usr/share/applications/
+cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
+    /usr/local/share/applications/
+cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
+    "$USER_HOME"/Desktop/
+chown "$USER.$USER" "$USER_HOME"/Desktop/spatialite-gis.desktop
+cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.png \
+    /usr/share/pixmaps/
 
 #############################
 ### Clean up
-rm -rf "$BUILD_TMP"
-apt-get --yes purge $DEV_PKGS
+#rm -rf "$BUILD_TMP"
+apt-get --yes remove $DEV_PKGS
 
