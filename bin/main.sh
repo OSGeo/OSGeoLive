@@ -216,12 +216,16 @@ fi
 
 # grep for problems
 echo "==============================================================="
-grep -iwn 'ERROR\|^E:' "$LOG_DIR/$MAIN_LOG_FILE" | grep -v libgpg-error-dev
-grep '^..: cannot stat' "$LOG_DIR/$MAIN_LOG_FILE"
-grep '^cp: cannot create regular file' "$LOG_DIR/$MAIN_LOG_FILE"
-grep "^sed: " "$LOG_DIR/$MAIN_LOG_FILE"
-grep '^ls: cannot access' "$LOG_DIR/$MAIN_LOG_FILE"
-grep -iwn 'FIXME\|failed' "$LOG_DIR/$MAIN_LOG_FILE"
+# make a working copy so we don't get into a recursive loop
+cp "$LOG_DIR/$MAIN_LOG_FILE" "$LOG_DIR/$MAIN_LOG_FILE".copy
+grep -iwn 'ERROR\|^E:' "$LOG_DIR/$MAIN_LOG_FILE".copy | \
+   grep -v 'libgpg-error-dev\|DHAVE_STRERROR\|error.cc:'
+grep '^..: cannot stat' "$LOG_DIR/$MAIN_LOG_FILE".copy
+grep '^cp: cannot create regular file' "$LOG_DIR/$MAIN_LOG_FILE".copy
+grep "^sed: " "$LOG_DIR/$MAIN_LOG_FILE".copy
+grep '^ls: cannot access' "$LOG_DIR/$MAIN_LOG_FILE".copy
+grep -iwn 'FIXME\|failed' "$LOG_DIR/$MAIN_LOG_FILE".copy
+rm -f "$LOG_DIR/$MAIN_LOG_FILE".copy
 
 echo
 echo "==============================================================="
