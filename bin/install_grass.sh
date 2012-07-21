@@ -76,12 +76,6 @@ if [ "$IS_OLD_VERSION" -eq 1 ] ; then
 fi
 
 
-### don't ship the programmers' manual, save 41mb disc space
-rm -rf /usr/share/doc/grass-doc/programming-manual/html/
-echo "see http://grass.osgeo.org/devel/index.php#prog" \
-   > /usr/share/doc/grass-doc/programming-manual/README
-
-
 #### get sample data ####
 
 # put static data in /usr/local ..
