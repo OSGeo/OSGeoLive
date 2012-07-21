@@ -69,8 +69,9 @@ pkg_cleanup()
      flex krb5-multidev latex-xcolor libecpg-dev libjpeg-dev \
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
-     luatex libgssrpc4 libkadm5clnt-mit7 libkadm5srv-mit7 \
-     libkdb5-4 libgdal1-dev libnetcdf-dev
+     luatex libgssrpc4 libkadm5clnt-mit8 libkadm5srv-mit8 \
+     libkdb5-6 libgdal1-dev libnetcdf-dev
+
   # remove jdk
   echo 'FIXME: be careful that no other project on the disc wanted any of these!'
   apt-get --yes remove ca-certificates-java libaccess-bridge-java \
