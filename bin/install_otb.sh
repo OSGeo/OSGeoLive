@@ -30,7 +30,7 @@ USER_HOME="/home/$USER_NAME"
 apt-add-repository --yes ppa:otb/orfeotoolbox-stable
 #apt-add-repository --yes ppa:otb/orfeotoolbox-nightly   
 
-apt-get update
+apt-get -q update
 
 #Install applications, can we eliminate some? otbapp-legacy?
 #otbapp legacy provide standalone application which are demonstrators of some OTB functionnalities

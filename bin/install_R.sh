@@ -48,7 +48,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 # TODO: if key import fails switch to another keyserver
 # pgp.mit.edu keyserver.ubuntu.com
 
-apt-get update
+apt-get -q update
 
 #Plugin interaction with R
 apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev \

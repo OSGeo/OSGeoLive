@@ -43,7 +43,7 @@ fi
 
 
 # Install latest greatest security packages etc.
-apt-get update && apt-get --yes upgrade
+apt-get -q update && apt-get --yes upgrade
 
 
 # Add UbuntuGIS repository
@@ -53,7 +53,7 @@ cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 #qgis repo 68436DDF unused? :
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
-apt-get update
+apt-get -q update
 
 
 # Install some useful stuff

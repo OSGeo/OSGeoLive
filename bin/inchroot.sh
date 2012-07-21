@@ -31,7 +31,7 @@ LANG=
 echo start inchroot.sh, `date`
 
 # update the system and install required packages
-#apt-get update
+#apt-get -q update
 apt-get install --assume-yes casper xresprobe 
 #apt-get ubiquity
 depmod -a $(uname -r)

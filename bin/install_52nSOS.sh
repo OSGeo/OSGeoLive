@@ -96,7 +96,7 @@ fi
 # 2 Check for OpenJDK
 #
 if [ ! -x "`which java`" ] ; then
-	apt-get update
+	apt-get -q update
 	#
 	apt-get --assume-yes install openjdk-7-jre
 fi

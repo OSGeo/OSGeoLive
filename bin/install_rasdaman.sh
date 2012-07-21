@@ -83,7 +83,7 @@ pkg_cleanup()
 
 
 
-#apt-get update
+#apt-get -q update
 
 apt-key update
 

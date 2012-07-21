@@ -55,8 +55,8 @@ chmod ug+rwx,o+rwt "$WORKDIR"/dummysys/tmp
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/remastersys.list \
      --output-document=/etc/apt/sources.list.d/remastersys.list
 
-# apt-get update
-apt-get update
+# apt-get -q update
+apt-get -q update
 
 #Yes there is a key now
 wget -O - http://www.remastersys.com/ubuntu/remastersys.gpg.key | apt-key add -

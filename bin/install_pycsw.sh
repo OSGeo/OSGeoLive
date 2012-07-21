@@ -44,7 +44,7 @@ apt-get install --yes apache2 python-lxml python-sqlalchemy \
 echo 'Installing pycsw ...'
 
 add-apt-repository --yes ppa:gcpp-kalxas/ppa-tzotsos
-apt-get update
+apt-get -q update
 apt-get install --yes pycsw
 
 

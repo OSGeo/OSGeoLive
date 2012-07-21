@@ -31,7 +31,7 @@ cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 #Add signed key for repositorys LTS and non-LTS
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 
-apt-get update
+apt-get -q update
 
 #Install packages
 apt-get --assume-yes install tinyows

@@ -90,7 +90,7 @@ fi
 # 2 Java Sun JDK 6 is required:
 #
 if [ ! -x "`which java`" ] ; then
-	apt-get update
+	apt-get -q update
 	#
 	apt-get --assume-yes remove openjdk-6-jre
 	apt-get --assume-yes install java-common sun-java6-bin sun-java6-jre sun-java6-jdk

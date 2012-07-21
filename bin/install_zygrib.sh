@@ -31,7 +31,7 @@ USER_HOME="/home/$USER_NAME"
 #echo "deb http://doc.hausser.ch/debpackages ubuntu-dha oneiric" \
 #   > /etc/apt/sources.list.d/zygrib.list
 #
-#apt-get update
+#apt-get -q update
 
 apt-get --assume-yes install zygrib
 

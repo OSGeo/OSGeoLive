@@ -25,7 +25,7 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugi
 
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 
-sudo apt-get update
+sudo apt-get -q update
 
 #temp solution
 apt-get install --assume-yes ossim-core

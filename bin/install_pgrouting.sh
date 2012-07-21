@@ -55,7 +55,7 @@ POSTGIS_FOLDER="/usr/share/postgresql/$POSTGRES_VERSION/contrib/postgis-1.5/"
 
 # Add pgRouting launchpad repository
 add-apt-repository --yes ppa:georepublic/pgrouting
-apt-get update
+apt-get -q update
 
 # Install pgRouting packages
 apt-get --assume-yes install gaul-devel \

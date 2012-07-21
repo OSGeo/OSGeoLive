@@ -41,7 +41,7 @@ fi
 
 
 #Install packages
-apt-get update
+apt-get -q update
 apt-get --assume-yes install gcc libgdal1-1.7.0 libgdal1-dev python-gdal \
     libxml2 python-libxml2 sqlite libsqlite3-dev python-lxml python-pip \
     cgi-mapserver python-mapscript python2.7 python2.7-dev \

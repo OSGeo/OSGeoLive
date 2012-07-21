@@ -21,7 +21,7 @@ USER_HOME="/home/$USER_NAME"
 # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 apt-add-repository --yes ppa:johanvdw/saga-gis
 
-apt-get update
+apt-get -q update
 apt-get --assume-yes install saga libsaga
 
 # Additional documentation

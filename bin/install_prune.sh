@@ -34,7 +34,7 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugi
 
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 
-apt-get update
+apt-get -q update
 apt-get install --assume-yes gpsprune
 
 if [ $? -ne 0 ] ; then

@@ -31,7 +31,7 @@ wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugi
 #Add signed key for repositorys LTS and non-LTS  (not needed?)
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
-apt-get update
+apt-get -q update
 
 
 # Install dependencies

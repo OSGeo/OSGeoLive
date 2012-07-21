@@ -61,7 +61,7 @@ GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"
 mkdir -p "$TMP_DIR"
 
 # Update from repos
-apt-get update
+apt-get -q update
 # Install dependencies and support tools
 # Installed already by setup.sh
 # wget make g++ bzip2
@@ -95,7 +95,7 @@ echo "FIXME: (sahana)  chris-lea PPA for Ubuntu 12.04 doesn't exist yet."
 ##deb-src http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu precise main" \
 ##   > /etc/apt/sources.list.d/python-tweepy.list
 ##apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C7917B12
-##apt-get update
+##apt-get -q update
 ##apt-get install --yes python-tweepy
 
 
@@ -104,7 +104,7 @@ echo "FIXME: (sahana)  chris-lea PPA for Ubuntu 12.04 doesn't exist yet."
 #wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
 #     --output-document=/etc/apt/sources.list.d/ubuntugis.list
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
-#apt-get update
+#apt-get -q update
 #apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis
 
 # Add DB User
