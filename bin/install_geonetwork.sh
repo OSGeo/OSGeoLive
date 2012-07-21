@@ -174,14 +174,16 @@ cd /usr/lib/geonetwork/web
 mkdir geoserver
 mv geoserver.war geoserver/.
 cd geoserver/
-unzip geoserver.war
+
+unzip -q geoserver.war
 cd WEB-INF/lib
 rm geowebcache-1.2.2.jar
 rm gwc-2.0.2.jar
 rm web-gwc-2.0.2.jar
 cd ../../
 rm geoserver.war
-zip -r geoserver.war *
+
+zip -q -r geoserver.war *
 mv geoserver.war ../.
 cd ..
 rm -fr geoserver
