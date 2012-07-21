@@ -37,6 +37,8 @@ UDIG_FOLDER="$INSTALL_FOLDER/udig"
 DOCS_FOLDER="/usr/local/share/udig"
 DATA_GLOBAL="/usr/local/share/data"
 
+JAVA_INSTALL_FOLDER=/usr/lib/jvm/java-7-openjdk-i386/jre
+
 BIN="/usr/bin"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -130,6 +132,14 @@ fi
 cp uDig.desktop "$USER_HOME/Desktop"
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/uDig.desktop"
 
+
+# clean up bundled jre and add jai libs to  openJDK 7 
+# see ticket http://trac.osgeo.org/osgeo/ticket/922
+# copy jai libs into openjdk lib/ext folder
+cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $JAVA_INSTALL_FOLDER/lib/ext/
+
+#delete jre folder from udig install folder
+rm -rf $UDIG_FOLDER/jre
 
 ## Documentation ##
 
