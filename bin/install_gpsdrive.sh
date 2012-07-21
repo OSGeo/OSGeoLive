@@ -158,6 +158,10 @@ sed -i -e 's|\[place_name\]</TextSymbolizer>|[NAME]</TextSymbolizer>|' \
        -e 's|<MinScaleDenominator>10000000</|<MinScaleDenominator>1000000</|' \
   "$USER_HOME/.gpsdrive/osm.xml"
 
+# use (new) official debian pkg home of map icons
+sed -i -e 's/map-icons/openstreetmap/' \
+       -e 's|classic.small/rendering/landuse/forest.png|classic.big/rendering/landuse/forest.png|' \
+  "$USER_HOME/.gpsdrive/osm.xml"
 
 
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/.gpsdrive"
