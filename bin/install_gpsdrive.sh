@@ -155,6 +155,7 @@ sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">o
 # avoid shapefile column city name mismatch & tweak its map scale render rule:
 sed -i -e 's|\[place_name\]</TextSymbolizer>|[NAME]</TextSymbolizer>|' \
        -e 's|<MaxScaleDenominator>10000000</|<MaxScaleDenominator>500000</|' \
+       -e 's|<MinScaleDenominator>10000000</|<MinScaleDenominator>1000000</|' \
   "$USER_HOME/.gpsdrive/osm.xml"
 
 
