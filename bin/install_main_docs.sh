@@ -110,9 +110,9 @@ if [ `grep -c 'localhost' /etc/firefox/pref/syspref.js` -eq 0 ] ; then
 fi
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
-\cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
-#wget -nv  -O /usr/local/share/icons/arramagong-wombat-small.png \
-#  "http://svn.osgeo.org/osgeo/livedvd/artwork/backgrounds/arramagong/arramagong-wombat-small.png"
+mkdir -p /usr/local/share/icons
+cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
+
 
 #What logo to use for launching the help?
 # HB: IMO wombat roadsign is good- it says "look here" and is friendly
