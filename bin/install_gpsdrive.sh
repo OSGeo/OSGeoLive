@@ -87,8 +87,8 @@ mkdir "$USER_HOME/.gpsdrive"
 
 # program defaults
 cat << EOF > "$USER_HOME/.gpsdrive/gpsdriverc"
-lastlong = 116.405
-lastlat = 39.98
+lastlong = -1.1757
+lastlat = 52.9506
 scalewanted = 50000
 dashboard_3 = 12
 autobestmap = 0
