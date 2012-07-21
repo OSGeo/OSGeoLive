@@ -86,7 +86,7 @@ if [ "$1" != "mini" ] ; then
 fi
 
 # Copy documentation
-cp -pr "$DOCS_SRC" "${TMP}/osgeolive-docs"
+cp -pr "$DOCS_SRC" "$TMP/osgeolive-docs"
 
 
 ############################################
@@ -175,7 +175,7 @@ updatedb
 
 
 #Copy the home dir to /etc/skel
-#cp -RnpP ${USER_HOME}/* /etc/skel/
+#cp -RnpP "$USER_HOME"/* /etc/skel/
 #chown -RP root:root /etc/skel/
 
 #TMP fix for bug in 2.0.18-1
@@ -192,13 +192,14 @@ chown -hR root:root /etc/skel
 if [ "$1" = "mini" ] ; then
 	# quick name check
 	ISO_NAME="${PACKAGE_NAME}-mini-${VERSION}"
-	echo "Now creating ${ISO_NAME}.iso"
-	#remastersys backup ${ISO_NAME}.iso
-	remastersys dist ${ISO_NAME}.iso
+	echo "Now creating $ISO_NAME.iso"
+	#remastersys backup "$ISO_NAME.iso"
+	remastersys dist "$ISO_NAME.iso"
 
 else
 	# quick name check
 	echo "Now creating $ISO_NAME.iso"
-	#remastersys backup ${ISO_NAME}.iso
+	#remastersys backup "$ISO_NAME.iso"
 	remastersys dist "$ISO_NAME.iso"
 fi
+
