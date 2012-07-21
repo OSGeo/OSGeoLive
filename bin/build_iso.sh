@@ -37,6 +37,8 @@ TMP="$WORKDIR/ISOTMP"
 LOGS="/var/log/osgeolive/remastersys.conf"
 DOCS_SRC="/var/www"
 
+#Remove doc folder to save space
+rm -rf /usr/local/share/gisvm/doc
 
 # Install remastersys.sh add directories it expects
 mkdir -p $TMP
