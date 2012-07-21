@@ -99,7 +99,7 @@ friendsname = LiveDVD
 showbutton_trackrestart = 0
 showbutton_trackclear = 0
 icon_theme = classic.small
-osmdbfile = /usr/local/share/data/osm/${CITY}_poi.db
+osmdbfile = /usr/local/share/osm/${CITY}_poi.db
 mapnik_postgis_dbname = osm_local_smerc
 EOF
 
