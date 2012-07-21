@@ -99,7 +99,7 @@ Categories=Education;Science;Geoscience;
 EOF
 
 chmod a+x /usr/share/applications/gosmore.desktop
-#cp /usr/share/applications/gosmore.desktop "$USER_HOME/Desktop/"
+cp /usr/share/applications/gosmore.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
 
 
