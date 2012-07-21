@@ -262,7 +262,7 @@ if [ $BUILD_LATEST -eq 1 ] ; then
 
   # explicitly install these so they aren't removed in a later autoclean
   apt-get --assume-yes install  libgeos-3.2.2 libxml-simple-perl \
-    libboost-serialization1.46.0 libboost-date-time1.46.0
+    libboost-serialization1.46.1 libboost-date-time1.46.1
 
   # any of these too?
   #  libgssrpc4

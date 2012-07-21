@@ -156,8 +156,8 @@ cp LICENSE.txt NEWS README.txt "$LIBLAS_FOLDER/"
 ##------------------------------------------------------------
 ## cleanup dev packages
 ##   make sure these stay installed
-apt-get --yes install libboost-date-time1.46.0 \
-   libboost-program-options1.46.0 libboost-serialization1.46.0
+apt-get --yes install libboost-date-time1.46.1 \
+   libboost-program-options1.46.1 libboost-serialization1.46.1
 ##how about this one??
 apt-get --yes install libodbcinstq1c2
 
