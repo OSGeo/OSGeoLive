@@ -120,10 +120,6 @@ apt-get remove --yes indicator-messages
 # but does it want to take the rest of the xubuntu desktop with it?
 apt-get remove --yes blueman
 
-
-# Perhaps this is the original version before updates?
-apt-get --assume-yes remove linux-image-2.6.38-8-generic
-
 # this will clear out 96mb (uncompressed), but users who want the
 # nvidia proprietary driver will need to reinstall it. ah well.
 #Version must be kept up to date (removes 3 packages)
