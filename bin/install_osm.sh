@@ -40,11 +40,14 @@ mkdir /usr/local/share/osm
 apt-get install --assume-yes josm josm-plugins gpsd gpsd-clients \
    merkaartor xmlstarlet
 
-#broken in ubuntu 12.04 (gets stuck in a loop)
+# Gosmore is broken in ubuntu 12.04 (gets stuck in a loop)
 # see  http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=652084
 #apt-get install --assume-yes gosmore
-# HB: I'll rebuild the deb without optimizations. stand by..
-
+# rebuilt the deb without optimizations:
+DEBFILE="gosmore_0.0.0.20100711+noopt-2ubuntu1_i386.deb"
+wget --progress=dot:mega -c \
+  "http://download.osgeo.org/livedvd/data/osm/$DEBFILE"
+gdebi --non-interactive --quiet "$DEBFILE"
 
 ### install osmosis as well.
 apt-get install --assume-yes osmosis
