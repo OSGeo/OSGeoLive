@@ -87,9 +87,9 @@ mkdir "$USER_HOME/.gpsdrive"
 
 # program defaults
 cat << EOF > "$USER_HOME/.gpsdrive/gpsdriverc"
-lastlong = -1.1757
-lastlat = 52.9506
-scalewanted = 50000
+lastlong = -1.1884
+lastlat = 52.9512
+scalewanted = 10000
 dashboard_3 = 12
 autobestmap = 0
 mapnik = 1
@@ -111,7 +111,7 @@ Barcelona_Convention_Centre      41.3724     2.1518
 FOSS4G_2011_(Sheraton_Denver)    39.74251 -104.9891
 OSM_State_of_the_Map_2011        39.7457  -105.0034
 Business_School_South_(Jubilee)  52.9517  -1.1864
-East_Midlands_Conference_Centre  52.9387  -1.2034
+East_Midlands_Conference_Centre  52.9390  -1.2032
 EOF
 
 
