@@ -137,16 +137,21 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/uDig.desktop"
 # clean up bundled jre and add jai libs to  openJDK 7 
 # see ticket http://trac.osgeo.org/osgeo/ticket/922
 # copy jai libs into openjdk lib/ext folder
-mkdir -p "$UDIG_FOLDER/jai"
+mkdir -p "$UDIG_FOLDER/jai/lib/ext"
+mkdir -p "$UDIG_FOLDER/jai/lib/i386"
 #FIXME: load jai from this folder only for udig
-cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $UDIG_FOLDER/jai/
-cp $UDIG_FOLDER/jre/lib/ext/*jai.jar $UDIG_FOLDER/jai/
-cp $UDIG_FOLDER/jre/lib/ext/*jiio.jar $UDIG_FOLDER/jai/
+cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $UDIG_FOLDER/jai/lib/ext/
+cp $UDIG_FOLDER/jre/lib/ext/*jai.jar $UDIG_FOLDER/jai/lib/ext/
+cp $UDIG_FOLDER/jre/lib/ext/*jiio.jar $UDIG_FOLDER/jai/lib/ext/
+cp $UDIG_FOLDER/jre/lib/i386/*_jai.so $UDIG_FOLDER/jai/lib/i386/
+cp $UDIG_FOLDER/jre/lib/i386/*_jiio.so $UDIG_FOLDER/jai/lib/i386/
  
 # this breaks other java apps like Geomajas, perhaps more :(
 #cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $JAVA_INSTALL_FOLDER/lib/ext/
 #cp $UDIG_FOLDER/jre/lib/ext/*jai.jar $JAVA_INSTALL_FOLDER/lib/ext/
 #cp $UDIG_FOLDER/jre/lib/ext/*jiio.jar $JAVA_INSTALL_FOLDER/lib/ext/
+#cp $UDIG_FOLDER/jre/lib/i386/*_jai.so $JAVA_INSTALL_FOLDER/lib/i386/
+#cp $UDIG_FOLDER/jre/lib/i386/*_jiio.so $JAVA_INSTALL_FOLDER/lib/i386/
 
 #delete jre folder from udig install folder
 rm -rf $UDIG_FOLDER/jre
