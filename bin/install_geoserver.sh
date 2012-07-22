@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -11,29 +11,32 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
+#
 # About:
 # =====
 # This script will install GeoServer in xubuntu
-
+#
 # Running:
 # =======
 # sudo ./install_geoserver.sh
-
-# Requires: Sun Java 6 compatible runtime
+#
+# Requires: Sun Java {6|7} compatible runtime
 #
 
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/local/lib"
-BIN=/usr/local/bin
+BIN="/usr/local/bin"
 GS_VERSION="2.1.3"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
+DOC_DIR="$GS_HOME/doc"
+
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-DOC_DIR="$USER_HOME/gisvm/app-data/geoserver/doc"
+
 
 ### Setup things... ###
  
@@ -52,34 +55,34 @@ fi
 mkdir -p "$TMP"
 cd "$TMP"
 
+
 ### Download and unpack GeoServer ###
 
 ## get GeoServer
 echo "Getting GeoServer"
-if [ -f "geoserver-$GS_VERSION-bin.zip" ]
-then
-   echo "geoserver-$GS_VERSION-bin.zip has already been downloaded."
-else
-   wget -c --progress=dot:mega \
+wget -c --progress=dot:mega \
    -O geoserver-$GS_VERSION-bin.zip \
    "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-bin.zip/download"
-fi
+
 ## unpack it to /usr/lib overwriting eventual existing copy
 echo "Unpacking GeoServer in $GS_HOME"
-unzip -o -q geoserver-$GS_VERSION-bin.zip -d $INSTALL_FOLDER
+unzip -o -q "geoserver-$GS_VERSION-bin.zip" -d "$INSTALL_FOLDER"
+
 
 ### Configure Application ###
 
 ## We need to make sure the scripts use the proper JDK version ##
 echo "Configuring GeoServer script"
-sed -i "1 i # Define Java home\nJAVA_HOME=/usr/lib/jvm/default-java;export JAVA_HOME\n# Force proper GeoServer home\nGEOSERVER_HOME=$GS_HOME;export GEOSERVER_HOME\n" $GS_HOME/bin/startup.sh
-sed -i "1 i # Define Java home\nJAVA_HOME=/usr/lib/jvm/default-java; export JAVA_HOME \n# Force proper GeoServer home\nGEOSERVER_HOME=$GS_HOME;export GEOSERVER_HOME\n" $GS_HOME/bin/shutdown.sh
+sed -i "1 i # Define Java home\nJAVA_HOME=/usr/lib/jvm/default-java; export JAVA_HOME\n# Force proper GeoServer home\nGEOSERVER_HOME=$GS_HOME; export GEOSERVER_HOME\n" \
+   "$GS_HOME/bin/startup.sh"
+sed -i "1 i # Define Java home\nJAVA_HOME=/usr/lib/jvm/default-java; export JAVA_HOME\n# Force proper GeoServer home\nGEOSERVER_HOME=$GS_HOME; export GEOSERVER_HOME\n" \
+   "$GS_HOME/bin/shutdown.sh"
 
 ## Make Jetty run on a different port
-sed -i s/8080/$GS_PORT/g $GS_HOME/etc/jetty.xml
+sed -i -e "s/8080/$GS_PORT/g" "$GS_HOME"/etc/jetty.xml
 
 ## Add a script that will launch the browser after starting GS
-cat << EOF > $GS_HOME/bin/start_admin.sh
+cat << EOF > "$GS_HOME/bin/start_admin.sh"
 #!/bin/sh
 
 $GS_HOME/bin/startup.sh &
@@ -99,7 +102,7 @@ firefox "http://localhost:$GS_PORT/geoserver/web/"
 EOF
 
 ## Add a script that will stop GS and notify the user graphically
-cat << EOF > $GS_HOME/bin/stop_notify.sh
+cat << EOF > "$GS_HOME/bin/stop_notify.sh"
 $GS_HOME/bin/shutdown.sh
 zenity --info --text "GeoServer stopped"
 EOF
@@ -116,41 +119,35 @@ chmod -R a+w "$GS_HOME/logs"
 
 ## link from bin directory
 if [ ! -e "$BIN/geoserver_start.sh" ] ; then
-  ln -s $GS_HOME/bin/startup.sh $BIN/geoserver_start.sh
+  ln -s "$GS_HOME/bin/startup.sh" "$BIN/geoserver_start.sh"
 fi
 if [ ! -e "$BIN/geoserver_start_admin.sh" ] ; then
-  ln -s $GS_HOME/bin/start_admin.sh $BIN/geoserver_start_admin.sh
+  ln -s "$GS_HOME/bin/start_admin.sh" "$BIN/geoserver_start_admin.sh"
 fi
 if [ ! -e "$BIN/geoserver_stop.sh" ] ; then
-  ln -s $GS_HOME/bin/shutdown.sh $BIN/geoserver_stop.sh
+  ln -s "$GS_HOME/bin/shutdown.sh" "$BIN/geoserver_stop.sh"
 fi
 if [ ! -e "$BIN/geoserver_stop_notify.sh" ] ; then
-  ln -s $GS_HOME/bin/stop_notify.sh $BIN/geoserver_stop_notify.sh
+  ln -s "$GS_HOME/bin/stop_notify.sh" "$BIN/geoserver_stop_notify.sh"
 fi
 
 ### download the documentation
 
-mkdir -p $DOC_DIR
+mkdir -p "$DOC_DIR"
 echo "Getting GeoServer documentation"
-if [ -f "geoserver-$GS_VERSION-htmldoc.zip" ]
-then
-   echo "geoserver-$GS_VERSION-htmldoc.zip has already been downloaded"
-else
-  wget --progress=dot:mega \
-  -O geoserver-$GS_VERSION-htmldoc.zip \
+wget --progress=dot:mega \
+  -O "geoserver-$GS_VERSION-htmldoc.zip" \
   "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-htmldoc.zip/download"
-fi
+
 ## unpack it
 echo "Installing GeoServer documentation"
-unzip -o -q geoserver-$GS_VERSION-htmldoc.zip -d $DOC_DIR
+unzip -o -q "geoserver-$GS_VERSION-htmldoc.zip" -d "$DOC_DIR"
 
 
 ### install desktop icons ##
 echo "Installing GeoServer icons"
-if [ ! -e "/usr/share/icons/geoserver_48x48.logo.png" ] ; then
-   cp "$USER_HOME/gisvm/app-conf/geoserver/geoserver_48x48.logo.png" \
+cp -f "$USER_HOME/gisvm/app-conf/geoserver/geoserver_48x48.logo.png" \
        /usr/share/icons/
-fi
 
 ## start icon
 cat << EOF > /usr/share/applications/geoserver-start.desktop
@@ -158,7 +155,7 @@ cat << EOF > /usr/share/applications/geoserver-start.desktop
 Type=Application
 Encoding=UTF-8
 Name=Start GeoServer
-Comment=GeoServer ${GS_VERSION}
+Comment=GeoServer $GS_VERSION
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/geoserver_start_admin.sh
 Icon=/usr/share/icons/geoserver_48x48.logo.png
@@ -174,7 +171,7 @@ cat << EOF > /usr/share/applications/geoserver-stop.desktop
 Type=Application
 Encoding=UTF-8
 Name=Stop GeoServer
-Comment=GeoServer ${GS_VERSION}
+Comment=GeoServer $GS_VERSION
 Categories=Application;Geography;Geoscience;Education;
 Exec=$BIN/geoserver_stop_notify.sh
 Icon=/usr/share/icons/geoserver_48x48.logo.png
@@ -190,7 +187,7 @@ cat << EOF > /usr/share/applications/geoserver-admin.desktop
 Type=Application
 Encoding=UTF-8
 Name=Admin GeoServer
-Comment=GeoServer ${GS_VERSION}
+Comment=GeoServer $GS_VERSION
 Categories=Application;Geography;Geoscience;Education;
 Exec=firefox "http://localhost:$GS_PORT/geoserver/"
 Icon=/usr/share/icons/geoserver_48x48.logo.png
@@ -221,7 +218,7 @@ cat << EOF > /usr/share/applications/geoserver-docs.desktop
 Type=Application
 Encoding=UTF-8
 Name=GeoServer documentation
-Comment=GeoServer ${GS_VERSION} Documentation
+Comment=GeoServer $GS_VERSION Documentation
 Categories=Application;Geography;Geoscience;Education;
 Exec=firefox "$DOC_DIR/user/index.html"
 Icon=/usr/share/icons/geoserver_48x48.logo.png
