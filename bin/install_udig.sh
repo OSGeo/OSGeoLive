@@ -137,7 +137,12 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/uDig.desktop"
 # clean up bundled jre and add jai libs to  openJDK 7 
 # see ticket http://trac.osgeo.org/osgeo/ticket/922
 # copy jai libs into openjdk lib/ext folder
-cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $JAVA_INSTALL_FOLDER/lib/ext/
+mkdir -p "$UDIG_FOLDER/jai"
+#FIXME: load jai from this folder only for udig
+cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $UDIG_FOLDER/jai
+ 
+# this breaks other java apps like Geomajas, perhaps more :(
+#cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $JAVA_INSTALL_FOLDER/lib/ext/
 
 #delete jre folder from udig install folder
 rm -rf $UDIG_FOLDER/jre
