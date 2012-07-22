@@ -163,10 +163,6 @@ ln -s /usr/local/share/ossim .
 # Data
 ln -s /usr/local/share/data .
 
-# Create symbolic links to project specific data
-mkdir -p "$DATA_FOLDER"
-ln -s "$DATA_FOLDER" .
-
 
 cd "$BIN_DIR"
 
@@ -239,9 +235,11 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 
 # Download the Ubuntu users' manual PDF (CC By SA 3.0)
 mkdir -p /usr/local/share/doc
-wget -N --progress=dot:mega \
+
+wget -c --progress=dot:mega \
   "http://ubuntu-manual.org/download/12.04/en_US/screen" \
   -O "/usr/local/share/doc/Getting_Started_with_Ubuntu_12.04.pdf"
+
 ln -s /usr/local/share/doc/Getting_Started_with_Ubuntu_12.04.pdf \
   "$USER_HOME/Desktop/Getting Started with Ubuntu.pdf"
 
