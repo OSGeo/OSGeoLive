@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
 # Copyright (c) 2009 LISAsoft
 # Copyright (c) 2009 Cameron Shorter
 # Licensed under the GNU LGPL.
@@ -35,22 +35,43 @@ BIN_DIR=`pwd`
 apt-get --assume-yes install python-sphinx
 
 # Use sphynx to build the OSGeo-Live documentation
-cd ${BIN_DIR}/../doc
+cd "$BIN_DIR"/../doc
 make clean
 make html
 
 # Create target directory if it doesn't exist
-mkdir -p ${DEST}
+mkdir -p "$DEST"
 
 # Remove then replace target documentation, leaving other files
-cd ${BIN_DIR}/../doc/_build/html
+cd "$BIN_DIR"/../doc/_build/html
 for FILE in `ls` ; do
-  rm -fr ${DEST}/${FILE}
+  rm -fr "$DEST/$FILE"
 done
-mv * ${DEST}
+mv * "$DEST"
+
+# post-install cleanup build dir
+make clean
+
+# work around sphinx bug #704: clear out duplicate images
+#  (osgeo trac #952)
+cd "$DEST/_images/"
+for ext in png jpg gif ; do
+   for file in *.$ext ; do
+      NONUM=`echo "$file" | sed -e "s/[0-9]\+\.$ext//"`
+      if [ -e "$NONUM.$ext" ] ; then
+	 #echo "[$file]"
+	 rm -f "$file"
+	 ln -s "$NONUM.$ext" "$file"
+	 # avoid the need for symlinks
+	 #HITS=`grep -r "../../_images/$file.$ext" ../[a-z][a-z]/*`
+	 #sed -i -e "s|../../_images/$file.$ext|../../_images/$NONUM.$ext|" $HITS
+      fi
+   done
+done
+
 
 # Create symbolic links to project specific documentation
-cd ${DEST}
+cd "$DEST"
 # PDF
 ln -s /usr/local/share/udig/udig-docs .
 if [ -d /usr/local/mbsystem ] ; then
@@ -74,10 +95,11 @@ ln -s /usr/local/share/ossim .
 ln -s /usr/local/share/data .
 
 # Create symbolic links to project specific data
-mkdir -p ${DATA_FOLDER}
-ln -s ${DATA_FOLDER} .
+mkdir -p "$DATA_FOLDER"
+ln -s "$DATA_FOLDER" .
 
-cd ${BIN_DIR}
+
+cd "$BIN_DIR"
 
 echo "install_main_docs.sh: Double-check that the Firefox \
 home page is now set to file://$DEST/index.html"
