@@ -195,9 +195,9 @@ if [ -e /etc/xul-ext/ubufox.js  ] ; then
 fi     
 
 # how about this one?
-if [ `grep -c 'localhost' /etc/firefox/pref/syspref.js` -eq 0 ] ; then
+if [ `grep -c 'localhost' /etc/firefox/syspref.js` -eq 0 ] ; then
    echo 'pref("browser.startup.homepage", "http://localhost";' \
-      >> /etc/firefox/pref/syspref.js
+      >> /etc/firefox/syspref.js
 fi
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
