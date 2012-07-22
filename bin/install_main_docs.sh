@@ -54,21 +54,38 @@ make clean
 
 # work around sphinx bug #704: clear out duplicate images
 #  (osgeo trac #952)
-cd "$DEST/_images/"
-for ext in png jpg gif ; do
-   for file in *.$ext ; do
-      NONUM=`echo "$file" | sed -e "s/[0-9]\+\.$ext//"`
-      if [ -e "$NONUM.$ext" ] ; then
-	 #echo "[$file]"
-	 rm -f "$file"
-	 ln -s "$NONUM.$ext" "$file"
-	 # avoid the need for symlinks
-	 #HITS=`grep -r "../../_images/$file.$ext" ../[a-z][a-z]/*`
-	 #sed -i -e "s|../../_images/$file.$ext|../../_images/$NONUM.$ext|" $HITS
-      fi
-   done
-done
+replace_w_symlink()
+{
+   # only act if files are identical
+   diff "$NONUM.$ext" "$file" > /dev/null
+   if [ $? -eq 0 ] ; then
+      #echo "[$file]"
+      rm -f "$file"
+      ln -s "$NONUM.$ext" "$file"
+      # avoid the need for symlinks
+      #HITS=`grep -r "../../_images/$file.$ext" ../[a-z][a-z]/*`
+      #sed -i -e "s|../../_images/$file.$ext|../../_images/$NONUM.$ext|" $HITS
+   fi
+}
 
+
+SPHX_VER=`dpkg -l python-sphinx | grep sphinx | awk '{print $3}' | cut -f1 -d'+'`
+if [ "$SPHX_VER" = "1.1.3" ] ; then
+   cd "$DEST/_images/"
+   for ext in png jpg gif ; do
+      for file in *.$ext ; do
+	 NONUM=`echo "$file" | sed -e "s/[0-9]\+\.$ext//"`
+	 if [ -f "$NONUM.$ext" ] ; then
+	    replace_w_symlink
+	 elif [ -f "$NONUM"[0-9]."$ext" ] ; then
+	    # try with a number after it
+	    NONUM=`echo "$file" | sed -e "s/[0-9][0-9]\.$ext//"`
+	    replace_w_symlink
+	 fi
+	 # ... still more
+      done
+   done
+fi
 
 # Create symbolic links to project specific documentation
 cd "$DEST"
