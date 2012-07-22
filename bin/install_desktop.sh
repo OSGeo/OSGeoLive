@@ -450,20 +450,23 @@ chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/" -R
 chmod a+r "$USER_HOME/Desktop/" -R
 
 
-#### FOSS the Software Center
-cd /usr/share/software-center/
-patch -p0 -N -r - --quiet < "$BUILD_DIR/../desktop-conf/FOSScenter.patch"
-PYCs=`grep ORIG FOSScenter.patch | sed -e 's/\.ORIG.*//' -e 's/.[^\.]*//' -e 's/$/c/'`
-rm -f $PYCs
-#fixme:  pycompile -p ... ?? (running software-center as root will rebuild them)
-rm -rf "$USER/.cache/software-center/"
-
+if [ 'softly' = 'yes' ] ; then
+   # FOSS the Software Center
+   cd /usr/share/software-center/
+   patch -p0 -N -r - --quiet < "$BUILD_DIR/../desktop-conf/FOSScenter.patch"
+   PYCs=`grep ORIG FOSScenter.patch | sed -e 's/\.ORIG.*//' -e 's/.[^\.]*//' -e 's/$/c/'`
+   rm -f $PYCs
+   #fixme:  pycompile -p ... ?? (running software-center as root will rebuild them)
+   rm -rf "$USER/.cache/software-center/"
+else
+   # remove the bastard and free up 65-105mb
+   apt-get purge --assume-yes software-center apt-xapian-index
+   rm -rf /var/cache/apt-xapian-index
+fi
 
 #### replace the Software Center on the Apps menu with the more useful Synaptic
 # .. TODO   (right click the Apps menu, properties, edit, add synaptic-pkexec, 
 #       name it package manager to keep the width narrow; then create a patch)
-#  Maybe leave the lower app bar as software-center so users can still get to
-#       it if they want to.
 
 
 #### the default xUbuntu 12.04 theme has 1px wide window borders which
