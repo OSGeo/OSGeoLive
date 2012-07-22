@@ -67,8 +67,10 @@ if [ -f "$NONUM.$ext" ] ; then
       rm -f "$file"
       ln -s "$NONUM.$ext" "$file"
       # avoid the need for symlinks
-      #HITS=`grep -r "../../_images/$file.$ext" ../[a-z][a-z]/*`
-      #sed -i -e "s|../../_images/$file.$ext|../../_images/$NONUM.$ext|" $HITS
+      #HITS=`grep -rl "../../_images/$file.$ext" ../[a-z][a-z]/*`
+      #if [ -n "$HITS" ] ; then
+      #   sed -i -e "s|../../_images/$file.$ext|../../_images/$NONUM.$ext|" $HITS
+      #fi
    fi
 fi
 }
