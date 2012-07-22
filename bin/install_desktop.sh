@@ -460,7 +460,8 @@ if [ 'softly' = 'yes' ] ; then
    rm -rf "$USER/.cache/software-center/"
 else
    # remove the bastard and free up 65-105mb
-   apt-get purge --assume-yes software-center apt-xapian-index
+   apt-get purge --assume-yes software-center software-center-aptdaemon-plugins \
+       apt-xapian-index
    rm -rf /var/cache/apt-xapian-index
 fi
 
