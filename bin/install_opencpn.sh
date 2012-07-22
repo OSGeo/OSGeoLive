@@ -85,7 +85,7 @@ done
 
 wget -nv -O tips.html \
   "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/doc/tips.html"
-cp tips.html /usr/local/share/opencpn/doc/
+cp tips.html /usr/share/doc/opencpn-doc/doc/
 
 
 #### download sample data
