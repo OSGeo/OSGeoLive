@@ -50,9 +50,11 @@ done
 mv * "$DEST"
 
 # post-install cleanup build dir
+cd "$BIN_DIR"/../doc
 make clean
 
-# work around sphinx bug #704: clear out duplicate images
+
+#### work around sphinx bug #704: clear out duplicate images
 #  (osgeo trac #952)
 replace_w_symlink()
 {
@@ -71,10 +73,9 @@ if [ -f "$NONUM.$ext" ] ; then
 fi
 }
 
-
+cd "$DEST/_images/"
 SPHX_VER=`dpkg -l python-sphinx | grep sphinx | awk '{print $3}' | cut -f1 -d'+'`
 if [ "$SPHX_VER" = "1.1.3" ] ; then
-   cd "$DEST/_images/"
    for ext in png jpg gif ; do
       for file in *.$ext ; do
 	 if [ -h "$file" ] ; then
