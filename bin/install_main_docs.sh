@@ -56,16 +56,19 @@ make clean
 #  (osgeo trac #952)
 replace_w_symlink()
 {
+# only act if base is a regular file
+if [ -f "$NONUM.$ext" ] ; then
    # only act if files are identical
    diff "$NONUM.$ext" "$file" > /dev/null
    if [ $? -eq 0 ] ; then
-      #echo "[$file]"
+      #echo "[$file] -> [$NONUM.$ext]"
       rm -f "$file"
       ln -s "$NONUM.$ext" "$file"
       # avoid the need for symlinks
       #HITS=`grep -r "../../_images/$file.$ext" ../[a-z][a-z]/*`
       #sed -i -e "s|../../_images/$file.$ext|../../_images/$NONUM.$ext|" $HITS
    fi
+fi
 }
 
 
@@ -74,6 +77,11 @@ if [ "$SPHX_VER" = "1.1.3" ] ; then
    cd "$DEST/_images/"
    for ext in png jpg gif ; do
       for file in *.$ext ; do
+	 if [ -h "$file" ] ; then
+	    # already a symlink
+	    continue
+	 fi
+
 	 NONUM=`echo "$file" | sed -e "s/[0-9]\+\.$ext//"`
 
 	 if [ -h "$NONUM.$ext" ] ; then
@@ -87,9 +95,39 @@ if [ "$SPHX_VER" = "1.1.3" ] ; then
 	 fi
 
 	   # try with a number after it
-	 if [ `ls "$NONUM"[0-9]."$ext" | wc -l` -gt 0 ] ; then
+	 if [ `ls "$NONUM"[0-9]."$ext" 2> /dev/null | wc -l` -gt 0 ] ; then
+	    NONUM=`echo "$file" | sed -e "s/[0-9]\.$ext//"`
+	    if [ -f "$NONUM.$ext" ] ; then
+	       replace_w_symlink
+	       continue
+            fi
+	 fi
+
+	   # or two
+	 if [ `ls "$NONUM"[0-9][0-9]."$ext" 2> /dev/null | wc -l` -gt 0 ] ; then
 	    NONUM=`echo "$file" | sed -e "s/[0-9][0-9]\.$ext//"`
-	    replace_w_symlink
+	    if [ -f "$NONUM.$ext" ] ; then
+	       replace_w_symlink
+	       continue
+            fi
+	 fi
+
+	   # or three
+	 if [ `ls "$NONUM"[0-9][0-9][0-9]."$ext" 2> /dev/null | wc -l` -gt 0 ] ; then
+	    NONUM=`echo "$file" | sed -e "s/[0-9][0-9][0-9]\.$ext//"`
+	    if [ -f "$NONUM.$ext" ] ; then
+	       replace_w_symlink
+	       continue
+            fi
+	 fi
+
+	   # or four
+	 if [ `ls "$NONUM"[0-9][0-9][0-9][0-9]."$ext" 2> /dev/null | wc -l` -gt 0 ] ; then
+	    NONUM=`echo "$file" | sed -e "s/[0-9][0-9][0-9][0-9]\.$ext//"`
+	    if [ -f "$NONUM.$ext" ] ; then
+	       replace_w_symlink
+	       continue
+            fi
 	 fi
 	 # ... still more?
       done
