@@ -117,8 +117,7 @@ chmod -R g+w $PKG_DATA
 
 #############################
 ### GUI start icons ###
-cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
-    /usr/share/applications/
+mkdir -p /usr/local/share/applications
 cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
     /usr/local/share/applications/
 cp $BUILD_TMP/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
@@ -127,8 +126,6 @@ chown "$USER.$USER" "$USER_HOME"/Desktop/spatialite-gui.desktop
 cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.png \
     /usr/share/pixmaps/
 
-cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
-    /usr/share/applications/
 cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
     /usr/local/share/applications/
 cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
