@@ -75,14 +75,23 @@ if [ "$SPHX_VER" = "1.1.3" ] ; then
    for ext in png jpg gif ; do
       for file in *.$ext ; do
 	 NONUM=`echo "$file" | sed -e "s/[0-9]\+\.$ext//"`
+
+	 if [ -h "$NONUM.$ext" ] ; then
+	    # already a symlink
+	    continue
+	 fi
+
 	 if [ -f "$NONUM.$ext" ] ; then
 	    replace_w_symlink
-	 elif [ -f "$NONUM"[0-9]."$ext" ] ; then
-	    # try with a number after it
+	    continue
+	 fi
+
+	   # try with a number after it
+	 if [ `ls "$NONUM"[0-9]."$ext" | wc -l` -gt 0 ] ; then
 	    NONUM=`echo "$file" | sed -e "s/[0-9][0-9]\.$ext//"`
 	    replace_w_symlink
 	 fi
-	 # ... still more
+	 # ... still more?
       done
    done
 fi
