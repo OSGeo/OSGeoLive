@@ -34,45 +34,50 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-DATA_DIR=$USER_HOME/gisvm/app-data/mapserver
-MAPSERVER_DATA=/usr/local/share/mapserver
 
+MAPSERVER_DATA="/usr/local/share/mapserver"
 MS_APACHE_CONF="/etc/apache2/conf.d/mapserver"
+
+TMP_DIR=/tmp/build_mapserver
+mkdir "$TMP_DIR"
+cd "$TMP_DIR"
 
 # Install MapServer and its php, python bindings.
 apt-get install --yes cgi-mapserver mapserver-bin php5-mapscript python-mapscript
 
+
 # Download MapServer data
-[ -d $DATA_DIR ] || mkdir $DATA_DIR
-[ -f $DATA_DIR/mapserver-6.0-html-docs.zip ] || \
-   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-6.0-html-docs.zip" \
-     -O $DATA_DIR/mapserver-6.0-html-docs.zip
-[ -f $DATA_DIR/mapserver-itasca-ms60.zip ] || \
-   wget -c "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/mapserver/mapserver-itasca-ms60.zip" \
-     -O $DATA_DIR/mapserver-itasca-ms60.zip
+wget -c --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/mapserver/mapserver-6.0-html-docs.zip"
+wget -c --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/mapserver/mapserver-itasca-ms60.zip"
+
 
 # Install docs and demos
-if [ ! -d $MAPSERVER_DATA ]; then
-    mkdir -p $MAPSERVER_DATA/demos
-    echo -n "Extracting MapServer html doc in $MAPSERVER_DATA/....."
-    unzip -q $DATA_DIR/mapserver-6.0-html-docs.zip -d $MAPSERVER_DATA/
-    echo -n "Done\nExtracting MapServer itasca demo in $MAPSERVER_DATA/demos/..."
-    unzip -q $DATA_DIR/mapserver-itasca-ms60.zip -d $MAPSERVER_DATA/demos/ 
-    echo -n "Done\n"
-    mv $MAPSERVER_DATA/demos/workshop $MAPSERVER_DATA/demos/itasca
-    mv $MAPSERVER_DATA/mapserver-6.0-docs $MAPSERVER_DATA/doc
-    rm -rf $MAPSERVER_DATA/demos/ms4w
+if [ ! -d "$MAPSERVER_DATA" ] ; then
+    mkdir -p "$MAPSERVER_DATA"/demos
 
-    echo -n "Configuring the system...."
+    echo -n "Extracting MapServer html doc in $MAPSERVER_DATA/..."
+    unzip -q "$TMP_DIR/mapserver-6.0-html-docs.zip" -d "$MAPSERVER_DATA"/
+    echo -n "Done\nExtracting MapServer itasca demo in $MAPSERVER_DATA/demos/..."
+    unzip -q "$TMP_DIR/mapserver-itasca-ms60.zip" -d "$MAPSERVER_DATA"/demos/ 
+    echo "Done"
+
+    mv "$MAPSERVER_DATA/demos/workshop" "$MAPSERVER_DATA/demos/itasca"
+    mv "$MAPSERVER_DATA/mapserver-6.0-docs" "$MAPSERVER_DATA/doc"
+    rm -rf "$MAPSERVER_DATA/demos/ms4w"
+
+    echo "Configuring the system...."
     # Itasca Demo hacks
     mkdir -p /usr/local/www/docs_maps/
-    ln -s $MAPSERVER_DATA/demos/itasca $MAPSERVER_DATA/demos/workshop
+    ln -s "$MAPSERVER_DATA"/demos/itasca "$MAPSERVER_DATA"/demos/workshop
     ln -s /usr/local/share/mapserver/demos /usr/local/www/docs_maps/mapserver_demos
-    ln -s /tmp/ /usr/local/www/docs_maps/tmp
+    ln -s /tmp /usr/local/www/docs_maps/tmp
 fi
 
+
 # Add MapServer apache configuration
-cat << EOF > $MS_APACHE_CONF
+cat << EOF > "$MS_APACHE_CONF"
 EnableSendfile off
 DirectoryIndex index.phtml
 Alias /mapserver "/usr/local/share/mapserver"
@@ -93,13 +98,13 @@ Alias /mapserver_demos "/usr/local/share/mapserver/demos"
 </Directory>
 EOF
 
-echo -n "Done\n"
+echo "Done"
 
 #Add Launch icon to desktop
-#What Icon should be used
+#?What Icon should be used?
 INSTALLED_VERSION=`dpkg -s mapserver-bin | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
-if [ ! -e /usr/share/applications/mapserver.desktop ] ; then
-   cat << EOF > /usr/share/applications/mapserver.desktop
+
+cat << EOF > "/usr/share/applications/mapserver.desktop"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -112,8 +117,10 @@ Terminal=false
 StartupNotify=false
 Categories=Education;Geography;
 EOF
-fi
+
+
 cp /usr/share/applications/mapserver.desktop "$USER_HOME/Desktop/"
+chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/mapserver.desktop"
 
 
 # share data with the rest of the disc
@@ -123,5 +130,4 @@ ln -s /usr/local/share/mapserver/demos/itasca/data \
 
 # Reload Apache
 /etc/init.d/apache2 force-reload
-
 
