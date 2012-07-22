@@ -139,10 +139,14 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/uDig.desktop"
 # copy jai libs into openjdk lib/ext folder
 mkdir -p "$UDIG_FOLDER/jai"
 #FIXME: load jai from this folder only for udig
-cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $UDIG_FOLDER/jai
+cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $UDIG_FOLDER/jai/
+cp $UDIG_FOLDER/jre/lib/ext/*jai.jar $UDIG_FOLDER/jai/
+cp $UDIG_FOLDER/jre/lib/ext/*jiio.jar $UDIG_FOLDER/jai/
  
 # this breaks other java apps like Geomajas, perhaps more :(
 #cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $JAVA_INSTALL_FOLDER/lib/ext/
+#cp $UDIG_FOLDER/jre/lib/ext/*jai.jar $JAVA_INSTALL_FOLDER/lib/ext/
+#cp $UDIG_FOLDER/jre/lib/ext/*jiio.jar $JAVA_INSTALL_FOLDER/lib/ext/
 
 #delete jre folder from udig install folder
 rm -rf $UDIG_FOLDER/jre
