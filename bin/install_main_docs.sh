@@ -85,7 +85,11 @@ if [ "$SPHX_VER" = "1.1.3" ] ; then
 	 NONUM=`echo "$file" | sed -e "s/[0-9]\+\.$ext//"`
 
 	 if [ -h "$NONUM.$ext" ] ; then
-	    # already a symlink
+	    # replace anyway?? base is already a symlink
+	    continue
+	 fi
+
+	 if [ "$NONUM" = "$file" ] ; then
 	    continue
 	 fi
 
@@ -105,7 +109,7 @@ if [ "$SPHX_VER" = "1.1.3" ] ; then
 
 	   # or two
 	 if [ `ls "$NONUM"[0-9][0-9]."$ext" 2> /dev/null | wc -l` -gt 0 ] ; then
-	    NONUM=`echo "$file" | sed -e "s/[0-9][0-9]\.$ext//"`
+	    NONUM=`echo "$file" | sed -e "s/[0-9]\.$ext//"`
 	    if [ -f "$NONUM.$ext" ] ; then
 	       replace_w_symlink
 	       continue
@@ -114,7 +118,7 @@ if [ "$SPHX_VER" = "1.1.3" ] ; then
 
 	   # or three
 	 if [ `ls "$NONUM"[0-9][0-9][0-9]."$ext" 2> /dev/null | wc -l` -gt 0 ] ; then
-	    NONUM=`echo "$file" | sed -e "s/[0-9][0-9][0-9]\.$ext//"`
+	    NONUM=`echo "$file" | sed -e "s/[0-9]\.$ext//"`
 	    if [ -f "$NONUM.$ext" ] ; then
 	       replace_w_symlink
 	       continue
@@ -123,7 +127,7 @@ if [ "$SPHX_VER" = "1.1.3" ] ; then
 
 	   # or four
 	 if [ `ls "$NONUM"[0-9][0-9][0-9][0-9]."$ext" 2> /dev/null | wc -l` -gt 0 ] ; then
-	    NONUM=`echo "$file" | sed -e "s/[0-9][0-9][0-9][0-9]\.$ext//"`
+	    NONUM=`echo "$file" | sed -e "s/[0-9]\.$ext//"`
 	    if [ -f "$NONUM.$ext" ] ; then
 	       replace_w_symlink
 	       continue
