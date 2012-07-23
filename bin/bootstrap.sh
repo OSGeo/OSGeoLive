@@ -46,7 +46,8 @@ svn checkout "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk" gisvm
 
 chown -R "$USER_NAME":"$USER_NAME" gisvm
 cd "$USER_HOME"
-ln -s ${SCRIPT_DIR}/gisvm .
+ln -s "$SCRIPT_DIR/gisvm" .
+ln -s "$SCRIPT_DIR/gisvm" /etc/skel/gisvm
 
 # make a directory for the install logs
 mkdir /var/log/osgeolive/

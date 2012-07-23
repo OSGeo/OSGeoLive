@@ -177,41 +177,45 @@ for ITEM in $RASTER_DATA $KML_DATA $ELEV_DATA $VRT_DATA ; do
 done
 
 
-wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band1.tif  \
+DATA_URL="http://www.geofemengineering.it/data"
+
+wget -N --progress=dot:mega $DATA_URL/ossim_data/band1.tif  \
   --output-document=$RASTER_DATA/band1.tif           
-wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band2.tiff  \
+wget -N --progress=dot:mega $DATA_URL/ossim_data/band2.tiff  \
   --output-document=$RASTER_DATA/band2.tif
-wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/band3.tiff  \
+wget -N --progress=dot:mega $DATA_URL/ossim_data/band3.tiff  \
   --output-document=$RASTER_DATA/band3.tif
-wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/SRTM_u03_n041e002.tif  \
+wget -N --progress=dot:mega $DATA_URL/ossim_data/SRTM_u03_n041e002.tif  \
   --output-document=$RASTER_DATA/SRTM_u03_n041e002.tif
-wget -N --progress=dot:mega http://www.geofemengineering.it/data/kml/Plaza_de_Cataluna.kmz \
+wget -N --progress=dot:mega $DATA_URL/kml/Plaza_de_Cataluna.kmz \
   --output-document=$KML_DATA/Plaza_de_Cataluna.kmz
-wget -N --progress=dot:mega http://www.geofemengineering.it/data/kml/View_towards_Sagrada_Familia.kmz \
+wget -N --progress=dot:mega $DATA_URL/kml/View_towards_Sagrada_Familia.kmz \
   --output-document=$KML_DATA/View_towards_Sagrada_Familia.kmz
 
-#wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/landsatrgb.prj \
+#wget -N --progress=dot:mega $DATA_URL/ossim_data/landsatrgb.prj \
 #  --output-document=$PKG_DATA/landsatrgb.prj
-#wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/session.session \
+#wget -N --progress=dot:mega $DATA_URL/ossim_data/session.session \
 #  --output-document=$PKG_DATA/session.session
 
-ossim-img2rr $RASTER_DATA/band1.tif $RASTER_DATA/band2.tif $RASTER_DATA/band3.tif
+ossim-img2rr "$RASTER_DATA/band1.tif" "$RASTER_DATA/band2.tif" "$RASTER_DATA/band3.tif"
  
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N40E002.hgt \
+wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N40E002.hgt \
   --output-document=/usr/share/ossim/elevation/elev/N40E002.hgt 
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N40E002.omd \
+wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N40E002.omd \
   --output-document=/usr/share/ossim/elevation/elev/N40E002.omd 
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N41E002.hgt \
+wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N41E002.hgt \
   --output-document=/usr/share/ossim/elevation/elev/N41E002.hgt 
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N41E002.omd \
+wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N41E002.omd \
   --output-document=/usr/share/ossim/elevation/elev/N41E002.omd  
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N42E002.hgt \
+wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N42E002.hgt \
   --output-document=/usr/share/ossim/elevation/elev/N42E002.hgt 
-wget -c --progress=dot:mega http://www.geofemengineering.it/data/ossim_data/elev/N42E002.omd \
+wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N42E002.omd \
   --output-document=/usr/share/ossim/elevation/elev/N42E002.omd 
 
-cp -r $APP_DATA_DIR $QUICKSTART
-ln -s $QUICKSTART $USER_HOME/ossim
+cp -r "$APP_DATA_DIR" "$QUICKSTART"
+ln -s "$QUICKSTART" "$USER_HOME"/ossim
+ln -s "$QUICKSTART" /etc/skel/ossim
+
 
 for dir in $QUICKSTART $KML_DATA $RASTER_DATA ; do
   chgrp -R users $dir
@@ -220,4 +224,4 @@ done
 
 chmod 644 /usr/local/share/ossim/*.pdf
 
-echo "Finished installing Ossim "
+echo "Finished installing Ossim"

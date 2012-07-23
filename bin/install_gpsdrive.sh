@@ -82,11 +82,11 @@ gdebi --non-interactive --quiet gpsdrive_2.12+svn2685-2_i386.deb
 
 #### install data ####
 
+mkdir /etc/skel/.gpsdrive
 mkdir "$USER_HOME/.gpsdrive"
 
-
 # program defaults
-cat << EOF > "$USER_HOME/.gpsdrive/gpsdriverc"
+cat << EOF > "/etc/skel/.gpsdrive/gpsdriverc"
 lastlong = -1.1884
 lastlat = 52.9512
 scalewanted = 10000
@@ -103,9 +103,11 @@ osmdbfile = /usr/local/share/osm/${CITY}_poi.db
 mapnik_postgis_dbname = osm_local_smerc
 EOF
 
+cp /etc/skel/.gpsdrive/gpsdriverc "$USER_HOME/.gpsdrive/"
+
 
 # add any waypoints you want to see displayed
-cat << EOF > "$USER_HOME/.gpsdrive/way.txt"
+cat << EOF > "/etc/skel/.gpsdrive/way.txt"
 Sydney_Convention_Centre        -33.8750   151.2005
 Barcelona_Convention_Centre      41.3724     2.1518
 FOSS4G_2011_(Sheraton_Denver)    39.74251 -104.9891
@@ -113,6 +115,8 @@ OSM_State_of_the_Map_2011        39.7457  -105.0034
 Business_School_South_(Jubilee)  52.9517  -1.1864
 East_Midlands_Conference_Centre  52.9390  -1.2032
 EOF
+
+cp /etc/skel/.gpsdrive/way.txt "$USER_HOME/.gpsdrive/"
 
 
 #download latest OSM POIs for host city
@@ -123,7 +127,8 @@ bzip2 -d "${CITY}_poi.db.bz2"
 mkdir -p /usr/local/share/osm/
 mkdir -p /usr/local/share/data/osm/
 mv "${CITY}_poi.db" /usr/local/share/osm/
-ln -s /usr/local/share/osm/"${CITY}_poi.db" /usr/local/share/data/osm/feature_city_poi.db
+ln -s /usr/local/share/osm/"${CITY}_poi.db" \
+   /usr/local/share/data/osm/feature_city_poi.db
 
 # fool the hardcoded bastard
 mkdir -p /usr/share/mapnik/world_boundaries
@@ -144,24 +149,26 @@ sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share
     -e 's+/usr/share/mapnik/world_boundaries/places+/usr/local/share/data/natural_earth/10m_populated_places_simple+' \
     -e 's/Layer name="places".*/Layer name="builtup" status="on" srs="+proj=longlat +datum=WGS84 +no_defs">/' \
     \
-    /usr/share/gpsdrive/osm-template.xml > "$USER_HOME/.gpsdrive/osm.xml"
+    /usr/share/gpsdrive/osm-template.xml > "/etc/skel/.gpsdrive/osm.xml"
 # "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
 
 
 # change DB name from "gis" to "osm_local_smerc" as per install_osm.sh
 sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local_smerc</Parameter>+' \
-  "$USER_HOME/.gpsdrive/osm.xml"
+  "/etc/skel/.gpsdrive/osm.xml"
 
 # avoid shapefile column city name mismatch & tweak its map scale render rule:
 sed -i -e 's|\[place_name\]</TextSymbolizer>|[NAME]</TextSymbolizer>|' \
        -e 's|<MaxScaleDenominator>10000000</|<MaxScaleDenominator>500000</|' \
        -e 's|<MinScaleDenominator>10000000</|<MinScaleDenominator>1000000</|' \
-  "$USER_HOME/.gpsdrive/osm.xml"
+  "/etc/skel/.gpsdrive/osm.xml"
 
 # use (new) official debian pkg home of map icons
 sed -i -e 's/map-icons/openstreetmap/' \
        -e 's|classic.small/rendering/landuse/forest.png|classic.big/rendering/landuse/forest.png|' \
-  "$USER_HOME/.gpsdrive/osm.xml"
+  "/etc/skel/.gpsdrive/osm.xml"
+
+cp /etc/skel/.gpsdrive/osm.xml "$USER_HOME/.gpsdrive/"
 
 
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/.gpsdrive"

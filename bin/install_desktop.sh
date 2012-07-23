@@ -93,9 +93,12 @@ chown "$USER_NAME"."$USER_NAME" "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel
 #Add the launchhelp script which allows other apps to provide sudo
 #    launching with the password already embedded
 #Geonetwork and deegree need this right now
-cp "$USER_HOME/gisvm/bin/launchassist.sh" "$USER_HOME/"
-chmod 755 "$USER_HOME/launchassist.sh"
-
+mkdir -p "$USER_HOME/bin/"
+cp "launchassist.sh" "$USER_HOME/bin/"
+chmod 700 "$USER_HOME/bin/launchassist.sh"
+chown "$USER_NAME.$USER_NAME" \
+   "$USER_HOME/bin/launchassist.sh" "$USER_HOME/bin"
+# no good to copy it to /etc/skel as the pw will differ for each account
 
 
 # Ubuntu 9.10 (GNOME but not Xfce) wants to see the ~/Desktop/*.desktop
@@ -405,6 +408,9 @@ EOF
 mkdir -p "$USER_HOME"/.config/autostart
 cp /usr/local/share/osgeo-desktop/welcome_message.desktop \
    "$USER_HOME"/.config/autostart/
+mkdir -p /etc/skel/.config/autostart
+cp /usr/local/share/osgeo-desktop/welcome_message.desktop \
+   /etc/skel/.config/autostart/
 
 cp "$BUILD_DIR/../desktop-conf/welcome_message.sh" \
    /usr/local/share/osgeo-desktop/
@@ -425,6 +431,7 @@ fi
 
 cp /usr/local/share/osgeo-desktop/welcome_message.txt "$USER_HOME"/
 chown "$USER_NAME"."$USER_NAME" "$USER_HOME"/welcome_message.txt
+cp /usr/local/share/osgeo-desktop/welcome_message.txt /etc/skel/
 
 
 ##### Setup workshop installation icon

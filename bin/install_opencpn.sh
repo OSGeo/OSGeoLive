@@ -225,9 +225,10 @@ apt-get --assume-yes install gxmessage
 
 
 #### pre-set config file with data paths and initial position
-mkdir "$USER_HOME/.opencpn"
 
-cat << EOF > "$USER_HOME/.opencpn/opencpn.conf"
+mkdir /etc/skel/.opencpn
+
+cat << EOF > "/etc/skel/.opencpn/opencpn.conf"
 [Directories]
 InitChartDir=$DATADIR/charts
 GPXIODir=$DATADIR/gpx
@@ -236,13 +237,15 @@ GRIBDirectory=$DATADIR/grib
 ChartDir1=$DATADIR/charts/BSB_ROOT
 ChartDir2=$DATADIR/charts/ENC_ROOT
 [Settings/GlobalState]
-VPLatLon="   40.39,  -73.27"
+VPLatLon="   40.39,  -73.47"
 VPScale=0.0048
-OwnShipLatLon="   40.337,   -73.272"
+OwnShipLatLon="   40.337,   -73.472"
 nBoundaryStyle=79
 EOF
 
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/.opencpn/"
+mkdir "$USER_HOME/.opencpn"
+cp "/etc/skel/.opencpn/opencpn.conf" "$USER_HOME/.opencpn/"
+chown -R "$USER_NAME.$USER_NAME" "$USER_HOME/.opencpn/"
 
 
 #### install icon on desktop/menus

@@ -28,13 +28,15 @@ apt-get --assume-yes install saga libsaga
 mkdir -p /usr/local/share/saga
 cd /usr/local/share/saga
 wget -c --progress=dot:mega \
-  http://sourceforge.net/projects/saga-gis/files/SAGA%20-%20Documentation/SAGA%202%20User%20Guide/SAGA2_UserGuide_Cimmery_20070401.pdf/download
+  "http://sourceforge.net/projects/saga-gis/files/SAGA%20-%20Documentation/SAGA%202%20User%20Guide/SAGA2_UserGuide_Cimmery_20070401.pdf/download"
 
 # Demo dataset
 wget -N --progress=dot:mega \
   http://zadeh.ugent.be/~johan/saga/DGM_30m_Mt.St.Helens_SRTM.grd
 # Link demo dataset to user_home
-ln -s /usr/local/share/saga/ $USER_HOME/saga
+ln -s /usr/local/share/saga "$USER_HOME"/saga
+ln -s /usr/local/share/saga /etc/skel/saga
+
 
 # Desktop icon
 # temporarily disabled: a custom .desktop file with a 64x64 logo is used - to be fixed in the package

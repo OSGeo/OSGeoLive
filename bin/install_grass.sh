@@ -122,6 +122,10 @@ ln -s /usr/local/share/grass/nc_spm_08/landsat \
 adduser $USER_NAME users
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata"
 
+# copy into /etc/skel too
+cp -r "$USER_HOME/grassdata" /etc/skel/
+chown -R root.root /etc/skel/grassdata
+
 
 #### preconfig setup ####
 

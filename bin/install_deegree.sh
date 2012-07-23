@@ -153,7 +153,7 @@ Encoding=UTF-8
 Name=Start deegree
 Comment=deegree webservices 3.2-pre3
 Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
-Exec=dash $USER_HOME/launchassist.sh $BIN/deegree_start.sh
+Exec=dash $USER_HOME/bin/launchassist.sh $BIN/deegree_start.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
 Terminal=false
 EOF
@@ -172,7 +172,7 @@ Encoding=UTF-8
 Name=Stop deegree
 Comment=deegree webservices 3.2-pre3
 Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
-Exec=dash $USER_HOME/launchassist.sh  $BIN/deegree_stop.sh
+Exec=dash $USER_HOME/bin/launchassist.sh  $BIN/deegree_stop.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
 Terminal=false
 EOF
