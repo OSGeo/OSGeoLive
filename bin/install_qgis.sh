@@ -134,7 +134,7 @@ cp -R _build/html /usr/local/share/qgis/tutorials
 
 # old plugins are stored on DATAURL="http://www.geofemengineering.it/data/plugins_old2.tar.gz"
 
-DATAURL="http://download.osgeo.org/livedvd/data/qgis/qgis-plugins-5.5.tar.gz"
+DATAURL="http://download.osgeo.org/livedvd/data/qgis/qgis-plugins-6.0.tar.gz"
 
 #TODO use a python script and the QGIS API to pull these within QGIS from online repo
 mkdir -p "$TMP_DIR"/plugins
