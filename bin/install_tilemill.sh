@@ -21,10 +21,40 @@
 # After this operation, 186 MB of additional disk space will be used.
 
 
+# live disc's username is "user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
+
+
 add-apt-repository --yes ppa:developmentseed/mapbox
 
 apt-get -q update
 
 apt-get --assume-yes install tilemill
+
+cp /usr/share/applications/tilemill.desktop "$USER_HOME/Desktop/"
+
+
+#################
+# with that out of the way we download the OSM Bright demo
+#  instructs from
+#  http://mapbox.com/tilemill/docs/guides/osm-bright-ubuntu-quickstart/
+
+# wget -N --progress:dot=mega \
+#    https://github.com/mapbox/osm-bright/zipball/master
+
+
+# edit /etc/postgresql/8.4/main/pg_hba.conf
+#  "Page down to the bottom section of the file and adjust all local
+#  access permissions to "trust". This will allow you to access the
+#  PostgreSQL database from the same machine without a password."
+#?--not needed as our user already has db admin rights??
+
+# osm postgis db already created and populated by earlier install scripts..
+
+# ... final install continued here:
+# http://mapbox.com/tilemill/docs/guides/osm-bright-ubuntu-quickstart/
 
 
