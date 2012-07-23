@@ -1,12 +1,12 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="Natural Earth" version="1.7.3-Wroclaw">
+<qgis projectname="Natural Earth" version="1.8.0-Lisboa">
     <title>Natural Earth</title>
     <mapcanvas>
         <units>degrees</units>
         <extent>
-            <xmin>-189.000001</xmin>
+            <xmin>-189.911576</xmin>
             <ymin>-155.427632</ymin>
-            <xmax>189.000001</xmax>
+            <xmax>189.911576</xmax>
             <ymax>155.427632</ymax>
         </extent>
         <projections>0</projections>
@@ -23,35 +23,35 @@
             </spatialrefsys>
         </destinationsrs>
     </mapcanvas>
-    <legend>
-        <legendlayer open="true" checked="Qt::Unchecked" name="10m_populated_places_simple" showFeatureCount="0">
+    <legend updateDrawingOrder="true">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="10m_populated_places_simple" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="10m_populated_places_simple20100719082900629" visible="0"/>
             </filegroup>
         </legendlayer>
         <legendgroup open="true" checked="Qt::PartiallyChecked" name="Water">
-            <legendlayer open="true" checked="Qt::Checked" name="10m_rivers_lake_centerlines" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="10m_rivers_lake_centerlines" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="10m_rivers_lake_centerlines20100719082900647" visible="1"/>
                 </filegroup>
             </legendlayer>
-            <legendlayer open="true" checked="Qt::Checked" name="10m_lakes" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="10m_lakes" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="10m_lakes20100719082900581" visible="1"/>
                 </filegroup>
             </legendlayer>
-            <legendlayer open="true" checked="Qt::Unchecked" name="10m_ocean" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="10m_ocean" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
                     <legendlayerfile isInOverview="0" layerid="10m_ocean20100719082900623" visible="0"/>
                 </filegroup>
             </legendlayer>
         </legendgroup>
-        <legendlayer open="true" checked="Qt::Checked" name="HYP_50M_SR_W" showFeatureCount="0">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="HYP_50M_SR_W" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="HYP_50M_SR_W20100719084154256" visible="1"/>
             </filegroup>
         </legendlayer>
-        <legendlayer open="true" checked="Qt::Unchecked" name="10m_land" showFeatureCount="0">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="10m_land" showFeatureCount="0">
             <filegroup open="true" hidden="false">
                 <legendlayerfile isInOverview="0" layerid="10m_land20100719082900615" visible="0"/>
             </filegroup>
@@ -60,7 +60,9 @@
     <projectlayers layercount="6">
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>10m_lakes20100719082900581</id>
-            <datasource>/home/user/data/natural_earth/10m_lakes.shp|layerid=0</datasource>
+            <datasource>/home/user/data/natural_earth/10m_lakes.shp</datasource>
+            <title></title>
+            <abstract></abstract>
             <layername>10m_lakes</layername>
             <srs>
                 <spatialrefsys>
@@ -75,7 +77,7 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <provider encoding="System">ogr</provider>
+            <provider encoding="UTF-8">ogr</provider>
             <vectorjoins/>
             <singlesymbol>
                 <symbol>
@@ -134,7 +136,9 @@
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>10m_land20100719082900615</id>
-            <datasource>/home/user/data/natural_earth/10m_land.shp|layerid=0</datasource>
+            <datasource>/home/user/data/natural_earth/10m_land.shp</datasource>
+            <title></title>
+            <abstract></abstract>
             <layername>10m_land</layername>
             <srs>
                 <spatialrefsys>
@@ -149,7 +153,7 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <provider encoding="System">ogr</provider>
+            <provider encoding="UTF-8">ogr</provider>
             <vectorjoins/>
             <singlesymbol>
                 <symbol>
@@ -205,7 +209,9 @@
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>10m_ocean20100719082900623</id>
-            <datasource>/home/user/data/natural_earth/10m_ocean.shp|layerid=0</datasource>
+            <datasource>/home/user/data/natural_earth/10m_ocean.shp</datasource>
+            <title></title>
+            <abstract></abstract>
             <layername>10m_ocean</layername>
             <srs>
                 <spatialrefsys>
@@ -220,7 +226,7 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <provider encoding="System">ogr</provider>
+            <provider encoding="UTF-8">ogr</provider>
             <vectorjoins/>
             <singlesymbol>
                 <symbol>
@@ -274,7 +280,9 @@
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>10m_populated_places_simple20100719082900629</id>
-            <datasource>/home/user/data/natural_earth/10m_populated_places_simple.shp|layerid=0</datasource>
+            <datasource>/home/user/data/natural_earth/10m_populated_places_simple.shp</datasource>
+            <title></title>
+            <abstract></abstract>
             <layername>10m_populated_places_simple</layername>
             <srs>
                 <spatialrefsys>
@@ -289,7 +297,7 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <provider encoding="System">ogr</provider>
+            <provider encoding="UTF-8">ogr</provider>
             <vectorjoins/>
             <classificationattribute>POP_MAX</classificationattribute>
             <graduatedsymbol>
@@ -447,7 +455,9 @@
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
             <id>10m_rivers_lake_centerlines20100719082900647</id>
-            <datasource>/home/user/data/natural_earth/10m_rivers_lake_centerlines.shp|layerid=0</datasource>
+            <datasource>/home/user/data/natural_earth/10m_rivers_lake_centerlines.shp</datasource>
+            <title></title>
+            <abstract></abstract>
             <layername>10m_rivers_lake_centerlines</layername>
             <srs>
                 <spatialrefsys>
@@ -462,7 +472,7 @@
                 </spatialrefsys>
             </srs>
             <transparencyLevelInt>255</transparencyLevelInt>
-            <provider encoding="System">ogr</provider>
+            <provider encoding="UTF-8">ogr</provider>
             <vectorjoins/>
             <singlesymbol>
                 <symbol>
@@ -522,6 +532,8 @@
         <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
             <id>HYP_50M_SR_W20100719084154256</id>
             <datasource>/home/user/data/natural_earth/HYP_50M_SR_W/HYP_50M_SR_W.tif</datasource>
+            <title></title>
+            <abstract></abstract>
             <layername>HYP_50M_SR_W</layername>
             <srs>
                 <spatialrefsys>
