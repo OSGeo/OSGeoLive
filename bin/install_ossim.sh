@@ -68,7 +68,7 @@ mv /usr/share/ossim/imagelinker.desktop /usr/share/applications/imagelinker.desk
 mv /usr/share/ossim/ossimplanet.desktop /usr/share/applications/ossimplanet.desktop
 
 if [ `grep -c '/usr/local/ossim/bin/' "$USER_HOME/.bashrc"` -eq 0 ] ; then
-   echo 'PATH="$PATH:/usr/local/ossim/bin/"' >> "$USER_HOME/.bashrc"
+   echo 'PATH="$PATH:/usr/local/ossim/bin"' >> "$USER_HOME/.bashrc"
    echo "export PATH" >> "$USER_HOME/.bashrc"
    #source "$USER_HOME/.bashrc"
 fi
