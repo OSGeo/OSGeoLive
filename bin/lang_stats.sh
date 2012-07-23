@@ -53,7 +53,7 @@ Help translate -
     <td>Code</td>
     <td align="center">Docs<br>translated</td>
     <td>To do</td>
-    <td>Percent<br>complete</td>
+    <td align="center">Percent<br>complete</td>
   </tr>
   <tr>
     <td><i>English</i></td>
@@ -92,6 +92,9 @@ for CODE in $LANGS ; do
 
    echo "$LAN,$CODE,$DONE,$LEFT,$PERCENT" >> lang_stats.prn
 done
+
+# late to the party
+echo "French,fr,0,$NUM_PAGES,0.0" >> lang_stats.prn
 
 sort -k3 -t, -nr lang_stats.prn > lang_stats_sorted.prn
 
