@@ -56,6 +56,9 @@ apt-get install --assume-yes osmosis
 # that JOSM is badly out of date, so get the latest:
 #   leave it installed to keep dependencies
 #   file name is not versioned so don't use "wget -c"
+
+# see also  http://josm.openstreetmap.de/wiki/Download#Ubuntu
+
 wget --progress=dot:mega -O /usr/local/share/osm/josm-tested.jar \
    http://josm.openstreetmap.de/josm-tested.jar
 # replace symlink
