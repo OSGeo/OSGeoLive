@@ -97,7 +97,6 @@ Terminal=false
 Type=Application
 Categories=Education;Science;Geoscience;
 EOF
-
 chmod a+x /usr/share/applications/gosmore.desktop
 cp /usr/share/applications/gosmore.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
@@ -106,13 +105,29 @@ cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
 cp "$BUILD_DIR/../app-conf/osm/launch_gosmore.sh" /usr/local/bin/
 
 
+# add an icon for viewing The Map online
+cat << EOF > /usr/local/share/applications/osm_online.desktop
+[Desktop Entry]
+Name=View OSM online
+Comment=Opens a web browser to The Map
+Exec=firefox "http://www.openstreetmap.org/?lat=52.9439&lon=-1.1752&zoom=14"
+Icon=josm-32
+StartupNotify=false
+Terminal=false
+Type=Application
+Categories=Education;Science;Geoscience;
+EOF
+chmod a+x /usr/local/share/applications/osm_online.desktop
+cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
+
+
+
 if [ ! -d "$TMP_DIR" ] ; then
    mkdir "$TMP_DIR"
 fi
 cd "$TMP_DIR"
 
 mkdir -p /usr/local/share/osm
-
 
 
 # install osmrender - it's a renderer from .osm to svg

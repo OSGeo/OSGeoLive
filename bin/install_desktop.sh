@@ -34,7 +34,8 @@ DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet *Kosmo*
               spatialite-gis saga_gui atlasstyler geopublisher"
 
 #Desktop apps part 2 (geodata viewers and editors)
-NAV_APPS="marble gpsdrive opencpn josm gosmore merkaartor viking zygrib gpsprune"
+NAV_APPS="marble gpsdrive opencpn josm gosmore merkaartor osm_online
+          viking zygrib gpsprune"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
@@ -188,7 +189,7 @@ for APP in $NAV_APPS ; do
 	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
 
       case "$APP" in
-	 josm | merkaartor | gosmore) GROUP=OpenStreetMap;;
+	 josm | merkaartor | gosmore | osm_online) GROUP=OpenStreetMap;;
 	 *) unset GROUP;;
       esac
       if [ -n "$GROUP" ] ; then
