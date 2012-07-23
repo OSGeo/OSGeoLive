@@ -44,7 +44,7 @@ apt-get --yes autoremove
 #shrink help page images
 echo "Shrinking images, please wait as this may take some time ..."
 cd /var/www/
-optipng -quiet -o5 `find | grep '\.png$'`
+optipng -quiet -o5 `find | grep '\.png$' | grep -v './_images/'`
 cd -
 # maybe do this after fslint so that hardlink'd dupes get done too?
 
