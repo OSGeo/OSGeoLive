@@ -101,7 +101,7 @@ apt-get remove --yes gnome-games-common \
    libgegl-0.0.0 libbabl-0.0.0 libotr2 \
    thunderbird pidgin-data hplip hplip-data \
    gnome-user-guide xfwm4-themes libsane \
-   libsane-common libsane-hpaio libieee1284-3 etherape \
+   libsane-common libsane-hpaio libieee1284-3 \
    libwebkitgtk-1.0-0 libwebkitgtk-1.0-common libjavascriptcoregtk-1.0.0
 
 # sadly, uninstall samba as we need the disc space. priority for
