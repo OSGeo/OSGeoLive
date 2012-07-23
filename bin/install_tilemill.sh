@@ -36,6 +36,11 @@ apt-get --assume-yes install tilemill
 
 cp /usr/share/applications/tilemill.desktop "$USER_HOME/Desktop/"
 
+exit 0
+
+
+
+# todo:
 
 #################
 # with that out of the way we download the OSM Bright demo
