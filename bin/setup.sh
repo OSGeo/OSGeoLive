@@ -98,8 +98,11 @@ sed -i -e 's/^VERBOSE=no/VERBOSE=yes/' /etc/default/rcS
 # Uninstall large applications installed by default
 apt-get remove --yes gnome-games-common \
    gimp gimp-data gimp-help-common gimp-help-en libgimp2.0 \
+   libgegl-0.0.0 libbabl-0.0.0 libotr2 \
    thunderbird pidgin-data hplip hplip-data \
-   gnome-user-guide xfwm4-themes libsane libwebkitgtk-1.0-0
+   gnome-user-guide xfwm4-themes libsane \
+   libsane-common libsane-hpaio libieee1284-3 etherape \
+   libwebkitgtk-1.0-0 libwebkitgtk-1.0-common libjavascriptcoregtk-1.0.0
 
 # sadly, uninstall samba as we need the disc space. priority for
 #  re-adding if we can find the room  (~85mb uncompressed)
