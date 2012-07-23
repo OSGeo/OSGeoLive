@@ -78,7 +78,7 @@ chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
 
 
 #### a handy python utility
-svn co http://svn.openstreetmap.org/applications/utils/python_lib/OsmApi .
+svn export http://svn.openstreetmap.org/applications/utils/python_lib/OsmApi .
 cp OsmApi.py /usr/lib/python2.7/
 
 #### desktop icons
@@ -159,7 +159,7 @@ cp xsltrans osmarender.xsl /usr/local/share/osm/xslt/
 mkdir -p /usr/local/share/osm/stylesheets
 cp osm-map-features-z17.xml markers.xml /usr/local/share/osm/stylesheets/
 
-svn co "$BASEURL/stylesheets/symbols/" \
+svn export "$BASEURL/stylesheets/symbols/" \
    /usr/local/share/osm/stylesheets/symbols/
 
 

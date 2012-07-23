@@ -131,3 +131,8 @@ ln -s /usr/local/share/mapserver/demos/itasca/data \
 # Reload Apache
 /etc/init.d/apache2 force-reload
 
+
+# cleanup
+cd "$MAPSERVER_DATA"/doc/_static/
+rm -rf `find | grep '/\.svn'`
+

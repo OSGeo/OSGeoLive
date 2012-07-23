@@ -224,4 +224,9 @@ done
 
 chmod 644 /usr/local/share/ossim/*.pdf
 
+
+# cleanup
+rm -rf "$QUICKSTART"/.svn
+
+
 echo "Finished installing Ossim"
