@@ -5,7 +5,7 @@
 # Author:  Fran Boon, Rik Goldman, Steven Robinson, Jerel Moses, Maurice Quarles
 #
 #################################################
-# Copyright (c) 2011 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2011-12 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
 # 
@@ -135,11 +135,16 @@ su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/9.1/contrib/postgis
 
 # Download web2py
 rm -rf "$INSTALL_DIR"/web2py
-W2P_FILE="web2py_src-1.99.4.zip"
-wget -c --progress=dot:mega \
-   "http://eden.sahanafoundation.org/downloads/$W2P_FILE" \
-   -O "$TMP_DIR/$W2P_FILE"
-unzip -q "$TMP_DIR/$W2P_FILE" -d "$INSTALL_DIR"
+#W2P_FILE="web2py_src-1.99.7.zip"
+#wget -c --progress=dot:mega \
+#   "http://eden.sahanafoundation.org/downloads/$W2P_FILE" \
+#   -O "$TMP_DIR/$W2P_FILE"
+#unzip -q "$TMP_DIR/$W2P_FILE" -d "$INSTALL_DIR"
+cd "$INSTALL_DIR"
+git clone git://github.com/web2py/web2py.git
+cd eden
+git checkout c0c23b8eb78e6a7c0672417e61d3136b1564295b
+git reset --hard
 
 cat << EOF > "$INSTALL_DIR/web2py/routes.py"
 default_application = 'eden'
@@ -153,11 +158,11 @@ routes_onerror = [
     ]
 EOF
 
-# Install Sahana Eden 0.5.6
+# Install Sahana Eden
 cd "$INSTALL_DIR/web2py/applications"
 git clone git://github.com/flavour/eden.git
 cd eden
-git checkout df5ab61b2bb629b371067a72354736dc40aa0f7e
+git checkout c62909947dc12530c65563dace8a87def93f962f
 git reset --hard
 
 # Create Eden Directories
@@ -196,46 +201,33 @@ chown "$USER_NAME" \
 
 # Copy Deployment Templates
 if [ ! -f "$INSTALL_DIR/web2py/applications/eden/models" ] ; then
-	cp "$INSTALL_DIR/web2py/applications/eden/deployment-templates/models/000_config.py" \
-	   "$INSTALL_DIR/web2py/applications/eden/models"
-fi
-
-if [ ! -f "$INSTALL_DIR/web2py/applications/eden/cron/crontab" ] ; then
-	cp "$INSTALL_DIR/web2py/applications/eden/deployment-templates/cron/crontab" \
-	   "$INSTALL_DIR/web2py/applications/eden/cron/crontab"
+	cp "$INSTALL_DIR/web2py/applications/eden/private/templates/000_config.py" \
+	   "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 fi
 
 # Stream Edit 000_config.py
 sed -i 's|EDITING_CONFIG_FILE = False|EDITING_CONFIG_FILE = True|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
-sed -i 's|127.0.0.1:8000|127.0.0.1|' \
+sed -i 's|#settings.base.public_url = "http://127.0.0.1:8000"|settings.base.public_url = "http://127.0.0.1"|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
-sed -i 's|deployment_settings.gis.spatialdb = False|deployment_settings.gis.spatialdb = True|' \
-   "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
-# Denver FOSS4G
-sed -i 's|deployment_settings.L10n.utc_offset = "UTC +0000"|deployment_settings.L10n.utc_offset = "UTC +0800"|' \
+sed -i 's|#settings.gis.spatialdb = True|settings.gis.spatialdb = True|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
 # Stream Edit 000_config.py for Postgres Database
-sed -i 's|database.db_type = "sqlite"|database.db_type = "postgres"|' \
+sed -i 's|#settings.database.db_type = "postgres"|settings.database.db_type = "postgres"|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
-sed -i 's|database.password = "password"|database.password = "sahana"|' \
+sed -i 's|#settings.database.password = "password"|#settings.database.password = "sahana"|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
-# Configure Eden for Denver (FOSS4G 2011)
-sed -i 's|22.593723263|39.739167|' \
-   "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
-sed -i 's|5.28516253|-104.984722|' \
-  "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
-sed -i 's|,2,|,10,|' \
-   "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
-# Configure Eden for Beijing (FOSS4G 2012)
-#sed -i 's|22.593723263|39.907497741441354|' \
-#   "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
-#sed -i 's|5.28516253|116.397228240974|' \
-#  "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
-#sed -i 's|,2,|,12,|' \
-#   "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
+# Configure Eden for Nottingham (FOSS4G 2013)
+sed -i 's|22.593723263|52.950706|' \
+   "$INSTALL_DIR/web2py/applications/eden/private/templates/default/gis_config.csv"
+sed -i 's|5.28516253|-1.144980|' \
+  "$INSTALL_DIR/web2py/applications/eden/private/templates/default/gis_config.csv"
+sed -i 's|,2,|,12,|' \
+   "$INSTALL_DIR/web2py/applications/eden/private/templates/default/gis_config.csv"
+#sed -i 's|#settings.L10n.utc_offset = "UTC +0000"|settings.L10n.utc_offset = "UTC +0100"|' \
+#   "$INSTALL_DIR/web2py/applications/eden/private/templates/default/config.py"
 
 cat << EOF >> "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
     # Create Login
@@ -262,7 +254,7 @@ EOF
 
 # Configure Eden to make use of local GeoData
 sed -i 's|-180,180,"|-180,180,"http://localhost:8082/geoserver/wms?service=WMS\&request=GetCapabilities"|' \
-   "$INSTALL_DIR/web2py/applications/eden/private/prepopulate/default/gis_config.csv"
+   "$INSTALL_DIR/web2py/applications/eden/private/templates/default/gis_config.csv"
 
 # Perform the initial database Migration/Prepopulation 
 cd "$INSTALL_DIR/web2py"
@@ -271,9 +263,9 @@ sudo -H -u "$USER_NAME" python web2py.py -S eden -M \
    -R applications/eden/static/scripts/tools/noop.py
 
 # Stream Edit 000_config.py to disable migration
-sed -i 's|deployment_settings.base.migrate = True|deployment_settings.base.migrate = False|' \
+sed -i 's|settings.base.migrate = True|settings.base.migrate = False|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
-sed -i 's|deployment_settings.base.prepopulate = 1|deployment_settings.base.prepopulate = 0|' \
+sed -i 's|#settings.base.prepopulate = 0|settings.base.prepopulate = 0|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
 # Compile scripts to optimise performance
@@ -281,45 +273,6 @@ cd "$INSTALL_DIR/web2py"
 chown "$USER_NAME" .
 sudo -H -u "$USER_NAME" python web2py.py -S eden -M \
    -R applications/eden/static/scripts/tools/compile.py
-
-# Prepare to Add Geometry Column
-#   (from http://eden.sahanafoundation.org/wiki/InstallationGuidelinesPostgreSQL#AddGeometrycolumntogis_location)
-cat << EOF > "$TMP_DIR/geometry.sql"
-UPDATE public.gis_location SET wkt = 'POINT (' || lon || ' ' || lat || ')' WHERE gis_feature_type = 1;
-SELECT AddGeometryColumn( 'public', 'gis_location', 'the_geom', 4326, 'GEOMETRY', 2 );
-UPDATE public.gis_location SET the_geom = ST_SetSRID(ST_GeomFromText(wkt), 4326);
-EOF
-# Add Geometry Column
-if [ -e "$TMP_DIR/geometry.sql" ] ; then
-    su -c - postgres "psql -q -d sahana -f '$TMP_DIR'/geometry.sql"
-fi
-
-# AutoPopulate (from http://eden.sahanafoundation.org/wiki/InstallationGuidelinesPostgreSQL#AddGeometrycolumntogis_location)
-cat << EOF > "$TMP_DIR/autopopulate.sql"
-CREATE OR REPLACE FUNCTION s3_update_geometry()
-  RETURNS "trigger" AS \$$
-  DECLARE
-  BEGIN
-    if (NEW.wkt != '') then
-        NEW.the_geom = SetSRID(GeomFromText(NEW.wkt), 4326);
-        end if;
-
-    RETURN NEW;
-  END;
-\$$  LANGUAGE 'plpgsql' VOLATILE;
-ALTER FUNCTION s3_update_geometry() OWNER TO sahana;
-CREATE TRIGGER s3_locations_update
-  BEFORE INSERT
-  ON gis_location
-  FOR EACH ROW
-  EXECUTE PROCEDURE s3_update_geometry();
-
-EOF
-# Import Autopopulate
-if [ -e "$TMP_DIR/autopopulate.sql" ]; then
-    su -c - postgres "psql -q -d sahana -f '$TMP_DIR'/autopopulate.sql"
-fi
-
 
 # Apache configuration
 # Enable Modules
