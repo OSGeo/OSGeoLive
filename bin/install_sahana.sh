@@ -361,4 +361,9 @@ EOF
 
 # Prepare Desktop
 mkdir -p "$USER_HOME/Desktop"
-cp -f /usr/share/applications/sahana.desktop "$USER_HOME/Desktop/sahana.desktop"
+cp -f /usr/share/applications/sahana.desktop \
+   "$USER_HOME/Desktop/sahana.desktop"
+
+# cleanup
+apt-get --assume-yes remove python-dev
+
