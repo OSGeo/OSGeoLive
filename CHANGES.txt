@@ -1,6 +1,23 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0beta4
+===================
+
+ * remastersys method now is dist
+ * samba removed to save space
+ * moved from data Beijing to Nottigham
+ * gosmore fixed
+ * lots of space optimizations
+ * udig now does not use custom jre
+ * OSGeoLive is now including only openjdk7
+ * duplicate sphinx images bug fixed
+ * prune renamed to gpsprune
+ * rasdaman fix included to rasmgr.conf
+ * home dir is moved to /etc/skel for iso building
+ * added tilemill as an optional application
+ * new QGIS plugins with Sextante added
+
 Version 6.0beta3
 ===================
 
