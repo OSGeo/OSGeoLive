@@ -107,8 +107,12 @@ apt-get --assume-yes remove smbclient samba-common-bin
 
 
 # since GIMP is removed we have to replace an xUbuntu default icon
+# software store and related bloat removed, use synaptic instead
 sed -i -e 's+gimp\.desktop+xfce4-dict\.desktop+' \
+       -e 's+ubuntu-software-center\.desktop+synaptic\.desktop+' \
    /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml
+sed -i -e 's+ubuntu-software-center\.desktop+synaptic\.desktop+' \
+   /etc/xdg/xdg-xubuntu/menus/xfce-applications.menu
 
 # remove xscreensaver as it tends to saturate VM bandwidth
 apt-get --assume-yes remove xscreensaver
