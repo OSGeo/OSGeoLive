@@ -41,6 +41,14 @@ apt-get --yes remove devscripts pbuilder \
 apt-get --yes autoremove
 
 
+#shrink help page images
+echo "Shrinking images, please wait as this may take some time ..."
+cd /var/www/
+optipng -quiet -o5 `find | grep '\.png$'`
+cd -
+# maybe do this after fslint so that hardlink'd dupes get done too?
+
+
 #### Check how much space is wasted by double files in /usr
 # Checking which duplicate files are present can be useful to save
 #  disk space manually.
