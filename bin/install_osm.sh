@@ -106,11 +106,14 @@ cp "$BUILD_DIR/../app-conf/osm/launch_gosmore.sh" /usr/local/bin/
 
 
 # add an icon for viewing The Map online
+MAP_CENTER="lat=52.945&lon=-1.17"
+MARKER="mlat=52.9517&mlon=-1.1864"
+ZOOM="14"
 cat << EOF > /usr/local/share/applications/osm_online.desktop
 [Desktop Entry]
 Name=View OSM online
 Comment=Opens a web browser to The Map
-Exec=firefox "http://www.openstreetmap.org/?lat=52.9439&lon=-1.1752&zoom=14"
+Exec=firefox "http://www.openstreetmap.org/?$MAP_CENTER&zoom=$ZOOM&$MARKER"
 Icon=josm-32
 StartupNotify=false
 Terminal=false
