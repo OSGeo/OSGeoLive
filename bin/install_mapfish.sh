@@ -142,5 +142,5 @@ cp /usr/share/applications/MapFish.desktop "$USER_HOME/Desktop/"
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/MapFish.desktop"
 
 #cleanup
-apt-get --assume-yes remove libpq-dev
+apt-get --assume-yes remove libpq-dev python-dev
 cd $OLDPWD
