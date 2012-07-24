@@ -62,7 +62,7 @@ apt-get -q update
 
 #Yes there is a key now
 wget -O - http://www.remastersys.com/ubuntu/remastersys.gpg.key | apt-key add -
-
+apt-get -q update
 apt-get --assume-yes --force-yes install remastersys
 
 # Configure
