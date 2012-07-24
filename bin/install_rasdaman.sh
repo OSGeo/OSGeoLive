@@ -32,7 +32,7 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 
-if [ -z "GROUP_NAME"] ; then
+if [ -z "$GROUP_NAME" ] ; then
    GROUP_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
@@ -40,7 +40,6 @@ RASDAMAN_HOME="/usr/local/rasdaman"
 TMP="/tmp/build_rasdaman"
 WARDIR="/var/lib/tomcat6/webapps"
 TMP_PETASCOPE="$TMP/rasdaman/applications/petascope"
-
 #set the postgresql database username and password.
 # Note that if this is changed, /var/lib/tomcat6/webapps/petascope/setting.properties
 # must be modified to reflect the changes
