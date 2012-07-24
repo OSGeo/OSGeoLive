@@ -183,7 +183,6 @@ sed -i -e 's/OPTIONS="-w"/OPTIONS="-w -i"/' /etc/init.d/rpcbind
 /etc/init.d/rpcbind restart
 # needed to set the host name if it's empty
 # sed -i -e "s/ -host [^ ]*/ -host $HOSTNAME/" $RASDAMAN_HOME/etc/rasmgr.conf
-cp $TMP/rasdaman/bin/rasmgr.conf.in $RASDAMAN_HOME/etc/rasmgr.conf
 
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
@@ -330,7 +329,7 @@ cp /usr/share/applications/rasdaman-earthlook-demo.desktop "$USER_HOME/Desktop/"
 ###   at boot time.
 if [ `grep -c 'rasdaman' /etc/rc.local` -eq 0 ] ; then
     sed -i -e 's|exit 0||' /etc/rc.local
-    echo 'sed -i -e "s/ -host [^ ]*/ -host $HOSTNAME/" /usr/local/rasdaman/etc/rasmgr.conf' >> /etc/rc.local
+    echo 'sed -i -e "s/ -host [^ ]*/ -host `hostname`/" /usr/local/rasdaman/etc/rasmgr.conf' >> /etc/rc.local
     echo >> /etc/rc.local
     echo "exit 0" >> /etc/rc.local
 fi
