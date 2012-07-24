@@ -142,7 +142,7 @@ rm -rf "$INSTALL_DIR"/web2py
 #unzip -q "$TMP_DIR/$W2P_FILE" -d "$INSTALL_DIR"
 cd "$INSTALL_DIR"
 git clone git://github.com/web2py/web2py.git
-cd eden
+cd web2py
 git checkout c0c23b8eb78e6a7c0672417e61d3136b1564295b
 git reset --hard
 
@@ -173,9 +173,9 @@ mkdir -p "$INSTALL_DIR/web2py/applications/eden/sessions"
 mkdir -p "$INSTALL_DIR/web2py/applications/eden/uploads/gis_cache"
 mkdir -p "$INSTALL_DIR/web2py/applications/eden/uploads/images"
 mkdir -p "$INSTALL_DIR/web2py/applications/eden/uploads/tracks"
-mkdir -p "$INSTALL_DIR/web2py/applications/eden/admin/cache"
 
 # Set permissions
+mkdir -p "$INSTALL_DIR/web2py/applications/admin/cache"
 mkdir -p "$INSTALL_DIR/web2py/applications/admin/databases"
 mkdir -p "$INSTALL_DIR/web2py/applications/admin/errors"
 mkdir -p "$INSTALL_DIR/web2py/applications/admin/sessions"
@@ -216,7 +216,7 @@ sed -i 's|#settings.gis.spatialdb = True|settings.gis.spatialdb = True|' \
 # Stream Edit 000_config.py for Postgres Database
 sed -i 's|#settings.database.db_type = "postgres"|settings.database.db_type = "postgres"|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
-sed -i 's|#settings.database.password = "password"|#settings.database.password = "sahana"|' \
+sed -i 's|#settings.database.password = "password"|settings.database.password = "sahana"|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
 # Configure Eden for Nottingham (FOSS4G 2013)
