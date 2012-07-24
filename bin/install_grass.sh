@@ -163,6 +163,9 @@ fi
 #copy over prebuilt font list
 cp -f "$BUILD_DIR"/../app-conf/grass/fontcap /usr/lib/grass64/etc/
 
+#and let it be overwritten
+chmod g+w /usr/lib/grass64/etc/fontcap
+chgrp users /usr/lib/grass64/etc/fontcap
 
 
 #### install desktop icon ####
