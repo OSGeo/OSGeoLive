@@ -30,6 +30,13 @@ VERSION=`cat ${DIR}/../VERSION.txt`
 PACKAGE_NAME="osgeolive"
 VM="${PACKAGE_NAME}-${VERSION}"
 
+
+# libgdal-dev, libpq-dev, and grass-dev get installed and uninstalled
+# so many times it's hard to keep track. let's install them one final
+# time just to be sure they make it on...
+apt-get install --assume-yes libgdal1-dev grass-dev
+
+
 # now that everything is installed rebuild library search cache
 ldconfig
 
