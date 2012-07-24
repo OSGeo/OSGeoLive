@@ -78,8 +78,8 @@ chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
 
 
 #### a handy python utility
-svn export http://svn.openstreetmap.org/applications/utils/python_lib/OsmApi .
-cp OsmApi.py /usr/lib/python2.7/
+svn export http://svn.openstreetmap.org/applications/utils/python_lib/OsmApi
+cp OsmApi/OsmApi.py /usr/lib/python2.7/
 
 #### desktop icons
 echo '#!/usr/bin/env xdg-open' > "$USER_HOME"/Desktop/josm.desktop
@@ -109,6 +109,7 @@ cp "$BUILD_DIR/../app-conf/osm/launch_gosmore.sh" /usr/local/bin/
 
 
 # add an icon for viewing The Map online
+mkdir -p /usr/local/share/applications
 MAP_CENTER="lat=52.945&lon=-1.17"
 MARKER="mlat=52.9517&mlon=-1.1864"
 ZOOM="14"
@@ -126,14 +127,6 @@ EOF
 chmod a+x /usr/local/share/applications/osm_online.desktop
 cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
-
-
-if [ ! -d "$TMP_DIR" ] ; then
-   mkdir "$TMP_DIR"
-fi
-cd "$TMP_DIR"
-
-mkdir -p /usr/local/share/osm
 
 
 # install osmrender - it's a renderer from .osm to svg
