@@ -50,11 +50,18 @@ apt-get --yes autoremove
 
 #shrink help page images
 echo "Shrinking images, please wait as this may take some time ..."
+
 cd /var/www/
+## instrument it to see if it's worth the effort
+echo "`date`: /var/www takes `du -sm /var/www | cut -f1` mb"
 optipng -quiet -o5 `find | grep '\.png$' | grep -v './_images/'`
+echo "`date`: /var/www takes `du -sm /var/www | cut -f1` mb"
 cd -
+
 cd /usr/local/
+echo "`date`: /usr/local takes `du -sm /usr/local | cut -f1` mb"
 optipng -quiet -o5 `find | grep '\.png$' | grep -v gisvm`
+echo "`date`: /usr/local takes `du -sm /usr/local | cut -f1` mb"
 cd -
 # maybe do this after fslint so that hardlink'd dupes get done too?
 
