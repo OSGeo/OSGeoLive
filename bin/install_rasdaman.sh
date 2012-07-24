@@ -31,6 +31,10 @@ RASDAMAN_TARBALL="rasdaman-$VERSION.tar.gz"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
+
+if [ -z "GROUP_NAME"] ; then
+   GROUP_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 RASDAMAN_HOME="/usr/local/rasdaman"
 TMP="/tmp/build_rasdaman"
@@ -183,7 +187,8 @@ sed -i -e 's/OPTIONS="-w"/OPTIONS="-w -i"/' /etc/init.d/rpcbind
 /etc/init.d/rpcbind restart
 # needed to set the host name if it's empty
 # sed -i -e "s/ -host [^ ]*/ -host $HOSTNAME/" $RASDAMAN_HOME/etc/rasmgr.conf
-chown "$USER_NAME" "$RASDAMAN_HOME"/etc/
+chgrp "GROUP_NAME" "$RASDAMAN_HOME"/etc/
+chmod g+w "$RASDAMAN_HOME"/etc/
 chmod 774 "$RASDAMAN_HOME"/etc/rasmgr.conf
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
