@@ -367,5 +367,6 @@ cp -f /usr/share/applications/sahana.desktop \
 # cleanup
 apt-get --assume-yes remove python-dev
 
-rm -rf "$INSTALL_DIR/web2py/applications/eden/.git*"
+rm -rf "$INSTALL_DIR/web2py/.git"*
+rm -rf "$INSTALL_DIR/web2py/applications/eden/.git"*
 
