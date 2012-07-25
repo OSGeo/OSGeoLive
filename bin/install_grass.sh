@@ -102,15 +102,22 @@ for FILE in spearfish_grass60data-0.3 north_carolina/nc_basic_spm ; do
    #fi
 done
 
+mv /usr/local/share/grass/nc_basic_spm/gisdemo_ncspm/* \
+   /usr/local/share/grass/nc_basic_spm/
+rmdir /usr/local/share/grass/nc_basic_spm/gisdemo_ncspm
+# remove some cruft
+rm -f /usr/local/share/grass/nc_basic_spm/.[D_]*
+
+
 # but link into $HOME for easy access & so user owns mapset
 mkdir "$USER_HOME/grassdata"
 cd "$USER_HOME/grassdata"
 
 for LOCATION in spearfish60 nc_basic_spm ; do
-   mkdir $LOCATION
-   ln -s /usr/local/share/grass/$LOCATION/PERMANENT $LOCATION/PERMANENT
-   mkdir $LOCATION/user1
-   cp /usr/local/share/grass/$LOCATION/user1/* $LOCATION/user1/
+   mkdir "$LOCATION"
+   ln -s "/usr/local/share/grass/$LOCATION/PERMANENT" "$LOCATION/"
+   mkdir "$LOCATION/user1"
+   cp "/usr/local/share/grass/$LOCATION/user1"/* "$LOCATION/user1/"
 
    # PERMANENT can be read-only
    # are we the owner of the symlinked PERMANENT? (yes) We don't have
