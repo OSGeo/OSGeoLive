@@ -34,12 +34,11 @@ VM="${PACKAGE_NAME}-${VERSION}"
 # libgdal-dev, libpq-dev, and grass-dev get installed and uninstalled
 # so many times it's hard to keep track. let's install them one final
 # time just to be sure they make it on...
-# this wants 70mb installed.. and how about libgdal-dev  ..?
-#apt-get install --assume-yes libgdal1-dev grass-dev
+# grass-dev will depend on libgdal-dev or libgdal1-dev as needed, so
+#  during the transition we'll let gdal just be implicit. libpq-dev will
+#  also be pulled in automatically by this.
+apt-get install --assume-yes grass-dev
 
-
-# now that everything is installed rebuild library search cache
-ldconfig
 
 # remove build stuff no longer of use
 apt-get --yes remove devscripts pbuilder \
@@ -47,6 +46,9 @@ apt-get --yes remove devscripts pbuilder \
    lintian debhelper pkg-config dpkg-dev
 
 apt-get --yes autoremove
+
+# now that everything is installed rebuild library search cache
+ldconfig
 
 
 #shrink help page images

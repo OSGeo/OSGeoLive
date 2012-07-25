@@ -82,12 +82,15 @@ fi
 mkdir -p /usr/local/share/grass
 
 # Spearfish dataset, 20mb .tgz
-# North Carolina dataset, 135mb .tgz
-for FILE in spearfish_grass60data-0.3 nc_spm_latest ; do
+# North Carolina simplified dataset, nc_basic_spm.tar.gz  47mb
+## North Carolina dataset, 135mb nc_spm_latest.tar.gz
+
+for FILE in spearfish_grass60data-0.3 nc_basic_spm ; do
    cd "$TMP_DIR"
    if [ ! -e "$FILE.tar.gz" ] ; then
       # [! -e] bypasses "wget -c" opportunity, oh well
-      wget -c --progress=dot:mega "http://grass.osgeo.org/sampledata/$FILE.tar.gz"
+      wget -c --progress=dot:mega \
+         "http://grass.osgeo.org/sampledata/$FILE.tar.gz"
    fi
 
    cd /usr/local/share/grass/
@@ -102,7 +105,7 @@ done
 mkdir "$USER_HOME/grassdata"
 cd "$USER_HOME/grassdata"
 
-for LOCATION in spearfish60 nc_spm_08 ; do
+for LOCATION in spearfish60 nc_basic_spm ; do
    mkdir $LOCATION
    ln -s /usr/local/share/grass/$LOCATION/PERMANENT $LOCATION/PERMANENT
    mkdir $LOCATION/user1
@@ -116,8 +119,8 @@ for LOCATION in spearfish60 nc_spm_08 ; do
 done
 
 # link in an extra mapset with satellite data
-ln -s /usr/local/share/grass/nc_spm_08/landsat \
-      "$USER_HOME"/grassdata/nc_spm_08/landsat
+#ln -s /usr/local/share/grass/nc_spm_08/landsat \
+#      "$USER_HOME"/grassdata/nc_spm_08/landsat
 
 adduser $USER_NAME users
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata"
@@ -129,11 +132,7 @@ chown -R root.root /etc/skel/grassdata
 
 #### preconfig setup ####
 
-if [ "$IS_OLD_VERSION" -eq 1 ] ; then
-   GRASS_GUI=tcltk
-else
-   GRASS_GUI=wxpython
-fi
+GRASS_GUI=wxpython
 
 cat << EOF > "$USER_HOME/.grassrc6"
 GISDBASE: $USER_HOME/grassdata
