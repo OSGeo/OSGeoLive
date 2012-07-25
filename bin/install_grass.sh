@@ -85,6 +85,9 @@ mkdir -p /usr/local/share/grass
 # North Carolina simplified dataset, nc_basic_spm.tar.gz  47mb
 ## North Carolina dataset, 135mb nc_spm_latest.tar.gz
 
+#avoid mix of old and new datasets
+rm -rf /usr/local/share/grass/nc_basic_spm/
+
 for FILE in spearfish_grass60data-0.3 north_carolina/nc_basic_spm ; do
    cd "$TMP_DIR"
    if [ ! -e "$FILE.tar.gz" ] ; then
@@ -102,6 +105,7 @@ for FILE in spearfish_grass60data-0.3 north_carolina/nc_basic_spm ; do
    #fi
 done
 
+#minor cleanup and rearrangement
 mv /usr/local/share/grass/nc_basic_spm/gisdemo_ncspm/* \
    /usr/local/share/grass/nc_basic_spm/
 rmdir /usr/local/share/grass/nc_basic_spm/gisdemo_ncspm
