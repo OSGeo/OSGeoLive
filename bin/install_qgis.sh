@@ -145,7 +145,7 @@ wget --progress=dot:mega "$DATAURL" \
 tar xzf "$TMP_DIR"/qgis_plugin.tar.gz  -C "$TMP_DIR/plugins"
 #cp -R  "$TMP_DIR"/.qgis/python/plugins/ /usr/share/qgis/python/
 cp -R  "$TMP_DIR"/plugins/ /usr/share/qgis/python/
-
+chmod -R 755 /usr/share/qgis/python
 
 ## currently broken with QGIS 1.5.0
 #rm -rf /usr/share/qgis/python/plugins/contour
