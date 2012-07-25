@@ -85,7 +85,7 @@ mkdir -p /usr/local/share/grass
 # North Carolina simplified dataset, nc_basic_spm.tar.gz  47mb
 ## North Carolina dataset, 135mb nc_spm_latest.tar.gz
 
-for FILE in spearfish_grass60data-0.3 nc_basic_spm ; do
+for FILE in spearfish_grass60data-0.3 north_carolina/nc_basic_spm ; do
    cd "$TMP_DIR"
    if [ ! -e "$FILE.tar.gz" ] ; then
       # [! -e] bypasses "wget -c" opportunity, oh well
@@ -94,7 +94,8 @@ for FILE in spearfish_grass60data-0.3 nc_basic_spm ; do
    fi
 
    cd /usr/local/share/grass/
-   tar xzf "$TMP_DIR/$FILE.tar.gz"
+   BASE=`echo "$FILE" | sed -e 's+.*/++'`
+   tar xzf "$TMP_DIR/$BASE.tar.gz"
 
    #if [ $? -eq 0 ] ; then
    #   \rm "$TMP_DIR/$FILE.tar.gz"
