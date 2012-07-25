@@ -50,6 +50,9 @@ PASSWORD="user"
 BUILD_DIR=`pwd`
 TOMCAT_PORT=8033
 
+## 25jul12
+export DEEGREE_WORKSPACE_ROOT=$USER_HOME/.deegree
+mkdir -p $DEEGREE_WORKSPACE_ROOT
 
 ### Setup things... ###
 
