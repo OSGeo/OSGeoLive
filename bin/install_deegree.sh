@@ -78,7 +78,9 @@ cp /usr/local/share/gisvm/app-conf/deegree/deegree_stop.sh .
 cd $TMP
 unzip -q deegree-webservices-3.2-pre9.zip
 mv deegree-webservices-3.2-pre9 "$INSTALL_FOLDER"
-chown -R $USER_NAME:$USER_NAME "$DEEGREE_FOLDER"
+# "user" must not own files outside of /home
+# do "chmod g+w; chgrp users" if needed, but only on stuff that needs it
+#chown -R $USER_NAME:$USER_NAME "$DEEGREE_FOLDER"
 
 ### Configure Application ###
 
@@ -163,8 +165,10 @@ mkdir -p "$DEEGREE_WORKSPACE_ROOT"
 cd "$DEEGREE_WORKSPACE_ROOT"
 mkdir deegree-workspace-inspire-3.2-pre9
 cd deegree-workspace-inspire-3.2-pre9
-unzip -q $TMP/deegree-workspace-inspire-3.2-pre9.deegree-workspace
+unzip -q "$TMP"/deegree-workspace-inspire-3.2-pre9.deegree-workspace
 
 ## Fix permissions
-chown -R $USER_NAME:$USER_NAME "$DEEGREE_WORKSPACE_ROOT"
-
+# "user" must not own files outside of /home
+#chown -R $USER_NAME:$USER_NAME "$DEEGREE_WORKSPACE_ROOT"
+chmod g+w "$DEEGREE_WORKSPACE_ROOT" -R
+chgrp users "$DEEGREE_WORKSPACE_ROOT" -R
