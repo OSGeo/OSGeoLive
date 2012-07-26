@@ -288,7 +288,7 @@ cp /usr/share/applications/rasdaman-earthlook-demo.desktop "$USER_HOME/Desktop/"
 ###   at boot time.
 if [ `grep -c 'rasdaman' /etc/rc.local` -eq 0 ] ; then
     sed -i -e 's|exit 0||' /etc/rc.local
-    echo 'sed -i -e "s/ -host [^ ]*/ -host $HOSTNAME/" /usr/local/rasdaman/etc/rasmgr.conf' >> /etc/rc.local
+    echo 'sed -i -e "s/ -host [^ ]*/ -host `hostname`/" /usr/local/rasdaman/etc/rasmgr.conf' >> /etc/rc.local
     echo >> /etc/rc.local
     echo "exit 0" >> /etc/rc.local
 fi
