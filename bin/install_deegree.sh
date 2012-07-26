@@ -102,10 +102,10 @@ getWithMd5()
 
 ## get deegree-tomcat-all-in-one
 #getWithMd5 deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz
-wget -c -N --progress=dot:mega http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-webservices/3.2-pre9/deegree-webservices-3.2-pre9.zip
+wget -N --progress=dot:mega http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-webservices/3.2-pre9/deegree-webservices-3.2-pre9.zip
 
 ## unpack as root, chmod everything to be group/world readable
-unzip -x deegree-webservices-3.2-pre9.zip
+unzip -q -x deegree-webservices-3.2-pre9.zip
 mv deegree-webservices-3.2-pre9 "$INSTALL_FOLDER"
 #tar xzf deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz \
 #  -o -C "$INSTALL_FOLDER"
