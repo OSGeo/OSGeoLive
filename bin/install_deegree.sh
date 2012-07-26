@@ -40,7 +40,7 @@
 
 TMP="/tmp/build_deegree"
 INSTALL_FOLDER="/usr/local/lib"
-DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.2-pre3_apache-tomcat-6.0.35"
+DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.2-pre9"
 BIN="/usr/local/bin"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -71,6 +71,7 @@ fi
 mkdir -p "$TMP"
 cd "$TMP"
 
+
 getWithMd5()
 {
     rm -f $1.md5
@@ -100,11 +101,14 @@ getWithMd5()
 ### Install Application ###
 
 ## get deegree-tomcat-all-in-one
-getWithMd5 deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz
+#getWithMd5 deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz
+wget -c -N --progress=dot:mega http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-webservices/3.2-pre9/deegree-webservices-3.2-pre9.zip
 
 ## unpack as root, chmod everything to be group/world readable
-tar xzf deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz \
-   -o -C "$INSTALL_FOLDER"
+unzip -x deegree-webservices-3.2-pre9.zip
+mv deegree-webservices-3.2-pre9 "$INSTALL_FOLDER"
+#tar xzf deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz \
+#  -o -C "$INSTALL_FOLDER"
 
  #indents are debug msgs to see if these things are really fixed or not
  echo
@@ -124,14 +128,15 @@ sed -i -e "s+/usr/lib/deegree+$BIN/deegree+" "$DEEGREE_FOLDER/bin/catalina.sh"
 ### Configure Application ###
 
 ## Download startup script for deegree
-getWithMd5 deegree_start.sh
+#getWithMd5 deegree_start.sh
 ## copy it into the /usr/local/bin folder
-cp deegree_start.sh $BIN
-
+cp /usr/local/share/gisvm/app-conf/deegree_start.sh $BIN
 ## Download shutdown script for deegree
-getWithMd5 deegree_stop.sh
+#getWithMd5 deegree_stop.sh
 ## copy it into the /usr/local/bin folder
-cp deegree_stop.sh "$BIN"
+#cp deegree_stop.sh "$BIN"
+cp /usr/local/share/gisvm/app-conf/deegree_stop.sh $BIN
+
 
 ## make start and stop script executable
 chmod 755 "$BIN"/deegree_st*.sh
@@ -155,7 +160,7 @@ if [ ! -e /usr/share/applications/deegree-start.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Start deegree
-Comment=deegree webservices 3.2-pre3
+Comment=deegree webservices 3.2-pre9
 Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
 Exec=dash $USER_HOME/bin/launchassist.sh $BIN/deegree_start.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
@@ -174,7 +179,7 @@ if [ ! -e /usr/share/applications/deegree-stop.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Stop deegree
-Comment=deegree webservices 3.2-pre3
+Comment=deegree webservices 3.2-pre9
 Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
 Exec=dash $USER_HOME/bin/launchassist.sh  $BIN/deegree_stop.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png

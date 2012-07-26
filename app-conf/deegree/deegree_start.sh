@@ -8,7 +8,7 @@
 ##
 #########################
 
-DEE_DIR="/usr/local/lib/deegree-webservices-3.2-pre3_apache-tomcat-6.0.35"
+DEE_DIR="/usr/local/lib/deegree-webservices-3.2-pre9"
 
 ## stop system's tomcat (port 8080 conflict)
 #echo "user" | sudo -S /etc/init.d/tomcat6 stop
