@@ -69,8 +69,8 @@ cd "$TMP"
 ## download required stuff into tmp folder
 wget -N --progress=dot:mega http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-webservices/3.2-pre9/deegree-webservices-3.2-pre9.zip
 wget -N --progress=dot:mega http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-workspace-inspire/3.2-pre9/deegree-workspace-inspire-3.2-pre9.deegree-workspace
-wget -N http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/deegree/deegree_start.sh
-wget -N http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/deegree/deegree_stop.sh
+cp /usr/local/share/gisvm/app-conf/deegree/deegree_start.sh .
+cp /usr/local/share/gisvm/app-conf/deegree/deegree_stop.sh .
 
 ### Install deegree-webservices (with included Tomcat) ###
 
