@@ -160,12 +160,20 @@ ln -s /usr/local/share/data data
 chown "$USER_NAME":"$USER_NAME" data
 ls -s /usr/local/share/data /etc/skel/data
 
+
 # and there was music and laughter and much rejoicing
 adduser user audio
 
 # highly useful tricks
 echo "alias ll='ls -l'" >> "$USER_HOME"/.bashrc
 chown "$USER_NAME":"$USER_NAME" "$USER_HOME"/.bashrc
+echo "alias ll='ls -l'" >> /etc/skel/.bashrc
+
+# help avoid dumb mistakes
+echo "alias cp='cp -i'" >> /etc/skel/.bashrc
+echo "alias mv='mv -i'" >> /etc/skel/.bashrc
+echo "alias rm='rm -i'" >> /etc/skel/.bashrc
+
 
 cat << EOF >> "$USER_HOME"/.inputrc
 # a conference talk full of terminal beeps is no good
@@ -176,5 +184,6 @@ set prefer-visible-bell
 "\e[6~": history-search-forward
 EOF
 chown "$USER_NAME":"$USER_NAME" "$USER_HOME"/.inputrc
-
+cp "$USER_HOME"/.inputrc /etc/skel/
+cp "$USER_HOME"/.inputrc /root/
 
