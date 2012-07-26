@@ -120,7 +120,7 @@ cd "$USER_HOME/grassdata"
 for LOCATION in spearfish60 nc_basic_spm ; do
    mkdir "$LOCATION"
    ln -s "/usr/local/share/grass/$LOCATION/PERMANENT" "$LOCATION/"
-   mkdir "$LOCATION/user1"
+   mkdir -p "$LOCATION/user1/dbf"
    cp "/usr/local/share/grass/$LOCATION/user1"/* "$LOCATION/user1/"
 
    # PERMANENT can be read-only
