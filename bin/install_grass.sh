@@ -142,6 +142,23 @@ cp -r "$USER_HOME/grassdata" /etc/skel/
 chown -R root.root /etc/skel/grassdata
 
 
+### Bug #868: QGIS: Permissions on GRASS LOCATIONS ###
+#  -- Crappy workaround --
+# QGIS can't handle multi-user GRASS locations, so to get the quickstart
+# examples to work well we need to change the file ownership of PERMANENT
+# to the user.  We do this at boot time to allow the end-user to easily
+# disable it if they want something more sane or create another user acc't.
+if [ `grep -c 'grass.*/PERMANENT' /etc/rc.local` -eq 0 ] ; then
+    sed -i -e 's|exit 0||' /etc/rc.local
+    echo "chown $USER_NAME /usr/local/share/grass/spearfish60/PERMANENT" >> /etc/rc.local
+    echo "chown $USER_NAME /usr/local/share/grass/nc_basic_spm/PERMANENT" >> /etc/rc.local
+    echo >> /etc/rc.local
+    echo "exit 0" >> /etc/rc.local
+fi
+######
+
+
+
 #### preconfig setup ####
 
 GRASS_GUI=wxpython
