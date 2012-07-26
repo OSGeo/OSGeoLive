@@ -177,15 +177,20 @@ mkdir -p "$USER_HOME/grassdata/addons"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata/addons"
 
 
-if [ `grep -c 'GRASS_PAGER=' "$USER_HOME/.profile"` -eq 0 ] ; then
-   cat << EOF >> "$USER_HOME/.profile"
-
+#if [ `grep -c 'GRASS_PAGER=' "$USER_HOME/.profile"` -eq 0 ] ; then
+#   cat << EOF >> "$USER_HOME/.profile"
+#
+#GRASS_PAGER=more
+#GRASS_ADDON_PATH=~/grassdata/addons
+#export GRASS_PAGER GRASS_ADDON_PATH
+#
+#EOF
+#fi
+cat << EOF > /etc/profile.d/grass_settings.sh
 GRASS_PAGER=more
 GRASS_ADDON_PATH=~/grassdata/addons
 export GRASS_PAGER GRASS_ADDON_PATH
-
 EOF
-fi
 
 
 #copy over prebuilt font list

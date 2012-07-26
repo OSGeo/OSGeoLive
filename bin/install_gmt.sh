@@ -44,9 +44,11 @@ fi
 
 
 # add GMT apps to the PATH if not already done
-if [ `grep -c '/usr/lib/gmt/bin' "$USER_HOME/.bashrc"` -eq 0 ] ; then
-   echo 'export PATH="$PATH:/usr/lib/gmt/bin"' >> "$USER_HOME/.bashrc"
-fi
+#if [ `grep -c '/usr/lib/gmt/bin' "$USER_HOME/.bashrc"` -eq 0 ] ; then
+#   echo 'export PATH="$PATH:/usr/lib/gmt/bin"' >> "$USER_HOME/.bashrc"
+#fi
+echo 'export PATH="$PATH:/usr/lib/gmt/bin"' > /etc/profile.d/gmt_path.sh
+
 
 echo "Finished installing GMT."
 

@@ -158,6 +158,9 @@ ldconfig
 if [ `grep -c 'MB_PS_VIEWER=' "$USER_HOME/.bashrc"` -eq 0 ] ; then
    echo "export MB_PS_VIEWER=gv" >> "$USER_HOME/.bashrc"
 fi
+if [ `grep -c 'MB_PS_VIEWER=' "/etc/skel/.bashrc"` -eq 0 ] ; then
+   echo "export MB_PS_VIEWER=gv" >> "/etc/skel/.bashrc"
+fi
 
 
 

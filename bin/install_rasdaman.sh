@@ -173,6 +173,10 @@ sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" \
 if [ `grep -c $RASDAMAN_HOME/rasdaman/bin $USER_HOME/.bashrc` -eq 0 ] ; then
    echo "export PATH=\"\$PATH:$RASDAMAN_HOME/bin\"" >> "$USER_HOME/.bashrc"
 fi
+if [ `grep -c rasdaman/bin /etc/skel/.bashrc` -eq 0 ] ; then
+   echo "export PATH=\"\$PATH:$RASDAMAN_HOME/bin\"" >> "/etc/skel/.bashrc"
+fi
+
 
 #test if rasbase exists, if not create rasbase database
 test_RASBASE=$(su - $USER_NAME -c "psql --quiet  --list | grep \"RASBASE \" ")

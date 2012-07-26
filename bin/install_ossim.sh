@@ -67,11 +67,16 @@ mv /usr/share/ossim/images/ossim.xpm /usr/share/pixmaps/ossim.xpm
 mv /usr/share/ossim/imagelinker.desktop /usr/share/applications/imagelinker.desktop
 mv /usr/share/ossim/ossimplanet.desktop /usr/share/applications/ossimplanet.desktop
 
-if [ `grep -c '/usr/local/ossim/bin/' "$USER_HOME/.bashrc"` -eq 0 ] ; then
+if [ `grep -c '/usr/local/ossim/bin' "$USER_HOME/.bashrc"` -eq 0 ] ; then
    echo 'PATH="$PATH:/usr/local/ossim/bin"' >> "$USER_HOME/.bashrc"
    echo "export PATH" >> "$USER_HOME/.bashrc"
    #source "$USER_HOME/.bashrc"
 fi
+# we know bashisms are safe in .BASHrc
+if [ `grep -c '/usr/local/ossim/bin' "/etc/skel/.bashrc"` -eq 0 ] ; then
+   echo 'export PATH="$PATH:/usr/local/ossim/bin"' >> "/etc/skel/.bashrc"
+fi
+
 
 # Additional dependence for Grass / Qgis plug-in :
 #
