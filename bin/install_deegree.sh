@@ -164,5 +164,7 @@ cd "$DEEGREE_WORKSPACE_ROOT"
 mkdir deegree-workspace-inspire-3.2-pre9
 cd deegree-workspace-inspire-3.2-pre9
 unzip -q $TMP/deegree-workspace-inspire-3.2-pre9.deegree-workspace
-cd ..
-chown -R $USER_NAME:$USER_NAME deegree-workspace-inspire-3.2-pre9
+
+## Fix permissions
+chown -R $USER_NAME:$USER_NAME "$DEEGREE_WORKSPACE_ROOT"
+
