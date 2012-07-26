@@ -169,6 +169,7 @@ chmod 774 "$RASDAMAN_HOME"/bin/*
 sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" \
    "$RASDAMAN_HOME"/bin/create_db.sh
 
+
 # add rasdaman to the $PATH if not present
 if [ `grep -c $RASDAMAN_HOME/rasdaman/bin $USER_HOME/.bashrc` -eq 0 ] ; then
    echo "export PATH=\"\$PATH:$RASDAMAN_HOME/bin\"" >> "$USER_HOME/.bashrc"
@@ -189,7 +190,7 @@ fi
 sed -i -e 's/OPTIONS="-w"/OPTIONS="-w -i"/' /etc/init.d/rpcbind
 /etc/init.d/rpcbind restart
 # needed to set the host name if it's empty
-# sed -i -e "s/ -host [^ ]*/ -host $HOSTNAME/" $RASDAMAN_HOME/etc/rasmgr.conf
+# sed -i -e "s/ -host [^ ]*/ -host `hostname`/" $RASDAMAN_HOME/etc/rasmgr.conf
 chgrp "GROUP_NAME" "$RASDAMAN_HOME"/etc/
 chmod g+w "$RASDAMAN_HOME"/etc/
 chmod 774 "$RASDAMAN_HOME"/etc/rasmgr.conf
@@ -331,5 +332,3 @@ EOF
 cp /usr/share/applications/stop_rasdaman_server.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/start_rasdaman_server.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/rasdaman-earthlook-demo.desktop "$USER_HOME/Desktop/"
-
-
