@@ -1,7 +1,7 @@
 #!/bin/bash
 #################################################################################
 #
-# Purpose: Installation of deegree-webservices-3.2-pre3-with-apache-tomcat_6.0.35-all-in-one into Xubuntu
+# Purpose: Installation of deegree-webservices-3.2-pre9 into Xubuntu
 # Author:  Judit Mays <mays@lat-lon.de>, Johannes Kuepper <kuepper@lat-lon.de>
 # Credits: Stefan Hansen <shansen@lisasoft.com>
 #          H.Bowman <hamish_b  yahoo com>
@@ -9,8 +9,8 @@
 # Revision:$Revision$
 #
 #################################################################################
-# Copyright (c) 2009 lat/lon GmbH
-# Copyright (c) 2009 Uni Bonn
+# Copyright (c) 2009-2012 lat/lon GmbH
+# Copyright (c) 2009-2012 Uni Bonn
 #
 # Licensed under the GNU LGPL.
 #
@@ -27,9 +27,9 @@
 
 # About:
 # =====
-# This script will install deegree-webservices-tomcat-all-in-one into Xubuntu
+# This script will install deegree-webservices (with included Tomcat) into Xubuntu
 #
-# deegree webservices version 3.2-pre3 runs with java-sun-1.6 on Apache Tomcat 6.0.35
+# deegree webservices version 3.2-pre9 runs with openjdk7 on Apache Tomcat 6.0.35
 #
 
 # Running:
@@ -41,7 +41,9 @@
 TMP="/tmp/build_deegree"
 INSTALL_FOLDER="/usr/local/lib"
 DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.2-pre9"
+DEEGREE_WORKSPACE_ROOT="/usr/local/share/deegree"
 BIN="/usr/local/bin"
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
@@ -50,20 +52,13 @@ PASSWORD="user"
 BUILD_DIR=`pwd`
 TOMCAT_PORT=8033
 
-## 25jul12
-DEEGREE_WORKSPACE_ROOT="$USER_HOME/.deegree"
-export DEEGREE_WORKSPACE_ROOT
-mkdir -p "$DEEGREE_WORKSPACE_ROOT"
-
-### Setup things... ###
-
 ## check required tools are installed
 if [ ! -x "`which wget`" ] ; then
    echo "ERROR: wget is required, please install it and try again."
    exit 1
 fi
 if [ ! -x "`which java`" ] ; then
-   echo "ERROR: java is required, please install java-1.6-sun and try again."
+   echo "ERROR: java is required, please install it and try again."
    exit 1
 fi
 
@@ -71,76 +66,26 @@ fi
 mkdir -p "$TMP"
 cd "$TMP"
 
-
-getWithMd5()
-{
-    rm -f $1.md5
-    wget -nv http://download.deegree.org/LiveDVD/FOSS4G2012/$1.md5
-
-    if (test -f $1) then
-        if(md5sum -c $1.md5) then
-            echo "$1 has already been downloaded."
-            return
-        else
-            echo "md5 hash is not correct. Downloading $1 again."
-            rm -f $1
-            wget -c --progress=dot:mega http://download.deegree.org/LiveDVD/FOSS4G2012/$1
-        fi
-    else
-        wget -c --progress=dot:mega http://download.deegree.org/LiveDVD/FOSS4G2012/$1
-    fi
-
-    if (md5sum -c $1.md5) then
-        echo "md5 hash was ok."
-    else
-        echo "ERROR [install_deegree.sh]: download of $1 failed."
-        exit 1
-    fi
-}
-
-### Install Application ###
-
-## get deegree-tomcat-all-in-one
-#getWithMd5 deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz
+## download required stuff into tmp folder
 wget -N --progress=dot:mega http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-webservices/3.2-pre9/deegree-webservices-3.2-pre9.zip
+wget -N --progress=dot:mega http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-workspace-inspire/3.2-pre9/deegree-workspace-inspire-3.2-pre9.deegree-workspace
+wget -N http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/deegree/deegree_start.sh
+wget -N http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/deegree/deegree_stop.sh
 
-## unpack as root, chmod everything to be group/world readable
-unzip -q -x deegree-webservices-3.2-pre9.zip
+### Install deegree-webservices (with included Tomcat) ###
+
+## unpack as root
+cd $TMP
+unzip -q deegree-webservices-3.2-pre9.zip
 mv deegree-webservices-3.2-pre9 "$INSTALL_FOLDER"
-#tar xzf deegree-webservices-3.2-pre3_apache-tomcat-6.0.35.tar.gz \
-#  -o -C "$INSTALL_FOLDER"
-
- #indents are debug msgs to see if these things are really fixed or not
- echo
- ls -la "$DEEGREE_FOLDER"
-chmod a+rx "$DEEGREE_FOLDER"
-chmod -R go+r "$DEEGREE_FOLDER"/*
- echo
- ls -la "$DEEGREE_FOLDER"/webapps/deegree-webservices/
- echo
-chmod -R a+X "$DEEGREE_FOLDER"/webapps/deegree-webservices/*
-
-# moved to /usr/local/
- grep '/usr/lib/deegree' "$DEEGREE_FOLDER/bin/catalina.sh"
- echo
-sed -i -e "s+/usr/lib/deegree+$BIN/deegree+" "$DEEGREE_FOLDER/bin/catalina.sh"
+chown -R $USER_NAME:$USER_NAME "$DEEGREE_FOLDER"
 
 ### Configure Application ###
 
-## Download startup script for deegree
-#getWithMd5 deegree_start.sh
-## copy it into the /usr/local/bin folder
-cp /usr/local/share/gisvm/app-conf/deegree_start.sh $BIN
-## Download shutdown script for deegree
-#getWithMd5 deegree_stop.sh
-## copy it into the /usr/local/bin folder
-#cp deegree_stop.sh "$BIN"
-cp /usr/local/share/gisvm/app-conf/deegree_stop.sh $BIN
-
-
-## make start and stop script executable
+## Copy startup script for deegree
+cp $TMP/deegree_start.sh $BIN
+cp $TMP/deegree_stop.sh $BIN
 chmod 755 "$BIN"/deegree_st*.sh
-
 
 ### install desktop icons ##
 if [ ! -e "/usr/share/icons/deegree_desktop_48x48.png" ] ; then
@@ -190,48 +135,34 @@ fi
 cp -a /usr/share/applications/deegree-stop.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/deegree-stop.desktop"
 
-
-# something screwed up with the ISO permissions:
-chgrp tomcat6 "$DEEGREE_FOLDER"/bin/*.sh
-chmod ug+x "$DEEGREE_FOLDER"/bin/*.sh
-
-
-## last minute hack to work around conflict with system's tomcat
-##    (both want to use port 8080; deegree loses)
- echo
- cat "$BIN"/deegree_start.sh
- echo
-#cp -f "$BUILD_DIR"/../app-conf/deegree/deegree_start.sh "$BIN"/
-
- echo
- grep '80' "$DEEGREE_FOLDER"/conf/server.xml
- echo
-# forcibly change to another port
+## Adapt Tomcat ports
 cd "$DEEGREE_FOLDER"
+echo "Fixing Tomcat default ports (8080 -> $TOMCAT_PORT, 8005 -> 8006, 8443 -> 8444) in server.xml"
 sed -i -e "s/8080/$TOMCAT_PORT/" \
        -e 's/8005/8006/' \
        -e 's/8443/8444/' \
    conf/server.xml
 
 
-cd webapps/deegree-webservices/
+cd webapps/ROOT/
 FILES_TO_EDIT="
 console/wms/js/sextante.js
 console/wps/openlayers-demo/proxy.jsp
-console/wps/openlayers-demo/sextante.js
-resources/deegree-workspaces/deegree-workspace-csw/services/main.xml
-"
- #debug:
- echo
- grep '8080' $FILES_TO_EDIT
- echo
+console/wps/openlayers-demo/sextante.js"
 
 sed -i -e "s/localhost:8080/localhost:$TOMCAT_PORT/g" \
        -e "s/127.0.0.1:8080/127.0.0.1:$TOMCAT_PORT/g" \
    $FILES_TO_EDIT
 
 
-# if it's going to install 140mb of data, at least symlink it to the
-# data folder so others can use the geotiffs too
-ln -s "$DEEGREE_FOLDER"/webapps/deegree-webservices/resources/deegree-workspaces/deegree-workspace-utah/data/utah \
-     /usr/local/share/data/utah
+## create DEEGREE_WORKSPACE_ROOT
+rm -Rf "$DEEGREE_WORKSPACE_ROOT"
+mkdir -p "$DEEGREE_WORKSPACE_ROOT"
+
+## Extract INSPIRE workspace in DEEGREE_WORKSPACE_ROOT
+cd "$DEEGREE_WORKSPACE_ROOT"
+mkdir deegree-workspace-inspire-3.2-pre9
+cd deegree-workspace-inspire-3.2-pre9
+unzip -q $TMP/deegree-workspace-inspire-3.2-pre9.deegree-workspace
+cd ..
+chown -R $USER_NAME:$USER_NAME deegree-workspace-inspire-3.2-pre9
