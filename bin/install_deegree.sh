@@ -63,23 +63,27 @@ if [ ! -x "`which java`" ] ; then
 fi
 
 ## create tmp folder
+BUILD_DIR=`pwd`
 mkdir -p "$TMP"
 cd "$TMP"
 
 ## download required stuff into tmp folder
-wget -N --progress=dot:mega http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-webservices/3.2-pre9/deegree-webservices-3.2-pre9.zip
-wget -N --progress=dot:mega http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-workspace-inspire/3.2-pre9/deegree-workspace-inspire-3.2-pre9.deegree-workspace
-cp /usr/local/share/gisvm/app-conf/deegree/deegree_start.sh .
-cp /usr/local/share/gisvm/app-conf/deegree/deegree_stop.sh .
+wget -N --progress=dot:mega \
+   "http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-webservices/3.2-pre9/deegree-webservices-3.2-pre9.zip"
+wget -N --progress=dot:mega \
+   "http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-workspace-inspire/3.2-pre9/deegree-workspace-inspire-3.2-pre9.deegree-workspace"
+
+cp "$BUILD_DIR"/../app-conf/deegree/deegree_start.sh .
+cp "$BUILD_DIR"/../app-conf/deegree/deegree_stop.sh .
 
 ### Install deegree-webservices (with included Tomcat) ###
 
 ## unpack as root
-cd $TMP
+cd "$TMP"
 unzip -q deegree-webservices-3.2-pre9.zip
 mv deegree-webservices-3.2-pre9 "$INSTALL_FOLDER"
 # "user" must not own files outside of /home
-# do "chmod g+w; chgrp users" if needed, but only on stuff that needs it
+# do "chmod g+w; chgrp users" if needed, but only on stuff that really needs it
 #chown -R $USER_NAME:$USER_NAME "$DEEGREE_FOLDER"
 
 ### Configure Application ###
