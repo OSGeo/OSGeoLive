@@ -155,3 +155,7 @@ mkdir -p /usr/local/share/data/vector
 ln -s /usr/lib/geomajas-1.8.0-bin/webapps/showcase/WEB-INF/classes/org/geomajas/example/gwt/shapefile \
       /usr/local/share/data/vector/geomajas
 
+# remove local jai libraries to work with ones provided in default-java (fix for #959)
+rm "$GEOMAJAS_HOME/webapps/showcase/WEB-INF/lib/jai-*"
+
+
