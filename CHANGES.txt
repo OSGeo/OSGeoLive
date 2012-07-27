@@ -1,6 +1,21 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0beta5
+===================
+
+ * Udig now ported to openjdk7
+ * Geomajas fixed to work with common JAI
+ * GRASS permission issue temporary workaround
+ * Tilelite demo fixed
+ * Rasdaman fix using rasmgr.conf method
+ * Sahana fixed
+ * Deegree fixed and updated to 3.2-pre9
+ * Tilemill initial installation script added
+ * ZOO and Rasdaman in incubation (docs)
+ * Geomajas graduated (docs)
+ * PostGIS graduated (docs)
+
 Version 6.0beta4
 ===================
 
