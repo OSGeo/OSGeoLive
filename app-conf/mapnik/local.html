@@ -1,0 +1,100 @@
+<html>
+<head>
+  <title>TileLite Mapnik Server</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <style type="text/css">
+    html, body { height: 100%; }
+    body {margin: 0px;}
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
+<!-- set up to run local with these commands:
+        cd tilelite/demo
+        wget http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js
+        wget http://openlayers.org/download/OpenLayers-2.9.zip
+        unzip OpenLayers-2.9.zip
+-->
+
+<script src="http://localhost/openlayers/OpenLayers.js"></script>
+<script type="text/javascript" src="../_static/jquery.js"></script>
+
+<script type="text/javascript">
+        var map;
+                
+        function getZoom(e) {
+            $('#zoom')[0].innerHTML = 'Zoom: ' + map.getZoom();
+        }
+        
+        function init() {
+            
+            // Options for World Map in Google Spherical Mercator Projection
+            var options = { 
+                maxResolution: 156543.0339,
+                units: 'm',
+                projection: new OpenLayers.Projection("EPSG:900913"),
+                displayProjection: new OpenLayers.Projection("EPSG:4326"),
+                maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34, 20037508.34, 20037508.34)
+                };
+            
+            map = new OpenLayers.Map("map", options);
+            
+            function maxResForTileSize(tileSize){
+                return map.maxExtent.getWidth()/tileSize;
+            }
+            
+            // TileLite by default mounts on localhost port 8000 
+            var tiles_url = "http://localhost:8012/";
+           
+            var tilelite_layer = new OpenLayers.Layer.XYZ("Mapnik locally via TileLite", [tiles_url + '${z}/${x}/${y}.png']);
+            
+            tilelite_layer.attribution = "Data served by <a href='http://bitbucket.org/springmeyer/tilelite/'>TileLite</a>";
+
+            var osm_official_tiles = new OpenLayers.Layer.OSM("OpenStreetMap (Requires Internet)");
+            osm_official_tiles.attribution = "Map Data CC-BY-SA Openstreetmap.org";
+                                     
+            map.addLayers([tilelite_layer,osm_official_tiles]);
+            
+            map.addControl(new OpenLayers.Control.Scale());
+            map.addControl(new OpenLayers.Control.MousePosition());
+            map.addControl(new OpenLayers.Control.Navigation()); 
+            map.addControl(new OpenLayers.Control.PanZoom());
+            var ls = new OpenLayers.Control.LayerSwitcher();
+            map.addControl(ls);
+            //ls.maximizeControl();
+                        
+            function zoom_to_tilelite_extents() {                                
+                $.getJSON(tiles_url + "instance.json?jsoncallback=?",
+                  function(data){
+                      var e = data.extent;
+                      map.zoomToExtent(new OpenLayers.Bounds(e[0], e[1], e[2], e[3]));
+                      map.zoomIn();
+                  });
+            } 
+            
+            // Full to the full extent to make sure data shows up
+            map.zoomToMaxExtent();
+            
+            // Attempt to zoom to the data extent by querying Mapnik through TileLite
+            // This should fail silently if the getJSON does not return data...
+            zoom_to_tilelite_extents();
+            
+            map.events.register("moveend", map, getZoom);
+            map.events.register("zoomend", map, getZoom);
+            
+            }
+</script>
+</head>
+  
+<body onload="init();">
+
+     <h3 style="position:absolute; z-index:10000; left: 100px;">TileLite Mapnik Server</h3>
+    <h4 style="position:absolute; z-index:10000; bottom: 5px; left: 10px;" id="zoom">Zoom:</h4>
+
+    <div id="map">
+    </div>
+</body>
+
+</html>
