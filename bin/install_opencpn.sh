@@ -57,7 +57,7 @@ done
 
 
 # recommended:
-apt-get --assume-yes install gpsd gpsd-clients python-gps
+apt-get --assume-yes install gpsd gpsd-clients python-gps gdebi
 
 # dpkg -I <packagename.deb>
 # Depends: libatk1.0-0 (>= 1.29.3), libbz2-1.0, libc6 (>= 2.7), libcairo2 (>= 1.2.4),
