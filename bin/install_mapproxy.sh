@@ -24,6 +24,7 @@ MAPPROXY_DIR="/usr/local/share/mapproxy"
 mkdir -p "$TMP"
 cd "$TMP"
 
+apt-get install --yes gdebi
 
 echo "Downloading: $MAPPROXY_DEB_URL"
 wget --timestamping --continue --progress=dot:mega "$MAPPROXY_DEB_URL"
