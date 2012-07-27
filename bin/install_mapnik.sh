@@ -72,7 +72,8 @@ cd "$TMP/tilelite"
 python setup.py install # will install 'tilelite.py' in dist-packages and 'liteserv.py' in default bin directory
 
 # copy TileLite demo application and data to 'mapnik' subfolder of DATA_FOLDER
-cp -r demo "$MAPNIK_DATA"/
+mkdir -p "$MAPNIK_DATA"/demo/
+cp demo/* "$MAPNIK_DATA"/demo/
 #truly local only demo relies on jquery and openlayers from other installers
 cp "$BUILD_DIR/../app-conf/mapnik/local.html" "$MAPNIK_DATA"/demo/
 
