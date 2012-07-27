@@ -32,6 +32,7 @@ fi
 
 # download, install, and setup demo Mapnik tile-serving application
 TMP="/tmp/build_mapnik"
+BUILD_DIR=`pwd`
 DATA_FOLDER="/usr/local/share"
 MAPNIK_DATA=$DATA_FOLDER/mapnik
 if [ -z "$USER_NAME" ] ; then
@@ -70,6 +71,8 @@ python setup.py install # will install 'tilelite.py' in dist-packages and 'lites
 
 # copy TileLite demo application and data to 'mapnik' subfolder of DATA_FOLDER
 cp -R demo $MAPNIK_DATA
+#truly local only demo relies on jquery and openlayers from other installers
+cp "$BUILD_DIR/../app-conf/mapnik/local.html" $MAPNIK_DATA 
 
 # now get rid of temporary unzipped sources
 rm -fr $TMP/tilelite
