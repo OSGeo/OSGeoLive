@@ -34,14 +34,15 @@ fi
 TMP="/tmp/build_mapnik"
 BUILD_DIR=`pwd`
 DATA_FOLDER="/usr/local/share"
-MAPNIK_DATA=$DATA_FOLDER/mapnik
+MAPNIK_DATA="$DATA_FOLDER/mapnik"
+BIN="/usr/local/bin"
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-BIN="/usr/local/bin"
 
-mkdir -p $TMP
+mkdir -p "$TMP"
 cd "$TMP"
 
 ## Setup things... ##
@@ -51,10 +52,10 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-if [ ! -d $MAPNIK_DATA ]
+if [ ! -d "$MAPNIK_DATA" ]
 then
     echo "Creating $MAPNIK_DATA directory"
-    mkdir $MAPNIK_DATA
+    mkdir "$MAPNIK_DATA"
 fi
 
 # download TileLite sources
@@ -62,7 +63,8 @@ fi
 #wget -N --progress=dot:mega http://bitbucket.org/springmeyer/tilelite/get/tip.zip
 #unzip -o tip.zip
 #rm tip.zip # We wish to backup files downloaded. The tmp directory is automatically emptied upon computer shutdown.
-wget -N --progress=dot:mega http://download.osgeo.org/livedvd/data/mapnik/tilelite.tgz
+wget -N --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/mapnik/tilelite.tgz"
 tar xzf tilelite.tgz
 cd "$TMP/tilelite"
 
@@ -70,20 +72,20 @@ cd "$TMP/tilelite"
 python setup.py install # will install 'tilelite.py' in dist-packages and 'liteserv.py' in default bin directory
 
 # copy TileLite demo application and data to 'mapnik' subfolder of DATA_FOLDER
-cp -R demo $MAPNIK_DATA
+cp -r demo "$MAPNIK_DATA"/
 #truly local only demo relies on jquery and openlayers from other installers
-cp "$BUILD_DIR/../app-conf/mapnik/local.html" $MAPNIK_DATA 
+cp "$BUILD_DIR/../app-conf/mapnik/local.html" "$MAPNIK_DATA"/demo/
 
 # now get rid of temporary unzipped sources
-rm -fr $TMP/tilelite
+rm -fr "$TMP/tilelite"
 
 # Create startup script for TileLite Mapnik Server
-cat << EOF > $BIN/mapnik_start_tilelite.sh
+cat << EOF > "$BIN/mapnik_start_tilelite.sh"
 #!/bin/sh
 liteserv.py --port 8012 /usr/local/share/mapnik/demo/population.xml
 EOF
 
-chmod 755 $BIN/mapnik_start_tilelite.sh
+chmod 755 "$BIN/mapnik_start_tilelite.sh"
 
 
 ## Create Desktop Shortcut for starting TileLite Mapnik Server in shell
