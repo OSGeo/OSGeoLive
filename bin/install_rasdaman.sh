@@ -192,8 +192,13 @@ sed -i -e 's/OPTIONS="-w"/OPTIONS="-w -i"/' /etc/init.d/rpcbind
 # needed to set the host name if it's empty
 # sed -i -e "s/ -host [^ ]*/ -host `hostname`/" $RASDAMAN_HOME/etc/rasmgr.conf
 #chgrp "GROUP_NAME" "$RASDAMAN_HOME"/etc/
-chmod 777 "$RASDAMAN_HOME"/etc/
-chmod 777 "$RASDAMAN_HOME"/etc/rasmgr.conf
+
+chgrp users "$RASDAMAN_HOME"/etc/
+chmod g+w "$RASDAMAN_HOME"/etc/
+chgrp users "$RASDAMAN_HOME"/etc/rasmgr.conf
+chmod g+w "$RASDAMAN_HOME"/etc/rasmgr.conf
+adduser "$USER_NAME" users
+
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
