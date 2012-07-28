@@ -24,14 +24,15 @@ else
 fi
 
 
-NUM_PAGES=`ls -1 *.rst en/*.rst en/*.txt en/*/*.rst | wc -l`
+NUM_PAGES=`ls -1 en/*.rst en/*.txt en/*/*.rst | wc -l`
 
 # pages with no text to translate
-NO_CONTENT=3
+NO_CONTENT=1
 
 NUM_PAGES=`expr $NUM_PAGES - $NO_CONTENT`
 
-LANGS="ca de el es it ja pl zh"
+
+LANGS="ca de el es fr it ja pl zh"
 
 cat << EOF > lang_stats.html
 <html>
@@ -39,9 +40,8 @@ cat << EOF > lang_stats.html
 <title>OSGeo Live Demo DVD Translation Stats</title>
 </head>
 <body>
-
-<br><br><br><br>
 <center>
+<br><br>
 <h2>OSGeo Live Translation Stats</h2>
 Help translate -
   <a href="http://wiki.osgeo.org/wiki/Live_GIS_Translate">click here!</a>
@@ -66,7 +66,7 @@ EOF
 
 rm -f lang_stats.prn
 for CODE in $LANGS ; do
-   DONE=`ls -1 *.rst $CODE/*.rst $CODE/*.txt $CODE/*/*.rst | wc -l`
+   DONE=`ls -1 $CODE/*.rst $CODE/*.txt $CODE/*/*.rst | wc -l`
    LEFT=`expr $NUM_PAGES - $DONE`
    PERCENT=`echo "$DONE $NUM_PAGES" | awk '{printf("%.1f", $1 * 100.0 / $2)}'`
    
@@ -79,11 +79,15 @@ for CODE in $LANGS ; do
          ;;
      es) LAN=Spanish
          ;;
+     fr) LAN=French
+         ;;
      it) LAN=Italian
          ;;
      ja) LAN=Japanese
          ;;
      pl) LAN=Polish
+         ;;
+     pt) LAN=Portuguese
          ;;
      zh) LAN=Chinese
          ;;
@@ -94,8 +98,14 @@ for CODE in $LANGS ; do
 done
 
 # late to the party
-echo "French,fr,0,$NUM_PAGES,0.0" >> lang_stats.prn
+echo "Portuguese,pt,0,$NUM_PAGES,0.0" >> lang_stats.prn
 
+#out with the old
+rm -f lang_stats_sorted.prn
+
+#in with the new
+LANG=C
+export LANG
 sort -k3 -t, -nr lang_stats.prn > lang_stats_sorted.prn
 
 rm -f lang_stats.prn
@@ -111,18 +121,26 @@ while read line ; do
 done < lang_stats_sorted.prn
 
 
+# find those that are complete, give them a prize
+COMPLETE=`grep ',100.0$' lang_stats_sorted.prn | cut -f1 -d,`
+for LAN in $COMPLETE ; do
+   sed -i -e "s|$LAN|<font color=\"#00aa00\">$LAN</font>|" lang_stats.html
+done
+
+
 cat << EOF >> lang_stats.html
 </table>
 <br>
 <font size="-2">
 <i>Valid as of `date`</i>
 </font>
+<BR><BR><BR>
+<hr width="30%">
+<a href="http://live.osgeo.org" border="0"><img src="http://wiki.osgeo.org/images/5/52/Osgeolive_wordle.png" alt="OSGeo Live" border="0"></a>
 </center>
 </body>
 </html>
 EOF
-
-rm -f lang_stats_sorted.prn
 
 
 #cp lang_stats.html /where/it/needs/to/go/
