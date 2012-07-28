@@ -1,6 +1,11 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0beta6
+===================
+
+ * fixed gdebi issue
+
 Version 6.0beta5
 ===================
 
