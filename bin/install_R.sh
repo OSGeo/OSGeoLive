@@ -121,5 +121,5 @@ cp -f *.pdf /usr/local/lib/R/site-library/spgrass6/doc/
 
 # link sample data to central location
 mkdir -p /usr/local/share/data/vector
-ls -s /usr/local/lib/R/site-library/rgdal/vectors \
+ln -s /usr/local/lib/R/site-library/rgdal/vectors \
    /usr/local/share/data/vector/R
