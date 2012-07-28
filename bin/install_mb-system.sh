@@ -68,8 +68,10 @@ fi
 
 
 # add GMT apps to the PATH if needed
-if [ `grep -c '/usr/lib/gmt/bin' "$USER_HOME/.bashrc"` -eq 0 ] ; then
-   echo 'PATH="$PATH:/usr/lib/gmt/bin"' >> "$USER_HOME/.bashrc"
+if [ `grep -c '/usr/lib/gmt/bin' "$USER_HOME/.bashrc"` -eq 0 ] && \
+   [ ! -e /etc/profile.d/gmt_path.sh ] ; then
+      echo 'PATH="$PATH:/usr/lib/gmt/bin"' >> "$USER_HOME/.bashrc"
+   fi
 fi
 
 
