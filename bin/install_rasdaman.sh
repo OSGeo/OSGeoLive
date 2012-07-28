@@ -35,6 +35,8 @@ fi
 if [ -z "$GROUP_NAME" ] ; then
    GROUP_NAME="user"
 fi
+
+TOMCAT_USER_NAME="tomcat6"
 USER_HOME="/home/$USER_NAME"
 RASDAMAN_HOME="/usr/local/rasdaman"
 TMP="/tmp/build_rasdaman"
@@ -129,7 +131,7 @@ tar xzmf "$RASDAMAN_TARBALL"
 
 cd "rasdaman"
 mkdir -p "$RASDAMAN_HOME/log"
-chown "$USER_NAME" "$RASDAMAN_HOME/log/" -R
+chown $USER_NAME:$USER_NAME "$RASDAMAN_HOME/log/" -R
 
 ./configure --with-logdir="$RASDAMAN_HOME"/log \
     --prefix="$RASDAMAN_HOME" --with-wardir="$WARDIR" --with-netcdf --with-hdf4 LIBS='-lecpg -lgdal1.7.0'
@@ -164,7 +166,7 @@ echo "cd $RASVIEWHOME && ./rview.bin" >> $RASVIEWSCRIPT
 chmod +x $RASVIEWSCRIPT
 
 # setup permissions
-chown "$USER_NAME" "$RASDAMAN_HOME"/bin/*
+chown -R $USER_NAME:$USER_NAME "$RASDAMAN_HOME"/bin/
 chmod 774 "$RASDAMAN_HOME"/bin/*
 sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" \
    "$RASDAMAN_HOME"/bin/create_db.sh
@@ -272,7 +274,8 @@ if [ -d "/var/lib/tomcat6/webapps/earthlook" ] ; then
 fi
        
 echo moving earthlook folder into tomcat webapps...
-mv rasdaman/* /var/lib/tomcat6/webapps/
+chown -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME rasdaman
+mv rasdaman/* "$WARDIR"
 
 
 
