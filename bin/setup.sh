@@ -61,7 +61,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   cvs cvsutils subversion subversion-tools mercurial git \
   openssh-client lftp sl usbutils wireless-tools \
   locate diff patch fuseiso menu \
-  vim medit nedit nano screen iotop \
+  vim medit nedit nano screen iotop xfonts-jmk \
   okular ghostscript a2ps netpbm qiv \
   lynx mutt mc xchat rxvt units scrot \
   gdebi fslint filelight arandr sgt-puzzles
