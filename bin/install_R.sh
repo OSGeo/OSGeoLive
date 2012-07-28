@@ -102,7 +102,8 @@ cp -a /usr/share/applications/r.desktop "$USER_HOME/Desktop/"
 
 #Remove build libraries
 apt-get --assume-yes remove python-all-dev libgdal1-dev \
-   libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev libglu1-mesa-dev libsprng2-dev
+   libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
+   libglu1-mesa-dev libsprng2-dev
 
 #cleanup leftovers
 apt-get --assume-yes autoremove
@@ -115,5 +116,10 @@ cd /tmp/build_R
 wget -N --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/R/spgrass6_pdf.zip"
 unzip spgrass6_pdf.zip
-\cp -f *.pdf /usr/local/lib/R/site-library/spgrass6/doc/
+cp -f *.pdf /usr/local/lib/R/site-library/spgrass6/doc/
 
+
+# link sample data to central location
+mkdir -p /usr/local/share/data/vector
+ls -s /usr/local/lib/R/site-library/rgdal/vectors \
+   /usr/local/share/data/vector/R
