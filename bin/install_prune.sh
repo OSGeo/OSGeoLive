@@ -14,8 +14,8 @@
 
 # About:
 # =====
-# This script will install Prune in Ubuntu
-# Prune is an application for viewing and post-processing GPS data
+# This script will install GpsPrune in Ubuntu
+# GpsPrune is an application for viewing and post-processing GPS data
 # Homepage: http://activityworkshop.net/software/prune/
 # 
 
