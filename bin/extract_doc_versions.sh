@@ -63,6 +63,7 @@ echo "dir/file,docname,version,directory,language,username,date,project,last upd
 
 
 #cat list.txt \
+# old awk line was: awk '{print $7"/"$8"/"$9","$9","$1","$8","$7","$2",",$4,$5,$6","$9}' \ --jsanchez
 svn list -v -R \
   | grep ".rst$" \
   | grep -v "/template_" \
@@ -70,7 +71,7 @@ svn list -v -R \
   | grep -v "/$"  \
   | sed -e's#\( [^/]*\)/\([^/]*$\)#\1/./\2#' \
   | sed -e's#/# #g' \
-  | awk '{print $7"/"$8"/"$9","$9","$1","$8","$7","$2",",$4,$5,$6","$9}' \
+  | awk '{print $8"/"$9"/"$10","$10","$1","$9","$8","$2",",$4,$5,$6,$7","$10}' \
   | sed -e's/,\.,/,".",/' \
   | sed -e's/_overview.rst$//' \
   | sed -e's/_quickstart.rst$//' \
@@ -83,9 +84,10 @@ echo "INSTALL SCRIPTS:"
 echo "dir/file,docname,version,directory,language,username,date,project,last updated:" `date`
 
 #cat list2.txt \
+#ols line was | awk '{print "bin/"$7","$7","$1",bin,,"$2","$4" "$5" "$6","$7}' \
 svn list -v -R \
   | grep -v "/$"  \
-  | awk '{print "bin/"$7","$7","$1",bin,,"$2","$4" "$5" "$6","$7}' \
+  | awk '{print "bin/"$8","$8","$1",bin,,"$2","$4" "$5" "$6,$7","$8}' \
   | sed -e's#,install_\([^,]*\).sh$#,\1#' \
   | sed -e's/,\.,/,".",/' \
   #| sed -e's#\(install_\)\([^,]*[.sh$\)#\2#' \
