@@ -87,7 +87,7 @@ EOF
 GAIA_URL="http://www.gaia-gis.it/gaia-sins"
 PACKAGES="libgaiagraphics-0.4b spatialite_gui-1.5.0-stable spatialite_gis-1.0.0c"
 for i in $PACKAGES; do
-	wget $GAIA_URL/$i.tar.gz
+	wget -c --progress=dot:mega "$GAIA_URL/$i.tar.gz"
 	tar xzf $i.tar.gz
 	cd $i
 	./configure
