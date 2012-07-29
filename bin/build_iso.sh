@@ -195,13 +195,13 @@ if [ "$1" = "mini" ] ; then
 	# quick name check
 	ISO_NAME="${PACKAGE_NAME}-mini-${VERSION}"
 	echo "Now creating $ISO_NAME.iso"
-	#remastersys backup "$ISO_NAME.iso"
-	remastersys dist "$ISO_NAME.iso"
+	remastersys backup "$ISO_NAME.iso"
+	#remastersys dist "$ISO_NAME.iso"
 
 else
 	# quick name check
 	echo "Now creating $ISO_NAME.iso"
-	#remastersys backup "$ISO_NAME.iso"
-	remastersys dist "$ISO_NAME.iso"
+	remastersys backup "$ISO_NAME.iso"
+	#remastersys dist "$ISO_NAME.iso"
 fi
 
