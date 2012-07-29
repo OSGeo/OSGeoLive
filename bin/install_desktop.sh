@@ -144,19 +144,8 @@ fi
 cp "$BUILD_DIR"/../desktop-conf/xfce/cpugraph-362.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 cp "$BUILD_DIR"/../desktop-conf/xfce/xkb-plugin-363.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 
-# two workspaces
-sed -i -e 's+\("workspace_count" type="int" value=\)"1"+\1"2"+' \
-   /usr/share/xubuntu/xdg-gdm/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
-# on the ISO version the home dir has already been populated:
-USER_PANEL_CONF="$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml"
-if [ -e "$USER_PANEL_CONF" ] ; then
-   sed -i -e 's+\("workspace_count" type="int" value=\)"1"+\1"2"+' "$USER_PANEL_CONF"
-fi
-
-
 mkdir -p /usr/local/share/xfce
 mkdir -p /usr/local/share/applications
-
 
 # pared down copy of /etc/xdg/xdg-xubuntu/menus/xfce-applications.menu
 cp "$BUILD_DIR"/../desktop-conf/xfce/xfce-osgeo.menu /usr/local/share/xfce/
@@ -387,8 +376,8 @@ EOF
 
 
 ##### Setup Automatic or Timed Login #####
-cp "$BUILD_DIR"/../desktop-conf/custom.conf /etc/gdm/custom.conf
-
+echo "TODO: update autologin preferences for lightdm."
+#cp "$BUILD_DIR"/../desktop-conf/custom.conf /etc/gdm/custom.conf
 
 
 ##### Setup timed welcome message
