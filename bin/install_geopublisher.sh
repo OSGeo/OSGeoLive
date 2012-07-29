@@ -41,7 +41,7 @@ apt-get -q update
 apt-get -q install --yes --no-install-recommends geopublisher geopublishing-doc
 
 # Now we create a .properties file which predefines that Geopublisher open-file-dialog will start in the directory recommended in the quickstart 
-mkdir -p $USER_HOME/.Geopublisher
+mkdir -p "$USER_HOME/.Geopublisher"
 echo "LastOpenAtlasFolder=$USER_HOME/Desktop/ChartDemoAtlas" \
    > "$USER_HOME/.Geopublisher/geopublisher.properties"
 
