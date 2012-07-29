@@ -11,7 +11,7 @@
 #   8 Jan 2012  changes for OJ 1.5
 #
 #################################################
-# Copyright (c) 2011 Edgar Soldin, openjump team
+# Copyright (c) 2011-2012 Edgar Soldin, openjump team
 # Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 LISAsoft
 #
@@ -54,8 +54,7 @@ PKG_DESKTOP=$USER_HOME/Desktop/openjump.desktop
 PKG_SUCCESS=$PKG_HOME/.installed
 
 ## get file defs from online file list below
-echo 'FIX ME: osgeo5.5 files => osgeo6.0 files'
-URL_LIST=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osgeo-5.5.files
+URL_LIST=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osgeo.files
 
 #URL_PKG=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP_snapshots/OpenJUMP-20120108-r2597-CORE.zip
 #URL_ICON=http://jump-pilot.svn.sourceforge.net/viewvc/jump-pilot/core/trunk/icon/openjump_icon3.svg
@@ -73,7 +72,7 @@ elif [ ! -x "`which wget`" ] ; then
   exit 1
 fi
 
-# cleanup
+# always cleanup first
 (rm -rfv "$TMP" "$PKG_HOME" "$PKG_DESKTOP" "$PKG_LINK" "$PKG_DATA" "$USER_HOME/.openjump") 2>/dev/null
 [ "$1" = "--clean" ] && exit
 
@@ -128,7 +127,7 @@ chown "$USER_NAME"."$USER_NAME" "$PKG_DESKTOP" &&\
 ## Sample Data ##
 wget -N --progress=dot:mega "$URL_DATA" &&\
 mkdir -p "$PKG_DATA/sample_data" &&\
-unzip -j -q $(basename $URL_DATA) -x '*/.*' -d "$PKG_DATA/sample_data" &&\
+unzip -o -j -q $(basename $URL_DATA) -x '*/.*' -d "$PKG_DATA/sample_data" 2>&1 | awk '!/excluded filename not matched/' &&\
 
 ## Documentation ##
 wget -N --progress=dot:mega "$URL_DOC" &&\
