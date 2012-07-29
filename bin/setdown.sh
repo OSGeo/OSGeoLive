@@ -31,6 +31,13 @@ PACKAGE_NAME="osgeolive"
 VM="${PACKAGE_NAME}-${VERSION}"
 
 
+# remove build stuff no longer of use
+apt-get --yes remove devscripts pbuilder \
+   svn-buildpackage \
+   lintian debhelper pkg-config dpkg-dev
+
+apt-get --yes remove python2.7-dev
+
 # libgdal-dev, libpq-dev, and grass-dev get installed and uninstalled
 # so many times it's hard to keep track. let's install them one final
 # time just to be sure they make it on...
@@ -39,11 +46,6 @@ VM="${PACKAGE_NAME}-${VERSION}"
 #  also be pulled in automatically by this.
 apt-get install --assume-yes grass-dev
 
-
-# remove build stuff no longer of use
-apt-get --yes remove devscripts pbuilder \
-   svn-buildpackage python2.7-dev \
-   lintian debhelper pkg-config dpkg-dev
 
 apt-get --yes autoremove
 
@@ -54,14 +56,15 @@ ldconfig
 #shrink help page images
 echo "Shrinking images, please wait as this may take some time ..."
 
-cd /var/www/
-## instrument it to see if it's worth the effort
-echo "`date`: /var/www takes `du -sm /var/www | cut -f1` mb"
-optipng -quiet -o5 `find | grep '\.png$' | grep -v './_images/'`
-echo "`date`: /var/www takes `du -sm /var/www | cut -f1` mb"
-cd -
-
+# cd /var/www/
+# # instrument it to see if it's worth the effort (takes 2.25 minutes, saves <1mb)
+# echo "`date`: /var/www takes `du -sm /var/www | cut -f1` mb"
+# optipng -quiet -o5 `find | grep '\.png$' | grep -v './_images/'`
+# echo "`date`: /var/www takes `du -sm /var/www | cut -f1` mb"
+# cd -
+#
 # cd /usr/local/
+# # takes 32 minutes, saves 5mb
 # echo "`date`: /usr/local takes `du -sm /usr/local | cut -f1` mb"
 # optipng -quiet -o5 `find | grep '\.png$' | grep -v gisvm`
 # echo "`date`: /usr/local takes `du -sm /usr/local | cut -f1` mb"
