@@ -72,7 +72,7 @@ cd $TMP
 
 # get correct kosmo.sh
 rm $KOSMO_FOLDER/bin/Kosmo.sh
-wget -c --progress=dot:mega http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/Kosmo.sh
+wget -nv -N http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/Kosmo.sh
 cp Kosmo.sh $KOSMO_FOLDER/bin/
 chown $USER_NAME:$USER_NAME $KOSMO_FOLDER/bin/Kosmo.sh
 # why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
