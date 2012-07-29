@@ -77,12 +77,6 @@ pkg_cleanup()
      luatex libgssrpc4 libkadm5clnt-mit8 libkadm5srv-mit8 \
      libkdb5-6 libgdal1-dev libnetcdf-dev
 
-  # remove jdk
-  echo 'FIXME: be careful that no other project on the disc wanted any of these!'
-  apt-get --yes remove ca-certificates-java libaccess-bridge-java \
-     libaccess-bridge-java-jni libnss3-1d \
-     tzdata-java
-
   apt-get --yes autoremove
 }
 
@@ -92,8 +86,7 @@ pkg_cleanup()
 
 apt-key update
 
-echo "FIXME: is 'apt-get -f' really needed here? what's broken?"
-apt-get  -f install  --no-install-recommends --assume-yes $PACKAGES
+apt-get  install  --no-install-recommends --assume-yes $PACKAGES
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
@@ -101,11 +94,10 @@ if [ $? -ne 0 ] ; then
 fi
 
 # symlink from the installed libdfalt
-echo "FIXME: please put custom stuff in /usr/local/lib so we can know about devations from the base install. Better: compile against 12.04's libraries"
-ln -s /usr/lib/libdfalt.a /usr/lib/libdf.a
-ln -s /usr/lib/libdfalt.la /usr/lib/libdf.la
-ln -s /usr/lib/libdfalt.so /usr/lib/libdf.so
-ln -s /usr/lib/libdfalt.so.0 /usr/lib/libdf.so.0
+#ln -s /usr/lib/libdfalt.a /usr/lib/libdf.a
+#ln -s /usr/lib/libdfalt.la /usr/lib/libdf.la
+#ln -s /usr/lib/libdfalt.so /usr/lib/libdf.so
+#ln -s /usr/lib/libdfalt.so.0 /usr/lib/libdf.so.0
 ln -s /usr/lib/libdfalt.so.0.0.0 /usr/lib/libdf.so.0.0.0
 ln -s /usr/lib/libmfhdfalt.a /usr/lib/libmfhdf.a
 ln -s /usr/lib/libmfhdfalt.la /usr/lib/libmfhdf.la
@@ -117,7 +109,7 @@ ldconfig
 
 #download and install rasdaman
 #If folder already exists, delete it and download the latest version
-echo "FIXME: use a better test to avoid stale installs & gratuitous downloads" 
+
 
 if [  -d  rasdaman ] ; then
     rm -rf rasdaman
@@ -128,7 +120,7 @@ fi
 wget -c --progress=dot:mega "$RASDAMAN_LOCATION/$RASDAMAN_TARBALL"
 tar xzmf "$RASDAMAN_TARBALL"
 
-
+#configure, make and install
 cd "rasdaman"
 mkdir -p "$RASDAMAN_HOME/log"
 chown $USER_NAME:$USER_NAME "$RASDAMAN_HOME/log/" -R
@@ -188,12 +180,7 @@ if [ -z "$test_RASBASE" ] ; then
 fi
 
 
-# needed to start the RPC server
-sed -i -e 's/OPTIONS="-w"/OPTIONS="-w -i"/' /etc/init.d/rpcbind
-/etc/init.d/rpcbind restart
-# needed to set the host name if it's empty
-# sed -i -e "s/ -host [^ ]*/ -host `hostname`/" $RASDAMAN_HOME/etc/rasmgr.conf
-#chgrp "GROUP_NAME" "$RASDAMAN_HOME"/etc/
+#set host name
 
 chgrp users "$RASDAMAN_HOME"/etc/
 chmod g+w "$RASDAMAN_HOME"/etc/
@@ -221,13 +208,9 @@ cd $TMP_PETASCOPE
 sed -i "s/^metadata_user=.\+/metadata_user=$WCPS_USER/" $TMP_PETASCOPE/src/main/resources/settings.properties
 sed -i "s/^metadata_pass=.\+/metadata_pass=$WCPS_PASSWORD/" $TMP_PETASCOPE/src/main/resources/settings.properties
 
-#sed -i "s/\`hostname\`/\"127.0.0.1\"/" $TMP_PETASCOPE/db/update_db.sh
 echo "ccip_hack=true" >>$TMP_PETASCOPE/src/main/resources/settings.properties
-#Download petascope metadata scripte for the demo
-#wget -c --progress=dot:mega  http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/update0.sql
-#cp updata0.sql $TMP_PETASCOPE/db/updata0.sql
-#set up petascope db
-#su - $USER_NAME -c "cd $TMP/rasdaman/applications/petascope && make setupdb"
+
+#import petascope db metadata
 /etc/init.d/tomcat6 stop
 su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/droptables.sql"
         
@@ -282,9 +265,6 @@ mv rasdaman/* "$WARDIR"
 
 #clean up
 echo "cleaning up..."
-/etc/init.d/rpcbind start
-#su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
-#su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
 pkg_cleanup
 
