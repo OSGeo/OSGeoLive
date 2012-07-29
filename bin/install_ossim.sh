@@ -202,6 +202,7 @@ wget -N --progress=dot:mega $DATA_URL/kml/View_towards_Sagrada_Familia.kmz \
 #wget -N --progress=dot:mega $DATA_URL/ossim_data/session.session \
 #  --output-document=$PKG_DATA/session.session
 
+apt-get --assume-yes install libjepg62
 ossim-img2rr "$RASTER_DATA/band1.tif" "$RASTER_DATA/band2.tif" "$RASTER_DATA/band3.tif"
  
 wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N40E002.hgt \
