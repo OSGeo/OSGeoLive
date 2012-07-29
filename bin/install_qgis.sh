@@ -77,7 +77,11 @@ StartupNotify=false
 Categories=Education;Geography;Qt;
 MimeType=application/x-qgis-project;image/tiff;image/jpeg;image/jp2;application/x-raster-aig;application/x-mapinfo-mif;application/x-esri-shape;
 EOF
+else
+   sed -i -e 's/^Name=Quantum GIS Desktop/Name=Quantum GIS/' \
+      /usr/share/applications/qgis.desktop
 fi
+
 
 cp /usr/share/applications/qgis.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/qgis.desktop"
