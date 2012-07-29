@@ -71,6 +71,11 @@ fi
 cd "$DATA_FOLDER"
 wget -N --progress=dot:mega "$TESTDATA_URL"
 
+# make it available to all projects:
+mkdir -p /usr/local/share/data/raster
+ln -s "$DATA_FOLDER/utm.tif" /usr/local/share/data/raster/utm11N.tif
+
+
 # Everything is OK
 echo "MapTiler is installed"
 echo "---------------------"
