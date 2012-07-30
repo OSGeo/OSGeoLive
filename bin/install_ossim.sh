@@ -81,10 +81,11 @@ fi
 # Additional dependence for Grass / Qgis plug-in :
 #
 
-apt-get install --assume-yes grass qgis python-pysqlite2 python-pygame python-scipy \
-   python-serial python-psycopg2 proj-bin python-lxml \
+apt-get install --assume-yes grass-core qgis python-pysqlite2 python-pygame \
+   python-scipy python-serial python-psycopg2 proj-bin python-lxml \
    libqt4-core python-distutils-extra python-setuptools python-qscintilla2 
    # spyder
+
 #???? apt-get install --assume-yes --force-yes python-scipy
 
 
@@ -147,25 +148,24 @@ EOF
 fi
 
 
-
 #Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/ossim
 #FIXME: -N is not compatible with -O.
-wget -N --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf \
-	--output-document=/usr/local/share/ossim/ossim_users_guide.pdf
+wget --progress=dot:mega "http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf" \
+     --output-document=/usr/local/share/ossim/ossim_users_guide.pdf
 
-echo "FIXME: doesn't exist ==> 'ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/'"
+#echo "FIXME: doesn't exist ==> 'ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/'"
 
 # pdf temporary stored on my ftp, waiting to add it on ossim download page.   
 wget --progress=dot:mega "http://www.geofemengineering.it/data/OSSIM_Whitepaper.pdf" \
-    --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
+     --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
 
 
 #Download data used to test the application
 KML_DATA="$DATA_FOLDER/kml"
 RASTER_DATA="$DATA_FOLDER/raster"
 ELEV_DATA=/usr/share/ossim/elevation/elev
-echo "FIXME: does VRT data actually exist anymore?"
+echo "FIXME: does VRT data actually ship anymore?"
 VRT_DATA="$DATA_FOLDER/vrt"
 QUICKSTART=/usr/local/share/ossim/quickstart
 
@@ -184,39 +184,37 @@ done
 
 DATA_URL="http://www.geofemengineering.it/data"
 
-wget -N --progress=dot:mega $DATA_URL/ossim_data/band1.tif  \
+wget --progress=dot:mega $DATA_URL/ossim_data/band1.tif  \
   --output-document=$RASTER_DATA/band1.tif           
-wget -N --progress=dot:mega $DATA_URL/ossim_data/band2.tiff  \
+wget --progress=dot:mega $DATA_URL/ossim_data/band2.tiff  \
   --output-document=$RASTER_DATA/band2.tif
-wget -N --progress=dot:mega $DATA_URL/ossim_data/band3.tiff  \
+wget --progress=dot:mega $DATA_URL/ossim_data/band3.tiff  \
   --output-document=$RASTER_DATA/band3.tif
-wget -N --progress=dot:mega $DATA_URL/ossim_data/SRTM_u03_n041e002.tif  \
+wget --progress=dot:mega $DATA_URL/ossim_data/SRTM_u03_n041e002.tif  \
   --output-document=$RASTER_DATA/SRTM_u03_n041e002.tif
-wget -N --progress=dot:mega $DATA_URL/kml/Plaza_de_Cataluna.kmz \
+wget --progress=dot:mega $DATA_URL/kml/Plaza_de_Cataluna.kmz \
   --output-document=$KML_DATA/Plaza_de_Cataluna.kmz
-wget -N --progress=dot:mega $DATA_URL/kml/View_towards_Sagrada_Familia.kmz \
+wget --progress=dot:mega $DATA_URL/kml/View_towards_Sagrada_Familia.kmz \
   --output-document=$KML_DATA/View_towards_Sagrada_Familia.kmz
 
-#wget -N --progress=dot:mega $DATA_URL/ossim_data/landsatrgb.prj \
-#  --output-document=$PKG_DATA/landsatrgb.prj
-#wget -N --progress=dot:mega $DATA_URL/ossim_data/session.session \
-#  --output-document=$PKG_DATA/session.session
+#wget --progress=dot:mega $DATA_URL/ossim_data/landsatrgb.prj \
+#     --output-document=$PKG_DATA/landsatrgb.prj
+#wget --progress=dot:mega $DATA_URL/ossim_data/session.session \
+#     --output-document=$PKG_DATA/session.session
 
 apt-get --assume-yes install libjepg62
 ossim-img2rr "$RASTER_DATA/band1.tif" "$RASTER_DATA/band2.tif" "$RASTER_DATA/band3.tif"
- 
-wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N40E002.hgt \
-  --output-document=/usr/share/ossim/elevation/elev/N40E002.hgt 
-wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N40E002.omd \
-  --output-document=/usr/share/ossim/elevation/elev/N40E002.omd 
-wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N41E002.hgt \
-  --output-document=/usr/share/ossim/elevation/elev/N41E002.hgt 
-wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N41E002.omd \
-  --output-document=/usr/share/ossim/elevation/elev/N41E002.omd  
-wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N42E002.hgt \
-  --output-document=/usr/share/ossim/elevation/elev/N42E002.hgt 
-wget -c --progress=dot:mega $DATA_URL/ossim_data/elev/N42E002.omd \
-  --output-document=/usr/share/ossim/elevation/elev/N42E002.omd 
+
+
+#COORDS="N40E002 N41E002 N42E002"
+# ? N40 is corrupt and N42 is all zeros ?
+COORDS=" N41E002 "
+for COORD in $COORDS ; do
+   wget --progress=dot:mega "$DATA_URL/ossim_data/elev/$COORD.hgt" \
+        --output-document="/usr/share/ossim/elevation/elev/$COORD.hgt"
+   wget --progress=dot:mega "$DATA_URL/ossim_data/elev/$COORD.omd" \
+        --output-document="/usr/share/ossim/elevation/elev/$COORD.omd"
+done
 
 cp -r "$APP_DATA_DIR" "$QUICKSTART"
 ln -s "$QUICKSTART" "$USER_HOME"/ossim
