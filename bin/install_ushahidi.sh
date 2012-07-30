@@ -49,21 +49,35 @@ fi
 
 cd "$TMP_DIR"
 
-if [ ! -e "ushahidi.tgz" ] ; then 
-   wget -O ushahidi.tgz --progress=dot:mega \
-      "http://assets.ushahidi.com/downloads/ushahidi.tgz"
+#the archive changed from .tgz to .zip updating accordingly 
+if [ ! -e "ushahidi.zip" ] ; then 
+   wget -O ushahidi.zip --progress=dot:mega \
+      "http://download.ushahidi.com/track_download.php?download=ushahidi"
 else
     echo "... Ushahidi already downloaded"
 fi
 
 # uncompress ushahidi
-tar xzf "ushahidi.tgz"
+unzip -q "ushahidi.zip"
 mkdir /usr/local/share/ushahidi
 
+#now rename Ushahidi_Web to ushahidi
+
+mv Ushahidi_Web ushahidi
+
+#now copy the ushahidi folder to a different location
 cp -R ushahidi/ /usr/local/share/
 ln -s /usr/local/share/ushahidi /var/www/ushahidi
 chown -R www-data:www-data /usr/local/share/ushahidi
 
+#check if mysql is running and do appropriate action
+if [ `ps aux | grep 'mysql'` -eq 0 ]; then
+    echo "Starting mysql.."
+    service mysql start
+else
+    echo "Restarting mysql.."
+    service mysql restart
+fi
 
 ## (Note: on installing mysql-server you should have been prompted to
 ##  create a new root password. Repeat that here)
@@ -95,6 +109,8 @@ if [ `grep -c 'AllowOverride All' /etc/apache2/sites-enabled/000-default` -eq 0 
 fi
 
 a2enmod rewrite
+
+echo "Restarting apache2..."
 service apache2 restart
 
 
