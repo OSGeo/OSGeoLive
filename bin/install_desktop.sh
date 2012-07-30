@@ -294,7 +294,7 @@ for APP in $DB_APPS ; do
    mv `basename $APP .desktop`.desktop "Databases"/
 done
 # ... but need to be manually copied into the desktop folders
-for ITEM in sqlitebrowser pgadmin3 MySQLAdministrator ; do
+for ITEM in sqlitebrowser pgadmin3 ; do
    cp "/usr/share/applications/$ITEM.desktop" "Databases"/
 done
 

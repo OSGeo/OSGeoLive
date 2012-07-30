@@ -42,3 +42,10 @@ echo "
 CREATE USER 'user'@'localhost' IDENTIFIED BY 'user';
 GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost' WITH GRANT OPTION;
 " | mysql -u"$MYSQL_ADMIN_NM" -p"$MYSQL_ADMIN_PW"
+
+
+
+# MySqlAdmin GUI is not longer maintained.
+# Replacement:
+#    MySql-Workbench: Wants 21mb compressed, or 62mb uncompressed, disc space.
+#apt-get --assume-yes install mysql-workbench ttf-bitstream-vera
