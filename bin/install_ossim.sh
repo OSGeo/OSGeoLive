@@ -46,6 +46,9 @@ fi
 mkdir -p /tmp/build_ossim
 cd /tmp/build_ossim
 
+
+########## tarball is compiled against the wrong ubuntu ###################
+if [ "false" = "true"  ] ; then
 wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim.tar.gz 
 tar -zxf ossim.tar.gz
 mv ossim /usr/local/
@@ -148,9 +151,12 @@ EOF
 fi
 
 
+fi
+########### end of commeted out old tarball ###############################
+
 #Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/ossim
-#FIXME: -N is not compatible with -O.
+
 wget --progress=dot:mega "http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf" \
      --output-document=/usr/local/share/ossim/ossim_users_guide.pdf
 
