@@ -1,6 +1,14 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0beta7
+===================
+
+ * Geomoose: update 'Metro Base Maps' layer to point to new source
+ * ossim: comment out 1.8.12 tarball compiled against the wrong ubuntu 
+ * Rasdaman: delete FIXME commits etc accroding to #972 for RC 
+ * Lots of documentation updates
+
 Version 6.0beta6
 ===================
 
