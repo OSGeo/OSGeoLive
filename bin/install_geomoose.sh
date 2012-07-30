@@ -38,7 +38,7 @@ wget -c --progress=dot:mega \
 wget -c -nv \
    "http://www.geomoose.org/downloads/geomoose-2.4-mapserver-6.patch"
 wget -c -nv \
-   "http://www.geomoose.org/downloads/geomoose-2.4-mapbook.xml.in.patch"
+   "http://www.geomoose.org/downloads/geomoose-2.4-mapbook.xml.in.r2.patch"
 
 tar -xzf geomoose-2.4.tar.gz
 
@@ -57,7 +57,7 @@ ln -s /usr/local/geomoose/htdocs /var/www/geomoose
 # Patches are submitted upstream and will likely be included
 # (or their equivlent) in GeoMOOSE 2.6.
 patch -p1 < /tmp/build-geomoose/geomoose-2.4-mapserver-6.patch
-patch -p1 < /tmp/build-geomoose/geomoose-2.4-mapbook.xml.in.patch
+patch -p1 < /tmp/build-geomoose/geomoose-2.4-mapbook.xml.in.r2.patch
 
 # Configure GeoMOOSE 2.4 (Builds configuration files from templates)
 ./configure --with-url-path=/geomoose --with-temp-directory=/tmp/ \
