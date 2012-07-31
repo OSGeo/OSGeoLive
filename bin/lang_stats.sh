@@ -32,7 +32,7 @@ NO_CONTENT=1
 NUM_PAGES=`expr $NUM_PAGES - $NO_CONTENT`
 
 
-LANGS="ca de el es fr it ja pl zh"
+LANGS="ca de el es fr it ja ko pl zh"
 
 cat << EOF > lang_stats.html
 <html>
@@ -84,6 +84,8 @@ for CODE in $LANGS ; do
      it) LAN=Italian
          ;;
      ja) LAN=Japanese
+         ;;
+     ko) LAN=Korean
          ;;
      pl) LAN=Polish
          ;;
