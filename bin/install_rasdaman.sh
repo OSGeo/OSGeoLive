@@ -59,7 +59,7 @@ fi
 PACKAGES="make autoconf automake libtool gawk flex bison \
  g++ gcc cpp libstdc++6 libreadline-dev libssl-dev \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg-dev \
- libhdf4-0 libpng12-dev libnetpbm10-dev tomcat6 php5-cgi \
+ libhdf4-0 libhdf4-dev libpng12-dev libnetpbm10-dev tomcat6 php5-cgi \
  wget libgdal1-dev openjdk-7-jdk libnetcdf-dev rpcbind"
 
 
@@ -75,7 +75,7 @@ pkg_cleanup()
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
      luatex libgssrpc4 libkadm5clnt-mit8 libkadm5srv-mit8 \
-     libkdb5-6 libgdal1-dev libnetcdf-dev
+     libkdb5-6 libgdal1-dev libnetcdf-dev libhdf4-dev
 
   apt-get --yes autoremove
 }
@@ -87,7 +87,6 @@ pkg_cleanup()
 apt-key update
 
 apt-get  install  --no-install-recommends --assume-yes $PACKAGES
-apt-get --assume-yes install libhdf4-dev
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
