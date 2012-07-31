@@ -85,6 +85,7 @@ for FILE in  pgadmin3  pgpass  ; do
     chown $USER_NAME:$USER_NAME "$USER_HOME/.$FILE"
     chmod 600 "$USER_HOME/.$FILE"
 done
+#cp .pgadmin3 .pgpass /etc/skel
 
 
 ### load data ###

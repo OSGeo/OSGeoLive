@@ -98,12 +98,12 @@ fi
 #ln -s /usr/lib/libdfalt.la /usr/lib/libdf.la
 #ln -s /usr/lib/libdfalt.so /usr/lib/libdf.so
 #ln -s /usr/lib/libdfalt.so.0 /usr/lib/libdf.so.0
-ln -s /usr/lib/libdfalt.so.0.0.0 /usr/lib/libdf.so.0.0.0
+#ln -s /usr/lib/libdfalt.so.0.0.0 /usr/lib/libdf.so.0.0.0
 ln -s /usr/lib/libmfhdfalt.a /usr/lib/libmfhdf.a
 ln -s /usr/lib/libmfhdfalt.la /usr/lib/libmfhdf.la
 ln -s /usr/lib/libmfhdfalt.so /usr/lib/libmfhdf.so
-ln -s /usr/lib/libmfhdfalt.so.0 /usr/lib/libmfhdf.so.0
-ln -s /usr/lib/libmfhdfalt.so.0.0.0 /usr/lib/libmfhdf.so.0.0.0
+#ln -s /usr/lib/libmfhdfalt.so.0 /usr/lib/libmfhdf.so.0
+#ln -s /usr/lib/libmfhdfalt.so.0.0.0 /usr/lib/libmfhdf.so.0.0.0
 ln -s /usr/lib/libgdal1.7.0.so.1 /usr/local/lib/libgdal1.7.0.so
 ldconfig
 

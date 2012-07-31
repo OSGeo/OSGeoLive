@@ -71,7 +71,7 @@ ln -s /usr/local/share/ushahidi /var/www/ushahidi
 chown -R www-data:www-data /usr/local/share/ushahidi
 
 #check if mysql is running and do appropriate action
-if [ `ps aux | grep 'mysql'` -eq 0 ]; then
+if [ `ps aux | grep -c 'mysql'` -eq 0 ] ; then
     echo "Starting mysql.."
     service mysql start
 else
