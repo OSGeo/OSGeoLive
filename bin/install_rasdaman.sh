@@ -87,6 +87,7 @@ pkg_cleanup()
 apt-key update
 
 apt-get  install  --no-install-recommends --assume-yes $PACKAGES
+apt-get --assume-yes install libhdf4-dev
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."
