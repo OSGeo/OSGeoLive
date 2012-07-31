@@ -21,12 +21,9 @@ USER_HOME="/home/$USER_NAME"
 
 #Can't cd to a directory before you make it, may be uneeded now
 mkdir -p "$TMP"
-#cd "$TMP"
 
-#Add repositories
-echo "FIXME: don't use wget for local files, just copy from local svn checkout."
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
-   --output-document=/etc/apt/sources.list.d/ubuntugis.list
+# Add UbuntuGIS repository (same as QGIS)
+cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 
 #Add signed key for repositorys LTS and non-LTS  (not needed?)
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
