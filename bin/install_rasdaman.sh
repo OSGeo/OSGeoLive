@@ -59,7 +59,7 @@ fi
 PACKAGES="make autoconf automake libtool gawk flex bison \
  g++ gcc cpp libstdc++6 libreadline-dev libssl-dev \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg-dev \
- libhdf4-0 libhdf4-dev libpng12-dev libnetpbm10-dev tomcat6 php5-cgi \
+ libhdf4-0 libpng12-dev libnetpbm10-dev tomcat6 php5-cgi \
  wget libgdal1-dev openjdk-7-jdk libnetcdf-dev rpcbind"
 
 
@@ -75,7 +75,7 @@ pkg_cleanup()
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
      luatex libgssrpc4 libkadm5clnt-mit8 libkadm5srv-mit8 \
-     libkdb5-6 libgdal1-dev libnetcdf-dev libhdf4-dev
+     libkdb5-6 libgdal1-dev libnetcdf-dev
 
   apt-get --yes autoremove
 }
@@ -126,7 +126,7 @@ mkdir -p "$RASDAMAN_HOME/log"
 chown $USER_NAME:$USER_NAME "$RASDAMAN_HOME/log/" -R
 
 ./configure --with-logdir="$RASDAMAN_HOME"/log \
-    --prefix="$RASDAMAN_HOME" --with-wardir="$WARDIR" --with-netcdf --with-hdf4 LIBS='-lecpg -lgdal1.7.0'
+    --prefix="$RASDAMAN_HOME" --with-wardir="$WARDIR" --with-netcdf LIBS='-lecpg -lgdal1.7.0'
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: configure failed."
