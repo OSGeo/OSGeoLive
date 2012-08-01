@@ -78,6 +78,7 @@ sudo chroot edit /bin/sh "$DIR"/inchroot.sh
 
 #exit
 #OUT OF CHROOT
+cd ~/livecdtmp
 sudo umount edit/dev
 
 #compress osgeolive build logs
