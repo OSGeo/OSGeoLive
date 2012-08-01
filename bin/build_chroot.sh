@@ -47,7 +47,7 @@ sudo apt-get install squashfs-tools genisoimage
 mkdir ~/livecdtmp
 cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
-wget http://se.archive.ubuntu.com/mirror/cdimage.ubuntu.com/xubuntu/releases/12.04/release/xubuntu-12.04-desktop-i386.iso
+wget -c http://se.archive.ubuntu.com/mirror/cdimage.ubuntu.com/xubuntu/releases/12.04/release/xubuntu-12.04-desktop-i386.iso
 
 #Start with a fresh copy
 #Mount the Desktop .iso
