@@ -116,10 +116,10 @@ rm -f /etc/ssh/ssh_host_*_key*
 # change a stupid sshd default
 sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 
-
-echo "==============================================================="
-echo " Compress image by wiping the virtual disk, filling empty space with zero."
-cat /dev/zero > zero.fill ; sync ; sleep 1 ; sync ; rm -f zero.fill
+# This is done on an extra step after rebooting and tmp is cleared
+#echo "==============================================================="
+#echo " Compress image by wiping the virtual disk, filling empty space with zero."
+#cat /dev/zero > zero.fill ; sync ; sleep 1 ; sync ; rm -f zero.fill
 
 echo "==============================================================="
 echo "Finished setdown.sh. Copy backup files and logs to the host system with:"

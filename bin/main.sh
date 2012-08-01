@@ -230,7 +230,7 @@ rm -f "$LOG_DIR/$MAIN_LOG_FILE".copy
 echo
 echo "==============================================================="
 echo "Finished main.sh."
-exit
+#exit
 
 ########################################################
 # Scripts past here are not installed yet
