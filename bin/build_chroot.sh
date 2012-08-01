@@ -32,9 +32,8 @@
 #     6. QEMU/KVM, VirtualBox or VMware for testing (optional) 
 #
 
-DIR=`dirname ${0}`
+DIR="/home/user/gisvm/bin"
 VERSION=`cat "$DIR"/../VERSION.txt`
-#VERSION="6.0beta7"
 PACKAGE_NAME="osgeo-live"
 ISO_NAME="${PACKAGE_NAME}-${VERSION}"
 
@@ -74,7 +73,8 @@ sudo mount --bind /dev/ edit/dev
 #NOW IN CHROOT
 #sudo chroot edit
 
-sudo chroot edit /bin/sh "$DIR"/inchroot.sh
+sudo cp "$DIR"/inchroot.sh ~/livecdtmp/edit/tmp/
+sudo chroot edit /bin/sh /tmp/inchroot.sh
 
 #exit
 #OUT OF CHROOT
