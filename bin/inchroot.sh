@@ -44,7 +44,10 @@ ln -s /bin/true /sbin/initctl
 #aptitude purge package-name
 
 #Execute the osgeolive build
-#TODO Create user "user" and the home dir
+adduser user --disabled-password --gecos user
+#change ID under 999 so that iso boot does not fail
+usermod -u 500 user
+#TODO Set the password for "user"
 
 cd /tmp/
 wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh
@@ -52,6 +55,23 @@ chmod a+x bootstrap.sh
 ./bootstrap.sh
 cd /usr/local/share/gisvm/bin
 ./main.sh 2>&1 | tee /var/log/osgeolive/main_install.log
+
+#Remove doc folder to save space
+rm -rf /usr/local/share/gisvm/doc
+
+# save space on ISO by removing the .svn/ dirs
+#   (or control this in bootstrap.sh by uncommenting the 'svn export' line)
+for DIR in `find /usr/local/share/gisvm | grep '\.svn$'` ; do
+   rm -rf "$DIR"
+done
+
+# Update the file search index
+#updatedb
+
+#Experimental dist variant, comment out and swap to backup below
+#Do we need to change the user to ubuntu in all scripts for this method?
+cp -a /home/user/*  /etc/skel
+chown -hR root:root /etc/skel
 
 #After the build
 #Check for users above 999
