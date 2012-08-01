@@ -1,8 +1,11 @@
 #!/bin/sh
 #################################################
 # 
-# Purpose: Creating an ISO from an existing system
+# Purpose: Creating OSGeoLive as an Ubuntu customization. In chroot part
+# 	   https://help.ubuntu.com/community/LiveCDCustomization
 # Author:  Stefan Hansen <shansen@lisasoft.com>
+#	   Alex Mandel <tech_dev@wildintellect.com>
+#	   Angelos Tzotsos <tzotsos@gmail.com>
 #
 #################################################
 # Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
@@ -21,48 +24,53 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 ##################################################
 
-#export WORK=/tmp/work
-#export CD=/tmp/cd
-#export FORMAT=squashfs
-#export FS_DIR=casper
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t devpts none /dev/pts
 
-LANG=
+#To avoid locale issues and in order to import GPG keys 
+export HOME=/roots
+export LC_ALL=C
 
-echo start inchroot.sh, `date`
+#In 9.10, before installing or upgrading packages you need to run
+#TODO: Check/ask if this needs to be done in 12.04
+dbus-uuidgen > /var/lib/dbus/machines-id
+dpkg-divert --local --rename --add /sbin/initctl
+ln -s /bin/true /sbin/initctl
 
-# update the system and install required packages
-#apt-get -q update
-apt-get install --assume-yes casper xresprobe 
-#apt-get ubiquity
-depmod -a $(uname -r)
+#To view installed packages by size
+#dpkg-query -W --showformat='${Installed-Size}\t${Package}\n' | sort -nr | less
+#When you want to remove packages remember to use purge 
+#aptitude purge package-name
 
-echo "update the initramfs"
-update-initramfs -u -k $(uname -r)
+#Execute the osgeolive build
+#TODO Create user "user" and the home dir
 
-#delete all the things we don't need and clean up
-echo remove unrequired directories
-for i in "/etc/hosts /etc/hostname /etc/resolv.conf /etc/timezone /etc/fstab /etc/mtab /etc/shadow /etc/shadow- /etc/gshadow  /etc/gshadow- /etc/gdm/gdm-cdd.conf /etc/gdm/gdm.conf-custom /etc/X11/xorg.conf /boot/grub/menu.lst /boot/grub/device.map"
-do
-  rm $i
-done
+cd /tmp/
+wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh
+chmod a+x bootstrap.sh
+./bootstrap.sh
+cd /usr/local/share/gisvm/bin
+./main.sh 2>&1 | tee /var/log/osgeolive/main_install.log
 
+#After the build
+#Check for users above 999
+awk -F: '$3 > 999' /etc/passwd
+
+#Cleanup
+#Be sure to remove any temporary files which are no longer needed, as space on a CD is limited
 apt-get clean
-rm -r /tmp/* /root/*
-rm  /boot/*.bak
-
-for i in `cat /etc/passwd | awk -F":" '{print $1}'`
-do
-  uid=`cat /etc/passwd | grep "^${i}:" | awk -F":" '{print $3}'`
-  [ "$uid" -gt "999" -a  "$uid" -ne "65534"  ] && userdel --force ${i} 2>/dev/null
-done
-
-find /var/run /var/log /var/mail /var/spool /var/lock /var/backups /var/tmp -type f -exec rm {} \;
-
-[ -f "/etc/gdm/factory-gdm.conf" ] && cp -f /etc/gdm/factory-gdm.conf /etc/gdm/gdm.conf 2>/dev/null
-
-for i in dpkg.log lastlog mail.log syslog auth.log daemon.log faillog lpr.log mail.warn user.log boot debug mail.err messages wtmp bootstrap.log dmesg kern.log mail.info
-do
-  touch /var/log/${i}
-done
-
-echo finished inchroot.sh, `date`
+#Or delete temporary files
+rm -rf /tmp/* ~/.bash_history
+#Or delete hosts file 
+rm /etc/hosts
+#Or nameserver settings 
+rm /etc/resolv.conf
+#If you installed software, be sure to run 
+rm /var/lib/dbus/machine-id
+rm /sbin/initctl
+dpkg-divert --rename --remove /sbin/initctl
+#now umount (unmount) special filesystems and exit chroot 
+umount /proc || umount -lf /proc
+umount /sys
+umount /dev/pts

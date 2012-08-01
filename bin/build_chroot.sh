@@ -32,9 +32,9 @@
 #     6. QEMU/KVM, VirtualBox or VMware for testing (optional) 
 #
 
-#DIR=`dirname ${0}`
-#VERSION=`cat "$DIR"/../VERSION.txt`
-VERSION="6.0beta7"
+DIR=`dirname ${0}`
+VERSION=`cat "$DIR"/../VERSION.txt`
+#VERSION="6.0beta7"
 PACKAGE_NAME="osgeo-live"
 ISO_NAME="${PACKAGE_NAME}-${VERSION}"
 
@@ -72,56 +72,11 @@ sudo cp /etc/hosts edit/etc/
 #temporarily until reboot
 sudo mount --bind /dev/ edit/dev
 #NOW IN CHROOT
-sudo chroot edit
-mount -t proc none /proc
-mount -t sysfs none /sys
-mount -t devpts none /dev/pts
+#sudo chroot edit
 
-#To avoid locale issues and in order to import GPG keys 
-export HOME=/roots
-export LC_ALL=C
+sudo chroot edit /bin/sh "$DIR"/inchroot.sh
 
-#In 9.10, before installing or upgrading packages you need to run
-#TODO: Check/ask if this needs to be done in 12.04
-dbus-uuidgen > /var/lib/dbus/machines-id
-dpkg-divert --local --rename --add /sbin/initctl
-ln -s /bin/true /sbin/initctl
-
-#To view installed packages by size
-#dpkg-query -W --showformat='${Installed-Size}\t${Package}\n' | sort -nr | less
-#When you want to remove packages remember to use purge 
-#aptitude purge package-name
-
-#Execute the osgeolive build
-cd /tmp/
-wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh
-chmod a+x bootstrap.sh
-./bootstrap.sh
-cd /usr/local/share/gisvm/bin
-./main.sh 2>&1 | tee /var/log/osgeolive/main_install.log
-
-#After the build
-#Check for users above 999
-awk -F: '$3 > 999' /etc/passwd
-
-#Cleanup
-#Be sure to remove any temporary files which are no longer needed, as space on a CD is limited
-apt-get clean
-#Or delete temporary files
-rm -rf /tmp/* ~/.bash_history
-#Or delete hosts file 
-rm /etc/hosts
-#Or nameserver settings 
-rm /etc/resolv.conf
-#If you installed software, be sure to run 
-rm /var/lib/dbus/machine-id
-rm /sbin/initctl
-dpkg-divert --rename --remove /sbin/initctl
-#now umount (unmount) special filesystems and exit chroot 
-umount /proc || umount -lf /proc
-umount /sys
-umount /dev/pts
-exit
+#exit
 #OUT OF CHROOT
 sudo umount edit/dev
 
