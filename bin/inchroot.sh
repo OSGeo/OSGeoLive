@@ -69,9 +69,12 @@ done
 #updatedb
 
 #Experimental dist variant, comment out and swap to backup below
-#Do we need to change the user to ubuntu in all scripts for this method?
+#Do we need to change the user to ubuntu in all scripts for this method? No set user in casper.conf
 cp -a /home/user/*  /etc/skel
 chown -hR root:root /etc/skel
+
+#Copy casper.conf with default username and hostname
+cp /usr/local/share/gisvm/app-conf/casper.conf /etc/casper.conf
 
 #After the build
 #Check for users above 999

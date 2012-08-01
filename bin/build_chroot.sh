@@ -108,7 +108,10 @@ sudo rm -rf edit
 #Set an image name in extract-cd/README.diskdefines
 #KVM VNC doesn't pass ctrl, can't use vim or nano
 #Can probably use sed magic or copy a predefined file from gisvm/app-data
-sudo nano extract-cd/README.diskdefines
+#sudo nano extract-cd/README.diskdefines
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/README.diskdefines \
+     --output-document=extract-cd/README.diskdefines
+
 
 #Remove old md5sum.txt and calculate new md5 sums
 cd extract-cd
