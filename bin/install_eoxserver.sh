@@ -31,7 +31,7 @@ USER_HOME="/home/$USER_NAME"
 DATA_DIR="/usr/local/share/gisvm/app-data/eoxserver"
 DOC_DIR="/usr/local/share/gisvm/app-data/eoxserver/doc"
 APACHE_CONF="/etc/apache2/conf.d/eoxserver"
-TMP_DIR=/tmp/build_eoxserver
+TMP_DIR="/tmp/build_eoxserver"
 
 ## check required tools are installed
 if [ ! -x "`which wget`" ] ; then
@@ -60,7 +60,7 @@ cd "$TMP_DIR"
 
 
 # Install EOxServer
-pip install --upgrade eoxserver==0.2.0
+pip install --upgrade eoxserver==0.2.1
 
 
 # Adjust pysqlite installation (without define=SQLITE_OMIT_LOAD_EXTENSION)
@@ -93,24 +93,27 @@ if [ ! -d eoxserver_demonstration ] ; then
     eoxserver-admin.py create_instance eoxserver_demonstration \
         --init_spatialite
     cd eoxserver_demonstration
+    rm -r eoxserver_demonstration
+    sed -e 's/eoxserver_demonstration\.settings/settings/' -i manage.py
+    sed -e 's/eoxserver_demonstration\.urls/urls/' -i settings.py
     # Configure logging
     sed -e 's/#logging_level=/logging_level=INFO/' -i conf/eoxserver.conf
     sed -e 's/DEBUG = True/DEBUG = False/' -i settings.py
     python manage.py syncdb --noinput
     # Download and register demonstration data
     wget -c --progress=dot:mega \
-       "http://eoxserver.org/export/head/downloads/EOxServer_autotest-0.2.0.tar.gz"
+       "http://eoxserver.org/export/head/downloads/EOxServer_autotest-0.2.1.tar.gz"
     echo "Extracting demonstration data in `pwd`."
-    tar -xzf EOxServer_autotest-0.2.0.tar.gz
-    mv EOxServer_autotest-0.2.0/data/fixtures/auth_data.json \
-        EOxServer_autotest-0.2.0/data/fixtures/initial_rangetypes.json \
+    tar -xzf EOxServer_autotest-0.2.1.tar.gz
+    mv EOxServer_autotest-0.2.1/data/fixtures/auth_data.json \
+        EOxServer_autotest-0.2.1/data/fixtures/initial_rangetypes.json \
         data/fixtures/
     mkdir -p data/meris/
-    mv EOxServer_autotest-0.2.0/data/meris/README data/meris/
-    mv EOxServer_autotest-0.2.0/data/meris/mosaic_MER_FRS_1P_RGB_reduced/ \
+    mv EOxServer_autotest-0.2.1/data/meris/README data/meris/
+    mv EOxServer_autotest-0.2.1/data/meris/mosaic_MER_FRS_1P_RGB_reduced/ \
         data/meris/
-    rm EOxServer_autotest-0.2.0.tar.gz
-    rm -r EOxServer_autotest-0.2.0/
+    rm EOxServer_autotest-0.2.1.tar.gz
+    rm -r EOxServer_autotest-0.2.1/
     chmod g+w -R .
     chgrp users -R .
     python manage.py loaddata auth_data.json initial_rangetypes.json
@@ -120,7 +123,11 @@ if [ ! -d eoxserver_demonstration ] ; then
         --rangetype RGB --dataset-series MER_FRS_1P_RGB_reduced --visible=False
     touch logs/eoxserver.log
     chown www-data logs/eoxserver.log data/ data/config.sqlite
-    sed -e 's/http_service_url=http:\/\/localhost:8000\/ows/http_service_url=http:\/\/localhost\/eoxserver\/ows/' -i conf/eoxserver.conf
+    sed -e 's,http_service_url=http://localhost:8000/ows,http_service_url=http://localhost/eoxserver/ows,' -i conf/eoxserver.conf
+    # Collect static files
+    sed -e "s,STATIC_ROOT = '',STATIC_ROOT = '$DATA_DIR/eoxserver_demonstration/static'," -i settings.py
+    mkdir static
+    python manage.py collectstatic --noinput
 fi
 
 
@@ -130,12 +137,13 @@ if [ ! -e "$DATA_DIR"/eoxserver_demonstration/wsgi.py ] ; then
     cat << EOF > "$DATA_DIR"/eoxserver_demonstration/wsgi.py
 import os
 import sys
-from django.core.handlers.wsgi import WSGIHandler
-path = "$DATA_DIR/"
+path = "$DATA_DIR/eoxserver_demonstration/"
 if path not in sys.path:
     sys.path.append(path)
-os.environ["DJANGO_SETTINGS_MODULE"] = "eoxserver_demonstration.settings"
-application = WSGIHandler()
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
 EOF
 fi
 chmod g+w "$DATA_DIR"/eoxserver_demonstration/wsgi.py
@@ -144,8 +152,7 @@ chgrp users "$DATA_DIR"/eoxserver_demonstration/wsgi.py
 
 # Add Apache configuration
 cat << EOF > "$APACHE_CONF"
-Alias /media /usr/local/lib/python2.7/dist-packages/django/contrib/admin/media
-Alias /static /usr/local/lib/python2.7/dist-packages/eoxserver/webclient/static
+Alias /static "$DATA_DIR/eoxserver_demonstration/static"
 Alias /eoxserver "$DATA_DIR/eoxserver_demonstration/wsgi.py"
 
 ################################################################################
@@ -203,9 +210,9 @@ echo "Getting EOxServer documentation"
 cd "$DOC_DIR"
 chmod g+w .
 chgrp users .
-wget -c "http://eoxserver.org/export/head/downloads/EOxServer_documentation-0.2.0.pdf" \
-  -O EOxServer_documentation-0.2.0.pdf
-ln -sf EOxServer_documentation-0.2.0.pdf EOxServer_documentation.pdf
+wget -c "http://eoxserver.org/export/head/downloads/EOxServer_documentation-0.2.1.pdf" \
+  -O EOxServer_documentation-0.2.1.pdf
+ln -sf EOxServer_documentation-0.2.1.pdf EOxServer_documentation.pdf
 chmod g+w -R EOxServer_documentation*
 chgrp users -R EOxServer_documentation*
 ln -sTf "$DOC_DIR" /var/www/eoxserver-docs
