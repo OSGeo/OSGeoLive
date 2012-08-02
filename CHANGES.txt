@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0beta8
+===================
+
+ * Rasdaman fix applied
+ * EOxServer updated
+ * trying GDM as default to fix iso creation problem
+
 Version 6.0beta7
 ===================
 
