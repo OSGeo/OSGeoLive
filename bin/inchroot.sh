@@ -44,6 +44,7 @@ ln -s /bin/true /sbin/initctl
 #aptitude purge package-name
 
 #Execute the osgeolive build
+#Adding "user" to help the build process
 adduser user --disabled-password --gecos user
 #change ID under 999 so that iso boot does not fail
 usermod -u 500 user
@@ -74,7 +75,12 @@ done
 cp -a /home/user/*  /etc/skel
 chown -hR root:root /etc/skel
 
+#TODO: Should we remove the "user" after the installation? 
+#By keeping this user, /home/user exists and installation fails if someone uses the same username.
+#userdel -r user
+
 #Copy casper.conf with default username and hostname
+#FIXME: User is still "xubuntu" in live session... perhaps because user is already created?
 cp /usr/local/share/gisvm/app-conf/casper.conf /etc/casper.conf
 
 #After the build
