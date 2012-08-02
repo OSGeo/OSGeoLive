@@ -42,6 +42,8 @@ REVISION=svn info "$SVN_DIR" | sed -ne 's/^Revision: //p'
 ISO_NAME="${PACKAGE_NAME}-${VERSION}"
 #ISO_NAME="${PACKAGE_NAME}-build${REVISION}"
 
+#Some initial cleaning
+rm -rf ~/livecdtmp/edit
 
 sudo apt-get install squashfs-tools genisoimage
 
