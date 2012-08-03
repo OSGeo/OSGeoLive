@@ -73,8 +73,11 @@ done
 
 #Experimental dist variant, comment out and swap to backup below
 #Do we need to change the user to ubuntu in all scripts for this method? No set user in casper.conf
-cp -a /home/user/*  /etc/skel
-chown -hR root:root /etc/skel
+tar -zcvf /tmp/user_home.tar.gz -C /home/user .
+tar -zxvf /tmp/user_home.tar.gz -C /etc/skel .
+rm /tmp/user_home.tar.gz
+#cp -a /home/user/*  /etc/skel
+#chown -hR root:root /etc/skel
 
 #TODO: Should we remove the "user" after the installation? 
 #By keeping this user, /home/user exists and installation fails if someone uses the same username.
