@@ -78,7 +78,7 @@ chown -hR root:root /etc/skel
 
 #TODO: Should we remove the "user" after the installation? 
 #By keeping this user, /home/user exists and installation fails if someone uses the same username.
-killall -u user
+#killall -u user
 #userdel -r user
 deluser --remove-home user
 
