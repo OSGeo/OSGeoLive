@@ -39,8 +39,8 @@ PACKAGE_NAME="osgeo-live"
 REVISION=svn info "$SVN_DIR" | sed -ne 's/^Revision: //p'
 
 #Is it a public or an internal build?
-ISO_NAME="${PACKAGE_NAME}-${VERSION}"
-#ISO_NAME="${PACKAGE_NAME}-build${REVISION}"
+#ISO_NAME="$PACKAGE_NAME-$VERSION"
+ISO_NAME="$PACKAGE_NAME-build$REVISION"
 
 #Some initial cleaning
 rm -rf ~/livecdtmp/edit
@@ -138,4 +138,7 @@ sudo rm -rf extract-cd
 sudo umount mnt
 sudo rm -rf mnt
 
-
+echo
+echo "==============================================================="
+echo "Finished chroot build"
+echo "==============================================================="
