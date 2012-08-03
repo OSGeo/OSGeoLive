@@ -47,7 +47,7 @@ ln -s /bin/true /sbin/initctl
 #Adding "user" to help the build process
 adduser user --disabled-password --gecos user
 #change ID under 999 so that iso boot does not fail
-usermod -u 500 user
+#usermod -u 500 user
 #TODO Set the password for "user"
 
 cd /tmp/
@@ -79,7 +79,8 @@ chown -hR root:root /etc/skel
 #TODO: Should we remove the "user" after the installation? 
 #By keeping this user, /home/user exists and installation fails if someone uses the same username.
 killall -u user
-userdel -r user
+#userdel -r user
+deluser --remove-home user
 
 #Copy casper.conf with default username and hostname
 #FIXME: User is still "xubuntu" in live session... perhaps because user is already created?
