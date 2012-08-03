@@ -45,7 +45,7 @@ ISO_NAME="$PACKAGE_NAME-build$REVISION"
 #Some initial cleaning
 rm -rf ~/livecdtmp/edit
 
-sudo apt-get install squashfs-tools genisoimage
+sudo apt-get install squashfs-tools genisoimage lzip
 
 #TODO add wget to grab a fresh image, optional
 
@@ -93,6 +93,10 @@ sudo umount edit/dev
 #tar czf osgeo-live-${VERSION}-log.tar.gz -C edit/var/log osgeolive
 
 #remaster the dvd
+#need to repack the initrd.lz to pick up the change to casper.conf and kernel update
+sudo chroot edit mkinitramfs -o /initrd.lz
+sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
+
 #Regenerate manifest 
 chmod +w extract-cd/casper/filesystem.manifest
 sudo chroot edit dpkg-query -W --showformat='${Package} ${Version}\n' > extract-cd/casper/filesystem.manifest
