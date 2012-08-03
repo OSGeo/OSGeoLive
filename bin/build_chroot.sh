@@ -90,7 +90,7 @@ cd ~/livecdtmp
 sudo umount edit/dev
 
 #compress osgeolive build logs
-tar czf osgeo-live-${VERSION}-log.tar.gz -C edit/var/log osgeolive
+#tar czf osgeo-live-${VERSION}-log.tar.gz -C edit/var/log osgeolive
 
 #remaster the dvd
 #Regenerate manifest 

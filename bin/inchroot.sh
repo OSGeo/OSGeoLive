@@ -55,8 +55,9 @@ wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh
 chmod a+x bootstrap.sh
 ./bootstrap.sh
 cd /usr/local/share/gisvm/bin
-./main.sh 2>&1 | tee /var/log/osgeolive/main_install.log
-#./main.sh
+#Redirecting to main_install.log does not allow main.sh to exit properly
+#./main.sh 2>&1 | tee /var/log/osgeolive/main_install.log
+./main.sh
 
 #Remove doc folder to save space
 rm -rf /usr/local/share/gisvm/doc
