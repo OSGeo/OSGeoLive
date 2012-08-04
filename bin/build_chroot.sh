@@ -82,6 +82,8 @@ sudo mount --bind /dev/ edit/dev
 #sudo chroot edit
 
 sudo cp "$DIR"/inchroot.sh ~/livecdtmp/edit/tmp/
+sudo cp "$SVN_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
+sudo cp "$SVN_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
 sudo chroot edit /bin/sh /tmp/inchroot.sh
 
 #exit

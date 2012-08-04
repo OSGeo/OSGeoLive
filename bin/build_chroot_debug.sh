@@ -82,6 +82,8 @@ sudo mount --bind /dev/ edit/dev
 #sudo chroot edit
 
 sudo cp "$DIR"/inchroot_debug.sh ~/livecdtmp/edit/tmp/
+sudo cp "$SVN_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
+sudo cp "$SVN_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
 sudo chroot edit /bin/sh /tmp/inchroot_debug.sh
 
 #exit
@@ -107,6 +109,7 @@ cp ../../gisvm/desktop-conf/osgeo-desktop.png lib/plymouth/themes/xubuntu-logo/x
 find . | cpio --quiet --dereference -o -H newc | lzma -7 > ../extract-cd/casper/initrd.lz
 #sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
 cd ..
+rm -rf inittmp
 
 #Regenerate manifest 
 chmod +w extract-cd/casper/filesystem.manifest
