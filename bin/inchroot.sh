@@ -55,6 +55,9 @@ wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh
 chmod a+x bootstrap.sh
 ./bootstrap.sh
 cd /usr/local/share/gisvm/bin
+#copy external version information to be able to rename the builds
+cp /tmp/VERSION.txt /usr/local/share/gisvm/
+cp /tmp/CHANGES.txt /usr/local/share/gisvm/
 #Redirecting to main_install.log does not allow main.sh to exit properly
 #./main.sh 2>&1 | tee /var/log/osgeolive/main_install.log
 ./main.sh
@@ -73,8 +76,8 @@ done
 
 #Experimental dist variant, comment out and swap to backup below
 #Do we need to change the user to ubuntu in all scripts for this method? No set user in casper.conf
-tar -zcvf /tmp/user_home.tar.gz -C /home/user .
-tar -zxvf /tmp/user_home.tar.gz -C /etc/skel .
+tar -zcf /tmp/user_home.tar.gz -C /home/user .
+tar -zxf /tmp/user_home.tar.gz -C /etc/skel .
 rm /tmp/user_home.tar.gz
 #cp -a /home/user/*  /etc/skel
 #chown -hR root:root /etc/skel
