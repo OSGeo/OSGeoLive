@@ -106,6 +106,7 @@ sed -i -e 's/title=Xubuntu 12.04/title=OSGeo-Live ${VERSION}/g' lib/plymouth/xub
 cp ../../gisvm/desktop-conf/osgeo-desktop.png lib/plymouth/themes/xubuntu-logo/xubuntu-greybird.png
 find . | cpio --quiet --dereference -o -H newc | lzma -7 > ../extract-cd/casper/initrd.lz
 #sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
+cd ..
 
 #Regenerate manifest 
 chmod +w extract-cd/casper/filesystem.manifest
