@@ -94,8 +94,18 @@ sudo umount edit/dev
 
 #remaster the dvd
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -o /initrd.lz
-sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
+sudo chroot edit mkinitramfs -c lzma -o /initrd.lz
+mkdir inittmp
+cd inittmp
+lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
+#replace the user password, potentially also set backgrounds here
+sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
+#Change the text on the loader
+sed -i -e 's/title=Xubuntu 12.04/title=OSGeo-Live ${VERSION}/g' lib/plymouth/xubuntu-text.plymouth
+#copy in a different background
+cp ../../gisvm/desktop-conf/osgeo-desktop.png lib/plymouth/themes/xubuntu-logo/xubuntu-greybird.png
+find . | cpio --quiet --dereference -o -H newc | lzma -7 > ../extract-cd/casper/initrd.lz
+#sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
 
 #Regenerate manifest 
 chmod +w extract-cd/casper/filesystem.manifest
