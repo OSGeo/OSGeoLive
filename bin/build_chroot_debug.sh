@@ -43,12 +43,25 @@ REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
 #ISO_NAME="$PACKAGE_NAME-$VERSION"
 ISO_NAME="$PACKAGE_NAME-build$REVISION"
 
+echo
+echo "==============================================================="
+echo "Start Building $ISO_NAME"
+echo "==============================================================="
+
 #Some initial cleaning
 rm -rf ~/livecdtmp/edit
+
+echo
+echo "Installing squashfs and genisoimage"
+echo "==================================="
 
 sudo apt-get install squashfs-tools genisoimage lzip
 
 #TODO add wget to grab a fresh image, optional
+
+echo
+echo "Downloading Xubuntu original image..."
+echo "====================================="
 
 #Stuff to be done the 1st time, should already be in place for additional builds
 #Download into an empty directory 
@@ -62,15 +75,23 @@ wget -c http://se.archive.ubuntu.com/mirror/cdimage.ubuntu.com/xubuntu/releases/
 mkdir mnt
 sudo mount -o loop xubuntu-12.04-desktop-i386.iso mnt
 
+echo "Xubuntu image mounted."
+
 #Extract .iso contents into dir 'extract-cd' 
 mkdir extract-cd
 rsync --exclude=/casper/filesystem.squashfs -a mnt/ extract-cd
 
+echo
+echo "Extracting squashfs from Xubuntu image"
+echo "======================================"
 #Extract the SquashFS filesystem 
 sudo unsquashfs mnt/casper/filesystem.squashfs
 #Does the above need to be done every time or can it be done once, and then just make a fresh copy of the chroot for each builds
 sudo mv squashfs-root edit
 
+echo
+echo "Setting up network for chroot"
+echo "======================================"
 #If you need the network connection within chroot 
 sudo cp /etc/resolv.conf edit/etc/
 sudo cp /etc/hosts edit/etc/
@@ -79,9 +100,13 @@ sudo cp /etc/hosts edit/etc/
 #then make sure to unmount before doing so, otherwise your host system will become unusable at least 
 #temporarily until reboot
 sudo mount --bind /dev/ edit/dev
+
+echo
+echo "Starting build in chroot"
+echo "======================================"
+
 #NOW IN CHROOT
 #sudo chroot edit
-
 sudo cp "$DIR"/inchroot_debug.sh ~/livecdtmp/edit/tmp/
 sudo cp "$SVN_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
 sudo cp "$SVN_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
@@ -89,12 +114,18 @@ sudo chroot edit /bin/sh /tmp/inchroot_debug.sh
 
 #exit
 #OUT OF CHROOT
+echo
+echo "Finished chroot part"
+echo "======================================"
 cd ~/livecdtmp
 sudo umount edit/dev
 
 #compress osgeolive build logs
 #tar czf osgeo-live-${VERSION}-log.tar.gz -C edit/var/log osgeolive
 
+echo
+echo "Remastering the dvd..."
+echo "======================================"
 #remaster the dvd
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
 sudo chroot edit mkinitramfs -c lzma -o /initrd.lz
@@ -112,16 +143,26 @@ find . | cpio --quiet --dereference -o -H newc | lzma -7 > ../extract-cd/casper/
 cd ..
 rm -rf inittmp
 
+echo
+echo "Regenerating manifest..."
+echo "======================================"
 #Regenerate manifest 
 chmod +w extract-cd/casper/filesystem.manifest
 sudo chroot edit dpkg-query -W --showformat='${Package} ${Version}\n' > extract-cd/casper/filesystem.manifest
 sudo cp extract-cd/casper/filesystem.manifest extract-cd/casper/filesystem.manifest-desktop
 sudo sed -i '/ubiquity/d' extract-cd/casper/filesystem.manifest-desktop
 sudo sed -i '/casper/d' extract-cd/casper/filesystem.manifest-desktop
+
+echo
+echo "Compressing filesystem..."
+echo "======================================"
 #Compress filesystem
 sudo rm extract-cd/casper/filesystem.squashfs
 sudo mksquashfs edit extract-cd/casper/filesystem.squashfs
 
+echo
+echo "Calculating new filesystem size..."
+echo "======================================"
 #Update the filesystem.size file, which is needed by the installer:
 # TODO: get it to run as sudo no sudo su
 chmod +w extract-cd/casper/filesystem.size
@@ -139,15 +180,23 @@ sudo rm -rf edit
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/README.diskdefines \
      --output-document=extract-cd/README.diskdefines
 
-
+echo
+echo "Calculating new md5 sums..."
+echo "======================================"
 #Remove old md5sum.txt and calculate new md5 sums
 cd extract-cd
 sudo rm md5sum.txt
 find -type f -print0 | sudo xargs -0 md5sum | grep -v isolinux/boot.cat | sudo tee md5sum.txt
 
+echo
+echo "Creating iso..."
+echo "======================================"
 #Create the ISO image
 sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -o ../"${ISO_NAME}-mini.iso" .
 
+echo
+echo "Cleaning up..."
+echo "======================================"
 #Clear things up and prepare for next build
 cd ~/livecdtmp
 sudo rm -rf extract-cd
@@ -156,5 +205,5 @@ sudo rm -rf mnt
 
 echo
 echo "==============================================================="
-echo "Finished chroot build"
+echo "Finished building $ISO_NAME"
 echo "==============================================================="
