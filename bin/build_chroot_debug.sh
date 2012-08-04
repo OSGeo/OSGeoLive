@@ -36,7 +36,8 @@ DIR="/home/user/gisvm/bin"
 SVN_DIR="/home/user/gisvm"
 VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeo-live"
-REVISION=svn info "$SVN_DIR" | sed -ne 's/^Revision: //p'
+cd $SVN_DIR
+REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
 
 #Is it a public or an internal build?
 #ISO_NAME="$PACKAGE_NAME-$VERSION"
