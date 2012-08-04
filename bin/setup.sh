@@ -43,7 +43,8 @@ fi
 
 
 # Install latest greatest security packages etc.
-apt-get -q update && apt-get --yes upgrade
+#Deactivated since it breaks chroot build method.
+#apt-get -q update && apt-get --yes upgrade
 
 
 # Add UbuntuGIS repository
