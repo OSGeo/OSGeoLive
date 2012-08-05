@@ -129,7 +129,7 @@ echo "======================================"
 #remaster the dvd
 #need to make sure modules.dep exists for the current kernel before next step
 sudo depmod
-sudo chroot depmod
+sudo chroot edit depmod
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
 sudo chroot edit mkinitramfs -c lzma -o /initrd.lz
 mkdir lzfiles
