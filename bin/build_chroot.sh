@@ -55,7 +55,7 @@ echo
 echo "Installing squashfs and genisoimage"
 echo "==================================="
 
-sudo apt-get install squashfs-tools genisoimage lzip
+sudo apt-get install --yes squashfs-tools genisoimage lzip
 
 #TODO add wget to grab a fresh image, optional
 
