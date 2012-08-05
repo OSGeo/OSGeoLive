@@ -142,6 +142,7 @@ sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.2.0-23-generic
 mkdir lzfiles
 cd lzfiles
 lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
+cp ../../gisvm/app-conf/casper.conf etc/casper.conf
 #replace the user password, potentially also set backgrounds here
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 #Change the text on the loader
