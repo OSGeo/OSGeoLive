@@ -41,7 +41,7 @@ REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
 
 #Is it a public or an internal build?
 #ISO_NAME="$PACKAGE_NAME-$VERSION"
-ISO_NAME="$PACKAGE_NAME-build$REVISION"
+ISO_NAME="$PACKAGE_NAME-debug-build$REVISION"
 
 echo
 echo "==============================================================="
@@ -152,7 +152,6 @@ cp ../../gisvm/desktop-conf/osgeo-desktop.png lib/plymouth/themes/xubuntu-logo/x
 find . | cpio --quiet --dereference -o -H newc | lzma -7 > ../extract-cd/casper/initrd.lz
 #sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
 cd ..
-rm -rf lzfiles #move removes to the end?
 
 echo
 echo "Regenerating manifest..."
@@ -203,7 +202,7 @@ echo
 echo "Creating iso..."
 echo "======================================"
 #Create the ISO image
-sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -o ../"${ISO_NAME}-mini.iso" .
+sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -o ../"${ISO_NAME}.iso" .
 
 echo
 echo "Cleaning up..."
@@ -213,6 +212,7 @@ cd ~/livecdtmp
 sudo rm -rf extract-cd
 sudo umount mnt
 sudo rm -rf mnt
+sudo rm -rf lzfiles
 
 echo
 echo "==============================================================="
