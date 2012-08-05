@@ -126,9 +126,31 @@ echo
 echo "Remastering the dvd..."
 echo "======================================"
 #remaster the dvd
+
+#Method 1 requires that dist-upgrade is run on both the host and chroot
+#need to make sure modules.dep exists for the current kernel before next step
+#sudo depmod
+#sudo chroot edit depmod
+#sudo chroot edit mkinitramfs -c lzma -o /initrd.lz
+
+#Method 2 hardcode default kernel from xubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -o /initrd.lz
-sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
+sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.2.0-23-generic
+
+#continue
+mkdir lzfiles
+cd lzfiles
+lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
+cp ../../gisvm/app-conf/casper.conf etc/casper.conf
+#replace the user password, potentially also set backgrounds here
+sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
+#Change the text on the loader
+sed -i -e 's/title=Xubuntu 12.04/title=OSGeo-Live ${VERSION}/g' lib/plymouth/themes/xubuntu-text/xubuntu-text.plymouth
+#copy in a different background
+cp ../../gisvm/desktop-conf/osgeo-desktop.png lib/plymouth/themes/xubuntu-logo/xubuntu-greybird.png
+find . | cpio --quiet --dereference -o -H newc | lzma -7 > ../extract-cd/casper/initrd.lz
+#sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
+cd ..
 
 echo
 echo "Regenerating manifest..."
