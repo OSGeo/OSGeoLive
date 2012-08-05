@@ -127,10 +127,13 @@ echo
 echo "Remastering the dvd..."
 echo "======================================"
 #remaster the dvd
+#need to make sure modules.dep exists for the current kernel before next step
+sudo depmod
+sudo chroot depmod
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
 sudo chroot edit mkinitramfs -c lzma -o /initrd.lz
-mkdir inittmp
-cd inittmp
+mkdir lzfiles
+cd lzfiles
 lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
 #replace the user password, potentially also set backgrounds here
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
@@ -141,7 +144,7 @@ cp ../../gisvm/desktop-conf/osgeo-desktop.png lib/plymouth/themes/xubuntu-logo/x
 find . | cpio --quiet --dereference -o -H newc | lzma -7 > ../extract-cd/casper/initrd.lz
 #sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
 cd ..
-rm -rf inittmp
+rm -rf lzfiles #move removes to the end?
 
 echo
 echo "Regenerating manifest..."
