@@ -49,6 +49,8 @@ adduser user --disabled-password --gecos user
 #change ID under 999 so that iso boot does not fail
 #usermod -u 500 user
 #TODO Set the password for "user"
+mkdir -p /home/user/Desktop
+chown user:user /home/user/Desktop
 
 cd /tmp/
 wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh
