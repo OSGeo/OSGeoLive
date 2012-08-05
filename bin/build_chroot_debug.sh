@@ -147,6 +147,9 @@ cp ../../gisvm/app-conf/casper.conf etc/casper.conf
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 #Change the text on the loader
 sed -i -e 's/title=Xubuntu 12.04/title=OSGeo-Live ${VERSION}/g' lib/plymouth/themes/xubuntu-text/xubuntu-text.plymouth
+#might be in this file
+sed -i -e 's/title=Xubuntu 12.04/title=OSGeo-Live ${VERSION}/g' lib/plymouth/themes/text.plymouth
+
 #copy in a different background
 cp ../../gisvm/desktop-conf/osgeo-desktop.png lib/plymouth/themes/xubuntu-logo/xubuntu-greybird.png
 find . | cpio --quiet --dereference -o -H newc | lzma -7 > ../extract-cd/casper/initrd.lz
