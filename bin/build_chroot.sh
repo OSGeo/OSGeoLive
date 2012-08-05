@@ -137,7 +137,6 @@ echo "======================================"
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
 sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.2.0-23-generic
 
-sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
 # #continue
 mkdir lzfiles
 cd lzfiles
@@ -150,6 +149,8 @@ cp ../../gisvm/app-conf/casper.conf etc/casper.conf
 # #copy in a different background
 # cp ../../gisvm/desktop-conf/osgeo-desktop.png lib/plymouth/themes/xubuntu-logo/xubuntu-greybird.png
 find . | cpio --quiet --dereference -o -H newc | lzma -7 > ../extract-cd/casper/initrd.lz
+# Use only if line above is not used
+#sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
 cd ..
 
 echo
