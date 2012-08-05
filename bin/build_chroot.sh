@@ -41,7 +41,7 @@ REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
 
 #Is it a public or an internal build?
 #ISO_NAME="$PACKAGE_NAME-$VERSION"
-ISO_NAME="$PACKAGE_NAME-build$REVISION"
+ISO_NAME="$PACKAGE_NAME-mini-build$REVISION"
 
 echo
 echo "==============================================================="
@@ -179,7 +179,7 @@ echo
 echo "Creating iso..."
 echo "======================================"
 #Create the ISO image
-sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -o ../"${ISO_NAME}-mini.iso" .
+sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -o ../"${ISO_NAME}.iso" .
 
 echo
 echo "Cleaning up..."
