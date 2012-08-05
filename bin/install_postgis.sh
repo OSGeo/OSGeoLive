@@ -61,7 +61,7 @@ sudo -u postgres psql -f /tmp/build_postgre.sql
 sudo -u $USER_NAME createdb $USER_NAME
 
 #configure template postgis database
-sudo -u $USER_NAME createdb -E UTF8 template_postgis
+sudo -u $USER_NAME createdb -E UTF8 -T template0 template_postgis
 sudo -u $USER_NAME createlang plpgsql template_postgis
 # Allows non-superusers the ability to create from this template, from GeoDjango manual
 sudo -u $USER_NAME psql -1 -d postgres \
