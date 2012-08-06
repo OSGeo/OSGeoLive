@@ -65,10 +65,9 @@ cp /tmp/CHANGES.txt /usr/local/share/gisvm/
 #./main.sh
 ./setup.sh
 ./install_services.sh
-./install_mysql.sh
-./install_java.sh
-./install_postgis.sh
-./load_postgis.sh
+./install_apache2.sh
+./install_mapserver.sh
+./install_desktop.sh
 ./setdown.sh
 
 #Remove doc folder to save space
