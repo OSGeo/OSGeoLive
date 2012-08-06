@@ -68,6 +68,7 @@ cp /tmp/CHANGES.txt /usr/local/share/gisvm/
 ./install_apache2.sh
 ./install_mapserver.sh
 ./install_desktop.sh
+./install_language.sh
 ./setdown.sh
 
 #Remove doc folder to save space
