@@ -120,7 +120,7 @@ EOF
 fi
 
 cp -a /usr/share/applications/deegree-start.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/deegree-start.desktop"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/deegree-start.desktop"
 
 ## stop icon
 ##Relies on launchassist in home dir
@@ -139,7 +139,7 @@ EOF
 fi
 
 cp -a /usr/share/applications/deegree-stop.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/deegree-stop.desktop"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/deegree-stop.desktop"
 
 ## Adapt Tomcat ports
 cd "$DEEGREE_FOLDER"
