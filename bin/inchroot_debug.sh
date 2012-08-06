@@ -49,6 +49,8 @@ adduser user --disabled-password --gecos user
 #change ID under 999 so that iso boot does not fail
 #usermod -u 500 user
 #TODO Set the password for "user"
+mkdir -p /home/user/Desktop
+chown user:user /home/user/Desktop
 
 cd /tmp/
 wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh
@@ -61,7 +63,13 @@ cp /tmp/CHANGES.txt /usr/local/share/gisvm/
 #Redirecting to main_install.log does not allow main.sh to exit properly
 #./main.sh 2>&1 | tee /var/log/osgeolive/main_install.log
 #./main.sh
+./setup.sh
+./install_services.sh
+./install_mysql.sh
+./install_java.sh
 ./install_postgis.sh
+./load_postgis.sh
+./setdown.sh
 
 #Remove doc folder to save space
 rm -rf /usr/local/share/gisvm/doc
@@ -80,8 +88,8 @@ done
 tar -zcf /tmp/user_home.tar.gz -C /home/user .
 tar -zxf /tmp/user_home.tar.gz -C /etc/skel .
 rm /tmp/user_home.tar.gz
-#cp -a /home/user/*  /etc/skel
-#chown -hR root:root /etc/skel
+cp -a /home/user/*  /etc/skel
+chown -hR root:root /etc/skel
 
 #TODO: Should we remove the "user" after the installation? 
 #By keeping this user, /home/user exists and installation fails if someone uses the same username.

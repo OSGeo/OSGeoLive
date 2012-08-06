@@ -144,7 +144,7 @@ cd lzfiles
 lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
 cp ../../gisvm/app-conf/casper.conf etc/casper.conf
 #replace the user password, potentially also set backgrounds here
-sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
+#sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 #Change the text on the loader
 sed -i -e 's/title=Xubuntu 12.04/title=OSGeo Live ${VERSION}/g' lib/plymouth/themes/xubuntu-text/xubuntu-text.plymouth
 #might be in this file
