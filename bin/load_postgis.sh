@@ -25,7 +25,7 @@
 # Mark Leslie <mark.s.leslie@gmail.com>
 #
 
-POSTGRES_USER="user"
+POSTGRES_USER="$USER_NAME"
 CITY="Nottingham"
 TMP_DIR="/tmp/build_postgis"
 
