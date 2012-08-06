@@ -1,6 +1,15 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0beta9
+===================
+
+ * Switched to chroot build method
+ * Fix for launchers missing #980
+ * Fix for postgis #983
+ * Live session user is now called "user"
+ * Lots of translation work 
+
 Version 6.0beta8
 ===================
 

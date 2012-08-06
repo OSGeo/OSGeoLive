@@ -40,8 +40,8 @@ cd $SVN_DIR
 REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
 
 #Is it a public or an internal build?
-#ISO_NAME="$PACKAGE_NAME-$VERSION"
-ISO_NAME="$PACKAGE_NAME-mini-build$REVISION"
+ISO_NAME="$PACKAGE_NAME-mini-$VERSION"
+#ISO_NAME="$PACKAGE_NAME-mini-build$REVISION"
 
 echo
 echo "==============================================================="
