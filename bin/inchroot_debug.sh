@@ -63,13 +63,74 @@ cp /tmp/CHANGES.txt /usr/local/share/gisvm/
 #Redirecting to main_install.log does not allow main.sh to exit properly
 #./main.sh 2>&1 | tee /var/log/osgeolive/main_install.log
 #./main.sh
+USER_NAME="user"
+export USER_NAME
 ./setup.sh
 ./install_services.sh
+./install_mysql.sh
+./install_java.sh
 ./install_apache2.sh
-./install_mapserver.sh
+./install_tomcat6.sh
+
+# ./install_geoserver.sh
+# ./install_geomajas.sh
+# ./install_geonetwork.sh
+# ./install_deegree.sh
+# ./install_52nWPS.sh
+# ./install_kosmo.sh
+# ./install_udig.sh
+# ./install_openjump.sh
+# ./install_postgis.sh
+# ./install_osm.sh
+# ./load_postgis.sh
+# ./install_pgrouting.sh
+# ./install_sahana.sh
+# ./install_ushahidi.sh
+# ./install_mapserver.sh
+# ./install_mapbender.sh
+# ./install_geokettle.sh
+# ./install_gmt.sh
+# ./install_grass.sh
+# ./install_qgis.sh
+# ./install_qgis_mapserver.sh
+# ./install_saga.sh
+# ./install_mapnik.sh
+# ./install_mapproxy.sh
+# ./install_maptiler.sh
+# ./install_marble.sh
+# ./install_opencpn.sh
+# ./install_prune.sh
+# ./install_viking.sh
+# ./install_zygrib.sh
+# ./install_geopublisher.sh
+# ./install_atlasstyler.sh
+# ./install_liblas.sh
+# ./install_gpsdrive.sh
+# ./install_mapfish.sh
+# ./install_openlayers.sh
+# ./install_R.sh
+# ./install_ossim.sh
+# ./install_osgearth.sh
+# ./install_spatialite.sh
+# ./install_zoo-project.sh
+# ./install_52nSOS.sh
+# ./install_otb.sh
+# ./install_rasdaman.sh
+# ./install_tinyows.sh
+# ./install_52nWSS.sh
+# ./install_pycsw.sh
+# ./install_geomoose.sh
+# ./install_mb-system.sh
+# ./install_gvsig.sh
+
+# ./load_gisdata.sh
+# ./install_main_docs.sh
+# ./install_edutools.sh
+
 ./install_desktop.sh
 ./install_language.sh
 ./setdown.sh
+
 
 #Remove doc folder to save space
 rm -rf /usr/local/share/gisvm/doc
