@@ -22,6 +22,10 @@
 
 apt-get install --yes apache2
 
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+
 # add "user" to the www-data group
 adduser "$USER_NAME" www-data
 
