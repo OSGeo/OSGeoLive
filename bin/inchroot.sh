@@ -81,7 +81,7 @@ done
 tar -zcf /tmp/user_home.tar.gz -C /home/user .
 tar -zxf /tmp/user_home.tar.gz -C /etc/skel .
 rm /tmp/user_home.tar.gz
-#cp -a /home/user/*  /etc/skel
+cp -a /home/user/*  /etc/skel
 chown -hR root:root /etc/skel
 
 #TODO: Should we remove the "user" after the installation? 
