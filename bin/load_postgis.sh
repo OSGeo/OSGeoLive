@@ -25,6 +25,10 @@
 # Mark Leslie <mark.s.leslie@gmail.com>
 #
 
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+
 POSTGRES_USER="$USER_NAME"
 CITY="Nottingham"
 TMP_DIR="/tmp/build_postgis"
