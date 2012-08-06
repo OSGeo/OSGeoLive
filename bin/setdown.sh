@@ -54,7 +54,7 @@ ldconfig
 
 
 #shrink help page images
-echo "Shrinking images, please wait as this may take some time ..."
+# echo "Shrinking images, please wait as this may take some time ..."
 
 # cd /var/www/
 # # instrument it to see if it's worth the effort (takes 2.25 minutes, saves <1mb)
@@ -77,11 +77,11 @@ echo "Shrinking images, please wait as this may take some time ..."
 #  disk space manually.
 # The actual hardlinking of duplicate /usr files is done at the last
 #  minute in build_iso.sh.
-FSLINT_LOG=/tmp/build_lint/dupe_files.txt
-mkdir -p `dirname "$FSLINT_LOG"`
-echo "Scanning for duplicate files ..."
-/usr/share/fslint/fslint/findup --summary /usr /opt /lib > "$FSLINT_LOG"
-/usr/share/fslint/fslint/fstool/dupwaste < "$FSLINT_LOG"
+# FSLINT_LOG=/tmp/build_lint/dupe_files.txt
+# mkdir -p `dirname "$FSLINT_LOG"`
+# echo "Scanning for duplicate files ..."
+# /usr/share/fslint/fslint/findup --summary /usr /opt /lib > "$FSLINT_LOG"
+# /usr/share/fslint/fslint/fstool/dupwaste < "$FSLINT_LOG"
 
 
 #### Copy tmp files, apt cache and logs ready for backup
@@ -112,9 +112,9 @@ rm -fr \
 
 
 # clean out ssh keys which should be machine-unique
-rm -f /etc/ssh/ssh_host_*_key*
+# rm -f /etc/ssh/ssh_host_*_key*
 # change a stupid sshd default
-sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
+# sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 
 # This is done on an extra step after rebooting and tmp is cleared
 #echo "==============================================================="
