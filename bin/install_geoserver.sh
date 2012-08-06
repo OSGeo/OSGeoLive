@@ -46,10 +46,8 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-
-### Install proper Sun JDK
-#echo "Installing Sun JDK 6"
-#apt-get install --yes sun-java6-jdk
+### install_java.sh must run before this script
+### TODO sanity check java setup here
 
 ### setup temp ###
 mkdir -p "$TMP"
@@ -163,7 +161,7 @@ Terminal=false
 EOF
 
 cp -a /usr/share/applications/geoserver-start.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-start.desktop"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/geoserver-start.desktop"
 
 ## stop icon
 cat << EOF > /usr/share/applications/geoserver-stop.desktop
@@ -179,7 +177,7 @@ Terminal=false
 EOF
 
 cp -a /usr/share/applications/geoserver-stop.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-stop.desktop"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/geoserver-stop.desktop"
 
 ## admin console icon
 cat << EOF > /usr/share/applications/geoserver-admin.desktop
@@ -195,7 +193,7 @@ Terminal=false
 EOF
 
 cp -a /usr/share/applications/geoserver-admin.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-admin.desktop"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/geoserver-admin.desktop"
 
 ## styler console icon
 ########## DEAD URL ###################
@@ -226,7 +224,7 @@ Terminal=false
 EOF
 
 cp -a /usr/share/applications/geoserver-docs.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geoserver-docs.desktop"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/geoserver-docs.desktop"
 
 ## clean up eventual leftover Jetty cache directory
 echo "Cleaning up Jetty JSP cache in /tmp"
