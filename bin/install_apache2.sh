@@ -23,7 +23,7 @@
 apt-get install --yes apache2
 
 # add "user" to the www-data group
-adduser user www-data
+adduser "$USER_NAME" www-data
 
 
 mkdir -p /var/www
