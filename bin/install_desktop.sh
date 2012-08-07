@@ -459,7 +459,7 @@ if [ 'softly' = 'yes' ] ; then
    PYCs=`grep ORIG FOSScenter.patch | sed -e 's/\.ORIG.*//' -e 's/.[^\.]*//' -e 's/$/c/'`
    rm -f $PYCs
    #fixme:  pycompile -p ... ?? (running software-center as root will rebuild them)
-   rm -rf "$USER/.cache/software-center/"
+   rm -rf "$USER_NAME/.cache/software-center/"
 else
    # remove the bastard and free up 65-105mb
    apt-get purge --assume-yes software-center software-center-aptdaemon-plugins \
