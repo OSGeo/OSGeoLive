@@ -89,7 +89,7 @@ export USER_NAME
 # ./install_mapserver.sh
 # ./install_mapbender.sh
 # ./install_geokettle.sh
-# # ./install_gmt.sh
+# ./install_gmt.sh
 # ./install_grass.sh
 # ./install_qgis.sh
 # ./install_qgis_mapserver.sh
@@ -105,8 +105,8 @@ export USER_NAME
 # ./install_geopublisher.sh
 # ./install_atlasstyler.sh
 # # ./install_liblas.sh
-# # ./install_gpsdrive.sh
-# # ./install_mapfish.sh
+# ./install_gpsdrive.sh
+# ./install_mapfish.sh
 # ./install_openlayers.sh
 # ./install_R.sh
 # ./install_ossim.sh
