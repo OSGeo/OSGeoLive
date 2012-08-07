@@ -19,6 +19,10 @@
 # Homepage: http://activityworkshop.net/software/prune/
 # 
 
+echo "==============================================================="
+echo "install_prune.sh"
+echo "==============================================================="
+
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"

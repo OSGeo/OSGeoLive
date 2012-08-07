@@ -24,6 +24,9 @@
 #
 # Requires: Apache2, python-lxml, python-shapely and python-sqlalchemy
 
+echo "==============================================================="
+echo "install_pycsw.sh"
+echo "==============================================================="
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then

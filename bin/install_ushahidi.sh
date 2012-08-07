@@ -28,6 +28,10 @@
 # ============
 # sudo rm -rf /var/www/ushahidi/
 
+echo "==============================================================="
+echo "install_ushahidi.sh"
+echo "==============================================================="
+
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"

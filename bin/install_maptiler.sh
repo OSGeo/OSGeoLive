@@ -7,6 +7,10 @@
 # Copyright (c) 2010 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 
+echo "==============================================================="
+echo "install_maptiler.sh"
+echo "==============================================================="
+
 TMP="/tmp/build_maptiler"
 MAPTILERDEB="maptiler_1.0.beta2_all.deb"
 DATA_FOLDER="/usr/local/share/maptiler"

@@ -22,6 +22,10 @@
 # or contact Peter Baumann via <baumann@rasdaman.com>.     
 #
 
+echo "==============================================================="
+echo "install_rasdaman.sh"
+echo "==============================================================="
+
 # rasdaman src to be used
 VERSION=8.3.1
 RASDAMAN_LOCATION="http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo"

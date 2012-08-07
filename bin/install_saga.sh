@@ -8,6 +8,10 @@
 # Licensed under the GNU LGPL.
 # lucid: saga 2.0.4 is provided in ubuntugis and ubuntugis/unstable
 
+echo "==============================================================="
+echo "install_saga.sh"
+echo "==============================================================="
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi

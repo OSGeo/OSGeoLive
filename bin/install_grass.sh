@@ -21,6 +21,9 @@
 # this does not attempt to install QGIS-plugin infrastructure, that is
 #  done in install_qgis.sh
 
+echo "==============================================================="
+echo "install_grass.sh"
+echo "==============================================================="
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then

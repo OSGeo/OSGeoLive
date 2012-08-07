@@ -26,6 +26,9 @@
 # sudo rm -r /var/www/pywps
 # sudo rm -r /etc/apache2/conf.d/pywps
 
+echo "==============================================================="
+echo "install_pywps.sh"
+echo "==============================================================="
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then

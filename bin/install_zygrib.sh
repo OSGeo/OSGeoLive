@@ -16,6 +16,10 @@
 # =====
 # This script will install the zyGrib viewer (1.4mb installed)
 
+echo "==============================================================="
+echo "install_zygrib.sh"
+echo "==============================================================="
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi

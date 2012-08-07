@@ -16,6 +16,10 @@
 # =====
 # This script will install marble
 
+echo "==============================================================="
+echo "install_viking.sh"
+echo "==============================================================="
+
 if [ -z "$USER_NAME" ] ; then 
    USER_NAME="user" 
 fi 

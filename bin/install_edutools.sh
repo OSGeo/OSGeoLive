@@ -20,3 +20,6 @@
 #  eric is a full featured Python IDE written in PyQt.
 #apt-get --assume-yes install eric
 
+echo "==============================================================="
+echo "install_edutools.sh"
+echo "==============================================================="

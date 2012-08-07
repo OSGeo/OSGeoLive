@@ -36,6 +36,9 @@
 # =======
 # sudo ./install_openjump.sh [--clean,--force]
 
+echo "==============================================================="
+echo "install_openjump.sh"
+echo "==============================================================="
 
 TMP="/tmp/build_openjump"
 if [ -z "$USER_NAME" ] ; then

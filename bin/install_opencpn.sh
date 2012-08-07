@@ -29,6 +29,10 @@
 #       Unlimited Route/Mark creation
 #
 
+echo "==============================================================="
+echo "install_opencpn.sh"
+echo "==============================================================="
+
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"

@@ -16,6 +16,10 @@
 # =====
 # This script will install Jave JRE and Java JDK
 
+echo "==============================================================="
+echo "install_java.sh"
+echo "==============================================================="
+
 #apt-get install --yes default-jdk default-jre
 apt-get install --yes openjdk-7-jdk openjdk-7-jre
 

@@ -17,6 +17,10 @@
 # This script will install a desktop background image and icon for passwords.
 # Create menus and config automatic login.
 
+echo "==============================================================="
+echo "install_desktop.sh"
+echo "==============================================================="
+
 # Running:
 # =======
 # sudo ./install_desktop.sh

@@ -20,6 +20,9 @@
 # Need to get 68.4 MB of archives.
 # After this operation, 186 MB of additional disk space will be used.
 
+echo "==============================================================="
+echo "install_tilemill.sh"
+echo "==============================================================="
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then

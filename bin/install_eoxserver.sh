@@ -21,6 +21,9 @@
 # =======
 # sudo ./install_eoxserver.sh
 
+echo "==============================================================="
+echo "install_eoxserver.sh"
+echo "==============================================================="
 
 echo "Starting EOxServer installation"
 

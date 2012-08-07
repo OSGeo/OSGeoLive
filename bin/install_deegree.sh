@@ -38,6 +38,10 @@
 
 ###########################
 
+echo "==============================================================="
+echo "install_deegree.sh"
+echo "==============================================================="
+
 TMP="/tmp/build_deegree"
 INSTALL_FOLDER="/usr/local/lib"
 DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.2-pre9"

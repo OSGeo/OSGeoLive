@@ -18,6 +18,9 @@
 #    GMT homepage: http://gmt.soest.hawaii.edu/
 #
 
+echo "==============================================================="
+echo "install_gmt.sh"
+echo "==============================================================="
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then

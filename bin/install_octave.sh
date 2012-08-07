@@ -17,6 +17,9 @@
 # This script will install Octave and the Octave Mapping toolbox
 #  
 
+echo "==============================================================="
+echo "install_octave.sh"
+echo "==============================================================="
 
 apt-get install --yes octave3.2 octave-mapping gnuplot
 

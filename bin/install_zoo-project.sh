@@ -34,6 +34,10 @@
 # sudo rm -rf /usr/share/applications/zoo-project.desktop
 # sudo rm -rf /home/user/Desktop/Servers/zoo-project.desktop
 
+echo "==============================================================="
+echo "install_zoo-project.sh"
+echo "==============================================================="
+
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"

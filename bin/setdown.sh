@@ -20,6 +20,10 @@
 # =======
 # sudo ./setdown.sh 2>&1 | tee /var/log/osgeolive/setdown.log
 
+echo "==============================================================="
+echo "setdown.sh"
+echo "==============================================================="
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi

@@ -20,6 +20,10 @@
 # =======
 # sudo ./install_spatialite.sh
 
+echo "==============================================================="
+echo "install_spatialite.sh"
+echo "==============================================================="
+
 BUILD_TMP="/tmp/build_spatialite"
 INSTALL_FOLDER="/usr/local"
 DATA_FOLDER="/usr/local/share/data"

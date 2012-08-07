@@ -21,6 +21,10 @@
 # sudo service apache2 start
 # Then open a web browser and go to http://localhost/openLayers/
 
+echo "==============================================================="
+echo "install_openlayers.sh"
+echo "==============================================================="
+
 TMP_DIR="/tmp/build_openlayers"
 OL_VERSION="2.12"
 

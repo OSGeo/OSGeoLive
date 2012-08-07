@@ -33,6 +33,10 @@
 #see also
 # http://eden.sahanafoundation.org/wiki/InstallationGuidelinesLinux
 
+echo "==============================================================="
+echo "install_sahana.sh"
+echo "==============================================================="
+
 # Check for Root User
 gotroot=$(id -u)
 if [ "$gotroot" != "0" ] ; then

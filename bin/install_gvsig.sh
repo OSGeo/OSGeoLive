@@ -44,6 +44,9 @@
 #   * Changed to the "with-jre" version because the Xubuntu 9.10 version
 #     doesn't have the packages of Java 1.5
 
+echo "==============================================================="
+echo "install_gvsig.sh"
+echo "==============================================================="
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then

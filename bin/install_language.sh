@@ -27,6 +27,11 @@
 # Pick a different language at the login screen
 #
 # Start off with the Xfce keyboard layout configuration tool
+
+echo "==============================================================="
+echo "install_language.sh"
+echo "==============================================================="
+
 ### ubuntu 11.04: xfkc no longer exists:
 #PACKAGES="xfkc"
 PACKAGES=""

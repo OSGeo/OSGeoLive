@@ -22,6 +22,9 @@
 # =======
 # sudo ./install_main_docs.sh
 
+echo "==============================================================="
+echo "install_main_docs.sh"
+echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"

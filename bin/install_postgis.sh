@@ -26,6 +26,10 @@
 # sudo /etc/init.d/postgresql-9.1 start
 #
 
+echo "==============================================================="
+echo "install_postgis.sh"
+echo "==============================================================="
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi

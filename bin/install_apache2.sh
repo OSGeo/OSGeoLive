@@ -20,6 +20,10 @@
 # =======
 # sudo /etc/init.d/apache2 start
 
+echo "==============================================================="
+echo "install_apache2.sh"
+echo "==============================================================="
+
 apt-get install --yes apache2
 
 if [ -z "$USER_NAME" ] ; then

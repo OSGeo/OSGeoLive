@@ -20,6 +20,10 @@
 #apt-get install openjdk-7-jre icedtea-plugin ttf-dejavu-extra
 #  (icedtea is now to be dropped?)
 
+echo "==============================================================="
+echo "install_openjdk.sh"
+echo "==============================================================="
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi

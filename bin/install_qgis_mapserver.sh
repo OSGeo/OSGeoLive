@@ -20,6 +20,10 @@
 # =======
 # sudo ./install_qgis_mapserver.sh
 
+echo "==============================================================="
+echo "install_qgis_mapserver.sh"
+echo "==============================================================="
+
 TMP="/tmp/build_qgis_mapserver"
 BUILD_DIR=`pwd`
 APP_DATA_DIR="$BUILD_DIR/../app-data/qgis-mapserver"

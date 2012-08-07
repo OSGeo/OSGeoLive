@@ -20,6 +20,10 @@
 # =======
 # sudo /etc/init.d tomcat6 start
 
+echo "==============================================================="
+echo "install_tomcat6.sh"
+echo "==============================================================="
+
 apt-get install --yes tomcat6 tomcat6-admin
 
 #Add the following lines to <tomcat-users> in /etc/tomcat6/tomcat-users.xml

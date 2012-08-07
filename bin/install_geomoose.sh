@@ -21,6 +21,10 @@
 # =======
 # sudo ./install_geomoose.sh
 
+echo "==============================================================="
+echo "install_geomoose.sh"
+echo "==============================================================="
+
 apt-get --assume-yes install php5-sqlite
 
 if [ -z "$USER_NAME" ] ; then

@@ -7,6 +7,9 @@
 # Copyright (c) 2010 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 
+echo "==============================================================="
+echo "install_mapproxy.sh"
+echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"

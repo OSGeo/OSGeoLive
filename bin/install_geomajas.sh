@@ -13,7 +13,9 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 
-
+echo "==============================================================="
+echo "install_geomajas.sh"
+echo "==============================================================="
 
 # =============================================================================
 # Install script for Geomajas

@@ -23,6 +23,10 @@
 # Requires: Sun Java {6|7} compatible runtime
 #
 
+echo "==============================================================="
+echo "install_geoserver.sh"
+echo "==============================================================="
+
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/local/lib"
 BIN="/usr/local/bin"

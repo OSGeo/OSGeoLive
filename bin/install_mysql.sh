@@ -16,6 +16,10 @@
 # =====
 # This script will install mysql (put it up front because it has an interactive prompt)
 
+echo "==============================================================="
+echo "install_mysql.sh"
+echo "==============================================================="
+
 #attempt at setting the root password without the need for interaction
 PASSWORD="user"
 

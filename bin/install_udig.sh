@@ -29,6 +29,9 @@
 # =======
 # sudo ./install_udig.sh
 
+echo "==============================================================="
+echo "install_udig.sh"
+echo "==============================================================="
 
 TMP="/tmp/build_udig"
 INSTALL_FOLDER="/usr/lib"

@@ -20,6 +20,10 @@
 # =======
 # sudo ./install_tinyows.sh
 
+echo "==============================================================="
+echo "install_tinyows.sh"
+echo "==============================================================="
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi

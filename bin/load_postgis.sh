@@ -25,6 +25,10 @@
 # Mark Leslie <mark.s.leslie@gmail.com>
 #
 
+echo "==============================================================="
+echo "load_postgis.sh"
+echo "==============================================================="
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi

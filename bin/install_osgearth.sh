@@ -25,6 +25,10 @@
 
 #Add repositories
 
+echo "==============================================================="
+echo "install_osgearth.sh"
+echo "==============================================================="
+
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 

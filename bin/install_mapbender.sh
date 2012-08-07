@@ -28,6 +28,10 @@
 # ============
 # sudo rm -rf /var/www/mapbender
 
+echo "==============================================================="
+echo "install_mapbender.sh"
+echo "==============================================================="
+
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"

@@ -26,6 +26,10 @@
 # =======
 # Any Java 1.6, Sun preferred
 
+echo "==============================================================="
+echo "install_geopublisher.sh"
+echo "==============================================================="
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi

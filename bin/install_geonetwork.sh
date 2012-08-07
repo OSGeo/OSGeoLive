@@ -50,6 +50,10 @@
 # =======
 # sudo ./install_geonetwork.sh
 
+echo "==============================================================="
+echo "install_geonetwork.sh"
+echo "==============================================================="
+
 TMP="/tmp/build_geonetwork"
 #FIXME: please use /usr/local not /usr for things not in a .deb
 INSTALL_FOLDER="/usr/lib"

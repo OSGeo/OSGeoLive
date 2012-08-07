@@ -24,6 +24,10 @@
 # =======
 # sudo ./install_mapguide.sh
 
+echo "==============================================================="
+echo "install_mapguide.sh"
+echo "==============================================================="
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi

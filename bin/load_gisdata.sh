@@ -24,6 +24,10 @@
 # the web page "http://www.fsf.org/licenses/lgpl.html".
 ##################################################
 
+echo "==============================================================="
+echo "load_gisdata.sh"
+echo "==============================================================="
+
 TMP="/tmp/build_gisdata"
 DATA_FOLDER="/usr/local/share/data"
 POSTGRES_USER="user"

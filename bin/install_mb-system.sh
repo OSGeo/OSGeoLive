@@ -28,6 +28,9 @@
 #  ???
 # (but no luck)
 
+echo "==============================================================="
+echo "install_mb-system.sh"
+echo "==============================================================="
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then

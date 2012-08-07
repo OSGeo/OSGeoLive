@@ -21,6 +21,10 @@
 # monteverdi
 # TODO: list all the apps, preferably Qt versions in /usr/bin/?
 
+echo "==============================================================="
+echo "install_otb.sh"
+echo "==============================================================="
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi

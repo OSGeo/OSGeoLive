@@ -22,6 +22,10 @@
 # rm -rf /usr/local/share/mapnik/
 # rm /usr/local/bin/liteserv.py
 
+echo "==============================================================="
+echo "install_mapnik.sh"
+echo "==============================================================="
+
 # package name change in precise
 apt-get install --yes python-mapnik2 python-werkzeug
 

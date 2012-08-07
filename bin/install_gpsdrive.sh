@@ -18,6 +18,9 @@
 #    GpsDrive homepage: http://www.gpsdrive.de
 #
 
+echo "==============================================================="
+echo "install_gpsdrive.sh"
+echo "==============================================================="
 
 CITY=Nottingham
 
