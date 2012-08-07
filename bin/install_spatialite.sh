@@ -122,7 +122,7 @@ cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.deskto
     /usr/local/share/applications/
 cp $BUILD_TMP/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
     "$USER_HOME"/Desktop/
-chown "$USER.$USER" "$USER_HOME"/Desktop/spatialite-gui.desktop
+chown "$USER_NAME.$USER_NAME" "$USER_HOME"/Desktop/spatialite-gui.desktop
 cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.png \
     /usr/share/pixmaps/
 
@@ -130,7 +130,7 @@ cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
     /usr/local/share/applications/
 cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
     "$USER_HOME"/Desktop/
-chown "$USER.$USER" "$USER_HOME"/Desktop/spatialite-gis.desktop
+chown "$USER_NAME.$USER_NAME" "$USER_HOME"/Desktop/spatialite-gis.desktop
 cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.png \
     /usr/share/pixmaps/
 
