@@ -88,15 +88,15 @@ export USER_NAME
 # ./install_ushahidi.sh
 # ./install_mapserver.sh
 # ./install_mapbender.sh
-# # ./install_geokettle.sh
+# ./install_geokettle.sh
 # # ./install_gmt.sh
 # # ./install_grass.sh
 # # ./install_qgis.sh
 # # ./install_qgis_mapserver.sh
-# # ./install_saga.sh
-# # ./install_mapnik.sh
-# # ./install_mapproxy.sh
-# # ./install_maptiler.sh
+# ./install_saga.sh
+# ./install_mapnik.sh
+# ./install_mapproxy.sh
+# ./install_maptiler.sh
 # ./install_marble.sh
 # ./install_opencpn.sh
 # ./install_prune.sh
