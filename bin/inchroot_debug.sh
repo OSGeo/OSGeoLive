@@ -91,8 +91,8 @@ export USER_NAME
 # ./install_geokettle.sh
 # # ./install_gmt.sh
 # # ./install_grass.sh
-# # ./install_qgis.sh
-# # ./install_qgis_mapserver.sh
+# ./install_qgis.sh
+# ./install_qgis_mapserver.sh
 # ./install_saga.sh
 # ./install_mapnik.sh
 # ./install_mapproxy.sh
@@ -108,10 +108,10 @@ export USER_NAME
 # # ./install_gpsdrive.sh
 # # ./install_mapfish.sh
 # # ./install_openlayers.sh
-# # ./install_R.sh
-# # ./install_ossim.sh
-# # ./install_osgearth.sh
-# # ./install_spatialite.sh
+# ./install_R.sh
+# ./install_ossim.sh
+# ./install_osgearth.sh
+# ./install_spatialite.sh
 # ./install_zoo-project.sh
 # ./install_52nSOS.sh
 # ./install_otb.sh
@@ -128,7 +128,7 @@ export USER_NAME
 # ./install_edutools.sh
 
 ./install_desktop.sh
-./install_language.sh
+# ./install_language.sh
 ./setdown.sh
 
 
