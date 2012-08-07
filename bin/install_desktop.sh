@@ -93,13 +93,18 @@ chown "$USER_NAME"."$USER_NAME" "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel
 
 #Add the launchhelp script which allows other apps to provide sudo
 #    launching with the password already embedded
-#Geonetwork and deegree need this right now
+#[Geonetwork and] deegree need this right now
 mkdir -p "$USER_HOME/bin/"
+chown "$USER_NAME.$USER_NAME" "$USER_HOME/bin/"
+mkdir -p /etc/skel/bin
+
 cp "launchassist.sh" "$USER_HOME/bin/"
 chmod 700 "$USER_HOME/bin/launchassist.sh"
 chown "$USER_NAME.$USER_NAME" \
    "$USER_HOME/bin/launchassist.sh" "$USER_HOME/bin"
 # no good to copy it to /etc/skel as the pw will differ for each account
+#cp "launchassist.sh" /etc/skel/bin/
+#chmod 700 "/etc/skel/bin/launchassist.sh"
 
 
 # Ubuntu 9.10 (GNOME but not Xfce) wants to see the ~/Desktop/*.desktop
