@@ -112,16 +112,16 @@ export USER_NAME
 # # ./install_ossim.sh
 # # ./install_osgearth.sh
 # # ./install_spatialite.sh
-# # ./install_zoo-project.sh
-# # ./install_52nSOS.sh
-# # ./install_otb.sh
+# ./install_zoo-project.sh
+# ./install_52nSOS.sh
+# ./install_otb.sh
 # # ./install_rasdaman.sh
-# # ./install_tinyows.sh
-# # ./install_52nWSS.sh
-# # ./install_pycsw.sh
+# ./install_tinyows.sh
+# ./install_52nWSS.sh
+# ./install_pycsw.sh
 # # ./install_geomoose.sh
 # # ./install_mb-system.sh
-# # ./install_gvsig.sh
+# ./install_gvsig.sh
 
 # ./load_gisdata.sh
 # ./install_main_docs.sh
