@@ -109,8 +109,6 @@ ldconfig
 
 #download and install rasdaman
 #If folder already exists, delete it and download the latest version
-
-
 if [  -d  rasdaman ] ; then
     rm -rf rasdaman
 fi
@@ -123,7 +121,10 @@ tar xzmf "$RASDAMAN_TARBALL"
 #configure, make and install
 cd "rasdaman"
 mkdir -p "$RASDAMAN_HOME/log"
-chown $USER_NAME:$USER_NAME "$RASDAMAN_HOME/log/" -R
+chgrp users "$RASDAMAN_HOME/log/" -R
+chmod g+w "$RASDAMAN_HOME/log/" -R
+adduser "$USER_NAME" users
+
 
 ./configure --with-logdir="$RASDAMAN_HOME"/log \
     --prefix="$RASDAMAN_HOME" --with-wardir="$WARDIR" --with-netcdf LIBS='-lecpg -lgdal1.7.0'
@@ -152,10 +153,10 @@ fi
 mv "$RASDAMAN_HOME"/bin/rview "$RASDAMAN_HOME"/bin/rview.bin
 cp "$RASDAMAN_HOME"/share/rasdaman/errtxts* "$RASDAMAN_HOME"/bin/
 RASVIEWSCRIPT="$RASDAMAN_HOME"/bin/rasdaview
-echo "#!/bin/bash" > $RASVIEWSCRIPT
-echo "export RASVIEWHOME=$RASDAMAN_HOME/bin" >> $RASVIEWSCRIPT
-echo "cd $RASVIEWHOME && ./rview.bin" >> $RASVIEWSCRIPT
-chmod +x $RASVIEWSCRIPT
+echo "#!/bin/bash" > "$RASVIEWSCRIPT"
+echo "export RASVIEWHOME=$RASDAMAN_HOME/bin" >> "$RASVIEWSCRIPT"
+echo "cd $RASVIEWHOME && ./rview.bin" >> "$RASVIEWSCRIPT"
+chmod +x "$RASVIEWSCRIPT"
 
 # setup permissions
 chown -R $USER_NAME:$USER_NAME "$RASDAMAN_HOME"/bin/
@@ -262,7 +263,6 @@ mv rasdaman/* "$WARDIR"
 
 
 
-
 #clean up
 echo "cleaning up..."
 
@@ -320,3 +320,4 @@ EOF
 cp /usr/share/applications/stop_rasdaman_server.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/start_rasdaman_server.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/rasdaman-earthlook-demo.desktop "$USER_HOME/Desktop/"
+chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/*rasdaman*.desktop"
