@@ -90,7 +90,7 @@ export USER_NAME
 # ./install_mapbender.sh
 # ./install_geokettle.sh
 # # ./install_gmt.sh
-# # ./install_grass.sh
+# ./install_grass.sh
 # ./install_qgis.sh
 # ./install_qgis_mapserver.sh
 # ./install_saga.sh
@@ -107,7 +107,7 @@ export USER_NAME
 # # ./install_liblas.sh
 # # ./install_gpsdrive.sh
 # # ./install_mapfish.sh
-# # ./install_openlayers.sh
+# ./install_openlayers.sh
 # ./install_R.sh
 # ./install_ossim.sh
 # ./install_osgearth.sh
@@ -119,7 +119,7 @@ export USER_NAME
 # ./install_tinyows.sh
 # ./install_52nWSS.sh
 # ./install_pycsw.sh
-# # ./install_geomoose.sh
+# ./install_geomoose.sh
 # # ./install_mb-system.sh
 # ./install_gvsig.sh
 
