@@ -97,13 +97,13 @@ export USER_NAME
 # # ./install_mapnik.sh
 # # ./install_mapproxy.sh
 # # ./install_maptiler.sh
-# # ./install_marble.sh
-# # ./install_opencpn.sh
-# # ./install_prune.sh
-# # ./install_viking.sh
-# # ./install_zygrib.sh
-# # ./install_geopublisher.sh
-# # ./install_atlasstyler.sh
+# ./install_marble.sh
+# ./install_opencpn.sh
+# ./install_prune.sh
+# ./install_viking.sh
+# ./install_zygrib.sh
+# ./install_geopublisher.sh
+# ./install_atlasstyler.sh
 # # ./install_liblas.sh
 # # ./install_gpsdrive.sh
 # # ./install_mapfish.sh
