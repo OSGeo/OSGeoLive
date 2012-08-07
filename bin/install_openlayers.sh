@@ -71,7 +71,7 @@ StartupNotify=false
 EOF
 fi
 cp /usr/share/applications/openlayers.desktop "$USER_HOME/Desktop/"
-
+chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/openlayers.desktop"
 
 
 #TODO: Create local example that uses data from the many wms/wfs sources on the live disc
