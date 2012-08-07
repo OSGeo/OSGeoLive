@@ -15,7 +15,7 @@
       <property name="monitor0" type="empty">
         <property name="image-path" type="string" value="/usr/share/xfce4/backdrops/osgeo-desktop.png"/>
         <property name="image-show" type="empty"/>
-        <property name="image-style" type="int" value="3"/>
+        <property name="image-style" type="int" value="2"/>
         <property name="last-image" type="string" value="/usr/share/xfce4/backdrops/osgeo-desktop.png"/>
         <property name="last-single-image" type="string" value="/usr/share/xfce4/backdrops/osgeo-desktop.png"/>
       </property>
