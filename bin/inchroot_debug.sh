@@ -145,7 +145,8 @@ done
 #updatedb
 
 #Experimental dist variant, comment out and swap to backup below
-#Do we need to change the user to ubuntu in all scripts for this method? No set user in casper.conf
+#Do we need to change the user to ubuntu in all scripts for this method?
+# -- No, set user in casper.conf
 tar -zcf /tmp/user_home.tar.gz -C /home/user .
 tar -zxf /tmp/user_home.tar.gz -C /etc/skel .
 rm /tmp/user_home.tar.gz
@@ -160,7 +161,7 @@ deluser --remove-home user
 
 #Copy casper.conf with default username and hostname
 #FIXME: User is still "xubuntu" in live session... perhaps because user is already created?
-cp /usr/local/share/gisvm/app-conf/casper.conf /etc/casper.conf
+cp /usr/local/share/gisvm/app-conf/build_chroot/casper.conf /etc/casper.conf
 
 #After the build
 #Check for users above 999

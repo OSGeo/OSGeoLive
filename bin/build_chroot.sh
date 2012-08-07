@@ -151,7 +151,7 @@ mkdir lzfiles
 cd lzfiles
 lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
 
-cp ../../gisvm/app-conf/casper.conf etc/casper.conf
+cp ../../gisvm/app-conf/build_chroot/casper.conf etc/casper.conf
 
 #replace the user password, potentially also set backgrounds here
 #sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
@@ -215,7 +215,7 @@ sudo rm -rf edit
 #Can probably use sed magic or copy a predefined file from gisvm/app-data
 #sudo nano extract-cd/README.diskdefines
 # fixme: can you copy from the local ../filesystem instead?
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/README.diskdefines \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/build_chroot/README.diskdefines \
      --output-document=extract-cd/README.diskdefines
 
 echo
