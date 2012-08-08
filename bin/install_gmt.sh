@@ -50,7 +50,11 @@ fi
 #if [ `grep -c '/usr/lib/gmt/bin' "$USER_HOME/.bashrc"` -eq 0 ] ; then
 #   echo 'export PATH="$PATH:/usr/lib/gmt/bin"' >> "$USER_HOME/.bashrc"
 #fi
-echo 'export PATH="$PATH:/usr/lib/gmt/bin"' > /etc/profile.d/gmt_path.sh
+#echo 'export PATH="$PATH:/usr/lib/gmt/bin"' > /etc/profile.d/gmt_path.sh
+cat << EOF > /etc/profile.d/gmt_path.sh
+PATH="$PATH:/usr/lib/gmt/bin"
+export PATH
+EOF
 
 
 echo "Finished installing GMT."

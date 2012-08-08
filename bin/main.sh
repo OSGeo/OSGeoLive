@@ -151,6 +151,9 @@ for SCRIPT in \
   ./install_language.sh \
   ./setdown.sh \
 ; do
+# echo "===================================================================="
+# echo "Starting: $SCRIPT"
+# echo "====================================================================" 
   sh $SCRIPT
   if [ $? -ne 0 ] ; then
      echo '!!! possible failure in '"$SCRIPT" >> /tmp/build_gisvm_error.log

@@ -124,11 +124,11 @@ apt-get install --assume-yes grass-core qgis python-pysqlite2 python-pygame \
 
 
 cp /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/imagelinker.desktop"
+chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
 sed -i -e 's/^Name=imagelinker/Name=Imagelinker/' "$USER_HOME/Desktop/imagelinker.desktop"
 
 cp /usr/share/applications/ossimplanet.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/ossimplanet.desktop"
+chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/ossimplanet.desktop"
 
 # add menu item
 if [ ! -e /usr/share/menu/imagelinker ] ; then
@@ -227,6 +227,8 @@ done
 
 cp -r "$APP_DATA_DIR" "$QUICKSTART"
 ln -s "$QUICKSTART" "$USER_HOME"/ossim
+# does the above symlink need to be owned by $USER?
+
 ln -s "$QUICKSTART" /etc/skel/ossim
 
 

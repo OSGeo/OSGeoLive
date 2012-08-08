@@ -32,14 +32,17 @@ echo "==============================================================="
 echo "install_liblas.sh"
 echo "==============================================================="
 
+# todo: remove as user is unused by this script.
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
+USER_HOME="/home/$USER_NAME"
+
+
 TMP="/tmp/build_libLAS"
 INSTALL_FOLDER="/usr/local/share"
 LIBLAS_FOLDER="$INSTALL_FOLDER/libLAS"
 BIN="/usr/local/bin"
-USER_HOME="/home/$USER_NAME"
 
 LIBLAS_REV="libLAS-1.7.0"
 LASZIP_REV="laszip-2.0.1"
