@@ -32,8 +32,14 @@
 DIR=`dirname $0`
 LOG_DIR="/var/log/osgeolive"
 DOC_DIR="/var/www"
+
+DATESTR=`date +%Y%m%d-%H%M`
+# add date and time to build log filename:
+#MAIN_LOG_FILE="main_install_$DATESTR.log"
+#DISK_USAGE_LOG="disk_usage_$DATESTR.log"
 MAIN_LOG_FILE="main_install.log"
 DISK_USAGE_LOG="disk_usage.log"
+
 
 USER_NAME="user"
 export USER_NAME
