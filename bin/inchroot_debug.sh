@@ -24,6 +24,15 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 ##################################################
 
+run_installer()
+{
+  SCRIPT=$1
+  echo "===================================================================="
+  echo "Starting: $SCRIPT"
+  echo "===================================================================="
+  sh "$SCRIPT"
+}
+
 mount -t proc none /proc
 mount -t sysfs none /sys
 mount -t devpts none /dev/pts
