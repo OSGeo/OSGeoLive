@@ -53,7 +53,7 @@ fi
 
 cd "$TMP_DIR"
 
-#the archive changed from .tgz to .zip updating accordingly 
+# the archive changed from .tgz to .zip updating accordingly 
 if [ ! -e "ushahidi.zip" ] ; then 
    wget -O ushahidi.zip --progress=dot:mega \
       "http://download.ushahidi.com/track_download.php?download=ushahidi"
@@ -65,9 +65,11 @@ fi
 unzip -q "ushahidi.zip"
 mkdir /usr/local/share/ushahidi
 
-#now rename Ushahidi_Web to ushahidi
+# delete the zip file to leave only the extracted folder
+rm ushahidi.zip
 
-mv Ushahidi_Web ushahidi
+# now rename the extracted folder to ushahidi
+mv * ushahidi
 
 #now copy the ushahidi folder to a different location
 cp -R ushahidi/ /usr/local/share/
