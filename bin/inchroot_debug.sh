@@ -113,7 +113,7 @@ export USER_NAME
 # ./install_zygrib.sh
 # ./install_geopublisher.sh
 # ./install_atlasstyler.sh
-# # ./install_liblas.sh
+# ./install_liblas.sh
 # ./install_gpsdrive.sh
 # ./install_mapfish.sh
 # ./install_openlayers.sh
@@ -129,12 +129,12 @@ export USER_NAME
 # ./install_52nWSS.sh
 # ./install_pycsw.sh
 # ./install_geomoose.sh
-# # ./install_mb-system.sh
+# ./install_mb-system.sh
 # ./install_gvsig.sh
 
 # ./load_gisdata.sh
-# ./install_main_docs.sh
-# ./install_edutools.sh
+./install_main_docs.sh
+./install_edutools.sh
 
 ./install_desktop.sh
 # ./install_language.sh
