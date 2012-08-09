@@ -336,4 +336,6 @@ chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/*rasdaman*.desktop"
 # back to sleep & cleanup
 /etc/init.d/tomcat6 stop
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
-rm -f "$RASDAMAN_HOME"/log/*.log "$RASDAMAN_HOME"/log/nohup.out
+rm -f "$RASDAMAN_HOME"/log/*.log
+chown root "$RASDAMAN_HOME"/etc/rasmgr.conf
+
