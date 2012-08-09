@@ -280,4 +280,5 @@ globals:
 
 EOF
 
+#  oi! don't do this! user can't own anything outside of /home/user
 chown -R $USER_NAME:$USER_NAME ${MAPPROXY_DIR}/mapproxy.yaml
