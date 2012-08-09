@@ -158,10 +158,8 @@ if [ -e /usr/share/applications/ubiquity-gtkui.desktop ] ; then
       /usr/share/applications/ubiquity-gtkui.desktop
 fi
 
-### EXPERIMENTAL ###
 # while we're at, avoid ubiquity installer coming up at boot time
 sed -i -e '11,15d' -e 's/^start on .*/#start on/' /etc/init/ubiquity.conf
-####################
 
 
 # Link to the project data files
