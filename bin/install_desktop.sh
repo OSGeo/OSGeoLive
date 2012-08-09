@@ -88,6 +88,10 @@ cp /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml \
 #Not sure if this is necessary
 chown "$USER_NAME"."$USER_NAME" "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
 
+# edit it in the skel dirs too, for the chroot method
+sed -i -e 's/xubuntu-*.png/osgeo-desktop.png/' \
+  /etc/xdg/xdg-xubuntu/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+
 #Old version in case we need to revert, or if you're logged into the current XFCE session
 #Has to been run as the regular user
 #sudo -u $USER_NAME xfconf-query -c xfce4-desktop \
