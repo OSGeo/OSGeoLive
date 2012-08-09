@@ -71,6 +71,10 @@ chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 cp ../desktop-conf/osgeo-desktop.png \
    /usr/share/xfce4/backdrops
 
+#New way to set background as of 12.04 that uses lightdm instead of gdm
+#This step only does the login screen
+sed -i -e "s|background=/usr/share/xfce4/backdrops/xubuntu-precise-right.png|background=/usr/share/xfce4/backdrops/osgeo-desktop.png|g" /etc/lightdm/lightdm-gtk-greeter.conf
+
 #Done:support for headless installs with or without user existing, preference for png
 #Only works if user is not logged into XFCE session
 # Puts the desktop background into the spot where it would be used for new user creation
