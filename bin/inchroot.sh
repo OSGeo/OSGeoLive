@@ -149,6 +149,8 @@ rm -rf /usr/local/share/gisvm/doc
 for DIR in `find /usr/local/share/gisvm | grep '\.svn$'` ; do
    rm -rf "$DIR"
 done
+# user shouldn't own outside of /home
+chown -R root.root /usr/local/share/gisvm
 
 # Update the file search index
 #updatedb

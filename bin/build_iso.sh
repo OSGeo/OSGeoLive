@@ -152,6 +152,8 @@ fi
 for DIR in `find /usr/local/share/gisvm | grep '\.svn$'` ; do
    rm -rf "$DIR"
 done
+# user shouldn't own outside of /home
+chown -R root.root /usr/local/share/gisvm
 
 
 # For security reasons these must be removed.
