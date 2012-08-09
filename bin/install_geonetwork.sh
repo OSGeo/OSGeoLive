@@ -145,6 +145,7 @@ cp -f iso-19139-physiographic.mef \
    "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-physiographic.mef"
 
 # fix permissions on installed software
+#  oi! don't do that. user is not allowed to own things outside of /home/.
 chown -R "$USER_NAME:$USER_NAME" "$GEONETWORK_FOLDER"
 
 
