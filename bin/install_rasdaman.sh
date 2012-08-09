@@ -103,9 +103,9 @@ fi
 #ln -s /usr/lib/libdfalt.so /usr/lib/libdf.so
 #ln -s /usr/lib/libdfalt.so.0 /usr/lib/libdf.so.0
 #ln -s /usr/lib/libdfalt.so.0.0.0 /usr/lib/libdf.so.0.0.0
-ln -s /usr/lib/libmfhdfalt.a /usr/lib/libmfhdf.a
-ln -s /usr/lib/libmfhdfalt.la /usr/lib/libmfhdf.la
-ln -s /usr/lib/libmfhdfalt.so /usr/lib/libmfhdf.so
+ln -s /usr/lib/libmfhdfalt.a /usr/local/lib/libmfhdf.a
+ln -s /usr/lib/libmfhdfalt.la /usr/local/lib/libmfhdf.la
+ln -s /usr/lib/libmfhdfalt.so /usr/local/lib/libmfhdf.so
 #ln -s /usr/lib/libmfhdfalt.so.0 /usr/lib/libmfhdf.so.0
 #ln -s /usr/lib/libmfhdfalt.so.0.0.0 /usr/lib/libmfhdf.so.0.0.0
 ln -s /usr/lib/libgdal1.7.0.so.1 /usr/local/lib/libgdal1.7.0.so
@@ -131,7 +131,8 @@ adduser "$USER_NAME" users
 
 
 ./configure --with-logdir="$RASDAMAN_HOME"/log \
-    --prefix="$RASDAMAN_HOME" --with-wardir="$WARDIR" --with-netcdf LIBS='-lecpg -lgdal1.7.0'
+    --prefix="$RASDAMAN_HOME" --with-wardir="$WARDIR" \
+    --with-netcdf LIBS='-lecpg -lgdal1.7.0'
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: configure failed."
@@ -163,8 +164,9 @@ echo "cd $RASVIEWHOME && ./rview.bin" >> "$RASVIEWSCRIPT"
 chmod +x "$RASVIEWSCRIPT"
 
 # setup permissions
-chown -R $USER_NAME:$USER_NAME "$RASDAMAN_HOME"/bin/
-chmod 774 "$RASDAMAN_HOME"/bin/*
+#? why ?
+#chown -R $USER_NAME:$USER_NAME "$RASDAMAN_HOME"/bin/
+#chmod 774 "$RASDAMAN_HOME"/bin/*
 sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" \
    "$RASDAMAN_HOME"/bin/create_db.sh
 
@@ -186,13 +188,10 @@ fi
 
 
 #set host name
+chgrp -R users "$RASDAMAN_HOME"/etc/
+chmod -R g+w "$RASDAMAN_HOME"/etc/
 
-chgrp users "$RASDAMAN_HOME"/etc/
-chmod g+w "$RASDAMAN_HOME"/etc/
-chgrp users "$RASDAMAN_HOME"/etc/rasmgr.conf
-chmod g+w "$RASDAMAN_HOME"/etc/rasmgr.conf
-adduser "$USER_NAME" users
-
+#why? can it be avoided? writes log files as 'user' to the filesystem
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
@@ -219,16 +218,15 @@ echo "ccip_hack=true" >>$TMP_PETASCOPE/src/main/resources/settings.properties
 /etc/init.d/tomcat6 stop
 su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/droptables.sql"
         
-        # inserting the database updates
-        su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update0.sql"
+# inserting the database updates
+su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update0.sql"
+su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update1.sql"
+su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update2.sql"
+su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update3.sql"
+su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update4.sql"
+su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update5.sql"
 
-        su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update1.sql"
-        su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update2.sql"
-        su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update3.sql"
-        su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update4.sql"
-        su - $USER_NAME -c "psql -d petascopedb -f $TMP_PETASCOPE/db/update5.sql"
- 
-        echo Updated database 
+echo "Updated database"
 /etc/init.d/tomcat6 start
 make install
 
@@ -239,16 +237,21 @@ cd ../
 #-------------------------------------------------------------------------------
 # download, extract, and import demo data into rasdaman
 wget -c --progress=dot:mega \
-   http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/rasdaman_data_8-3.tar.gz
+   "http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/rasdaman_data_8-3.tar.gz"
 
 tar xzmf rasdaman_data_8-3.tar.gz -C .
 
 PATH="$PATH:$RASDAMAN_HOME/bin"
 export PATH
 
-echo importing data...
+echo "importing data..."
 cd rasdaman_data_8-3/DataImport
-sed -i "s/\/usr\/local\/bin\/insertdemo.sh localhost 7001 \/usr\/local\/share\/rasdaman\/examples\/images rasadmin rasadmin/\/usr\/local\/rasdaman\/bin\/insertdemo.sh localhost 7001 \/usr\/local\/rasdaman\/share\/rasdaman\/examples\/images rasadmin rasadmin /g"  demodata/Makefile
+# sed will accept 's|||' or 's+++' or any other unused char as the sep,
+#   so you can avoid all the quoting and just use / natively.
+# "g" is only needed at the end if the pattern needs to be replaced twice or
+#   more in the same line of text.
+sed -i "s/\/usr\/local\/bin\/insertdemo.sh localhost 7001 \/usr\/local\/share\/rasdaman\/examples\/images rasadmin rasadmin/\/usr\/local\/rasdaman\/bin\/insertdemo.sh localhost 7001 \/usr\/local\/rasdaman\/share\/rasdaman\/examples\/images rasadmin rasadmin /g" \
+   demodata/Makefile
 sed -i "s/PATH+=\":\$(RASGEO)\/bin\"/MAP=lena/g" lena/Makefile
 
 make all
@@ -258,11 +261,11 @@ make all
 cd ../
 
 if [ -d "/var/lib/tomcat6/webapps/earthlook" ] ; then
-        rm -rf /var/lib/tomcat6/webapps/earthlook
+    rm -rf /var/lib/tomcat6/webapps/earthlook
 fi
        
-echo moving earthlook folder into tomcat webapps...
-chown -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME rasdaman
+echo "moving earthlook folder into tomcat webapps..."
+chown -R "$TOMCAT_USER_NAME:$TOMCAT_USER_NAME" rasdaman
 mv rasdaman/* "$WARDIR"
 
 
@@ -321,7 +324,16 @@ Terminal=false
 StartupNotify=false
 EOF
 
-cp /usr/share/applications/stop_rasdaman_server.desktop "$USER_HOME/Desktop/"
-cp /usr/share/applications/start_rasdaman_server.desktop "$USER_HOME/Desktop/"
-cp /usr/share/applications/rasdaman-earthlook-demo.desktop "$USER_HOME/Desktop/"
+cp /usr/share/applications/stop_rasdaman_server.desktop \
+   "$USER_HOME/Desktop/"
+cp /usr/share/applications/start_rasdaman_server.desktop \
+   "$USER_HOME/Desktop/"
+cp /usr/share/applications/rasdaman-earthlook-demo.desktop \
+   "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/*rasdaman*.desktop"
+
+
+# back to sleep & cleanup
+/etc/init.d/tomcat6 stop
+su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
+rm -f "$RASDAMAN_HOME"/log/*.log "$RASDAMAN_HOME"/log/nohup.out
