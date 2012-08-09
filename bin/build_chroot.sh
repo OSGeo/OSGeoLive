@@ -154,8 +154,7 @@ lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
 cp ../../gisvm/app-conf/build_chroot/casper.conf etc/casper.conf
 
 #replace the user password, potentially also set backgrounds here
-#sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
-
+sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 #Change the text on the loader
 sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" \
    lib/plymouth/themes/xubuntu-text/xubuntu-text.plymouth
@@ -164,7 +163,7 @@ sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" \
    lib/plymouth/themes/text.plymouth
 
 #Optional change it in the .disk/info too
-#sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" extract-cd/.disk/info
+sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" extract-cd/.disk/info
 #copy in a different background
 cp ../../gisvm/desktop-conf/osgeo-desktop.png \
    lib/plymouth/themes/xubuntu-logo/xubuntu-greybird.png
@@ -243,6 +242,7 @@ cd ~/livecdtmp
 sudo rm -rf extract-cd
 sudo umount mnt
 sudo rm -rf mnt
+sudo rm -rf lzfiles
 
 echo
 echo "==============================================================="
