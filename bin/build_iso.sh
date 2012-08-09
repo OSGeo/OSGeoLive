@@ -158,8 +158,10 @@ done
 #  If you need them, generate fresh ones with:
 #    sudo ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key
 #    sudo ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
+#  or more simply
+#    sudo dpkg-reconfigure openssh-server
 # This is a fail-safe repeat of the action which happens in install_services.sh
-rm -rf /etc/ssh/ssh_host_[dr]sa_key*
+rm -rf /etc/ssh/ssh_host_[der]*_key*
 
 
 # To save space merge duplicates in /usr, /opt, and /lib using hardlinks

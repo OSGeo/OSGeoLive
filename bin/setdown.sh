@@ -116,9 +116,9 @@ rm -fr \
 
 
 # clean out ssh keys which should be machine-unique
-# rm -f /etc/ssh/ssh_host_*_key*
+rm -f /etc/ssh/ssh_host_*_key*
 # change a stupid sshd default
-# sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
+sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 
 # This is done on an extra step after rebooting and tmp is cleared
 #echo "==============================================================="

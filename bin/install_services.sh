@@ -27,6 +27,10 @@ apt-get --assume-yes install openssh-server vnc4server
 #  If you need them, generate fresh ones with:
 #    sudo ssh-keygen -t dsa -f /etc/ssh/ssh_host_dsa_key
 #    sudo ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key
+#  or more simply
+#    sudo dpkg-reconfigure openssh-server
 # this is repeated in build_iso.sh, just to be sure.
-rm -rf /etc/ssh/ssh_host_[dr]sa_key*
+rm -rf /etc/ssh/ssh_host_[der]*_key*
+
+# ? TODO: in rc.local check if they exist, and if run run dpkg-reconfigure
 
