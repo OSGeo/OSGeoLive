@@ -56,10 +56,12 @@ cd "$TMP"
 ## Install Application ##
 
 # get kosmo
-wget -c --progress=dot:mega http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/kosmo_desktop_2.0.1_linux_jre.tar.gz
+wget -c --progress=dot:mega \
+   http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/kosmo_desktop_2.0.1_linux_jre.tar.gz
 
 # unpack it and copy it to /usr/lib
-tar xzf kosmo_desktop_2.0.1_linux_jre.tar.gz -C $INSTALL_FOLDER
+tar xzf kosmo_desktop_2.0.1_linux_jre.tar.gz \
+   -C $INSTALL_FOLDER --no-same-owner
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: Kosmo download failed."

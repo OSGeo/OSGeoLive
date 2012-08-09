@@ -183,6 +183,7 @@ mkdir -p "$INSTALL_DIR/web2py/applications/admin/cache"
 mkdir -p "$INSTALL_DIR/web2py/applications/admin/databases"
 mkdir -p "$INSTALL_DIR/web2py/applications/admin/errors"
 mkdir -p "$INSTALL_DIR/web2py/applications/admin/sessions"
+# oi! don't do that!
 chown "$USER_NAME" \
 	"$INSTALL_DIR/web2py/applications/admin/cache" \
 	"$INSTALL_DIR/web2py" \

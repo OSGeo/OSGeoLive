@@ -48,7 +48,7 @@ ln -s /usr/local/share/qgis/QGIS-Itasca-Example.qgs /usr/lib/cgi-bin/
 mkdir -p $PKG_DATA
 cd $PKG_DATA
 cp "$APP_DATA_DIR/mapviewer.html" .
-tar xzf "$APP_DATA_DIR/mapfish-client-libs.tgz"
+tar xzf "$APP_DATA_DIR/mapfish-client-libs.tgz" --no-same-owner
 
 # Create Desktop Shortcut for Demo viewer
 cat << EOF > /usr/share/applications/qgis-mapserver.desktop

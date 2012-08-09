@@ -108,9 +108,11 @@ fi
 mkdir -p  "$USER_HOME/gvSIG"
 
 # download gvSIG sample project
-wget --progress=dot:binary http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp \
-     --output-document="$USER_HOME/gvSIG/sample-project.gvp"
+wget --progress=dot:binary \
+   "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp" \
+   --output-document="$USER_HOME/gvSIG/sample-project.gvp"
 
+# oi! don't do that
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
 
 echo "gvSIG installation Done!"
