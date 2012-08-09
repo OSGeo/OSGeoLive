@@ -152,6 +152,9 @@ if [ -d /usr/local/mbsystem ] ; then
    ln -s /usr/local/mbsystem .
 fi
 ln -s /usr/local/share/qgis .
+ln -s /usr/local/share/qgis_mapserver/mapviewer.html \
+      /usr/local/share/qgis_mapserver/index.html
+ln -s /usr/local/share/qgis_mapserver qgis_server
 ln -s /usr/share/doc/geopublishing-doc geopublishing
 ln -s /usr/local/share/saga .
 # HTML
