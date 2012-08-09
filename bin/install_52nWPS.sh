@@ -139,7 +139,7 @@ fi
 if [ -f "$WPS_WEB_APP_NAME.war" ] ; then
    echo "[$(date +%M:%S)]: $WPS_WEB_APP_NAME.war has already been extracted."
 else
-   tar xzf "$WPS_TAR_NAME"
+   tar xzf "$WPS_TAR_NAME" --no-same-owner
    echo "[$(date +%M:%S)]: $WPS_TAR_NAME extracted"
 fi
 #
