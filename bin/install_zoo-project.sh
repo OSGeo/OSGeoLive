@@ -55,7 +55,11 @@ wget -N --progress=dot:mega \
    -O "$ZOO_TMP/zoo-livedvd.tar.bz2"
 
 # Uncompress ZOO Project LiveDVD tarball.
-tar -xjpf "$ZOO_TMP/zoo-livedvd.tar.bz2" -C /
+tar -xjpf "$ZOO_TMP/zoo-livedvd.tar.bz2" --no-same-owner -C /
+
+chown -R www-data:www.data \
+  /var/www/zoo /var/www/zoo-demo /var/www/temp 
+
 
 echo -n "Apache configuration update ..."
 # Add ZOO Project apache configuration
