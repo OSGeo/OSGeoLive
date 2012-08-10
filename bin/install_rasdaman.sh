@@ -295,7 +295,7 @@ Encoding=UTF-8
 Name=Start Rasdaman Server
 Comment=Start Rasdaman Server
 Categories=Application;Education;Geography;
-Exec=/usr/local/rasdaman/bin/start_rasdaman.sh
+Exec=/usr/local/bin/start_rasdaman.sh
 Icon=gnome-globe
 Terminal=true
 StartupNotify=false
@@ -309,7 +309,7 @@ Encoding=UTF-8
 Name=Stop Rasdaman Server
 Comment=Stop Rasdaman Server
 Categories=Application;Education;Geography;
-Exec=/usr/local/rasdaman/bin/stop_rasdaman.sh
+Exec=/usr/local/bin/stop_rasdaman.sh
 Icon=gnome-globe
 Terminal=true
 StartupNotify=false
@@ -344,3 +344,20 @@ su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 rm -f "$RASDAMAN_HOME"/log/*.log
 chown root "$RASDAMAN_HOME"/etc/rasmgr.conf
 
+### Configure Application ###
+
+## Copy startup script for rasdaman
+cp "$RASDAMAN_HOME"/bin/start_rasdaman.sh $BIN/start_rasdaman.sh
+cp "$RASDAMAN_HOME"/bin/stop_rasdaman.sh $BIN/stop_rasdaman.sh
+chmod 755 "$BIN"/st*_rasdaman.sh
+
+
+### rasmgr.conf wants the hostname to be defined at build time, but the hostname on our
+###   ISO and VM are different ('user' vs 'osgeo-live'). so we have to re-set the value
+###   at boot time.
+if [ `grep -c 'rasdaman' /etc/rc.local` -eq 0 ] ; then
+    sed -i -e 's|exit 0||' /etc/rc.local
+    echo 'sed -i -e "s/ -host [^ ]*/ -host `hostname`/" /usr/local/rasdaman/etc/rasmgr.conf' >> /etc/rc.local
+    echo >> /etc/rc.local
+    echo "exit 0" >> /etc/rc.local
+fi
