@@ -28,7 +28,7 @@ echo "==============================================================="
 echo "Starting EOxServer installation"
 
 if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
+    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
 DATA_DIR="/usr/local/share/gisvm/app-data/eoxserver"
@@ -38,8 +38,8 @@ TMP_DIR="/tmp/build_eoxserver"
 
 ## check required tools are installed
 if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install it and try again" 
-   exit 1
+    echo "ERROR: wget is required, please install it and try again" 
+    exit 1
 fi
 
 
@@ -51,13 +51,13 @@ apt-get --assume-yes install gcc libgdal1-1.7.0 libgdal1-dev python-gdal \
     libapache2-mod-wsgi libproj0 libproj-dev libgeos-dev libgeos++-dev
 
 if [ $? -ne 0 ] ; then
-   echo 'ERROR: Package install failed! Aborting.'
-   exit 1
+    echo 'ERROR: Package install failed! Aborting.'
+    exit 1
 fi
 
 
 if [ ! -d "$TMP_DIR" ] ; then
-  mkdir "$TMP_DIR"
+    mkdir "$TMP_DIR"
 fi
 cd "$TMP_DIR"
 
@@ -183,14 +183,15 @@ echo "Done"
 # Install desktop icon
 echo "Installing EOxServer icon"
 if [ ! -e "/usr/share/icons/eoxserver_60x60.logo.png" ] ; then
-   cp "$USER_HOME/gisvm/doc/images/project_logos/logo-eoxserver-3.png" \
-       /usr/share/icons/eoxserver_60x60.logo.png
+    wget -c --progress=dot:mega \
+        "http://eoxserver.org/export/head/trunk/osgeo-live/logo-eoxserver-3.png" \
+        -O /usr/share/icons/eoxserver_60x60.logo.png
 fi
 
 
 # Add Launch icon to desktop
 if [ ! -e /usr/share/applications/eoxserver.desktop ] ; then
-   cat << EOF > /usr/share/applications/eoxserver.desktop
+    cat << EOF > /usr/share/applications/eoxserver.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -213,8 +214,9 @@ echo "Getting EOxServer documentation"
 cd "$DOC_DIR"
 chmod g+w .
 chgrp users .
-wget -c "http://eoxserver.org/export/head/downloads/EOxServer_documentation-0.2.1.pdf" \
-  -O EOxServer_documentation-0.2.1.pdf
+wget -c --progress=dot:mega \
+    "http://eoxserver.org/export/head/downloads/EOxServer_documentation-0.2.1.pdf" \
+    -O EOxServer_documentation-0.2.1.pdf
 ln -sf EOxServer_documentation-0.2.1.pdf EOxServer_documentation.pdf
 chmod g+w -R EOxServer_documentation*
 chgrp users -R EOxServer_documentation*
@@ -222,7 +224,7 @@ ln -sTf "$DOC_DIR" /var/www/eoxserver-docs
 
 # Add Documentation Launch icon to desktop
 if [ ! -e /usr/share/applications/eoxserver-docs.desktop ] ; then
-   cat << EOF > /usr/share/applications/eoxserver-docs.desktop
+    cat << EOF > /usr/share/applications/eoxserver-docs.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
