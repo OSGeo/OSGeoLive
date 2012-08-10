@@ -193,14 +193,21 @@ if [ -n "$PREFS_FILE" ] ; then
 fi
 
 # reset the homepage for the main ubuntu-firefox theme too (if present)
+# see also http://bazaar.launchpad.net/~mozillateam/ubufox/trunk/view/head:/defaults/preferences/ubuntu-mods.js
 if [ -e /etc/xul-ext/ubufox.js  ] ; then
    sed -i -e 's+^//pref("browser.startup.homepage".*+pref("browser.startup.homepage", "http://localhost");+' \
        /etc/xul-ext/ubufox.js
+   echo 'pref("startup.homepage_override_url","http://localhost");' >> /etc/xul-ext/ubufox.js
+   echo 'pref("startup.homepage_welcome_url","http://localhost");' >> /etc/xul-ext/ubufox.js
 fi     
 
 # how about this one?
 if [ `grep -c 'localhost' /etc/firefox/syspref.js` -eq 0 ] ; then
    echo 'pref("browser.startup.homepage", "http://localhost";' \
+      >> /etc/firefox/syspref.js
+   echo 'pref("startup.homepage_override_url","http://localhost");' \
+      >> /etc/firefox/syspref.js
+   echo 'pref("startup.homepage_welcome_url","http://localhost");' \
       >> /etc/firefox/syspref.js
 fi
 
@@ -229,11 +236,31 @@ StartupNotify=false
 EOF
 fi
 
-\cp -a "/usr/share/applications/$ICON_FILE" "$USER_HOME/Desktop/"
+cp -a "/usr/share/applications/$ICON_FILE" "$USER_HOME/Desktop/"
 chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 # executable bit needed for Ubuntu 9.10's GNOME. Also make the first line
 #   of the *.desktop files read "#!/usr/bin/env xdg-open"
 #chmod u+x "$USER_HOME/Desktop/$ICON_FILE"
+
+#data dir
+ICON_FILE="live_GIS_data.desktop"
+cat << EOF > "/usr/share/applications/$ICON_FILE"
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Sample data
+Comment=Sample Geo Data
+Categories=Application;Education;Geography;
+Exec=thunar /usr/local/share/data
+Icon=twf
+Terminal=false
+StartupNotify=false
+EOF
+fi
+
+#test it first
+#cp -a "/usr/share/applications/$ICON_FILE" "$USER_HOME/Desktop/"
+#chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 
 
 #Should we embed the password file in the help somehow too?
