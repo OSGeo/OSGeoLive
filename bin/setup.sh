@@ -47,9 +47,7 @@ fi
 
 
 # Install latest greatest security packages etc.
-#Deactivated since it breaks chroot build method.
-#apt-get -q update && apt-get --yes upgrade
-apt-get -q update
+apt-get -q update && apt-get --yes upgrade
 
 # Add UbuntuGIS repository
 cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
@@ -135,12 +133,14 @@ apt-get remove --yes blueman
 # this will clear out 96mb (uncompressed), but users who want the
 # nvidia proprietary driver will need to reinstall it. ah well.
 #Version must be kept up to date (removes 3 packages)
-#apt-get --assume-yes remove linux-headers-3.2.0-27
-#apt-get --assume-yes remove linux-headers-3.2.0-26
-#apt-get --assume-yes remove linux-headers-3.2.0-25
-#apt-get --assume-yes remove linux-headers-3.2.0-24
-#apt-get --assume-yes remove linux-headers-3.2.0-23
+apt-get --assume-yes remove linux-headers-3.2.0-27
+apt-get --assume-yes remove linux-headers-3.2.0-26
+apt-get --assume-yes remove linux-headers-3.2.0-25
+apt-get --assume-yes remove linux-headers-3.2.0-24
+apt-get --assume-yes remove linux-headers-3.2.0-23
 
+# regen initrd
+depmod
 
 # Remove unused home directories
 #?? rm -fr "$USER_HOME"/Downloads
