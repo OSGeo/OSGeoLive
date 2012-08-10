@@ -55,8 +55,13 @@ WCPS_PASSWORD="UD0b9uTt"
 
 mkdir -p "$TMP"
 cd "$TMP"
+chgrp users "$TMP" -R
+chmod g+w "$TMP" -R
+
 if [ ! -d "$RASDAMAN_HOME" ]; then
         mkdir "$RASDAMAN_HOME"
+        chgrp users "$RASDAMAN_HOME" -R
+        chmod g+w "$RASDAMAN_HOME" -R
 fi
 
 #get and install required packages
