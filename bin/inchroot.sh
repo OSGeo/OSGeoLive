@@ -124,7 +124,7 @@ export USER_NAME
 ./install_zoo-project.sh
 ./install_52nSOS.sh
 ./install_otb.sh
-# ./install_rasdaman.sh
+./install_rasdaman.sh
 ./install_tinyows.sh
 ./install_52nWSS.sh
 ./install_pycsw.sh
