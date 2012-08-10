@@ -37,10 +37,11 @@ VM="${PACKAGE_NAME}-${VERSION}"
 
 # by removing the 'user', it also meant that 'user' was removed from /etc/group
 #  so we have to put it back at boot time.
-if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] && \
-   [ `grep '^users:' /etc/group | grep -wc 'user'` -eq 0 ] ; then
+if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] ; then
     sed -i -e 's|exit 0||' /etc/rc.local
-    GRPS="audio staff tomcat6 users www-data"
+
+    GRPS="audio dialout fuse pulse staff tomcat6 users www-data"
+
     for GRP in $GRPS ; do
        echo "adduser $USER_NAME $GRP" >> /etc/rc.local
     done
@@ -141,4 +142,4 @@ sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 
 echo "==============================================================="
 echo "Finished setdown.sh. Copy backup files and logs to the host system with:"
-echo "scp -pr /tmp/${VERSION} username@hostname:/directory"
+echo "scp -pr /tmp/$VERSION username@hostname:/directory"
