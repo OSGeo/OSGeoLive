@@ -142,7 +142,7 @@ export USER_NAME
 
 
 #Remove doc folder to save space
-rm -rf /usr/local/share/gisvm/doc
+#rm -rf /usr/local/share/gisvm/doc
 
 # save space on ISO by removing the .svn/ dirs
 #   (or control this in bootstrap.sh by uncommenting the 'svn export' line)
@@ -153,7 +153,7 @@ done
 chown -R root.root /usr/local/share/gisvm
 
 # Update the file search index
-#updatedb
+updatedb
 
 #Experimental dist variant, comment out and swap to backup below
 #Do we need to change the user to ubuntu in all scripts for this method?
