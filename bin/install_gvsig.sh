@@ -91,7 +91,14 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-rm $TMP/$GVSIG_PACKAGE 
+# fix broken permissions in the deb
+chown -R root.root /opt/gvSIG
+rm -f /debian-binary
+chown -R root.root /usr/share/applications/gvsig.desktop \
+  /usr/share/icons/ico-gvSIG.png /usr/share/mime/packages/gvsig.xml
+
+
+rm "$TMP/$GVSIG_PACKAGE"
 
 # place a gvSIG icon on desktop
 if [ -d $USER_DESKTOP ] ; then
@@ -112,7 +119,7 @@ wget --progress=dot:binary \
    "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp" \
    --output-document="$USER_HOME/gvSIG/sample-project.gvp"
 
-# oi! don't do that
+cp -r "$USER_HOME/gvSIG" /etc/skel
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
 
 echo "gvSIG installation Done!"
