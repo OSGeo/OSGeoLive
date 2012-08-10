@@ -32,11 +32,12 @@
 #     6. QEMU/KVM, VirtualBox or VMware for testing (optional) 
 #
 
+# fixme: REPOBASE=/usr/local/share/gisvm  *not* /home/user
 DIR="/home/user/gisvm/bin"
 SVN_DIR="/home/user/gisvm"
 VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeo-live"
-cd $SVN_DIR
+cd "$SVN_DIR"
 REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
 
 #Is it a public or an internal build?
@@ -49,13 +50,15 @@ echo "Start Building $ISO_NAME"
 echo "==============================================================="
 
 #Some initial cleaning
+#  when run as root, ~ is /root/.
 rm -rf ~/livecdtmp/edit
+rm -rf ~/livecdtmp/lzfiles
 
 echo
 echo "Installing squashfs and genisoimage"
 echo "==================================="
 
-sudo apt-get install squashfs-tools genisoimage lzip
+sudo apt-get install --yes squashfs-tools genisoimage lzip
 
 #TODO add wget to grab a fresh image, optional
 
@@ -68,25 +71,29 @@ echo "====================================="
 mkdir -p ~/livecdtmp
 cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
-wget -c http://se.archive.ubuntu.com/mirror/cdimage.ubuntu.com/xubuntu/releases/12.04/release/xubuntu-12.04-desktop-i386.iso
+UBU_MIRROR="http://se.archive.ubuntu.com/mirror/cdimage.ubuntu.com"
+UBU_RELEASE="12.04"
+UBU_ISO="xubuntu-${UBU_RELEASE}-desktop-i386.iso"
+wget -c --progress=dot:mega \
+   "$UBU_MIRROR/xubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
 
 #Start with a fresh copy
 #Mount the Desktop .iso
 mkdir mnt
-sudo mount -o loop xubuntu-12.04-desktop-i386.iso mnt
-
+sudo mount -o loop "$UBU_ISO" mnt
 echo "Xubuntu image mounted."
 
 #Extract .iso contents into dir 'extract-cd' 
-mkdir extract-cd
-rsync --exclude=/casper/filesystem.squashfs -a mnt/ extract-cd
+mkdir "extract-cd"
+rsync --exclude=/casper/filesystem.squashfs -a mnt/ "extract-cd"
 
 echo
 echo "Extracting squashfs from Xubuntu image"
 echo "======================================"
 #Extract the SquashFS filesystem 
 sudo unsquashfs mnt/casper/filesystem.squashfs
-#Does the above need to be done every time or can it be done once, and then just make a fresh copy of the chroot for each builds
+#Does the above need to be done every time or can it be done once, and then
+# just make a fresh copy of the chroot for each builds
 sudo mv squashfs-root edit
 
 echo
@@ -96,9 +103,10 @@ echo "======================================"
 sudo cp /etc/resolv.conf edit/etc/
 sudo cp /etc/hosts edit/etc/
 
-#These mount important directories of your host system - if you later decide to delete the edit/ directory,
-#then make sure to unmount before doing so, otherwise your host system will become unusable at least 
-#temporarily until reboot
+#These mount important directories of your host system - if you later
+# decide to delete the edit/ directory, then make sure to unmount
+# before doing so, otherwise your host system will become unusable at
+# least temporarily until reboot
 sudo mount --bind /dev/ edit/dev
 
 echo
@@ -142,18 +150,27 @@ sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.2.0-23-generic
 mkdir lzfiles
 cd lzfiles
 lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
+
 cp ../../gisvm/app-conf/build_chroot/casper.conf etc/casper.conf
+
 #replace the user password, potentially also set backgrounds here
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 #Change the text on the loader
-sed -i -e "s/title=Xubuntu 12.04/title=OSGeo Live ${VERSION}/g" lib/plymouth/themes/xubuntu-text/xubuntu-text.plymouth
+sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" \
+   lib/plymouth/themes/xubuntu-text/xubuntu-text.plymouth
 #might be in this file
-sed -i -e "s/title=Xubuntu 12.04/title=OSGeo Live ${VERSION}/g" lib/plymouth/themes/text.plymouth
+sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" \
+   lib/plymouth/themes/text.plymouth
+
 #Optional change it in the .disk/info too
-sed -i -e "s/title=Xubuntu 12.04/title=OSGeo Live ${VERSION}/g" extract-cd/.disk/info
+sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" extract-cd/.disk/info
 #copy in a different background
-cp ../../gisvm/desktop-conf/osgeo-desktop.png lib/plymouth/themes/xubuntu-logo/xubuntu-greybird.png
-find . | cpio --quiet --dereference -o -H newc | lzma -7 > ../extract-cd/casper/initrd.lz
+cp ../../gisvm/desktop-conf/osgeo-desktop.png \
+   lib/plymouth/themes/xubuntu-logo/xubuntu-greybird.png
+
+find . | cpio --quiet --dereference -o -H newc | \
+   lzma -7 > ../extract-cd/casper/initrd.lz
+
 #sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
 cd ..
 
@@ -162,10 +179,14 @@ echo "Regenerating manifest..."
 echo "======================================"
 #Regenerate manifest 
 chmod +w extract-cd/casper/filesystem.manifest
-sudo chroot edit dpkg-query -W --showformat='${Package} ${Version}\n' > extract-cd/casper/filesystem.manifest
-sudo cp extract-cd/casper/filesystem.manifest extract-cd/casper/filesystem.manifest-desktop
-sudo sed -i '/ubiquity/d' extract-cd/casper/filesystem.manifest-desktop
-sudo sed -i '/casper/d' extract-cd/casper/filesystem.manifest-desktop
+sudo chroot edit dpkg-query -W --showformat='${Package} ${Version}\n' > \
+   extract-cd/casper/filesystem.manifest
+sudo cp extract-cd/casper/filesystem.manifest \
+   extract-cd/casper/filesystem.manifest-desktop
+sudo sed -i '/ubiquity/d' \
+   extract-cd/casper/filesystem.manifest-desktop
+sudo sed -i '/casper/d' \
+   extract-cd/casper/filesystem.manifest-desktop
 
 echo
 echo "Compressing filesystem..."
@@ -180,7 +201,8 @@ echo "======================================"
 #Update the filesystem.size file, which is needed by the installer:
 # TODO: get it to run as sudo no sudo su
 chmod +w extract-cd/casper/filesystem.size
-printf $(sudo du -sx --block-size=1 edit | cut -f1) > extract-cd/casper/filesystem.size
+printf $(sudo du -sx --block-size=1 edit | cut -f1) > \
+   extract-cd/casper/filesystem.size
 chmod -w extract-cd/casper/filesystem.size
 
 #this is now compressed in squashfs so we delete to save VM disk space
@@ -191,6 +213,7 @@ sudo rm -rf edit
 #KVM VNC doesn't pass ctrl, can't use vim or nano
 #Can probably use sed magic or copy a predefined file from gisvm/app-data
 #sudo nano extract-cd/README.diskdefines
+# fixme: can you copy from the local ../filesystem instead?
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/build_chroot/README.diskdefines \
      --output-document=extract-cd/README.diskdefines
 
@@ -200,13 +223,16 @@ echo "======================================"
 #Remove old md5sum.txt and calculate new md5 sums
 cd extract-cd
 sudo rm md5sum.txt
-find -type f -print0 | sudo xargs -0 md5sum | grep -v isolinux/boot.cat | sudo tee md5sum.txt
+find -type f -print0 | sudo xargs -0 md5sum | \
+   grep -v isolinux/boot.cat | sudo tee md5sum.txt
 
 echo
 echo "Creating iso..."
 echo "======================================"
 #Create the ISO image
-sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -o ../"${ISO_NAME}.iso" .
+sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -b \
+   isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot \
+   -boot-load-size 4 -boot-info-table -o ../"$ISO_NAME.iso" .
 
 echo
 echo "Cleaning up..."
