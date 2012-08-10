@@ -154,7 +154,7 @@ rm -fr "$USER_HOME"/Videos
 # rename dangerous icon
 # this probably won't work here because ubiquity isn't loaded until remastersys step
 if [ -e /usr/share/applications/ubiquity-gtkui.desktop ] ; then
-   sed -i -e 's/^Name=Install/Name=Install Linux Operating System/' \
+   sed -i -e 's/^Name=Install/Name=Install OSGeoLive Linux based on/' \
       /usr/share/applications/ubiquity-gtkui.desktop
 fi
 
