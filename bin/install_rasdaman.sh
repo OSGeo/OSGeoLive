@@ -46,6 +46,7 @@ RASDAMAN_HOME="/usr/local/rasdaman"
 TMP="/tmp/build_rasdaman"
 WARDIR="/var/lib/tomcat6/webapps"
 TMP_PETASCOPE="$TMP/rasdaman/applications/petascope"
+BIN="/usr/local/bin"
 #set the postgresql database username and password.
 # Note that if this is changed, /var/lib/tomcat6/webapps/petascope/setting.properties
 # must be modified to reflect the changes
