@@ -35,6 +35,20 @@ PACKAGE_NAME="osgeolive"
 VM="${PACKAGE_NAME}-${VERSION}"
 
 
+# by removing the 'user', it also meant that 'user' was removed from /etc/group
+#  so we have to put it back at boot time.
+if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] && \
+   [ `grep '^users:' /etc/group | grep -wc 'user'` -eq 0 ] ; then
+    sed -i -e 's|exit 0||' /etc/rc.local
+    GRPS="audio staff tomcat6 users www-data"
+    for GRP in $GRPS ; do
+       echo "adduser $USER_NAME $GRP" >> /etc/rc.local
+    done
+    echo >> /etc/rc.local
+    echo "exit 0" >> /etc/rc.local
+fi
+
+
 # remove build stuff no longer of use
 apt-get --yes remove devscripts pbuilder \
    svn-buildpackage \
