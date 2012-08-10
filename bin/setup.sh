@@ -166,7 +166,7 @@ sed -i -e '11,15d' -e 's/^start on .*/#start on/' /etc/init/ubiquity.conf
 cd "$USER_HOME"
 mkdir -p /usr/local/share/data --verbose
 ln -s /usr/local/share/data data
-chown "$USER_NAME":"$USER_NAME" data
+chown -h "$USER_NAME":"$USER_NAME" data
 ls -s /usr/local/share/data/ /etc/skel/data
 
 
