@@ -151,3 +151,12 @@ wget -c --progress=dot:mega \
 PKG="R-2.15.1.pkg"
 wget -c --progress=dot:mega \
    http://cran.stat.ucla.edu/bin/macosx/"$PKG" -O "$PKG_DIR/$PKG"
+
+
+#############################################
+#Add TileMill
+PKG="TileMill-0.9.1.zip"
+wget -c --progress=dot:mega \
+  "http://github.com/downloads/mapbox/tilemill/$PKG" -O "$PKG_DIR/$PKG"
+
+
