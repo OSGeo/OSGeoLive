@@ -95,7 +95,8 @@ fi
 chown -R root.root /opt/gvSIG_*
 rm -f /debian-binary
 chown -R root.root /usr/share/applications/gvsig.desktop \
-  /usr/share/icons/ico-gvSIG.png /usr/share/mime/packages/gvsig.xml
+  /usr/share/icons/ico-gvSIG.png /usr/share/mime/packages/gvsig.xml \
+  /var/lib/dpkg/info/gvsig.*
 
 
 rm "$TMP/$GVSIG_PACKAGE"
