@@ -221,8 +221,7 @@ cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
 ICON_FILE="live_GIS_help.desktop"
 # perhaps: Icon=/usr/share/icons/oxygen/32x32/categories/system-help.png
 
-if [ ! -e "/usr/share/applications/$ICON_FILE" ] ; then
-   cat << EOF > "/usr/share/applications/$ICON_FILE"
+cat << EOF > "/usr/local/share/applications/$ICON_FILE"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -234,9 +233,8 @@ Icon=/usr/local/share/icons/arramagong-wombat-small.png
 Terminal=false
 StartupNotify=false
 EOF
-fi
 
-cp -a "/usr/share/applications/$ICON_FILE" "$USER_HOME/Desktop/"
+cp -a "/usr/local/share/applications/$ICON_FILE" "$USER_HOME/Desktop/"
 chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 # executable bit needed for Ubuntu 9.10's GNOME. Also make the first line
 #   of the *.desktop files read "#!/usr/bin/env xdg-open"
@@ -244,7 +242,7 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 
 #data dir
 ICON_FILE="live_GIS_data.desktop"
-cat << EOF > "/usr/share/applications/$ICON_FILE"
+cat << EOF > "/usr/local/share/applications/$ICON_FILE"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -256,11 +254,9 @@ Icon=twf
 Terminal=false
 StartupNotify=false
 EOF
-fi
 
-#test it first
-#cp -a "/usr/share/applications/$ICON_FILE" "$USER_HOME/Desktop/"
-#chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
+cp -a "/usr/local/share/applications/$ICON_FILE" "$USER_HOME/Desktop/"
+chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 
 
 #Should we embed the password file in the help somehow too?

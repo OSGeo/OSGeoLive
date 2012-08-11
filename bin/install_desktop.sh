@@ -87,7 +87,8 @@ cp /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml \
      "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
 #Note: Style int 3 means stretched
 #Not sure if this is necessary
-chown "$USER_NAME"."$USER_NAME" "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
+chown "$USER_NAME"."$USER_NAME" \
+     "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
 
 # edit it in the skel dirs too, for the chroot method
 sed -i -e 's/xubuntu-.*.png/osgeo-desktop.png/' \
@@ -170,12 +171,15 @@ cp "$BUILD_DIR"/../desktop-conf/xfce/xfce-osgeo.menu /usr/local/share/xfce/
 cp "$BUILD_DIR"/../desktop-conf/xfce/xfce-*.directory /usr/share/desktop-directories/
 sed -e 's/^Name=.*/Name=OSGeo Software Help/' live_GIS_help.desktop \
    > /usr/local/share/applications/osgeo-help.desktop
+cp live_GIS_data.desktop /usr/local/share/applications/osgeo-sample_data.desktop
 
 
-# if you want panel transparency turned on edit Apps->Settings->WM Tweaks or
+# if you want panel transparency turned off edit Apps->Settings->WM Tweaks or
 #  /etc/xdg/xdg-xubuntu/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
 #         ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
 #    <property name="use_compositing" type="bool" value="true"/>
+##sed -i -e 's|\(use_compositing" type="bool" value\)="true"|\1="false"|' \
+##   /etc/xdg/xdg-xubuntu/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
 
 
 # create individual menu entries from desktop icons:

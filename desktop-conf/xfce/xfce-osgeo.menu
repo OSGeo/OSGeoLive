@@ -8,6 +8,7 @@
     <DefaultDirectoryDirs/>
 
     <Include>
+	<Filename>osgeo-sample_data.desktop</Filename>
 	<Filename>osgeo-help.desktop</Filename>
     </Include>
 
@@ -15,9 +16,10 @@
 	<Merge type="all"/>
 	<Menuname>Beta software</Menuname>
 	<Separator/>
+	<Filename>osgeo-sample_data.desktop</Filename>
 	<Filename>osgeo-help.desktop</Filename>
     </Layout>
- 
+
     <Menu>
 	<Name>Desktop GIS</Name>
 	<Directory>xfce-desktopgis.directory</Directory>
@@ -25,7 +27,7 @@
 	    <Category>Desktop GIS</Category>
 	</Include>
     </Menu>
-    
+
     <Menu>
 	<Name>Navigation and Maps</Name>
 	<Directory>xfce-navigation.directory</Directory>
