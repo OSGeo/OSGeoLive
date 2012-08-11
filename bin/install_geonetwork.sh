@@ -147,7 +147,7 @@ cp -f iso-19139-physiographic.mef \
 # fix permissions on installed software
 #  oi! don't do that. user is not allowed to own things outside of /home/.
 chown -R "root:$USER_NAME" "$GEONETWORK_FOLDER"
-chmod -R 775 "$GEONETWORK_FOLDER"
+chmod -R g+w "$GEONETWORK_FOLDER"
 
 # create startup, shutdown, open browser and doco desktop entries
 for FILE in start_geonetwork stop_geonetwork geonetwork ; do
