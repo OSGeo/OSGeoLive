@@ -37,7 +37,7 @@ rm -rf /etc/ssh/ssh_host_[der]*_key*
 if [ `grep -c 'ssh_host' /etc/rc.local` -eq 0 ] ; then
     sed -i -e 's|exit 0||' /etc/rc.local
     echo "if [ ! -e /etc/ssh/ssh_host_rsa_key ] ; then" >> /etc/rc.local
-    echo "   dpkg-reconfigure openssh-server" >> /etc/rc.local
+    echo "   dpkg-reconfigure openssh-server &" >> /etc/rc.local
     echo "fi" >> /etc/rc.local
     echo >> /etc/rc.local
     echo "exit 0" >> /etc/rc.local
