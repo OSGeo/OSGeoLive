@@ -269,6 +269,10 @@ sed -i 's|-180,180,"|-180,180,"http://localhost:8082/geoserver/wms?service=WMS\&
 # Perform the initial database Migration/Prepopulation 
 cd "$INSTALL_DIR/web2py"
 touch NEWINSTALL
+
+# oi! permissions problem when the user changes UID
+# maybe try -u \#999 to get UID 999? :-(
+# maybe defer running it until run-time start script?
 sudo -H -u "$USER_NAME" python web2py.py -S eden -M \
    -R applications/eden/static/scripts/tools/noop.py
 
@@ -280,7 +284,10 @@ sed -i 's|#settings.base.prepopulate = 0|settings.base.prepopulate = 0|' \
 
 # Compile scripts to optimise performance
 cd "$INSTALL_DIR/web2py"
-chown "$USER_NAME" .
+chgrp users "$INSTALL_DIR/web2py"
+chmod g+w "$INSTALL_DIR/web2py"
+
+# oi! permissions problem when the user changes UID
 sudo -H -u "$USER_NAME" python web2py.py -S eden -M \
    -R applications/eden/static/scripts/tools/compile.py
 
