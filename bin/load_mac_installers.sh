@@ -24,8 +24,8 @@
 
 
 #Add the files to the directory where remastersys wants them
-#TMP="/tmp/build_mac_installers"
-TMP="/tmp/remastersys/ISOTMP/MacInstallers"
+TMP="/tmp/build_mac_installers"
+#TMP="/tmp/remastersys/ISOTMP/MacInstallers"
 mkdir -p "$TMP"
 cd "$TMP"
 
@@ -60,24 +60,25 @@ EOF
 
 # 1 Base Packages (Frameworks)
 A_PKG="
-frameworks/GDAL_Complete-1.8.dmg
-frameworks/FreeType_Framework-2.4.6-1-snow.dmg
-frameworks/cairo_Framework-1.10.2-3-snow.dmg
+frameworks/GDAL_Complete-1.9.dmg
+frameworks/FreeType_Framework-2.4.9-1.dmg
+frameworks/cairo_Framework-1.12.2-1.dmg
 frameworks/GSL_Framework-1.15-2.dmg
-frameworks/spatialite_tools-2.3.1.zip
-frameworks/rgdal-0.6.33-3.zip
+frameworks/TclTk_Aqua-8.5.8-2.dmg
+frameworks/Spatialite_Tools-3.0.zip
+frameworks/rgdal-0.7.11-1.dmg
 "
 
 # 2 Support Packages
 B_PKG="
-postgresql/PostgreSQL-9.1.2-1.dmg
+postgresql/PostgreSQL-9.1.4-1.dmg
 "
 
 # 3 End-User Packages
 C_PKG="
-grass/GRASS-6.4.1-5-Snow.dmg
-postgresql/PostGIS-1.5.3-2.dmg
-qgis/Qgis-1.7.3-1.dmg
+grass/GRASS-6.4.2-4-Snow.dmg
+postgresql/PostGIS-2.0.1-1.dmg
+qgis/QGIS-1.8.0-2.dmg
 "
 
 
@@ -122,12 +123,14 @@ for PKG in $C_PKG ; do
 done
 
 
+#############################################
 #Add uDig from another source
-#( sorry udig, no space :-( )
-#PKG="udig-1.2-M9.macosx.cocoa.x86.zip"
-#wget -c --progress=dot:mega \
-#   http://udig.refractions.net/files/downloads/branches/${PKG} -O "$PKG_DIR/$PKG"
+PKG="udig-1.3.1.macosx.cocoa.x86_64.zip"
+wget -c --progress=dot:mega \
+   http://udig.refractions.net/files/downloads/"$PKG" -O "$PKG_DIR/$PKG"
 
+
+#############################################
 #Add Ossim Stuff (Imagelinker, Ossimplanet)
 PKG="imagelinker-1.7.15-appbundle.dmg"
 wget -c --progress=dot:mega \
@@ -136,11 +139,15 @@ PKG="ossimplanet-appbundle-1.8.4.dmg"
 wget -c --progress=dot:mega \
    http://download.osgeo.org/ossim/installers/mac/"$PKG" -O "$PKG_DIR/$PKG"
 
-#Add GeoServer
-# geoserver-2.0.2-bin.zip from ../WindowsInstallers/ is cross platform
-# do symlinks work here?
 
+#############################################
+#Add GeoServer
+# geoserver-*-bin.zip from ../WindowsInstallers/ is cross platform
+# ? do symlinks work here ?
+
+
+#############################################
 #Add R-stats
-PKG="R-2.14.1.pkg"
+PKG="R-2.15.1.pkg"
 wget -c --progress=dot:mega \
    http://cran.stat.ucla.edu/bin/macosx/"$PKG" -O "$PKG_DIR/$PKG"
