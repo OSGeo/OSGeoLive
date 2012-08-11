@@ -145,9 +145,15 @@ cp -f iso-19139-physiographic.mef \
    "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-physiographic.mef"
 
 # fix permissions on installed software
-#  oi! don't do that. user is not allowed to own things outside of /home/.
-chown -R "root:$USER_NAME" "$GEONETWORK_FOLDER"
-chmod -R g+w "$GEONETWORK_FOLDER"
+#   what's really needed here? the logs for sure, the rest are guesses
+chgrp users "$GEONETWORK_FOLDER"/jetty
+chgrp users "$GEONETWORK_FOLDER"/jetty/logs -R
+chgrp users "$GEONETWORK_FOLDER"/data -R
+chmod g+w "$GEONETWORK_FOLDER"/jetty
+chmod g+w "$GEONETWORK_FOLDER"/jetty/logs -R
+chmod g+w "$GEONETWORK_FOLDER"/data -R
+adduser "$USER_NAME" users
+
 
 # create startup, shutdown, open browser and doco desktop entries
 for FILE in start_geonetwork stop_geonetwork geonetwork ; do
