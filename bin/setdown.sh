@@ -48,6 +48,8 @@ if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] ; then
     echo >> /etc/rc.local
     echo "exit 0" >> /etc/rc.local
 fi
+# try to get those changes applied sooner
+mv /etc/rc2.d/S99rc.local /etc/rc2.d/S10rc.local
 
 
 # remove build stuff no longer of use
