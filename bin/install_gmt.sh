@@ -52,7 +52,7 @@ fi
 #fi
 #echo 'export PATH="$PATH:/usr/lib/gmt/bin"' > /etc/profile.d/gmt_path.sh
 cat << EOF > /etc/profile.d/gmt_path.sh
-PATH="$PATH:/usr/lib/gmt/bin"
+PATH="\$PATH:/usr/lib/gmt/bin"
 export PATH
 EOF
 
