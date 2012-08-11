@@ -183,26 +183,31 @@ mkdir -p "$INSTALL_DIR/web2py/applications/admin/cache"
 mkdir -p "$INSTALL_DIR/web2py/applications/admin/databases"
 mkdir -p "$INSTALL_DIR/web2py/applications/admin/errors"
 mkdir -p "$INSTALL_DIR/web2py/applications/admin/sessions"
-# oi! don't do that!
-chown "$USER_NAME" \
-	"$INSTALL_DIR/web2py/applications/admin/cache" \
-	"$INSTALL_DIR/web2py" \
-	"$INSTALL_DIR/web2py/applications/admin/cron" \
-	"$INSTALL_DIR/web2py/applications/admin/databases" \
-	"$INSTALL_DIR/web2py/applications/admin/errors" \
-	"$INSTALL_DIR/web2py/applications/admin/sessions" \
-	"$INSTALL_DIR/web2py/applications/eden" \
-	"$INSTALL_DIR/web2py/applications/eden/cache" \
-	"$INSTALL_DIR/web2py/applications/eden/cron" \
-	"$INSTALL_DIR/web2py/applications/eden/databases" \
-	"$INSTALL_DIR/web2py/applications/eden/errors" \
-	"$INSTALL_DIR/web2py/applications/eden/models" \
-	"$INSTALL_DIR/web2py/applications/eden/sessions" \
-	"$INSTALL_DIR/web2py/applications/eden/static/img/markers" \
-	"$INSTALL_DIR/web2py/applications/eden/uploads" \
-	"$INSTALL_DIR/web2py/applications/eden/uploads/gis_cache" \
-	"$INSTALL_DIR/web2py/applications/eden/uploads/images" \
-	"$INSTALL_DIR/web2py/applications/eden/uploads/tracks"
+
+FILES="
+   $INSTALL_DIR/web2py/applications/admin/cache
+   $INSTALL_DIR/web2py
+   $INSTALL_DIR/web2py/applications/admin/cron
+   $INSTALL_DIR/web2py/applications/admin/databases
+   $INSTALL_DIR/web2py/applications/admin/errors
+   $INSTALL_DIR/web2py/applications/admin/sessions
+   $INSTALL_DIR/web2py/applications/eden
+   $INSTALL_DIR/web2py/applications/eden/cache
+   $INSTALL_DIR/web2py/applications/eden/cron
+   $INSTALL_DIR/web2py/applications/eden/databases
+   $INSTALL_DIR/web2py/applications/eden/errors
+   $INSTALL_DIR/web2py/applications/eden/models
+   $INSTALL_DIR/web2py/applications/eden/sessions
+   $INSTALL_DIR/web2py/applications/eden/static/img/markers
+   $INSTALL_DIR/web2py/applications/eden/uploads
+   $INSTALL_DIR/web2py/applications/eden/uploads/gis_cache
+   $INSTALL_DIR/web2py/applications/eden/uploads/images
+   $INSTALL_DIR/web2py/applications/eden/uploads/tracks
+"
+chgrp users $FILES
+chmod g+w $FILES
+adduser "$USER_NAME" users
+
 
 # Copy Deployment Templates
 if [ ! -f "$INSTALL_DIR/web2py/applications/eden/models" ] ; then
