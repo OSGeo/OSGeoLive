@@ -32,5 +32,13 @@ apt-get --assume-yes install openssh-server vnc4server
 # this is repeated in build_iso.sh, just to be sure.
 rm -rf /etc/ssh/ssh_host_[der]*_key*
 
-# ? TODO: in rc.local check if they exist, and if run run dpkg-reconfigure
-
+# check if the ssh keys exist, and if not, run dpkg-reconfigure
+#  at boot time to create them
+if [ `grep -c 'ssh_host' /etc/rc.local` -eq 0 ] ; then
+    sed -i -e 's|exit 0||' /etc/rc.local
+    echo "if [ ! -e /etc/ssh/ssh_host_rsa_key ] ; then" >> /etc/rc.local
+    echo "   dpkg-reconfigure openssh-server" >> /etc/rc.local
+    echo "fi" >> /etc/rc.local
+    echo >> /etc/rc.local
+    echo "exit 0" >> /etc/rc.local
+fi
