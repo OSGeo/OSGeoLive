@@ -34,6 +34,16 @@ EOF
 #apt-get install --yes mysql-server mysql-admin
 apt-get install --yes mysql-server
 
+## just to be sure if mysql server is running
+
+## check if mysql is running and do appropriate action
+if [ `ps aux | grep -c 'mysql'` -eq 0 ] ; then
+    echo "Starting mysql.."
+    service mysql start
+else
+    echo "Restarting mysql.."
+    service mysql restart
+fi
 
 
 ## well maybe that didn't work, let's see...
