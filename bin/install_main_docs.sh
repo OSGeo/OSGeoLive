@@ -171,6 +171,19 @@ ln -s /usr/local/share/ossim .
 ln -s /usr/local/share/data .
 
 
+# we add the installer dirs after building the image, so we
+#  have to decide to link or not link to them at boot time.
+if [ `grep -c 'WindowsInstallers' /etc/rc.local` -eq 0 ] ; then
+    sed -i -e 's|exit 0||' /etc/rc.local
+    echo "if [ -d /cdrom/WindowsInstallers ] ; then" >> /etc/rc.local
+    echo "   ln -s /cdrom/WindowsInstallers /etc/skel/" >> /etc/rc.local
+    echo "   ln -s /cdrom/MacInstallers /etc/skel/" >> /etc/rc.local
+    echo "fi" >> /etc/rc.local
+    echo >> /etc/rc.local
+    echo "exit 0" >> /etc/rc.local
+fi
+
+
 cd "$BIN_DIR"
 
 echo "install_main_docs.sh: Double-check that the Firefox \
