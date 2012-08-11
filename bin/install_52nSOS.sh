@@ -166,6 +166,7 @@ echo "[$(date +%M:%S)]: $SOS_TAR_NAME extracted"
 #
 # copy logo
 if [ ! -e "/usr/share/icons/$SOS_ICON_NAME" ] ; then
+   chmod 644 "$SOS_ICON_NAME"
    mv -v "$SOS_ICON_NAME" /usr/share/icons/
 fi
 #

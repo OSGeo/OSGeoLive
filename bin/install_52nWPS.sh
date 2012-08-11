@@ -145,6 +145,7 @@ fi
 #
 # copy logo
 if [ ! -e "/usr/share/icons/$WPS_ICON_NAME" ] ; then
+   chmod 644 "$WPS_ICON_NAME"
    mv -v "$WPS_ICON_NAME" /usr/share/icons/
 fi
 #

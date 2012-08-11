@@ -349,6 +349,7 @@ EOF
 chmod +x "$START_SCRIPT"
 
 # Add Launch icon to desktop
+chmod 644 "$BUILD_DIR"/app-conf/sahana/sahana.png
 cp "$BUILD_DIR"/app-conf/sahana/sahana.png /usr/share/icons/
 
 cat << EOF > /usr/share/applications/sahana.desktop
