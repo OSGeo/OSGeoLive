@@ -133,6 +133,7 @@ apt-get remove --yes blueman
 # this will clear out 96mb (uncompressed), but users who want the
 # nvidia proprietary driver will need to reinstall it. ah well.
 #Version must be kept up to date (removes 3 packages)
+apt-get --assume-yes remove linux-headers-3.2.0-29
 apt-get --assume-yes remove linux-headers-3.2.0-27
 apt-get --assume-yes remove linux-headers-3.2.0-26
 apt-get --assume-yes remove linux-headers-3.2.0-25
@@ -151,7 +152,7 @@ rm -fr "$USER_HOME"/Public
 rm -fr "$USER_HOME"/Templates
 rm -fr "$USER_HOME"/Videos
 # and don't come back now
-apt-get remove xdg-user-dirs
+apt-get --assume-yes remove xdg-user-dirs
 
 
 # rename dangerous icon
