@@ -1,6 +1,6 @@
 #!/bin/sh
 ###############################################################
-# 
+#
 # Purpose: Installation of pgRouting on Ubuntu 11.04
 # Authors: Anton Patrushev <anton@georepublic.de>
 #          Daniel Kastl <daniel@georepublic.de>
@@ -9,7 +9,7 @@
 # Copyright (c) 2011 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -84,7 +84,7 @@ cd "$TMP"
 
 # create $OSM_DB database
 echo "create $OSM_DB database"
-sudo -u $USER_NAME createdb $OSM_DB
+sudo -u $USER_NAME createdb -E UTF8 $OSM_DB
 #sudo -u $USER_NAME createlang plpgsql $OSM_DB
 
 # add PostGIS functions
