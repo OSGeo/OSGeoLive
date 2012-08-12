@@ -283,6 +283,13 @@ wget -c --progress=dot:mega \
   "http://ubuntu-manual.org/download/12.04/en_US/screen" \
   -O "/usr/local/share/doc/Getting_Started_with_Ubuntu_12.04.pdf"
 
+if [ $? -ne 0 ] ; then
+   # try try again
+   wget -c --progress=dot:mega \
+     "http://ubuntu-manual.org/download/12.04/en_US/screen" \
+     -O "/usr/local/share/doc/Getting_Started_with_Ubuntu_12.04.pdf"
+fi
+
 ln -s /usr/local/share/doc/Getting_Started_with_Ubuntu_12.04.pdf \
   "$USER_HOME/Desktop/Getting Started with Ubuntu.pdf"
 
