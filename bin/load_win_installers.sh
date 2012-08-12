@@ -26,8 +26,10 @@
 # Requires: nothing
 
 #Add the files to the directory where remastersys wants them
-TMP="/tmp/build_win_installers"
+#TMP="/tmp/build_win_installers"
 #TMP="/tmp/remastersys/ISOTMP/WindowsInstallers"
+#Add the files where geniso remaster needs them
+TMP="WindowsInstallers"
 mkdir -p $TMP
 cd $TMP
 

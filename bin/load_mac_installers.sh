@@ -24,8 +24,10 @@
 
 
 #Add the files to the directory where remastersys wants them
-TMP="/tmp/build_mac_installers"
+#TMP="/tmp/build_mac_installers"
 #TMP="/tmp/remastersys/ISOTMP/MacInstallers"
+#Add the files where geniso remaster needs them
+TMP="MacInstallers"
 mkdir -p "$TMP"
 cd "$TMP"
 
