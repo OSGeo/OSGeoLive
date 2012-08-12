@@ -114,3 +114,12 @@ sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -b \
    isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot \
    -boot-load-size 4 -boot-info-table -o ../"$ISO_NAME.iso" .
 
+echo
+echo "Cleaning up..."
+echo "======================================"
+#Clear things up and prepare for next build
+cd ~/livecdtmp
+sudo rm -rf extract-cd
+sudo umount mnt2
+sudo rm -rf mnt2
+
