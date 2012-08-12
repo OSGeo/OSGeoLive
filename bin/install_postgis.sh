@@ -42,6 +42,11 @@ BIN_DIR=`pwd`
 PG_VERSION="9.1"
 
 
+#debug:
+echo "The locale settings are currently:"
+locale
+
+
 # now avail from mainline
 apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis
 
