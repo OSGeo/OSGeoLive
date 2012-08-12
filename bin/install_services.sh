@@ -20,7 +20,14 @@ echo "==============================================================="
 echo "install_services.sh"
 echo "==============================================================="
 
-apt-get --assume-yes install openssh-server vnc4server
+apt-get --assume-yes install vnc4server
+
+exit 0
+
+##########################################################################
+# not so good when the username/pw is so predicatable & the system gets
+#  installed to a hard drive on an open network.
+apt-get --assume-yes install openssh-server
 
 
 # For security reasons these must be removed.
