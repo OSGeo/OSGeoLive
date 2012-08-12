@@ -174,7 +174,7 @@ wget --progress=dot:mega "http://www.geofemengineering.it/data/OSSIM_Whitepaper.
 KML_DATA="$DATA_FOLDER/kml"
 RASTER_DATA="$DATA_FOLDER/raster"
 ELEV_DATA=/usr/share/ossim/elevation/elev
-echo "FIXME: does VRT data actually ship anymore?"
+#echo "FIXME: does VRT data actually ship anymore?"
 VRT_DATA="$DATA_FOLDER/vrt"
 QUICKSTART=/usr/local/share/ossim/quickstart
 
@@ -182,7 +182,7 @@ QUICKSTART=/usr/local/share/ossim/quickstart
 mkdir -p "$KML_DATA"
 mkdir -p "$RASTER_DATA"
 mkdir -p "$ELEV_DATA"
-mkdir -p "$VRT_DATA"
+#mkdir -p "$VRT_DATA"
 
 #** DO NOT use chmod 777 **
 for ITEM in $RASTER_DATA $KML_DATA $ELEV_DATA $VRT_DATA ; do
