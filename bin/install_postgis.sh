@@ -46,6 +46,13 @@ PG_VERSION="9.1"
 echo "The locale settings are currently:"
 locale
 
+# DB is created in the current locale, which was reset to "C". Put it
+#  back to UTF so the templates will be created using UTF8 encoding.
+unset LC_ALL
+
+# another debug
+locale
+
 
 # now avail from mainline
 apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis
