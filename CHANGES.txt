@@ -1,6 +1,17 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0beta10
+===================
+
+ * UTF fix for chroot
+ * Permission fixes so that nothing owned by users outside /home
+ * rasdaman activated again after fixes
+ * fixed installer from coming up at boot time
+ * live session user is now called "user" and has a password
+ * Fix issue #969 relating to a missing folder 
+ * Geonetwork fixed #990
+
 Version 6.0beta9
 ===================
 
