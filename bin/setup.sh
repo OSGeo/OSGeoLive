@@ -167,7 +167,7 @@ cd "$USER_HOME"
 mkdir -p /usr/local/share/data --verbose
 ln -s /usr/local/share/data data
 chown -h "$USER_NAME":"$USER_NAME" data
-ls -s /usr/local/share/data/ /etc/skel/data
+ln -s /usr/local/share/data /etc/skel/data
 
 
 # and there was music and laughter and much rejoicing
