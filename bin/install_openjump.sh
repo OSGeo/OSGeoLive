@@ -88,6 +88,9 @@ cd "$TMP"
 wget -nv "$URL_LIST" && \
   eval $(cat $(basename "$URL_LIST")) &&\
 
+# dns trouble? test if we can see it
+host sourceforge.net
+
 ## Install Application ##
 wget -c --progress=dot:mega "$URL_PKG" && \
   unzip -q $(basename $URL_PKG) -d app && \
