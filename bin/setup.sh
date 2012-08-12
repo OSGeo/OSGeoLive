@@ -150,6 +150,9 @@ rm -fr "$USER_HOME"/Pictures
 rm -fr "$USER_HOME"/Public
 rm -fr "$USER_HOME"/Templates
 rm -fr "$USER_HOME"/Videos
+# and don't come back now
+apt-get remove xdg-user-dirs
+
 
 # rename dangerous icon
 # this probably won't work here because ubiquity isn't loaded until remastersys step
