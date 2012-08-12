@@ -83,6 +83,7 @@ mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/
 cp ../desktop-conf/xfce/xfce4-desktop.xml \
      /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
 #Copy it to the existing user
+mkdir -p "$USER_HOME"/.config/xfce4/xfconf/xfce-perchannel-xml/
 cp /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml \
      "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
 #Note: Style int 3 means stretched
