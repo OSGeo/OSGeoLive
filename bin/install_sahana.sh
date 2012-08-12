@@ -1,6 +1,6 @@
 #! /bin/sh
 #################################################
-# 
+#
 # Purpose: Installation of Sahana Eden into Xubuntu
 # Author:  Fran Boon, Rik Goldman, Steven Robinson, Jerel Moses, Maurice Quarles
 #
@@ -8,7 +8,7 @@
 # Copyright (c) 2011-12 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -118,7 +118,7 @@ su -c - postgres "createuser -s sahana" && true
 #apache2ctl stop # WSGI
 killall python
 su -c - postgres "dropdb sahana" && true
-su -c - postgres "createdb -O sahana sahana"
+su -c - postgres "createdb -E UTF8 -O sahana sahana"
 su -c - postgres "createlang plpgsql -d sahana"
 
 # Add Role Password
