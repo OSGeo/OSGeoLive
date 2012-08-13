@@ -20,7 +20,13 @@ echo "==============================================================="
 echo "install_mysql.sh"
 echo "==============================================================="
 
-#attempt at setting the root password without the need for interaction
+
+# live disc's username is "user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+
+#set the root password without the need for interaction
 PASSWORD="user"
 
 # pre-seed answers to installer questions:
@@ -47,19 +53,29 @@ fi
 
 
 ## well maybe that didn't work, let's see...
-MYSQL_ADMIN_NM=`grep -w '^user' /etc/mysql/debian.cnf | head -n 1 | cut -f2 -d'=' | awk '{print $1}'`
-MYSQL_ADMIN_PW=`grep -w '^password' /etc/mysql/debian.cnf | head -n 1 | cut -f2 -d'=' | awk '{print $1}'`
+#MSQL_CONF_FILE=/etc/mysql/debian.cnf
+MSQL_CONF_FILE=/etc/mysql/my.cnf
+MYSQL_ADMIN_NM=`grep -w '^user' "$MSQL_CONF_FILE" | head -n 1 | cut -f2 -d'=' | awk '{print $1}'`
+# does not exist?
+MYSQL_ADMIN_PW=`grep -w '^password' "$MSQL_CONF_FILE" | head -n 1 | cut -f2 -d'=' | awk '{print $1}'`
 
-echo ".. MySQL admin name is <$MYSQL_ADMIN_NM>. (see /etc/mysql/debian.cnf)"
+echo ".. MySQL admin name is <$MYSQL_ADMIN_NM>. (see $MSQL_CONF_FILE)"
+
+#debug
+echo "=== /etc/mysql/debian.cnf ==="
+cat /etc/mysql/debian.cnf
+echo "============================="
 
 echo "
-CREATE USER 'user'@'localhost' IDENTIFIED BY 'user';
-GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost' WITH GRANT OPTION;
-" | mysql -u"$MYSQL_ADMIN_NM" -p"$MYSQL_ADMIN_PW"
+CREATE USER '$USER_NAME'@'localhost' IDENTIFIED BY '$USER_NAME';
+GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'localhost' WITH GRANT OPTION;
+" | mysql -u"$MYSQL_ADMIN_NM" #-p"$MYSQL_ADMIN_PW"
 
 
+exit 0
 
+##########################################################################
 # MySqlAdmin GUI is not longer maintained.
 # Replacement:
 #    MySql-Workbench: Wants 21mb compressed, or 62mb uncompressed, disc space.
-#apt-get --assume-yes install mysql-workbench ttf-bitstream-vera
+apt-get --assume-yes install mysql-workbench ttf-bitstream-vera

@@ -87,12 +87,13 @@ fi
 
 ## (Note: on installing mysql-server you should have been prompted to
 ##  create a new root password. Repeat that here)
-MYSQL_ADMIN_NM="user"
+MYSQL_ADMIN_NM="root"
 MYSQL_ADMIN_PW="user"
 echo "
 CREATE DATABASE ushahidi;
-GRANT ALL PRIVILEGES ON ushahidi.* TO 'user'@'localhost' IDENTIFIED BY 'user';
+GRANT ALL PRIVILEGES ON ushahidi.* TO '$USER_NAME'@'localhost' IDENTIFIED BY '$USER_NAME';
 " | mysql -u"$MYSQL_ADMIN_NM" -p"$MYSQL_ADMIN_PW"
+
 
 
 # tweak apache to allow Clean URLs
