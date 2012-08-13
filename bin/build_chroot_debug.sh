@@ -155,6 +155,7 @@ cp ../../gisvm/app-conf/build_chroot/casper.conf etc/casper.conf
 
 #replace the user password, potentially also set backgrounds here
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
+
 #Change the text on the loader
 sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" \
    lib/plymouth/themes/xubuntu-text/xubuntu-text.plymouth
