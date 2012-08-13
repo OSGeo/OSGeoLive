@@ -31,12 +31,12 @@
 #
 # Checkout a copy of the svn, change to the bin folder
 # Run as 
-# sudo ./build_full_iso.sh /path/to/iso 2>&1 | tee /var/log/build_full_iso.log
+# ./build_full_iso.sh /path/to/iso 2>&1 | tee ~/build_full_iso.log
 # Expects 1 argument, the path to the mini iso
 
 #DIR="/home/user/gisvm/bin"
 #SVN_DIR="/home/user/gisvm"
-VERSION=`cat "/../VERSION.txt`
+VERSION=`cat /../VERSION.txt`
 PACKAGE_NAME="osgeo-live"
 #cd "$SVN_DIR"
 #REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
