@@ -31,7 +31,7 @@
 #
 # Checkout a copy of the svn, change to the bin folder
 # Run as 
-# ./build_full_iso.sh /path/to/iso 2>&1 | tee ~/build_full_iso.log
+# sudo ./build_full_iso.sh /path/to/iso 2>&1 | tee ~/build_full_iso.log
 # Expects 1 argument, the path to the mini iso
 
 #DIR="/home/user/gisvm/bin"
@@ -47,7 +47,7 @@ if [ $1 ]; then
     MINI_ISO_NAME=$1
 else
     #If no arguement is give assume the file is in the current folder
-    MINI_ISO_NAME="$PACKAGE_NAME-mini-$VERSION"
+    MINI_ISO_NAME="$PACKAGE_NAME-mini-$VERSION.iso"
 fi
 ISO_NAME="$PACKAGE_NAME-$VERSION"
 
@@ -68,7 +68,7 @@ cd ~/livecdtmp
 #Start with a fresh copy
 #Mount the Desktop .iso to mnt2 to not interfere with other builds
 mkdir mnt2
-sudo mount -o loop "$MINI_ISO_NAME.iso" mnt2
+sudo mount -o loop "$MINI_ISO_NAME" mnt2
 
 #Extract .iso contents into dir 'extract-cd' 
 mkdir "extract-cd"
