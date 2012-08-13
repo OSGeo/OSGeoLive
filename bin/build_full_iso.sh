@@ -36,11 +36,11 @@
 
 #DIR="/home/user/gisvm/bin"
 #SVN_DIR="/home/user/gisvm"
-VERSION=`cat /../VERSION.txt`
+VERSION=`cat ../VERSION.txt`
 PACKAGE_NAME="osgeo-live"
 #cd "$SVN_DIR"
 #REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
-CUR_DIR=`dirname $0`
+CUR_DIR=`pwd`
 
 if [ $1 ]; then
     #If argument is given, path to the iso to remaster
@@ -79,8 +79,8 @@ echo "Download Windows and Mac Installers"
 echo "==================================="
 
 cd extract-cd
-./$CUR_DIR/load_win_installers.sh
-./$CUR_DIR/load_mac_installers.sh
+sh $CUR_DIR/load_win_installers.sh
+sh $CUR_DIR/load_mac_installers.sh
 cd ..
 
 echo
