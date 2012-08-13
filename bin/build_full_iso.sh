@@ -40,7 +40,7 @@ VERSION=`cat /../VERSION.txt`
 PACKAGE_NAME="osgeo-live"
 #cd "$SVN_DIR"
 #REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
-
+CUR_DIR=`dirname $0`
 
 if [ $1 ]; then
     #If argument is given, path to the iso to remaster
@@ -79,23 +79,21 @@ echo "Download Windows and Mac Installers"
 echo "==================================="
 
 cd extract-cd
-./load_win_installers.sh
-./load_mac_installers.sh
+./$CUR_DIR/load_win_installers.sh
+./$CUR_DIR/load_mac_installers.sh
 cd ..
 
 echo
 echo "Regenerating manifest..."
 echo "======================================"
 #Regenerate manifest 
-chmod +w extract-cd/casper/filesystem.manifest
-sudo chroot edit dpkg-query -W --showformat='${Package} ${Version}\n' > \
-   extract-cd/casper/filesystem.manifest
-sudo cp extract-cd/casper/filesystem.manifest \
-   extract-cd/casper/filesystem.manifest-desktop
-sudo sed -i '/ubiquity/d' \
-   extract-cd/casper/filesystem.manifest-desktop
-sudo sed -i '/casper/d' \
-   extract-cd/casper/filesystem.manifest-desktop
+#chmod +w extract-cd/casper/filesystem.manifest
+#sudo cp extract-cd/casper/filesystem.manifest \
+#   extract-cd/casper/filesystem.manifest-desktop
+#sudo sed -i '/ubiquity/d' \
+#   extract-cd/casper/filesystem.manifest-desktop
+#sudo sed -i '/casper/d' \
+#   extract-cd/casper/filesystem.manifest-desktop
 
 echo
 echo "Calculating new filesystem size..."
