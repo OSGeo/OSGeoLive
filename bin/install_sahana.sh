@@ -270,9 +270,6 @@ sed -i 's|-180,180,"|-180,180,"http://localhost:8082/geoserver/wms?service=WMS\&
 cd "$INSTALL_DIR/web2py"
 touch NEWINSTALL
 
-# oi! permissions problem when the user changes UID
-# maybe try -u \#999 to get UID 999? :-(
-# maybe defer running it until run-time start script?
 sudo -H -u "$USER_NAME" python web2py.py -S eden -M \
    -R applications/eden/static/scripts/tools/noop.py
 
@@ -287,9 +284,27 @@ cd "$INSTALL_DIR/web2py"
 chgrp users "$INSTALL_DIR/web2py"
 chmod g+w "$INSTALL_DIR/web2py"
 
-# oi! permissions problem when the user changes UID
 sudo -H -u "$USER_NAME" python web2py.py -S eden -M \
    -R applications/eden/static/scripts/tools/compile.py
+
+chown root.root "$INSTALL_DIR"/web2py/applications/eden/compiled/ -R
+chown root.root "$INSTALL_DIR"/web2py/applications/eden/__init__.pyc
+
+# not sure which of the rest need to be writable by the user, so make them all
+chown root.users "$INSTALL_DIR"/web2py/applications/eden/databases/*
+chmod g+w "$INSTALL_DIR"/web2py/applications/eden/databases/*
+chown root.users "$INSTALL_DIR"/web2py/applications/eden/cache/*
+chmod g+w "$INSTALL_DIR"/web2py/applications/eden/cache/*
+chown root.users "$INSTALL_DIR"/web2py/deposit "$INSTALL_DIR"/web2py/logs
+chmod g+w "$INSTALL_DIR"/web2py/deposit "$INSTALL_DIR"/web2py/logs
+
+# does it really need to be writable?
+chown root.users "$INSTALL_DIR"/web2py/welcome.w2p
+chmod g+w "$INSTALL_DIR"/web2py/welcome.w2p
+# does it really need to be writable?
+chown root.users "$INSTALL_DIR"/web2py/applications/eden/models/0000_update*.py
+chmod g+w "$INSTALL_DIR"/web2py/applications/eden/models/0000_update*.py
+
 
 # Apache configuration
 # Enable Modules
