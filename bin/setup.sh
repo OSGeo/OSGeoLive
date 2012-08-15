@@ -139,6 +139,8 @@ apt-get --assume-yes remove linux-headers-3.2.0-26
 apt-get --assume-yes remove linux-headers-3.2.0-25
 apt-get --assume-yes remove linux-headers-3.2.0-24
 apt-get --assume-yes remove linux-headers-3.2.0-23
+# removing -23 unblocks -29 and automatically installs it, so we do it again.. argh
+apt-get --assume-yes remove linux-headers-3.2.0-29
 
 # regen initrd
 depmod
