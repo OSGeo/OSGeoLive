@@ -43,7 +43,7 @@ apt-get install --yes mysql-server
 ## just to be sure if mysql server is running
 
 ## check if mysql is running and do appropriate action
-if [ `ps aux | grep -c 'mysql'` -eq 0 ] ; then
+if [ `pgrep -c 'mysql'` -eq 0 ] ; then
     echo "Starting mysql.."
     service mysql start
 else
@@ -54,22 +54,23 @@ fi
 
 ## well maybe that didn't work, let's see...
 #MSQL_CONF_FILE=/etc/mysql/debian.cnf
-MSQL_CONF_FILE=/etc/mysql/my.cnf
-MYSQL_ADMIN_NM=`grep -w '^user' "$MSQL_CONF_FILE" | head -n 1 | cut -f2 -d'=' | awk '{print $1}'`
-# does not exist?
-MYSQL_ADMIN_PW=`grep -w '^password' "$MSQL_CONF_FILE" | head -n 1 | cut -f2 -d'=' | awk '{print $1}'`
+#MSQL_CONF_FILE=/etc/mysql/my.cnf
+#MYSQL_ADMIN_NM=`grep -w '^user' "$MSQL_CONF_FILE" | head -n 1 | cut -f2 -d'=' | awk '{print $1}'`
+MYSQL_ADMIN_NM=root
 
-echo ".. MySQL admin name is <$MYSQL_ADMIN_NM>. (see $MSQL_CONF_FILE)"
+#MYSQL_ADMIN_PW=`grep -w '^password' "$MSQL_CONF_FILE" | head -n 1 | cut -f2 -d'=' | awk '{print $1}'`
+MYSQL_ADMIN_PW="$PASSWORD"
+#echo ".. MySQL admin name is <$MYSQL_ADMIN_NM>. (see $MSQL_CONF_FILE)"
 
 #debug
-echo "=== /etc/mysql/debian.cnf ==="
-cat /etc/mysql/debian.cnf
-echo "============================="
+#echo "=== /etc/mysql/debian.cnf ==="
+#cat /etc/mysql/debian.cnf
+#echo "============================="
 
 echo "
 CREATE USER '$USER_NAME'@'localhost' IDENTIFIED BY '$USER_NAME';
 GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'localhost' WITH GRANT OPTION;
-" | mysql -u"$MYSQL_ADMIN_NM" #-p"$MYSQL_ADMIN_PW"
+" | mysql -u"$MYSQL_ADMIN_NM" -p"$MYSQL_ADMIN_PW"
 
 
 exit 0
