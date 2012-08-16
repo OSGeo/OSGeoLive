@@ -1,0 +1,38 @@
+#!/bin/sh
+# crappy workaround script to get mysql up and running
+# HB 16 Aug 2012
+# argh.
+
+if [ -d /var/lib/mysql/ushahidi ] ; then
+   echo "The ushahidi DB already exists." > /root/mysql_test.txt
+   exit 0
+fi
+
+
+(
+
+sleep 5
+if [ `service mysql status | grep -c running` -ne 1 ] ; then
+    echo "mysql is not running." > /root/mysql_test.txt
+#    exit 1
+else
+    echo "mysql is running." > /root/mysql_test.txt
+fi
+
+MYSQL_ADMIN_NM=root
+MYSQL_ADMIN_PW=user
+USER_NAME=user
+
+echo "
+CREATE USER '$USER_NAME'@'localhost' IDENTIFIED BY '$USER_NAME';
+GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'localhost' WITH GRANT OPTION;
+" | mysql -u"$MYSQL_ADMIN_NM" -p"$MYSQL_ADMIN_PW"
+
+echo "
+CREATE DATABASE ushahidi;
+GRANT ALL PRIVILEGES ON ushahidi.* TO '$USER_NAME'@'localhost' IDENTIFIED BY '$USER_NAME';
+" | mysql -u"$MYSQL_ADMIN_NM" -p"$MYSQL_ADMIN_PW"
+
+ls -l /var/run/mysql > /root/mysql_test.txt
+
+) &
