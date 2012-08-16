@@ -95,7 +95,7 @@ mysqlcheck -A -uroot -puser --verbose
 #   see http://ubuntuforums.org/showthread.php?t=804021&page=5
 # try 
 grep bind-address /etc/mysql/*.cnf
-nsloopup localhost
+nslookup localhost
 grep run /etc/apparmor.d/usr.sbin.mysqld
 #"""
 #The problem was caused by the apparmor daemon.
