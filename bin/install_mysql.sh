@@ -42,6 +42,11 @@ apt-get install --yes mysql-server
 
 ## just to be sure if mysql server is running
 
+#debug:
+echo "--- before"
+ps -ef | grep mysql
+echo "---"
+
 ## check if mysql is running and do appropriate action
 if [ `pgrep -c 'mysql'` -eq 0 ] ; then
     echo "Starting mysql.."
@@ -51,6 +56,52 @@ else
     service mysql restart
 fi
 
+### debugging
+echo "=== after"
+ps -ef | grep mysql
+echo "==="
+dpkg -l phpmyadmin mysql-server
+ls -l /var/log/mysql.log /var/log/mysql.err
+tail /var/log/syslog
+#chmod 775 /var/lib/mysql
+ls -l /var/lib/mysql
+ls -la /var/run/mysqld
+
+#perhaps this is needed:  ???
+#chown mysql.mysql /var/run/mysqld -R 
+
+ls -l /var/run/mysqld/mysqld.sock
+touch /var/run/mysqld/mysqld.sock
+ls -l /var/run/mysqld/mysqld.sock
+chmod 775 /var/run/mysqld/mysqld.sock
+ls -l /var/run/mysqld/mysqld.sock
+tail -n 30 /var/log/mysql/error.log
+echo "try for another restart"
+/etc/init.d/mysql restart
+echo "..on with the show.."
+
+# to be continued:
+#   see http://ubuntuforums.org/showthread.php?t=804021&page=5
+# try 
+grep bind-address /etc/mysql/*.cnf
+grep run /etc/apparmor.d/usr.sbin.mysqld
+#"""
+#The problem was caused by the apparmor daemon.
+#I just changed the lines in /etc/apparmor.d/usr.sbin.mysqld
+#- /var/run/mysqld/mysqld.pid w,
+#- /var/run/mysqld/mysqld.sock w,
+#to
+#+ /{,var/}run/mysqld/mysqld.pid w,
+#+ /{,var/}run/mysqld/mysqld.sock w,
+#and restarted appamor daemnon with
+#/etc/init.d/appamor restart
+#After restarting mysql daemon everthing works fine
+#/etc/init.d/mysql restart
+#"""
+### end of debugging
+
+
+#if needed: sudo mysqladmin password newpassword
 
 ## well maybe that didn't work, let's see...
 #MSQL_CONF_FILE=/etc/mysql/debian.cnf
