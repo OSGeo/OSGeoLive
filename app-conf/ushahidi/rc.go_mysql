@@ -33,6 +33,6 @@ CREATE DATABASE ushahidi;
 GRANT ALL PRIVILEGES ON ushahidi.* TO '$USER_NAME'@'localhost' IDENTIFIED BY '$USER_NAME';
 " | mysql -u"$MYSQL_ADMIN_NM" -p"$MYSQL_ADMIN_PW"
 
-ls -l /var/run/mysql > /root/mysql_test.txt
+ls -l /var/run/mysqld >> /root/mysql_test.txt
 
 ) &

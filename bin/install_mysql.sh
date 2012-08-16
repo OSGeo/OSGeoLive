@@ -139,7 +139,7 @@ GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'localhost' WITH GRANT OPTION;
 ###
 #argh it's still broken. stupid hack to get it to work
 cp ../app-conf/ushahidi/rc.go_mysql /etc
-chmod u+rx,go-rx /usr/local/sbin/rc.go_mysql
+chmod u+rx,go-rx /etc/rc.go_mysql
 cp /etc/init.d/rc.local /etc/init.d/rc.go_mysql
 sed -i -e 's/rc\.local/rc.go_mysql/' /etc/init.d/rc.go_mysql
 ln -s /etc/init.d/rc.go_mysql /etc/rc2.d/S99rc.go_mysql
