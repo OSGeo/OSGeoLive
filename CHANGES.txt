@@ -1,6 +1,17 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.0rc1
+===================
+
+ * emergency bugfix release of mb-system
+ * mysql fix for chroot #969
+ * removed kernel headers
+ * fixed ownership issues with UID 1000 
+ * added new method to create full iso based on mini iso
+ * updated screenshots for 6.0
+ * Sahana issue fixed
+
 Version 6.0beta10
 ===================
 
