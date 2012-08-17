@@ -31,7 +31,7 @@
 #
 # Checkout a copy of the svn, change to the bin folder
 # Run as 
-# sudo ./build_full_iso.sh /path/to/iso 2>&1 | tee ~/build_full_iso.log
+# sudo ./build_full_iso.sh /path/to/file.iso 2>&1 | tee ~/build_full_iso.log
 # Expects 1 argument, the path to the mini iso
 
 #DIR="/home/user/gisvm/bin"
