@@ -170,6 +170,11 @@ ln -s /usr/local/share/ossim .
 # Data
 ln -s /usr/local/share/data .
 
+#installer dirs (maybe they work, maybe they don't...
+# TODO
+#ln -s /cdrom/WindowsInstallers /var/www/
+#ln -s /cdrom/MacInstallers /var/www/
+
 
 # we add the installer dirs after building the image, so we
 #  have to decide to link or not link to them at boot time.
@@ -178,6 +183,9 @@ if [ `grep -c 'WindowsInstallers' /etc/rc.local` -eq 0 ] ; then
     echo "if [ -d /cdrom/WindowsInstallers ] ; then" >> /etc/rc.local
     echo "   ln -s /cdrom/WindowsInstallers /etc/skel/" >> /etc/rc.local
     echo "   ln -s /cdrom/MacInstallers /etc/skel/" >> /etc/rc.local
+# TODO
+#   echo "   ln -s /cdrom/WindowsInstallers /home/$USER_NAME/" >> /etc/rc.local
+#   echo "   ln -s /cdrom/MacInstallers /home/$USER_NAME/" >> /etc/rc.local
     echo "fi" >> /etc/rc.local
     echo >> /etc/rc.local
     echo "exit 0" >> /etc/rc.local
