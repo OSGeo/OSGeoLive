@@ -105,7 +105,7 @@ echo "FIXME: (sahana)  chris-lea PPA for Ubuntu 12.04 doesn't exist yet."
 
 # Install PostGIS 1.5
 # should be done already by install_postgis.sh
-#wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+#wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_6_0/sources.list.d/ubuntugis.list \
 #     --output-document=/etc/apt/sources.list.d/ubuntugis.list
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 #apt-get -q update

@@ -117,7 +117,7 @@ mkdir -p  "$USER_HOME/gvSIG"
 
 # download gvSIG sample project
 wget --progress=dot:binary \
-   "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp" \
+   "http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_6_0/app-data/gvsig/sample-project.gvp" \
    --output-document="$USER_HOME/gvSIG/sample-project.gvp"
 
 cp -r "$USER_HOME/gvSIG" /etc/skel
