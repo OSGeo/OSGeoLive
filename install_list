@@ -45,9 +45,11 @@ openlayers
 osgearth
 osm
 ossim
+otb
 pgrouting
 postgis
 prune
+pycsw
 qgis
 qgis_mapserver
 R
