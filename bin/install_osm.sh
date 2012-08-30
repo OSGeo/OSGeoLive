@@ -180,6 +180,8 @@ BBOX="-1.25,52.888,-1.06,53.02"
 #  to JOSM and Gosmore, QGIS and Mapnik can also render .osm directly.
 #
 # We should also push the .osm file into postgis/postgres with osm2pgsql.
+#   todo: perhaps try 'imposm' instead:
+#         http://imposm.org/docs/imposm/latest/
 #
 # $ createdb -T template_postgis osm_$CITY
 # $ osm2pgsql -d osm_$CITY $CITY.osm
