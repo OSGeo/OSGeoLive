@@ -202,7 +202,7 @@ wget -N --progress=dot:mega \
 #   https://github.com/iandees/xapi-servlet
 # for our simple "planet extract" needs, maybe OSM3S would be a better fit anyway?
 #   http://wiki.openstreetmap.org/wiki/OSM3S/install
-#   http://78.46.81.38/#section.download_area
+#   http://www.overpass-api.de/
 
 if [ ! -e "$CITY.osm.bz2" ] ; then
   #XAPI_URL="http://xapi.openstreetmap.org/api/0.6/"
