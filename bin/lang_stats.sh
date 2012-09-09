@@ -91,6 +91,8 @@ for CODE in $LANGS ; do
          ;;
      pt) LAN=Portuguese
          ;;
+     ru) LAN=Russian
+         ;;
      zh) LAN=Chinese
          ;;
      *) echo "an error occurred."
@@ -101,6 +103,7 @@ done
 
 # late to the party
 echo "Portuguese,pt,0,$NUM_PAGES,0.0" >> lang_stats.prn
+echo "Russian,ru,0,$NUM_PAGES,0.0" >> lang_stats.prn
 
 #out with the old
 rm -f lang_stats_sorted.prn
