@@ -100,10 +100,10 @@ echo "Calculating new filesystem size..."
 echo "======================================"
 #Update the filesystem.size file, which is needed by the installer:
 # TODO: get it to run as sudo no sudo su
-chmod +w extract-cd/casper/filesystem.size
-printf $(sudo du -sx --block-size=1 edit | cut -f1) > \
-   extract-cd/casper/filesystem.size
-chmod -w extract-cd/casper/filesystem.size
+#chmod +w extract-cd/casper/filesystem.size
+#printf $(sudo du -sx --block-size=1 edit | cut -f1) > \
+#   extract-cd/casper/filesystem.size
+#chmod -w extract-cd/casper/filesystem.size
 
 
 echo
