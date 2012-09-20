@@ -84,7 +84,7 @@ for URL in \
   # sourceforge filename sanitation:
   OUTFILE=`basename "$URL" | cut -f1 -d'?'`
 
-  wget -c --progress=dot:mega "$URL" -O "$OUTFILE"
+  wget -c --no-check-certificate --progress=dot:mega "$URL" -O "$OUTFILE"
 done;
 
 #Disabled because they are very outdated

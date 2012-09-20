@@ -158,7 +158,7 @@ wget -c --progress=dot:mega \
 #############################################
 #Add TileMill
 PKG="TileMill-0.9.1.zip"
-wget -c --progress=dot:mega \
+wget -c --no-check-certificate --progress=dot:mega \
   "http://github.com/downloads/mapbox/tilemill/$PKG" -O "$PKG_DIR/$PKG"
 
 
