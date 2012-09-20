@@ -77,9 +77,7 @@ for URL in \
   http://www.opensig.es/public/kosmo/v_2.0.1/binaries/kosmo_desktop_2.0.1_windows_jre_setup.exe \
   http://udig.refractions.net/files/downloads/udig-1.3.1.win32.win32.x86.exe \
   http://download.osgeo.org/livedvd/data/zygrib/zyGrib_win-6.0.0.zip \
-  http://github.com/downloads/mapbox/tilemill/TileMill-v0.9.1-Setup.exe \
   http://download.osgeo.org/livedvd/data/mapwindow/MapWindowx86Full-v48Final-installer.exe \
-  http://downloads.sourceforge.net/geoserver/geoserver-2.1.4-bin.zip \
 ; do
   # sourceforge filename sanitation:
   OUTFILE=`basename "$URL" | cut -f1 -d'?'`
@@ -90,6 +88,11 @@ done;
 #Disabled because they are very outdated
 # http://maptiler.googlecode.com/files/maptiler-1.0-beta2-setup.exe
 # http://home.gdal.org/fwtools/FWTools247.exe \
+# Disabled, we only do desktop apps
+# http://downloads.sourceforge.net/geoserver/geoserver-2.1.4-bin.zip \
+# Disabled, undocumented on version 6.0, re-enable on 6.5 but remove something else
+# http://github.com/downloads/mapbox/tilemill/TileMill-v0.9.1-Setup.exe \
+
 
 #FIXME:
 #\mv "plan9.php?dl=gpsbabel-1.3.6.zip" gpsbabel-1.3.6.zip
