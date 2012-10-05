@@ -51,6 +51,9 @@ fi
 # try to get those changes applied sooner
 mv /etc/rc2.d/S99rc.local /etc/rc2.d/S10rc.local
 
+# re-enable ability to create persistent USB installs on a 4gb thumb drive
+sed -i -e 's/\(^MIN_PERSISTENCE =\) .*/\1 256/' \
+   /usr/lib/python2.7/dist-packages/usbcreator/misc.py
 
 # remove build stuff no longer of use
 apt-get --yes remove devscripts pbuilder \
