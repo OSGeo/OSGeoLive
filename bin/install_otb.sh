@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -31,8 +31,9 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 #Add repositories
-add-apt-repository --yes ppa:otb/orfeotoolbox-stable
-#add-apt-repository --yes ppa:otb/orfeotoolbox-nightly   
+#see OTB installation guide 
+#http://orfeo-toolbox.org/SoftwareGuide/SoftwareGuidech2.html#x14-240002.1.3 
+add-apt-repository --yes ppa:ubuntugis/ubuntugis-unstable
 
 apt-get -q update
 
@@ -41,11 +42,11 @@ apt-get -q update
 #Lot's of these applications have been ported in modules in monteverdi but there are still remainning applications
 #in the legacy not available in monteverdi (simple viewer manager, vector database/raster registration...
 #Monteverdi is perhap's sufficient in a first approach,if you need to save space we  can eliminate otbapp-legacy
-apt-get --assume-yes install libotb monteverdi
+apt-get --assume-yes install libotb monteverdi otb-bin otb-bin-qt otb-python
 
 #### install desktop icon ####
 cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop" 
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 
 # live disc's username is "user"
 DATA_DIR=$USER_HOME/gisvm/app-data/otb
@@ -73,7 +74,7 @@ if [ ! -d "$OTB_DATA" ]; then
     mv "$DATA_DIR/OTBCookBook.pdf" "$OTB_DATA/"
     echo "Done"
     #echo "Extracting OTB data examples $OTB_DATA/demos/..."
-    #tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/ 
+    #tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/
     #echo "Done"
 fi
 
