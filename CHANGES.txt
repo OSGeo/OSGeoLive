@@ -1,6 +1,16 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.5alpha1
+===================
+
+ * Switched to Xubuntu 12.04.1 base system
+
+Version 6.0
+===================
+
+ * Tagged rc1 as final
+
 Version 6.0rc1
 ===================
 
