@@ -34,7 +34,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-VERSION=1.2.0
+VERSION=1.4.0
 
 echo "Installing pycsw $VERSION"
 
@@ -48,7 +48,7 @@ echo 'Installing pycsw ...'
 
 add-apt-repository --yes ppa:gcpp-kalxas/ppa-tzotsos
 apt-get -q update
-apt-get install --yes pycsw
+apt-get install --yes python-owslib python-pycsw pycsw-cgi
 
 
 cp /usr/share/applications/pycsw.desktop "$USER_HOME/Desktop/"
