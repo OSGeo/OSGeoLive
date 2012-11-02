@@ -139,10 +139,7 @@ sub printhtml() {
         }else{
 
           # create a URL for the diff in en doc since last translated
-#http://trac.osgeo.org/osgeo/changeset?new=7791%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fca%2Fcopyright.rst&old=6988%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fen%2Fcopyright.rst # correct
-#http://trac.osgeo.org/osgeo/changeset?new=8351%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fca%2F.%2Fcopyright.rst&old=7791%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fca%2F.%2Fcopyright.rst # incorrect
-
-          #http://trac.osgeo.org/osgeo/changeset?new=9055%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fde%2Foverview%2F52nSOS_overview.rst&old=9054%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fde%2Foverview%2F52nSOS_overview.rst
+          # Eg: http://trac.osgeo.org/osgeo/changeset?new=9055%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fde%2Foverview%2F52nSOS_overview.rst&old=9054%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fde%2Foverview%2F52nSOS_overview.rst
           my $url="http://trac.osgeo.org/osgeo/changeset?new=";
           $url .= $svninfo{'en'}{$dir_file}{'version'};
           $url .= "%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fen%2F";
