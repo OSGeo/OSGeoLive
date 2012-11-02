@@ -98,7 +98,6 @@ foreach (@svnlist) {
 # print: total translated
 # print: total partial
 # print: total complete
-#http://trac.osgeo.org/osgeo/changeset?new=9055%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fde%2Foverview%2F52nSOS_overview.rst&old=9054%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fde%2Foverview%2F52nSOS_overview.rst
 
 &printhtml;
 
@@ -135,11 +134,36 @@ sub printhtml() {
       if (exists $svninfo{$lang}{$dir_file} ) {
         if ($svninfo{$lang}{$dir_file}{'version'} >= $svninfo{"en"}{$dir_file}{'version'}) {
           print '<font color="green">';
+          print "$svninfo{$lang}{$dir_file}{'version'}";
+          print "</font>";
         }else{
-          print '<font color="orangered">';
+
+          # create a URL for the diff in en doc since last translated
+#http://trac.osgeo.org/osgeo/changeset?new=7791%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fca%2Fcopyright.rst&old=6988%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fen%2Fcopyright.rst # correct
+#http://trac.osgeo.org/osgeo/changeset?new=8351%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fca%2F.%2Fcopyright.rst&old=7791%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fca%2F.%2Fcopyright.rst # incorrect
+
+          #http://trac.osgeo.org/osgeo/changeset?new=9055%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fde%2Foverview%2F52nSOS_overview.rst&old=9054%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fde%2Foverview%2F52nSOS_overview.rst
+          my $url="http://trac.osgeo.org/osgeo/changeset?new=";
+          $url .= $svninfo{'en'}{$dir_file}{'version'};
+          $url .= "%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fen%2F";
+          if (!$svninfo{'en'}{$dir_file}{'dir'}=~m/^\.$/) {
+            $url .= $svninfo{'en'}{$dir_file}{'dir'};
+          }
+          $url .= "%2F";
+          $url .= $svninfo{'en'}{$dir_file}{'file'};
+          $url .= "&old=";
+          $url .= $svninfo{$lang}{$dir_file}{'version'};
+          $url .= "%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fen%2F";
+          if (!$svninfo{'en'}{$dir_file}{'dir'}=~m/^\.$/) {
+            $url .= $svninfo{'en'}{$dir_file}{'dir'};
+          }
+          $url .= "%2F";
+          $url .= $svninfo{'en'}{$dir_file}{'file'};
+
+          print "<a href='$url'>";
+          print "$svninfo{$lang}{$dir_file}{'version'}";
+          print "</a>";
         }
-        print "$svninfo{$lang}{$dir_file}{'version'}";
-        print "</font>";
       }
       print "</td>";
     }
