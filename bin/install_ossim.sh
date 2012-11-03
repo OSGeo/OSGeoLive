@@ -31,7 +31,7 @@ sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 sudo apt-get -q update
 
 #temp solution
-apt-get install --assume-yes ossim-core
+#apt-get install --assume-yes ossim-core
 
 # install main dependencies
 apt-get install --assume-yes libtiff4 libgeotiff2 libgdal1-1.9.0 \
@@ -51,8 +51,8 @@ cd /tmp/build_ossim
 
 
 ########## tarball is compiled against the wrong ubuntu ###################
-if [ "false" = "true"  ] ; then
-wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim.tar.gz 
+#if [ "false" = "true"  ] ; then
+wget -N --progress=dot:mega http://epi.whoi.edu/osgeolive/ossim.tar.gz 
 tar -zxf ossim.tar.gz
 mv ossim /usr/local/
 echo "/usr/local/ossim/
@@ -61,7 +61,7 @@ mv ossim.conf /etc/ld.so.conf.d/
 ldconfig
 
 mkdir /usr/share/ossim/
-wget -N --progress=dot:mega http://www.geofemengineering.it/data/ossim_settings.tar.gz 
+wget -N --progress=dot:mega http://epi.whoi.edu/osgeolive/ossim_settings.tar.gz 
 tar -zxf ossim_settings.tar.gz
 mv ossim_settings/* /usr/share/ossim/
 
@@ -154,7 +154,7 @@ EOF
 fi
 
 
-fi
+
 ########### end of commeted out old tarball ###############################
 
 #Install the Manual and Intro guide locally and link them to the description.html
@@ -191,20 +191,19 @@ for ITEM in $RASTER_DATA $KML_DATA $ELEV_DATA $VRT_DATA ; do
 done
 
 
-DATA_URL="http://www.geofemengineering.it/data"
-
-wget --progress=dot:mega $DATA_URL/ossim_data/band1.tif  \
-  --output-document=$RASTER_DATA/band1.tif           
-wget --progress=dot:mega $DATA_URL/ossim_data/band2.tiff  \
-  --output-document=$RASTER_DATA/band2.tif
-wget --progress=dot:mega $DATA_URL/ossim_data/band3.tiff  \
-  --output-document=$RASTER_DATA/band3.tif
-wget --progress=dot:mega $DATA_URL/ossim_data/SRTM_u03_n041e002.tif  \
-  --output-document=$RASTER_DATA/SRTM_u03_n041e002.tif
-wget --progress=dot:mega $DATA_URL/kml/Plaza_de_Cataluna.kmz \
-  --output-document=$KML_DATA/Plaza_de_Cataluna.kmz
-wget --progress=dot:mega $DATA_URL/kml/View_towards_Sagrada_Familia.kmz \
-  --output-document=$KML_DATA/View_towards_Sagrada_Familia.kmz
+DATA_URL="http://epi.whoi.edu/osgeolive/"
+wget --progress=dot:mega $DATA_URL/ossim_data/p011r031_7t19990918_z19_nn10.tif  \
+  --output-document=$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif           
+wget --progress=dot:mega $DATA_URL/ossim_data/p011r031_7t19990918_z19_nn20.tif  \
+  --output-document=$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif
+wget --progress=dot:mega $DATA_URL/ossim_data/p011r031_7t19990918_z19_nn30.tif  \
+  --output-document=$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif
+wget --progress=dot:mega $DATA_URL/ossim_data/SRTM_fB03_p011r031.tif  \
+  --output-document=$RASTER_DATA/SRTM_fB03_p011r031.tif
+#wget --progress=dot:mega $DATA_URL/kml/Plaza_de_Cataluna.kmz \
+#  --output-document=$KML_DATA/Plaza_de_Cataluna.kmz
+#wget --progress=dot:mega $DATA_URL/kml/View_towards_Sagrada_Familia.kmz \
+#  --output-document=$KML_DATA/View_towards_Sagrada_Familia.kmz
 
 #wget --progress=dot:mega $DATA_URL/ossim_data/landsatrgb.prj \
 #     --output-document=$PKG_DATA/landsatrgb.prj
@@ -212,18 +211,19 @@ wget --progress=dot:mega $DATA_URL/kml/View_towards_Sagrada_Familia.kmz \
 #     --output-document=$PKG_DATA/session.session
 
 apt-get --assume-yes install libjpeg62
-ossim-img2rr "$RASTER_DATA/band1.tif" "$RASTER_DATA/band2.tif" "$RASTER_DATA/band3.tif"
+ossim-img2rr "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
+ossim-create-histo "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
 
 
 #COORDS="N40E002 N41E002 N42E002"
 # ? N40 is corrupt and N42 is all zeros ?
-COORDS=" N41E002 "
-for COORD in $COORDS ; do
-   wget --progress=dot:mega "$DATA_URL/ossim_data/elev/$COORD.hgt" \
-        --output-document="/usr/share/ossim/elevation/elev/$COORD.hgt"
-   wget --progress=dot:mega "$DATA_URL/ossim_data/elev/$COORD.omd" \
-        --output-document="/usr/share/ossim/elevation/elev/$COORD.omd"
-done
+#COORDS=" N41E002 "
+#for COORD in $COORDS ; do
+#   wget --progress=dot:mega "$DATA_URL/ossim_data/elev/$COORD.hgt" \
+#        --output-document="/usr/share/ossim/elevation/elev/$COORD.hgt"
+#   wget --progress=dot:mega "$DATA_URL/ossim_data/elev/$COORD.omd" \
+#        --output-document="/usr/share/ossim/elevation/elev/$COORD.omd"
+#done
 
 cp -r "$APP_DATA_DIR" "$QUICKSTART"
 ln -s "$QUICKSTART" "$USER_HOME"/ossim
