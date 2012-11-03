@@ -211,8 +211,8 @@ wget --progress=dot:mega $DATA_URL/ossim_data/SRTM_fB03_p011r031.tif  \
 #     --output-document=$PKG_DATA/session.session
 
 apt-get --assume-yes install libjpeg62
-ossim-img2rr "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
-ossim-create-histo "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
+/usr/local/ossim/bin/ossim-img2rr "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
+/usr/local/ossim/bin/ossim-create-histo "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
 
 
 #COORDS="N40E002 N41E002 N42E002"
