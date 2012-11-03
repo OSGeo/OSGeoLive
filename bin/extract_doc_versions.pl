@@ -32,8 +32,31 @@ my %svninfo;
 my $line;
 
 &extract_svn_info;
-&printhtml;
+#&extract_review_status;
+&print_header;
+&print_summary;
+&print_lang_versions;
+&print_footer;
 
+###############################################################################
+# Print Header html
+###############################################################################
+sub print_header() {
+  print "<html>";
+  print "  <header>";
+  print "    <title>OSGeo-Live Documentation translation status</title>";
+  print "  </header>";
+  print "  <body>";
+  print "    <h1>OSGeo-Live Documentation translation status</h1>";
+}
+
+###############################################################################
+# Print Footer html
+###############################################################################
+sub print_footer() {
+  print "  </body>";
+  print "</html>";
+}
 
 ###############################################################################
 # Extract subversion information for osgeo-live document files and store in
@@ -43,11 +66,11 @@ sub extract_svn_info() {
   # Store the script root directory for later
   my $scriptDir = dirname($0);
 
-  # cd to the svn document directory
-  #chdir("$scriptDir/../doc");
+  #my @svnlist = split(/\n/, `cat list.txt`);
 
-  #my @svnlist = split(/\n/, `svn list -v -R`);
-  my @svnlist = split(/\n/, `cat list.txt`);
+  # cd to the svn document directory
+  chdir("$scriptDir/../doc");
+  my @svnlist = split(/\n/, `svn list -v -R`);
 
   foreach (@svnlist) {
     my $line2=$_;
@@ -79,12 +102,63 @@ sub extract_svn_info() {
 }
 
 ###############################################################################
+# Extract Overview and Quickstart written and review status from Google
+# Spreadsheet
+###############################################################################
+#sub extract_review_status() {
+#  my $csv = Text::CSV->new();
+#  my $google_doc_status_csv="https://docs.google.com/spreadsheet/fm?id=tb3wEK-0iARn5YG2PVH8J-w.07814451320646096110.7232886787060923260&fmcmd=5&gid=13";
+#
+#  open (my $file, "<", $google_doc_status_csv) or die $!;
+#
+#  while (my $line = <$file>) {
+#    my @columns = split(/,/, $line);
+#    print "@columns\n";
+#  }
+#  close $file;
+#}
+
+###############################################################################
+# Summarise tranlation status
+###############################################################################
+sub print_summary() {
+
+  print "<a name='summary'/><h2>Summary</h2>\n";
+  print "<table border='1'>\n";
+  print "<tr><th>language</th><th>Sum up to date</th><th>Sum translated</th></tr>\n";
+
+  # number of english files to translate
+  my $sum_files=scalar keys $svninfo{"en"};
+
+  # loop through languages
+  foreach my $lang (sort keys %svninfo) {
+    # loop through filenames
+    my $translations=0;
+    my $up_to_date=0;
+    foreach my $dir_file (sort keys $svninfo{"en"}) {
+      if (exists $svninfo{$lang}{$dir_file}) {
+        $translations++;
+        if ($svninfo{$lang}{$dir_file}{'version'} >= $svninfo{"en"}{$dir_file}{'version'}) {
+          $up_to_date++;
+        }
+      }
+    }
+    my $translations_percent=int($translations*100/$sum_files);
+    my $up_to_date_percent=int($up_to_date*100/$sum_files);
+    print "<tr><td>$lang</td><td>$up_to_date ... $up_to_date_percent%</td>";
+    print "<td>$translations ... $translations_percent%</td></tr>\n";
+  }
+  print "</table>\n";
+}
+
+###############################################################################
 # Print table showing file versions for each language
 ###############################################################################
-sub printhtml() {
+sub print_lang_versions() {
 
+  print "<a name='lang_versions'/><h2>Per file translation status</h2>\n";
   print "<table border='1'>\n";
-  print "<tr><th>dir/file</th><th>date</th><th>en</th>";
+  print "<tr><th>dir/file</th><th>date</th><th>en</th>\n";
   foreach my $lang (sort keys %svninfo) {
     $lang =~ /en/ && next;
     print "<th>$lang</th>";
@@ -149,5 +223,5 @@ sub printhtml() {
     }
     print "</tr>\n";
   }
-  print "\n</table>\n";
+  print "</table>\n";
 }
