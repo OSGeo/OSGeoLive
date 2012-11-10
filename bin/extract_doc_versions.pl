@@ -128,14 +128,14 @@ sub print_summary() {
   print "<tr><th>language</th><th>Sum up to date</th><th>Sum translated</th></tr>\n";
 
   # number of english files to translate
-  my $sum_files=scalar keys $svninfo{"en"};
+  my $sum_files=scalar keys %{$svninfo{"en"}};
 
   # loop through languages
   foreach my $lang (sort keys %svninfo) {
     # loop through filenames
     my $translations=0;
     my $up_to_date=0;
-    foreach my $dir_file (sort keys $svninfo{"en"}) {
+    foreach my $dir_file (sort keys %{$svninfo{"en"}}) {
       if (exists $svninfo{$lang}{$dir_file}) {
         $translations++;
         if ($svninfo{$lang}{$dir_file}{'version'} >= $svninfo{"en"}{$dir_file}{'version'}) {
@@ -166,7 +166,7 @@ sub print_lang_versions() {
   print "</tr>\n";
 
   # loop through filenames
-  foreach my $dir_file (sort keys $svninfo{"en"}) {
+  foreach my $dir_file (sort keys %{$svninfo{"en"}}) {
 
     # print file/dir and url
     my $html_file=$svninfo{'en'}{$dir_file}{'file'};
