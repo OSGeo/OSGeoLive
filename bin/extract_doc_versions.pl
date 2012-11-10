@@ -3,6 +3,7 @@
 # 
 # Purpose: Provide translation status of OSGeoLive docs, extracted from svn
 # Author:  Cameron Shorter
+# Usage: extract_doc_versions -o outputfile.html
 #
 ###############################################################################
 # Copyright (c) 2012 Open Source Geospatial Foundation (OSGeo)
@@ -25,11 +26,20 @@
 use strict;
 use warnings;
 use File::Basename;
+use Getopt::Std;
 
 # initialise variables
 my $osgeolive_docs_url="http://adhoc.osgeo.osuosl.org/livedvd/docs/";
 my %svninfo;
 my $line;
+
+# Get output file from the -o option, otherwise print to stdout
+my %options=();
+getopts("o:", \%options);
+my $outfile = *STDOUT;
+if ($options{o}) {
+  open $outfile, ">", $options{o} || die "can't open output file $options{o}: $!\n";
+}
 
 &extract_svn_info;
 #&extract_review_status;
@@ -42,20 +52,20 @@ my $line;
 # Print Header html
 ###############################################################################
 sub print_header() {
-  print "<html>";
-  print "  <header>";
-  print "    <title>OSGeo-Live Documentation translation status</title>";
-  print "  </header>";
-  print "  <body>";
-  print "    <h1>OSGeo-Live Documentation translation status</h1>";
+  print $outfile "<html>\n";
+  print $outfile "  <head>\n";
+  print $outfile "    <title>OSGeo-Live Documentation translation status</title>\n";
+  print $outfile "  </head>\n";
+  print $outfile "  <body>\n";
+  print $outfile "    <h1>OSGeo-Live Documentation translation status</h1>\n";
 }
 
 ###############################################################################
 # Print Footer html
 ###############################################################################
 sub print_footer() {
-  print "  </body>";
-  print "</html>";
+  print $outfile "  </body>";
+  print $outfile "</html>";
 }
 
 ###############################################################################
@@ -70,6 +80,9 @@ sub extract_svn_info() {
 
   # cd to the svn document directory
   chdir("$scriptDir/../doc");
+
+  # update to the latest version of docs
+  `svn update`;
   my @svnlist = split(/\n/, `svn list -v -R`);
 
   foreach (@svnlist) {
@@ -123,9 +136,9 @@ sub extract_svn_info() {
 ###############################################################################
 sub print_summary() {
 
-  print "<a name='summary'/><h2>Summary</h2>\n";
-  print "<table border='1'>\n";
-  print "<tr><th>language</th><th>Sum up to date</th><th>Sum translated</th></tr>\n";
+  print $outfile "<a name='summary'/><h2>Summary</h2>\n";
+  print $outfile "<table border='1'>\n";
+  print $outfile "<tr><th>language</th><th>Sum up to date</th><th>Sum translated</th></tr>\n";
 
   # number of english files to translate
   my $sum_files=scalar keys %{$svninfo{"en"}};
@@ -145,25 +158,25 @@ sub print_summary() {
     }
     my $translations_percent=int($translations*100/$sum_files);
     my $up_to_date_percent=int($up_to_date*100/$sum_files);
-    print "<tr><td>$lang</td><td>$up_to_date ... $up_to_date_percent%</td>";
-    print "<td>$translations ... $translations_percent%</td></tr>\n";
+    print $outfile "<tr><td>$lang</td><td>$up_to_date ... $up_to_date_percent%</td>";
+    print $outfile "<td>$translations ... $translations_percent%</td></tr>\n";
   }
-  print "</table>\n";
+  print $outfile "</table>\n";
 }
 
 ###############################################################################
-# Print table showing file versions for each language
+# print table showing file versions for each language
 ###############################################################################
 sub print_lang_versions() {
 
-  print "<a name='lang_versions'/><h2>Per file translation status</h2>\n";
-  print "<table border='1'>\n";
-  print "<tr><th>dir/file</th><th>date</th><th>en</th>\n";
+  print $outfile "<a name='lang_versions'/><h2>Per file translation status</h2>\n";
+  print $outfile "<table border='1'>\n";
+  print $outfile "<tr><th>dir/file</th><th>date</th><th>en</th>\n";
   foreach my $lang (sort keys %svninfo) {
     $lang =~ /en/ && next;
-    print "<th>$lang</th>";
+    print $outfile "<th>$lang</th>";
   }
-  print "</tr>\n";
+  print $outfile "</tr>\n";
 
   # loop through filenames
   foreach my $dir_file (sort keys %{$svninfo{"en"}}) {
@@ -171,28 +184,28 @@ sub print_lang_versions() {
     # print file/dir and url
     my $html_file=$svninfo{'en'}{$dir_file}{'file'};
     $html_file=~s#.rst$#.html#;
-    print "<tr><td>";
-    print "<a href='$osgeolive_docs_url/en/";
-    print "$svninfo{'en'}{$dir_file}{'dir'}/$html_file'>";
-    print "$dir_file</a></td>";
+    print $outfile "<tr><td>";
+    print $outfile "<a href='$osgeolive_docs_url/en/";
+    print $outfile "$svninfo{'en'}{$dir_file}{'dir'}/$html_file'>";
+    print $outfile "$dir_file</a></td>";
 
     # print date
-    print "<td>$svninfo{'en'}{$dir_file}{'date'}</td>";
+    print $outfile "<td>$svninfo{'en'}{$dir_file}{'date'}</td>";
 
     # print english version
-    print "<td>$svninfo{'en'}{$dir_file}{'version'}</td>";
+    print $outfile "<td>$svninfo{'en'}{$dir_file}{'version'}</td>";
 
     # loop through languages
     foreach my $lang (sort keys %svninfo) {
       $lang =~ /en/ && next;
 
       # print language's version
-      print "<td>";
+      print $outfile "<td>";
       if (exists $svninfo{$lang}{$dir_file} ) {
         if ($svninfo{$lang}{$dir_file}{'version'} >= $svninfo{"en"}{$dir_file}{'version'}) {
-          print '<font color="green">';
-          print "$svninfo{$lang}{$dir_file}{'version'}";
-          print "</font>";
+          print $outfile '<font color="green">';
+          print $outfile "$svninfo{$lang}{$dir_file}{'version'}";
+          print $outfile "</font>";
         }else{
 
           # create a URL for the diff in en doc since last translated
@@ -214,14 +227,14 @@ sub print_lang_versions() {
           $url .= "%2F";
           $url .= $svninfo{'en'}{$dir_file}{'file'};
 
-          print "<a href='$url'>";
-          print "$svninfo{$lang}{$dir_file}{'version'}";
-          print "</a>";
+          print $outfile "<a href='$url'>";
+          print $outfile "$svninfo{$lang}{$dir_file}{'version'}";
+          print $outfile "</a>";
         }
       }
-      print "</td>";
+      print $outfile "</td>";
     }
-    print "</tr>\n";
+    print $outfile "</tr>\n";
   }
-  print "</table>\n";
+  print $outfile "</table>\n";
 }
