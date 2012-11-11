@@ -58,6 +58,9 @@ sub print_header() {
   print $outfile "  </head>\n";
   print $outfile "  <body>\n";
   print $outfile "    <h1>OSGeo-Live Documentation translation status</h1>\n";
+  print $outfile "    <p>Help translate - <a href='http://wiki.osgeo.org/wiki/Live_GIS_Translate'>click here!</a></p>\n";
+  print $outfile "    <p><b>Last Updated:</b> ", `date`;
+  print $outfile ". This page is calculated from document version numbers in subversion.</p>\n";
 }
 
 ###############################################################################
@@ -170,6 +173,7 @@ sub print_summary() {
 sub print_lang_versions() {
 
   print $outfile "<a name='lang_versions'/><h2>Per file translation status</h2>\n";
+  print $outfile "<p>Hyperlinks point to the difference in the English document since last translated.</p>\n";
   print $outfile "<table border='1'>\n";
   print $outfile "<tr><th>dir/file</th><th>date</th><th>en</th>\n";
   foreach my $lang (sort keys %svninfo) {
