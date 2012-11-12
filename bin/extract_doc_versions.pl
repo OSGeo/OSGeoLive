@@ -217,18 +217,18 @@ sub print_lang_versions() {
           my $url="http://trac.osgeo.org/osgeo/changeset?new=";
           $url .= $svninfo{'en'}{$dir_file}{'version'};
           $url .= "%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fen%2F";
-          if (!$svninfo{'en'}{$dir_file}{'dir'}=~m/^\.$/) {
+          if (!($svninfo{'en'}{$dir_file}{'dir'} eq ".")) {
             $url .= $svninfo{'en'}{$dir_file}{'dir'};
+            $url .= "%2F";
           }
-          $url .= "%2F";
           $url .= $svninfo{'en'}{$dir_file}{'file'};
           $url .= "&old=";
           $url .= $svninfo{$lang}{$dir_file}{'version'};
           $url .= "%40livedvd%2Fgisvm%2Ftrunk%2Fdoc%2Fen%2F";
-          if (!$svninfo{'en'}{$dir_file}{'dir'}=~m/^\.$/) {
+          if (!($svninfo{'en'}{$dir_file}{'dir'} eq ".")) {
             $url .= $svninfo{'en'}{$dir_file}{'dir'};
+            $url .= "%2F";
           }
-          $url .= "%2F";
           $url .= $svninfo{'en'}{$dir_file}{'file'};
 
           print $outfile "<a href='$url'>";
@@ -242,3 +242,4 @@ sub print_lang_versions() {
   }
   print $outfile "</table>\n";
 }
+
