@@ -123,12 +123,12 @@ sub extract_svn_info() {
 ###############################################################################
 #sub extract_review_status() {
 #  my $csv = Text::CSV->new();
-#  my $google_doc_status_csv="https://docs.google.com/spreadsheet/fm?id=tb3wEK-0iARn5YG2PVH8J-w.07814451320646096110.7232886787060923260&fmcmd=5&gid=13";
+#  my $google_doc_status_csv="https://docs.google.com/feeds/download/spreadsheets/Export?exportFormat=tsv&key=0Al9zh8DjmU_RdGIzd0VLLTBpQVJuNVlHMlBWSDhKLXc#gid=13"
 #
 #  open (my $file, "<", $google_doc_status_csv) or die $!;
 #
 #  while (my $line = <$file>) {
-#    my @columns = split(/,/, $line);
+#    my @columns = split(/\t/, $line);
 #    print "@columns\n";
 #  }
 #  close $file;
@@ -149,20 +149,19 @@ sub print_summary() {
   # loop through languages
   foreach my $lang (sort keys %svninfo) {
     # loop through filenames
-    my $translations=0;
     my $up_to_date=0;
-    foreach my $dir_file (sort keys %{$svninfo{"en"}}) {
+    foreach my $dir_file (keys %{$svninfo{"en"}}) {
       if (exists $svninfo{$lang}{$dir_file}) {
-        $translations++;
         if ($svninfo{$lang}{$dir_file}{'version'} >= $svninfo{"en"}{$dir_file}{'version'}) {
           $up_to_date++;
         }
       }
     }
+    my $translations=scalar keys $svninfo{$lang};
     my $translations_percent=int($translations*100/$sum_files);
     my $up_to_date_percent=int($up_to_date*100/$sum_files);
-    print $outfile "<tr><td>$lang</td><td>$up_to_date ... $up_to_date_percent%</td>";
-    print $outfile "<td>$translations ... $translations_percent%</td></tr>\n";
+    print $outfile "<tr><td>$lang</td><td>$up_to_date ($up_to_date_percent%)</td>";
+    print $outfile "<td>$translations ($translations_percent%)</td></tr>\n";
   }
   print $outfile "</table>\n";
 }
