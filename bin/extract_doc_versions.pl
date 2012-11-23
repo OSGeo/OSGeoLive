@@ -157,7 +157,7 @@ sub print_summary() {
         }
       }
     }
-    my $translations=scalar keys $svninfo{$lang};
+    my $translations=scalar keys %{$svninfo{$lang}};
     my $translations_percent=int($translations*100/$sum_files);
     my $up_to_date_percent=int($up_to_date*100/$sum_files);
     print $outfile "<tr><td>$lang</td><td>$up_to_date ($up_to_date_percent%)</td>";
