@@ -63,8 +63,12 @@ OSM_FILE="/usr/local/share/data/osm/feature_city.osm.bz2"
 #fi
 
 ### create DB and populate it
-sudo -u $POSTGRES_USER createdb --template=template_postgis osm_local
-sudo -u $POSTGRES_USER createdb --template=template_postgis osm_local_smerc
+###  PostGIS 2.0 no longer needs a template, use the extension mechanism instead
+sudo -u $POSTGRES_USER createdb osm_local
+sudo -u $POSTGRES_USER createdb osm_local_smerc
+sudo -u $POSTGRES_USER psql osm_local -c 'create extension postgis;'
+sudo -u $POSTGRES_USER psql osm_local_smerc -c 'create extension postgis;'
+
 
 # v3 - simplified the script, was too hard to debug with all the commands
 #  attempting to be piped continuously with each other
