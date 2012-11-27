@@ -30,6 +30,7 @@ echo "==============================================================="
 
 TMP="/tmp/build_gisdata"
 DATA_FOLDER="/usr/local/share/data"
+NE2_DATA_FOLDER="$DATA_FOLDER/natural_earth2"
 POSTGRES_USER="user"
  
 ## Setup things... ##
@@ -59,8 +60,9 @@ cd "$TMP"
 
 ##################################
 # Download natural earth datasets:
+#  nov12: data 2.0 to postgis 2.0
 
-mkdir -p "$DATA_FOLDER/natural_earth"
+mkdir -p "$NE2_DATA_FOLDER"
 
 BASE_URL="http://www.naturalearthdata.com"
 
@@ -107,11 +109,11 @@ physical/$SCALE-rivers-lake-centerlines
 	done
 
 else
-    ## live 4.5b1 process hack
-    wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/nearth/all_10m_cleaned_renamed.tgz
-    tar xzf all_10m_cleaned_renamed.tgz
-    for tDir in 10m_*; do
-      mv $tDir/* "$DATA_FOLDER/natural_earth/"
+    ## use a pre-built vectors set rather than naturalearthdata URLs
+    wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/natural_earth2/all_10m_20.tgz
+    tar xzf all_10m_20.tgz
+    for tDir in ne_10m_*; do
+      mv $tDir/* "$NE2_DATA_FOLDER"
     done
 fi
 
@@ -119,33 +121,34 @@ fi
 RFILE="HYP_50M_SR_W.zip"
 wget -c --progress=dot:mega \
 	"$BASE_URL/http//www.naturalearthdata.com/download/50m/raster/$RFILE"
-unzip "$RFILE" -d "$DATA_FOLDER/natural_earth"
+unzip "$RFILE" -d "$NE2_DATA_FOLDER"
 
 ##--------------------------------
 if [ $HAS_ATLASSTYLER = 1 ]; then
   # Add Geotools .fix and .qix files to all Shapefiles. Normally Geotools application would create these
   # files when opeing the Shapefile, but since the data-dir is read-only, we do it here. 
   # This REQUIRES that install_atlasstyler.sh has been executed before (which is checked above)
-  find "$DATA_FOLDER/natural_earth" -iname "*.shp" -exec atlasstyler "addFix={}" \;
+  find "$NE2_DATA_FOLDER" -iname "*.shp" -exec atlasstyler "addFix={}" \;
 fi
 
 ##--------------------------------
-chmod a+r "$DATA_FOLDER/natural_earth"     ## read the data dir
-chmod 444  $DATA_FOLDER/natural_earth/*    ##  and all files in it
-chmod -R +X "$DATA_FOLDER/natural_earth"   ## but keep x on directories
+chmod a+r "$NE2_DATA_FOLDER"     ## read the data dir
+chmod 444  $NE2_DATA_FOLDER/*    ##  and all files in it
+chmod -R +X "$NE2_DATA_FOLDER"   ## but keep x on directories
 
 ##--------------------------------------
-## load natural earth data into postgis
+## load natural earth 2 data into postgis 2
 
-SRC_DIR="$DATA_FOLDER/natural_earth"
-sudo -u $POSTGRES_USER createdb natural_earth -T template_postgis
+SRC_DIR="$NE2_DATA_FOLDER"
+sudo -u $POSTGRES_USER createdb natural_earth2
+sudo -u $POSTGRES_USER psql natural_earth2 -c 'create extension postgis;'
 
 for n in $SRC_DIR/*shp;
 do
-  shp2pgsql -W LATIN1 -s 4326 -I -g the_geom $n | sudo -u $POSTGRES_USER psql --quiet natural_earth
+  shp2pgsql -W LATIN1 -s 4326 -I -g the_geom $n | sudo -u $POSTGRES_USER psql --quiet natural_earth2
 done
 
-sudo -u $POSTGRES_USER psql natural_earth --quiet -c "vacuum analyze"
+sudo -u $POSTGRES_USER psql natural_earth2 --quiet -c "vacuum analyze"
 
 
 
