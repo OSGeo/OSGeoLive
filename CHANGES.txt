@@ -1,6 +1,12 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.5alpha2
+===================
+
+ * Move to PostGIS 2.0
+ * Upgraded pycsw to 1.4.0
+
 Version 6.5alpha1
 ===================
 
