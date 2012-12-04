@@ -1,6 +1,11 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.5alpha3
+===================
+
+ * Fixed PostGIS 2.0
+
 Version 6.5alpha2
 ===================
 
