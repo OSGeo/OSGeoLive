@@ -81,7 +81,7 @@ export USER_NAME
 ./install_apache2.sh
 ./install_tomcat6.sh
 
-# ./install_geoserver.sh
+./install_geoserver.sh
 # ./install_geomajas.sh
 # ./install_geonetwork.sh
 # ./install_deegree.sh
@@ -89,18 +89,18 @@ export USER_NAME
 # ./install_kosmo.sh
 # ./install_udig.sh
 # ./install_openjump.sh
-# ./install_postgis.sh
+./install_postgis.sh
 # ./install_osm.sh
-# ./load_postgis.sh
-# ./install_pgrouting.sh
+./load_postgis.sh
+./install_pgrouting.sh
 # ./install_sahana.sh
 # ./install_ushahidi.sh
-# ./install_mapserver.sh
-# ./install_mapbender.sh
+./install_mapserver.sh
+./install_mapbender.sh
 # ./install_geokettle.sh
 # ./install_gmt.sh
-# ./install_grass.sh
-# ./install_qgis.sh
+./install_grass.sh
+./install_qgis.sh
 # ./install_qgis_mapserver.sh
 # ./install_saga.sh
 # ./install_mapnik.sh
