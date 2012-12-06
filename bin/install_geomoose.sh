@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c) 2009-2010 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -21,6 +21,8 @@
 # =======
 # sudo ./install_geomoose.sh
 
+# Requires: Apache2, PHP5, MapServer
+
 echo "==============================================================="
 echo "install_geomoose.sh"
 echo "==============================================================="
@@ -36,15 +38,11 @@ mkdir -p /tmp/build-geomoose
 
 cd /tmp/build-geomoose
 
-# Download and extract GeoMOOSE 2.4
+## Download and extract GeoMOOSE 2.6.1
 wget -c --progress=dot:mega \
-   "http://www.geomoose.org/downloads/geomoose-2.4.tar.gz"
-wget -c -nv \
-   "http://www.geomoose.org/downloads/geomoose-2.4-mapserver-6.patch"
-wget -c -nv \
-   "http://www.geomoose.org/downloads/geomoose-2.4-mapbook.xml.in.r2.patch"
+   "http://www.geomoose.org/downloads/geomoose-2.6.1-livedemo.tar.gz"
 
-tar -xzf geomoose-2.4.tar.gz
+tar -xzf geomoose-2.6.1-livedemo.tar.gz
 
 rm -rf /usr/local/geomoose
 
@@ -54,43 +52,35 @@ cd /usr/local/geomoose
 
 mv /tmp/build-geomoose/geomoose*/* .
 
-# Setup htdocs directory to be available to apache
+## Setup htdocs directory to be available to apache
 ln -s /usr/local/geomoose/htdocs /var/www/geomoose
 
-# Patch GeoMOOSE State Demo layer to work with MapServer 6.x
-# Patches are submitted upstream and will likely be included
-# (or their equivlent) in GeoMOOSE 2.6.
-patch -p1 < /tmp/build-geomoose/geomoose-2.4-mapserver-6.patch
-patch -p1 < /tmp/build-geomoose/geomoose-2.4-mapbook.xml.in.r2.patch
+## Configure GeoMOOSE 2.6.1
+cat > /usr/local/geomoose/conf/local_settings.ini <<'EOF'
+[paths]
+root=/usr/local/geomoose/maps/
+mapserver_url=/cgi-bin/mapserv
+temp=/tmp/
+EOF
 
-# Configure GeoMOOSE 2.4 (Builds configuration files from templates)
-./configure --with-url-path=/geomoose --with-temp-directory=/tmp/ \
-   --with-mapfile-root=/usr/local/geomoose/maps/
+cat > /usr/local/geomoose/maps/temp_directory.map <<'EOF'
+# This file is used to configure temporary directories for Mapserver Mapfile
+
+IMAGEPATH "/tmp/"
+
+# Remove the "#" before the next "IMAGEPATH" statement if you are using MS4W
+# IMAGEPATH "/ms4w/tmp/ms_tmp/"
+EOF
 
 ## Install icon
 base64 -d > /usr/share/icons/geomoose.png <<'EOF'
-iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAAXNSR0IArs4c6QAAAmRQTFRFXy4A
-US0EViwAWC0AVC8HWi8CVTAIXi4DYC4AWzAAVjEJYS8AXDEAXDEEYjAAWDMEXTIAXjIAQjcjYzEA
-XjIGWTQFXzMAZDIBYDQAWzUHWjUNZTMCYTUBZjQAXTYIZjQDZzUAaDUAXTcQaTYAXzgKajcAYToM
-bDgASj4qWzsXYDoTYjsNYTsTXDwYTEAsYjwUZDwPXz0UYzwVXj0abzsAdToAYz0bcDwAdjsAZT4X
-cT0AT0MvNkhSTkQ0UEQveD0APklKUUYxej8BZEMfUUc3e0ACZkQaUkc4a0MbU0g5ZkUhTko5SUpI
-VEk6T0s6VUo7UU07akgkV0w8bEomWU4+bUsnVFFFcE4vT1dTWldKW1hLXFtTX11QTWNnYWFZYmFa
-Z2RXYGllaWhgYWplX2tsamlhY2xnY29wZHBxb25mcG9nYXN+b3FuaHR1anZ2XnmCa3d3bHh4b3hz
-YXyFcnt2eHp3cn5+Z4KLZIOSdYGBdomVbYybgYiQh4mGc46YgIyNcpGgiJGMgpWhhpWbfJurdZ23
-g56of5+ufaG2gaGwfqK3j5+ljaCrf6O4kKCmg6e8mamvha7Ihq/Jh7DLirLNkrHBmbDBi7POkbXK
-jrbRj7fSkLjTorbCjbvbkrvWjrzciL/ej73enrrRicDfkL7fisHgkr/glr/ajMPioL/PlMHimcLd
-nsLXm8PenMTfocXbnsbiosbco8fdpMjepcnfpsrgp8zhqM3isMzkqs7ktc3fr8/frNDmts7gt8/h
-uNDir9PputHjvdHdu9LkvtLetdXlvNPlv9PfwdXiu9fivNjjvdnxDgmrswAAAAF0Uk5TAEDm2GYA
-AAIUSURBVEjHY2AYBaNgFIyCwQa4GElQrAvEYsLEq+cXBxLSyixAa1DEyydNmegf1puN6hIgllDn
-ZVBSVg9nYJB3Q5Kq62ravGVbjnXnRGQNwlIMDHxWHgxmyurGDKHKrAwMvBAJIU/HkEV7tu/oi9+8
-dn4xREyUgSFYmQ+kQY3BSFndmUFTnQnIkwTJRfh6uzQfSO0+eGzvti3rFkM08GkxsCkLgDRYMhhK
-W7EyMJtKMwRKi3kB5dI8vX2tS0Iya08c37dt2/JZIPU6ypIMKlbiDMbKVgbAULJXllN3shIRszBV
-lhZuj/IGAt+ExpOnTu3bvXnDzCpubml1J/FQZVcrNTF7dSOgdgkJCTExMRApyM47P9Lb29PT/wRQ
-/alD+zZv6ZjIKyYhJiwuLszHJywuLIYR0svSPR1rSuecOnXyxKmD+7Zs6QrCHzMZyxYXaqzct/cQ
-0IIje3dt3pbsn4xXQ8qyZZvXl5WePnb04L69e7dt3twSkEtAw+J1mzcXZUXFJE3Yu33zlo2TCgik
-lgXLlm3ZvH2qt6+nbWXPmi3Lly0moGHesmVrt2zZ5O8LDFy9aWuXLZ5FQEP+ssXL1m7est3T09O6
-fsOyZUtjCaXgScuAYN3mIPe4GSuAmqcTTvPzlwHVzXfJA1HL5vsQkUuA3lg2O3oBUPmyWcTlq4ZV
-y+a2Llu8eFkF0VnRobytv9pmqJRKABe7tCLpv/eEAAAAAElFTkSuQmCC
+iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAMAAABg3Am1AAAAAXNSR0IArs4c6QAAADZQTFRFAAAA
+bL1FbL1Gbb1Ebb1FbL5FbL5Gbb5Ebb5Fbb5Gbr5Fbr5GbL9Gbb9Ebb9Fbb9Gbr9Fbr9GOFtz2wAA
+AAF0Uk5TAEDm2GYAAAABYktHRACIBR1IAAAAyklEQVRIx+2TwRKCMAxEV03oFgTx/3/WQy1QTKjo
+jOOBXNpJ92WbTAt8HWGnnrTTnl7Iu5FuSdeAvZN3AQDh5TQ6gCZgZaMKkOIY0OichNoWCRASwKVM
+8+YDT5s4lT9v9Zwi20xJVIBumDW+HADQaYZOSS5s6+9JEpJXat9UoeYaWIZUn+E6xuJYQ54j0KoG
+GmGO06y9JoqUeOoo1m3FqC/V7tyrvwdgJxCNz/ShQT/Oog09FrPI22beDpt/YFHVNziAAziAnwL/
+Fg+Ynx6BGPtddgAAAABJRU5ErkJggg==
 EOF
 
 ## Install menu and desktop shortcuts
@@ -111,7 +101,7 @@ EOF
 cp /usr/share/applications/GeoMOOSE.desktop "$USER_HOME"/Desktop/
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/GeoMOOSE.desktop"
 
-# share data with the rest of the disc
+## share data with the rest of the disc
 mkdir -p /usr/local/share/data/vector
 ln -s /usr/local/geomoose/maps/demo \
       /usr/local/share/data/vector/geomoose
