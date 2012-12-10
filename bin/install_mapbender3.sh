@@ -88,17 +88,17 @@ if [ ! -f "$INSTALLFILE.tar.gz" ] ; then
 else
     echo "... Mapbender3 already downloaded"
 fi
-if [ ! -f "$INSTALLFILE_parameters.yml" ] ; then 
-   wget -O $INSTALLFILE_parameters.yml --progress=dot:mega \
-      "$INSTALLURL/$INSTALLFILE_parameters.yml"
+if [ ! -f "${INSTALLFILE}_parameters.yml" ] ; then 
+   wget -O ${INSTALLFILE}_parameters.yml --progress=dot:mega \
+      "$INSTALLURL/${INSTALLFILE}_parameters.yml"
 else
     echo "... Mapbender3 yml already downloaded"
 fi
 
 # uncompress mapbender
 tar xfz "$INSTALLFILE.tar.gz"
-rm -rf "$INSTALL_DIR/mapbender3"
-cp -R "$INSTALLFILE/$INSTALLFILE" "$INSTALL_DIR/"
+#rm -rf "$INSTALL_DIR/$INSTALLFILE"
+cp -R "$INSTALLFILE" "$INSTALL_DIR/"
 mv "$INSTALL_DIR/$INSTALLFILE" "$INSTALL_DIR/mapbender3"
 chmod -R uga+r "$INSTALL_DIR/mapbender3"
 chown -R www-data:www-data "$INSTALL_DIR/mapbender3"
@@ -106,7 +106,7 @@ chown -R www-data:www-data "$INSTALL_DIR/mapbender3"
 
 # create mapbender database
 cd "$INSTALL_DIR/mapbender3/"
-cp "$TMP_DIR/$INSTALLFILE_parameters.yml" "$INSTALL_DIR/mapbender3/app/config/parameters.yml"
+cp "$TMP_DIR/${INSTALLFILE}_parameters.yml" "$INSTALL_DIR/mapbender3/app/config/parameters.yml"
 
 app/console doctrine:database:create
 app/console doctrine:schema:create
