@@ -1,54 +1,127 @@
 #!/bin/sh
 # gvSIG.sh
 
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
+###########################################
+# Variables depending on the installation #
+###########################################
+
+# Java home
+#select JRE
+if [ -d "/usr/lib/jvm/java-7-openjdk-i386" ]; then
+        echo "OpenJDK 7 (i386) found"
+        export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-i386"
+elif [ -d "/usr/lib/jvm/java-7-openjdk" ]; then
+        echo "OpenJDK 7 found"
+        export JAVA_HOME="/usr/lib/jvm/java-7-openjdk"
+elif [ -d "/usr/lib/jvm/java-6-openjdk" ]; then
+        echo "OpenJDK 6 found"
+        export JAVA_HOME="/usr/lib/jvm/java-6-openjdk"
+elif [ -d "/usr/lib/jvm/java-6-sun" ]; then
+        echo "Sun JRE found"
+        export JAVA_HOME="/usr/lib/jvm/java-6-sun"
+else
+        echo "JRE not found, using default"
 fi
-USER_HOME="/home/$USER_NAME"
 
-export GVSIG_LIBS="/opt/gvSIG_1.11/libs/"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$GVSIG_LIBS"
-export PROJ_LIB="/opt/gvSIG_1.11/bin/gvSIG/extensiones/org.gvsig.crs/data"
-export GDAL_DATA="$GVSIG_LIBS/gdal_data"
-cd "/opt/gvSIG_1.11/bin"
-
-#copy default symbology
-if [ ! -d "$USER_HOME/gvSIG/Styles" ]; then 
-    echo "Styles not found"
-    cp -r gvSIG/extensiones/org.gvsig.extended-symbology/default_symbology/Styles \
-          "$USER_HOME/gvSIG"
-fi 
-if [ ! -d "$USER_HOME/gvSIG/Symbols" ]; then 
-    echo "Symbols not found"
-    cp -r gvSIG/extensiones/org.gvsig.extended-symbology/default_symbology/Symbols \
-          "$USER_HOME/gvSIG"
-fi 
+# gvSIG installation folder
+GVSIG_HOME='/opt/gvSIG_1.12'
 
 
+# gdal data files
+# Don't need to set it, as it is defined by default by the linux or mac packages
+#export GDAL_DATA="/usr/share/gdal15/"
+
+###################################################################
+# Variables not depending (at least directly) on the installation #
+###################################################################
+
+# gvSIG native libraries location 
+#GVSIG_NATIVE_DEPMAN_LIBS="${HOME}/.depman/lib"
+#GVSIG_NATIVE_BINARIES_LIBS="/home/cordin/projects/gvsig/svn/gvSIG-2.0/binaries/linux/"
+#GVSIG_NATIVE_LIBS="${GVSIG_NATIVE_DEPMAN_LIBS}:${GVSIG_NATIVE_BINARIES_LIBS}"
+GVSIG_NATIVE_LIBS=${GVSIG_HOME}/native:${HOME}/.depman/lib
+
+# Proj4 data files
+export PROJ_LIB="${GVSIG_HOME}/gvSIG/extensiones/org.gvsig.crs/data"
+
+# GDAL data files
+export GDAL_DATA="${GVSIG_HOME}/data/gdal"
+
+# Native libraries path
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$GVSIG_NATIVE_LIBS"
+
+# Go into the gvSIG installation folder, just in case
+cd "${GVSIG_HOME}"
+
+# Load gvSIG Andami jars and dependencies for the classpath 
 for i in ./lib/*.jar ; do
   LIBRARIES=$LIBRARIES:"$i"
 done
 for i in ./lib/*.zip ; do
   LIBRARIES=$LIBRARIES:"$i"
 done
+LIBRARIES=$LIBRARIES:andami.jar
 
-#select JRE
-if [ -d "/usr/lib/jvm/java-6-openjdk" ]; then
-        echo "OpenJDK found"
-        export PATH="/usr/lib/jvm/java-6-openjdk/bin:$PATH"
-elif [ -d "/usr/lib/jvm/java-6-sun" ]; then
-        echo "Sun JRE found"
-        export PATH="/usr/lib/jvm/java-6-sun/bin:$PATH"
-else
-        echo "JRE not found, using default"
-fi
+# echo Initial libraries found: ${LIBRARIES}
 
-if [ -e "$USER_HOME/gvSIG/sample-project.gvp" ]; then
-	java -Djava.library.path=/usr/lib:"/opt/gvSIG_1.11/libs" \
-	     -cp andami.jar$LIBRARIES -Xmx500M com.iver.andami.Launcher \
-	     gvSIG gvSIG/extensiones "$USER_HOME/gvSIG/sample-project.gvp" 
+# gvSIG Andami launcher
+GVSIG_LAUNCHER=org.gvsig.andamiupdater.Updater
+
+# gvSIG initial classpath
+GVSIG_CLASSPATH=$LIBRARIES
+
+########################
+# Memory configuration #
+########################
+
+# Initial gvSIG memory (M=Megabytes, G=Gigabytes)
+GVSIG_INITIAL_MEM=128M
+# Maximum gvSIG memory (M=Megabytes, G=Gigabytes)
+GVSIG_MAX_MEM=512M
+# Maximum permanent memory size: needed to load classes and statics
+GVSIG_MAX_PERM_SIZE=96M
+
+################
+# Launch gvSIG #
+################
+
+# Temporary fix for number locale related formatting error with proj4.
+export LC_NUMERIC=C
+
+# For Java parameters documentation and more parameters look at:
+# http://download.oracle.com/javase/6/docs/technotes/tools/windows/java.html
+# http://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html
+
+if [ -f /home/$USER/gvSIG/sample-project.gvp ]; then
+  echo Launching gvSIG: ${JAVA_HOME}/bin/java \
+    -Djava.library.path=/usr/lib:"${GVSIG_NATIVE_LIBS}" \
+    -cp $GVSIG_CLASSPATH \
+    -Xms${GVSIG_INITIAL_MEM} \
+    -Xmx${GVSIG_MAX_MEM} \
+    -XX:MaxPermSize=${GVSIG_MAX_PERM_SIZE} \
+    $GVSIG_LAUNCHER gvSIG gvSIG/extensiones "/home/$USER/gvSIG/sample-project.gvp"
+
+  ${JAVA_HOME}/bin/java \
+    -Djava.library.path=/usr/lib:"${GVSIG_NATIVE_LIBS}" \
+    -cp $GVSIG_CLASSPATH \
+    -Xms${GVSIG_INITIAL_MEM} \
+    -Xmx${GVSIG_MAX_MEM} \
+    -XX:MaxPermSize=${GVSIG_MAX_PERM_SIZE} \
+    $GVSIG_LAUNCHER gvSIG gvSIG/extensiones "/home/$USER/gvSIG/sample-project.gvp"
 else
-	java -Djava.library.path=/usr/lib:"/opt/gvSIG_1.11/libs" \
-	     -cp andami.jar$LIBRARIES -Xmx500M com.iver.andami.Launcher \
-	     gvSIG gvSIG/extensiones "$@"
+  echo Launching gvSIG: ${JAVA_HOME}/bin/java \
+    -Djava.library.path=/usr/lib:"${GVSIG_NATIVE_LIBS}" \
+    -cp $GVSIG_CLASSPATH \
+    -Xms${GVSIG_INITIAL_MEM} \
+    -Xmx${GVSIG_MAX_MEM} \
+    -XX:MaxPermSize=${GVSIG_MAX_PERM_SIZE} \
+    $GVSIG_LAUNCHER gvSIG gvSIG/extensiones "$@"
+
+  ${JAVA_HOME}/bin/java \
+    -Djava.library.path=/usr/lib:"${GVSIG_NATIVE_LIBS}" \
+    -cp $GVSIG_CLASSPATH \
+    -Xms${GVSIG_INITIAL_MEM} \
+    -Xmx${GVSIG_MAX_MEM} \
+    -XX:MaxPermSize=${GVSIG_MAX_PERM_SIZE} \
+    $GVSIG_LAUNCHER gvSIG gvSIG/extensiones "$@"
 fi

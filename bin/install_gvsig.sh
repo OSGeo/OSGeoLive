@@ -23,6 +23,9 @@
 
 # Changelog:
 # ===========
+# 2012-12-07
+#   * Updated to use gvSIG 1.12 package
+#
 # 2012-07-15
 #   * Updated to use a new 1.11 package with dependencies
 #     solved and minor changes to this script
@@ -50,15 +53,15 @@ echo "==============================================================="
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
+   USER_NAME="user" 
 fi
 
 USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop" 
 
-GVSIG_PACKAGE="gvsig_1.11-1305_i386_OSGeoLive.deb"
+GVSIG_PACKAGE="gvsig_1.12-1417_i386_BN4.deb"
 #GVSIG_URL="http://aiolos.survey.ntua.gr/gisvm/6.0/"
-GVSIG_URL="http://download.osgeo.org/livedvd/data/gvsig/"
+GVSIG_URL="http://downloads.gvsig.org/download/gvsig-desktop/other-dists/osgeo-live"
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
@@ -75,12 +78,15 @@ cd "$TMP"
 
 # get deb package 
 if [ ! -e $GVSIG_PACKAGE ] ; then
-   wget --progress=dot:mega "$GVSIG_URL/$GVSIG_PACKAGE"
+  wget --progress=dot:mega "$GVSIG_URL/$GVSIG_PACKAGE"
 fi
 
 # remove it if it's present at the system
 echo "Purging previous versions of gvSIG"
 apt-get -y purge gvsig
+if [ -d "$USER_HOME/gvSIG" ] ; then
+   rm -rf "$USER_HOME/gvSIG"
+fi
 
 # install the deb package forcing the version
 echo "Installing gvSIG package"
@@ -92,12 +98,10 @@ if [ $? -ne 0 ] ; then
 fi
 
 # fix broken permissions in the deb
-chown -R root.root /opt/gvSIG_*
-rm -f /debian-binary
-chown -R root.root /usr/share/applications/gvsig.desktop \
-  /usr/share/icons/ico-gvSIG.png /usr/share/mime/packages/gvsig.xml \
-  /var/lib/dpkg/info/gvsig.*
-
+#chown -R root.root /opt/gvSIG_*
+#chown -R root.root /usr/share/applications/gvsig.desktop \
+#  /usr/share/icons/ico-gvSIG.png /usr/share/mime/packages/gvsig.xml \
+#  /var/lib/dpkg/info/gvsig.*
 
 rm "$TMP/$GVSIG_PACKAGE"
 
@@ -110,15 +114,26 @@ if [ -d $USER_DESKTOP ] ; then
 fi
 
 echo "Creating the gvSIG folder with a sample project"
-if [ -d "$USER_HOME/gvSIG" ] ; then
-   rm -rf "$USER_HOME/gvSIG"
-fi
 mkdir -p  "$USER_HOME/gvSIG"
 
 # download gvSIG sample project
+echo "Downloading OSGeo Live customizations"
+
+echo "... sample project"
 wget --progress=dot:binary \
    "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp" \
    --output-document="$USER_HOME/gvSIG/sample-project.gvp"
+
+echo "... andami config"
+wget --progress=dot:binary \
+   "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/andami-config.xml" \
+   --output-document="$USER_HOME/gvSIG/andami-config.xml"
+
+echo "... custom starting script"
+rm /opt/gvSIG_1.12/gvSIG.sh 
+wget --progress=dot:binary \
+   "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/gvSIG.sh" \
+   --output-document="/opt/gvSIG_1.12/gvSIG.sh "
 
 cp -r "$USER_HOME/gvSIG" /etc/skel
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
