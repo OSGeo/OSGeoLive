@@ -51,7 +51,7 @@ mkdir -p "$TMP_DIR"
 # Install mapbender dependencies.
 echo "Installing mapbender"
 
-apt-get install --assume-yes php5 php5-imagick php5-pgsql php5-gd php5-cli
+apt-get install --assume-yes php5 php5-imagick php5-pgsql php5-gd php5-cli php5-sqlite sqlite
 
 sed -i -e 's/short_open_tag = On/short_open_tag = Off/' \
    /etc/php5/apache2/php.ini
