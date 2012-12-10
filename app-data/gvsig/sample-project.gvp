@@ -36,19 +36,19 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7a30"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_urban_areas.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_urban_areas.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7a32"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_ocean.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_ocean.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7a31"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_elevation_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_elevation_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -114,19 +114,19 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7a2d"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_0_countries.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_admin_0_countries.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7a2e"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_marine_polys.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_marine_polys.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7a2c"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_land.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_land.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -144,7 +144,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7a2f"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_lakes.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_lakes.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -186,25 +186,25 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fe6"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_marine_polys.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_marine_polys.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fe5"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_marine_polys.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_marine_polys.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fe8"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_0_countries.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_admin_0_countries.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fe7"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_1_states_provinces.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_admin_1_states_provinces.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -222,7 +222,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fe4"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_lakes.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_lakes.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -246,7 +246,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__799f"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_elevation_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_elevation_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -264,7 +264,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fe9"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_0_countries.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_admin_0_countries.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -282,7 +282,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fdd"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_land.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_land.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -306,13 +306,13 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fde"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_lakes.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_lakes.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7a54"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_urban_areas.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_urban_areas.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -324,7 +324,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fdf"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_0_countries.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_admin_0_countries.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -336,31 +336,31 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fda"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_populated_places_simple.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_populated_places_simple.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fdb"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_populated_places_simple.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_populated_places_simple.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fdc"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_urban_areas.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_urban_areas.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff0"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_1_states_provinces.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_admin_1_states_provinces.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff1"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_1_states_provinces.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_admin_1_states_provinces.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -420,7 +420,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fd9"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_rivers_lake_centerlines.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_rivers_lake_centerlines.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -432,7 +432,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fd8"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_rivers_lake_centerlines.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_rivers_lake_centerlines.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -492,7 +492,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fe0"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_land.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_land.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -528,19 +528,19 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__732b"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_elevation_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_elevation_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__732c"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_elevation_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_elevation_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__732d"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_elevation_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_elevation_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -564,7 +564,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ffb"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_polys.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_polys.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -606,13 +606,13 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fea"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_0_countries.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_admin_0_countries.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__63aa"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -636,13 +636,13 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fef"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_1_states_provinces.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_admin_1_states_provinces.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fee"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_0_countries.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_admin_0_countries.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -666,7 +666,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff2"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_admin_0_countries.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_admin_0_countries.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -690,7 +690,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff4"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_ocean.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_ocean.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -714,7 +714,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff7"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_populated_places_simple.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_populated_places_simple.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -768,7 +768,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7ff1"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_elevation_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_elevation_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -780,19 +780,19 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7ff2"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7ff3"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7ff4"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -954,7 +954,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_519339d6_1388ad90ebf__7ff0"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_lakes.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_lakes.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -972,13 +972,13 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_519339d6_1388ad90ebf__7ff2"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_elevation_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_elevation_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_519339d6_1388ad90ebf__7ff1"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_rivers_lake_centerlines.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_rivers_lake_centerlines.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -996,7 +996,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_519339d6_1388ad90ebf__7ff3"/>
-        <property key="file" value="/usr/local/share/data/natural_earth/10m_geography_regions_elevation_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/10m_geography_regions_elevation_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -1108,8 +1108,8 @@
                     <property key="proj" value="EPSG:4326"/>
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
-                    <property key="absolutePath" value="/usr/local/share/data/natural_earth/HYP_50M_SR_W/HYP_50M_SR_W.tif"/>
-                    <property key="file" value="/usr/local/share/data/natural_earth/HYP_50M_SR_W/HYP_50M_SR_W.tif"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/HYP_50M_SR_W/HYP_50M_SR_W.tif"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/HYP_50M_SR_W/HYP_50M_SR_W.tif"/>
                     <property key="driverName" value="gvSIG Raster Driver"/>
                     <property key="raster.class" value="org.gvsig.fmap.raster.layers.StatusLayerRaster"/>
                     <property key="raster.bandR" value="0"/>
@@ -1978,8 +1978,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/usr/local/share/data/natural_earth/10m_populated_places_simple.shp"/>
-                    <property key="file" value="/usr/local/share/data/natural_earth/10m_populated_places_simple.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/10m_populated_places_simple.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/10m_populated_places_simple.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff7"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="false"/>
@@ -2936,8 +2936,8 @@
                             <property key="proj" value="EPSG:4326"/>
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
-                            <property key="absolutePath" value="/usr/local/share/data/natural_earth/HYP_50M_SR_W/HYP_50M_SR_W.tif"/>
-                            <property key="file" value="/usr/local/share/data/natural_earth/HYP_50M_SR_W/HYP_50M_SR_W.tif"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/HYP_50M_SR_W/HYP_50M_SR_W.tif"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/HYP_50M_SR_W/HYP_50M_SR_W.tif"/>
                             <property key="driverName" value="gvSIG Raster Driver"/>
                             <property key="raster.class" value="org.gvsig.fmap.raster.layers.StatusLayerRaster"/>
                             <property key="raster.bandR" value="0"/>
@@ -3818,8 +3818,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/usr/local/share/data/natural_earth/10m_populated_places_simple.shp"/>
-                            <property key="file" value="/usr/local/share/data/natural_earth/10m_populated_places_simple.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/10m_populated_places_simple.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/10m_populated_places_simple.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff7"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="false"/>
