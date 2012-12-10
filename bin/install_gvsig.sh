@@ -133,7 +133,7 @@ echo "... custom starting script"
 rm /opt/gvSIG_1.12/gvSIG.sh 
 wget --progress=dot:binary \
    "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/gvSIG.sh" \
-   --output-document="/opt/gvSIG_1.12/gvSIG.sh "
+   --output-document="/opt/gvSIG_1.12/gvSIG.sh"
 
 cp -r "$USER_HOME/gvSIG" /etc/skel
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
