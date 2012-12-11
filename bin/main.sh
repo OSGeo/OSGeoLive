@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -96,6 +96,7 @@ rm -rf /tmp/build_gisvm_error.log
 for SCRIPT in \
   ./setup.sh \
   ./install_services.sh \
+  ./install_language.sh \
   ./install_mysql.sh \
   ./install_java.sh \
   ./install_apache2.sh \
@@ -154,7 +155,6 @@ for SCRIPT in \
   ./install_main_docs.sh \
   ./install_edutools.sh \
   ./install_desktop.sh \
-  ./install_language.sh \
   ./setdown.sh \
 ; do
 # echo "===================================================================="

@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -15,7 +15,7 @@
 # About:
 # =====
 # This script will install additional language support
-# Language choice was made based on the 
+# Language choice was made based on the
 # 1. SIL Ethnologue http://en.wikipedia.org/wiki/List_of_languages_by_number_of_native_speakers
 # Note: Wu language not in the ISO list
 # 2. Ubuntu Language packa available
@@ -71,6 +71,13 @@ done
 #Seems to not find the packages without this, might just be a quirk of the test iso
 apt-get -q update
 apt-get install --assume-yes -q --no-install-recommends $PACKAGES
+
+
+## experiment 6.5a4  generate the iso-8859-1x locale
+locale-gen en_US ISO-8859-1
+locale-gen en_US ISO-8859-15
+dpkg-reconfigure locales
+
 
 #TODO: allow select at boot splash screen
 
