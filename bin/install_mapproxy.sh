@@ -17,7 +17,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 BIN="/usr/local/bin"
 TMP="/tmp/build_mapproxy"
-MAPPROXY_VERSION="1.4.0"
+MAPPROXY_VERSION="1.5.0"
 MAPPROXY_DEB_FILE="mapproxy_${MAPPROXY_VERSION}_all.deb"
 MAPPROXY_DEB_URL="http://mapproxy.org/static/rel/${MAPPROXY_DEB_FILE}"
 MAPPROXY_DOCS_FILE="MapProxy-docs-${MAPPROXY_VERSION}.tar.gz"
