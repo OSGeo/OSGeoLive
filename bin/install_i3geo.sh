@@ -146,3 +146,14 @@ Terminal=false
 StartupNotify=false
 EOF
 fi
+
+# Add lanuncher into the Desktop folder
+USER_HOME="/home/$USER_NAME"
+USER_DESKTOP="$USER_HOME/Desktop/"
+# Add desktop icon
+if [ -d $USER_DESKTOP ] ; then
+   echo "Copying icon to desktop at $USER_DESKTOP/Browser Clients"
+   cp /usr/share/applications/i3geo.desktop "$USER_DESKTOP/Browser Clients"
+   chown $USER_NAME:$USER_NAME "$USER_DESKTOP/Browser Clients/i3geo.desktop"
+   chmod +x "$USER_DESKTOP/Browser Clients/i3geo.desktop"
+fi
