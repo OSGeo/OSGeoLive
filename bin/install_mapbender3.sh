@@ -112,7 +112,7 @@ app/console doctrine:database:create
 app/console doctrine:schema:create
 app/console init:acl
 app/console assets:install web
-app/console fom:user:resetroot --username="root" --password="root" --email="root@example.com"
+app/console fom:user:resetroot --username="root" --password="root" --email="root@example.com" --silent
 
 # 
 chmod -R o+w "$INSTALL_DIR/mapbender3/app/cache"
