@@ -130,10 +130,10 @@ export USER_NAME
 ./install_geomoose.sh
 ./install_mb-system.sh
 ./install_gvsig.sh
-# ./install_tilemill.sh
-# ./install_eoxserver.sh
-# ./install_cartaro.sh
-# ./install_i3geo.sh
+./install_tilemill.sh
+./install_eoxserver.sh
+./install_cartaro.sh
+./install_i3geo.sh
 
 ./load_gisdata.sh
 ./install_main_docs.sh
