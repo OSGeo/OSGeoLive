@@ -135,7 +135,7 @@ rm  $GVSIG_SCRIPT
 wget --progress=dot:binary \
    "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/gvSIG.sh" \
    --output-document="$GVSIG_SCRIPT"
-chmod 777 $GVSIG_SCRIPT
+chmod 755 $GVSIG_SCRIPT
 
 cp -r "$USER_HOME/gvSIG" /etc/skel
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
