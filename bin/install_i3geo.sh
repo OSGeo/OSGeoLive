@@ -25,6 +25,10 @@
 # sudo rm -rf /var/www/ms_tmp
 # sudo rm -rf /tmp/ms_tmp
 
+echo "==============================================================="
+echo "install_i3geo.sh"
+echo "==============================================================="
+
 #Repository url
 I3GEO_DOWNLOAD_URL="http://svn.gvsig.org/svn/i3geo/arquivos_versoes/v46"
 
@@ -157,3 +161,5 @@ if [ -d $USER_DESKTOP ] ; then
    chown $USER_NAME:$USER_NAME "$USER_DESKTOP/Browser Clients/i3geo.desktop"
    chmod +x "$USER_DESKTOP/Browser Clients/i3geo.desktop"
 fi
+
+echo "i3geo installation Done!"
