@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Copyright (c) 2012 geOps (www.geops.de) 
+# Copyright (c) 2012 geOps (www.geops.de)
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -105,10 +105,14 @@ echo "[install_cartaro.sh] Prepare Database ..."
 
 echo "[install_cartaro.sh] Prepare PostGIS ..."
 
-/bin/su postgres -c "/usr/bin/psql -1 -d ${DB_NAME} -f ${POSTGIS_PATH}/postgis-2.0/postgis.sql"
-/bin/su postgres -c "/usr/bin/psql -1 -d ${DB_NAME} -f ${POSTGIS_PATH}/postgis-2.0/spatial_ref_sys.sql"
-/bin/su postgres -c "/usr/bin/psql -1 -d ${DB_NAME}  -f ${POSTGIS_PATH}/postgis_comments.sql"
-/bin/su postgres -c "/usr/bin/psql -d ${DB_NAME}  -c \" grant all on geometry_columns to ${DB_USER}; grant all on spatial_ref_sys to ${DB_USER}; \""
+#/bin/su postgres -c "/usr/bin/psql -1 -d ${DB_NAME} -f ${POSTGIS_PATH}/postgis-2.0/postgis.sql"
+#/bin/su postgres -c "/usr/bin/psql -1 -d ${DB_NAME} -f ${POSTGIS_PATH}/postgis-2.0/spatial_ref_sys.sql"
+#/bin/su postgres -c "/usr/bin/psql -1 -d ${DB_NAME}  -f ${POSTGIS_PATH}/postgis_comments.sql"
+#/bin/su postgres -c "/usr/bin/psql -d ${DB_NAME}  -c \" grant all on geometry_columns to ${DB_USER}; grant all on spatial_ref_sys to ${DB_USER}; \""
+
+
+## 12dec12 preferred postgis 2.0 initialization
+/bin/su postgres -c "/usr/bin/psql -d ${DB_NAME} -c 'create extension postgis'"
 
 #####################
 # Install Drush
