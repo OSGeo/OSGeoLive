@@ -76,6 +76,7 @@ USER_NAME="user"
 export USER_NAME
 ./setup.sh
 ./install_services.sh
+./install_language.sh
 ./install_mysql.sh
 ./install_java.sh
 ./install_apache2.sh
