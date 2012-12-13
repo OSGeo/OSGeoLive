@@ -1,6 +1,21 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.5alpha4
+===================
+
+ * Added Tilemill project
+ * Added Cartaro project
+ * Added i3geo project
+ * Retired AtlasStyler
+ * Retired Geopublisher
+ * Updated NaturalEarth to v2.0
+ * Updated MapBender to v3.0
+ * Updated EOxServer
+ * Recategorized OSGeoLive Projects in docs
+ * Updated MapProxy to v1.5.0
+ * Updated gvSIG version to 1.12
+
 Version 6.5alpha3
 ===================
 
