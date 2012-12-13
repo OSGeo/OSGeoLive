@@ -63,27 +63,28 @@ cd "$TMP_DIR"
 
 
 # Install EOxServer
-pip install --upgrade eoxserver==0.2.1
+pip install --upgrade eoxserver==0.2.2
 
 
-# Adjust pysqlite installation (without define=SQLITE_OMIT_LOAD_EXTENSION)
-wget -c --progress=dot:mega \
-    "https://pysqlite.googlecode.com/files/pysqlite-2.6.3.tar.gz"
-
-tar xzf pysqlite-2.6.3.tar.gz
-cd pysqlite-2.6.3
-
-cat << EOF > setup.cfg
-[build_ext]
-libraries=sqlite3
-EOF
-
-python setup.py install --force
-cd ..
-rm -r pysqlite-2.6.3
-
-# Install further dependencies
-pip install --upgrade pyspatialite
+# Commented due to bugs in their installers
+## Adjust pysqlite installation (without define=SQLITE_OMIT_LOAD_EXTENSION)
+#wget -c --progress=dot:mega \
+#    "https://pysqlite.googlecode.com/files/pysqlite-2.6.3.tar.gz"
+#
+#tar xzf pysqlite-2.6.3.tar.gz
+#cd pysqlite-2.6.3
+#
+#cat << EOF > setup.cfg
+#[build_ext]
+#libraries=sqlite3
+#EOF
+#
+#python setup.py install --force
+#cd ..
+#rm -r pysqlite-2.6.3
+#
+## Install further dependencies
+#pip install --upgrade pyspatialite
 
 
 # Create demonstration instance
