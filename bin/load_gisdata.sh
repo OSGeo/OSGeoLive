@@ -1,6 +1,6 @@
 #!/bin/sh
 #################################################
-# 
+#
 # Purpose: Install common geodata, including:
 #    - A sample of the Natural Earth Datasets
 #    - The OSGeo North Carolina common dataset
@@ -12,7 +12,7 @@
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL.
-# 
+#
 # This is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -32,19 +32,19 @@ TMP="/tmp/build_gisdata"
 DATA_FOLDER="/usr/local/share/data"
 NE2_DATA_FOLDER="$DATA_FOLDER/natural_earth2"
 POSTGRES_USER="user"
- 
+
 ## Setup things... ##
 if [ ! -d "$DATA_FOLDER" ] ; then
    mkdir -p "$DATA_FOLDER"
 fi
- 
+
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install it and try again" 
+   echo "ERROR: wget is required, please install it and try again"
    exit 1
 fi
 
-# TODO: revisit this, for now check required tools are installed
+## 12dec12 atlasstyler no longer installed, however no change needed
 if [ ! -x "`which atlasstyler`" ] ; then
    echo "ERROR: atlasstyler is required as a tool to create .fix and .qix files for all shapefiles, please install it with bin/install_atlasstyler.sh and try again"
    HAS_ATLASSTYLER=0
@@ -72,9 +72,9 @@ if $USE_NE_UNMODIFIED; then
 
 SCALE="10m"  # 1:10 million
 
-# Simple Populated Places 1:10m 
-#    http://www.naturalearthdata.com/downloads/10m-cultural-vectors/ 
-# Admin 0 - Countries 1:10m 
+# Simple Populated Places 1:10m
+#    http://www.naturalearthdata.com/downloads/10m-cultural-vectors/
+# Admin 0 - Countries 1:10m
 # Populated Places (simple, less columns) 1:10m 
 # Land 1:10m 
 # Ocean 1:10m 
@@ -126,7 +126,7 @@ unzip "$RFILE" -d "$NE2_DATA_FOLDER"
 ##--------------------------------
 if [ $HAS_ATLASSTYLER = 1 ]; then
   # Add Geotools .fix and .qix files to all Shapefiles. Normally Geotools application would create these
-  # files when opeing the Shapefile, but since the data-dir is read-only, we do it here. 
+  # files when opeing the Shapefile, but since the data-dir is read-only, we do it here.
   # This REQUIRES that install_atlasstyler.sh has been executed before (which is checked above)
   find "$NE2_DATA_FOLDER" -iname "*.shp" -exec atlasstyler "addFix={}" \;
 fi
@@ -138,7 +138,7 @@ chmod -R +X "$NE2_DATA_FOLDER"   ## but keep x on directories
 
 ##--------------------------------------
 ## load natural earth 2 data into postgis 2
-
+##  TODO dec12 check locale results and update this
 SRC_DIR="$NE2_DATA_FOLDER"
 sudo -u $POSTGRES_USER createdb natural_earth2
 sudo -u $POSTGRES_USER psql natural_earth2 -c 'create extension postgis;'
