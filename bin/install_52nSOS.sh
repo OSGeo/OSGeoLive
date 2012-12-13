@@ -49,6 +49,8 @@ SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
 SOS_WEB_APP_NAME="52nSOS"
 SOS_POSTGRESQL_SCRIPT_NAME="postgresql"
 PGOPTIONS='--client-min-messages=warning'
+PG_POSTGIS_PATH="/usr/share/postgresql/9.1/contrib/postgis-2.0/"
+POSTGRES_USER="postgres"
 SOS_DB_NAME="52nSOS"
 SOS_TOMCAT_SCRIPT_NAME="tomcat6"
 SOS_ICON_NAME="52nSOS.png"
@@ -70,6 +72,8 @@ echo "SOS_TAR_URL: $SOS_TAR_URL"
 echo "SOS_WEB_APP_NAME: $SOS_WEB_APP_NAME"
 echo "SOS_POSTGRESQL_SCRIPT_NAME: $SOS_POSTGRESQL_SCRIPT_NAME"
 echo "PGOPTIONS: $PGOPTIONS"
+echo "PG_POSTGIS_PATH: $PG_POSTGIS_PATH"
+echo "POSTGRES_USER: $POSTGRES_USER"
 echo "SOS_DB_NAME: $SOS_DB_NAME"
 echo "SOS_TOMCAT_SCRIPT_NAME: $SOS_TOMCAT_SCRIPT_NAME"
 echo "SOS_ICON_NAME: $SOS_ICON_NAME"
@@ -153,9 +157,6 @@ if [ -f "$SOS_TAR_NAME" ] ; then
    echo "[$(date +%M:%S)]: $SOS_TAR_NAME has already been downloaded."
    # but was it sucessful?
 else
-#
-#	TODO is this new command working?
-#
 	rm -v -r "$TMP"/*
    	wget -c --progress=dot:mega "$SOS_TAR_URL$SOS_TAR_NAME"
 fi
@@ -175,42 +176,44 @@ fi
 #
 # we need to stop tomcat6 around this process
 "/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" stop
-echo "[$(date +%M:%S)]: installing SOS datastructe structure in Postgresql DB..."
-#fi
+echo "[$(date +%M:%S)]: installing SOS database structure in Postgresql DB..."
 #
 #	Check postgis_template installation
 #
-POSTGIS="`su postgres -c 'psql -l' | grep template_postgis | wc -l`"
-if [ $POSTGIS -gt 0 ] ; then
-	echo "[$(date +%M:%S)]: database template_postgis already installed"
-else 
-	echo "[$(date +%M:%S)]: Installing template_postgis"
-	su postgres -c 'createdb -E UTF8 -U postgres template_postgis'
-	su postgres -c 'createlang -d template_postgis plpgsql;'
-	su postgres -c 'psql -U postgres -d template_postgis -c"CREATE EXTENSION hstore;"'
-	su postgres -c 'psql -U postgres -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql'
-	su postgres -c 'psql -U postgres -d template_postgis -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql'
-	su postgres -c 'psql -U postgres -d template_postgis -c"select postgis_lib_version();"'
-	su postgres -c 'psql -U postgres -d template_postgis -c "GRANT ALL ON geometry_columns TO PUBLIC;"'
-	su postgres -c 'psql -U postgres -d template_postgis -c "GRANT ALL ON spatial_ref_sys TO PUBLIC;"'
-	su postgres -c 'psql -U postgres -d template_postgis -c "GRANT ALL ON geography_columns TO PUBLIC;"'
-	echo "[$(date +%M:%S)]: finished postgis_template set-up"
-fi
+#POSTGIS="`su postgres -c 'psql -l' | grep template_postgis | wc -l`"
+#echo "[$(date +%M:%S)]: POSTGIS $POSTGIS"
+#if [ $POSTGIS -gt 0 ] ; then
+	#echo "[$(date +%M:%S)]: database template_postgis already installed"
+#else 
+	#echo "[$(date +%M:%S)]: Installing template_postgis"
+	#su $POSTGRES_USER -c 'createdb -E UTF8 -U postgres template_postgis'
+	#su $POSTGRES_USER -c 'createlang -d template_postgis plpgsql;'
+	#su $POSTGRES_USER -c 'psql -U $POSTGRES_USER -d template_postgis -c "CREATE EXTENSION hstore;"'
+	#su $POSTGRES_USER -c 'psql -U $POSTGRES_USER -d template_postgis -f $PG_POSTGIS_PATHpostgis.sql'
+	#su $POSTGRES_USER -c 'psql -U $POSTGRES_USER -d template_postgis -f $PG_POSTGIS_PATHpostgis_comments.sql'
+	#su $POSTGRES_USER -c 'psql -U $POSTGRES_USER -d template_postgis -f $PG_POSTGIS_PATHspatial_ref_sys.sql'
+	#su $POSTGRES_USER -c 'psql -U $POSTGRES_USER -d template_postgis -c "select postgis_lib_version();"'
+	#su $POSTGRES_USER -c 'psql -U $POSTGRES_USER -d template_postgis -c "GRANT ALL ON geometry_columns TO PUBLIC;"'
+	#su $POSTGRES_USER -c 'psql -U $POSTGRES_USER -d template_postgis -c "GRANT ALL ON spatial_ref_sys TO PUBLIC;"'
+	#su $POSTGRES_USER -c 'psql -U $POSTGRES_USER -d template_postgis -c "GRANT ALL ON geography_columns TO PUBLIC;"'
+	#echo "[$(date +%M:%S)]: finished postgis_template set-up"
+#fi
 #
 #	Check for database installation
 #
 SOS_DB_EXISTS="`su postgres -c 'psql -l' | grep $SOS_DB_NAME | wc -l`"
 if [ $SOS_DB_EXISTS -gt 0 ] ; then
 	echo "[$(date +%M:%S)]: SOS db $SOS_DB_NAME exists -> drop it"
-	su postgres -c "dropdb $SOS_DB_NAME"
+	su $POSTGRES_USER -c "dropdb $SOS_DB_NAME"
 fi
 echo "[$(date +%M:%S)]: Create SOS db"
-su postgres -c "createdb -T template_postgis $SOS_DB_NAME"
+su $POSTGRES_USER -c "createdb $SOS_DB_NAME"
+sudo -u $POSTGRES_USER psql $SOS_DB_NAME -c 'create extension postgis;'
 echo "[$(date +%M:%S)]: DB $SOS_DB_NAME created"
 #
 #	Set-Up 52nSOS database model
 
-su postgres -c "PGOPTIONS='$PGOPTIONS' psql -d $SOS_DB_NAME -q -f $TMP/SOS-structure.sql"
+su $POSTGRES_USER -c "PGOPTIONS='$PGOPTIONS' psql -d $SOS_DB_NAME -q -f $TMP/SOS-structure.sql"
 echo "[$(date +%M:%S)]: $SOS_DB_NAME -> SOS database model created"
 #
 #	Set-Up Example data model 
@@ -220,7 +223,7 @@ echo "[$(date +%M:%S)]: $SOS_DB_NAME -> Example data model created"
 #
 #	Insert example observations
 #
-su postgres -c "psql -d $SOS_DB_NAME -q -f $TMP/$SOS_DATA_SET.sql"
+su $POSTGRES_USER -c "psql -d $SOS_DB_NAME -q -f $TMP/$SOS_DATA_SET.sql"
 echo "[$(date +%M:%S)]: $SOS_DB_NAME -> Example observations inserted"
 echo "[$(date +%M:%S)]: Database set-up finished"
 #
