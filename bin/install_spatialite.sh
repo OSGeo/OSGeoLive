@@ -88,19 +88,25 @@ Cflags: -I\${includedir}
 EOF
 
 ### Download and compile spatialite-gui 1.5.0 from source
-GAIA_URL="http://www.gaia-gis.it/gaia-sins"
-PACKAGES="libgaiagraphics-0.4b spatialite_gui-1.5.0-stable spatialite_gis-1.0.0c"
-for i in $PACKAGES; do
-	wget -c --progress=dot:mega "$GAIA_URL/$i.tar.gz"
-	tar xzf $i.tar.gz
-	cd $i
-	./configure
-	make
-	make install-strip
-	ldconfig
-	cd ..
-done
+## URL: http://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/spatialite_gui-1.5.0-stable.tar.gz
+GAIA_URL="http://www.gaia-gis.it/gaia-sins/"
+SOURCE_DIR[1]="gaiagraphics-sources"
+SOURCE_DIR[2]="spatialite-gui-sources" 
+SOURCE_DIR[3]="spatialite-gis-sources"
+PACKAGE[1]="libgaiagraphics-0.4b"
+PACKAGE[2]="spatialite_gui-1.5.0-stable"
+PACKAGE[3]="spatialite_gis-1.0.0c"
 
+for i in 1 2 3; do
+        wget -c --progress=dot:mega "$GAIA_URL/${SOURCE_DIR[$i]}/${PACKAGE[$i]}.tar.gz"
+        tar xzf ${PACKAGE[$i]}.tar.gz
+        cd ${PACKAGE[$i]}
+        ./configure
+        make
+        make install-strip
+        ldconfig
+        cd ..
+done
 
 ##########################
 ### Sample data ###
