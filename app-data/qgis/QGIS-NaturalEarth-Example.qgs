@@ -24,25 +24,25 @@
         </destinationsrs>
     </mapcanvas>
     <legend updateDrawingOrder="true">
-        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="10m_populated_places_simple" showFeatureCount="0">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="ne_10m_populated_places_simple" showFeatureCount="0">
             <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="10m_populated_places_simple20100719082900629" visible="0"/>
+                <legendlayerfile isInOverview="0" layerid="ne_10m_populated_places_simple20100719082900629" visible="0"/>
             </filegroup>
         </legendlayer>
         <legendgroup open="true" checked="Qt::PartiallyChecked" name="Water">
-            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="10m_rivers_lake_centerlines" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="ne_10m_rivers_lake_centerlines" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
-                    <legendlayerfile isInOverview="0" layerid="10m_rivers_lake_centerlines20100719082900647" visible="1"/>
+                    <legendlayerfile isInOverview="0" layerid="ne_10m_rivers_lake_centerlines20100719082900647" visible="1"/>
                 </filegroup>
             </legendlayer>
-            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="10m_lakes" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Checked" name="ne_10m_lakes" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
-                    <legendlayerfile isInOverview="0" layerid="10m_lakes20100719082900581" visible="1"/>
+                    <legendlayerfile isInOverview="0" layerid="ne_10m_lakes20100719082900581" visible="1"/>
                 </filegroup>
             </legendlayer>
-            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="10m_ocean" showFeatureCount="0">
+            <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="ne_10m_ocean" showFeatureCount="0">
                 <filegroup open="true" hidden="false">
-                    <legendlayerfile isInOverview="0" layerid="10m_ocean20100719082900623" visible="0"/>
+                    <legendlayerfile isInOverview="0" layerid="ne_10m_ocean20100719082900623" visible="0"/>
                 </filegroup>
             </legendlayer>
         </legendgroup>
@@ -51,19 +51,19 @@
                 <legendlayerfile isInOverview="0" layerid="HYP_50M_SR_W20100719084154256" visible="1"/>
             </filegroup>
         </legendlayer>
-        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="10m_land" showFeatureCount="0">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="ne_10m_land" showFeatureCount="0">
             <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="10m_land20100719082900615" visible="0"/>
+                <legendlayerfile isInOverview="0" layerid="ne_10m_land20100719082900615" visible="0"/>
             </filegroup>
         </legendlayer>
     </legend>
     <projectlayers layercount="6">
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
-            <id>10m_lakes20100719082900581</id>
-            <datasource>/home/user/data/natural_earth/10m_lakes.shp</datasource>
+            <id>ne_10m_lakes20100719082900581</id>
+            <datasource>/home/user/data/natural_earth2/ne_10m_lakes.shp</datasource>
             <title></title>
             <abstract></abstract>
-            <layername>10m_lakes</layername>
+            <layername>ne_10m_lakes</layername>
             <srs>
                 <spatialrefsys>
                     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
@@ -135,11 +135,11 @@
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
-            <id>10m_land20100719082900615</id>
-            <datasource>/home/user/data/natural_earth/10m_land.shp</datasource>
+            <id>ne_10m_land20100719082900615</id>
+            <datasource>/home/user/data/natural_earth2/ne_10m_land.shp</datasource>
             <title></title>
             <abstract></abstract>
-            <layername>10m_land</layername>
+            <layername>ne_10m_land</layername>
             <srs>
                 <spatialrefsys>
                     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
@@ -208,11 +208,11 @@
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Polygon" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
-            <id>10m_ocean20100719082900623</id>
-            <datasource>/home/user/data/natural_earth/10m_ocean.shp</datasource>
+            <id>ne_10m_ocean20100719082900623</id>
+            <datasource>/home/user/data/natural_earth2/ne_10m_ocean.shp</datasource>
             <title></title>
             <abstract></abstract>
-            <layername>10m_ocean</layername>
+            <layername>ne_10m_ocean</layername>
             <srs>
                 <spatialrefsys>
                     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
@@ -279,11 +279,11 @@
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
-            <id>10m_populated_places_simple20100719082900629</id>
-            <datasource>/home/user/data/natural_earth/10m_populated_places_simple.shp</datasource>
+            <id>ne_10m_populated_places_simple20100719082900629</id>
+            <datasource>/home/user/data/natural_earth2/ne_10m_populated_places_simple.shp</datasource>
             <title></title>
             <abstract></abstract>
-            <layername>10m_populated_places_simple</layername>
+            <layername>ne_10m_populated_places_simple</layername>
             <srs>
                 <spatialrefsys>
                     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
@@ -454,11 +454,11 @@
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Line" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
-            <id>10m_rivers_lake_centerlines20100719082900647</id>
-            <datasource>/home/user/data/natural_earth/10m_rivers_lake_centerlines.shp</datasource>
+            <id>ne_10m_rivers_lake_centerlines20100719082900647</id>
+            <datasource>/home/user/data/natural_earth2/ne_10m_rivers_lake_centerlines.shp</datasource>
             <title></title>
             <abstract></abstract>
-            <layername>10m_rivers_lake_centerlines</layername>
+            <layername>ne_10m_rivers_lake_centerlines</layername>
             <srs>
                 <spatialrefsys>
                     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
@@ -531,7 +531,7 @@
         </maplayer>
         <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
             <id>HYP_50M_SR_W20100719084154256</id>
-            <datasource>/home/user/data/natural_earth/HYP_50M_SR_W/HYP_50M_SR_W.tif</datasource>
+            <datasource>/home/user/data/natural_earth2/HYP_50M_SR_W/HYP_50M_SR_W.tif</datasource>
             <title></title>
             <abstract></abstract>
             <layername>HYP_50M_SR_W</layername>
