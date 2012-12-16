@@ -69,6 +69,8 @@ wget -c --progress=dot:mega \
 ## unpack it to /usr/lib overwriting eventual existing copy
 echo "Unpacking GeoServer in $GS_HOME"
 unzip -o -q "geoserver-$GS_VERSION-bin.zip" -d "$INSTALL_FOLDER"
+##--
+chgrp -R user $GS_HOME
 
 
 ### Configure Application ###
@@ -116,8 +118,8 @@ chmod 755 "$GS_HOME/bin/shutdown.sh"
 chmod 755 "$GS_HOME/bin/stop_notify.sh"
 
 ## Allow the user to write in the GeoServer data dir
-chmod -R a+w "$GS_HOME/data_dir"
-chmod -R a+w "$GS_HOME/logs"
+chmod -R g+w "$GS_HOME/data_dir"
+chmod -R g+w "$GS_HOME/logs"
 
 ## link from bin directory
 if [ ! -e "$BIN/geoserver_start.sh" ] ; then
