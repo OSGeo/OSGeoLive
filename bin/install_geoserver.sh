@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -231,6 +231,11 @@ EOF
 
 cp -a /usr/share/applications/geoserver-docs.desktop "$USER_HOME/Desktop/"
 chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/geoserver-docs.desktop"
+
+## add sample styles per quickstart
+mkdir /usr/local/share/geoserver
+chgrp user /usr/local/share/geoserver
+cp /usr/local/share/gisvm/app-data/geoserver/ne_10m*.sld /usr/local/share/geoserver/
 
 ## clean up eventual leftover Jetty cache directory
 echo "Cleaning up Jetty JSP cache in /tmp"
