@@ -42,7 +42,7 @@ USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat6"
 SOS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
-SOS_TAR_NAME="52n-sensorweb-sos-osgeolive-6.0.0.tar.gz"
+SOS_TAR_NAME="52n-sensorweb-sos-osgeolive-6.5.0.tar.gz"
 SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
 # when changing this, adjust the name in line 215, too,
 # and the quickstart, which links to this, too
