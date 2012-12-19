@@ -120,14 +120,14 @@ DRUSH_FILE="drush-7.x-5.4.tar.gz"
 if [ ! -f "$DRUSH_DIR/drush" ]; then
     	mkdir -p $DRUSH_DIR 
 	if [ ! -f "${TMP_DIR}/${DRUSH_FILE}" ]; then
-        	pushd "$TMP_DIR"
+        pushd "$TMP_DIR"
 		wget http://ftp.drupal.org/files/projects/drush-7.x-5.4.tar.gz
 		popd
-        fi
-    	pushd "$TARGET_DIR"
-        # remove table dropping
+    fi
+    pushd "$TARGET_DIR"
+    # remove table dropping
 	tar xzf "$TMP_DIR/$DRUSH_FILE"
-        sed -ri "s/'DROP TABLE '/\'-- DROP TABLE \'/g" "$DRUSH_DIR/commands/sql/sql.drush.inc"
+    sed -ri "s/'DROP TABLE '/\'-- DROP TABLE \'/g" "$DRUSH_DIR/commands/sql/sql.drush.inc"
     popd
 fi
 
@@ -174,7 +174,9 @@ cat << EOF > /etc/apache2/conf.d/cartaro
 	RewriteRule ^ /cartaro/index.php [L]
 </Directory>
 EOF
-/etc/init.d/apache2 reload
+
+/usr/sbin/a2enmod rewrite
+/etc/init.d/apache2 restart
 fi
 
 ####################
@@ -296,8 +298,8 @@ chmod -R  0755 "${TARGET_DIR}/bin"
 
 echo "[install_cartaro.sh] Create desktop icons ..."
 
-if [ ! -f /usr/local/share/icons/logo-cartaro-48.png ]; then
-    pushd "/usr/local/share/icons"
+if [ ! -f /usr/share/icons/logo-cartaro-48.png ]; then
+    pushd "/usr/share/icons"
     wget http://cartaro.org/sites/cartaro.org/themes/cartaro_org/img/logos/logo-cartaro-48.png 
     popd
 fi
@@ -313,7 +315,7 @@ Name=Start Cartaro
 Comment=Cartaro $CARTARO_VERSION
 Categories=Application;
 Exec=sudo $TARGET_DIR/bin/start_cartaro.sh
-Icon=/usr/local/share/icons/logo-cartaro-48.png
+Icon=/usr/share/icons/logo-cartaro-48.png
 Terminal=false
 EOF
 
@@ -334,7 +336,7 @@ Name=Stop Cartaro
 Comment=Cartaro $CARTARO_VERSION
 Categories=Application;
 Exec=sudo $TARGET_DIR/bin/stop_cartaro.sh
-Icon=/usr/local/share/icons/logo-cartaro-48.png
+Icon=/usr/share/icons/logo-cartaro-48.png
 Terminal=false
 EOF
 
