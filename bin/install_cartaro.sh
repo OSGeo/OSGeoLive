@@ -48,14 +48,9 @@ TMP_DIR="/tmp/build_cartaro"
 TARGET_DIR="/usr/local/lib/cartaro"
 DOC_DIR="/usr/local/share/cartaro"
 GEOSERVER_URL="http://localhost:8082/geoserver"
-POSTGIS_PATH="/usr/share/postgresql/9.1/contrib"
 
-if [ -z "$USER_NAME" ] ; then
-       USER_NAME="user"
-fi
+USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
-
-DOC_DIR="$TARGET_DIR/doc"
 
 ##############################
 # Ensure all Packages are installed
@@ -63,7 +58,7 @@ DOC_DIR="$TARGET_DIR/doc"
 
 echo "[install_cartaro.sh] Installing Packages..."
 
-PACKAGES="wget unzip apache2 php5 php5-gd php5-curl php5-pgsql postgresql \
+PACKAGES="wget unzip apache2 php5 php5-gd php5-curl php5-pgsql php5-cli postgresql \
 postgis postgresql-9.1-postgis postgresql-contrib-9.1"
 
 echo "Installing: $PACKAGES"
@@ -105,14 +100,8 @@ echo "[install_cartaro.sh] Prepare Database ..."
 
 echo "[install_cartaro.sh] Prepare PostGIS ..."
 
-#/bin/su postgres -c "/usr/bin/psql -1 -d ${DB_NAME} -f ${POSTGIS_PATH}/postgis-2.0/postgis.sql"
-#/bin/su postgres -c "/usr/bin/psql -1 -d ${DB_NAME} -f ${POSTGIS_PATH}/postgis-2.0/spatial_ref_sys.sql"
-#/bin/su postgres -c "/usr/bin/psql -1 -d ${DB_NAME}  -f ${POSTGIS_PATH}/postgis_comments.sql"
-#/bin/su postgres -c "/usr/bin/psql -d ${DB_NAME}  -c \" grant all on geometry_columns to ${DB_USER}; grant all on spatial_ref_sys to ${DB_USER}; \""
-
-
-## 12dec12 preferred postgis 2.0 initialization
 /bin/su postgres -c "/usr/bin/psql -d ${DB_NAME} -c 'create extension postgis'"
+/bin/su postgres -c "/usr/bin/psql -d ${DB_NAME}  -c \" grant all on geometry_columns to ${DB_USER}; grant all on spatial_ref_sys to ${DB_USER}; \""
 
 #####################
 # Install Drush
@@ -148,11 +137,6 @@ fi
 
 echo "[install_cartaro.sh] Download Cartaro ..."
 
-
-if [ -d "$TARGET_DIR" ]; then
-    find "$TARGET_DIR" -type d -exec chmod u+wx {} \;
-fi
-
 CARTARO_FILE="cartaro-7.x-${CARTARO_VERSION}-core.tar.gz"
 
 if [ ! -d "$TARGET_DIR/cartaro-7.x-$CARTARO_VERSION" ]; then
@@ -170,8 +154,6 @@ if [ ! -d "$TARGET_DIR/cartaro-7.x-$CARTARO_VERSION" ]; then
     rm -Rf profiles/cartaro/libraries/openlayers/doc
 
     popd
-
-
 fi
 
 ###################
@@ -179,7 +161,6 @@ fi
 ##################
 
 echo "[install_cartaro.sh] Configure Apache2  ..."
-
 
 if [ ! -f /etc/apache2/conf.d/cartaro ]; then
 
@@ -266,14 +247,23 @@ cat << EOF > "$TARGET_DIR/bin/start_cartaro.sh"
 #!/bin/sh
 
 # TODO nicer way to find whether geoserver is already running or not
-$GS_PATH/bin/stutdown.sh &
-sleep 20;
-$GS_PATH/bin/startup.sh &
+$GEO_PATH/bin/stutdown.sh &
+
+
+DELAY=20
+
+(
+for TIME in \`seq \$DELAY\` ; do
+        sleep 1
+        echo "\$TIME \$DELAY" | awk '{print int(0.5+100*\$1/\$2)}'
+        done
+        ) | zenity --progress --auto-close --text "Preparing GeoServer...."
+
+$GEO_PATH/bin/startup.sh &
 /etc/init.d/postgresql start
 /etc/init.d/apache2 start
 
-DELAY=40
-
+DELAY=20
 (
 for TIME in \`seq \$DELAY\` ; do
       sleep 1
@@ -292,14 +282,13 @@ if [ ! -f "$TARGET_DIR/bin/stop_cartaro.sh" ]; then
 cat << EOF  > "$TARGET_DIR/bin/stop_cartaro.sh"
 #!/bin/sh
 
-$GS_PATH/bin/stutdown.sh &
+$GEO_PATH/bin/stutdown.sh &
 zenity --info --text "Cartaro is stopped"
 EOF
 
 fi
 
-chown -R $USER_NAME "${TARGET_DIR}/bin"
-chmod -R u+x "${TARGET_DIR}/bin"
+chmod -R  0755 "${TARGET_DIR}/bin"
 
 ##################################
 # Copy Icons and create Desktop Icon
@@ -313,7 +302,6 @@ if [ ! -f /usr/local/share/icons/logo-cartaro-48.png ]; then
     popd
 fi
 
-
 ## start icon
 if [ ! -f "/usr/share/applications/cartaro-start.desktop" ]; then
 
@@ -324,7 +312,7 @@ Encoding=UTF-8
 Name=Start Cartaro
 Comment=Cartaro $CARTARO_VERSION
 Categories=Application;
-Exec=$TARGET_DIR/bin/start_cartaro.sh
+Exec=sudo $TARGET_DIR/bin/start_cartaro.sh
 Icon=/usr/local/share/icons/logo-cartaro-48.png
 Terminal=false
 EOF
@@ -345,7 +333,7 @@ Encoding=UTF-8
 Name=Stop Cartaro
 Comment=Cartaro $CARTARO_VERSION
 Categories=Application;
-Exec=$TARGET_DIR/bin/stop_cartaro.sh
+Exec=sudo $TARGET_DIR/bin/stop_cartaro.sh
 Icon=/usr/local/share/icons/logo-cartaro-48.png
 Terminal=false
 EOF
@@ -354,39 +342,4 @@ cp -a /usr/share/applications/cartaro-stop.desktop "$USER_HOME/Desktop/"
 chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/cartaro-stop.desktop"
 
 fi
-
-## documentation icon
-
-if [ ! -f "/usr/share/applications/cartaro-docs.desktop" ]; then
-
-cat << EOF > /usr/share/applications/cartaro-docs.desktop
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=Cartaro documentation
-Comment=Cartaro $CARTARO_VERSION Documentation
-Categories=Application;
-Exec=firefox "$DOC_DIR/user/index.html"
-Icon=/usr/local/share/icons/logo-cartaro-48.png
-Terminal=false
-EOF
-
-cp -a /usr/share/applications/cartaro-docs.desktop "$USER_HOME/Desktop/"
-chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/cartaro-docs.desktop"
-
-fi
-
-####################################
-# Fetch HTML Documentation and create symlink
-###################################
-
-echo "[install_cartaro.sh] Download Documentation ..."
-
-
-# TODO
-
-echo "==============================================================="
-echo "finished install_cartaro.sh"
-echo "==============================================================="
-
 
