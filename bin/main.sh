@@ -149,6 +149,7 @@ for SCRIPT in \
   ./install_geomoose.sh \
   ./install_mb-system.sh \
   ./install_gvsig.sh \
+  ./install_tilemill.sh\
   ./load_gisdata.sh \
   ./install_main_docs.sh \
   ./install_edutools.sh \
