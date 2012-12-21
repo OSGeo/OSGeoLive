@@ -34,7 +34,7 @@ echo "==============================================================="
 CARTARO_PASSWORD="geoserver"
 CARTARO_USER="cartaro-admin"
 
-CARTARO_VERSION="1.0-beta3"
+CARTARO_VERSION="1.0-beta4"
 
 DB_NAME="cartaro"
 DB_USER="cartaro"
