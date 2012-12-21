@@ -284,7 +284,7 @@ if [ ! -f "$TARGET_DIR/bin/stop_cartaro.sh" ]; then
 cat << EOF  > "$TARGET_DIR/bin/stop_cartaro.sh"
 #!/bin/sh
 
-$GEO_PATH/bin/stutdown.sh &
+$GEO_PATH/bin/shutdown.sh &
 zenity --info --text "Cartaro is stopped"
 EOF
 
