@@ -249,7 +249,7 @@ cat << EOF > "$TARGET_DIR/bin/start_cartaro.sh"
 #!/bin/sh
 
 # TODO nicer way to find whether geoserver is already running or not
-$GEO_PATH/bin/stutdown.sh &
+$GEO_PATH/bin/shutdown.sh &
 
 
 DELAY=20
