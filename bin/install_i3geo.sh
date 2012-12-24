@@ -162,4 +162,13 @@ if [ -d $USER_DESKTOP ] ; then
    chmod +x "$USER_DESKTOP/Browser Clients/i3geo.desktop"
 fi
 
+# Fix path to natural_earth
+sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/geral1debianv6.map
+sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/estadosldebian.map 
+sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/estadosl.map 
+sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/states_provinces.map
+sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/populated_places_simple.map
+sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/geography_regions_polys.map
+sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/estadosl.map
+
 echo "i3geo installation Done!"
