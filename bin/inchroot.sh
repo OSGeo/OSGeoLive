@@ -97,7 +97,7 @@ export USER_NAME
 ./install_sahana.sh
 ./install_ushahidi.sh
 ./install_mapserver.sh
-./install_mapbender3.sh
+./install_mapbender.sh
 ./install_geokettle.sh
 ./install_gmt.sh
 ./install_grass.sh
