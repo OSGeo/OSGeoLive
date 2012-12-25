@@ -1,6 +1,18 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.5alpha5
+===================
+
+ * Feature Freeze
+ * MapBender switched to v2
+ * NaturalEarth 2 fixes for various projects
+ * Spatialite download path fixed
+ * GeoServer fixes
+ * Cartaro fixes
+ * i3geo fixes
+ * 
+
 Version 6.5alpha4
 ===================
 
