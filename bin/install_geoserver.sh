@@ -30,7 +30,7 @@ echo "==============================================================="
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/local/lib"
 BIN="/usr/local/bin"
-GS_VERSION="2.2"
+GS_VERSION="2.2.2"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 DOC_DIR="$GS_HOME/doc"
