@@ -140,7 +140,7 @@ Encoding=UTF-8
 Name=i3geo
 Comment=i3geo
 Categories=Application;Geography;Geoscience;Education;
-Exec=firefox http://localhost/i3geo/
+Exec=firefox http://localhost/i3geo/ms_criamapa?idioma=en
 Icon=/usr/share/icons/i3geo1.png
 Terminal=false
 StartupNotify=false
