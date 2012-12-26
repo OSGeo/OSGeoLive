@@ -70,7 +70,7 @@ wget -c --progress=dot:mega \
 echo "Unpacking GeoServer in $GS_HOME"
 unzip -o -q "geoserver-$GS_VERSION-bin.zip" -d "$INSTALL_FOLDER"
 ##--
-chgrp -R user $GS_HOME
+chgrp -R users $GS_HOME
 
 
 ### Configure Application ###
