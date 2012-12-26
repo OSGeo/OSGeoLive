@@ -33,7 +33,7 @@ echo "==============================================================="
 I3GEO_DOWNLOAD_URL="http://svn.gvsig.org/svn/i3geo/arquivos_versoes/v46"
 
 #Filename
-I3GEO_COMPRESSED_FILE="livedvdosgeo_i3geo46_5_dezembro_2012.zip"
+I3GEO_COMPRESSED_FILE="livedvdosgeo_i3geo46_26_dezembro_2012.zip"
 
 #i3GEO dependencies
 I3GEO_DEPENDENCIES=(apache2 php5 libapache2-mod-php5 cgi-mapserver mapserver-bin php5-mapscript php5-gd php5-sqlite)
@@ -65,10 +65,6 @@ echo -n "Extracting i3geo in temp directory"
 unzip -q $I3GEO_COMPRESSED_FILE -d $ROOT_DIR/
 echo -n "Done"
 rm $I3GEO_COMPRESSED_FILE
-
-# Rename i3geo_live to i3geo
-cd $ROOT_DIR
-mv i3geo_live/ i3geo
 
 #Change permissions
 chown -R www-data i3geo/
@@ -113,18 +109,18 @@ echo "Downloading R required libraries"
 cd $TMP_DIR
 wget http://cran.r-project.org/src/contrib/gpclib_1.5-3.tar.gz
 wget http://cran.r-project.org/src/contrib/deldir_0.0-21.tar.gz	
-wget http://cran.r-project.org/src/contrib/spatstat_1.29-0.tar.gz
+wget http://cran.r-project.org/src/contrib/spatstat_1.30-0.tar.gz
 
 # install R libraries
 echo "Installing R required libraries"
 R CMD INSTALL gpclib_1.5-3.tar.gz
 R CMD INSTALL deldir_0.0-21.tar.gz
-R CMD INSTALL spatstat_1.29-0.tar.gz
+R CMD INSTALL spatstat_1.30-0.tar.gz
 
 #Cleaning temp files
 rm gpclib_1.5-3.tar.gz
 rm deldir_0.0-21.tar.gz
-rm spatstat_1.29-0.tar.gz
+rm spatstat_1.30-0.tar.gz
 
 # Reload Apache
 /etc/init.d/apache2 force-reload
@@ -152,23 +148,23 @@ EOF
 fi
 
 # Add lanuncher into the Desktop folder
-USER_HOME="/home/$USER_NAME"
-USER_DESKTOP="$USER_HOME/Desktop/"
+#USER_HOME="/home/$USER_NAME"
+#USER_DESKTOP="$USER_HOME/Desktop/"
 # Add desktop icon
-if [ -d $USER_DESKTOP ] ; then
-   echo "Copying icon to desktop at $USER_DESKTOP/Browser Clients"
-   cp /usr/share/applications/i3geo.desktop "$USER_DESKTOP/Browser Clients"
-   chown $USER_NAME:$USER_NAME "$USER_DESKTOP/Browser Clients/i3geo.desktop"
-   chmod +x "$USER_DESKTOP/Browser Clients/i3geo.desktop"
-fi
+#if [ -d $USER_DESKTOP ] ; then
+#   echo "Copying icon to desktop at $USER_DESKTOP/Browser Clients"
+#   cp /usr/share/applications/i3geo.desktop "$USER_DESKTOP/Browser Clients"
+#   chown $USER_NAME:$USER_NAME "$USER_DESKTOP/Browser Clients/i3geo.desktop"
+#   chmod +x "$USER_DESKTOP/Browser Clients/i3geo.desktop"
+#fi
 
 # Fix path to natural_earth
-sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/geral1debianv6.map
-sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/estadosldebian.map 
-sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/estadosl.map 
-sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/states_provinces.map
-sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/populated_places_simple.map
-sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/geography_regions_polys.map
-sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/estadosl.map
+#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/geral1debianv6.map
+#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/estadosldebian.map 
+#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/estadosl.map 
+#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/states_provinces.map
+#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/populated_places_simple.map
+#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/geography_regions_polys.map
+#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/estadosl.map
 
 echo "i3geo installation Done!"
