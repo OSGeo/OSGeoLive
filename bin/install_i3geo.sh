@@ -152,10 +152,10 @@ USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop/"
 # Add desktop icon
 if [ -d $USER_DESKTOP ] ; then
-   echo "Copying icon to desktop at $USER_DESKTOP/Browser Clients"
-   cp /usr/share/applications/i3geo.desktop "$USER_DESKTOP/Browser Clients/i3geo.desktop"
-   chown $USER_NAME:$USER_NAME "$USER_DESKTOP/Browser Clients/i3geo.desktop"
-   chmod +x "$USER_DESKTOP/Browser Clients/i3geo.desktop"
+   echo "Copying icon to desktop at $USER_DESKTOP"
+   cp /usr/share/applications/i3geo.desktop "$USER_DESKTOP/i3geo.desktop"
+   chown $USER_NAME:$USER_NAME "$USER_DESKTOP/i3geo.desktop"
+   chmod +x "$USER_DESKTOP/i3geo.desktop"
 fi
 
 # Fix path to natural_earth
