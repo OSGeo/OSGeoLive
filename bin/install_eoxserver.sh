@@ -31,24 +31,24 @@ if [ -z "$USER_NAME" ] ; then
     USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-DATA_DIR="/usr/local/share/gisvm/app-data/eoxserver"
+DATA_DIR="/usr/local/share/eoxserver"
 DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/conf.d/eoxserver"
 TMP_DIR="/tmp/build_eoxserver"
+POSTGRES_USER="$USER_NAME"
+
 
 ## check required tools are installed
 if [ ! -x "`which wget`" ] ; then
-    echo "ERROR: wget is required, please install it and try again" 
-    exit 1
+    apt-get --assume-yes install wget
 fi
 
 
 #Install packages
 apt-get -q update
-apt-get --assume-yes install gcc libgdal1-1.7.0 libgdal1-dev python-gdal \
-    libxml2 python-libxml2 sqlite libsqlite3-dev python-lxml python-pip \
-    cgi-mapserver python-mapscript python2.7 python2.7-dev \
-    libapache2-mod-wsgi libproj0 libproj-dev libgeos-dev libgeos++-dev
+apt-get --assume-yes install gcc libgdal1-dev python-gdal libxml2 python-lxml \
+    python-libxml2 python-pip libproj0 libproj-dev libgeos-dev libgeos++-dev \
+    cgi-mapserver python-mapscript libapache2-mod-wsgi
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
@@ -62,29 +62,21 @@ fi
 cd "$TMP_DIR"
 
 
+# Install Django using version 1.5 although its beta to have PostGIS 2.0 support
+wget -c --progress=dot:mega -O Django-1.5b2.tar.gz \
+   "https://www.djangoproject.com/download/1.5b2/tarball/"
+tar -xzf Django-1.5b2.tar.gz
+cd Django-1.5b2
+python setup.py install
+
+
 # Install EOxServer
-pip install --upgrade eoxserver==0.2.2
+pip install --upgrade --no-deps eoxserver==0.2.3
 
 
-# Commented due to bugs in their installers
-## Adjust pysqlite installation (without define=SQLITE_OMIT_LOAD_EXTENSION)
-#wget -c --progress=dot:mega \
-#    "https://pysqlite.googlecode.com/files/pysqlite-2.6.3.tar.gz"
-#
-#tar xzf pysqlite-2.6.3.tar.gz
-#cd pysqlite-2.6.3
-#
-#cat << EOF > setup.cfg
-#[build_ext]
-#libraries=sqlite3
-#EOF
-#
-#python setup.py install --force
-#cd ..
-#rm -r pysqlite-2.6.3
-#
-## Install further dependencies
-#pip install --upgrade pyspatialite
+# Create database for demonstration instance
+sudo -u $POSTGRES_USER createdb eoxserver_demo
+sudo -u $POSTGRES_USER psql eoxserver_demo -c 'create extension postgis;'
 
 
 # Create demonstration instance
@@ -94,86 +86,75 @@ chmod g+w .
 chgrp users .
 if [ ! -d eoxserver_demonstration ] ; then
     echo "Creating EOxServer demonstration instance"
-    eoxserver-admin.py create_instance eoxserver_demonstration \
-        --init_spatialite
+    eoxserver-admin.py create_instance eoxserver_demonstration
     cd eoxserver_demonstration
-    rm -r eoxserver_demonstration
-    sed -e 's/eoxserver_demonstration\.settings/settings/' -i manage.py
-    sed -e 's/eoxserver_demonstration\.urls/urls/' -i settings.py
+    # Configure database
+    DATA_DIR_ESCAPED=`echo $DATA_DIR | sed -e 's/\//\\\&/g'`
+    sed -e "s/'ENGINE': 'django.contrib.gis.db.backends.spatialite', # Use 'spatialite' or change to 'postgis'./'ENGINE': 'django.contrib.gis.db.backends.postgis',/" \
+        -i eoxserver_demonstration/settings.py
+    sed -e "s/'NAME': '$DATA_DIR_ESCAPED\/eoxserver_demonstration\/eoxserver_demonstration\/data\/config.sqlite',    # Or path to database file if using spatialite./'NAME': 'eoxserver_demo',/" \
+        -i eoxserver_demonstration/settings.py
+    sed -e "s/'USER': '',                      # Not used with spatialite./'USER': '$POSTGRES_USER',/" \
+        -i eoxserver_demonstration/settings.py
+    sed -e "s/'PASSWORD': '',                  # Not used with spatialite./'PASSWORD': '$POSTGRES_USER',/" \
+        -i eoxserver_demonstration/settings.py
+    sed -e "/#'TEST_NAME': '$DATA_DIR_ESCAPED\/eoxserver_demonstration\/eoxserver_demonstration\/data\/test-config.sqlite', # Required for certain test cases, but slower!/d" \
+        -i eoxserver_demonstration/settings.py
+    sed -e "s/'HOST': '',                      # Set to empty string for localhost. Not used with spatialite./'HOST': 'localhost',/" \
+        -i eoxserver_demonstration/settings.py
+    sed -e "/'PORT': '',                      # Set to empty string for default. Not used with spatialite./d" \
+        -i eoxserver_demonstration/settings.py
     # Configure logging
-    sed -e 's/#logging_level=/logging_level=INFO/' -i conf/eoxserver.conf
-    sed -e 's/DEBUG = True/DEBUG = False/' -i settings.py
+    sed -e 's/#logging_level=/logging_level=INFO/' -i eoxserver_demonstration/conf/eoxserver.conf
+    sed -e 's/DEBUG = True/DEBUG = False/' -i eoxserver_demonstration/settings.py
+    # Initialize database
     python manage.py syncdb --noinput
     # Download and register demonstration data
     wget -c --progress=dot:mega \
-       "http://eoxserver.org/export/head/downloads/EOxServer_autotest-0.2.1.tar.gz"
+       "http://eoxserver.org/export/head/downloads/EOxServer_autotest-0.2.3.tar.gz"
     echo "Extracting demonstration data in `pwd`."
-    tar -xzf EOxServer_autotest-0.2.1.tar.gz
-    mv EOxServer_autotest-0.2.1/data/fixtures/auth_data.json \
-        EOxServer_autotest-0.2.1/data/fixtures/initial_rangetypes.json \
-        data/fixtures/
-    mkdir -p data/meris/
-    mv EOxServer_autotest-0.2.1/data/meris/README data/meris/
-    mv EOxServer_autotest-0.2.1/data/meris/mosaic_MER_FRS_1P_RGB_reduced/ \
-        data/meris/
-    rm EOxServer_autotest-0.2.1.tar.gz
-    rm -r EOxServer_autotest-0.2.1/
-    chmod g+w -R .
-    chgrp users -R .
+    tar -xzf EOxServer_autotest-0.2.3.tar.gz
+    mv EOxServer_autotest-0.2.3/data/fixtures/auth_data.json \
+        EOxServer_autotest-0.2.3/data/fixtures/initial_rangetypes.json \
+        eoxserver_demonstration/data/fixtures/
+    mkdir -p eoxserver_demonstration/data/meris/
+    mv EOxServer_autotest-0.2.3/data/meris/README \
+        eoxserver_demonstration/data/meris/
+    mv EOxServer_autotest-0.2.3/data/meris/mosaic_MER_FRS_1P_RGB_reduced/ \
+        eoxserver_demonstration/data/meris/
+    rm EOxServer_autotest-0.2.3.tar.gz
+    rm -r EOxServer_autotest-0.2.3/
     python manage.py loaddata auth_data.json initial_rangetypes.json
     python manage.py eoxs_add_dataset_series --id MER_FRS_1P_RGB_reduced
     python manage.py eoxs_register_dataset \
-        --data-files "$DATA_DIR"/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_RGB_reduced/*.tif \
+        --data-files "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_RGB_reduced/*.tif \
         --rangetype RGB --dataset-series MER_FRS_1P_RGB_reduced --visible=False
-    touch logs/eoxserver.log
-    chown www-data logs/eoxserver.log data/ data/config.sqlite
-    sed -e 's,http_service_url=http://localhost:8000/ows,http_service_url=http://localhost/eoxserver/ows,' -i conf/eoxserver.conf
+    touch eoxserver_demonstration/logs/eoxserver.log
+    chown www-data eoxserver_demonstration/logs/eoxserver.log
+    sed -e 's,http_service_url=http://localhost:8000/ows,http_service_url=http://localhost/eoxserver/ows,' \
+        -i eoxserver_demonstration/conf/eoxserver.conf
     # Collect static files
-    sed -e "s,STATIC_ROOT = '',STATIC_ROOT = '$DATA_DIR/eoxserver_demonstration/static'," -i settings.py
-    mkdir static
     python manage.py collectstatic --noinput
+    # Configure WSGI
+    sed -e "s,^import os$,import os\nimport sys\n\npath = \"$DATA_DIR/eoxserver_demonstration/\"\nif path not in sys.path:\n    sys.path.append(path)\n," \
+        -i eoxserver_demonstration/wsgi.py
+    chmod g+w -R .
+    chgrp users -R .
 fi
 
 
 # Deploy demonstration instance in Apache
 echo "Deploying EOxServer demonstration instance"
-if [ ! -e "$DATA_DIR"/eoxserver_demonstration/wsgi.py ] ; then
-    cat << EOF > "$DATA_DIR"/eoxserver_demonstration/wsgi.py
-import os
-import sys
-path = "$DATA_DIR/eoxserver_demonstration/"
-if path not in sys.path:
-    sys.path.append(path)
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
-
-from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
-EOF
-fi
-chmod g+w "$DATA_DIR"/eoxserver_demonstration/wsgi.py
-chgrp users "$DATA_DIR"/eoxserver_demonstration/wsgi.py
-
-
-# Add Apache configuration
 cat << EOF > "$APACHE_CONF"
-Alias /static "$DATA_DIR/eoxserver_demonstration/static"
-Alias /eoxserver "$DATA_DIR/eoxserver_demonstration/wsgi.py"
+Alias /static "$DATA_DIR/eoxserver_demonstration/eoxserver_demonstration/static"
+Alias /eoxserver "$DATA_DIR/eoxserver_demonstration/eoxserver_demonstration/wsgi.py"
 
-################################################################################
-#Restrict wsgi threads in order to run non thread safe code:
-WSGIDaemonProcess ows processes=10 threads=1
-################################################################################
-
-<Directory "$DATA_DIR/eoxserver_demonstration">
+WSGIDaemonProcess eoxserver processes=10 threads=1
+<Directory "$DATA_DIR/eoxserver_demonstration/eoxserver_demonstration">
     AllowOverride None
     Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
     AddHandler wsgi-script .py
-    ############################################################################
-    #Restrict wsgi threads in order to run non thread safe code:
-    WSGIProcessGroup ows
-    WSGIRestrictProcess ows
-    SetEnv PROCESS_GROUP ows
-    ############################################################################
+    WSGIProcessGroup eoxserver
     Order allow,deny
     allow from all
 </Directory>
@@ -216,9 +197,9 @@ cd "$DOC_DIR"
 chmod g+w .
 chgrp users .
 wget -c --progress=dot:mega \
-    "http://eoxserver.org/export/head/downloads/EOxServer_documentation-0.2.1.pdf" \
-    -O EOxServer_documentation-0.2.1.pdf
-ln -sf EOxServer_documentation-0.2.1.pdf EOxServer_documentation.pdf
+    "http://eoxserver.org/export/head/downloads/EOxServer_documentation-0.2.3.pdf" \
+    -O EOxServer_documentation-0.2.3.pdf
+ln -sf EOxServer_documentation-0.2.3.pdf EOxServer_documentation.pdf
 chmod g+w -R EOxServer_documentation*
 chgrp users -R EOxServer_documentation*
 ln -sTf "$DOC_DIR" /var/www/eoxserver-docs
@@ -247,10 +228,9 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/eoxserver-docs.desktop"
 
 
 # Uninstall dev packages
-apt-get --assume-yes remove libgdal1-dev python2.7-dev \
-    libproj-dev libgeos-dev libgeos++-dev
+apt-get --assume-yes remove libgdal1-dev libproj-dev libgeos-dev libgeos++-dev
 apt-get --assume-yes autoremove
-rm "$TMP_DIR"/pysqlite-2.6.3.tar.gz
+rm -rf "$TMP_DIR"/Django-1.5b2.tar.gz "$TMP_DIR"/Django-1.5b2/
 
 
 echo "Finished EOxServer installation"
