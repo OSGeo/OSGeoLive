@@ -247,7 +247,7 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/eoxserver-docs.desktop"
 
 
 # Uninstall dev packages
-apt-get --assume-yes remove libgdal1-dev libsqlite3-dev python2.7-dev \
+apt-get --assume-yes remove libgdal1-dev python2.7-dev \
     libproj-dev libgeos-dev libgeos++-dev
 apt-get --assume-yes autoremove
 rm "$TMP_DIR"/pysqlite-2.6.3.tar.gz
