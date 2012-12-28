@@ -239,12 +239,13 @@ ln -s /usr/local/share/data/osm/"${CITY}_CBD.osm.bz2" \
    /usr/local/share/data/osm/feature_city_CBD.osm.bz2
 
 
-####
+###########################
 ####testing for osm2pgsql 0.80
 add-apt-repository --yes ppa:kakrueger/openstreetmap
 apt-get -q update
+apt-get --assume-yes --no-install-recommends install osm2pgsql
 ###########################
-apt-get --assume-yes install osm2pgsql
+#apt-get --assume-yes install osm2pgsql
 
 
 # 
