@@ -346,3 +346,13 @@ chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/cartaro-stop.desktop"
 
 fi
 
+##################################
+# Bring down GeoServer and reset permissions
+#################################
+
+${GEO_PATH}/bin/shutdown.sh &
+sleep 30;
+
+## Allow the user to write in the GeoServer data dir
+chmod -R a+w "$GEO_PATH/data_dir"
+chmod -R a+w "$GEO_PATH/logs"
