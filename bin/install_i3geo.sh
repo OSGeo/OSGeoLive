@@ -67,6 +67,7 @@ echo -n "Done"
 rm $I3GEO_COMPRESSED_FILE
 
 #Change permissions
+cd /var/www
 chown -R www-data i3geo/
 chgrp -R www-data i3geo/
 chmod -R 755 i3geo/
@@ -140,7 +141,7 @@ Encoding=UTF-8
 Name=i3geo
 Comment=i3geo
 Categories=Application;Geography;Geoscience;Education;
-Exec=firefox http://localhost/i3geo/ms_criamapa?idioma=en
+Exec=firefox http://localhost/i3geo/ms_criamapa.php?idioma=en
 Icon=/usr/share/icons/i3geo1.png
 Terminal=false
 StartupNotify=false
