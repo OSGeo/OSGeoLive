@@ -44,6 +44,9 @@ mkdir /usr/local/share/osm
 apt-get install --assume-yes josm josm-plugins gpsd gpsd-clients \
    merkaartor xmlstarlet
 
+## dec12 imposm
+apt-get install --assume-yes imposm
+
 # Gosmore is broken in ubuntu 12.04 (gets stuck in a loop)
 # see  http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=652084
 #apt-get install --assume-yes gosmore
