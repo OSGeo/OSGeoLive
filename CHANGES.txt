@@ -1,6 +1,18 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.5alpha6
+===================
+
+ * Upgraded GeoServer to 2.2.2
+ * i3geo fixed
+ * Cartaro installation not breaking GeoServer anymore
+ * Tilemill fixed
+ * EOxServer updated to 0.2.3 (moved from sqlite to postgis)
+ * QGIS-Server updated to Natural Earth 2 data
+ * osm2pgsql updated to 0.81 for PostGIS 2.0
+ * imposm added
+
 Version 6.5alpha5
 ===================
 
@@ -11,7 +23,6 @@ Version 6.5alpha5
  * GeoServer fixes
  * Cartaro fixes
  * i3geo fixes
- * 
 
 Version 6.5alpha4
 ===================
