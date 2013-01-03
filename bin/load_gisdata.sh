@@ -46,7 +46,8 @@ fi
 
 ## 12dec12 atlasstyler no longer installed, however no change needed
 if [ ! -x "`which atlasstyler`" ] ; then
-   echo "ERROR: atlasstyler is required as a tool to create .fix and .qix files for all shapefiles, please install it with bin/install_atlasstyler.sh and try again"
+   echo "WARNING: atlasstyler is not install, using ogrinfo instead to create .qix files for Natural Earth shapefiles"
+#   echo "ERROR: atlasstyler is required as a tool to create .fix and .qix files for all shapefiles, please install it with bin/install_atlasstyler.sh and try again"
    HAS_ATLASSTYLER=0
 else
    HAS_ATLASSTYLER=1
@@ -129,6 +130,15 @@ if [ $HAS_ATLASSTYLER = 1 ]; then
   # files when opeing the Shapefile, but since the data-dir is read-only, we do it here.
   # This REQUIRES that install_atlasstyler.sh has been executed before (which is checked above)
   find "$NE2_DATA_FOLDER" -iname "*.shp" -exec atlasstyler "addFix={}" \;
+else
+  # Plan B: use ogrinfo instead
+  cd "$NE2_DATA_FOLDER"
+  for SHP in *.shp; do \
+        S=`basename $SHP .shp`
+        ogrinfo -sql "CREATE SPATIAL INDEX ON $S" $SHP;
+  done
+  cd "$TMP"
+  # fixme: Is there a need to walk thru other folders as well??
 fi
 
 ##--------------------------------
