@@ -59,7 +59,7 @@ PORT="8007"
 # PostgreSQL
 PG_VERSION="9.1"
 # Geoserver
-GS_VERSION="2.1.3"
+GS_VERSION="2.2.2"
 GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"
 
 mkdir -p "$TMP_DIR"
