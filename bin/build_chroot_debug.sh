@@ -108,7 +108,10 @@ sudo cp /etc/hosts edit/etc/
 # decide to delete the edit/ directory, then make sure to unmount
 # before doing so, otherwise your host system will become unusable at
 # least temporarily until reboot
-sudo mount --bind /dev/ edit/dev
+
+#sudo mount --bind /dev/ edit/dev
+sudo mount -t proc -o bind /proc edit/proc
+sudo mount -o bind /dev/pts edit/dev/pts
 
 echo
 echo "Starting build in chroot"
@@ -127,7 +130,9 @@ echo
 echo "Finished chroot part"
 echo "======================================"
 cd ~/livecdtmp
-sudo umount edit/dev
+#sudo umount edit/dev
+sudo umount edit/dev/pts
+sudo umount edit/proc
 
 #compress osgeolive build logs
 #tar czf osgeo-live-${VERSION}-log.tar.gz -C edit/var/log osgeolive
