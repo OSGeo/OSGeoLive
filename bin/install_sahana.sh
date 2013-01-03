@@ -57,7 +57,7 @@ WEBSERVER="apache2"
 # FIXME: Script doesn't currently use this var
 PORT="8007"
 # PostgreSQL
-#PG_VERSION="9.1"
+PG_VERSION="9.1"
 # Geoserver
 GS_VERSION="2.1.3"
 GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"
@@ -90,11 +90,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 	libapache2-mod-wsgi \
 	python-psycopg2
 
-
-# Install python-tweepy
-
-echo "FIXME: (sahana)  chris-lea PPA for Ubuntu 12.04 doesn't exist yet."
-
+# Install python-tweepy (optional)
 ##echo "deb http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu precise main
 ##deb-src http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu precise main" \
 ##   > /etc/apt/sources.list.d/python-tweepy.list
@@ -102,14 +98,13 @@ echo "FIXME: (sahana)  chris-lea PPA for Ubuntu 12.04 doesn't exist yet."
 ##apt-get -q update
 ##apt-get install --yes python-tweepy
 
-
-# Install PostGIS 1.5
-# should be done already by install_postgis.sh
+# Install PostGIS 2.0
+# should be done already by install_postgis.sh, but isn't currently
 #wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
 #     --output-document=/etc/apt/sources.list.d/ubuntugis.list
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 #apt-get -q update
-#apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis
+apt-get install --yes "postgresql-$PG_VERSION-postgis"
 
 # Add DB User
 su -c - postgres "createuser -s sahana" && true
@@ -128,8 +123,8 @@ EOF
 su -c - postgres "psql -q -d sahana -f $TMP_DIR/sahana.sql"
 
 # Import GIS template
-su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/9.1/contrib/postgis-1.5/postgis.sql"
-su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/9.1/contrib/postgis-1.5/spatial_ref_sys.sql"
+su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/9.1/contrib/postgis-2.0/postgis.sql"
+su -c - postgres "psql -q -d sahana -f /usr/share/postgresql/9.1/contrib/postgis-2.0/spatial_ref_sys.sql"
 
 # Add web2py account
 # - with mod_proxy we now run web2py as 'user'
@@ -147,7 +142,7 @@ rm -rf "$INSTALL_DIR"/web2py
 cd "$INSTALL_DIR"
 git clone git://github.com/web2py/web2py.git
 cd web2py
-git checkout c0c23b8eb78e6a7c0672417e61d3136b1564295b
+git checkout 828a4d7a60021b20bd9dfacf8235e9113156271b
 git reset --hard
 
 cat << EOF > "$INSTALL_DIR/web2py/routes.py"
@@ -166,7 +161,7 @@ EOF
 cd "$INSTALL_DIR/web2py/applications"
 git clone git://github.com/flavour/eden.git
 cd eden
-git checkout 68f48c7d838e9ed86ff3aa7bd0c6d84a8434eba4
+git checkout 5d04ac2d58bdd0db4f6ba30df61dc82a03128b3a
 git reset --hard
 
 # Create Eden Directories
