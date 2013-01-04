@@ -33,9 +33,9 @@ run_installer()
   sh "$SCRIPT"
 }
 
-#mount -t proc none /proc
-#mount -t sysfs none /sys
-#mount -t devpts none /dev/pts
+mount -t proc none /proc
+mount -t sysfs none /sys
+mount -t devpts none /dev/pts
 
 #To avoid locale issues and in order to import GPG keys 
 export HOME=/roots
@@ -197,8 +197,7 @@ rm /etc/resolv.conf
 rm /var/lib/dbus/machine-id
 rm /sbin/initctl
 dpkg-divert --rename --remove /sbin/initctl
-
 #now umount (unmount) special filesystems and exit chroot 
-#umount /proc || umount -lf /proc
-#umount /sys
-#umount /dev/pts
+umount /proc || umount -lf /proc
+umount /sys
+umount /dev/pts
