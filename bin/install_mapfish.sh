@@ -68,9 +68,12 @@ rm -fr MapfishSample
 svn export --quiet http://mapfish.org/svn/mapfish/sample/trunk MapfishSample
 cd MapfishSample
 
-#patch for PostGIS 2.0
+# patch for PostGIS 2.0 #################
 rm ./geodata/create_database.bash.in
 cp /$USER_HOME/gisvm/app-conf/mapfish/create_database.bash.in ./geodata/
+rm ./layers.ini
+cp /$USER_HOME/gisvm/app-conf/mapfish/layers.ini ./
+#########################################
 
 # generate buildout_osgeolive.cfg
 cat << EOF > buildout_osgeolive.cfg
