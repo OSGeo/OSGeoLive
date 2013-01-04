@@ -56,7 +56,7 @@ locale
 
 # now avail from mainline
 PROJ_FORCE='--force-yes proj=4.8.0-3~precise2'
-apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis libgdal1 $PROJ_FORCE
+apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis $PROJ_FORCE
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
