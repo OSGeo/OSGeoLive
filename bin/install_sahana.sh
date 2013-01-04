@@ -99,12 +99,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 ##apt-get install --yes python-tweepy
 
 # Install PostGIS 2.0
-# should be done already by install_postgis.sh, but isn't currently
-#wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
-#     --output-document=/etc/apt/sources.list.d/ubuntugis.list
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
-#apt-get -q update
-apt-get install --yes "postgresql-$PG_VERSION-postgis"
+# done already by install_postgis.sh
+#apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis libgdal1
 
 # Add DB User
 su -c - postgres "createuser -s sahana" && true
@@ -122,7 +118,7 @@ ALTER ROLE sahana WITH PASSWORD 'sahana';
 EOF
 su -c - postgres "psql -q -d sahana -f $TMP_DIR/sahana.sql"
 
-# Import GIS template no longer needed, use postgresql extensions instead
+# Create db with postgis extensions
 su -c - postgres "psql -q -d sahana -c 'create extension postgis'"
 
 # Add web2py account
