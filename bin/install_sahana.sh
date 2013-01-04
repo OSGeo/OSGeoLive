@@ -110,7 +110,8 @@ su -c - postgres "createuser -s sahana" && true
 killall python
 su -c - postgres "dropdb sahana" && true
 su -c - postgres "createdb -E UTF8 -O sahana sahana"
-su -c - postgres "createlang plpgsql -d sahana"
+# Not needed any more
+#su -c - postgres "createlang plpgsql -d sahana"
 
 # Add Role Password
 cat << EOF > "$TMP_DIR/sahana.sql"
@@ -210,8 +211,9 @@ sed -i 's|EDITING_CONFIG_FILE = False|EDITING_CONFIG_FILE = True|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 sed -i 's|#settings.base.public_url = "http://127.0.0.1:8000"|settings.base.public_url = "http://127.0.0.1"|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
-sed -i 's|#settings.gis.spatialdb = True|settings.gis.spatialdb = True|' \
-   "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
+# Not working with PostGIS 2 (prepop fails)
+#sed -i 's|#settings.gis.spatialdb = True|settings.gis.spatialdb = True|' \
+#   "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
 # Stream Edit 000_config.py for Postgres Database
 sed -i 's|#settings.database.db_type = "postgres"|settings.database.db_type = "postgres"|' \
@@ -233,7 +235,7 @@ cat << EOF >> "$INSTALL_DIR/web2py/applications/eden/models/zzz_1st_run.py"
     # Create Login
     table = auth.settings.table_user_name
     # 1st-run initialisation
-    if not len(db().select(db[table].ALL)):
+    if not len(db().select(db[table].id, limitby=(0, 1))):
         import hmac
         import hashlib
         alg = hashlib.sha512
