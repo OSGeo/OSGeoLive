@@ -71,8 +71,6 @@ cd MapfishSample
 # patch for PostGIS 2.0 #################
 rm ./geodata/create_database.bash.in
 cp /$USER_HOME/gisvm/app-conf/mapfish/create_database.bash.in ./geodata/
-rm ./layers.ini
-cp /$USER_HOME/gisvm/app-conf/mapfish/layers.ini ./
 #########################################
 
 # generate buildout_osgeolive.cfg
