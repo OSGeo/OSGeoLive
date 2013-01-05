@@ -38,6 +38,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_ushahidi"
+
 mkdir -p "$TMP_DIR"
 
 # Install ushahidi dependencies.
@@ -63,10 +64,14 @@ fi
 
 # uncompress ushahidi
 unzip -q "ushahidi.zip"
-mkdir /usr/local/share/ushahidi
 
 # delete the zip file to leave only the extracted folder
 rm ushahidi.zip
+
+#check if '__MACOSX' folder exist. if it does, rm it
+if [ -e "__MACOSX" ] ; then
+    rm -r __MACOSX
+fi
 
 # now rename the extracted folder to ushahidi
 mv * ushahidi
