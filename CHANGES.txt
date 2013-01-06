@@ -1,6 +1,15 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.5beta1
+===================
+
+ * Added ogrinfo option to create .qix files instead of atlasstyler
+ * Updated Sahana to use PostGIS-2.0 & current code
+ * Updated artwork for 6.5
+ * Ushahidi fixed and updated to current version
+ * Mapfish issues fixed.
+
 Version 6.5alpha6
 ===================
 
