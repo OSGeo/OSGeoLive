@@ -1,0 +1,199 @@
+#
+# MapServer Mapfile
+#
+# Test requests:
+#
+# WMS GetCapabilities:
+# /mapserv?service=wms&version=1.1.1&request=getcapabilities
+#
+# WMS GetMap:
+# /mapserv?service=wms&version=1.1.1&request=getmap&bbox=-180,-90,180,90&layers=countries&width=600&height=400&srs=EPSG:4326&format=image/png
+#
+# WMS GetFeatureInfo:
+# /mapserv?service=wms&version=1.1.1&request=getfeatureinfo&bbox=-180,-90,180,90&layers=countries&query_layers=countries&width=600&height=400&srs=EPSG:4326&format=image/png&x=180&y=90&info_format=application/vnd.ogc.gml
+#
+
+MAP
+    NAME "mapfishsample"
+
+    EXTENT -180 -90 180 90
+    UNITS dd
+
+    # RESOLUTION and DEFRESOLUTION default to 72. If you
+    # change RESOLUTION to some other value, also change
+    # DEFRESOLUTION. See
+    # http://mapserver.org/development/rfc/ms-rfc-55.html
+    #RESOLUTION 254
+    #DEFRESOLUTION 254
+
+    # MAXSIZE shouldn't be less than 4000 for MF print
+    MAXSIZE 4000
+
+    SHAPEPATH ''
+
+    IMAGECOLOR 255 255 255
+    STATUS ON
+
+    FONTSET "fonts.conf"
+    SYMBOLSET "symbole.sym"
+
+    OUTPUTFORMAT
+        NAME jpeg
+        DRIVER "${vars:mapserver_jpeg_driver}"
+        IMAGEMODE RGB
+        EXTENSION "jpeg"
+        FORMATOPTION "QUALITY=75,PROGRESSIVE=TRUE"
+    END
+
+    OUTPUTFORMAT
+        NAME png
+        DRIVER AGG/PNG
+        MIMETYPE "image/png"
+        IMAGEMODE RGBA
+        EXTENSION "png"
+        FORMATOPTION "INTERLACE=OFF"
+    END
+
+    PROJECTION
+        "init=epsg:4326"
+    END
+
+    WEB
+        METADATA
+            "ows_enable_request" "*"
+            "wms_title" "changeme"
+            "wms_abstract" "changeme"
+            "wms_onlineresource" "changeme"
+            "wms_srs" "epsg:4326"
+            "wms_encoding" "UTF-8"
+        END
+    END
+
+    # vector layer
+    # <http://www.mapfish.org/downloads/countries.zip>
+#    LAYER
+#        NAME "countries"
+#        TYPE POLYGON
+#        STATUS ON
+#        DATA "countries"
+#        METADATA
+#            "wms_title" "countries"
+#            "wms_srs" "epsg:4326"
+#            # gml_ settings for GetFeatureInfo
+#            "gml_include_items" "all"
+#            "gml_exclude_items" "oid"
+#            "gml_geometries" "geom"
+#            "gml_geom_type" "polygon"
+#        END
+#        DUMP TRUE # for GetFeatureInfo
+#        TEMPLATE "template"
+#        PROJECTION
+#	        "init=epsg:4326"
+#        END
+#        CLASS
+#            NAME "countries"
+#            OUTLINECOLOR 0 0 0
+#        END
+#    END
+
+    # raster layer (with a tile index)
+#    LAYER
+#        NAME 'topo'
+#        GROUP 'plan'
+#        TYPE RASTER
+#        STATUS ON
+#        PROCESSING "RESAMPLE=AVERAGE"
+#        TILEINDEX "raster/LK25/KREL"
+#        TILEITEM "LOCATION"
+#        MINSCALEDENOM 25000
+#    END
+
+  LAYER
+    NAME sustenance
+    TYPE POINT
+    STATUS ON
+    CONNECTIONTYPE POSTGIS
+    CONNECTION "host=${vars:dbhost} dbname=${vars:db} user=${vars:dbuser} password=${vars:dbpassword} port=${vars:dbport}"
+    DATA "geom from poi_osm"
+    LABELITEM "name"
+    LABELMAXSCALEDENOM 60000
+    TOLERANCE 10
+    CLASS
+      NAME "Bar, pub, cafe"
+      EXPRESSION ("[type]" == "Bar" OR "[type]" == "Pub" OR "[type]" == "Cafe")
+#      MAXSCALEDENOM 40000
+      LABEL
+        COLOR  100 100 100
+        FONT "Vera"
+        TYPE truetype
+	BUFFER 10
+        SIZE 8
+	ANGLE FOLLOW
+	POSITION lc
+	MINFEATURESIZE 10
+	PRIORITY 10
+        PARTIALS FALSE
+      END
+      STYLE
+	SIZE 20
+	SYMBOL pub
+        COLOR 255 0 0
+      END
+    END
+    CLASS
+      NAME "Restaurants"
+      EXPRESSION ("[type]" == "Restaurant")
+ #     MAXSCALEDENOM 40000
+      LABEL
+        COLOR  100 100 100
+        FONT "Vera"
+        TYPE truetype
+	BUFFER 10
+        SIZE 8
+	ANGLE FOLLOW
+	POSITION lc
+	MINFEATURESIZE 10
+	PRIORITY 10
+        PARTIALS FALSE
+      END
+      STYLE
+	SIZE 20
+	SYMBOL resto
+        COLOR 0 255 0
+      END
+    END
+    CLASS
+      NAME "Fastfood"
+      EXPRESSION ("[type]" == "Fastfood")
+ #     MAXSCALEDENOM 40000
+      LABEL
+        COLOR  100 100 100
+        FONT "Vera"
+        TYPE truetype
+	BUFFER 10
+        SIZE 8
+	ANGLE FOLLOW
+	POSITION lc
+	MINFEATURESIZE 10
+	PRIORITY 10
+        PARTIALS FALSE
+      END
+      STYLE
+	SIZE 20
+	SYMBOL fastfood
+        COLOR 0 255 0
+      END
+    END
+    PROJECTION
+        "init=epsg:900913"
+    END
+    METADATA
+      "wms_title"    "poi"   ##required
+      "wms_srs" "EPSG:900913"
+      "gml_include_items" "all"
+  #    "gml_exclude_items" "oid"
+      "gml_geometries" "geom"
+      "gml_geom_type" "point"
+    END
+  END
+END
