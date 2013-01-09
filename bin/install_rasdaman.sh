@@ -263,10 +263,14 @@ sed -i "s/PATH+=\":\$(RASGEO)\/bin\"/MAP=lena/g" lena/Makefile
 make all
 
 
-#copy demo applications into tomcat webapps directory
+#copy demo applications (earthlook) into tomcat webapps directory
+# Alan: changed /earthlook to /rasdaman-demo (not using just "rasdaman" to avoid future conflicts)
 cd ../
 
 if [ -d "/var/lib/tomcat6/webapps/earthlook" ] ; then
+    rm -rf /var/lib/tomcat6/webapps/earthlook
+fi
+if [ -d "/var/lib/tomcat6/webapps/rasdaman-demo" ] ; then
     rm -rf /var/lib/tomcat6/webapps/earthlook
 fi
        
@@ -274,7 +278,8 @@ echo "moving earthlook folder into tomcat webapps..."
 chown -R "$TOMCAT_USER_NAME:$TOMCAT_USER_NAME" rasdaman
 mv rasdaman/* "$WARDIR"
 
-
+echo "renaming earthlook folder into rasdaman-demo"
+mv "$WARDIR/earthlook" "$WARDIR/rasdaman-demo"
 
 #clean up
 echo "cleaning up..."
@@ -324,7 +329,7 @@ Encoding=UTF-8
 Name=Rasdaman-Earthlook Demo
 Comment=Rasdaman Demo and Tutorial
 Categories=Application;Education;Geography;
-Exec=firefox  http://localhost:8080/earthlook
+Exec=firefox  http://localhost:8080/rasdaman-demo/index-osgeolive.php
 Icon=gnome-globe
 Terminal=false
 StartupNotify=false
