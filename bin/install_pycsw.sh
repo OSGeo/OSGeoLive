@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2011 The Open Source Geospatial Foundation.
+# Copyright (c) 2013 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -46,8 +46,8 @@ apt-get install --yes apache2 python-lxml python-sqlalchemy \
 
 echo 'Installing pycsw ...'
 
-add-apt-repository --yes ppa:gcpp-kalxas/ppa-tzotsos
-apt-get -q update
+#add-apt-repository --yes ppa:gcpp-kalxas/ppa-tzotsos
+#apt-get -q update
 apt-get install --yes python-owslib python-pycsw pycsw-cgi
 
 
