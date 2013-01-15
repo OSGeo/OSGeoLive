@@ -133,7 +133,7 @@ export USER_NAME
 ./install_tilemill.sh
 ./install_eoxserver.sh
 ./install_cartaro.sh
-./install_i3geo.sh
+# ./install_i3geo.sh
 
 ./load_gisdata.sh
 ./install_main_docs.sh
