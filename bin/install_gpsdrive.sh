@@ -95,7 +95,7 @@ lastlat = 52.9512
 scalewanted = 10000
 dashboard_3 = 12
 autobestmap = 0
-mapnik = 1
+mapnik = 0
 mapnik_caching = 0
 minsecmode = 2
 friendsname = LiveDVD
@@ -137,19 +137,19 @@ ln -s /usr/local/share/osm/"${CITY}_poi.db" \
 mkdir -p /usr/share/mapnik/world_boundaries
 
 # bypass Mapnik wanting 300mb World Boundaries DB to be installed, use Natural Earth instead.
-sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share/data/natural_earth/10m_land+' \
+sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share/data/natural_earth2/ne_10m_land+' \
     -e 's/Layer name="world-1".*/Layer name="world-1" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
     \
-    -e 's+/usr/share/mapnik/world_boundaries/world_bnd_m+/usr/local/share/data/natural_earth/10m_land+' \
+    -e 's+/usr/share/mapnik/world_boundaries/world_bnd_m+/usr/local/share/data/natural_earth2/ne_10m_land+' \
     -e 's/Layer name="world".*/Layer name="world" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
     \
-    -e 's+/usr/share/mapnik/world_boundaries/processed_p+/usr/local/share/data/natural_earth/10m_land+' \
+    -e 's+/usr/share/mapnik/world_boundaries/processed_p+/usr/local/share/data/natural_earth2/ne_10m_land+' \
     -e 's/Layer name="coast-poly".*/Layer name="coast-poly" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
     \
-    -e 's+/usr/share/mapnik/world_boundaries/builtup_area+/usr/local/share/data/natural_earth/10m_urban_areas+' \
+    -e 's+/usr/share/mapnik/world_boundaries/builtup_area+/usr/local/share/data/natural_earth2/ne_10m_urban_areas+' \
     -e 's/Layer name="buildup".*/Layer name="builtup" status="on" srs="+proj=longlat +datum=WGS84 +no_defs +over">/' \
     \
-    -e 's+/usr/share/mapnik/world_boundaries/places+/usr/local/share/data/natural_earth/10m_populated_places_simple+' \
+    -e 's+/usr/share/mapnik/world_boundaries/places+/usr/local/share/data/natural_earth2/ne_10m_populated_places+' \
     -e 's/Layer name="places".*/Layer name="builtup" status="on" srs="+proj=longlat +datum=WGS84 +no_defs">/' \
     \
     /usr/share/gpsdrive/osm-template.xml > "/etc/skel/.gpsdrive/osm.xml"
