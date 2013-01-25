@@ -51,7 +51,8 @@ mkdir -p "$TMP_DIR"
 # Install mapbender dependencies.
 echo "Installing mapbender"
 
-apt-get install --assume-yes php5 php5-imagick php5-pgsql php5-gd php5-curl php5-cli php5-sqlite sqlite php-apc php5-intl
+apt-get install --assume-yes php5 php5-imagick php5-pgsql php5-gd \
+  php5-curl php5-cli php5-sqlite sqlite php-apc php5-intl
 
 sed -i -e 's/short_open_tag = On/short_open_tag = Off/' \
    /etc/php5/apache2/php.ini
@@ -106,7 +107,8 @@ chown -R www-data:www-data "$INSTALL_DIR/mapbender3"
 
 # create mapbender database
 cd "$INSTALL_DIR/mapbender3/"
-cp "$TMP_DIR/${INSTALLFILE}_parameters.yml" "$INSTALL_DIR/mapbender3/app/config/parameters.yml"
+cp "$TMP_DIR/${INSTALLFILE}_parameters.yml" \
+   "$INSTALL_DIR/mapbender3/app/config/parameters.yml"
 
 app/console doctrine:database:create
 app/console doctrine:schema:create
@@ -114,12 +116,19 @@ app/console init:acl
 app/console assets:install web
 app/console fom:user:resetroot --username="root" --password="root" --email="root@example.com" --silent
 
-# 
+#FIXME *** always use "chmod g+w; chgrp users; adduser user users" ***
+#      *** instead of making files on the DVD globally writable    ***
 chmod -R o+w "$INSTALL_DIR/mapbender3/app/cache"
 chmod -R o+w "$INSTALL_DIR/mapbender3/app/logs"
 
 
 #Create apache2 configuration for mapbender
+#FIXME: make cleaner like
+# cat << EOF > /etc/apache2/conf.d/mapbender3
+#content
+#content
+#content
+#EOF
 echo "#Configure apache for mapbender3 " > /etc/apache2/conf.d/mapbender3
 echo "Alias /mapbender3 $INSTALL_DIR/mapbender3/web/" >> \
    /etc/apache2/conf.d/mapbender3
@@ -136,15 +145,17 @@ echo "</Directory>" >> /etc/apache2/conf.d/mapbender3
 
 ### install desktop icon ##
 echo "Installing Mapbender desktop icon"
-if [ ! -e "/usr/share/icons/mapbender3_desktop_48x48.png" ] ; then
+if [ ! -e "/usr/local/share/icons/mapbender3_desktop_48x48.png" ] ; then
    wget -nv -N "https://svn.osgeo.org/mapbender/trunk/build/osgeolive/mapbender3_desktop_48x48.png"
-   cp -f mapbender3_desktop_48x48.png /usr/share/icons/
+   mkdir -p /usr/local/share/icons
+   cp -f mapbender3_desktop_48x48.png /usr/local/share/icons/
 fi
 
 
 #Add Launch icon to desktop
-if [ ! -e /usr/share/applications/mapbender3.desktop ] ; then
-   cat << EOF > /usr/share/applications/mapbender3.desktop
+if [ ! -e /usr/local/share/applications/mapbender3.desktop ] ; then
+   mkdir -p /usr/local/share/applications
+   cat << EOF > /usr/local/share/applications/mapbender3.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -152,12 +163,12 @@ Name=Mapbender3
 Comment=Mapbender
 Categories=Application;Geography;Geoscience;Education;
 Exec=firefox http://localhost/mapbender3/
-Icon=/usr/share/icons/mapbender3_desktop_48x48.png
+Icon=/usr/local/share/icons/mapbender3_desktop_48x48.png
 Terminal=false
 StartupNotify=false
 EOF
 fi
-cp /usr/share/applications/mapbender3.desktop "$USER_HOME/Desktop/"
+cp /usr/local/share/applications/mapbender3.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/mapbender3.desktop"
 
 

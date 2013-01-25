@@ -16,8 +16,9 @@
 # =======
 # sudo ./install_i3geo_v4.6_osgeo.sh
 
-# Requires: apache2 php5 libapache2-mod-php5 cgi-mapserver mapserver-bin php5-mapscript php5-gd php5-sqlite gfortran r-base r-base-core r-base-sp r-cran-maptools
-
+# Requires: apache2 php5 libapache2-mod-php5 cgi-mapserver mapserver-bin
+#      php5-mapscript php5-gd php5-sqlite gfortran r-base r-base-core
+#      r-base-sp r-cran-maptools
 
 # Uninstall:
 # ============
@@ -60,12 +61,12 @@ chmod -R 755 "$TMP_DIR/ms_tmp"
 chmod -R 755 "$ROOT_DIR/ms_tmp"    
 
 #Deploy i3geo
-cd $TMP_DIR
-wget "$I3GEO_DOWNLOAD_URL/$I3GEO_COMPRESSED_FILE"
+cd "$TMP_DIR"
+wget -c --progress=dot:mega "$I3GEO_DOWNLOAD_URL/$I3GEO_COMPRESSED_FILE"
 echo -n "Extracting i3geo in temp directory"
-unzip -q $I3GEO_COMPRESSED_FILE -d $ROOT_DIR/
+unzip -q "$I3GEO_COMPRESSED_FILE" -d "$ROOT_DIR"/
 echo -n "Done"
-rm $I3GEO_COMPRESSED_FILE
+rm "$I3GEO_COMPRESSED_FILE"
 
 #Change permissions
 cd /var/www
@@ -83,10 +84,10 @@ chmod -R 755 i3geo/
 #Install i3geo dependencies
 for i in "${I3GEO_DEPENDENCIES[@]}"; do
   IS_INSTALLED=$(dpkg --get-selections | grep -w $i | grep -w install)
-  if [ "$IS_INSTALLED" = "" ]; then
+  if [ -z "$IS_INSTALLED" ]; then
     echo "Package $i is not installed"
     echo "Installing $i ..."
-    apt-get -y install $i
+    apt-get -y install "$i"
   else
     echo "$i package is allready installed"
   fi
@@ -96,19 +97,20 @@ done
 echo "Installing R"
 for i in "${R_DEPENDENCIES[@]}"; do
   IS_INSTALLED=$(dpkg --get-selections | grep -w $i | grep -w install)
-  if [ "$IS_INSTALLED" = "" ]; then
+  if [ -z "$IS_INSTALLED" ]; then
     echo "Package $i is not installed"
     echo "Installing $i ..."
-    apt-get -y install $i
+    apt-get -y install "$i"
   else
     echo "$i package is allready installed"
-    apt-get --reinstall install $i
+    # ==> why the reinstall? this isn't Windows.
+    apt-get --reinstall install "$i"
   fi
 done
 
 # get R libraries
 echo "Downloading R required libraries"
-cd $TMP_DIR
+cd "$TMP_DIR"
 wget http://cran.r-project.org/src/contrib/gpclib_1.5-3.tar.gz
 wget http://cran.r-project.org/src/contrib/deldir_0.0-21.tar.gz	
 wget http://cran.r-project.org/src/contrib/spatstat_1.30-0.tar.gz
@@ -129,13 +131,15 @@ rm spatstat_1.30-0.tar.gz
 
 ### install desktop icon ##
 echo "Installing i3geo desktop icon"
-if [ ! -e "/usr/share/icons/i3geo1.png" ] ; then
-   cp /var/www/i3geo/imagens/i3geo1.png /usr/share/icons/
+if [ ! -e "/usr/local/share/icons/i3geo1.png" ] ; then
+   mkdir -p /usr/local/share/icons
+   cp /var/www/i3geo/imagens/i3geo1.png /usr/local/share/icons/
 fi
 
 #Add Launch icon to desktop
-if [ ! -e /usr/share/applications/i3geo.desktop ] ; then
-   cat << EOF > /usr/share/applications/i3geo.desktop
+if [ ! -e /usr/local/share/applications/i3geo.desktop ] ; then
+   mkdir -p /usr/local/share/applications
+   cat << EOF > /usr/local/share/applications/i3geo.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -143,7 +147,7 @@ Name=i3geo
 Comment=i3geo
 Categories=Application;Geography;Geoscience;Education;
 Exec=firefox http://localhost/i3geo/ms_criamapa.php?idioma=en
-Icon=/usr/share/icons/i3geo1.png
+Icon=/usr/local/share/icons/i3geo1.png
 Terminal=false
 StartupNotify=false
 EOF
@@ -153,20 +157,20 @@ fi
 USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop/"
 # Add desktop icon
-if [ -d $USER_DESKTOP ] ; then
+if [ -d "$USER_DESKTOP" ] ; then
    echo "Copying icon to desktop at $USER_DESKTOP"
-   cp /usr/share/applications/i3geo.desktop "$USER_DESKTOP/i3geo.desktop"
+   cp /usr/local/share/applications/i3geo.desktop "$USER_DESKTOP/i3geo.desktop"
    chown $USER_NAME:$USER_NAME "$USER_DESKTOP/i3geo.desktop"
    chmod +x "$USER_DESKTOP/i3geo.desktop"
 fi
 
 # Fix path to natural_earth
-#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/geral1debianv6.map
-#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/estadosldebian.map 
-#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/estadosl.map 
-#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/states_provinces.map
-#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/populated_places_simple.map
-#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/geography_regions_polys.map
-#sed -i 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/estadosl.map
+#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/geral1debianv6.map
+#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/estadosldebian.map 
+#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/estadosl.map 
+#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/states_provinces.map
+#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/populated_places_simple.map
+#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/geography_regions_polys.map
+#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/estadosl.map
 
 echo "i3geo installation Done!"

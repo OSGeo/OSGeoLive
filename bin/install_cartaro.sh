@@ -59,8 +59,8 @@ USER_HOME="/home/$USER_NAME"
 
 echo "[install_cartaro.sh] Installing Packages..."
 
-PACKAGES="wget unzip apache2 php5 php5-gd php5-curl php5-pgsql php5-cli postgresql \
-postgis postgresql-9.1-postgis postgresql-contrib-9.1"
+PACKAGES="wget unzip apache2 php5 php5-gd php5-curl php5-pgsql php5-cli \
+ postgresql postgis postgresql-9.1-postgis postgresql-contrib-9.1"
 
 echo "Installing: $PACKAGES"
 apt-get --assume-yes install $PACKAGES
@@ -73,8 +73,8 @@ fi
 # Prepare folders
 ##############################
 
-if [ ! -d "${TMP_DIR}" ]; then
-	mkdir -p ${TMP_DIR}
+if [ ! -d "$TMP_DIR" ] ; then
+    mkdir -p "$TMP_DIR"
 fi 
 
 ###############################
@@ -87,11 +87,11 @@ echo "[install_cartaro.sh] Prepare Database ..."
 /etc/init.d/apache2 stop
 /etc/init.d/postgresql restart
 
-/bin/su postgres -c " /usr/bin/psql  -c \" drop database  ${DB_NAME};  \""
-/bin/su postgres -c " /usr/bin/psql  -c \" drop role  ${DB_NAME};  \""
+/bin/su postgres -c " /usr/bin/psql  -c \" drop database  $DB_NAME;  \""
+/bin/su postgres -c " /usr/bin/psql  -c \" drop role  $DB_NAME;  \""
 
-/bin/su postgres -c " /usr/bin/psql  -c \" create role  ${DB_USER} with login password '${DB_PASSWORD}';  \""
-/bin/su postgres -c "/usr/bin/createdb -O ${DB_USER} -E UTF-8 ${DB_NAME}"
+/bin/su postgres -c " /usr/bin/psql  -c \" create role  $DB_USER with login password '$DB_PASSWORD';  \""
+/bin/su postgres -c "/usr/bin/createdb -O $DB_USER -E UTF-8 $DB_NAME"
 
 /etc/init.d/apache2 start
 
@@ -101,8 +101,8 @@ echo "[install_cartaro.sh] Prepare Database ..."
 
 echo "[install_cartaro.sh] Prepare PostGIS ..."
 
-/bin/su postgres -c "/usr/bin/psql -d ${DB_NAME} -c 'create extension postgis'"
-/bin/su postgres -c "/usr/bin/psql -d ${DB_NAME}  -c \" grant all on geometry_columns to ${DB_USER}; grant all on spatial_ref_sys to ${DB_USER}; \""
+/bin/su postgres -c "/usr/bin/psql -d $DB_NAME -c 'create extension postgis'"
+/bin/su postgres -c "/usr/bin/psql -d $DB_NAME  -c \" grant all on geometry_columns to $DB_USER; grant all on spatial_ref_sys to $DB_USER; \""
 
 #####################
 # Install Drush
@@ -118,16 +118,17 @@ echo "[install_cartaro.sh] Install Drush ..."
 DRUSH_DIR=$TARGET_DIR/drush
 DRUSH_FILE="drush-7.x-5.4.tar.gz"
 
-if [ ! -f "$DRUSH_DIR/drush" ]; then
-    	mkdir -p $DRUSH_DIR 
-	if [ ! -f "${TMP_DIR}/${DRUSH_FILE}" ]; then
+if [ ! -f "$DRUSH_DIR/drush" ] ; then
+    mkdir -p "$DRUSH_DIR"
+    if [ ! -f "$TMP_DIR/$DRUSH_FILE" ] ; then
         pushd "$TMP_DIR"
-		wget http://ftp.drupal.org/files/projects/drush-7.x-5.4.tar.gz
-		popd
+	wget -c --progress=dot:mega \
+	   "http://ftp.drupal.org/files/projects/drush-7.x-5.4.tar.gz"
+	popd
     fi
     pushd "$TARGET_DIR"
     # remove table dropping
-	tar xzf "$TMP_DIR/$DRUSH_FILE"
+    tar xzf "$TMP_DIR/$DRUSH_FILE"
     sed -ri "s/'DROP TABLE '/\'-- DROP TABLE \'/g" "$DRUSH_DIR/commands/sql/sql.drush.inc"
     popd
 fi
@@ -140,15 +141,16 @@ echo "[install_cartaro.sh] Download Cartaro ..."
 
 CARTARO_FILE="cartaro-7.x-${CARTARO_VERSION}-core.tar.gz"
 
-if [ ! -d "$TARGET_DIR/cartaro-7.x-$CARTARO_VERSION" ]; then
-	if [ ! -f "$TMP_DIR/$CARTARO_FILE" ]; then
-		pushd "$TMP_DIR"
-		/usr/bin/wget -c "http://ftp.drupal.org/files/projects/cartaro-7.x-${CARTARO_VERSION}-core.tar.gz"
-		popd
-	fi    	
-	pushd "$TARGET_DIR"
-	/bin/tar xzf "$TMP_DIR/$CARTARO_FILE"
-	/bin/mv cartaro-7.x-${CARTARO_VERSION}/* .
+if [ ! -d "$TARGET_DIR/cartaro-7.x-$CARTARO_VERSION" ] ; then
+    if [ ! -f "$TMP_DIR/$CARTARO_FILE" ] ; then
+	pushd "$TMP_DIR"
+	/usr/bin/wget -c --progress=dot:mega \
+	   "http://ftp.drupal.org/files/projects/cartaro-7.x-${CARTARO_VERSION}-core.tar.gz"
+	popd
+    fi    	
+    pushd "$TARGET_DIR"
+    /bin/tar xzf "$TMP_DIR/$CARTARO_FILE"
+    /bin/mv "cartaro-7.x-$CARTARO_VERSION"/* .
     
     # save filespace
 
@@ -163,7 +165,7 @@ fi
 
 echo "[install_cartaro.sh] Configure Apache2  ..."
 
-if [ ! -f /etc/apache2/conf.d/cartaro ]; then
+if [ ! -f /etc/apache2/conf.d/cartaro ] ; then
 
 cat << EOF > /etc/apache2/conf.d/cartaro
 <Directory /var/www/cartaro>
@@ -189,9 +191,9 @@ fi
 echo "[install_cartaro.sh] Install Cartaro ..."
 
 
-${GEO_PATH}/bin/shutdown.sh &
+"$GEO_PATH"/bin/shutdown.sh &
 sleep 60;
-${GEO_PATH}/bin/startup.sh &
+"$GEO_PATH"/bin/startup.sh &
 sleep 60;
 
 
@@ -219,7 +221,7 @@ SITE_INSTALL_OPTS="cartaro
 PGPASSWORD=$DB_PASSWORD $DRUSH_DIR/drush site-install $SITE_INSTALL_OPTS
 
 # silence errors 
-$DRUSH_DIR/drush variable-set error_level 0
+"$DRUSH_DIR"/drush variable-set error_level 0
 
 popd
 
@@ -230,8 +232,8 @@ popd
 echo "[install_cartaro.sh] Create Apache2 Symlinks ..."
 
 
-if [ ! -L /var/www/cartaro ]; then
-	ln -s $TARGET_DIR /var/www/cartaro
+if [ ! -L /var/www/cartaro ] ; then
+    ln -s "$TARGET_DIR" /var/www/cartaro
 fi  
 
 ###########################
@@ -240,11 +242,11 @@ fi
 
 echo "[install_cartaro.sh] Create start and shutdown scripts ..."
 
-if [ ! -d "$TARGET_DIR/bin" ]; then
+if [ ! -d "$TARGET_DIR/bin" ] ; then
     mkdir -p "$TARGET_DIR/bin"
 fi
 
-if [ ! -f "$TARGET_DIR/bin/start_cartaro.sh" ]; then
+if [ ! -f "$TARGET_DIR/bin/start_cartaro.sh" ] ; then
 
 cat << EOF > "$TARGET_DIR/bin/start_cartaro.sh"
 #!/bin/sh
@@ -280,9 +282,9 @@ EOF
 
 fi
 
-if [ ! -f "$TARGET_DIR/bin/stop_cartaro.sh" ]; then
+if [ ! -f "$TARGET_DIR/bin/stop_cartaro.sh" ] ; then
 
-cat << EOF  > "$TARGET_DIR/bin/stop_cartaro.sh"
+    cat << EOF  > "$TARGET_DIR/bin/stop_cartaro.sh"
 #!/bin/sh
 
 $GEO_PATH/bin/shutdown.sh &
@@ -291,7 +293,7 @@ EOF
 
 fi
 
-chmod -R  0755 "${TARGET_DIR}/bin"
+chmod -R 0755 "$TARGET_DIR/bin"
 
 ##################################
 # Copy Icons and create Desktop Icon
@@ -299,16 +301,17 @@ chmod -R  0755 "${TARGET_DIR}/bin"
 
 echo "[install_cartaro.sh] Create desktop icons ..."
 
-if [ ! -f /usr/share/icons/logo-cartaro-48.png ]; then
-    pushd "/usr/share/icons"
-    wget http://cartaro.org/sites/cartaro.org/themes/cartaro_org/img/logos/logo-cartaro-48.png 
+if [ ! -f /usr/local/share/icons/logo-cartaro-48.png ] ; then
+    mkdir -p /usr/local/share/icons
+    pushd "/usr/local/share/icons"
+    wget -nv "http://cartaro.org/sites/cartaro.org/themes/cartaro_org/img/logos/logo-cartaro-48.png"
     popd
 fi
 
 ## start icon
-if [ ! -f "/usr/share/applications/cartaro-start.desktop" ]; then
-
-cat << EOF > /usr/share/applications/cartaro-start.desktop
+if [ ! -f "/usr/local/share/applications/cartaro-start.desktop" ] ; then
+    mkdir -p /usr/local/share/applications
+    cat << EOF > /usr/share/applications/cartaro-start.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -316,20 +319,20 @@ Name=Start Cartaro
 Comment=Cartaro $CARTARO_VERSION
 Categories=Application;
 Exec=sudo $TARGET_DIR/bin/start_cartaro.sh
-Icon=/usr/share/icons/logo-cartaro-48.png
+Icon=/usr/local/share/icons/logo-cartaro-48.png
 Terminal=false
 EOF
 
-cp -a /usr/share/applications/cartaro-start.desktop "$USER_HOME/Desktop/"
+cp -a /usr/local/share/applications/cartaro-start.desktop "$USER_HOME/Desktop/"
 chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/cartaro-start.desktop"
 
 fi
 
 
 ## stop icon
-if [ ! -f "/usr/share/applications/cartaro-stop.desktop" ]; then
-
-cat << EOF > /usr/share/applications/cartaro-stop.desktop
+if [ ! -f "/usr/local/share/applications/cartaro-stop.desktop" ] ; then
+    mkdir -p /usr/local/share/applications
+    cat << EOF > /usr/local/share/applications/cartaro-stop.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -337,22 +340,24 @@ Name=Stop Cartaro
 Comment=Cartaro $CARTARO_VERSION
 Categories=Application;
 Exec=sudo $TARGET_DIR/bin/stop_cartaro.sh
-Icon=/usr/share/icons/logo-cartaro-48.png
+Icon=/usr/local/share/icons/logo-cartaro-48.png
 Terminal=false
 EOF
 
-cp -a /usr/share/applications/cartaro-stop.desktop "$USER_HOME/Desktop/"
+cp -a /usr/local/share/applications/cartaro-stop.desktop "$USER_HOME/Desktop/"
 chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/cartaro-stop.desktop"
 
 fi
 
-##################################
+############################################
 # Bring down GeoServer and reset permissions
-#################################
+############################################
 
-${GEO_PATH}/bin/shutdown.sh &
+"$GEO_PATH"/bin/shutdown.sh &
 sleep 30;
 
 ## Allow the user to write in the GeoServer data dir
+#FIXME *** always use "chmod g+w; chgrp users; adduser user users" ***
+#      *** instead of making files on the DVD globally writable    ***
 chmod -R a+w "$GEO_PATH/data_dir"
 chmod -R a+w "$GEO_PATH/logs"
