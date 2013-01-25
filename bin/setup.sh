@@ -175,6 +175,8 @@ ln -s /usr/local/share/data /etc/skel/data
 
 # and there was music and laughter and much rejoicing
 adduser user audio
+# and connectivity too
+adduser user fuse
 
 # highly useful tricks
 echo "alias ll='ls -l'" >> "$USER_HOME"/.bashrc
