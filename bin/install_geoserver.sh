@@ -117,6 +117,8 @@ chmod 755 "$GS_HOME/bin/shutdown.sh"
 chmod 755 "$GS_HOME/bin/stop_notify.sh"
 
 ## Allow the user to write in the GeoServer data dir
+#FIXME *** always use "chmod g+w; chgrp users; adduser user users" ***
+#      *** instead of making files on the DVD globally writable    ***
 chmod -R a+w "$GS_HOME/data_dir"
 chmod -R a+w "$GS_HOME/logs"
 
