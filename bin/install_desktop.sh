@@ -519,34 +519,34 @@ if [ "$DESKTOP_SESSION" = "Unity" ] ; then
     --type string --set /apps/firefox/general/homepage_url live.osgeo.org
 
   # make the launcher icons smaller, this isn't a touchscreen
-  sudo gconftool-2 --direct \
+  gconftool-2 --direct \
     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
     --type int --set /apps/compiz-1/plugins/unityshell/screen0/options/icon_size 38
   #also you might check the setting here: (same goes for other options too)
   #  --type int --set /apps/compizconfig-1/profiles/Default/plugins/unityshell/screen0/options/icon_size 38
 
   # only put a launcher bar on one monitor (maybe nice for laptop+monitor but bad for dual headed setups)
-  sudo gconftool-2 --direct \
+  gconftool-2 --direct \
     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
     --type int --set /apps/compiz-1/plugins/unityshell/screen0/options/num_launchers 1
   
   # don't be sticky at the edge of the monitor (another huge frustration for dual-headed monitors)
-  sudo gconftool-2 --direct \
+  gconftool-2 --direct \
     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
     --type bool --set /apps/compiz-1/plugins/unityshell/screen0/options/launcher_capture_mouse false
   
   # keep windows stacked as you left them,
-  sudo gconftool-2 --direct \
+  gconftool-2 --direct \
     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
     --type bool --set /apps/metacity/general/auto_raise false
   
   # don't maximize if the window happens to brush the top of the screen while moving it
-  sudo gconftool-2 --direct \
+  gconftool-2 --direct \
     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
     --type int --set /apps/compiz-1/plugins/grid/screen0/options/top_edge_action 0
   
   # right mouse button exists for the context menu, no need to waste the screen real estate
-  sudo gconftool-2 --direct \
+  gconftool-2 --direct \
     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
       --type bool --set /apps/gnome-terminal/profiles/Default/default_show_menubar false
 
