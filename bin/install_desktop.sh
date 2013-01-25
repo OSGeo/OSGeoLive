@@ -488,7 +488,7 @@ fi
 #### replace the Software Center on the Apps menu with the more useful Synaptic
 # .. TODO   (right click the Apps menu, properties, edit, add synaptic-pkexec, 
 #       name it package manager to keep the width narrow; then create a patch)
-
+# --> see bin/setup.sh line 116 where it is replaced with sed
 
 #### the default xUbuntu 12.04 theme has 1px wide window borders which
 # makes it extremely tricky to resize them. tweak the theme so that
@@ -497,3 +497,96 @@ cp -f "$BUILD_DIR"/../desktop-conf/xfce/greybird_theme/*.xpm \
    /usr/share/themes/Greybird/xfwm4/
 
 
+#### Make Unity Usable (Muu..)
+# we are using xubuntu so it's a bit academic, but in case anyone wants to
+#  use OSGeo on stock Ubuntu these changes can make it a lot less annoying.
+if [ "$DESKTOP_SESSION" = "Unity" ] ; then
+  apt-get install --yes gconf-editor dconf-tools
+
+  # The hardest part is finding where the heck the gnome people hid the option.
+  # To locate what you are looking for (e.g. setting the icon_size) search through:
+  #gconftool --dump /apps | grep -w -B5 -A5 icon_size
+  # more options can be found here:
+  #dconf dump / | less
+  # See also:
+  # http://www.tuxgarage.com/2011/07/customizing-gnome-lock-screen.html
+  # http://www.tuxgarage.com/2011/05/customize-gdm-plymouth-grub2.html
+  # http://library.gnome.org/admin/system-admin-guide/stable/dconf-profiles.html.en
+
+  # set the web browser homepage:
+  gconftool-2 --direct \
+    --config-source xml:readwrite:/etc/opt/gnome/gconf/gconf.xml.mandatory \
+    --type string --set /apps/firefox/general/homepage_url live.osgeo.org
+
+  # make the launcher icons smaller, this isn't a touchscreen
+  sudo gconftool-2 --direct \
+    --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+    --type int --set /apps/compiz-1/plugins/unityshell/screen0/options/icon_size 38
+  #also you might check the setting here: (same goes for other options too)
+  #  --type int --set /apps/compizconfig-1/profiles/Default/plugins/unityshell/screen0/options/icon_size 38
+
+  # only put a launcher bar on one monitor (maybe nice for laptop+monitor but bad for dual headed setups)
+  sudo gconftool-2 --direct \
+    --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+    --type int --set /apps/compiz-1/plugins/unityshell/screen0/options/num_launchers 1
+  
+  # don't be sticky at the edge of the monitor (another huge frustration for dual-headed monitors)
+  sudo gconftool-2 --direct \
+    --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+    --type bool --set /apps/compiz-1/plugins/unityshell/screen0/options/launcher_capture_mouse false
+  
+  # keep windows stacked as you left them,
+  sudo gconftool-2 --direct \
+    --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+    --type bool --set /apps/metacity/general/auto_raise false
+  
+  # don't maximize if the window happens to brush the top of the screen while moving it
+  sudo gconftool-2 --direct \
+    --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+    --type int --set /apps/compiz-1/plugins/grid/screen0/options/top_edge_action 0
+  
+  # right mouse button exists for the context menu, no need to waste the screen real estate
+  sudo gconftool-2 --direct \
+    --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+      --type bool --set /apps/gnome-terminal/profiles/Default/default_show_menubar false
+
+
+  # dconf weirdness:
+  mkdir -p /etc/dconf/db/local.d
+  mkdir -p /etc/dconf/profile
+  # basic setup for local mods:
+  cat << EOF > /etc/dconf/profile/user
+user-db:user
+system-db:local
+EOF
+  cat << EOF > /etc/dconf/profile/gdm
+user
+gdm
+EOF
+
+  # set the default desktop background:
+  cat << EOF > /etc/dconf/db/local.d/00_default-wallpaper
+[org/gnome/desktop/background]
+#picture-options='zoom'
+picture-uri='file:///usr/share/backgrounds/Precise_Pangolin_by_Vlad_Gerasimov.jpg'
+EOF
+
+  # set what icons will be on the taskbar (launcher) by default for new users
+  cat << EOF > /etc/dconf/db/local.d/01_unity_favorites
+[desktop/unity/launcher]
+favorites=['nautilus-home.desktop', 'firefox.desktop', 'libreoffice-writer.desktop', 'libreoffice-calc.desktop', 'gnome-control-center.desktop', 'gnome-terminal.desktop', 'nedit.desktop']
+EOF
+
+  # blank screen after 5 minutes
+  cat << EOF > /etc/dconf/db/local.d/02_5min_timeout
+[org/gnome/desktop/session]
+idle-delay=uint32 300
+
+[org/gnome/settings-daemon/plugins/power]
+sleep-display-ac=300
+sleep-display-battery=300
+EOF
+
+  # apply the changes to the dconf DB
+  dconf update
+fi
