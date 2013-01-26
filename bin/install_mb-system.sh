@@ -40,7 +40,9 @@ USER_HOME="/home/$USER_NAME"
 
 
 MB_VERSION="5.3.1982"
-LATEST="ftp://ftp.ldeo.columbia.edu/pub/MB-System/mbsystem-$MB_VERSION.tar.gz"
+# now up to 5.3.2012
+#LATEST="ftp://ftp.ldeo.columbia.edu/pub/MB-System/mbsystem-$MB_VERSION.tar.gz"
+LATEST="http://download.osgeo.org/livedvd/data/mbsystem/mbsystem-$MB_VERSION.tar.gz"
 
 BUILD_DIR=`pwd`
 
