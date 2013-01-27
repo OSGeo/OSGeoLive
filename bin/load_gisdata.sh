@@ -97,24 +97,24 @@ physical/$SCALE-lakes
 physical/$SCALE-rivers-lake-centerlines
 "
 
-	if [ ! -e $TMP/"$SCALE_populated_places_simple.zip" ]; then
-	  for LAYER in $LAYERS ; do
-		 wget --progress=dot:mega -O "`basename $LAYER`.zip" \
-		   "$BASE_URL/http//www.naturalearthdata.com/download/$SCALE/$LAYER.zip"
-	  done	
-	fi
+    if [ ! -e $TMP/"$SCALE_populated_places_simple.zip" ]; then
+      for LAYER in $LAYERS ; do
+    	     wget --progress=dot:mega -O "`basename $LAYER`.zip" \
+    	       "$BASE_URL/http//www.naturalearthdata.com/download/$SCALE/$LAYER.zip"
+      done  
+    fi
 
-	# Unzip files into the gisdata directory
-	for file in *.zip ; do
-	  unzip "$file" -d "$DATA_FOLDER/natural_earth"
-	done
+    # Unzip files into the gisdata directory
+    for file in *.zip ; do
+      unzip -q "$file" -d "$DATA_FOLDER/natural_earth"
+    done
 
 else
     ## use a pre-built vectors set rather than naturalearthdata URLs
     wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/natural_earth2/all_10m_20.tgz
     tar xzf all_10m_20.tgz
     for tDir in ne_10m_*; do
-      mv $tDir/* "$NE2_DATA_FOLDER"
+       mv "$tDir"/* "$NE2_DATA_FOLDER"
     done
 fi
 
@@ -122,7 +122,7 @@ fi
 RFILE="HYP_50M_SR_W.zip"
 wget -c --progress=dot:mega \
 	"$BASE_URL/http//www.naturalearthdata.com/download/50m/raster/$RFILE"
-unzip "$RFILE" -d "$NE2_DATA_FOLDER"
+unzip -q "$RFILE" -d "$NE2_DATA_FOLDER"
 
 ##--------------------------------
 if [ $HAS_ATLASSTYLER = 1 ]; then
@@ -143,7 +143,7 @@ fi
 
 ##--------------------------------
 chmod a+r "$NE2_DATA_FOLDER"     ## read the data dir
-chmod 444  $NE2_DATA_FOLDER/*    ##  and all files in it
+chmod 444 "$NE2_DATA_FOLDER"/*   ##  and all files in it
 chmod -R +X "$NE2_DATA_FOLDER"   ## but keep x on directories
 
 ##--------------------------------------
@@ -152,10 +152,13 @@ chmod -R +X "$NE2_DATA_FOLDER"   ## but keep x on directories
 SRC_DIR="$NE2_DATA_FOLDER"
 sudo -u $POSTGRES_USER createdb natural_earth2
 sudo -u $POSTGRES_USER psql natural_earth2 -c 'create extension postgis;'
+sudo -u $POSTGRES_USER psql natural_earth2 \
+  -f /usr/share/postgresql/9.1/contrib/postgis-2.0/legacy_minimal.sql
 
-for n in $SRC_DIR/*shp;
+for n in "$SRC_DIR"/*.shp;
 do
-  shp2pgsql -W LATIN1 -s 4326 -I -g the_geom $n | sudo -u $POSTGRES_USER psql --quiet natural_earth2
+  shp2pgsql -W LATIN1 -s 4326 -I -g the_geom "$n" | \
+     sudo -u $POSTGRES_USER psql --quiet natural_earth2
 done
 
 sudo -u $POSTGRES_USER psql natural_earth2 --quiet -c "vacuum analyze"
