@@ -311,7 +311,7 @@ fi
 ## start icon
 if [ ! -f "/usr/local/share/applications/cartaro-start.desktop" ] ; then
     mkdir -p /usr/local/share/applications
-    cat << EOF > /usr/share/applications/cartaro-start.desktop
+    cat << EOF > /usr/local/share/applications/cartaro-start.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
