@@ -85,21 +85,29 @@ sudo -u $POSTGRES_USER psql osm_local_smerc \
 ## July10 - 
 ## Now importing data from already downloaded sources (osm)
 
-if [ ! -e "$OSM_FILE" ]
-then
-	echo "ERROR: $OSM_FILE sample data is not available"
-	exit 1
-else
-	# lat/lon
-	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
-	     --database osm_local --latlong \
-	     --style /usr/share/osm2pgsql/default.style \
-	     /usr/local/share/osm/${CITY}_CBD.osm.bz2
-	# spherical merc
-	sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
-	     --database osm_local_smerc --merc \
-	     --style /usr/share/osm2pgsql/default.style \
-	     /usr/local/share/osm/$CITY.osm.bz2
+if [ ! -e "$OSM_FILE" ] ; then
+    echo "ERROR: $OSM_FILE sample data is not available"
+    exit 1
 fi
+
+# lat/lon
+sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
+     --database osm_local --latlong \
+     --style /usr/share/osm2pgsql/default.style \
+     /usr/local/share/osm/${CITY}_CBD.osm.bz2
+
+sudo -u $POSTGRES_USER psql osm_local \
+     --quiet -c "vacuum analyze"
+
+
+# spherical merc
+sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
+     --database osm_local_smerc --merc \
+     --style /usr/share/osm2pgsql/default.style \
+     /usr/local/share/osm/$CITY.osm.bz2
+
+sudo -u $POSTGRES_USER psql osm_local_smerc \
+     --quiet -c "vacuum analyze"
+
 
 #Add additional data sources here, be sparing to minimize duplication of data.
