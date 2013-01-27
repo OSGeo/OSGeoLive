@@ -73,6 +73,9 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
 apt-get install --yes xfce4-xkb-plugin xfce4-power-manager \
    xfce4-wavelan-plugin xfce4-battery-plugin
 
+# needed for Motif/Lesstif based apps: (no longer installed in ubu by default)
+apt-get install --yes xfonts-100dpi xfonts-75dpi
+
 
 # Install build stuff (temporarily?)
 apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
