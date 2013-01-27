@@ -117,6 +117,7 @@ FOSS4G_2011_(Sheraton_Denver)    39.74251 -104.9891
 OSM_State_of_the_Map_2011        39.7457  -105.0034
 Business_School_South_(Jubilee)  52.9517  -1.1864
 East_Midlands_Conference_Centre  52.9390  -1.2032
+FOSS4G-NA_2013_(Marriott_City_Center)   44.9776  -93.2735
 EOF
 
 cp /etc/skel/.gpsdrive/way.txt "$USER_HOME/.gpsdrive/"
