@@ -90,12 +90,12 @@ mkdir "$USER_HOME/.gpsdrive"
 
 # program defaults
 cat << EOF > "/etc/skel/.gpsdrive/gpsdriverc"
-lastlong = -1.1884
-lastlat = 52.9512
+lastlong = -1.20
+lastlat = 52.93984
 scalewanted = 10000
 dashboard_3 = 12
 autobestmap = 0
-mapnik = 0
+mapnik = 1
 mapnik_caching = 0
 minsecmode = 2
 friendsname = LiveDVD
