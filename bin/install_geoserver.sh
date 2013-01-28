@@ -117,9 +117,13 @@ chmod 755 "$GS_HOME/bin/shutdown.sh"
 chmod 755 "$GS_HOME/bin/stop_notify.sh"
 
 ## Allow the user to write in the GeoServer data dir
-adduser "$USER_NAME" users
-chgrp -R users "$GS_HOME/data_dir"
-chgrp -R users "$GS_HOME/logs"
+
+## Adding user to users group will ONLY work for installed system
+## since live session user is only member of user group!!! 
+## We DELETE user when build is done so this will not work on the live session
+
+chgrp -R user "$GS_HOME/data_dir"
+chgrp -R user "$GS_HOME/logs"
 chmod -R g+w "$GS_HOME/data_dir"
 chmod -R g+w "$GS_HOME/logs"
 
