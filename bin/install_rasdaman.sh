@@ -222,7 +222,7 @@ cd rasdaman_data/
 for db in RASBASE petascopedb; do
   dropdb $db
   createdb $db
-  psql -d $db -f $db.sql
+  psql -d $db -f $db.sql > /dev/null
 done
 
 #
@@ -338,9 +338,6 @@ if [ `grep -c 'rasdaman' /etc/rc.local` -eq 0 ] ; then
 fi
 
 cat <<EOF > /etc/postgresql/9.1/main/pg_hba.conf
-
-
-stgreSQL Client Authentication Configuration File
 # ===================================================
 #
 # Refer to the "Client Authentication" section in the PostgreSQL
@@ -424,12 +421,6 @@ host    all         all         ::1/128               trust
 #------------------------------------------------------------
 
 
-# DO NOT DISABLE!
-# If you change this first entry you will need to make sure that the
-# database superuser can access the database using some other method.
-# Noninteractive access to all databases is required during automatic
-# maintenance (custom daily cronjobs, replication, and similar tasks).
-#
 # Database administrative login by Unix domain socket
 local   all             postgres                                peer
 
@@ -441,12 +432,8 @@ local   all             all                                     peer
 host    all             all             127.0.0.1/32            md5
 # IPv6 local connections:
 host    all             all             ::1/128                 md5
-# Allow replication connections from localhost, by a user with the
-# replication privilege.
-#local   replication     postgres                                peer
-#host    replication     postgres        127.0.0.1/32            md5
-#host    replication     postgres        ::1/128                 md5
 EOF
 
 start_rasdaman.sh
-service tomcat6 start 
+start_rasdaman.sh
+service tomcat6 start
