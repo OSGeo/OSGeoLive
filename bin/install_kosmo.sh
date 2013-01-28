@@ -61,7 +61,7 @@ wget -c --progress=dot:mega \
 
 # unpack it and copy it to /usr/lib
 tar xzf kosmo_desktop_2.0.1_linux_jre.tar.gz \
-   -C $INSTALL_FOLDER --no-same-owner
+   -C "$INSTALL_FOLDER" --no-same-owner
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: Kosmo download failed."
@@ -69,24 +69,33 @@ if [ $? -ne 0 ] ; then
 fi
 
 # why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
+adduser "$USER_NAME" users
+chgrp -R users "$KOSMO_FOLDER"
+chmod -R g+w "$KOSMO_FOLDER"
+# meh, can this be removed?
 chmod -R 777 $KOSMO_FOLDER
 
 ## execute the links.sh script
-cd $KOSMO_FOLDER/libs
+cd "$KOSMO_FOLDER"/libs
 ./links.sh
-cd $TMP
+cd "$TMP"
 
 # get correct kosmo.sh
-rm $KOSMO_FOLDER/bin/Kosmo.sh
+rm "$KOSMO_FOLDER"/bin/Kosmo.sh
 wget -nv -N http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/Kosmo.sh
-cp Kosmo.sh $KOSMO_FOLDER/bin/
+cp Kosmo.sh "$KOSMO_FOLDER"/bin/
 # oi! don't do this:
 #chown $USER_NAME:$USER_NAME $KOSMO_FOLDER/bin/Kosmo.sh
 # why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
-chmod 777 $KOSMO_FOLDER/bin/Kosmo.sh
+chmod a+x "$KOSMO_FOLDER"/bin/Kosmo.sh
+
+# Kosmo 2.0.1 is not yet PostGIS 2.0 compatible; load in legacy PostGIS support to natural_earth2 table
+#  how to test if it has already been applied?
+sed -i -e 's|^# Kosmo.sh|# Kosmo.sh\npsql natural_earth2 -f /usr/share/postgresql/9.1/contrib/postgis-2.0/legacy.sql|' \
+  "$KOSMO_FOLDER"/bin/Kosmo.sh
 
 # create link to startup script
-ln -s $KOSMO_FOLDER/bin/Kosmo.sh /usr/bin/kosmo_2.0.1
+ln -s "$KOSMO_FOLDER"/bin/Kosmo.sh /usr/bin/kosmo_2.0.1
 
 # Download desktop link
 wget -nv http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/Kosmo_2.0.1.desktop
@@ -95,9 +104,8 @@ wget -nv http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/Kosmo_2.0.1.deskt
 sed -i -e 's/^Name=Kosmo_2.0.1/Name=Kosmo/' Kosmo_2.0.1.desktop
 
 # copy it into the Kosmo_2.0.1 folder
-cp Kosmo_2.0.1.desktop $USER_HOME/Desktop
-chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/Kosmo_2.0.1.desktop
+cp Kosmo_2.0.1.desktop "$USER_HOME"/Desktop
+chown "$USER_NAME:$USER_NAME" "$USER_HOME"/Desktop/Kosmo_2.0.1.desktop
 # why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
-chmod 777 $USER_HOME/Desktop/Kosmo_2.0.1.desktop
-
+chmod a+r "$USER_HOME"/Desktop/Kosmo_2.0.1.desktop
 
