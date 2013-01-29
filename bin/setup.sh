@@ -141,6 +141,8 @@ apt-get --assume-yes remove linux-headers-3.2.0-29
 # ...
 apt-get --assume-yes remove linux-headers-3.2.0-23
 
+#temp to get past dep blockage
+apt-get --assume-yes install libgrip0
 
 # regen initrd
 depmod
