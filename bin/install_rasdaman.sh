@@ -157,7 +157,15 @@ if [ $FULL -eq 1 ]; then
 
   # allow starting portmap in "insecure mode", required by rasdaview
   sed -i 's/OPTIONS="-w"/OPTIONS="-w -i"/g' /etc/init/portmap.conf
-  service portmap restart
+
+  # restart portmap
+  stop portmap
+  killall rpcbind
+  initctl reload-configuration portmap
+  start portmap
+
+  # this needs to be fixed upstream in rasdaman
+  cp $TMP/rasdaman/config.h $RASDAMAN_HOME/include
 
   sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" \
      "$RASDAMAN_HOME"/bin/create_db.sh
@@ -174,10 +182,6 @@ if [ $FULL -eq 1 ]; then
   # set host name
   chgrp -R users "$RASDAMAN_HOME"/etc/
   chmod -R g+w "$RASDAMAN_HOME"/etc/
-
-  #why? can it be avoided? writes log files as 'user' to the filesystem
-  su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
-  su - "$USER_NAME" "$RASDAMAN_HOME"/bin/start_rasdaman.sh
 
 fi # if FULL
 
@@ -197,7 +201,7 @@ su - $USER_NAME -c "createuser $USER --superuser"
 
 # set to tomcat user, as tomcat will run the servlet
 sed -i "s/^metadata_user=.\+/metadata_user=$WCPS_USER/" $SETTINGS
-sed -i "s/^metadata_pass=/metadata_pass=$WCPS_PASSWORD/" $SETTINGS
+sed -i "s/^metadata_pass=.\+/metadata_pass=$WCPS_PASSWORD/" $SETTINGS
 
 echo "Updated database"
 
@@ -213,17 +217,16 @@ if [ ! -d "rasdaman_data" ]; then
   tar xzmf rasdaman_data.tar.gz -C .
 fi
 
-# this needs to be fixed upstream in rasdaman
-cp $TMP/rasdaman/config.h $RASDAMAN_HOME/include
-
-echo "importing data..."
+echo -n "importing data... "
 cd rasdaman_data/
 
 for db in RASBASE petascopedb; do
-  dropdb $db
+  dropdb $db > /dev/null 2>&1
   createdb $db
   psql -d $db -f $db.sql > /dev/null
 done
+
+echo ok.
 
 #
 #-------------------------------------------------------------------------------
@@ -298,7 +301,8 @@ cp /usr/share/applications/start_rasdaman_server.desktop \
    "$USER_HOME/Desktop/"
 cp /usr/share/applications/rasdaman-earthlook-demo.desktop \
    "$USER_HOME/Desktop/"
-chown "$USER_NAME.$GROUP_NAME" "$USER_HOME/Desktop/*rasdaman*.desktop"
+
+chown "$USER_NAME.$GROUP_NAME" $USER_HOME/Desktop/*rasdaman*.desktop
 
 
 #
@@ -337,105 +341,11 @@ if [ `grep -c 'rasdaman' /etc/rc.local` -eq 0 ] ; then
     echo "exit 0" >> /etc/rc.local
 fi
 
-cat <<EOF > /etc/postgresql/9.1/main/pg_hba.conf
-# ===================================================
-#
-# Refer to the "Client Authentication" section in the PostgreSQL
-# documentation for a complete description of this file.  A short
-# synopsis follows.
-#
-# This file controls: which hosts are allowed to connect, how clients
-# are authenticated, which PostgreSQL user names they can use, which
-# databases they can access.  Records take one of these forms:
-#
-# local      DATABASE  USER  METHOD  [OPTIONS]
-# host       DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
-# hostssl    DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
-# hostnossl  DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
-#
-# (The uppercase items must be replaced by actual values.)
-#
-# The first field is the connection type: "local" is a Unix-domain
-# socket, "host" is either a plain or SSL-encrypted TCP/IP socket,
-# "hostssl" is an SSL-encrypted TCP/IP socket, and "hostnossl" is a
-# plain TCP/IP socket.
-#
-# DATABASE can be "all", "sameuser", "samerole", "replication", a
-# database name, or a comma-separated list thereof. The "all"
-# keyword does not match "replication". Access to replication
-# must be enabled in a separate record (see example below).
-#
-# USER can be "all", a user name, a group name prefixed with "+", or a
-# comma-separated list thereof.  In both the DATABASE and USER fields
-# you can also write a file name prefixed with "@" to include names
-# from a separate file.
-#
-# ADDRESS specifies the set of hosts the record matches.  It can be a
-# host name, or it is made up of an IP address and a CIDR mask that is
-# an integer (between 0 and 32 (IPv4) or 128 (IPv6) inclusive) that
-# specifies the number of significant bits in the mask.  A host name
-# that starts with a dot (.) matches a suffix of the actual host name.
-# Alternatively, you can write an IP address and netmask in separate
-# columns to specify the set of hosts.  Instead of a CIDR-address, you
-# can write "samehost" to match any of the server's own IP addresses,
-# or "samenet" to match any address in any subnet that the server is
-# directly connected to.
-#
-# METHOD can be "trust", "reject", "md5", "password", "gss", "sspi",
-# "krb5", "ident", "peer", "pam", "ldap", "radius" or "cert".  Note that
-# "password" sends passwords in clear text; "md5" is preferred since
-# it sends encrypted passwords.
-#
-# OPTIONS are a set of options for the authentication in the format
-# NAME=VALUE.  The available options depend on the different
-# authentication methods -- refer to the "Client Authentication"
-# section in the documentation for a list of which options are
-# available for which authentication methods.
-#
-# Database and user names containing spaces, commas, quotes and other
-# special characters must be quoted.  Quoting one of the keywords
-# "all", "sameuser", "samerole" or "replication" makes the name lose
-# its special character, and just match a database or username with
-# that name.
-#
-# This file is read on server startup and when the postmaster receives
-# a SIGHUP signal.  If you edit the file on a running system, you have
-# to SIGHUP the postmaster for the changes to take effect.  You can
-# use "pg_ctl reload" to do that.
-
-# Put your actual configuration here
-# ----------------------------------
-#
-# If you want to allow non-local connections, you need to add more
-# "host" records.  In that case you will also need to make PostgreSQL
-# listen on a non-local interface via the listen_addresses
-# configuration parameter, or via the -i or -h command line switches.
-
-#------------------------------------------------------------
-# "local" is for Unix domain socket connections only
-local   all         all                               trust
-# IPv4 local connections:
-host    all         all         127.0.0.1/32          trust
-# IPv6 local connections:
-host    all         all         ::1/128               trust
-#------------------------------------------------------------
-
-
-# Database administrative login by Unix domain socket
-local   all             postgres                                peer
-
-# TYPE  DATABASE        USER            ADDRESS                 METHOD
-
-# "local" is for Unix domain socket connections only
-local   all             all                                     peer
-# IPv4 local connections:
-host    all             all             127.0.0.1/32            md5
-# IPv6 local connections:
-host    all             all             ::1/128                 md5
-EOF
-
-/etc/init.d/postgresql reload
-
+# start stopped services
 start_rasdaman.sh
-start_rasdaman.sh
+pgrep rasserver > /dev/null
+if [ $? -ne 0 ]; then
+  stop_rasdaman.sh
+  start_rasdaman.sh
+fi
 service tomcat6 start
