@@ -1,6 +1,24 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.5beta2
+===================
+
+ * Rasdaman fixes
+ * Cartaro persmission issues fixed
+ * legacy sql added for Natural Earth db in order for older applications to work with PostGIS 2.0
+ * try legacy.sql for all until Kosmo and gvSIG catch up (the ongoing saga of #1059)
+ * Mapserver updated to 6.2
+ * GeoServer permission issues fixed
+ * GpsDrive: tweak code to be more compatible with PostGIS 2.0
+ * OSM: recenter map on East Midlands Conference Centre, Nottingham
+ * PostGIS: vacuum analyze the populated OSM dbs
+ * mapnik is working with PostGIS 2.0 again (#1059), recenter on East Midlands Conference Centre, Nottingham
+ * mb-system: new upstream release came out and the removed the old source. move to a stashed copy of the old version at d.o.o
+ * add user to the fuse group, so they can use sshfs, mountiso, etc.
+ * i3geo is included as beta until 7.0
+ * pycsw is now in UbuntuGIS repositories
+
 Version 6.5beta1
 ===================
 
