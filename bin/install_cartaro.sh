@@ -102,7 +102,8 @@ echo "[install_cartaro.sh] Prepare Database ..."
 echo "[install_cartaro.sh] Prepare PostGIS ..."
 
 /bin/su postgres -c "/usr/bin/psql -d $DB_NAME -c 'create extension postgis'"
-/bin/su postgres -c "/usr/bin/psql -d $DB_NAME  -c \" grant all on geometry_columns to $DB_USER; grant all on spatial_ref_sys to $DB_USER; \""
+/bin/su postgres -c "/usr/bin/psql -d $DB_NAME \
+   -c \" grant all on geometry_columns to $DB_USER; grant all on spatial_ref_sys to $DB_USER; \""
 
 #####################
 # Install Drush
@@ -190,6 +191,7 @@ fi
 
 echo "[install_cartaro.sh] Install Cartaro ..."
 
+chown -R root.root "$TARGET_DIR"
 
 "$GEO_PATH"/bin/shutdown.sh &
 sleep 60;
@@ -247,13 +249,13 @@ if [ ! -d "$TARGET_DIR/bin" ] ; then
 fi
 
 if [ ! -f "$TARGET_DIR/bin/start_cartaro.sh" ] ; then
-
-cat << EOF > "$TARGET_DIR/bin/start_cartaro.sh"
+    cat << EOF > "$TARGET_DIR/bin/start_cartaro.sh"
 #!/bin/sh
 
-# TODO nicer way to find whether geoserver is already running or not
-$GEO_PATH/bin/shutdown.sh &
+PASSWORD=user
 
+# TODO nicer way to find whether geoserver is already running or not
+echo "\$PASSWORD" | sudo -S $GEO_PATH/bin/shutdown.sh &
 
 DELAY=20
 
@@ -264,9 +266,9 @@ for TIME in \`seq \$DELAY\` ; do
         done
         ) | zenity --progress --auto-close --text "Preparing GeoServer...."
 
-$GEO_PATH/bin/startup.sh &
-/etc/init.d/postgresql start
-/etc/init.d/apache2 start
+echo "\$PASSWORD" | sudo -S $GEO_PATH/bin/startup.sh &
+echo "\$PASSWORD" | sudo -S /etc/init.d/postgresql start
+echo "\$PASSWORD" | sudo -S /etc/init.d/apache2 start
 
 DELAY=20
 (
@@ -277,20 +279,20 @@ for TIME in \`seq \$DELAY\` ; do
         ) | zenity --progress --auto-close --text "Cartaro is starting...."
 
 zenity --info --text "Starting web browser ... have fun with Cartaro!"
+
 firefox "http://localhost/cartaro"
 EOF
-
 fi
 
 if [ ! -f "$TARGET_DIR/bin/stop_cartaro.sh" ] ; then
-
     cat << EOF  > "$TARGET_DIR/bin/stop_cartaro.sh"
 #!/bin/sh
 
-$GEO_PATH/bin/shutdown.sh &
+PASSWORD=user
+echo "\$PASSWORD" | sudo -S $GEO_PATH/bin/shutdown.sh &
+
 zenity --info --text "Cartaro is stopped"
 EOF
-
 fi
 
 chmod -R 0755 "$TARGET_DIR/bin"
@@ -318,7 +320,7 @@ Encoding=UTF-8
 Name=Start Cartaro
 Comment=Cartaro $CARTARO_VERSION
 Categories=Application;
-Exec=sudo $TARGET_DIR/bin/start_cartaro.sh
+Exec=$TARGET_DIR/bin/start_cartaro.sh
 Icon=/usr/local/share/icons/logo-cartaro-48.png
 Terminal=false
 EOF
@@ -339,7 +341,7 @@ Encoding=UTF-8
 Name=Stop Cartaro
 Comment=Cartaro $CARTARO_VERSION
 Categories=Application;
-Exec=sudo $TARGET_DIR/bin/stop_cartaro.sh
+Exec=$TARGET_DIR/bin/stop_cartaro.sh
 Icon=/usr/local/share/icons/logo-cartaro-48.png
 Terminal=false
 EOF
@@ -354,10 +356,11 @@ fi
 ############################################
 
 "$GEO_PATH"/bin/shutdown.sh &
-sleep 30;
+sleep 30
 
 ## Allow the user to write in the GeoServer data dir
-#FIXME *** always use "chmod g+w; chgrp users; adduser user users" ***
-#      *** instead of making files on the DVD globally writable    ***
-chmod -R a+w "$GEO_PATH/data_dir"
-chmod -R a+w "$GEO_PATH/logs"
+adduser "$USER_NAME" users
+chmod -R g+w "$GEO_PATH/data_dir"
+chmod -R g+w "$GEO_PATH/logs"
+chgrp -R users "$GEO_PATH/data_dir"
+chgrp -R users "$GEO_PATH/logs"
