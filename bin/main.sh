@@ -219,6 +219,11 @@ else
    echo "No script failures detected."
 fi
 
+# find dead symlinks
+find / -type l -xtype l | grep -v '/proc/\|/run/\|/rofs/' | \
+   grep -v '/usr/share.*/help/' \
+   > ${LOG_DIR}/dead_symlinks.log 2> /dev/null
+
 # grep for problems
 echo "==============================================================="
 # make a working copy so we don't get into a recursive loop
