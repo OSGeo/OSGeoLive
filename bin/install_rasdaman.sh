@@ -245,9 +245,9 @@ cp -r public_html "$EARTHLOOKDIR/rasdaman-demo"
 
 adduser "$USER_NAME" www-data
 chmod g+w /var/www/rasdaman-demo/demos/demo_items/img/climate[34]d/
-chmod g+w rasdaman-demo/demos/demo_items/img/ccip_processing_files/
+chmod g+w /var/www/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
 chgrp www-data /var/www/rasdaman-demo/demos/demo_items/img/climate[34]d/
-chgrp www-data rasdaman-demo/demos/demo_items/img/ccip_processing_files/
+chgrp www-data /var/www/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
 
 
 mv /var/lib/tomcat6/webapps/petascope.war /var/lib/tomcat6/webapps/petascope_earthlook.war
