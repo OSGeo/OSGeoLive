@@ -53,3 +53,11 @@ mkdir -p /usr/local/share/data/raster
 ln -s /usr/share/osgearth/data/world.tif \
       /usr/local/share/data/raster/
 
+# fix font symlinks
+rm /usr/share/osgearth/fonts/arial.ttf
+rm /usr/share/osgearth/fonts/times.ttf
+ln -s /usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf \
+  /usr/share/osgearth/fonts/arial.ttf
+ln -s /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf \
+  /usr/share/osgearth/fonts/times.ttf
+
