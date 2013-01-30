@@ -39,6 +39,19 @@ apt-get --assume-yes install tilemill
 
 cp /usr/share/applications/tilemill.desktop "$USER_HOME/Desktop/"
 
+mkdir -p "$USER_HOME"/Documents/MapBox/
+
+cat << EOF > "$USER_HOME"/Documents/MapBox/app.db
+{"key":"/api/Favorite/host%3Dlocalhost%20port%3D5432%20user%3Duser%20password%3Duser%20dbname%3Dosm_local","val":{"id":"host=localhost port=5432 user=user password=user dbname=osm_local"}}
+{"key":"/api/Favorite/host%3Dlocalhost%20port%3D5432%20user%3Duser%20password%3Duser%20dbname%3Dosm_local_smerc","val":{"id":"host=localhost port=5432 user=user password=user dbname=osm_local_smerc"}}
+{"key":"/api/Favorite/host%3Dlocalhost%20port%3D5432%20user%3Duser%20password%3Duser%20dbname%3Dnatural_earth2","val":{"id":"host=localhost port=5432 user=user password=user dbname=natural_earth2"}}
+EOF
+chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/Documents
+
+mkdir -p /etc/skel/Documents/MapBox/
+cp "$USER_HOME"/Documents/MapBox/app.db /etc/skel/Documents/MapBox/
+
+
 exit 0
 
 
@@ -50,11 +63,34 @@ exit 0
 #  instructs from
 #  http://mapbox.com/tilemill/docs/guides/osm-bright-ubuntu-quickstart/
 
-# wget -N --progress:dot=mega \
-#    https://github.com/mapbox/osm-bright/zipball/master
+TMP_DIR=/tmp/build_tilemill
+mkdir "$TMP_DIR"
+cd "$TMP_DIR"
+
+wget -N --progress:dot=mega -O mapbox-osm-bright.zip \
+    https://github.com/mapbox/osm-bright/zipball/master
+
+unzip -q mapbox-osm-bright.zip
+cd mapbox-osm-bright-*
+
+# to use the smerc or ll/wgs84 db?
+sed -e 's/\["dbname"\]   = "osm"/[dbname]="osm_local_smerc"/' \
+   configure.py.sample > configure.py
+
+#fixme: update bbox to host city in sperc coords
+#    -e 's/\["extent"\] = .*/\[extent\] = "1,2,3,4"/'
+
+# can we re-use the nat earth2 shapefiles here as is done for gpsdrive's mapnik's osm.xml?
+# wget http://tile.osm.org/processed_p.tar.bz2a   #  380mb
+# wget http://tile.osm.org/shoreline_300.tar.bz2  #   40mb
+
+./configure.py
+cd build/
+
+# ... tbc
 
 
-# edit /etc/postgresql/8.4/main/pg_hba.conf
+# edit /etc/postgresql/9.1/main/pg_hba.conf
 #  "Page down to the bottom section of the file and adjust all local
 #  access permissions to "trust". This will allow you to access the
 #  PostgreSQL database from the same machine without a password."
