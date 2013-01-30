@@ -35,7 +35,7 @@ BUILD_DIR=`pwd`
 
 #Desktop apps part 1 (traditional analytic GIS)
 DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet *Kosmo*
-              spatialite-gis saga_gui atlasstyler geopublisher tilemill"
+              spatialite-gis saga_gui atlasstyler geopublisher"
 
 #Desktop apps part 2 (geodata viewers and editors)
 NAV_APPS="marble gpsdrive opencpn josm gosmore merkaartor osm_online
@@ -50,7 +50,7 @@ BROWSER_CLIENTS="geomajas-* mapbender MapFish GeoMOOSE i3geo cartaro-*"
 
 #Infrastructure and miscellanea
 SPATIAL_TOOLS="imagelinker r geokettle openlayers
-               maptiler mapnik-* monteverdi"
+               maptiler tilemill mapnik-* monteverdi"
 
 #Future home of PostGIS and Spatialite; pgRouting???
 #  pgadmin, sqlitebrowser, etc  (this one is automatic)
