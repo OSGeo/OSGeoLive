@@ -145,6 +145,7 @@ fi
 chmod a+r "$NE2_DATA_FOLDER"     ## read the data dir
 chmod 444 "$NE2_DATA_FOLDER"/*   ##  and all files in it
 chmod -R +X "$NE2_DATA_FOLDER"   ## but keep x on directories
+chown -R root.root "$NE2_DATA_FOLDER"
 
 ##--------------------------------------
 ## load natural earth 2 data into postgis 2
@@ -195,4 +196,5 @@ for FILE in $FILES ; do
    rmdir nc*/
    cd ..
 done
+chown -R root.root "$DATA_FOLDER/north_carolina"
 
