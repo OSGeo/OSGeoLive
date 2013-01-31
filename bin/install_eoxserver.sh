@@ -149,7 +149,7 @@ cat << EOF > "$APACHE_CONF"
 Alias /static "$DATA_DIR/eoxserver_demonstration/eoxserver_demonstration/static"
 Alias /eoxserver "$DATA_DIR/eoxserver_demonstration/eoxserver_demonstration/wsgi.py"
 
-WSGIDaemonProcess eoxserver processes=10 threads=1
+WSGIDaemonProcess eoxserver processes=5 threads=1
 <Directory "$DATA_DIR/eoxserver_demonstration/eoxserver_demonstration">
     AllowOverride None
     Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
