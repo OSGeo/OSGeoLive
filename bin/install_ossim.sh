@@ -179,13 +179,14 @@ VRT_DATA="$DATA_FOLDER/vrt"
 QUICKSTART=/usr/local/share/ossim/quickstart
 
 
-mkdir -p "$KML_DATA"
+#mkdir -p "$KML_DATA"
 mkdir -p "$RASTER_DATA"
 mkdir -p "$ELEV_DATA"
 #mkdir -p "$VRT_DATA"
 
 #** DO NOT use chmod 777 **
-for ITEM in $RASTER_DATA $KML_DATA $ELEV_DATA $VRT_DATA ; do
+# disabled: $KML_DATA
+for ITEM in $RASTER_DATA $ELEV_DATA $VRT_DATA ; do
    chmod -R 775 "$ITEM"
    chgrp -R users "$ITEM"
 done
@@ -231,8 +232,8 @@ ln -s "$QUICKSTART" "$USER_HOME"/ossim
 
 ln -s "$QUICKSTART" /etc/skel/ossim
 
-
-for dir in $QUICKSTART $KML_DATA $RASTER_DATA ; do
+#  disabled: $KML_DATA
+for dir in $QUICKSTART $RASTER_DATA ; do
   chgrp -R users $dir
   chmod -R g+w $dir
 done
