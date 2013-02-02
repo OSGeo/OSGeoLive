@@ -42,7 +42,8 @@ INSTALLURL="http://www.mapbender.org/download"
 INSTALLFILE="mapbender2.7_osgeolive6.0"
 INSTALL_DIR="/var/www"
 MAPBENDER_DATABASE_NAME="mapbender" 
-MAPBENDER_DATABASE_TEMPLATE="template_postgis"
+# template_postgis is not present anymore, use template1 and install postgis later
+MAPBENDER_DATABASE_TEMPLATE="template1"
 MAPBENDER_DATABASE_USER="user"
 
 mkdir -p "$TMP_DIR"
@@ -105,6 +106,9 @@ chmod +x install_2.7_osgeolive.sh
 sudo -u "$USER_NAME" ./install_2.7_osgeolive.sh localhost 5432 \
    "$MAPBENDER_DATABASE_NAME" "$MAPBENDER_DATABASE_TEMPLATE" \
    "$MAPBENDER_DATABASE_USER"
+# install postgis afterwards
+sudo -u "$USER_NAME" psql -U "$USER_NAME" -c 'CREATE EXTENSION postgis;' mapbender
+sudo -u "$USER_NAME" psql -U "$USER_NAME" -f /usr/share/postgresql/9.1/contrib/postgis-2.0/legacy.sql mapbender 
 chown -R www-data:www-data "$INSTALL_DIR/mapbender/resources"
 chown -R www-data:www-data "$INSTALL_DIR/mapbender/tools"
 
