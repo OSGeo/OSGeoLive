@@ -29,6 +29,14 @@ USER_HOME="/home/$USER_NAME"
 apt-get --assume-yes install viking gpsbabel gpsd
 
 
+# cache snafu in versions prior to 1.2.2
+mkdir "$USER_HOME"/.viking
+echo "viking.globals.download_tile_age=604800" > "$USER_HOME"/.viking/viking.prefs
+chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.viking
+cp -r "$USER_HOME"/.viking /etc/skel/
+chown -R root.root /etc/skel/.viking
+
+
 # copy icon to Desktop
 cp /usr/share/applications/viking.desktop "$USER_HOME/Desktop/"
 
