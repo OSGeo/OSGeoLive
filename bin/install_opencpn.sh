@@ -74,7 +74,7 @@ apt-get --assume-yes install gpsd gpsd-clients python-gps gdebi
 DEPS="libgl1-mesa-glx libglu1-mesa \
       libglib2.0-0 libgtk2.0-0 libstdc++6 \
       libwxbase2.8-0 libwxgtk2.8-0 zlib1g \
-      libtinyxml2.6.2"
+      libtinyxml2.6.2 xtide-coastline"
 
 apt-get --assume-yes install $DEPS
 
