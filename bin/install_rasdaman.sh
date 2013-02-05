@@ -187,6 +187,10 @@ fi # if FULL
 
 export PATH="$PATH:$RASDAMAN_HOME/bin"
 
+# Add sleep to start_rasdaman.sh to avoid race condition
+sed -i '84i\sleep 0.5' /usr/local/bin/start_rasdaman.sh
+sed -i '84i\sleep 0.5' /usr/local/rasdaman/bin/start_rasdaman.sh
+
 #
 #-------------------------------------------------------------------------------
 # setup petascope
