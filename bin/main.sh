@@ -197,7 +197,7 @@ grep "Disk Usage2:" "$LOG_DIR/$MAIN_LOG_FILE" >> "$LOG_DIR/$DISK_USAGE_LOG"
 echo "==============================================================="
 # to be interesting this should really focus on diff to prior, not absolute value
 echo "Package    |Megabytes used by install script" | tr '|' '\t'
-grep "Disk Usage2:" ${LOG_DIR}/${MAIN_LOG_FILE} | \
+grep 'Disk Usage2:' "$LOG_DIR/$MAIN_LOG_FILE" | \
   cut -f2,5 -d, | cut -f2- -d_ | \
   grep -v '^,\|main.sh\|setdown.sh' | sed -e 's/\.sh,/    \t/' | \
   awk 'BEGIN { PREV=0; } 
@@ -222,7 +222,12 @@ fi
 # find dead symlinks
 find / -type l -xtype l | grep -v '/proc/\|/run/\|/rofs/' | \
    grep -v '/usr/share.*/help/' \
-   > ${LOG_DIR}/dead_symlinks.log 2> /dev/null
+   > "$LOG_DIR"/dead_symlinks.log 2> /dev/null
+
+# find unknown UIDs and GIDs from running tar as root
+find / -nouser | grep -v '^/rofs/' > "$LOG_DIR"/bad_UIDs.log 2> /dev/null
+find / -nogroup | grep -v '^/rofs/'> "$LOG_DIR"/bad_GIDs.log 2> /dev/null
+
 
 # grep for problems
 echo "==============================================================="
