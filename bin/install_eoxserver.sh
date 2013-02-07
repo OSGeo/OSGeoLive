@@ -81,13 +81,18 @@ sudo -u $POSTGRES_USER psql eoxserver_demo -c 'create extension postgis;'
 
 # Create demonstration instance
 [ -d "$DATA_DIR" ] || mkdir -p "$DATA_DIR"
+
 cd "$DATA_DIR"
-chmod g+w .
-chgrp users .
+chmod -R g+w "$DATA_DIR"
+chgrp -R users "$DATA_DIR"
+adduser user users
+
 if [ ! -d eoxserver_demonstration ] ; then
     echo "Creating EOxServer demonstration instance"
     eoxserver-admin.py create_instance eoxserver_demonstration
+
     cd eoxserver_demonstration
+
     # Configure database
     DATA_DIR_ESCAPED=`echo $DATA_DIR | sed -e 's/\//\\\&/g'`
     sed -e "s/'ENGINE': 'django.contrib.gis.db.backends.spatialite', # Use 'spatialite' or change to 'postgis'./'ENGINE': 'django.contrib.gis.db.backends.postgis',/" \
@@ -104,40 +109,53 @@ if [ ! -d eoxserver_demonstration ] ; then
         -i eoxserver_demonstration/settings.py
     sed -e "/'PORT': '',                      # Set to empty string for default. Not used with spatialite./d" \
         -i eoxserver_demonstration/settings.py
+
     # Configure logging
     sed -e 's/#logging_level=/logging_level=INFO/' -i eoxserver_demonstration/conf/eoxserver.conf
     sed -e 's/DEBUG = True/DEBUG = False/' -i eoxserver_demonstration/settings.py
+
     # Initialize database
     python manage.py syncdb --noinput
+
     # Download and register demonstration data
     wget -c --progress=dot:mega \
        "http://eoxserver.org/export/head/downloads/EOxServer_autotest-0.2.3.tar.gz"
+
     echo "Extracting demonstration data in `pwd`."
     tar -xzf EOxServer_autotest-0.2.3.tar.gz
+    chown -R root.root EOxServer_autotest-*
+
     mv EOxServer_autotest-0.2.3/data/fixtures/auth_data.json \
         EOxServer_autotest-0.2.3/data/fixtures/initial_rangetypes.json \
         eoxserver_demonstration/data/fixtures/
+
     mkdir -p eoxserver_demonstration/data/meris/
     mv EOxServer_autotest-0.2.3/data/meris/README \
         eoxserver_demonstration/data/meris/
     mv EOxServer_autotest-0.2.3/data/meris/mosaic_MER_FRS_1P_RGB_reduced/ \
         eoxserver_demonstration/data/meris/
+
     rm EOxServer_autotest-0.2.3.tar.gz
     rm -r EOxServer_autotest-0.2.3/
+
     python manage.py loaddata auth_data.json initial_rangetypes.json
     python manage.py eoxs_add_dataset_series --id MER_FRS_1P_RGB_reduced
     python manage.py eoxs_register_dataset \
         --data-files "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_RGB_reduced/*.tif \
         --rangetype RGB --dataset-series MER_FRS_1P_RGB_reduced --visible=False
+
     touch eoxserver_demonstration/logs/eoxserver.log
     chown www-data eoxserver_demonstration/logs/eoxserver.log
     sed -e 's,http_service_url=http://localhost:8000/ows,http_service_url=http://localhost/eoxserver/ows,' \
         -i eoxserver_demonstration/conf/eoxserver.conf
+
     # Collect static files
     python manage.py collectstatic --noinput
+
     # Configure WSGI
     sed -e "s,^import os$,import os\nimport sys\n\npath = \"$DATA_DIR/eoxserver_demonstration/\"\nif path not in sys.path:\n    sys.path.append(path)\n," \
         -i eoxserver_demonstration/wsgi.py
+
     chmod g+w -R .
     chgrp users -R .
 fi
@@ -186,6 +204,7 @@ Terminal=false
 StartupNotify=false
 EOF
 fi
+
 cp /usr/share/applications/eoxserver.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/eoxserver.desktop"
 
@@ -193,12 +212,15 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/eoxserver.desktop"
 # EOxServer Documentation
 echo "Getting EOxServer documentation"
 [ -d "$DOC_DIR" ] || mkdir -p "$DOC_DIR"
+
 cd "$DOC_DIR"
 chmod g+w .
 chgrp users .
+
 wget -c --progress=dot:mega \
     "http://eoxserver.org/export/head/downloads/EOxServer_documentation-0.2.3.pdf" \
     -O EOxServer_documentation-0.2.3.pdf
+
 ln -sf EOxServer_documentation-0.2.3.pdf EOxServer_documentation.pdf
 chmod g+w -R EOxServer_documentation*
 chgrp users -R EOxServer_documentation*
