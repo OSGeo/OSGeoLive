@@ -21,7 +21,7 @@
 # =======
 # sudo ./install_gvsig.sh
 
-# Changelog:
+# Changelog:   "svn log install_gvsig.sh --limit 10"
 # ===========
 # 2012-12-07
 #   * Updated to use gvSIG 1.12 package
@@ -98,10 +98,11 @@ if [ $? -ne 0 ] ; then
 fi
 
 # fix broken permissions in the deb
-#chown -R root.root /opt/gvSIG_*
-#chown -R root.root /usr/share/applications/gvsig.desktop \
-#  /usr/share/icons/ico-gvSIG.png /usr/share/mime/packages/gvsig.xml \
-#  /var/lib/dpkg/info/gvsig.*
+chown -R root.root /opt/gvSIG_*
+rm -f /debian-binary
+chown -R root.root /usr/share/applications/gvsig.desktop \
+  /usr/share/icons/ico-gvSIG.png /usr/share/mime/packages/gvsig.xml \
+  /var/lib/dpkg/info/gvsig.*
 
 rm "$TMP/$GVSIG_PACKAGE"
 
