@@ -225,6 +225,9 @@ PGPASSWORD=$DB_PASSWORD $DRUSH_DIR/drush site-install $SITE_INSTALL_OPTS
 # silence errors 
 "$DRUSH_DIR"/drush variable-set error_level 0
 
+# and apply ownership to anything new that came along since we started
+chown -R root.root "$TARGET_DIR"
+
 popd
 
 #######################
@@ -364,3 +367,4 @@ chmod -R g+w "$GEO_PATH/data_dir"
 chmod -R g+w "$GEO_PATH/logs"
 chgrp -R users "$GEO_PATH/data_dir"
 chgrp -R users "$GEO_PATH/logs"
+
