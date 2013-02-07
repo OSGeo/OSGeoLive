@@ -284,3 +284,6 @@ EOF
 chgrp users "$MAPPROXY_DIR/mapproxy.yaml"
 chmod g+w "$MAPPROXY_DIR/mapproxy.yaml"
 adduser "$USER_NAME" users
+
+#snafu'd ownership
+chown -R root.root "$MAPPROXY_DIR/docs/"
