@@ -55,7 +55,9 @@ PGROUTING_FOLDER="/usr/share/postlbs"
 #POSTGIS_FOLDER="/usr/share/postgresql/$POSTGRES_VERSION/contrib/"
 
 # PostGIS 1.5
-POSTGIS_FOLDER="/usr/share/postgresql/$POSTGRES_VERSION/contrib/postgis-1.5/"
+#POSTGIS_FOLDER="/usr/share/postgresql/$POSTGRES_VERSION/contrib/postgis-1.5/"
+
+# postGIS 2.0 - create via EXTENSION
 
 # Add pgRouting launchpad repository
 add-apt-repository --yes ppa:georepublic/pgrouting
@@ -88,9 +90,11 @@ sudo -u $USER_NAME createdb -E UTF8 $OSM_DB
 #sudo -u $USER_NAME createlang plpgsql $OSM_DB
 
 # add PostGIS functions
-echo "add PostGIS functions"
-sudo -u $USER_NAME psql --quiet -f $POSTGIS_FOLDER/postgis.sql $OSM_DB
-sudo -u $USER_NAME psql --quiet -f $POSTGIS_FOLDER/spatial_ref_sys.sql $OSM_DB
+#echo "add PostGIS functions"
+#sudo -u $USER_NAME psql --quiet -f $POSTGIS_FOLDER/postgis.sql $OSM_DB
+#sudo -u $USER_NAME psql --quiet -f $POSTGIS_FOLDER/spatial_ref_sys.sql $OSM_DB
+sudo -u $USER_NAME psql -c 'create extension postgis'
+sudo -u $USER_NAME psql -f /usr/share/postgresql/9.1/contrib/postgis-2.0/legacy.sql
 
 # add pgRouting core functions
 echo "add pgRouting core functions"
