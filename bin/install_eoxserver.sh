@@ -254,5 +254,10 @@ apt-get --assume-yes remove libgdal1-dev libproj-dev libgeos-dev libgeos++-dev
 apt-get --assume-yes autoremove
 rm -rf "$TMP_DIR"/Django-1.5b2.tar.gz "$TMP_DIR"/Django-1.5b2/
 
+# make symlinks for geotifs to common data dir so all projects can use them
+mkdir -p /usr/local/share/data/raster
+cd /usr/local/share/data/raster
+ln -s "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris .
+
 
 echo "Finished EOxServer installation"
