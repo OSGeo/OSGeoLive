@@ -54,7 +54,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms6c8e5c7d_130f0d30534__7a33"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_ocean.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_ocean.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -174,7 +174,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__8000"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_admin_0_countries.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_admin_0_countries.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -546,19 +546,19 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ffe"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_geography_marine_polys.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_geography_marine_polys.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ffd"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_geography_regions_elevation_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_geography_regions_elevation_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ffc"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_geography_regions_points.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_geography_regions_points.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -570,13 +570,13 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7fff"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_admin_1_states_provinces_shp.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_admin_1_states_provinces_shp.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ffa"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_lakes.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_lakes.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -648,19 +648,19 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fea"/>
-        <property key="file" value="/home/user/data/openjump/data/municipalities22.dbf"/>
+        <property key="file" value="/usr/local/share/data/openjump/data/municipalities22.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7feb"/>
-        <property key="file" value="/home/user/data/openjump/data/landcover2000.dbf"/>
+        <property key="file" value="/usr/local/share/data/openjump/data/landcover2000.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fec"/>
-        <property key="file" value="/home/user/data/openjump/data/hedgerow.dbf"/>
+        <property key="file" value="/usr/local/share/data/openjump/data/hedgerow.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -678,7 +678,7 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff3"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_admin_0_countries.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_admin_0_countries.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -702,31 +702,31 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff5"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_urban_areas.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_urban_areas.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff6"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_rivers_lake_centerlines.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_rivers_lake_centerlines.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff7"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_populated_places.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_populated_places.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff8"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_ocean.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_ocean.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms_ccbfdd7_130f09f76ab__7ff9"/>
-        <property key="file" value="/home/user/data/natural_earth2/ne_10m_land.dbf"/>
+        <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_land.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -852,37 +852,37 @@
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fe8"/>
-        <property key="file" value="/home/user/data/openjump/data/waternetwork.dbf"/>
+        <property key="file" value="/usr/local/share/data/openjump/data/waternetwork.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fe9"/>
-        <property key="file" value="/home/user/data/openjump/data/subwatershed.dbf"/>
+        <property key="file" value="/usr/local/share/data/openjump/data/subwatershed.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fe6"/>
-        <property key="file" value="/home/user/data/openjump/data/wsmunicipalities.dbf"/>
+        <property key="file" value="/usr/local/share/data/openjump/data/wsmunicipalities.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fe7"/>
-        <property key="file" value="/home/user/data/openjump/data/watershed.dbf"/>
+        <property key="file" value="/usr/local/share/data/openjump/data/watershed.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fe4"/>
-        <property key="file" value="/home/user/data/openjump/data/frenchprovinces.dbf"/>
+        <property key="file" value="/usr/local/share/data/openjump/data/frenchprovinces.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
         <property key="type" value="otherDriverFile"/>
         <property key="gdbmsname" value="gdbms642f7bdc_123c6f35816__7fe5"/>
-        <property key="file" value="/home/user/data/openjump/data/departement22.dbf"/>
+        <property key="file" value="/usr/local/share/data/openjump/data/departement22.dbf"/>
         <property key="driverName" value="gdbms dbf driver"/>
     </xml-tag>
     <xml-tag>
@@ -1108,14 +1108,14 @@
                     <property key="proj" value="EPSG:4326"/>
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/HYP_50M_SR_W.tif"/>
-                    <property key="file" value="/home/user/data/natural_earth2/HYP_50M_SR_W.tif"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/HYP_50M_SR_W.tif"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/HYP_50M_SR_W.tif"/>
                     <property key="driverName" value="gvSIG Raster Driver"/>
                     <property key="raster.class" value="org.gvsig.fmap.raster.layers.StatusLayerRaster"/>
                     <property key="raster.bandR" value="0"/>
                     <property key="raster.bandG" value="1"/>
                     <property key="raster.bandB" value="2"/>
-                    <property key="raster.file0" value="/home/user/data/natural_earth2/HYP_50M_SR_W.tif"/>
+                    <property key="raster.file0" value="/usr/local/share/data/natural_earth2/HYP_50M_SR_W.tif"/>
                 </xml-tag>
                 <xml-tag>
                     <property key="className" value="com.iver.cit.gvsig.fmap.layers.FLyrVect"/>
@@ -1128,8 +1128,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_ocean.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_ocean.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_ocean.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_ocean.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff8"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="false"/>
@@ -1214,8 +1214,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_land.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_land.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_land.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_land.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff9"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="false"/>
@@ -1302,8 +1302,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__8000"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="true"/>
@@ -1430,8 +1430,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_admin_1_states_provinces_shp.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_admin_1_states_provinces_shp.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_admin_1_states_provinces_shp.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_admin_1_states_provinces_shp.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7fff"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="false"/>
@@ -1516,8 +1516,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_geography_marine_polys.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_geography_marine_polys.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_geography_marine_polys.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_geography_marine_polys.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ffe"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="true"/>
@@ -1644,8 +1644,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_lakes.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_lakes.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_lakes.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_lakes.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ffa"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="true"/>
@@ -1772,8 +1772,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_rivers_lake_centerlines.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_rivers_lake_centerlines.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_rivers_lake_centerlines.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_rivers_lake_centerlines.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff6"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="true"/>
@@ -1890,8 +1890,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_urban_areas.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_urban_areas.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_urban_areas.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_urban_areas.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff5"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="false"/>
@@ -1978,8 +1978,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_populated_places.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_populated_places.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_populated_places.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_populated_places.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff7"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="false"/>
@@ -2041,8 +2041,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_geography_regions_elevation_points.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_geography_regions_elevation_points.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_geography_regions_elevation_points.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_geography_regions_elevation_points.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ffd"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="true"/>
@@ -2260,8 +2260,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_geography_regions_points.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_geography_regions_points.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_geography_regions_points.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_geography_regions_points.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ffc"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="true"/>
@@ -2558,8 +2558,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_ocean.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_ocean.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_ocean.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_ocean.shp"/>
                     <property key="recordset-name" value="gdbms6c8e5c7d_130f0d30534__7a33"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="false"/>
@@ -2644,8 +2644,8 @@
                     <property key="transparency" value="255"/>
                     <property key="isInTOC" value="true"/>
                     <property key="type" value="vectorial"/>
-                    <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
-                    <property key="file" value="/home/user/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
+                    <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
+                    <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
                     <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff3"/>
                     <property key="driverName" value="gvSIG shp driver"/>
                     <property key="isLabeled" value="false"/>
@@ -2936,14 +2936,14 @@
                             <property key="proj" value="EPSG:4326"/>
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/HYP_50M_SR_W.tif"/>
-                            <property key="file" value="/home/user/data/natural_earth2/HYP_50M_SR_W.tif"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/HYP_50M_SR_W.tif"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/HYP_50M_SR_W.tif"/>
                             <property key="driverName" value="gvSIG Raster Driver"/>
                             <property key="raster.class" value="org.gvsig.fmap.raster.layers.StatusLayerRaster"/>
                             <property key="raster.bandR" value="0"/>
                             <property key="raster.bandG" value="1"/>
                             <property key="raster.bandB" value="2"/>
-                            <property key="raster.file0" value="/home/user/data/natural_earth2/HYP_50M_SR_W.tif"/>
+                            <property key="raster.file0" value="/usr/local/share/data/natural_earth2/HYP_50M_SR_W.tif"/>
                         </xml-tag>
                         <xml-tag>
                             <property key="className" value="com.iver.cit.gvsig.fmap.layers.FLyrVect"/>
@@ -2956,8 +2956,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_ocean.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_ocean.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_ocean.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_ocean.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff8"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="false"/>
@@ -3042,8 +3042,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_land.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_land.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_land.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_land.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff9"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="false"/>
@@ -3130,8 +3130,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__8000"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="true"/>
@@ -3261,8 +3261,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_admin_1_states_provinces_shp.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_admin_1_states_provinces_shp.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_admin_1_states_provinces_shp.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_admin_1_states_provinces_shp.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7fff"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="false"/>
@@ -3347,8 +3347,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_geography_marine_polys.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_geography_marine_polys.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_geography_marine_polys.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_geography_marine_polys.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ffe"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="true"/>
@@ -3478,8 +3478,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_lakes.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_lakes.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_lakes.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_lakes.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ffa"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="true"/>
@@ -3609,8 +3609,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_rivers_lake_centerlines.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_rivers_lake_centerlines.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_rivers_lake_centerlines.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_rivers_lake_centerlines.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff6"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="true"/>
@@ -3730,8 +3730,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_urban_areas.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_urban_areas.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_urban_areas.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_urban_areas.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff5"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="false"/>
@@ -3818,8 +3818,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_populated_places.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_populated_places.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_populated_places.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_populated_places.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff7"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="false"/>
@@ -3881,8 +3881,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_geography_regions_elevation_points.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_geography_regions_elevation_points.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_geography_regions_elevation_points.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_geography_regions_elevation_points.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ffd"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="true"/>
@@ -4103,8 +4103,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_geography_regions_points.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_geography_regions_points.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_geography_regions_points.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_geography_regions_points.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ffc"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="true"/>
@@ -4497,8 +4497,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_ocean.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_ocean.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_ocean.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_ocean.shp"/>
                             <property key="recordset-name" value="gdbms6c8e5c7d_130f0d30534__7a33"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="false"/>
@@ -4583,8 +4583,8 @@
                             <property key="transparency" value="255"/>
                             <property key="isInTOC" value="true"/>
                             <property key="type" value="vectorial"/>
-                            <property key="absolutePath" value="/home/user/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
-                            <property key="file" value="/home/user/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
+                            <property key="absolutePath" value="/usr/local/share/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
+                            <property key="file" value="/usr/local/share/data/natural_earth2/ne_10m_admin_0_countries.shp"/>
                             <property key="recordset-name" value="gdbms_ccbfdd7_130f09f76ab__7ff3"/>
                             <property key="driverName" value="gvSIG shp driver"/>
                             <property key="isLabeled" value="false"/>
