@@ -128,6 +128,7 @@ apt-get install --assume-yes grass-core qgis python-pysqlite2 python-pygame \
 #
 
 
+
 cp /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
 sed -i -e 's/^Name=imagelinker/Name=Imagelinker/' "$USER_HOME/Desktop/imagelinker.desktop"
@@ -228,11 +229,11 @@ rm -rf $KML_DATA/kml.tar.gz
 
 
 apt-get --assume-yes install libjpeg62
-/usr/local/ossim/bin/ossim-img2rr "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
-/usr/local/ossim/bin/ossim-create-histo "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
 
-/usr/local/ossim/bin/ossim-img2rr /usr/share/ossim/images/reference/bluemarble.tif
-/usr/local/ossim/bin/ossim-create-histo /usr/share/ossim/images/reference/bluemarble.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr /usr/share/ossim/images/reference/bluemarble.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo /usr/share/ossim/images/reference/bluemarble.tif
 
 
 #
@@ -256,28 +257,28 @@ rm /home/user/data/north_carolina/rast_geotiff/lsat7_2002_62.tif
 rm /home/user/data/north_carolina/rast_geotiff/lsat7_2002_70.tif 
 rm /home/user/data/north_carolina/rast_geotiff/lsat7_2002_80.tif
 
-/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_10_8bit.tif
-/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_20_8bit.tif
-/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_30_8bit.tif
-/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_40_8bit.tif
-/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_50_8bit.tif
-/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_61_8bit.tif
-/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_62_8bit.tif
-/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_70_8bit.tif
-/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_80_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_10_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_20_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_30_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_40_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_50_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_61_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_62_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_70_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_80_8bit.tif
 
-/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_10_8bit.tif
-/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_20_8bit.tif
-/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_30_8bit.tif
-/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_40_8bit.tif
-/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_50_8bit.tif
-/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_61_8bit.tif
-/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_62_8bit.tif
-/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_70_8bit.tif
-/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_80_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_10_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_20_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_30_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_40_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_50_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_61_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_62_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_70_8bit.tif
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_80_8bit.tif
 
-/usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip /home/user/data/north_carolina/rast_geotiff/elevation.tif /usr/share/ossim/elevation/nc/elevation.ras
-/usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip /home/user/data/north_carolina/rast_geotiff/elev_lid792_1m.tif /usr/share/ossim/elevation/lidar/elev_lid792_1m.ras
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip /home/user/data/north_carolina/rast_geotiff/elevation.tif /usr/share/ossim/elevation/nc/elevation.ras
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip /home/user/data/north_carolina/rast_geotiff/elev_lid792_1m.tif /usr/share/ossim/elevation/lidar/elev_lid792_1m.ras
 
 mkdir /home/user/data/workspace
 chmod g+w /home/user/data/workspace
@@ -295,7 +296,7 @@ SPEARFISH_RASTER=/home/user/grassdata/spearfish60/PERMANENT/cellhd/
 
 /usr/bin/gdal_translate -of VRT $SPEARFISH_RASTER/elevation.10m /home/user/data/workspace/elevation10m.vrt
 /usr/bin/gdal_translate -of GTIFF -ot Float64 /home/user/data/workspace/elevation10m.vrt /home/user/data/workspace/elevation10m.tif
-/usr/local/ossim/bin/ossim-orthoigen -w general_raster_bip /home/user/data/workspace/elevation10m.tif /usr/share/ossim/elevation/spearfish/elevation10m.ras
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-orthoigen -w general_raster_bip /home/user/data/workspace/elevation10m.tif /usr/share/ossim/elevation/spearfish/elevation10m.ras
 rm -rf /home/user/data/workspace/elevation10m.tif
 /usr/bin/gdal_translate -of VRT $SPEARFISH_RASTER/geology /home/user/data/workspace/geology.vrt
 
