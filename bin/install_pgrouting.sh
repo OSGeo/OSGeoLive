@@ -152,10 +152,10 @@ GOOG_SMERC="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 \
    +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"
 
 # reproject lat/long to Google's funny smerc (epsg:900913)
-EN=`echo "$LONG_LAT" | cs2cs +proj=longlat +datum=WGS84 +to $GOOG_SMERC | awk '{print $1 ", " $2}'`
+EN=`echo "$LONG_LAT" | cs2cs +proj=longlat +datum=WGS84 +to $GOOG_SMERC | awk '{printf("%.0f, %.0f", $1, $2)}'`
 
 # set as 'center: [x, y],' in OpenLayers demo
-sed -i -e "s|center: \[.[^\]]\]|center \[$EN\]|" \
+sed -i -e "s|center: \[.*\]|center: \[$EN\]|" \
   /usr/share/pgrouting/workshop/web/routing-*.html
 
 
