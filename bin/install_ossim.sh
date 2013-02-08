@@ -76,12 +76,16 @@ mv /usr/share/ossim/ossimplanet.desktop /usr/share/applications/ossimplanet.desk
 if [ `grep -c '/usr/local/ossim/bin' "$USER_HOME/.bashrc"` -eq 0 ] ; then
    echo 'PATH="$PATH:/usr/local/ossim/bin"' >> "$USER_HOME/.bashrc"
    echo "export PATH" >> "$USER_HOME/.bashrc"
-   echo "export OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference" >> "$USER_HOME/.bashrc"
+   echo 'OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$USER_HOME/.bashrc"
+   echo "export OSSIM_PREFS_FILE" >> "$USER_HOME/.bashrc"
    #source "$USER_HOME/.bashrc"
 fi
 # we know bashisms are safe in .BASHrc
 if [ `grep -c '/usr/local/ossim/bin' "/etc/skel/.bashrc"` -eq 0 ] ; then
    echo 'export PATH="$PATH:/usr/local/ossim/bin"' >> "/etc/skel/.bashrc"
+   echo 'OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "/etc/skel/.bashrc"
+   echo 'OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "/etc/skel/.bashrc"
+   echo "export OSSIM_PREFS_FILE" >> "$USER_HOME/.bashrc"
 fi
 
 
