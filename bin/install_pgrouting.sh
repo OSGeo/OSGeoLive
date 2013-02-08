@@ -134,6 +134,11 @@ else
 	    -host localhost \
 	    -clean \
 	  > pgrouting_import.log
+
+	# FIX for Multigeometry bug in osm2pgrouting
+	echo "Fix missing source and target attributes"
+	sudo -u $USER_NAME psql $OSM_DB -c "ALTER TABLE ways ALTER COLUMN the_geom TYPE geometry(Linestring,4326) USING ST_GeometryN(the_geom, 1)"
+	sudo -u $USER_NAME psql $OSM_DB -c "SELECT assign_vertex_id('ways', 0.00001, 'the_geom', 'gid')"
 fi
 
 echo "Finished installing pgRouting and pgRouting tools."
