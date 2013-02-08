@@ -141,6 +141,8 @@ else
            "ALTER TABLE ways ALTER COLUMN the_geom TYPE geometry(Linestring,4326) USING ST_GeometryN(the_geom, 1)"
 	sudo -u "$USER_NAME" psql "$OSM_DB" -c \
            "SELECT assign_vertex_id('ways', 0.00001, 'the_geom', 'gid')"
+
+	sudo -u "$USER_NAME" psql "$OSM_DB" -c "vacuum analyze"
 fi
 
 
@@ -162,6 +164,7 @@ sed -i -e "s|center: \[.*\]|center: \[$EN\]|" \
 sed -i -e 's|"routing"|"pgrouting"|' \
        -e 's|"postgres"|"user"|' \
   /usr/share/pgrouting/workshop/web/php/pgrouting.php
+
 
 
 echo "Finished installing pgRouting and pgRouting tools."
