@@ -207,8 +207,8 @@ wget --progress=dot:mega $DATA_URL/ossim_data/p011r031_7t19990918_z19_nn30.tif  
   --output-document=$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif
 wget --progress=dot:mega $DATA_URL/ossim_data/SRTM_fB03_p011r031.tif  \
   --output-document=$RASTER_DATA/SRTM_fB03_p011r031.tif
-wget --progress=dot:mega $DATA_URL/ossim_data/bluemarble.tif  \
---output-document=/usr/share/ossim/images/reference/bluemarble.tif
+#wget --progress=dot:mega $DATA_URL/ossim_data/bluemarble.tif  \
+#--output-document=/usr/share/ossim/images/reference/bluemarble.tif
 #wget --progress=dot:mega $DATA_URL/kml/Plaza_de_Cataluna.kmz \
 #  --output-document=$KML_DATA/Plaza_de_Cataluna.kmz
 #wget --progress=dot:mega $DATA_URL/kml/View_towards_Sagrada_Familia.kmz \
@@ -232,6 +232,7 @@ apt-get --assume-yes install libjpeg62
 OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
 OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
 
+/usr/bin/gdal_translate -of VRT /usr/local/share/data/raster/BlueMarble_small.tiff /usr/share/ossim/images/reference/bluemarble.tif
 OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-img2rr /usr/share/ossim/images/reference/bluemarble.tif
 OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/local/ossim/bin/ossim-create-histo /usr/share/ossim/images/reference/bluemarble.tif
 
@@ -331,8 +332,6 @@ chmod 644 /usr/local/share/ossim/*.pdf
 # cleanup
 rm -rf "$QUICKSTART"/.svn
 
-chown -R root.root /usr/local/ossim /usr/share/ossim
-/usr/share/applications/
-/usr/share/pixmaps/
+chown -R root.root /usr/local/ossim /usr/share/ossim /usr/share/applications/ /usr/share/pixmaps/
 
 echo "Finished installing Ossim"
