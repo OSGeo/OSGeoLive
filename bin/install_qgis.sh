@@ -169,7 +169,7 @@ chmod -R 755 /usr/share/qgis/python
 #TODO Include some sample projects using already installed example data
 #post a sample somewhere on qgis website or launchpad to pull
 cp "$BUILD_DIR/../app-data/qgis/QGIS-Itasca-Example.qgs" /usr/local/share/qgis/
-cp "$BUILD_DIR/../app-data/qgis/QGIS-Grass-Example.qgs" /usr/local/share/qgis/
+#borked: cp "$BUILD_DIR/../app-data/qgis/QGIS-Grass-Example.qgs" /usr/local/share/qgis/
 cp "$BUILD_DIR/../app-data/qgis/QGIS-NaturalEarth-Example.qgs" /usr/local/share/qgis/
 
 chmod 644 /usr/local/share/qgis/*.qgs
