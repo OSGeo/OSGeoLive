@@ -281,7 +281,7 @@ chgrp users /home/user/data/workspace/
 
 
 # spearfish subset to VRT
-#SPEARFISH_RASTER=/home/user/grassdata/spearfish60/PERMANENT/cellhd/
+SPEARFISH_RASTER=/home/user/grassdata/spearfish60/PERMANENT/cellhd/
 #for i in $SPEARFISH_RASTER; do
 #	gdal_translate -of VRT $SPEARFISH_RASTER/$i /home/user/data/workspace/$i.vrt
 
