@@ -86,9 +86,10 @@ else
       /usr/share/applications/qgis.desktop
 fi
 
-
 cp /usr/share/applications/qgis.desktop "$USER_HOME/Desktop/"
+cp /usr/share/applications/qbrowser.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/qgis.desktop"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/qbrowser.desktop"
 
 
 # add menu item

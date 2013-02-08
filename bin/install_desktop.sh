@@ -53,8 +53,8 @@ SPATIAL_TOOLS="imagelinker r geokettle openlayers
                maptiler tilemill mapnik-* monteverdi"
 
 #Future home of PostGIS and Spatialite; pgRouting???
-#  pgadmin, sqlitebrowser, etc  (this one is automatic)
-DB_APPS="spatialite-gui *[Rr]asdaman*"
+#  pgadmin, sqlitebrowser, etc  (parts of this one is automatic)
+DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser"
 
 #Server apps part 3 (public good theme)
 RELIEF_APPS="sahana ushahidi"
