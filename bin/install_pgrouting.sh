@@ -137,8 +137,27 @@ else
 
 	# FIX for Multigeometry bug in osm2pgrouting
 	echo "Fix missing source and target attributes"
-	sudo -u $USER_NAME psql $OSM_DB -c "ALTER TABLE ways ALTER COLUMN the_geom TYPE geometry(Linestring,4326) USING ST_GeometryN(the_geom, 1)"
-	sudo -u $USER_NAME psql $OSM_DB -c "SELECT assign_vertex_id('ways', 0.00001, 'the_geom', 'gid')"
+	sudo -u "$USER_NAME" psql "$OSM_DB" -c \
+           "ALTER TABLE ways ALTER COLUMN the_geom TYPE geometry(Linestring,4326) USING ST_GeometryN(the_geom, 1)"
+	sudo -u "$USER_NAME" psql "$OSM_DB" -c \
+           "SELECT assign_vertex_id('ways', 0.00001, 'the_geom', 'gid')"
 fi
+
+
+
+#### recenter the workshop demo on the OSM_local database
+LONG_LAT="-1.2032 52.9390"   # Nottingham's East Midlands Conference Centre
+
+GOOG_SMERC="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 \
+   +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"
+
+# reproject lat/long to Google's funny smerc (epsg:900913)
+EN=`echo "$LONG_LAT" | cs2cs +proj=longlat +datum=WGS84 +to $GOOG_SMERC | awk '{print $1 ", " $2}'`
+
+# set as 'center: [x, y],' in OpenLayers demo
+sed -i -e "s|center: \[.[^\]]\]|center \[$EN\]|" \
+  /usr/share/pgrouting/workshop/web/routing-*.html
+
+
 
 echo "Finished installing pgRouting and pgRouting tools."
