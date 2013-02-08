@@ -76,6 +76,7 @@ mv /usr/share/ossim/ossimplanet.desktop /usr/share/applications/ossimplanet.desk
 if [ `grep -c '/usr/local/ossim/bin' "$USER_HOME/.bashrc"` -eq 0 ] ; then
    echo 'PATH="$PATH:/usr/local/ossim/bin"' >> "$USER_HOME/.bashrc"
    echo "export PATH" >> "$USER_HOME/.bashrc"
+   echo "export OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference" >> "$USER_HOME/.bashrc"
    #source "$USER_HOME/.bashrc"
 fi
 # we know bashisms are safe in .BASHrc
@@ -201,6 +202,8 @@ wget --progress=dot:mega $DATA_URL/ossim_data/p011r031_7t19990918_z19_nn30.tif  
   --output-document=$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif
 wget --progress=dot:mega $DATA_URL/ossim_data/SRTM_fB03_p011r031.tif  \
   --output-document=$RASTER_DATA/SRTM_fB03_p011r031.tif
+wget --progress=dot:mega $DATA_URL/ossim_data/bluemarble.tif  \
+--output-document=/usr/share/ossim/images/reference/bluemarble.tif
 #wget --progress=dot:mega $DATA_URL/kml/Plaza_de_Cataluna.kmz \
 #  --output-document=$KML_DATA/Plaza_de_Cataluna.kmz
 #wget --progress=dot:mega $DATA_URL/kml/View_towards_Sagrada_Familia.kmz \
@@ -210,10 +213,87 @@ wget --progress=dot:mega $DATA_URL/ossim_data/SRTM_fB03_p011r031.tif  \
 #     --output-document=$PKG_DATA/landsatrgb.prj
 #wget --progress=dot:mega $DATA_URL/ossim_data/session.session \
 #     --output-document=$PKG_DATA/session.session
+wget --progress=dot:mega $DATA_URL/ossim_preference \
+--output-document=/usr/share/ossim/ossim_preference
+
+
+wget --progress=dot:mega $DATA_URL/ossim_data/kml.tar.gz \
+  --output-document=$KML_DATA/kml.tar.gz
+tar -zxvf $KML_DATA/kml.tar.gz
+rm -rf $KML_DATA/kml.tar.gz
+
 
 apt-get --assume-yes install libjpeg62
 /usr/local/ossim/bin/ossim-img2rr "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
 /usr/local/ossim/bin/ossim-create-histo "$RASTER_DATA/p011r031_7t19990918_z19_nn10.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn20.tif" "$RASTER_DATA/p011r031_7t19990918_z19_nn30.tif"
+
+/usr/local/ossim/bin/ossim-img2rr /usr/share/ossim/images/reference/bluemarble.tif
+/usr/local/ossim/bin/ossim-create-histo /usr/share/ossim/images/reference/bluemarble.tif
+
+
+#
+/usr/bin/gdal_translate -ot Byte /home/user/data/north_carolina/rast_geotiff/lsat7_2002_10.tif /home/user/data/north_carolina/rast_geotiff/lsat7_2002_10_8bit.tif
+/usr/bin/gdal_translate -ot Byte /home/user/data/north_carolina/rast_geotiff/lsat7_2002_20.tif /home/user/data/north_carolina/rast_geotiff/lsat7_2002_20_8bit.tif
+/usr/bin/gdal_translate -ot Byte /home/user/data/north_carolina/rast_geotiff/lsat7_2002_30.tif /home/user/data/north_carolina/rast_geotiff/lsat7_2002_30_8bit.tif
+/usr/bin/gdal_translate -ot Byte /home/user/data/north_carolina/rast_geotiff/lsat7_2002_40.tif /home/user/data/north_carolina/rast_geotiff/lsat7_2002_40_8bit.tif
+/usr/bin/gdal_translate -ot Byte /home/user/data/north_carolina/rast_geotiff/lsat7_2002_50.tif /home/user/data/north_carolina/rast_geotiff/lsat7_2002_50_8bit.tif
+/usr/bin/gdal_translate -ot Byte /home/user/data/north_carolina/rast_geotiff/lsat7_2002_61.tif /home/user/data/north_carolina/rast_geotiff/lsat7_2002_61_8bit.tif
+/usr/bin/gdal_translate -ot Byte /home/user/data/north_carolina/rast_geotiff/lsat7_2002_62.tif /home/user/data/north_carolina/rast_geotiff/lsat7_2002_62_8bit.tif
+/usr/bin/gdal_translate -ot Byte /home/user/data/north_carolina/rast_geotiff/lsat7_2002_70.tif /home/user/data/north_carolina/rast_geotiff/lsat7_2002_70_8bit.tif
+/usr/bin/gdal_translate -ot Byte /home/user/data/north_carolina/rast_geotiff/lsat7_2002_80.tif /home/user/data/north_carolina/rast_geotiff/lsat7_2002_80_8bit.tif
+
+rm /home/user/data/north_carolina/rast_geotiff/lsat7_2002_10.tif 
+rm /home/user/data/north_carolina/rast_geotiff/lsat7_2002_20.tif 
+rm /home/user/data/north_carolina/rast_geotiff/lsat7_2002_30.tif 
+rm /home/user/data/north_carolina/rast_geotiff/lsat7_2002_40.tif 
+rm /home/user/data/north_carolina/rast_geotiff/lsat7_2002_50.tif 
+rm /home/user/data/north_carolina/rast_geotiff/lsat7_2002_61.tif 
+rm /home/user/data/north_carolina/rast_geotiff/lsat7_2002_62.tif 
+rm /home/user/data/north_carolina/rast_geotiff/lsat7_2002_70.tif 
+rm /home/user/data/north_carolina/rast_geotiff/lsat7_2002_80.tif
+
+/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_10_8bit.tif
+/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_20_8bit.tif
+/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_30_8bit.tif
+/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_40_8bit.tif
+/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_50_8bit.tif
+/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_61_8bit.tif
+/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_62_8bit.tif
+/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_70_8bit.tif
+/usr/local/ossim/bin/ossim-img2rr /home/user/data/north_carolina/rast_geotiff/lsat7_2002_80_8bit.tif
+
+/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_10_8bit.tif
+/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_20_8bit.tif
+/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_30_8bit.tif
+/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_40_8bit.tif
+/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_50_8bit.tif
+/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_61_8bit.tif
+/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_62_8bit.tif
+/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_70_8bit.tif
+/usr/local/ossim/bin/ossim-create-histo /home/user/data/north_carolina/rast_geotiff/lsat7_2002_80_8bit.tif
+
+/usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip /home/user/data/north_carolina/rast_geotiff/elevation.tif /usr/share/ossim/elevation/nc/elevation.ras
+/usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip /home/user/data/north_carolina/rast_geotiff/elev_lid792_1m.tif /usr/share/ossim/elevation/lidar/elev_lid792_1m.ras
+
+mkdir /home/user/data/workspace
+chmod g+w /home/user/data/workspace
+chgrp users /home/user/data/workspace/
+
+
+# spearfish subset to VRT
+#SPEARFISH_RASTER=/home/user/grassdata/spearfish60/PERMANENT/cellhd/
+#for i in $SPEARFISH_RASTER; do
+#	gdal_translate -of VRT $SPEARFISH_RASTER/$i /home/user/data/workspace/$i.vrt
+
+
+
+/usr/bin/gdal_translate -of VRT $SPEARFISH_RASTER/elevation.10m /home/user/data/workspace/elevation10m.vrt
+/usr/bin/gdal_translate -of GTIFF -ot Float64 /home/user/data/workspace/elevation10m.vrt /home/user/data/workspace/elevation10m.tif
+/usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip /home/user/data/workspace/elevation10m.tif /usr/share/ossim/elevation/spearfish/elevation10m.ras
+rm -rf /home/user/data/workspace/elevation10m.tif
+/usr/bin/gdal_translate -of VRT $SPEARFISH_RASTER/geology /home/user/data/workspace/geology.vrt
+
+
 
 
 #COORDS="N40E002 N41E002 N42E002"
@@ -244,5 +324,8 @@ chmod 644 /usr/local/share/ossim/*.pdf
 # cleanup
 rm -rf "$QUICKSTART"/.svn
 
+chown -R root.root /usr/local/ossim /usr/share/ossim
+/usr/share/applications/
+/usr/share/pixmaps/
 
 echo "Finished installing Ossim"
