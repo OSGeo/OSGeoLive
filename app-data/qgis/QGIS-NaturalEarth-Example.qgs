@@ -24,9 +24,9 @@
         </destinationsrs>
     </mapcanvas>
     <legend updateDrawingOrder="true">
-        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="ne_10m_populated_places_simple" showFeatureCount="0">
+        <legendlayer drawingOrder="-1" open="true" checked="Qt::Unchecked" name="ne_10m_populated_places" showFeatureCount="0">
             <filegroup open="true" hidden="false">
-                <legendlayerfile isInOverview="0" layerid="ne_10m_populated_places_simple20100719082900629" visible="0"/>
+                <legendlayerfile isInOverview="0" layerid="ne_10m_populated_places20100719082900629" visible="0"/>
             </filegroup>
         </legendlayer>
         <legendgroup open="true" checked="Qt::PartiallyChecked" name="Water">
@@ -337,11 +337,11 @@
             <attributeactions/>
         </maplayer>
         <maplayer minimumScale="1" maximumScale="1e+08" minLabelScale="1" maxLabelScale="1e+08" geometry="Point" type="vector" hasScaleBasedVisibilityFlag="0" scaleBasedLabelVisibilityFlag="0">
-            <id>ne_10m_populated_places_simple20100719082900629</id>
+            <id>ne_10m_populated_places20100719082900629</id>
             <datasource>/home/user/data/natural_earth2/ne_10m_populated_places.shp</datasource>
             <title></title>
             <abstract></abstract>
-            <layername>ne_10m_populated_places_simple</layername>
+            <layername>ne_10m_populated_places</layername>
             <srs>
                 <spatialrefsys>
                     <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
