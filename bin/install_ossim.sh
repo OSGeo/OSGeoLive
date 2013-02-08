@@ -279,6 +279,8 @@ mkdir /home/user/data/workspace
 chmod g+w /home/user/data/workspace
 chgrp users /home/user/data/workspace/
 
+chmod g+w /usr/share/ossim/elevation
+chgrp users /usr/share/ossim/elevation
 
 # spearfish subset to VRT
 SPEARFISH_RASTER=/home/user/grassdata/spearfish60/PERMANENT/cellhd/
@@ -289,7 +291,7 @@ SPEARFISH_RASTER=/home/user/grassdata/spearfish60/PERMANENT/cellhd/
 
 /usr/bin/gdal_translate -of VRT $SPEARFISH_RASTER/elevation.10m /home/user/data/workspace/elevation10m.vrt
 /usr/bin/gdal_translate -of GTIFF -ot Float64 /home/user/data/workspace/elevation10m.vrt /home/user/data/workspace/elevation10m.tif
-/usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip /home/user/data/workspace/elevation10m.tif /usr/share/ossim/elevation/spearfish/elevation10m.ras
+/usr/local/ossim/bin/ossim-orthoigen -w general_raster_bip /home/user/data/workspace/elevation10m.tif /usr/share/ossim/elevation/spearfish/elevation10m.ras
 rm -rf /home/user/data/workspace/elevation10m.tif
 /usr/bin/gdal_translate -of VRT $SPEARFISH_RASTER/geology /home/user/data/workspace/geology.vrt
 
