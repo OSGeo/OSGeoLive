@@ -37,7 +37,7 @@ sudo apt-get -q update
 apt-get install --assume-yes libtiff4 libgeotiff2 libgdal1-1.9.0 \
   libfreetype6 libcurl3 libopenscenegraph80 libqt4-opengl \
   libexpat1 libpng3 libgdal1-1.9.0-grass libfftw3-3 libqt3-mt \
-  libopenmpi1.3 libqt4-qt3support 
+  libopenmpi1.3 libqt4-qt3support ipython-notebook
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -185,14 +185,14 @@ VRT_DATA="$DATA_FOLDER/vrt"
 QUICKSTART=/usr/local/share/ossim/quickstart
 
 
-#mkdir -p "$KML_DATA"
+mkdir -p "$KML_DATA"
 mkdir -p "$RASTER_DATA"
 mkdir -p "$ELEV_DATA"
 #mkdir -p "$VRT_DATA"
 
 #** DO NOT use chmod 777 **
 # disabled: $KML_DATA
-for ITEM in $RASTER_DATA $ELEV_DATA $VRT_DATA ; do
+for ITEM in $RASTER_DATA $ELEV_DATA $VRT_DATA  $KML_DATA; do
    chmod -R 775 "$ITEM"
    chgrp -R users "$ITEM"
 done
@@ -327,6 +327,14 @@ for dir in $QUICKSTART $RASTER_DATA ; do
 done
 
 chmod 644 /usr/local/share/ossim/*.pdf
+
+#
+ipython profile create osgeolive
+
+echo "c.NotebookApp.open_browser = False" >> "/home/user/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
+echo "c.NotebookApp.port = 12345" >> "/home/user/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
+echo "c.NotebookManager.save_script=True" >> "/home/user/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
+
 
 
 # cleanup
