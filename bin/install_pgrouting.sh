@@ -93,8 +93,8 @@ sudo -u $USER_NAME createdb -E UTF8 $OSM_DB
 #echo "add PostGIS functions"
 #sudo -u $USER_NAME psql --quiet -f $POSTGIS_FOLDER/postgis.sql $OSM_DB
 #sudo -u $USER_NAME psql --quiet -f $POSTGIS_FOLDER/spatial_ref_sys.sql $OSM_DB
-sudo -u $USER_NAME psql -c 'create extension postgis'
-sudo -u $USER_NAME psql -f /usr/share/postgresql/9.1/contrib/postgis-2.0/legacy.sql
+sudo -u $USER_NAME psql $OSM_DB -c 'create extension postgis'
+sudo -u $USER_NAME psql $OSM_DB -f /usr/share/postgresql/9.1/contrib/postgis-2.0/legacy.sql
 
 # add pgRouting core functions
 echo "add pgRouting core functions"
