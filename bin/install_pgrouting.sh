@@ -158,6 +158,10 @@ EN=`echo "$LONG_LAT" | cs2cs +proj=longlat +datum=WGS84 +to $GOOG_SMERC | awk '{
 sed -i -e "s|center: \[.*\]|center: \[$EN\]|" \
   /usr/share/pgrouting/workshop/web/routing-*.html
 
+# adjust DB and user name in workshop example
+sed -i -e 's|"routing"|"pgrouting"|' \
+       -e 's|"postgres"|"user"|' \
+  /usr/share/pgrouting/workshop/web/php/pgrouting.php
 
 
 echo "Finished installing pgRouting and pgRouting tools."
