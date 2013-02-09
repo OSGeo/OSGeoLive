@@ -63,23 +63,23 @@ EOF
 # 1 Base Packages (Frameworks)
 A_PKG="
 frameworks/GDAL_Complete-1.9.dmg
-frameworks/FreeType_Framework-2.4.9-1.dmg
+frameworks/FreeType_Framework-2.4.10-1.dmg
 frameworks/cairo_Framework-1.12.2-1.dmg
 frameworks/GSL_Framework-1.15-2.dmg
 frameworks/TclTk_Aqua-8.5.8-2.dmg
 frameworks/Spatialite_Tools-3.0.zip
-frameworks/rgdal-0.7.11-1.dmg
+frameworks/rgdal-0.7.20-1.dmg
 "
 
 # 2 Support Packages
 B_PKG="
-postgresql/PostgreSQL-9.1.4-1.dmg
+postgresql/PostgreSQL-9.1.6-1.dmg
 "
 
 # 3 End-User Packages
 C_PKG="
-grass/GRASS-6.4.2-4-Snow.dmg
-postgresql/PostGIS-2.0.1-1.dmg
+grass/GRASS-6.4.2-5-Snow.dmg
+postgresql/PostGIS-2.0.2-1.dmg
 qgis/QGIS-1.8.0-2.dmg
 "
 
@@ -127,7 +127,7 @@ done
 
 #############################################
 #Add uDig from another source
-PKG="udig-1.3.1.macosx.cocoa.x86_64.zip"
+PKG="udig-1.3.2.macosx.cocoa.x86_64.zip"
 wget -c --progress=dot:mega \
    http://udig.refractions.net/files/downloads/"$PKG" -O "$PKG_DIR/$PKG"
 
@@ -150,15 +150,14 @@ wget -c --progress=dot:mega \
 
 #############################################
 #Add R-stats
-PKG="R-2.15.1.pkg"
+PKG="R-2.15.2.pkg"
 wget -c --progress=dot:mega \
    http://cran.stat.ucla.edu/bin/macosx/"$PKG" -O "$PKG_DIR/$PKG"
 
 
 #############################################
-#Add TileMill - TODO enable in 6.5 at cost of something else
-#PKG="TileMill-0.9.1.zip"
-#wget -c --no-check-certificate --progress=dot:mega \
-#  "http://github.com/downloads/mapbox/tilemill/$PKG" -O "$PKG_DIR/$PKG"
-
+#Add TileMill
+PKG="TileMill-0.10.1.zip"
+wget -c --no-check-certificate --progress=dot:mega \
+  "http://github.com/downloads/mapbox/tilemill/$PKG" -O "$PKG_DIR/$PKG"
 
