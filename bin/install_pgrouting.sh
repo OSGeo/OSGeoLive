@@ -166,6 +166,12 @@ sed -i -e 's|"routing"|"pgrouting"|' \
        -e 's|"postgres"|"user"|' \
   /usr/share/pgrouting/workshop/web/php/pgrouting.php
 
+# symlink it into a served dir so the php will run
+ln -s /usr/share/pgrouting/workshop/web /var/www/pgrouting
+
+# to get the routing-final.html demo working you'll still need to set
+# the IPv4 host pgsql permissions to 'trust' in pg_hpa.conf. but we
+# don't want to do that by default.
 
 
 echo "Finished installing pgRouting and pgRouting tools."
