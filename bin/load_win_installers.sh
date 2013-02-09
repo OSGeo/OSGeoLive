@@ -42,7 +42,7 @@ OSGeo Windows installers
 TO INSTALL:
 To install the application simply double click on the appropriate exe or
 unzip a zip and read the README for each application. Some applications
-have 64bit version but only 32bit have been included here for
+have a 64bit version but only 32bit have been included here for
 compatibility, check the web for newer or alternate versions. For more
 information about the projects please read the help included in the live
 disc or visit http://live.osgeo.org
@@ -56,28 +56,28 @@ applications. Visit http://trac.osgeo.org/osgeo4w/ for more information.
 vcredist_x86.exe is the  Runtime from Microsoft, it is required for many
 of the other applications to work.
 
-GeoServer:  geoserver-2.1.4-bin.zip in the Windows Installers cache also
-works on a Mac.
 
 Happy Mapping!
 EOF
 
 
+
 for URL in \
   http://download.osgeo.org/osgeo4w/osgeo4w-setup.exe \
-  http://forge.osor.eu/frs/download.php/1570/gvSIG-1_11-1305-final-win-i586-j1_5.exe \
-  http://qgis.org/downloads/QGIS-OSGeo4W-1.8.0-1-Setup.exe \
+  http://qgis.org/downloads/QGIS-OSGeo4W-1.8.0-2-Setup.exe \
   http://home.gdal.org/tmp/vcredist_x86.exe \
   http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.2-2-Setup.exe \
-  http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.4.3-Setup.exe \
+  http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.4.4-Setup.exe \
+  http://github.com/downloads/mapbox/tilemill/TileMill-v0.10.1-Setup.exe \
   http://gpsvp.googlecode.com/files/gpsVPxp_0.4.24.zip \
   http://downloads.sourceforge.net/project/opencpn/opencpn/3.0.2/opencpn_3.0.2_setup.exe?use_mirror=cdnetworks-us-2 \
   http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe \
   http://sourceforge.net/projects/saga-gis/files/SAGA%20-%202.0/SAGA%202.0.8/saga_2.0.8_win32_setup.exe?use_mirror=cdnetworks-us-2 \
   http://www.opensig.es/public/kosmo/v_2.0.1/binaries/kosmo_desktop_2.0.1_windows_jre_setup.exe \
-  http://udig.refractions.net/files/downloads/udig-1.3.1.win32.win32.x86.exe \
-  http://download.osgeo.org/livedvd/data/zygrib/zyGrib_win-6.0.0.zip \
+  http://udig.refractions.net/files/downloads/udig-1.3.2.win32.win32.x86.exe \
+  http://download.osgeo.org/livedvd/data/zygrib/zyGrib_win-6.1.2.zip \
   http://download.osgeo.org/livedvd/data/mapwindow/MapWindowx86Full-v48Final-installer.exe \
+  http://downloads.gvsig.org/download/gvsig-desktop/dists/1.12.0/builds/1417/gvSIG-desktop-1.12.0-1417-final-win-x86-standard.exe \
 ; do
   # sourceforge filename sanitation:
   OUTFILE=`basename "$URL" | cut -f1 -d'?'`
@@ -85,13 +85,17 @@ for URL in \
   wget -c --no-check-certificate --progress=dot:mega "$URL" -O "$OUTFILE"
 done;
 
+# gvSIG is 161MB, maybe too big?
+
+
 #Disabled because they are very outdated
 # http://maptiler.googlecode.com/files/maptiler-1.0-beta2-setup.exe
 # http://home.gdal.org/fwtools/FWTools247.exe \
 # Disabled, we only do desktop apps
 # http://downloads.sourceforge.net/geoserver/geoserver-2.1.4-bin.zip \
-# Disabled, undocumented on version 6.0, re-enable on 6.5 but remove something else
-# http://github.com/downloads/mapbox/tilemill/TileMill-v0.9.1-Setup.exe \
+#  from the README:
+#GeoServer:  geoserver-2.1.4-bin.zip in the Windows Installers cache also
+#works on a Mac.
 
 
 #FIXME:
