@@ -3,7 +3,7 @@
 <object type="ossimQtProject">
    <object name="data" type="ossimDataManager">
       <object name="object1" type="ossimImageChain">
-         <property name="description" value="Image chain: /home/user/data/raster/band1.tif"/>
+         <property name="description" value="Image chain: /usr/local/share/data/raster/cape_cod/p011r031_7t19990918_z19_nn10.tif"/>
          <property name="enabled" value="1"/>
          <property name="id" value="32"/>
          <property name="input_list_fixed" value="1"/>
@@ -13,14 +13,14 @@
             <property name="apply_color_palette_flag" value="1"/>
             <property name="description"/>
             <property name="enabled" value="1"/>
-            <property name="filename" value="/home/user/data/raster/band1.tif"/>
+            <property name="filename" value="/usr/local/share/data/raster/cape_cod/p011r031_7t19990918_z19_nn10.tif"/>
             <property name="id" value="24"/>
             <property name="input_list_fixed" value="1"/>
             <property name="number_inputs" value="0"/>
             <property name="number_outputs" value="1"/>
             <property name="output_connection1" value="36"/>
             <property name="output_list_fixed" value="0"/>
-            <property name="overview_file" value="/home/user/data/raster/band1.ovr"/>
+            <property name="overview_file" value="/usr/local/share/data/raster/cape_cod/p011r031_7t19990918_z19_nn10.ovr"/>
             <property name="start_res_level" value="0"/>
          </object>
          <object name="object2" type="ossimHistogramRemapper">
@@ -101,7 +101,7 @@
          <property name="output_list_fixed" value="0"/>
       </object>
       <object name="object2" type="ossimImageChain">
-         <property name="description" value="Image chain: /home/user/data/raster/band2.tif"/>
+         <property name="description" value="Image chain: /usr/local/share/data/raster/cape_cod/p011r031_7t19990918_z19_nn20.tif"/>
          <property name="enabled" value="1"/>
          <property name="id" value="60"/>
          <property name="input_list_fixed" value="1"/>
@@ -111,14 +111,14 @@
             <property name="apply_color_palette_flag" value="1"/>
             <property name="description"/>
             <property name="enabled" value="1"/>
-            <property name="filename" value="/home/user/data/raster/band2.tif"/>
+            <property name="filename" value="/usr/local/share/data/raster/cape_cod/p011r031_7t19990918_z19_nn20.tif"/>
             <property name="id" value="52"/>
             <property name="input_list_fixed" value="1"/>
             <property name="number_inputs" value="0"/>
             <property name="number_outputs" value="1"/>
             <property name="output_connection1" value="64"/>
             <property name="output_list_fixed" value="0"/>
-            <property name="overview_file" value="/home/user/data/raster/band2.ovr"/>
+            <property name="overview_file" value="/usr/local/share/data/raster/cape_cod/p011r031_7t19990918_z19_nn20.ovr"/>
             <property name="start_res_level" value="0"/>
          </object>
          <object name="object2" type="ossimHistogramRemapper">
@@ -199,7 +199,7 @@
          <property name="output_list_fixed" value="0"/>
       </object>
       <object name="object3" type="ossimImageChain">
-         <property name="description" value="Image chain: /home/user/data/raster/band3.tif"/>
+         <property name="description" value="Image chain: /usr/local/share/data/raster/cape_cod/p011r031_7t19990918_z19_nn30.tif"/>
          <property name="enabled" value="1"/>
          <property name="id" value="88"/>
          <property name="input_list_fixed" value="1"/>
@@ -209,14 +209,14 @@
             <property name="apply_color_palette_flag" value="1"/>
             <property name="description"/>
             <property name="enabled" value="1"/>
-            <property name="filename" value="/home/user/data/raster/band3.tif"/>
+            <property name="filename" value="/usr/local/share/data/raster/cape_cod/p011r031_7t19990918_z19_nn30.tif"/>
             <property name="id" value="80"/>
             <property name="input_list_fixed" value="1"/>
             <property name="number_inputs" value="0"/>
             <property name="number_outputs" value="1"/>
             <property name="output_connection1" value="92"/>
             <property name="output_list_fixed" value="0"/>
-            <property name="overview_file" value="/home/user/data/raster/band3.ovr"/>
+            <property name="overview_file" value="/usr/local/share/data/raster/cape_cod/p011r031_7t19990918_z19_nn30.ovr"/>
             <property name="start_res_level" value="0"/>
          </object>
          <object name="object2" type="ossimHistogramRemapper">

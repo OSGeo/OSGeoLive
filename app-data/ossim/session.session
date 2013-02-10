@@ -88,7 +88,7 @@
             </maxDate>
          </ossimPlanetExtents>
          <ossimPlanetOssimImageLayer>
-            <name>band1.tif</name>
+            <name>p011r031_7t19990918_z19_nn10.tif</name>
             <description>ossimPlanetTextureLayer</description>
             <id/>
             <enableFlag>1</enableFlag>
@@ -139,7 +139,7 @@
                <heading>0</heading>
                <altitudeMode>clampToGround</altitudeMode>
             </ossimPlanetLookAt>
-            <filename>/home/user/data/raster/band1.tif</filename>
+            <filename>/usr/local/share/data/raster/cape_cod/p011r031_7t19990918_z19_nn10.tif</filename>
             <entry>0</entry>
             <histogramStretchMode>Linear Auto Min Max</histogramStretchMode>
             <histogramStretchEnabled>1</histogramStretchEnabled>
