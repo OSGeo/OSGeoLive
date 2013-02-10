@@ -178,7 +178,7 @@ wget --progress=dot:mega "http://www.geofemengineering.it/data/OSSIM_Whitepaper.
 
 
 #Download data used to test the application
-KML_DATA="$DATA_FOLDER/kml"
+#KML_DATA="$DATA_FOLDER/kml"
 RASTER_DATA="$DATA_FOLDER/raster"
 ELEV_DATA=/usr/share/ossim/elevation/elev
 SAT_DATA="$RASTER_DATA/cape_cod"
@@ -186,7 +186,7 @@ SAT_DATA="$RASTER_DATA/cape_cod"
 VRT_DATA="$DATA_FOLDER/vrt"
 QUICKSTART=/usr/local/share/ossim/quickstart
 
-mkdir -p "$KML_DATA"
+#mkdir -p "$KML_DATA"
 mkdir -p "$RASTER_DATA"
 mkdir -p "$SAT_DATA"
 mkdir -p "$ELEV_DATA"   # ?? unused ??
@@ -194,8 +194,8 @@ mkdir -p "$ELEV_DATA"   # ?? unused ??
 
 
 
-# disabled: $VRT_DATA
-for ITEM in $RASTER_DATA $ELEV_DATA $SAT_DATA $KML_DATA;  do
+# disabled: $VRT_DATA $KML_DATA
+for ITEM in $RASTER_DATA $ELEV_DATA $SAT_DATA ;  do
    chmod -R 775 "$ITEM"
    chgrp -R users "$ITEM"
 done
@@ -214,6 +214,7 @@ done
 # SRTM
 wget --progress=dot:mega "$DATA_URL/ossim_data/SRTM_fB03_p011r031.tif"  \
      --output-document="$SAT_DATA/SRTM_fB03_p011r031.tif"
+chmod a-x "$SAT_DATA/SRTM_fB03_p011r031.tif"
 
 #wget --progress=dot:mega $DATA_URL/ossim_data/bluemarble.tif  \
 #--output-document=/usr/share/ossim/images/reference/bluemarble.tif
@@ -230,12 +231,13 @@ wget --progress=dot:mega "$DATA_URL/ossim_data/SRTM_fB03_p011r031.tif"  \
 wget --progress=dot:mega "$DATA_URL/ossim_preference" \
      --output-document=/usr/share/ossim/ossim_preference
 
-# Updated North Carolina KML ?
-wget --progress=dot:mega $DATA_URL/ossim_data/kml.tar.gz \
-     --output-document="$KML_DATA/kml.tar.gz"
 
-tar -zxvf "$KML_DATA/kml.tar.gz"
-rm -rf "$KML_DATA/kml.tar.gz"
+#### Updated North Carolina KML
+wget -N --progress=dot:mega $DATA_URL/ossim_data/kml.tar.gz
+tar -zxvf kml.tar.gz
+chown -R root.root kml/
+mv kml/* "$DATA_FOLDER"/north_carolina/kml/
+rm -rf kml/
 
 
 apt-get --assume-yes install libjpeg62
@@ -342,7 +344,7 @@ if [ -L /etc/skel/ossim ] ; then
 fi
 ln -s "$QUICKSTART" /etc/skel/ossim
 
-for dir in "$QUICKSTART" "$RASTER_DATA" "$KML_DATA" ; do
+for dir in "$QUICKSTART" "$RASTER_DATA" "$DATA_FOLDER" ; do
   chgrp -R users $dir
   chmod -R g+w $dir
 done
