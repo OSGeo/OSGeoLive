@@ -342,15 +342,22 @@ done
 chmod 644 /usr/local/share/ossim/*.pdf
 
 #
+## doesn't work!  sudo -u "$USER_NAME" \
 ipython profile create osgeolive
+mkdir -p "$USER_HOME"/.config/
+mv /root/.ipython "$USER_HOME"/.config/ipython
+sed -i -e "s|root|$USER_NAME|" "$USER_HOME"/.config/ipython/profile_osgeolive/*.py
+
+mkdir -p /etc/skel/.config
+cp -r "$USER_HOME"/.config/ipython /etc/skel/.config
 
 IPY_CONF="$USER_HOME/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
 echo "c.NotebookApp.open_browser = False" >> "$IPY_CONF"
 echo "c.NotebookApp.port = 12345"         >> "$IPY_CONF"
 echo "c.NotebookManager.save_script=True" >> "$IPY_CONF"
 
-mkdir -p /etc/skel/.config/
-cp -r "$USER_HOME/.config/ipython" /etc/skel/.config/
+cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
+chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 
 
 # cleanup
