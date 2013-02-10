@@ -236,8 +236,10 @@ chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/geoserver-docs.desktop"
 
 ## add sample styles per quickstart
 mkdir /usr/local/share/geoserver
-chgrp user /usr/local/share/geoserver
-cp /usr/local/share/gisvm/app-data/geoserver/ne_10m*.sld /usr/local/share/geoserver/
+chgrp users /usr/local/share/geoserver
+chmod g+w /usr/local/share/geoserver
+cp /usr/local/share/gisvm/app-data/geoserver/ne_10m*.sld \
+   /usr/local/share/geoserver/
 
 ## clean up eventual leftover Jetty cache directory
 echo "Cleaning up Jetty JSP cache in /tmp"
