@@ -28,9 +28,9 @@ DATA_FOLDER="/usr/local/share/data"
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 
-sudo apt-get -q update
+apt-get -q update
 
 #temp solution
 #apt-get install --assume-yes ossim-core
