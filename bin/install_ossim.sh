@@ -206,7 +206,9 @@ BASENAME="p011r031_7t19990918_z19_nn"
 for BAND in 10 20 30 ; do
     # LANDSAT
     wget --progress=dot:mega "$DATA_URL/ossim_data/${BASENAME}$BAND.tif" \
-         --output-document="$SAT_DATA/${BASENAME}$BAND.tif"    
+         --output-document="$SAT_DATA/${BASENAME}$BAND.tif"
+    ls -l "$SAT_DATA/${BASENAME}$BAND.tif"
+    chmod a-x "$SAT_DATA/${BASENAME}$BAND.tif"
 done
 
 # SRTM
@@ -329,9 +331,15 @@ rm -f "$QUICKSTART"/workspace/elevation10m.tif
 #done
 
 
-cp -r "$APP_DATA_DIR" "$QUICKSTART"
+cp -r "$APP_DATA_DIR"/* "$QUICKSTART"/
+if [ -L "$USER_HOME/ossim" ] ; then
+   rm -f "$USER_HOME"/ossim
+fi
 ln -s "$QUICKSTART" "$USER_HOME"/ossim
 # does the above symlink need to be owned by $USER?
+if [ -L /etc/skel/ossim ] ; then
+   rm -f /etc/skel/ossim
+fi
 ln -s "$QUICKSTART" /etc/skel/ossim
 
 for dir in "$QUICKSTART" "$RASTER_DATA" "$KML_DATA" ; do
@@ -341,7 +349,8 @@ done
 
 chmod 644 /usr/local/share/ossim/*.pdf
 
-#
+
+##### Setup custom IPython profile
 ## doesn't work!  sudo -u "$USER_NAME" \
 ipython profile create osgeolive
 mkdir -p "$USER_HOME"/.config/
@@ -360,7 +369,7 @@ cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 
 
-# cleanup
+#### cleanup
 rm -rf "$QUICKSTART"/.svn
 
 echo "Finished installing Ossim"
