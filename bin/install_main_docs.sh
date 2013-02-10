@@ -232,6 +232,12 @@ if [ `grep -c 'localhost' /etc/firefox/syspref.js` -eq 0 ] ; then
       >> /etc/firefox/syspref.js
 fi
 
+#TODO for next time to make things less congested for netbook users:
+#    pref("browser.tabs.autoHide", true);
+#    pref("browser.rights.3.shown", true);
+#  and which config to make the toolbar use small icons? (rt click on toolbar configure)
+
+
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
 mkdir -p /usr/local/share/icons
 cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
