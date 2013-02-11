@@ -232,14 +232,6 @@ wget --progress=dot:mega "$DATA_URL/ossim_preference" \
      --output-document=/usr/share/ossim/ossim_preference
 
 
-#### Updated North Carolina KML
-wget -N --progress=dot:mega $DATA_URL/ossim_data/kml.tar.gz
-tar -zxvf kml.tar.gz
-chown -R root.root kml/
-mv kml/* "$DATA_FOLDER"/north_carolina/kml/
-rm -rf kml/
-
-
 apt-get --assume-yes install libjpeg62
 
 OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference
@@ -263,28 +255,6 @@ export OSSIM_PREFS_FILE
 /usr/local/ossim/bin/ossim-create-histo \
    /usr/share/ossim/images/reference/bluemarble.tif
 
-# replace 32bit Landsat files with 8bit versions
-DATA_DIR="$DATA_FOLDER/north_carolina/rast_geotiff"
-
-for BAND in 10 20 30 40 50 61 62 70 80 ; do
-   BASENAME="lsat7_2002_$BAND.tif"
-   NEWNAME="lsat7_2002_${BAND}_8bit.tif"
-
-   /usr/bin/gdal_translate -ot Byte "$DATA_DIR/$BASENAME" "$DATA_DIR/$NEWNAME"
-   rm "$DATA_DIR/$BASENAME"
-   mv "$DATA_DIR/$NEWNAME" "$DATA_DIR/$BASENAME"
-
-   /usr/local/ossim/bin/ossim-img2rr "$DATA_DIR/$BASENAME"
-   /usr/local/ossim/bin/ossim-create-histo "$DATA_DIR/$BASENAME"
-done
-
-/usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip \
-   "$DATA_DIR/elevation.tif" \
-   /usr/share/ossim/elevation/nc/elevation.ras
-
-/usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip \
-   "$DATA_DIR/elev_lid792_1m.tif" \
-   /usr/share/ossim/elevation/lidar/elev_lid792_1m.ras
 
 unset OSSIM_PREFS_FILE
 

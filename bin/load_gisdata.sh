@@ -181,6 +181,7 @@ BASE_URL="http://grass.osgeo.org/sampledata/north_carolina"
 cd "$TMP"
 mkdir -p nc_data
 cd nc_data
+
 for FILE in $FILES ; do
    wget -N --progress=dot:mega "$BASE_URL/nc_$FILE.tar.gz"
 done
@@ -189,12 +190,56 @@ done
 mkdir -p "$DATA_FOLDER/north_carolina"
 cd "$DATA_FOLDER/north_carolina"
 for FILE in $FILES ; do
-   mkdir -p $FILE
-   cd $FILE
+   mkdir -p "$FILE"
+   cd "$FILE"
    tar xzf "$TMP/nc_data/nc_$FILE.tar.gz"
    mv nc*/* .
    rmdir nc*/
    cd ..
+   chgrp users "$FILE"
+   chmod g+w "$FILE"
 done
-chown -R root.root "$DATA_FOLDER/north_carolina"
+
+
+cd "$TMP"
+#### Updated North Carolina KML
+DATA_URL="http://epi.whoi.edu/osgeolive/"
+wget -N --progress=dot:mega "$DATA_URL/ossim_data/kml.tar.gz"
+tar xzf kml.tar.gz
+chown -R root.root kml/
+mv -f kml/* "$DATA_FOLDER"/north_carolina/kml/
+rm -rf kml/
+
+
+# create overviews and histograms for OSSIM
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference
+export OSSIM_PREFS_FILE
+
+# replace 32bit Landsat files with 8bit versions
+DATA_DIR="$DATA_FOLDER/north_carolina/rast_geotiff"
+
+for BAND in 10 20 30 40 50 61 62 70 80 ; do
+   BASENAME="lsat7_2002_$BAND.tif"
+   NEWNAME="lsat7_2002_${BAND}_8bit.tif"
+
+   /usr/bin/gdal_translate -ot Byte "$DATA_DIR/$BASENAME" "$DATA_DIR/$NEWNAME"
+   rm "$DATA_DIR/$BASENAME"
+   mv "$DATA_DIR/$NEWNAME" "$DATA_DIR/$BASENAME"
+
+   /usr/local/ossim/bin/ossim-img2rr "$DATA_DIR/$BASENAME"
+   /usr/local/ossim/bin/ossim-create-histo "$DATA_DIR/$BASENAME"
+done
+
+/usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip \
+   "$DATA_DIR/elevation.tif" \
+   /usr/share/ossim/elevation/nc/elevation.ras
+
+/usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip \
+   "$DATA_DIR/elev_lid792_1m.tif" \
+   /usr/share/ossim/elevation/lidar/elev_lid792_1m.ras
+
+unset OSSIM_PREFS_FILE
+
+
+chown -R root.root "$DATA_FOLDER"/north_carolina
 
