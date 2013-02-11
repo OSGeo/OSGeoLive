@@ -39,7 +39,16 @@ apt-get -q update
 apt-get install --assume-yes libtiff4 libgeotiff2 libgdal1-1.9.0 \
   libfreetype6 libcurl3 libopenscenegraph80 libqt4-opengl \
   libexpat1 libpng3 libgdal1-1.9.0-grass libfftw3-3 libqt3-mt \
-  libopenmpi1.3 libqt4-qt3support ipython-notebook
+  libopenmpi1.3 libqt4-qt3support python-pandas python-mpltoolkits.basemap python-netcdf spyder ipython-notebook 
+
+## update for next release ##
+# apt-get install --assume-yes python-dev 
+# pip install --upgrade pandas
+# pip install bottleneck
+pip install oct2py
+
+
+
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -231,7 +240,6 @@ chmod a-x "$SAT_DATA/SRTM_fB03_p011r031.tif"
 wget --progress=dot:mega "$DATA_URL/ossim_preference" \
      --output-document=/usr/share/ossim/ossim_preference
 
-
 apt-get --assume-yes install libjpeg62
 
 OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference
@@ -324,6 +332,12 @@ chmod 644 /usr/local/share/ossim/*.pdf
 
 ##### Setup custom IPython profile
 ## doesn't work!  sudo -u "$USER_NAME" \
+
+wget --progress=dot:mega "$DATA_URL/ipython-notebook.desktop" \
+     --output-document="$QUICKSTART"/workspace/ipython-notebook.desktop
+
+pip install --upgrade ipython
+
 ipython profile create osgeolive
 mkdir -p "$USER_HOME"/.config/
 mv ~/.ipython "$USER_HOME"/.config/ipython
@@ -336,6 +350,7 @@ IPY_CONF="$USER_HOME/.config/ipython/profile_osgeolive/ipython_notebook_config.p
 echo "c.NotebookApp.open_browser = False" >> "$IPY_CONF"
 echo "c.NotebookApp.port = 12345"         >> "$IPY_CONF"
 echo "c.NotebookManager.save_script=True" >> "$IPY_CONF"
+echo "c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace" >> "$IPY_CONF"
 
 cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
