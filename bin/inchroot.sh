@@ -117,6 +117,7 @@ export USER_NAME
 ./install_mapfish.sh
 ./install_openlayers.sh
 ./install_R.sh
+./load_gisdata.sh
 ./install_ossim.sh
 ./install_osgearth.sh
 ./install_spatialite.sh
@@ -135,7 +136,6 @@ export USER_NAME
 ./install_cartaro.sh
 # ./install_i3geo.sh
 
-./load_gisdata.sh
 ./install_main_docs.sh
 ./install_edutools.sh
 
