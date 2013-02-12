@@ -45,7 +45,7 @@ apt-get install --assume-yes libtiff4 libgeotiff2 libgdal1-1.9.0 \
 # apt-get install --assume-yes python-dev 
 # pip install --upgrade pandas
 # pip install bottleneck
-pip install oct2py
+# pip install oct2py
 
 
 
