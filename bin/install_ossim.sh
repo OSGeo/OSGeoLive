@@ -38,7 +38,7 @@ apt-get -q update
 # install main dependencies
 apt-get install --assume-yes libtiff4 libgeotiff2 libgdal1-1.9.0 \
   libfreetype6 libcurl3 libopenscenegraph80 libqt4-opengl \
-  libexpat1 libpng3 libgdal1-1.9.0-grass libfftw3-3 libqt3-mt \
+  libexpat1 libpng3 libgdal1-1.9.0-grass libfftw3-3 libqt3-mt python-pip \
   libopenmpi1.3 libqt4-qt3support python-pandas python-mpltoolkits.basemap python-netcdf spyder ipython-notebook 
 
 ## update for next release ##
