@@ -1,6 +1,26 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.5rc1
+===================
+
+ * docs and translations completed for 6.5 release
+ * NC dataset cleanup
+ * ossim fixes applied
+ * updated mac and windows installers list
+ * pgrouting fixed for postgis2.0 (legacy.sql)
+ * qgis plugins updated
+ * 52North WPS updated to 3.1.0
+ * gvsig fixed for postgis2.0 (legacy.sql)
+ * various permission fixes
+ * rasdaman demo applications fixed
+ * viking bugfix
+ * opencpn bugfix
+ * mapbender database issue fixed
+ * eoxserver apache fix for number of processes
+ * major quickstart reviews due to our hackathlon
+ * tilemill db pre-seeding added
+
 Version 6.5beta2
 ===================
 
