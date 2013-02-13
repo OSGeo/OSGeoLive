@@ -39,10 +39,10 @@ apt-get -q update
 apt-get install --assume-yes libtiff4 libgeotiff2 libgdal1-1.9.0 \
   libfreetype6 libcurl3 libopenscenegraph80 libqt4-opengl \
   libexpat1 libpng3 libgdal1-1.9.0-grass libfftw3-3 libqt3-mt \
-  libopenmpi1.3 libqt4-qt3support  # python-pip python-pandas python-mpltoolkits.basemap python-netcdf spyder ipython-notebook 
+  libopenmpi1.3 libqt4-qt3support python-pip python-pandas python-netcdf ipython-notebook spyder
 
 ## update for next release ##
-# apt-get install --assume-yes python-dev 
+# apt-get install --assume-yes python-dev  # python-mpltoolkits.basemap # 170 mb!!! 
 # pip install --upgrade pandas
 # pip install bottleneck
 # pip install oct2py
@@ -107,7 +107,7 @@ fi
 
 #apt-get install --assume-yes grass-core qgis python-pysqlite2 \
 #   python-scipy python-serial python-psycopg2 proj-bin python-lxml \
-#   libqt4-core python-distutils-extra python-setuptools python-qscintilla2 # python-pygame
+#   libqt4-core python-distutils-extra python-setuptools python-qscintilla2 python-pygame
 #   # spyder
 
 
@@ -310,6 +310,11 @@ rm -f "$QUICKSTART"/workspace/elevation10m.tif
 #        --output-document="/usr/share/ossim/elevation/elev/$COORD.omd"
 #done
 
+# get rid of unused reference map
+rm -rf /usr/share/ossim/images/reference/earth.jpg
+rm -rf /usr/share/ossim/images/reference/earth.ovr
+rm -rf /usr/share/ossim/images/reference/earth.geom
+
 
 cp -r "$APP_DATA_DIR"/* "$QUICKSTART"/
 if [ -L "$USER_HOME/ossim" ] ; then
@@ -333,27 +338,27 @@ chmod 644 /usr/local/share/ossim/*.pdf
 ##### Setup custom IPython profile
 ## doesn't work!  sudo -u "$USER_NAME" \
 
-#wget --progress=dot:mega "$DATA_URL/ipython-notebook.desktop" \
-#     --output-document="$QUICKSTART"/workspace/ipython-notebook.desktop
+wget --progress=dot:mega "$DATA_URL/ipython-notebook.desktop" \
+     --output-document="$QUICKSTART"/workspace/ipython-notebook.desktop
 
-# pip install --upgrade ipython
+pip install --upgrade ipython
 
-# ipython profile create osgeolive
-# mkdir -p "$USER_HOME"/.config/
-# mv ~/.ipython "$USER_HOME"/.config/ipython
-# sed -i -e "s|root|$USER_NAME|" "$USER_HOME"/.config/ipython/profile_osgeolive/*.py
+ipython profile create osgeolive
+mkdir -p "$USER_HOME"/.config/
+mv ~/.ipython "$USER_HOME"/.config/ipython
+sed -i -e "s|root|$USER_NAME|" "$USER_HOME"/.config/ipython/profile_osgeolive/*.py
 
-# mkdir -p /etc/skel/.config
-# cp -r "$USER_HOME"/.config/ipython /etc/skel/.config
+mkdir -p /etc/skel/.config
+cp -r "$USER_HOME"/.config/ipython /etc/skel/.config
 
-# IPY_CONF="$USER_HOME/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
-# echo "c.NotebookApp.open_browser = False" >> "$IPY_CONF"
-# echo "c.NotebookApp.port = 12345"         >> "$IPY_CONF"
-# echo "c.NotebookManager.save_script=True" >> "$IPY_CONF"
-# echo "c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace" >> "$IPY_CONF"
+IPY_CONF="$USER_HOME/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
+echo "c.NotebookApp.open_browser = False" >> "$IPY_CONF"
+echo "c.NotebookApp.port = 12345"         >> "$IPY_CONF"
+echo "c.NotebookManager.save_script=True" >> "$IPY_CONF"
+echo "c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace" >> "$IPY_CONF"
 
-# cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
-# chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
+cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
+chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 
 
 #### cleanup
