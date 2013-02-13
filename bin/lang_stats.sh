@@ -12,7 +12,7 @@
 #
 #############################################################################
 
-#assumes you're already in the gisvm/trunk/bin/ or doc/ dir
+#assumes you're already in the gisvm/branches/osgeolive_6_5/bin/ or doc/ dir
 TOPDIR=`pwd | sed -e 's+.*/++'`
 if [ "$TOPDIR" = "bin" ] ; then
   cd ../doc/

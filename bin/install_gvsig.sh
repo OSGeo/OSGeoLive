@@ -122,19 +122,19 @@ echo "Downloading OSGeo Live customizations"
 
 echo "... sample project"
 wget --progress=dot:binary \
-   "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp" \
+   "http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_6_5/app-data/gvsig/sample-project.gvp" \
    --output-document="$USER_HOME/gvSIG/sample-project.gvp"
 
 echo "... andami config"
 wget --progress=dot:binary \
-   "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/andami-config.xml" \
+   "http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_6_5/app-conf/gvsig/andami-config.xml" \
    --output-document="$USER_HOME/gvSIG/andami-config.xml"
 
 echo "... custom starting script"
 GVSIG_SCRIPT="/opt/gvSIG_1.12/gvSIG.sh"
 rm  $GVSIG_SCRIPT
 wget --progress=dot:binary \
-   "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/gvSIG.sh" \
+   "http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_6_5/app-conf/gvsig/gvSIG.sh" \
    --output-document="$GVSIG_SCRIPT"
 chmod 755 $GVSIG_SCRIPT
 

@@ -62,7 +62,7 @@ mkdir -p /home/user/Desktop
 chown user:user /home/user/Desktop
 
 cd /tmp/
-wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh
+wget https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_6_5/bin/bootstrap.sh
 chmod a+x bootstrap.sh
 ./bootstrap.sh
 cd /usr/local/share/gisvm/bin
