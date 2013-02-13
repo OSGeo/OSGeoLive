@@ -105,10 +105,10 @@ fi
 # Additional dependence for Grass / Qgis plug-in :
 #
 
-#apt-get install --assume-yes grass-core qgis python-pysqlite2 \
-#   python-scipy python-serial python-psycopg2 proj-bin python-lxml \
-#   libqt4-core python-distutils-extra python-setuptools python-qscintilla2 python-pygame
-#   # spyder
+apt-get install --assume-yes grass-core qgis python-pysqlite2 \
+   python-scipy python-serial python-psycopg2 proj-bin python-lxml \
+   libqt4-core python-distutils-extra python-setuptools python-qscintilla2 # python-pygame
+   # spyder
 
 
 
