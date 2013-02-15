@@ -73,7 +73,7 @@ cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://se.archive.ubuntu.com/mirror/cdimage.ubuntu.com"
 UBU_RELEASE="12.04"
-ISO_RELEASE="12.04.1"
+ISO_RELEASE="12.04.2"
 UBU_ISO="xubuntu-${ISO_RELEASE}-desktop-i386.iso"
 wget -c --progress=dot:mega \
    "$UBU_MIRROR/xubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
