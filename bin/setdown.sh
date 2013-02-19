@@ -123,6 +123,8 @@ cp -R /var/cache/apt/ "${VM}-apt-cache"
 # remove the apt-get cache
 apt-get clean
 
+echo "linux-image-generic install" | dpkg --set-selecions
+
 rm -fr \
   "$USER_HOME"/.bash_history \
   "$USER_HOME"/.ssh \
