@@ -1,0 +1,16 @@
+#!/bin/sh
+#  HB Feb 20, 2013.
+# silly casper live-user auto-login is too fast, doesn't wait for
+#  rc.local to finish before starting the xfce session. so try
+#  to repeat some race-condition tasks here too. yay!
+
+if [ -z "$USER_NAME" ] ; then
+    USER_NAME=user
+fi
+
+GRPS="audio dialout fuse pulse staff tomcat6 users www-data"
+
+for GRP in $GRPS ; do
+    chroot /root adduser "$USER_NAME" "$GRP"
+done
+
