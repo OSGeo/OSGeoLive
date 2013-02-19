@@ -123,7 +123,7 @@ cp -R /var/cache/apt/ "${VM}-apt-cache"
 # remove the apt-get cache
 apt-get clean
 
-echo "linux-image-generic install" | dpkg --set-selecions
+echo "linux-image-generic install" | dpkg --set-selections
 
 rm -fr \
   "$USER_HOME"/.bash_history \
