@@ -73,7 +73,7 @@ cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://se.archive.ubuntu.com/mirror/cdimage.ubuntu.com"
 UBU_RELEASE="12.04"
-ISO_RELEASE="12.04.1"
+ISO_RELEASE="12.04.2"
 UBU_ISO="xubuntu-${ISO_RELEASE}-desktop-i386.iso"
 wget -c --progress=dot:mega \
    "$UBU_MIRROR/xubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
@@ -145,7 +145,7 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from xubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.2.0-29-generic
+sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.2.0-37-generic
 
 #continue
 mkdir lzfiles
@@ -153,6 +153,7 @@ cd lzfiles
 lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
 
 cp ../../gisvm/app-conf/build_chroot/casper.conf etc/casper.conf
+cp ../../gisvm/app-conf/build_chroot/27osgeo_groups scripts/casper-bottom/27osgeo_groups
 
 #replace the user password, potentially also set backgrounds here
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser

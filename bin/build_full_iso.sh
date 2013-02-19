@@ -80,13 +80,19 @@ echo "==================================="
 
 # First remove index.htm files if they exist, otherwise you won't see the
 # directory of files.
-
-rm -f /var/www/WindowsInstallers/index.html
-rm -f /var/www/MacInstallers/index.html
-
 cd extract-cd
-sh $CUR_DIR/load_win_installers.sh
-sh $CUR_DIR/load_mac_installers.sh
+
+rm -f ./var/www/WindowsInstallers/index.html
+rm -f ./var/www/MacInstallers/index.html
+rmdir ./var/www/WindowsInstallers
+rmdir ./var/www/MacInstallers
+
+sh "$CUR_DIR"/load_win_installers.sh
+sh "$CUR_DIR"/load_mac_installers.sh
+
+ln -s /media/cdrom/WindowsInstallers ./var/www/WindowsInstallers
+ln -s /media/cdrom/MacInstallers  ./var/www/MacInstallers
+
 cd ..
 
 echo

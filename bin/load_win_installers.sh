@@ -73,11 +73,8 @@ for URL in \
   http://downloads.sourceforge.net/project/opencpn/opencpn/3.0.2/opencpn_3.0.2_setup.exe?use_mirror=cdnetworks-us-2 \
   http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe \
   http://sourceforge.net/projects/saga-gis/files/SAGA%20-%202.0/SAGA%202.0.8/saga_2.0.8_win32_setup.exe?use_mirror=cdnetworks-us-2 \
-  http://www.opensig.es/public/kosmo/v_2.0.1/binaries/kosmo_desktop_2.0.1_windows_jre_setup.exe \
-  http://udig.refractions.net/files/downloads/udig-1.3.2.win32.win32.x86.exe \
   http://download.osgeo.org/livedvd/data/zygrib/zyGrib_win-6.1.2.zip \
   http://download.osgeo.org/livedvd/data/mapwindow/MapWindowx86Full-v48Final-installer.exe \
-  http://downloads.gvsig.org/download/gvsig-desktop/dists/1.12.0/builds/1417/gvSIG-desktop-1.12.0-1417-final-win-x86-standard.exe \
 ; do
   # sourceforge filename sanitation:
   OUTFILE=`basename "$URL" | cut -f1 -d'?'`
@@ -86,11 +83,16 @@ for URL in \
 done;
 
 # gvSIG is 161MB, maybe too big?
+#Disabled because we ran out of space this time
+#  http://downloads.gvsig.org/download/gvsig-desktop/dists/1.12.0/builds/1417/gvSIG-desktop-1.12.0-1417-final-win-x86-standard.exe \
+#  http://udig.refractions.net/files/downloads/udig-1.3.2.win32.win32.x86.exe \
+#  http://www.opensig.es/public/kosmo/v_2.0.1/binaries/kosmo_desktop_2.0.1_windows_jre_setup.exe \
 
 
 #Disabled because they are very outdated
-# http://maptiler.googlecode.com/files/maptiler-1.0-beta2-setup.exe
+# http://maptiler.googlecode.com/files/maptiler-1.0-beta2-setup.exe   :: but it still works fine and is only 700kb..
 # http://home.gdal.org/fwtools/FWTools247.exe \
+
 # Disabled, we only do desktop apps
 # http://downloads.sourceforge.net/geoserver/geoserver-2.1.4-bin.zip \
 #  from the README:

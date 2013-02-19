@@ -128,8 +128,9 @@ done
 #############################################
 #Add uDig from another source
 PKG="udig-1.3.2.macosx.cocoa.x86_64.zip"
-wget -c --progress=dot:mega \
-   http://udig.refractions.net/files/downloads/"$PKG" -O "$PKG_DIR/$PKG"
+#sorry, no space left this time
+#wget -c --progress=dot:mega \
+#   http://udig.refractions.net/files/downloads/"$PKG" -O "$PKG_DIR/$PKG"
 
 
 #############################################
@@ -151,8 +152,9 @@ wget -c --progress=dot:mega \
 #############################################
 #Add R-stats
 PKG="R-2.15.2.pkg"
-wget -c --progress=dot:mega \
-   http://cran.stat.ucla.edu/bin/macosx/"$PKG" -O "$PKG_DIR/$PKG"
+#sorry, no space left this time
+#wget -c --progress=dot:mega \
+#   http://cran.stat.ucla.edu/bin/macosx/"$PKG" -O "$PKG_DIR/$PKG"
 
 
 #############################################

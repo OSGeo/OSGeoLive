@@ -1,4 +1,4 @@
-#define DISKNAME  OSGeo Live 6.0
+#define DISKNAME  OSGeo Live 6.5
 #define TYPE  binary
 #define TYPEbinary  1
 #define ARCH  i386
