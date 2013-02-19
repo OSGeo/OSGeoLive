@@ -153,6 +153,7 @@ cd lzfiles
 lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
 
 cp ../../gisvm/app-conf/build_chroot/casper.conf etc/casper.conf
+cp ../../gisvm/app-conf/build_chroot/27osgeo_groups scripts/casper-bottom/27osgeo_groups
 
 #replace the user password, potentially also set backgrounds here
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
