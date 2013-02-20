@@ -1,6 +1,14 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.5rc2
+===================
+
+ * Fix for installers pages (#1102)
+ * Upgraded to base Xubuntu 12.04.2
+ * New kernel added support for Secure Boot
+ * Fix for users group issue (#1104)
+
 Version 6.5rc1
 ===================
 
