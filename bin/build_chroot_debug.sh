@@ -164,6 +164,8 @@ cat scripts/casper-bottom/25adduser.ORIG \
     ../../gisvm/app-conf/build_chroot/27osgeo_groups \
   > scripts/casper-bottom/25adduser
 rm scripts/casper-bottom/25adduser.ORIG
+chmod a+x scripts/casper-bottom/25adduser
+
 
 #replace the user password, potentially also set backgrounds here
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
