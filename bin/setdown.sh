@@ -51,6 +51,11 @@ fi
 # try to get those changes applied sooner
 mv /etc/rc2.d/S99rc.local /etc/rc2.d/S10rc.local
 
+# bloody hell.. 
+cp ../app-conf/build_chroot/27osgeo_groups \ 
+  /usr/share/initramfs-tools/scripts/casper-bottom/ 
+
+
 # re-enable ability to create persistent USB installs on a 4gb thumb drive
 sed -i -e 's/\(^MIN_PERSISTENCE =\) .*/\1 256/' \
    /usr/lib/python2.7/dist-packages/usbcreator/misc.py
