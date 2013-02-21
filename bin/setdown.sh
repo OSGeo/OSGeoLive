@@ -40,7 +40,9 @@ VM="${PACKAGE_NAME}-${VERSION}"
 if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] ; then
     sed -i -e 's|exit 0||' /etc/rc.local
 
-    GRPS="audio dialout fuse pulse staff tomcat6 users www-data"
+#   GRPS="audio dialout fuse pulse staff tomcat6 users www-data"
+#bad smelling hack to mitigate the effects of #1104's race condition
+    GRPS="users tomcat6 www-data staff fuse audio dialout pulse"
 
     for GRP in $GRPS ; do
        echo "adduser $USER_NAME $GRP" >> /etc/rc.local
@@ -50,6 +52,11 @@ if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] ; then
 fi
 # try to get those changes applied sooner
 mv /etc/rc2.d/S99rc.local /etc/rc2.d/S10rc.local
+
+# bloody hell.. 
+cp ../app-conf/build_chroot/27osgeo_groups \ 
+  /usr/share/initramfs-tools/scripts/casper-bottom/ 
+
 
 # re-enable ability to create persistent USB installs on a 4gb thumb drive
 sed -i -e 's/\(^MIN_PERSISTENCE =\) .*/\1 256/' \

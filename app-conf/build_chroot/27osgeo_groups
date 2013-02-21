@@ -1,8 +1,13 @@
-#!/bin/sh
+
+
+
 #  HB Feb 20, 2013.
 # silly casper live-user auto-login is too fast, doesn't wait for
 #  rc.local to finish before starting the xfce session. so try
 #  to repeat some race-condition tasks here too. yay!
+
+DESCRIPTION="Joining groups needed for OSGeo apps..."
+log_begin_msg "$DESCRIPTION"
 
 if [ -z "$USER_NAME" ] ; then
     USER_NAME=user
@@ -14,3 +19,4 @@ for GRP in $GRPS ; do
     chroot /root adduser "$USER_NAME" "$GRP"
 done
 
+log_end_msg
