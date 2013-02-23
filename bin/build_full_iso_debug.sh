@@ -95,19 +95,6 @@ sudo unsquashfs mnt/casper/filesystem.squashfs
 sudo mv squashfs-root edit
 
 echo
-echo "Setting up network for chroot"
-echo "======================================"
-#If you need the network connection within chroot 
-sudo cp /etc/resolv.conf edit/etc/
-sudo cp /etc/hosts edit/etc/
-
-#These mount important directories of your host system - if you later
-# decide to delete the edit/ directory, then make sure to unmount
-# before doing so, otherwise your host system will become unusable at
-# least temporarily until reboot
-sudo mount --bind /dev/ edit/dev
-
-echo
 echo "Download Windows and Mac Installers in chroot"
 echo "============================================="
 
@@ -121,17 +108,12 @@ sudo chroot edit /bin/sh rm -f /var/www/MacInstallers/index.html
 sudo chroot edit /bin/sh rmdir /var/www/WindowsInstallers
 sudo chroot edit /bin/sh rmdir /var/www/MacInstallers
 
-sudo chroot edit /bin/sh /tmp/load_win_installers.sh
-sudo chroot edit /bin/sh /tmp/load_mac_installers.sh
-
-sudo chroot edit /bin/sh ln -s /media/cdrom/WindowsInstallers /var/www/WindowsInstallers
-sudo chroot edit /bin/sh ln -s /media/cdrom/MacInstallers /var/www/MacInstallers
-
-echo
-echo "Finished chroot part"
-echo "======================================"
+cd extract-cd
+sh "$DIR"/load_win_installers.sh
+sh "$DIR"/load_mac_installers.sh
+ln -s /media/cdrom/WindowsInstallers ./var/www/WindowsInstallers
+ln -s /media/cdrom/MacInstallers  ./var/www/MacInstallers
 cd ~/livecdtmp
-sudo umount edit/dev
 
 echo
 echo "Regenerating manifest..."
