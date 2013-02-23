@@ -100,16 +100,16 @@ echo "============================================="
 
 # First remove index.htm files if they exist, otherwise you won't see the
 # directory of files.
-sudo chroot edit /bin/sh rm -f /var/www/WindowsInstallers/index.html
-sudo chroot edit /bin/sh rm -f /var/www/MacInstallers/index.html
-sudo chroot edit /bin/sh rmdir /var/www/WindowsInstallers
-sudo chroot edit /bin/sh rmdir /var/www/MacInstallers
+sudo chroot edit rm -f /var/www/WindowsInstallers/index.html
+sudo chroot edit rm -f /var/www/MacInstallers/index.html
+sudo chroot edit rmdir /var/www/WindowsInstallers
+sudo chroot edit rmdir /var/www/MacInstallers
+sudo chroot edit ln -s /media/cdrom/WindowsInstallers /var/www/WindowsInstallers
+sudo chroot edit ln -s /media/cdrom/MacInstallers  /var/www/MacInstallers
 
 cd extract-cd
 sh "$CUR_DIR"/load_win_installers.sh
 sh "$CUR_DIR"/load_mac_installers.sh
-ln -s /media/cdrom/WindowsInstallers ./var/www/WindowsInstallers
-ln -s /media/cdrom/MacInstallers  ./var/www/MacInstallers
 cd ~/livecdtmp
 
 echo
