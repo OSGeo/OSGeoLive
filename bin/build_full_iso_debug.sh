@@ -98,9 +98,6 @@ echo
 echo "Download Windows and Mac Installers in chroot"
 echo "============================================="
 
-sudo cp "$DIR"/load_win_installers.sh ~/livecdtmp/edit/tmp/
-sudo cp "$DIR"/load_mac_installers.sh ~/livecdtmp/edit/tmp/
-
 # First remove index.htm files if they exist, otherwise you won't see the
 # directory of files.
 sudo chroot edit /bin/sh rm -f /var/www/WindowsInstallers/index.html
