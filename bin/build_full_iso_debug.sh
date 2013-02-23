@@ -106,8 +106,8 @@ sudo chroot edit /bin/sh rmdir /var/www/WindowsInstallers
 sudo chroot edit /bin/sh rmdir /var/www/MacInstallers
 
 cd extract-cd
-sh "$DIR"/load_win_installers.sh
-sh "$DIR"/load_mac_installers.sh
+sh "$CUR_DIR"/load_win_installers.sh
+sh "$CUR_DIR"/load_mac_installers.sh
 ln -s /media/cdrom/WindowsInstallers ./var/www/WindowsInstallers
 ln -s /media/cdrom/MacInstallers  ./var/www/MacInstallers
 cd ~/livecdtmp
