@@ -1,6 +1,11 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 6.5
+===================
+
+ * new fix for users group issue (#1104)
+
 Version 6.5rc2
 ===================
 
