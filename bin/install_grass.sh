@@ -85,13 +85,17 @@ fi
 mkdir -p /usr/local/share/grass
 
 # Spearfish dataset, 20mb .tgz
-# North Carolina simplified dataset, nc_basic_spm.tar.gz  47mb
+## North Carolina simplified dataset, nc_basic_spm.tar.gz  47mb
 ## North Carolina dataset, 135mb nc_spm_latest.tar.gz
+# North Carolina: replaced by user-run import script from shapefiles
+#   and geotiffs on the disc
+### { TODO } 
 
 #avoid mix of old and new datasets
-rm -rf /usr/local/share/grass/nc_basic_spm/
+#rm -rf /usr/local/share/grass/nc_basic_spm/
 
-for FILE in spearfish_grass60data-0.3 north_carolina/nc_basic_spm ; do
+#for FILE in spearfish_grass60data-0.3 north_carolina/nc_basic_spm ; do
+   FILE=spearfish_grass60data-0.3
    cd "$TMP_DIR"
    if [ ! -e "$FILE.tar.gz" ] ; then
       # [! -e] bypasses "wget -c" opportunity, oh well
@@ -106,21 +110,22 @@ for FILE in spearfish_grass60data-0.3 north_carolina/nc_basic_spm ; do
    #if [ $? -eq 0 ] ; then
    #   \rm "$TMP_DIR/$FILE.tar.gz"
    #fi
-done
+#done
 
 #minor cleanup and rearrangement
-mv /usr/local/share/grass/nc_basic_spm/gisdemo_ncspm/* \
-   /usr/local/share/grass/nc_basic_spm/
-rmdir /usr/local/share/grass/nc_basic_spm/gisdemo_ncspm
+#mv /usr/local/share/grass/nc_basic_spm/gisdemo_ncspm/* \
+#   /usr/local/share/grass/nc_basic_spm/
+#rmdir /usr/local/share/grass/nc_basic_spm/gisdemo_ncspm
 # remove some cruft
-rm -f /usr/local/share/grass/nc_basic_spm/.[D_]*
+#rm -f /usr/local/share/grass/nc_basic_spm/.[D_]*
 
 
 # but link into $HOME for easy access & so user owns mapset
 mkdir "$USER_HOME/grassdata"
 cd "$USER_HOME/grassdata"
 
-for LOCATION in spearfish60 nc_basic_spm ; do
+#for LOCATION in spearfish60 nc_basic_spm ; do
+   LOCATION=spearfish60
    mkdir "$LOCATION"
    ln -s "/usr/local/share/grass/$LOCATION/PERMANENT" "$LOCATION/"
    mkdir -p "$LOCATION/user1/dbf"
@@ -131,7 +136,7 @@ for LOCATION in spearfish60 nc_basic_spm ; do
    #  to be but it would be nice. otherwise libgis enforces read-only.
    chmod -R a+rX /usr/local/share/grass/$LOCATION
    chown -R root.users /usr/local/share/grass/$LOCATION
-done
+#done
 
 # link in an extra mapset with satellite data
 #ln -s /usr/local/share/grass/nc_spm_08/landsat \
@@ -154,7 +159,7 @@ chown -R root.root /etc/skel/grassdata
 if [ `grep -c 'grass.*/PERMANENT' /etc/rc.local` -eq 0 ] ; then
     sed -i -e 's|exit 0||' /etc/rc.local
     echo "chown $USER_NAME /usr/local/share/grass/spearfish60/PERMANENT" >> /etc/rc.local
-    echo "chown $USER_NAME /usr/local/share/grass/nc_basic_spm/PERMANENT" >> /etc/rc.local
+#    echo "chown $USER_NAME /usr/local/share/grass/nc_basic_spm/PERMANENT" >> /etc/rc.local
     echo >> /etc/rc.local
     echo "exit 0" >> /etc/rc.local
 fi
