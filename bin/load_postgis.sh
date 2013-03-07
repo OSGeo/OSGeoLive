@@ -69,10 +69,10 @@ sudo -u $POSTGRES_USER psql osm_local -c 'create extension postgis;'
 sudo -u $POSTGRES_USER psql osm_local \
   -f /usr/share/postgresql/9.1/contrib/postgis-2.0/legacy_minimal.sql
 
-sudo -u $POSTGRES_USER createdb osm_local_smerc
-sudo -u $POSTGRES_USER psql osm_local_smerc -c 'create extension postgis;'
-sudo -u $POSTGRES_USER psql osm_local_smerc \
-  -f /usr/share/postgresql/9.1/contrib/postgis-2.0/legacy_minimal.sql
+#sudo -u $POSTGRES_USER createdb osm_local_smerc
+#sudo -u $POSTGRES_USER psql osm_local_smerc -c 'create extension postgis;'
+#sudo -u $POSTGRES_USER psql osm_local_smerc \
+#  -f /usr/share/postgresql/9.1/contrib/postgis-2.0/legacy_minimal.sql
 
 
 # v3 - simplified the script, was too hard to debug with all the commands
@@ -94,20 +94,20 @@ fi
 sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
      --database osm_local --latlong \
      --style /usr/share/osm2pgsql/default.style \
-     /usr/local/share/osm/${CITY}_CBD.osm.bz2
+     "$OSM_FILE"
 
 sudo -u $POSTGRES_USER psql osm_local \
      --quiet -c "vacuum analyze"
 
 
 # spherical merc
-sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
-     --database osm_local_smerc --merc \
-     --style /usr/share/osm2pgsql/default.style \
-     /usr/local/share/osm/$CITY.osm.bz2
-
-sudo -u $POSTGRES_USER psql osm_local_smerc \
-     --quiet -c "vacuum analyze"
+#sudo -u $POSTGRES_USER osm2pgsql -U $POSTGRES_USER \
+#     --database osm_local_smerc --merc \
+#     --style /usr/share/osm2pgsql/default.style \
+#     /usr/local/share/osm/$CITY.osm.bz2
+#
+#sudo -u $POSTGRES_USER psql osm_local_smerc \
+#     --quiet -c "vacuum analyze"
 
 
 #Add additional data sources here, be sparing to minimize duplication of data.
