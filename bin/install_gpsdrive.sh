@@ -103,7 +103,7 @@ showbutton_trackrestart = 0
 showbutton_trackclear = 0
 icon_theme = classic.small
 osmdbfile = /usr/local/share/osm/${CITY}_poi.db
-mapnik_postgis_dbname = osm_local_smerc
+mapnik_postgis_dbname = osm_local
 EOF
 
 cp /etc/skel/.gpsdrive/gpsdriverc "$USER_HOME/.gpsdrive/"
@@ -157,8 +157,12 @@ sed -e 's+/usr/share/mapnik/world_boundaries/world_boundaries_m+/usr/local/share
 # "$TMP_DIR/gpsdrive-$VERSION/build/scripts/mapnik/osm-template.xml" \
 
 
-# change DB name from "gis" to "osm_local_smerc" as per install_osm.sh
-sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local_smerc</Parameter>+' \
+# change DB name from "gis" to "osm_local" as per load_postgis.sh
+sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">osm_local</Parameter>+' \
+  "/etc/skel/.gpsdrive/osm.xml"
+
+# and change from epsg:900913 to epsg:4326 to match the "osm_local" DB's SRS
+sed -i -e 's|+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null|+proj=longlat +datum=WGS84|' \
   "/etc/skel/.gpsdrive/osm.xml"
 
 # avoid shapefile column city name mismatch & tweak its map scale render rule:
