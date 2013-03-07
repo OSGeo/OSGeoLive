@@ -43,6 +43,9 @@ REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
 #Is it a public or an internal build?
 #ISO_NAME="$PACKAGE_NAME-$VERSION"
 ISO_NAME="$PACKAGE_NAME-debug-build$REVISION"
+#volume name, max 11 chars:
+IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
+
 
 echo
 echo "==============================================================="
@@ -178,7 +181,8 @@ sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" \
    lib/plymouth/themes/text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" extract-cd/.disk/info
+sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" ../extract-cd/.disk/info
+
 #copy in a different background
 cp ../../gisvm/desktop-conf/osgeo-desktop.png \
    lib/plymouth/themes/xubuntu-logo/xubuntu-greybird.png
@@ -189,9 +193,11 @@ find . | cpio --quiet --dereference -o -H newc | \
 #sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
 cd ..
 
+
 echo
 echo "Regenerating manifest..."
 echo "======================================"
+
 #Regenerate manifest 
 chmod +w extract-cd/casper/filesystem.manifest
 sudo chroot edit dpkg-query -W --showformat='${Package} ${Version}\n' > \
@@ -208,7 +214,7 @@ echo "Compressing filesystem..."
 echo "======================================"
 #Compress filesystem
 sudo rm extract-cd/casper/filesystem.squashfs
-sudo mksquashfs edit extract-cd/casper/filesystem.squashfs
+sudo mksquashfs edit extract-cd/casper/filesystem.squashfs -no-progress
 
 echo
 echo "Calculating new filesystem size..."
@@ -245,7 +251,7 @@ echo
 echo "Creating iso..."
 echo "======================================"
 #Create the ISO image
-sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -b \
+sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -b -quiet \
    isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot \
    -boot-load-size 4 -boot-info-table -o ../"$ISO_NAME.iso" .
 
