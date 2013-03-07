@@ -122,8 +122,10 @@ fi
 wget -N --progress=dot:mega "$OSGEO_URL/$SQLITE_DB"
 (cd "$PKG_DATA" && tar xzf "$BUILD_TMP/$SQLITE_DB")
 
-chgrp -R users $PKG_DATA
-chmod -R g+w $PKG_DATA
+chgrp -R users "$PKG_DATA"
+chmod -R g+w "$PKG_DATA"
+chmod -R a-x "$PKG_DATA"/*
+
 
 #############################
 ### GUI start icons ###
