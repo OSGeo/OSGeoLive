@@ -170,25 +170,35 @@ ln -s /usr/local/share/ossim .
 # Data
 ln -s /usr/local/share/data .
 
-#installer dirs (maybe they work, maybe they don't...
-# TODO
-#ln -s /cdrom/WindowsInstallers /var/www/
-#ln -s /cdrom/MacInstallers /var/www/
 
-
-# we add the installer dirs after building the image, so we
-#  have to decide to link or not link to them at boot time.
+# Installer dirs (maybe they work, maybe they don't...
+#   We add the installer dirs after building the image, so we
+#   have to decide to link or not link to them at boot time.
 if [ `grep -c 'WindowsInstallers' /etc/rc.local` -eq 0 ] ; then
     sed -i -e 's|exit 0||' /etc/rc.local
-    echo "if [ -d /cdrom/WindowsInstallers ] ; then" >> /etc/rc.local
-    echo "   ln -s /cdrom/WindowsInstallers /etc/skel/" >> /etc/rc.local
-    echo "   ln -s /cdrom/MacInstallers /etc/skel/" >> /etc/rc.local
-# TODO
-#   echo "   ln -s /cdrom/WindowsInstallers /home/$USER_NAME/" >> /etc/rc.local
-#   echo "   ln -s /cdrom/MacInstallers /home/$USER_NAME/" >> /etc/rc.local
-    echo "fi" >> /etc/rc.local
-    echo >> /etc/rc.local
-    echo "exit 0" >> /etc/rc.local
+    cat << EOF >> /etc/rc.local
+
+# Detect full iso, adjust symlinks/placeholders as needed
+if [ -d /cdrom/WindowsInstallers ] && \
+   [ -f /var/www/WindowsInstallers/index.html ] ; then
+    ln -s /cdrom/WindowsInstallers /etc/skel/
+    ln -s /cdrom/MacInstallers /etc/skel/
+    if [ -d "/home/$USER_NAME" ] ; then
+        ln -s /cdrom/WindowsInstallers "/home/$USER_NAME"/
+        ln -s /cdrom/MacInstallers "/home/$USER_NAME"/
+        chown "$USER_NAME.$USER_NAME" "/home/$USER_NAME"/[WM]*Installers
+    fi
+
+    rm -f /var/www/WindowsInstallers/index.html
+    rm -f /var/www/MacInstallers/index.html
+    rmdir /var/www/WindowsInstallers
+    rmdir /var/www/MacInstallers
+    ln -s /cdrom/WindowsInstallers /var/www/
+    ln -s /cdrom/MacInstallers  /var/www/
+fi
+
+exit 0
+EOF
 fi
 
 
@@ -237,10 +247,13 @@ fi
 #    pref("browser.rights.3.shown", true);
 #  and which config to make the toolbar use small icons? (rt click on toolbar configure)
 
-
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
 mkdir -p /usr/local/share/icons
 cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
+
+
+# Terminal toolbar off by default
+echo "MiscMenubarDefault=FALSE" >> /etc/xdg/xdg-xubuntu/Terminal/terminalrc
 
 
 #What logo to use for launching the help?
