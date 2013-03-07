@@ -190,25 +190,26 @@ wget --progress=dot:mega "http://www.geofemengineering.it/data/OSSIM_Whitepaper.
 #KML_DATA="$DATA_FOLDER/kml"
 RASTER_DATA="$DATA_FOLDER/raster"
 ELEV_DATA=/usr/share/ossim/elevation/elev
-SAT_DATA="$RASTER_DATA/cape_cod"
+#SAT_DATA="$RASTER_DATA/cape_cod"
 #echo "FIXME: does VRT data actually ship anymore?"
 VRT_DATA="$DATA_FOLDER/vrt"
 QUICKSTART=/usr/local/share/ossim/quickstart
 
 #mkdir -p "$KML_DATA"
 mkdir -p "$RASTER_DATA"
-mkdir -p "$SAT_DATA"
+#mkdir -p "$SAT_DATA"
 mkdir -p "$ELEV_DATA"   # ?? unused ??
 #mkdir -p "$VRT_DATA"
 
 
 
-# disabled: $VRT_DATA $KML_DATA
-for ITEM in $RASTER_DATA $ELEV_DATA $SAT_DATA ;  do
+# disabled: $VRT_DATA $KML_DATA $SAT_DATA
+for ITEM in $RASTER_DATA $ELEV_DATA ;  do
    chmod -R 775 "$ITEM"
    chgrp -R users "$ITEM"
 done
 
+if [ 0 -eq 1 ] ; then
 # Cape Cod SRTM and LANDSAT
 DATA_URL="http://epi.whoi.edu/osgeolive/"
 BASENAME="p011r031_7t19990918_z19_nn"
@@ -224,6 +225,7 @@ done
 wget --progress=dot:mega "$DATA_URL/ossim_data/SRTM_fB03_p011r031.tif"  \
      --output-document="$SAT_DATA/SRTM_fB03_p011r031.tif"
 chmod a-x "$SAT_DATA/SRTM_fB03_p011r031.tif"
+fi
 
 #wget --progress=dot:mega $DATA_URL/ossim_data/bluemarble.tif  \
 #--output-document=/usr/share/ossim/images/reference/bluemarble.tif
@@ -245,6 +247,7 @@ apt-get --assume-yes install libjpeg62
 OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference
 export OSSIM_PREFS_FILE
 
+if [ 0 -eq 1 ] ; then
 /usr/local/ossim/bin/ossim-img2rr \
     "$SAT_DATA/p011r031_7t19990918_z19_nn10.tif" \
     "$SAT_DATA/p011r031_7t19990918_z19_nn20.tif" \
@@ -254,6 +257,7 @@ export OSSIM_PREFS_FILE
     "$SAT_DATA/p011r031_7t19990918_z19_nn10.tif" \
     "$SAT_DATA/p011r031_7t19990918_z19_nn20.tif" \
     "$SAT_DATA/p011r031_7t19990918_z19_nn30.tif"
+fi
 
 /usr/bin/gdal_translate -of VRT "$RASTER_DATA"/BlueMarble_small.tiff \
     /usr/share/ossim/images/reference/bluemarble.tif
