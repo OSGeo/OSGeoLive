@@ -194,4 +194,55 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/.config/QuantumGIS/QGIS.conf"
 mkdir -p "$USER_HOME/.qgis"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/.qgis"
 
+
+# set up some extra PostGIS and Spatialite DBs
+CONFFILE="$USER_HOME/.config/QuantumGIS/QGIS.conf"
+TMPFILE=`tempfile`
+USR=user
+PSWD=user
+
+DBS="
+52nSOS
+cartaro
+eoxserver_demo
+pgrouting
+v2.2_mapfishsample"
+#disabled: osm_local_smerc
+
+cat << EOF > "$TMPFILE"
+[SpatiaLite]
+connections\\selected=trento.sqlite
+connections\\trento.sqlite\\sqlitepath=/usr/local/share/data/spatialite/trento.sqlite
+
+EOF
+
+cat << EOF >> "$TMPFILE"
+[PostgreSQL]
+connections\selected=OpenStreetMap
+EOF
+
+
+for DBNAME in $DBS ; do
+   cat << EOF >> "$TMPFILE"
+connections\\$DBNAME\\service=
+connections\\$DBNAME\\host=localhost
+connections\\$DBNAME\\database=$DBNAME
+connections\\$DBNAME\\port=5432
+connections\\$DBNAME\\username=$USR
+connections\\$DBNAME\\password=$PSWD
+connections\\$DBNAME\\publicOnly=false
+connections\\$DBNAME\\allowGeometrylessTables=false
+connections\\$DBNAME\\sslmode=1
+connections\\$DBNAME\\saveUsername=true
+connections\\$DBNAME\\savePassword=true
+connections\\$DBNAME\\estimatedMetadata=false
+EOF
+done
+
+tail -n +3 "$CONFFILE" > "$TMPFILE".b
+cat "$TMPFILE" "$TMPFILE".b > "$CONFFILE"
+rm -f "$TMPFILE" "$TMPFILE".b
+
+
+
 echo "Finished installing QGIS $INSTALLED_VERSION."
