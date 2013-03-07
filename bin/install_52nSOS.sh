@@ -206,35 +206,48 @@ if [ $SOS_DB_EXISTS -gt 0 ] ; then
 	echo "[$(date +%M:%S)]: SOS db $SOS_DB_NAME exists -> drop it"
 	su $POSTGRES_USER -c "dropdb $SOS_DB_NAME"
 fi
+
 echo "[$(date +%M:%S)]: Create SOS db"
 su $POSTGRES_USER -c "createdb $SOS_DB_NAME"
 sudo -u $POSTGRES_USER psql $SOS_DB_NAME -c 'create extension postgis;'
 echo "[$(date +%M:%S)]: DB $SOS_DB_NAME created"
+
+
 #
 #	Set-Up 52nSOS database model
 
 su $POSTGRES_USER -c "PGOPTIONS='$PGOPTIONS' psql -d $SOS_DB_NAME -q -f $TMP/SOS-structure.sql"
 echo "[$(date +%M:%S)]: $SOS_DB_NAME -> SOS database model created"
+
 #
 #	Set-Up Example data model 
 #
 su postgres -c "psql -d $SOS_DB_NAME -q -f $TMP/STRUCTURE-in-SOS.sql"
 echo "[$(date +%M:%S)]: $SOS_DB_NAME -> Example data model created"
+
 #
 #	Insert example observations
 #
 su $POSTGRES_USER -c "psql -d $SOS_DB_NAME -q -f $TMP/$SOS_DATA_SET.sql"
 echo "[$(date +%M:%S)]: $SOS_DB_NAME -> Example observations inserted"
 echo "[$(date +%M:%S)]: Database set-up finished"
+
+
+# final tidy up
+su $POSTGRES_USER -c "psql -d $SOS_DB_NAME -q -c 'VACUUM ANALYZE'"
+
+
 #
 #	Restart tomcat after database set-up
 #
 "/etc/init.d/$SOS_TOMCAT_SCRIPT_NAME" start
+
 #
 #
 # 3.0 check for tomcat webapps folder
 #
 mkdir -p -v "$SOS_WAR_INSTALL_FOLDER"
+
 #
 #
 # 3.1 check for tomcat set-up: look for service script in /etc/init.d/
@@ -247,6 +260,7 @@ if (test ! -d "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME") then
 else
 	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME already installed in tomcat"
 fi
+
 #
 #
 #
@@ -270,9 +284,11 @@ Icon=/usr/share/icons/$SOS_ICON_NAME
 Terminal=false
 EOF
 fi
+
 #
 cp -v /usr/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
+
 #
 # We just crossed the finish line
 #

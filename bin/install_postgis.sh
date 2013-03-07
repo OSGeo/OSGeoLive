@@ -76,6 +76,8 @@ sudo -u postgres psql -f /tmp/build_postgre.sql
 
 #add a gratuitous db called user to avoid psql inconveniences
 sudo -u $USER_NAME createdb -E UTF8 $USER_NAME
+sudo -u "$USER_NAME" psql -d "$USER_NAME" -c 'VACUUM ANALYZE;'
+
 
 ## 27nov12 - no longer needed for postgis 2.0 / pg 9.1
 #configure template postgis database

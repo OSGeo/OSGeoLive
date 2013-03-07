@@ -161,6 +161,11 @@ if [ ! -d eoxserver_demonstration ] ; then
 fi
 
 
+#### final tidy up
+sudo -u "$POSTGRES_USER" psql eoxserver_demo -c 'VACUUM ANALYZE;'
+
+
+
 # Deploy demonstration instance in Apache
 echo "Deploying EOxServer demonstration instance"
 cat << EOF > "$APACHE_CONF"

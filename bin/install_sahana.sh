@@ -279,6 +279,10 @@ chmod g+w "$INSTALL_DIR/web2py"
 sudo -H -u "$USER_NAME" python web2py.py -S eden -M \
    -R applications/eden/static/scripts/tools/compile.py
 
+# final tidy up
+su -c - postgres "psql -d sahana -c 'VACUUM ANALYZE'"
+
+
 chown root.root "$INSTALL_DIR"/web2py/applications/eden/compiled/ -R
 chown root.root "$INSTALL_DIR"/web2py/applications/eden/__init__.pyc
 

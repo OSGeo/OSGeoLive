@@ -225,9 +225,10 @@ echo -n "importing data... "
 cd rasdaman_data/
 
 for db in RASBASE petascopedb; do
-  dropdb $db > /dev/null 2>&1
-  createdb $db
-  psql -d $db -f $db.sql > /dev/null
+    dropdb $db > /dev/null 2>&1
+    createdb "$db"
+    psql -d "$db" -q -f "$db.sql"
+    psql -d "$db" -c 'VACUUM ANALYZE'
 done
 
 echo ok.

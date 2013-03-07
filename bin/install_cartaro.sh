@@ -230,6 +230,13 @@ chown -R root.root "$TARGET_DIR"
 
 popd
 
+
+
+#### final tidy up
+/bin/su postgres -c "/usr/bin/psql -d $DB_NAME -c 'VACUUM ANALYZE'"
+
+
+
 #######################
 # Symlink for Apache2
 #######################
