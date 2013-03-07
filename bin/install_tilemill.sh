@@ -43,9 +43,10 @@ mkdir -p "$USER_HOME"/Documents/MapBox/
 
 cat << EOF > "$USER_HOME"/Documents/MapBox/app.db
 {"key":"/api/Favorite/host%3Dlocalhost%20port%3D5432%20user%3Duser%20password%3Duser%20dbname%3Dosm_local","val":{"id":"host=localhost port=5432 user=user password=user dbname=osm_local"}}
-{"key":"/api/Favorite/host%3Dlocalhost%20port%3D5432%20user%3Duser%20password%3Duser%20dbname%3Dosm_local_smerc","val":{"id":"host=localhost port=5432 user=user password=user dbname=osm_local_smerc"}}
 {"key":"/api/Favorite/host%3Dlocalhost%20port%3D5432%20user%3Duser%20password%3Duser%20dbname%3Dnatural_earth2","val":{"id":"host=localhost port=5432 user=user password=user dbname=natural_earth2"}}
 EOF
+#disabled: {"key":"/api/Favorite/host%3Dlocalhost%20port%3D5432%20user%3Duser%20password%3Duser%20dbname%3Dosm_local_smerc","val":{"id":"host=localhost port=5432 user=user password=user dbname=osm_local_smerc"}}
+
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/Documents
 
 mkdir -p /etc/skel/Documents/MapBox/
@@ -74,7 +75,7 @@ unzip -q mapbox-osm-bright.zip
 cd mapbox-osm-bright-*
 
 # to use the smerc or ll/wgs84 db?
-sed -e 's/\["dbname"\]   = "osm"/[dbname]="osm_local_smerc"/' \
+sed -e 's/\["dbname"\]   = "osm"/[dbname]="osm_local"/' \
    configure.py.sample > configure.py
 
 #fixme: update bbox to host city in sperc coords
