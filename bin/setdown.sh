@@ -40,9 +40,9 @@ VM="${PACKAGE_NAME}-${VERSION}"
 if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] ; then
     sed -i -e 's|exit 0||' /etc/rc.local
 
-#   GRPS="audio dialout fuse pulse staff tomcat6 users www-data"
+#   GRPS="audio dialout fuse plugdev pulse staff tomcat6 users www-data"
 #bad smelling hack to mitigate the effects of #1104's race condition
-    GRPS="users tomcat6 www-data staff fuse audio dialout pulse"
+    GRPS="users tomcat6 www-data staff fuse plugdev audio dialout pulse"
 
     for GRP in $GRPS ; do
        echo "adduser $USER_NAME $GRP" >> /etc/rc.local
