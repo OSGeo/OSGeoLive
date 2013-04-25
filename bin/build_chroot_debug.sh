@@ -148,7 +148,7 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from xubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.2.0-37-generic
+sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.8.0-19-generic
 
 #continue
 mkdir lzfiles
