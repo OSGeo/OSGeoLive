@@ -1,6 +1,23 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.0alpha1
+===================
+
+ * trunk is open for 7.0 development
+ * mb-system: bump to latest stable version
+ * gpsdrive: use WGS84/LL postgis DB, obviating the need for the dupe spherical merc postgis DB
+ * ossim: comment out Cape Cod satellite data to save disc space
+ * docs: Detect full or mini iso, adjust symlinks/placeholders for download dirs to suit; set xfce4-Terminal toolbar off by default
+ * spatialite: quote path variables
+ * qgis: pre-seed connection details for all the PostGIS and Spatialite DBs we can find
+ * tilemill: smerc DB is disabled, switch to 4326 instead 
+ * postgis: OSM smerc DB is disabled, switch to 4326 instead
+ * grass: work in progress: North Carolina dataset replaced by user-run import script from shapefiles and geotiffs on the disc
+ * Updated osgeo sponsors
+ * add user to the plugdev group for usb GPSs etc. (#1120)
+ * mb-system: add libparallel-forkmanager-perl pkg dep for parallelization functionality
+
 Version 6.5
 ===================
 
