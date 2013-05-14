@@ -176,13 +176,13 @@ fi
 #Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/ossim
 
-wget --progress=dot:mega "http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf" \
+wget --read-timeout=20 --tries=5 --progress=dot:mega "http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf" \
      --output-document=/usr/local/share/ossim/ossim_users_guide.pdf
 
 #echo "FIXME: doesn't exist ==> 'ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/'"
 
 # pdf temporary stored on my ftp, waiting to add it on ossim download page.   
-wget --progress=dot:mega "http://www.geofemengineering.it/data/OSSIM_Whitepaper.pdf" \
+wget --read-timeout=20 --tries=5 --progress=dot:mega "http://www.geofemengineering.it/data/OSSIM_Whitepaper.pdf" \
      --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
 
 
