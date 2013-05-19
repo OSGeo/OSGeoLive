@@ -32,17 +32,24 @@
 #     6. QEMU/KVM, VirtualBox or VMware for testing (optional) 
 #
 
-# fixme: REPOBASE=/usr/local/share/gisvm  *not* /home/user
-DIR="/home/user/gisvm/bin"
-SVN_DIR="/home/user/gisvm"
+if [[ "$1" != "i386" && "$1" != "amd64" ]]; then
+        echo "Did not find build architecture, try using i386 or amd64 as an argument"
+        exit 1
+fi
+ARCH="$1"
+
+DIR="/usr/local/share/gisvm/bin"
+SVN_DIR="/usr/local/share/gisvm"
 VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeo-live"
 cd "$SVN_DIR"
 REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
 
 #Is it a public or an internal build?
-ISO_NAME="$PACKAGE_NAME-mini-$VERSION"
+ISO_NAME="$PACKAGE_NAME-mini-$VERSION-$ARCH"
 #ISO_NAME="$PACKAGE_NAME-mini-build$REVISION"
+#volume name, max 11 chars:
+IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
 
 echo
 echo "==============================================================="
@@ -74,7 +81,7 @@ cd ~/livecdtmp
 UBU_MIRROR="http://se.archive.ubuntu.com/mirror/cdimage.ubuntu.com"
 UBU_RELEASE="12.04"
 ISO_RELEASE="12.04.2"
-UBU_ISO="xubuntu-${ISO_RELEASE}-desktop-i386.iso"
+UBU_ISO="xubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
    "$UBU_MIRROR/xubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
 
@@ -82,7 +89,7 @@ wget -c --progress=dot:mega \
 #Mount the Desktop .iso
 mkdir mnt
 sudo mount -o loop "$UBU_ISO" mnt
-echo "Xubuntu image mounted."
+echo "Xubuntu $ISO_RELEASE $ARCH image mounted."
 
 #Extract .iso contents into dir 'extract-cd' 
 mkdir "extract-cd"
@@ -178,7 +185,8 @@ sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" \
    lib/plymouth/themes/text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" extract-cd/.disk/info
+sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" ../extract-cd/.disk/info
+
 #copy in a different background
 cp ../../gisvm/desktop-conf/osgeo-desktop.png \
    lib/plymouth/themes/xubuntu-logo/xubuntu-greybird.png
@@ -192,6 +200,7 @@ cd ..
 echo
 echo "Regenerating manifest..."
 echo "======================================"
+
 #Regenerate manifest 
 chmod +w extract-cd/casper/filesystem.manifest
 sudo chroot edit dpkg-query -W --showformat='${Package} ${Version}\n' > \
@@ -208,7 +217,7 @@ echo "Compressing filesystem..."
 echo "======================================"
 #Compress filesystem
 sudo rm extract-cd/casper/filesystem.squashfs
-sudo mksquashfs edit extract-cd/casper/filesystem.squashfs
+sudo mksquashfs edit extract-cd/casper/filesystem.squashfs -no-progress
 
 echo
 echo "Calculating new filesystem size..."
@@ -245,7 +254,7 @@ echo
 echo "Creating iso..."
 echo "======================================"
 #Create the ISO image
-sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -b \
+sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -quiet -b \
    isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot \
    -boot-load-size 4 -boot-info-table -o ../"$ISO_NAME.iso" .
 

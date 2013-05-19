@@ -51,7 +51,6 @@ ISO_NAME="$PACKAGE_NAME-debug-build$REVISION-$ARCH"
 #volume name, max 11 chars:
 IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
 
-
 echo
 echo "==============================================================="
 echo "Start Building $ISO_NAME"
