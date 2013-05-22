@@ -34,7 +34,7 @@ echo "==============================================================="
 CARTARO_PASSWORD="geoserver"
 CARTARO_USER="cartaro-admin"
 
-CARTARO_VERSION="1.0-beta4"
+CARTARO_VERSION="1.0-beta7"
 
 DB_NAME="cartaro"
 DB_USER="cartaro"
@@ -53,21 +53,6 @@ GEOSERVER_URL="http://localhost:8082/geoserver"
 USER_NAME="user"
 USER_HOME="/home/$USER_NAME"
 
-##############################
-# Ensure all Packages are installed
-#############################
-
-echo "[install_cartaro.sh] Installing Packages..."
-
-PACKAGES="wget unzip apache2 php5 php5-gd php5-curl php5-pgsql php5-cli \
- postgresql postgis postgresql-9.1-postgis postgresql-contrib-9.1"
-
-echo "Installing: $PACKAGES"
-apt-get --assume-yes install $PACKAGES
-if [ $? -ne 0 ] ; then
-    echo "ERROR: package install failed"
-    exit 1
-fi
 
 ##############################
 # Prepare folders
