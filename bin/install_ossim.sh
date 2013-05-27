@@ -61,7 +61,7 @@ mkdir -p /tmp/build_ossim
 cd /tmp/build_ossim
 
 
-wget -N --progress=dot:mega "http://epi.whoi.edu/osgeolive/ossim.tar.gz" 
+wget -N --progress=dot:mega "http://geofemengineering.it/osgeolive/ossim.tar.gz" 
 tar -zxf ossim.tar.gz
 # running tar as root expands as the UID on the host machine that made it, so
 chown -R root.root ossim/
@@ -73,7 +73,7 @@ mv ossim.conf /etc/ld.so.conf.d/
 ldconfig
 
 mkdir /usr/share/ossim/
-wget -N --progress=dot:mega http://epi.whoi.edu/osgeolive/ossim_settings.tar.gz 
+wget -N --progress=dot:mega http://geofemengineering.it/osgeolive/ossim_settings.tar.gz 
 tar -zxf ossim_settings.tar.gz
 chown -R root.root ossim_settings/
 mv ossim_settings/* /usr/share/ossim/
@@ -211,7 +211,7 @@ done
 
 if [ 0 -eq 1 ] ; then
 # Cape Cod SRTM and LANDSAT
-DATA_URL="http://epi.whoi.edu/osgeolive/"
+DATA_URL="http://geofemengineering.it/osgeolive/"
 BASENAME="p011r031_7t19990918_z19_nn"
 for BAND in 10 20 30 ; do
     # LANDSAT
