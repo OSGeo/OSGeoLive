@@ -150,7 +150,7 @@ rm -f /etc/ssh/ssh_host_*_key*
 sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 
 #Disabling default tomcat startup
-update-rc.d tomcat remove
+update-rc.d tomcat6 remove
 
 # This is done on an extra step after rebooting and tmp is cleared
 #echo "==============================================================="
