@@ -14,7 +14,7 @@
 
 # About:
 # =====
-# This script will install marble
+# This script will install viking
 
 echo "==============================================================="
 echo "install_viking.sh"
