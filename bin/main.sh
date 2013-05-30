@@ -135,6 +135,7 @@ for SCRIPT in \
   ./install_gpsdrive.sh \
   ./install_mapfish.sh \
   ./install_openlayers.sh \
+  ./install_leaflet.sh \
   ./install_R.sh \
   ./install_ossim.sh \
   ./install_osgearth.sh \
