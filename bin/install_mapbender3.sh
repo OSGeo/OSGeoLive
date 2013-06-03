@@ -15,21 +15,21 @@
 
 # About:
 # =====
-# This script will install mapbender3 and will create a database mapbender in PostgreSQL with PostGIS. 
-# The script will also add an ALIAS for Mapbender and an ALIAS for Mapbender owsproxy
+# This script will install mapbender3 and will create a PostgreSQL database mapbender3.0.0.0. 
+# The script will also add an ALIAS for Mapbender3 and a Desktop icon.
 
 # Running:
 # =======
-# sudo ./install_mapbender.sh
+# sudo ./install_mapbender3.sh
 
-# Requires: Apache2, PHP5, postgresql/postgis
+# Requires: Apache2, PHP5, PostgreSQL
 #
 # Uninstall:
 # ============
-# sudo rm -rf /var/www/mapbender
+# sudo rm -rf /var/www/mapbender3
 
 echo "==============================================================="
-echo "install_mapbender.sh"
+echo "install_mapbender3.sh"
 echo "==============================================================="
 
 # live disc's username is "user"
@@ -40,11 +40,8 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_mapbender3"
 INSTALLURL="http://mapbender3.org/builds/"
 
-INSTALLFILE="mapbender3_osgeolive6.5"
+INSTALLFILE="mapbender3-3.0.0.0"
 INSTALL_DIR="/var/www"
-MAPBENDER_DATABASE_NAME="mapbender3" 
-MAPBENDER_DATABASE_TEMPLATE="template_postgis"
-MAPBENDER_DATABASE_USER="user"
 
 mkdir -p "$TMP_DIR"
 
@@ -54,30 +51,13 @@ echo "Installing mapbender"
 apt-get install --assume-yes php5 php5-imagick php5-pgsql php5-gd \
   php5-curl php5-cli php5-sqlite sqlite php-apc php5-intl
 
-sed -i -e 's/short_open_tag = On/short_open_tag = Off/' \
-   /etc/php5/apache2/php.ini
-
 if [ ! -x "`which wget`" ] ; then
     apt-get --assume-yes install wget
-fi
-
-if [ ! -x "`which gettext`" ] ; then
-    apt-get --assume-yes install gettext
 fi
 
 if [ ! -x "`which unzip`" ] ; then
     apt-get --assume-yes install unzip
 fi
-
-if [ ! -x "`which etherape`" ] ; then
-    apt-get --assume-yes install etherape
-fi
-
-if [ ! -x "`which pgadmin3`" ] ; then
-    apt-get --assume-yes install pgadmin3
-fi
-
-# check more libraries...
 
 
 # download and unzip sources...
@@ -115,11 +95,10 @@ app/console doctrine:schema:create
 app/console init:acl
 app/console assets:install web
 app/console fom:user:resetroot --username="root" --password="root" --email="root@example.com" --silent
+app/console doctrine:fixtures:load  --append
 
-#FIXME *** always use "chmod g+w; chgrp users; adduser user users" ***
-#      *** instead of making files on the DVD globally writable    ***
-chmod -R o+w "$INSTALL_DIR/mapbender3/app/cache"
-chmod -R o+w "$INSTALL_DIR/mapbender3/app/logs"
+chmod -R g+w "$INSTALL_DIR/mapbender3/app/cache"
+chmod -R g+w "$INSTALL_DIR/mapbender3/app/logs"
 
 
 #Create apache2 configuration for mapbender
@@ -172,4 +151,4 @@ cp /usr/local/share/applications/mapbender3.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/mapbender3.desktop"
 
 
-echo "Done installing Mapbender"
+echo "Done installing Mapbender3"
