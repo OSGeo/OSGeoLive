@@ -95,7 +95,8 @@ app/console doctrine:schema:create
 app/console init:acl
 app/console assets:install web
 app/console fom:user:resetroot --username="root" --password="root" --email="root@example.com" --silent
-app/console doctrine:fixtures:load  --append
+app/console doctrine:fixtures:load --fixtures=./mapbender/src/Mapbender/CoreBundle/DataFixtures/ORM/Epsg/ --append
+app/console doctrine:fixtures:load --fixtures=./mapbender/src/Mapbender/CoreBundle/DataFixtures/ORM/Application/ --append
 
 chmod -R g+w "$INSTALL_DIR/mapbender3/app/cache"
 chmod -R g+w "$INSTALL_DIR/mapbender3/app/logs"
@@ -141,7 +142,7 @@ Encoding=UTF-8
 Name=Mapbender3
 Comment=Mapbender
 Categories=Application;Geography;Geoscience;Education;
-Exec=firefox http://localhost/mapbender3/
+Exec=firefox http://localhost/mapbender3/app_dev.php
 Icon=/usr/local/share/icons/mapbender3_desktop_48x48.png
 Terminal=false
 StartupNotify=false
