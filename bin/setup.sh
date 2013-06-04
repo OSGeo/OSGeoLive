@@ -78,6 +78,8 @@ apt-get install --yes xfce4-xkb-plugin xfce4-power-manager \
 # needed for Motif/Lesstif based apps: (no longer installed in ubu by default)
 apt-get install --yes xfonts-100dpi xfonts-75dpi
 
+# needed for installing packages for workshops (http://wiki.osgeo.org/wiki/Workshops_with_OSGeoLive)
+apt-get install --yes apturl
 
 # Install build stuff (temporarily?)
 apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
