@@ -63,7 +63,7 @@ for file in mbsystem_${VERS}_amd64.deb \
            mbsystem-doc_${VERS}_all.deb \
            mbsystem-data_${VERS}_all.deb ; do
 
-   wget -c --progress=dot:mega "$file"
+   wget -c --progress=dot:mega "$DL_URL/$file"
    if [ $? -ne 0 ] ; then
       echo "Download error on <$file>. Aborting."
    fi
