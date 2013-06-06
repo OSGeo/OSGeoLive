@@ -66,11 +66,13 @@ for file in mbsystem_${VERS}_amd64.deb \
    wget -c --progress=dot:mega "$DL_URL/$file"
    if [ $? -ne 0 ] ; then
       echo "Download error on <$file>. Aborting."
+      exit 1
    fi
 
    gdebi --non-interactive --quiet "$file"
    if [ $? -ne 0 ] ; then
       echo "Install error on <$file>. Aborting."
+      exit 1
    fi
 done
 
