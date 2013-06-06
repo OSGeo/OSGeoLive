@@ -63,10 +63,11 @@ cd "$TMP_DIR"
 
 
 # Install Django using version 1.5 although its beta to have PostGIS 2.0 support
-wget -c --progress=dot:mega -O Django-1.5b2.tar.gz \
-   "https://www.djangoproject.com/download/1.5b2/tarball/"
-tar -xzf Django-1.5b2.tar.gz
-cd Django-1.5b2
+DJVER=1.5.1
+wget -c --progress=dot:mega -O "Django-$DJVER.tar.gz" \
+   "https://www.djangoproject.com/download/$DJVER/tarball/"
+tar -xzf Django-$DJVER.tar.gz
+cd Django-$DJVER
 python setup.py install
 
 
@@ -257,7 +258,7 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/eoxserver-docs.desktop"
 # Uninstall dev packages
 apt-get --assume-yes remove libgdal1-dev libproj-dev libgeos-dev libgeos++-dev
 apt-get --assume-yes autoremove
-rm -rf "$TMP_DIR"/Django-1.5b2.tar.gz "$TMP_DIR"/Django-1.5b2/
+rm -rf "$TMP_DIR"/Django-$DJVER.tar.gz "$TMP_DIR"/Django-$DJVER/
 
 # make symlinks for geotifs to common data dir so all projects can use them
 mkdir -p /usr/local/share/data/raster
