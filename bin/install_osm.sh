@@ -42,25 +42,21 @@ mkdir /usr/local/share/osm
 
 
 apt-get install --assume-yes josm josm-plugins gpsd gpsd-clients \
-   merkaartor xmlstarlet
-
-## dec12 imposm
-apt-get install --assume-yes imposm
-
-# Gosmore is broken in ubuntu 12.04 (gets stuck in a loop)
-# see  http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=652084
-#apt-get install --assume-yes gosmore
-# rebuilt the deb without optimizations:
-DEBFILE="gosmore_0.0.0.20100711+noopt-2ubuntu1_i386.deb"
-wget --progress=dot:mega -c \
-  "http://download.osgeo.org/livedvd/data/osm/$DEBFILE"
-gdebi --non-interactive --quiet "$DEBFILE"
-
-### install osmosis as well.
-apt-get install --assume-yes osmosis
+   merkaartor xmlstarlet imposm osmosis
 
 
-# that JOSM is badly out of date, so get the latest:
+# (imposm is an OpenStreetMap importer for PostGIS)
+# http://wiki.openstreetmap.org/wiki/Imposm
+
+
+### PythonOsmApi: a handy python utility
+# http://wiki.openstreetmap.org/wiki/PythonOsmApi
+svn export http://svn.openstreetmap.org/applications/utils/python_lib/OsmApi
+# FIXME: install to /usr/local/ or similar.
+cp OsmApi/OsmApi.py /usr/lib/python2.7/
+
+
+# the stock Ubuntu JOSM is badly out of date, so get the latest:
 #   leave it installed to keep dependencies
 #   file name is not versioned so don't use "wget -c"
 
@@ -84,35 +80,13 @@ EOF
 chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
 
 
-#### a handy python utility
-svn export http://svn.openstreetmap.org/applications/utils/python_lib/OsmApi
-cp OsmApi/OsmApi.py /usr/lib/python2.7/
-
 #### desktop icons
 echo '#!/usr/bin/env xdg-open' > "$USER_HOME"/Desktop/josm.desktop
 cat /usr/share/applications/josm.desktop >> "$USER_HOME"/Desktop/josm.desktop
 chmod a+x "$USER_HOME"/Desktop/josm.desktop
 
-## need to make one for gosmore
-cat << EOF > /usr/share/applications/gosmore.desktop
-#!/usr/bin/env xdg-open
-[Desktop Entry]
-Version=1.0
-Name=Gosmore
-Comment=Viewer for OpenStreetMap.com
-Exec=/usr/local/bin/launch_gosmore.sh
-Icon=josm-32
-StartupNotify=false
-Terminal=false
-Type=Application
-Categories=Education;Science;Geoscience;
-EOF
-chmod a+x /usr/share/applications/gosmore.desktop
-cp /usr/share/applications/gosmore.desktop "$USER_HOME/Desktop/"
 cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
 
-
-cp "$BUILD_DIR/../app-conf/osm/launch_gosmore.sh" /usr/local/bin/
 
 
 # add an icon for viewing The Map online
@@ -137,32 +111,6 @@ chmod a+x /usr/local/share/applications/osm_online.desktop
 cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
 
-
-# install osmrender - it's a renderer from .osm to svg
-#   http://wiki.openstreetmap.org/wiki/Osmarender
-# two implementations to choose from, one in perl, one using **> xslt <**
-# download:  http://svn.openstreetmap.org/applications/rendering/osmarender
-#  (both implementations and the stylesheets and other stuff is in that svn co)
-# view SVG with Firefox or Inkscape
-# run with:  osmarender <filename.osm>
-
-BASEURL="http://svn.openstreetmap.org/applications/rendering/osmarender"
-FILES="stylesheets/osm-map-features-z17.xml stylesheets/markers.xml xslt/osmarender.xsl xslt/osmarender xslt/xsltrans"
-for FILE in $FILES ; do
-  wget -nv "$BASEURL/$FILE"
-done
-
-chmod a+x osmarender xsltrans
-sed -i -e 's|OSMARENDER="."|OSMARENDER="/usr/local/share/osm"|' osmarender
-cp osmarender /usr/local/bin/
-
-mkdir -p /usr/local/share/osm/xslt
-cp xsltrans osmarender.xsl /usr/local/share/osm/xslt/
-mkdir -p /usr/local/share/osm/stylesheets
-cp osm-map-features-z17.xml markers.xml /usr/local/share/osm/stylesheets/
-
-svn export "$BASEURL/stylesheets/symbols/" \
-   /usr/local/share/osm/stylesheets/symbols/
 
 
 #### install sample OSM data

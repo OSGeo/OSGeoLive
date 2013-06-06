@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.0alpha
+===================
+
+ * osm: gosmore, osmarender removed
+ * eoxserver: django updated to 1.5.1
+ * leafpad added
+
 Version 7.0alpha1
 ===================
 
