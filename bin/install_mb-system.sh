@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2013 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL v.2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -16,17 +16,7 @@
 # script to install MB-System
 #    written by H.Bowman <hamish_b  yahoo com>
 #    MB-System homepage: http://www.ldeo.columbia.edu/res/pi/MB-System/
-#
-
-
-### FIXME: install size currently 319 MB. Need to figure out how to build it
-###   using shared libraries.
-# http://tldp.org/HOWTO/Program-Library-HOWTO/shared-libraries.html
-#  ???
-# CFLAGS += "-shared -fPIC"
-# LFLAGS += "-shared -Wl,-soname,libmbio.so" ????
-#  ???
-# (but no luck)
+#    DebianGIS packaging: http://anonscm.debian.org/viewvc/pkg-grass/packages/mbsystem/trunk/debian/
 
 echo "==============================================================="
 echo "install_mb-system.sh"
@@ -39,38 +29,15 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 
-MB_VERSION="5.3.2017"
-LATEST="ftp://ftp.ldeo.columbia.edu/pub/MB-System/mbsystem-$MB_VERSION.tar.gz"
-#LATEST="http://download.osgeo.org/livedvd/data/mbsystem/mbsystem-$MB_VERSION.tar.gz"
+VERS="5.4.2110-0"
 
-BUILD_DIR=`pwd`
 
 #### get dependencies ####
 
-DEPENDS="gmt gv lesstif2 libnetcdf6 libgl1-mesa-glx libglu1-mesa
-         csh proj libfftw3-3 libparallel-forkmanager-perl"
-BUILD_DEPENDS="libgmt-dev lesstif2-dev libnetcdf-dev
-               libglu1-mesa-dev libgl1-mesa-dev libfftw3-dev"
-SAVE_DEPENDS="libproj-dev"
+PACKAGES="gmt gv lesstif2 libnetcdf6 libgl1-mesa-glx libglu1-mesa
+          csh proj libfftw3-3 libparallel-forkmanager-perl"
 
-PACKAGES="$DEPENDS $BUILD_DEPENDS $SAVE_DEPENDS"
-
-
-TO_INSTALL=""
-for PACKAGE in $PACKAGES ; do
-   if [ `dpkg -l $PACKAGE | grep -c '^ii'` -eq 0 ] ; then
-      TO_INSTALL="$TO_INSTALL $PACKAGE"
-   fi
-done
-
-if [ -n "$TO_INSTALL" ] ; then
-   apt-get --assume-yes install $TO_INSTALL
-
-   if [ $? -ne 0 ] ; then
-      echo "ERROR: package install failed: $TO_INSTALL"
-      exit 1
-   fi
-fi
+apt-get --assume-yes install $PACKAGES
 
 
 # add GMT apps to the PATH if needed
@@ -90,75 +57,22 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-wget -c --progress=dot:mega "$LATEST"
+DL_URL="http://download.osgeo.org/livedvd/data/mbsystem/precise/i386"
 
-tar xzf `basename $LATEST`
+for file in mbsystem_${VERS}_amd64.deb \
+           mbsystem-doc_${VERS}_all.deb \
+           mbsystem-data_${VERS}_all.deb ; do
 
-#if [ $? -eq 0 ] ; then
-#   \rm `basename $LATEST`
-#fi
-
-
-### get the Levitus annual water temperature profile database
-# http://gcmd.nasa.gov/records/GCMD_LEVITUS_1982.html
-# needed for mblevitus program, uncompressed it is 16mb.
-wget -c --progress=dot:mega ftp://ftp.ldeo.columbia.edu/pub/MB-System/annual.gz
-
-gzip -d annual.gz
-#if [ $? -eq 0 ] ; then
-#   \rm annual.gz
-#fi
-\mv annual LevitusAnnual82.dat
-
-
-cd `basename $LATEST .tar.gz`
-
-
-
-#### config build ####
-
-PATCH="install_makefiles.Ubuntu"
-patch -p0 < "$BUILD_DIR/../app-conf/mb-system/$PATCH.patch"
-
-./install_makefiles
-
-make all
-
-
-#### install ####
-install bin/* /usr/local/bin
-install --mode=644 lib/* /usr/local/lib
-mkdir -p /usr/local/man/man1
-install --mode=644 man/man1/* /usr/local/man/man1
-mkdir -p /usr/local/man/man3
-install --mode=644 man/man3/* /usr/local/man/man3
-for SUBDIR in  html include ps share ; do
-   mkdir -p /usr/local/mbsystem/$SUBDIR
-   install --mode=644 $SUBDIR/* /usr/local/mbsystem/$SUBDIR
-done
-install --mode=644 ../LevitusAnnual82.dat /usr/local/mbsystem/share
-
-
-### cleanup ####
-make clean
-apt-get --assume-yes remove $BUILD_DEPENDS
-# not sure why this isn't happening automatically anymore,
-apt-get --assume-yes autoremove
-
-cd ..
-
-
-# add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
-# FIXME: similar thing needed for man pages?
-# FIXME: not needed until we figure out how to make shared libs?
-if [ -d /etc/ld.so.conf.d ] ; then
-   echo "/usr/local/lib" > /etc/ld.so.conf.d/usr_local.conf
-else
-   if [ `grep -c '/usr/local/lib' /etc/ld.so.conf` -eq 0 ] ; then
-      echo "/usr/local/lib" >> /etc/ld.so.conf
+   wget -c --progress=dot:mega "$file"
+   if [ $? -ne 0 ] ; then
+      echo "Download error on <$file>. Aborting."
    fi
-fi
-ldconfig
+
+   gdebi --non-interactive --quiet "$file"
+   if [ $? -ne 0 ] ; then
+      echo "Install error on <$file>. Aborting."
+   fi
+done
 
 
 #### user config ####
