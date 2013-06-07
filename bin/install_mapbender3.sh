@@ -40,7 +40,7 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_mapbender3"
 INSTALLURL="http://mapbender3.org/builds/"
 
-INSTALLFILE="mapbender3-3.0.0.0"
+INSTALLFILE="mapbender3-3.0.0.1"
 INSTALL_DIR="/var/www"
 
 mkdir -p "$TMP_DIR"
@@ -98,8 +98,9 @@ app/console fom:user:resetroot --username="root" --password="root" --email="root
 app/console doctrine:fixtures:load --fixtures=./mapbender/src/Mapbender/CoreBundle/DataFixtures/ORM/Epsg/ --append
 app/console doctrine:fixtures:load --fixtures=./mapbender/src/Mapbender/CoreBundle/DataFixtures/ORM/Application/ --append
 
-chmod -R g+w "$INSTALL_DIR/mapbender3/app/cache"
-chmod -R g+w "$INSTALL_DIR/mapbender3/app/logs"
+chown -R www-data:www-data "$INSTALL_DIR/mapbender3"
+chmod -R ug+w "$INSTALL_DIR/mapbender3/app/cache/"
+chmod -R ug+w "$INSTALL_DIR/mapbender3/app/logs/"
 
 
 #Create apache2 configuration for mapbender
