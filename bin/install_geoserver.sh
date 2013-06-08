@@ -30,7 +30,7 @@ echo "==============================================================="
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/local/lib"
 BIN="/usr/local/bin"
-GS_VERSION="2.2.2"
+GS_VERSION="2.3.2"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 DOC_DIR="$GS_HOME/doc"
@@ -149,6 +149,13 @@ wget --progress=dot:mega \
 echo "Installing GeoServer documentation"
 unzip -o -q "geoserver-$GS_VERSION-htmldoc.zip" -d "$DOC_DIR"
 
+### download and install INSPIRE extension
+echo "Getting INSPIRE extension"
+wget --progress=dot:mega \
+  -O "geoserver-$GS_VERSION-inspire-plugin.zip" \
+  "http://sourceforge.net/projects/geoserver/files/GeoServer%20Extensions/$GS_VERSION/geoserver-$GS_VERSION-inspire-plugin.zip/download"
+echo "Installing INSPIRE extension"
+unzip -o -q "geoserver-$GS_VERSION-inspire-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
 
 ### install desktop icons ##
 echo "Installing GeoServer icons"
