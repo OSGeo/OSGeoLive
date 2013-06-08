@@ -34,9 +34,9 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-VERSION=1.4.0
+# VERSION=1.4.0
 
-echo "Installing pycsw $VERSION"
+echo "Installing pycsw"
 
 echo 'Installing dependencies ...'
 
