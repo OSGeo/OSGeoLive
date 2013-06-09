@@ -182,7 +182,7 @@ wget --read-timeout=20 --tries=5 --progress=dot:mega "http://download.osgeo.org/
 #echo "FIXME: doesn't exist ==> 'ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/'"
 
 # pdf temporary stored on my ftp, waiting to add it on ossim download page.   
-wget --read-timeout=20 --tries=5 --progress=dot:mega "http://www.geofemengineering.it/data/OSSIM_Whitepaper.pdf" \
+wget --read-timeout=20 --tries=5 --progress=dot:mega "http://geofemengineering.it/data/OSSIM_Whitepaper.pdf" \
      --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
 
 

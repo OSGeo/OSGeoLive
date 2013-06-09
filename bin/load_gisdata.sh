@@ -203,7 +203,7 @@ done
 
 cd "$TMP"
 #### Updated North Carolina KML
-DATA_URL="http://epi.whoi.edu/osgeolive/"
+DATA_URL="http://geofemengineering.it/osgeolive/"
 wget -N --progress=dot:mega "$DATA_URL/ossim_data/kml.tar.gz"
 tar xzf kml.tar.gz
 chown -R root.root kml/
