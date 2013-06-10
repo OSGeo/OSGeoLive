@@ -61,7 +61,9 @@ mkdir -p /tmp/build_ossim
 cd /tmp/build_ossim
 
 
-wget -N --progress=dot:mega "http://geofemengineering.it/osgeolive/ossim.tar.gz" 
+#wget -N --progress=dot:mega "http://geofemengineering.it/osgeolive/ossim.tar.gz" 
+ 
+wget -N --progress=dot:mega "http://downloads.osgeo.org//osgeo/download/livedvd/data/ossim/ossim.tar.gz" 
 tar -zxf ossim.tar.gz
 # running tar as root expands as the UID on the host machine that made it, so
 chown -R root.root ossim/
@@ -73,7 +75,7 @@ mv ossim.conf /etc/ld.so.conf.d/
 ldconfig
 
 mkdir /usr/share/ossim/
-wget -N --progress=dot:mega http://geofemengineering.it/osgeolive/ossim_settings.tar.gz 
+wget -N --progress=dot:mega http://downloads.osgeo.org//osgeo/download/livedvd/data/ossim/ossim_settings.tar.gz 
 tar -zxf ossim_settings.tar.gz
 chown -R root.root ossim_settings/
 mv ossim_settings/* /usr/share/ossim/
@@ -182,7 +184,7 @@ wget --read-timeout=20 --tries=5 --progress=dot:mega "http://download.osgeo.org/
 #echo "FIXME: doesn't exist ==> 'ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/'"
 
 # pdf temporary stored on my ftp, waiting to add it on ossim download page.   
-wget --read-timeout=20 --tries=5 --progress=dot:mega "http://geofemengineering.it/data/OSSIM_Whitepaper.pdf" \
+wget --read-timeout=20 --tries=5 --progress=dot:mega "http://downloads.osgeo.org//osgeo/download/livedvd/data/ossim/OSSIM_Whitepaper.pdf" \
      --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
 
 
@@ -211,7 +213,7 @@ done
 
 if [ 0 -eq 1 ] ; then
 # Cape Cod SRTM and LANDSAT
-DATA_URL="http://geofemengineering.it/osgeolive/"
+DATA_URL="http://downloads.osgeo.org//osgeo/download/livedvd/data/ossim/"
 BASENAME="p011r031_7t19990918_z19_nn"
 for BAND in 10 20 30 ; do
     # LANDSAT
