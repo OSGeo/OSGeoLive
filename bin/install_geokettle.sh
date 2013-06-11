@@ -41,8 +41,8 @@ echo "install_geokettle.sh"
 echo "==============================================================="
 
 TMP="/tmp/build_geokettle"
-GEOKETTLE_BASE_URL="http://downloads.sourceforge.net/project/geokettle/geokettle-2.x/2.0"
-GEOKETTLE_BASENAME="geokettle-2.0-with_plugins"
+GEOKETTLE_URL="http://spatialytics.fetchapp.com/files/udelaj"
+GEOKETTLE_BASENAME="geokettle-2.5"
 GEOKETTLE_FILENAME="$GEOKETTLE_BASENAME.zip"
 INSTALL_FOLDER="/opt"
 GEOKETTLE_FOLDER="$INSTALL_FOLDER/geokettle"
@@ -73,7 +73,7 @@ if [ -f "$GEOKETTLE_FILENAME" ]
 then
    echo "$GEOKETTLE_FILENAME has already been downloaded."
 else
-   wget --progress=dot:mega "$GEOKETTLE_BASE_URL/$GEOKETTLE_FILENAME" -O $GEOKETTLE_FILENAME
+   wget --progress=dot:mega "$GEOKETTLE_URL" -O $GEOKETTLE_FILENAME
 fi
 # unpack it
 unzip -q "$GEOKETTLE_FILENAME" -d "$TMP/$GEOKETTLE_BASENAME"
@@ -92,10 +92,10 @@ rmdir "$TMP/$GEOKETTLE_BASENAME"
 chmod a+x "$GEOKETTLE_FOLDER"/*.sh
 
 ## remove unnecessary runtime libs 10Aug11
-rm -rf /opt/geokettle/libext/geometry/libgdal/win32
-rm -rf /opt/geokettle/libext/geometry/libgdal/win64
-rm -rf /opt/geokettle/libext/geometry/libgdal/osx
-rm -rf /opt/geokettle/libext/geometry/libgdal/linux/x86_64
+rm -rf "$GEOKETTLE_FOLDER"/libext/geometry/libgdal/win32
+rm -rf "$GEOKETTLE_FOLDER"/libext/geometry/libgdal/win64
+rm -rf "$GEOKETTLE_FOLDER"/libext/geometry/libgdal/osx
+rm -rf "$GEOKETTLE_FOLDER"/libext/geometry/libgdal/linux/x86_64
 
 ##---------------------------------------------------------------
 # Create desktop icon
