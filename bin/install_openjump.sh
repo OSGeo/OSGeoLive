@@ -9,6 +9,7 @@
 # Changes:
 #  25 Jan 2011  Update script to openJUMP 1.4
 #   8 Jan 2012  changes for OJ 1.5
+#  12 Jun 2013  changes for OJ 1.6
 #
 #################################################
 # Copyright (c) 2011-2012 Edgar Soldin, openjump team
@@ -48,16 +49,16 @@ USER_HOME="/home/$USER_NAME"
 
 PKG_NAME=OpenJUMP
 PKG_VERSION=1.5
-PKG_FOLDER=$PKG_NAME-$PKG_VERSION
 
+## get defs from online conf below ( file vars, pkg_version )
+URL_LIST=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osgeo.conf
+
+PKG_FOLDER=$PKG_NAME-$PKG_VERSION
 PKG_HOME=/usr/lib/$PKG_FOLDER
 PKG_DATA=/usr/local/share/$PKG_NAME
 PKG_LINK=/usr/local/bin/openjump
 PKG_DESKTOP=$USER_HOME/Desktop/openjump.desktop
 PKG_SUCCESS=$PKG_HOME/.installed
-
-## get file defs from online file list below
-URL_LIST=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osgeo.files
 
 #URL_PKG=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP_snapshots/OpenJUMP-20120108-r2597-CORE.zip
 #URL_ICON=http://jump-pilot.svn.sourceforge.net/viewvc/jump-pilot/core/trunk/icon/openjump_icon3.svg
