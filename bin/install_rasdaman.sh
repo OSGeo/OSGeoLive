@@ -121,6 +121,7 @@ if [ $FULL -eq 1 ]; then
   chgrp users "$RASDAMAN_HOME/log/" -R
   chmod g+w "$RASDAMAN_HOME/log/" -R
   adduser "$USER_NAME" users
+  autoreconf -fi
 
   ./configure --with-logdir="$RASDAMAN_HOME"/log \
       --prefix="$RASDAMAN_HOME" --with-wardir="$WARDIR" \
@@ -131,7 +132,8 @@ if [ $FULL -eq 1 ]; then
      pkg_cleanup
      exit 1
   fi
-
+ 
+  make version
   make
   if [ $? -ne 0 ] ; then
      echo "ERROR: compilation failed."
