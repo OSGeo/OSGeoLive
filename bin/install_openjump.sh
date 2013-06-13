@@ -56,8 +56,8 @@ PKG_VERSION=1.5
 
 ## get defs from online conf file ( file vars, pkg_version ) for update convenience
 URL_LIST=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osgeo.conf
-# download and set vars
-eval "$(wget -nv -O- "$URL_LIST")"
+# download and set vars (filter out anything not setting a variable)
+eval "$(wget -nv -O- "$URL_LIST" | awk '/^[a-zA-Z0-9_-]+=/')"
 
 PKG_FOLDER=$PKG_NAME-$PKG_VERSION
 PKG_HOME=/usr/lib/$PKG_FOLDER
