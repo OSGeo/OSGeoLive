@@ -17,13 +17,8 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-# # Add repositories
-# cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
-# 
-# #Add signed key for repositorys LTS and non-LTS
-# #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF
-# apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
-add-apt-repository --yes ppa:johanvdw/saga-gis
+#Temporary towards the svn build ppa until 2.1.0 is definitely released
+add-apt-repository --yes ppa:johanvdw/sagacvs
 
 apt-get -q update
 apt-get --assume-yes install saga libsaga
