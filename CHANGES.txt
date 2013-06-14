@@ -1,13 +1,21 @@
 OSGeo Live GIS Disc
 ===================
 
-Version 7.0alpha
+Version 7.0alpha2
 ===================
 
  * osm: gosmore, osmarender removed
  * eoxserver: django updated to 1.5.1
  * MB-System: switch to .deb packages with shared libraries
  * leafpad added
+ * cartaro update to latest version
+ * Mapbender update to 3.0.0.1
+ * Geoserver updated to 2.3.2
+ * pycsw updated to 1.4.2
+ * new artwork for 7.0
+ * GeoKetle updated to 2.5
+ * OpenJump updated to 1.5
+ * rasdaman build now fixed (#1130)
 
 Version 7.0alpha1
 ===================
