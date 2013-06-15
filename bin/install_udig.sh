@@ -35,7 +35,7 @@ echo "==============================================================="
 
 TMP="/tmp/build_udig"
 INSTALL_FOLDER="/usr/lib"
-UDIG_VERSION="1.2.2"
+UDIG_VERSION="1.4.0"
 UDIG_FOLDER="$INSTALL_FOLDER/udig"
 DOCS_FOLDER="/usr/local/share/udig"
 DATA_GLOBAL="/usr/local/share/data"
