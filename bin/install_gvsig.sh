@@ -63,9 +63,9 @@ USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop" 
 
 GVSIG_PACKAGE="gvsig_2.0.0-2066_i386_BN2.deb"
-#GVSIG_URL="http://aiolos.survey.ntua.gr/gisvm/6.0/"
+GVSIG_URL="http://aiolos.survey.ntua.gr/gisvm/dev/"
 #GVSIG_URL="http://downloads.gvsig.org/download/gvsig-desktop/other-dists/osgeo-live"
-GVSIG_URL="https://www.dropbox.com/s/6ujajdxa048pgii/"
+#GVSIG_URL="https://www.dropbox.com/s/6ujajdxa048pgii/"
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
