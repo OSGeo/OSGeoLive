@@ -36,7 +36,7 @@ echo "deb http://doc.hausser.ch/debpackages ubuntu-dha precise" \
 
 apt-get -q update
 # grumble
-echo "opencpn hold" | dpkg --set-selections
+#echo "opencpn hold" | dpkg --set-selections
 
 
 apt-get --assume-yes install zygrib

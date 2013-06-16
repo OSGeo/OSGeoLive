@@ -48,6 +48,9 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
+OLD=no
+####
+if [ "$OLD" = "yes" ] ; then
 URL="http://download.osgeo.org/livedvd/data/opencpn/precise/i386"
 PKGS="
 opencpn-data_2.5.0+dfsg-0_all.deb
@@ -58,6 +61,20 @@ opencpn-plugins_2.5.0+dfsg-0_i386.deb
 for PKG in $PKGS ; do
    wget -c --progress=dot:mega "$URL/$PKG"
 done
+
+####
+else
+####
+
+BASEURL="http://downloads.sourceforge.net/project/opencpn/opencpn"
+OCPNVER="3.2.2"
+URL="$BASEURL/$OCPNVER/opencpn_${OCPNVER}-1_i386.deb"
+
+wget -c --progress=dot:mega "$URL"
+
+PKGS="opencpn_${OCPNVER}-1_i386.deb"
+fi
+####
 
 
 # recommended:
