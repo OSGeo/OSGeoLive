@@ -29,7 +29,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 
-VERS="5.4.2110-0"
+VERS="5.4.2123-0"
 
 
 #### get dependencies ####
@@ -59,9 +59,9 @@ fi
 
 DL_URL="http://download.osgeo.org/livedvd/data/mbsystem/precise/i386"
 
-for file in mbsystem_${VERS}_amd64.deb \
-           mbsystem-doc_${VERS}_all.deb \
-           mbsystem-data_${VERS}_all.deb ; do
+for file in mbsystem_${VERS}_i386.deb \
+            mbsystem-doc_${VERS}_all.deb \
+            mbsystem-data_${VERS}_all.deb ; do
 
    wget -c --progress=dot:mega "$DL_URL/$file"
    if [ $? -ne 0 ] ; then
