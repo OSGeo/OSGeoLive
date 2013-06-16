@@ -23,6 +23,9 @@
 
 # Changelog:   "svn log install_gvsig.sh --limit 10"
 # ===========
+# 2013-06-16
+#   * Updated to gvSIG 2.0, no default project yet
+#
 # 2012-12-07
 #   * Updated to use gvSIG 1.12 package
 #
@@ -59,9 +62,10 @@ fi
 USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop" 
 
-GVSIG_PACKAGE="gvsig_1.12-1417_i386_BN4.deb"
+GVSIG_PACKAGE="gvsig_2.0.0-2066_i386_BN2.deb"
 #GVSIG_URL="http://aiolos.survey.ntua.gr/gisvm/6.0/"
-GVSIG_URL="http://downloads.gvsig.org/download/gvsig-desktop/other-dists/osgeo-live"
+#GVSIG_URL="http://downloads.gvsig.org/download/gvsig-desktop/other-dists/osgeo-live"
+GVSIG_URL="https://www.dropbox.com/s/6ujajdxa048pgii/"
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
@@ -99,6 +103,8 @@ fi
 
 # fix broken permissions in the deb
 chown -R root.root /opt/gvSIG_*
+# user needs to write on the gvSIG folder by some legacy plugins
+chmod 777 /opt/gvSIG_* 
 rm -f /debian-binary
 chown -R root.root /usr/share/applications/gvsig.desktop \
   /usr/share/icons/ico-gvSIG.png /usr/share/mime/packages/gvsig.xml \
@@ -114,29 +120,13 @@ if [ -d $USER_DESKTOP ] ; then
    chmod +x "$USER_DESKTOP/gvsig.desktop"   
 fi
 
-echo "Creating the gvSIG folder with a sample project"
-mkdir -p  "$USER_HOME/gvSIG"
-
-# download gvSIG sample project
-echo "Downloading OSGeo Live customizations"
-
-echo "... sample project"
-wget --progress=dot:binary \
-   "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-data/gvsig/sample-project.gvp" \
-   --output-document="$USER_HOME/gvSIG/sample-project.gvp"
+# create gvSIG user folder
+mkdir -p $USER_HOME/gvSIG
 
 echo "... andami config"
 wget --progress=dot:binary \
    "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/andami-config.xml" \
    --output-document="$USER_HOME/gvSIG/andami-config.xml"
-
-echo "... custom starting script"
-GVSIG_SCRIPT="/opt/gvSIG_1.12/gvSIG.sh"
-rm  $GVSIG_SCRIPT
-wget --progress=dot:binary \
-   "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/gvSIG.sh" \
-   --output-document="$GVSIG_SCRIPT"
-chmod 755 $GVSIG_SCRIPT
 
 cp -r "$USER_HOME/gvSIG" /etc/skel
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
