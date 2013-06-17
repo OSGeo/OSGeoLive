@@ -4,6 +4,7 @@
 # Purpose: Installation of GeoNetwork into Xubuntu
 # Author:  Ricardo Pinho <ricardo.pinho@gisvm.com>
 # Author:  Simon Pigot <simon.pigot@csiro.au>
+# Author:  Francois Prunayre <fx.prunayre@gmail.com>
 # Small edits: Jeroen Ticheler <Jeroen.Ticheler@GeoCat.net>
 #
 #################################################
@@ -26,8 +27,8 @@
 # About:
 # =====
 # This script will install geonetwork into Xubuntu
-# stable version: v2.6.4 (24 May 2011) (also the manuals)
-# based on Jetty + Geoserver + McKoi
+# stable version: v2.10.0 (14 Juin 2013) (also the manuals)
+# based on Jetty + Geoserver + H2
 # Installed at /usr/lib/geonetwork
 # Port number =8880
 #
@@ -42,7 +43,7 @@
 # To enter geonetwork, start browser with url:
 # http://localhost:8880/geonetwork
 #
-# GeoNetwork version 2.6.4 runs with java-sun-1.5 or java-sun-1.6.
+# GeoNetwork version 2.10.0 runs with java-sun-1.5 or java-sun-1.6.
 # It can be installed into servlet containers: jetty and tomcat. Jetty is   
 # bundled with the installer.
 #
@@ -53,6 +54,9 @@
 echo "==============================================================="
 echo "install_geonetwork.sh"
 echo "==============================================================="
+
+GEONETWORK_VERSION=2.10.0-0
+GEONETWORK_VERSION_FOLDER=2.10.0
 
 TMP="/tmp/build_geonetwork"
 #FIXME: please use /usr/local not /usr for things not in a .deb
@@ -80,12 +84,13 @@ cd "$TMP"
 
 
 # get geonetwork
-if [ -f "geonetwork-install-2.6.4-0.jar" ]
+if [ -f "geonetwork-install-$GEONETWORK_VERSION.jar" ]
 then
-   echo "geonetwork-install-2.6.4-0.jar has already been downloaded."
+   echo "geonetwork-install-$GEONETWORK_VERSION.jar has already been downloaded."
 else
    wget -c --progress=dot:mega \
-     "http://freefr.dl.sourceforge.net/project/geonetwork/GeoNetwork_opensource/v2.6.4/geonetwork-install-2.6.4-0.jar"
+     "http://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v$GEONETWORK_VERSION_FOLDER/geonetwork-install-$GEONETWORK_VERSION.jar/download"
+     -O geonetwork-install-$GEONETWORK_VERSION.jar
 fi
 
 # get geonetwork doco - not just yet - has to be uploaded
@@ -104,7 +109,6 @@ fi
 #   config-gui.xml file to find default GeoServer layers Port 8880
 #   start-geonetwork.sh file with mods to work from any directory
 #   stop-geonetwork.sh file with mods to work from any directory
-#   data-db-mckoi.sql file - changed port number 8880
 #   iso-19139-basins-in-africa.mef file - changed port number 8880
 #   iso-19139-physiographic.mef file - changed port number 8880
 
@@ -114,7 +118,7 @@ jetty.xml
 config-gui.xml
 start-geonetwork.sh
 stop-geonetwork.sh
-data-db-mckoi.sql
+data-db-default.sql
 iso-19139-basins-in-africa.mef
 iso-19139-physiographic.mef
 "
@@ -130,30 +134,25 @@ if [ -d "$GEONETWORK_FOLDER" ]
 then
 	( cd "$GEONETWORK_FOLDER/bin"; ./stop-geonetwork.sh )
 fi
-java -jar geonetwork-install-2.6.4-0.jar install.xml
+java -jar geonetwork-install-$GEONETWORK_VERSION.jar install.xml
 
 
-cp -f jetty.xml "$GEONETWORK_FOLDER/bin/jetty.xml"
+cp -f jetty.xml "$GEONETWORK_FOLDER/jetty/etc/jetty.xml"
 cp -f config-gui.xml "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/config-gui.xml"
+# HTML5UI is using path with port number so we need to modify the settings in SQL
+# Needed until https://github.com/geonetwork/core-geonetwork/issues/138
+cp -f data-db-default.sql "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/."
 cp -f start-geonetwork.sh "$GEONETWORK_FOLDER/bin/start-geonetwork.sh"
 cp -f stop-geonetwork.sh "$GEONETWORK_FOLDER/bin/stop-geonetwork.sh"
-cp -f data-db-mckoi.sql \
-   "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/data-db-mckoi.sql"
-cp -f iso-19139-basins-in-africa.mef \
-   "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-basins-in-africa.mef"
-cp -f iso-19139-physiographic.mef \
-   "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/samples/iso-19139-physiographic.mef"
 
 # fix permissions on installed software
 #   what's really needed here? the logs for sure, the rest are guesses
 chgrp users "$GEONETWORK_FOLDER"/jetty
 chgrp users "$GEONETWORK_FOLDER"/jetty/logs -R
-chgrp users "$GEONETWORK_FOLDER"/data -R
 chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/ -R
 chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
 chmod g+w "$GEONETWORK_FOLDER"/jetty
 chmod g+w "$GEONETWORK_FOLDER"/jetty/logs -R
-chmod g+w "$GEONETWORK_FOLDER"/data -R
 chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/ -R
 chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
 adduser "$USER_NAME" users
@@ -168,37 +167,10 @@ done
 
 
 #Manual is being put into /usr/local/share and linked to the geonetwork documentation
-mkdir -p /usr/local/share/geonetwork
+#mkdir -p /usr/local/share/geonetwork
 #cp GeoNetwork_opensource_v264_Manual.pdf /usr/local/share/geonetwork/GeoNetwork_opensource_v264_Manual.pdf
 #chmod 644 /usr/local/share/geonetwork/*.pdf
 #cp GeoNetwork_opensource_v264_Manual.pdf $USER_HOME/Desktop
 #chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/GeoNetwork_opensource_v264_Manual.pdf
 
 
-# share data with the rest of the disc
-mkdir -p /usr/local/share/data/raster/
-ln -s /usr/lib/geonetwork/data/geoserver_data/coverages/BlueMarble_world/bluemarble_jpeg_small.tiff \
-      /usr/local/share/data/raster/BlueMarble_small.tiff
-
-mkdir -p /usr/local/share/data/vector/
-ln -s  /usr/lib/geonetwork/data/geoserver_data/data/boundaries \
-      /usr/local/share/data/vector/global_boundaries
-
-# Minor fix to disable GWC as per #932
-cd /usr/lib/geonetwork/web
-mkdir geoserver
-mv geoserver.war geoserver/.
-cd geoserver/
-
-unzip -q geoserver.war
-cd WEB-INF/lib
-rm geowebcache-1.2.2.jar
-rm gwc-2.0.2.jar
-rm web-gwc-2.0.2.jar
-cd ../../
-rm geoserver.war
-
-zip -q -r geoserver.war *
-mv geoserver.war ../.
-cd ..
-rm -fr geoserver
