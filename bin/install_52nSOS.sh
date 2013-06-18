@@ -273,7 +273,7 @@ chgrp users "$SOS_BIN_FOLDER"
 if [ ! -e $SOS_BIN_FOLDER/52nSOS-start.sh ] ; then
    cat << EOF > $SOS_BIN_FOLDER/52nSOS-start.sh
 #!/bin/bash
-STAT=\`netstat -na | grep 8080 | awk '{print $6}'\`
+STAT=\`netstat -na | grep 8080 | awk '{print \$6}'\`
 if [ "\$STAT" = "" ]; then
 sudo service tomcat6 start
 (sleep 10; echo "25"; sleep 10; echo "50"; sleep 10; echo "75"; sleep 10; echo "100") | zenity --progress --auto-close --text "52North SOS starting"
@@ -285,8 +285,8 @@ fi
 if [ ! -e $SOS_BIN_FOLDER/52nSOS-stop.sh ] ; then
    cat << EOF > $SOS_BIN_FOLDER/52nSOS-stop.sh
 #!/bin/bash
-STAT=\`netstat -na | grep 8080 | awk '{print $6}'\`
-if [ "\$STAT" = "LOCAL" ]; then
+STAT=\`netstat -na | grep 8080 | awk '{print \$6}'\`
+if [ "\$STAT" = "LISTEN" ]; then
 sudo service tomcat6 stop
 zenity --info --text "52North SOS stopped"
 fi
