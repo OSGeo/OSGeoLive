@@ -42,6 +42,7 @@ USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat6"
 SOS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
+SOS_BIN_FOLDER="/usr/local/share/52nSOS"
 SOS_TAR_NAME="52n-sensorweb-sos-osgeolive-6.5.0.tar.gz"
 SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
 # when changing this, adjust the name in line 215, too,
@@ -264,6 +265,40 @@ fi
 #
 #
 #
+# Startup/Stop scripts set-up
+# =============================================================================
+mkdir -p "$SOS_BIN_FOLDER"
+chgrp users "$SOS_BIN_FOLDER"
+
+if [ ! -e $SOS_BIN_FOLDER/52nSOS-start.sh ] ; then
+   cat << EOF > $SOS_BIN_FOLDER/52nSOS-start.sh
+#!/bin/bash
+STAT=\`netstat -na | grep 8080 | awk '{print $6}'\`
+if [ "\$STAT" = "" ]; then
+sudo service tomcat6 start
+(sleep 10; echo "25"; sleep 10; echo "50"; sleep 10; echo "75"; sleep 10; echo "100") | zenity --progress --auto-close --text "52North SOS starting"
+fi
+firefox $SOS_URL $SOS_QUICKSTART_URL $SOS_OVERVIEW_URL
+EOF
+fi
+
+if [ ! -e $SOS_BIN_FOLDER/52nSOS-stop.sh ] ; then
+   cat << EOF > $SOS_BIN_FOLDER/52nSOS-stop.sh
+#!/bin/bash
+STAT=\`netstat -na | grep 8080 | awk '{print $6}'\`
+if [ "\$STAT" = "LOCAL" ]; then
+sudo service tomcat6 stop
+zenity --info --text "52North SOS stopped"
+fi
+EOF
+fi
+
+chmod 755 $SOS_BIN_FOLDER/52nSOS-start.sh
+chmod 755 $SOS_BIN_FOLDER/52nSOS-stop.sh
+
+#
+#
+#
 # Desktop set-up
 # =============================================================================
 
@@ -279,7 +314,7 @@ Encoding=UTF-8
 Name=Start 52NorthSOS
 Comment=52North SOS
 Categories=Geospatial;Servers;
-Exec=firefox $SOS_URL $SOS_QUICKSTART_URL $SOS_OVERVIEW_URL
+Exec=$SOS_BIN_FOLDER/52nSOS-start.sh
 Icon=/usr/share/icons/$SOS_ICON_NAME
 Terminal=false
 EOF
@@ -288,6 +323,23 @@ fi
 #
 cp -v /usr/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
+
+if [ ! -e /usr/share/applications/52nSOS-stop.desktop ] ; then
+   cat << EOF > /usr/share/applications/52nSOS-stop.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Stop 52NorthSOS
+Comment=52North SOS
+Categories=Geospatial;Servers;
+Exec=$SOS_BIN_FOLDER/52nSOS-stop.sh
+Icon=/usr/share/icons/$SOS_ICON_NAME
+Terminal=false
+EOF
+fi
+
+cp -v /usr/share/applications/52nSOS-stop.desktop "$USER_HOME/Desktop/"
+chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-stop.desktop"
 
 #
 # We just crossed the finish line
