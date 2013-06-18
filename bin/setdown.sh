@@ -152,6 +152,12 @@ sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 #Disabling default tomcat startup
 update-rc.d -f tomcat6 remove
 
+if [ ! -e /etc/sudoers.d/tomcat ] ; then
+   cat << EOF > /etc/sudoers.d/tomcat
+%users ALL=(root) NOPASSWD: /usr/sbin/service tomcat6 start,/usr/sbin/service tomcat6 stop,/usr/sbin/service tomcat6 status
+EOF
+fi
+
 # This is done on an extra step after rebooting and tmp is cleared
 #echo "==============================================================="
 #echo " Compress image by wiping the virtual disk, filling empty space with zero."
