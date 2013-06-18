@@ -89,7 +89,7 @@ then
    echo "geonetwork-install-$GEONETWORK_VERSION.jar has already been downloaded."
 else
    wget -c --progress=dot:mega \
-     "http://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v$GEONETWORK_VERSION_FOLDER/geonetwork-install-$GEONETWORK_VERSION.jar/download"
+     "http://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v$GEONETWORK_VERSION_FOLDER/geonetwork-install-$GEONETWORK_VERSION.jar/download" \
      -O geonetwork-install-$GEONETWORK_VERSION.jar
 fi
 
