@@ -147,8 +147,9 @@ fi
 tar xzf "$WSS_TAR_NAME"
 #
 # copy logo
-if [ ! -e "/usr/share/icons/$WSS_ICON_NAME" ] ; then
-   mv "$WSS_ICON_NAME" /usr/share/icons/
+mkdir -p /usr/local/share/icons
+if [ ! -e "/usr/local/share/icons/$WSS_ICON_NAME" ] ; then
+   mv "$WSS_ICON_NAME" /usr/local/share/icons/
 fi
 
 # 2.0 check for tomcat webapps folder
@@ -212,8 +213,9 @@ mkdir -p -v "$USER_HOME/Desktop"
 
 # icon
 # Relies on launchassist in home dir
-if [ ! -e /usr/share/applications/$WSS_DESKTOP_STARTER_NAME ] ; then
-   cat << EOF > /usr/share/applications/$WSS_DESKTOP_STARTER_NAME
+mkdir -p /usr/local/share/applications
+if [ ! -e /usr/local/share/applications/$WSS_DESKTOP_STARTER_NAME ] ; then
+   cat << EOF > /usr/local/share/applications/$WSS_DESKTOP_STARTER_NAME
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -221,16 +223,16 @@ Name=Start 52NorthWSS
 Comment=52North WSS
 Categories=Geospatial;Servers;
 Exec=$WSS_BIN_FOLDER/52nWSS-start.sh
-Icon=/usr/share/icons/$WSS_ICON_NAME
+Icon=/usr/local/share/icons/$WSS_ICON_NAME
 Terminal=false
 EOF
 fi
 
-cp /usr/share/applications/$WSS_DESKTOP_STARTER_NAME "$USER_HOME/Desktop/"
+cp /usr/local/share/applications/$WSS_DESKTOP_STARTER_NAME "$USER_HOME/Desktop/"
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/$WSS_DESKTOP_STARTER_NAME"
 
-if [ ! -e /usr/share/applications/$WSS_DESKTOP_STOPER_NAME ] ; then
-   cat << EOF > /usr/share/applications/$WSS_DESKTOP_STOPER_NAME
+if [ ! -e /usr/local/share/applications/$WSS_DESKTOP_STOPER_NAME ] ; then
+   cat << EOF > /usr/local/share/applications/$WSS_DESKTOP_STOPER_NAME
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -238,12 +240,12 @@ Name=Start 52NorthWSS
 Comment=52North WSS
 Categories=Geospatial;Servers;
 Exec=$WSS_BIN_FOLDER/52nWSS-stop.sh
-Icon=/usr/share/icons/$WSS_ICON_NAME
+Icon=/usr/local/share/icons/$WSS_ICON_NAME
 Terminal=false
 EOF
 fi
 
-cp /usr/share/applications/$WSS_DESKTOP_STOPER_NAME "$USER_HOME/Desktop/"
+cp /usr/local/share/applications/$WSS_DESKTOP_STOPER_NAME "$USER_HOME/Desktop/"
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/$WSS_DESKTOP_STOPER_NAME"
 
 #
