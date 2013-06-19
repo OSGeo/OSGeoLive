@@ -268,7 +268,8 @@ rm -rf /var/lib/tomcat6/webapps/petascope
 #
 
 # add rasdaman/earthlook to the ubuntu menu icons
-cat << EOF > /usr/share/applications/start_rasdaman_server.desktop
+mkdir -p /usr/local/share/applications
+cat << EOF > /usr/local/share/applications/start_rasdaman_server.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -282,7 +283,7 @@ StartupNotify=false
 EOF
 
 
-cat << EOF > /usr/share/applications/stop_rasdaman_server.desktop
+cat << EOF > /usr/local/share/applications/stop_rasdaman_server.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -296,7 +297,7 @@ StartupNotify=false
 EOF
 
 
-cat << EOF > /usr/share/applications/rasdaman-earthlook-demo.desktop
+cat << EOF > /usr/local/share/applications/rasdaman-earthlook-demo.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -309,11 +310,11 @@ Terminal=false
 StartupNotify=false
 EOF
 
-cp /usr/share/applications/stop_rasdaman_server.desktop \
+cp /usr/local/share/applications/stop_rasdaman_server.desktop \
    "$USER_HOME/Desktop/"
-cp /usr/share/applications/start_rasdaman_server.desktop \
+cp /usr/local/share/applications/start_rasdaman_server.desktop \
    "$USER_HOME/Desktop/"
-cp /usr/share/applications/rasdaman-earthlook-demo.desktop \
+cp /usr/local/share/applications/rasdaman-earthlook-demo.desktop \
    "$USER_HOME/Desktop/"
 
 chown "$USER_NAME.$GROUP_NAME" $USER_HOME/Desktop/*rasdaman*.desktop
