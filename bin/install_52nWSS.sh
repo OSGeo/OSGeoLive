@@ -41,12 +41,14 @@ BIN="/usr/local/bin"
 TOMCAT_USER_NAME="tomcat6"
 WSS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
 WSS_INSTALL_FOLDER="/usr/local/52nWSS"
+WSS_BIN_FOLDER="/usr/local/share/52nWSS"
 WSS_TAR_NAME="52n-wss-osgeo-live.tar.gz"
 WSS_TAR_URL="http://52north.org/files/security/osgeo-live"
 WSS_WEBAPP_CONTEXT="wss"
 WSS_WAR_NAME="wss";
 WSS_TOMCAT_SCRIPT_NAME="tomcat6"
 WSS_DESKTOP_STARTER_NAME="52nWSS-start.desktop"
+WSS_DESKTOP_STOPER_NAME="52nWSS-stop.desktop"
 WSS_ICON_NAME="52nWSS.png"
 WSS_URL="http://localhost:8080/wss/"
 WSS_QUICKSTART_URL="http://localhost/en/quickstart/52nWSS_quickstart.html"
@@ -164,6 +166,41 @@ if (test ! -d "$TOMCAT_WEBAPPS/$WSS_WEBAPP_CONTEXT") then
 else
 	echo "$WSS_WAR_NAME --> $WSS_WEBAPP_CONTEXT already installed in tomcat"
 fi
+
+#
+#
+#
+# Startup/Stop scripts set-up
+# =============================================================================
+mkdir -p "$WSS_BIN_FOLDER"
+chgrp users "$WSS_BIN_FOLDER"
+
+if [ ! -e $WSS_BIN_FOLDER/52nWSS-start.sh ] ; then
+   cat << EOF > $WSS_BIN_FOLDER/52nWSS-start.sh
+#!/bin/bash
+STAT=\`sudo service tomcat6 status | grep pid\`
+if [ "\$STAT" = "" ]; then
+    sudo service tomcat6 start
+    (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") | zenity --progress --auto-close --text "52North WSS starting"
+fi
+firefox $WSS_URL $WSS_QUICKSTART_URL $WSS_OVERVIEW_URL
+EOF
+fi
+
+if [ ! -e $WSS_BIN_FOLDER/52nWSS-stop.sh ] ; then
+   cat << EOF > $WSS_BIN_FOLDER/52nWSS-stop.sh
+#!/bin/bash
+STAT=\`sudo service tomcat6 status | grep pid\`
+if [ "\$STAT" != "" ]; then
+    sudo service tomcat6 stop
+    zenity --info --text "52North WSS stopped"
+fi
+EOF
+fi
+
+chmod 755 $WSS_BIN_FOLDER/52nWSS-start.sh
+chmod 755 $WSS_BIN_FOLDER/52nWSS-stop.sh
+
 #
 #
 #
@@ -183,15 +220,32 @@ Encoding=UTF-8
 Name=Start 52NorthWSS
 Comment=52North WSS
 Categories=Geospatial;Servers;
-Exec=firefox $WSS_URL $WSS_QUICKSTART_URL $WSS_OVERVIEW_URL
+Exec=$WSS_BIN_FOLDER/52nWSS-start.sh
 Icon=/usr/share/icons/$WSS_ICON_NAME
 Terminal=false
 EOF
 fi
 
-
 cp /usr/share/applications/$WSS_DESKTOP_STARTER_NAME "$USER_HOME/Desktop/"
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/$WSS_DESKTOP_STARTER_NAME"
+
+if [ ! -e /usr/share/applications/$WSS_DESKTOP_STOPER_NAME ] ; then
+   cat << EOF > /usr/share/applications/$WSS_DESKTOP_STOPER_NAME
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Start 52NorthWSS
+Comment=52North WSS
+Categories=Geospatial;Servers;
+Exec=$WSS_BIN_FOLDER/52nWSS-stop.sh
+Icon=/usr/share/icons/$WSS_ICON_NAME
+Terminal=false
+EOF
+fi
+
+cp /usr/share/applications/$WSS_DESKTOP_STOPER_NAME "$USER_HOME/Desktop/"
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/$WSS_DESKTOP_STOPER_NAME"
+
 #
 # We just crossed the finish line
 #
