@@ -236,7 +236,7 @@ if [ ! -e /usr/local/share/applications/$WSS_DESKTOP_STOPER_NAME ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Start 52NorthWSS
+Name=Stop 52NorthWSS
 Comment=52North WSS
 Categories=Geospatial;Servers;
 Exec=$WSS_BIN_FOLDER/52nWSS-stop.sh
