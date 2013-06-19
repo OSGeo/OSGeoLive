@@ -116,6 +116,28 @@
 	<Include>
 	    <Category>Geoclients</Category>
 	</Include>
+
+	<Exclude>
+	    <Category>Cartaro</Category>
+	</Exclude>
+	<Menu>
+	    <Name>Cartaro</Name>
+	    <Directory>Cartaro.directory</Directory>
+	    <Include>
+		<Category>Cartaro</Category>
+	    </Include>
+	</Menu>
+
+	<Exclude>
+	    <Category>Geomajas</Category>
+	</Exclude>
+	<Menu>
+	    <Name>Geomajas</Name>
+	    <Directory>Geomajas.directory</Directory>
+	    <Include>
+		<Category>Geomajas</Category>
+	    </Include>
+	</Menu>
     </Menu>
 
     <Menu>
