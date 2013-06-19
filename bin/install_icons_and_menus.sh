@@ -174,6 +174,16 @@ for APP in $BROWSER_CLIENTS ; do
    if [ -e "$APPL" ] ; then
       sed -e 's/^Categories=.*/Categories=Geospatial;Geoclients;/' \
 	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
+
+      case "$APPL" in
+        cartaro-*) GROUP=Cartaro;;
+        geomajas-*) GROUP=Geomajas;;
+        *) unset GROUP;;
+      esac
+      if [ -n "$GROUP" ] ; then
+         sed -i -e "s/^\(Categories=.*\)/\1$GROUP;/" \
+             "/usr/local/share/applications/osgeo-$APPL"
+      fi
    fi
 done
 
@@ -300,6 +310,48 @@ Name=$APP
 EOF
 
 done
+
+
+
+#### web clients sub menu infrastructure
+APP_GROUPS="Cartaro Geomajas"
+
+for APP in $APP_GROUPS ; do
+   cat << EOF > "/etc/xdg/menus/applications-merged/$APP.menu"
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+<Menu>
+<Name>Applications</Name>
+  <Menu>
+  <Name>Geoclients</Name>
+    <Menu>
+    <Name>$APP</Name>
+    <Directory>$APP.directory</Directory>
+    <Include>
+    <Category>$APP</Category>
+    </Include>
+    </Menu>
+  </Menu> 
+</Menu> 
+EOF
+
+   case "$APP" in
+     Cartaro) APP_ICON=/usr/local/share/icons/logo-cartaro-48.png;;
+     Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
+     *) unset APP_ICON;;
+   esac
+
+   cat << EOF > "/usr/share/desktop-directories/$APP.directory"
+[Desktop Entry]
+Encoding=UTF-8
+Type=Directory
+Comment=
+Icon=$APP_ICON
+Name=$APP
+EOF
+
+done
+
+
 
 #### OpenStreetMap submenu
 APP=OpenStreetMap
