@@ -29,10 +29,10 @@ echo "==============================================================="
 echo "starting install_iris.sh"
 echo "==============================================================="
 
-yes | apt-get install git python-dev netcdf-bin libhdf5-serial-dev libnetcdf-dev libudunits2-dev \
-                     libgeos-dev libproj-dev libjasper-dev libfreetype6-dev libpng-dev tk-dev \
-                     python-tk cython python-scipy  python-nose python-pyke python-mock \
-                     python-sphinx python-shapely python-pip
+apt-get install -y python-dev netcdf-bin libhdf5-serial-dev libnetcdf-dev libudunits2-dev \
+                   libgeos-dev libproj-dev libjasper-dev libfreetype6-dev libpng-dev tk-dev \
+                   python-tk cython python-scipy  python-nose python-pyke python-mock \
+                   python-sphinx python-shapely python-pip
 
 # Install additional python packages using pip:
 pip install netCDF4 pyshp
@@ -80,6 +80,9 @@ python setup.py --with-unpack install
 touch /usr/local/lib/python2.7/dist-packages/Iris-1.4.0-py2.7-linux-i686.egg/iris/fileformats/_pyke_rules/compiled_krb/*
 
 # Tidy up
+apt-get remove python-dev libhdf5-serial-dev libnetcdf-dev \
+               libudunits2-dev libgeos-dev libproj-dev \
+	       libjasper-dev libfreetype6-dev libpng-dev tk-dev \
 rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/data
 rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/examples
 rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/sphinxext
