@@ -157,6 +157,7 @@ if [ ! -e /etc/sudoers.d/tomcat ] ; then
 %users ALL=(root) NOPASSWD: /usr/sbin/service tomcat6 start,/usr/sbin/service tomcat6 stop,/usr/sbin/service tomcat6 status
 EOF
 fi
+chmod 440 /etc/sudoers.d/tomcat
 
 # This is done on an extra step after rebooting and tmp is cleared
 #echo "==============================================================="
