@@ -211,8 +211,9 @@ mkdir -p -v "$USER_HOME/Desktop"
 
 # icon
 # Relies on launchassist in home dir
-if [ ! -e /usr/share/applications/52nWPS-start.desktop ] ; then
-   cat << EOF > /usr/share/applications/52nWPS-start.desktop
+mkdir -p /usr/local/share/applications
+if [ ! -e /usr/local/share/applications/52nWPS-start.desktop ] ; then
+   cat << EOF > /usr/local/share/applications/52nWPS-start.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -225,11 +226,11 @@ Terminal=false
 EOF
 fi
 #
-cp -v /usr/share/applications/52nWPS-start.desktop "$USER_HOME/Desktop/"
+cp -v /usr/local/share/applications/52nWPS-start.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nWPS-start.desktop"
 
-if [ ! -e /usr/share/applications/52nWPS-stop.desktop ] ; then
-   cat << EOF > /usr/share/applications/52nWPS-stop.desktop
+if [ ! -e /usr/local/share/applications/52nWPS-stop.desktop ] ; then
+   cat << EOF > /usr/local/share/applications/52nWPS-stop.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -242,7 +243,7 @@ Terminal=false
 EOF
 fi
 #
-cp -v /usr/share/applications/52nWPS-stop.desktop "$USER_HOME/Desktop/"
+cp -v /usr/local/share/applications/52nWPS-stop.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nWPS-stop.desktop"
 
 #
