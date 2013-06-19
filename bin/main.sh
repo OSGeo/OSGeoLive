@@ -155,6 +155,7 @@ for SCRIPT in \
   ./install_docs.sh \
   ./install_edutools.sh \
   ./install_desktop.sh \
+  ./install_icons_and_menus.sh \
   ./setdown.sh \
 ; do
 # echo "===================================================================="
