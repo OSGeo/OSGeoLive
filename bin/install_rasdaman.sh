@@ -261,6 +261,40 @@ mv /var/lib/tomcat6/webapps/petascope.war /var/lib/tomcat6/webapps/petascope_ear
 rm -rf /var/lib/tomcat6/webapps/petascope.war
 rm -rf /var/lib/tomcat6/webapps/petascope
 
+#
+#-------------------------------------------------------------------------------
+# create scripts to launch with tomcat
+#
+RASDAMAN_BIN_FOLDER="/usr/local/share/rasdaman"
+mkdir -p "$RASDAMAN_BIN_FOLDER"
+chgrp users "$RASDAMAN_BIN_FOLDER"
+
+if [ ! -e $RASDAMAN_BIN_FOLDER/rasdaman-start.sh ] ; then
+   cat << EOF > $RASDAMAN_BIN_FOLDER/rasdaman-start.sh
+#!/bin/bash
+STAT=\`sudo service tomcat6 status | grep pid\`
+if [ "\$STAT" = "" ]; then
+    sudo service tomcat6 start
+    (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") | zenity --progress --auto-close --text "Rasdaman starting"
+fi
+/usr/local/bin/start_rasdaman.sh
+EOF
+fi
+
+if [ ! -e $RASDAMAN_BIN_FOLDER/rasdaman-stop.sh ] ; then
+   cat << EOF > $RASDAMAN_BIN_FOLDER/rasdaman-stop.sh
+#!/bin/bash
+STAT=\`sudo service tomcat6 status | grep pid\`
+if [ "\$STAT" != "" ]; then
+    sudo service tomcat6 stop
+    zenity --info --text "Rasdaman stopped"
+fi
+/usr/local/bin/stop_rasdaman.sh
+EOF
+fi
+
+chmod 755 $RASDAMAN_BIN_FOLDER/rasdaman-start.sh
+chmod 755 $RASDAMAN_BIN_FOLDER/rasdaman-stop.sh
 
 #
 #-------------------------------------------------------------------------------
@@ -276,7 +310,7 @@ Encoding=UTF-8
 Name=Start Rasdaman Server
 Comment=Start Rasdaman Server
 Categories=Application;Education;Geography;
-Exec=/usr/local/bin/start_rasdaman.sh
+Exec=$RASDAMAN_BIN_FOLDER/rasdaman-start.sh
 Icon=gnome-globe
 Terminal=true
 StartupNotify=false
@@ -290,7 +324,7 @@ Encoding=UTF-8
 Name=Stop Rasdaman Server
 Comment=Stop Rasdaman Server
 Categories=Application;Education;Geography;
-Exec=/usr/local/bin/stop_rasdaman.sh
+Exec=$RASDAMAN_BIN_FOLDER/rasdaman-stop.sh
 Icon=gnome-globe
 Terminal=true
 StartupNotify=false
