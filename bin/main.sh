@@ -152,7 +152,7 @@ for SCRIPT in \
   ./install_gvsig.sh \
   ./install_tilemill.sh\
   ./load_gisdata.sh \
-  ./install_main_docs.sh \
+  ./install_docs.sh \
   ./install_edutools.sh \
   ./install_desktop.sh \
   ./setdown.sh \

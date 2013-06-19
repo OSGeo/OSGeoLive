@@ -20,10 +20,10 @@
 
 # Running:
 # =======
-# sudo ./install_main_docs.sh
+# sudo ./install_docs.sh
 
 echo "==============================================================="
-echo "install_main_docs.sh"
+echo "install_docs.sh"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -204,7 +204,7 @@ fi
 
 cd "$BIN_DIR"
 
-echo "install_main_docs.sh: Double-check that the Firefox \
+echo "install_docs.sh: Double-check that the Firefox \
 home page is now set to file://$DEST/index.html"
 # ~user/.mozilla/ has to exist first, so firefox would have need
 #   to been started at least once to set it up

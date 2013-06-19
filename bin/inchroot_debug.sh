@@ -139,10 +139,11 @@ export USER_NAME
 # ./install_i3geo.sh
 
 ./load_gisdata.sh
-./install_main_docs.sh
+./install_docs.sh
 ./install_edutools.sh
 
 ./install_desktop.sh
+./install_icons_and_menus.sh
 # ./install_language.sh
 ./setdown.sh
 

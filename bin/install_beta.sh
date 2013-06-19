@@ -57,10 +57,6 @@ for SCRIPT in \
   echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
 done
 
-
-##
-## Menu is now handled by install_desktop.sh ##
-
 exit 0
 
 
