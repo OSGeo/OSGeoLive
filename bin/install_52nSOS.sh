@@ -290,7 +290,6 @@ if [ "\$STAT" != "" ]; then
     sudo service tomcat6 stop
     zenity --info --text "52North SOS stopped"
 fi
-unset STAT
 EOF
 fi
 
