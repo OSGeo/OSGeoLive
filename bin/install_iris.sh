@@ -80,8 +80,9 @@ python setup.py --with-unpack install
 touch /usr/local/lib/python2.7/dist-packages/Iris-1.4.0-py2.7-linux-i686.egg/iris/fileformats/_pyke_rules/compiled_krb/*
 
 # Tidy up
-# rm -rf cartopy/tests
-# rm -rf cartopy/sphinxect
-# rm -rf cartopy/examples
-# rm -rf iris/tests
-# rm -rf /tmp/build_iris
+rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/data
+rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/examples
+rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/sphinxext
+rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/tests
+rm -rf /usr/local/lib/python2.7/dist-packages/Iris-1.4.0-py2.7-linux-i686.egg/iris/tests
+rm -rf /tmp/build_iris
