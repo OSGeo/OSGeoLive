@@ -40,6 +40,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat6"
 WPS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
+WPS_BIN_FOLDER="/usr/local/share/52nWPS"
 WPS_TAR_NAME="52nWPS-3.1.0.tar.gz"
 WPS_TAR_URL="http://52north.org/files/geoprocessing/OSGeoLiveDVD/"
 # when changing this, adjust the name in line 215, too,
@@ -165,6 +166,41 @@ if (test ! -d "$WPS_WAR_INSTALL_FOLDER/$WPS_WEB_APP_NAME") then
 else
 	echo "[$(date +%M:%S)]: $WPS_WEB_APP_NAME already installed in tomcat"
 fi
+
+#
+#
+#
+# Startup/Stop scripts set-up
+# =============================================================================
+mkdir -p "$WPS_BIN_FOLDER"
+chgrp users "$WPS_BIN_FOLDER"
+
+if [ ! -e $WPS_BIN_FOLDER/52nWPS-start.sh ] ; then
+   cat << EOF > $WPS_BIN_FOLDER/52nWPS-start.sh
+#!/bin/bash
+STAT=\`sudo service tomcat6 status | grep pid\`
+if [ "\$STAT" = "" ]; then
+    sudo service tomcat6 start
+    (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") | zenity --progress --auto-close --text "52North WPS starting"
+fi
+firefox $WPS_URL $WPS_QUICKSTART_URL $WPS_OVERVIEW_URL
+EOF
+fi
+
+if [ ! -e $WPS_BIN_FOLDER/52nWPS-stop.sh ] ; then
+   cat << EOF > $WPS_BIN_FOLDER/52nWPS-stop.sh
+#!/bin/bash
+STAT=\`sudo service tomcat6 status | grep pid\`
+if [ "\$STAT" != "" ]; then
+    sudo service tomcat6 stop
+    zenity --info --text "52North WPS stopped"
+fi
+EOF
+fi
+
+chmod 755 $WPS_BIN_FOLDER/52nWPS-start.sh
+chmod 755 $WPS_BIN_FOLDER/52nWPS-stop.sh
+
 #
 #
 #
@@ -183,7 +219,7 @@ Encoding=UTF-8
 Name=Start 52NorthWPS
 Comment=52North WPS
 Categories=Geospatial;Servers;
-Exec=firefox $WPS_URL $WPS_QUICKSTART_URL $WPS_OVERVIEW_URL
+Exec=$WPS_BIN_FOLDER/52nWPS-start.sh
 Icon=/usr/share/icons/$WPS_ICON_NAME
 Terminal=false
 EOF
@@ -191,6 +227,24 @@ fi
 #
 cp -v /usr/share/applications/52nWPS-start.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nWPS-start.desktop"
+
+if [ ! -e /usr/share/applications/52nWPS-stop.desktop ] ; then
+   cat << EOF > /usr/share/applications/52nWPS-stop.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Stop 52NorthWPS
+Comment=52North WPS
+Categories=Geospatial;Servers;
+Exec=$WPS_BIN_FOLDER/52nWPS-stop.sh
+Icon=/usr/share/icons/$WPS_ICON_NAME
+Terminal=false
+EOF
+fi
+#
+cp -v /usr/share/applications/52nWPS-stop.desktop "$USER_HOME/Desktop/"
+chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nWPS-stop.desktop"
+
 #
 # We just crossed the finish line
 #
