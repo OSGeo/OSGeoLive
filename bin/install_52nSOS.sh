@@ -167,9 +167,10 @@ tar xzf "$SOS_TAR_NAME"
 echo "[$(date +%M:%S)]: $SOS_TAR_NAME extracted"
 #
 # copy logo
-if [ ! -e "/usr/share/icons/$SOS_ICON_NAME" ] ; then
+mkdir -p /usr/local/share/icons
+if [ ! -e "/usr/local/share/icons/$SOS_ICON_NAME" ] ; then
    chmod 644 "$SOS_ICON_NAME"
-   mv -v "$SOS_ICON_NAME" /usr/share/icons/
+   mv -v "$SOS_ICON_NAME" /usr/local/share/icons/
 fi
 #
 #
@@ -306,8 +307,9 @@ mkdir -p -v "$USER_HOME/Desktop"
 
 # icon
 # Relies on launchassist in home dir
-if [ ! -e /usr/share/applications/52nSOS-start.desktop ] ; then
-   cat << EOF > /usr/share/applications/52nSOS-start.desktop
+mkdir -p /usr/local/share/applications
+if [ ! -e /usr/local/share/applications/52nSOS-start.desktop ] ; then
+   cat << EOF > /usr/local/share/applications/52nSOS-start.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -315,17 +317,17 @@ Name=Start 52NorthSOS
 Comment=52North SOS
 Categories=Geospatial;Servers;
 Exec=$SOS_BIN_FOLDER/52nSOS-start.sh
-Icon=/usr/share/icons/$SOS_ICON_NAME
+Icon=/usr/local/share/icons/$SOS_ICON_NAME
 Terminal=false
 EOF
 fi
 
 #
-cp -v /usr/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
+cp -v /usr/local/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
 
-if [ ! -e /usr/share/applications/52nSOS-stop.desktop ] ; then
-   cat << EOF > /usr/share/applications/52nSOS-stop.desktop
+if [ ! -e /usr/local/share/applications/52nSOS-stop.desktop ] ; then
+   cat << EOF > /usr/local/share/applications/52nSOS-stop.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -333,12 +335,12 @@ Name=Stop 52NorthSOS
 Comment=52North SOS
 Categories=Geospatial;Servers;
 Exec=$SOS_BIN_FOLDER/52nSOS-stop.sh
-Icon=/usr/share/icons/$SOS_ICON_NAME
+Icon=/usr/local/share/icons/$SOS_ICON_NAME
 Terminal=false
 EOF
 fi
 
-cp -v /usr/share/applications/52nSOS-stop.desktop "$USER_HOME/Desktop/"
+cp -v /usr/local/share/applications/52nSOS-stop.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-stop.desktop"
 
 #
