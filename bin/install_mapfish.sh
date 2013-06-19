@@ -134,23 +134,68 @@ Include $MAPFISH_INSTALL_DIR/MapfishSample/apache/*.conf
 EOF
 apache2ctl restart
 
+# install startup/shutdown scripts for tomcat
+
+if [ ! -e $MAPFISH_INSTALL_DIR/mapfish-start.sh ] ; then
+   cat << EOF > $MAPFISH_INSTALL_DIR/mapfish-start.sh
+#!/bin/bash
+STAT=\`sudo service tomcat6 status | grep pid\`
+if [ "\$STAT" = "" ]; then
+    sudo service tomcat6 start
+    (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") | zenity --progress --auto-close --text "MapFish starting"
+fi
+sensible-browser http://localhost/mapfishsample/osgeolive/wsgi/
+EOF
+fi
+
+if [ ! -e $MAPFISH_INSTALL_DIR/mapfish-stop.sh ] ; then
+   cat << EOF > $MAPFISH_INSTALL_DIR/mapfish-stop.sh
+#!/bin/bash
+STAT=\`sudo service tomcat6 status | grep pid\`
+if [ "\$STAT" != "" ]; then
+    sudo service tomcat6 stop
+    zenity --info --text "MapFish stopped"
+fi
+EOF
+fi
+
+chmod 755 $MAPFISH_INSTALL_DIR/mapfish-start.sh
+chmod 755 $MAPFISH_INSTALL_DIR/mapfish-stop.sh
+
 # install menu and desktop shortcuts
 wget -nv -P $MAPFISH_INSTALL_DIR http://www.mapfish.org/downloads/foss4g_livedvd/mapfish.png
-cat << EOF > /usr/share/applications/MapFish.desktop
+mkdir -p /usr/local/share/applications
+cat << EOF > /usr/local/share/applications/MapFish-start.desktop
 [Desktop Entry]
 Version=1.0
 Encoding=UTF-8
 Type=Application
-Name=MapFish
+Name=MapFish Start
 Comment=View MapFish sample application in browser
 Categories=Application;Geography;Geoscience;Education;
-Exec=sensible-browser http://localhost/mapfishsample/osgeolive/wsgi/
+Exec=$MAPFISH_INSTALL_DIR/mapfish-start.sh
 Icon=/usr/local/lib/mapfish/mapfish.png
 Terminal=false
 StartupNotify=false
 EOF
-cp /usr/share/applications/MapFish.desktop "$USER_HOME/Desktop/"
-chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/MapFish.desktop"
+cp /usr/local/share/applications/MapFish-start.desktop "$USER_HOME/Desktop/"
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/MapFish-start.desktop"
+
+cat << EOF > /usr/local/share/applications/MapFish-stop.desktop
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=MapFish Stop
+Comment=View MapFish sample application in browser
+Categories=Application;Geography;Geoscience;Education;
+Exec=$MAPFISH_INSTALL_DIR/mapfish-stop.sh
+Icon=/usr/local/lib/mapfish/mapfish.png
+Terminal=false
+StartupNotify=false
+EOF
+cp /usr/local/share/applications/MapFish-stop.desktop "$USER_HOME/Desktop/"
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/MapFish-stop.desktop"
 
 #cleanup
 #  nah, we'll want them for other things later (e.g. libgdal-dev)
