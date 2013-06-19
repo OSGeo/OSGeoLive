@@ -275,9 +275,9 @@ if [ ! -e $RASDAMAN_BIN_FOLDER/rasdaman-start.sh ] ; then
 STAT=\`sudo service tomcat6 status | grep pid\`
 if [ "\$STAT" = "" ]; then
     sudo service tomcat6 start
-    (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") | zenity --progress --auto-close --text "Rasdaman starting"
 fi
 /usr/local/bin/start_rasdaman.sh
+zenity --info --text "Rasdaman started"
 EOF
 fi
 
@@ -287,9 +287,9 @@ if [ ! -e $RASDAMAN_BIN_FOLDER/rasdaman-stop.sh ] ; then
 STAT=\`sudo service tomcat6 status | grep pid\`
 if [ "\$STAT" != "" ]; then
     sudo service tomcat6 stop
-    zenity --info --text "Rasdaman stopped"
 fi
 /usr/local/bin/stop_rasdaman.sh
+zenity --info --text "Rasdaman stopped"
 EOF
 fi
 
