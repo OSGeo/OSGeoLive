@@ -112,8 +112,6 @@ export USER_NAME
 # ./install_prune.sh
 # ./install_viking.sh
 # ./install_zygrib.sh
-# ./install_geopublisher.sh
-# ./install_atlasstyler.sh
 # ./install_liblas.sh
 # ./install_gpsdrive.sh
 # ./install_mapfish.sh
@@ -137,6 +135,7 @@ export USER_NAME
 # ./install_eoxserver.sh
 # ./install_cartaro.sh
 # ./install_i3geo.sh
+# ./install_iris.sh
 
 ./load_gisdata.sh
 ./install_docs.sh
@@ -144,7 +143,6 @@ export USER_NAME
 
 ./install_desktop.sh
 ./install_icons_and_menus.sh
-# ./install_language.sh
 ./setdown.sh
 
 
