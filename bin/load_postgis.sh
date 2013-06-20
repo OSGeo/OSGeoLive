@@ -25,8 +25,9 @@
 # Mark Leslie <mark.s.leslie@gmail.com>
 #
 
+SCRIPT="load_postgis.sh"
 echo "==============================================================="
-echo "load_postgis.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -111,3 +112,9 @@ sudo -u $POSTGRES_USER psql osm_local \
 
 
 #Add additional data sources here, be sparing to minimize duplication of data.
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
