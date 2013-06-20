@@ -19,9 +19,9 @@
 # Running:
 # =======
 # sudo /etc/init.d/apache2 start
-
+SCRIPT="install_apache2.sh"
 echo "==============================================================="
-echo "install_apache2.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 apt-get install --yes apache2
@@ -36,3 +36,9 @@ adduser "$USER_NAME" www-data
 
 mkdir -p /var/www
 wget -nv http://www.osgeo.org/favicon.ico -O /var/www/favicon.ico
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

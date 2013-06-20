@@ -51,8 +51,9 @@
 # =======
 # sudo ./install_geonetwork.sh
 
+SCRIPT="install_geonetwork.sh"
 echo "==============================================================="
-echo "install_geonetwork.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 GEONETWORK_VERSION=2.10.0-0
@@ -173,4 +174,8 @@ done
 #cp GeoNetwork_opensource_v264_Manual.pdf $USER_HOME/Desktop
 #chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/GeoNetwork_opensource_v264_Manual.pdf
 
-
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

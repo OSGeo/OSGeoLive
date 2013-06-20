@@ -28,8 +28,9 @@
 # ============
 # sudo rm -rf /var/www/ushahidi/
 
+SCRIPT="install_ushahidi.sh"
 echo "==============================================================="
-echo "install_ushahidi.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # live disc's username is "user"
@@ -143,4 +144,8 @@ EOF
 fi
 cp /usr/share/applications/ushahidi.desktop "$USER_HOME/Desktop/"
 
-echo "Done installing Ushahidi"
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

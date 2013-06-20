@@ -37,8 +37,9 @@
 # =======
 # sudo ./install_openjump.sh [--clean,--force]
 
+SCRIPT="install_openjump.sh"
 echo "==============================================================="
-echo "install_openjump.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # dns trouble? test if we can see it
@@ -158,4 +159,8 @@ mkdir -p $(dirname "$PKG_DATA_SAMPLES_LINK") &&\
 ln -s "$PKG_DATA_SAMPLES" \
       "$PKG_DATA_SAMPLES_LINK"
 
-
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

@@ -29,8 +29,9 @@
 #       Unlimited Route/Mark creation
 #
 
+SCRIPT="install_opencpn.sh"
 echo "==============================================================="
-echo "install_opencpn.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # live disc's username is "user"
@@ -309,4 +310,8 @@ fi
 # http://opencpn.org/docwiki
 #  ?
 # just point to /usr/local/share/opencpn/doc/help.html
-
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

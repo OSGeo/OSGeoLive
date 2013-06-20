@@ -29,8 +29,9 @@
 # sudo rm -rf /usr/local/share/mapserver/
 # sudo rm -rf /usr/local/www/docs_maps
 
+SCRIPT="install_mapserver.sh"
 echo "==============================================================="
-echo "install_mapserver.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # live disc's username is "user"
@@ -140,3 +141,8 @@ ln -s /usr/local/share/mapserver/demos/itasca/data \
 cd "$MAPSERVER_DATA"/doc/_static/
 rm -rf `find | grep '/\.svn'`
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

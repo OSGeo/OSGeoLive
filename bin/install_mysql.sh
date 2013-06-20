@@ -16,10 +16,10 @@
 # =====
 # This script will install mysql (put it up front because it has an interactive prompt)
 
+SCRIPT="install_mysql.sh"
 echo "==============================================================="
-echo "install_mysql.sh"
+echo "$SCRIPT"
 echo "==============================================================="
-
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -153,3 +153,9 @@ exit 0
 # Replacement:
 #    MySql-Workbench: Wants 21mb compressed, or 62mb uncompressed, disc space.
 apt-get --assume-yes install mysql-workbench ttf-bitstream-vera
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

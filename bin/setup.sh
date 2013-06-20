@@ -21,8 +21,9 @@
 # =======
 # sudo ./setup.sh
 
+SCRIPT="setup.sh"
 echo "==============================================================="
-echo "setup.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -210,3 +211,8 @@ chown "$USER_NAME":"$USER_NAME" "$USER_HOME"/.inputrc
 cp "$USER_HOME"/.inputrc /etc/skel/
 cp "$USER_HOME"/.inputrc /root/
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

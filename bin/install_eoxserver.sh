@@ -21,8 +21,9 @@
 # =======
 # sudo ./install_eoxserver.sh
 
+SCRIPT="install_eoxserver.sh"
 echo "==============================================================="
-echo "install_eoxserver.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 echo "Starting EOxServer installation"
@@ -265,5 +266,8 @@ mkdir -p /usr/local/share/data/raster
 cd /usr/local/share/data/raster
 ln -s "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris .
 
-
-echo "Finished EOxServer installation"
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

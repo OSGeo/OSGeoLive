@@ -26,8 +26,9 @@
 # sudo rm -rf /var/www/ms_tmp
 # sudo rm -rf /tmp/ms_tmp
 
+SCRIPT="install_i3geo.sh"
 echo "==============================================================="
-echo "install_i3geo.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 #Repository url
@@ -173,4 +174,8 @@ fi
 #sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/geography_regions_polys.map
 #sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/estadosl.map
 
-echo "i3geo installation Done!"
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

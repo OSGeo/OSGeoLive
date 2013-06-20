@@ -18,8 +18,9 @@
 #    GpsDrive homepage: http://www.gpsdrive.de
 #
 
+SCRIPT="install_gpsdrive.sh"
 echo "==============================================================="
-echo "install_gpsdrive.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 CITY=Nottingham
@@ -410,3 +411,8 @@ fi
 ##
 ## end self-build
 #######################
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

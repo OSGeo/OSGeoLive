@@ -23,8 +23,9 @@
 # Requires: Sun Java {6|7} compatible runtime
 #
 
+SCRIPT="install_geoserver.sh"
 echo "==============================================================="
-echo "install_geoserver.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 TMP="/tmp/build_geoserver"
@@ -252,3 +253,8 @@ cp /usr/local/share/gisvm/app-data/geoserver/ne_10m*.sld \
 echo "Cleaning up Jetty JSP cache in /tmp"
 rm -rf /tmp/Jetty*geoserver*
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

@@ -16,8 +16,9 @@
 # =====
 # This script will install Jave JRE and Java JDK
 
+SCRIPT="install_java.sh"
 echo "==============================================================="
-echo "install_java.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 #apt-get install --yes default-jdk default-jre
@@ -38,3 +39,9 @@ exit
 ### see if we can reinstall this without bringing in the kitchen sink
 ###   otherwise we'll drop it
 #apt-get --assume-yes install pdftk
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

@@ -25,8 +25,9 @@
 
 #Add repositories
 
+SCRIPT="install_osgearth.sh"
 echo "==============================================================="
-echo "install_osgearth.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
@@ -61,3 +62,8 @@ ln -s /usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf \
 ln -s /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf \
   /usr/share/osgearth/fonts/times.ttf
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

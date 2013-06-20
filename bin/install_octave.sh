@@ -17,10 +17,16 @@
 # This script will install Octave and the Octave Mapping toolbox
 #  
 
+SCRIPT="install_octave.sh"
 echo "==============================================================="
-echo "install_octave.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 apt-get install --yes octave3.2 octave-mapping gnuplot
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
 

@@ -20,8 +20,9 @@
 # =======
 # sudo /etc/init.d tomcat6 start
 
+SCRIPT="install_tomcat6.sh"
 echo "==============================================================="
-echo "install_tomcat6.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 apt-get install --yes tomcat6 tomcat6-admin
@@ -45,3 +46,9 @@ chown tomcat6:tomcat6 /etc/tomcat6/tomcat-users.xml
 # something screwed up with the ISO permissions:
 chgrp tomcat6 /usr/share/tomcat6/bin/*.sh
 adduser "$USER_NAME" tomcat6
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

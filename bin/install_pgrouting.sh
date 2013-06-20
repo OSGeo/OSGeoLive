@@ -35,8 +35,9 @@
 # =======
 # sudo ./install_pgrouting.sh
 
+SCRIPT="install_pgrouting.sh"
 echo "==============================================================="
-echo "install_pgrouting.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -130,4 +131,8 @@ fi
 # the IPv4 host pgsql permissions to 'trust' in pg_hpa.conf. but we
 # don't want to do that by default.
 
-echo "Finished installing pgRouting and osm2pgrouting."
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

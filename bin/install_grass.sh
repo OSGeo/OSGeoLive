@@ -21,8 +21,9 @@
 # this does not attempt to install QGIS-plugin infrastructure, that is
 #  done in install_qgis.sh
 
+SCRIPT="install_grass.sh"
 echo "==============================================================="
-echo "install_grass.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # live disc's username is "user"
@@ -249,6 +250,9 @@ EOF
    update-menus
 fi
 
-
-echo "Finished installing GRASS $INSTALLED_VERSION."
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
 

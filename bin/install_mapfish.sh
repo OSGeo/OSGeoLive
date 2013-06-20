@@ -21,8 +21,9 @@
 # =======
 # sudo ./install_mapfish.sh
 
+SCRIPT="install_mapfish.sh"
 echo "==============================================================="
-echo "install_mapfish.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -200,3 +201,9 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/MapFish-stop.desktop"
 #cleanup
 #  nah, we'll want them for other things later (e.g. libgdal-dev)
 #apt-get --assume-yes remove libpq-dev python-dev
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

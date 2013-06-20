@@ -20,8 +20,9 @@
 # =======
 # qgis
 
+SCRIPT="install_qgis.sh"
 echo "==============================================================="
-echo "install_qgis.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -243,6 +244,8 @@ tail -n +3 "$CONFFILE" > "$TMPFILE".b
 cat "$TMPFILE" "$TMPFILE".b > "$CONFFILE"
 rm -f "$TMPFILE" "$TMPFILE".b
 
-
-
-echo "Finished installing QGIS $INSTALLED_VERSION."
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

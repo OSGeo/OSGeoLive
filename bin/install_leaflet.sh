@@ -16,11 +16,15 @@
 # =====
 # This script will install leaflet
 
+SCRIPT="install_leaflet.sh"
 echo "==============================================================="
-echo "install_leaflet.sh"
+echo "$SCRIPT"
 echo "==============================================================="
-
 
 apt-get --assume-yes install libjs-leaflet
 
-
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

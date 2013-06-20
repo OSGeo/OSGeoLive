@@ -7,8 +7,9 @@
 # Copyright (c) 2010 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 
+SCRIPT="install_mapproxy.sh"
 echo "==============================================================="
-echo "install_mapproxy.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -287,3 +288,9 @@ adduser "$USER_NAME" users
 
 #snafu'd ownership
 chown -R root.root "$MAPPROXY_DIR/docs/"
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

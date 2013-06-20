@@ -50,8 +50,9 @@
 #   * Changed to the "with-jre" version because the Xubuntu 9.10 version
 #     doesn't have the packages of Java 1.5
 
+SCRIPT="install_gvsig.sh"
 echo "==============================================================="
-echo "install_gvsig.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # live disc's username is "user"
@@ -131,4 +132,8 @@ wget --progress=dot:binary \
 cp -r "$USER_HOME/gvSIG" /etc/skel
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
 
-echo "gvSIG installation Done!"
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

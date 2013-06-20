@@ -23,9 +23,9 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # the web page "http://www.fsf.org/licenses/lgpl.html".
 ##################################################
-
+SCRIPT="load_gisdata.sh"
 echo "==============================================================="
-echo "load_gisdata.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 TMP="/tmp/build_gisdata"
@@ -243,3 +243,8 @@ unset OSSIM_PREFS_FILE
 
 chown -R root.root "$DATA_FOLDER"/north_carolina
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

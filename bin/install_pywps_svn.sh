@@ -26,8 +26,9 @@
 # sudo rm -r /var/www/pywps
 # sudo rm -r /etc/apache2/conf.d/pywps
 
+SCRIPT="install_pywps.sh"
 echo "==============================================================="
-echo "install_pywps.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # live disc's username is "user"
@@ -180,3 +181,8 @@ cp /usr/share/applications/pywps.desktop "$USER_HOME/Desktop/"
 # Reload Apache
 /etc/init.d/apache2 force-reload
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

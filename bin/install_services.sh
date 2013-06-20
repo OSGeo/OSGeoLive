@@ -16,8 +16,9 @@
 # =====
 # This script will install ssh and VNC services
 
+SCRIPT="install_services.sh"
 echo "==============================================================="
-echo "install_services.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 apt-get --assume-yes install vnc4server
@@ -49,3 +50,9 @@ if [ `grep -c 'ssh_host' /etc/rc.local` -eq 0 ] ; then
     echo >> /etc/rc.local
     echo "exit 0" >> /etc/rc.local
 fi
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

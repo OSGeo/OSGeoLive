@@ -18,8 +18,9 @@
 #    MB-System homepage: http://www.ldeo.columbia.edu/res/pi/MB-System/
 #    DebianGIS packaging: http://anonscm.debian.org/viewvc/pkg-grass/packages/mbsystem/trunk/debian/
 
+SCRIPT="install_mb-system.sh"
 echo "==============================================================="
-echo "install_mb-system.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # live disc's username is "user"
@@ -118,5 +119,9 @@ cp mbcookbook.pdf /usr/local/mbsystem/
 # symlink into the livedvd's common data dir
 ln -s /usr/local/mbsystem /usr/local/share/mbsystem
 
-echo "Finished installing MB System."
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
 

@@ -7,8 +7,9 @@
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL >= 2.1.
 
+SCRIPT="install_ossim.sh"
 echo "==============================================================="
-echo "install_ossim.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -370,4 +371,8 @@ chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 #### cleanup
 rm -rf "$QUICKSTART"/.svn
 
-echo "Finished installing Ossim"
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

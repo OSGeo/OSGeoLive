@@ -33,8 +33,9 @@
 #see also
 # http://eden.sahanafoundation.org/wiki/InstallationGuidelinesLinux
 
+SCRIPT="install_sahana.sh"
 echo "==============================================================="
-echo "install_sahana.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # Check for Root User
@@ -399,3 +400,8 @@ apt-get --assume-yes remove python-dev
 rm -rf "$INSTALL_DIR/web2py/.git"*
 rm -rf "$INSTALL_DIR/web2py/applications/eden/.git"*
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

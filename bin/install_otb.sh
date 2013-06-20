@@ -21,8 +21,9 @@
 # monteverdi
 # TODO: list all the apps, preferably Qt versions in /usr/bin/?
 
+SCRIPT="install_otb.sh"
 echo "==============================================================="
-echo "install_otb.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -83,4 +84,9 @@ fi
 #TODO install otb qgis plugins when it will be available with debian packages
 #hg clone http://hg.orfeo-toolbox.org/OTB-QGis-plugins
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
 

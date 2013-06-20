@@ -20,8 +20,9 @@
 # =======
 # sudo ./install_qgis_mapserver.sh
 
+SCRIPT="install_qgis_mapserver.sh"
 echo "==============================================================="
-echo "install_qgis_mapserver.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 TMP="/tmp/build_qgis_mapserver"
@@ -66,3 +67,9 @@ EOF
 
 cp -a /usr/share/applications/qgis-mapserver.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/qgis-mapserver.desktop"
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

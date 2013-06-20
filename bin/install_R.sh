@@ -31,8 +31,9 @@
 # =======
 # sudo ./install_PyDep_and_R.sh
 
+SCRIPT="install_R.sh"
 echo "==============================================================="
-echo "install_R.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -128,3 +129,9 @@ cp -f *.pdf /usr/local/lib/R/site-library/spgrass6/doc/
 mkdir -p /usr/local/share/data/vector
 ln -s /usr/local/lib/R/site-library/rgdal/vectors \
    /usr/local/share/data/vector/R
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

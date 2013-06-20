@@ -26,8 +26,9 @@
 # sudo /etc/init.d/postgresql-9.1 start
 #
 
+SCRIPT="install_postgis.sh"
 echo "==============================================================="
-echo "install_postgis.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -107,3 +108,9 @@ done
 
 ### load data ###
 #see load_postgis.sh
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

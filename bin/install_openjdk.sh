@@ -20,8 +20,9 @@
 #apt-get install openjdk-7-jre icedtea-plugin ttf-dejavu-extra
 #  (icedtea is now to be dropped?)
 
+SCRIPT="install_openjdk.sh"
 echo "==============================================================="
-echo "install_openjdk.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -43,3 +44,9 @@ if [ `grep -c JAVA_HOME "$USER_HOME/.profile"` -eq 0 ] ; then
 
 EOF
 fi
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

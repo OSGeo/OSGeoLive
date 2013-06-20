@@ -21,8 +21,9 @@
 # sudo service apache2 start
 # Then open a web browser and go to http://localhost/openLayers/
 
+SCRIPT="install_openlayers.sh"
 echo "==============================================================="
-echo "install_openlayers.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 TMP_DIR="/tmp/build_openlayers"
@@ -80,6 +81,9 @@ chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/openlayers.desktop"
 
 #TODO: Create local example that uses data from the many wms/wfs sources on the live disc
 
-
-echo "Finished installing OpenLayers $OL_VERSION."
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
 

@@ -28,8 +28,9 @@
 # ============
 # sudo rm -rf /var/www/mapbender3
 
+SCRIPT="install_mapbender3.sh"
 echo "==============================================================="
-echo "install_mapbender3.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # live disc's username is "user"
@@ -156,5 +157,8 @@ fi
 cp /usr/local/share/applications/mapbender3.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/mapbender3.desktop"
 
-
-echo "Done installing Mapbender3"
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

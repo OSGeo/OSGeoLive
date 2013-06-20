@@ -20,6 +20,14 @@
 #  eric is a full featured Python IDE written in PyQt.
 #apt-get --assume-yes install eric
 
+SCRIPT="install_edutools.sh"
 echo "==============================================================="
-echo "install_edutools.sh"
+echo "$SCRIPT"
+echo "==============================================================="
+
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
 echo "==============================================================="

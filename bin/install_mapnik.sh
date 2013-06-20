@@ -22,8 +22,9 @@
 # rm -rf /usr/local/share/mapnik/
 # rm /usr/local/bin/liteserv.py
 
+SCRIPT="install_mapnik.sh"
 echo "==============================================================="
-echo "install_mapnik.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # package name change in precise
@@ -135,3 +136,8 @@ rm -f /usr/local/share/data/vector/world_merc
 ln -s /usr/local/share/mapnik/demo \
       /usr/local/share/data/vector/world_merc
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

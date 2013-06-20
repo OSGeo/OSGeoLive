@@ -28,8 +28,9 @@
 #
 # Start off with the Xfce keyboard layout configuration tool
 
+SCRIPT="install_language.sh"
 echo "==============================================================="
-echo "install_language.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 ### ubuntu 11.04: xfkc no longer exists:
@@ -81,3 +82,8 @@ dpkg-reconfigure locales
 
 #TODO: allow select at boot splash screen
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

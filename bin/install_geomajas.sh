@@ -13,8 +13,9 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 
+SCRIPT="install_geomajas.sh"
 echo "==============================================================="
-echo "install_geomajas.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # =============================================================================
@@ -160,4 +161,8 @@ ln -s /usr/lib/geomajas-1.8.0-bin/webapps/showcase/WEB-INF/classes/org/geomajas/
 # remove local jai libraries to work with ones provided in default-java (fix for #959)
 rm "$GEOMAJAS_HOME"/webapps/showcase/WEB-INF/lib/jai*.jar
 
-
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

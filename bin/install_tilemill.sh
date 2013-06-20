@@ -20,8 +20,9 @@
 # Need to get 68.4 MB of archives.
 # After this operation, 186 MB of additional disk space will be used.
 
+SCRIPT="install_tilemill.sh"
 echo "==============================================================="
-echo "install_tilemill.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # live disc's username is "user"
@@ -102,4 +103,8 @@ cd build/
 # ... final install continued here:
 # http://mapbox.com/tilemill/docs/guides/osm-bright-ubuntu-quickstart/
 
-
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

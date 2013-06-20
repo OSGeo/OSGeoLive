@@ -20,8 +20,9 @@
 # =======
 # sudo ./install_tinyows.sh
 
+SCRIPT="install_tinyows.sh"
 echo "==============================================================="
-echo "install_tinyows.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -48,3 +49,9 @@ fi
 #Setup sample config
 ### HB: put into /usr/local/share/tinyows/ and not /etc?
 cp ../app-conf/tinyows/tinyows.xml /etc/
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

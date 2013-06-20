@@ -22,8 +22,9 @@
 # or contact Peter Baumann via <baumann@rasdaman.com>.     
 #
 
+SCRIPT="install_rasdaman.sh"
 echo "==============================================================="
-echo "install_rasdaman.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # 1 = install everything
@@ -398,3 +399,9 @@ if [ $? -ne 0 ]; then
   start_rasdaman.sh
 fi
 service tomcat6 start
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

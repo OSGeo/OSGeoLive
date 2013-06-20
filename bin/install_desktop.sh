@@ -19,8 +19,9 @@
 # The menu creation and icon sorting has moved to install_icons_and_menus.sh
 #
 
+SCRIPT="install_desktop.sh"
 echo "==============================================================="
-echo "install_desktop.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # Running:
@@ -272,3 +273,9 @@ EOF
   # apply the changes to the dconf DB
   dconf update
 fi
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

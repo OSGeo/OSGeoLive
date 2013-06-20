@@ -20,8 +20,9 @@
 # =======
 # sudo ./setdown.sh 2>&1 | tee /var/log/osgeolive/setdown.log
 
+SCRIPT="setdown.sh"
 echo "==============================================================="
-echo "setdown.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -165,5 +166,7 @@ chmod 440 /etc/sudoers.d/tomcat
 #cat /dev/zero > zero.fill ; sync ; sleep 1 ; sync ; rm -f zero.fill
 
 echo "==============================================================="
-echo "Finished setdown.sh. Copy backup files and logs to the host system with:"
-echo "scp -pr /tmp/$VERSION username@hostname:/directory"
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

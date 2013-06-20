@@ -36,8 +36,9 @@
 # =======
 # sudo ./install_geokettle.sh
 
+SCRIPT="install_geokettle.sh"
 echo "==============================================================="
-echo "install_geokettle.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 TMP="/tmp/build_geokettle"
@@ -118,3 +119,8 @@ mkdir -p /usr/local/share/data/vector
 ln -s /opt/geokettle/samples/transformations/geokettle/files \
       /usr/local/share/data/vector/geokettle
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

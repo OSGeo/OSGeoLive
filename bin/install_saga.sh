@@ -8,8 +8,9 @@
 # Licensed under the GNU LGPL.
 # lucid: saga 2.0.4 is provided in ubuntugis and ubuntugis/unstable
 
+SCRIPT="install_saga.sh"
 echo "==============================================================="
-echo "install_saga.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -44,3 +45,9 @@ wget -nv http://zadeh.ugent.be/~johan/saga/saga_gui.desktop \
 
 cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/saga_gui.desktop"
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

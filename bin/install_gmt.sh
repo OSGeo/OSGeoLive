@@ -18,8 +18,9 @@
 #    GMT homepage: http://gmt.soest.hawaii.edu/
 #
 
+SCRIPT="install_gmt.sh"
 echo "==============================================================="
-echo "install_gmt.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # live disc's username is "user"
@@ -56,6 +57,9 @@ PATH="\$PATH:/usr/lib/gmt/bin"
 export PATH
 EOF
 
-
-echo "Finished installing GMT."
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
 

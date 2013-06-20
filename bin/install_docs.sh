@@ -22,8 +22,9 @@
 # =======
 # sudo ./install_docs.sh
 
+SCRIPT="install_docs.sh"
 echo "==============================================================="
-echo "install_docs.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -320,3 +321,8 @@ fi
 ln -s /usr/local/share/doc/Getting_Started_with_Ubuntu_12.04.pdf \
   "$USER_HOME/Desktop/Getting Started with Ubuntu.pdf"
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

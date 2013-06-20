@@ -16,8 +16,9 @@
 # =====
 # This script will install the zyGrib viewer (1.4mb installed)
 
+SCRIPT="install_zygrib.sh"
 echo "==============================================================="
-echo "install_zygrib.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -50,3 +51,8 @@ cp /usr/local/share/applications/zyGrib.desktop \
 # de-uppercase the executable
 ln -s /usr/local/bin/zyGrib /usr/local/bin/zygrib
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

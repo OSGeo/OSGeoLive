@@ -7,8 +7,9 @@
 # Copyright (c) 2010 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 
+SCRIPT="install_maptiler.sh"
 echo "==============================================================="
-echo "install_maptiler.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 TMP="/tmp/build_maptiler"
@@ -89,3 +90,8 @@ echo " 4. Once the render is finished you can click in the GUI to open a folder 
 echo ""
 echo "The map tiles are displayed directly from your disk. To publish the map to Internet just upload the folder with tiles to any webserver or Amazon S3" 
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

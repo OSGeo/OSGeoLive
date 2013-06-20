@@ -20,8 +20,9 @@
 # =======
 # sudo ./install_spatialite.sh
 
+SCRIPT="install_spatialite.sh"
 echo "==============================================================="
-echo "install_spatialite.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 BUILD_TMP="/tmp/build_spatialite"
@@ -151,3 +152,8 @@ cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.png \
 #rm -rf "$BUILD_TMP"
 apt-get --yes remove $DEV_PKGS
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

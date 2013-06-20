@@ -19,9 +19,9 @@
 # All the member-project's install_project.sh script has to do is place
 # the icon on the Desktop, this script does the rest.
 
-
+SCRIPT="install_icons_and_menus.sh"
 echo "==============================================================="
-echo "install_icons_and_menus.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # Running:
@@ -407,3 +407,8 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$WORKSHOP_INSTALL_FILE"
 chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/" -R
 chmod a+r "$USER_HOME/Desktop/" -R
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

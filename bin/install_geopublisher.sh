@@ -26,8 +26,9 @@
 # =======
 # Any Java 1.6, Sun preferred
 
+SCRIPT="install_geopublisher.sh"
 echo "==============================================================="
-echo "install_geopublisher.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
@@ -62,3 +63,8 @@ mkdir -p /usr/local/share/data/vector
 ln -s /usr/share/doc/geopublishing-doc/tutorial_Geopublisher_1 \
       /usr/local/share/data/vector/geopublisher
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

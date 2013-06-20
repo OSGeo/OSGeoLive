@@ -28,9 +28,9 @@
 #
 # Variables
 # -----------------------------------------------------------------------------
-
+SCRIPT="install_52nWPS.sh"
 echo "==============================================================="
-echo "install_52nWPS.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 TMP="/tmp/build_52nWPS"
@@ -249,7 +249,9 @@ chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nWPS-stop.desktop"
 #
 # We just crossed the finish line
 #
-echo "[$(date +%M:%S)]                                                         "
-echo "                         52nWPS install finished                         "
-echo "#########################################################################"
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
 

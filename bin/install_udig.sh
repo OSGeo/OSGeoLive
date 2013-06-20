@@ -29,8 +29,9 @@
 # =======
 # sudo ./install_udig.sh
 
+SCRIPT="install_udig.sh"
 echo "==============================================================="
-echo "install_udig.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 TMP="/tmp/build_udig"
@@ -180,3 +181,8 @@ cp "$REL_DOC" "$DOCS_FOLDER/udig-docs"
 cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
 cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

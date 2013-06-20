@@ -34,8 +34,9 @@
 # sudo rm -rf /usr/share/applications/zoo-project.desktop
 # sudo rm -rf /home/user/Desktop/Servers/zoo-project.desktop
 
+SCRIPT="install_zoo-project.sh"
 echo "==============================================================="
-echo "install_zoo-project.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # live disc's username is "user"
@@ -109,3 +110,9 @@ ldconfig
 
 # Reload Apache
 /etc/init.d/apache2 force-reload
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

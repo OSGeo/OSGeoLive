@@ -25,8 +25,9 @@
 # sudo ./install_iris.sh
 #
 
+SCRIPT="install_iris.sh"
 echo "==============================================================="
-echo "starting install_iris.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 apt-get install -y python-dev netcdf-bin libhdf5-serial-dev libnetcdf-dev libudunits2-dev \
@@ -89,3 +90,9 @@ rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/sphinxext
 rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/tests
 rm -rf /usr/local/lib/python2.7/dist-packages/Iris-1.4.0-py2.7-linux-i686.egg/iris/tests
 rm -rf /tmp/build_iris
+
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="

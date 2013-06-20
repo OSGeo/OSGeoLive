@@ -28,8 +28,9 @@
 # =======
 # sudo ./install_liblas.sh
 
+SCRIPT="install_liblas.sh"
 echo "==============================================================="
-echo "install_liblas.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 # todo: remove as user is unused by this script.
@@ -176,4 +177,8 @@ apt-get --yes remove libboost1.46-dev libboost-program-options-dev \
 apt-get --yes autoremove
 echo "FIXME: (libLAS) make sure we haven't lost any important automatically installed pkgs"
 
-
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
