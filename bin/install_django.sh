@@ -30,6 +30,13 @@ echo "Starting Django installation"
 # Need at least version 1.5 for PostGIS 2.0 support.
 DJVER="1.5.1"
 
+# Prevent installation via apt since needed version is not available as deb.
+cat << EOF >> /etc/apt/preferences
+Package: python-django
+Pin: release *
+Pin-Priority: -1
+EOF
+
 apt-get --assume-yes install python-pip
     
 pip install --upgrade Django=="$DJVER"
