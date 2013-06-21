@@ -188,6 +188,12 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/gpsdrive.desktop"
 
 echo "Finished installing GpsDrive."
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
+
 exit
 
 
@@ -411,8 +417,3 @@ fi
 ##
 ## end self-build
 #######################
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="

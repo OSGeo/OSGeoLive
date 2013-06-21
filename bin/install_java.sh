@@ -28,6 +28,12 @@ apt-get --assume-yes install gsfonts-x11
 
 ln -s /usr/lib/jvm/java-7-openjdk-i386 /usr/lib/jvm/default-java
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
+
 exit
 
 # in case of emergency break glass:
@@ -40,8 +46,3 @@ exit
 ###   otherwise we'll drop it
 #apt-get --assume-yes install pdftk
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="

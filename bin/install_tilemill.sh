@@ -53,6 +53,11 @@ chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/Documents
 mkdir -p /etc/skel/Documents/MapBox/
 cp "$USER_HOME"/Documents/MapBox/app.db /etc/skel/Documents/MapBox/
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
 
 exit 0
 
@@ -103,8 +108,4 @@ cd build/
 # ... final install continued here:
 # http://mapbox.com/tilemill/docs/guides/osm-bright-ubuntu-quickstart/
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
