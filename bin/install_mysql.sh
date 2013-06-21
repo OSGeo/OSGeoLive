@@ -145,6 +145,11 @@ sed -i -e 's/rc\.local/rc.go_mysql/' /etc/init.d/rc.go_mysql
 ln -s /etc/init.d/rc.go_mysql /etc/rc2.d/S99rc.go_mysql
 ###
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
 
 exit 0
 
@@ -154,8 +159,3 @@ exit 0
 #    MySql-Workbench: Wants 21mb compressed, or 62mb uncompressed, disc space.
 apt-get --assume-yes install mysql-workbench ttf-bitstream-vera
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
