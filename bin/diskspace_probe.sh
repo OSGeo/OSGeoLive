@@ -20,9 +20,7 @@
 if [ $# -lt 1 ] || [ $# -gt 2 ] ; then
    echo "USAGE:   diskspace_probe.sh <project_name> [begin|end]" 1>&2
    exit 1
-fi
-
-if [ $# -eq 2 ] && [ "$2" != "begin" -a "$2" != "end" ] ; then
+elif [ $# -eq 2 ] && [ "$2" != "begin" -a "$2" != "end" ] ; then
    echo "USAGE:   diskspace_probe.sh <project_name> [begin|end]" 1>&2
    exit 1
 fi
