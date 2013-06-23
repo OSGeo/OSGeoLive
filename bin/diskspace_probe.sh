@@ -31,6 +31,7 @@ do_hr() {
 }
 
 df_cmd() {
+# TODO: check that cd /tmp/build_<project> gives same answer as in original pwd
    echo "Disk Usage1: $1,`df -B 1M | grep 'Filesystem' | sed -e 's/  */,/g'`,date"
    echo "Disk Usage2: $1,`df -B 1M / | tail -n 1 | sed -e 's/  */,/g'`,`date --rfc-3339=seconds`"
 }
@@ -44,7 +45,6 @@ if [ "$2" = "begin" ] ; then
 elif [ "$2" = "end" ] ; then
    do_hr
    echo "Finished \"$1\""
-# TODO: check that cd /tmp/build_<project> gives same answer as in original pwd
    df_cmd "$1"
    do_hr
 
