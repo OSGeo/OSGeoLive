@@ -18,10 +18,9 @@
 #    MB-System homepage: http://www.ldeo.columbia.edu/res/pi/MB-System/
 #    DebianGIS packaging: http://anonscm.debian.org/viewvc/pkg-grass/packages/mbsystem/trunk/debian/
 
-SCRIPT="install_mb-system.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -30,7 +29,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 
-VERS="5.4.2123-0"
+VERS="5.4.2128-0"
 
 
 #### get dependencies ####
@@ -119,9 +118,6 @@ cp mbcookbook.pdf /usr/local/mbsystem/
 # symlink into the livedvd's common data dir
 ln -s /usr/local/mbsystem /usr/local/share/mbsystem
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
 
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

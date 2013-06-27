@@ -29,10 +29,9 @@
 #       Unlimited Route/Mark creation
 #
 
-SCRIPT="install_opencpn.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -42,7 +41,6 @@ USER_HOME="/home/$USER_NAME"
 
 
 TMP_DIR=/tmp/build_opencpn
-WD=`pwd`
 
 if [ ! -d "$TMP_DIR" ] ; then
    mkdir "$TMP_DIR"
@@ -310,8 +308,7 @@ fi
 # http://opencpn.org/docwiki
 #  ?
 # just point to /usr/local/share/opencpn/doc/help.html
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
