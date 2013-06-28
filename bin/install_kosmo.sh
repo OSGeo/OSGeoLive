@@ -75,6 +75,9 @@ chmod -R g+w "$KOSMO_FOLDER"
 
 ## execute the links.sh script
 cd "$KOSMO_FOLDER"/libs
+rm *NCS*
+rm *ecw*
+rm *mrsid*
 ./links.sh
 cd "$TMP"
 

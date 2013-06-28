@@ -113,6 +113,11 @@ chown -R root.root /usr/share/applications/gvsig.desktop \
 
 rm "$TMP/$GVSIG_PACKAGE"
 
+# Remove non free libraries
+rm -f /opt/gvSIG_*/native/*NCS*
+rm -f /opt/gvSIG_*/native/*ecw*
+rm -f /opt/gvSIG_*/native/*mrsid*
+
 # place a gvSIG icon on desktop
 if [ -d $USER_DESKTOP ] ; then
    echo "Copying icon to desktop at $USER_DESKTOP"
