@@ -75,9 +75,6 @@ chmod -R g+w "$KOSMO_FOLDER"
 
 ## execute the links.sh script
 cd "$KOSMO_FOLDER"/libs
-rm *NCS*
-rm *ecw*
-rm *mrsid*
 ./links.sh
 cd "$TMP"
 
@@ -100,6 +97,11 @@ sed -i -e 's/^Name=Kosmo_2.0.1/Name=Kosmo/' Kosmo_2.0.1.desktop
 cp Kosmo_2.0.1.desktop "$USER_HOME"/Desktop
 chown "$USER_NAME:$USER_NAME" "$USER_HOME"/Desktop/Kosmo_2.0.1.desktop
 chmod a+r "$USER_HOME"/Desktop/Kosmo_2.0.1.desktop
+
+# fix #1147
+rm -f "$KOSMO_FOLDER"/libs/*NCS*
+rm -f "$KOSMO_FOLDER"/libs/*ecw*
+rm -f "$KOSMO_FOLDER"/libs/*mrsid*
 
 echo "==============================================================="
 echo "Finished $SCRIPT"

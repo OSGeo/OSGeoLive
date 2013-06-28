@@ -113,10 +113,12 @@ chown -R root.root /usr/share/applications/gvsig.desktop \
 
 rm "$TMP/$GVSIG_PACKAGE"
 
-# Remove non free libraries
+# Remove non free libraries (#1147)
 rm -f /opt/gvSIG_*/native/*NCS*
 rm -f /opt/gvSIG_*/native/*ecw*
 rm -f /opt/gvSIG_*/native/*mrsid*
+rm -rf /opt/gvSIG_*/gvSIG/extensiones/org.gvsig.raster.lizardtech.app
+rm -rf /opt/gvSIG_*/gvSIG/extensiones/org.gvsig.raster.ermapper.app
 
 # place a gvSIG icon on desktop
 if [ -d $USER_DESKTOP ] ; then
