@@ -137,6 +137,7 @@ export USER_NAME
 ./install_cartaro.sh
 # ./install_i3geo.sh
 # ./install_iris.sh
+# ./install_ncWMS.sh
 
 ./load_gisdata.sh
 ./install_docs.sh
