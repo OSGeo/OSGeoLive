@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2011 The Open Source Geospatial Foundation.
+# Copyright (c) 2013 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -25,8 +25,9 @@
 # Install script for ncWMS
 # =============================================================================
 
+SCRIPT="install_ncWMS.sh"
 echo "==============================================================="
-echo "install_ncWMS.sh"
+echo "$SCRIPT"
 echo "==============================================================="
 
 TMP="/tmp/build_ncWMS"
@@ -179,8 +180,8 @@ chmod 755 $WMS_BIN_DIR/ncWMS-stop.sh
 mkdir -p -v "$USER_HOME/Desktop"
 
 # Create the launch file
-if [ ! -e /usr/share/applications/ncWMS-start.desktop ] ; then
-    cat << EOF > /usr/share/applications/ncWMS-start.desktop
+if [ ! -e /usr/local/share/applications/ncWMS-start.desktop ] ; then
+    cat << EOF > /usr/local/share/applications/ncWMS-start.desktop
     [Desktop Entry]
     Type=Application
     Encoding=UTF-8
@@ -193,12 +194,32 @@ if [ ! -e /usr/share/applications/ncWMS-start.desktop ] ; then
     EOF
 fi
 
-cp -v /usr/share/applications/ncWMS-start.desktop "$USER_HOME/Desktop/"
+cp -v /usr/local/share/applications/ncWMS-start.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/ncWMS-start.desktop"
+
+# Create the launch file
+if [ ! -e /usr/local/share/applications/ncWMS-stop.desktop ] ; then
+    cat << EOF > /usr/local/share/applications/ncWMS-stop.desktop
+    [Desktop Entry]
+    Type=Application
+    Encoding=UTF-8
+    Name=Stop ncWMS
+    Comment=ncWMS - A WMS server for NetCDF files
+    Categories=Geospatial;Servers;
+    Exec=$WMS_BIN_DIR/ncWMS-stop.sh
+    Icon=/usr/share/icons/$WMS_ICON_NAME
+    Terminal=false
+    EOF
+fi
+
+cp -v /usr/local/share/applications/ncWMS-stop.desktop "$USER_HOME/Desktop/"
+chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/ncWMS-stop.desktop"
 
 # All done
 
-echo "[$(date +%M:%S)]                                                         "
-echo "                         ncWMS install finished                         "
-echo "#########################################################################"
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
 
