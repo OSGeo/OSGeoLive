@@ -59,6 +59,34 @@ mkdir "$TMP"
 cd "$TMP"
 
 
+
+##################################
+# Download netCDF datasets:
+#
+
+mkdir -p  /usr/local/share/data/netcdf
+mkdir netcdf; cd netcdf
+
+t_netcdf_files="
+README_netCDF_samples.txt
+rx5dayETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc
+rx5dayETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc.txt
+rx5dayETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc
+rx5dayETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc.txt
+txxETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc
+txxETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc.txt
+txxETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc
+txxETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc.txt
+"
+for n in $t_netcdf_files; do
+	wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/netcdf/$n
+done
+
+mv * /usr/local/share/data/netcdf/
+cd ..
+rm -rf netcdf
+
+
 ##################################
 # Download natural earth datasets:
 #  nov12: data 2.0 to postgis 2.0
