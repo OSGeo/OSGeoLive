@@ -23,6 +23,12 @@ echo "==============================================================="
 
 apt-get --assume-yes install vnc4server
 
+echo "==============================================================="
+echo "Finished $SCRIPT"
+echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo "==============================================================="
+
 exit 0
 
 ##########################################################################
@@ -51,8 +57,3 @@ if [ `grep -c 'ssh_host' /etc/rc.local` -eq 0 ] ; then
     echo "exit 0" >> /etc/rc.local
 fi
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
