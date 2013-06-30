@@ -158,7 +158,7 @@ if [ ! -e $WMS_BIN_DIR/ncWMS-start.sh ] ; then
         (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") | zenity --progress --auto-close --text "ncWMS starting"
     fi
     firefox $WMS_URL $WMS_QUICKSTART_URL $WMS_OVERVIEW_URL
-    EOF
+EOF
 fi
 
 if [ ! -e $WMS_BIN_DIR/ncWMS-stop.sh ] ; then
@@ -169,7 +169,7 @@ if [ ! -e $WMS_BIN_DIR/ncWMS-stop.sh ] ; then
         sudo service tomcat6 stop
         zenity --info --text "ncWMS stopped"
     fi
-    EOF
+EOF
 fi
 
 chmod 755 $WMS_BIN_DIR/ncWMS-start.sh
@@ -191,7 +191,7 @@ if [ ! -e /usr/local/share/applications/ncWMS-start.desktop ] ; then
     Exec=$WMS_BIN_DIR/ncWMS-start.sh
     Icon=/usr/share/icons/$WMS_ICON_NAME
     Terminal=false
-    EOF
+EOF
 fi
 
 cp -v /usr/local/share/applications/ncWMS-start.desktop "$USER_HOME/Desktop/"
@@ -209,7 +209,7 @@ if [ ! -e /usr/local/share/applications/ncWMS-stop.desktop ] ; then
     Exec=$WMS_BIN_DIR/ncWMS-stop.sh
     Icon=/usr/share/icons/$WMS_ICON_NAME
     Terminal=false
-    EOF
+EOF
 fi
 
 cp -v /usr/local/share/applications/ncWMS-stop.desktop "$USER_HOME/Desktop/"
