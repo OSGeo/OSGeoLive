@@ -35,11 +35,9 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-# VERSION=1.4.0
+# VERSION=1.6.0
 
-echo "Installing pycsw"
-
-echo 'Installing dependencies ...'
+echo 'Installing pycsw dependencies ...'
 
 # install dependencies
 apt-get install --yes apache2 python-lxml python-sqlalchemy \
