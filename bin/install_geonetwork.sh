@@ -116,6 +116,7 @@ fi
 FILES="
 install.xml
 jetty.xml
+jetty-webapps.xml
 config-gui.xml
 start-geonetwork.sh
 stop-geonetwork.sh
@@ -139,6 +140,7 @@ java -jar geonetwork-install-$GEONETWORK_VERSION.jar install.xml
 
 
 cp -f jetty.xml "$GEONETWORK_FOLDER/jetty/etc/jetty.xml"
+cp -f jetty-webapps.xml "$GEONETWORK_FOLDER/jetty/etc/jetty-webapps.xml"
 cp -f config-gui.xml "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/config-gui.xml"
 # HTML5UI is using path with port number so we need to modify the settings in SQL
 # Needed until https://github.com/geonetwork/core-geonetwork/issues/138
