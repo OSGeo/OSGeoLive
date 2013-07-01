@@ -53,8 +53,7 @@ fi
 
 
 # Install geonode
-pip install --upgrade geonode==2.0b10
-
+pip install --upgrade geonode
 
 # Create database for demonstration instance
 sudo -u $POSTGRES_USER createdb geonode
