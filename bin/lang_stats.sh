@@ -105,7 +105,6 @@ done
 
 # late to the party
 echo "Portuguese,pt,0,$NUM_PAGES,0.0" >> lang_stats.prn
-echo "Indonesian,id,0,$NUM_PAGES,0.0" >> lang_stats.prn
 
 #out with the old
 rm -f lang_stats_sorted.prn
