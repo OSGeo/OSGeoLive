@@ -194,8 +194,8 @@ fi
 
 
 # Add Launch icon to desktop
-if [ ! -e /usr/share/applications/eoxserver.desktop ] ; then
-    cat << EOF > /usr/share/applications/eoxserver.desktop
+if [ ! -e /usr/local/share/applications/eoxserver.desktop ] ; then
+    cat << EOF > /usr/local/share/applications/eoxserver.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -209,7 +209,7 @@ StartupNotify=false
 EOF
 fi
 
-cp /usr/share/applications/eoxserver.desktop "$USER_HOME/Desktop/"
+cp /usr/local/share/applications/eoxserver.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/eoxserver.desktop"
 
 
@@ -231,8 +231,8 @@ chgrp users -R EOxServer_documentation*
 ln -sTf "$DOC_DIR" /var/www/eoxserver-docs
 
 # Add Documentation Launch icon to desktop
-if [ ! -e /usr/share/applications/eoxserver-docs.desktop ] ; then
-    cat << EOF > /usr/share/applications/eoxserver-docs.desktop
+if [ ! -e /usr/local/share/applications/eoxserver-docs.desktop ] ; then
+    cat << EOF > /usr/local/share/applications/eoxserver-docs.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -245,7 +245,7 @@ Terminal=false
 StartupNotify=false
 EOF
 fi
-cp -a /usr/share/applications/eoxserver-docs.desktop "$USER_HOME/Desktop/"
+cp -a /usr/local/share/applications/eoxserver-docs.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/eoxserver-docs.desktop"
 
 
