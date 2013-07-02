@@ -32,7 +32,7 @@ NO_CONTENT=1
 NUM_PAGES=`expr $NUM_PAGES - $NO_CONTENT`
 
 
-LANGS="ca de el es fr it ja ko pl ru zh"
+LANGS="ca de el es fr id it ja ko pl ru zh"  # pt
 
 cat << EOF > lang_stats.html
 <html>
