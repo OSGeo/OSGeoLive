@@ -16,7 +16,7 @@ for (i in packagelist) {
 	#For EU builds
 	#install.packages(i, repos= "http://stat.ethz.ch/CRAN/", lib = "/usr/local/lib/R/site-library/") 
 	#For US builds
-	install.packages(i, repos= "http://cran.cnr.Berkeley.edu/", lib = "/usr/local/lib/R/site-library/") 
+	install.packages(i, repos= "http://cran.rstudio.com/", lib = "/usr/local/lib/R/site-library/") 
 	output <- paste("Finished installing",i,sep=" ")
 	print(output)
 }
