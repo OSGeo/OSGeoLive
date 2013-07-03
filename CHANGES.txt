@@ -1,6 +1,32 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.0alpha3
+===================
+
+ * tomcat6 is disabled by default to save memory (#1032)
+ * libecw and mrsid libraries removed from disk (#1147)
+ * GeoNode project added
+ * nvWMS project added
+ * Iris project added
+ * GeoNetwork upgraded to 2.10
+ * pycsw upgraded to 1.6.0
+ * Indonesian translation started
+ * bumped MB-System to new build (copyright issue fixed)
+ * fixed disk space probe (#1142)
+ * new quickstart for new Mapbender3 version
+ * Added installation script for Django (#1047)
+ * Upgraded EOxServer to version 0.3.0 (#1135)
+ * enabled submenus for Cartaro and Geomajas (#1062)
+ * Added new MapFish launchers in correct menu
+ * Allow tomcat6 service to be started/stoped from all users (#1141)
+ * Renamed Geonetwork menu items and launch firefox when GeoNetwork starts (#756)
+ * updated pgRouting to v2.0.0-alpha from PPA and using CREATE EXTENSION pgrouting
+ * updated gvSIG 2.0
+ * updated to latest udig (1.4.0)
+ * updated saga to version 2.1.0rc2
+ * 
+
 Version 7.0alpha2
 ===================
 
