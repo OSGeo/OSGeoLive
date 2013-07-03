@@ -62,6 +62,30 @@ if [ ! -d "$TMP_DIR" ] ; then
     mkdir -p "$TMP_DIR"
 fi 
 
+##############################
+# Add extra APT-Repository 
+##############################
+
+echo "[install_cartaro.sh] Configure APT-Repo and install extra module"
+
+if [ ! -f /etc/apt/sources.list.d/cartaro.list ] ; then
+
+cat << EOF > /etc/apt/sources.list.d/cartaro.list
+
+# Repo for Cartaro
+
+deb http://www.geops.de/apt wheezy main
+
+EOF
+
+fi
+
+/usr/bin/apt-key adv  --keyserver hkp://keys.gnupg.net --recv-keys B6AA9BC9E7BDBF3D
+/usr/bin/apt-get update
+/usr/bin/apt-get -y  install php5-gdal 
+
+
+
 ###############################
 # Prepare Database 
 ###############################
