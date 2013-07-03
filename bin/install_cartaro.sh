@@ -237,6 +237,10 @@ PGPASSWORD=$DB_PASSWORD $DRUSH_DIR/drush site-install $SITE_INSTALL_OPTS
 # and apply ownership to anything new that came along since we started
 chown -R root.root "$TARGET_DIR"
 
+# make file folder writeable for web-user
+
+chown -R www-data.www-data "$TARGET_DIR"/sites/default/files
+
 popd
 
 
