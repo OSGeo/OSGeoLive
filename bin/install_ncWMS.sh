@@ -138,12 +138,13 @@ fi
 
 # Copy the configuration file to the ncWMS config dir, creating it if necessary
 mkdir -p -v "$TOMCAT_USER_HOME/.ncWMS"
-chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME "$TOMCAT_USER_HOME/.ncWMS"
 
 if [ ! -e "$TOMCAT_USER_HOME/.ncWMS/config.xml" ] ; then
     chmod 644 ncWMS_config.xml
     mv -v ncWMS_config.xml "$TOMCAT_USER_HOME/.ncWMS/config.xml"
 fi
+
+chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME "$TOMCAT_USER_HOME/.ncWMS"
 
 # Create startup/shutdown scripts
 mkdir -p "$WMS_BIN_DIR"
@@ -157,7 +158,7 @@ if [ ! -e $WMS_BIN_DIR/ncWMS-start.sh ] ; then
         sudo service tomcat6 start
         (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") | zenity --progress --auto-close --text "ncWMS starting"
     fi
-    firefox $WMS_URL $WMS_QUICKSTART_URL $WMS_OVERVIEW_URL
+    firefox $WMS_URL/godiva2.html $WMS_QUICKSTART_URL $WMS_OVERVIEW_URL
 EOF
 fi
 
