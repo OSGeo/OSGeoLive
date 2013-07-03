@@ -25,7 +25,6 @@ Version 7.0alpha3
  * updated gvSIG 2.0
  * updated to latest udig (1.4.0)
  * updated saga to version 2.1.0rc2
- * 
 
 Version 7.0alpha2
 ===================
