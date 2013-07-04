@@ -108,6 +108,17 @@
 		<Category>MapProxy</Category>
 	    </Include>
 	</Menu>
+
+	<Exclude>
+	    <Category>ncWMS</Category>
+	</Exclude>
+	<Menu>
+	    <Name>ncWMS</Name>
+	    <Directory>ncWMS.directory</Directory>
+	    <Include>
+		<Category>ncWMS</Category>
+	    </Include>
+	</Menu>
     </Menu>
 
     <Menu>
@@ -136,6 +147,17 @@
 	    <Directory>Geomajas.directory</Directory>
 	    <Include>
 		<Category>Geomajas</Category>
+	    </Include>
+	</Menu>
+
+	<Exclude>
+	    <Category>MapFish</Category>
+	</Exclude>
+	<Menu>
+	    <Name>MapFish</Name>
+	    <Directory>MapFish.directory</Directory>
+	    <Include>
+		<Category>MapFish</Category>
 	    </Include>
 	</Menu>
     </Menu>

@@ -38,7 +38,8 @@ BUILD_DIR=`pwd`
 
 #Desktop apps part 1 (traditional analytic GIS)
 DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet *Kosmo*
-              spatialite-gis saga_gui atlasstyler geopublisher"
+              spatialite-gis saga_gui"
+#disabled: atlasstyler geopublisher
 
 #Desktop apps part 2 (geodata viewers and editors)
 NAV_APPS="marble gpsdrive opencpn josm merkaartor osm_online
@@ -46,10 +47,11 @@ NAV_APPS="marble gpsdrive opencpn josm merkaartor osm_online
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
-              qgis-mapserver zoo-project 52n* mapguide* eoxserver* ncWMS* pycsw"
+              qgis-mapserver zoo-project 52n* eoxserver* ncWMS-* pycsw"
+#disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="geomajas-* mapbender3 MapFish* GeoMOOSE i3geo geonode* cartaro-*"
+BROWSER_CLIENTS="geomajas-* mapbender3 MapFish-* GeoMOOSE i3geo geonode* cartaro-*"
 
 #Infrastructure and miscellanea
 SPATIAL_TOOLS="imagelinker r geokettle openlayers
@@ -154,12 +156,13 @@ for APP in $WEB_SERVICES ; do
 	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
 
       case "$APPL" in
-        geoserver-*) GROUP=GeoServer;;
-        *geonetwork*) GROUP=GeoNetwork;;
-        mapproxy-*) GROUP=MapProxy;;
-        52n*) GROUP=52North;;
-        deegree-*) GROUP=deegree;;
-        *) unset GROUP;;
+	52n*) GROUP=52North;;
+	deegree-*) GROUP=deegree;;
+	geoserver-*) GROUP=GeoServer;;
+	*geonetwork*) GROUP=GeoNetwork;;
+	mapproxy-*) GROUP=MapProxy;;
+	ncWMS-*) GROUP=ncWMS;;
+	*) unset GROUP;;
       esac
       if [ -n "$GROUP" ] ; then
          sed -i -e "s/^\(Categories=.*\)/\1$GROUP;/" \
@@ -176,9 +179,10 @@ for APP in $BROWSER_CLIENTS ; do
 	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
 
       case "$APPL" in
-        cartaro-*) GROUP=Cartaro;;
-        geomajas-*) GROUP=Geomajas;;
-        *) unset GROUP;;
+	cartaro-*) GROUP=Cartaro;;
+	geomajas-*) GROUP=Geomajas;;
+	MapFish-*) GROUP=MapFish;;
+	*) unset GROUP;;
       esac
       if [ -n "$GROUP" ] ; then
          sed -i -e "s/^\(Categories=.*\)/\1$GROUP;/" \
@@ -270,7 +274,16 @@ done
 ### web-services sub menu infrastructure
 mkdir -p /etc/xdg/menus/applications-merged/
 
-APP_GROUPS="GeoServer GeoNetwork MapProxy 52North deegree Rasdaman"
+APP_GROUPS="
+52North
+deegree
+GeoNetwork
+GeoServer
+MapProxy
+ncWMS
+Rasdaman
+"
+# Rasdaman is actually in the database menu, but it doesn't seem to harm to process it here..
 
 for APP in $APP_GROUPS ; do
    cat << EOF > "/etc/xdg/menus/applications-merged/$APP.menu"
@@ -291,11 +304,14 @@ for APP in $APP_GROUPS ; do
 EOF
 
    case "$APP" in
-     GeoServer) APP_ICON=/usr/share/icons/geoserver_48x48.logo.png;;
-     GeoNetwork) APP_ICON=/usr/lib/geonetwork/bin/ico/gn.ico;;
-     MapProxy) APP_ICON=gnome-globe;;
      52North) APP_ICON=/usr/share/icons/52n.png;;
+     Cartaro) APP_ICON=/usr/local/share/icons/logo-cartaro-48.png;;
      deegree) APP_ICON=/usr/share/icons/deegree_desktop_48x48.png;;
+     GeoNetwork) APP_ICON=/usr/lib/geonetwork/bin/ico/gn.ico;;
+     GeoServer) APP_ICON=/usr/share/icons/geoserver_48x48.logo.png;;
+     Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
+     MapProxy) APP_ICON=gnome-globe;;
+     ncWMS) APP_ICON=/usr/local/share/icons/ncWMS_icon.png;;
      Rasdaman) APP_ICON=gnome-globe;;
      *) unset APP_ICON;;
    esac
@@ -314,7 +330,7 @@ done
 
 
 #### web clients sub menu infrastructure
-APP_GROUPS="Cartaro Geomajas"
+APP_GROUPS="Cartaro Geomajas MapFish"
 
 for APP in $APP_GROUPS ; do
    cat << EOF > "/etc/xdg/menus/applications-merged/$APP.menu"
@@ -337,6 +353,7 @@ EOF
    case "$APP" in
      Cartaro) APP_ICON=/usr/local/share/icons/logo-cartaro-48.png;;
      Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
+     MapFish) APP_ICON=/usr/local/lib/mapfish/mapfish.png;;
      *) unset APP_ICON;;
    esac
 
