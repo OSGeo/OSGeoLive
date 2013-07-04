@@ -23,7 +23,7 @@
 
 # About:
 # =====
-# This script will install Kosmo 2.0.1 into Xubuntu
+# This script will install Kosmo 3.0 into Xubuntu
 
 # Running:
 # =======
@@ -39,7 +39,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 TMP="/tmp/build_kosmo"
 INSTALL_FOLDER="/usr/lib"
-KOSMO_FOLDER="$INSTALL_FOLDER/Kosmo-2.0.1"
+KOSMO_FOLDER="$INSTALL_FOLDER/Kosmo-3.0"
 BIN="/usr/bin"
 USER_HOME="/home/$USER_NAME"
 
@@ -58,10 +58,10 @@ cd "$TMP"
 
 # get kosmo
 wget -c --progress=dot:mega \
-   http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/kosmo_desktop_2.0.1_linux_jre.tar.gz
+   http://88.198.230.145/public/kosmo/v_3.0/livedvd/kd_3.0_linux_x86.tar.gz
 
 # unpack it and copy it to /usr/lib
-tar xzf kosmo_desktop_2.0.1_linux_jre.tar.gz \
+tar xzf kd_3.0_linux_x86.tar.gz \
    -C "$INSTALL_FOLDER" --no-same-owner
 
 if [ $? -ne 0 ] ; then
@@ -80,28 +80,28 @@ cd "$TMP"
 
 # get correct kosmo.sh
 rm "$KOSMO_FOLDER"/bin/Kosmo.sh
-wget -nv -N http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/Kosmo.sh
+wget -nv -N http://88.198.230.145/public/kosmo/v_3.0/livedvd/Kosmo.sh
 cp Kosmo.sh "$KOSMO_FOLDER"/bin/
 chmod a+x "$KOSMO_FOLDER"/bin/Kosmo.sh
 
 # create link to startup script
-ln -s "$KOSMO_FOLDER"/bin/Kosmo.sh /usr/bin/kosmo_2.0.1
+ln -s "$KOSMO_FOLDER"/bin/Kosmo.sh /usr/bin/kosmo_3.0
 
 # Download desktop link
-wget -nv http://www.kosmoland.es/public/kosmo/v_2.0.1/binaries/Kosmo_2.0.1.desktop
+wget -nv http://88.198.230.145/public/kosmo/v_3.0/livedvd/Kosmo_3.0.desktop
 
 # homogenize icon name
-sed -i -e 's/^Name=Kosmo_2.0.1/Name=Kosmo/' Kosmo_2.0.1.desktop
+sed -i -e 's/^Name=Kosmo_3.0/Name=Kosmo/' Kosmo_3.0.desktop
 
-# copy it into the Kosmo_2.0.1 folder
-cp Kosmo_2.0.1.desktop "$USER_HOME"/Desktop
-chown "$USER_NAME:$USER_NAME" "$USER_HOME"/Desktop/Kosmo_2.0.1.desktop
-chmod a+r "$USER_HOME"/Desktop/Kosmo_2.0.1.desktop
+# copy it into the Kosmo_3.0 folder
+cp Kosmo_3.0.desktop "$USER_HOME"/Desktop
+chown "$USER_NAME:$USER_NAME" "$USER_HOME"/Desktop/Kosmo_3.0.desktop
+chmod a+r "$USER_HOME"/Desktop/Kosmo_3.0.desktop
 
-# fix #1147
-rm -f "$KOSMO_FOLDER"/libs/*NCS*
-rm -f "$KOSMO_FOLDER"/libs/*ecw*
-rm -f "$KOSMO_FOLDER"/libs/*mrsid*
+# fix #1147 - Unnecesary, new Kosmo Desktop package doesn't contain them
+# rm -f "$KOSMO_FOLDER"/libs/*NCS*
+# rm -f "$KOSMO_FOLDER"/libs/*ecw*
+# rm -f "$KOSMO_FOLDER"/libs/*mrsid*
 
 echo "==============================================================="
 echo "Finished $SCRIPT"
