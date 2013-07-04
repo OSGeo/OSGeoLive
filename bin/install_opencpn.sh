@@ -261,6 +261,7 @@ VPLatLon="   40.39,  -73.47"
 VPScale=0.0048
 OwnShipLatLon="   40.337,   -73.472"
 nBoundaryStyle=79
+FrameWinX=800
 EOF
 
 mkdir "$USER_HOME/.opencpn"
