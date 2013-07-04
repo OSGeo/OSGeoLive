@@ -106,8 +106,11 @@ cd "$TMP"
 if [ -f "$WMS_TAR_NAME" ] ; then
     echo "[$(date +%M:%S)]: $WMS_TAR_NAME has already been downloaded."
 else
-    rm -v -r "$TMP"/*
-    wget -c --progress=dot:mega "$WMS_TAR_URL$WMS_TAR_NAME"
+    if [ `ls "$TMP" | wc -l` -ne 0 ] ; then
+	### danger: if $TMP gets commented out above it becomes empty, then guess what happens...
+	rm -v -r "$TMP"/*
+    fi
+    wget -N --progress=dot:mega "$WMS_TAR_URL$WMS_TAR_NAME"
 fi
 
 # Extract .war file (+ config + icon) from tar.gz file
@@ -119,9 +122,10 @@ else
 fi
 
 # Copy icon to the icons dir
-if [ ! -e "/usr/share/icons/$WMS_ICON_NAME" ] ; then
+mkdir -p /usr/local/share/icons
+if [ ! -e "/usr/local/share/icons/$WMS_ICON_NAME" ] ; then
     chmod 644 "$WMS_ICON_NAME"
-    mv -v "$WMS_ICON_NAME" /usr/share/icons/
+    mv -v "$WMS_ICON_NAME" /usr/local/share/icons/
 fi
 
 # Check for tomcat webapps folder
@@ -137,6 +141,7 @@ else
 fi
 
 # Copy the configuration file to the ncWMS config dir, creating it if necessary
+###  ? does it really need to be hidden? makes it harder to maintain
 mkdir -p -v "$TOMCAT_USER_HOME/.ncWMS"
 
 if [ ! -e "$TOMCAT_USER_HOME/.ncWMS/config.xml" ] ; then
@@ -150,48 +155,52 @@ chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME "$TOMCAT_USER_HOME/.ncWMS"
 mkdir -p "$WMS_BIN_DIR"
 chgrp users "$WMS_BIN_DIR"
 
-if [ ! -e $WMS_BIN_DIR/ncWMS-start.sh ] ; then
-    cat << EOF > $WMS_BIN_DIR/ncWMS-start.sh
+### sudo may need password when the , if so try "echo $pw | sudo -S ..."
+### is bash really needed here? I don't see any bashisms. -> #!/bin/sh ?
+if [ ! -e "$WMS_BIN_DIR/ncWMS-start.sh" ] ; then
+    cat << EOF > "$WMS_BIN_DIR/ncWMS-start.sh"
     #!/bin/bash
     STAT=\`sudo service tomcat6 status | grep pid\`
-    if [ "\$STAT" = "" ]; then
+    if [ -z "\$STAT" ] ; then
         sudo service tomcat6 start
-        (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") | zenity --progress --auto-close --text "ncWMS starting"
+        (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") \
+	   | zenity --progress --auto-close --text "ncWMS starting"
     fi
-    firefox $WMS_URL/godiva2.html $WMS_QUICKSTART_URL $WMS_OVERVIEW_URL
+    firefox "$WMS_URL/godiva2.html" "$WMS_QUICKSTART_URL" "$WMS_OVERVIEW_URL"
 EOF
 fi
 
-if [ ! -e $WMS_BIN_DIR/ncWMS-stop.sh ] ; then
-    cat << EOF > $WMS_BIN_DIR/ncWMS-stop.sh
+### same sudo and bash comments as above
+if [ ! -e "$WMS_BIN_DIR/ncWMS-stop.sh" ] ; then
+    cat << EOF > "$WMS_BIN_DIR/ncWMS-stop.sh"
     #!/bin/bash
     STAT=\`sudo service tomcat6 status | grep pid\`
-    if [ "\$STAT" != "" ]; then
+    if [ -n "\$STAT" ] ; then
         sudo service tomcat6 stop
         zenity --info --text "ncWMS stopped"
     fi
 EOF
 fi
 
-chmod 755 $WMS_BIN_DIR/ncWMS-start.sh
-chmod 755 $WMS_BIN_DIR/ncWMS-stop.sh
+chmod 755 "$WMS_BIN_DIR/ncWMS-start.sh"
+chmod 755 "$WMS_BIN_DIR/ncWMS-stop.sh"
+
 
 # Desktop set-up
-
 mkdir -p -v "$USER_HOME/Desktop"
 
 # Create the launch file
 if [ ! -e /usr/local/share/applications/ncWMS-start.desktop ] ; then
     cat << EOF > /usr/local/share/applications/ncWMS-start.desktop
-    [Desktop Entry]
-    Type=Application
-    Encoding=UTF-8
-    Name=Start ncWMS
-    Comment=ncWMS - A WMS server for NetCDF files
-    Categories=Geospatial;Servers;
-    Exec=$WMS_BIN_DIR/ncWMS-start.sh
-    Icon=/usr/share/icons/$WMS_ICON_NAME
-    Terminal=false
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Start ncWMS
+Comment=ncWMS - A WMS server for NetCDF files
+Categories=Application;Geography;Geoscience;
+Exec=$WMS_BIN_DIR/ncWMS-start.sh
+Icon=/usr/local/share/icons/$WMS_ICON_NAME
+Terminal=false
 EOF
 fi
 
@@ -201,15 +210,15 @@ chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/ncWMS-start.desktop"
 # Create the launch file
 if [ ! -e /usr/local/share/applications/ncWMS-stop.desktop ] ; then
     cat << EOF > /usr/local/share/applications/ncWMS-stop.desktop
-    [Desktop Entry]
-    Type=Application
-    Encoding=UTF-8
-    Name=Stop ncWMS
-    Comment=ncWMS - A WMS server for NetCDF files
-    Categories=Geospatial;Servers;
-    Exec=$WMS_BIN_DIR/ncWMS-stop.sh
-    Icon=/usr/share/icons/$WMS_ICON_NAME
-    Terminal=false
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Stop ncWMS
+Comment=ncWMS - A WMS server for NetCDF files
+Categories=Application;Geography;Geoscience;
+Exec=$WMS_BIN_DIR/ncWMS-stop.sh
+Icon=/usr/local/share/icons/$WMS_ICON_NAME
+Terminal=false
 EOF
 fi
 
