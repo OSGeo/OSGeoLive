@@ -145,7 +145,6 @@ for SCRIPT in \
   ./install_otb.sh \
   ./install_rasdaman.sh \
   ./install_tinyows.sh \
-  ./install_52nWSS.sh \
   ./install_pycsw.sh \
   ./install_geomoose.sh \
   ./install_mb-system.sh \
@@ -174,6 +173,9 @@ done
 
 # works(?), but ran out of disc space:
 #    ./install_mapguide.sh  (currently doesn't work with natty)
+
+# asked to be disabled:
+#  ./install_52nWSS.sh \
 
 
 # write installed package manifest
