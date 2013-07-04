@@ -40,6 +40,7 @@ df_cmd() {
 if [ "$2" = "begin" ] ; then
    do_hr
    echo "Starting \"$1\""
+   df_cmd "$1"
    do_hr
 
 elif [ "$2" = "end" ] ; then
