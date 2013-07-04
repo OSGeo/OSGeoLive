@@ -98,10 +98,6 @@ cp Kosmo_3.0.desktop "$USER_HOME"/Desktop
 chown "$USER_NAME:$USER_NAME" "$USER_HOME"/Desktop/Kosmo_3.0.desktop
 chmod a+r "$USER_HOME"/Desktop/Kosmo_3.0.desktop
 
-# fix #1147 - Unnecesary, new Kosmo Desktop package doesn't contain them
-# rm -f "$KOSMO_FOLDER"/libs/*NCS*
-# rm -f "$KOSMO_FOLDER"/libs/*ecw*
-# rm -f "$KOSMO_FOLDER"/libs/*mrsid*
 
 echo "==============================================================="
 echo "Finished $SCRIPT"
