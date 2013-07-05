@@ -163,7 +163,11 @@ sed -i -e 's+<Parameter name="dbname">gis</Parameter>+<Parameter name="dbname">o
   "/etc/skel/.gpsdrive/osm.xml"
 
 # and change from epsg:900913 to epsg:4326 to match the "osm_local" DB's SRS
-sed -i -e 's|+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null|+proj=longlat +datum=WGS84|' \
+sed -i -e 's|\("on" srs="\)+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs|\1+proj=longlat +datum=WGS84|' \
+  "/etc/skel/.gpsdrive/osm.xml"
+
+# layer extent too:  (FIXME, just guessed from the larger BBOX in install_osm.sh)
+sed -i -e 's|-20037508,-19929239,20037508,19929239|-1.25,52.888,-1.06,53.02|' \
   "/etc/skel/.gpsdrive/osm.xml"
 
 # avoid shapefile column city name mismatch & tweak its map scale render rule:
