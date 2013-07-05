@@ -127,7 +127,6 @@ export USER_NAME
 # ./install_otb.sh
 # ./install_rasdaman.sh
 # ./install_tinyows.sh
-# ./install_52nWSS.sh
 # ./install_pycsw.sh
 # ./install_geomoose.sh
 # ./install_mb-system.sh
