@@ -271,12 +271,12 @@ rm -rf /var/lib/tomcat6/webapps/petascope
 #-------------------------------------------------------------------------------
 # create scripts to launch with tomcat
 #
-RASDAMAN_BIN_FOLDER="/usr/local/share/rasdaman"
+RASDAMAN_BIN_FOLDER="/usr/local/rasdaman/bin"
 mkdir -p "$RASDAMAN_BIN_FOLDER"
 chgrp users "$RASDAMAN_BIN_FOLDER"
 
-if [ ! -e $RASDAMAN_BIN_FOLDER/rasdaman-start.sh ] ; then
-   cat << EOF > $RASDAMAN_BIN_FOLDER/rasdaman-start.sh
+if [ ! -e "$RASDAMAN_BIN_FOLDER"/rasdaman-start.sh ] ; then
+   cat << EOF > "$RASDAMAN_BIN_FOLDER"/rasdaman-start.sh
 #!/bin/sh
 STAT=\`sudo service tomcat6 status | grep pid\`
 if [ -z "\$STAT" ] ; then
@@ -287,8 +287,8 @@ zenity --info --text "Rasdaman started"
 EOF
 fi
 
-if [ ! -e $RASDAMAN_BIN_FOLDER/rasdaman-stop.sh ] ; then
-   cat << EOF > $RASDAMAN_BIN_FOLDER/rasdaman-stop.sh
+if [ ! -e "$RASDAMAN_BIN_FOLDER"/rasdaman-stop.sh ] ; then
+   cat << EOF > "$RASDAMAN_BIN_FOLDER"/rasdaman-stop.sh
 #!/bin/sh
 STAT=\`sudo service tomcat6 status | grep pid\`
 if [ -n "\$STAT" ] ; then
@@ -299,8 +299,8 @@ zenity --info --text "Rasdaman stopped"
 EOF
 fi
 
-chmod 755 $RASDAMAN_BIN_FOLDER/rasdaman-start.sh
-chmod 755 $RASDAMAN_BIN_FOLDER/rasdaman-stop.sh
+chmod 755 "$RASDAMAN_BIN_FOLDER"/rasdaman-start.sh
+chmod 755 "$RASDAMAN_BIN_FOLDER"/rasdaman-stop.sh
 
 #
 #-------------------------------------------------------------------------------
@@ -381,9 +381,8 @@ chown root "$RASDAMAN_HOME"/etc/rasmgr.conf
 
 
 ## Copy startup script for rasdaman
-cp "$RASDAMAN_HOME"/bin/start_rasdaman.sh "$BIN"/start_rasdaman.sh
-cp "$RASDAMAN_HOME"/bin/stop_rasdaman.sh "$BIN"/stop_rasdaman.sh
-chmod 755 "$BIN"/st*_rasdaman.sh
+ln -s "$RASDAMAN_HOME"/bin/start_rasdaman.sh "$BIN"/start_rasdaman.sh
+ln -s "$RASDAMAN_HOME"/bin/stop_rasdaman.sh "$BIN"/stop_rasdaman.sh
 
 
 ### rasmgr.conf wants the hostname to be defined at build time, but the hostname on our
