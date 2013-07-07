@@ -32,9 +32,9 @@
 #     6. QEMU/KVM, VirtualBox or VMware for testing (optional) 
 #
 
-if [[ "$1" != "i386" && "$1" != "amd64" ]]; then
-        echo "Did not find build architecture, try using i386 or amd64 as an argument"
-        exit 1
+if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+   echo "Did not find build architecture, try using i386 or amd64 as an argument"
+   exit 1
 fi
 ARCH="$1"
 
