@@ -22,9 +22,10 @@
 # sudo ./setup.sh
 
 SCRIPT="setup.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
