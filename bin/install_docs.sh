@@ -165,7 +165,8 @@ ln -s /usr/share/doc/gmt-tutorial .
 ln -s /usr/share/doc/grass-doc/html grass
 ln -s /usr/local/share/mapnik/demo mapnik
 ln -s /usr/local/share/mapserver/doc mapserver
-ln -s /usr/share/doc/opencpn-doc/doc opencpn
+#ln -s /usr/share/doc/opencpn-doc/doc opencpn  # <-- correct & future home
+ln -s /usr/share/opencpn/doc opencpn
 ln -s /usr/local/share/otb .
 ln -s /usr/local/share/ossim .
 # Data
