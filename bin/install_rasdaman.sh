@@ -96,7 +96,7 @@ pkg_cleanup()
 }
 
 
-if [ $FULL -eq 1 ]; then
+if [ "$FULL" -eq 1 ] ; then
 
   apt-get -q update
   apt-key update
@@ -149,6 +149,10 @@ if [ $FULL -eq 1 ]; then
      exit 1
   fi
 
+  # free up the disk space
+  make clean
+
+
   # setup rasdaview
   mv "$RASDAMAN_HOME"/bin/rview "$RASDAMAN_HOME"/bin/rview.bin
   cp "$RASDAMAN_HOME"/share/rasdaman/errtxts* "$RASDAMAN_HOME"/bin/
@@ -168,7 +172,7 @@ if [ $FULL -eq 1 ]; then
   start portmap
 
   # this needs to be fixed upstream in rasdaman
-  cp $TMP/rasdaman/config.h $RASDAMAN_HOME/include
+  cp "$TMP"/rasdaman/config.h "$RASDAMAN_HOME"/include
 
   sed -i "s/RASDAMAN_USER=rasdaman/RASDAMAN_USER=$USER_NAME/g" \
      "$RASDAMAN_HOME"/bin/create_db.sh
