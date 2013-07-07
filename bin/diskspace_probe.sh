@@ -30,16 +30,24 @@ do_hr() {
    echo "==============================================================="
 }
 
-df_cmd() {
-# TODO: check that cd /tmp/build_<project> gives same answer as in original pwd
-   echo "Disk Usage1: $1,`df -B 1M | grep 'Filesystem' | sed -e 's/  */,/g'`,date"
-   echo "Disk Usage2: $1,`df -B 1M / | tail -n 1 | sed -e 's/  */,/g'`,`date --rfc-3339=seconds`"
+df_cmd_regular() {
+# TODO: check that cd /tmp/build_<project> gives same answer as in original build dir
+   echo "Disk Usage1: $1,`df | head -n 1 | sed -e 's/ted on/ted_on/' -e 's/  */,/g'`,date"
+   echo "Disk Usage2: $1,`df -B 1M / | tail -n +2 | sed -e 's/  */,/g'`,`date --rfc-3339=seconds`"
 }
 
+df_cmd_chroot() {
+   echo "Disk Usage1: $1,`df . | head -n 1 | sed -e 's/ted on/ted_on/' -e 's/  */,/g'`,date"
+   echo "Disk Usage2: $1,`df -B 1M . | tail -n +2 | sed -e 's/  */,/g'`,`date --rfc-3339=seconds`"
+}
+
+df_cmd() {
+   df_cmd_chroot "$1"
+}
 
 if [ "$2" = "begin" ] ; then
    do_hr
-   echo "Starting \"$1\""
+   echo "Starting \"$1\" ..."
    df_cmd "$1"
    do_hr
 
