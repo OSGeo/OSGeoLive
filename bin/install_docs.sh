@@ -253,8 +253,11 @@ mkdir -p /usr/local/share/icons
 cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
 
 
-# Terminal toolbar off by default
+# Terminal toolbar off by default, and let's have some contrast
 echo "MiscMenubarDefault=FALSE" >> /etc/xdg/xdg-xubuntu/Terminal/terminalrc
+sed -i -e 's/\(ColorForeground=\).*/\1#c9c9c9c9c9c9/' \
+       -e 's/\(ColorBackground=\).*/\1#000000000000/' \
+   /etc/xdg/xdg-xubuntu/Terminal/terminalrc
 
 
 #What logo to use for launching the help?
