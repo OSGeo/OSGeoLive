@@ -101,7 +101,9 @@ cd /tmp/build_mbsystem
 
 wget -c --progress=dot:mega ftp://ftp.ldeo.columbia.edu/pub/MB-System/MB-SystemExamples.5.1.0.tar.gz
 
-cd /usr/local/mbsystem/
+mkdir -p /usr/local/share/mbsystem
+cd /usr/local/share/mbsystem/
+
 tar xzf /tmp/build_mbsystem/MB-SystemExamples.5.1.0.tar.gz
 mv MB-SystemExamples.5.1.0/ examples/
 chmod -R g+w examples/
@@ -113,10 +115,10 @@ adduser $USER_NAME users
 
 cd /tmp/build_mbsystem
 wget -c --progress=dot:mega ftp://ftp.ldeo.columbia.edu/pub/MB-System/mbcookbook.pdf
-cp mbcookbook.pdf /usr/local/mbsystem/
+cp mbcookbook.pdf /usr/local/share/mbsystem/
 
-# symlink into the livedvd's common data dir
-ln -s /usr/local/mbsystem /usr/local/share/mbsystem
+# symlink into the livedvd's common data dir (maybe not needed)
+ln -s /usr/local/share/mbsystem /usr/local/mbsystem
 
 
 ####
