@@ -191,8 +191,8 @@ fi # if FULL
 export PATH="$PATH:$RASDAMAN_HOME/bin"
 
 # Add sleep to start_rasdaman.sh to avoid race condition
-sed -i '84i\sleep 0.5' /usr/local/bin/start_rasdaman.sh
 sed -i '84i\sleep 0.5' /usr/local/rasdaman/bin/start_rasdaman.sh
+
 
 #
 #-------------------------------------------------------------------------------
@@ -200,50 +200,54 @@ sed -i '84i\sleep 0.5' /usr/local/rasdaman/bin/start_rasdaman.sh
 #
 
 # create petascope database/user
-echo creating users and metadata database
+echo "Creating users and metadata database..."
 su - $USER_NAME -c "createuser $WCPS_USER --superuser"
 su - $USER_NAME -c "psql template1 --quiet -c \"ALTER ROLE $WCPS_USER  with PASSWORD '$WCPS_PASSWORD';\""
 su - $USER_NAME -c "createuser $USER --superuser"
 
 
 # set to tomcat user, as tomcat will run the servlet
-sed -i "s/^metadata_user=.\+/metadata_user=$WCPS_USER/" $SETTINGS
-sed -i "s/^metadata_pass=.\+/metadata_pass=$WCPS_PASSWORD/" $SETTINGS
+sed -i "s/^metadata_user=.\+/metadata_user=$WCPS_USER/" "$SETTINGS"
+sed -i "s/^metadata_pass=.\+/metadata_pass=$WCPS_PASSWORD/" "$SETTINGS"
 
-echo "Updated database"
+echo "Updated database."
+
 
 #
 #-------------------------------------------------------------------------------
 # download, extract, and import demo data into rasdaman
 #
 
-cd $TMP
+cd "$TMP"
 
-if [ ! -d "rasdaman_data" ]; then
+if [ ! -d "rasdaman_data" ] ; then
+  # 39mb download
   wget -c --progress=dot:mega "$RASDAMAN_LOCATION/rasdaman_data.tar.gz"
   tar xzmf rasdaman_data.tar.gz -C .
 fi
 
-echo -n "importing data... "
+echo -n "Importing data... "
 cd rasdaman_data/
 
 for db in RASBASE petascopedb; do
     dropdb $db > /dev/null 2>&1
     createdb "$db"
+    echo "FIXME: --quiet?"
     psql -d "$db" -q -f "$db.sql"
     psql -d "$db" -c 'VACUUM ANALYZE'
 done
 
-echo ok.
+echo "ok."
 
 #
 #-------------------------------------------------------------------------------
 # download earthlook web site
 #
 
-cd $TMP
+cd "$TMP"
 
-if [ ! -d "public_html" ]; then
+if [ ! -d "public_html" ] ; then
+  # 105mb download
   wget -c --progress=dot:mega "$RASDAMAN_LOCATION/earthlook.tar.gz"
   tar xzmf earthlook.tar.gz -C .
 fi
@@ -258,7 +262,8 @@ chgrp www-data /var/www/rasdaman-demo/demos/demo_items/img/climate*/
 chgrp www-data /var/www/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
 
 
-mv /var/lib/tomcat6/webapps/petascope.war /var/lib/tomcat6/webapps/petascope_earthlook.war
+mv /var/lib/tomcat6/webapps/petascope.war \
+   /var/lib/tomcat6/webapps/petascope_earthlook.war
 rm -rf /var/lib/tomcat6/webapps/petascope.war
 rm -rf /var/lib/tomcat6/webapps/petascope
 
@@ -272,9 +277,9 @@ chgrp users "$RASDAMAN_BIN_FOLDER"
 
 if [ ! -e $RASDAMAN_BIN_FOLDER/rasdaman-start.sh ] ; then
    cat << EOF > $RASDAMAN_BIN_FOLDER/rasdaman-start.sh
-#!/bin/bash
+#!/bin/sh
 STAT=\`sudo service tomcat6 status | grep pid\`
-if [ "\$STAT" = "" ]; then
+if [ -z "\$STAT" ] ; then
     sudo service tomcat6 start
 fi
 /usr/local/bin/start_rasdaman.sh
@@ -284,9 +289,9 @@ fi
 
 if [ ! -e $RASDAMAN_BIN_FOLDER/rasdaman-stop.sh ] ; then
    cat << EOF > $RASDAMAN_BIN_FOLDER/rasdaman-stop.sh
-#!/bin/bash
+#!/bin/sh
 STAT=\`sudo service tomcat6 status | grep pid\`
-if [ "\$STAT" != "" ]; then
+if [ -n "\$STAT" ] ; then
     sudo service tomcat6 stop
 fi
 /usr/local/bin/stop_rasdaman.sh
@@ -376,8 +381,8 @@ chown root "$RASDAMAN_HOME"/etc/rasmgr.conf
 
 
 ## Copy startup script for rasdaman
-cp "$RASDAMAN_HOME"/bin/start_rasdaman.sh $BIN/start_rasdaman.sh
-cp "$RASDAMAN_HOME"/bin/stop_rasdaman.sh $BIN/stop_rasdaman.sh
+cp "$RASDAMAN_HOME"/bin/start_rasdaman.sh "$BIN"/start_rasdaman.sh
+cp "$RASDAMAN_HOME"/bin/stop_rasdaman.sh "$BIN"/stop_rasdaman.sh
 chmod 755 "$BIN"/st*_rasdaman.sh
 
 
@@ -394,7 +399,7 @@ fi
 # start stopped services
 start_rasdaman.sh
 pgrep rasserver > /dev/null
-if [ $? -ne 0 ]; then
+if [ $? -ne 0 ] ; then
   stop_rasdaman.sh
   start_rasdaman.sh
 fi
