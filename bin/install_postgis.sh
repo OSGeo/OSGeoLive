@@ -56,9 +56,8 @@ locale
 
 
 # now avail from mainline
-PROJ_FORCE='--force-yes proj=4.8.0-3~precise2'
-apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis \
-        "postgresql-$PG_VERSION-postgis-2.0-scripts" $PROJ_FORCE
+apt-get install --yes "postgresql-$PG_VERSION-postgis"=2.0.1-2~precise3 postgis=2.0.1-2~precise3
+
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
