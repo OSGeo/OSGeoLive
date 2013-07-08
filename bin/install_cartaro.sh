@@ -100,7 +100,7 @@ echo "[install_cartaro.sh] Prepare Database ..."
 /bin/su postgres -c " /usr/bin/psql  -c \" drop role  $DB_NAME;  \""
 
 /bin/su postgres -c " /usr/bin/psql  -c \" create role  $DB_USER with login password '$DB_PASSWORD';  \""
-/bin/su postgres -c "/usr/bin/createdb -O $DB_USER -E UTF-8 $DB_NAME"
+/bin/su postgres -c "/usr/bin/createdb -O $DB_USER -T template0 -E UTF-8 $DB_NAME"
 
 /etc/init.d/apache2 start
 
