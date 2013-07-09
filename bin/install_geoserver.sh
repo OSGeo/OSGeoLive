@@ -117,6 +117,13 @@ chmod 755 "$GS_HOME/bin/start_admin.sh"
 chmod 755 "$GS_HOME/bin/shutdown.sh"
 chmod 755 "$GS_HOME/bin/stop_notify.sh"
 
+##
+
+cat << EOF > /etc/profile.d/geoserver_settings.sh
+JAVA_OPTS="-DENABLE_JSONP=true -XX:MaxPermSize=128m"
+export JAVA_OPTS
+EOF
+
 ## Allow the user to write in the GeoServer data dir
 adduser "$USER_NAME" users
 chgrp -R users "$GS_HOME/data_dir"
