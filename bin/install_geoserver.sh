@@ -119,10 +119,13 @@ chmod 755 "$GS_HOME/bin/stop_notify.sh"
 
 ##
 
-cat << EOF > /etc/profile.d/geoserver_settings.sh
-JAVA_OPTS="-DENABLE_JSONP=true -XX:MaxPermSize=128m"
-export JAVA_OPTS
-EOF
+## FIXME: do not assume what's good for you is good for all other java apps
+##  too. If geoserver needs special Java opts, then put it in the
+##   start_geoserver.sh script.
+#cat << EOF > /etc/profile.d/geoserver_settings.sh
+#JAVA_OPTS="-DENABLE_JSONP=true -XX:MaxPermSize=128m"
+#export JAVA_OPTS
+#EOF
 
 ## Allow the user to write in the GeoServer data dir
 adduser "$USER_NAME" users
