@@ -82,7 +82,7 @@ fi
 
 /usr/bin/apt-key adv  --keyserver hkp://keys.gnupg.net --recv-keys B6AA9BC9E7BDBF3D
 /usr/bin/apt-get update
-/usr/bin/apt-get -y  install php5-gdal 
+/usr/bin/aptitude install libgdal1 php5-gdal 
 
 
 
