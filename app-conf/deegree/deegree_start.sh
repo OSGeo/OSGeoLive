@@ -4,12 +4,13 @@
 ## deegree start script
 ## for OSGeoLiveDVD 2011
 ##
-## author: Judit Mays, Johannes Kuepper
+## author: Johannes Wilden
 ##
+## Credits: Judit Mays, Johannes Kuepper 
 #########################
 
 export DEEGREE_WORKSPACE_ROOT="/usr/local/share/deegree"
-DEE_DIR="/usr/local/lib/deegree-webservices-3.2-pre9"
+DEE_DIR="/usr/local/lib/deegree-webservices-3.3.1"
 
 ## start tomcat (and deegree webapps)
 cd $DEE_DIR

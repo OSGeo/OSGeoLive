@@ -2,15 +2,16 @@
 #################################################################################
 #
 # Purpose: Installation of deegree-webservices-3.2-pre9 into Xubuntu
-# Author:  Judit Mays <mays@lat-lon.de>, Johannes Kuepper <kuepper@lat-lon.de>
+# Author:  Johannes Wilden <wilden@lat-lon.de>
 # Credits: Stefan Hansen <shansen@lisasoft.com>
 #          H.Bowman <hamish_b  yahoo com>
+#          Judit Mays <mays@lat-lon.de>
+#          Johannes Kuepper <kuepper@lat-lon.de>
 # Date:    $Date$
 # Revision:$Revision$
 #
 #################################################################################
-# Copyright (c) 2009-2012 lat/lon GmbH
-# Copyright (c) 2009-2012 Uni Bonn
+# Copyright (c) 2009-2013 lat/lon GmbH
 #
 # Licensed under the GNU LGPL.
 #
@@ -27,9 +28,9 @@
 
 # About:
 # =====
-# This script will install deegree-webservices (with included Tomcat) into Xubuntu
+# This script will install deegree-webservices
 #
-# deegree webservices version 3.2-pre9 runs with openjdk7 on Apache Tomcat 6.0.35
+# deegree webservices version 3.3.1 runs with openjdk7 on Apache Tomcat 6.0.35
 #
 
 # Running:
@@ -43,9 +44,11 @@ echo "==============================================================="
 echo "$SCRIPT"
 echo "==============================================================="
 
+###########################
+
 TMP="/tmp/build_deegree"
 INSTALL_FOLDER="/usr/local/lib"
-DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.2-pre9"
+DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.3.1"
 DEEGREE_WORKSPACE_ROOT="/usr/local/share/deegree"
 BIN="/usr/local/bin"
 
@@ -74,9 +77,9 @@ cd "$TMP"
 
 ## download required stuff into tmp folder
 wget -N --progress=dot:mega \
-   "http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-webservices/3.2-pre9/deegree-webservices-3.2-pre9.zip"
+   "http://repo.deegree.org/content/groups/public/org/deegree/deegree-webservices/3.3.1/deegree-webservices-3.3.1.zip"
 wget -N --progress=dot:mega \
-   "http://artefacts.deegree.org/libs-releases-local/org/deegree/deegree-workspace-inspire/3.2-pre9/deegree-workspace-inspire-3.2-pre9.deegree-workspace"
+   "http://repo.deegree.org/content/groups/public/org/deegree/deegree-workspace-inspire/3.3.1/deegree-workspace-inspire-3.3.1.deegree-workspace"
 
 cp "$BUILD_DIR"/../app-conf/deegree/deegree_start.sh .
 cp "$BUILD_DIR"/../app-conf/deegree/deegree_stop.sh .
@@ -85,8 +88,8 @@ cp "$BUILD_DIR"/../app-conf/deegree/deegree_stop.sh .
 
 ## unpack as root
 cd "$TMP"
-unzip -q deegree-webservices-3.2-pre9.zip
-mv deegree-webservices-3.2-pre9 "$INSTALL_FOLDER"
+unzip -q deegree-webservices-3.3.1.zip
+mv deegree-webservices-3.3.1 "$INSTALL_FOLDER"
 # "user" must not own files outside of /home
 # do "chmod g+w; chgrp users" if needed, but only on stuff that really needs it
 #chown -R $USER_NAME:$USER_NAME "$DEEGREE_FOLDER"
@@ -116,7 +119,7 @@ if [ ! -e /usr/share/applications/deegree-start.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Start deegree
-Comment=deegree webservices 3.2-pre9
+Comment=deegree webservices 3.3.1
 Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
 Exec=dash $USER_HOME/bin/launchassist.sh $BIN/deegree_start.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
@@ -135,7 +138,7 @@ if [ ! -e /usr/share/applications/deegree-stop.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Stop deegree
-Comment=deegree webservices 3.2-pre9
+Comment=deegree webservices 3.3.1
 Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
 Exec=dash $USER_HOME/bin/launchassist.sh  $BIN/deegree_stop.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
@@ -172,9 +175,9 @@ mkdir -p "$DEEGREE_WORKSPACE_ROOT"
 
 ## Extract INSPIRE workspace in DEEGREE_WORKSPACE_ROOT
 cd "$DEEGREE_WORKSPACE_ROOT"
-mkdir deegree-workspace-inspire-3.2-pre9
-cd deegree-workspace-inspire-3.2-pre9
-unzip -q "$TMP"/deegree-workspace-inspire-3.2-pre9.deegree-workspace
+mkdir deegree-workspace-inspire-3.3.1
+cd deegree-workspace-inspire-3.3.1
+unzip -q "$TMP"/deegree-workspace-inspire-3.3.1.deegree-workspace
 
 ## Fix permissions
 # "user" must not own files outside of /home
