@@ -56,7 +56,7 @@ locale
 
 
 # now avail from mainline
-apt-get install --yes postgis "postgresql-$PG_VERSION-postgis-2.0-scripts"
+apt-get install --yes postgis "postgresql-$PG_VERSION-postgis-2.0"
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
