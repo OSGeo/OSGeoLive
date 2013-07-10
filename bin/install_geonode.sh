@@ -40,7 +40,7 @@ POSTGRES_USER="$USER_NAME"
 GEONODE_CONF="/etc/geonode/local_settings.py"
 
 #Install packages
-add-apt-repository -y ppa:geonode/testing
+add-apt-repository -y ppa:geonode/unstable
 apt-get -q update
 apt-get --assume-yes install python-geonode libapache2-mod-wsgi
 
