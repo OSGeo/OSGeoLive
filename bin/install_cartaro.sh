@@ -74,7 +74,7 @@ cat << EOF > /etc/apt/sources.list.d/cartaro.list
 
 # Repo for Cartaro
 
-deb http://www.geops.de/apt wheezy main
+deb http://www.geops.de/apt precise main
 
 EOF
 
