@@ -37,38 +37,23 @@ DATA_DIR="/usr/local/share/geonode"
 DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/sites-available/geonode"
 POSTGRES_USER="$USER_NAME"
-
+GEONODE_CONF="/etc/geonode/local_settings.py"
 
 #Install packages
+add-apt-repository -y ppa:geonode/testing
 apt-get -q update
-apt-get --assume-yes install gcc python-gdal libxml2 python-lxml python-libxml2 python-pip \
-    libproj0 libapache2-mod-wsgi python-shapely python-pycsw python-owslib python-imaging \
-    python-pyproj python-nose python-httplib2 gettext \
-    libgdal1-dev libxml2-dev libxslt-dev python-dev libproj-dev libgeos-dev libgeos++-dev
+apt-get --assume-yes install python-geonode libapache2-mod-wsgi
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
     exit 1
 fi
 
-
-# Install geonode
-pip install --upgrade --use-mirrors geonode
-
-# Create database for demonstration instance
-sudo -u $POSTGRES_USER createdb geonode
-sudo -u $POSTGRES_USER psql geonode -c 'create extension postgis;'
-
 # Initialize database
-django-admin.py syncdb --noinput --settings=geonode.settings
+django-admin.py syncdb --all --noinput --settings=geonode.settings
 
 # Collect static files
 django-admin.py collectstatic --noinput --settings=geonode.settings
-
-
-#### final tidy up
-sudo -u "$POSTGRES_USER" psql geonode -c 'VACUUM ANALYZE;'
-
 
 # Deploy demonstration instance in Apache
 echo "Deploying geonode demonstration instance"
@@ -84,7 +69,7 @@ WSGIDaemonProcess geonode user=www-data threads=15 processes=2
 
     WSGIProcessGroup geonode
     WSGIPassAuthorization On
-    WSGIScriptAlias / /usr/local/lib/python2.7/disk-packages/geonode/wsgi.py
+    WSGIScriptAlias / /usr/local/lib/python2.7/dist-packages/geonode/wsgi.py
 
     <Directory "/usr/local/lib/python2.7/disk-packages/geonode/">
        Order allow,deny
@@ -93,8 +78,8 @@ WSGIDaemonProcess geonode user=www-data threads=15 processes=2
         IndexOptions FancyIndexing
     </Directory>
 
-    Alias /static/ /usr/local/lib/python2.7/disk-packages/geonode/static/
-    Alias /uploaded/ /usr/local/lib/python2.7/disk-packages/geonode/uploaded/
+    Alias /static/ /usr/local/lib/python2.7/dist-packages/geonode/static/
+    Alias /uploaded/ /usr/local/lib/python2.7/dist-packages/geonode/uploaded/
 
     <Proxy *>
       Order allow,deny
@@ -108,6 +93,8 @@ WSGIDaemonProcess geonode user=www-data threads=15 processes=2
 EOF
 echo "Done"
 
+# Make the apache user the owner of the database.
+sudo chown www-data /usr/local/lib/python2.7/dist-packages/geonode/development.db
 
 # Install desktop icon
 echo "Installing geonode icon"
@@ -178,7 +165,6 @@ a2ensite geonode
 echo "geonode 127.0.0.1" >> /etc/hosts
 
 # Uninstall dev packages
-apt-get --assume-yes remove libgdal1-dev libproj-dev libgeos-dev libgeos++-dev libxml2-dev libxslt-dev python-dev
 apt-get --assume-yes autoremove
 
 echo "==============================================================="
