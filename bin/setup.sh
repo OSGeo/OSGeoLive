@@ -23,6 +23,7 @@
 
 SCRIPT="setup.sh"
 ./diskspace_probe.sh "`basename $0`" begin
+./diskspace_probe.sh "`basename $0`"
 BUILD_DIR=`pwd`
 ####
 
