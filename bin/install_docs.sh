@@ -173,6 +173,7 @@ ln -s /usr/local/share/ossim .
 ln -s /usr/local/share/data .
 
 
+####
 # Installer dirs (maybe they work, maybe they don't...
 #   We add the installer dirs after building the image, so we
 #   have to decide to link or not link to them at boot time.
@@ -197,6 +198,29 @@ if [ -d /cdrom/WindowsInstallers ] && \
     rmdir /var/www/MacInstallers
     ln -s /cdrom/WindowsInstallers /var/www/
     ln -s /cdrom/MacInstallers  /var/www/
+fi
+
+exit 0
+EOF
+fi
+
+
+####
+# Link to the extra data dir:
+#   We add the extra data dir after building the image, so we
+#   have to decide to link or not link to them at boot time.
+if [ `grep -c 'extra_data' /etc/rc.local` -eq 0 ] ; then
+    sed -i -e 's|exit 0||' /etc/rc.local
+    cat << EOF >> /etc/rc.local
+
+# Detect big-data iso, adjust symlinks/placeholders as needed
+if [ -d /cdrom/extra_data ] && \
+   [ -f /var/www/extra_data/index.html ] ; then
+    ln -s /cdrom/extra_data /usr/local/share/data/extra
+
+    rm -f /var/www/extra_data/index.html
+    rmdir /var/www/extra_data
+    ln -s /cdrom/extra_data /var/www/
 fi
 
 exit 0
