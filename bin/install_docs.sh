@@ -214,13 +214,15 @@ if [ `grep -c 'extra_data' /etc/rc.local` -eq 0 ] ; then
     cat << EOF >> /etc/rc.local
 
 # Detect big-data iso, adjust symlinks/placeholders as needed
-if [ -d /cdrom/extra_data ] && \
-   [ -f /var/www/extra_data/index.html ] ; then
+if [ -d /cdrom/extra_data ] ; then
     ln -s /cdrom/extra_data /usr/local/share/data/extra
-
-    rm -f /var/www/extra_data/index.html
-    rmdir /var/www/extra_data
     ln -s /cdrom/extra_data /var/www/
+else
+   mkdir -p /usr/local/share/data/extra
+# TODO:
+#   cp extra_data.html /usr/local/share/data/extra/index.html
+   echo "Please visit  http://download.osgeo.org/livedvd/data/" \
+      > /usr/local/share/data/extra/readme.txt
 fi
 
 exit 0
