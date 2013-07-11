@@ -40,7 +40,7 @@ BUILD_DIR=`pwd`
 PACKAGES="gpsd gpsd-clients python-gps \
    espeak gdal-bin gpsbabel \
    graphicsmagick-imagemagick-compat \
-   postgresql-9.1-postgis \
+   postgresql-9.1-postgis-2.0 \
    python-mapnik2 \
    speech-dispatcher \
    openstreetmap-map-icons-square \

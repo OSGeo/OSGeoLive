@@ -48,7 +48,7 @@ if [ ! -x "`which wget`" ] ; then
 fi
 
 apt-get --assume-yes install python python-dev \
-    cgi-mapserver postgis postgresql-9.1-postgis tomcat6 \
+    cgi-mapserver postgis postgresql-9.1-postgis-2.0 tomcat6 \
     libpq-dev libapache2-mod-fcgid libapache2-mod-wsgi \
     patch python-setuptools
     #TODO: firebug no longer in repos
