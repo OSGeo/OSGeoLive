@@ -17,7 +17,6 @@
 # This script will install the zyGrib viewer (1.4mb installed)
 
 ./diskspace_probe.sh "`basename $0`" begin
-BUILD_DIR=`pwd`
 ####
 
 
@@ -53,4 +52,4 @@ ln -s /usr/local/bin/zyGrib /usr/local/bin/zygrib
 
 
 ####
-"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
+./diskspace_probe.sh "`basename $0`" end

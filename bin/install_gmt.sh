@@ -18,10 +18,9 @@
 #    GMT homepage: http://gmt.soest.hawaii.edu/
 #
 
-SCRIPT="install_gmt.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
+
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -57,9 +56,6 @@ PATH="\$PATH:/usr/lib/gmt/bin"
 export PATH
 EOF
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
 
+####
+./diskspace_probe.sh "`basename $0`" end

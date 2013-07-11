@@ -16,10 +16,8 @@
 # =====
 # This script will install viking
 
-SCRIPT="install_viking.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
 
 if [ -z "$USER_NAME" ] ; then 
    USER_NAME="user" 
@@ -41,8 +39,6 @@ chown -R root.root /etc/skel/.viking
 # copy icon to Desktop
 cp /usr/share/applications/viking.desktop "$USER_HOME/Desktop/"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+./diskspace_probe.sh "`basename $0`" end

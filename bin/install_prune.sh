@@ -19,10 +19,8 @@
 # Homepage: http://activityworkshop.net/software/prune/
 # 
 
-SCRIPT="install_prune.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -49,8 +47,6 @@ fi
 
 cp /usr/share/applications/gpsprune.desktop "$USER_HOME/Desktop/"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+./diskspace_probe.sh "`basename $0`" end

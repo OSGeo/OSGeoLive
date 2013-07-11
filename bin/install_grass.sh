@@ -21,10 +21,10 @@
 # this does not attempt to install QGIS-plugin infrastructure, that is
 #  done in install_qgis.sh
 
-SCRIPT="install_grass.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -40,7 +40,6 @@ PACKAGES="grass grass-doc grass-dev python-opengl python-wxgtk2.8 avce00 \
 
 MODERN_VERSION="6.4"
 
-BUILD_DIR=`pwd`
 TMP_DIR=/tmp/build_grass
 mkdir "$TMP_DIR"
 
@@ -250,9 +249,6 @@ EOF
    update-menus
 fi
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
 
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

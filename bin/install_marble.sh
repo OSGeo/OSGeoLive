@@ -20,10 +20,9 @@
 # =======
 # sudo ./marble_install.sh
 
-SCRIPT="install_marble.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
+
 
 if [ -z "$USER_NAME" ] ; then 
    USER_NAME="user" 
@@ -37,8 +36,6 @@ apt-get install --yes marble marble-data
 # copy icon to Desktop
 cp /usr/share/applications/kde4/marble.desktop "$USER_HOME/Desktop/"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+./diskspace_probe.sh "`basename $0`" end

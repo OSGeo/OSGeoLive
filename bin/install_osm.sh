@@ -20,10 +20,10 @@
 # =======
 # sudo ./install_osm.sh
 
-SCRIPT="install_osm.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -36,7 +36,6 @@ TMP_DIR=/tmp/build_osm
 if [ ! -d "$TMP_DIR" ] ; then
    mkdir "$TMP_DIR"
 fi
-BUILD_DIR=`pwd`
 cd "$TMP_DIR"
 
 mkdir /usr/local/share/osm
@@ -242,10 +241,6 @@ apt-get --assume-yes --no-install-recommends install osm2pgsql
 #mv `basename $FILE .tgz` /usr/local/share/osm/
 #ln -s /usr/local/share/osm/`basename $FILE .tgz` /usr/local/share/data/osm
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
 
-
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

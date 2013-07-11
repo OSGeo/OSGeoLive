@@ -20,10 +20,10 @@
 # =======
 # sudo ./setdown.sh 2>&1 | tee /var/log/osgeolive/setdown.log
 
-SCRIPT="setdown.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -165,8 +165,6 @@ chmod 440 /etc/sudoers.d/tomcat
 #echo " Compress image by wiping the virtual disk, filling empty space with zero."
 #cat /dev/zero > zero.fill ; sync ; sleep 1 ; sync ; rm -f zero.fill
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
