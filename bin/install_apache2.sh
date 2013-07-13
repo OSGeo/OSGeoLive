@@ -16,13 +16,10 @@
 # =====
 # This script will install apache2
 
-# Running:
-# =======
-# sudo /etc/init.d/apache2 start
-SCRIPT="install_apache2.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+
+./diskspace_probe.sh "`basename $0`" begin
+####
+
 
 apt-get install --yes apache2
 
@@ -37,8 +34,6 @@ adduser "$USER_NAME" www-data
 mkdir -p /var/www
 wget -nv http://www.osgeo.org/favicon.ico -O /var/www/favicon.ico
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+./diskspace_probe.sh "`basename $0`" end

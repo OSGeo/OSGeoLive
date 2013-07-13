@@ -22,22 +22,11 @@
 
 # About:
 # =====
-# This script will build and install libLAS into Xubuntu
+# This script will build and install libLAS into ubuntu
 
-# Running:
-# =======
-# sudo ./install_liblas.sh
-
-SCRIPT="install_liblas.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
-
-# todo: remove as user is unused by this script.
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
-USER_HOME="/home/$USER_NAME"
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
 
 TMP="/tmp/build_libLAS"
@@ -88,7 +77,9 @@ fi
 ## begin build
 
 cd "$LASZIP_REV"
-cmake -G "Unix Makefiles" . -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_BUILD_TYPE=Release
+cmake -G "Unix Makefiles" . \
+      -DCMAKE_INSTALL_PREFIX=/usr/local \
+      -DCMAKE_BUILD_TYPE=Release
 
 ##--------------------------------------
 make
@@ -177,8 +168,6 @@ apt-get --yes remove libboost1.46-dev libboost-program-options-dev \
 apt-get --yes autoremove
 echo "FIXME: (libLAS) make sure we haven't lost any important automatically installed pkgs"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

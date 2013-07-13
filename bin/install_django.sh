@@ -16,16 +16,9 @@
 # =====
 # This script installs Django.
 
-# Running:
-# =======
-# sudo ./install_django.sh
+./diskspace_probe.sh "`basename $0`" begin
+####
 
-SCRIPT="install_django.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
-
-echo "Starting Django installation"
 
 # Need at least version 1.5 for PostGIS 2.0 support.
 DJVER="1.5.1"
@@ -37,12 +30,11 @@ Pin: release *
 Pin-Priority: -1
 EOF
 
+## FIXME: please use/create python-<package>.deb; do not use PIP or easy_install
 apt-get --assume-yes install python-pip
     
 pip install --upgrade Django=="$DJVER"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+./diskspace_probe.sh "`basename $0`" end

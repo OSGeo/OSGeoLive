@@ -16,10 +16,9 @@
 # =====
 # This script will install Jave JRE and Java JDK
 
-SCRIPT="install_java.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
+
 
 #apt-get install --yes default-jdk default-jre
 apt-get install --yes openjdk-7-jdk openjdk-7-jre
@@ -27,14 +26,6 @@ apt-get install --yes openjdk-7-jdk openjdk-7-jre
 apt-get --assume-yes install gsfonts-x11
 
 ln -s /usr/lib/jvm/java-7-openjdk-i386 /usr/lib/jvm/default-java
-
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
-
-exit
 
 # in case of emergency break glass:
 #cat << EOF > /etc/profile.d/set_JAVA_HOME.sh
@@ -46,3 +37,6 @@ exit
 ###   otherwise we'll drop it
 #apt-get --assume-yes install pdftk
 
+
+####
+./diskspace_probe.sh "`basename $0`" end
