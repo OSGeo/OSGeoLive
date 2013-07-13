@@ -16,18 +16,15 @@
 # =====
 # This script will install additional tools for education (workshops, etc.)
 
+
+./diskspace_probe.sh "`basename $0`" begin
+####
+
+
 # Python development
 #  eric is a full featured Python IDE written in PyQt.
-#apt-get --assume-yes install eric
-
-SCRIPT="install_edutools.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+apt-get --assume-yes install eric
 
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+####
+./diskspace_probe.sh "`basename $0`" end
