@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -19,17 +19,11 @@
 # osgEarth is a scalable terrain rendering toolkit for OpenSceneGraph
 # http://osgearth.org/
 
-# Running:
-# =======
-# sudo ./install_osgearth.sh
+./diskspace_probe.sh "`basename $0`" begin
+####
+
 
 #Add repositories
-
-SCRIPT="install_osgearth.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
-
 wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
@@ -51,8 +45,7 @@ EOF
 
 # share data with the rest of the disc
 mkdir -p /usr/local/share/data/raster
-ln -s /usr/share/osgearth/data/world.tif \
-      /usr/local/share/data/raster/
+ln -s /usr/share/osgearth/data/world.tif /usr/local/share/data/raster/
 
 # fix font symlinks
 rm /usr/share/osgearth/fonts/arial.ttf
@@ -62,8 +55,6 @@ ln -s /usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf \
 ln -s /usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf \
   /usr/share/osgearth/fonts/times.ttf
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+./diskspace_probe.sh "`basename $0`" end

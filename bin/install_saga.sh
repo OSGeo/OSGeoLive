@@ -1,24 +1,22 @@
 #!/bin/sh
 #
 # install_saga.sh
-# 
 #
 # Created by Johan Van de Wauw on 2010-07-02
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# This script licensed under the GNU LGPL version >= 2.1.
 # lucid: saga 2.0.4 is provided in ubuntugis and ubuntugis/unstable
 
-SCRIPT="install_saga.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
+
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
 
-#Temporary towards the svn build ppa until 2.1.0 is definitely released
+# Temporary use the svn build ppa until 2.1.0 is definitely released
 add-apt-repository --yes ppa:johanvdw/sagacvs
 
 apt-get -q update
@@ -46,8 +44,6 @@ wget -nv http://zadeh.ugent.be/~johan/saga/saga_gui.desktop \
 cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/saga_gui.desktop"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+./diskspace_probe.sh "`basename $0`" end

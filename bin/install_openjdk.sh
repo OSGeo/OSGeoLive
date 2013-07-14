@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2011 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -15,15 +15,10 @@
 # About:
 # =====
 # This script will install openjdk version 7
-#
-# for Ubuntu >=11.10 openjdk-7 is in the official archives:
-#apt-get install openjdk-7-jre icedtea-plugin ttf-dejavu-extra
-#  (icedtea is now to be dropped?)
 
-SCRIPT="install_openjdk.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
+
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -45,8 +40,6 @@ if [ `grep -c JAVA_HOME "$USER_HOME/.profile"` -eq 0 ] ; then
 EOF
 fi
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+./diskspace_probe.sh "`basename $0`" end

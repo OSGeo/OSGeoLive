@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -16,14 +16,17 @@
 # =====
 # This script will install tomcat 6
 
-# Running:
-# =======
+# To manually launch:
+# ===================
 # sudo /etc/init.d tomcat6 start
 
-SCRIPT="install_tomcat6.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
+
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+
 
 apt-get install --yes tomcat6 tomcat6-admin
 
@@ -31,13 +34,8 @@ apt-get install --yes tomcat6 tomcat6-admin
 #<role rolename="manager"/>
 #<user username="user" password="user" roles="manager"/>
 
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
-USER_HOME="/home/$USER_NAME"
-BUILD_DIR="$USER_HOME/gisvm"
 
-cp "$BUILD_DIR"/app-conf/tomcat/tomcat-users.xml \
+cp ../app-conf/tomcat/tomcat-users.xml \
    /etc/tomcat6/tomcat-users.xml
 
 chown tomcat6:tomcat6 /etc/tomcat6/tomcat-users.xml
@@ -47,8 +45,9 @@ chown tomcat6:tomcat6 /etc/tomcat6/tomcat-users.xml
 chgrp tomcat6 /usr/share/tomcat6/bin/*.sh
 adduser "$USER_NAME" tomcat6
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+# TODO: (?)
+# add start/stop to sudoers file to allow alternate VM users to launch without password?
+
+
+####
+./diskspace_probe.sh "`basename $0`" end

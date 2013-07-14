@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2013 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -18,16 +18,11 @@
 # written in Python.
 #   http://pycsw.org
 #
-# Running:
-# =======
-# sudo ./install_pycsw.sh
-#
 # Requires: Apache2, python-lxml, python-shapely and python-sqlalchemy
 
-SCRIPT="install_pycsw.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
+
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -56,9 +51,6 @@ chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/pycsw.desktop"
 # Reload Apache
 #/etc/init.d/apache2 force-reload
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
 
+####
+./diskspace_probe.sh "`basename $0`" end

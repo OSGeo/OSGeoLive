@@ -14,21 +14,11 @@
 
 # About:
 # =====
-# This script will install tinyows in xubuntu
+# This script will install tinyows in ubuntu
 
-# Running:
-# =======
-# sudo ./install_tinyows.sh
+./diskspace_probe.sh "`basename $0`" begin
+####
 
-SCRIPT="install_tinyows.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
-
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
-USER_HOME="/home/$USER_NAME"
 
 #Add repositories
 cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
@@ -50,8 +40,6 @@ fi
 ### HB: put into /usr/local/share/tinyows/ and not /etc?
 cp ../app-conf/tinyows/tinyows.xml /etc/
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+./diskspace_probe.sh "`basename $0`" end
