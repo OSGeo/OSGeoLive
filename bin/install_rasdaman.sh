@@ -257,13 +257,14 @@ if [ ! -d "public_html" ] ; then
 fi
 
 echo "copying earthlook folder into $EARTHLOOKDIR/rasdaman-demo..."
-cp -r public_html "$EARTHLOOKDIR/rasdaman-demo"
+#cp -r public_html "$EARTHLOOKDIR/rasdaman-demo"
+mv public_html "$EARTHLOOKDIR/rasdaman-demo"
 
 adduser "$USER_NAME" www-data
-chmod g+w /var/www/rasdaman-demo/demos/demo_items/img/climate*/
-chmod g+w /var/www/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
-chgrp www-data /var/www/rasdaman-demo/demos/demo_items/img/climate*/
-chgrp www-data /var/www/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
+#chmod g+w /var/www/rasdaman-demo/demos/demo_items/img/climate*/
+#chmod g+w /var/www/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
+#chgrp www-data /var/www/rasdaman-demo/demos/demo_items/img/climate*/
+#chgrp www-data /var/www/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
 
 
 mv /var/lib/tomcat6/webapps/petascope.war \
@@ -348,7 +349,7 @@ Encoding=UTF-8
 Name=Rasdaman-Earthlook Demo
 Comment=Rasdaman Demo and Tutorial
 Categories=Application;Education;Geography;
-Exec=firefox  http://localhost/rasdaman-demo/index-osgeolive.php
+Exec=firefox  http://localhost/rasdaman-demo/
 Icon=gnome-globe
 Terminal=false
 StartupNotify=false
