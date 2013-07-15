@@ -14,7 +14,7 @@
 
 # About:
 # =====
-# This script will install OpenLayers 2.12
+# This script will install OpenLayers 2.13
 
 # Running:
 # =======
@@ -27,7 +27,7 @@ echo "$SCRIPT"
 echo "==============================================================="
 
 TMP_DIR="/tmp/build_openlayers"
-OL_VERSION="2.12"
+OL_VERSION="2.13.1"
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -35,26 +35,85 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 BUILD_DIR=`pwd`
+
+#Install naturaldocs if not installed yet
+hash naturaldocs 2>/dev/null
+if [ $? -ne 0 ] ; then
+    echo "Installing naturaldocs..."
+    apt-get --assume-yes install naturaldocs 
+    OL_APT_REMOVE=naturaldocs
+fi
+
 mkdir -p "$TMP_DIR"
 cd "$TMP_DIR"
 
-if [ ! -e "OpenLayers-$OL_VERSION.tar.gz" ] ; then
-    wget --progress=dot:mega "http://openlayers.org/download/OpenLayers-$OL_VERSION.tar.gz"
+GIT_DIR=openlayers-$OL_VERSION
+
+echo "\nFetching git clone..."
+if [ ! -d $GIT_DIR ] ; then
+    git clone https://github.com/openlayers/openlayers.git $GIT_DIR 
 else
-    echo "... OpenLayers-$OL_VERSION.tar.gz already downloaded"
+    echo "... openLayers-$OL_VERSION already cloned"
 fi
 
-tar xzf "OpenLayers-$OL_VERSION.tar.gz"
+cd $GIT_DIR
 
-if [ -d "/var/www/openlayers" ] ; then
-    echo -n "Removing existing OpenLayers directory (/var/www/openlayers)... "
-    rm -fr /var/www/openlayers
-    echo "Done"
+echo "\nBuilding examples index"
+if [ ! -s examples/example-list.js ] ; then
+    cd tools
+    ./exampleparser.py
+    cd ..
+else
+    echo "... example index already built"
 fi
 
-cp -R OpenLayers-$OL_VERSION/ /var/www/openlayers
+ln -sf example-list.html examples/index.html
+echo Done.
+
+echo "\nBuilding full uncompressed OpenLayers.js"
+cd build
+./buildUncompressed.py
+cd ..
+ln -sf build/OpenLayers.js
+
+echo "\nBuilding API docs..."
+if [ ! -d doc ] ; then
+    mkdir doc
+fi
+echo `pwd`
+naturaldocs -i lib/ -o HTML doc/ -p doc_config/ -s Default OL
+
+#Index Page
+cat << EOF > "index.html"
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+</head>
+<body>
+<h2>OpenLayers $OL_VERSION</h2>
+<ul>
+<li><a href="doc/">API Docs</a></li>
+<li><a href="examples/">Examples</a></li>
+<li><a href="http://openlayers.org/">OpenLayers.org website</a></li>
+</ul>
+</body>
+</html>
+EOF
+
+cd $TMP_DIR 
+
+mkdir -p /var/www/openlayers
+cp -R $GIT_DIR/* /var/www/openlayers/
 chmod -R uga+r /var/www/openlayers
 
+#Remove packages
+if [ ! -z "${OL_APT_REMOVE}" ]; then
+    echo "Removing naturaldocs..."
+    apt-get --assume-yes remove $OL_APT_REMOVE
+fi
+
+exit
 
 #TODO: Launch script and icon for OpenLayers to take you to a documentation page and examples listing
 #Add Launch icon to desktop
