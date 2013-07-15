@@ -282,6 +282,9 @@ echo "\$PASSWORD" | sudo -S $GEO_PATH/bin/shutdown.sh &
 
 DELAY=20
 
+# Enable JSONP for GeoServer
+JAVA_OPTS="-DENABLE_JSONP=true -XX:MaxPermSize=128m" 
+
 (
 for TIME in \`seq \$DELAY\` ; do
         sleep 1
@@ -289,7 +292,7 @@ for TIME in \`seq \$DELAY\` ; do
         done
         ) | zenity --progress --auto-close --text "Preparing GeoServer...."
 
-echo "\$PASSWORD" | sudo -S $GEO_PATH/bin/startup.sh &
+echo "\$PASSWORD" | sudo -S JAVA_OPTS="$JAVA_OPTS" $GEO_PATH/bin/startup.sh &
 echo "\$PASSWORD" | sudo -S /etc/init.d/postgresql start
 echo "\$PASSWORD" | sudo -S /etc/init.d/apache2 start
 
