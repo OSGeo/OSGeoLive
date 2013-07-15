@@ -292,7 +292,7 @@ for TIME in \`seq \$DELAY\` ; do
         done
         ) | zenity --progress --auto-close --text "Preparing GeoServer...."
 
-echo "\$PASSWORD" | sudo -S JAVA_OPTS="$JAVA_OPTS" $GEO_PATH/bin/startup.sh &
+echo "\$PASSWORD" | sudo -S JAVA_OPTS="\$JAVA_OPTS" $GEO_PATH/bin/startup.sh &
 echo "\$PASSWORD" | sudo -S /etc/init.d/postgresql start
 echo "\$PASSWORD" | sudo -S /etc/init.d/apache2 start
 
