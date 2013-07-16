@@ -19,20 +19,14 @@
 # The menu creation and icon sorting has moved to install_icons_and_menus.sh
 #
 
-SCRIPT="install_desktop.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
-# Running:
-# =======
-# sudo ./install_desktop.sh
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-BUILD_DIR=`pwd`
-
 
 
 # Default password list on the desktop to be replaced by html help in the future.
@@ -254,6 +248,14 @@ EOF
 picture-uri='file:///usr/share/backgrounds/Precise_Pangolin_by_Vlad_Gerasimov.jpg'
 EOF
 
+  # set the default login background image when Unity-greeter is used by lightdm:
+  cat << EOF > /usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.override
+[com.canonical.unity-greeter]
+draw-user-backgrounds=false
+background='/usr/share/xfce4/backdrops/osgeo-desktop.png'
+EOF
+  glib-compile-schemas /usr/share/glib-2.0/schemas/
+
   # set what icons will be on the taskbar (launcher) by default for new users
   cat << EOF > /etc/dconf/db/local.d/01_unity_favorites
 [desktop/unity/launcher]
@@ -274,8 +276,6 @@ EOF
   dconf update
 fi
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
