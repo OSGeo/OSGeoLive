@@ -20,21 +20,25 @@
 ####
 
 
-# Need at least version 1.5 for PostGIS 2.0 support.
-DJVER="1.5.1"
+# # Need at least version 1.5 for PostGIS 2.0 support.
+# DJVER="1.5.1"
+# 
+# # Prevent installation via apt since needed version is not available as deb.
+# cat << EOF >> /etc/apt/preferences
+# Package: python-django
+# Pin: release *
+# Pin-Priority: -1
+# EOF
+# 
+# ## FIXME: please use/create python-<package>.deb; do not use PIP or easy_install
+# apt-get --assume-yes install python-pip
+#     
+# pip install --upgrade Django=="$DJVER"
 
-# Prevent installation via apt since needed version is not available as deb.
-cat << EOF >> /etc/apt/preferences
-Package: python-django
-Pin: release *
-Pin-Priority: -1
-EOF
-
-## FIXME: please use/create python-<package>.deb; do not use PIP or easy_install
-apt-get --assume-yes install python-pip
-    
-pip install --upgrade Django=="$DJVER"
-
+#Install packages
+add-apt-repository -y ppa:geonode/unstable
+apt-get -q update
+apt-get --assume-yes install python-django
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
