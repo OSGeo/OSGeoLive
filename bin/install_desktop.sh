@@ -174,6 +174,13 @@ cp -f "$BUILD_DIR"/../desktop-conf/xfce/greybird_theme/*.xpm \
    /usr/share/themes/Greybird/xfwm4/
 
 
+# Long live the classic X11 keybindings
+cat << EOF > /etc/skel/.xinitrc
+setxkbmap -option keypad:pointerkeys
+setxkbmap -option terminate:ctrl_alt_bksp
+EOF
+
+
 #### Make Unity Usable (Muu..)
 # we are using xubuntu so it's a bit academic, but in case anyone wants to
 #  use OSGeo on stock Ubuntu these changes can make it a lot less annoying.
