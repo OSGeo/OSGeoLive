@@ -49,18 +49,12 @@ if [ $? -ne 0 ] ; then
     exit 1
 fi
 
-# Initialize database
-django-admin.py syncdb --all --noinput --settings=geonode.settings
-
-# Collect static files
-django-admin.py collectstatic --noinput --settings=geonode.settings
-
 # Deploy demonstration instance in Apache
 echo "Deploying geonode demonstration instance"
 cat << EOF > "$APACHE_CONF"
 WSGIDaemonProcess geonode user=www-data threads=15 processes=2
-<VirtualHost geonode:80>
-    Servername geonode
+<VirtualHost *:80>
+    ServerName geonode
     ServerAdmin webmaster@localhost
 
     ErrorLog /var/log/apache2/error.log
@@ -69,17 +63,17 @@ WSGIDaemonProcess geonode user=www-data threads=15 processes=2
 
     WSGIProcessGroup geonode
     WSGIPassAuthorization On
-    WSGIScriptAlias / /usr/local/lib/python2.7/dist-packages/geonode/wsgi.py
+    WSGIScriptAlias / /usr/lib/python2.7/dist-packages/geonode/wsgi.py
 
-    <Directory "/usr/local/lib/python2.7/disk-packages/geonode/">
+    <Directory "/usr/lib/python2.7/disk-packages/geonode/">
        Order allow,deny
         Options Indexes FollowSymLinks
         Allow from all
         IndexOptions FancyIndexing
     </Directory>
 
-    Alias /static/ /usr/local/lib/python2.7/dist-packages/geonode/static/
-    Alias /uploaded/ /usr/local/lib/python2.7/dist-packages/geonode/uploaded/
+    Alias /static/ /usr/lib/python2.7/dist-packages/geonode/static/
+    Alias /uploaded/ /usr/lib/python2.7/dist-packages/geonode/uploaded/
 
     <Proxy *>
       Order allow,deny
@@ -93,8 +87,23 @@ WSGIDaemonProcess geonode user=www-data threads=15 processes=2
 EOF
 echo "Done"
 
-# Make the apache user the owner of the database.
-sudo chown www-data /usr/local/lib/python2.7/dist-packages/geonode/development.db
+# Create tables in the database
+django-admin syncdb --all --noinput --settings=geonode.settings
+# Install sample admin. Username:admin password:admin
+django-admin loaddata sample_admin
+# Collect static files
+django-admin collectstatic --noinput --settings=geonode.settings
+
+
+# Make the apache user the owner of the required dirs.
+sudo chown www-data /usr/lib/python2.7/dist-packages/geonode/development.db
+sudo chown www-data /usr/lib/python2.7/dist-packages/geonode/static/
+sudo chown www-data /usr/lib/python2.7/dist-packages/geonode/uploaded/
+
+
+
+
+
 
 # Install desktop icon
 echo "Installing geonode icon"
