@@ -104,8 +104,8 @@ GRANT ALL PRIVILEGES ON ushahidi.* TO '$USER_NAME'@'localhost' IDENTIFIED BY '$U
 
 # tweak apache to allow Clean URLs
 cat << EOF > "$TMP_DIR/allow_htaccess.patch"
---- /etc/apache2/sites-enabled/000-default.ORIG	2010-07-14 20:49:54.6 +1200
-+++ /etc/apache2/sites-enabled/000-default	2010-07-14 20:50:07.9 +1200
+--- /etc/apache2/sites-available/default.ORIG	2010-07-14 20:49:54.6 +1200
++++ /etc/apache2/sites-available/default	2010-07-14 20:50:07.9 +1200
 @@ -8,7 +8,7 @@
  	</Directory>
  	<Directory /var/www/>
@@ -117,16 +117,10 @@ cat << EOF > "$TMP_DIR/allow_htaccess.patch"
  	</Directory>
 EOF
 
-if [ `grep -c 'AllowOverride All' /etc/apache2/sites-enabled/000-default` -eq 0 ] ; then
+if [ `grep -c 'AllowOverride All' /etc/apache2/sites-available/default` -eq 0 ] ; then
   patch -p0 < "$TMP_DIR/allow_htaccess.patch"
 fi
 
-
-#FIXME: The commands above seem to be modifying /etc/apache2/sites-enabled/0000-default directly
-# and making it a file instead of a symlink, the following workaround restores it to the way it was.
-mv /etc/apache2/sites-enabled/000-default /etc/apache2/sites-enabled/default
-a2ensite default
-# end workaround for missing symlink
 
 a2enmod rewrite
 
