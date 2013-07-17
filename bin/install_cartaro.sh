@@ -302,7 +302,7 @@ for TIME in \`seq \$DELAY\` ; do
         done
         ) | zenity --progress --auto-close --text "Cartaro is starting...."
 
-zenity --info --text "Starting web browser ... have fun with Cartaro!"
+zenity --info --text "Starting web browser ... have fun with Cartaro! Log in with user admin and password geoserver."
 
 firefox "http://localhost/cartaro"
 EOF
