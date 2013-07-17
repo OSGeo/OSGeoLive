@@ -26,10 +26,8 @@
 # Needs already installed Geoserver with Version 2.2
 #
 
-SCRIPT="install_cartaro.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
 
 CARTARO_PASSWORD="geoserver"
 CARTARO_USER="cartaro-admin"
@@ -391,8 +389,5 @@ chmod -R g+w "$GEO_PATH/logs"
 chgrp -R users "$GEO_PATH/data_dir"
 chgrp -R users "$GEO_PATH/logs"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+####
+./diskspace_probe.sh "`basename $0`" end

@@ -27,10 +27,8 @@
 #
 # Variables
 # -----------------------------------------------------------------------------
-SCRIPT="install_52nWSS.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
 
 TMP="/tmp/build_52nWSS"
 if [ -z "$USER_NAME" ] ; then
@@ -251,8 +249,5 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/$WSS_DESKTOP_STOPER_NAME"
 #
 # We just crossed the finish line
 #
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+####
+./diskspace_probe.sh "`basename $0`" end

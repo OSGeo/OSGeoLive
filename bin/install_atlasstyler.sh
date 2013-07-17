@@ -27,10 +27,8 @@
 # =======
 # Any Java 1.6, Sun preferred
 
-SCRIPT="install_atlasstyler.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
 
 cp ../sources.list.d/geopublishing.list /etc/apt/sources.list.d/
 # Get and import the key that the .deb packages are signed with
@@ -88,8 +86,5 @@ EOF
 
 #?or? if [ ! -x /usr/share/atlasstyler/start_Atlasstyler.sh ] ; then
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+####
+./diskspace_probe.sh "`basename $0`" end

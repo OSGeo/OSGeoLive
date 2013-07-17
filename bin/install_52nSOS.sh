@@ -30,10 +30,8 @@
 # Variables
 # -----------------------------------------------------------------------------
 
-SCRIPT="install_52nSOS.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
 
 TMP="/tmp/build_52nSOS"
 if [ -z "$USER_NAME" ] ; then
@@ -347,9 +345,6 @@ chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-stop.desktop"
 #
 # We just crossed the finish line
 #
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+####
+./diskspace_probe.sh "`basename $0`" end
 
