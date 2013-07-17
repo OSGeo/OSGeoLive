@@ -121,6 +121,13 @@ if [ `grep -c 'AllowOverride All' /etc/apache2/sites-enabled/000-default` -eq 0 
   patch -p0 < "$TMP_DIR/allow_htaccess.patch"
 fi
 
+
+#FIXME: The commands above seem to be modifying /etc/apache2/sites-enabled/0000-default directly
+# and making it a file instead of a symlink, the following workaround restores it to the way it was.
+mv /etc/apache2/sites-enabled/000-default /etc/apache2/sites-enabled/default
+a2ensite default
+# end workaround for missing symlink
+
 a2enmod rewrite
 
 echo "Restarting apache2..."
