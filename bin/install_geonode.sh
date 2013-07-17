@@ -91,6 +91,26 @@ WSGIDaemonProcess geonode user=www-data threads=15 processes=2
 EOF
 echo "Done"
 
+
+#FIXME: The default configuration in apache does not have a ServerName for localhost
+# and takes over requests for GeoNode's virtualhost, the following patch is a workaround:
+cat << EOF > "$TMP_DIR/servername.patch"
+--- /etc/apache2/sites-available/default.ORIG	2013-07-17 19:29:32.559707270 +0000
++++ /etc/apache2/sites-available/default	2013-07-17 19:30:50.703705186 +0000
+@@ -1,5 +1,7 @@
+ <VirtualHost *:80>
+ 	ServerAdmin webmaster@localhost
++        ServerName localhost
++        ServerAlias osgeolive
+ 
+ 	DocumentRoot /var/www
+ 	<Directory />
+EOF
+
+if [ `grep -c 'ServerName' /etc/apache2/sites-available/default` -eq 0 ] ; then
+  patch -p0 < "$TMP_DIR/servername.patch"
+fi
+
 # Create tables in the database
 django-admin syncdb --all --noinput --settings=geonode.settings
 # Install sample admin. Username:admin password:admin
