@@ -49,6 +49,10 @@ if [ $? -ne 0 ] ; then
     exit 1
 fi
 
+# Add an entry in /etc/hosts for geonode, to enable http://geonode/
+echo 'geonode 127.0.0.1' >> /etc/hosts
+
+
 # Deploy demonstration instance in Apache
 echo "Deploying geonode demonstration instance"
 cat << EOF > "$APACHE_CONF"
@@ -96,13 +100,9 @@ django-admin collectstatic --noinput --settings=geonode.settings
 
 
 # Make the apache user the owner of the required dirs.
-sudo chown www-data /usr/lib/python2.7/dist-packages/geonode/development.db
-sudo chown www-data /usr/lib/python2.7/dist-packages/geonode/static/
-sudo chown www-data /usr/lib/python2.7/dist-packages/geonode/uploaded/
-
-
-
-
+chown www-data /usr/lib/python2.7/dist-packages/geonode/development.db
+chown www-data /usr/lib/python2.7/dist-packages/geonode/static/
+chown www-data /usr/lib/python2.7/dist-packages/geonode/uploaded/
 
 
 # Install desktop icon
@@ -170,8 +170,6 @@ a2ensite geonode
 
 # Reload Apache
 /etc/init.d/apache2 force-reload
-
-echo "geonode 127.0.0.1" >> /etc/hosts
 
 # Uninstall dev packages
 apt-get --assume-yes autoremove
