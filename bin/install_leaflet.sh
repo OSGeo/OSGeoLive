@@ -19,6 +19,7 @@
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
+add-apt-repository --yes ppa:johanvdw/leafletjs
 
 apt-get --assume-yes install libjs-leaflet
 
