@@ -50,7 +50,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 # Add an entry in /etc/hosts for geonode, to enable http://geonode/
-echo 'geonode 127.0.0.1' >> /etc/hosts
+echo '127.0.0.1 geonode' | sudo tee -a /etc/hosts
 
 
 # Deploy demonstration instance in Apache
