@@ -262,13 +262,13 @@ if [ 0 -eq 1 ] ; then
     "$SAT_DATA/p011r031_7t19990918_z19_nn30.tif"
 fi
 
-/usr/bin/gdal_translate -of VRT "$RASTER_DATA"/BlueMarble_small.tiff \
-    /usr/share/ossim/images/reference/bluemarble.tif
-
-/usr/local/ossim/bin/ossim-img2rr \
-   /usr/share/ossim/images/reference/bluemarble.tif
-/usr/local/ossim/bin/ossim-create-histo \
-   /usr/share/ossim/images/reference/bluemarble.tif
+#/usr/bin/gdal_translate -of VRT "$RASTER_DATA"/BlueMarble_small.tiff \
+#    /usr/share/ossim/images/reference/bluemarble.tif
+#
+#/usr/local/ossim/bin/ossim-img2rr \
+#   /usr/share/ossim/images/reference/bluemarble.tif
+#/usr/local/ossim/bin/ossim-create-histo \
+#   /usr/share/ossim/images/reference/bluemarble.tif
 
 
 unset OSSIM_PREFS_FILE
@@ -296,10 +296,11 @@ SPEARFISH_RASTER=/usr/local/share/grass/spearfish60/PERMANENT/cellhd/
     "$QUICKSTART"/workspace/elevation10m.vrt \
     "$QUICKSTART"/workspace/elevation10m.tif
 
-OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference \
-  /usr/local/ossim/bin/ossim-orthoigen -w general_raster_bip \
-    "$QUICKSTART"/workspace/elevation10m.tif \
-    /usr/share/ossim/elevation/spearfish/elevation10m.ras
+# Broken (see trac #1159)
+#OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference \
+#  /usr/local/ossim/bin/ossim-orthoigen -w general_raster_bip \
+#    "$QUICKSTART"/workspace/elevation10m.tif \
+#    /usr/share/ossim/elevation/spearfish/elevation10m.ras
 
 rm -f "$QUICKSTART"/workspace/elevation10m.tif
 
