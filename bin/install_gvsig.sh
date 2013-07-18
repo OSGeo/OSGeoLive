@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/sh
 # Copyright (c) 2009-2010 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -16,10 +16,6 @@
 # =====
 # This script will install gvSIG 1.11 (BN1305) using
 # a deb package.
-
-# Running:
-# =======
-# sudo ./install_gvsig.sh
 
 # Changelog:   "svn log install_gvsig.sh --limit 10"
 # ===========
@@ -50,10 +46,10 @@
 #   * Changed to the "with-jre" version because the Xubuntu 9.10 version
 #     doesn't have the packages of Java 1.5
 
-SCRIPT="install_gvsig.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -76,19 +72,23 @@ fi
 
 # create tmp folders
 TMP="/tmp/build_gvsig"
-if [ ! -d $TMP ] ; then
+if [ ! -d "$TMP" ] ; then
    mkdir "$TMP"
 fi
 cd "$TMP"
 
 # get deb package 
-if [ ! -e $GVSIG_PACKAGE ] ; then
-  wget --progress=dot:mega "$GVSIG_URL/$GVSIG_PACKAGE"
+if [ ! -e "$GVSIG_PACKAGE" ] ; then
+   wget -c --progress=dot:mega "$GVSIG_URL/$GVSIG_PACKAGE"
 fi
 
 # remove it if it's present at the system
-echo "Purging previous versions of gvSIG"
-apt-get -y purge gvsig
+dpkg -l gvsig  > /dev/null 2> /dev/null
+if [ $? -eq 0 ] ; then
+   echo "Purging previous versions of gvSIG"
+   apt-get -y purge gvsig
+fi
+
 if [ -d "$USER_HOME/gvSIG" ] ; then
    rm -rf "$USER_HOME/gvSIG"
 fi
@@ -104,9 +104,15 @@ fi
 
 # fix broken permissions in the deb
 chown -R root.root /opt/gvSIG_*
+
 # user needs to write on the gvSIG folder by some legacy plugins
-chmod 777 /opt/gvSIG_* 
+chgrp users /opt/gvSIG_*
+chmod g+w /opt/gvSIG_*
+adduser "$USER_NAME" users
+
+# pkg lint cleanup
 rm -f /debian-binary
+
 chown -R root.root /usr/share/applications/gvsig.desktop \
   /usr/share/icons/ico-gvSIG.png /usr/share/mime/packages/gvsig.xml \
   /var/lib/dpkg/info/gvsig.*
@@ -139,8 +145,6 @@ wget --progress=dot:binary \
 cp -r "$USER_HOME/gvSIG" /etc/skel
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
