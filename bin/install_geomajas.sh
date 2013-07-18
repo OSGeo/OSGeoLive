@@ -13,14 +13,14 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 
-SCRIPT="install_geomajas.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
-
 # =============================================================================
 # Install script for Geomajas
 # =============================================================================
+
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 TMP="/tmp/build_geomajas"
 INSTALL_FOLDER="/usr/lib"  ## hard-wired to repo scripts
@@ -28,11 +28,11 @@ BIN=/usr/local/bin
 GEOMAJAS_VERSION=1.8.0
 GEOMAJAS_HOME="$INSTALL_FOLDER/geomajas-$GEOMAJAS_VERSION-bin"
 GEOMAJAS_PORT=3420
+
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-
 
 
 # =============================================================================
@@ -45,16 +45,9 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-
-##### Java Sun JDK 6 is required:
-#echo "Installing Sun JDK 6"
-#apt-get install --yes sun-java6-jdk
-
-
 ##### Create the TMP directory
 mkdir -p "$TMP"
 cd "$TMP"
-
 
 
 # =============================================================================
@@ -99,8 +92,9 @@ fi
 
 
 ##### Step5: Make the logs directory writable
-echo "GeoMajas FIXME: *** Do not use 777 if at all possible. ***"
-chmod 777 "$GEOMAJAS_HOME/logs"
+chgrp users "$GEOMAJAS_HOME/logs"
+chmod g+w "$GEOMAJAS_HOME/logs"
+adduser "$USER_NAME" users
 
 #####Make the webapps folder accessible
 chmod -R 755 "$GEOMAJAS_HOME/webapps"
@@ -161,8 +155,6 @@ ln -s /usr/lib/geomajas-1.8.0-bin/webapps/showcase/WEB-INF/classes/org/geomajas/
 # remove local jai libraries to work with ones provided in default-java (fix for #959)
 rm "$GEOMAJAS_HOME"/webapps/showcase/WEB-INF/lib/jai*.jar
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
