@@ -23,16 +23,12 @@
 
 # About:
 # =====
-# This script will install Kosmo 3.0 into Xubuntu
+# This script will install Kosmo 3.0 into ubuntu
 
-# Running:
-# =======
-# sudo ./install_kosmo.sh
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
-SCRIPT="install_kosmo.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -58,7 +54,7 @@ cd "$TMP"
 
 # get kosmo
 wget -c --progress=dot:mega \
-   http://88.198.230.145/public/kosmo/v_3.0/livedvd/kd_3.0_linux_x86.tar.gz
+   "http://88.198.230.145/public/kosmo/v_3.0/livedvd/kd_3.0_linux_x86.tar.gz"
 
 # unpack it and copy it to /usr/lib
 tar xzf kd_3.0_linux_x86.tar.gz \
@@ -75,12 +71,13 @@ chmod -R g+w "$KOSMO_FOLDER"
 
 ## execute the links.sh script
 cd "$KOSMO_FOLDER"/libs
+#FIXME: ln: failed to create symbolic link `libgrass_....` and 32 others.
 ./links.sh
 cd "$TMP"
 
 # get correct kosmo.sh
 rm "$KOSMO_FOLDER"/bin/Kosmo.sh
-wget -nv -N http://88.198.230.145/public/kosmo/v_3.0/livedvd/Kosmo.sh
+wget -nv -N "http://88.198.230.145/public/kosmo/v_3.0/livedvd/Kosmo.sh"
 cp Kosmo.sh "$KOSMO_FOLDER"/bin/
 chmod a+x "$KOSMO_FOLDER"/bin/Kosmo.sh
 
@@ -88,7 +85,7 @@ chmod a+x "$KOSMO_FOLDER"/bin/Kosmo.sh
 ln -s "$KOSMO_FOLDER"/bin/Kosmo.sh /usr/bin/kosmo_3.0
 
 # Download desktop link
-wget -nv http://88.198.230.145/public/kosmo/v_3.0/livedvd/Kosmo_3.0.desktop
+wget -nv "http://88.198.230.145/public/kosmo/v_3.0/livedvd/Kosmo_3.0.desktop"
 
 # homogenize icon name
 sed -i -e 's/^Name=Kosmo_3.0/Name=Kosmo/' Kosmo_3.0.desktop
@@ -99,8 +96,5 @@ chown "$USER_NAME:$USER_NAME" "$USER_HOME"/Desktop/Kosmo_3.0.desktop
 chmod a+r "$USER_HOME"/Desktop/Kosmo_3.0.desktop
 
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
