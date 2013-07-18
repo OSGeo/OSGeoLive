@@ -115,6 +115,13 @@ ldconfig
 # /usr/share/fslint/fslint/findup --summary /usr /opt /lib > "$FSLINT_LOG"
 # /usr/share/fslint/fslint/fstool/dupwaste < "$FSLINT_LOG"
 
+## check how big the databases ended up
+echo "Postgres database sizes:"
+psql << EOF
+SELECT pg_database.datname,
+       pg_size_pretty(pg_database_size(pg_database.datname)) AS size
+  FROM pg_database;
+EOF
 
 #### Copy tmp files, apt cache and logs ready for backup
 mkdir "/tmp/$VERSION"
