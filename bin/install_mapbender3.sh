@@ -41,7 +41,7 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_mapbender3"
 INSTALLURL="http://mapbender3.org/builds/"
 
-INSTALLFILE="mapbender3-3.0.0.1"
+INSTALLFILE="mapbender3-3.0.0.2"
 INSTALL_DIR="/var/www"
 
 mkdir -p "$TMP_DIR"
