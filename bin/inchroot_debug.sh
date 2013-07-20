@@ -1,6 +1,6 @@
 #!/bin/sh
 #################################################
-# 
+#
 # Purpose: Creating OSGeoLive as an Ubuntu customization. In chroot part
 # 	   https://help.ubuntu.com/community/LiveCDCustomization
 # Author:  Stefan Hansen <shansen@lisasoft.com>
@@ -11,8 +11,8 @@
 # Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 LISAsoft
 #
-# Licensed under the GNU LGPL.
-# 
+# Licensed under the GNU LGPL version >= 2.1.
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -55,6 +55,7 @@ ln -s /bin/true /sbin/initctl
 #Execute the osgeolive build
 #Adding "user" to help the build process
 adduser user --disabled-password --gecos user
+
 #change ID under 999 so that iso boot does not fail
 #usermod -u 500 user
 #TODO Set the password for "user"
@@ -62,18 +63,26 @@ mkdir -p /home/user/Desktop
 chown user:user /home/user/Desktop
 
 cd /tmp/
+
 wget https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh
+
 chmod a+x bootstrap.sh
+
 ./bootstrap.sh
+
 cd /usr/local/share/gisvm/bin
+
 #copy external version information to be able to rename the builds
 cp /tmp/VERSION.txt /usr/local/share/gisvm/
 cp /tmp/CHANGES.txt /usr/local/share/gisvm/
+
 #Redirecting to main_install.log does not allow main.sh to exit properly
 #./main.sh 2>&1 | tee /var/log/osgeolive/main_install.log
 #./main.sh
+
 USER_NAME="user"
 export USER_NAME
+
 ./setup.sh
 ./install_services.sh
 ./install_language.sh
@@ -81,6 +90,7 @@ export USER_NAME
 ./install_java.sh
 ./install_apache2.sh
 ./install_tomcat6.sh
+# ./install_ipython.sh
 ./install_django.sh
 
 # ./install_geoserver.sh
