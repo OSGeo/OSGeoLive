@@ -1,5 +1,5 @@
-#!/bin/bash
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+#!/bin/sh
+# Copyright (c) 2013 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -14,7 +14,7 @@
 
 # About:
 # =====
-# This script will install ipython and ipython-notebook in xubuntu
+# This script will install ipython and ipython-notebook in ubuntu
 # The future may hold interesting graphical examples using notebook + tools
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -23,13 +23,13 @@
 
 #install using an official backport jul13
 
-apt-get -q update
-apt-get install --assume-yes ipython-notebook  -t precise-backports
+apt-get install --assume-yes ipython-notebook -t precise-backports
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
+
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
