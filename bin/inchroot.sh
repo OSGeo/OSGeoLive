@@ -1,6 +1,6 @@
 #!/bin/sh
 #################################################
-# 
+#
 # Purpose: Creating OSGeoLive as an Ubuntu customization. In chroot part
 # 	   https://help.ubuntu.com/community/LiveCDCustomization
 # Author:  Stefan Hansen <shansen@lisasoft.com>
@@ -12,7 +12,7 @@
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -81,6 +81,7 @@ export USER_NAME
 ./install_java.sh
 ./install_apache2.sh
 ./install_tomcat6.sh
+./install_ipython.sh
 ./install_django.sh
 
 ./install_geoserver.sh
