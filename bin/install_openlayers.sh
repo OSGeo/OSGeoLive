@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -11,30 +11,29 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
+#
 # About:
 # =====
 # This script will install OpenLayers 2.13
-
+#
 # Running:
 # =======
 # sudo service apache2 start
 # Then open a web browser and go to http://localhost/openLayers/
 
-SCRIPT="install_openlayers.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
-TMP_DIR="/tmp/build_openlayers"
-OL_VERSION="2.13.1"
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
 
-BUILD_DIR=`pwd`
+TMP_DIR="/tmp/build_openlayers"
+OL_VERSION="2.13.1"
+
 
 #Install naturaldocs if not installed yet
 hash naturaldocs 2>/dev/null
@@ -47,16 +46,16 @@ fi
 mkdir -p "$TMP_DIR"
 cd "$TMP_DIR"
 
-GIT_DIR=openlayers-$OL_VERSION
+GIT_DIR="openlayers-$OL_VERSION"
 
 echo "\nFetching git clone..."
-if [ ! -d $GIT_DIR ] ; then
-    git clone https://github.com/openlayers/openlayers.git $GIT_DIR 
+if [ ! -d "$GIT_DIR" ] ; then
+    git clone https://github.com/openlayers/openlayers.git "$GIT_DIR" 
 else
     echo "... openLayers-$OL_VERSION already cloned"
 fi
 
-cd $GIT_DIR
+cd "$GIT_DIR"
 
 echo "\nBuilding examples index"
 if [ ! -s examples/example-list.js ] ; then
@@ -68,7 +67,7 @@ else
 fi
 
 ln -sf example-list.html examples/index.html
-echo Done.
+echo "Done."
 
 echo "\nBuilding full uncompressed OpenLayers.js"
 cd build
@@ -101,14 +100,14 @@ cat << EOF > "index.html"
 </html>
 EOF
 
-cd $TMP_DIR 
+cd "$TMP_DIR"
 
 mkdir -p /var/www/openlayers
-cp -R $GIT_DIR/* /var/www/openlayers/
+cp -R "$GIT_DIR"/* /var/www/openlayers/
 chmod -R uga+r /var/www/openlayers
 
 #Remove packages
-if [ ! -z "${OL_APT_REMOVE}" ]; then
+if [ -n "$OL_APT_REMOVE" ] ; then
     echo "Removing naturaldocs..."
     apt-get --assume-yes remove $OL_APT_REMOVE
 fi
@@ -140,9 +139,6 @@ chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/openlayers.desktop"
 
 #TODO: Create local example that uses data from the many wms/wfs sources on the live disc
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
 
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

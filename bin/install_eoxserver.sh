@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2012 Open Source Geospatial Foundation (OSGeo)
 #
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -12,29 +12,23 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
+#
 # About:
 # =====
 # This script installs EOxServer.
 
-# Running:
-# =======
-# sudo ./install_eoxserver.sh
-
-SCRIPT="install_eoxserver.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
-
-echo "Starting EOxServer installation"
-
-# Set EOxServer version to install
-EOXSVER="0.3.0"
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
 if [ -z "$USER_NAME" ] ; then
     USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+
+# Set EOxServer version to install
+EOXSVER="0.3.0"
+
 DATA_DIR="/usr/local/share/eoxserver"
 DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/conf.d/eoxserver"
@@ -262,8 +256,6 @@ mkdir -p /usr/local/share/data/raster
 cd /usr/local/share/data/raster
 ln -s "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris .
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

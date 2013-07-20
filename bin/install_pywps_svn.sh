@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2010 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -11,31 +11,27 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
+#
 # About:
 # =====
 # This script will install pyWPS inside apache
-
-# Running:
-# =======
-# sudo ./install_pywps.sh
-#
 #
 # Uninstall:
 # ============
 # sudo rm -r /var/www/pywps
 # sudo rm -r /etc/apache2/conf.d/pywps
 
-SCRIPT="install_pywps.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+
 PYWPS_TMP="/tmp/build_pywps"
 PYWPS_VERSION="foss4g2010"
 PYWPS_WWW="/var/www/pywps"
@@ -108,7 +104,7 @@ ln -s "$PYWPS_WHICH" "$PYWPS_WWW"
 
 #Making Process folder inside /var/www/pywps
 mkdir -p "$PYWPS_WWW/processes"
-cp $PYWPS_TMP/pywps-$PYWPS_VERSION/tests/processes/* $PYWPS_WWW/processes
+cp "$PYWPS_TMP/pywps-$PYWPS_VERSION"/tests/processes/* "$PYWPS_WWW/processes"
 
 
 
@@ -143,9 +139,12 @@ cat "$PYWPS_TMP/pywps-$PYWPS_VERSION/pywps/default.cfg" | \
    sed -e "s/abstract=.*/abstract=PyWPS for FOSS4G 2010 example installation/g" \
    > "$PYWPS_WWW/pywps.cfg"
 
-sed -i -e 's|serveraddress=.*|serveraddress=http://localhost/pywps|g' ${PYWPS_WWW}/pywps.cfg
-sed -i -e 's|outputUrl=.*|outputUrl=http://localhost/pywps/wpsoutputs|g' ${PYWPS_WWW}/pywps.cfg # | to avoid problems with //
-sed -i -e "s|outputPath=.*|outputPath=$PYWPS_WWW/wpsoutputs|g" ${PYWPS_WWW}/pywps.cfg # Double quotes for force variable replacement
+sed -i -e 's|serveraddress=.*|serveraddress=http://localhost/pywps|g' \
+   "$PYWPS_WWW/pywps.cfg"
+sed -i -e 's|outputUrl=.*|outputUrl=http://localhost/pywps/wpsoutputs|g' \
+   "$PYWPS_WWW/pywps.cfg" # | to avoid problems with //
+sed -i -e "s|outputPath=.*|outputPath=$PYWPS_WWW/wpsoutputs|g" \
+   "$PYWPS_WWW/pywps.cfg" # Double quotes for force variable replacement
 
 #making temporary wpsoutput folder
 mkdir -p "$PYWPS_WWW/wpsoutputs"
@@ -181,8 +180,6 @@ cp /usr/share/applications/pywps.desktop "$USER_HOME/Desktop/"
 # Reload Apache
 /etc/init.d/apache2 force-reload
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2010 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -11,15 +11,11 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
+#
 # About:
 # =====
 # This script will install ZOO Project
-
-# Running:
-# =======
-# sudo ./install_zoo-project.sh
-
+#
 # Requires: Apache2, GeoServer (for the demo only)
 #
 # Uninstall:
@@ -34,10 +30,10 @@
 # sudo rm -rf /usr/share/applications/zoo-project.desktop
 # sudo rm -rf /home/user/Desktop/Servers/zoo-project.desktop
 
-SCRIPT="install_zoo-project.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -111,8 +107,6 @@ ldconfig
 # Reload Apache
 /etc/init.d/apache2 force-reload
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

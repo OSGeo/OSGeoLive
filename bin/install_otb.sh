@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -11,25 +11,29 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
+#
 # About:
 # =====
-# This script will install Orfeo Tooblox including Monteverdi and OTB apps, assumes script is run with sudo priveleges.
-
+# This script will install Orfeo Tooblox including Monteverdi and OTB apps,
+#  assumes script is run with sudo privileges.
+#
 # Running:
 # =======
 # monteverdi
 # TODO: list all the apps, preferably Qt versions in /usr/bin/?
 
-SCRIPT="install_otb.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
+# live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+
+DATA_DIR=$USER_HOME/gisvm/app-data/otb
+OTB_DATA=/usr/local/share/otb
 
 #Add repositories
 #see OTB installation guide 
@@ -49,9 +53,6 @@ apt-get --assume-yes install libotb monteverdi otb-bin otb-bin-qt
 cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 
-# live disc's username is "user"
-DATA_DIR=$USER_HOME/gisvm/app-data/otb
-OTB_DATA=/usr/local/share/otb
 
 # Download OrfeoToolBox data and documentation (software guide and cookbook
 [ -d $DATA_DIR ] || mkdir $DATA_DIR
@@ -84,9 +85,6 @@ fi
 #TODO install otb qgis plugins when it will be available with debian packages
 #hg clone http://hg.orfeo-toolbox.org/OTB-QGis-plugins
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
 
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

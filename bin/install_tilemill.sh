@@ -1,6 +1,7 @@
 #!/bin/sh
+# Author: H.Bowman <hamish_b  yahoo com>
 # Copyright (c) 2012 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL v.2.1.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -12,18 +13,16 @@
 # in the "LGPL-2.1.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-#
 # script to install TileMill
-#    this script authored by H.Bowman <hamish_b  yahoo com> (if you can call it that)
 #    homepage: http://mapbox.com/tilemill
-
+#
 # Need to get 68.4 MB of archives.
 # After this operation, 186 MB of additional disk space will be used.
 
-SCRIPT="install_tilemill.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -53,11 +52,9 @@ chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/Documents
 mkdir -p /etc/skel/Documents/MapBox/
 cp "$USER_HOME"/Documents/MapBox/app.db /etc/skel/Documents/MapBox/
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
 
 exit 0
 

@@ -1,10 +1,9 @@
 #!/bin/sh
 #################################################
 #
-# Purpose: Installation of openjump into Xubuntu
+# Purpose: Installation of openjump into ubuntu
 # Authors:  Stefan Hansen <shansen@lisasoft.com>
 #           edso <edso[AT]users.sourceforge.net>
-#
 #
 # Changes:
 #  25 Jan 2011  Update script to openJUMP 1.4
@@ -16,7 +15,7 @@
 # Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 LISAsoft
 #
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -28,46 +27,48 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 ##################################################
-
+#
 # About:
 # =====
 # This script will install openjump into Xubuntu
-
+#
 # Running:
 # =======
 # sudo ./install_openjump.sh [--clean,--force]
 
-SCRIPT="install_openjump.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
-# dns trouble? test if we can see it
-host sourceforge.net || exit 1
 
-TMP="/tmp/build_openjump"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
 
+TMP="/tmp/build_openjump"
+
 ## default defs, may be overwritten by online conf file below 
 PKG_NAME=OpenJUMP
 PKG_VERSION=1.5
+
+
+# dns trouble? test if we can see it
+host sourceforge.net || exit 1
 
 ## get defs from online conf file ( file vars, pkg_version ) for update convenience
 URL_LIST=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osgeo.conf
 # download and set vars (filter out anything not setting a variable)
 eval "$(wget -nv -O- "$URL_LIST" | awk '/^[a-zA-Z0-9_-]+=/')"
 
-PKG_FOLDER=$PKG_NAME-$PKG_VERSION
-PKG_HOME=/usr/lib/$PKG_FOLDER
-PKG_DATA=/usr/local/share/$PKG_NAME
+PKG_FOLDER="$PKG_NAME-$PKG_VERSION"
+PKG_HOME="/usr/lib/$PKG_FOLDER"
+PKG_DATA="/usr/local/share/$PKG_NAME"
 PKG_DATA_SAMPLES="$PKG_DATA/sample_data"
 PKG_DATA_SAMPLES_LINK="/usr/local/share/data/vector/$PKG_NAME"
 PKG_LINK=/usr/local/bin/openjump
-PKG_DESKTOP=$USER_HOME/Desktop/openjump.desktop
-PKG_SUCCESS=$PKG_HOME/.installed
+PKG_DESKTOP="$USER_HOME/Desktop/openjump.desktop"
+PKG_SUCCESS="$PKG_HOME/.installed"
 
 ## these defs are defined by conf file above
 #URL_PKG=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP_snapshots/OpenJUMP-20120108-r2597-CORE.zip
@@ -78,7 +79,7 @@ PKG_SUCCESS=$PKG_HOME/.installed
 ## Setup things... ##
 
 # check required tools are installed
-if [ -f $PKG_SUCCESS ] && [ -z "$1" ]; then
+if [ -f $PKG_SUCCESS ] && [ -z "$1" ] ; then
   echo "Use --force to reinstall."
   exit 1
 fi
@@ -159,8 +160,6 @@ mkdir -p $(dirname "$PKG_DATA_SAMPLES_LINK") &&\
 ln -s "$PKG_DATA_SAMPLES" \
       "$PKG_DATA_SAMPLES_LINK"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

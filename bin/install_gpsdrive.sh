@@ -1,6 +1,6 @@
 #!/bin/sh
-# Copyright (c) 2009 by Hamish Bowman, and the Open Source Geospatial Foundation
-# Licensed under the GNU LGPL v.2.1.
+# Copyright (c) 2009-2013 by Hamish Bowman, and the Open Source Geospatial Foundation
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -18,10 +18,10 @@
 #    GpsDrive homepage: http://www.gpsdrive.de
 #
 
-SCRIPT="install_gpsdrive.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 CITY=Nottingham
 
@@ -32,7 +32,6 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR=/tmp/build_gpsdrive
-BUILD_DIR=`pwd`
 
 
 #### install program ####
@@ -190,13 +189,8 @@ cp /usr/share/applications/gpsdrive.desktop "$USER_HOME/Desktop/"
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/gpsdrive.desktop"
 
 
-echo "Finished installing GpsDrive."
-
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
 
 exit
 

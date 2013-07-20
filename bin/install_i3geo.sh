@@ -1,7 +1,7 @@
 #!/bin/bash
 # Copyright (c) 2009-2010 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
-# 
+# Licensed under the GNU LGPL version >= 2.1.
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -11,25 +11,26 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
-# Running:
-# =======
-# sudo ./install_i3geo_v4.6_osgeo.sh
-
+#
 # Requires: apache2 php5 libapache2-mod-php5 cgi-mapserver mapserver-bin
 #      php5-mapscript php5-gd php5-sqlite gfortran r-base r-base-core
 #      r-base-sp r-cran-maptools
-
+#
 # Uninstall:
 # ============
 # sudo rm -rf /var/www/i3geo
 # sudo rm -rf /var/www/ms_tmp
 # sudo rm -rf /tmp/ms_tmp
 
-SCRIPT="install_i3geo.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
+
+#OSGEO live username is "user"
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 
 #Repository url
 I3GEO_DOWNLOAD_URL="http://svn.gvsig.org/svn/i3geo/arquivos_versoes/v46"
@@ -47,10 +48,6 @@ ROOT_DIR="/var/www"
 TMP_DIR="/tmp"
 LOCAPLIC="$ROOT_DIR/i3geo"
 
-#OSGEO live username is "user"
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
 
 #Temporary directory, symbolic link to temporary directory
 mkdir "$TMP_DIR/ms_tmp"
@@ -174,8 +171,6 @@ fi
 #sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/geography_regions_polys.map
 #sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/estadosl.map
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

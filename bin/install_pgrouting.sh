@@ -5,10 +5,8 @@
 # Authors: Anton Patrushev <anton@georepublic.de>
 #          Daniel Kastl <daniel@georepublic.de>
 #
-###############################################################
 # Copyright (c) 2011 Open Source Geospatial Foundation (OSGeo)
-#
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -20,7 +18,7 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-
+#
 # About:
 # =====
 # This script will install the following software
@@ -31,14 +29,10 @@
 # NOTE: To make use of OSM sample data "install_osm.sh" should be run first  
 #       Import of OSM sample data and converter can take some time   
 
-# Running:
-# =======
-# sudo ./install_pgrouting.sh
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
-SCRIPT="install_pgrouting.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -74,19 +68,18 @@ mkdir -p "$TMP" && cd "$TMP"
 
 # create $OSM_DB database
 echo "create $OSM_DB database with PostGIS and pgRouting"
-sudo -u $USER_NAME createdb -E UTF8 $OSM_DB
-sudo -u $USER_NAME psql $OSM_DB -c 'CREATE EXTENSION postgis;'
-sudo -u $USER_NAME psql $OSM_DB -c 'CREATE EXTENSION pgrouting;'
+sudo -u "$USER_NAME" createdb -E UTF8 "$OSM_DB"
+sudo -u "$USER_NAME" psql "$OSM_DB" -c 'CREATE EXTENSION postgis;'
+sudo -u "$USER_NAME" psql "$OSM_DB" -c 'CREATE EXTENSION pgrouting;'
 
 # Process sample data that comes with "install_osm.sh"
-if [ ! -e "$OSM_FILE" ]
-then
+if [ ! -e "$OSM_FILE" ] ; then
 	echo "ERROR: $OSM_FILE sample data is not available"
 	exit 1
 else
 	# unpack sample data
 	echo "unpack sample data"
-	bunzip2 $OSM_FILE -c > "$TMP/sampledata.osm"
+	bunzip2 "$OSM_FILE" -c > "$TMP/sampledata.osm"
 
 	# Run osm2pgrouting converter
 	# NOTE: Conversion can take a a few minutes depending on the extent of the sample data.
@@ -95,8 +88,8 @@ else
 	echo "Run osm2pgrouting converter (this may take a while)"
 	sudo -u $USER_NAME osm2pgrouting -file "$TMP/sampledata.osm" \
 	    -conf /usr/share/osm2pgrouting/mapconfig.xml \
-	    -dbname $OSM_DB \
-	    -user $USER_NAME \
+	    -dbname "$OSM_DB" \
+	    -user "$USER_NAME" \
 	    -host localhost \
 	    -clean \
 	  > pgrouting_import.log
@@ -131,8 +124,6 @@ fi
 # the IPv4 host pgsql permissions to 'trust' in pg_hpa.conf. but we
 # don't want to do that by default.
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

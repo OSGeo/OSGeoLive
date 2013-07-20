@@ -2,22 +2,22 @@
 #
 # install_ossim.sh
 #
-#
 # Created by Massimo Di Stefano on 07/12/09.
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL >= 2.1.
+# Licensed under the GNU LGPL version >= 2.1.
+#
 
-SCRIPT="install_ossim.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+
 TMP_DIR=/tmp/build_ossim
-BUILD_DIR=`pwd`
 APP_DATA_DIR="$BUILD_DIR/../app-data/ossim"
 DATA_FOLDER="/usr/local/share/data"
 #OSSIM_VERSION=1.8.12
@@ -40,15 +40,14 @@ apt-get -q update
 apt-get install --assume-yes libtiff4 libgeotiff2 libgdal1-1.9.0 \
   libfreetype6 libcurl3 libopenscenegraph80 libqt4-opengl \
   libexpat1 libpng3 libgdal1-1.9.0-grass libfftw3-3 libqt3-mt \
-  libopenmpi1.3 libqt4-qt3support python-pip python-pandas python-netcdf ipython-notebook spyder
+  libopenmpi1.3 libqt4-qt3support python-pip python-pandas python-netcdf \
+  ipython-notebook spyder
 
 ## update for next release ##
 # apt-get install --assume-yes python-dev  # python-mpltoolkits.basemap # 170 mb!!! 
 # pip install --upgrade pandas
 # pip install bottleneck
 # pip install oct2py
-
-
 
 
 if [ $? -ne 0 ] ; then
@@ -64,8 +63,11 @@ cd /tmp/build_ossim
 
 #wget -N --progress=dot:mega "http://geofemengineering.it/osgeolive/ossim.tar.gz" 
  
-wget -N --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim.tar.gz" 
+wget -N --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/ossim/ossim.tar.gz" 
+
 tar -zxf ossim.tar.gz
+
 # running tar as root expands as the UID on the host machine that made it, so
 chown -R root.root ossim/
 mv ossim /usr/local/
@@ -76,8 +78,11 @@ mv ossim.conf /etc/ld.so.conf.d/
 ldconfig
 
 mkdir /usr/share/ossim/
-wget -N --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/ossim_settings.tar.gz 
+wget -N --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/ossim/ossim_settings.tar.gz"
+
 tar -zxf ossim_settings.tar.gz
+
 chown -R root.root ossim_settings/
 mv ossim_settings/* /usr/share/ossim/
 
@@ -90,10 +95,13 @@ mv /usr/share/ossim/imagelinker.desktop /usr/share/applications/imagelinker.desk
 mv /usr/share/ossim/ossimplanet.desktop /usr/share/applications/ossimplanet.desktop
 
 if [ `grep -c '/usr/local/ossim/bin' "$USER_HOME/.bashrc"` -eq 0 ] ; then
-   echo 'PATH="$PATH:/usr/local/ossim/bin"' >> "$USER_HOME/.bashrc"
-   echo "export PATH" >> "$USER_HOME/.bashrc"
-   echo 'OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$USER_HOME/.bashrc"
-   echo "export OSSIM_PREFS_FILE" >> "$USER_HOME/.bashrc"
+   cat << EOF >> "$USER_HOME/.bashrc"
+
+PATH="\$PATH:/usr/local/ossim/bin"
+export PATH
+OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"
+export OSSIM_PREFS_FILE
+EOF
    #source "$USER_HOME/.bashrc"
 fi
 
@@ -105,14 +113,15 @@ if [ `grep -c '/usr/local/ossim/bin' "$BRCFILE"` -eq 0 ] ; then
 fi
 
 
-# Additional dependence for Grass / Qgis plug-in :
+# Additional dependencies for Grass / Qgis plug-in :
 #
 
 apt-get install --assume-yes grass-core qgis python-pysqlite2 \
    python-scipy python-serial python-psycopg2 proj-bin python-lxml \
-   libqt4-core python-distutils-extra python-setuptools python-qscintilla2 # python-pygame
+   libqt4-core python-distutils-extra python-setuptools \
+   python-qscintilla2
+   # python-pygame
    # spyder
-
 
 
 #### PlanetSasha commented for now
@@ -145,7 +154,8 @@ apt-get install --assume-yes grass-core qgis python-pysqlite2 \
 
 cp /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
-sed -i -e 's/^Name=imagelinker/Name=Imagelinker/' "$USER_HOME/Desktop/imagelinker.desktop"
+sed -i -e 's/^Name=imagelinker/Name=Imagelinker/' \
+   "$USER_HOME/Desktop/imagelinker.desktop"
 
 cp /usr/share/applications/ossimplanet.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/ossimplanet.desktop"
@@ -179,13 +189,16 @@ fi
 #Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/ossim
 
-wget --read-timeout=20 --tries=5 --progress=dot:mega "http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf" \
+wget --read-timeout=20 --tries=5 --progress=dot:mega \
+     "http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf" \
      --output-document=/usr/local/share/ossim/ossim_users_guide.pdf
 
-#echo "FIXME: doesn't exist ==> 'ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/'"
+#echo "FIXME: doesn't exist ==>
+# 'ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/'"
 
 # pdf temporary stored on my ftp, waiting to add it on ossim download page.   
-wget --read-timeout=20 --tries=5 --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/OSSIM_Whitepaper.pdf" \
+wget --read-timeout=20 --tries=5 --progress=dot:mega \
+     "http://download.osgeo.org/livedvd/data/ossim/OSSIM_Whitepaper.pdf" \
      --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
 
 
@@ -360,10 +373,12 @@ mkdir -p /etc/skel/.config
 cp -r "$USER_HOME"/.config/ipython /etc/skel/.config
 
 IPY_CONF="$USER_HOME/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
-echo "c.NotebookApp.open_browser = False" >> "$IPY_CONF"
-echo "c.NotebookApp.port = 12345"         >> "$IPY_CONF"
-echo "c.NotebookManager.save_script=True" >> "$IPY_CONF"
-echo "c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace" >> "$IPY_CONF"
+cat << EOF >> "$IPY_CONF"
+c.NotebookApp.open_browser = False
+c.NotebookApp.port = 12345
+c.NotebookManager.save_script=True
+c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace
+EOF
 
 cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
@@ -372,8 +387,6 @@ chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 #### cleanup
 rm -rf "$QUICKSTART"/.svn
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

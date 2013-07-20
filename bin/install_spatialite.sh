@@ -1,6 +1,6 @@
 #!/bin/bash
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -11,28 +11,24 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
+#
 # About:
 # =====
 # This script will install spatialite in xubuntu
 
-# Running:
-# =======
-# sudo ./install_spatialite.sh
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
-SCRIPT="install_spatialite.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
 
 BUILD_TMP="/tmp/build_spatialite"
 INSTALL_FOLDER="/usr/local"
 DATA_FOLDER="/usr/local/share/data"
 PKG_DATA=$DATA_FOLDER/spatialite
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
-USER_HOME="/home/$USER_NAME"
 
 ### Setup things... ###
  
@@ -152,8 +148,6 @@ cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.png \
 #rm -rf "$BUILD_TMP"
 apt-get --yes remove $DEV_PKGS
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

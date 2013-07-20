@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2013 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -19,22 +19,19 @@
 # About:
 # =====
 # This script installs ncWMS
-#
-#
-# =============================================================================
-# Install script for ncWMS
-# =============================================================================
 
-SCRIPT="install_ncWMS.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
-TMP="/tmp/build_ncWMS"
+
 if [ -z "$USER_NAME" ] ; then
     USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+
+TMP="/tmp/build_ncWMS"
+
 TOMCAT_USER_NAME="tomcat6"
 TOMCAT_USER_HOME="/usr/share/tomcat6"
 WMS_WAR_INSTALL_DIR="/var/lib/tomcat6/webapps"
@@ -227,9 +224,5 @@ chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/ncWMS-stop.desktop"
 
 # All done
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
-
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

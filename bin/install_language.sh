@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -26,13 +26,12 @@
 # =======
 # Pick a different language at the login screen
 #
+
+./diskspace_probe.sh "`basename $0`" begin
+####
+
+
 # Start off with the Xfce keyboard layout configuration tool
-
-SCRIPT="install_language.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
-
 ### ubuntu 11.04: xfkc no longer exists:
 #PACKAGES="xfkc"
 PACKAGES=""
@@ -82,8 +81,6 @@ dpkg-reconfigure locales
 
 #TODO: allow select at boot splash screen
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+./diskspace_probe.sh "`basename $0`" end
