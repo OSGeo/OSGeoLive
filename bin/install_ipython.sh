@@ -14,10 +14,8 @@
 
 # About:
 # =====
-# This script will install osgearth in xubuntu
-#
-# osgEarth is a scalable terrain rendering toolkit for OpenSceneGraph
-# http://osgearth.org/
+# This script will install ipython and ipython-notebook in xubuntu
+# The future may hold interesting graphical examples using notebook + tools
 
 ./diskspace_probe.sh "`basename $0`" begin
 ####
