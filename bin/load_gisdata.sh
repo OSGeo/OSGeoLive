@@ -8,10 +8,10 @@
 # Source:  http://www.naturalearthdata.com
 #
 #################################################
-# Copyright (c) 2010-2011 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2013 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 LISAsoft
 #
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 #
 # This is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -23,10 +23,11 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # the web page "http://www.fsf.org/licenses/lgpl.html".
 ##################################################
-SCRIPT="load_gisdata.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 TMP="/tmp/build_gisdata"
 DATA_FOLDER="/usr/local/share/data"
@@ -271,8 +272,6 @@ unset OSSIM_PREFS_FILE
 
 chown -R root.root "$DATA_FOLDER"/north_carolina
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

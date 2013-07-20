@@ -1,8 +1,8 @@
 #!/bin/sh
-# Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2013 The Open Source Geospatial Foundation.
 # Copyright (c) 2009 LISAsoft
 # Copyright (c) 2009 Cameron Shorter
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -16,16 +16,12 @@
 
 # About:
 # =====
-# This script will install documentation from 
+# This script will install documentation
 
-# Running:
-# =======
-# sudo ./install_docs.sh
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
-SCRIPT="install_docs.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -33,13 +29,12 @@ fi
 USER_HOME="/home/$USER_NAME"
 DEST="/var/www"
 DATA_FOLDER="/usr/local/share/data"
-BIN_DIR=`pwd`
 
 
 apt-get --assume-yes install python-sphinx
 
 # Use sphynx to build the OSGeo-Live documentation
-cd "$BIN_DIR"/../doc
+cd "$BUILD_DIR"/../doc
 make clean
 make html
 
@@ -47,14 +42,14 @@ make html
 mkdir -p "$DEST"
 
 # Remove then replace target documentation, leaving other files
-cd "$BIN_DIR"/../doc/_build/html
+cd "$BUILD_DIR"/../doc/_build/html
 for FILE in `ls` ; do
   rm -fr "$DEST/$FILE"
 done
 mv * "$DEST"
 
 # post-install cleanup build dir
-cd "$BIN_DIR"/../doc
+cd "$BUILD_DIR"/../doc
 make clean
 
 
@@ -230,7 +225,7 @@ EOF
 fi
 
 
-cd "$BIN_DIR"
+cd "$BUILD_DIR"
 
 echo "install_docs.sh: Double-check that the Firefox \
 home page is now set to file://$DEST/index.html"
@@ -351,8 +346,6 @@ fi
 ln -s /usr/local/share/doc/Getting_Started_with_Ubuntu_12.04.pdf \
   "$USER_HOME/Desktop/Getting Started with Ubuntu.pdf"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

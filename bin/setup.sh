@@ -17,11 +17,6 @@
 # This script will take a raw Xubuntu system and update it ready to run
 # GISVM install scripts.
 
-# Running:
-# =======
-# sudo ./setup.sh
-
-SCRIPT="setup.sh"
 ./diskspace_probe.sh "`basename $0`" begin
 ./diskspace_probe.sh "`basename $0`"
 BUILD_DIR=`pwd`
@@ -213,8 +208,6 @@ chown "$USER_NAME":"$USER_NAME" "$USER_HOME"/.inputrc
 cp "$USER_HOME"/.inputrc /etc/skel/
 cp "$USER_HOME"/.inputrc /root/
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

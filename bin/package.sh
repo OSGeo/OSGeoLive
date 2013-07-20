@@ -26,9 +26,8 @@
 # * Running an Ubuntu or Ubuntu derivative system
 # * VMWare Server is installed
 # * 
-# Running:
-# =======
-# 
+
+
 
 DIR=`dirname ${0}`
 VERSION=`cat ${DIR}/../VERSION.txt`
@@ -53,7 +52,7 @@ echo Disk Usage2:, package.sh start, `df | grep " /$" | sed -e "s/  */,/g"`, `da
 
 echo Disk Usage3:, package.sh start, `du -sh ${VM_DIR}/${VM} | cut -f1` , `date`
 
-echo "Start package.sh. Packaging ${VM_DIR}/${VM}"
+echo "Start package.sh. Packaging $VM_DIR/$VM"
 date
 
 # Install 7zip
@@ -61,7 +60,7 @@ apt-get --assume-yes install p7zip-full
 
 echo "Remove non-core VM files, except *.vmx and *.vmdk"
 
-cd "${VM_DIR}/${VM}"
+cd "$VM_DIR/$VM"
 
 for FILE  in `ls | grep -v "\.vmdk$" | grep -v "\.vmx$"` ; do
   rm -fr $FILE
