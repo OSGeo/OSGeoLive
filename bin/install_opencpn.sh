@@ -262,6 +262,8 @@ VPScale=0.0048
 OwnShipLatLon="   40.337,   -73.472"
 nBoundaryStyle=79
 FrameWinX=800
+[Settings/NMEADataSource]
+DataConnections=1;2;localhost;2947;0;;4800;1;0;0;;0;;0;0;0;0;1
 EOF
 
 mkdir "$USER_HOME/.opencpn"
