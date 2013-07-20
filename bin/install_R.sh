@@ -57,15 +57,15 @@ apt-get -q update
 apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev \
    grass-dev libxml2-dev python-shapely tcl8.5-dev tk8.5-dev \
    libgl1-mesa-dev libglu1-mesa-dev python-setuptools build-essential \
-   gfortran libblas-dev liblapack-dev libsprng2-dev libsprng2
+   gfortran libblas-dev liblapack-dev libsprng2-dev libsprng2 libnetcdf-dev netcdf-bin libgeos-dev libproj-dev
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
 
-#Required for QGIS plugins
-easy_install -Z rpy2
+#Required for QGIS plugins - Switching to apt above
+#easy_install -Z rpy2
 
 # R specific packages
 apt-get --assume-yes install r-recommended 
@@ -107,7 +107,7 @@ chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 #Remove build libraries
 apt-get --assume-yes remove python-all-dev libgdal1-dev \
    libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
-   libglu1-mesa-dev libsprng2-dev
+   libglu1-mesa-dev libsprng2-dev libnetcdf-dev libgeos-dev libproj-dev
 
 #cleanup leftovers
 apt-get --assume-yes autoremove
