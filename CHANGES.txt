@@ -1,6 +1,31 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.0beta1
+===================
+
+ * iPython added
+ * Fixed GeoNode installation (#1150)
+ * Added new disk probe code
+ * Fixed Kosmo icon link
+ * OpenCPN: pre-seed gpsd connection
+ * rpy2 by apt, netcdf, saga R packages enabled
+ * license cleanup in scripts
+ * MapBender updated to version 3.0.0.2
+ * Updated leaflet to 0.6.2 using ppa
+ * commented out ossim-orthoigen command (#1159, causing memory corruption)
+ * Fix for 000-default not being a symlink, (#1162)
+ * Installing django 1.5.1 from ppa
+ * re-enabled Shift-NumLock for the X11 keypad-mouse and Ctrl-Alt-Backspace to kill the X session
+ * Update to use newest version of cartaro (1.0)
+ * enable jsonp only when geoserver is started through cartaro startup scripts
+ * Updated OpenLayers to 2.13.1
+ * Updated osm datasets and databases
+ * Fixed PostGIS packaging (#1154)
+ * 52N WSS retired
+ * mapnik style tweaks to do with the switch from spherical merc postgis OSM db to lat/long one
+ * Updated Kosmo Desktop package to new 3.0 release (#1146)
+
 Version 7.0alpha3
 ===================
 
