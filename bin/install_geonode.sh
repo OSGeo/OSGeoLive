@@ -135,7 +135,7 @@ Encoding=UTF-8
 Name=GeoNode
 Comment=Starts GeoNode
 Categories=Application;Geography;Geoscience;Education;
-Exec=firefox http://localhost/geonode/
+Exec=firefox http://geonode/
 Icon=/usr/share/icons/geonode.png
 Terminal=false
 StartupNotify=false
@@ -192,7 +192,8 @@ apt-get --assume-yes autoremove
 
 ###
 #FIXME: There should be a better way to do this...
-cp ../app-conf/geonode/rc.geonode /etc
+cp -f "$USER_HOME/gisvm/app-conf/geonode/rc.geonode" \
+       /etc
 chmod u+rx,go-rx /etc/rc.geonode
 cp /etc/init.d/rc.local /etc/init.d/rc.geonode
 sed -i -e 's/rc\.local/rc.geonode/' /etc/init.d/rc.geonode
