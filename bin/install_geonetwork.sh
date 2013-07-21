@@ -11,7 +11,7 @@
 # Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 GISVM.COM
 #
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -23,21 +23,21 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 ##################################################
-
+#
 # About:
 # =====
 # This script will install geonetwork into Xubuntu
 # stable version: v2.10.0 (14 Juin 2013) (also the manuals)
 # based on Jetty + Geoserver + H2
-# Installed at /usr/lib/geonetwork
+# Installed at /usr/local/lib/geonetwork
 # Port number =8880
 #
 # To start geonetwork
-# cd /usr/lib/geonetwork/bin
+# cd /usr/local/lib/geonetwork/bin
 # ./start-geonetwork.sh 
 #
 # To stop geonetwork
-# cd /usr/lib/geonetwork/bin
+# cd /usr/local/lib/geonetwork/bin
 # ./stop-geonetwork.sh
 #
 # To enter geonetwork, start browser with url:
@@ -46,29 +46,25 @@
 # GeoNetwork version 2.10.0 runs with java-sun-1.5 or java-sun-1.6.
 # It can be installed into servlet containers: jetty and tomcat. Jetty is   
 # bundled with the installer.
-#
-# Running:
-# =======
-# sudo ./install_geonetwork.sh
 
-SCRIPT="install_geonetwork.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
+
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
 
 GEONETWORK_VERSION=2.10.0-0
 GEONETWORK_VERSION_FOLDER=2.10.0
 
 TMP="/tmp/build_geonetwork"
-#FIXME: please use /usr/local not /usr for things not in a .deb
-INSTALL_FOLDER="/usr/lib"
+INSTALL_FOLDER="/usr/local/lib"
 GEONETWORK_FOLDER="$INSTALL_FOLDER/geonetwork"
-BIN="/usr/bin"
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
-USER_HOME="/home/$USER_NAME"
-BUILD_DIR="`pwd`"
+BIN="/usr/local/bin"
+
 
 ## Setup things... ##
  
@@ -132,9 +128,8 @@ done
 
 
 ## Install Application ##
-if [ -d "$GEONETWORK_FOLDER" ]
-then
-	( cd "$GEONETWORK_FOLDER/bin"; ./stop-geonetwork.sh )
+if [ -d "$GEONETWORK_FOLDER" ] ; then
+   ( cd "$GEONETWORK_FOLDER/bin"; ./stop-geonetwork.sh )
 fi
 java -jar geonetwork-install-$GEONETWORK_VERSION.jar install.xml
 
@@ -176,8 +171,6 @@ done
 #cp GeoNetwork_opensource_v264_Manual.pdf $USER_HOME/Desktop
 #chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/GeoNetwork_opensource_v264_Manual.pdf
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
