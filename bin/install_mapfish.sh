@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
 #
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -12,19 +12,15 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
+#
 # About:
 # =====
 # This script install mapfish
 
-# Running:
-# =======
-# sudo ./install_mapfish.sh
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
-SCRIPT="install_mapfish.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -36,8 +32,6 @@ TOMCAT_SERVER_CONF="/etc/tomcat6/server.xml"
 
 MAPFISH_TMP_DIR="/tmp/build_mapfish"
 MAPFISH_INSTALL_DIR="/usr/local/lib/mapfish"
-
-OLDPWD=`pwd`
 
  
 ## Setup things... ##
@@ -59,21 +53,21 @@ if [ $? -ne 0 ] ; then
 fi
 
 echo "Create $MAPFISH_TMP_DIR directory"
-mkdir -p $MAPFISH_TMP_DIR
+mkdir -p "$MAPFISH_TMP_DIR"
 
 echo "Create $MAPFISH_INSTALL_DIR directory"
-mkdir -p $MAPFISH_INSTALL_DIR
+mkdir -p "$MAPFISH_INSTALL_DIR"
 
-cd $MAPFISH_INSTALL_DIR
+cd "$MAPFISH_INSTALL_DIR"
 rm -fr MapfishSample
 svn export --quiet http://mapfish.org/svn/mapfish/sample/trunk MapfishSample
 cd MapfishSample
 
 # patch for PostGIS 2.0 #################
 rm ./geodata/create_database.bash.in
-cp /$USER_HOME/gisvm/app-conf/mapfish/create_database.bash.in ./geodata/
+cp "$BUILD_DIR"/../app-conf/mapfish/create_database.bash.in ./geodata/
 rm ./mapserver/mapfishsample.map.in
-cp /$USER_HOME/gisvm/app-conf/mapfish/mapfishsample.map.in ./mapserver/
+cp "$BUILD_DIR"/../app-conf/mapfish/mapfishsample.map.in ./mapserver/
 #########################################
 
 # generate buildout_osgeolive.cfg
@@ -137,8 +131,8 @@ apache2ctl restart
 
 # install startup/shutdown scripts for tomcat
 
-if [ ! -e $MAPFISH_INSTALL_DIR/mapfish-start.sh ] ; then
-   cat << EOF > $MAPFISH_INSTALL_DIR/mapfish-start.sh
+if [ ! -e "$MAPFISH_INSTALL_DIR/mapfish-start.sh" ] ; then
+   cat << EOF > "$MAPFISH_INSTALL_DIR/mapfish-start.sh"
 #!/bin/bash
 STAT=\`sudo service tomcat6 status | grep pid\`
 if [ "\$STAT" = "" ]; then
@@ -149,8 +143,8 @@ sensible-browser http://localhost/mapfishsample/osgeolive/wsgi/
 EOF
 fi
 
-if [ ! -e $MAPFISH_INSTALL_DIR/mapfish-stop.sh ] ; then
-   cat << EOF > $MAPFISH_INSTALL_DIR/mapfish-stop.sh
+if [ ! -e "$MAPFISH_INSTALL_DIR/mapfish-stop.sh" ] ; then
+   cat << EOF > "$MAPFISH_INSTALL_DIR/mapfish-stop.sh"
 #!/bin/bash
 STAT=\`sudo service tomcat6 status | grep pid\`
 if [ "\$STAT" != "" ]; then
@@ -160,11 +154,13 @@ fi
 EOF
 fi
 
-chmod 755 $MAPFISH_INSTALL_DIR/mapfish-start.sh
-chmod 755 $MAPFISH_INSTALL_DIR/mapfish-stop.sh
+chmod 755 "$MAPFISH_INSTALL_DIR/mapfish-start.sh"
+chmod 755 "$MAPFISH_INSTALL_DIR/mapfish-stop.sh"
 
 # install menu and desktop shortcuts
-wget -nv -P $MAPFISH_INSTALL_DIR http://www.mapfish.org/downloads/foss4g_livedvd/mapfish.png
+wget -nv -P "$MAPFISH_INSTALL_DIR" \
+   "http://www.mapfish.org/downloads/foss4g_livedvd/mapfish.png"
+
 mkdir -p /usr/local/share/applications
 cat << EOF > /usr/local/share/applications/MapFish-start.desktop
 [Desktop Entry]
@@ -202,8 +198,6 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/MapFish-stop.desktop"
 #  nah, we'll want them for other things later (e.g. libgdal-dev)
 #apt-get --assume-yes remove libpq-dev python-dev
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

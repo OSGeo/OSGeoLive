@@ -19,7 +19,7 @@ DISK_USAGE_LOG="disk_usage.log"
 # check install sizes
 echo "==============================================================="
 echo "Writing disk usage stats to $LOG_DIR/$DISK_USAGE_LOG ..."
-echo "Disk Usage1:,package,Filesystem,1K-blocks,Used,Available,Use%,Mounted_on,date" \
+echo "Disk Usage1: package,Filesystem,1K-blocks,Used,Available,Use%,Mounted_on,date" \
        > "$LOG_DIR/$DISK_USAGE_LOG"
 grep "Disk Usage2:" "$LOG_DIR/$MAIN_LOG_FILE" >> "$LOG_DIR/$DISK_USAGE_LOG"
 

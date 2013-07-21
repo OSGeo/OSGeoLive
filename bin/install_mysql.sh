@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This script is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -16,10 +16,9 @@
 # =====
 # This script will install mysql (put it up front because it has an interactive prompt)
 
-SCRIPT="install_mysql.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -143,13 +142,10 @@ chmod u+rx,go-rx /etc/rc.go_mysql
 cp /etc/init.d/rc.local /etc/init.d/rc.go_mysql
 sed -i -e 's/rc\.local/rc.go_mysql/' /etc/init.d/rc.go_mysql
 ln -s /etc/init.d/rc.go_mysql /etc/rc2.d/S99rc.go_mysql
-###
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
 
 exit 0
 

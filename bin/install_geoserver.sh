@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -14,19 +14,19 @@
 #
 # About:
 # =====
-# This script will install GeoServer in xubuntu
-#
-# Running:
-# =======
-# sudo ./install_geoserver.sh
+# This script will install GeoServer in ubuntu
 #
 # Requires: Sun Java {6|7} compatible runtime
-#
 
-SCRIPT="install_geoserver.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
+
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/local/lib"
@@ -35,12 +35,6 @@ GS_VERSION="2.3.2"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 DOC_DIR="$GS_HOME/doc"
-
-
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
-USER_HOME="/home/$USER_NAME"
 
 
 ### Setup things... ###
@@ -263,8 +257,6 @@ cp /usr/local/share/gisvm/app-data/geoserver/ne_10m*.sld \
 echo "Cleaning up Jetty JSP cache in /tmp"
 rm -rf /tmp/Jetty*geoserver*
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
