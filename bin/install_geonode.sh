@@ -194,6 +194,15 @@ a2ensite geonode
 # Uninstall dev packages
 apt-get --assume-yes autoremove
 
+###
+#FIXME: There should be a better way to do this...
+cp ../app-conf/geonode/rc.geonode /etc
+chmod u+rx,go-rx /etc/rc.geonode
+cp /etc/init.d/rc.local /etc/init.d/rc.geonode
+sed -i -e 's/rc\.local/rc.geonode/' /etc/init.d/rc.geonode
+ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
+###
+
 echo "==============================================================="
 echo "Finished $SCRIPT"
 echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
