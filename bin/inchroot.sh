@@ -90,7 +90,7 @@ export USER_NAME
 ./install_java.sh
 ./install_apache2.sh
 ./install_tomcat6.sh
-# ./install_ipython.sh
+./install_ipython.sh
 ./install_django.sh
 
 ./install_geoserver.sh
@@ -137,7 +137,6 @@ export USER_NAME
 ./install_otb.sh
 ./install_rasdaman.sh
 ./install_tinyows.sh
-#./install_52nWSS.sh
 ./install_pycsw.sh
 ./install_geomoose.sh
 ./install_mb-system.sh
@@ -145,7 +144,6 @@ export USER_NAME
 ./install_tilemill.sh
 ./install_eoxserver.sh
 ./install_cartaro.sh
-# ./install_i3geo.sh
 ./install_iris.sh
 ./install_ncWMS.sh
 ./install_geonode.sh
