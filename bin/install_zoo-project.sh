@@ -55,8 +55,13 @@ wget -N --progress=dot:mega \
 tar -xjpf "$ZOO_TMP/zoo-livedvd.tar.bz2" --no-same-owner -C /
 
 chown -R www-data:www.data \
-  /var/www/zoo /var/www/zoo-demo /var/www/temp 
+  /var/www/zoo /var/www/zoo-demo /var/www/temp
 
+#Patch to fix #1137
+#TODO: submit upstream
+sed -i -e 's|http://labs.metacarta.com/wms/vmap0|http://maps.opengeo.org/geowebcache/service/wms|' \
+       -e 's|basic|openstreetmap|' \
+    /var/www/zoo-demo/spatialtools_files/demo.js
 
 echo -n "Apache configuration update ..."
 # Add ZOO Project apache configuration
