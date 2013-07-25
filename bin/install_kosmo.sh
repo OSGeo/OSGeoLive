@@ -84,13 +84,24 @@ chmod a+x "$KOSMO_FOLDER"/bin/Kosmo.sh
 # create link to startup script
 ln -s "$KOSMO_FOLDER"/bin/Kosmo.sh /usr/bin/kosmo_3.0
 
-# Download desktop link
-wget -nv "http://88.198.230.145/public/kosmo/v_3.0/livedvd/Kosmo_3.0.desktop"
-
-# homogenize icon name and fix icon
-sed -i -e 's/^Name=Kosmo_3.0/Name=Kosmo/' \
-       -e 's|^Icon=.*|Icon=/usr/lib/Kosmo-3.0/app-icon.ico|' \
-     Kosmo_3.0.desktop
+# Create desktop link
+cat << EOF > ./Kosmo_3.0.desktop
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Name=Kosmo
+Type=Application
+Comment=
+Categories=Application;
+Exec=kosmo_3.0
+Path=/usr/lib/Kosmo-3.0/Kosmo-3.0/bin/
+Icon=/usr/lib/Kosmo-3.0/app-icon.ico
+Terminal=false
+StartupNotify=false
+GenericName=
+GenericName[es_ES]=
+Name[es_ES]=Kosmo
+EOF
 
 # copy it into the Kosmo_3.0 folder
 cp Kosmo_3.0.desktop "$USER_HOME"/Desktop
