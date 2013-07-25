@@ -154,9 +154,11 @@ ln -s /usr/local/share/qgis_mapserver qgis_server
 #ln -s /usr/share/doc/geopublishing-doc geopublishing
 ln -s /usr/local/share/saga .
 # HTML
-ln -s /usr/share/doc/gmt .
-ln -s /usr/share/doc/gmt-examples .
-ln -s /usr/share/doc/gmt-tutorial .
+mkdir -p gmt
+ln -s /usr/share/doc/gmt/html gmt/html
+ln -s /usr/share/doc/gmt/pdf gmt/pdf
+ln -s /usr/share/doc/gmt-examples gmt/examples
+ln -s /usr/share/doc/gmt-tutorial gmt/tutorial
 ln -s /usr/share/doc/grass-doc/html grass
 ln -s /usr/local/share/mapnik/demo mapnik
 ln -s /usr/local/share/mapserver/doc mapserver
