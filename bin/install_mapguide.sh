@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #
 #  Copyright (C) 2010 by Autodesk, Inc.
 #
@@ -172,7 +172,7 @@ fi
 # Replace the MapGuide Server startup script for Ubuntu compatibility
 cat << EOF > "$MGDIR/server/bin/mgserverd.sh"
 #!/bin/bash
-export MENTOR_DICTIONARY_PATH=${MGDIR}/share/gis/coordsys
+export MENTOR_DICTIONARY_PATH="$MGDIR/share/gis/coordsys"
 if [ -n "$LD_LIBRARY_PATH" ] ; then
    export LD_LIBRARY_PATH="/usr/local/fdo-3.5.0/lib:/usr/local/lib:$LD_LIBRARY_PATH"
 else
@@ -180,7 +180,7 @@ else
 fi
 ulimit -s 1024
 
-if [ ! -d /var/lock/mgserver ]; then
+if [ ! -d /var/lock/mgserver ] ; then
   mkdir /var/lock/mgserver
 fi
 
