@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -11,36 +11,32 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
-
+#
 # About:
 # =====
-# This script will install mapbender3 and will create a PostgreSQL database mapbender3.0.0.0. 
+# This script will install mapbender3 and will create a PostgreSQL database
+#  mapbender3.0.0.0. 
 # The script will also add an ALIAS for Mapbender3 and a Desktop icon.
-
-# Running:
-# =======
-# sudo ./install_mapbender3.sh
-
+#
 # Requires: Apache2, PHP5, PostgreSQL
 #
 # Uninstall:
 # ============
 # sudo rm -rf /var/www/mapbender3
 
-SCRIPT="install_mapbender3.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+
 TMP_DIR="/tmp/build_mapbender3"
 INSTALLURL="http://mapbender3.org/builds/"
-
 INSTALLFILE="mapbender3-3.0.0.2"
 INSTALL_DIR="/var/www"
 
@@ -157,8 +153,6 @@ fi
 cp /usr/local/share/applications/mapbender3.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/mapbender3.desktop"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

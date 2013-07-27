@@ -73,8 +73,8 @@ export LANG_CODE
 echo "===================================================================="
 echo "Starting main.sh for version: `cat ${DIR}/../VERSION.txt`"
 echo "===================================================================="
-echo Disk Usage1:, main.sh, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, main.sh, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo Disk Usage1: main.sh, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2: main.sh, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
 
 # Print out the current svn revision
 #  (doesn't work with `svn export`)
@@ -167,8 +167,8 @@ for SCRIPT in \
   echo Finished: $SCRIPT
   echo 
   #Prints in MB blocks now, -h might miss changes less than 1GB
-  echo Disk Usage1:, $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-  echo Disk Usage2:, $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+  echo Disk Usage1: $SCRIPT, `df -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+  echo Disk Usage2: $SCRIPT, `df -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
 done
 
 # works(?), but ran out of disc space:

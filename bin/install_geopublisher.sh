@@ -1,6 +1,8 @@
 #!/bin/sh
+#
 # Copyright (c) 2010 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
+# Author: Stefan A. Tzeggai
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -11,25 +13,17 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
-# Author: Stefan A. Tzeggai
-
+#
 # About:
 # =====
 # This script will install geopublisher via a Debian Repository .deb
-
-# Running:
-# =======
-# "geopublisher" from Application -> Science -> Geopublisher
-
+#
 # Requirements:
 # =======
 # Any Java 1.6, Sun preferred
 
-SCRIPT="install_geopublisher.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+####
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -45,7 +39,8 @@ apt-get -q update
 # Install Geopublisher and documentation
 apt-get -q install --yes --no-install-recommends geopublisher geopublishing-doc
 
-# Now we create a .properties file which predefines that Geopublisher open-file-dialog will start in the directory recommended in the quickstart 
+# Now we create a .properties file which predefines that Geopublisher
+#  open-file-dialog will start in the directory recommended in the quickstart 
 mkdir -p "$USER_HOME/.Geopublisher"
 echo "LastOpenAtlasFolder=$USER_HOME/Desktop/ChartDemoAtlas" \
    > "$USER_HOME/.Geopublisher/geopublisher.properties"
@@ -63,8 +58,6 @@ mkdir -p /usr/local/share/data/vector
 ln -s /usr/share/doc/geopublishing-doc/tutorial_Geopublisher_1 \
       /usr/local/share/data/vector/geopublisher
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+./diskspace_probe.sh "`basename $0`" end

@@ -1,28 +1,28 @@
 #!/bin/sh
 #
-# Installation of MapProxy server
+# Install MapProxy server
 #
 # Created by Oliver Tonnhofer <olt@omniscale.de>
-#
 # Copyright (c) 2010 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 
-SCRIPT="install_mapproxy.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+
 BIN="/usr/local/bin"
 TMP="/tmp/build_mapproxy"
 MAPPROXY_VERSION="1.5.0"
 MAPPROXY_DEB_FILE="mapproxy_${MAPPROXY_VERSION}_all.deb"
-MAPPROXY_DEB_URL="http://mapproxy.org/static/rel/${MAPPROXY_DEB_FILE}"
-MAPPROXY_DOCS_FILE="MapProxy-docs-${MAPPROXY_VERSION}.tar.gz"
-MAPPROXY_DOCS_URL="http://mapproxy.org/static/rel/${MAPPROXY_DOCS_FILE}"
+MAPPROXY_DEB_URL="http://mapproxy.org/static/rel/$MAPPROXY_DEB_FILE"
+MAPPROXY_DOCS_FILE="MapProxy-docs-$MAPPROXY_VERSION.tar.gz"
+MAPPROXY_DOCS_URL="http://mapproxy.org/static/rel/$MAPPROXY_DOCS_FILE"
 MAPPROXY_DIR="/usr/local/share/mapproxy"
 
 mkdir -p "$TMP"
@@ -53,16 +53,16 @@ fi
 
 mkdir -p $MAPPROXY_DIR/docs
 echo "Extracting docs: $MAPPROXY_DOCS_FILE"
-tar -xz --strip-components 1 -C $MAPPROXY_DIR/docs -f $MAPPROXY_DOCS_FILE
+tar -xz --strip-components 1 -C "$MAPPROXY_DIR"/docs -f "$MAPPROXY_DOCS_FILE"
 if [ $? -ne 0 ] ; then
    echo "ERROR: docs install failed"
    exit 1
 fi
-ln -sf $MAPPROXY_DIR/docs /var/www/mapproxy
+ln -sf "$MAPPROXY_DIR/docs" /var/www/mapproxy
 
 echo "Creating Scripts/Links"
 # Create startup script for MapProxy Server
-cat << EOF > $BIN/mapproxy_start.sh
+cat << EOF > "$BIN/mapproxy_start.sh"
 #!/bin/sh
 mapproxy-util serve-develop -b 0.0.0.0:8011 /usr/local/share/mapproxy/mapproxy.yaml
 EOF
@@ -108,7 +108,7 @@ cp -a /usr/share/applications/mapproxy-intro.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/mapproxy-intro.desktop"
 
 echo "Creating Configuration"
-cat << EOF > ${MAPPROXY_DIR}/mapproxy.yaml
+cat << EOF > "$MAPPROXY_DIR/mapproxy.yaml"
 services:
   demo:
   kml:
@@ -289,8 +289,6 @@ adduser "$USER_NAME" users
 #snafu'd ownership
 chown -R root.root "$MAPPROXY_DIR/docs/"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

@@ -1,15 +1,11 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
-# 
+# Licensed under the GNU LGPL version >= 2.1.
+#
 # About:
 # =====
 # This script will install Mapnik library and Python bindings
 # and TileLite for a demo 'World Borders' application
-#
-# Running:
-# =======
-# sudo ./install_mapnik.sh
 #
 # Requires:
 # =========
@@ -22,10 +18,22 @@
 # rm -rf /usr/local/share/mapnik/
 # rm /usr/local/bin/liteserv.py
 
-SCRIPT="install_mapnik.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
+
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
+
+# download, install, and setup demo Mapnik tile-serving application
+TMP="/tmp/build_mapnik"
+DATA_FOLDER="/usr/local/share"
+MAPNIK_DATA="$DATA_FOLDER/mapnik"
+BIN="/usr/local/bin"
+
 
 # package name change in precise
 apt-get install --yes python-mapnik2 python-werkzeug
@@ -33,19 +41,8 @@ apt-get install --yes python-mapnik2 python-werkzeug
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
-fi      
-
-# download, install, and setup demo Mapnik tile-serving application
-TMP="/tmp/build_mapnik"
-BUILD_DIR=`pwd`
-DATA_FOLDER="/usr/local/share"
-MAPNIK_DATA="$DATA_FOLDER/mapnik"
-BIN="/usr/local/bin"
-
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
 fi
-USER_HOME="/home/$USER_NAME"
+
 
 mkdir -p "$TMP"
 cd "$TMP"
@@ -53,23 +50,24 @@ cd "$TMP"
 ## Setup things... ##
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install it and try again" 
+   echo "ERROR: wget is required, please install it and try again"
    exit 1
 fi
 
-if [ ! -d "$MAPNIK_DATA" ]
-then
-    echo "Creating $MAPNIK_DATA directory"
-    mkdir "$MAPNIK_DATA"
+if [ ! -d "$MAPNIK_DATA" ] ; then
+   echo "Creating $MAPNIK_DATA directory"
+   mkdir "$MAPNIK_DATA"
 fi
 
 # download TileLite sources
 ## some problems with filenames, substitute package --Live 4.5b3
 #wget -N --progress=dot:mega http://bitbucket.org/springmeyer/tilelite/get/tip.zip
 #unzip -o tip.zip
-#rm tip.zip # We wish to backup files downloaded. The tmp directory is automatically emptied upon computer shutdown.
+#rm tip.zip # We wish to backup files downloaded. The tmp directory is
+#           #   automatically emptied upon computer shutdown.
 wget -N --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/mapnik/tilelite.tgz"
+
 tar xzf tilelite.tgz
 cd "$TMP/tilelite"
 
@@ -136,8 +134,5 @@ rm -f /usr/local/share/data/vector/world_merc
 ln -s /usr/local/share/mapnik/demo \
       /usr/local/share/data/vector/world_merc
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

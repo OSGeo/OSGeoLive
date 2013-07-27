@@ -35,8 +35,8 @@
 echo "--------------------------------------------------------------------"
 echo "Starting installation of beta software..."
 echo "--------------------------------------------------------------------"
-echo Disk Usage1:, main.sh, `df | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, main.sh, `df | grep " /$" | sed -e "s/  */,/g"`, `date`
+echo Disk Usage1: main.sh, `df | grep "Filesystem" | sed -e "s/  */,/g"`, date
+echo Disk Usage2: main.sh, `df | grep " /$" | sed -e "s/  */,/g"`, `date`
 	
 cd beta_software
 
@@ -53,8 +53,8 @@ for SCRIPT in \
   echo Finished: $SCRIPT
   echo
   # Prints in MB blocks now, -h might miss changes less than 1GB
-  echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-  echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
+  echo Disk Usage1: $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
+  echo Disk Usage2: $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
 done
 
 exit 0

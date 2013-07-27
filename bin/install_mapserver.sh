@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -11,15 +11,11 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
+#
 # About:
 # =====
 # This script will install mapserver
-
-# Running:
-# =======
-# sudo ./install_mapserver.sh
-
+#
 # Requires: Apache2, PHP5
 #
 # Uninstall:
@@ -29,10 +25,10 @@
 # sudo rm -rf /usr/local/share/mapserver/
 # sudo rm -rf /usr/local/www/docs_maps
 
-SCRIPT="install_mapserver.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -48,7 +44,8 @@ mkdir "$TMP_DIR"
 cd "$TMP_DIR"
 
 # Install MapServer and its php, python bindings.
-apt-get install --yes cgi-mapserver mapserver-bin php5-mapscript python-mapscript
+apt-get install --yes cgi-mapserver mapserver-bin php5-mapscript \
+   python-mapscript
 
 
 # Download MapServer data
@@ -103,7 +100,7 @@ Alias /mapserver_demos "/usr/local/share/mapserver/demos"
 </Directory>
 EOF
 
-echo "Done"
+echo "Finished configuring Apache"
 
 #Add Launch icon to desktop
 #?What Icon should be used?
@@ -141,8 +138,6 @@ ln -s /usr/local/share/mapserver/demos/itasca/data \
 cd "$MAPSERVER_DATA"/doc/_static/
 rm -rf `find | grep '/\.svn'`
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

@@ -1,27 +1,28 @@
 #!/bin/sh
 #
-# Installation of MapTiler application
+# Install the MapTiler application
 #
 # Created by Klokan Petr Pridal <petr.pridal@klokantech.com>
 #
-# Copyright (c) 2010 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Copyright (c) 2010-13 The Open Source Geospatial Foundation.
+# Licensed under the GNU LGPL version >= 2.1.
+#
 
-SCRIPT="install_maptiler.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
-TMP="/tmp/build_maptiler"
-MAPTILERDEB="maptiler_1.0.beta2_all.deb"
-DATA_FOLDER="/usr/local/share/maptiler"
-TESTDATA_URL="http://download.osgeo.org/gdal/data/gtiff/utm.tif"
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+
+TMP="/tmp/build_maptiler"
+MAPTILERDEB="maptiler_1.0.beta2_all.deb"
+DATA_FOLDER="/usr/local/share/maptiler"
+TESTDATA_URL="http://download.osgeo.org/gdal/data/gtiff/utm.tif"
 
 
 #Can't cd to a directory before you make it, may be uneeded now
@@ -79,19 +80,19 @@ ln -s "$DATA_FOLDER/utm.tif" /usr/local/share/data/raster/utm11N.tif
 
 
 # Everything is OK
-echo "MapTiler is installed"
-echo "---------------------"
-echo "To try it you should:"
-echo ""
-echo " 1. Start MapTiler by clicking the icon on the Desktop"
-echo " 2. Load in the second step an raster geodata (with georerence/srs), you can try /home/user/data/maptiler/utm.tif"
-echo " 3. Go trough all the steps with 'Next' up to the Render"
-echo " 4. Once the render is finished you can click in the GUI to open a folder with tiles. When you open googlemaps.html or openlayers.html then you see your geodata warped to the overlay of popular interactive web maps as Google Maps."
-echo ""
-echo "The map tiles are displayed directly from your disk. To publish the map to Internet just upload the folder with tiles to any webserver or Amazon S3" 
+if [ -n "$VERBOSE" ] ; then
+   echo "MapTiler is installed"
+   echo "---------------------"
+   echo "To try it you should:"
+   echo ""
+   echo " 1. Start MapTiler by clicking the icon on the Desktop"
+   echo " 2. Load in the second step an raster geodata (with georerence/srs), you can try /home/user/data/maptiler/utm.tif"
+   echo " 3. Go trough all the steps with 'Next' up to the Render"
+   echo " 4. Once the render is finished you can click in the GUI to open a folder with tiles. When you open googlemaps.html or openlayers.html then you see your geodata warped to the overlay of popular interactive web maps as Google Maps."
+   echo ""
+   echo "The map tiles are displayed directly from your disk. To publish the map to Internet just upload the folder with tiles to any webserver or Amazon S3" 
+fi
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

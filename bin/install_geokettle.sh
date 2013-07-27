@@ -7,10 +7,8 @@
 #          Based on uDig install script by
 #          Stefan Hansen.
 #
-#################################################
 # Copyright (c) 2009-2011 Spatialytics, (c) 2007-2009 GeoSOA Research group
-#
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 #
 # This program is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -22,24 +20,26 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-
 # About:
 # =====
 # This script will install GeoKettle into Ubuntu
-
+#
 # Java requirements
 # =================
 # GeoKettle can run on either version 5 or 6 of the Sun Java JRE.
-# There's no preference for Java 5 or 6 with the current version (one or the other will do fine), but future versions may rely on features only present in >= 6.
+# There's no preference for Java 5 or 6 with the current version (one or the
+#  other will do fine), but future versions may rely on features only present
+#  in >= 6.
 
-# Running:
-# =======
-# sudo ./install_geokettle.sh
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
-SCRIPT="install_geokettle.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_geokettle"
 GEOKETTLE_URL="http://spatialytics.fetchapp.com/files/udelaj"
@@ -47,11 +47,6 @@ GEOKETTLE_BASENAME="geokettle-2.5"
 GEOKETTLE_FILENAME="$GEOKETTLE_BASENAME.zip"
 INSTALL_FOLDER="/opt"
 GEOKETTLE_FOLDER="$INSTALL_FOLDER/geokettle"
-BIN="/usr/bin"
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
-USER_HOME="/home/$USER_NAME"
 #DESKTOP="Bureau"
 DESKTOP="Desktop"
 
@@ -70,11 +65,10 @@ cd "$TMP"
 ## Install Application ##
 
 # get geokettle
-if [ -f "$GEOKETTLE_FILENAME" ]
-then
+if [ -f "$GEOKETTLE_FILENAME" ] ; then
    echo "$GEOKETTLE_FILENAME has already been downloaded."
 else
-   wget --progress=dot:mega "$GEOKETTLE_URL" -O $GEOKETTLE_FILENAME
+   wget --progress=dot:mega "$GEOKETTLE_URL" -O "$GEOKETTLE_FILENAME"
 fi
 # unpack it
 unzip -q "$GEOKETTLE_FILENAME" -d "$TMP/$GEOKETTLE_BASENAME"
@@ -119,8 +113,6 @@ mkdir -p /usr/local/share/data/vector
 ln -s /opt/geokettle/samples/transformations/geokettle/files \
       /usr/local/share/data/vector/geokettle
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

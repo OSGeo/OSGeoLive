@@ -1,6 +1,6 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
+# Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -11,33 +11,29 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
-
+#
 # About:
 # =====
 # This script will install mapbender and will create a database mapbender in PostgreSQL with PostGIS. 
 # The script will also add an ALIAS for Mapbender and an ALIAS for Mapbender owsproxy
-
-# Running:
-# =======
-# sudo ./install_mapbender.sh
-
+#
 # Requires: Apache2, PHP5, postgresql/postgis
 #
 # Uninstall:
 # ============
 # sudo rm -rf /var/www/mapbender
 
-SCRIPT="install_mapbender.sh"
-echo "==============================================================="
-echo "$SCRIPT"
-echo "==============================================================="
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
+
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+
 TMP_DIR="/tmp/build_mapbender"
 INSTALLURL="http://www.mapbender.org/download"
 INSTALLFILE="mapbender2.7_osgeolive6.0"
@@ -170,8 +166,6 @@ fi
 cp /usr/share/applications/mapbender.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/mapbender.desktop"
 
-echo "==============================================================="
-echo "Finished $SCRIPT"
-echo Disk Usage1:, $SCRIPT, `df . -B 1M | grep "Filesystem" | sed -e "s/  */,/g"`, date
-echo Disk Usage2:, $SCRIPT, `df . -B 1M | grep " /$" | sed -e "s/  */,/g"`, `date`
-echo "==============================================================="
+
+####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
