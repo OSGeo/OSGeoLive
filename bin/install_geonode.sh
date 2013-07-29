@@ -35,7 +35,6 @@ GEONODE_CONF="/etc/geonode/local_settings.py"
 GEONODE_DB="geonode"
 GEOSERVER_VERSION="2.3.4"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
-BIN="/usr/local/bin"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 
 #Install packages
