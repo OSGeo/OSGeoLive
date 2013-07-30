@@ -11,7 +11,7 @@ Version 7.0beta2
  * Updated GeoServer to 2.3.4 release
  * Updated Ohloh metrics for OSGeo-Live 7.0
  * Fixed ZOO demo (#1137)
- * iPython added to the disk
+ * iPython added to the disk as its own installer
  * Kosmo: creating desktop file from within the installer (#1166)
 
 Version 7.0beta1
