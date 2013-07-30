@@ -151,6 +151,17 @@
 	</Menu>
 
 	<Exclude>
+	    <Category>GeoNode</Category>
+	</Exclude>
+	<Menu>
+	    <Name>GeoNode</Name>
+	    <Directory>GeoNode.directory</Directory>
+	    <Include>
+		<Category>GeoNode</Category>
+	    </Include>
+	</Menu>
+
+	<Exclude>
 	    <Category>MapFish</Category>
 	</Exclude>
 	<Menu>

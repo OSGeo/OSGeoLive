@@ -49,7 +49,7 @@ WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="geomajas-* mapbender3 MapFish-* GeoMOOSE geonode* cartaro-*"
+BROWSER_CLIENTS="geomajas-* mapbender3 MapFish-* GeoMOOSE geonode-* cartaro-*"
 #disabled: i3geo
 
 #Infrastructure and miscellanea
@@ -180,6 +180,7 @@ for APP in $BROWSER_CLIENTS ; do
       case "$APPL" in
 	cartaro-*) GROUP=Cartaro;;
 	geomajas-*) GROUP=Geomajas;;
+	geonode-*) GROUP=GeoNode;;
 	MapFish-*) GROUP=MapFish;;
 	*) unset GROUP;;
       esac
@@ -329,7 +330,7 @@ done
 
 
 #### web clients sub menu infrastructure
-APP_GROUPS="Cartaro Geomajas MapFish"
+APP_GROUPS="Cartaro Geomajas GeoNode MapFish"
 
 for APP in $APP_GROUPS ; do
    cat << EOF > "/etc/xdg/menus/applications-merged/$APP.menu"
@@ -352,6 +353,7 @@ EOF
    case "$APP" in
      Cartaro) APP_ICON=/usr/local/share/icons/logo-cartaro-48.png;;
      Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
+     GeoNode) APP_ICON=/usr/share/icons/geonode.png;;
      MapFish) APP_ICON=/usr/local/lib/mapfish/mapfish.png;;
      *) unset APP_ICON;;
    esac
