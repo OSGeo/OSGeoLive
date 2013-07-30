@@ -307,7 +307,7 @@ EOF
      52North) APP_ICON=/usr/share/icons/52n.png;;
      Cartaro) APP_ICON=/usr/local/share/icons/logo-cartaro-48.png;;
      deegree) APP_ICON=/usr/share/icons/deegree_desktop_48x48.png;;
-     GeoNetwork) APP_ICON=/usr/lib/geonetwork/bin/ico/gn.ico;;
+     GeoNetwork) APP_ICON=/usr/local/share/icons/geonetwork_icon.png;;
      GeoServer) APP_ICON=/usr/share/icons/geoserver_48x48.logo.png;;
      Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
      MapProxy) APP_ICON=gnome-globe;;

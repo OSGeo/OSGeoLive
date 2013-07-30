@@ -163,6 +163,10 @@ for FILE in start_geonetwork stop_geonetwork geonetwork ; do
    chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/$FILE.desktop"
 done
 
+#copy project logo to use as menu icon
+mkdir -p /usr/local/share/icons
+cp -f "$USER_HOME/gisvm/doc/images/project_logos/logo-GeoNetwork.png" \
+    /usr/local/share/icons/geonetwork_icon.png
 
 #Manual is being put into /usr/local/share and linked to the geonetwork documentation
 #mkdir -p /usr/local/share/geonetwork
