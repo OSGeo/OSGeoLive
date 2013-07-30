@@ -99,6 +99,9 @@ cd build/
 #  access permissions to "trust". This will allow you to access the
 #  PostgreSQL database from the same machine without a password."
 #?--not needed as our user already has db admin rights??
+##
+## postgres trust connections are not necessary and a bad idea generally -dbb
+##
 
 # osm postgis db already created and populated by earlier install scripts..
 
