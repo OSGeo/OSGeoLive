@@ -1,6 +1,19 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.0beta2
+===================
+
+ * GRASS updated to 6.4.3 final
+ * Completed GeoNode setup (#1168)
+ * Fixed GeoNetwork icon (#1178)
+ * Updated QGIS plugins for 7.0
+ * Updated GeoServer to 2.3.4 release
+ * Updated Ohloh metrics for OSGeo-Live 7.0
+ * Fixed ZOO demo (#1137)
+ * iPython added to the disk
+ * Kosmo: creating desktop file from within the installer (#1166)
+
 Version 7.0beta1
 ===================
 
