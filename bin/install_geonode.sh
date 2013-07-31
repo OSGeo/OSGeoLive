@@ -160,8 +160,8 @@ sleep 60;
 
 # Make the apache user the owner of the required dirs.
 #chown www-data /usr/lib/python2.7/dist-packages/geonode/development.db
-chown www-data /usr/lib/python2.7/dist-packages/geonode/static/
-chown www-data /usr/lib/python2.7/dist-packages/geonode/uploaded/
+chown -R www-data:www-data /usr/lib/python2.7/dist-packages/geonode/static/
+chown -R www-data:www-data /usr/lib/python-2.7/dist-packages/geonode/uploaded
 
 # Install desktop icon
 echo "Installing geonode icon"
