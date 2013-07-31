@@ -112,8 +112,6 @@ if [ -n "$OL_APT_REMOVE" ] ; then
     apt-get --assume-yes remove $OL_APT_REMOVE
 fi
 
-exit
-
 #TODO: Launch script and icon for OpenLayers to take you to a documentation page and examples listing
 #Add Launch icon to desktop
 cp "$BUILD_DIR"/../doc/images/project_logos/logo-OpenLayers.png \
