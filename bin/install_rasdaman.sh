@@ -273,6 +273,12 @@ rm -rf /var/lib/tomcat6/webapps/petascope
 
 #
 #-------------------------------------------------------------------------------
+# Enable webgl in firefox 
+#
+sudo echo 'pref("webgl.force-enabled", true);' > /usr/lib/firefox/defaults/preferences/all-rasdaman.js
+
+#
+#-------------------------------------------------------------------------------
 # create scripts to launch with tomcat
 #
 RASDAMAN_BIN_FOLDER="/usr/local/rasdaman/bin"
