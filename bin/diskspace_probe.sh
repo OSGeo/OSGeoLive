@@ -39,7 +39,7 @@ df_cmd_regular() {
 df_cmd_chroot() {
    echo "Disk Usage1: $1,`df . | head -n 1 | sed -e 's/ted on/ted_on/' -e 's/  */,/g'`,date"
    echo "Disk Usage2: $1,`df -B 1M . | tail -n +2 | sed -e 's/  */,/g'`,`date --rfc-3339=seconds`"
-   echo "Temp Usage: $1,`du -sk -B 1M /tmp`"
+   echo "Temp Usage: $1,`du -s -B 1M /tmp`"
 }
 
 df_cmd() {
