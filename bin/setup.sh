@@ -65,9 +65,12 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   openssh-client lftp sl usbutils wireless-tools \
   locate diff patch fuseiso menu \
   vim medit nedit nano screen iotop xfonts-jmk \
-  okular ghostscript a2ps netpbm qiv \
+  ghostscript a2ps netpbm qiv \
   lynx mutt mc xchat rxvt units scrot \
-  gdebi fslint filelight arandr sgt-puzzles xkb-data
+  gdebi fslint arandr sgt-puzzles xkb-data
+
+# smallish KDE apps to install only if KDE libs are already present:
+#apt-get install --yes okular filelight
 
 # some xfce desktop widgets for i18n and laptops
 apt-get install --yes xfce4-xkb-plugin xfce4-power-manager \
