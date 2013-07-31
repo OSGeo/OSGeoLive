@@ -167,6 +167,9 @@ EOF
 fi
 chmod 440 /etc/sudoers.d/tomcat
 
+#Cleaning up war files to save disk space
+rm -f /var/lib/tomcat6/webapps/*.war
+
 # This is done on an extra step after rebooting and tmp is cleared
 #echo "==============================================================="
 #echo " Compress image by wiping the virtual disk, filling empty space with zero."
