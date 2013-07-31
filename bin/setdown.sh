@@ -157,6 +157,19 @@ rm -f /etc/ssh/ssh_host_*_key*
 # change a stupid sshd default
 sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 
+#SOME TESTING CODE##########################
+sudo service tomcat6 start
+sudo service tomcat6 stop
+
+sed -i -e 's/unpackWARs="true"/unpackWARs="false"/' -e 's/autoDeploy="true"/autoDeploy="false"/' \
+    /etc/tomcat6/server.xml
+
+#Cleaning up war files to save disk space
+ls /var/lib/tomcat6/webapps/
+rm -f /var/lib/tomcat6/webapps/*.war
+ls /var/lib/tomcat6/webapps/
+############################################
+
 #Disabling default tomcat startup
 update-rc.d -f tomcat6 remove
 
@@ -166,9 +179,6 @@ if [ ! -e /etc/sudoers.d/tomcat ] ; then
 EOF
 fi
 chmod 440 /etc/sudoers.d/tomcat
-
-#Cleaning up war files to save disk space
-rm -f /var/lib/tomcat6/webapps/*.war
 
 # This is done on an extra step after rebooting and tmp is cleared
 #echo "==============================================================="
