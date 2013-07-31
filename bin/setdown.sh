@@ -157,18 +157,17 @@ rm -f /etc/ssh/ssh_host_*_key*
 # change a stupid sshd default
 sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 
-#SOME TESTING CODE##########################
+# Restart tomcat to ensure all applications are deployed
 sudo service tomcat6 start
 sudo service tomcat6 stop
 
+# Disable auto-deploy to prevent applications to get removed after removing war files
+# TODO: Add some note to wiki for users that want to deploy their own tomcat applications
 sed -i -e 's/unpackWARs="true"/unpackWARs="false"/' -e 's/autoDeploy="true"/autoDeploy="false"/' \
     /etc/tomcat6/server.xml
 
 #Cleaning up war files to save disk space
-ls /var/lib/tomcat6/webapps/
 rm -f /var/lib/tomcat6/webapps/*.war
-ls /var/lib/tomcat6/webapps/
-############################################
 
 #Disabling default tomcat startup
 update-rc.d -f tomcat6 remove
