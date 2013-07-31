@@ -30,7 +30,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 
-apt-get install --yes marble marble-data
+apt-get install --yes marble-qt marble-data
 
 
 # copy icon to Desktop
