@@ -426,5 +426,16 @@ chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/" -R
 chmod a+r "$USER_HOME/Desktop/" -R
 
 
+#### since KDE is removed we copy in some icons for the menus by hand
+cd /
+if [ ! -e /usr/share/icons/hicolor/48x48/apps/knetattach.png ] ; then
+   tar xf --no-same-owner "$BUILD_DIR"/desktop-conf/knetattach_icons.tar
+fi
+if [ ! -e /usr/share/icons/hicolor/48x48/apps/ktip.png ] ; then
+   tar xf --no-same-owner "$BUILD_DIR"/desktop-conf/ktip_icons.tar
+fi
+
+
+
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
