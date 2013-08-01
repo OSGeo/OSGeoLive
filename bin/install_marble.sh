@@ -32,9 +32,28 @@ USER_HOME="/home/$USER_NAME"
 
 apt-get install --yes marble-qt marble-data
 
+# install icon
+cp -f "$USER_HOME/gisvm/app-conf/marble/marble_logo.png" \
+       /usr/local/share/icons/
 
-# copy icon to Desktop
-cp /usr/share/applications/kde4/marble.desktop "$USER_HOME/Desktop/"
+# create .desktop file
+mkdir -p /usr/local/share/applications
+if [ ! -e /usr/local/share/applications/marble.desktop ] ; then
+   cat << EOF > /usr/local/share/applications/marble.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Marble
+Comment=Marble-Qt
+Categories=Education;Science;Geoscience;
+Exec=marble-qt
+Icon=/usr/local/share/icons/marble_logo.png
+Terminal=false
+EOF
+fi
+
+cp -v /usr/local/share/applications/marble.desktop "$USER_HOME/Desktop/"
+chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/marble.desktop"
 
 
 ####
