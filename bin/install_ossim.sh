@@ -37,11 +37,15 @@ apt-get -q update
 #apt-get install --assume-yes ossim-core
 
 # install main dependencies
-apt-get install --assume-yes libtiff4 libgeotiff2 libgdal1-1.9.0 \
+apt-get install --assume-yes libtiff4 libgeotiff2 \
   libfreetype6 libcurl3 libopenscenegraph80 libqt4-opengl \
-  libexpat1 libpng3 libgdal1-1.9.0-grass libfftw3-3 libqt3-mt \
+  libexpat1 libpng3 libfftw3-3 libqt3-mt \
   libopenmpi1.3 libqt4-qt3support python-pip python-pandas python-netcdf \
   ipython-notebook spyder
+
+# fragile @ ubuntugis
+apt-get install --assume-yes libgdal1h  libgdal1-1.10.0-grass
+
 
 ## update for next release ##
 # apt-get install --assume-yes python-dev  # python-mpltoolkits.basemap # 170 mb!!! 
@@ -52,6 +56,7 @@ apt-get install --assume-yes libtiff4 libgeotiff2 libgdal1-1.9.0 \
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
+   "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
    exit 1
 fi
 
