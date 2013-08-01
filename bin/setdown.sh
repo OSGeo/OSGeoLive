@@ -155,7 +155,9 @@ rm -fr \
 # clean out ssh keys which should be machine-unique
 rm -f /etc/ssh/ssh_host_*_key*
 # change a stupid sshd default
-sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
+if [ -e /etc/ssh/sshd_config ] ; then
+   sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
+fi
 
 # Restart tomcat to ensure all applications are deployed
 sudo service tomcat6 start
