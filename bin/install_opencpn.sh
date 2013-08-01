@@ -105,6 +105,7 @@ done
 
 wget -nv -O tips.html \
   "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/doc/tips.html"
+mkdir -p /usr/share/doc/opencpn-doc/doc/
 cp tips.html /usr/share/doc/opencpn-doc/doc/
 
 
