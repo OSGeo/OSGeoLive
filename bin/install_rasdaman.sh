@@ -236,7 +236,7 @@ for db in RASBASE petascopedb; do
     dropdb $db > /dev/null 2>&1
     createdb "$db"
     echo "FIXME: --quiet?"
-    psql -d "$db" -q -f "$db.sql"
+    psql -d "$db" -q -f "$db.sql" > /dev/null 2>&1
     psql -d "$db" -c 'VACUUM ANALYZE'
 done
 
