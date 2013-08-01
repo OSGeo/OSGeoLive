@@ -429,10 +429,10 @@ chmod a+r "$USER_HOME/Desktop/" -R
 #### since KDE is removed we copy in some icons for the menus by hand
 cd /
 if [ ! -e /usr/share/icons/hicolor/48x48/apps/knetattach.png ] ; then
-   tar xf --no-same-owner "$BUILD_DIR"/desktop-conf/knetattach_icons.tar
+   tar xf "$BUILD_DIR"/desktop-conf/knetattach_icons.tar --no-same-owner
 fi
 if [ ! -e /usr/share/icons/hicolor/48x48/apps/ktip.png ] ; then
-   tar xf --no-same-owner "$BUILD_DIR"/desktop-conf/ktip_icons.tar
+   tar xf "$BUILD_DIR"/desktop-conf/ktip_icons.tar --no-same-owner
 fi
 
 
