@@ -104,6 +104,8 @@ calc_log.close()
 
 try:
     import numpy as np
+    import matplotlib as mpl
+    mpl.use('Agg')
     import matplotlib.pyplot as plt
         
     N = len(du_list)
