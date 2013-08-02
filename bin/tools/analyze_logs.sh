@@ -16,6 +16,7 @@ LOG_DIR="/var/log/osgeolive"
 MAIN_LOG_FILE="chroot-build.log"
 DISK_USAGE_LOG="disk_usage.log"
 TMP_USAGE_LOG="tmp_usage.log"
+CALC_DISK_USAGE_LOG="disk_usage_calc.log"
 
 # check install sizes
 echo "==============================================================="
@@ -26,6 +27,8 @@ grep "Disk Usage2:" "$LOG_DIR/$MAIN_LOG_FILE" >> "$LOG_DIR/$DISK_USAGE_LOG"
 echo "Temp Usage: package,tmp disk space" \
        > "$LOG_DIR/$TMP_USAGE_LOG"
 grep "Temp Usage:" "$LOG_DIR/$MAIN_LOG_FILE" >> "$LOG_DIR/$TMP_USAGE_LOG"
+/usr/local/share/gisvm/bin/tools/diskspace_calc.py "$LOG_DIR/$DISK_USAGE_LOG" \
+    "$LOG_DIR/$TMP_USAGE_LOG" "$LOG_DIR/$CALC_DISK_USAGE_LOG"
 
 echo "==============================================================="
 # to be interesting this should really focus on diff to prior, not absolute value
