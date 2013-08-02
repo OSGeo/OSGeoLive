@@ -24,9 +24,9 @@
 ####
 
 
-if [ -z "$USER_NAME" ] ; then 
-   USER_NAME="user" 
-fi 
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 
@@ -54,6 +54,9 @@ fi
 
 cp -v /usr/local/share/applications/marble.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/marble.desktop"
+
+##-- save 5.5M by removing the unbuilt docbook docs; could change
+rm -rf /usr/share/doc/kde/HTML/en/marble
 
 
 ####
