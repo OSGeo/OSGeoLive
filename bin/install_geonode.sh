@@ -144,9 +144,9 @@ django-admin collectstatic --noinput --settings=geonode.settings
 echo "Done"
 
 echo "Starting GeoServer to update layers in the geonode db"
-"$GEOSERVER_PATH"/bin/shutdown.sh &
-sleep 60;
-"$GEOSERVER_PATH"/bin/startup.sh &
+"$GEOSERVER_PATH"/bin/shutdown.sh &> /dev/null &
+sleep 30;
+"$GEOSERVER_PATH"/bin/startup.sh &> /dev/null &
 sleep 60;
 
 # run updatelayers
@@ -155,8 +155,8 @@ django-admin updatelayers --settings=geonode.settings --ignore-errors
 echo "Done"
 
 echo "Stopping GeoServer"
-"$GEOSERVER_PATH"/bin/shutdown.sh &
-sleep 60;
+"$GEOSERVER_PATH"/bin/shutdown.sh &> /dev/null &
+sleep 30;
 
 # Make the apache user the owner of the required dirs.
 #chown www-data /usr/lib/python2.7/dist-packages/geonode/development.db

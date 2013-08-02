@@ -200,9 +200,9 @@ echo "[install_cartaro.sh] Install Cartaro ..."
 
 chown -R root.root "$TARGET_DIR"
 
-"$GEO_PATH"/bin/shutdown.sh &
-sleep 60;
-"$GEO_PATH"/bin/startup.sh &
+"$GEO_PATH"/bin/shutdown.sh &> /dev/null &
+sleep 30;
+"$GEO_PATH"/bin/startup.sh &> /dev/null &
 sleep 60;
 
 
@@ -379,7 +379,7 @@ fi
 # Bring down GeoServer and reset permissions
 ############################################
 
-"$GEO_PATH"/bin/shutdown.sh &
+"$GEO_PATH"/bin/shutdown.sh &> /dev/null &
 sleep 30
 
 ## Allow the user to write in the GeoServer data dir
