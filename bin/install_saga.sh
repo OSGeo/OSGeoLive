@@ -9,7 +9,7 @@
 
 ./diskspace_probe.sh "`basename $0`" begin
 ####
-
+BUILD_DIR=`pwd`
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -46,4 +46,4 @@ chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/saga_gui.desktop"
 
 
 ####
-./diskspace_probe.sh "`basename $0`" end
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
