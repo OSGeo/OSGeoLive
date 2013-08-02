@@ -54,9 +54,9 @@ fi
 # try to get those changes applied sooner
 mv /etc/rc2.d/S99rc.local /etc/rc2.d/S10rc.local
 
-# bloody hell.. 
-cp ../app-conf/build_chroot/27osgeo_groups \ 
-  /usr/share/initramfs-tools/scripts/casper-bottom/ 
+# bloody hell..
+cp ../app-conf/build_chroot/27osgeo_groups \
+  /usr/share/initramfs-tools/scripts/casper-bottom/
 
 
 # re-enable ability to create persistent USB installs on a 4gb thumb drive
@@ -117,7 +117,7 @@ ldconfig
 
 ## check how big the databases ended up
 echo "Postgres database sizes:"
-psql -U $USER_NAME << EOF
+sudo -u postgres psql << EOF
 SELECT pg_database.datname,
        pg_size_pretty(pg_database_size(pg_database.datname)) AS size
   FROM pg_database;
