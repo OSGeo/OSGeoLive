@@ -21,10 +21,10 @@ import re
 def usage():
     """Provide usage instructions"""
     return '''
-    diskspace_calc.py log_path/disk_usage.log log_path/tmp_usage.log log_path/disk_usage_calc.log
+    diskspace_calc.py log_path/disk_usage.log log_path/tmp_usage.log log_path/disk_usage_calc.log log_path/disk_usage_plot.png
 '''
 
-if len(sys.argv) != 4:
+if len(sys.argv) != 5:
     print usage()
     sys.exit(1)
 
@@ -45,6 +45,9 @@ previous_tmp=1
 current_tmp=0
 current_df_script=""
 current_tmp_script=""
+
+du_list=[]
+name_list=[]
 
 for dline,tline in zip(du_lines,tmp_lines):
     i=i+1
@@ -94,5 +97,34 @@ for dline,tline in zip(du_lines,tmp_lines):
     final_du = df_diff - tmp_diff
     log_msg = current_df_script + " " + str(final_du) + "\n"
     calc_log.write(log_msg)
+    du_list.append(final_du)
+    name_list.append(current_df_script)
 
 calc_log.close()
+
+try:
+    import numpy as np
+    import matplotlib.pyplot as plt
+        
+    N = len(du_list)
+    ind = np.arange(N)
+    width = 1
+    
+    fig, ax = plt.subplots(figsize=(30,18))
+    rects1 = ax.bar(ind, du_list, width, facecolor='#777777')
+    
+    ax.set_ylabel('Size in MBs')
+    ax.set_title('Disk Usage per installation script')
+    ax.set_xticks(ind+0.5)
+    ax.set_ylim(-200, 1000)
+    ax.xaxis.grid(True, zorder=0)
+    ax.yaxis.grid(True, zorder=0)
+    
+    ax.set_xticklabels( name_list, rotation='vertical' )
+    fig.autofmt_xdate()
+    plt.savefig(sys.argv[4])
+    
+except ValueError:
+    sys.exit(1)
+else:
+    sys.exit(1)
