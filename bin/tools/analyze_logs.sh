@@ -18,6 +18,7 @@ DISK_USAGE_LOG="disk_usage.log"
 TMP_USAGE_LOG="tmp_usage.log"
 CALC_DISK_USAGE_LOG="disk_usage_calc.log"
 DISK_USAGE_PLOT="disk_usage_plot.png"
+TIME_PLOT="installation_time_plot.png"
 
 # check install sizes
 echo "==============================================================="
@@ -30,7 +31,8 @@ echo "Temp Usage: package,tmp disk space" \
        > "$LOG_DIR/$TMP_USAGE_LOG"
 grep "Temp Usage:" "$LOG_DIR/$MAIN_LOG_FILE" >> "$LOG_DIR/$TMP_USAGE_LOG"
 /usr/local/share/gisvm/bin/tools/diskspace_calc.py "$LOG_DIR/$DISK_USAGE_LOG" \
-    "$LOG_DIR/$TMP_USAGE_LOG" "$LOG_DIR/$CALC_DISK_USAGE_LOG" "$LOG_DIR/$DISK_USAGE_PLOT" --sort
+    "$LOG_DIR/$TMP_USAGE_LOG" "$LOG_DIR/$CALC_DISK_USAGE_LOG" "$LOG_DIR/$DISK_USAGE_PLOT" \
+    "$LOG_DIR/$TIME_PLOT" --sort
 # 
 # echo "==============================================================="
 # # to be interesting this should really focus on diff to prior, not absolute value
