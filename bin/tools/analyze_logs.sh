@@ -21,6 +21,7 @@ DISK_USAGE_PLOT="disk_usage_plot.png"
 
 # check install sizes
 echo "==============================================================="
+echo "Analyzing disk usage"
 echo "Writing disk usage stats to $LOG_DIR/$DISK_USAGE_LOG ..."
 echo "Disk Usage1: package,Filesystem,1K-blocks,Used,Available,Use%,Mounted_on,date" \
        > "$LOG_DIR/$DISK_USAGE_LOG"
@@ -30,27 +31,28 @@ echo "Temp Usage: package,tmp disk space" \
 grep "Temp Usage:" "$LOG_DIR/$MAIN_LOG_FILE" >> "$LOG_DIR/$TMP_USAGE_LOG"
 /usr/local/share/gisvm/bin/tools/diskspace_calc.py "$LOG_DIR/$DISK_USAGE_LOG" \
     "$LOG_DIR/$TMP_USAGE_LOG" "$LOG_DIR/$CALC_DISK_USAGE_LOG" "$LOG_DIR/$DISK_USAGE_PLOT" --sort
-
-echo "==============================================================="
-# to be interesting this should really focus on diff to prior, not absolute value
-echo "Package    |Megabytes used by install script" | tr '|' '\t'
-grep 'Disk Usage2:' "$LOG_DIR/$MAIN_LOG_FILE" | \
-  cut -f2,5 -d, | cut -f2- -d_ | \
-  grep -v '^,\|main.sh\|setdown.sh' | sed -e 's/\.sh,/    \t/' | \
-  awk 'BEGIN { PREV=0; } 
-	{ if(PREV == 0) { PREV = $2; }
-	printf("%s", $1);
-	if($1 == "R" || $1 == "osm" || $1 == "gmt" || $1 == "otb") { printf("\t") }
-	if($1 == "qgis_mapserver" || $1 == "geopublisher")
-	     { printf("\t") }
-	else { printf("    \t") }
-	print $2 - PREV;
-	PREV = $2 }' | sort  -nr -k2 | uniq
-
-echo "==============================================================="
+# 
+# echo "==============================================================="
+# # to be interesting this should really focus on diff to prior, not absolute value
+# echo "Package    |Megabytes used by install script" | tr '|' '\t'
+# grep 'Disk Usage2:' "$LOG_DIR/$MAIN_LOG_FILE" | \
+#   cut -f2,5 -d, | cut -f2- -d_ | \
+#   grep -v '^,\|main.sh\|setdown.sh' | sed -e 's/\.sh,/    \t/' | \
+#   awk 'BEGIN { PREV=0; } 
+# 	{ if(PREV == 0) { PREV = $2; }
+# 	printf("%s", $1);
+# 	if($1 == "R" || $1 == "osm" || $1 == "gmt" || $1 == "otb") { printf("\t") }
+# 	if($1 == "qgis_mapserver" || $1 == "geopublisher")
+# 	     { printf("\t") }
+# 	else { printf("    \t") }
+# 	print $2 - PREV;
+# 	PREV = $2 }' | sort  -nr -k2 | uniq
+# 
+# echo "==============================================================="
 
 # grep for problems
 echo "==============================================================="
+echo "Searching logs for errors"
 (
 grep -iwn 'ERROR\|^E:' "$LOG_DIR/$MAIN_LOG_FILE" | \
    grep -v 'libgpg-error-dev\|DHAVE_STRERROR\|error.cc:'
