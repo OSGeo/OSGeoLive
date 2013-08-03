@@ -21,12 +21,19 @@ import re
 def usage():
     """Provide usage instructions"""
     return '''
-    diskspace_calc.py log_path/disk_usage.log log_path/tmp_usage.log log_path/disk_usage_calc.log log_path/disk_usage_plot.png
+    diskspace_calc.py log_path/disk_usage.log log_path/tmp_usage.log log_path/disk_usage_calc.log log_path/disk_usage_plot.png [--sort]
 '''
 
-if len(sys.argv) != 5:
+if ((len(sys.argv) < 5) or (len(sys.argv)> 6)):
     print usage()
     sys.exit(1)
+
+sort=False
+try:
+    if sys.argv[5] == "--sort":
+	sort=True
+except:
+    pass
 
 du_log = open(sys.argv[1], "r")
 tmp_log = open(sys.argv[2], "r")
@@ -99,6 +106,11 @@ for dline,tline in zip(du_lines,tmp_lines):
     calc_log.write(log_msg)
     du_list.append(final_du)
     name_list.append(current_df_script)
+    
+    if sort:
+	du_tuple, name_tuple = zip(*sorted(zip(du_list, name_list),reverse=True))
+	du_list=list(du_tuple)
+	name_list=list(name_tuple)
 
 calc_log.close()
 
