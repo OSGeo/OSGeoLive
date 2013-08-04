@@ -29,6 +29,7 @@
 # Variables
 # -----------------------------------------------------------------------------
 ./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
 ####
 
 TMP="/tmp/build_52nWPS"
@@ -248,5 +249,5 @@ chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nWPS-stop.desktop"
 # We just crossed the finish line
 #
 ####
-./diskspace_probe.sh "`basename $0`" end
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
 

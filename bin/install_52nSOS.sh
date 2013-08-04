@@ -31,6 +31,7 @@
 # -----------------------------------------------------------------------------
 
 ./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
 ####
 
 TMP="/tmp/build_52nSOS"
@@ -346,5 +347,5 @@ chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-stop.desktop"
 # We just crossed the finish line
 #
 ####
-./diskspace_probe.sh "`basename $0`" end
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
 

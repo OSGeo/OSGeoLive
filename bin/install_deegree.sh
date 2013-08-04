@@ -40,6 +40,7 @@
 ###########################
 
 ./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
 ####
 
 ###########################
@@ -184,4 +185,4 @@ chmod g+w "$DEEGREE_WORKSPACE_ROOT" -R
 chgrp users "$DEEGREE_WORKSPACE_ROOT" -R
 
 ####
-./diskspace_probe.sh "`basename $0`" end
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
