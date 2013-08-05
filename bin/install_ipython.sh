@@ -20,15 +20,22 @@
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
-# FIXME:
-apt-get install --assume-yes ipython-notebook
-#install using an official backport jul13
-#apt-get install --assume-yes ipython-notebook -t precise-backports
+echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe" \
+      | sudo tee /etc/apt/sources.list.d/backports.list
+
+apt-get update
+
+apt-get install --assume-yes ipython-notebook -t precise-backports
+
+sudo rm -f /etc/apt/sources.list.d/backports.list
+
+apt-get update
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
+
 
 
 ####

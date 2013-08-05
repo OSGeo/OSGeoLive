@@ -41,7 +41,7 @@ apt-get install --assume-yes libtiff4 libgeotiff2 \
   libfreetype6 libcurl3 libopenscenegraph80 libqt4-opengl \
   libexpat1 libpng3 libfftw3-3 libqt3-mt \
   libopenmpi1.3 libqt4-qt3support python-pip python-pandas python-netcdf \
-  ipython-notebook spyder
+  spyder
 
 # fragile @ ubuntugis
 apt-get install --assume-yes libgdal1h  libgdal1-1.10.0-grass
