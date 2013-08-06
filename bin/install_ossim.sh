@@ -308,9 +308,10 @@ SPEARFISH_RASTER=/usr/local/share/grass/spearfish60/PERMANENT/cellhd/
 #for i in $SPEARFISH_RASTER; do
 #    gdal_translate -of VRT $SPEARFISH_RASTER/$i /home/user/data/workspace/$i.vrt
 
-/usr/bin/gdal_translate -of VRT \
-    "$SPEARFISH_RASTER"/elevation.10m \
-    "$QUICKSTART"/workspace/elevation10m.vrt
+# gdal-grass broken .. commentimng the conversion to vrt
+#/usr/bin/gdal_translate -of VRT \
+#    "$SPEARFISH_RASTER"/elevation.10m \
+#    "$QUICKSTART"/workspace/elevation10m.vrt
 
 /usr/bin/gdal_translate -of GTIFF -ot Float64 \
     "$QUICKSTART"/workspace/elevation10m.vrt \
