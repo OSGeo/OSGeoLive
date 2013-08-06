@@ -252,8 +252,8 @@ wget --progress=dot:mega "$DATA_URL/ossim_data/SRTM_fB03_p011r031.tif"  \
 chmod a-x "$SAT_DATA/SRTM_fB03_p011r031.tif"
 fi
 
-#wget --progress=dot:mega $DATA_URL/ossim_data/bluemarble.tif  \
-#--output-document=/usr/share/ossim/images/reference/bluemarble.tif
+wget --progress=dot:mega $DATA_URL/ossim_data/bluemarble.tif  \
+--output-document=/usr/share/ossim/images/reference/bluemarble.tif
 #wget --progress=dot:mega $DATA_URL/kml/Plaza_de_Cataluna.kmz \
 #  --output-document=$KML_DATA/Plaza_de_Cataluna.kmz
 #wget --progress=dot:mega $DATA_URL/kml/View_towards_Sagrada_Familia.kmz \
@@ -284,13 +284,13 @@ if [ 0 -eq 1 ] ; then
     "$SAT_DATA/p011r031_7t19990918_z19_nn30.tif"
 fi
 
-#/usr/bin/gdal_translate -of VRT "$RASTER_DATA"/BlueMarble_small.tiff \
-#    /usr/share/ossim/images/reference/bluemarble.tif
-#
-#/usr/local/ossim/bin/ossim-img2rr \
-#   /usr/share/ossim/images/reference/bluemarble.tif
-#/usr/local/ossim/bin/ossim-create-histo \
-#   /usr/share/ossim/images/reference/bluemarble.tif
+/usr/bin/gdal_translate -of VRT "$RASTER_DATA"/BlueMarble_small.tif \
+    /usr/share/ossim/images/reference/bluemarble.tif
+
+/usr/local/ossim/bin/ossim-img2rr \
+   /usr/share/ossim/images/reference/bluemarble.tif
+/usr/local/ossim/bin/ossim-create-histo \
+   /usr/share/ossim/images/reference/bluemarble.tif
 
 
 unset OSSIM_PREFS_FILE
@@ -371,7 +371,8 @@ chmod 644 /usr/local/share/ossim/*.pdf
 wget --progress=dot:mega "$DATA_URL/ipython-notebook.desktop" \
      --output-document="$QUICKSTART"/workspace/ipython-notebook.desktop
 
-pip install --upgrade ipython
+#pip install --upgrade ipython
+pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
 
 ipython profile create osgeolive
 mkdir -p "$USER_HOME"/.config/
