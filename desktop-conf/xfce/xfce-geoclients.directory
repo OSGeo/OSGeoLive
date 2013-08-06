@@ -2,6 +2,6 @@
 Version=1.0
 Encoding=UTF-8
 Type=Directory
-Icon=knetattach
+Icon=/usr/share/icons/hicolor/16x16/apps/knetattach.png
 Name=Browser Clients
 Comment=Geospatially enabled map applications
