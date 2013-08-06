@@ -378,7 +378,7 @@ pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
 
 ipython profile create osgeolive
 mkdir -p "$USER_HOME"/.config/
-mv ~/.profile/ipython "$USER_HOME"/.config/ipython
+mv ~/.ipython "$USER_HOME"/.config/ipython
 sed -i -e "s|root|$USER_NAME|" "$USER_HOME"/.config/ipython/profile_osgeolive/*.py
 
 mkdir -p /etc/skel/.config
