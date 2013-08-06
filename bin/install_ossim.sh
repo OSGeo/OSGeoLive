@@ -284,8 +284,8 @@ if [ 0 -eq 1 ] ; then
     "$SAT_DATA/p011r031_7t19990918_z19_nn30.tif"
 fi
 
-/usr/bin/gdal_translate -of VRT "$RASTER_DATA"/BlueMarble_small.tif \
-    /usr/share/ossim/images/reference/bluemarble.tif
+#/usr/bin/gdal_translate -of VRT "$RASTER_DATA"/BlueMarble_small.tif \
+#    /usr/share/ossim/images/reference/bluemarble.tif
 
 /usr/local/ossim/bin/ossim-img2rr \
    /usr/share/ossim/images/reference/bluemarble.tif
