@@ -313,20 +313,23 @@ SPEARFISH_RASTER=/usr/local/share/grass/spearfish60/PERMANENT/cellhd/
 #    "$SPEARFISH_RASTER"/elevation.10m \
 #    "$QUICKSTART"/workspace/elevation10m.vrt
 
-/usr/bin/gdal_translate -of GTIFF -ot Float64 \
-    "$QUICKSTART"/workspace/elevation10m.vrt \
-    "$QUICKSTART"/workspace/elevation10m.tif
+#/usr/bin/gdal_translate -of GTIFF -ot Float64 \
+#    "$QUICKSTART"/workspace/elevation10m.vrt \
+#    "$QUICKSTART"/workspace/elevation10m.tif
+
+
 
 # Broken (see trac #1159)
-OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference \
-  /usr/local/ossim/bin/ossim-orthoigen -w general_raster_bip \
-    "$QUICKSTART"/workspace/elevation10m.tif \
-    /usr/share/ossim/elevation/spearfish/elevation10m.ras
+# broken (gdal grass plugin required to generate src file)
+#OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference \
+#  /usr/local/ossim/bin/ossim-orthoigen -w general_raster_bip \
+#    "$QUICKSTART"/workspace/elevation10m.tif \
+#    /usr/share/ossim/elevation/spearfish/elevation10m.ras
 
-rm -f "$QUICKSTART"/workspace/elevation10m.tif
+#rm -f "$QUICKSTART"/workspace/elevation10m.tif
 
-/usr/bin/gdal_translate -of VRT "$SPEARFISH_RASTER"/geology \
-    "$QUICKSTART"/workspace/geology.vrt
+#/usr/bin/gdal_translate -of VRT "$SPEARFISH_RASTER"/geology \
+#    "$QUICKSTART"/workspace/geology.vrt
 
 
 #COORDS="N40E002 N41E002 N42E002"
@@ -340,9 +343,9 @@ rm -f "$QUICKSTART"/workspace/elevation10m.tif
 #done
 
 # get rid of unused reference map
-rm -rf /usr/share/ossim/images/reference/earth.jpg
-rm -rf /usr/share/ossim/images/reference/earth.ovr
-rm -rf /usr/share/ossim/images/reference/earth.geom
+#rm -rf /usr/share/ossim/images/reference/earth.jpg
+#rm -rf /usr/share/ossim/images/reference/earth.ovr
+#rm -rf /usr/share/ossim/images/reference/earth.geom
 
 
 cp -r "$APP_DATA_DIR"/* "$QUICKSTART"/
@@ -375,7 +378,7 @@ pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
 
 ipython profile create osgeolive
 mkdir -p "$USER_HOME"/.config/
-mv ~/.ipython "$USER_HOME"/.config/ipython
+mv ~/.profile/ipython "$USER_HOME"/.config/ipython
 sed -i -e "s|root|$USER_NAME|" "$USER_HOME"/.config/ipython/profile_osgeolive/*.py
 
 mkdir -p /etc/skel/.config
