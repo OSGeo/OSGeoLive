@@ -254,6 +254,7 @@ fi
 
 wget --progress=dot:mega $DATA_URL/ossim_data/bluemarble.tif  \
 --output-document=/usr/share/ossim/images/reference/bluemarble.tif
+
 #wget --progress=dot:mega $DATA_URL/kml/Plaza_de_Cataluna.kmz \
 #  --output-document=$KML_DATA/Plaza_de_Cataluna.kmz
 #wget --progress=dot:mega $DATA_URL/kml/View_towards_Sagrada_Familia.kmz \
