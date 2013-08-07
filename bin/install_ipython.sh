@@ -57,9 +57,7 @@ wget --progress=dot:mega "$DATA_URL/ipython-notebook.desktop" \
      --output-document="$QUICKSTART"/workspace/ipython-notebook.desktop
 
 #pip install --upgrade ipython
-pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
-
-
+#pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
 
 mkdir -p "$USER_HOME"/.config/
 ipython profile create osgeolive
