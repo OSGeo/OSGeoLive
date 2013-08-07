@@ -25,7 +25,7 @@ echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted uni
 
 apt-get update
 
-apt-get install --assume-yes ipython-notebook -t precise-backports
+apt-get install --assume-yes ipython-notebook ipython-qtconsole -t precise-backports
 
 sudo rm -f /etc/apt/sources.list.d/backports.list
 
@@ -49,6 +49,8 @@ USER_HOME="/home/$USER_NAME"
 
 
 DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
+
+mkdir -p /usr/local/share/ossim/quickstart/workspace
 QUICKSTART=/usr/local/share/ossim/quickstart
 
 wget --progress=dot:mega "$DATA_URL/ipython-notebook.desktop" \
@@ -57,8 +59,10 @@ wget --progress=dot:mega "$DATA_URL/ipython-notebook.desktop" \
 #pip install --upgrade ipython
 pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
 
-ipython profile create osgeolive
+
+
 mkdir -p "$USER_HOME"/.config/
+ipython profile create osgeolive
 mv ~/.ipython "$USER_HOME"/.config/ipython
 sed -i -e "s|root|$USER_NAME|" "$USER_HOME"/.config/ipython/profile_osgeolive/*.py
 
