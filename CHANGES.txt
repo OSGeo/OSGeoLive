@@ -1,6 +1,23 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.0beta3
+===================
+
+ * ipython ported from raring to precise (#1183)
+ * ossim fixed (#1159)
+ * KDE icons back on the menu (#1193)
+ * libLAS included from UbuntuGIS (#1181)
+ * new disk usage tools (#1194)
+ * rasdaman creates less log noise (#1190)
+ * Marble-Qt upgraded to last version (#1165)
+ * psql db size fixed (#1189)
+ * removed tomcat6 war files to save disk space (#1185)
+ * openlayers menu item restored (#1184)
+ * various doc warnings and errors fixed
+ * GeoNode: fixed permissions for uploaded files
+ * Rasdaman: Enabling webgl in firefox which is needed for 3d bgs demo
+
 Version 7.0beta2
 ===================
 
