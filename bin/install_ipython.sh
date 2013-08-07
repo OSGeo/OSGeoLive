@@ -77,6 +77,27 @@ c.NotebookManager.save_script=True
 c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace/geo-notebook'
 EOF
 
+IPY_GRASS="/usr/local/bin/ipython.sh"
+cat << EOF >> "$IPY_GRASS"
+#!/bin/bash -l
+export LD_LIBRARY_PATH=/usr/lib/grass64/lib:$DYLD_LIBRARY_PATH
+export PYTHONPATH=/usr/lib/grass64/etc/python:$PYTHONPATH
+export GISBASE="/usr/lib/grass64/"
+export PATH="$PATH:$GISBASE/bin:$GISBASE/scripts" 
+export GIS_LOCK=$$
+mkdir -p $HOME/grass7data
+mkdir -p $HOME/.grassrc6
+export GISRC=$HOME/.grassrc6
+export GISDBASE=/home/$USER/grassdata
+export GRASS_TRANSPARENT=TRUE
+export GRASS_TRUECOLOR=TRUE
+export GRASS_PNG_COMPRESSION=9
+export GRASS_PNG_AUTO_WRITE=TRUE
+cd /usr/local/share/ossim/quickstart/workspace/geo-notebook
+ipython notebook --pylab=inline --profile=osgeolive
+EOF
+
+
 cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 
