@@ -70,12 +70,13 @@ cat << EOF >> "$IPY_CONF"
 c.NotebookApp.open_browser = False
 c.NotebookApp.port = 12345
 c.NotebookManager.save_script=True
-c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace'
+c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace/geo-notebook'
 EOF
 
 cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 
+git clone https://github.com/epifanio/geo-notebook /usr/local/share/ossim/quickstart/workspace/geo-notebook
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
