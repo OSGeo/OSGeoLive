@@ -367,34 +367,6 @@ done
 chmod 644 /usr/local/share/ossim/*.pdf
 
 
-##### Setup custom IPython profile
-## doesn't work!  sudo -u "$USER_NAME" \
-
-wget --progress=dot:mega "$DATA_URL/ipython-notebook.desktop" \
-     --output-document="$QUICKSTART"/workspace/ipython-notebook.desktop
-
-#pip install --upgrade ipython
-pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
-
-ipython profile create osgeolive
-mkdir -p "$USER_HOME"/.config/
-mv ~/.ipython "$USER_HOME"/.config/ipython
-sed -i -e "s|root|$USER_NAME|" "$USER_HOME"/.config/ipython/profile_osgeolive/*.py
-
-mkdir -p /etc/skel/.config
-cp -r "$USER_HOME"/.config/ipython /etc/skel/.config
-
-IPY_CONF="$USER_HOME/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
-cat << EOF >> "$IPY_CONF"
-c.NotebookApp.open_browser = False
-c.NotebookApp.port = 12345
-c.NotebookManager.save_script=True
-c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace
-EOF
-
-cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
-chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
-
 
 #### cleanup
 rm -rf "$QUICKSTART"/.svn
