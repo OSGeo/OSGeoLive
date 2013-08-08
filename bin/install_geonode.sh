@@ -310,6 +310,8 @@ sed -i -e 's/rc\.local/rc.geonode/' /etc/init.d/rc.geonode
 ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
 ###
 
+#Linking common metadata to shared data folder.
+ln -s /usr/lib/python2.7/dist-packages/gisdata/metadata/good /usr/local/share/data/metadata
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
