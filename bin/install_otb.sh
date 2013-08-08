@@ -85,6 +85,9 @@ fi
 #TODO install otb qgis plugins when it will be available with debian packages
 #hg clone http://hg.orfeo-toolbox.org/OTB-QGis-plugins
 
+#OTB does not need this app, just added here since OTB pulls libkml in the Disk.
+apt-get --assume-yes install python-kml
+
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
