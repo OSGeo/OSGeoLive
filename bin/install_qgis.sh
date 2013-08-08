@@ -109,7 +109,7 @@ wget -c --progress=dot:mega \
 	--output-document=/usr/local/share/qgis/qgis-1.0.0_a-gentle-gis-introduction_en.pdf
 #TODO: Consider including translations
 wget -c --progress=dot:mega \
-        "http://docs.qgis.org/pdf/QGIS-1.8-UserGuide-en.pdf" \
+        "http://download.osgeo.org/qgis/doc/manual/qgis-1.8.0_user_guide_en.pdf" \
 	--output-document=/usr/local/share/qgis/QGIS-1.8-UserGuide-en.pdf
 
 chmod 644 /usr/local/share/qgis/*.pdf
