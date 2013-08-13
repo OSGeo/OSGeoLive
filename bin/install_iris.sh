@@ -95,7 +95,7 @@ touch /usr/local/lib/python2.7/dist-packages/Iris-1.4.0-py2.7-linux-i686.egg/iri
 
 # Tidy up
 apt-get --yes remove python-dev libhdf5-serial-dev libnetcdf-dev \
-               libudunits2-dev libgeos-dev libproj-dev \
+               libgeos-dev libproj-dev \
 	       libjasper-dev libfreetype6-dev libpng-dev tk-dev
 
 rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/data \
