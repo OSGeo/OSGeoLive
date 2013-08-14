@@ -20,9 +20,13 @@
 ####
 
 add-apt-repository --yes ppa:johanvdw/leafletjs
-
 apt-get --assume-yes install libjs-leaflet
 
+
+ln -s /usr/share/javascript/leaflet/ /var/www/leaflet
+
+#add demo file
+wget -nv http://zadeh.ugent.be/~johan/leaflet-demo.html --output-document=/var/www/leaflet-demo.html
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
