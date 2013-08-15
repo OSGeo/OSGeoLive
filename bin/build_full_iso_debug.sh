@@ -34,17 +34,17 @@
 # Run as 
 # sudo ./build_full_iso.sh /path/to/file.iso 2>&1 | tee ~/build_full_iso.log
 
-
-DIR="/home/user/gisvm/bin"
-SVN_DIR="/home/user/gisvm"
 VERSION=`cat ../VERSION.txt`
 PACKAGE_NAME="osgeo-live"
-#cd "$SVN_DIR"
-#REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
 CUR_DIR=`pwd`
 
-MINI_ISO_NAME="$PACKAGE_NAME-mini-$VERSION"
-MINI_ISO="$MINI_ISO_NAME.iso"
+if [ $1 ]; then
+    #If argument is given, path to the iso to remaster
+    MINI_ISO_NAME=$1
+else
+    #If no arguement is give assume the file is in the current folder
+    MINI_ISO_NAME="$PACKAGE_NAME-mini-$VERSION.iso"
+fi
 ISO_NAME="$PACKAGE_NAME-$VERSION"
 
 echo
@@ -64,22 +64,16 @@ echo "==================================="
 sudo apt-get install --yes squashfs-tools genisoimage lzip
 
 echo
-echo "Downloading OSGeoLive mini image..."
-echo "====================================="
+echo "Extract mini iso"
+echo "==================================="
 
-#Stuff to be done the 1st time, should already be in place for additional builds
-#Download into an empty directory 
 mkdir -p ~/livecdtmp
 cd ~/livecdtmp
-#mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
-MINI_MIRROR="http://aiolos.survey.ntua.gr/gisvm/$VERSION/$MINI_ISO"
-wget -c --progress=dot:mega "$MINI_MIRROR"
 
 #Start with a fresh copy
 #Mount the Desktop .iso
 mkdir mnt
-sudo mount -o loop "$MINI_ISO" mnt
-echo "OSGeoLive mini image mounted."
+sudo mount -o loop "$MINI_ISO_NAME" mnt
 
 #Extract .iso contents into dir 'extract-cd' 
 mkdir "extract-cd"
@@ -90,8 +84,6 @@ echo "Extracting squashfs from OSGeoLive mini image"
 echo "============================================="
 #Extract the SquashFS filesystem 
 sudo unsquashfs mnt/casper/filesystem.squashfs
-#Does the above need to be done every time or can it be done once, and then
-# just make a fresh copy of the chroot for each builds
 sudo mv squashfs-root edit
 
 echo
