@@ -20,6 +20,7 @@
 ####
 
 add-apt-repository --yes ppa:johanvdw/leafletjs
+apt-get update
 apt-get --assume-yes install libjs-leaflet
 
 
