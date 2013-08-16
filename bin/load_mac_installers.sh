@@ -62,24 +62,24 @@ EOF
 
 # 1 Base Packages (Frameworks)
 A_PKG="
-frameworks/GDAL_Complete-1.9.dmg
+frameworks/GDAL_Complete-1.10.dmg
 frameworks/FreeType_Framework-2.4.10-1.dmg
 frameworks/cairo_Framework-1.12.2-1.dmg
-frameworks/GSL_Framework-1.15-2.dmg
+frameworks/GSL_Framework-1.16-1.dmg
 frameworks/TclTk_Aqua-8.5.8-2.dmg
 frameworks/Spatialite_Tools-3.0.zip
-frameworks/rgdal-0.7.20-1.dmg
+frameworks/rgdal-0.8.8-1.dmg
 "
 
 # 2 Support Packages
 B_PKG="
-postgresql/PostgreSQL-9.1.6-1.dmg
+postgresql/PostgreSQL-9.2.4-2.dmg
 "
 
 # 3 End-User Packages
 C_PKG="
-grass/GRASS-6.4.2-5-Snow.dmg
-postgresql/PostGIS-2.0.2-1.dmg
+grass/GRASS-6.4.3-1-Snow.dmg
+postgresql/PostGIS-2.0.3-4.dmg
 qgis/QGIS-1.8.0-2.dmg
 "
 
