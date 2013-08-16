@@ -1,6 +1,17 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.0rc1
+===================
+
+ * updated win and mac docs (#1209)
+ * leaflet installer fixed to pull the last version
+ * minor fix for iris: libudunits2-dev package is installed
+ * python-kml added (#1172)
+ * restored qgis manual (#1164)
+ * fixed several sphinx warings
+ * documentation finalized for 7.0 release
+
 Version 7.0beta3
 ===================
 
