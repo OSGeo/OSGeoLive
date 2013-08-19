@@ -174,12 +174,5 @@ cp "$REL_DOC" "$DOCS_FOLDER/udig-docs"
 cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
 cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
 
-#Apply patch for #1208
-cp $BUILD_DIR/../app-conf/qgis/fix_gdaltools_version.patch /usr/share/qgis/
-cd /usr/share/qgis/
-patch -p1 < fix_gdaltools_version.patch
-rm -f /usr/share/qgis/fix_gdaltools_version.patch
-cd $BUILD_DIR
-
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
