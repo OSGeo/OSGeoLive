@@ -11,7 +11,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
+#
 # About:
 # =====
 # This script will install ipython and ipython-notebook in ubuntu
@@ -25,22 +25,23 @@ echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted uni
 
 apt-get update
 
-apt-get install --assume-yes ipython-notebook ipython-qtconsole -t precise-backports
-
-sudo rm -f /etc/apt/sources.list.d/backports.list
-
-apt-get update
+apt-get -t precise-backports install --assume-yes \
+   ipython-notebook ipython-qtconsole
 
 if [ $? -ne 0 ] ; then
+   rm -f /etc/apt/sources.list.d/backports.list
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
 
+rm -f /etc/apt/sources.list.d/backports.list
+
+apt-get update
 
 
 ##### Setup custom IPython profile
-## doesn't work!  sudo -u "$USER_NAME" \
 
+## doesn't work!  sudo -u "$USER_NAME" \
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
@@ -75,18 +76,22 @@ c.NotebookManager.save_script=True
 c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace/geo-notebook'
 EOF
 
-IPY_GRASS="/usr/local/bin/ipython.sh"
-cat << EOF >> "$IPY_GRASS"
+# probably better to move this to a script in the app-conf/ dir.
+IPY_GRASS="/usr/local/bin/ipython_grass.sh"
+cat << EOF > "$IPY_GRASS"
 #!/bin/bash -l
-export LD_LIBRARY_PATH=/usr/lib/grass64/lib:$DYLD_LIBRARY_PATH
-export PYTHONPATH=/usr/lib/grass64/etc/python:$PYTHONPATH
-export GISBASE="/usr/lib/grass64/"
-export PATH="$PATH:$GISBASE/bin:$GISBASE/scripts" 
-export GIS_LOCK=$$
-mkdir -p $HOME/grass7data
-mkdir -p $HOME/.grassrc6
-export GISRC=$HOME/.grassrc6
-export GISDBASE=/home/$USER/grassdata
+export LD_LIBRARY_PATH="/usr/lib/grass64/lib"
+if [ -z "$PYTHONPATH" ] ; then
+    export PYTHONPATH="/usr/lib/grass64/etc/python"
+else
+    export PYTHONPATH="/usr/lib/grass64/etc/python:\$PYTHONPATH"
+fi
+export GISBASE="/usr/lib/grass64"
+export PATH="\$PATH:\$GISBASE/bin:\$GISBASE/scripts"
+export GIS_LOCK=\$\$
+mkdir -p "\$HOME/grassdata"
+export GISRC="\$HOME/.grassrc6"
+export GISDBASE="/home/\$USER/grassdata"
 export GRASS_TRANSPARENT=TRUE
 export GRASS_TRUECOLOR=TRUE
 export GRASS_PNG_COMPRESSION=9
@@ -94,12 +99,15 @@ export GRASS_PNG_AUTO_WRITE=TRUE
 cd /usr/local/share/ossim/quickstart/workspace/geo-notebook
 ipython notebook --pylab=inline --profile=osgeolive
 EOF
+chmod a+x "$IPY_GRASS"
 
 
 cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 
-git clone https://github.com/epifanio/geo-notebook /usr/local/share/ossim/quickstart/workspace/geo-notebook
+git clone https://github.com/epifanio/geo-notebook \
+  /usr/local/share/ossim/quickstart/workspace/geo-notebook
+
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
