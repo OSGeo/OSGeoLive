@@ -46,11 +46,9 @@ ZOO_APACHE_CONF="/etc/apache2/conf.d/zoo-project"
 
 mkdir -p "$ZOO_TMP"
 
-apt-get --assume-yes install libmozjs185-1.0
-
 # Download ZOO Project LiveDVD tarball.
 wget -N --progress=dot:mega \
-   "http://aiolos.survey.ntua.gr/gisvm/dev/zoo-binaries-js-livedvd-2013.tar.bz2" \
+   "http://aiolos.survey.ntua.gr/gisvm/dev/zoo-binaries-livedvd-2013.tar.bz2" \
    -O "$ZOO_TMP/zoo-livedvd.tar.bz2"
 
 # Uncompress ZOO Project LiveDVD tarball.
