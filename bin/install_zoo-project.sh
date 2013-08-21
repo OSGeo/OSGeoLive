@@ -48,7 +48,7 @@ mkdir -p "$ZOO_TMP"
 
 # Download ZOO Project LiveDVD tarball.
 wget -N --progress=dot:mega \
-   "http://aiolos.survey.ntua.gr/gisvm/dev/zoo-binaries-livedvd-2013.tar.bz2" \
+   "http://aiolos.survey.ntua.gr/gisvm/dev/zoo-livedvd-2012.tar.bz2" \
    -O "$ZOO_TMP/zoo-livedvd.tar.bz2"
 
 # Uncompress ZOO Project LiveDVD tarball.
@@ -56,6 +56,12 @@ tar -xjpf "$ZOO_TMP/zoo-livedvd.tar.bz2" --no-same-owner -C /
 
 chown -R www-data:www.data \
   /var/www/zoo /var/www/zoo-demo /var/www/temp
+
+#Patch to fix #1137
+#TODO: submit upstream
+sed -i -e 's|http://labs.metacarta.com/wms/vmap0|http://maps.opengeo.org/geowebcache/service/wms|' \
+       -e 's|basic|openstreetmap|' \
+    /var/www/zoo-demo/spatialtools_files/demo.js
 
 echo -n "Apache configuration update ..."
 # Add ZOO Project apache configuration
