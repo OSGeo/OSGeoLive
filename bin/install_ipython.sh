@@ -53,16 +53,18 @@ wget -nv "$DATA_URL/ipython-notebook.desktop" \
 
 ##### Setup custom IPython profile
 
-## doesn't work!  sudo -u "$USER_NAME" \
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
 
-mkdir -p "$USER_HOME"/.config/
-ipython profile create osgeolive
-mv ~/.ipython "$USER_HOME"/.config/ipython
-sed -i -e "s|root|$USER_NAME|" "$USER_HOME"/.config/ipython/profile_osgeolive/*.py
+mkdir -p "$USER_HOME"/.config
+chown "$USER.$USER" "$USER_HOME"/.config
+
+## 'sudo -u "$USER_NAME"' by itself doesn't work, need to overset $HOME as well.
+HOME="$USER_HOME" \
+ sudo -u "$USER_NAME" \
+ ipython profile create osgeolive
 
 mkdir -p /etc/skel/.config
 cp -r "$USER_HOME"/.config/ipython /etc/skel/.config
