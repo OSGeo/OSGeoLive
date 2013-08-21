@@ -35,9 +35,21 @@ if [ $? -ne 0 ] ; then
 fi
 
 rm -f /etc/apt/sources.list.d/backports.list
-
 apt-get update
 
+
+#### Setup OSSIM workspace
+
+DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
+
+mkdir -p /usr/local/share/ossim/quickstart/workspace
+QUICKSTART=/usr/local/share/ossim/quickstart
+
+wget -nv "$DATA_URL/ipython-notebook.desktop" \
+     --output-document="$QUICKSTART"/workspace/ipython-notebook.desktop
+
+#pip install --upgrade ipython
+#pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
 
 ##### Setup custom IPython profile
 
@@ -46,19 +58,6 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-
-
-
-DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
-
-mkdir -p /usr/local/share/ossim/quickstart/workspace
-QUICKSTART=/usr/local/share/ossim/quickstart
-
-wget --progress=dot:mega "$DATA_URL/ipython-notebook.desktop" \
-     --output-document="$QUICKSTART"/workspace/ipython-notebook.desktop
-
-#pip install --upgrade ipython
-#pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
 
 mkdir -p "$USER_HOME"/.config/
 ipython profile create osgeolive
