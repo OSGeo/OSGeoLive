@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.0rc2
+===================
+
+ * fixed gdal tools qgis plugin (#1208)
+ * fixes for ipython+grass startup scripts
+ * various doc and polishing fixes
+
 Version 7.0rc1
 ===================
 
