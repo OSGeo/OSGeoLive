@@ -46,7 +46,7 @@ ZOO_APACHE_CONF="/etc/apache2/conf.d/zoo-project"
 
 mkdir -p "$ZOO_TMP"
 
-apt-get --assume-yes install libmoz185-1.0
+apt-get --assume-yes install libmozjs185-1.0
 
 # Download ZOO Project LiveDVD tarball.
 wget -N --progress=dot:mega \
