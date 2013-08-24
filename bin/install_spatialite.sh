@@ -94,6 +94,7 @@ PACKAGE[1]="libgaiagraphics-0.4b"
 PACKAGE[2]="spatialite_gui-1.5.0-stable"
 PACKAGE[3]="spatialite_gis-1.0.0c"
 
+export LIBSPATIALITE_LIBS=/usr/lib/libspatialite.so.3
 for i in 1 2 3; do
         wget -c --progress=dot:mega "$GAIA_URL/${SOURCE_DIR[$i]}/${PACKAGE[$i]}.tar.gz"
         tar xzf ${PACKAGE[$i]}.tar.gz
