@@ -139,7 +139,7 @@ mkdir -p $USER_HOME/gvSIG
 
 echo "... andami config"
 wget --progress=dot:binary \
-   "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/andami-config.xml" \
+   "http://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_7_0/app-conf/gvsig/andami-config.xml" \
    --output-document="$USER_HOME/gvSIG/andami-config.xml"
 
 cp -r "$USER_HOME/gvSIG" /etc/skel

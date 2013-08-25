@@ -24,7 +24,7 @@
 
 
 #Add repositories
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_7_0/sources.list.d/ubuntugis.list \
      --output-document=/etc/apt/sources.list.d/ubuntugis.list
 
 sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
