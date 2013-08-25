@@ -243,12 +243,12 @@ tail -n +3 "$CONFFILE" > "$TMPFILE".b
 cat "$TMPFILE" "$TMPFILE".b > "$CONFFILE"
 rm -f "$TMPFILE" "$TMPFILE".b
 
-#Apply patch for #1208
-cp $BUILD_DIR/../app-conf/qgis/fix_gdaltools_version.patch /usr/share/qgis/
+#Apply patch for trac ticket #1208
+cp "$BUILD_DIR"/../app-conf/qgis/fix_gdaltools_version.patch /usr/share/qgis/
 cd /usr/share/qgis/
 patch -p1 < fix_gdaltools_version.patch
 rm -f /usr/share/qgis/fix_gdaltools_version.patch
-cd $BUILD_DIR
+cd "$BUILD_DIR"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
