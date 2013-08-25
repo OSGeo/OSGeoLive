@@ -163,6 +163,9 @@ fi
 sudo service tomcat6 start
 sudo service tomcat6 stop
 
+## also stop PostgreSQL
+sudo service postgresql stop
+
 # Disable auto-deploy to prevent applications to get removed after removing war files
 # TODO: Add some note to wiki for users that want to deploy their own tomcat applications
 sed -i -e 's/unpackWARs="true"/unpackWARs="false"/' -e 's/autoDeploy="true"/autoDeploy="false"/' \
