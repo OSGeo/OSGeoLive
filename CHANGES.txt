@@ -1,7 +1,7 @@
 OSGeo Live GIS Disc
 ===================
 
-Version 7.0rc2
+Version 7.0
 ===================
 
  * fixed gdal tools qgis plugin (#1208)
