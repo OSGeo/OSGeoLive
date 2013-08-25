@@ -60,7 +60,7 @@
 
 %addpath ./bin/tools
 
-build_ver = 'r10592';
+build_ver = 'r10822';
 
 load disk_usage.dat
 raw_u0 = disk_usage(1);
@@ -230,9 +230,9 @@ disp(['Mean package size:' tab num2str(nanmean(u_pkg)) ' mb'])
 disp(['Max package size:' tab num2str(nanmax(u_pkg)) ' mb'])
 disp(['Min package size:' tab num2str(nanmin(u_pkg)) ' mb'])
 build_time = (max(pkg_times) - min(pkg_times));
-disp(['Package install time:' tab datestr(build_time, 15)])
-disp(['Median install time:' tab datestr(median(time_pkg), 13)]) 
-disp(['Average install time:' tab datestr(mean(time_pkg), 13)]) 
+disp(['Disc build time:' tab datestr(build_time, 15)]) % hh:mm
+disp(['Median install time:' tab datestr(median(time_pkg), 13)]) % hh:mm:ss
+disp(['Average install time:' tab datestr(mean(time_pkg), 13)]) % hh:mm:ss
 
 
 
