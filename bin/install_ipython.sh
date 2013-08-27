@@ -67,15 +67,26 @@ HOME="$USER_HOME" \
  ipython profile create osgeolive
 
 mkdir -p /etc/skel/.config
-cp -r "$USER_HOME"/.config/ipython /etc/skel/.config
 
-IPY_CONF="$USER_HOME/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
+# weirdness (see trac bug #1215)
+if [ -d "$USER_HOME"/.config/ipython ] ; then
+   cp -r "$USER_HOME"/.config/ipython /etc/skel/.config
+   IPY_CONF="$USER_HOME/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
+else
+   cp -r "$USER_HOME"/.ipython /etc/skel/.config/ipython
+   IPY_CONF="$USER_HOME/.ipython/profile_osgeolive/ipython_notebook_config.py"
+fi
+
 cat << EOF >> "$IPY_CONF"
 c.NotebookApp.open_browser = False
 c.NotebookApp.port = 12345
 c.NotebookManager.save_script=True
 c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace/geo-notebook'
 EOF
+
+cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
+chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
+
 
 # probably better to move this to a script in the app-conf/ dir.
 IPY_GRASS="/usr/local/bin/ipython_grass.sh"
@@ -102,9 +113,6 @@ ipython notebook --pylab=inline --profile=osgeolive
 EOF
 chmod a+x "$IPY_GRASS"
 
-
-cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
-chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 
 git clone https://github.com/epifanio/geo-notebook \
   /usr/local/share/ossim/quickstart/workspace/geo-notebook
