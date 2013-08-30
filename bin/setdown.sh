@@ -30,10 +30,10 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-DIR=`dirname ${0}`
-VERSION=`cat ${DIR}/../VERSION.txt`
+DIR=`dirname "$0"`
+VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeolive"
-VM="${PACKAGE_NAME}-${VERSION}"
+VM="${PACKAGE_NAME}-$VERSION"
 
 
 # by removing the 'user', it also meant that 'user' was removed from /etc/group
@@ -79,6 +79,7 @@ apt-get --yes remove python2.7-dev
 apt-get install --assume-yes grass-dev
 
 
+# remove any leftover orphans
 apt-get --yes autoremove
 
 # now that everything is installed rebuild library search cache
@@ -135,8 +136,20 @@ ln -s /var/log/osgeolive/ "${VM}-log"
 
 #Copy the cache to tmp for backing up
 cp -R /var/cache/apt/ "${VM}-apt-cache"
+
+
+# srcpkgcache.bin can be dropped; not updating it all the time helps save
+# space on persistent USBs. https://wiki.ubuntu.com/ReducingDiskFootprint
+rm -f /var/cache/apt/srcpkgcache.bin
+cat << EOF > /etc/apt/apt.conf.d/02nocache
+Dir::Cache {
+  srcpkgcache "";
+}
+EOF
+
 # remove the apt-get cache
 apt-get clean
+
 
 echo "linux-image-generic install" | dpkg --set-selections
 
