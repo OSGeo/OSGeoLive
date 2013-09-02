@@ -12,8 +12,8 @@
 
   <layer retrievable="1"
 	 writable="1"
-	 prefix="tows"
-	 server="http://www.tinyows.org/"
+	 ns_prefix="tows"
+	 ns_uri="http://www.tinyows.org/"
          name="ways"
          title="Ways" />
 
