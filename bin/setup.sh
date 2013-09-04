@@ -65,7 +65,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   openssh-client lftp sl usbutils wireless-tools \
   locate diff patch fuseiso menu \
   vim medit nedit nano screen iotop xfonts-jmk \
-  ghostscript a2ps netpbm qiv \
+  ghostscript a2ps netpbm qiv htop \
   lynx mutt mc xchat rxvt units scrot \
   gdebi fslint arandr sgt-puzzles xkb-data
 
