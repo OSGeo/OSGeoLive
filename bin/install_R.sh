@@ -32,6 +32,7 @@
 # sudo ./install_PyDep_and_R.sh
 
 ./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
 ####
 
 if [ -z "$USER_NAME" ] ; then
@@ -129,4 +130,4 @@ ln -s /usr/local/lib/R/site-library/rgdal/vectors \
    /usr/local/share/data/vector/R
 
 ####
-./diskspace_probe.sh "`basename $0`" end
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
