@@ -120,6 +120,7 @@ cp mbcookbook.pdf /usr/local/share/mbsystem/
 # symlink into the livedvd's common data dir (maybe not needed)
 ln -s /usr/local/share/mbsystem /usr/local/mbsystem
 
+ln -s /usr/share/doc/mbsystem-doc/docs /user/local/mbsystem/
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
