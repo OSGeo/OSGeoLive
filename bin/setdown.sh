@@ -160,8 +160,8 @@ if [ -e /etc/ssh/sshd_config ] ; then
 fi
 
 # Restart tomcat to ensure all applications are deployed
-sudo service tomcat6 start
-sudo service tomcat6 stop
+service tomcat6 start
+service tomcat6 stop
 
 # Disable auto-deploy to prevent applications to get removed after removing war files
 # TODO: Add some note to wiki for users that want to deploy their own tomcat applications
@@ -180,6 +180,12 @@ if [ ! -e /etc/sudoers.d/tomcat ] ; then
 EOF
 fi
 chmod 440 /etc/sudoers.d/tomcat
+
+
+# stop PostgreSQL and MySQL to avoid them thinking a crash happened next boot
+service postgresql stop
+service mysql stop
+
 
 # This is done on an extra step after rebooting and tmp is cleared
 #echo "==============================================================="
