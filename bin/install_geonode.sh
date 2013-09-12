@@ -38,8 +38,8 @@ GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 
 #Install packages
-#add-apt-repository -y ppa:geonode/unstable
-add-apt-repository -y ppa:geonode/testing
+add-apt-repository -y ppa:geonode/unstable
+#add-apt-repository -y ppa:geonode/testing
 apt-get -q update
 apt-get --assume-yes install python-geonode libapache2-mod-wsgi curl
 
@@ -313,6 +313,9 @@ ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
 
 #Linking common metadata to shared data folder.
 ln -s /usr/lib/python2.7/dist-packages/gisdata/metadata/good /usr/local/share/data/metadata
+
+#testing for upgrade
+sudo pip install GeoNode==2.0b55
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
