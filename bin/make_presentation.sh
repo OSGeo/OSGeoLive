@@ -29,50 +29,55 @@ orig_dir=`pwd`
 cd `dirname $0`
 
 cols=8 # Number of table columns
-source="../doc/en/presentation/index.html" # source presentation file
+source="../doc/en/presentation" # source presentation file
 if [ $1 ] ; then
   source=$1;
 fi
-target="../doc/_build/html/en/presentation/index.html" # target presentation file
+target="../doc/_build/html/en/presentation" # target presentation file
 if [ $2 ] ; then
   target=$2;
 fi
 
-insertLine=`grep -n "Contributors and translators table is inserted here" $source | cut -d":" -f1`
+# copy the reveal.js libary to the target
+if [ ! -d $target/../../reveal.js ] ; then
+  cp -pr $source/../../reveal.js $target/../..
+fi
 
 # Extract a list of names from contributors.csv and translators.csv
+insertLine=`grep -n "Contributors and translators table is inserted here" $source/index.html | cut -d":" -f1`
+
 # Replace space with @ so the name string is treated as one token in the for
 # loop
 cut -d"," -f1 ../doc/contributors.csv | sed -e "s/ /@/g ; s/Name//" > $tmp
 cut -d"," -f3 ../doc/translators.csv | sed -e "s/ /@/g ; s/Name//" >> $tmp
 
 # print top of the presentation file
-head -n $insertLine $source > $target
+head -n $insertLine $source/index.html > $target/index.html
 
 j=0
-echo "<table>" >> $target
+echo "<table>" >> $target/index.html
 for name in `cat $tmp | sort -u` ; do
   if [ $((j % cols )) -eq 0 ]; then 
-    echo "<tr>" >> $target
+    echo "<tr>" >> $target/index.html
   fi
   # insert space back into name string
-  echo "<td>$name</td>" | sed -e "s/@/ /g" >> $target
+  echo "<td>$name</td>" | sed -e "s/@/ /g" >> $target/index.html
   j=$((j + 1 ))
   if [ $((j % cols )) -eq 0 ]; then 
-    echo "</tr>" >> $target
+    echo "</tr>" >> $target/index.html
   fi
 done
-echo "</table>" >> $target
+echo "</table>" >> $target/index.html
 
 # print bottom of the presentation file
-tail -n +$insertLine $source >> $target
+tail -n +$insertLine $source/index.html >> $target/index.html
 
-mv $target $tmp
+mv $target/index.html $tmp
 
 # change all image URL references to be placed into _images/ dir
 #<img src="../../images/screenshots/1024x768/mapwindow-screenshot.jpg"
 # becomes <img src="_images/mapwindow-screenshot.jpg"
-sed -e 's#\(<img.*\)\(src="../../images/[^\.]*/\)\([^\.]*\.[^\/]*"\)#\1 src="../../_images/\3#' $tmp > $target
+sed -e 's#\(<img.*\)\(src="../../images/[^\.]*/\)\([^\.]*\.[^\/]*"\)#\1 src="../../_images/\3#' $tmp > $target/index.html
 
 # cd back to original directory
 cd $orig_dir
