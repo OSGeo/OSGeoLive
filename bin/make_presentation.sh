@@ -14,10 +14,19 @@
 #
 # About:
 # =====
-# The script copies contributor and translator names into a HTML table,
-# so that it can be inserted into a presentation.
+# Preprocess the OSGeo-Live presentation and copy into the target directory.
+# * Change URL of images files
+# * Copy contributor and translator names into a HTML table on Credits slide,
+#
+# Usage:
+# ======
+# make_presentation <source dir> <target dir>
 
-TMP=/tmp/contributors_to_table.tmp
+tmp=/tmp/make_presentation.tmp
+
+# script assumes it is being run in the bin directory
+orig_dir=`pwd`
+cd `dirname $0`
 
 cols=8 # Number of table columns
 source="../doc/en/presentation/index.html" # source presentation file
@@ -34,15 +43,15 @@ insertLine=`grep -n "Contributors and translators table is inserted here" $sourc
 # Extract a list of names from contributors.csv and translators.csv
 # Replace space with @ so the name string is treated as one token in the for
 # loop
-cut -d"," -f1 ../doc/contributors.csv | sed -e "s/ /@/g ; s/Name//" > $TMP
-cut -d"," -f3 ../doc/translators.csv | sed -e "s/ /@/g ; s/Name//" >> $TMP
+cut -d"," -f1 ../doc/contributors.csv | sed -e "s/ /@/g ; s/Name//" > $tmp
+cut -d"," -f3 ../doc/translators.csv | sed -e "s/ /@/g ; s/Name//" >> $tmp
 
 # print top of the presentation file
 head -n $insertLine $source > $target
 
 j=0
 echo "<table>" >> $target
-for name in `cat $TMP` ; do
+for name in `cat $tmp` ; do
   if [ $((j % cols )) -eq 0 ]; then 
     echo "<tr>" >> $target
   fi
@@ -58,10 +67,12 @@ echo "</table>" >> $target
 # print bottom of the presentation file
 tail -n +$insertLine $source >> $target
 
-mv $target $TMP
+mv $target $tmp
 
 # change all image URL references to be placed into _images/ dir
 #<img src="../../images/screenshots/1024x768/mapwindow-screenshot.jpg"
 # becomes <img src="_images/mapwindow-screenshot.jpg"
-sed -e 's#\(<img.*\)\(src="../../images/[^\.]*/\)\([^\.]*\.[^\/]*"\)#\1 src="../../_images/\3#' $TMP > $target
+sed -e 's#\(<img.*\)\(src="../../images/[^\.]*/\)\([^\.]*\.[^\/]*"\)#\1 src="../../_images/\3#' $tmp > $target
 
+# cd back to original directory
+cd $orig_dir
