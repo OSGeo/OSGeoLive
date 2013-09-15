@@ -51,7 +51,7 @@ head -n $insertLine $source > $target
 
 j=0
 echo "<table>" >> $target
-for name in `cat $tmp` ; do
+for name in `cat $tmp | sort -u` ; do
   if [ $((j % cols )) -eq 0 ]; then 
     echo "<tr>" >> $target
   fi
