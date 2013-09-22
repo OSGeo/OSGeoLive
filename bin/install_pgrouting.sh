@@ -45,7 +45,7 @@ OSM_DB="pgrouting"
 
 # Add pgRouting launchpad repository
 # TODO: switch from "unstable" to "stable" when repository is updated
-add-apt-repository -y ppa:georepublic/pgrouting-unstable
+add-apt-repository -y ppa:georepublic/pgrouting
 apt-get update -qq
 
 # Install pgRouting packages
