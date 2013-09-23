@@ -26,17 +26,19 @@ tmp=/tmp/make_presentation.tmp
 
 # script assumes it is being run in the bin directory
 orig_dir=`pwd`
-cd `dirname $0`
+cd `dirname $0`/../doc
 
 cols=8 # Number of table columns
-source="../doc/en/presentation" # source presentation file
+source="en/presentation" # source presentation file
 if [ $1 ] ; then
   source=$1;
 fi
-target="../doc/_build/html/en/presentation" # target presentation file
+target="_build/html/en/presentation" # target presentation file
 if [ $2 ] ; then
   target=$2;
 fi
+
+mkdir -p $target
 
 # copy the reveal.js libary to the target
 if [ ! -d $target/../../reveal.js ] ; then
@@ -74,10 +76,15 @@ tail -n +$insertLine $source/index.html >> $target/index.html
 
 mv $target/index.html $tmp
 
+# copy the presentation images to the target
+mkdir -p $target/../../_images
+cp -p images/presentation/* $target/../../_images
+
+
 # change all image URL references to be placed into _images/ dir
 #<img src="../../images/screenshots/1024x768/mapwindow-screenshot.jpg"
 # becomes <img src="_images/mapwindow-screenshot.jpg"
-sed -e 's#\(<img.*\)\(src="../../images/[^\.]*/\)\([^\.]*\.[^\/]*"\)#\1 src="../../_images/\3#' $tmp > $target/index.html
+sed -e 's#\(<img.*\)\(src="../../images[^\.]*/\)\([^\.]*\.[^\/]*"\)#\1 src="../../_images/\3#' $tmp > $target/index.html
 
 # cd back to original directory
 cd $orig_dir
