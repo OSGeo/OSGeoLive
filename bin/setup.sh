@@ -198,6 +198,19 @@ echo "alias cp='cp -i'" >> /etc/skel/.bashrc
 echo "alias mv='mv -i'" >> /etc/skel/.bashrc
 echo "alias rm='rm -i'" >> /etc/skel/.bashrc
 
+# make it easy for users to edit in a general proxy setting
+if [ `grep -c http_proxy "/etc/skel/.profile"` -eq 0 ] ; then
+   cat << EOF >> "/etc/skel/.profile"
+
+### Edit then uncomment the following lines to direct traffic through a proxy server:
+###   example:   http_proxy="http://proxy.example.com:8001"
+#http_proxy="http://[username[:password]@]server.example.com:port/"
+#https_proxy="$http_proxy"
+#ftp_proxy="$ftp_proxy"
+#export http_proxy https_proxy ftp_proxy
+
+EOF
+fi
 
 cat << EOF >> "$USER_HOME"/.inputrc
 # a conference talk full of terminal beeps is no good
