@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -25,66 +25,61 @@
 tmp=/tmp/make_presentation.tmp
 
 # script assumes it is being run in the bin directory
-orig_dir=`pwd`
-cd `dirname $0`/../doc
+cd "`dirname '$0'`/../doc"
 
 cols=8 # Number of table columns
 source="en/presentation" # source presentation file
-if [ $1 ] ; then
-  source=$1;
+if [ -d "$1" ] ; then
+  source="$1";
 fi
 target="_build/html/en/presentation" # target presentation file
-if [ $2 ] ; then
-  target=$2;
+if [ -d "$2" ] ; then
+  target="$2";
 fi
 
-mkdir -p $target
+mkdir -p "$target"
 
 # copy the reveal.js libary to the target
-if [ ! -d $target/../../reveal.js ] ; then
-  cp -pr $source/../../reveal.js $target/../..
+if [ ! -d "$target"/../../reveal.js ] ; then
+  cp -pr "$source"/../../reveal.js "$target"/../..
 fi
 
 # Extract a list of names from contributors.csv and translators.csv
-insertLine=`grep -n "Contributors and translators table is inserted here" $source/index.html | cut -d":" -f1`
+insertLine=`grep -n "Contributors and translators table is inserted here" "$source/index.html" | cut -d":" -f1`
 
 # Replace space with @ so the name string is treated as one token in the for
 # loop
-cut -d"," -f1 ../doc/contributors.csv | sed -e "s/ /@/g ; s/Name//" > $tmp
-cut -d"," -f3 ../doc/translators.csv | sed -e "s/ /@/g ; s/Name//" >> $tmp
+cut -d"," -f1 ../doc/contributors.csv | sed -e "s/ /@/g ; s/Name//" > "$tmp"
+cut -d"," -f3 ../doc/translators.csv | sed -e "s/ /@/g ; s/Name//" >> "$tmp"
 
 # print top of the presentation file
-head -n $insertLine $source/index.html > $target/index.html
+head -n "$insertLine" "$source/index.html" > "$target/index.html"
 
 j=0
-echo "<table>" >> $target/index.html
-for name in `cat $tmp | sort -u` ; do
+echo "<table>" >> "$target/index.html"
+for name in `cat "$tmp" | sort -u` ; do
   if [ $((j % cols )) -eq 0 ]; then 
-    echo "<tr>" >> $target/index.html
+    echo "<tr>" >> "$target/index.html"
   fi
   # insert space back into name string
-  echo "<td>$name</td>" | sed -e "s/@/ /g" >> $target/index.html
+  echo "<td>$name</td>" | sed -e "s/@/ /g" >> "$target/index.html"
   j=$((j + 1 ))
   if [ $((j % cols )) -eq 0 ]; then 
-    echo "</tr>" >> $target/index.html
+    echo "</tr>" >> "$target/index.html"
   fi
 done
-echo "</table>" >> $target/index.html
+echo "</table>" >> "$target/index.html"
 
 # print bottom of the presentation file
-tail -n +$insertLine $source/index.html >> $target/index.html
+tail -n +"$insertLine" "$source/index.html" >> "$target/index.html"
 
-mv $target/index.html $tmp
+mv "$target/index.html" "$tmp"
 
 # copy the presentation images to the target
-mkdir -p $target/../../_images
-cp -p images/presentation/* $target/../../_images
-
+mkdir -p "$target/../../_images"
+cp -p images/presentation/* "$target/../../_images"
 
 # change all image URL references to be placed into _images/ dir
 #<img src="../../images/screenshots/1024x768/mapwindow-screenshot.jpg"
 # becomes <img src="_images/mapwindow-screenshot.jpg"
-sed -e 's#\(<img.*\)\(src="../../images[^\.]*/\)\([^\.]*\.[^\/]*"\)#\1 src="../../_images/\3#' $tmp > $target/index.html
-
-# cd back to original directory
-cd $orig_dir
+sed -e 's#\(<img.*\)\(src="../../images[^\.]*/\)\([^\.]*\.[^\/]*"\)#\1 src="../../_images/\3#' "$tmp" > "$target/index.html"
