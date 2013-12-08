@@ -1,6 +1,12 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.5alpha1
+===================
+
+ * Added html5 presentation
+ * Updates from UbuntuGIS
+
 Version 7.0
 ===================
 
