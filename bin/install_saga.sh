@@ -17,7 +17,8 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 # Temporary use the svn build ppa until 2.1.0 is definitely released
-add-apt-repository --yes ppa:johanvdw/sagacvs
+# add-apt-repository --yes ppa:johanvdw/sagacvs
+add-apt-repository --yes ppa:ubuntugis/ubuntugis-unstable
 
 apt-get -q update
 apt-get --assume-yes install saga libsaga
