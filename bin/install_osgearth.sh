@@ -25,7 +25,7 @@
 #CAUTION: UbuntuGIS should be enabled only through setup.sh
 #Add repositories
 #wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
-     --output-document=/etc/apt/sources.list.d/ubuntugis.list
+#     --output-document=/etc/apt/sources.list.d/ubuntugis.list
 #sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 
 apt-get -q update
