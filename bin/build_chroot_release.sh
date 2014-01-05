@@ -123,10 +123,10 @@ echo "======================================"
 
 #NOW IN CHROOT
 #sudo chroot edit
-sudo cp "$DIR"/inchroot.sh ~/livecdtmp/edit/tmp/
+sudo cp "$DIR"/inchroot_release.sh ~/livecdtmp/edit/tmp/
 sudo cp "$SVN_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
 sudo cp "$SVN_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
-sudo chroot edit /bin/sh /tmp/inchroot.sh
+sudo chroot edit /bin/sh /tmp/inchroot_release.sh
 
 #exit
 #OUT OF CHROOT

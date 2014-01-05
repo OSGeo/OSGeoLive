@@ -47,7 +47,7 @@ REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
 
 #Is it a public or an internal build?
 #ISO_NAME="$PACKAGE_NAME-$VERSION"
-ISO_NAME="$PACKAGE_NAME-debug-build$REVISION-$ARCH"
+ISO_NAME="$PACKAGE_NAME-nightly-build$REVISION-$ARCH"
 #volume name, max 11 chars:
 IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
 
@@ -123,10 +123,10 @@ echo "======================================"
 
 #NOW IN CHROOT
 #sudo chroot edit
-sudo cp "$DIR"/inchroot_debug.sh ~/livecdtmp/edit/tmp/
+sudo cp "$DIR"/inchroot_nightly.sh ~/livecdtmp/edit/tmp/
 sudo cp "$SVN_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
 sudo cp "$SVN_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
-sudo chroot edit /bin/sh /tmp/inchroot_debug.sh
+sudo chroot edit /bin/sh /tmp/inchroot_nightly.sh
 
 #exit
 #OUT OF CHROOT
