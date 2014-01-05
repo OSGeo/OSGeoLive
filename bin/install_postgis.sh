@@ -36,7 +36,7 @@ TMP_DIR="/tmp/build_postgis"
 
 # Not to be confused with PGIS_Version, this has one less number and period
 #  to correspond to install paths
-PG_VERSION="9.1"
+PG_VERSION="9.3"
 
 
 #debug:
@@ -52,7 +52,8 @@ locale
 
 
 # now avail from mainline
-apt-get install --yes postgis "postgresql-$PG_VERSION-postgis-2.0" postgis-gui
+apt-get install --yes postgis "postgresql-$PG_VERSION-postgis-2.1"
+#TODO: Restore postgis-gui in the future.
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
