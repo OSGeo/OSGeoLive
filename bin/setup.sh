@@ -60,7 +60,7 @@ apt-get -q update && apt-get --yes upgrade
 # FIXME: To be removed when OSGeoLive ppa is populated
 #cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 
-if [ "$BUILD_MODE" == "release" ] ; then
+if [ "$BUILD_MODE" = "release" ] ; then
    cp ../sources.list.d/osgeolive.list /etc/apt/sources.list.d/
 else
    cp ../sources.list.d/osgeolive-nightly.list /etc/apt/sources.list.d/
