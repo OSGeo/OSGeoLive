@@ -16,9 +16,10 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
+#CAUTION: UbuntuGIS should be enabled only through setup.sh
 # Temporary use the svn build ppa until 2.1.0 is definitely released
 # add-apt-repository --yes ppa:johanvdw/sagacvs
-add-apt-repository --yes ppa:ubuntugis/ubuntugis-unstable
+#add-apt-repository --yes ppa:ubuntugis/ubuntugis-unstable
 
 apt-get -q update
 apt-get --assume-yes install saga libsaga

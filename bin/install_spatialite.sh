@@ -38,12 +38,13 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
+#CAUTION: UbuntuGIS should be enabled only through setup.sh
 ########################
 ### Add repositories ###
-if [ ! -e /etc/apt/sources.list.d/ubuntugis.list ] ; then
-   cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
-fi
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+#if [ ! -e /etc/apt/sources.list.d/ubuntugis.list ] ; then
+#   cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
+#fi
+#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 apt-get -q update
 
 ### setup temp ###

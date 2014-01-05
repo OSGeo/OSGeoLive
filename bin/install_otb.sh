@@ -35,10 +35,11 @@ USER_HOME="/home/$USER_NAME"
 DATA_DIR=$USER_HOME/gisvm/app-data/otb
 OTB_DATA=/usr/local/share/otb
 
+#CAUTION: UbuntuGIS should be enabled only through setup.sh
 #Add repositories
 #see OTB installation guide 
 #http://orfeo-toolbox.org/SoftwareGuide/SoftwareGuidech2.html#x14-240002.1.3 
-add-apt-repository --yes ppa:ubuntugis/ubuntugis-unstable
+#add-apt-repository --yes ppa:ubuntugis/ubuntugis-unstable
 
 apt-get -q update
 

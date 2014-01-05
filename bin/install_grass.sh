@@ -51,13 +51,14 @@ if [ ! -x "`which wget`" ] ; then
 fi
 
 
+#CAUTION: UbuntuGIS should be enabled only through setup.sh
 # Add UbuntuGIS repository (same as QGIS)
-cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
+#cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 
 #Add signed key for repositorys LTS and non-LTS
 #qgis repo 68436DDF unused? :
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
+#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 
 apt-get update --quiet
 

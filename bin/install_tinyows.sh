@@ -19,12 +19,12 @@
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
-
+#CAUTION: UbuntuGIS should be enabled only through setup.sh
 #Add repositories
-cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
+#cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 
 #Add signed key for repositorys LTS and non-LTS
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
+#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 
 apt-get -q update
 
