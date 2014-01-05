@@ -55,7 +55,8 @@ echo "linux-image-generic hold" | dpkg --set-selections
 # Install latest greatest security packages etc.
 apt-get -q update && apt-get --yes upgrade
 
-# Add UbuntuGIS repository
+# Add OSGeoLive repository
+
 # FIXME: To be removed when OSGeoLive ppa is populated
 cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 
@@ -65,12 +66,10 @@ else
    cp ../sources.list.d/osgeolive-nightly.list /etc/apt/sources.list.d/
 fi
 
+#Add keys for repositories
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FADA29F7
 
-
-#Add signed key for repositorys LTS and non-LTS
-#qgis repo 68436DDF unused? :
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
 apt-get -q update
 
 
