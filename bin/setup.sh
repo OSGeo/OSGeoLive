@@ -17,6 +17,12 @@
 # This script will take a raw Xubuntu system and update it ready to run
 # GISVM install scripts.
 
+if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
+   echo "Did not specify build mode, try using release or nightly as an argument"
+   exit 1
+fi
+BUILD_MODE="$1"
+
 ./diskspace_probe.sh "`basename $0`" begin
 ./diskspace_probe.sh "`basename $0`"
 BUILD_DIR=`pwd`

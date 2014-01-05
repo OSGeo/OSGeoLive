@@ -83,7 +83,7 @@ cp /tmp/CHANGES.txt /usr/local/share/gisvm/
 USER_NAME="user"
 export USER_NAME
 
-./setup.sh
+./setup.sh nightly
 ./install_services.sh
 ./install_language.sh
 ./install_mysql.sh
