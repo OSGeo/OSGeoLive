@@ -58,7 +58,7 @@ apt-get -q update && apt-get --yes upgrade
 # Add OSGeoLive repository
 
 # FIXME: To be removed when OSGeoLive ppa is populated
-cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
+#cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 
 if [ "$BUILD_MODE" == "release" ] ; then
    cp ../sources.list.d/osgeolive.list /etc/apt/sources.list.d/
@@ -67,7 +67,7 @@ else
 fi
 
 #Add keys for repositories
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FADA29F7
 
 apt-get -q update
