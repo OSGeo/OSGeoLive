@@ -1,0 +1,4 @@
+#OSGeoLive Release ppa
+deb http://ppa.launchpad.net/osgeolive/release/ubuntu precise main
+#deb-src http://ppa.launchpad.net/osgeolive/release/ubuntu precise main
+
