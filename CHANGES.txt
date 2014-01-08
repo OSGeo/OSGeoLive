@@ -8,6 +8,7 @@ Version 7.9alpha2
  * Saga update to use gdal 1.10
  * Renamed version to 7.9 codename "Arnulf"
  * Moved to xubuntu 12.04.3
+ * Updated GeoServer to 2.4.3
 
 Version 7.5alpha1
 ===================
