@@ -68,7 +68,7 @@ OSM_FILE="/usr/local/share/data/osm/feature_city.osm.bz2"
 sudo -u $POSTGRES_USER createdb osm_local
 sudo -u $POSTGRES_USER psql osm_local -c 'create extension postgis;'
 sudo -u $POSTGRES_USER psql osm_local \
-  -f /usr/share/postgresql/9.1/contrib/postgis-2.0/legacy_minimal.sql
+  -f /usr/share/postgresql/9.3/contrib/postgis-2.1/legacy_minimal.sql
 
 #sudo -u $POSTGRES_USER createdb osm_local_smerc
 #sudo -u $POSTGRES_USER psql osm_local_smerc -c 'create extension postgis;'

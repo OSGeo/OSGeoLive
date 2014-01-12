@@ -16,28 +16,19 @@
 # =====
 # This script will install postgres, postgis, and pgadmin3
 #
-#   Q. how about libpostgis-java ?
-#
-# --- to start postgres -----
-# sudo /etc/init.d/postgresql-9.1 start
-#
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
-
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
 
-TMP_DIR="/tmp/build_postgis"
-
 # Not to be confused with PGIS_Version, this has one less number and period
 #  to correspond to install paths
 PG_VERSION="9.3"
-
 
 #debug:
 echo "The locale settings are currently:"
@@ -50,8 +41,6 @@ unset LC_ALL
 # another debug
 locale
 
-
-# now avail from mainline
 apt-get install --yes postgis "postgresql-$PG_VERSION-postgis-2.1"
 #TODO: Restore postgis-gui in the future.
 
@@ -75,23 +64,6 @@ sudo -u postgres psql -f /tmp/build_postgre.sql
 sudo -u $USER_NAME createdb -E UTF8 $USER_NAME
 sudo -u "$USER_NAME" psql -d "$USER_NAME" -c 'VACUUM ANALYZE;'
 
-
-## 27nov12 - no longer needed for postgis 2.0 / pg 9.1
-#configure template postgis database
-#sudo -u $USER_NAME createdb -E UTF8 -T template0 template_postgis
-# sudo -u $USER_NAME createlang plpgsql template_postgis -- no longer needed for pg9.1
-# Allows non-superusers the ability to create from this template, from GeoDjango manual
-#sudo -u $USER_NAME psql -1 -d postgres \
-#  -c "UPDATE pg_database SET datistemplate='true' WHERE datname='template_postgis';"
-
-## Jul10 resolved location of postgis.sql
-#pgis_file="/usr/share/postgresql/$PG_VERSION/contrib/postgis-1.5/postgis.sql"
-
-#sudo -u $USER_NAME psql --quiet -d template_postgis -f "$pgis_file"
-#sudo -u $USER_NAME psql --quiet -v ON_ERROR_STOP=1 -d template_postgis \
-#   -f /usr/share/postgresql/$PG_VERSION/contrib/postgis-1.5/spatial_ref_sys.sql
-
-
 #include pgadmin3 profile for connection
 for FILE in  pgadmin3  pgpass  ; do
     cp ../app-conf/postgis/"$FILE" "$USER_HOME/.$FILE"
@@ -99,12 +71,6 @@ for FILE in  pgadmin3  pgpass  ; do
     chown $USER_NAME:$USER_NAME "$USER_HOME/.$FILE"
     chmod 600 "$USER_HOME/.$FILE"
 done
-#cp .pgadmin3 .pgpass /etc/skel
-
-
-### load data ###
-#see load_postgis.sh
-
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
