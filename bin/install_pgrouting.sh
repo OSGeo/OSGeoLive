@@ -45,11 +45,13 @@ OSM_DB="pgrouting"
 
 # Add pgRouting launchpad repository
 # TODO: switch from "unstable" to "stable" when repository is updated
-add-apt-repository -y ppa:georepublic/pgrouting
+
+# TODO: Remove third party PPAs
+#add-apt-repository -y ppa:georepublic/pgrouting
 apt-get update -qq
 
 # Install pgRouting packages
-apt-get install -y -qq postgresql-9.1-pgrouting
+apt-get install -y -qq postgresql-9.3-pgrouting
 	
 if [ $? -ne 0 ] ; then
    echo 'ERROR: pgRouting Package install failed! Aborting.'
