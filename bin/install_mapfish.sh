@@ -42,7 +42,7 @@ if [ ! -x "`which wget`" ] ; then
 fi
 
 apt-get --assume-yes install python python-dev \
-    cgi-mapserver postgis postgresql-9.1-postgis-2.0 tomcat6 \
+    cgi-mapserver postgis postgresql-9.3-postgis-2.1 tomcat6 \
     libpq-dev libapache2-mod-fcgid libapache2-mod-wsgi \
     patch python-setuptools
     #TODO: firebug no longer in repos
@@ -85,7 +85,7 @@ apache-entry-point = /mapfishsample_2.2/
 instanceid = osgeolive
 mapserv_host = localhost
 print_host = localhost
-pg_version = 9.1
+pg_version = 9.3
 mapserver_jpeg_driver = AGG/JPEG
 EOF
 

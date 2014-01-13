@@ -73,7 +73,7 @@ sudo -u $POSTGRES_USER psql osm_local \
 #sudo -u $POSTGRES_USER createdb osm_local_smerc
 #sudo -u $POSTGRES_USER psql osm_local_smerc -c 'create extension postgis;'
 #sudo -u $POSTGRES_USER psql osm_local_smerc \
-#  -f /usr/share/postgresql/9.1/contrib/postgis-2.0/legacy_minimal.sql
+#  -f /usr/share/postgresql/9.3/contrib/postgis-2.1/legacy_minimal.sql
 
 
 # v3 - simplified the script, was too hard to debug with all the commands

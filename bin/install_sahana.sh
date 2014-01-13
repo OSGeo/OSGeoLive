@@ -53,7 +53,7 @@ WEBSERVER="apache2"
 # FIXME: Script doesn't currently use this var
 PORT="8007"
 # PostgreSQL
-PG_VERSION="9.1"
+PG_VERSION="9.3"
 # Geoserver
 GS_VERSION="2.2.2"
 GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"

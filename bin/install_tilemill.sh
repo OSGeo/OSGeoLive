@@ -94,7 +94,7 @@ cd build/
 # ... tbc
 
 
-# edit /etc/postgresql/9.1/main/pg_hba.conf
+# edit /etc/postgresql/9.3/main/pg_hba.conf
 #  "Page down to the bottom section of the file and adjust all local
 #  access permissions to "trust". This will allow you to access the
 #  PostgreSQL database from the same machine without a password."

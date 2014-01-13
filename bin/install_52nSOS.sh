@@ -50,7 +50,7 @@ SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
 SOS_WEB_APP_NAME="52nSOS"
 SOS_POSTGRESQL_SCRIPT_NAME="postgresql"
 PGOPTIONS='--client-min-messages=warning'
-PG_POSTGIS_PATH="/usr/share/postgresql/9.1/contrib/postgis-2.0/"
+PG_POSTGIS_PATH="/usr/share/postgresql/9.3/contrib/postgis-2.1/"
 POSTGRES_USER="postgres"
 SOS_DB_NAME="52nSOS"
 SOS_TOMCAT_SCRIPT_NAME="tomcat6"

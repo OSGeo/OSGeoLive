@@ -39,7 +39,7 @@ TMP_DIR=/tmp/build_gpsdrive
 PACKAGES="gpsd gpsd-clients python-gps \
    espeak gdal-bin gpsbabel \
    graphicsmagick-imagemagick-compat \
-   postgresql-9.1-postgis-2.0 \
+   postgresql-9.3-postgis-2.1 \
    python-mapnik2 \
    speech-dispatcher \
    openstreetmap-map-icons-square \
