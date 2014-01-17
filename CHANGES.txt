@@ -1,6 +1,22 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.9alpha3
+===================
+
+ * Updated GeoServer to 2.4.3
+ * Switched to OSGeoLive PPA release model (release/nightly)
+ * Removed UbuntuGIS from installers
+ * PostgreSQL upgraded to 9.3
+ * PostGIS upgraded to 2.1.1
+ * QGIS upgraded to 2.0.1
+ * OTB upgraded to 3.20.0
+ * pycsw upgraded to 1.6.1
+ * pgrouting upgraded to 2.0.0 final
+ * cmake backported to precise
+ * pgAdmin3 backported to precise
+ * spatialite now at 4.1.0
+
 Version 7.9alpha2
 ===================
 
