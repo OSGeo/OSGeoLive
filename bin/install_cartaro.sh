@@ -23,7 +23,7 @@
 #
 # Depedencies:
 # ===========
-# Needs already installed Geoserver with Version 2.2
+# Needs already installed Geoserver with at leas version 2.2
 #
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -32,7 +32,7 @@
 CARTARO_PASSWORD="geoserver"
 CARTARO_USER="cartaro-admin"
 
-CARTARO_VERSION="1.0"
+CARTARO_VERSION="1.2"
 
 DB_NAME="cartaro"
 DB_USER="cartaro"
@@ -40,7 +40,7 @@ DB_PASSWORD="cartaro"
 
 GEO_ADMIN="admin"
 GEO_PASS="geoserver"
-GEO_VERSION="2.3.4"
+GEO_VERSION="2.4.3"
 GEO_PATH="/usr/local/lib/geoserver-$GEO_VERSION"
 
 TMP_DIR="/tmp/build_cartaro"
