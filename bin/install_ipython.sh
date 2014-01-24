@@ -28,13 +28,13 @@ apt-get install --assume-yes python-dev
 easy_install -U distribute
 pip install -U matplotlib
 #--
-apt-add-repository ppa:jtaylor/ipython
+apt-add-repository --yes ppa:jtaylor/ipython
 apt-get update
 
 apt-get install  --assume-yes ipython ipython ipython-notebook ipython-qtconsole
 #--
-apt-add-repository --remove ppa:jtaylor/ipython
-apt-get remove python-dev
+apt-add-repository --yes --remove ppa:jtaylor/ipython
+apt-get remove --assume-yes python-dev
 
 ##-------------------------------------------------------
 #### Setup OSSIM workspace
