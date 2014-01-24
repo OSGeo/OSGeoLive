@@ -20,24 +20,22 @@
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
-echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe" \
-      | sudo tee /etc/apt/sources.list.d/backports.list
+## 24jan14  change in iPython+numpy+matplotlib
+#echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe" \
+#      | sudo tee /etc/apt/sources.list.d/backports.list
 
+apt-get install python-dev
+easy_install -U distribute
+pip install -U matplotlib
+#--
+apt-add-repository ppa:jtaylor/ipython
 apt-get update
 
-apt-get -t precise-backports install --assume-yes \
-   ipython-notebook ipython-qtconsole
+apt-get install  --assume-yes ipython ipython ipython-notebook ipython-qtconsole
+#--
+apt-add-repository --remove ppa:jtaylor/ipython
 
-if [ $? -ne 0 ] ; then
-   rm -f /etc/apt/sources.list.d/backports.list
-   echo 'ERROR: Package install failed! Aborting.'
-   exit 1
-fi
-
-rm -f /etc/apt/sources.list.d/backports.list
-apt-get update
-
-
+##-------------------------------------------------------
 #### Setup OSSIM workspace
 
 DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
