@@ -24,7 +24,7 @@
 #echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe" \
 #      | sudo tee /etc/apt/sources.list.d/backports.list
 
-apt-get install python-dev
+apt-get install --assume-ye python-dev
 easy_install -U distribute
 pip install -U matplotlib
 #--
