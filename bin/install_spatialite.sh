@@ -55,57 +55,54 @@ cd "$BUILD_TMP"
 ### Install from repo ###
 ## get spatialite cli and libs
 echo "Getting and installing spatialite"
-apt-get install --assume-yes spatialite-bin libspatialite3
-# The gui programs depend on libjpeg62
-apt-get install --assume-yes libjpeg62
-# Now the other stuff
-# (except for spatialite-gui)
-apt-get install --assume-yes librasterlite1 rasterlite-bin # spatialite-gui
+apt-get install --assume-yes spatialite-bin 
+# Now the GUI and rasterlite libs
+apt-get install --assume-yes librasterlite1 rasterlite-bin spatialite-gui
 
 ##########################
 ### Now get dependencies for compiling GUI apps
-DEV_PKGS="libwxgtk2.8-dev libgeos-dev libgeos++-dev \
-  libgeotiff-dev libcairo2-dev libfreexl-dev libspatialite-dev \
-  libhpdf-dev librasterlite-dev libproj-dev"
-apt-get --yes install $DEV_PKGS
+#DEV_PKGS="libwxgtk2.8-dev libgeos-dev libgeos++-dev \
+#  libgeotiff-dev libcairo2-dev libfreexl-dev libspatialite-dev \
+#  libhpdf-dev librasterlite-dev libproj-dev"
+#apt-get --yes install $DEV_PKGS
 
 ### librasterlite is missing pkg-config file
-cat << EOF > /usr/lib/pkgconfig/rasterlite.pc
-# Package Information for pkg-config
+#cat << EOF > /usr/lib/pkgconfig/rasterlite.pc
+## Package Information for pkg-config
 
-prefix=/usr
-exec_prefix=\${prefix}
-libdir=\${prefix}/lib
-includedir=\${prefix}/include
+#prefix=/usr
+#exec_prefix=\${prefix}
+#libdir=\${prefix}/lib
+#includedir=\${prefix}/include
 
-Name: rasterlite
-Description: Raster Data Source based on SQLite+SpatiaLite
-Version: 1.0
-Libs: -L\${libdir} -lrasterlite
-Cflags: -I\${includedir}
-EOF
+#Name: rasterlite
+#Description: Raster Data Source based on SQLite+SpatiaLite
+#Version: 1.0
+#Libs: -L\${libdir} -lrasterlite
+#Cflags: -I\${includedir}
+#EOF
 
 ### Download and compile spatialite-gui 1.5.0 from source
 ## URL: http://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/spatialite_gui-1.5.0-stable.tar.gz
-GAIA_URL="http://www.gaia-gis.it/gaia-sins/"
-SOURCE_DIR[1]="gaiagraphics-sources"
-SOURCE_DIR[2]="spatialite-gui-sources" 
-SOURCE_DIR[3]="spatialite-gis-sources"
-PACKAGE[1]="libgaiagraphics-0.4b"
-PACKAGE[2]="spatialite_gui-1.5.0-stable"
-PACKAGE[3]="spatialite_gis-1.0.0c"
+#GAIA_URL="http://www.gaia-gis.it/gaia-sins/"
+#SOURCE_DIR[1]="gaiagraphics-sources"
+#SOURCE_DIR[2]="spatialite-gui-sources" 
+#SOURCE_DIR[3]="spatialite-gis-sources"
+#PACKAGE[1]="libgaiagraphics-0.4b"
+#PACKAGE[2]="spatialite_gui-1.5.0-stable"
+#PACKAGE[3]="spatialite_gis-1.0.0c"
 
-export LIBSPATIALITE_LIBS=/usr/lib/libspatialite.so.3
-for i in 1 2 3; do
-        wget -c --progress=dot:mega "$GAIA_URL/${SOURCE_DIR[$i]}/${PACKAGE[$i]}.tar.gz"
-        tar xzf ${PACKAGE[$i]}.tar.gz
-        cd ${PACKAGE[$i]}
-        ./configure
-        make
-        make install-strip
-        ldconfig
-        cd ..
-done
+#export LIBSPATIALITE_LIBS=/usr/lib/libspatialite.so.3
+#for i in 1 2 3; do
+#        wget -c --progress=dot:mega "$GAIA_URL/${SOURCE_DIR[$i]}/${PACKAGE[$i]}.tar.gz"
+#        tar xzf ${PACKAGE[$i]}.tar.gz
+#        cd ${PACKAGE[$i]}
+#        ./configure
+#        make
+#        make install-strip
+#        ldconfig
+#        cd ..
+#done
 
 ##########################
 ### Sample data ###
@@ -128,27 +125,27 @@ chmod -R a-x "$PKG_DATA"/*
 
 #############################
 ### GUI start icons ###
-mkdir -p /usr/local/share/applications
-cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
-    /usr/local/share/applications/
-cp $BUILD_TMP/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
-    "$USER_HOME"/Desktop/
-chown "$USER_NAME.$USER_NAME" "$USER_HOME"/Desktop/spatialite-gui.desktop
-cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.png \
-    /usr/share/pixmaps/
+#mkdir -p /usr/local/share/applications
+#cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
+#    /usr/local/share/applications/
+#cp $BUILD_TMP/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
+#    "$USER_HOME"/Desktop/
+#chown "$USER_NAME.$USER_NAME" "$USER_HOME"/Desktop/spatialite-gui.desktop
+#cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.png \
+#    /usr/share/pixmaps/
 
-cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
-    /usr/local/share/applications/
-cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
-    "$USER_HOME"/Desktop/
-chown "$USER_NAME.$USER_NAME" "$USER_HOME"/Desktop/spatialite-gis.desktop
-cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.png \
-    /usr/share/pixmaps/
+#cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
+#    /usr/local/share/applications/
+#cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
+#    "$USER_HOME"/Desktop/
+#chown "$USER_NAME.$USER_NAME" "$USER_HOME"/Desktop/spatialite-gis.desktop
+#cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.png \
+#    /usr/share/pixmaps/
 
 #############################
 ### Clean up
 #rm -rf "$BUILD_TMP"
-apt-get --yes remove $DEV_PKGS
+#apt-get --yes remove $DEV_PKGS
 
 
 ####
