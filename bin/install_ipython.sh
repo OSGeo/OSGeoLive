@@ -34,6 +34,7 @@ apt-get update
 apt-get install  --assume-yes ipython ipython ipython-notebook ipython-qtconsole
 #--
 apt-add-repository --remove ppa:jtaylor/ipython
+apt-get remove python-dev
 
 ##-------------------------------------------------------
 #### Setup OSSIM workspace
