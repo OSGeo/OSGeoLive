@@ -34,7 +34,8 @@ pip install netCDF4 pyshp
 
 # Specify specific matplotlib update for OSGeo Live 7.0
 echo "FIXME: verify no conflicts with the system pacakged version of matplotlib"
-pip install matplotlib==1.2.0
+#pip install matplotlib==1.2.0
+pip install --upgrade matplotlib
 
 # Build and install grib_api (optional):
 mkdir /tmp/build_iris
