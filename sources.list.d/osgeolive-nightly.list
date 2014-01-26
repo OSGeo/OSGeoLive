@@ -1,4 +1,5 @@
 #OSGeoLive Release ppa
 deb http://ppa.launchpad.net/osgeolive/nightly/ubuntu precise main
 #deb-src http://ppa.launchpad.net/osgeolive/nightly/ubuntu precise main
-
+#Staging ppa
+deb http://ppa.launchpad.net/gcpp-kalxas/osgeolive/ubuntu precise main
