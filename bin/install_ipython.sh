@@ -24,19 +24,35 @@
 #echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe" \
 #      | sudo tee /etc/apt/sources.list.d/backports.list
 
+apt-get install --assume-yes libfreetype6-dev libpng12-dev
 apt-get install --assume-yes python-dev python-setuptools
-easy_install -U pip
-easy_install -U distribute
-pip install -U matplotlib
-#--
+## provides easy_install, distribute-0.6.24dev_r0
+
+easy_install --upgrade distribute
+## provides
+##  /usr/local/lib/python2.7/dist-packages/distribute-0.7.3
+##  /usr/local/lib/python2.7/dist-packages/setuptools-2.1
+
+#Xeasy_install -U pip  ## not the right order
+
+apt-get install python-pip
+## provides pip 1.01
+
+pip install --upgrade pip ## upgrade pip to 1.5.1
+
+pip install --upgrade numpy
+pip install --upgrade matplotlib
+
+#-- iPython from .deb
 apt-add-repository --yes ppa:jtaylor/ipython
 apt-get update
 
 apt-get install  --assume-yes ipython ipython ipython-notebook ipython-qtconsole
-#--
+
+#-- Clean-up
 apt-add-repository --yes --remove ppa:jtaylor/ipython
 apt-get remove --assume-yes python-dev
-
+apt-get remove --assume-yes libfreetype6-dev libpng12-dev
 ##-------------------------------------------------------
 #### Setup OSSIM workspace
 
