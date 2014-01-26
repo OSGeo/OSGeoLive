@@ -33,7 +33,7 @@ DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/sites-available/geonode"
 GEONODE_CONF="/etc/geonode/local_settings.py"
 GEONODE_DB="geonode"
-GEOSERVER_VERSION="2.3.4"
+GEOSERVER_VERSION="2.4.4"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 
@@ -315,7 +315,7 @@ ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
 ln -s /usr/lib/python2.7/dist-packages/gisdata/metadata/good /usr/local/share/data/metadata
 
 #testing for upgrade FIXME: Remove this and use the ppa version
-sudo pip install -U --no-deps GeoNode==2.0b55
+sudo pip install -U --no-deps GeoNode==2.0
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
