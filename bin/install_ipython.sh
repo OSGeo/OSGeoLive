@@ -40,9 +40,10 @@ apt-get install --assume-yes python-pip python-pandas python-netcdf
 
 #pip install --upgrade pip ## upgrade pip to 1.5.1
 
-pip install --upgrade numpy
-pip install --upgrade pandas
-pip install --upgrade matplotlib
+## TODO Resolve versions with Iris before re-enabling those
+#pip install --upgrade numpy
+#pip install --upgrade pandas
+#pip install --upgrade matplotlib
 ## TODO libBlas etc for scipy
 
 #-- iPython from .deb
