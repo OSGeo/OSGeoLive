@@ -35,7 +35,7 @@ easy_install --upgrade distribute
 
 #Xeasy_install -U pip  ## not the right order
 
-apt-get install python-pip python-pandas python-netcdf
+apt-get install --assume-yes python-pip python-pandas python-netcdf
 ## provides pip 1.01
 
 #pip install --upgrade pip ## upgrade pip to 1.5.1
