@@ -38,8 +38,8 @@ GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 
 #Install packages
-add-apt-repository -y ppa:geonode/release
-#add-apt-repository -y ppa:geonode/unstable
+#add-apt-repository -y ppa:geonode/release
+add-apt-repository -y ppa:geonode/unstable
 #add-apt-repository -y ppa:geonode/testing
 apt-get -q update
 apt-get --assume-yes install python-geonode libapache2-mod-wsgi curl
@@ -316,7 +316,7 @@ ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
 ln -s /usr/lib/python2.7/dist-packages/gisdata/metadata/good /usr/local/share/data/metadata
 
 #testing for upgrade FIXME: Remove this and use the ppa version
-#sudo pip install -U --no-deps GeoNode==2.0b55
+sudo pip install -U --no-deps GeoNode==2.0
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
