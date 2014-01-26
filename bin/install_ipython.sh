@@ -43,6 +43,7 @@ apt-get install --assume-yes python-pip python-pandas python-netcdf
 pip install --upgrade numpy
 pip install --upgrade pandas
 pip install --upgrade matplotlib
+## TODO libBlas etc for scipy
 
 #-- iPython from .deb
 apt-add-repository --yes ppa:jtaylor/ipython
