@@ -38,7 +38,7 @@ easy_install --upgrade distribute
 apt-get install python-pip
 ## provides pip 1.01
 
-pip install --upgrade pip ## upgrade pip to 1.5.1
+#pip install --upgrade pip ## upgrade pip to 1.5.1
 
 pip install --upgrade numpy
 pip install --upgrade matplotlib
