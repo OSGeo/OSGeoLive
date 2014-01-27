@@ -42,13 +42,18 @@ apt-get -q update
 #Install packages
 apt-get --assume-yes install qgis \
    qgis-common qgis-plugin-grass python-qgis python-qgis-common \
-   qgis-plugin-grass-common gpsbabel grass-doc python-rpy2
+   qgis-plugin-grass-common gpsbabel grass-doc python-rpy2 python-qt4-phonon
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
 
+
+# add pykml needed by qgis-plugin 'geopaparazzi'
+wget http://download.osgeo.org/livedvd/data/ossim/pykml_0.1.1-1_all.deb
+dpkg -i pykml_0.1.1-1_all.deb
+rm -rf pykml_0.1.1-1_all.deb
 
 #Install optional packages that some plugins use
 apt-get --assume-yes install python-psycopg2 \

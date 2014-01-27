@@ -237,6 +237,13 @@ cp /usr/share/applications/grass.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass.desktop"
 
 
+# install addons in /usr/share/grass/addons
+
+wget http://download.osgeo.org/livedvd/data/ossim/addons.tar.gz
+tar -zxvf addons.tar.gz
+rm -rf addons.tar.gz
+mv addons /usr/local/share/grass/
+
 # add menu item
 if [ ! -e /usr/share/menu/grass ] ; then
    cat << EOF > /usr/share/menu/grass
