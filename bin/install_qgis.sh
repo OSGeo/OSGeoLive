@@ -59,8 +59,12 @@ rm -rf pykml_0.1.1-1_all.deb
 apt-get --assume-yes install python-psycopg2 \
    python-gdal python-matplotlib python-qt4-sql \
    libqt4-sql-psql python-qwt5-qt4 python-tk \
-   python-sqlalchemy python-owslib
+   python-sqlalchemy python-owslib python-Shapely
 
+# Install plugins
+wget http://aiolos.survey.ntua.gr/gisvm/dev/qgis-osgeolive-plugins_7.9-1_all.deb
+dpkg -i qgis-osgeolive-plugins_7.9-1_all.deb
+rm -rf qgis-osgeolive-plugins_7.9-1_all.deb
 
 #Make sure old qt uim isn't installed
 apt-get --assume-yes remove uim-qt uim-qt3
