@@ -130,36 +130,4 @@ ln -s /usr/local/lib/R/site-library/rgdal/vectors \
    /usr/local/share/data/vector/R
 
 ####
-
-# install R Idle :
-
-wget http://download1.rstudio.org/rstudio-0.98.495-i386.deb
-dpkg -i rstudio-0.98.495-i386.deb
-rm -rf rstudio-0.98.495-i386.deb
-
-
-#Add Desktop shortcut
-if [ ! -e /usr/share/applications/rstudio.desktop ] ; then
-   cat << EOF > /usr/share/applications/rstudio.desktop
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=Rstudio 
-Comment=Rstudio development IDLE for R Statistics package
-Categories=Application;Education;Geography;
-Exec=rstudio
-Icon= /usr/share/pixmaps/rstudio.png
-Terminal=false
-StartupNotify=false
-EOF
-else
-  echo "Icon already present."
-fi
-
-cp -a /usr/share/applications/rstudio.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/rstudio.desktop"
-
-
-
-
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

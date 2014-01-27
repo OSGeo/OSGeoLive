@@ -21,6 +21,4 @@ for (i in packagelist) {
 	print(output)
 }
 
-install.packages("plotKML", repos=c("http://R-Forge.R-project.org", lib = "/usr/local/lib/R/site-library/")) 
-
 q()
