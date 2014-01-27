@@ -30,9 +30,9 @@ BUILD_DIR=`pwd`
 # 0 = setup just petascope (this should be used only for testing)
 FULL=1
 
-OSGEOLIVE_TAG="osgeolive-6.5"
+OSGEOLIVE_TAG="v8.5.2"
 
-VERSION=8.3.1
+VERSION=8.5.2
 RASDAMAN_LOCATION="http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo"
 
 # live disc's username is "user"
@@ -74,7 +74,7 @@ PACKAGES="make autoconf automake libtool gawk flex bison build-essential \
  g++ gcc cpp libstdc++6 libreadline-dev libssl-dev \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg-dev \
  libhdf4-0 libpng12-dev libnetpbm10-dev tomcat6 php5-cgi \
- wget libgdal1-dev openjdk-7-jdk libnetcdf-dev rpcbind git git-core rpcbind"
+ wget libgdal1-dev openjdk-7-jdk libnetcdf-dev rpcbind git git-core rpcbind libsigsegv-dev"
 
 
 pkg_cleanup()
@@ -115,7 +115,7 @@ if [ "$FULL" -eq 1 ] ; then
   
   # switch to current osgeo live tag
   git pull
-  git checkout "$OSGEOLIVE_TAG"
+  git checkout -b v852_osgeo "$OSGEOLIVE_TAG"
 
   mkdir -p "$RASDAMAN_HOME/log"
   chgrp users "$RASDAMAN_HOME/log/" -R
