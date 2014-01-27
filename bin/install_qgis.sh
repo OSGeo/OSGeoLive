@@ -136,40 +136,26 @@ apt-get --assume-yes install python-sphinx
 make html
 cp -R _build/html /usr/local/share/qgis/tutorials
 
-#TODO Install some popular python plugins
-#Use wget to pull them directly into qgis python path?
-# A temp bundle of common plugins
+# FIXME
+# # Install some popular python plugins
+# 
+# # be careful with 'wget -c', if the file changes on the server the local
+# # copy will get corrupted. Wget only knows about filesize, not file 
+# # contents, timestamps, or md5sums!
+# 
+# DATAURL="http://download.osgeo.org/livedvd/data/qgis/qgis-plugins-7.0.tar.gz"
+# 
+# #TODO use a python script and the QGIS API to pull these within QGIS from online repo
+# mkdir -p "$TMP_DIR"/plugins
+# 
+# wget --progress=dot:mega "$DATAURL" \
+#      --output-document="$TMP_DIR"/qgis_plugin.tar.gz
+# 
+# tar xzf "$TMP_DIR"/qgis_plugin.tar.gz  -C "$TMP_DIR/plugins"
+# #cp -R  "$TMP_DIR"/.qgis/python/plugins/ /usr/share/qgis/python/
+# cp -R  "$TMP_DIR"/plugins/ /usr/share/qgis/python/
+# chmod -R 755 /usr/share/qgis/python
 
-# be careful with 'wget -c', if the file changes on the server the local
-# copy will get corrupted. Wget only knows about filesize, not file 
-# contents, timestamps, or md5sums!
-
-# old plugins are stored on DATAURL="http://www.geofemengineering.it/data/plugins_old2.tar.gz"
-
-DATAURL="http://download.osgeo.org/livedvd/data/qgis/qgis-plugins-7.0.tar.gz"
-#DATAURL="http://aiolos.survey.ntua.gr/gisvm/dev/qgis-plugins-6.5.tar.gz"
-
-#TODO use a python script and the QGIS API to pull these within QGIS from online repo
-mkdir -p "$TMP_DIR"/plugins
-
-wget --progress=dot:mega "$DATAURL" \
-     --output-document="$TMP_DIR"/qgis_plugin.tar.gz
-
-tar xzf "$TMP_DIR"/qgis_plugin.tar.gz  -C "$TMP_DIR/plugins"
-#cp -R  "$TMP_DIR"/.qgis/python/plugins/ /usr/share/qgis/python/
-cp -R  "$TMP_DIR"/plugins/ /usr/share/qgis/python/
-chmod -R 755 /usr/share/qgis/python
-
-## currently broken with QGIS 1.5.0
-#rm -rf /usr/share/qgis/python/plugins/contour
-#rm -rf /usr/share/qgis/python/plugins/geofeeds
-#rm -rf /usr/share/qgis/python/plugins/HomeRange_plugin
-
-
-#Next line might be optional, unsure
-#chmod -R 777 /usr/share/qgis/python/plugins/*
-# why 777 and not 644? if you want recursive subdirs +x use +X to only +x for directories.
-#   - might not necessary at all
 
 #TODO Include some sample projects using already installed example data
 #post a sample somewhere on qgis website or launchpad to pull
