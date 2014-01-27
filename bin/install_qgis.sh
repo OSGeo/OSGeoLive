@@ -53,14 +53,16 @@ fi
 #Install optional packages that some plugins use
 apt-get --assume-yes install python-psycopg2 \
    python-gdal python-matplotlib python-qt4-sql \
-   libqt4-sql-psql python-qwt5-qt4 python-tk python-sqlalchemy
+   libqt4-sql-psql python-qwt5-qt4 python-tk \
+   python-sqlalchemy python-owslib
 
 
 #Make sure old qt uim isn't installed
 apt-get --assume-yes remove uim-qt uim-qt3
 
-apt-get --assume-yes install python-setuptools
-easy_install owslib
+#TODO: Remove this
+#apt-get --assume-yes install python-setuptools
+#easy_install owslib
 
 #### install desktop icon ####
 INSTALLED_VERSION=`dpkg -s qgis | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
@@ -110,8 +112,8 @@ wget -c --progress=dot:mega \
 	--output-document=/usr/local/share/qgis/qgis-1.0.0_a-gentle-gis-introduction_en.pdf
 #TODO: Consider including translations
 wget -c --progress=dot:mega \
-        "http://download.osgeo.org/qgis/doc/manual/qgis-1.8.0_user_guide_en.pdf" \
-	--output-document=/usr/local/share/qgis/QGIS-1.8-UserGuide-en.pdf
+        "http://docs.qgis.org/2.0/pdf/QGIS-2.0-UserGuide-en.pdf" \
+	--output-document=/usr/local/share/qgis/QGIS-2.0-UserGuide-en.pdf
 
 chmod 644 /usr/local/share/qgis/*.pdf
 
