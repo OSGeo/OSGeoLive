@@ -42,8 +42,8 @@ apt-get install --assume-yes python-pip python-pandas python-netcdf
 
 ## TODO Resolve versions with Iris before re-enabling those
 #pip install --upgrade numpy
-#pip install --upgrade pandas
-pip install --upgrade matplotlib
+pip install -U --no-deps pandas
+pip install -U --no-deps matplotlib
 ## TODO libBlas etc for scipy
 
 #-- iPython from .deb
