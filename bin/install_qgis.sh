@@ -42,7 +42,7 @@ apt-get -q update
 #Install packages
 apt-get --assume-yes install qgis \
    qgis-common qgis-plugin-grass python-qgis python-qgis-common \
-   qgis-plugin-grass-common gpsbabel grass-doc python-rpy2
+   qgis-plugin-grass-common gpsbabel grass-doc python-rpy2 python-qt4-phonon
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
