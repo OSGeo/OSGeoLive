@@ -1,6 +1,20 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.9beta1
+===================
+
+ * Updated GeoServer to 2.4.4
+ * Updated MapServer to 6.4.1
+ * Updated rasdaman to 8.5.2
+ * New artwork
+ * IPython updates
+ * QGIS 2.0 plugins are in place
+ * Some GRASS extensions added
+ * Updated GeoNode to 2.0
+ * Spatialite now available from apt
+ * PostGIS 2.1 locale fixed
+
 Version 7.9alpha3
 ===================
 
