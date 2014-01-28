@@ -406,7 +406,7 @@ if [ `grep -c 'rasdaman' /etc/rc.local` -eq 0 ] ; then
 fi
 
 # remove secore
-rm -r $WARDIR/def
+rm -rf $WARDIR/def
 
 # start stopped services
 start_rasdaman.sh
