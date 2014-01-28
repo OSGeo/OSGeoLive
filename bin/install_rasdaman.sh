@@ -405,6 +405,9 @@ if [ `grep -c 'rasdaman' /etc/rc.local` -eq 0 ] ; then
     echo "exit 0" >> /etc/rc.local
 fi
 
+# remove secore
+rm -r $WARDIR/def
+
 # start stopped services
 start_rasdaman.sh
 pgrep rasserver > /dev/null
