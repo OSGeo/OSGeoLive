@@ -56,9 +56,9 @@ cd "$TMP"
 
 ##### Step1: Download Geomajas
 echo "Getting Geomajas"
-if [ -f "geomajas-$GS_VERSION-bin.zip" ]
+if [ -f "geomajas-$GEOMAJAS_VERSION-bin.zip" ]
 then
-   echo "geomajas-$GS_VERSION-bin.zip has already been downloaded."
+   echo "geomajas-$GEOMAJAS_VERSION-bin.zip has already been downloaded."
 else
    wget -c --progress=dot:mega \
       "http://files.geomajas.org/release/geomajas-$GEOMAJAS_VERSION-bin.zip"
@@ -145,11 +145,11 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geomajas-stop.desktop"
 
 
 # something possibly screwed up with the ISO permissions:
-chgrp tomcat6 /usr/lib/geomajas-1.8.0-bin/bin/*.sh
+chgrp tomcat6 /usr/lib/geomajas-$GEOMAJAS_VERSION-bin/bin/*.sh
 
 # share data with the rest of the disc
 mkdir -p /usr/local/share/data/vector
-ln -s /usr/lib/geomajas-1.8.0-bin/webapps/showcase/WEB-INF/classes/org/geomajas/example/gwt/shapefile \
+ln -s /usr/lib/geomajas-$GEOMAJAS_VERSION-bin/webapps/showcase/WEB-INF/classes/org/geomajas/example/gwt/shapefile \
       /usr/local/share/data/vector/geomajas
 
 # remove local jai libraries to work with ones provided in default-java (fix for #959)
