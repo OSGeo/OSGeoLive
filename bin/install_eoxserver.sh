@@ -27,7 +27,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 # Set EOxServer version to install
-EOXSVER="0.3.0"
+EOXSVER="0.3.2"
 
 DATA_DIR="/usr/local/share/eoxserver"
 DOC_DIR="$DATA_DIR/doc"
@@ -61,7 +61,7 @@ cd "$TMP_DIR"
 
 
 # Install EOxServer
-pip install --upgrade --no-deps eoxserver=="$EOXSVER"
+pip install --upgrade --no-deps --install-option="--disable-extended-reftools" eoxserver=="$EOXSVER"
 
 
 # Create database for demonstration instance
@@ -104,32 +104,32 @@ if [ ! -d eoxserver_demonstration ] ; then
     sed -e 's/DEBUG = True/DEBUG = False/' -i eoxserver_demonstration/settings.py
 
     # Further configuration
-    echo "ALLOWED_HOSTS = ['localhost']" >> eoxserver_demonstration/settings.py
+    echo "ALLOWED_HOSTS = ['*']" >> eoxserver_demonstration/settings.py
 
     # Initialize database
     python manage.py syncdb --noinput
 
     # Download and register demonstration data
     wget -c --progress=dot:mega \
-       "http://eoxserver.org/export/head/downloads/EOxServer_autotest-$EOXSVER.tar.gz"
+       "https://github.com/EOxServer/autotest/archive/release-$EOXSVER.tar.gz"
 
     echo "Extracting demonstration data in `pwd`."
-    tar -xzf EOxServer_autotest-$EOXSVER.tar.gz
-    chown -R root.root EOxServer_autotest-*
+    tar -xzf release-$EOXSVER.tar.gz
+    chown -R root.root autotest-release-*
 
     mkdir -p eoxserver_demonstration/data/fixtures/
-    mv EOxServer_autotest-$EOXSVER/data/fixtures/auth_data.json \
-        EOxServer_autotest-$EOXSVER/data/fixtures/initial_rangetypes.json \
+    mv autotest-release-$EOXSVER/autotest/data/fixtures/auth_data.json \
+        autotest-release-$EOXSVER/autotest/data/fixtures/initial_rangetypes.json \
         eoxserver_demonstration/data/fixtures/
 
     mkdir -p eoxserver_demonstration/data/meris/
-    mv EOxServer_autotest-$EOXSVER/data/meris/README \
+    mv autotest-release-$EOXSVER/autotest/data/meris/README \
         eoxserver_demonstration/data/meris/
-    mv EOxServer_autotest-$EOXSVER/data/meris/mosaic_MER_FRS_1P_RGB_reduced/ \
+    mv autotest-release-$EOXSVER/autotest/data/meris/mosaic_MER_FRS_1P_RGB_reduced/ \
         eoxserver_demonstration/data/meris/
 
-    rm EOxServer_autotest-$EOXSVER.tar.gz
-    rm -r EOxServer_autotest-$EOXSVER/
+    rm release-$EOXSVER.tar.gz
+    rm -r autotest-release-$EOXSVER/
 
     python manage.py loaddata auth_data.json initial_rangetypes.json
     python manage.py eoxs_add_dataset_series --id MER_FRS_1P_RGB_reduced
@@ -182,7 +182,7 @@ echo "Done"
 echo "Installing EOxServer icon"
 if [ ! -e "/usr/share/icons/eoxserver_60x60.logo.png" ] ; then
     wget -c --progress=dot:mega \
-        "http://eoxserver.org/export/head/trunk/osgeo-live/logo-eoxserver-3.png" \
+        "https://raw.github.com/EOxServer/osgeo-live/master/logo-eoxserver-3.png" \
         -O /usr/share/icons/eoxserver_60x60.logo.png
 fi
 
@@ -216,7 +216,7 @@ chmod g+w .
 chgrp users .
 
 wget -c --progress=dot:mega \
-    "http://eoxserver.org/export/head/downloads/EOxServer_documentation-$EOXSVER.pdf" \
+    "https://github.com/EOxServer/eoxserver/releases/download/release-$EOXSVER/EOxServer_documentation-$EOXSVER.pdf" \
     -O EOxServer_documentation-$EOXSVER.pdf
 
 ln -sf EOxServer_documentation-$EOXSVER.pdf EOxServer_documentation.pdf
