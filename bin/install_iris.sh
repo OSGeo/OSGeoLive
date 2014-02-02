@@ -18,7 +18,7 @@
 #
 # About:
 # =====
-# This script will install Iris 
+# This script will install Iris
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -34,7 +34,11 @@ pip install netCDF4 pyshp
 
 # Specify specific matplotlib update for OSGeo Live 7.0
 echo "FIXME: verify no conflicts with the system pacakged version of matplotlib"
-#pip install matplotlib==1.2.0
+## in any case, matplotlib is required
+if [ ! -e /usr/share/pyshared/matplotlib ] ; then
+    #apt-get install -y python-matplotlib
+    pip install matplotlib
+fi
 #pip install --upgrade matplotlib
 
 # Build and install grib_api (optional):
