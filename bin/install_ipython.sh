@@ -36,22 +36,33 @@ easy_install --upgrade distribute
 #Xeasy_install -U pip  ## not the right order
 
 apt-get install --assume-yes python-pip python-pandas python-netcdf
-## provides pip 1.01
+## provides pip 1.01  pandas 0.7
 
-#pip install --upgrade pip ## upgrade pip to 1.5.1
+#pip install --upgrade pip ## NOT NEEDED - pip 1.5.1
 
 ## TODO Resolve versions with Iris before re-enabling those
-## FIXME Those should be called AFTER apt libraries are installed so to bring in dependencies
-pip install --upgrade numpy
-pip install --upgrade --no-deps pandas
+##   (false FIXME removed, both sequence orders end in identical results)
+
+#pip install --upgrade numpy  ## remove a redundant numpy build for kalxas
 pip install --upgrade  matplotlib
-## TODO libBlas etc for scipy
+pip install --upgrade --no-deps pandas
+
+## result:
+##  NEW matplotlib 1.3.1
+##  UPGRADE  pandas 0.7 -> 0.13
+##  UPGRADE  numpy 1.6.1 -> 1.8
 
 #-- iPython from .deb
 apt-add-repository --yes ppa:jtaylor/ipython
 apt-get update
 
 apt-get install  --assume-yes ipython ipython ipython-notebook ipython-qtconsole
+
+## result:
+##  NEW iPython==1.1
+##  decorator==3.3.2  simplegeneric==0.8.1
+##  jinja==2.6  MarkupSafe==0.15  Pygments==1.4  pyzmq==2.1.11
+##  
 
 #-- Clean-up
 apt-add-repository --yes --remove ppa:jtaylor/ipython
