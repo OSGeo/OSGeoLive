@@ -36,13 +36,11 @@ easy_install --upgrade distribute
 #Xeasy_install -U pip  ## not the right order
 
 apt-get install --assume-yes python-pip python-pandas python-netcdf
-## provides pip 1.01  pandas 0.7
+## provides  pip 1.01  pandas 0.7
 
-#pip install --upgrade pip ## NOT NEEDED - pip 1.5.1
+#pip install --upgrade pip ## NOT NEEDED pip 1.5.1
 
 ## TODO Resolve versions with Iris before re-enabling those
-##   (false FIXME removed, both sequence orders end in identical results)
-
 #pip install --upgrade numpy  ## remove a redundant numpy build for kalxas
 pip install --upgrade  matplotlib
 pip install --upgrade --no-deps pandas
@@ -62,12 +60,13 @@ apt-get install  --assume-yes ipython ipython ipython-notebook ipython-qtconsole
 ##  NEW iPython==1.1
 ##  decorator==3.3.2  simplegeneric==0.8.1
 ##  jinja==2.6  MarkupSafe==0.15  Pygments==1.4  pyzmq==2.1.11
-##  
+##
 
 #-- Clean-up
 apt-add-repository --yes --remove ppa:jtaylor/ipython
 apt-get remove --assume-yes python-dev
 apt-get remove --assume-yes libfreetype6-dev libpng12-dev
+
 ##-------------------------------------------------------
 #### Setup OSSIM workspace
 
