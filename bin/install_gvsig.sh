@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2009-2010 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -19,6 +19,9 @@
 
 # Changelog:   "svn log install_gvsig.sh --limit 10"
 # ===========
+# 2014-02-02
+#  * Updated to gvSIG 2.1
+#
 # 2013-06-16
 #   * Updated to gvSIG 2.0, no default project yet
 #
@@ -38,7 +41,7 @@
 # 2010-07-02:
 #   * updated to gvSIG 1.10 (BN 1255)
 #
-# 2010-03-13: 
+# 2010-03-13:
 #   * removed usage of source command
 #
 # 2010-01-04: adapting the script to 1.9 stable release (jsanz@osgeo.org)
@@ -53,20 +56,20 @@ BUILD_DIR=`pwd`
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user" 
+   USER_NAME="user"
 fi
 
 USER_HOME="/home/$USER_NAME"
-USER_DESKTOP="$USER_HOME/Desktop" 
+USER_DESKTOP="$USER_HOME/Desktop"
 
-GVSIG_PACKAGE="gvsig_2.0.0-2066_i386_BN2.deb"
+GVSIG_PACKAGE="gvsig_2.1.0-2218_i386_BN2.deb"
 GVSIG_URL="http://aiolos.survey.ntua.gr/gisvm/dev/"
 #GVSIG_URL="http://downloads.gvsig.org/download/gvsig-desktop/other-dists/osgeo-live"
 #GVSIG_URL="https://www.dropbox.com/s/6ujajdxa048pgii/"
 
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install it and try again" 
+   echo "ERROR: wget is required, please install it and try again"
    exit 1
 fi
 
@@ -77,7 +80,7 @@ if [ ! -d "$TMP" ] ; then
 fi
 cd "$TMP"
 
-# get deb package 
+# get deb package
 if [ ! -e "$GVSIG_PACKAGE" ] ; then
    wget -c --progress=dot:mega "$GVSIG_URL/$GVSIG_PACKAGE"
 fi
@@ -119,32 +122,13 @@ chown -R root.root /usr/share/applications/gvsig.desktop \
 
 rm "$TMP/$GVSIG_PACKAGE"
 
-# Remove non free libraries (#1147)
-rm -f /opt/gvSIG_*/native/*NCS*
-rm -f /opt/gvSIG_*/native/*ecw*
-rm -f /opt/gvSIG_*/native/*mrsid*
-rm -rf /opt/gvSIG_*/gvSIG/extensiones/org.gvsig.raster.lizardtech.app
-rm -rf /opt/gvSIG_*/gvSIG/extensiones/org.gvsig.raster.ermapper.app
-
 # place a gvSIG icon on desktop
 if [ -d $USER_DESKTOP ] ; then
    echo "Copying icon to desktop at $USER_DESKTOP"
    cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP"
    chown $USER_NAME:$USER_NAME "$USER_DESKTOP/gvsig.desktop"
-   chmod +x "$USER_DESKTOP/gvsig.desktop"   
+   chmod +x "$USER_DESKTOP/gvsig.desktop"
 fi
-
-# create gvSIG user folder
-mkdir -p $USER_HOME/gvSIG
-
-echo "... andami config"
-wget --progress=dot:binary \
-   "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/gvsig/andami-config.xml" \
-   --output-document="$USER_HOME/gvSIG/andami-config.xml"
-
-cp -r "$USER_HOME/gvSIG" /etc/skel
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/gvSIG"
-
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
