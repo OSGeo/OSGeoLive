@@ -36,10 +36,14 @@ pip install netCDF4 pyshp
 echo "FIXME: verify no conflicts with the system pacakged version of matplotlib"
 ## in any case, matplotlib is required
 if [ ! -e /usr/share/pyshared/matplotlib ] ; then
+    ## see tickets #1271 #1285 commentary/attachments
     #apt-get install -y python-matplotlib
-    pip install matplotlib
+    #   -> matplotlib 1.1.1rc
+
+    #pip install matplotlib
+    pip install --upgrade matplotlib
+    #   -> matplotlib 1.3.1
 fi
-#pip install --upgrade matplotlib
 
 # Build and install grib_api (optional):
 mkdir /tmp/build_iris
