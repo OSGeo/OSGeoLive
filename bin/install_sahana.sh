@@ -82,9 +82,17 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 	python-xlrd \
 	python-xlwt \
 	python-numpy \
-	python-matplotlib \
 	libapache2-mod-wsgi \
 	python-psycopg2
+
+## 09feb14  do not install python-matplotlib
+##  pip install version is newer..
+##  TODO even more defensive scripting
+
+if [ ! -e /usr/share/pyshared/matplotlib ] ; then
+    #apt-get install -y python-matplotlib
+    pip install matplotlib
+fi
 
 # Install python-tweepy (optional)
 ##echo "deb http://ppa.launchpad.net/chris-lea/python-tweepy/ubuntu precise main
