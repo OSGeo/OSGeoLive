@@ -80,7 +80,7 @@ cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://se.archive.ubuntu.com/mirror/cdimage.ubuntu.com"
 UBU_RELEASE="12.04"
-ISO_RELEASE="12.04.3"
+ISO_RELEASE="12.04.4"
 UBU_ISO="xubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
    "$UBU_MIRROR/xubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
@@ -152,7 +152,7 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from xubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.2.0-52-generic
+sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.2.0-58-generic
 
 #continue
 mkdir lzfiles
