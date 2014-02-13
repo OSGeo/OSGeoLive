@@ -1,6 +1,16 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.9beta2
+===================
+
+ * Moved to xubuntu 12.04.4
+ * Updated IPython stack
+ * New version of Geomajas (1.14.0)
+ * Updated EOxServer to 0.3.2
+ * Updated gvSIG to 2.1.0
+ * 
+
 Version 7.9beta1
 ===================
 
