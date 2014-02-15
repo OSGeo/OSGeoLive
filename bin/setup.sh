@@ -215,6 +215,7 @@ echo "alias mv='mv -i'" >> /etc/skel/.bashrc
 echo "alias rm='rm -i'" >> /etc/skel/.bashrc
 
 # make it easy for users to edit in a general proxy setting
+#   perhaps more robust: demo how to set up a (disabled) transparent proxy?
 if [ `grep -c http_proxy "/etc/skel/.profile"` -eq 0 ] ; then
    cat << EOF >> "/etc/skel/.profile"
 
