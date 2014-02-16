@@ -43,8 +43,7 @@ apt-get -q update
 apt-get --assume-yes install qgis \
    qgis-common python-qgis python-qgis-common \
    gpsbabel python-rpy2 python-qt4-phonon \
-   qgis-plugin-grass-common grass-doc \
-   qgis-plugin-grass libgdal1-1.10.0-grass
+   qgis-plugin-grass qgis-plugin-grass-common grass-doc
 
 
 if [ $? -ne 0 ] ; then
@@ -54,9 +53,10 @@ fi
 
 
 # add pykml needed by qgis-plugin 'geopaparazzi'
-wget http://download.osgeo.org/livedvd/data/ossim/pykml_0.1.1-1_all.deb
+wget -c --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/ossim/pykml_0.1.1-1_all.deb"
 dpkg -i pykml_0.1.1-1_all.deb
-rm -rf pykml_0.1.1-1_all.deb
+#rm -rf pykml_0.1.1-1_all.deb
 
 #Install optional packages that some plugins use
 apt-get --assume-yes install python-psycopg2 \
@@ -65,9 +65,10 @@ apt-get --assume-yes install python-psycopg2 \
    python-sqlalchemy python-owslib python-Shapely
 
 # Install plugins
-wget http://aiolos.survey.ntua.gr/gisvm/dev/qgis-osgeolive-plugins_7.9-1_all.deb
+wget -c --progress=dot:mega \
+   "http://aiolos.survey.ntua.gr/gisvm/dev/qgis-osgeolive-plugins_7.9-1_all.deb"
 dpkg -i qgis-osgeolive-plugins_7.9-1_all.deb
-rm -rf qgis-osgeolive-plugins_7.9-1_all.deb
+#rm -rf qgis-osgeolive-plugins_7.9-1_all.deb
 
 #Make sure old qt uim isn't installed
 apt-get --assume-yes remove uim-qt uim-qt3
