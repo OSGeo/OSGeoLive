@@ -35,7 +35,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 
 POSTGRES_USER="$USER_NAME"
-CITY="Nottingham"
+CITY="Portland_OR"
 TMP_DIR="/tmp/build_postgis"
 
 if [ ! -d "$TMP_DIR" ] ; then

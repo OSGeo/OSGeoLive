@@ -92,8 +92,8 @@ cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
 # add an icon for viewing The Map online
 mkdir -p /usr/local/share/applications
 
-MAP_CENTER="lat=52.9422&lon=-1.18"
-MARKER="mlat=52.9390&mlon=-1.2032"
+MAP_CENTER="lat=45.5282&lon=-122.6632"
+MARKER="mlat=45.5281&mlon=-122.6632"
 ZOOM="14"
 
 cat << EOF > /usr/local/share/applications/osm_online.desktop
@@ -114,18 +114,16 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
 
 #### install sample OSM data
+CITY="Portland_OR"
+BBOX="-122.8,45.4,-122.5,45.6"
 
-CITY="Nottingham"
-BBOX="-1.25,52.888,-1.06,53.02"
-# visualize:
+# visualize: (FIXME!)
 #http://www.openstreetmap.org/?box=yes&bbox=$BBOX
 
 # Perhaps it is too detailed a city for some of our examples, so we
 #  provide a smaller version too:
-#CITY="Nottingham_CBD"
-#BBOX="-1.2,52.93,-1.1,52.985"
-# *** TODO: next time we do an extract move it SW a bit to get
-#           better coverage around the university campus
+#CITY="Portland_OR_CBD"
+#BBOX="-122.721,45.488,-122.620,45.544"
 #
 #
 # City OSM data:
