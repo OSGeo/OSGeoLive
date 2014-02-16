@@ -32,8 +32,7 @@ DATA_FOLDER="/usr/local/share/data"
 
 apt-get -q update
 
-#temp solution
-#apt-get install --assume-yes ossim-core
+apt-get install --assume-yes ossim-core libgdal1-1.10.0-grass
 
 # install main dependencies
 apt-get install --assume-yes libtiff4 libgeotiff2 \
@@ -42,9 +41,11 @@ apt-get install --assume-yes libtiff4 libgeotiff2 \
   libopenmpi1.3 libqt4-qt3support python-pip python-pandas python-netcdf \
   spyder
 
-apt-get install --assume-yes krb5-multidev libexpat-ocaml libfindlib-ocaml libgnutls-openssl27 libopenjpeg2 \
-	libpodofo0.9.0 libpthread-stubs0 libqt4-sql-sqlite libtiffxx0c2 ocaml-base-nox \
-		ocaml-findlib ocaml-interp ocaml-nox pkg-config qt4-dev-tools qt4-linguist-tools qt4-qmake xorg-sgml-doctools
+apt-get install --assume-yes krb5-multidev libexpat-ocaml libfindlib-ocaml \
+  libgnutls-openssl27 libopenjpeg2 libpodofo0.9.0 libpthread-stubs0 \
+  libqt4-sql-sqlite libtiffxx0c2 ocaml-base-nox \
+  ocaml-findlib ocaml-interp ocaml-nox pkg-config \
+  qt4-dev-tools qt4-linguist-tools qt4-qmake xorg-sgml-doctools
 
 # fragile @ ubuntugis
 #apt-get install --assume-yes libgdal1h  libgdal1-1.10.0-grass
@@ -68,6 +69,17 @@ fi
 mkdir -p /tmp/build_ossim
 cd /tmp/build_ossim
 
+# OSSIM Qt apps built on live dvd
+wget -c --progress=dot:mega \
+  "http://download.osgeo.org/livedvd/data/ossim/ossim-qt_1.8.16.tar.gz"
+
+tar -x -z -C / -f ossim-qt_1.8.16.tar.gz
+
+# if that works, keep going ...
+
+
+exit 0
+#########################################
 
 #wget -N --progress=dot:mega "http://geofemengineering.it/osgeolive/ossim.tar.gz" 
  
