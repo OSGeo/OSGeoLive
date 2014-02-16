@@ -75,6 +75,8 @@ wget -c --progress=dot:mega \
 
 tar -x -z -C / -f ossim-qt_1.8.16.tar.gz
 
+ldconfig
+
 # if that works, keep going ...
 
 
