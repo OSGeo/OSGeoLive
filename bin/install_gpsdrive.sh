@@ -90,8 +90,8 @@ mkdir "$USER_HOME/.gpsdrive"
 
 # program defaults
 cat << EOF > "/etc/skel/.gpsdrive/gpsdriverc"
-lastlong = -1.20
-lastlat = 52.93984
+lastlong = -122.6632
+lastlat = 45.5281
 scalewanted = 10000
 dashboard_3 = 12
 autobestmap = 0
@@ -118,6 +118,8 @@ OSM_State_of_the_Map_2011        39.7457  -105.0034
 Business_School_South_(Jubilee)  52.9517  -1.1864
 East_Midlands_Conference_Centre  52.9390  -1.2032
 FOSS4G-NA_2013_(Marriott_City_Center)   44.9776  -93.2735
+Oregon_Convention_Center         45.5281  -122.6632
+Portland_State_University        45.5121  -122.6828
 EOF
 
 cp /etc/skel/.gpsdrive/way.txt "$USER_HOME/.gpsdrive/"
