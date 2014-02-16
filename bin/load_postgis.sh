@@ -67,6 +67,15 @@ OSM_FILE="/usr/local/share/data/osm/feature_city.osm.bz2"
 ###  PostGIS 2.0 no longer needs a template, use the extension mechanism instead
 sudo -u $POSTGRES_USER createdb osm_local
 sudo -u $POSTGRES_USER psql osm_local -c 'create extension postgis;'
+
+
+# Kosmo, gvSIG, gpsdrive, please update your API calls ....
+cp "$BUILD_DIR"/app-conf/postgis/legacy*.sql \
+  /usr/share/postgresql/9.3/contrib/postgis-2.1/
+
+sed -i -e 's/postgis-2.0/postgis-2.1/' \
+  /usr/share/postgresql/9.3/contrib/postgis-2.1/legacy*.sql
+
 sudo -u $POSTGRES_USER psql osm_local \
   -f /usr/share/postgresql/9.3/contrib/postgis-2.1/legacy_minimal.sql
 
