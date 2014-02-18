@@ -66,9 +66,9 @@ apt-get --assume-yes install python-psycopg2 \
 
 # Install plugins
 wget -c --progress=dot:mega \
-   "http://aiolos.survey.ntua.gr/gisvm/dev/qgis-osgeolive-plugins_7.9-1_all.deb"
-dpkg -i qgis-osgeolive-plugins_7.9-1_all.deb
-#rm -rf qgis-osgeolive-plugins_7.9-1_all.deb
+   "http://aiolos.survey.ntua.gr/gisvm/dev/qgis-osgeolive-plugins_7.9-2_all.deb"
+dpkg -i qgis-osgeolive-plugins_7.9-2_all.deb
+#rm -rf qgis-osgeolive-plugins_7.9-2_all.deb
 
 #Make sure old qt uim isn't installed
 apt-get --assume-yes remove uim-qt uim-qt3
