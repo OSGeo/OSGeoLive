@@ -50,11 +50,11 @@ mkdir -p "$ZOO_TMP"
 
 # Download ZOO Project LiveDVD tarball.
 wget -N --progress=dot:mega \
-   "http://aiolos.survey.ntua.gr/gisvm/dev/zoo-binaries-js-livedvd-2013.tar.bz2" \
-   -O "$ZOO_TMP/zoo-livedvd.tar.bz2"
+   "http://aiolos.survey.ntua.gr/gisvm/dev/zoo-project-osgeolive2014.tar.gz" \
+   -O "$ZOO_TMP/zoo-livedvd.tar.gz"
 
 # Uncompress ZOO Project LiveDVD tarball.
-tar -xjpf "$ZOO_TMP/zoo-livedvd.tar.bz2" --no-same-owner -C /
+tar -xzpf "$ZOO_TMP/zoo-livedvd.tar.gz" --no-same-owner -C /
 
 chown -R www-data:www.data \
   /var/www/zoo /var/www/zoo-demo /var/www/temp
