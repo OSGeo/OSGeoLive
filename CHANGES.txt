@@ -1,6 +1,15 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.9beta3
+===================
+
+ * OSSIM fixed not to conflict with OTB
+ * ZOO project updated
+ * QGIS plugins updated
+ * Added back legacy.sql for Kosmo, gvSIG, and gpsdrive (#1300)
+ * Changed featured city: Nottingham -> Portland
+
 Version 7.9beta2
 ===================
 
@@ -9,7 +18,6 @@ Version 7.9beta2
  * New version of Geomajas (1.14.0)
  * Updated EOxServer to 0.3.2
  * Updated gvSIG to 2.1.0
- * 
 
 Version 7.9beta1
 ===================
