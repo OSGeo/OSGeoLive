@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2009 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -40,7 +40,9 @@ TMP_DIR=/tmp/build_qgis
 apt-get -q update
 
 #Install packages
+## 23feb14 fix for QGis "can't make bookmarks"
 apt-get --assume-yes install qgis \
+   libqt4-sql-sqlite \
    qgis-common python-qgis python-qgis-common \
    gpsbabel python-rpy2 python-qt4-phonon \
    qgis-plugin-grass qgis-plugin-grass-common grass-doc
