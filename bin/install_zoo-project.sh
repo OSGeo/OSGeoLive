@@ -54,7 +54,7 @@ wget -N --progress=dot:mega \
    -O "$ZOO_TMP/zoo-livedvd.tar.gz"
 
 # Uncompress ZOO Project LiveDVD tarball.
-tar -xzpf "$ZOO_TMP/zoo-livedvd.tar.gz" --no-same-owner -C /
+tar -xjpf "$ZOO_TMP/zoo-livedvd.tar.gz" --no-same-owner -C /
 
 chown -R www-data:www.data \
   /var/www/zoo /var/www/zoo-demo /var/www/temp
