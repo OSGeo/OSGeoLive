@@ -148,17 +148,17 @@ fi
 #Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/ossim
 
-##wget --read-timeout=20 --tries=5 --progress=dot:mega \
-##     "http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf" \
-##     --output-document=/usr/local/share/ossim/ossim_users_guide.pdf
+wget --read-timeout=20 --tries=5 --progress=dot:mega \
+     "http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf" \
+     --output-document=/usr/local/share/ossim/ossim_users_guide.pdf
 
 #echo "FIXME: doesn't exist ==>
 # 'ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/'"
 
 # pdf temporary stored on my ftp, waiting to add it on ossim download page.   
-##wget --read-timeout=20 --tries=5 --progress=dot:mega \
-##     "http://download.osgeo.org/livedvd/data/ossim/OSSIM_Whitepaper.pdf" \
-##     --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
+wget --read-timeout=20 --tries=5 --progress=dot:mega \
+     "http://download.osgeo.org/livedvd/data/ossim/OSSIM_Whitepaper.pdf" \
+     --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
 
 
 #Download data used to test the application
@@ -188,18 +188,18 @@ done
 # Cape Cod SRTM and LANDSAT
 DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
 BASENAME="p011r031_7t19990918_z19_nn"
-##for BAND in 10 20 30 ; do
-##    # LANDSAT
-##    wget --progress=dot:mega "$DATA_URL/ossim_data/${BASENAME}$BAND.tif" \
-##         --output-document="$SAT_DATA/${BASENAME}$BAND.tif"
-##    ls -l "$SAT_DATA/${BASENAME}$BAND.tif"
-##    chmod a-x "$SAT_DATA/${BASENAME}$BAND.tif"
-##done
+for BAND in 10 20 30 ; do
+    # LANDSAT
+    wget --progress=dot:mega "$DATA_URL/ossim_data/${BASENAME}$BAND.tif" \
+         --output-document="$SAT_DATA/${BASENAME}$BAND.tif"
+    ls -l "$SAT_DATA/${BASENAME}$BAND.tif"
+    chmod a-x "$SAT_DATA/${BASENAME}$BAND.tif"
+done
 
 # SRTM
-##wget --progress=dot:mega "$DATA_URL/ossim_data/SRTM_fB03_p011r031.tif"  \
-##     --output-document="$SAT_DATA/SRTM_fB03_p011r031.tif"
-##chmod a-x "$SAT_DATA/SRTM_fB03_p011r031.tif"
+wget --progress=dot:mega "$DATA_URL/ossim_data/SRTM_fB03_p011r031.tif"  \
+     --output-document="$SAT_DATA/SRTM_fB03_p011r031.tif"
+chmod a-x "$SAT_DATA/SRTM_fB03_p011r031.tif"
 
 #wget --progress=dot:mega $DATA_URL/ossim_data/bluemarble.tif  \
 #--output-document=/usr/share/ossim/images/reference/bluemarble.tif
