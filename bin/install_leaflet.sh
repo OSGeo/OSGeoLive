@@ -19,6 +19,11 @@
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
+
 #add-apt-repository --yes ppa:johanvdw/leafletjs
 apt-get update
 apt-get --assume-yes install libjs-leaflet
