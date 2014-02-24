@@ -286,7 +286,37 @@ gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/soil.
 gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/streams /home/user/data/raster/vrt/streams.vrt
 gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/vegcover /home/user/data/raster/vrt/vegcover.vrt
 
+/usr/bin/ossim-img2rr \
+	/home/user/data/raster/vrt/aspect.vrt /home/user/data/raster/vrt/erosion1.vrt /home/user/data/raster/vrt/quads.vrt \
+	/home/user/data/raster/vrt/soils.vrt /home/user/data/raster/vrt/strm.dist.vrt /home/user/data/raster/vrt/bugsites.vrt \
+	/home/user/data/raster/vrt/fields.vrt /home/user/data/raster/vrt/railroads.vrt /home/user/data/raster/vrt/railroads.vrt \
+	/home/user/data/raster/vrt/railroads.vrt /home/user/data/raster/vrt/soils.Kfactor.vrt /home/user/data/raster/vrt/texture.vrt \
+	/home/user/data/raster/vrt/density.vrt /home/user/data/raster/vrt/geology.vrt /home/user/data/raster/vrt/roads.vrt \
+	/home/user/data/raster/vrt/soils.ph.vrt /home/user/data/raster/vrt/tractids.vrt /home/user/data/raster/vrt/elevation.10m.vrt \
+	/home/user/data/raster/vrt/landcover.30m.vrt /home/user/data/raster/vrt/rstrct.areas.vrt /home/user/data/raster/vrt/soils.range.vrt \
+	/home/user/data/raster/vrt/transport.misc.vrt /home/user/data/raster/vrt/elevation.dem.vrt /home/user/data/raster/vrt/landcover.orig.vrt \
+	/home/user/data/raster/vrt/rushmore.vrt /home/user/data/raster/vrt/soils.Tfactor.vrt /home/user/data/raster/vrt/trn.sites.vrt \
+	/home/user/data/raster/vrt/elevation.dted.vrt /home/user/data/raster/vrt/landuse.vrt /home/user/data/raster/vrt/slope.vrt \
+	/home/user/data/raster/vrt/spot.image.vrt /home/user/data/raster/vrt/uparea.vrt /home/user/data/raster/vrt/erode.index.vrt \
+	/home/user/data/raster/vrt/owner.vrt /home/user/data/raster/vrt/soil.br.depth.vrt /home/user/data/raster/vrt/streams.vrt \
+	/home/user/data/raster/vrt/vegcover.vrt
 
+
+
+/usr/bin/ossim-create-histo \
+	/home/user/data/raster/vrt/aspect.vrt /home/user/data/raster/vrt/erosion1.vrt /home/user/data/raster/vrt/quads.vrt \
+	/home/user/data/raster/vrt/soils.vrt /home/user/data/raster/vrt/strm.dist.vrt /home/user/data/raster/vrt/bugsites.vrt \
+	/home/user/data/raster/vrt/fields.vrt /home/user/data/raster/vrt/railroads.vrt /home/user/data/raster/vrt/railroads.vrt \
+	/home/user/data/raster/vrt/railroads.vrt /home/user/data/raster/vrt/soils.Kfactor.vrt /home/user/data/raster/vrt/texture.vrt \
+	/home/user/data/raster/vrt/density.vrt /home/user/data/raster/vrt/geology.vrt /home/user/data/raster/vrt/roads.vrt \
+	/home/user/data/raster/vrt/soils.ph.vrt /home/user/data/raster/vrt/tractids.vrt /home/user/data/raster/vrt/elevation.10m.vrt \
+	/home/user/data/raster/vrt/landcover.30m.vrt /home/user/data/raster/vrt/rstrct.areas.vrt /home/user/data/raster/vrt/soils.range.vrt \
+	/home/user/data/raster/vrt/transport.misc.vrt /home/user/data/raster/vrt/elevation.dem.vrt /home/user/data/raster/vrt/landcover.orig.vrt \
+	/home/user/data/raster/vrt/rushmore.vrt /home/user/data/raster/vrt/soils.Tfactor.vrt /home/user/data/raster/vrt/trn.sites.vrt \
+	/home/user/data/raster/vrt/elevation.dted.vrt /home/user/data/raster/vrt/landuse.vrt /home/user/data/raster/vrt/slope.vrt \
+	/home/user/data/raster/vrt/spot.image.vrt /home/user/data/raster/vrt/uparea.vrt /home/user/data/raster/vrt/erode.index.vrt \
+	/home/user/data/raster/vrt/owner.vrt /home/user/data/raster/vrt/soil.br.depth.vrt /home/user/data/raster/vrt/streams.vrt \
+	/home/user/data/raster/vrt/vegcover.vrt
 
 # gdal-grass broken .. commentimng the conversion to vrt
 /usr/bin/gdal_translate -of VRT \
