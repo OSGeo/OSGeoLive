@@ -34,7 +34,6 @@ fi
 
 #Repository url
 I3GEO_DOWNLOAD_URL="http://svn.gvsig.org/svn/i3geo/arquivos_versoes/v46"
-#I3GEO_DOWNLOAD_URL="http://aiolos.survey.ntua.gr/gisvm/dev"
 
 #Filename
 I3GEO_COMPRESSED_FILE="livedvdosgeo_i3geo46_26_dezembro_2012.zip"

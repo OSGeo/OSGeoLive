@@ -50,7 +50,7 @@ mkdir -p "$ZOO_TMP"
 
 # Download ZOO Project LiveDVD tarball.
 wget -N --progress=dot:mega \
-   "http://aiolos.survey.ntua.gr/gisvm/dev/zoo-project-osgeolive2014.tar.gz" \
+   "http://download.osgeo.org/livedvd/data/zoo/zoo-project-osgeolive2014.tar.gz" \
    -O "$ZOO_TMP/zoo-livedvd.tar.gz"
 
 # Uncompress ZOO Project LiveDVD tarball.
