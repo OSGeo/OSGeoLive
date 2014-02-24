@@ -17,103 +17,36 @@
 # This script will install ZOO Project
 #
 # Requires: Apache2, GeoServer (for the demo only)
-#
-# Uninstall:
-# ============
-# sudo rm /etc/apache2/conf.d/zoo-project
-# sudo rm -rf /var/www/zoo*
-# sudo rm -rf /usr/lib/cgi-bin/zoo_loader.cgi
-# sudo rm -rf /usr/lib/cgi-bin/proxy.cgi
-# sudo rm -rf /usr/lib/cgi-bin/*zcfg
-# sudo rm -rf /usr/lib/cgi-bin/ogr_service*
-# sudo rm -rf /usr/lib/cgi-bin/main.cfg
-# sudo rm -rf /usr/share/applications/zoo-project.desktop
-# sudo rm -rf /home/user/Desktop/Servers/zoo-project.desktop
+
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
-
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-ZOO_TMP=/tmp/build_zoo
-
-ZOO_APACHE_CONF="/etc/apache2/conf.d/zoo-project"
 
 apt-get --assume-yes install libmozjs185-1.0
 
-mkdir -p "$ZOO_TMP"
-
-# Download ZOO Project LiveDVD tarball.
+# Download ZOO Project deb file.
 wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/zoo/zoo-project-osgeolive2014.tar.gz" \
-   -O "$ZOO_TMP/zoo-livedvd.tar.gz"
+   "http://download.osgeo.org/livedvd/data/zoo/zoo-project_1.3.0-2_i386.deb"
 
-# Uncompress ZOO Project LiveDVD tarball.
-tar -xjpf "$ZOO_TMP/zoo-livedvd.tar.gz" --no-same-owner -C /
-
-chown -R www-data:www.data \
-  /var/www/zoo /var/www/zoo-demo /var/www/temp
-
-# #Patch to fix #1137
-# #TODO: submit upstream
-# sed -i -e 's|http://labs.metacarta.com/wms/vmap0|http://maps.opengeo.org/geowebcache/service/wms|' \
-#        -e 's|basic|openstreetmap|' \
-#     /var/www/zoo-demo/spatialtools_files/demo.js
-
-echo -n "Apache configuration update ..."
-# Add ZOO Project apache configuration
-cat << EOF > "$ZOO_APACHE_CONF"
-
-        <Directory /var/www/zoo/>
-                Options Indexes FollowSymLinks MultiViews
-                AllowOverride All
-                Order allow,deny
-                allow from all
-        </Directory>
-
-EOF
-
-echo -n "Done\n"
+dpkg -i zoo-project_1.3.0-2_i386.deb
 
 a2enmod rewrite
 
-
-#Add Launch icon to desktop
-if [ ! -e /usr/share/applications/zoo-project.desktop ] ; then
-   cat << EOF > /usr/share/applications/zoo-project.desktop
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=ZOO Project
-Comment=ZOO Project
-Categories=Application;Education;Geography;
-Exec=firefox http://localhost/zoo-demo/spatialtools.html
-Icon=/var/www/zoo-demo/spatialtools_files/zoo-icon.png
-Terminal=false
-StartupNotify=false
-Categories=Education;Geography;
-EOF
-fi
-
 cp /usr/share/applications/zoo-project.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/zoo-project.desktop"
-
-rm /etc/ld.so.conf.d/zoo-project.conf
-cat > /etc/ld.so.conf.d/zoo-project.conf <<EOF
-/usr/lib/jvm/default-java/jre/lib/i386/server
-EOF
 
 cd /usr/lib/cgi-bin
 ldconfig
 
 # Reload Apache
 /etc/init.d/apache2 force-reload
-
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
