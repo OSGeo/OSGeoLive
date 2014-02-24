@@ -364,4 +364,4 @@ rm -rf "$QUICKSTART"/.svn
 
 
 ####
-#"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
