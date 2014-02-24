@@ -38,7 +38,7 @@ GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 
 #Install packages
-add-apt-repository -y ppa:geonode/release
+#add-apt-repository -y ppa:geonode/release
 #add-apt-repository -y ppa:geonode/unstable
 #add-apt-repository -y ppa:geonode/testing
 apt-get -q update

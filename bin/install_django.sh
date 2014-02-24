@@ -36,7 +36,7 @@
 # pip install --upgrade Django=="$DJVER"
 
 #Install packages
-add-apt-repository -y ppa:geonode/release
+#add-apt-repository -y ppa:geonode/release
 #add-apt-repository -y ppa:geonode/unstable
 #add-apt-repository -y ppa:geonode/testing
 apt-get -q update
