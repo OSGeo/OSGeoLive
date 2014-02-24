@@ -237,7 +237,6 @@ export OSSIM_PREFS_FILE
 #/usr/bin/gdal_translate -of VRT "$RASTER_DATA"/BlueMarble_small.tif \
 #    /usr/share/ossim/images/reference/bluemarble.tif
 
-unset OSSIM_PREFS_FILE
 
 
 mkdir -p "$QUICKSTART"/workspace
@@ -318,6 +317,10 @@ gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/vegco
 	/home/user/data/raster/vrt/owner.vrt /home/user/data/raster/vrt/soil.br.depth.vrt /home/user/data/raster/vrt/streams.vrt \
 	/home/user/data/raster/vrt/vegcover.vrt
 
+
+
+
+
 # gdal-grass broken .. commentimng the conversion to vrt
 /usr/bin/gdal_translate -of VRT \
     "$SPEARFISH_RASTER"/elevation.10m \
@@ -331,6 +334,9 @@ OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference \
   /usr/bin/ossim-orthoigen -w general_raster_bip \
     "$QUICKSTART"/workspace/elevation10m.tif \
     /usr/share/ossim/elevation/spearfish/elevation10m.ras
+
+
+unset OSSIM_PREFS_FILE
 
 
 cp -r "$APP_DATA_DIR"/* "$QUICKSTART"/
