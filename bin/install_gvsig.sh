@@ -64,6 +64,7 @@ USER_DESKTOP="$USER_HOME/Desktop"
 
 GVSIG_PACKAGE="gvsig_2.1.0-2218_i386_BN2.deb"
 GVSIG_URL="http://aiolos.survey.ntua.gr/gisvm/dev/"
+#GVSIG_URL="http://download.osgeo.org/livedvd/data/gvsig/"
 #GVSIG_URL="http://downloads.gvsig.org/download/gvsig-desktop/other-dists/osgeo-live"
 #GVSIG_URL="https://www.dropbox.com/s/6ujajdxa048pgii/"
 
