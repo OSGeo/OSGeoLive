@@ -112,6 +112,7 @@ c.NotebookApp.open_browser = False
 c.NotebookApp.port = 12345
 c.NotebookManager.save_script=True
 c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace/geo-notebook'
+c.NotebookApp.ip = '*'
 EOF
 
 cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
@@ -122,24 +123,18 @@ chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 IPY_GRASS="/usr/local/bin/ipython_grass.sh"
 cat << EOF > "$IPY_GRASS"
 #!/bin/bash -l
-export LD_LIBRARY_PATH="/usr/lib/grass64/lib"
-if [ -z "$PYTHONPATH" ] ; then
-    export PYTHONPATH="/usr/lib/grass64/etc/python"
-else
-    export PYTHONPATH="/usr/lib/grass64/etc/python:\$PYTHONPATH"
-fi
-export GISBASE="/usr/lib/grass64"
-export PATH="\$PATH:\$GISBASE/bin:\$GISBASE/scripts"
-export GIS_LOCK=\$\$
-mkdir -p "\$HOME/grassdata"
-export GISRC="\$HOME/.grassrc6"
-export GISDBASE="/home/\$USER/grassdata"
+export LD_LIBRARY_PATH=/usr/lib/grass64/lib:\$LD_LIBRARY_PATH
+export PYTHONPATH=/usr/lib/grass64/etc/python:\$PYTHONPATH
+export GISBASE=/usr/lib/grass64/
+export PATH=/usr/lib/grass64/bin/:\$GISBASE/bin:\$GISBASE/scripts:\$PATH
+export GIS_LOCK=\$$
+export GISRC=/home/\$USER/.grassrc6
+export GISDBASE=/home/\$USER/grassdata
 export GRASS_TRANSPARENT=TRUE
 export GRASS_TRUECOLOR=TRUE
 export GRASS_PNG_COMPRESSION=9
 export GRASS_PNG_AUTO_WRITE=TRUE
-cd /usr/local/share/ossim/quickstart/workspace/geo-notebook
-ipython notebook --pylab=inline --profile=osgeolive
+ipython notebook --matplolib=inline --profile=osgeolive
 EOF
 chmod a+x "$IPY_GRASS"
 
