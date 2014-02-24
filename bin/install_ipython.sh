@@ -134,7 +134,7 @@ export GRASS_TRANSPARENT=TRUE
 export GRASS_TRUECOLOR=TRUE
 export GRASS_PNG_COMPRESSION=9
 export GRASS_PNG_AUTO_WRITE=TRUE
-ipython notebook --matplolib=inline --profile=osgeolive
+ipython notebook --pylab=inline --profile=osgeolive
 EOF
 chmod a+x "$IPY_GRASS"
 
