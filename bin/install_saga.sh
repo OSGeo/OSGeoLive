@@ -16,10 +16,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-#CAUTION: UbuntuGIS should be enabled only through setup.sh
-# Temporary use the svn build ppa until 2.1.0 is definitely released
-# add-apt-repository --yes ppa:johanvdw/sagacvs
-#add-apt-repository --yes ppa:ubuntugis/ubuntugis-unstable
+#add-apt-repository --yes ppa:johanvdw/sagacvs
 
 apt-get -q update
 apt-get --assume-yes install saga libsaga
@@ -46,6 +43,7 @@ wget -nv http://zadeh.ugent.be/~johan/saga/saga_gui.desktop \
 cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/saga_gui.desktop"
 
+#add-apt-repository --yes --remove ppa:johanvdw/sagacvs
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

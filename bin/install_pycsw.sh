@@ -30,8 +30,6 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-# VERSION=1.6.0
-
 echo 'Installing pycsw dependencies ...'
 
 # install dependencies
@@ -40,17 +38,10 @@ apt-get install --yes apache2 python-lxml python-sqlalchemy \
 
 echo 'Installing pycsw ...'
 
-#add-apt-repository --yes ppa:gcpp-kalxas/ppa-tzotsos
-#apt-get -q update
 apt-get install --yes python-owslib python-pycsw pycsw-cgi
-
 
 cp /usr/share/applications/pycsw.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/pycsw.desktop"
-
-# Reload Apache
-#/etc/init.d/apache2 force-reload
-
 
 ####
 ./diskspace_probe.sh "`basename $0`" end

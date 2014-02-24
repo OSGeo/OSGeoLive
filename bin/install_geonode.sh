@@ -39,8 +39,6 @@ GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 
 #Install packages
 #add-apt-repository -y ppa:geonode/release
-#add-apt-repository -y ppa:geonode/unstable
-#add-apt-repository -y ppa:geonode/testing
 apt-get -q update
 apt-get --assume-yes install python-geonode libapache2-mod-wsgi curl
 
@@ -317,6 +315,8 @@ ln -s /usr/lib/python2.7/dist-packages/gisdata/metadata/good /usr/local/share/da
 
 #testing for upgrade FIXME: Remove this and use the ppa version
 #sudo pip install -U --no-deps GeoNode==2.0
+
+#apt-add-repository --yes --remove ppa:geonode/release
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

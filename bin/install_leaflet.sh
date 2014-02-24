@@ -19,10 +19,10 @@
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
-add-apt-repository --yes ppa:johanvdw/leafletjs
+#add-apt-repository --yes ppa:johanvdw/leafletjs
 apt-get update
 apt-get --assume-yes install libjs-leaflet
-
+#add-apt-repository --yes --remove ppa:johanvdw/leafletjs
 
 ln -s /usr/share/javascript/leaflet/ /var/www/leaflet
 

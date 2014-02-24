@@ -200,6 +200,7 @@ ln -s /usr/local/share/data/osm/"${CITY}_CBD.osm.bz2" \
 add-apt-repository --yes ppa:kakrueger/openstreetmap
 apt-get -q update
 apt-get --assume-yes --no-install-recommends install osm2pgsql
+add-apt-repository --yes --remove ppa:kakrueger/openstreetmap
 ###########################
 #apt-get --assume-yes install osm2pgsql
 

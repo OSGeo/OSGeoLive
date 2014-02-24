@@ -126,6 +126,7 @@ fi
 # the IPv4 host pgsql permissions to 'trust' in pg_hpa.conf. but we
 # don't want to do that by default.
 
+#add-apt-repository -y --remove ppa:georepublic/pgrouting
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
