@@ -29,5 +29,26 @@ ln -s /usr/share/javascript/leaflet/ /var/www/leaflet
 #add demo file
 wget -nv http://zadeh.ugent.be/~johan/leaflet-demo.html --output-document=/var/www/leaflet-demo.html
 
+### install desktop icons ##
+echo "Installing Leaflet icon"
+cp -f "$USER_HOME/gisvm/app-conf/leaflet/leafletjs_logo.png" \
+       /usr/share/icons/
+
+## start icon
+cat << EOF > /usr/share/applications/leaflet.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Leaflet Examples
+Comment=LeafletJS
+Categories=Application;Internet;
+Exec=firefox http://localhost/en/quickstart/leaflet_quickstart.html http://localhost/leaflet-demo.html
+Icon=/usr/share/icons/leafletjs_logo.png
+Terminal=false
+EOF
+
+cp -a /usr/share/applications/leaflet.desktop "$USER_HOME/Desktop/"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/leaflet.desktop"
+
 ####
 ./diskspace_probe.sh "`basename $0`" end

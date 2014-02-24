@@ -49,11 +49,11 @@ WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="geomajas-* mapbender3 MapFish-* GeoMOOSE geonode-* cartaro-*"
+BROWSER_CLIENTS="openlayers leaflet geomajas-* mapbender3 MapFish-* GeoMOOSE geonode-* cartaro-*"
 #disabled: i3geo
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="imagelinker r geokettle openlayers
+SPATIAL_TOOLS="imagelinker r geokettle 
                maptiler tilemill mapnik-* monteverdi"
 
 #Future home of PostGIS and Spatialite; pgRouting???
