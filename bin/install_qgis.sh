@@ -40,9 +40,9 @@ TMP_DIR=/tmp/build_qgis
 apt-get -q update
 
 #Install packages
-## 23feb14 fix for QGis "can't make bookmarks"
+## 23feb14 fix for QGis "can't make bookmarks" (libqt4-sql-sqlite)
+## According to the mailing list thread this is present in QGIS 2.2
 apt-get --assume-yes install qgis \
-   libqt4-sql-sqlite \
    qgis-common python-qgis python-qgis-common \
    gpsbabel python-rpy2 python-qt4-phonon \
    qgis-plugin-grass qgis-plugin-grass-common grass-doc
@@ -68,7 +68,7 @@ apt-get --assume-yes install python-psycopg2 \
 
 # Install plugins
 wget -c --progress=dot:mega \
-   "http://aiolos.survey.ntua.gr/gisvm/dev/qgis-osgeolive-plugins_7.9-3_all.deb"
+   "http://download.osgeo.org/livedvd/data/qgis/qgis-osgeolive-plugins_7.9-3_all.deb"
 dpkg -i qgis-osgeolive-plugins_7.9-3_all.deb
 #rm -rf qgis-osgeolive-plugins_7.9-2_all.deb
 
