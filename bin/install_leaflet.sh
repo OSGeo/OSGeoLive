@@ -44,8 +44,8 @@ cat << EOF > /usr/share/applications/leaflet.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Leaflet Examples
-Comment=LeafletJS
+Name=Leaflet
+Comment=LeafletJS Examples
 Categories=Application;Internet;
 Exec=firefox http://localhost/en/quickstart/leaflet_quickstart.html http://localhost/leaflet-demo.html
 Icon=/usr/share/icons/leafletjs_logo.png

@@ -122,10 +122,10 @@ if [ ! -e /usr/share/applications/openlayers.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=OpenLayers Examples
+Name=OpenLayers
 Comment=Sample constructions
 Categories=Application;Internet;
-Exec=firefox http://localhost/openlayers/examples/
+Exec=firefox http://localhost/openlayers/examples/ http://localhost/en/quickstart/openlayers_quickstart.html
 Icon=openlayers
 Terminal=false
 StartupNotify=false
