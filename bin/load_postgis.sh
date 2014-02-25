@@ -33,7 +33,6 @@ BUILD_DIR=`pwd`
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
-USER_HOME="/home/$USER_NAME"
 
 POSTGRES_USER="$USER_NAME"
 CITY="Portland_OR"
@@ -70,8 +69,8 @@ sudo -u $POSTGRES_USER createdb osm_local
 sudo -u $POSTGRES_USER psql osm_local -c 'create extension postgis;'
 
 
-# Kosmo, gvSIG, gpsdrive, please update your API calls ....
-cp "$USER_HOME"/gisvm/app-conf/postgis/legacy*.sql \
+# Kosmo, gpsdrive, please update your API calls ....
+cp "$BUILD_DIR"/../app-conf/postgis/legacy*.sql \
   /usr/share/postgresql/9.3/contrib/postgis-2.1/
 
 sed -i -e 's/postgis-2.0/postgis-2.1/' \
