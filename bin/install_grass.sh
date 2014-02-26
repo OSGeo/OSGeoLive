@@ -169,14 +169,11 @@ fi
 
 
 #### preconfig setup ####
-
-GRASS_GUI=wxpython
-
 cat << EOF > "$USER_HOME/.grassrc6"
 GISDBASE: $USER_HOME/grassdata
 LOCATION_NAME: spearfish60
 MAPSET: user1
-GRASS_GUI: $GRASS_GUI
+GRASS_GUI: wxpython
 EOF
 
 
