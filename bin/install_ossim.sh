@@ -77,16 +77,15 @@ tar -x -z -C / -f ossim-qt_1.8.16.tar.gz
 
 ldconfig
 
-# if that works, keep going ...
+mkdir -p /usr/share/ossim/
 
-
-mkdir /usr/share/ossim/
 wget -N --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/ossim/ossim_settings.tar.gz"
 
 tar -zxf ossim_settings.tar.gz
 
 chown -R root.root ossim_settings/
+#FIXME: "cannot move: Directory not empty"
 mv ossim_settings/* /usr/share/ossim/
 
 
@@ -146,7 +145,7 @@ fi
 
 
 #Install the Manual and Intro guide locally and link them to the description.html
-mkdir /usr/local/share/ossim
+mkdir -p /usr/local/share/ossim
 
 wget --read-timeout=20 --tries=5 --progress=dot:mega \
      "http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf" \
@@ -214,7 +213,7 @@ BASENAME="p011r031_7t19990918_z19_nn"
 #wget --progress=dot:mega $DATA_URL/ossim_data/session.session \
 #     --output-document=$PKG_DATA/session.session
 
-wget --progress=dot:mega "$DATA_URL/ossim_preference" \
+wget -nv "$DATA_URL/ossim_preference" \
      --output-document=/usr/share/ossim/ossim_preference
 
 apt-get --assume-yes install libjpeg62
@@ -222,17 +221,17 @@ apt-get --assume-yes install libjpeg62
 OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference
 export OSSIM_PREFS_FILE
 
-
-/usr/bin/ossim-img2rr \
+if [ -e "$SAT_DATA/p011r031_7t19990918_z19_nn10.tif" ] ; then
+ /usr/bin/ossim-img2rr \
     "$SAT_DATA/p011r031_7t19990918_z19_nn10.tif" \
     "$SAT_DATA/p011r031_7t19990918_z19_nn20.tif" \
     "$SAT_DATA/p011r031_7t19990918_z19_nn30.tif"
 
-/usr/bin/ossim-create-histo \
+ /usr/bin/ossim-create-histo \
     "$SAT_DATA/p011r031_7t19990918_z19_nn10.tif" \
     "$SAT_DATA/p011r031_7t19990918_z19_nn20.tif" \
     "$SAT_DATA/p011r031_7t19990918_z19_nn30.tif"
-
+fi
 
 #/usr/bin/gdal_translate -of VRT "$RASTER_DATA"/BlueMarble_small.tif \
 #    /usr/share/ossim/images/reference/bluemarble.tif
@@ -248,77 +247,17 @@ chgrp users /usr/share/ossim/elevation
 
 
 #### spearfish subset to VRT
+GISBASE=/usr/lib/grass64
+export GISBASE
+SPEARFISH="/usr/local/share/grass/spearfish60/PERMANENT/cellhd"
 
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/aspect /home/user/data/raster/vrt/aspect.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/erosion1 /home/user/data/raster/vrt/erosion1.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/quads /home/user/data/raster/vrt/quads.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/soils /home/user/data/raster/vrt/soils.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/strm.dist /home/user/data/raster/vrt/strm.dist.vrt 
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/bugsites /home/user/data/raster/vrt/bugsites.vrt 
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/fields /home/user/data/raster/vrt/fields.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/railroads /home/user/data/raster/vrt/railroads.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/soils.Kfactor /home/user/data/raster/vrt/soils.Kfactor.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/texture /home/user/data/raster/vrt/texture.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/density /home/user/data/raster/vrt/density.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/geology /home/user/data/raster/vrt/geology.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/roads /home/user/data/raster/vrt/roads.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/soils.ph /home/user/data/raster/vrt/soils.ph.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/tractids /home/user/data/raster/vrt/tractids.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/elevation.10m /home/user/data/raster/vrt/elevation.10m.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/landcover.30m /home/user/data/raster/vrt/landcover.30m.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/rstrct.areas /home/user/data/raster/vrt/rstrct.areas.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/soils.range /home/user/data/raster/vrt/soils.range.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/transport.misc /home/user/data/raster/vrt/transport.misc.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/elevation.dem /home/user/data/raster/vrt/elevation.dem.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/landcover.orig /home/user/data/raster/vrt/landcover.orig.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/rushmore /home/user/data/raster/vrt/rushmore.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/soils.Tfactor /home/user/data/raster/vrt/soils.Tfactor.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/trn.sites /home/user/data/raster/vrt/trn.sites.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/elevation.dted /home/user/data/raster/vrt/elevation.dted.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/landuse /home/user/data/raster/vrt/landuse.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/slope /home/user/data/raster/vrt/slope.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/spot.image /home/user/data/raster/vrt/spot.image.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/uparea /home/user/data/raster/vrt/uparea.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/erode.index /home/user/data/raster/vrt/erode.index.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/owner /home/user/data/raster/vrt/owner.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/soil.br.depth /home/user/data/raster/vrt/soil.br.depth.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/streams /home/user/data/raster/vrt/streams.vrt
-gdal_translate -of VRT /usr/local/share/grass/spearfish60/PERMANENT/cellhd/vegcover /home/user/data/raster/vrt/vegcover.vrt
+for MAP in "$SPEARFISH"/* ; do
+    gdal_translate -of VRT "$MAP" "$VRT_DATA/`basename $MAP`.vrt"
+done
 
-/usr/bin/ossim-img2rr \
-	/home/user/data/raster/vrt/aspect.vrt /home/user/data/raster/vrt/erosion1.vrt /home/user/data/raster/vrt/quads.vrt \
-	/home/user/data/raster/vrt/soils.vrt /home/user/data/raster/vrt/strm.dist.vrt /home/user/data/raster/vrt/bugsites.vrt \
-	/home/user/data/raster/vrt/fields.vrt /home/user/data/raster/vrt/railroads.vrt /home/user/data/raster/vrt/railroads.vrt \
-	/home/user/data/raster/vrt/railroads.vrt /home/user/data/raster/vrt/soils.Kfactor.vrt /home/user/data/raster/vrt/texture.vrt \
-	/home/user/data/raster/vrt/density.vrt /home/user/data/raster/vrt/geology.vrt /home/user/data/raster/vrt/roads.vrt \
-	/home/user/data/raster/vrt/soils.ph.vrt /home/user/data/raster/vrt/tractids.vrt /home/user/data/raster/vrt/elevation.10m.vrt \
-	/home/user/data/raster/vrt/landcover.30m.vrt /home/user/data/raster/vrt/rstrct.areas.vrt /home/user/data/raster/vrt/soils.range.vrt \
-	/home/user/data/raster/vrt/transport.misc.vrt /home/user/data/raster/vrt/elevation.dem.vrt /home/user/data/raster/vrt/landcover.orig.vrt \
-	/home/user/data/raster/vrt/rushmore.vrt /home/user/data/raster/vrt/soils.Tfactor.vrt /home/user/data/raster/vrt/trn.sites.vrt \
-	/home/user/data/raster/vrt/elevation.dted.vrt /home/user/data/raster/vrt/landuse.vrt /home/user/data/raster/vrt/slope.vrt \
-	/home/user/data/raster/vrt/spot.image.vrt /home/user/data/raster/vrt/uparea.vrt /home/user/data/raster/vrt/erode.index.vrt \
-	/home/user/data/raster/vrt/owner.vrt /home/user/data/raster/vrt/soil.br.depth.vrt /home/user/data/raster/vrt/streams.vrt \
-	/home/user/data/raster/vrt/vegcover.vrt
-
-
-
-/usr/bin/ossim-create-histo \
-	/home/user/data/raster/vrt/aspect.vrt /home/user/data/raster/vrt/erosion1.vrt /home/user/data/raster/vrt/quads.vrt \
-	/home/user/data/raster/vrt/soils.vrt /home/user/data/raster/vrt/strm.dist.vrt /home/user/data/raster/vrt/bugsites.vrt \
-	/home/user/data/raster/vrt/fields.vrt /home/user/data/raster/vrt/railroads.vrt /home/user/data/raster/vrt/railroads.vrt \
-	/home/user/data/raster/vrt/railroads.vrt /home/user/data/raster/vrt/soils.Kfactor.vrt /home/user/data/raster/vrt/texture.vrt \
-	/home/user/data/raster/vrt/density.vrt /home/user/data/raster/vrt/geology.vrt /home/user/data/raster/vrt/roads.vrt \
-	/home/user/data/raster/vrt/soils.ph.vrt /home/user/data/raster/vrt/tractids.vrt /home/user/data/raster/vrt/elevation.10m.vrt \
-	/home/user/data/raster/vrt/landcover.30m.vrt /home/user/data/raster/vrt/rstrct.areas.vrt /home/user/data/raster/vrt/soils.range.vrt \
-	/home/user/data/raster/vrt/transport.misc.vrt /home/user/data/raster/vrt/elevation.dem.vrt /home/user/data/raster/vrt/landcover.orig.vrt \
-	/home/user/data/raster/vrt/rushmore.vrt /home/user/data/raster/vrt/soils.Tfactor.vrt /home/user/data/raster/vrt/trn.sites.vrt \
-	/home/user/data/raster/vrt/elevation.dted.vrt /home/user/data/raster/vrt/landuse.vrt /home/user/data/raster/vrt/slope.vrt \
-	/home/user/data/raster/vrt/spot.image.vrt /home/user/data/raster/vrt/uparea.vrt /home/user/data/raster/vrt/erode.index.vrt \
-	/home/user/data/raster/vrt/owner.vrt /home/user/data/raster/vrt/soil.br.depth.vrt /home/user/data/raster/vrt/streams.vrt \
-	/home/user/data/raster/vrt/vegcover.vrt
-
-
-
+FILES=`ls "$VRT_DATA/*.vrt"`
+/usr/bin/ossim-img2rr $FILES
+/usr/bin/ossim-create-histo $FILES
 
 
 # gdal-grass broken .. commentimng the conversion to vrt
