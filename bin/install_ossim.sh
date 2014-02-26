@@ -188,18 +188,18 @@ done
 # Cape Cod SRTM and LANDSAT
 DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
 BASENAME="p011r031_7t19990918_z19_nn"
-for BAND in 10 20 30 ; do
-    # LANDSAT
-    wget --progress=dot:mega "$DATA_URL/ossim_data/${BASENAME}$BAND.tif" \
-         --output-document="$SAT_DATA/${BASENAME}$BAND.tif"
-    ls -l "$SAT_DATA/${BASENAME}$BAND.tif"
-    chmod a-x "$SAT_DATA/${BASENAME}$BAND.tif"
-done
+##for BAND in 10 20 30 ; do
+##    # LANDSAT
+##    wget --progress=dot:mega "$DATA_URL/ossim_data/${BASENAME}$BAND.tif" \
+##         --output-document="$SAT_DATA/${BASENAME}$BAND.tif"
+##    ls -l "$SAT_DATA/${BASENAME}$BAND.tif"
+##    chmod a-x "$SAT_DATA/${BASENAME}$BAND.tif"
+##done
 
 # SRTM
-wget --progress=dot:mega "$DATA_URL/ossim_data/SRTM_fB03_p011r031.tif"  \
-     --output-document="$SAT_DATA/SRTM_fB03_p011r031.tif"
-chmod a-x "$SAT_DATA/SRTM_fB03_p011r031.tif"
+##wget --progress=dot:mega "$DATA_URL/ossim_data/SRTM_fB03_p011r031.tif"  \
+##     --output-document="$SAT_DATA/SRTM_fB03_p011r031.tif"
+##chmod a-x "$SAT_DATA/SRTM_fB03_p011r031.tif"
 
 #wget --progress=dot:mega $DATA_URL/ossim_data/bluemarble.tif  \
 #--output-document=/usr/share/ossim/images/reference/bluemarble.tif
