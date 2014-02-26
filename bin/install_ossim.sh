@@ -255,7 +255,7 @@ for MAP in "$SPEARFISH"/* ; do
     gdal_translate -of VRT "$MAP" "$VRT_DATA/`basename $MAP`.vrt"
 done
 
-FILES=`ls "$VRT_DATA/*.vrt"`
+FILES=`ls "$VRT_DATA"/*.vrt`
 /usr/bin/ossim-img2rr $FILES
 /usr/bin/ossim-create-histo $FILES
 
