@@ -1,4 +1,7 @@
 #!/bin/sh
+
+# now redundant?
+
 ln -s libcrsjniproj.so.0.1.1 libcrsjniproj.so
 ln -s libcrsjniproj.so.0.1.1 libcrsjniproj.so.0
 ln -s libcrypto.so.0.9.7 libcrypto.so

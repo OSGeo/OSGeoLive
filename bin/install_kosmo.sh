@@ -70,11 +70,11 @@ chgrp -R users "$KOSMO_FOLDER"
 chmod -R g+w "$KOSMO_FOLDER"
 
 ## execute the links.sh script
-cd "$KOSMO_FOLDER"/libs
-#FIXME: ln: failed to create symbolic link `libgrass_....` and 32 others.
-cp -f "$BUILD_DIR"/../app-conf/kosmo/links.sh .
-./links.sh
-cd "$TMP"
+#FIXME: doesn't seem to be needed anymore
+#cd "$KOSMO_FOLDER"/libs
+#cp -f "$BUILD_DIR"/../app-conf/kosmo/links.sh .
+#./links.sh
+#cd "$TMP"
 
 # get correct kosmo.sh
 rm "$KOSMO_FOLDER"/bin/Kosmo.sh
