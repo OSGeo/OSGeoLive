@@ -200,6 +200,7 @@ GRASS_PAGER=more
 GRASS_ADDON_PATH=~/grassdata/addons
 export GRASS_PAGER GRASS_ADDON_PATH
 EOF
+mkdir -p "/etc/skel/grassdata/addons"
 
 
 #copy over prebuilt font list
@@ -237,13 +238,6 @@ cp /usr/share/applications/grass.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass.desktop"
 
 
-# install addons in /usr/share/grass/addons
-
-wget http://download.osgeo.org/livedvd/data/ossim/addons.tar.gz
-tar -zxvf addons.tar.gz
-rm -rf addons.tar.gz
-mv addons /usr/local/share/grass/
-
 # add menu item
 if [ ! -e /usr/share/menu/grass ] ; then
    cat << EOF > /usr/share/menu/grass
@@ -256,6 +250,37 @@ EOF
 
    update-menus
 fi
+
+
+
+# install some addons (for OSSIM)
+### FIXME: install using a g.extension GRASS_BATCH_JOB
+###   so they get updates, bugfixes, etc.
+ADDONS="
+r.basin
+r.ipso
+r.stream.angle
+r.stream.basins
+r.stream.del
+r.stream.distance
+r.stream.extract
+r.stream.order
+r.stream.pos
+r.stream.preview
+r.stream.stats
+r.surf.nnbathy
+r.wf
+v.autokrige
+"
+
+# if you want this to work you have to set
+#   GRASS_ADDON_PATH=~/grassdata/addons:/usr/local/share/grass/addons
+# before starting grass. (see /etc/profile.d/grass_settings.sh)
+wget --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/ossim/addons.tar.gz"
+tar -zxvf addons.tar.gz
+rm -rf addons.tar.gz
+mv addons /usr/local/share/grass/
 
 
 ####
