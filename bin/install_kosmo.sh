@@ -72,13 +72,13 @@ chmod -R g+w "$KOSMO_FOLDER"
 ## execute the links.sh script
 cd "$KOSMO_FOLDER"/libs
 #FIXME: ln: failed to create symbolic link `libgrass_....` and 32 others.
+cp -f "$BUILD_DIR"/../app-conf/kosmo/links.sh .
 ./links.sh
 cd "$TMP"
 
 # get correct kosmo.sh
 rm "$KOSMO_FOLDER"/bin/Kosmo.sh
-wget -nv -N "http://88.198.230.145/public/kosmo/v_3.0/livedvd/Kosmo.sh"
-cp Kosmo.sh "$KOSMO_FOLDER"/bin/
+cp "$BUILD_DIR"/../app-conf/kosmo/Kosmo.sh "$KOSMO_FOLDER"/bin/
 chmod a+x "$KOSMO_FOLDER"/bin/Kosmo.sh
 
 # create link to startup script
