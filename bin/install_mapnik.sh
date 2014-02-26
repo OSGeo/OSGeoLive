@@ -81,7 +81,8 @@ cp demo/* "$MAPNIK_DATA"/demo/
 cp "$BUILD_DIR/../app-conf/mapnik/local.html" "$MAPNIK_DATA"/demo/
 
 # now get rid of temporary unzipped sources
-rm -fr "$TMP/tilelite"
+cd "$TMP"
+rm -rf "$TMP/tilelite"
 
 # Create startup script for TileLite Mapnik Server
 cat << EOF > "$BIN/mapnik_start_tilelite.sh"
