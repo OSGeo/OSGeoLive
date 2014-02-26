@@ -32,11 +32,9 @@ apt-get install -y python-dev netcdf-bin libhdf5-serial-dev libnetcdf-dev \
 # Install additional python packages using pip:
 pip install netCDF4 pyshp
 
-# Specify specific matplotlib update for OSGeo Live 7.0
-echo "FIXME: verify no conflicts with the system pacakged version of matplotlib"
 ## in any case, matplotlib is required
 if [ ! -e /usr/share/pyshared/matplotlib ] ; then
-    ## see tickets #1271 #1285 commentary/attachments
+    ## closed in tickets #1271 #1285 commentary/attachments
     #apt-get install -y python-matplotlib
     #   -> matplotlib 1.1.1rc
 
