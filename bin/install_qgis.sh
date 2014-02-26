@@ -186,20 +186,17 @@ ln -s /usr/local/share/qgis /etc/skel/qgis-examples
 
 
 #add a connection for postgis if it's installed
-QGIS_CONFIG_PATH="$USER_HOME/.config/QuantumGIS/"
+QGIS_CONFIG_PATH="$USER_HOME/.config/QGIS/"
 
-mkdir -p $QGIS_CONFIG_PATH
-cp "$BUILD_DIR/../app-conf/qgis/QGIS.conf" "$QGIS_CONFIG_PATH"
+mkdir -p "$QGIS_CONFIG_PATH"
+cp "$BUILD_DIR/../app-conf/qgis/QGIS2.conf" "$QGIS_CONFIG_PATH"
 
-chmod 644 "$USER_HOME/.config/QuantumGIS/QGIS.conf"
-chown $USER_NAME.$USER_NAME "$USER_HOME/.config/QuantumGIS/QGIS.conf"
-# todo: ~/.qgis/ is now unused by us, so can be removed after the freeze
-mkdir -p "$USER_HOME/.qgis"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/.qgis"
+chmod 644 "$USER_HOME/.config/QGIS/QGIS2.conf"
+chown $USER_NAME.$USER_NAME "$USER_HOME/.config/QGIS/QGIS2.conf"
 
 
 # set up some extra PostGIS and Spatialite DBs
-CONFFILE="$USER_HOME/.config/QuantumGIS/QGIS.conf"
+CONFFILE="$USER_HOME/.config/QGIS/QGIS2.conf"
 TMPFILE=`tempfile`
 USR=user
 PSWD=user
@@ -246,12 +243,14 @@ tail -n +3 "$CONFFILE" > "$TMPFILE".b
 cat "$TMPFILE" "$TMPFILE".b > "$CONFFILE"
 rm -f "$TMPFILE" "$TMPFILE".b
 
+
 #Apply patch for trac ticket #1208
 cp "$BUILD_DIR"/../app-conf/qgis/fix_gdaltools_version.patch /usr/share/qgis/
 cd /usr/share/qgis/
 patch -p1 < fix_gdaltools_version.patch
 rm -f /usr/share/qgis/fix_gdaltools_version.patch
 cd "$BUILD_DIR"
+
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
