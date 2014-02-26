@@ -96,7 +96,7 @@ Categories=Education;Geography;Qt;
 MimeType=application/x-qgis-project;image/tiff;image/jpeg;image/jp2;application/x-raster-aig;application/x-mapinfo-mif;application/x-esri-shape;
 EOF
 else
-   sed -i -e 's/^Name=Quantum GIS Desktop/Name=Quantum GIS/' \
+   sed -i -e 's/^Name=QGIS Desktop/Name=QGIS/' \
       /usr/share/applications/qgis.desktop
 fi
 
