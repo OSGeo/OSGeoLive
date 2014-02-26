@@ -142,6 +142,8 @@ chmod a+x "$IPY_GRASS"
 git clone https://github.com/epifanio/geo-notebook \
   /usr/local/share/ossim/quickstart/workspace/geo-notebook
 
+rm -rf /usr/local/share/ossim/quickstart/workspace/geo-notebook/.git
+
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
