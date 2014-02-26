@@ -205,14 +205,19 @@ adduser user audio
 adduser user fuse
 
 # highly useful tricks
-echo "alias ll='ls -l'" >> "$USER_HOME"/.bashrc
-chown "$USER_NAME":"$USER_NAME" "$USER_HOME"/.bashrc
-echo "alias ll='ls -l'" >> /etc/skel/.bashrc
+#  (/etc/skel/.bashrc seems to be clobbered by the copy in USER_HOME)
+cat << EOF >> "$USER_HOME"/.bashrc
+
+alias ll='ls -l'
 
 # help avoid dumb mistakes
-echo "alias cp='cp -i'" >> /etc/skel/.bashrc
-echo "alias mv='mv -i'" >> /etc/skel/.bashrc
-echo "alias rm='rm -i'" >> /etc/skel/.bashrc
+alias cp='cp -i'
+alias mv='mv -i'
+alias rm='rm -i'
+EOF
+sed -i -e 's/ls --color=auto/ls --color=auto -F/' "$USER_HOME"/.bashrc
+chown "$USER_NAME":"$USER_NAME" "$USER_HOME"/.bashrc
+
 
 # make it easy for users to edit in a general proxy setting
 #   perhaps more robust: demo how to set up a (disabled) transparent proxy?
