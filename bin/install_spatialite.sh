@@ -130,7 +130,11 @@ chmod -R a-x "$PKG_DATA"/*
 #    /usr/local/share/applications/
 #cp $BUILD_TMP/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
 #    "$USER_HOME"/Desktop/
-#chown "$USER_NAME.$USER_NAME" "$USER_HOME"/Desktop/spatialite-gui.desktop
+
+cp /usr/share/applications/spatialite-gui.desktop "$USER_HOME"/Desktop/
+
+chown "$USER_NAME.$USER_NAME" "$USER_HOME"/Desktop/spatialite-gui.desktop
+
 #cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.png \
 #    /usr/share/pixmaps/
 
