@@ -90,8 +90,8 @@ mkdir "$USER_HOME/.gpsdrive"
 
 # program defaults
 cat << EOF > "/etc/skel/.gpsdrive/gpsdriverc"
-lastlong = -122.6632
-lastlat = 45.5281
+lastlong = -122.6535
+lastlat = 45.5307
 scalewanted = 10000
 dashboard_3 = 12
 autobestmap = 0
