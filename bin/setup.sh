@@ -208,8 +208,6 @@ adduser user fuse
 #  (/etc/skel/.bashrc seems to be clobbered by the copy in USER_HOME)
 cat << EOF >> "$USER_HOME"/.bashrc
 
-alias ll='ls -l'
-
 # help avoid dumb mistakes
 alias cp='cp -i'
 alias mv='mv -i'
