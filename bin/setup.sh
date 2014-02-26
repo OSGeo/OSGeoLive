@@ -212,6 +212,7 @@ cat << EOF >> "$USER_HOME"/.bashrc
 alias cp='cp -i'
 alias mv='mv -i'
 alias rm='rm -i'
+
 EOF
 sed -i -e 's/ls --color=auto/ls --color=auto -F/' "$USER_HOME"/.bashrc
 chown "$USER_NAME":"$USER_NAME" "$USER_HOME"/.bashrc
