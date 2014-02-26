@@ -110,6 +110,8 @@ rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/data \
        /usr/local/lib/python2.7/dist-packages/cartopy/sphinxext \
        /usr/local/lib/python2.7/dist-packages/cartopy/tests \
        /usr/local/lib/python2.7/dist-packages/Iris-1.4.0-py2.7-linux-i686.egg/iris/tests
+
+cd "$BUILD_DIR"
 rm -rf /tmp/build_iris
 
 
