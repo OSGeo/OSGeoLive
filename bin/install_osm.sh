@@ -93,8 +93,8 @@ cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
 mkdir -p /usr/local/share/applications
 
 MAP_CENTER="lat=45.5282&lon=-122.6632"
-MARKER="mlat=45.5281&mlon=-122.6632"
-ZOOM="14"
+MARKER="mlat=45.52875&mlon=-122.6632"
+ZOOM="16"
 
 cat << EOF > /usr/local/share/applications/osm_online.desktop
 [Desktop Entry]
