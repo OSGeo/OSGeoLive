@@ -195,6 +195,17 @@ done
 sudo -u $POSTGRES_USER psql natural_earth2 --quiet -c "vacuum analyze"
 
 
+#################################################
+# Install metadata sample (some other stuff comes along for the ride)
+# FIXME: please rename the package to something less generic.
+# FIXME: replace with North Carolina &/or Natural Earth metadata
+
+apt-get install python-gisdata
+
+# Link to shared data folder
+ln -s /usr/lib/python2.7/dist-packages/gisdata/metadata/good \
+   /usr/local/share/data/metadata
+
 
 #################################################
 # Download the North Carolina sample dataset
