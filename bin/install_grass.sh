@@ -278,7 +278,7 @@ wget --progress=dot:mega \
 tar -zxvf addons.tar.gz
 rm -rf addons.tar.gz
 mv addons /usr/local/share/grass/
-
+chown -R root.root /usr/local/share/grass/addons
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
