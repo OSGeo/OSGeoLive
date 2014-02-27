@@ -206,6 +206,7 @@ adduser user fuse
 
 # highly useful tricks
 #  (/etc/skel/.bashrc seems to be clobbered by the copy in USER_HOME)
+# TODO: write to ~/.bash_aliases instead
 cat << EOF >> "$USER_HOME"/.bashrc
 
 # help avoid dumb mistakes
@@ -232,6 +233,20 @@ if [ `grep -c http_proxy "/etc/skel/.profile"` -eq 0 ] ; then
 
 EOF
 fi
+
+if [ `grep -c http_proxy "$USER_HOME/.profile"` -eq 0 ] ; then
+   cat << EOF >> "$USER_HOME/.profile"
+
+### Edit then uncomment the following lines to direct traffic through a proxy server:
+###   example:   http_proxy="http://proxy.example.com:8001"
+#http_proxy="http://[username[:password]@]server.example.com:port/"
+#https_proxy="$http_proxy"
+#ftp_proxy="$ftp_proxy"
+#export http_proxy https_proxy ftp_proxy
+
+EOF
+fi
+
 
 cat << EOF >> "$USER_HOME"/.inputrc
 # a conference talk full of terminal beeps is no good
