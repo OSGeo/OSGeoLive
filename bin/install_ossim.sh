@@ -107,6 +107,7 @@ export OSSIM_PREFS_FILE
 
 BRCFILE="/etc/skel/.bashrc"
 echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$BRCFILE"
+echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$USER_HOME/.bashrc"
 
 apt-get install --assume-yes grass-core qgis python-pysqlite2 \
    python-scipy python-serial python-psycopg2 proj-bin python-lxml \
