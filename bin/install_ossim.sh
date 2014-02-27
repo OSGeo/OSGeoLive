@@ -73,7 +73,7 @@ cd /tmp/build_ossim
 wget -c --progress=dot:mega \
   "http://download.osgeo.org/livedvd/data/ossim/ossim-qt_1.8.16.tar.gz"
 
-tar -x -z -C / -f ossim-qt_1.8.16.tar.gz
+tar -x -z --no-same-owner -C / -f ossim-qt_1.8.16.tar.gz
 
 ldconfig
 
@@ -82,7 +82,7 @@ mkdir -p /usr/share/ossim/
 wget -N --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/ossim/ossim_settings.tar.gz"
 
-tar -zxf ossim_settings.tar.gz
+tar xzf ossim_settings.tar.gz
 
 chown -R root.root ossim_settings/
 #FIXME: "cannot move: Directory not empty"
@@ -171,14 +171,14 @@ QUICKSTART=/usr/local/share/ossim/quickstart
 
 mkdir -p "$KML_DATA"
 mkdir -p "$RASTER_DATA"
-mkdir -p "$SAT_DATA"
+#mkdir -p "$SAT_DATA"
 mkdir -p "$ELEV_DATA"   # ?? unused ??
 mkdir -p "$VRT_DATA"
 
 
 
 # disabled: $VRT_DATA $KML_DATA $SAT_DATA
-for ITEM in $RASTER_DATA $ELEV_DATA $VRT_DATA $KML_DATA $SAT_DATA;  do
+for ITEM in $RASTER_DATA $ELEV_DATA $VRT_DATA $KML_DATA ;  do
    chmod -R 775 "$ITEM"
    chgrp -R users "$ITEM"
 done
@@ -233,9 +233,13 @@ if [ -e "$SAT_DATA/p011r031_7t19990918_z19_nn10.tif" ] ; then
     "$SAT_DATA/p011r031_7t19990918_z19_nn30.tif"
 fi
 
+
+# it turns up there anyway?
 #/usr/bin/gdal_translate -of VRT "$RASTER_DATA"/BlueMarble_small.tif \
 #    /usr/share/ossim/images/reference/bluemarble.tif
 
+ln -s /usr/share/ossim/images/reference/bluemarble.tif \
+  /usr/local/share/data/raster/
 
 
 mkdir -p "$QUICKSTART"/workspace

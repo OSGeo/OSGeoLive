@@ -226,7 +226,7 @@ cd "$TMP"
 if [ ! -d "rasdaman_data" ] ; then
   # 39mb download
   wget -c --progress=dot:mega "$RASDAMAN_LOCATION/rasdaman_data.tar.gz"
-  tar xzmf rasdaman_data.tar.gz -C .
+  tar xzmf rasdaman_data.tar.gz -C . --no-same-owner
 fi
 
 echo -n "Importing data... "
@@ -252,7 +252,7 @@ cd "$TMP"
 if [ ! -d "public_html" ] ; then
   # 105mb download
   wget -c --progress=dot:mega "$RASDAMAN_LOCATION/earthlook.tar.gz"
-  tar xzmf earthlook.tar.gz -C .
+  tar xzmf earthlook.tar.gz -C . --no-same-owner
 fi
 
 echo "copying earthlook folder into $EARTHLOOKDIR/rasdaman-demo..."
