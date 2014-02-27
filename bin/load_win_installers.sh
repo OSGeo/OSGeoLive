@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2014 The Open Source Geospatial Foundation.
 # Copyright (c) 2009 LISAsoft
 # Copyright (c) 2009 Cameron Shorter
 # Licensed under the GNU LGPL.
@@ -47,9 +47,9 @@ compatibility, check the web for newer or alternate versions. For more
 information about the projects please read the help included in the live
 disc or visit http://live.osgeo.org
 
-osgeo4w-setup.exe is an application to help you install applications on
-windows. Some of the same applications included here are also available
-via OSGeo4w. The OSGeo4w tool includes the ability to manage upgrades,
+osgeo4w-setup-*.exe is an application to help you install applications on
+MS Windows. Some of the same applications included here are also available
+via OSGeo4W. The OSGeo4W tool includes the ability to manage upgrades,
 install additional libraries and ensure compatability between mulitple
 applications. Visit http://trac.osgeo.org/osgeo4w/ for more information.
 
@@ -60,20 +60,22 @@ EOF
 
 
 for URL in \
-  http://download.osgeo.org/osgeo4w/osgeo4w-setup.exe \
-  http://qgis.org/downloads/QGIS-OSGeo4W-1.8.0-2-Setup.exe \
+  http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86.exe \
+  http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86_64.exe \
+  http://qgis.org/downloads/QGIS-OSGeo4W-2.2.0-1-Setup-x86.exe \
+  http://qgis.org/downloads/QGIS-OSGeo4W-2.2.0-1-Setup-x86_64.exe \
   http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.3-1-Setup.exe \
   http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.4.4-Setup.exe \
   http://github.com/downloads/mapbox/tilemill/TileMill-v0.10.1-Setup.exe \
   http://gpsvp.googlecode.com/files/gpsVPxp_0.4.24.zip \
   http://downloads.sourceforge.net/project/opencpn/opencpn/3.2.2/opencpn_3.2.2_setup.exe?use_mirror=cdnetworks-us-2 \
   http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe \
-  http://sourceforge.net/projects/saga-gis/files/SAGA%20-%202.1/SAGA%202.1.0/saga_2.1.0_win32_setup.exe?use_mirror=cdnetworks-us-2 \
-  http://download.osgeo.org/livedvd/data/zygrib/zyGrib_win-6.1.2.zip \
-  http://download.osgeo.org/mapguide/releases/2.5.0/Release/MapGuideOpenSource-2.5.0.7449-Final-x86.exe \
+  http://sourceforge.net/projects/saga-gis/files/SAGA%20-%202.1/SAGA%202.1.1/saga_2.1.1_win32.zip?use_mirror=cdnetworks-us-2 \
+  http://zygrib.org/getfile.php?file=zyGrib_win-6.2.3.zip \
+  http://download.osgeo.org/mapguide/releases/2.5.2/MapGuideOpenSource-2.5.2.7949-Final-x86.exe \
   http://download.osgeo.org/fdo/3.8.0/release/binaries/win32/fdo-win32-3.8.0_3601.tar.gz \
-  http://sourceforge.net/projects/geoserver/files/GeoServer/2.3.4/geoserver-2.3.4-bin.zip?use_mirror=cdnetworks-us-2 \
-  http://download.osgeo.org/livedvd/data/mapwindow/MapWindowx86Full-v48Final-installer.exe \
+  http://sourceforge.net/projects/geoserver/files/GeoServer/2.4.4/geoserver-2.4.4-bin.zip?use_mirror=cdnetworks-us-2 \
+  http://download.osgeo.org/livedvd/data/mapwindow/MapWindowx86Full-v488SR-installer.exe \
 ; do
   # sourceforge filename sanitation:
   OUTFILE=`basename "$URL" | cut -f1 -d'?'`
@@ -81,10 +83,10 @@ for URL in \
   wget -c --no-check-certificate --progress=dot:mega "$URL" -O "$OUTFILE"
 done;
 
-# gvSIG is 161MB, maybe too big?
+# gvSIG is 242MB, too big, but maybe the 46MB "online" installer is ok?
 #Disabled because we ran out of space this time
-#  http://downloads.gvsig.org/download/gvsig-desktop/dists/1.12.0/builds/1417/gvSIG-desktop-1.12.0-1417-final-win-x86-standard.exe \
-#  http://udig.refractions.net/files/downloads/udig-1.3.2.win32.win32.x86.exe \
+#  http://download.osgeo.org/gvsig/gvsig-desktop/dists/2.0.0/builds/2066/gvSIG-desktop-2.0.0-2066-final-win-x86-standard.exe \
+#  http://udig.refractions.net/files/downloads/udig-1.4.0.win32.win32.x86.exe \
 #  http://www.opensig.es/public/kosmo/v_2.0.1/binaries/kosmo_desktop_2.0.1_windows_jre_setup.exe \
 
 
@@ -92,8 +94,9 @@ done;
 # http://maptiler.googlecode.com/files/maptiler-1.0-beta2-setup.exe   :: but it still works fine and is only 700kb..
 # http://home.gdal.org/fwtools/FWTools247.exe \
 
-# Disabled, we only do desktop apps
+# Disabled, we only do desktop apps  (er, readded above)
 # http://downloads.sourceforge.net/geoserver/geoserver-2.1.4-bin.zip \
+
 #  from the README:
 #GeoServer:  geoserver-2.1.4-bin.zip in the Windows Installers cache also
 #works on a Mac.
