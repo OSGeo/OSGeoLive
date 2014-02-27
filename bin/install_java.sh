@@ -23,7 +23,7 @@
 #apt-get install --yes default-jdk default-jre
 apt-get install --yes openjdk-7-jdk openjdk-7-jre
 
-apt-get --assume-yes install gsfonts-x11
+apt-get --assume-yes install gsfonts-x11 ttf-dejavu-extra
 
 ln -s /usr/lib/jvm/java-7-openjdk-i386 /usr/lib/jvm/default-java
 
