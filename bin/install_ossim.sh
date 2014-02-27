@@ -45,7 +45,11 @@ apt-get install --assume-yes krb5-multidev libexpat-ocaml libfindlib-ocaml \
   libgnutls-openssl27 libopenjpeg2 libpodofo0.9.0 libpthread-stubs0 \
   libqt4-sql-sqlite libtiffxx0c2 ocaml-base-nox \
   ocaml-findlib ocaml-interp ocaml-nox pkg-config \
-  qt4-dev-tools qt4-linguist-tools qt4-qmake xorg-sgml-doctools libqt4-core
+  libqt4-core
+
+# for planetsasha:
+# qt4-dev-tools qt4-linguist-tools qt4-qmake xorg-sgml-doctools
+
 
 # fragile @ ubuntugis
 #apt-get install --assume-yes libgdal1h  libgdal1-1.10.0-grass
