@@ -29,6 +29,14 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
+
+TMP_DIR=/tmp/build_zoo
+if [ ! -d "$TMP_DIR" ] ; then
+   mkdir "$TMP_DIR"
+fi
+cd "$TMP_DIR"
+
+
 apt-get --assume-yes install libmozjs185-1.0
 
 # Download ZOO Project deb file.

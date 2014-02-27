@@ -29,6 +29,11 @@ USER_HOME="/home/$USER_NAME"
 
 TMP_DIR=/tmp/build_qgis
 
+if [ ! -d "$TMP_DIR" ] ; then
+   mkdir "$TMP_DIR"
+fi
+cd "$TMP_DIR"
+
 #CAUTION: UbuntuGIS should be enabled only through setup.sh
 #Add repositories
 #cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
@@ -119,12 +124,13 @@ EOF
 fi
 
 
-#Install the Manual and Intro guide locally and link them to the description.html
+# Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/qgis
 wget -c --progress=dot:mega \
         "http://download.osgeo.org/qgis/doc/manual/qgis-1.0.0_a-gentle-gis-introduction_en.pdf" \
 	--output-document=/usr/local/share/qgis/qgis-1.0.0_a-gentle-gis-introduction_en.pdf
-#TODO: Consider including translations
+
+# TODO: Consider including translations
 wget -c --progress=dot:mega \
         "http://docs.qgis.org/2.0/pdf/QGIS-2.0-UserGuide-en.pdf" \
 	--output-document=/usr/local/share/qgis/QGIS-2.0-UserGuide-en.pdf
@@ -132,12 +138,8 @@ wget -c --progress=dot:mega \
 chmod 644 /usr/local/share/qgis/*.pdf
 
 
-if [ ! -d "$TMP_DIR" ] ; then
-   mkdir "$TMP_DIR"
-fi
-cd "$TMP_DIR"
 
-#Install tutorials
+# Install tutorials
 wget --progress=dot:mega \
     "https://github.com/qgis/osgeo-live-qgis-tutorials/tarball/master" \
      --output-document="$TMP_DIR"/tutorials.tgz
