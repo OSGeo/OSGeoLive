@@ -41,7 +41,7 @@ mkdir -p "$target"
 
 # copy the reveal.js libary to the target
 if [ ! -d "$target"/../../reveal.js ] ; then
-  cp -pr "$source"/../../reveal.js "$target"/../..
+  cp --preserve=mode,timestamps -r "$source"/../../reveal.js "$target"/../..
 fi
 
 # Extract a list of names from contributors.csv and translators.csv
