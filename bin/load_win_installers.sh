@@ -53,9 +53,6 @@ via OSGeo4w. The OSGeo4w tool includes the ability to manage upgrades,
 install additional libraries and ensure compatability between mulitple
 applications. Visit http://trac.osgeo.org/osgeo4w/ for more information.
 
-vcredist_x86.exe is the  Runtime from Microsoft, it is required for many
-of the other applications to work.
-
 
 Happy Mapping!
 EOF
@@ -65,7 +62,6 @@ EOF
 for URL in \
   http://download.osgeo.org/osgeo4w/osgeo4w-setup.exe \
   http://qgis.org/downloads/QGIS-OSGeo4W-1.8.0-2-Setup.exe \
-  http://home.gdal.org/tmp/vcredist_x86.exe \
   http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.3-1-Setup.exe \
   http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.4.4-Setup.exe \
   http://github.com/downloads/mapbox/tilemill/TileMill-v0.10.1-Setup.exe \
