@@ -258,9 +258,9 @@ chgrp users /usr/share/ossim/elevation
 #### spearfish subset to VRT
 GISBASE=/usr/lib/grass64
 export GISBASE
-SPEARFISH="/usr/local/share/grass/spearfish60/PERMANENT/cellhd"
+SPEARFISH_RASTER="/usr/local/share/grass/spearfish60/PERMANENT/cellhd"
 
-for MAP in "$SPEARFISH"/* ; do
+for MAP in "$SPEARFISH_RASTER"/* ; do
     gdal_translate -of VRT "$MAP" "$VRT_DATA/`basename $MAP`.vrt"
 done
 
@@ -269,7 +269,6 @@ FILES=`ls "$VRT_DATA"/*.vrt`
 /usr/bin/ossim-create-histo $FILES
 
 
-# gdal-grass broken .. commentimng the conversion to vrt
 /usr/bin/gdal_translate -of VRT \
     "$SPEARFISH_RASTER"/elevation.10m \
     "$QUICKSTART"/workspace/elevation10m.vrt
