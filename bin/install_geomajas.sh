@@ -149,7 +149,7 @@ chgrp tomcat6 /usr/lib/geomajas-$GEOMAJAS_VERSION-bin/bin/*.sh
 
 # share data with the rest of the disc
 mkdir -p /usr/local/share/data/vector
-ln -s /usr/lib/geomajas-$GEOMAJAS_VERSION-bin/webapps/showcase/WEB-INF/classes/org/geomajas/example/gwt/shapefile \
+ln -s /usr/lib/geomajas-$GEOMAJAS_VERSION-bin/webapps/showcase/WEB-INF/classes/org/mypackage/shapes \
       /usr/local/share/data/vector/geomajas
 
 # remove local jai libraries to work with ones provided in default-java (fix for #959)
