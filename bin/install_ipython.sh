@@ -54,7 +54,7 @@ pip install --upgrade --no-deps pandas
 apt-add-repository --yes ppa:jtaylor/ipython
 apt-get update
 
-apt-get install  --assume-yes ipython ipython ipython-notebook ipython-qtconsole
+apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
 
 ## result:
 ##  NEW iPython==1.1
