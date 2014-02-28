@@ -117,12 +117,18 @@ ldconfig
 # /usr/share/fslint/fslint/fstool/dupwaste < "$FSLINT_LOG"
 
 ## check how big the databases ended up
+echo
 echo "Postgres database sizes:"
 sudo -u postgres psql << EOF
 SELECT pg_database.datname,
        pg_size_pretty(pg_database_size(pg_database.datname)) AS size
   FROM pg_database;
 EOF
+echo
+
+## run some tests to catch common installer mistakes
+./tools/post_build_checks.sh
+
 
 #### Copy tmp files, apt cache and logs ready for backup
 mkdir "/tmp/$VERSION"
