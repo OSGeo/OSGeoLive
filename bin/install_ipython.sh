@@ -28,8 +28,6 @@ apt-get install --assume-yes libfreetype6-dev libpng12-dev
 apt-get install --assume-yes python-dev python-setuptools
 ## provides easy_install, distribute-0.6.24dev_r0
 
-./diskspace_probe.sh "`basename $0`"
-
 easy_install --upgrade distribute
 ## provides
 ##  /usr/local/lib/python2.7/dist-packages/distribute-0.7.3
@@ -37,24 +35,15 @@ easy_install --upgrade distribute
 
 #Xeasy_install -U pip  ## not the right order
 
-./diskspace_probe.sh "`basename $0`"
-
 apt-get install --assume-yes python-pip python-pandas python-netcdf
 ## provides  pip 1.01  pandas 0.7
 
 #pip install --upgrade pip ## NOT NEEDED pip 1.5.1
 
-./diskspace_probe.sh "`basename $0`"
-
 ## TODO Resolve versions with Iris before re-enabling those
 #pip install --upgrade numpy  ## remove a redundant numpy build for kalxas
 pip install --upgrade  matplotlib
-
-./diskspace_probe.sh "`basename $0`"
-
 pip install --upgrade --no-deps pandas
-
-./diskspace_probe.sh "`basename $0`"
 
 ## result:
 ##  NEW matplotlib 1.3.1
@@ -64,8 +53,6 @@ pip install --upgrade --no-deps pandas
 #-- iPython from .deb
 apt-add-repository --yes ppa:jtaylor/ipython
 apt-get update
-
-./diskspace_probe.sh "`basename $0`"
 
 apt-get install  --assume-yes ipython ipython ipython-notebook ipython-qtconsole
 
@@ -79,13 +66,6 @@ apt-get install  --assume-yes ipython ipython ipython-notebook ipython-qtconsole
 apt-add-repository --yes --remove ppa:jtaylor/ipython
 apt-get remove --assume-yes python-dev
 apt-get remove --assume-yes libfreetype6-dev libpng12-dev
-
-
-#### debug test:
-du -sh /usr/local/lib/python2.7/dist-packages/
-du -sh /usr/local/lib/python2.7/dist-packages/matplotlib/tests/
-
-./diskspace_probe.sh "`basename $0`"
 
 ##-------------------------------------------------------
 #### Setup OSSIM workspace
@@ -158,7 +138,6 @@ ipython notebook --pylab=inline --profile=osgeolive
 EOF
 chmod a+x "$IPY_GRASS"
 
-./diskspace_probe.sh "`basename $0`"
 
 git clone https://github.com/epifanio/geo-notebook \
   /usr/local/share/ossim/quickstart/workspace/geo-notebook
