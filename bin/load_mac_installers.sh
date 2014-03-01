@@ -67,20 +67,23 @@ frameworks/FreeType_Framework-2.4.10-1.dmg
 frameworks/cairo_Framework-1.12.2-1.dmg
 frameworks/GSL_Framework-1.16-1.dmg
 frameworks/TclTk_Aqua-8.5.8-2.dmg
-frameworks/Spatialite_Tools-3.0.zip
+frameworks/Spatialite_Tools-4.1.zip
 frameworks/rgdal-0.8.8-1.dmg
+frameworks/UnixImageIO_Framework-1.4.3.dmg
 "
 
 # 2 Support Packages
 B_PKG="
-postgresql/PostgreSQL-9.2.4-2.dmg
+postgresql/PostgreSQL-9.3.1-1.dmg
+python/PIL-1.1.7-4.dmg
+python/matplotlib-1.3.1-1.dmg
 "
 
 # 3 End-User Packages
 C_PKG="
-grass/GRASS-6.4.3-1-Snow.dmg
-postgresql/PostGIS-2.0.3-4.dmg
-qgis/QGIS-1.8.0-2.dmg
+grass/GRASS-6.4.3-2-Snow.dmg
+postgresql/PostGIS-2.1.1-1.dmg
+qgis/QGIS-2.2.0-3.dmg
 "
 
 
@@ -127,7 +130,7 @@ done
 
 #############################################
 #Add uDig from another source
-PKG="udig-1.3.2.macosx.cocoa.x86_64.zip"
+PKG="udig-1.4.0.macosx.cocoa.x86_64.zip"
 #sorry, no space left this time
 #wget -c --progress=dot:mega \
 #   http://udig.refractions.net/files/downloads/"$PKG" -O "$PKG_DIR/$PKG"
@@ -151,7 +154,7 @@ wget -c --progress=dot:mega \
 
 #############################################
 #Add R-stats
-PKG="R-2.15.2.pkg"
+PKG="R-3.0.2.pkg"
 #sorry, no space left this time
 #wget -c --progress=dot:mega \
 #   http://cran.stat.ucla.edu/bin/macosx/"$PKG" -O "$PKG_DIR/$PKG"
