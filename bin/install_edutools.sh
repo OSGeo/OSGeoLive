@@ -23,7 +23,7 @@
 
 # Python development
 #  eric is a full featured Python IDE written in PyQt. (22.2MB, a bit big)
-#apt-get --assume-yes install eric
+apt-get --assume-yes install eric
 
 
 ####
