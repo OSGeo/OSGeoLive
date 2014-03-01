@@ -38,9 +38,10 @@ apt-get install --assume-yes ossim-core libgdal1-1.10.0-grass
 apt-get install --assume-yes libtiff4 libgeotiff2 \
   libfreetype6 libcurl3 libopenscenegraph80 libqt4-opengl \
   libexpat1 libpng3 libfftw3-3 libqt3-mt \
-  libopenmpi1.3 libqt4-qt3support python-pip \
-  spyder
-# python-pandas python-netcdf
+  libopenmpi1.3 libqt4-qt3support python-pip
+
+# python-pandas python-netcdf spyder
+
 apt-get install --assume-yes krb5-multidev libexpat-ocaml libfindlib-ocaml \
   libgnutls-openssl27 libopenjpeg2 libpodofo0.9.0 libpthread-stubs0 \
   libqt4-sql-sqlite libtiffxx0c2 ocaml-base-nox \
