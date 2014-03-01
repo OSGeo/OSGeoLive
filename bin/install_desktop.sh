@@ -38,6 +38,10 @@ chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 cp ../desktop-conf/osgeo-desktop.png \
    /usr/share/xfce4/backdrops
 
+# for release 7.9
+ln -s /usr/local/share/gisvm/desktop-conf/osgeo-desktop-acf.png \
+   /usr/share/xfce4/backdrops/
+
 #New way to set login screen background as of 12.04 that uses lightdm instead of gdm
 # (awaiting graphic with text overlay explaining what the user name and password is)
 sed -i -e 's|^background=.*|background=/usr/share/xfce4/backdrops/osgeo-desktop.png|' \
