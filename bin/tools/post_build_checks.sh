@@ -43,7 +43,7 @@ find / -type l -xtype l | grep -v '/proc/\|/run/\|/rofs/' | \
 
 
 #### find unknown UIDs and GIDs from running tar as root
-find / -nouser | grep -v '^/rofs/' > "$LOG_DIR"/bad_UIDs.log 2> /dev/null
-find / -nogroup | grep -v '^/rofs/'> "$LOG_DIR"/bad_GIDs.log 2> /dev/null
+find / -nouser 2> /dev/null | grep -v '^/rofs/' > "$LOG_DIR"/bad_UIDs.log
+find / -nogroup 2> /dev/null | grep -v '^/rofs/'> "$LOG_DIR"/bad_GIDs.log
 
 
