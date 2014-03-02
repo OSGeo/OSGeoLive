@@ -1,4 +1,4 @@
 #OSGeoLive Release ppa
-deb http://ppa.launchpad.net/osgeolive/release/ubuntu precise main
-#deb-src http://ppa.launchpad.net/osgeolive/release/ubuntu precise main
+deb http://ppa.launchpad.net/osgeolive/release-7.9/ubuntu precise main
+#deb-src http://ppa.launchpad.net/osgeolive/release-7.9/ubuntu precise main
 
