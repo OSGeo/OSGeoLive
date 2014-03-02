@@ -119,24 +119,34 @@ cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 
 
+wget sftp://downloads.osgeo.org//osgeo/download/livedvd/data/ossim/ipython/ipython_grass.sh
+
+
+wget -nv "$DATA_URL/ipython/ipython_grass.sh" \
+     --output-document=/usr/local/bin/ipython_grass.sh
+
+chmod a+x /usr/local/bin/ipython_grass.sh
+
 # probably better to move this to a script in the app-conf/ dir.
-IPY_GRASS="/usr/local/bin/ipython_grass.sh"
-cat << EOF > "$IPY_GRASS"
+#IPY_GRASS="/usr/local/bin/ipython_grass.sh"
+#cat << EOF > "$IPY_GRASS"
 #!/bin/bash -l
-export LD_LIBRARY_PATH=/usr/lib/grass64/lib:\$LD_LIBRARY_PATH
-export PYTHONPATH=/usr/lib/grass64/etc/python:\$PYTHONPATH
-export GISBASE=/usr/lib/grass64/
-export PATH=/usr/lib/grass64/bin/:\$GISBASE/bin:\$GISBASE/scripts:\$PATH
-export GIS_LOCK=\$$
-export GISRC=/home/\$USER/.grassrc6
-export GISDBASE=/home/\$USER/grassdata
-export GRASS_TRANSPARENT=TRUE
-export GRASS_TRUECOLOR=TRUE
-export GRASS_PNG_COMPRESSION=9
-export GRASS_PNG_AUTO_WRITE=TRUE
-ipython notebook --pylab=inline --profile=osgeolive
-EOF
-chmod a+x "$IPY_GRASS"
+#export LD_LIBRARY_PATH=/usr/lib/grass64/lib:\$LD_LIBRARY_PATH
+#export PYTHONPATH=/usr/lib/grass64/etc/python:\$PYTHONPATH
+#export GISBASE=/usr/lib/grass64/
+#export PATH=/usr/lib/grass64/bin/:\$GISBASE/bin:\$GISBASE/scripts:\$PATH
+#export GIS_LOCK=\$$
+#export GISRC=/home/\$USER/.grassrc6
+#export GISDBASE=/home/\$USER/grassdata
+#export GRASS_TRANSPARENT=TRUE
+#export GRASS_TRUECOLOR=TRUE
+#export GRASS_PNG_COMPRESSION=9
+#export GRASS_PNG_AUTO_WRITE=TRUE
+#ipython notebook --pylab=inline --profile=osgeolive
+#EOF
+#chmod a+x "$IPY_GRASS"
+
+
 
 
 git clone https://github.com/epifanio/geo-notebook \
