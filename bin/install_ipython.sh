@@ -20,6 +20,12 @@
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
+BUILD_DIR=`pwd`
+
 ## 24jan14  change in iPython+numpy+matplotlib
 #echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe" \
 #      | sudo tee /etc/apt/sources.list.d/backports.list
@@ -83,11 +89,6 @@ wget -nv "$DATA_URL/ipython-notebook.desktop" \
 
 ##### Setup custom IPython profile
 
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
-USER_HOME="/home/$USER_NAME"
-
 mkdir -p "$USER_HOME"/.config
 chown "$USER.$USER" "$USER_HOME"/.config
 
@@ -118,13 +119,10 @@ EOF
 cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 
+cp "$BUILD_DIR/../app-data/ossim/ipython_grass.sh" \
+   /usr/local/bin/
 
-wget sftp://downloads.osgeo.org//osgeo/download/livedvd/data/ossim/ipython/ipython_grass.sh
-
-
-wget -nv "$DATA_URL/ipython/ipython_grass.sh" \
-     --output-document=/usr/local/bin/ipython_grass.sh
-
+# no-op?
 chmod a+x /usr/local/bin/ipython_grass.sh
 
 # probably better to move this to a script in the app-conf/ dir.
@@ -145,7 +143,6 @@ chmod a+x /usr/local/bin/ipython_grass.sh
 #ipython notebook --pylab=inline --profile=osgeolive
 #EOF
 #chmod a+x "$IPY_GRASS"
-
 
 
 
