@@ -31,5 +31,9 @@ USER_HOME="/home/$USER_NAME"
 echo 'Installing libLAS ...'
 apt-get install --yes liblas-bin python-liblas liblas2
 
+# work-around for #1256 (remove this if liblas-c-dev pkg gets installed)
+ln -s /usr/lib/liblas_c.so.2.2.0 /usr/lib/liblas_c.so
+
+
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
