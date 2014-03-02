@@ -41,7 +41,7 @@ mkdir -p "$target"
 
 # copy the abstract.txt to the target
 if [ ! -d "$target"/abstract.txt ] ; then
-  cp -pr "$source"/abstract.txt "$target"
+  cp --preserve=mode,timestamps -r "$source"/abstract.txt "$target"
 fi
 
 # copy the reveal.js libary to the target
