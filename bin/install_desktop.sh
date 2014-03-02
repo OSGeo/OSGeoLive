@@ -36,7 +36,10 @@ chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 
 # Setup the desktop background image
 cp ../desktop-conf/osgeo-desktop.png \
-   /usr/share/xfce4/backdrops
+   /usr/share/xfce4/backdrops/
+
+cp ../desktop-conf/osgeo-desktop-transparent.png \
+   /usr/share/xfce4/backdrops/
 
 # for release 7.9
 ln -s /usr/local/share/gisvm/desktop-conf/osgeo-desktop-acf.png \
