@@ -79,7 +79,7 @@ apt-get -q update
 apt-get install --yes wget less zip unzip bzip2 p7zip \
   cvs cvsutils subversion subversion-tools mercurial git \
   openssh-client lftp sl usbutils wireless-tools \
-  locate diff patch fuseiso menu \
+  locate diff patch fuseiso menu dlocate \
   vim medit nedit nano screen iotop xfonts-jmk \
   ghostscript a2ps netpbm qiv htop \
   lynx mutt mc xchat rxvt units scrot \

@@ -43,7 +43,20 @@ find / -type l -xtype l | grep -v '/proc/\|/run/\|/rofs/' | \
 
 
 #### find unknown UIDs and GIDs from running tar as root
+# note that when run from within the original chroot env this
+# won't find UID=1000, those only show up if run after mastering
+# the iso.
 find / -nouser 2> /dev/null | grep -v '^/rofs/' > "$LOG_DIR"/bad_UIDs.log
 find / -nogroup 2> /dev/null | grep -v '^/rofs/'> "$LOG_DIR"/bad_GIDs.log
 
+
+#### check how big the databases ended up
+(
+echo "Postgres database sizes:"
+sudo -u postgres psql << EOF
+SELECT pg_database.datname,
+       pg_size_pretty(pg_database_size(pg_database.datname)) AS size
+  FROM pg_database;
+EOF
+) > "$LOG_DIR"/pg_db_sizes.log
 
