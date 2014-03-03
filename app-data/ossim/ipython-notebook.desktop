@@ -1,7 +1,7 @@
 
 [Desktop Entry]
 Version=1.1
-Name=ipython-notebook
+Name=IPython Notebook
 Comment=IPython Notebook
 Exec=/usr/local/bin/ipython_grass.sh
 Icon=ipython
