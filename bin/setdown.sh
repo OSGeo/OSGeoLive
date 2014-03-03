@@ -82,6 +82,20 @@ apt-get install --assume-yes grass-dev
 # remove any leftover orphans
 apt-get --yes autoremove
 
+# some tarball or something is making /usr group writable, which
+#  makes openssh-server refuse to start.  (FIXME)
+#/usr/lib/Kosmo-3.0/
+chmod g-w /usr
+chmod g-w /usr/bin
+chmod g-w /usr/lib
+chmod g-w /usr/lib/opencpn
+chmod g-w /usr/lib/ossim
+chmod g-w /usr/lib/ossim/plugins
+chmod g-w /usr/share
+chmod g-w /usr/share/opencpn -R
+chmod g-w /usr/share/ossim/
+
+
 # now that everything is installed rebuild library search cache
 ldconfig
 
