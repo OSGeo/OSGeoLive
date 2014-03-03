@@ -81,46 +81,53 @@ DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
 mkdir -p /usr/local/share/ossim/quickstart/workspace
 QUICKSTART=/usr/local/share/ossim/quickstart
 
-wget -nv "$DATA_URL/ipython-notebook.desktop" \
-     --output-document="$QUICKSTART"/workspace/ipython-notebook.desktop
+#wget -nv "$DATA_URL/ipython-notebook.desktop" \
+#     --output-document="$QUICKSTART"/workspace/ipython-notebook.desktop
+
+
 
 #pip install --upgrade ipython
 #pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
 
 ##### Setup custom IPython profile
+# commenting out, the keywords are now in the command line fro ipython_grass.sh
 
-mkdir -p "$USER_HOME"/.config
-chown "$USER.$USER" "$USER_HOME"/.config
+
+#mkdir -p "$USER_HOME"/.config
+#chown "$USER.$USER" "$USER_HOME"/.config
 
 ## 'sudo -u "$USER_NAME"' by itself doesn't work, need to overset $HOME as well.
-HOME="$USER_HOME" \
- sudo -u "$USER_NAME" \
- ipython profile create osgeolive
+#HOME="$USER_HOME" \
+# sudo -u "$USER_NAME" \
+# ipython profile create osgeolive
 
-mkdir -p /etc/skel/.config
+#mkdir -p /etc/skel/.config
 
 # weirdness (see trac bug #1215)
-if [ -d "$USER_HOME"/.config/ipython ] ; then
-   cp -r "$USER_HOME"/.config/ipython /etc/skel/.config
-   IPY_CONF="$USER_HOME/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
-else
-   cp -r "$USER_HOME"/.ipython /etc/skel/.config/ipython
-   IPY_CONF="$USER_HOME/.ipython/profile_osgeolive/ipython_notebook_config.py"
-fi
+#if [ -d "$USER_HOME"/.config/ipython ] ; then
+#   cp -r "$USER_HOME"/.config/ipython /etc/skel/.config
+#   IPY_CONF="$USER_HOME/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
+#else
+#   cp -r "$USER_HOME"/.ipython /etc/skel/.config/ipython
+#   IPY_CONF="$USER_HOME/.ipython/profile_osgeolive/ipython_notebook_config.py"
+#fi
 
-cat << EOF >> "$IPY_CONF"
-c.NotebookApp.open_browser = False
-c.NotebookApp.port = 12345
-c.NotebookManager.save_script=True
-c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace/geo-notebook'
-c.NotebookApp.ip = '*'
-EOF
 
-cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
-chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
+#cat << EOF >> "$IPY_CONF"
+#c.NotebookApp.open_browser = False
+#c.NotebookApp.port = 12345
+#c.NotebookManager.save_script=True
+#c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace/geo-notebook'
+#c.NotebookApp.ip = '*'
+#EOF
+
+#cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
+#chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 
 cp "$BUILD_DIR/../app-data/ossim/ipython_grass.sh" \
    /usr/local/bin/
+
+cp "$BUILD_DIR/../app-data/ossim/ipython-notebook.desktop" "$QUICKSTART"/workspace/
 
 # no-op?
 chmod a+x /usr/local/bin/ipython_grass.sh
