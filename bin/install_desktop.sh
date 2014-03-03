@@ -56,18 +56,20 @@ sed -i -e 's|^background=.*|background=/usr/share/xfce4/backdrops/osgeo-desktop.
 mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/
 cp ../desktop-conf/xfce/xfce4-desktop.xml \
      /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+
+# edit it in the skel dirs too, for the chroot method
+#sed -i -e 's/xubuntu-.*.png/osgeo-desktop.png/' \
+#  /etc/xdg/xdg-xubuntu/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
+cp -f ../desktop-conf/xfce/xfce4-desktop.xml \
+     /etc/xdg/xdg-xubuntu/xfce4/xfconf/xfce-perchannel-xml/
+
 #Copy it to the existing user
 mkdir -p "$USER_HOME"/.config/xfce4/xfconf/xfce-perchannel-xml/
 cp /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml \
      "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
-#Note: Style int 3 means stretched
-#Not sure if this is necessary
+
 chown "$USER_NAME"."$USER_NAME" \
      "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
-
-# edit it in the skel dirs too, for the chroot method
-sed -i -e 's/xubuntu-.*.png/osgeo-desktop.png/' \
-  /etc/xdg/xdg-xubuntu/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
 
 #Old version in case we need to revert, or if you're logged into the current XFCE session
 #Has to been run as the regular user
