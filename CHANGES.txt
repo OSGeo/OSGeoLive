@@ -1,6 +1,22 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.9rc1
+===================
+
+ * All deb files moved to OSGeoLive PPA: release-7.9
+ * Documentation and Translations finalized
+ * Fixed openssh-server
+ * Added IPython documentation and geo-notebook
+ * Symlink cleanup
+ * Added post build check script
+ * Fixed postgis.jar link (#1310)
+ * UID,GID permission fixes
+ * drop vcredist_x86.exe (#1261)
+ * fix/install metadata (#1308)
+ * Added Leaflet menu item
+ * ZOO installation using deb file (#1290)
+
 Version 7.9beta3
 ===================
 
