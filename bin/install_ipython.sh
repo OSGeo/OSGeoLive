@@ -81,10 +81,6 @@ DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
 mkdir -p /usr/local/share/ossim/quickstart/workspace
 QUICKSTART=/usr/local/share/ossim/quickstart
 
-#wget -nv "$DATA_URL/ipython-notebook.desktop" \
-#     --output-document="$QUICKSTART"/workspace/ipython-notebook.desktop
-
-
 
 #pip install --upgrade ipython
 #pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
@@ -127,7 +123,8 @@ QUICKSTART=/usr/local/share/ossim/quickstart
 cp "$BUILD_DIR/../app-data/ossim/ipython_grass.sh" \
    /usr/local/bin/
 
-cp "$BUILD_DIR/../app-data/ossim/ipython-notebook.desktop" "$QUICKSTART"/workspace/
+cp "$BUILD_DIR"/../app-data/ossim/ipython-notebook*.desktop \
+   "$QUICKSTART"/workspace/
 
 # no-op?
 chmod a+x /usr/local/bin/ipython_grass.sh
