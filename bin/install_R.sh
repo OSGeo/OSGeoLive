@@ -69,6 +69,8 @@ fi
 
 #Required for QGIS plugins - Switching to apt above
 #easy_install -Z rpy2
+apt-get --assume-yes install python-rpy2 r-cran-rcolorbrewer
+
 
 # R specific packages
 apt-get --assume-yes install r-recommended 
