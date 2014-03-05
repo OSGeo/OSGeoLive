@@ -126,6 +126,12 @@ cp "$BUILD_DIR/../app-data/ossim/ipython_grass.sh" \
 cp "$BUILD_DIR"/../app-data/ossim/ipython-notebook*.desktop \
    "$QUICKSTART"/workspace/
 
+#TODO:
+#cp "$BUILD_DIR"/../app-data/ossim/ipython-notebook*.desktop \
+#   "$USER_DESKTOP"/
+#chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
+
+
 # no-op?
 chmod a+x /usr/local/bin/ipython_grass.sh
 
