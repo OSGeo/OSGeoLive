@@ -266,8 +266,8 @@ for BAND in 10 20 30 40 50 61 62 70 80 ; do
    rm "$DATA_DIR/$BASENAME"
    mv "$DATA_DIR/$NEWNAME" "$DATA_DIR/$BASENAME"
 
-   /usr/local/ossim/bin/ossim-img2rr "$DATA_DIR/$BASENAME"
-   /usr/local/ossim/bin/ossim-create-histo "$DATA_DIR/$BASENAME"
+   ossim-img2rr "$DATA_DIR/$BASENAME"
+   ossim-create-histo "$DATA_DIR/$BASENAME"
 done
 
 /usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip \
