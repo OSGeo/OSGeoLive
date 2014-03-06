@@ -33,6 +33,8 @@ ln -s /usr/share/javascript/leaflet/ /var/www/leaflet
 
 #add demo file
 wget -nv http://zadeh.ugent.be/~johan/leaflet-demo.html --output-document=/var/www/leaflet-demo.html
+cp -f ../app-conf/leaflet/leaflet-demo.html /var/www/
+
 
 ### install desktop icons ##
 echo "Installing Leaflet icon"
