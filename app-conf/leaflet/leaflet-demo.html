@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet Quick Start Guide Example</title>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/leaflet/leaflet.css" />
+    <!--[if lte IE 8]><link rel="stylesheet" href="../dist/leaflet.ie.css" /><![endif]-->
+</head>
+<body>
+    <div id="map" style="width: 600px; height: 400px"></div>
+
+    <script src="/leaflet/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([52.939, -1.203], 5)
+
+        L.tileLayer('http://localhost:8012/{z}/{x}/{y}.png',{}).addTo(map);
+
+        var marker = L.marker([52.939, -1.203]).addTo(map);            
+
+        var circle = L.circle([51.508, -0.11], 25000, {
+           color: 'red',
+           fillColor: '#f03',
+           fillOpacity: 0.5
+        }).addTo(map);
+        
+        
+        var polygon = L.polygon([
+           [56.3895, -0.439],
+           [52.74959, 3.07617],
+           [57.06463, 6.19629]
+        ]).addTo(map);
+        
+        var popup = L.popup()
+           .setLatLng([52.939, -1.203])
+           .setContent("Foss4G is here this year!")
+           .openOn(map);
+
+        function onMapClick(e) {
+           popup
+                .setLatLng(e.latlng)
+                .setContent("You clicked the map at " + e.latlng.toString())
+                 .openOn(map);
+        }
+        
+        map.on('click', onMapClick);
+        
+   </script>
+</body>
+</html>
+
