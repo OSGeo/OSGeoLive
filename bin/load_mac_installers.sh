@@ -83,7 +83,7 @@ python/matplotlib-1.3.1-1.dmg
 C_PKG="
 grass/GRASS-6.4.3-2-Snow.dmg
 postgresql/PostGIS-2.1.1-1.dmg
-qgis/QGIS-2.2.0-3.dmg
+qgis/QGIS-2.2.0-7.dmg
 "
 
 
