@@ -64,7 +64,7 @@ chown user:user /home/user/Desktop
 
 cd /tmp/
 
-wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh"
+wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_7_9/bin/bootstrap.sh"
 
 chmod a+x bootstrap.sh
 

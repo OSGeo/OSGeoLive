@@ -238,7 +238,7 @@ sudo rm -rf edit
 #Can probably use sed magic or copy a predefined file from gisvm/app-data
 #sudo nano extract-cd/README.diskdefines
 # fixme: can you copy from the local ../filesystem instead?
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/build_chroot/README.diskdefines \
+wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_7_9/app-conf/build_chroot/README.diskdefines \
      --output-document=extract-cd/README.diskdefines
 
 echo
