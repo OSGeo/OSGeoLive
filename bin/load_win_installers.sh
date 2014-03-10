@@ -75,8 +75,13 @@ for URL in \
   http://sourceforge.net/projects/geoserver/files/GeoServer/2.4.4/geoserver-2.4.4-bin.zip?use_mirror=cdnetworks-us-2 \
   http://download.osgeo.org/livedvd/data/mapwindow/MapWindowx86Full-v488SR-installer.exe \
 ; do
-  # sourceforge filename sanitation:
-  OUTFILE=`basename "$URL" | cut -f1 -d'?'`
+
+  # zygrib and sourceforge filename sanitation:
+  if [ `echo "$URL" | grep -c 'zygrib.org'` -gt 0 ] ; then
+    OUTFILE=`basename "$URL" | cut -f2 -d'='`
+  else
+    OUTFILE=`basename "$URL" | cut -f1 -d'?'`
+  fi
 
   wget -c --no-check-certificate --progress=dot:mega "$URL" -O "$OUTFILE"
 done;
