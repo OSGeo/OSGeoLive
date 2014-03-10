@@ -68,7 +68,6 @@ for URL in \
   http://github.com/downloads/mapbox/tilemill/TileMill-v0.10.1-Setup.exe \
   http://gpsvp.googlecode.com/files/gpsVPxp_0.4.24.zip \
   http://downloads.sourceforge.net/project/opencpn/opencpn/3.2.2/opencpn_3.2.2_setup.exe?use_mirror=cdnetworks-us-2 \
-  http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe \
   http://sourceforge.net/projects/saga-gis/files/SAGA%20-%202.1/SAGA%202.1.1/saga_2.1.1_win32.zip?use_mirror=cdnetworks-us-2 \
   http://zygrib.org/getfile.php?file=zyGrib_win-6.2.3.zip \
   http://download.osgeo.org/fdo/3.8.0/release/binaries/win32/fdo-win32-3.8.0_3601.tar.gz \
@@ -109,6 +108,7 @@ done;
 #FIXME:
 #\mv "plan9.php?dl=gpsbabel-1.3.6.zip" gpsbabel-1.3.6.zip
 # MapWindow also obfuscates the download URL.
+# doesn't exist:  http://download.osgeo.org/ossim/installers/windows/ossimplanet-installer-1.8.4.exe
 
   # FWTools
   # geonetwork
