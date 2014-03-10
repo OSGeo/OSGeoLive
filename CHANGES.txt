@@ -1,6 +1,21 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 7.9 final
+===================
+
+ * Move leaflet demo to Portland
+ * Fix broken symlink for MB-System docs
+ * German translation updates
+ * Adjust installer scripts to fit on full DVD image
+
+Version 7.9rc2
+===================
+
+ * Clean up ipython notebook startup and update rpy2
+ * Fix OSSIM raster demo histograms
+ * Create mini ISO for distribution
+
 Version 7.9rc1
 ===================
 
