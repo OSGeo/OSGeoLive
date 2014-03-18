@@ -15,7 +15,7 @@
 # About:
 # =====
 # This script will install mapbender3 and will create a PostgreSQL database
-#  mapbender3.0.0.0. 
+#  mapbender3.0.3.0. 
 # The script will also add an ALIAS for Mapbender3 and a Desktop icon.
 #
 # Requires: Apache2, PHP5, PostgreSQL
@@ -36,8 +36,10 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR="/tmp/build_mapbender3"
+PARAMETERSINSTALLURL="http://mapbender3.org/builds/"
 INSTALLURL="http://mapbender3.org/builds/"
-INSTALLFILE="mapbender3-3.0.0.2"
+INSTALLFILE="mapbender3-3.0.3.0"
+PARAMETERSFILE="mapbender3-3.0.3.0"
 INSTALL_DIR="/var/www"
 
 mkdir -p "$TMP_DIR"
@@ -68,7 +70,7 @@ else
 fi
 if [ ! -f "${INSTALLFILE}_parameters.yml" ] ; then 
    wget -O ${INSTALLFILE}_parameters.yml --progress=dot:mega \
-      "$INSTALLURL/${INSTALLFILE}_parameters.yml"
+      "$PARAMETERSINSTALLURL/${PARAMETERSFILE}_parameters.yml"
 else
     echo "... Mapbender3 yml already downloaded"
 fi
@@ -84,8 +86,9 @@ chown -R www-data:www-data "$INSTALL_DIR/mapbender3"
 
 # create mapbender database
 cd "$INSTALL_DIR/mapbender3/"
-cp "$TMP_DIR/${INSTALLFILE}_parameters.yml" \
-   "$INSTALL_DIR/mapbender3/app/config/parameters.yml"
+#cp "$TMP_DIR/${INSTALLFILE}_parameters.yml"    "$INSTALL_DIR/mapbender3/app/config/parameters.yml"
+
+cp "$TMP_DIR/${PARAMETERSFILE}_parameters.yml"    "$INSTALL_DIR/mapbender3/app/config/parameters.yml"
 
 app/console doctrine:database:create
 app/console doctrine:schema:create
@@ -103,6 +106,7 @@ app/console assets:install web
 chown -R www-data:www-data "$INSTALL_DIR/mapbender3"
 chmod -R ug+w "$INSTALL_DIR/mapbender3/app/cache/"
 chmod -R ug+w "$INSTALL_DIR/mapbender3/app/logs/"
+chmod -R ug+w "$INSTALL_DIR/mapbender3/web/"
 
 #Create apache2 configuration for mapbender
 #FIXME: make cleaner like
