@@ -225,13 +225,12 @@ sed -i 's|#settings.database.db_type = "postgres"|settings.database.db_type = "p
 sed -i 's|#settings.database.password = "password"|settings.database.password = "sahana"|' \
    "$INSTALL_DIR/web2py/applications/eden/models/000_config.py"
 
-# Configure Eden for Nottingham (FOSS4G 2013)
-sed -i 's|22.593723263|52.950706|' \
+# Configure Eden for Portland (FOSS4G 2014)
+sed -i -e 's|22.593723263|45.5282|' \
+       -e 's|5.28516253|-122.6632|' \
+       -e 's|,2,|,12,|' \
    "$INSTALL_DIR/web2py/applications/eden/private/templates/default/gis_config.csv"
-sed -i 's|5.28516253|-1.144980|' \
-  "$INSTALL_DIR/web2py/applications/eden/private/templates/default/gis_config.csv"
-sed -i 's|,2,|,12,|' \
-   "$INSTALL_DIR/web2py/applications/eden/private/templates/default/gis_config.csv"
+
 #sed -i 's|#settings.L10n.utc_offset = "UTC +0000"|settings.L10n.utc_offset = "UTC +0100"|' \
 #   "$INSTALL_DIR/web2py/applications/eden/private/templates/default/config.py"
 
