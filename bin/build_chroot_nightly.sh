@@ -70,7 +70,7 @@ sudo apt-get install --yes squashfs-tools genisoimage lzip
 #TODO add wget to grab a fresh image, optional
 
 echo
-echo "Downloading Xubuntu original image..."
+echo "Downloading Lubuntu original image..."
 echo "====================================="
 
 #Stuff to be done the 1st time, should already be in place for additional builds
@@ -78,25 +78,25 @@ echo "====================================="
 mkdir -p ~/livecdtmp
 cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
-UBU_MIRROR="http://se.archive.ubuntu.com/mirror/cdimage.ubuntu.com"
-UBU_RELEASE="12.04"
-ISO_RELEASE="12.04.4"
-UBU_ISO="xubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
+UBU_MIRROR="http://cdimage.ubuntu.com"
+UBU_RELEASE="14.04"
+ISO_RELEASE="14.04-beta2"
+UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
-   "$UBU_MIRROR/xubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
+   "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/beta-2/$UBU_ISO"
 
 #Start with a fresh copy
 #Mount the Desktop .iso
 mkdir mnt
 sudo mount -o loop "$UBU_ISO" mnt
-echo "Xubuntu $ISO_RELEASE $ARCH image mounted."
+echo "Lubuntu $ISO_RELEASE $ARCH image mounted."
 
 #Extract .iso contents into dir 'extract-cd' 
 mkdir "extract-cd"
 rsync --exclude=/casper/filesystem.squashfs -a mnt/ "extract-cd"
 
 echo
-echo "Extracting squashfs from Xubuntu image"
+echo "Extracting squashfs from Lubuntu image"
 echo "======================================"
 #Extract the SquashFS filesystem 
 sudo unsquashfs mnt/casper/filesystem.squashfs
@@ -152,7 +152,7 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from xubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.2.0-58-generic
+sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.13.0-19-generic
 
 #continue
 mkdir lzfiles
