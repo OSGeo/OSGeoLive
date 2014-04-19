@@ -80,10 +80,10 @@ cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://cdimage.ubuntu.com"
 UBU_RELEASE="14.04"
-ISO_RELEASE="14.04-beta2"
+ISO_RELEASE="14.04"
 UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
-   "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/beta-2/$UBU_ISO"
+   "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
 
 #Start with a fresh copy
 #Mount the Desktop .iso
@@ -152,7 +152,7 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from xubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.13.0-19-generic
+sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.13.0-24-generic
 
 #continue
 mkdir lzfiles
