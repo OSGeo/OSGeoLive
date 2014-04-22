@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2013 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2014 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -38,30 +38,12 @@ PACKAGES="grass grass-doc grass-dev python-opengl python-wxgtk2.8 avce00 \
   e00compr gdal-bin proj-bin python-gdal gpsbabel xml2 sqlitebrowser \
   dbview libtiff-tools python-rpy2 gnuplot"
 
-MODERN_VERSION="6.4"
 
 TMP_DIR=/tmp/build_grass
 mkdir "$TMP_DIR"
 
 
-
-if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install it and try again" 
-   exit 1
-fi
-
-
 #CAUTION: UbuntuGIS should be enabled only through setup.sh
-# Add UbuntuGIS repository (same as QGIS)
-#cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
-
-#Add signed key for repositorys LTS and non-LTS
-#qgis repo 68436DDF unused? :
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
-
-apt-get update --quiet
-
 
 apt-get --assume-yes install $PACKAGES
 
@@ -70,14 +52,6 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-
-INSTALLED_VERSION=`dpkg -s grass | grep '^Version:' | awk '{print $2}' | cut -f1,2 -d.`
-IS_OLD_VERSION=`echo "$INSTALLED_VERSION $MODERN_VERSION" | awk '{if ($1 < $2) {print 1} else {print 0} }'`
-if [ "$IS_OLD_VERSION" -eq 1 ] ; then
-   echo "WARNING: Installed version ($INSTALLED_VERSION) is older than the recommended version ($MODERN_VERSION)."
-   echo "         Please fix!"
-   #exit 1
-fi
 
 
 #### get sample data ####
@@ -183,15 +157,6 @@ mkdir -p "$USER_HOME/grassdata/addons"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata/addons"
 
 
-#if [ `grep -c 'GRASS_PAGER=' "$USER_HOME/.profile"` -eq 0 ] ; then
-#   cat << EOF >> "$USER_HOME/.profile"
-#
-#GRASS_PAGER=more
-#GRASS_ADDON_PATH=~/grassdata/addons
-#export GRASS_PAGER GRASS_ADDON_PATH
-#
-#EOF
-#fi
 cat << EOF > /etc/profile.d/grass_settings.sh
 GRASS_PAGER=more
 GRASS_ADDON_PATH=~/grassdata/addons
@@ -209,44 +174,43 @@ chgrp users /usr/lib/grass64/etc/fontcap
 
 
 #### install desktop icon ####
-if [ ! -e "/usr/share/icons/grass-48x48.png" ] ; then
-   wget -nv "http://svn.osgeo.org/grass/grass/trunk/gui/icons/grass-48x48.png"
-   \mv grass-48x48.png /usr/share/icons/
-fi
-
-
-GVER=`echo "$INSTALLED_VERSION" | sed -e 's/\.//'`
-
-#if [ ! -e /usr/share/applications/grass.desktop ] ; then
-   cat << EOF > /usr/share/applications/grass.desktop
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=GRASS GIS
-Comment=GRASS GIS $INSTALLED_VERSION
-Categories=Application;Education;Geography;
-Exec=/usr/bin/grass$GVER
-Icon=/usr/share/icons/grass-48x48.png
-Terminal=true
-EOF
+#if [ ! -e "/usr/share/icons/grass-48x48.png" ] ; then
+#   wget -nv "http://svn.osgeo.org/grass/grass/trunk/gui/icons/grass-48x48.png"
+#   \mv grass-48x48.png /usr/share/icons/
 #fi
+#
+#GVER=`echo "$INSTALLED_VERSION" | sed -e 's/\.//'`
+#
+##if [ ! -e /usr/share/applications/grass.desktop ] ; then
+#   cat << EOF > /usr/share/applications/grass.desktop
+#[Desktop Entry]
+#Type=Application
+#Encoding=UTF-8
+#Name=GRASS GIS
+#Comment=GRASS GIS $INSTALLED_VERSION
+#Categories=Application;Education;Geography;
+#Exec=/usr/bin/grass$GVER
+#Icon=/usr/share/icons/grass-48x48.png
+#Terminal=true
+#EOF
+##fi
 
-cp /usr/share/applications/grass.desktop "$USER_HOME/Desktop/"
+cp /usr/share/applications/grass64.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass.desktop"
 
 
-# add menu item
-if [ ! -e /usr/share/menu/grass ] ; then
-   cat << EOF > /usr/share/menu/grass
-?package(grass):needs="text"\
-  section="Applications/Science/Geoscience"\
-  title="GRASS GIS"\
-  command="/usr/bin/grass$GVER"\
-  icon="/usr/share/icons/grass-48x48.png"
-EOF
-
-   update-menus
-fi
+## add menu item
+#if [ ! -e /usr/share/menu/grass ] ; then
+#   cat << EOF > /usr/share/menu/grass
+#?package(grass):needs="text"\
+#  section="Applications/Science/Geoscience"\
+#  title="GRASS GIS"\
+#  command="/usr/bin/grass$GVER"\
+#  icon="/usr/share/icons/grass-48x48.png"
+#EOF
+#
+#   update-menus
+#fi
 
 
 
