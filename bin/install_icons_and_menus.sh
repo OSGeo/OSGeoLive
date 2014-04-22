@@ -87,6 +87,16 @@ cd "$USER_HOME/Desktop"
 
 ## OSGeo menu and CPU load for top taskbar:
 
+LXPANEL="/usr/share/lxpanel/profile/Lubuntu/panels/panel"
+if [ `grep -c 'id=lxterminal.desktop' "$LXPANEL"` -eq 0 ] ; then
+  # add new things to the lower taskbar
+  sed -i -e 's|\(browser.desktop\)|\1\n        }\n        Button {\n            id=lxterminal.desktop|' \
+         -e 's|\(type = dclock\)|type = pager\n}\n\nPlugin {\n    type = cpu\n}\n\nPlugin {\n    \1|' \
+    "$LXPANEL"
+fi
+
+
+
 if [ `grep -c 'value="Geospatial"' /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml` -eq 0 ] ; then
   #present full applications menu name
     sed -i -e 's+\(name="show-button-title" type="bool"\) value="false"/>+\1 value="true"/>\n      <property name="button-title" type="string" value="Applications"/>+' \
