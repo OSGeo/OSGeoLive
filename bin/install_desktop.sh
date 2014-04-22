@@ -153,20 +153,6 @@ chown "$USER_NAME"."$USER_NAME" "$USER_HOME"/welcome_message.txt
 cp /usr/local/share/osgeo-desktop/welcome_message.txt /etc/skel/
 
 
-if [ 'softly' = 'yes' ] ; then
-   # FOSS the Software Center
-   cd /usr/share/software-center/
-   patch -p0 -N -r - --quiet < "$BUILD_DIR/../desktop-conf/FOSScenter.patch"
-   PYCs=`grep ORIG FOSScenter.patch | sed -e 's/\.ORIG.*//' -e 's/.[^\.]*//' -e 's/$/c/'`
-   rm -f $PYCs
-   #fixme:  pycompile -p ... ?? (running software-center as root will rebuild them)
-   rm -rf "$USER_NAME/.cache/software-center/"
-else
-   # remove the bastard and free up 65-105mb
-   apt-get purge --assume-yes software-center software-center-aptdaemon-plugins \
-       apt-xapian-index
-   rm -rf /var/cache/apt-xapian-index
-fi
 
 #### replace the Software Center on the Apps menu with the more useful Synaptic
 # .. TODO   (right click the Apps menu, properties, edit, add synaptic-pkexec, 

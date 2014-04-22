@@ -83,7 +83,8 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   vim medit nedit nano screen iotop xfonts-jmk \
   ghostscript a2ps netpbm qiv htop \
   lynx mutt mc xchat rxvt units scrot \
-  gdebi fslint arandr sgt-puzzles xkb-data
+  gdebi fslint arandr sgt-puzzles xkb-data \
+  xfonts-100dpi xfonts-75dpi
 
 # smallish KDE apps to install only if KDE libs are already present:
 #apt-get install --yes okular filelight
@@ -92,8 +93,6 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
 #apt-get install --yes xfce4-xkb-plugin xfce4-power-manager \
 #   xfce4-wavelan-plugin xfce4-battery-plugin
 
-# needed for Motif/Lesstif based apps: (no longer installed in ubu by default)
-apt-get install --yes xfonts-100dpi xfonts-75dpi
 
 # needed for installing packages for workshops (http://wiki.osgeo.org/wiki/Workshops_with_OSGeoLive)
 apt-get install --yes apturl
@@ -143,7 +142,7 @@ sed -i -e 's+ubuntu-software-center\.desktop+synaptic\.desktop+' \
    /etc/xdg/xdg-xubuntu/menus/xfce-applications.menu
 
 # remove xscreensaver as it tends to saturate VM bandwidth
-apt-get --assume-yes remove xscreensaver
+#apt-get --assume-yes remove xscreensaver
 
 #buggy in 12.04:
 # but does it want to take the rest of the xubuntu desktop with it?
