@@ -29,22 +29,22 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 
-VERS="5.4.2128-0"
+VERS="5.4.2183-0"
 
 
 #### get dependencies ####
 
-PACKAGES="gmt gv lesstif2 libnetcdf6 libgl1-mesa-glx libglu1-mesa
+PACKAGES="gmt gv libxm4 libxt6 libnetcdf6 libgl1-mesa-glx libglu1-mesa
           csh proj libfftw3-3 libparallel-forkmanager-perl"
 
 apt-get --assume-yes install $PACKAGES
 
 
 # add GMT apps to the PATH if needed
-if [ `grep -c '/usr/lib/gmt/bin' "$USER_HOME/.bashrc"` -eq 0 ] && \
-   [ ! -e /etc/profile.d/gmt_path.sh ] ; then
-      echo 'PATH="$PATH:/usr/lib/gmt/bin"' >> "$USER_HOME/.bashrc"
-fi
+#if [ `grep -c '/usr/lib/gmt/bin' "$USER_HOME/.bashrc"` -eq 0 ] && \
+#   [ ! -e /etc/profile.d/gmt_path.sh ] ; then
+#      echo 'PATH="$PATH:/usr/lib/gmt/bin"' >> "$USER_HOME/.bashrc"
+#fi
 
 
 mkdir -p /tmp/build_mbsystem
@@ -57,7 +57,7 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-DL_URL="http://download.osgeo.org/livedvd/data/mbsystem/precise/i386"
+DL_URL="http://download.osgeo.org/livedvd/data/mbsystem/trusty/i386"
 
 for file in mbsystem_${VERS}_i386.deb \
             mbsystem-doc_${VERS}_all.deb \
