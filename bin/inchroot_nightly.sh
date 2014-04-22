@@ -107,7 +107,7 @@ export USER_NAME
 # ./install_pgrouting.sh
 # ./install_sahana.sh
 # ./install_ushahidi.sh
-./install_mapserver.sh
+# ./install_mapserver.sh
 # ./install_mapbender3.sh
 # ./install_geokettle.sh
 # ./install_gmt.sh
@@ -137,9 +137,9 @@ export USER_NAME
 # ./install_otb.sh
 # ./install_rasdaman.sh
 # ./install_tinyows.sh
-# ./install_pycsw.sh
+./install_pycsw.sh
 # ./install_geomoose.sh
-# ./install_mb-system.sh
+./install_mb-system.sh
 # ./install_gvsig.sh
 # ./install_tilemill.sh
 # ./install_eoxserver.sh
