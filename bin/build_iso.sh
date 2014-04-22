@@ -99,7 +99,7 @@ Encoding=UTF-8
 Name=Log out
 Comment=Takes you back to the login screen (in case the menu item is broken)
 Categories=Application;
-Exec=killall xfce4-session
+Exec=killall lxsession
 Icon=system-log-out
 Terminal=false
 EOF
