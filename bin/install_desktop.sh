@@ -159,11 +159,10 @@ cp /usr/local/share/osgeo-desktop/welcome_message.txt /etc/skel/
 #       name it package manager to keep the width narrow; then create a patch)
 # --> see bin/setup.sh line 116 where it is replaced with sed
 
-#### the default xUbuntu 12.04 theme has 1px wide window borders which
-# makes it extremely tricky to resize them. tweak the theme so that
-# window borders are 4px wide so they are easier to grab.
-cp -f "$BUILD_DIR"/../desktop-conf/xfce/greybird_theme/*.xpm \
-   /usr/share/themes/Greybird/xfwm4/
+
+# Tweak (non-default) theme so that window borders are wider so easier to grab.
+sed -i -e 's|^border.width: 1|border.width: 2|' \
+   /usr/share/themes/Mikachu/openbox-3/themerc
 
 
 # Long live the classic X11 keybindings
