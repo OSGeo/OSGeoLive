@@ -278,10 +278,10 @@ cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
 
 
 # Terminal toolbar off by default, and let's have some contrast
-echo "MiscMenubarDefault=FALSE" >> /etc/xdg/xdg-xubuntu/Terminal/terminalrc
-sed -i -e 's/\(ColorForeground=\).*/\1#dcdcdcdcdcdc/' \
-       -e 's/\(ColorBackground=\).*/\1#000000000000/' \
-   /etc/xdg/xdg-xubuntu/Terminal/terminalrc
+echo "hidemenubar=true" >> /etc/xdg/lubuntu/lxterminal/lxterminal.conf
+#sed -i -e 's/\(fgcolor=\).*/\1#dcdcdcdcdcdc/' \
+#       -e 's/\(bgcolor=\).*/\1#000000000000/' \
+#   /etc/xdg/lubuntu/lxterminal/lxterminal.conf
 
 
 #What logo to use for launching the help?
