@@ -36,18 +36,15 @@ chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 
 # Setup the desktop background image
 cp ../desktop-conf/osgeo-desktop.png \
-   /usr/share/xfce4/backdrops/
+   /usr/share/lubuntu/wallpapers/
 
 cp ../desktop-conf/osgeo-desktop-transparent.png \
-   /usr/share/xfce4/backdrops/
+   /usr/share/lubuntu/wallpapers/
 
-# for release 7.9
-ln -s /usr/local/share/gisvm/desktop-conf/osgeo-desktop-acf.png \
-   /usr/share/xfce4/backdrops/
 
 #New way to set login screen background as of 12.04 that uses lightdm instead of gdm
 # (awaiting graphic with text overlay explaining what the user name and password is)
-sed -i -e 's|^background=.*|background=/usr/share/xfce4/backdrops/osgeo-desktop.png|' \
+sed -i -e 's|^background=.*|background=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
    /etc/lightdm/lightdm-gtk-greeter.conf
 
 #Done:support for headless installs with or without user existing, preference for png
@@ -75,7 +72,7 @@ chown "$USER_NAME"."$USER_NAME" \
 #Has to been run as the regular user
 #sudo -u $USER_NAME xfconf-query -c xfce4-desktop \
 #     -p /backdrop/screen0/monitor0/image-path \
-#     -s /usr/share/xfce4/backdrops/osgeo-desktop.png
+#     -s /usr/share/lubuntu/wallpapers/osgeo-desktop.png
 # set to stretch style background
 #sudo -u $USER_NAME xfconf-query -c xfce4-desktop --create \
 #     -p /backdrop/screen0/monitor0/image-style  -s 3  -t int
@@ -268,7 +265,7 @@ EOF
   cat << EOF > /usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.override
 [com.canonical.unity-greeter]
 draw-user-backgrounds=false
-background='/usr/share/xfce4/backdrops/osgeo-desktop.png'
+background='/usr/share/lubuntu/wallpapers/osgeo-desktop.png'
 EOF
   glib-compile-schemas /usr/share/glib-2.0/schemas/
 

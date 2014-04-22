@@ -79,7 +79,7 @@ apt-get -q update
 apt-get install --yes wget less zip unzip bzip2 p7zip \
   cvs cvsutils subversion subversion-tools mercurial git \
   openssh-client lftp sl usbutils wireless-tools \
-  locate diff patch fuseiso menu dlocate \
+  locate patch fuseiso menu dlocate \
   vim medit nedit nano screen iotop xfonts-jmk \
   ghostscript a2ps netpbm qiv htop \
   lynx mutt mc xchat rxvt units scrot \
@@ -123,9 +123,8 @@ sed -i -e 's/^VERBOSE=no/VERBOSE=yes/' /etc/default/rcS
 #    package to get `dpigs`. or try `wajig size`
 
 # Uninstall large applications installed by default
-apt-get remove --yes gnome-games-common \
+apt-get remove --yes \
    gimp gimp-data gimp-help-common gimp-help-en libgimp2.0 \
-   libgegl-0.0.0 libbabl-0.0.0 libotr2 \
    thunderbird pidgin-data hplip hplip-data \
    gnome-user-guide xfwm4-themes libsane \
    libsane-common libsane-hpaio libieee1284-3 \
@@ -138,8 +137,7 @@ apt-get remove --yes gnome-games-common \
 
 # since GIMP is removed we have to replace an xUbuntu default icon
 # software store and related bloat removed, use synaptic instead
-sed -i -e 's+gimp\.desktop+xfce4-dict\.desktop+' \
-       -e 's+ubuntu-software-center\.desktop+synaptic\.desktop+' \
+sed -i -e 's+ubuntu-software-center\.desktop+synaptic\.desktop+' \
    /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml
 sed -i -e 's+ubuntu-software-center\.desktop+synaptic\.desktop+' \
    /etc/xdg/xdg-xubuntu/menus/xfce-applications.menu
@@ -147,24 +145,20 @@ sed -i -e 's+ubuntu-software-center\.desktop+synaptic\.desktop+' \
 # remove xscreensaver as it tends to saturate VM bandwidth
 apt-get --assume-yes remove xscreensaver
 
-# pls add "why" here
-apt-get remove --yes indicator-messages
-
 #buggy in 12.04:
 # but does it want to take the rest of the xubuntu desktop with it?
-apt-get remove --yes blueman
+#apt-get remove --yes blueman
 
 # this will clear out 96mb (uncompressed), but users who want the
 # nvidia proprietary driver will need to reinstall it. ah well.
 #Version must be kept up to date (removes 3 packages)
 apt-get --assume-yes remove linux-headers-generic
-apt-get --assume-yes remove linux-headers-3.2.0-58
-apt-get --assume-yes remove linux-headers-3.2.0-29
+apt-get --assume-yes remove linux-headers-3.13.0-24
 # ...
-apt-get --assume-yes remove linux-headers-3.2.0-23
+#apt-get --assume-yes remove linux-headers-3.13.0-25
 
 #temp to get past dep blockage
-apt-get --assume-yes install libgrip0
+#apt-get --assume-yes install libgrip0
 
 # regen initrd
 depmod
