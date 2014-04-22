@@ -91,7 +91,7 @@ LXPANEL="/usr/share/lxpanel/profile/Lubuntu/panels/panel"
 if [ `grep -c 'id=lxterminal.desktop' "$LXPANEL"` -eq 0 ] ; then
   # add new things to the lower taskbar
   sed -i -e 's|\(browser.desktop\)|\1\n        }\n        Button {\n            id=lxterminal.desktop|' \
-         -e 's|\(type = dclock\)|type = pager\n}\n\nPlugin {\n    type = cpu\n}\n\nPlugin {\n    \1|' \
+         -e 's|\(type = dclock\)|type = cpu\n}\n\nPlugin {\n    \1|' \
     "$LXPANEL"
 fi
 
