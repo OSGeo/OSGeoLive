@@ -2,4 +2,4 @@
 # Before updating check http://www.geekconnection.org/remastersys/ubuntu.html
 # Karmic and Lucid share the same repo currently
 #Remastersys Precise
-deb http://www.remastersys.com/ubuntu precise main
+deb http://www.remastersys.com/ubuntu trusty main

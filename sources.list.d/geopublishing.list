@@ -1,6 +1,6 @@
 #Geopublishing Repository for Geopublsiher and AtlasStyler stable releases
-deb http://de.geopublishing.org/repository precise main
+deb http://de.geopublishing.org/repository trusty main
 
 # Sun JRE is in partner repoitory since lucid, but it is not required anymore for geopublishing software.
-# deb http://archive.canonical.com/ubuntu precise partner
+# deb http://archive.canonical.com/ubuntu trusty partner
 
