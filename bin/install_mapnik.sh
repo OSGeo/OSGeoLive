@@ -36,7 +36,7 @@ BIN="/usr/local/bin"
 
 
 # package name change in precise
-apt-get install --yes python-mapnik2 python-werkzeug
+apt-get install --yes python-mapnik python-werkzeug
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'

@@ -40,7 +40,7 @@ PACKAGES="gpsd gpsd-clients python-gps \
    espeak gdal-bin gpsbabel \
    graphicsmagick-imagemagick-compat \
    postgresql-9.3-postgis-2.1 \
-   python-mapnik2 \
+   python-mapnik \
    speech-dispatcher \
    openstreetmap-map-icons-square \
    openstreetmap-map-icons-scalable \
@@ -66,20 +66,21 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
-URL="http://download.osgeo.org/livedvd/data/gpsdrive/precise/i386"
-MAIN_FILE="gpsdrive_2.12+svn2685-3_i386.deb"
+URL="http://download.osgeo.org/livedvd/data/gpsdrive/trusty/i386"
+VER="2.12+svn2726-1"
+MAIN_FILE="gpsdrive_${VER}_i386.deb"
 EXTRA_FILES="
-  gpsdrive-friendsd_2.12+svn2685-3_i386.deb
-  gpsdrive-utils_2.12+svn2685-3_i386.deb"
+  gpsdrive-friendsd_${VER}_i386.deb
+  gpsdrive-utils_${VER}_i386.deb"
 
 wget -c --progress=dot:mega "$URL/$MAIN_FILE"
 for FILE in $EXTRA_FILES ; do
    wget -c -nv "$URL/$FILE"
 done
 
-gdebi --non-interactive --quiet gpsdrive-friendsd_2.12+svn2685-3_i386.deb
-gdebi --non-interactive --quiet gpsdrive-utils_2.12+svn2685-3_i386.deb
-gdebi --non-interactive --quiet gpsdrive_2.12+svn2685-3_i386.deb
+gdebi --non-interactive --quiet gpsdrive-friendsd_${VER}_i386.deb
+gdebi --non-interactive --quiet gpsdrive-utils_${VER}_i386.deb
+gdebi --non-interactive --quiet gpsdrive_${VER}_i386.deb
 
 
 
