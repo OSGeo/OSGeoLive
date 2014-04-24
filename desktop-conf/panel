@@ -24,6 +24,12 @@ Plugin {
     type = menu
     Config {
         image=/usr/share/lubuntu/images/lubuntu-logo.png
+        item {
+            image=/usr/local/share/icons/arramagong-wombat-small.png
+            command=run
+        }
+        separator {
+        }
         system {
         }
         separator {

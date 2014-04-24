@@ -89,8 +89,8 @@ cd "$USER_HOME/Desktop"
 
 # tweak the lower taskbar
 LXPANEL="/usr/share/lxpanel/profile/Lubuntu/panels/panel"
-#cp "$BUILD_DIR"/../desktop-conf/panel "$LXPANEL"
-
+cp "$LXPANEL" "$LXPANEL.bak"
+cp "$BUILD_DIR"/../desktop-conf/panel "$LXPANEL"
 
 
 # old:
