@@ -18,8 +18,8 @@
 #
 # Uninstall:
 # ============
-# sudo rm -rf /var/www/i3geo
-# sudo rm -rf /var/www/ms_tmp
+# sudo rm -rf /var/www/html/i3geo
+# sudo rm -rf /var/www/html/ms_tmp
 # sudo rm -rf /tmp/ms_tmp
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -43,7 +43,7 @@ I3GEO_DEPENDENCIES=(apache2 php5 libapache2-mod-php5 cgi-mapserver mapserver-bin
 R_DEPENDENCIES=(r-cran-maptools)
 
 #Installation variables
-ROOT_DIR="/var/www"
+ROOT_DIR="/var/www/html"
 TMP_DIR="/tmp"
 LOCAPLIC="$ROOT_DIR/i3geo"
 
@@ -66,7 +66,7 @@ echo -n "Done"
 rm "$I3GEO_COMPRESSED_FILE"
 
 #Change permissions
-cd /var/www
+cd "$ROOT_DIR"
 chown -R www-data i3geo/
 chgrp -R www-data i3geo/
 chmod -R 755 i3geo/
@@ -130,7 +130,7 @@ rm spatstat_1.30-0.tar.gz
 echo "Installing i3geo desktop icon"
 if [ ! -e "/usr/local/share/icons/i3geo1.png" ] ; then
    mkdir -p /usr/local/share/icons
-   cp /var/www/i3geo/imagens/i3geo1.png /usr/local/share/icons/
+   cp "$ROOT_DIR"/i3geo/imagens/i3geo1.png /usr/local/share/icons/
 fi
 
 #Add Launch icon to desktop
@@ -162,13 +162,13 @@ if [ -d "$USER_DESKTOP" ] ; then
 fi
 
 # Fix path to natural_earth
-#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/geral1debianv6.map
-#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/estadosldebian.map 
-#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/aplicmap/estadosl.map 
-#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/states_provinces.map
-#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/populated_places_simple.map
-#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/geography_regions_polys.map
-#sed -i -e 's/natural_earth/natural_earth2/' /var/www/i3geo/temas/estadosl.map
+#sed -i -e 's/natural_earth/natural_earth2/' "$ROOT_DIR"/i3geo/aplicmap/geral1debianv6.map
+#sed -i -e 's/natural_earth/natural_earth2/' "$ROOT_DIR"/i3geo/aplicmap/estadosldebian.map 
+#sed -i -e 's/natural_earth/natural_earth2/' "$ROOT_DIR"/i3geo/aplicmap/estadosl.map 
+#sed -i -e 's/natural_earth/natural_earth2/' "$ROOT_DIR"/i3geo/temas/states_provinces.map
+#sed -i -e 's/natural_earth/natural_earth2/' "$ROOT_DIR"/i3geo/temas/populated_places_simple.map
+#sed -i -e 's/natural_earth/natural_earth2/' "$ROOT_DIR"/i3geo/temas/geography_regions_polys.map
+#sed -i -e 's/natural_earth/natural_earth2/' "$ROOT_DIR"/i3geo/temas/estadosl.map
 
 
 ####

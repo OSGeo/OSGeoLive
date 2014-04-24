@@ -50,7 +50,7 @@ RASDAMAN_HOME="/usr/local/rasdaman"
 TMP="/tmp/build_rasdaman"
 WARDIR="/var/lib/tomcat6/webapps"
 SETTINGS="$RASDAMAN_HOME/etc/petascope.properties"
-EARTHLOOKDIR="/var/www"
+EARTHLOOKDIR="/var/www/html"
 BIN="/usr/local/bin"
 
 # set the postgresql database username and password.
@@ -260,10 +260,10 @@ echo "copying earthlook folder into $EARTHLOOKDIR/rasdaman-demo..."
 mv public_html "$EARTHLOOKDIR/rasdaman-demo"
 
 adduser "$USER_NAME" www-data
-#chmod g+w /var/www/rasdaman-demo/demos/demo_items/img/climate*/
-#chmod g+w /var/www/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
-#chgrp www-data /var/www/rasdaman-demo/demos/demo_items/img/climate*/
-#chgrp www-data /var/www/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
+#chmod g+w /var/www/html/rasdaman-demo/demos/demo_items/img/climate*/
+#chmod g+w /var/www/html/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
+#chgrp www-data /var/www/html/rasdaman-demo/demos/demo_items/img/climate*/
+#chgrp www-data /var/www/html/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
 
 
 mv /var/lib/tomcat6/webapps/petascope.war \
