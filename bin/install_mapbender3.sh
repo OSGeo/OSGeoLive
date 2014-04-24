@@ -22,7 +22,7 @@
 #
 # Uninstall:
 # ============
-# sudo rm -rf /var/www/mapbender3
+# sudo rm -rf /var/www/html/mapbender3
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -40,7 +40,7 @@ PARAMETERSINSTALLURL="http://mapbender3.org/builds/"
 INSTALLURL="http://mapbender3.org/builds/"
 INSTALLFILE="mapbender3-3.0.3.1"
 PARAMETERSFILE="mapbender3-3.0.3.1"
-INSTALL_DIR="/var/www"
+INSTALL_DIR="/var/www/html"
 
 mkdir -p "$TMP_DIR"
 

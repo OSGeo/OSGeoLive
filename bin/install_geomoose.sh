@@ -50,7 +50,7 @@ cd /usr/local/geomoose
 mv /tmp/build-geomoose/geomoose*/* .
 
 ## Setup htdocs directory to be available to apache
-ln -s /usr/local/geomoose/htdocs /var/www/geomoose
+ln -s /usr/local/geomoose/htdocs /var/www/html/geomoose
 
 ## Configure GeoMOOSE 2.6.1
 cat > /usr/local/geomoose/conf/local_settings.ini <<'EOF'

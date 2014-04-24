@@ -120,7 +120,7 @@ fi
 #  /usr/share/pgrouting/workshop/web/php/pgrouting.php
 
 # symlink it into a served dir so the php will run
-#ln -s /usr/share/pgrouting/workshop/web /var/www/pgrouting
+#ln -s /usr/share/pgrouting/workshop/web /var/www/html/pgrouting
 
 # to get the routing-final.html demo working you'll still need to set
 # the IPv4 host pgsql permissions to 'trust' in pg_hpa.conf. but we

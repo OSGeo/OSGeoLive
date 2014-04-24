@@ -35,7 +35,7 @@ ISO_NAME="${PACKAGE_NAME}-${VERSION}"
 WORKDIR="/tmp/remastersys"
 TMP="$WORKDIR/ISOTMP"
 LOGS="/var/log/osgeolive/remastersys.conf"
-DOCS_SRC="/var/www"
+DOCS_SRC="/var/www/html"
 
 #Remove doc folder to save space
 rm -rf /usr/local/share/gisvm/doc

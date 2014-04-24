@@ -22,7 +22,7 @@
 #
 # Uninstall:
 # ============
-# sudo rm -rf /var/www/ushahidi/
+# sudo rm -rf /var/www/html/ushahidi/
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -75,7 +75,7 @@ mv * ushahidi
 
 #now copy the ushahidi folder to a different location
 cp -R ushahidi/ /usr/local/share/
-ln -s /usr/local/share/ushahidi /var/www/ushahidi
+ln -s /usr/local/share/ushahidi /var/www/html/ushahidi
 chown -R www-data:www-data /usr/local/share/ushahidi
 
 #check if mysql is running and do appropriate action
@@ -104,7 +104,7 @@ cat << EOF > "$TMP_DIR/allow_htaccess.patch"
 +++ /etc/apache2/sites-available/default	2010-07-14 20:50:07.9 +1200
 @@ -8,7 +8,7 @@
  	</Directory>
- 	<Directory /var/www/>
+ 	<Directory /var/www/html/>
  		Options Indexes FollowSymLinks MultiViews
 -		AllowOverride None
 +		AllowOverride All

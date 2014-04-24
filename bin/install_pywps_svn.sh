@@ -18,7 +18,7 @@
 #
 # Uninstall:
 # ============
-# sudo rm -r /var/www/pywps
+# sudo rm -r /var/www/html/pywps
 # sudo rm -r /etc/apache2/conf.d/pywps
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -34,7 +34,7 @@ USER_HOME="/home/$USER_NAME"
 
 PYWPS_TMP="/tmp/build_pywps"
 PYWPS_VERSION="foss4g2010"
-PYWPS_WWW="/var/www/pywps"
+PYWPS_WWW="/var/www/html/pywps"
 PYWPS_CONF="/etc/apache2/conf.d/pywps"
 PYWPS_WRAPPER="pywps.cgi"
 PYWPS_SVN="http://svn.wald.intevation.org/svn/pywps/branches/pywps-$PYWPS_VERSION"
@@ -86,7 +86,7 @@ cat << EOF > "index.html"
 EOF
 cat << EOF > "$PYWPS_CONF"		        
 
-<Directory /var/www/pywps/>
+<Directory /var/www/html/pywps/>
 	 Options Indexes FollowSymLinks MultiViews
 	 AllowOverride All
 	 Order allow,deny
@@ -102,7 +102,7 @@ PYWPS_WHICH="`which wps.py`"
 #Linking to /usr/bin/wps.py (using which just in case....)
 ln -s "$PYWPS_WHICH" "$PYWPS_WWW"
 
-#Making Process folder inside /var/www/pywps
+#Making Process folder inside /var/www/html/pywps
 mkdir -p "$PYWPS_WWW/processes"
 cp "$PYWPS_TMP/pywps-$PYWPS_VERSION"/tests/processes/* "$PYWPS_WWW/processes"
 

@@ -27,7 +27,7 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-DEST="/var/www"
+DEST="/var/www/html"
 DATA_FOLDER="/usr/local/share/data"
 
 
@@ -142,17 +142,20 @@ fi
 
 # Create symbolic links to project specific documentation
 cd "$DEST"
+
 # PDF
 ln -s /usr/local/share/udig/udig-docs .
 if [ -d /usr/local/mbsystem ] ; then
    ln -s /usr/local/mbsystem .
 fi
+
 ln -s /usr/local/share/qgis .
 ln -s /usr/local/share/qgis_mapserver/mapviewer.html \
       /usr/local/share/qgis_mapserver/index.html
 ln -s /usr/local/share/qgis_mapserver qgis_server
 #ln -s /usr/share/doc/geopublishing-doc geopublishing
 ln -s /usr/local/share/saga .
+
 # HTML
 mkdir -p gmt
 ln -s /usr/share/doc/gmt/html gmt/html
@@ -166,6 +169,7 @@ ln -s /usr/local/share/mapserver/doc mapserver
 ln -s /usr/share/opencpn/doc opencpn
 ln -s /usr/local/share/otb .
 ln -s /usr/local/share/ossim .
+
 # Data
 ln -s /usr/local/share/data .
 
@@ -180,7 +184,7 @@ if [ `grep -c 'WindowsInstallers' /etc/rc.local` -eq 0 ] ; then
 
 # Detect full iso, adjust symlinks/placeholders as needed
 if [ -d /cdrom/WindowsInstallers ] && \
-   [ -f /var/www/WindowsInstallers/index.html ] ; then
+   [ -f "$DEST"/WindowsInstallers/index.html ] ; then
     ln -s /cdrom/WindowsInstallers /etc/skel/
     ln -s /cdrom/MacInstallers /etc/skel/
     if [ -d "/home/$USER_NAME" ] ; then
@@ -189,12 +193,12 @@ if [ -d /cdrom/WindowsInstallers ] && \
         chown "$USER_NAME.$USER_NAME" "/home/$USER_NAME"/[WM]*Installers
     fi
 
-    rm -f /var/www/WindowsInstallers/index.html
-    rm -f /var/www/MacInstallers/index.html
-    rmdir /var/www/WindowsInstallers
-    rmdir /var/www/MacInstallers
-    ln -s /cdrom/WindowsInstallers /var/www/
-    ln -s /cdrom/MacInstallers  /var/www/
+    rm -f "$DEST"/WindowsInstallers/index.html
+    rm -f "$DEST"/MacInstallers/index.html
+    rmdir "$DEST"/WindowsInstallers
+    rmdir "$DEST"/MacInstallers
+    ln -s /cdrom/WindowsInstallers "$DEST"
+    ln -s /cdrom/MacInstallers "$DEST"
 fi
 
 exit 0
@@ -213,7 +217,7 @@ if [ `grep -c 'extra_data' /etc/rc.local` -eq 0 ] ; then
 # Detect big-data iso, adjust symlinks/placeholders as needed
 if [ -d /cdrom/extra_data ] ; then
     ln -s /cdrom/extra_data /usr/local/share/data/extra
-    ln -s /cdrom/extra_data /var/www/
+    ln -s /cdrom/extra_data "$DEST"/
 else
    mkdir -p /usr/local/share/data/extra
 # TODO:

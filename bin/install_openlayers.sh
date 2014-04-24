@@ -102,9 +102,9 @@ EOF
 
 cd "$TMP_DIR"
 
-mkdir -p /var/www/openlayers
-cp -R "$GIT_DIR"/* /var/www/openlayers/
-chmod -R uga+r /var/www/openlayers
+mkdir -p /var/www/html/openlayers
+cp -R "$GIT_DIR"/* /var/www/html/openlayers/
+chmod -R uga+r /var/www/html/openlayers
 
 #Remove packages
 if [ -n "$OL_APT_REMOVE" ] ; then

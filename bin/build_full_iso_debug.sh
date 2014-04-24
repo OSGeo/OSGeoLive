@@ -92,12 +92,12 @@ echo "============================================="
 
 # First remove index.htm files if they exist, otherwise you won't see the
 # directory of files.
-sudo chroot edit rm -f /var/www/WindowsInstallers/index.html
-sudo chroot edit rm -f /var/www/MacInstallers/index.html
-sudo chroot edit rmdir /var/www/WindowsInstallers
-sudo chroot edit rmdir /var/www/MacInstallers
-sudo chroot edit ln -s /media/cdrom/WindowsInstallers /var/www/WindowsInstallers
-sudo chroot edit ln -s /media/cdrom/MacInstallers  /var/www/MacInstallers
+sudo chroot edit rm -f /var/www/html/WindowsInstallers/index.html
+sudo chroot edit rm -f /var/www/html/MacInstallers/index.html
+sudo chroot edit rmdir /var/www/html/WindowsInstallers
+sudo chroot edit rmdir /var/www/html/MacInstallers
+sudo chroot edit ln -s /media/cdrom/WindowsInstallers /var/www/html/WindowsInstallers
+sudo chroot edit ln -s /media/cdrom/MacInstallers  /var/www/html/MacInstallers
 
 cd extract-cd
 sh "$CUR_DIR"/load_win_installers.sh

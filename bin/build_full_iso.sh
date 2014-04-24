@@ -82,16 +82,16 @@ echo "==================================="
 # directory of files.
 cd extract-cd
 
-rm -f ./var/www/WindowsInstallers/index.html
-rm -f ./var/www/MacInstallers/index.html
-rmdir ./var/www/WindowsInstallers
-rmdir ./var/www/MacInstallers
+rm -f ./var/www/html/WindowsInstallers/index.html
+rm -f ./var/www/html/MacInstallers/index.html
+rmdir ./var/www/html/WindowsInstallers
+rmdir ./var/www/html/MacInstallers
 
 sh "$CUR_DIR"/load_win_installers.sh
 sh "$CUR_DIR"/load_mac_installers.sh
 
-ln -s /media/cdrom/WindowsInstallers ./var/www/WindowsInstallers
-ln -s /media/cdrom/MacInstallers  ./var/www/MacInstallers
+ln -s /media/cdrom/WindowsInstallers ./var/www/html/WindowsInstallers
+ln -s /media/cdrom/MacInstallers  ./var/www/html/MacInstallers
 
 cd ..
 

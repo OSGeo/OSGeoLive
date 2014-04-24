@@ -31,7 +31,7 @@
 
 DIR=`dirname $0`
 LOG_DIR="/var/log/osgeolive"
-DOC_DIR="/var/www"
+DOC_DIR="/var/www/html"
 
 DATESTR=`date +%Y%m%d-%H%M`
 # add date and time to build log filename:

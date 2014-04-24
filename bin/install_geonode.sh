@@ -100,7 +100,7 @@ cat << EOF > "$TMP_DIR/servername.patch"
 +        ServerName localhost
 +        ServerAlias osgeolive
  
- 	DocumentRoot /var/www
+ 	DocumentRoot /var/www/html
  	<Directory />
 EOF
 
@@ -267,7 +267,7 @@ wget -c --progress=dot:mega \
 ln -sf geonode_documentation-latest.pdf geonode_documentation.pdf
 chmod g+w -R geonode_documentation*
 chgrp users -R geonode_documentation*
-ln -sTf "$DOC_DIR" /var/www/geonode-docs
+ln -sTf "$DOC_DIR" /var/www/html/geonode-docs
 
 # Add Documentation Launch icon to desktop
 if [ ! -e /usr/local/share/applications/geonode-docs.desktop ] ; then

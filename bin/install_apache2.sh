@@ -31,8 +31,8 @@ fi
 adduser "$USER_NAME" www-data
 
 
-mkdir -p /var/www
-wget -nv http://www.osgeo.org/favicon.ico -O /var/www/favicon.ico
+mkdir -p /var/www/html
+wget -nv http://www.osgeo.org/favicon.ico -O /var/www/html/favicon.ico
 
 
 ####

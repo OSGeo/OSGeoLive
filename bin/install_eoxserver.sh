@@ -222,7 +222,7 @@ wget -c --progress=dot:mega \
 ln -sf EOxServer_documentation-$EOXSVER.pdf EOxServer_documentation.pdf
 chmod g+w -R EOxServer_documentation*
 chgrp users -R EOxServer_documentation*
-ln -sTf "$DOC_DIR" /var/www/eoxserver-docs
+ln -sTf "$DOC_DIR" /var/www/html/eoxserver-docs
 
 # Add Documentation Launch icon to desktop
 if [ ! -e /usr/local/share/applications/eoxserver-docs.desktop ] ; then

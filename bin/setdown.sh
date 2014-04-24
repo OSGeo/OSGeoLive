@@ -103,11 +103,11 @@ ldconfig
 #shrink help page images
 # echo "Shrinking images, please wait as this may take some time ..."
 
-# cd /var/www/
+# cd /var/www/html/
 # # instrument it to see if it's worth the effort (takes 2.25 minutes, saves <1mb)
-# echo "`date`: /var/www takes `du -sm /var/www | cut -f1` mb"
+# echo "`date`: /var/www/html takes `du -sm /var/www/html | cut -f1` mb"
 # optipng -quiet -o5 `find | grep '\.png$' | grep -v './_images/'`
-# echo "`date`: /var/www takes `du -sm /var/www | cut -f1` mb"
+# echo "`date`: /var/www/html takes `du -sm /var/www/html | cut -f1` mb"
 # cd -
 #
 # cd /usr/local/

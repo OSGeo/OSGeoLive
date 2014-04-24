@@ -176,7 +176,7 @@ echo "[install_cartaro.sh] Configure Apache2  ..."
 if [ ! -f /etc/apache2/conf.d/cartaro ] ; then
 
 cat << EOF > /etc/apache2/conf.d/cartaro
-<Directory /var/www/cartaro>
+<Directory /var/www/html/cartaro>
 	RewriteEngine On
 	RewriteRule "(^|/)\." - [F]
 	RewriteCond %{REQUEST_FILENAME} !-f
@@ -255,8 +255,8 @@ popd
 echo "[install_cartaro.sh] Create Apache2 Symlinks ..."
 
 
-if [ ! -L /var/www/cartaro ] ; then
-    ln -s "$TARGET_DIR" /var/www/cartaro
+if [ ! -L /var/www/html/cartaro ] ; then
+    ln -s "$TARGET_DIR" /var/www/html/cartaro
 fi  
 
 ###########################
