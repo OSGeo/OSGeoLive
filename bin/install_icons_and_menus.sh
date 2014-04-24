@@ -94,7 +94,7 @@ LXPANEL="/usr/share/lxpanel/profile/Lubuntu/panels/panel"
 
 
 # old:
-if [ `grep -c 'value="Geospatial"' /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml` -eq 0 ] ; then
+if [ 1 -eq 0 ] && [ `grep -c 'value="Geospatial"' /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml` -eq 0 ] ; then
   #present full applications menu name
     sed -i -e 's+\(name="show-button-title" type="bool"\) value="false"/>+\1 value="true"/>\n      <property name="button-title" type="string" value="Applications"/>+' \
       /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml
