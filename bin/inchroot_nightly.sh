@@ -122,7 +122,7 @@ export USER_NAME
 # ./install_opencpn.sh
 # ./install_prune.sh
 ./install_viking.sh
-# ./install_zygrib.sh
+./install_zygrib.sh
 # ./install_liblas.sh
 ./install_gpsdrive.sh
 # ./install_mapfish.sh

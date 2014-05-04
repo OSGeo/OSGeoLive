@@ -28,20 +28,20 @@ USER_HOME="/home/$USER_NAME"
 #install latest version
 # http://zygrib.org/forum/viewtopic.php?f=7&t=156
 #
-wget -nv http://doc.hausser.ch/debpackages/dha-debpackages.key \
-   -O - | sudo apt-key add -
-
-echo "deb http://doc.hausser.ch/debpackages ubuntu-dha precise" \
-   > /etc/apt/sources.list.d/zygrib.list
-
-apt-get -q update
+#wget -nv http://doc.hausser.ch/debpackages/dha-debpackages.key \
+#   -O - | sudo apt-key add -
+#
+#echo "deb http://doc.hausser.ch/debpackages ubuntu-dha precise" \
+#   > /etc/apt/sources.list.d/zygrib.list
+#
+#apt-get -q update
 # grumble
 #echo "opencpn hold" | dpkg --set-selections
 
 
 apt-get --assume-yes install zygrib
 
-# don't install the zygrib-maps package, it's 180mb (contains NOAA's GSHHS coastline)
+# zygrib-maps package is 8.6mb (contains NOAA's GSHHS coastline)
 
 # copy icon to Desktop
 cp /usr/local/share/applications/zyGrib.desktop \
