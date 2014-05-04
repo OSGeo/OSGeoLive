@@ -35,7 +35,7 @@ USER_HOME="/home/$USER_NAME"
 ################################################
 
 #Desktop apps part 1 (traditional analytic GIS)
-DESKTOP_APPS="grass qgis gvsig openjump uDig ossimplanet *Kosmo*
+DESKTOP_APPS="grass64 qgis gvsig openjump uDig ossimplanet *Kosmo*
               spatialite-gis saga_gui"
 #disabled: atlasstyler geopublisher
 

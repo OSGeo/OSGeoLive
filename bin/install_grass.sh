@@ -196,7 +196,7 @@ chgrp users /usr/lib/grass64/etc/fontcap
 ##fi
 
 cp /usr/share/applications/grass64.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass.desktop"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass64.desktop"
 
 
 ## add menu item
