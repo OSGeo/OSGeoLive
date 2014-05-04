@@ -34,7 +34,7 @@ VERS="5.4.2183-0"
 
 #### get dependencies ####
 
-PACKAGES="gmt gv libxm4 libxt6 libnetcdf7 libgl1-mesa-glx libglu1-mesa
+PACKAGES="gmt gv libxm4 libxt6 libnetcdfc7 libgl1-mesa-glx libglu1-mesa
           csh proj-bin libfftw3-3 libparallel-forkmanager-perl"
 
 apt-get --assume-yes install $PACKAGES
