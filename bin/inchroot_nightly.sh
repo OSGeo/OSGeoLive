@@ -101,9 +101,9 @@ export USER_NAME
 # ./install_kosmo.sh
 # ./install_udig.sh
 # ./install_openjump.sh
-# ./install_postgis.sh
-# ./install_osm.sh
-# ./load_postgis.sh
+./install_postgis.sh
+./install_osm.sh
+./load_postgis.sh
 # ./install_pgrouting.sh
 # ./install_sahana.sh
 # ./install_ushahidi.sh
