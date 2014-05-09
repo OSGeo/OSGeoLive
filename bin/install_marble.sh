@@ -33,6 +33,7 @@ USER_HOME="/home/$USER_NAME"
 apt-get install --yes marble-qt marble-data
 
 # install icon
+mkdir -p /usr/local/share/icons/
 cp -f "$USER_HOME/gisvm/app-conf/marble/marble_logo.png" \
        /usr/local/share/icons/
 
