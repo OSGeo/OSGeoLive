@@ -73,9 +73,10 @@ for FILE in  pgadmin3  pgpass  ; do
     chmod 600 "$USER_HOME/.$FILE"
 done
 
+## TODO review - needed for 1404 ?!
 # fix for 2.1.1-1~precise3 package breakage
-rm -f /usr/share/java/postgis.jar
-ln -s /usr/share/java/postgis-jdbc-2.1.0~rc1.jar /usr/share/java/postgis.jar
+# rm -f /usr/share/java/postgis.jar
+# ln -s /usr/share/java/postgis-jdbc-2.1.0~rc1.jar /usr/share/java/postgis.jar
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
