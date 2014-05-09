@@ -44,9 +44,10 @@ mkdir /usr/local/share/osm
 apt-get install --assume-yes josm josm-plugins gpsd gpsd-clients \
    merkaartor xmlstarlet imposm osmosis
 
+## TODO review - needed for 1404 ?!
 # fix for 2.1.1-1~precise3 postgis-java package breakage (for osmosis)
-rm -f /usr/share/java/postgis.jar
-ln -s /usr/share/java/postgis-jdbc-2.1.0~rc1.jar /usr/share/java/postgis.jar
+#rm -f /usr/share/java/postgis.jar
+#ln -s /usr/share/java/postgis-jdbc-2.1.0~rc1.jar /usr/share/java/postgis.jar
 
 # (imposm is an OpenStreetMap importer for PostGIS)
 # http://wiki.openstreetmap.org/wiki/Imposm
