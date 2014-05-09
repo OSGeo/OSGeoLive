@@ -44,11 +44,11 @@ apt-get --assume-yes install zygrib
 # zygrib-maps package is 8.6mb (contains NOAA's GSHHS coastline)
 
 # copy icon to Desktop
-cp /usr/local/share/applications/zyGrib.desktop \
+cp /usr/share/applications/zygrib.desktop \
    "$USER_HOME/Desktop/zygrib.desktop"
 
 # de-uppercase the executable
-ln -s /usr/local/bin/zyGrib /usr/local/bin/zygrib
+ln -s /usr/bin/zyGrib /usr/local/bin/zygrib
 
 
 ####
