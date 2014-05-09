@@ -246,13 +246,18 @@ cat << EOF >> "$USER_HOME"/.inputrc
 # a conference talk full of terminal beeps is no good
 set prefer-visible-bell
 
-# -------- Bind page up/down wih history search ---------
+# -------- Bind page up/down with history search ---------
 "\e[5~": history-search-backward
 "\e[6~": history-search-forward
 EOF
 chown "$USER_NAME":"$USER_NAME" "$USER_HOME"/.inputrc
 cp "$USER_HOME"/.inputrc /etc/skel/
 cp "$USER_HOME"/.inputrc /root/
+
+
+### temporary ubuntu 14.04 DNS bug work-around
+# move into /etc as needed
+echo "nameserver 8.8.8.8" > /etc/skel/resolv.conf
 
 
 ####
