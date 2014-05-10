@@ -101,6 +101,14 @@ apt-get install --yes apturl
 apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
   svn-buildpackage lintian debhelper pkg-config dpkg-dev cmake
 
+# install the python .deb maker
+apt-get install --yes python-stdeb python-all-dev
+
+# Need newer version of URL python-stdeb since python.org changed URLs
+#  https://bugs.launchpad.net/ubuntu/+source/stdeb/+bug/1316521
+sed -i -e 's+http://python.org/pypi+http://pypi.python.org/pypi+' \
+  /usr/bin/pypi-install
+
 
 # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
 # FIXME: similar thing needed for man pages?
