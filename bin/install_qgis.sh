@@ -68,7 +68,7 @@ dpkg -i pykml_0.1.1-1_all.deb
 apt-get --assume-yes install python-psycopg2 \
    python-gdal python-matplotlib python-qt4-sql \
    libqt4-sql-psql python-qwt5-qt4 python-tk \
-   python-sqlalchemy python-owslib python-Shapely
+   python-sqlalchemy python-owslib python-shapely
 
 # Install plugins
 wget -c --progress=dot:mega \
