@@ -159,8 +159,8 @@ apt-get remove --yes \
 # this will clear out 96mb (uncompressed), but users who want the
 # nvidia proprietary driver will need to reinstall it. ah well.
 #Version must be kept up to date (removes 3 packages)
-apt-get --assume-yes remove linux-headers-generic
-apt-get --assume-yes remove linux-headers-3.13.0-24
+##apt-get --assume-yes remove linux-headers-generic
+##apt-get --assume-yes remove linux-headers-3.13.0-24
 # ...
 #apt-get --assume-yes remove linux-headers-3.13.0-25
 
