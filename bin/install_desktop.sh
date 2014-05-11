@@ -41,6 +41,12 @@ cp ../desktop-conf/osgeo-desktop.png \
 cp ../desktop-conf/osgeo-desktop-transparent.png \
    /usr/share/lubuntu/wallpapers/
 
+# copy in placeholder background image
+cd /usr/share/lubuntu/wallpapers/
+wget -N --progress=dot:mega \
+   "http://upload.wikimedia.org/wikipedia/commons/e/e2/OrteliusWorldMap1570.jpg"
+cd -
+
 
 #New way to set login screen background as of 12.04 that uses lightdm instead of gdm
 # (awaiting graphic with text overlay explaining what the user name and password is)
