@@ -281,11 +281,10 @@ mkdir -p /usr/local/share/icons
 cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
 
 
-# Terminal toolbar off by default, and let's have some contrast
+# Terminal toolbar off by default, and let's brighten the font
 echo "hidemenubar=true" >> /etc/xdg/lubuntu/lxterminal/lxterminal.conf
-#sed -i -e 's/\(fgcolor=\).*/\1#dcdcdcdcdcdc/' \
-#       -e 's/\(bgcolor=\).*/\1#000000000000/' \
-#   /etc/xdg/lubuntu/lxterminal/lxterminal.conf
+sed -i -e 's/\(fgcolor=\).*/\1#adadadadadad/' \
+   /etc/xdg/lubuntu/lxterminal/lxterminal.conf
 
 
 #What logo to use for launching the help?
