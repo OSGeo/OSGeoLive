@@ -26,7 +26,6 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 BUILD_TMP="/tmp/build_spatialite"
-INSTALL_FOLDER="/usr/local"
 DATA_FOLDER="/usr/local/share/data"
 PKG_DATA=$DATA_FOLDER/spatialite
 
@@ -38,71 +37,21 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-#CAUTION: UbuntuGIS should be enabled only through setup.sh
-########################
-### Add repositories ###
-#if [ ! -e /etc/apt/sources.list.d/ubuntugis.list ] ; then
-#   cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
-#fi
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
-apt-get -q update
-
 ### setup temp ###
 mkdir -p "$BUILD_TMP"
 cd "$BUILD_TMP"
 
+
 ###########################
 ### Install from repo ###
 ## get spatialite cli and libs
+
 echo "Getting and installing spatialite"
 apt-get install --assume-yes spatialite-bin 
 # Now the GUI and rasterlite libs
-apt-get install --assume-yes librasterlite1 rasterlite-bin spatialite-gui
+apt-get install --assume-yes librasterlite2 rasterlite-bin spatialite-gui
 
-##########################
-### Now get dependencies for compiling GUI apps
-#DEV_PKGS="libwxgtk2.8-dev libgeos-dev libgeos++-dev \
-#  libgeotiff-dev libcairo2-dev libfreexl-dev libspatialite-dev \
-#  libhpdf-dev librasterlite-dev libproj-dev"
-#apt-get --yes install $DEV_PKGS
 
-### librasterlite is missing pkg-config file
-#cat << EOF > /usr/lib/pkgconfig/rasterlite.pc
-## Package Information for pkg-config
-
-#prefix=/usr
-#exec_prefix=\${prefix}
-#libdir=\${prefix}/lib
-#includedir=\${prefix}/include
-
-#Name: rasterlite
-#Description: Raster Data Source based on SQLite+SpatiaLite
-#Version: 1.0
-#Libs: -L\${libdir} -lrasterlite
-#Cflags: -I\${includedir}
-#EOF
-
-### Download and compile spatialite-gui 1.5.0 from source
-## URL: http://www.gaia-gis.it/gaia-sins/spatialite-gui-sources/spatialite_gui-1.5.0-stable.tar.gz
-#GAIA_URL="http://www.gaia-gis.it/gaia-sins/"
-#SOURCE_DIR[1]="gaiagraphics-sources"
-#SOURCE_DIR[2]="spatialite-gui-sources" 
-#SOURCE_DIR[3]="spatialite-gis-sources"
-#PACKAGE[1]="libgaiagraphics-0.4b"
-#PACKAGE[2]="spatialite_gui-1.5.0-stable"
-#PACKAGE[3]="spatialite_gis-1.0.0c"
-
-#export LIBSPATIALITE_LIBS=/usr/lib/libspatialite.so.3
-#for i in 1 2 3; do
-#        wget -c --progress=dot:mega "$GAIA_URL/${SOURCE_DIR[$i]}/${PACKAGE[$i]}.tar.gz"
-#        tar xzf ${PACKAGE[$i]}.tar.gz
-#        cd ${PACKAGE[$i]}
-#        ./configure
-#        make
-#        make install-strip
-#        ldconfig
-#        cd ..
-#done
 
 ##########################
 ### Sample data ###
@@ -146,10 +95,6 @@ chmod -R a-x "$PKG_DATA"/*
 #cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.png \
 #    /usr/share/pixmaps/
 
-#############################
-### Clean up
-#rm -rf "$BUILD_TMP"
-#apt-get --yes remove $DEV_PKGS
 
 
 ####
