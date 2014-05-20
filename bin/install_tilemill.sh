@@ -54,6 +54,13 @@ cp "$USER_HOME"/Documents/MapBox/app.db /etc/skel/Documents/MapBox/
 
 add-apt-repository --yes --remove ppa:developmentseed/mapbox
 
+
+#### install MBTiles utility as python-mbutil.deb
+#  https://github.com/mapbox/mbutil
+
+pypi-install mbutil
+
+
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
 
