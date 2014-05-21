@@ -49,8 +49,22 @@ APT::Install-Suggests "false";
 EOF
 fi
 
+
+## tests for #1334
+echo --
+ls -l /boot
+echo --
+ls -l /
+echo --
+update-initramfs -u
+echo --
+ls -l /boot
+echo --
+ls -l /
+echo --
+
 # Pin down kernel version
-###echo "linux-image-generic hold" | dpkg --set-selections
+echo "linux-image-generic hold" | dpkg --set-selections
 
 # Install latest greatest security packages etc.
 apt-get -q update && apt-get --yes upgrade
