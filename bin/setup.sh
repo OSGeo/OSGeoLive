@@ -50,7 +50,7 @@ EOF
 fi
 
 # Pin down kernel version
-echo "linux-image-generic hold" | dpkg --set-selections
+###echo "linux-image-generic hold" | dpkg --set-selections
 
 # Install latest greatest security packages etc.
 apt-get -q update && apt-get --yes upgrade
