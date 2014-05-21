@@ -47,6 +47,11 @@ wget -N --progress=dot:mega \
    "http://upload.wikimedia.org/wikipedia/commons/e/e2/OrteliusWorldMap1570.jpg"
 cd -
 
+### set the desktop background, turn on keyboard layout select control
+sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/OrteliusWorldMap1570.jpg|' \
+       -e 's|^keyboard=0$|keyboard=1|' \
+    /etc/xdg/lubuntu/lxdm/lxdm.conf
+
 
 #New way to set login screen background as of 12.04 that uses lightdm instead of gdm
 # (awaiting graphic with text overlay explaining what the user name and password is)
