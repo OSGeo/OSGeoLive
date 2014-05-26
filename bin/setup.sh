@@ -54,20 +54,22 @@ fi
 echo --
 ls -l /boot
 echo --
-ls -l /
-echo --
 update-initramfs -u
 echo --
 ls -l /boot
-echo --
-ls -l /
 echo --
 
 # Pin down kernel version
 echo "linux-image-generic hold" | dpkg --set-selections
 
 # Install latest greatest security packages etc.
-apt-get -q update && apt-get --yes upgrade
+apt-get -q update
+
+# work-around for ubu pkg breakage ver 204-5ubuntu20.2 (see trac #1334)
+apt-get install systemd-services
+apt-get install libpam-systemd
+
+apt-get --yes upgrade
 
 # Add OSGeoLive repository
 
