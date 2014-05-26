@@ -66,8 +66,9 @@ echo "linux-image-generic hold" | dpkg --set-selections
 apt-get -q update
 
 # work-around for ubu pkg breakage ver 204-5ubuntu20.2 (see trac #1334)
-apt-get install systemd-services --yes
-apt-get install libpam-systemd --yes
+apt-get --yes install systemd-services
+apt-get -f install
+apt-get --yes install libpam-systemd
 
 apt-get --yes upgrade
 
