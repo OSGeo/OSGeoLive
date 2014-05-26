@@ -282,6 +282,9 @@ cp "$USER_HOME"/.inputrc /root/
 ### temporary ubuntu 14.04 DNS bug work-around
 # move into /etc as needed
 echo "nameserver 8.8.8.8" > /etc/skel/resolv.conf
+# another thing to try:
+#echo "dhclient eth0" > /etc/network/if-up.d/001resolvconf_override
+#chmod a+r /etc/network/if-up.d/001resolvconf_override
 
 
 ####
