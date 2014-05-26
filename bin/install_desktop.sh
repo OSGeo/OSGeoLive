@@ -52,9 +52,13 @@ sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/OrteliusWorldMap1570.jpg|' 
        -e 's|^keyboard=0$|keyboard=1|' \
     /etc/xdg/lubuntu/lxdm/lxdm.conf
 
+# Actually, I think this is the one which really does it:
+sed -i -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/OrteliusWorldMap1570.jpg|' \
+   /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
-#New way to set login screen background as of 12.04 that uses lightdm instead of gdm
-# (awaiting graphic with text overlay explaining what the user name and password is)
+
+# New way to set login screen background as of 12.04 that uses lightdm instead of gdm
+#  (awaiting graphic with text overlay explaining what the user name and password is)
 sed -i -e 's|^background=.*|background=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
    /etc/lightdm/lightdm-gtk-greeter.conf
 
