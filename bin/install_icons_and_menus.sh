@@ -91,6 +91,8 @@ cd "$USER_HOME/Desktop"
 LXPANEL="/usr/share/lxpanel/profile/Lubuntu/panels/panel"
 cp "$LXPANEL" "$LXPANEL.bak"
 cp "$BUILD_DIR"/../desktop-conf/panel "$LXPANEL"
+mkdir -p /etc/skel/.config/lxpanel/Lubuntu/panels
+cp "$LXPANEL" /etc/skel/.config/lxpanel/Lubuntu/panels/
 
 
 # old:
