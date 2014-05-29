@@ -67,8 +67,10 @@ apt-get -q update
 
 # work-around for ubu pkg breakage ver 204-5ubuntu20.2 (see trac #1334)
 apt-get --yes install systemd-services
-apt-get -f install
+apt-get -f install --yes
 apt-get --yes install libpam-systemd
+apt-get -f install --yes
+
 
 apt-get --yes upgrade
 
