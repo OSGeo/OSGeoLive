@@ -70,7 +70,7 @@ sudo apt-get install --yes squashfs-tools genisoimage lzip
 #TODO add wget to grab a fresh image, optional
 
 echo
-echo "Downloading Xubuntu original image..."
+echo "Downloading Lubuntu original image..."
 echo "====================================="
 
 #Stuff to be done the 1st time, should already be in place for additional builds
@@ -81,22 +81,22 @@ cd ~/livecdtmp
 UBU_MIRROR="http://se.archive.ubuntu.com/mirror/cdimage.ubuntu.com"
 UBU_RELEASE="12.04"
 ISO_RELEASE="12.04.4"
-UBU_ISO="xubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
+UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
-   "$UBU_MIRROR/xubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
+   "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
 
 #Start with a fresh copy
 #Mount the Desktop .iso
 mkdir mnt
 sudo mount -o loop "$UBU_ISO" mnt
-echo "Xubuntu $ISO_RELEASE $ARCH image mounted."
+echo "Lubuntu $ISO_RELEASE $ARCH image mounted."
 
 #Extract .iso contents into dir 'extract-cd' 
 mkdir "extract-cd"
 rsync --exclude=/casper/filesystem.squashfs -a mnt/ "extract-cd"
 
 echo
-echo "Extracting squashfs from Xubuntu image"
+echo "Extracting squashfs from Lubuntu image"
 echo "======================================"
 #Extract the SquashFS filesystem 
 sudo unsquashfs mnt/casper/filesystem.squashfs
@@ -150,7 +150,7 @@ echo "======================================"
 #sudo chroot edit depmod
 #sudo chroot edit mkinitramfs -c lzma -o /initrd.lz
 
-#Method 2 hardcode default kernel from xubuntu
+#Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
 sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.2.0-58-generic
 
@@ -178,18 +178,19 @@ chmod a+x scripts/casper-bottom/25adduser
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 
 #Change the text on the loader
-sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" \
-   lib/plymouth/themes/xubuntu-text/xubuntu-text.plymouth
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" \
+   lib/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 #might be in this file
-sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" \
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" \
    lib/plymouth/themes/text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" ../extract-cd/.disk/info
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION/g" \
+   ../extract-cd/.disk/info
 
 #copy in a different background
-cp ../../gisvm/desktop-conf/osgeo-desktop.png \
-   lib/plymouth/themes/xubuntu-logo/xubuntu-greybird.png
+#cp ../../gisvm/desktop-conf/osgeo-desktop.png \
+#   lib/plymouth/themes/lubuntu-logo/xubuntu-greybird.png
 
 find . | cpio --quiet --dereference -o -H newc | \
    lzma -7 > ../extract-cd/casper/initrd.lz

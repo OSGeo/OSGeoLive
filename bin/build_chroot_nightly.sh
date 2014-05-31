@@ -150,7 +150,7 @@ echo "======================================"
 #sudo chroot edit depmod
 #sudo chroot edit mkinitramfs -c lzma -o /initrd.lz
 
-#Method 2 hardcode default kernel from xubuntu
+#Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
 sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.13.0-24-generic
 
@@ -178,18 +178,19 @@ chmod a+x scripts/casper-bottom/25adduser
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 
 #Change the text on the loader
-sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" \
-   lib/plymouth/themes/xubuntu-text/xubuntu-text.plymouth
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" \
+   lib/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 #might be in this file
-sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" \
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" \
    lib/plymouth/themes/text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/title=Xubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" ../extract-cd/.disk/info
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" \
+    ../extract-cd/.disk/info
 
 #copy in a different background
-cp ../../gisvm/desktop-conf/osgeo-desktop.png \
-   lib/plymouth/themes/xubuntu-logo/xubuntu-greybird.png
+#cp ../../gisvm/desktop-conf/osgeo-desktop.png \
+#   lib/plymouth/themes/lubuntu-logo/xubuntu-greybird.png
 
 find . | cpio --quiet --dereference -o -H newc | \
    lzma -7 > ../extract-cd/casper/initrd.lz
