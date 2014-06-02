@@ -52,8 +52,9 @@ ln -s "$SCRIPT_DIR/gisvm" /etc/skel/gisvm
 # make a directory for the install logs
 mkdir /var/log/osgeolive/
 
-# FIXME: a+w is to be avoided always!
-chmod a+wr /var/log/osgeolive/
+# note: a+w is to be avoided always!
+chmod ug+wr /var/log/osgeolive/
+chgrp adm /var/log/osgeolive/
 
 
 echo "If you have a local copy if the tmp/ directory and wish to"
