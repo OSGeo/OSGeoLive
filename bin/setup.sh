@@ -71,6 +71,10 @@ sed -i -e 's/exit $?/exit 0/' \
 service systemd-logind stop
 
 apt-get --yes install systemd-services
+
+sed -i -e 's/exit $?/exit 0/' \
+   "/var/lib/dpkg/info/libpam-systemd:i386.postinst"
+
 apt-get --yes install libpam-systemd
 apt-get -f install --yes
 
