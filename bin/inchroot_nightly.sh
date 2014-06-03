@@ -120,7 +120,7 @@ export USER_NAME
 # ./install_maptiler.sh
 ./install_marble.sh
 # ./install_opencpn.sh
-# ./install_prune.sh
+./install_prune.sh
 ./install_viking.sh
 ./install_zygrib.sh
 # ./install_liblas.sh
@@ -131,7 +131,7 @@ export USER_NAME
 # ./install_R.sh
 # ./install_ossim.sh
 # ./install_osgearth.sh
-# ./install_spatialite.sh
+./install_spatialite.sh
 # ./install_zoo-project.sh
 # ./install_52nSOS.sh
 # ./install_otb.sh
