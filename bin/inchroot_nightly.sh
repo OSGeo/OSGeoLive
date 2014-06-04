@@ -95,7 +95,7 @@ export USER_NAME
 
 ./install_geoserver.sh
 # ./install_geomajas.sh
-# ./install_geonetwork.sh
+./install_geonetwork.sh
 # ./install_deegree.sh
 # ./install_52nWPS.sh
 # ./install_kosmo.sh
@@ -112,8 +112,8 @@ export USER_NAME
 # ./install_geokettle.sh
 ./install_gmt.sh
 ./install_grass.sh
-# ./install_qgis.sh
-# ./install_qgis_mapserver.sh
+./install_qgis.sh
+./install_qgis_mapserver.sh
 # ./install_saga.sh
 # ./install_mapnik.sh
 # ./install_mapproxy.sh
