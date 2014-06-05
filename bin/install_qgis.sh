@@ -61,8 +61,8 @@ fi
 # add pykml needed by qgis-plugin 'geopaparazzi'
 wget -c --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/ossim/pykml_0.1.1-1_all.deb"
-dpkg -i pykml_0.1.1-1_all.deb
-#rm -rf pykml_0.1.1-1_all.deb
+gdebi --non-interactive --quiet pykml_0.1.1-1_all.deb
+
 
 #Install optional packages that some plugins use
 apt-get --assume-yes install python-psycopg2 \
