@@ -126,17 +126,22 @@ fi
 
 # Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/qgis
+# any pdf version of the intro guide?
+#  http://docs.qgis.org/2.2/en/docs/gentle_gis_introduction
 wget -c --progress=dot:mega \
         "http://download.osgeo.org/qgis/doc/manual/qgis-1.0.0_a-gentle-gis-introduction_en.pdf" \
 	--output-document=/usr/local/share/qgis/qgis-1.0.0_a-gentle-gis-introduction_en.pdf
 
 # TODO: Consider including translations
-wget -c --progress=dot:mega \
-        "http://docs.qgis.org/2.0/pdf/QGIS-2.0-UserGuide-en.pdf" \
-	--output-document=/usr/local/share/qgis/QGIS-2.0-UserGuide-en.pdf
+VER=2.2
+DOCURL="http://docs.qgis.org/$VER/pdf/en"
+for DOC in UserGuide QGISTrainingManual ; do
+   wget -c --progress=dot:mega \
+       "$DOCURL/QGIS-$VER-$DOC-en.pdf" \
+	--output-document="/usr/local/share/qgis/QGIS-$VER-$DOC-en.pdf"
+done
 
 chmod 644 /usr/local/share/qgis/*.pdf
-
 
 
 # Install tutorials
