@@ -173,6 +173,21 @@ cp /usr/local/share/osgeo-desktop/welcome_message.txt /etc/skel/
 # xdg nm-applet not loading by default, re-add it to user autostart
 cp /etc/xdg/autostart/nm-applet.desktop  /etc/skel/.config/autostart/
 
+#alternate: have it launch a script in /usr/local/restart_dns.sh
+# if [ `ifconfig -s | grep -cw ^eth0` -eq 1 ] ; then
+#   dhclient eth0   # sudo needed?
+# fi
+cat << EOF > "/etc/skel/.config/autostart/force_dns.desktop"
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Manually trigger DNS setting from DHCP
+Comment=Work around for missing resolv.conf bug
+Exec=dhclient eth0
+Terminal=false
+StartupNotify=false
+Hidden=false
+EOF
 
 #### replace the Software Center on the Apps menu with the more useful Synaptic
 # .. TODO   (right click the Apps menu, properties, edit, add synaptic-pkexec, 
