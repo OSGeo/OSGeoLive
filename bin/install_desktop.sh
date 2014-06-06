@@ -125,6 +125,8 @@ echo "TODO: update autologin preferences for lightdm."
 
 
 ##### Setup timed welcome message
+apt-get --assume-yes install gxmessage
+
 mkdir -p /usr/local/share/osgeo-desktop
 
 cat << EOF > "/usr/local/share/osgeo-desktop/welcome_message.desktop"
