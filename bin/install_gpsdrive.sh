@@ -180,6 +180,14 @@ sed -i -e 's|\[place_name\]</TextSymbolizer>|[NAME]</TextSymbolizer>|' \
        -e 's|<MinScaleDenominator>10000000</|<MinScaleDenominator>1000000</|' \
   "/etc/skel/.gpsdrive/osm.xml"
 
+
+# osm.xml changes for Mapnik2 ...
+sed -i -e 's/ face_name=/ face-name=/' \
+       -e 's/TextSymbolizer name="\([^"]*\)"/TextSymbolizer name="[\1]"/' \
+       -e 's/ShieldSymbolizer name="\([^"]*\)"/ShieldSymbolizer name="[\1]"/' \
+  "/etc/skel/.gpsdrive/osm.xml"
+
+
 # use (new) official debian pkg home of map icons
 sed -i -e 's/map-icons/openstreetmap/' \
        -e 's|classic.small/rendering/landuse/forest.png|classic.big/rendering/landuse/forest.png|' \
