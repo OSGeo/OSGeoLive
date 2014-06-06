@@ -168,6 +168,9 @@ chown "$USER_NAME"."$USER_NAME" "$USER_HOME"/welcome_message.txt
 cp /usr/local/share/osgeo-desktop/welcome_message.txt /etc/skel/
 
 
+# xdg nm-applet not loading by default, re-add it to user autostart
+cp /etc/xdg/autostart/nm-applet.desktop  /etc/skel/.config/autostart/
+
 
 #### replace the Software Center on the Apps menu with the more useful Synaptic
 # .. TODO   (right click the Apps menu, properties, edit, add synaptic-pkexec, 
