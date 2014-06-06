@@ -60,7 +60,7 @@ apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev \
    libgl1-mesa-dev libglu1-mesa-dev python-setuptools build-essential \
    gfortran libblas-dev liblapack-dev libsprng2-dev libsprng2 \
    libnetcdf-dev netcdf-bin libgeos-dev libproj-dev \
-   libgdal1-1.10.0-grass
+   libgdal1-1.10.1-grass
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
