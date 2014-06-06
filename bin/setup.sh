@@ -207,6 +207,9 @@ rm -fr "$USER_HOME"/Videos
 # and don't come back now
 apt-get --assume-yes remove xdg-user-dirs
 
+# .. and remove any left-over package cruft
+apt-get --assume-yes autoremove
+
 
 # rename dangerous icon
 # this probably won't work here because ubiquity isn't loaded until remastersys step
