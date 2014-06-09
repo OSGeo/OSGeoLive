@@ -62,6 +62,12 @@ adduser user --disabled-password --gecos user
 mkdir -p /home/user/Desktop
 chown user:user /home/user/Desktop
 
+# Fixing some IPv6 problems for the build server
+mv /etc/gai.conf /etc/gai.conf.orig
+cat << EOF > /etc/gai.conf
+precedence ::ffff:0:0/96  100
+EOF
+
 cd /tmp/
 
 wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh"
@@ -165,8 +171,10 @@ export USER_NAME
 for DIR in `find /usr/local/share/gisvm | grep '\.svn$'` ; do
    rm -rf "$DIR"
 done
-# user shouldn't own outside of /home
-chown -R root.root /usr/local/share/gisvm
+
+# user shouldn't own outside of /home, but a group can
+chown -R root.staff /usr/local/share/gisvm
+chmod -R g+w /usr/local/share/gisvm
 
 # Update the file search index
 updatedb
