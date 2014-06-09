@@ -185,7 +185,18 @@ sed -i -e 's|\[place_name\]</TextSymbolizer>|[NAME]</TextSymbolizer>|' \
 sed -i -e 's/ face_name=/ face-name=/' \
        -e 's/TextSymbolizer name="\([^"]*\)"/TextSymbolizer name="[\1]"/' \
        -e 's/ShieldSymbolizer name="\([^"]*\)"/ShieldSymbolizer name="[\1]"/' \
+       -e 's/Map bgcolor=/Map background-color=/' \
+       -e 's|CssParameter name="\([^"]*\)">|Css>\1="|' \
+       -e 's|</CssParameter|"</Css|' \
   "/etc/skel/.gpsdrive/osm.xml"
+
+# todo: combine into a single command:
+perl -0777 -i.original -pe 's/Symbolizer>\n        <Css>/Symbolizer /' \
+    "/etc/skel/.gpsdrive/osm.xml"
+perl -0777 -i.original -pe 's/<\/Css>\n        <Css>/ /g' \
+    "/etc/skel/.gpsdrive/osm.xml"
+perl -0777 -i.original -pe 's/<\/Css>\n      <\/LineSymbolizer>/ \/>/' \
+    "/etc/skel/.gpsdrive/osm.xml"
 
 
 # use (new) official debian pkg home of map icons
