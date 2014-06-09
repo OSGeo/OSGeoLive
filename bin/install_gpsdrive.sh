@@ -191,11 +191,13 @@ sed -i -e 's/ face_name=/ face-name=/' \
   "/etc/skel/.gpsdrive/osm.xml"
 
 # todo: combine into a single command:
-perl -0777 -i.original -pe 's/Symbolizer>\n        <Css>/Symbolizer /' \
+perl -0777 -i.original -pe 's/Symbolizer>\n        <Css>/Symbolizer /g' \
     "/etc/skel/.gpsdrive/osm.xml"
 perl -0777 -i.original -pe 's/<\/Css>\n        <Css>/ /g' \
     "/etc/skel/.gpsdrive/osm.xml"
-perl -0777 -i.original -pe 's/<\/Css>\n      <\/LineSymbolizer>/ \/>/' \
+perl -0777 -i.original -pe 's/<\/Css>\n      <\/LineSymbolizer>/ \/>/g' \
+    "/etc/skel/.gpsdrive/osm.xml"
+perl -0777 -i.original -pe 's/<\/Css>\n      <\/PolygonSymbolizer>/ \/>/g' \
     "/etc/skel/.gpsdrive/osm.xml"
 
 
