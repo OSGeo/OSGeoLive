@@ -62,6 +62,12 @@ adduser user --disabled-password --gecos user
 mkdir -p /home/user/Desktop
 chown user:user /home/user/Desktop
 
+# Fixing some IPv6 problems for the build server
+cat << EOF > /etc/apt/apt.conf.d/99timeout
+Acquire::http::Timeout "2";
+Acquire::ftp::Timeout "2";
+EOF
+
 cd /tmp/
 
 wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh"
