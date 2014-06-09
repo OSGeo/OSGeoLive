@@ -63,9 +63,9 @@ mkdir -p /home/user/Desktop
 chown user:user /home/user/Desktop
 
 # Fixing some IPv6 problems for the build server
-cat << EOF > /etc/apt/apt.conf.d/99timeout
-Acquire::http::Timeout "2";
-Acquire::ftp::Timeout "2";
+mv /etc/gai.conf /etc/gai.conf.orig
+cat << EOF > /etc/gai.conf
+precedence ::ffff:0:0/96  100
 EOF
 
 cd /tmp/
