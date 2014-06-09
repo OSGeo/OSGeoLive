@@ -34,7 +34,7 @@ apt-get install --assume-yes libfreetype6-dev libpng12-dev
 apt-get install --assume-yes python-dev python-setuptools
 ## provides easy_install, distribute-0.6.24dev_r0
 
-easy_install --upgrade distribute
+#easy_install --upgrade distribute
 ## provides
 ##  /usr/local/lib/python2.7/dist-packages/distribute-0.7.3
 ##  /usr/local/lib/python2.7/dist-packages/setuptools-2.1
@@ -48,8 +48,8 @@ apt-get install --assume-yes python-pip python-pandas python-netcdf
 
 ## TODO Resolve versions with Iris before re-enabling those
 #pip install --upgrade numpy  ## remove a redundant numpy build for kalxas
-pip install --upgrade  matplotlib
-pip install --upgrade --no-deps pandas
+#pip install --upgrade  matplotlib
+#pip install --upgrade --no-deps pandas
 
 ## result:
 ##  NEW matplotlib 1.3.1
@@ -57,8 +57,8 @@ pip install --upgrade --no-deps pandas
 ##  UPGRADE  numpy 1.6.1 -> 1.8
 
 #-- iPython from .deb
-apt-add-repository --yes ppa:jtaylor/ipython
-apt-get update
+#apt-add-repository --yes ppa:jtaylor/ipython
+#apt-get update
 
 apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
 
@@ -69,7 +69,7 @@ apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
 ##
 
 #-- Clean-up
-apt-add-repository --yes --remove ppa:jtaylor/ipython
+#apt-add-repository --yes --remove ppa:jtaylor/ipython
 apt-get remove --assume-yes python-dev
 apt-get remove --assume-yes libfreetype6-dev libpng12-dev
 
