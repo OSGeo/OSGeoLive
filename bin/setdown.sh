@@ -214,6 +214,8 @@ EOF
 fi
 chmod 440 /etc/sudoers.d/tomcat
 
+# Switching to default timeouts
+rm /etc/apt/apt.conf.d/99timeout
 
 # stop PostgreSQL and MySQL to avoid them thinking a crash happened next boot
 service postgresql stop
