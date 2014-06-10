@@ -207,6 +207,11 @@ setxkbmap -option terminate:ctrl_alt_bksp
 EOF
 
 
+# work around for launchpad bug #975152 (opens empty lxterminal)
+sed -i -e 's|lxsession-default-terminal %s|x-terminal-emulator -e %s|' \
+   /etc/xdg/lubuntu/libfm/libfm.conf
+
+
 #### Make Unity Usable (Muu..)
 # we are using xubuntu so it's a bit academic, but in case anyone wants to
 #  use OSGeo on stock Ubuntu these changes can make it a lot less annoying.
