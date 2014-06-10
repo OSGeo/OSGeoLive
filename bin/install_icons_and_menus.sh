@@ -114,7 +114,7 @@ if [ -e "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" ] 
      "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
 fi
 
-cp "$BUILD_DIR"/../desktop-conf/menus/xkb-plugin-363.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
+#cp "$BUILD_DIR"/../desktop-conf/menus/xkb-plugin-363.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 
 mkdir -p /usr/local/share/desktop-directories
 mkdir -p /usr/local/share/applications
