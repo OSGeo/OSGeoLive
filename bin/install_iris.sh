@@ -30,16 +30,17 @@ apt-get install -y python-dev netcdf-bin libhdf5-serial-dev libnetcdf-dev \
     python-mock python-sphinx python-shapely python-pip
 
 # Install additional python packages using pip:
+echo "FIXME: do not use pip. make a deb instead. see pypi-install in install_tilemill.sh for an example."
 pip install netCDF4 pyshp
 
 ## in any case, matplotlib is required
 if [ ! -e /usr/share/pyshared/matplotlib ] ; then
     ## closed in tickets #1271 #1285 commentary/attachments
-    #apt-get install -y python-matplotlib
-    #   -> matplotlib 1.1.1rc
+    apt-get install -y python-matplotlib
+    # xx   -> matplotlib 1.1.1rc
 
     #pip install matplotlib
-    pip install --upgrade matplotlib
+    #pip install --upgrade matplotlib
     #   -> matplotlib 1.3.1
 fi
 
