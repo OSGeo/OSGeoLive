@@ -38,8 +38,8 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_mapbender3"
 PARAMETERSINSTALLURL="http://mapbender3.org/builds/"
 INSTALLURL="http://mapbender3.org/builds/"
-INSTALLFILE="mapbender3-3.0.3.1"
-PARAMETERSFILE="mapbender3-3.0.3.1"
+INSTALLFILE="mapbender3-3.0.3.2"
+PARAMETERSFILE="mapbender3-3.0.3.2"
 INSTALL_DIR="/var/www/html"
 
 mkdir -p "$TMP_DIR"
@@ -122,7 +122,7 @@ echo "<Directory $INSTALL_DIR/mapbender3/web>" >> /etc/apache2/conf.d/mapbender3
 echo "Options MultiViews" >> /etc/apache2/conf.d/mapbender3
 echo "DirectoryIndex app_dev.php" >> /etc/apache2/conf.d/mapbender3
 echo "Order allow,deny" >> /etc/apache2/conf.d/mapbender3
-echo "Allow from all" >> /etc/apache2/conf.d/mapbender3
+echo "Require all granted" >> /etc/apache2/conf.d/mapbender3
 echo "</Directory>" >> /etc/apache2/conf.d/mapbender3       
 
 
