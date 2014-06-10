@@ -208,7 +208,9 @@ EOF
 
 
 # work around for launchpad bug #975152 (opens empty lxterminal)
+#   and make the icons not so huge
 sed -i -e 's|lxsession-default-terminal %s|x-terminal-emulator -e %s|' \
+       -e 's|big_icon_size=48|big_icon_size=36|' \
    /etc/xdg/lubuntu/libfm/libfm.conf
 
 
