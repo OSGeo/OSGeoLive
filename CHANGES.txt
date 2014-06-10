@@ -1,6 +1,25 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 8.0alpha1
+===================
+
+ * Switched to Lubuntu 14.04 as a base OS
+ * Updates from UbuntuGIS
+ * Update gdal grass plugin package version
+ * Change osm style sheet to match new mapnik2 requirements
+ * libpam-systemd hack for #1334
+ * Xubuntu -> Lubuntu desktop adjustments
+ * install MBUtil package as a .deb, for working with MBTiles sqlite dbs
+ * Update doc paths for Apache 2.4
+ * many xfce to lxde conversions
+
+Version 7.9.1rc1
+===================
+
+ * Fixed Heartbleed bug
+ * Replaced backdrop image
+
 Version 7.9
 ===================
 
