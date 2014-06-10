@@ -106,15 +106,8 @@ fi
 
 ## Configure Application ##
 
-# Download modified startup script for udig
-if [ -f "udig.sh" ]
-then
-   echo "udig.sh has already been downloaded."
-else
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/udig/udig.sh
-fi
-# copy it into the udig folder
-cp udig.sh "$UDIG_FOLDER"
+# copy modified startup script for udig
+cp "$BUILD_DIR"/../app-conf/udig/udig.sh "$UDIG_FOLDER"
 
 # create link to startup script
 ln -s "$UDIG_FOLDER/udig.sh" "$BIN/udig"
