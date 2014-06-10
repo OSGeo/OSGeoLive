@@ -90,8 +90,8 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 ##  TODO even more defensive scripting
 
 if [ ! -e /usr/share/pyshared/matplotlib ] ; then
-    #apt-get install -y python-matplotlib
-    pip install matplotlib
+    apt-get install -y python-matplotlib
+    #pip install matplotlib
 fi
 
 # Install python-tweepy (optional)
