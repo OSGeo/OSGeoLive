@@ -35,10 +35,10 @@ apt-get -q update
 apt-get install --assume-yes ossim-core libgdal1-1.10.1-grass
 
 # install main dependencies
-apt-get install --assume-yes libtiff4 libgeotiff2 \
+apt-get install --assume-yes libtiff5 libgeotiff2 \
   libfreetype6 libcurl3 libopenscenegraph99 libqt4-opengl \
   libexpat1 libpng3 libfftw3-3 libqt3-mt \
-  libopenmpi1.3 libqt4-qt3support python-pip
+  libopenmpi1.6 libqt4-qt3support python-pip
 
 # python-pandas python-netcdf spyder
 
