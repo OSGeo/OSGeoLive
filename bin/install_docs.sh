@@ -76,7 +76,7 @@ fi
 
 cd "$DEST/_images/"
 SPHX_VER=`dpkg -l python-sphinx | grep sphinx | awk '{print $3}' | cut -f1 -d'+'`
-if [ "$SPHX_VER" = "1.1.3" ] ; then
+if [ "$SPHX_VER" = "1.2.2" ] ; then
    for ext in png jpg gif ; do
       for file in *.$ext ; do
 	 if [ -h "$file" ] ; then
