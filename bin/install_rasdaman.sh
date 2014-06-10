@@ -88,8 +88,8 @@ pkg_cleanup()
      flex krb5-multidev latex-xcolor libecpg-dev libjpeg-dev \
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
-     luatex libgssrpc4 libkadm5clnt-mit8 libkadm5srv-mit8 \
-     libkdb5-6 libgdal1-dev libnetcdf-dev git git-core libsigsegv-dev
+     luatex libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit8 \
+     libkdb5-7 libgdal1-dev libnetcdf-dev git git-core libsigsegv-dev
 
   apt-get --yes autoremove
 }
