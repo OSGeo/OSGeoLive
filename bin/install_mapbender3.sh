@@ -115,15 +115,14 @@ chmod -R ug+w "$INSTALL_DIR/mapbender3/web/"
 #content
 #content
 #EOF
-echo "#Configure apache for mapbender3 " > /etc/apache2/conf.d/mapbender3
+echo "#Configure apache for mapbender3 " > /etc/apache2/conf-available/mapbender3.conf
 echo "Alias /mapbender3 $INSTALL_DIR/mapbender3/web/" >> \
-   /etc/apache2/conf.d/mapbender3
-echo "<Directory $INSTALL_DIR/mapbender3/web>" >> /etc/apache2/conf.d/mapbender3
-echo "Options MultiViews" >> /etc/apache2/conf.d/mapbender3
-echo "DirectoryIndex app_dev.php" >> /etc/apache2/conf.d/mapbender3
-echo "Order allow,deny" >> /etc/apache2/conf.d/mapbender3
-echo "Require all granted" >> /etc/apache2/conf.d/mapbender3
-echo "</Directory>" >> /etc/apache2/conf.d/mapbender3       
+   /etc/apache2/conf-available/mapbender3.conf
+echo "<Directory $INSTALL_DIR/mapbender3/web>" >> /etc/apache2/conf-available/mapbender3.conf
+echo "Options MultiViews" >> /etc/apache2/conf-available/mapbender3.conf
+echo "DirectoryIndex app_dev.php" >> /etc/apache2/conf-available/mapbender3.conf
+echo "Require all granted" >> /etc/apache2/conf-available/mapbender3.conf
+echo "</Directory>" >> /etc/apache2/conf-available/mapbender3.conf       
 
 
 #Restart apache2 for mapbender
