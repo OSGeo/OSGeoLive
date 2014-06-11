@@ -124,6 +124,7 @@ echo "DirectoryIndex app_dev.php" >> /etc/apache2/conf-available/mapbender3.conf
 echo "Require all granted" >> /etc/apache2/conf-available/mapbender3.conf
 echo "</Directory>" >> /etc/apache2/conf-available/mapbender3.conf       
 
+ln -s /etc/apache2/conf-available/mapbender3.conf /etc/apache2/conf-enabled/mapbender3.conf
 
 #Restart apache2 for mapbender
 /etc/init.d/apache2 force-reload
