@@ -32,7 +32,7 @@
 CARTARO_PASSWORD="geoserver"
 CARTARO_USER="cartaro-admin"
 
-CARTARO_VERSION="1.2"
+CARTARO_VERSION="1.3"
 
 DB_NAME="cartaro"
 DB_USER="cartaro"
@@ -40,7 +40,7 @@ DB_PASSWORD="cartaro"
 
 GEO_ADMIN="admin"
 GEO_PASS="geoserver"
-GEO_VERSION="2.4.4"
+GEO_VERSION="2.5"
 GEO_PATH="/usr/local/lib/geoserver-$GEO_VERSION"
 
 TMP_DIR="/tmp/build_cartaro"
@@ -173,9 +173,9 @@ fi
 
 echo "[install_cartaro.sh] Configure Apache2  ..."
 
-if [ ! -f /etc/apache2/conf.d/cartaro ] ; then
+if [ ! -f /etc/apache2/conf.d/conf-enabled/cartaro.conf ] ; then
 
-cat << EOF > /etc/apache2/conf.d/cartaro
+cat << EOF > /etc/apache2/conf-enabled/cartaro.conf
 <Directory /var/www/html/cartaro>
 	RewriteEngine On
 	RewriteRule "(^|/)\." - [F]
