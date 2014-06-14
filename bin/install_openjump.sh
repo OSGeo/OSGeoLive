@@ -2,16 +2,17 @@
 #################################################
 #
 # Purpose: Installation of openjump into ubuntu
-# Authors:  Stefan Hansen <shansen@lisasoft.com>
+# Authors:  Stefan Hansen <shansen[AT]lisasoft.com>
 #           edso <edso[AT]users.sourceforge.net>
 #
 # Changes:
 #  25 Jan 2011  Update script to openJUMP 1.4
 #   8 Jan 2012  changes for OJ 1.5
 #  12 Jun 2013  changes for OJ 1.6 live-dvd 7.0
+#  14 Jun 2014  changes for OJ 1.7 live-dvd 8.0
 #
 #################################################
-# Copyright (c) 2011-2013 Edgar Soldin, openjump team
+# Copyright (c) 2011-2014 Edgar Soldin, openjump team
 # Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 LISAsoft
 #
@@ -110,11 +111,10 @@ wget -c --progress=dot:mega "$URL_PKG" && \
 # get icon
 wget -nv "$URL_ICON" -O $PKG_FOLDER/icon.svg  && \
 
-# set permissions
-chmod 644 -R $PKG_FOLDER &&\
-chmod 755 $PKG_FOLDER/bin/oj_linux.sh &&\
-chmod a+X -R $PKG_FOLDER &&\
-mv $PKG_FOLDER $PKG_HOME &&\
+# post install routines, set permissions etc.
+chmod 755 "$PKG_FOLDER/bin/oj_linux.sh" &&\
+"$PKG_FOLDER/bin/oj_linux.sh" --post-install &&\
+mv "$PKG_FOLDER" "$PKG_HOME" &&\
 
 # create link to startup script
 ln -sf $PKG_HOME/bin/oj_linux.sh /usr/bin/openjump &&\
@@ -132,8 +132,6 @@ Exec=openjump
 Icon=$PKG_HOME/icon.svg
 Terminal=false
 StartupNotify=false
-GenericName=
-Path=
 END
 ) &&\
 
