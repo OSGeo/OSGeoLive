@@ -1,6 +1,18 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 8.0alpha2
+===================
+
+ * Updated package names for 14.04
+ * Temp fix for sphinx not symlinking (#952)
+ * Work around for launchpad bug #975152 (opens empty lxterminal)
+ * Mapbender3 upgrade and Apache 2.4 changed to require all granted
+ * Cartaro upgrade
+ * UbuntuGIS updates
+ * OpenJump update
+ * Rasdaman update
+
 Version 8.0alpha1
 ===================
 
