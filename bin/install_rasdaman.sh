@@ -30,9 +30,9 @@ BUILD_DIR=`pwd`
 # 0 = setup just petascope (this should be used only for testing)
 FULL=1
 
-OSGEOLIVE_TAG="v8.5.2"
+OSGEOLIVE_TAG="release_8.5"
 
-VERSION=8.5.2
+VERSION=8.5.4
 RASDAMAN_LOCATION="http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo"
 
 # live disc's username is "user"
@@ -81,15 +81,12 @@ pkg_cleanup()
 {
    # be careful that no other project on the disc wanted any of these!
 
-  apt-get --yes remove preview-latex-style tex-common texlive-base \
-     texlive-binaries texlive-common texlive-doc-base texlive-extra-utils \
-     texlive-latex-base texlive-latex-extra texlive-latex-recommended \
-     texlive-pictures libtool bison comerr-dev doxygen doxygen-latex \
-     flex krb5-multidev latex-xcolor libecpg-dev libjpeg-dev \
+  apt-get --yes remove libtool bison comerr-dev doxygen doxygen-latex \
+     flex krb5-multidev libecpg-dev libjpeg-dev \
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
-     luatex libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit8 \
-     libkdb5-7 libgdal1-dev libnetcdf-dev git git-core libsigsegv-dev
+     luatex libgssrpc4 libkdb5-7 libgdal1-dev libnetcdf-dev \  
+     git libsigsegv-dev
 
   apt-get --yes autoremove
 }
@@ -114,8 +111,7 @@ if [ "$FULL" -eq 1 ] ; then
   cd "rasdaman"
   
   # switch to current osgeo live tag
-  git pull
-  git checkout -b v852_osgeo "$OSGEOLIVE_TAG"
+  git checkout "$OSGEOLIVE_TAG"
 
   mkdir -p "$RASDAMAN_HOME/log"
   chgrp users "$RASDAMAN_HOME/log/" -R
