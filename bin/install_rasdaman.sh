@@ -49,6 +49,7 @@ USER_HOME="/home/$USER_NAME"
 RASDAMAN_HOME="/usr/local/rasdaman"
 TMP="/tmp/build_rasdaman"
 WARDIR="/var/lib/tomcat6/webapps"
+TOMCAT_CONFDIR="/var/lib/tomcat6/conf"
 SETTINGS="$RASDAMAN_HOME/etc/petascope.properties"
 EARTHLOOKDIR="/var/www/html"
 BIN="/usr/local/bin"
@@ -85,8 +86,7 @@ pkg_cleanup()
      flex krb5-multidev libecpg-dev libjpeg-dev \
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
-     luatex libgssrpc4 libkdb5-7 libgdal1-dev libnetcdf-dev \  
-     git libsigsegv-dev
+     luatex libgssrpc4 libkdb5-7 libgdal1-dev libnetcdf-dev git libsigsegv-dev
 
   apt-get --yes autoremove
 }
@@ -411,6 +411,11 @@ if [ $? -ne 0 ] ; then
   stop_rasdaman.sh
   start_rasdaman.sh
 fi
+
+# Activate tomcat autodeploy option 
+sed -i 's/unpackWARs=\"false\"/unpackWARs=\"true\"/g' $TOMCAT_CONFDIR/server.xml
+sed -i 's/autoDeploy=\"false\"/autoDeploy=\"true\"/g' $TOMCAT_CONFDIR/server.xml
+
 service tomcat6 start
 
 
