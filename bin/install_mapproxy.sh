@@ -18,7 +18,7 @@ USER_HOME="/home/$USER_NAME"
 
 BIN="/usr/local/bin"
 TMP="/tmp/build_mapproxy"
-MAPPROXY_VERSION="1.5.0"
+MAPPROXY_VERSION="1.6.0"
 MAPPROXY_DEB_FILE="mapproxy_${MAPPROXY_VERSION}_all.deb"
 MAPPROXY_DEB_URL="http://mapproxy.org/static/rel/$MAPPROXY_DEB_FILE"
 MAPPROXY_DOCS_FILE="MapProxy-docs-$MAPPROXY_VERSION.tar.gz"
@@ -81,9 +81,9 @@ Encoding=UTF-8
 Name=Start MapProxy
 Comment=MapProxy for LiveDVD WMS services
 Categories=Application;Geography;Geoscience;Education;
-Exec=mapproxy_start.sh
+Exec=lxterminal -e mapproxy_start.sh
 Icon=gnome-globe
-Terminal=true
+Terminal=false
 StartupNotify=false
 EOF
 
