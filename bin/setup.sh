@@ -78,6 +78,9 @@ sed -i -e 's/exit $?/exit 0/' \
 apt-get --yes install libpam-systemd
 apt-get -f install --yes
 
+# argh, whoopsie has the same missing init.d script bug.
+apt-get --yes remove whoopsie libwhoopsie0
+
 
 apt-get --yes upgrade
 
