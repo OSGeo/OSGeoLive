@@ -37,7 +37,11 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 MAPSERVER_DATA="/usr/local/share/mapserver"
-MS_APACHE_CONF="/etc/apache2/conf.d/mapserver"
+
+MS_APACHE_CONF_FILE="mapserver.conf"
+APACHE_CONF_DIR="/etc/apache2/conf-available/"
+APACHE_CONF_ENABLED_DIR="/etc/apache2/conf-enabled/"
+MS_APACHE_CONF=$APACHE_CONF_DIR$MS_APACHE_CONF_FILE
 
 TMP_DIR=/tmp/build_mapserver
 mkdir "$TMP_DIR"
@@ -100,6 +104,7 @@ Alias /mapserver_demos "/usr/local/share/mapserver/demos"
 </Directory>
 EOF
 
+ln -s $MS_APACHE_CONF $APACHE_CONF_ENABLED_DIR$MS_APACHE_CONF_FILE
 echo "Finished configuring Apache"
 
 #Add Launch icon to desktop
@@ -131,8 +136,8 @@ ln -s /usr/local/share/mapserver/demos/itasca/data \
 
 
 # Reload Apache
-/etc/init.d/apache2 force-reload
-
+#/etc/init.d/apache2 force-reload
+service apache2 --full-restart
 
 # cleanup
 cd "$MAPSERVER_DATA"/doc/_static/
