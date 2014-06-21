@@ -27,7 +27,7 @@ BUILD_DIR=`pwd`
 apt-get install -y python-dev netcdf-bin libhdf5-serial-dev libnetcdf-dev \
     libudunits2-dev libgeos-dev libproj-dev libjasper-dev libfreetype6-dev \
     libpng-dev tk-dev python-tk cython python-scipy  python-nose python-pyke \
-    python-mock python-sphinx python-shapely python-pip
+    python-mock python-sphinx python-shapely python-pip g++
 
 # Install additional python packages using pip:
 echo "FIXME: do not use pip. make a deb instead. see pypi-install in install_tilemill.sh for an example."
@@ -84,22 +84,22 @@ ldconfig
 # Install Cartopy dependancy: (6 MB)
 cd /tmp/build_iris
 wget --progress=dot:mega -O cartopy.zip \
-  "https://github.com/SciTools/cartopy/archive/v0.8.0.zip"
+  "https://github.com/SciTools/cartopy/archive/v0.11.0.zip"
 unzip -q cartopy.zip
 
-cd cartopy-0.8.0
+cd cartopy-0.11.0
 python setup.py install
 
 # Install Iris: (3.5 MB)
 cd /tmp/build_iris
 wget --progress=dot:mega -O iris.zip \
-  "https://github.com/SciTools/iris/archive/v1.4.0.zip"
+  "https://github.com/SciTools/iris/archive/v1.6.1.zip"
 
 unzip -q iris.zip
 
-cd iris-1.4.0
+cd iris-1.6.1
 python setup.py --with-unpack install
-touch /usr/local/lib/python2.7/dist-packages/Iris-1.4.0-py2.7-linux-i686.egg/iris/fileformats/_pyke_rules/compiled_krb/*
+touch /usr/local/lib/python2.7/dist-packages/Iris-1.6.1-py2.7-linux-i686.egg/iris/fileformats/_pyke_rules/compiled_krb/*
 
 # Tidy up
 apt-get --yes remove python-dev libhdf5-serial-dev libnetcdf-dev \
@@ -110,7 +110,7 @@ rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/data \
        /usr/local/lib/python2.7/dist-packages/cartopy/examples \
        /usr/local/lib/python2.7/dist-packages/cartopy/sphinxext \
        /usr/local/lib/python2.7/dist-packages/cartopy/tests \
-       /usr/local/lib/python2.7/dist-packages/Iris-1.4.0-py2.7-linux-i686.egg/iris/tests
+       /usr/local/lib/python2.7/dist-packages/Iris-1.6.1-py2.7-linux-i686.egg/iris/tests
 
 cd "$BUILD_DIR"
 rm -rf /tmp/build_iris
