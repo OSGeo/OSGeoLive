@@ -158,7 +158,7 @@ unzip -o -q "geoserver-$GS_VERSION-htmldoc.zip" -d "$DOC_DIR"
 echo "Getting INSPIRE extension"
 wget --progress=dot:mega \
   -O "geoserver-$GS_VERSION-inspire-plugin.zip" \
-  "http://sourceforge.net/projects/geoserver/files/GeoServer%20Extensions/$GS_VERSION/geoserver-$GS_VERSION-inspire-plugin.zip/download"
+  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-inspire-plugin.zip/download"
 echo "Installing INSPIRE extension"
 unzip -o -q "geoserver-$GS_VERSION-inspire-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
 
