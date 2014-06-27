@@ -27,7 +27,7 @@ BUILD_DIR=`pwd`
 apt-get install -y python-dev netcdf-bin libhdf5-serial-dev libnetcdf-dev \
     libudunits2-dev libgeos-dev libproj-dev libjasper-dev libfreetype6-dev \
     libpng-dev tk-dev python-tk cython python-scipy  python-nose python-pyke \
-    python-mock python-sphinx python-shapely python-pip g++
+    python-pyshp python-mock python-sphinx python-shapely python-pip g++
 
 # Install additional python packages using pip:
 echo "FIXME: do not use pip. make a deb instead. see pypi-install in install_tilemill.sh for an example."
