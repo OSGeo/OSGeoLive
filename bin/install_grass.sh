@@ -159,7 +159,7 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata/addons"
 
 cat << EOF > /etc/profile.d/grass_settings.sh
 GRASS_PAGER=more
-GRASS_ADDON_PATH=~/grassdata/addons
+GRASS_ADDON_PATH=~/grassdata/addons:/usr/local/share/grass/addons
 export GRASS_PAGER GRASS_ADDON_PATH
 EOF
 mkdir -p "/etc/skel/grassdata/addons"
@@ -214,35 +214,42 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass64.desktop"
 
 
 
-# install some addons (for OSSIM)
-### FIXME: install using a g.extension GRASS_BATCH_JOB
-###   so they get updates, bugfixes, etc.
-ADDONS="
-r.basin
-r.ipso
-r.stream.angle
-r.stream.basins
-r.stream.del
-r.stream.distance
-r.stream.extract
-r.stream.order
-r.stream.pos
-r.stream.preview
-r.stream.stats
-r.surf.nnbathy
-r.wf
-v.autokrige
-"
+#### Run a batch job to download, build, and install some add-on modules (for OSSIM)
+# The list of addon modules to install is in app-conf/grass/install_grass_addons.sh
 
-# if you want this to work you have to set
-#   GRASS_ADDON_PATH=~/grassdata/addons:/usr/local/share/grass/addons
-# before starting grass. (see /etc/profile.d/grass_settings.sh)
-wget --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/ossim/addons.tar.gz"
-tar -zxvf addons.tar.gz
-rm -rf addons.tar.gz
-mv addons /usr/local/share/grass/
-chown -R root.root /usr/local/share/grass/addons
+GRASS_BASEDIR="/usr/local/share/grass"
+
+# Need to specify addon path before starting GRASS
+GRASS_ADDON_PATH="$GRASS_BASEDIR/addons"
+export GRASS_ADDON_PATH
+mkdir -p "$GRASS_ADDON_PATH"
+
+# avoid a needless search
+GRASS_HTML_BROWSER=false
+export GRASS_HTML_BROWSER
+
+# avoid interactive pauses
+GRASS_PAGER=cat
+export GRASS_PAGER
+
+cat << EOF > ~/.grassrc6
+GISDBASE: /usr/local/share/grass
+LOCATION_NAME: spearfish60
+MAPSET: user1
+GRASS_GUI: text
+EOF
+
+
+GRASS_BATCH_JOB="$BUILD_DIR"/../app-conf/grass/install_grass_addons.sh
+export GRASS_BATCH_JOB
+
+# the user1 mapset in /usr/local/share is already owned by root
+grass64 -text "$GRASS_BASEDIR"/spearfish60/user1
+
+unset GRASS_BATCH_JOB 
+rm ~/.grassrc6
+
+
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
