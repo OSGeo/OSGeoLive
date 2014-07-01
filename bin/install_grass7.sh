@@ -127,11 +127,29 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/.grass7"
 mkdir -p "$USER_HOME/grassdata/addons"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata/addons"
 
-# make gtk happy
+#### make gtk happy
 mkdir -p "$USER_HOME/.config/gtk-2.0"
 chown $USER_NAME.$USER_NAME "$USER_HOME/.config/gtk-2.0"
 chmod go-rx "$USER_HOME/.config/gtk-2.0"
 
+
+#### runtime easy-install script:
+cat << EOF > /usr/local/bin/install_grass7
+#!/bin/sh
+# installs grass 7 on the osgeo live dvd
+#   (to be run as the default user)
+#  HB 1 July 2014
+
+cd ~/gisvm/bin
+svn up install_grass7.sh
+sudo ./install_grass7.sh
+EOF
+
+chmod a+x /usr/local/bin/install_grass7
+
+
+# cleanup
+rmdir "$TMP_DIR"
 
 
 ####
