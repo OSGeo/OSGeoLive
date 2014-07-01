@@ -10,11 +10,13 @@ if [ -n "$LD_LIBRARY_PATH" ] ; then
 else
    LD_LIBRARY_PATH="/usr/lib/grass64/lib"
 fi
+
 if [ -n "$PYTHONPATH" ] ; then
    PYTHONPATH="/usr/lib/grass64/etc/python:$PYTHONPATH"
 else
    PYTHONPATH="/usr/lib/grass64/etc/python"
 fi
+
 GISBASE="/usr/lib/grass64"
 PATH="$GISBASE/bin:$GISBASE/scripts:$PATH"
 GIS_LOCK="$$"
@@ -31,6 +33,7 @@ GRASS_PNG_COMPRESSION=9
 GRASS_PNG_AUTO_WRITE=TRUE
 export GRASS_TRANSPARENT GRASS_TRUECOLOR GRASS_PNG_COMPRESSION GRASS_PNG_AUTO_WRITE
 
+mkdir -p /home/user/ossim/workspace
 
 ipython notebook --port=12345 --no-browser \
    --notebook-dir=/home/user/ossim/workspace/geo-notebook \
