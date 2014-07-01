@@ -174,43 +174,9 @@ chgrp users /usr/lib/grass64/etc/fontcap
 
 
 #### install desktop icon ####
-#if [ ! -e "/usr/share/icons/grass-48x48.png" ] ; then
-#   wget -nv "http://svn.osgeo.org/grass/grass/trunk/gui/icons/grass-48x48.png"
-#   \mv grass-48x48.png /usr/share/icons/
-#fi
-#
-#GVER=`echo "$INSTALLED_VERSION" | sed -e 's/\.//'`
-#
-##if [ ! -e /usr/share/applications/grass.desktop ] ; then
-#   cat << EOF > /usr/share/applications/grass.desktop
-#[Desktop Entry]
-#Type=Application
-#Encoding=UTF-8
-#Name=GRASS GIS
-#Comment=GRASS GIS $INSTALLED_VERSION
-#Categories=Application;Education;Geography;
-#Exec=/usr/bin/grass$GVER
-#Icon=/usr/share/icons/grass-48x48.png
-#Terminal=true
-#EOF
-##fi
-
 cp /usr/share/applications/grass64.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass64.desktop"
 
-
-## add menu item
-#if [ ! -e /usr/share/menu/grass ] ; then
-#   cat << EOF > /usr/share/menu/grass
-#?package(grass):needs="text"\
-#  section="Applications/Science/Geoscience"\
-#  title="GRASS GIS"\
-#  command="/usr/bin/grass$GVER"\
-#  icon="/usr/share/icons/grass-48x48.png"
-#EOF
-#
-#   update-menus
-#fi
 
 
 
