@@ -29,7 +29,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 
-VERS="5.4.2183-0"
+VERS="5.4.2191-0"
 
 
 #### get dependencies ####
