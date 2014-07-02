@@ -84,7 +84,18 @@ sed -i -e 's/exit $?/exit 0/' \
 apt-get --yes remove whoopsie libwhoopsie0
 
 
+###
+ls -l /etc/resolv.conf
+###
+
 apt-get --yes upgrade
+
+### did we loose DNS?? (#1362)
+ls -l /etc/resolv.conf
+dhclient eth0
+apt-get --yes -f install
+###
+
 
 # Add OSGeoLive repository
 
