@@ -207,11 +207,14 @@ setxkbmap -option terminate:ctrl_alt_bksp
 EOF
 
 
-# work around for launchpad bug #975152 (opens empty lxterminal)
+# work around for launchpad bug #975152 (opens empty lxterminal; trac #1363)
 #   and make the icons not so huge
 sed -i -e 's|lxsession-default-terminal %s|x-terminal-emulator -e %s|' \
        -e 's|big_icon_size=48|big_icon_size=36|' \
    /etc/xdg/lubuntu/libfm/libfm.conf
+
+sed -i -e 's|lxsession-default terminal|x-terminal-emulator|' \
+   /usr/share/lxpanel/profile/Lubuntu/config
 
 
 #### Make Unity Usable (Muu..)
