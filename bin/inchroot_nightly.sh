@@ -8,7 +8,7 @@
 #	   Angelos Tzotsos <tzotsos@gmail.com>
 #
 #################################################
-# Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2014 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -201,24 +201,31 @@ deluser --remove-home user
 #FIXME: User is still "xubuntu" in live session... perhaps because user is already created?
 cp /usr/local/share/gisvm/app-conf/build_chroot/casper.conf /etc/casper.conf
 
-#After the build
-#Check for users above 999
+# After the build
+# Check for users above 999
 awk -F: '$3 > 999' /etc/passwd
 
-#Cleanup
-#Be sure to remove any temporary files which are no longer needed, as space on a CD is limited
+#### Cleanup ####
+
+# Be sure to remove any temporary files which are no longer needed, as space on a CD is limited
 apt-get clean
-#Or delete temporary files
+
+# delete temporary files
 rm -rf /tmp/* ~/.bash_history
-#Or delete hosts file 
+
+# delete hosts file 
 rm /etc/hosts
-#Or nameserver settings 
+
+# nameserver settings 
 rm /etc/resolv.conf
-#If you installed software, be sure to run 
+ln -s /run/resolvconf/resolv.conf /etc/resolv.conf
+
+# If you installed software, be sure to run 
 rm /var/lib/dbus/machine-id
 rm /sbin/initctl
 dpkg-divert --rename --remove /sbin/initctl
-#now umount (unmount) special filesystems and exit chroot 
+
+# now umount (unmount) special filesystems and exit chroot 
 umount /proc || umount -lf /proc
 umount /sys
 umount /dev/pts
