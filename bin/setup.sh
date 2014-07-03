@@ -85,15 +85,34 @@ apt-get --yes remove whoopsie libwhoopsie0
 
 
 ###
-ls -l /etc/resolv.conf
+echo "[before apt-get upgrade]"
+ls -l /etc/resolv.conf /run/resolvconf/resolv.conf
 ###
 
 apt-get --yes upgrade
 
 ### did we loose DNS?? (#1362)
-ls -l /etc/resolv.conf
+echo "[before dhclient]"
+ls -l /etc/resolv.conf /run/resolvconf/resolv.conf
+
 dhclient eth0
+
+echo "[after dhclient]"
+ls -l /etc/resolv.conf /run/resolvconf/resolv.conf
+
 apt-get --yes -f install
+
+echo "[after apt-get -f install]"
+ls -l /etc/resolv.conf /run/resolvconf/resolv.conf
+
+echo "[before dhclient]"
+ls -l /etc/resolv.conf /run/resolvconf/resolv.conf
+
+dhclient eth0
+
+echo "[after dhclient]"
+ls -l /etc/resolv.conf /run/resolvconf/resolv.conf
+
 ###
 
 
