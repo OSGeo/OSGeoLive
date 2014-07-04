@@ -113,6 +113,14 @@ dhclient eth0
 echo "[after dhclient]"
 ls -l /etc/resolv.conf /run/resolvconf/resolv.conf
 
+echo "----"
+nslookup live.osgeo.org
+echo "----"
+cat /etc/resolv.conf
+echo "----"
+cat /run/resolvconf/resolv.conf
+echo "----"
+
 ###
 
 
