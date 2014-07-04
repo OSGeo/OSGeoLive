@@ -96,7 +96,7 @@ export USER_NAME
 ./install_java.sh
 ./install_apache2.sh
 ./install_tomcat6.sh
-# ./install_ipython.sh
+./install_ipython.sh
 # ./install_django.sh
 
 # ./install_geoserver.sh
@@ -107,7 +107,7 @@ export USER_NAME
 # ./install_kosmo.sh
 # ./install_udig.sh
 # ./install_openjump.sh
-# ./install_postgis.sh
+./install_postgis.sh
 # ./install_osm.sh
 # ./load_postgis.sh
 # ./install_pgrouting.sh
