@@ -29,17 +29,19 @@ BUILD_DIR=`pwd`
 ## 24jan14  change in iPython+numpy+matplotlib
 ## 04jul14  jtaylor iPython
 
+##-- no longer needed ?
 #apt-get install --assume-yes libfreetype6-dev libpng12-dev
 #apt-get install --assume-yes python-dev python-setuptools
 
-apt-get install --assume-yes python-pip python-pandas python-netcdf
+##-- causes a rebuild of numpy, unfortunatly..
+apt-get install --assume-yes python-pip
+apt-get install --assume-yes python-scipy python-pandas python-netcdf
 
 #-- iPython from jtaylor .deb
 apt-add-repository --yes ppa:jtaylor/ipython
 apt-get update
 
 apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
-
 
 #-- Clean-up
 apt-add-repository --yes --remove ppa:jtaylor/ipython
@@ -54,7 +56,6 @@ DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
 
 mkdir -p /usr/local/share/ossim/quickstart/workspace
 QUICKSTART=/usr/local/share/ossim/quickstart
-
 
 #pip install --upgrade ipython
 #pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
