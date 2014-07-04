@@ -27,54 +27,28 @@ USER_HOME="/home/$USER_NAME"
 BUILD_DIR=`pwd`
 
 ## 24jan14  change in iPython+numpy+matplotlib
-#echo "deb http://archive.ubuntu.com/ubuntu precise-backports main restricted universe" \
-#      | sudo tee /etc/apt/sources.list.d/backports.list
+## 04jul14  jtaylor iPython
 
-apt-get install --assume-yes libfreetype6-dev libpng12-dev
-apt-get install --assume-yes python-dev python-setuptools
-## provides easy_install, distribute-0.6.24dev_r0
-
-#easy_install --upgrade distribute
-## provides
-##  /usr/local/lib/python2.7/dist-packages/distribute-0.7.3
-##  /usr/local/lib/python2.7/dist-packages/setuptools-2.1
-
-#Xeasy_install -U pip  ## not the right order
+#apt-get install --assume-yes libfreetype6-dev libpng12-dev
+#apt-get install --assume-yes python-dev python-setuptools
 
 apt-get install --assume-yes python-pip python-pandas python-netcdf
-## provides  pip 1.01  pandas 0.7
 
-#pip install --upgrade pip ## NOT NEEDED pip 1.5.1
-
-## TODO Resolve versions with Iris before re-enabling those
-#pip install --upgrade numpy  ## remove a redundant numpy build for kalxas
-#pip install --upgrade  matplotlib
-#pip install --upgrade --no-deps pandas
-
-## result:
-##  NEW matplotlib 1.3.1
-##  UPGRADE  pandas 0.7 -> 0.13
-##  UPGRADE  numpy 1.6.1 -> 1.8
-
-#-- iPython from .deb
-#apt-add-repository --yes ppa:jtaylor/ipython
-#apt-get update
+#-- iPython from jtaylor .deb
+apt-add-repository --yes ppa:jtaylor/ipython
+apt-get update
 
 apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
 
-## result:
-##  NEW iPython==1.1
-##  decorator==3.3.2  simplegeneric==0.8.1
-##  jinja==2.6  MarkupSafe==0.15  Pygments==1.4  pyzmq==2.1.11
-##
 
 #-- Clean-up
-#apt-add-repository --yes --remove ppa:jtaylor/ipython
-apt-get remove --assume-yes python-dev
-apt-get remove --assume-yes libfreetype6-dev libpng12-dev
+apt-add-repository --yes --remove ppa:jtaylor/ipython
+#apt-get remove --assume-yes python-dev
+#apt-get remove --assume-yes libfreetype6-dev libpng12-dev
 
 ##-------------------------------------------------------
 #### Setup OSSIM workspace
+#### epifanio - FIXME  04jul14
 
 DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
 
@@ -108,7 +82,6 @@ QUICKSTART=/usr/local/share/ossim/quickstart
 #   IPY_CONF="$USER_HOME/.ipython/profile_osgeolive/ipython_notebook_config.py"
 #fi
 
-
 #cat << EOF >> "$IPY_CONF"
 #c.NotebookApp.open_browser = False
 #c.NotebookApp.port = 12345
@@ -120,20 +93,19 @@ QUICKSTART=/usr/local/share/ossim/quickstart
 #cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
 #chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
 
-cp "$BUILD_DIR/../app-data/ossim/ipython_grass.sh" \
-   /usr/local/bin/
+#cp "$BUILD_DIR/../app-data/ossim/ipython_grass.sh" \
+#   /usr/local/bin/
 
-cp "$BUILD_DIR"/../app-data/ossim/ipython-notebook*.desktop \
-   "$QUICKSTART"/workspace/
+#cp "$BUILD_DIR"/../app-data/ossim/ipython-notebook*.desktop \
+#   "$QUICKSTART"/workspace/
 
 #TODO:
 #cp "$BUILD_DIR"/../app-data/ossim/ipython-notebook*.desktop \
 #   "$USER_DESKTOP"/
 #chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
 
-
 # no-op?
-chmod a+x /usr/local/bin/ipython_grass.sh
+#chmod a+x /usr/local/bin/ipython_grass.sh
 
 # probably better to move this to a script in the app-conf/ dir.
 #IPY_GRASS="/usr/local/bin/ipython_grass.sh"
@@ -154,12 +126,10 @@ chmod a+x /usr/local/bin/ipython_grass.sh
 #EOF
 #chmod a+x "$IPY_GRASS"
 
+#git clone https://github.com/epifanio/geo-notebook \
+#  /usr/local/share/ossim/quickstart/workspace/geo-notebook
 
-
-git clone https://github.com/epifanio/geo-notebook \
-  /usr/local/share/ossim/quickstart/workspace/geo-notebook
-
-rm -rf /usr/local/share/ossim/quickstart/workspace/geo-notebook/.git
+#rm -rf /usr/local/share/ossim/quickstart/workspace/geo-notebook/.git
 
 
 ####
