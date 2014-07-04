@@ -12,7 +12,7 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-# Version: 2013-02-08
+# Version: 2014-07-04
 # Author: e.h.juerrens@52north.org, b.pross@52north.org (modified for WPS)
 # TODO
 # - maybe delete war file after set-up in tomcat (?) -> save space on disc
@@ -40,7 +40,7 @@ USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat6"
 WPS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
 WPS_BIN_FOLDER="/usr/local/share/52nWPS"
-WPS_TAR_NAME="52nWPS-3.2.0.tar.gz"
+WPS_TAR_NAME="52nWPS-3.3.0.tar.gz"
 WPS_TAR_URL="http://52north.org/files/geoprocessing/OSGeoLiveDVD/"
 # when changing this, adjust the name in line 215, too,
 # and the quickstart, which links to this, too
