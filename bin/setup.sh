@@ -62,6 +62,9 @@ echo --
 # Pin down kernel version
 echo "linux-image-generic hold" | dpkg --set-selections
 
+# Temporary fix for #1362: block resolvconf updates
+echo "resolvconf hold" | dpkg --set-selections
+
 # Install latest greatest security packages etc.
 apt-get -q update
 
