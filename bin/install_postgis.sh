@@ -42,6 +42,7 @@ update-locale LC_ALL=en_US.UTF-8
 # another debug
 locale
 
+##-- TODO pgdg repo ?
 apt-get install --yes postgis "postgresql-$PG_VERSION-postgis-2.1"
 #TODO: Restore postgis-gui in the future.
 
