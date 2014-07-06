@@ -1,6 +1,21 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 8.0alpha3
+===================
+
+ * Temporary fix of resolvconf issue (#1362)
+ * IPython update
+ * 52nWPS update
+ * mbsystem update
+ * GRASS7 installer added
+ * #1345 : fixed INSPIRE extension download URL
+ * Updated Iris install to Iris 1.6.1
+ * updated script to latest version: 52nSOS 4.0.0 including removal of database creation
+ * activated tomcat autodeploy option
+ * updated cartaro installer to use other apt distribution
+ * 
+
 Version 8.0alpha2
 ===================
 
