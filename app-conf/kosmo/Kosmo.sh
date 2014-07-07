@@ -1,9 +1,10 @@
 #!/bin/sh
 # Kosmo.sh
 
-cd /usr/lib/Kosmo-3.0/bin
+cd /usr/lib/Kosmo-3.1/bin
 
-KOSMO_LIBS_PATH="../libs"
+KOSMO_LIBS_PATH="../native"
+GDAL_LIBS_PATH="../native"
 PROJ_LIB="./crs/data"
 export PROJ_LIB
 
@@ -14,9 +15,16 @@ else
 fi
 export LD_LIBRARY_PATH
 
-java -Djava.library.path=/usr/lib:"../libs" \
+if [ -n "$GDAL_DRIVER_PATH" ]; then
+	GDAL_DRIVER_PATH=$GDAL_LIBS_PATH:$GDAL_DRIVER_PATH
+else
+	GDAL_DRIVER_PATH=$GDAL_LIBS_PATH
+fi
+export GDAL_DRIVER_PATH
+
+java -Djava.library.path=/usr/lib:"../native" \
      -Dsun.java2d.d3d=false \
-     -cp ".:./kosmo_desktop.jar:./libs/jai_codec-1.1.3.jar:./libs/jai_core-1.1.3.jar:./jai_imageio-1.1.3.jar" \
+     -cp .:./kosmo-desktop-core-3.1.jar:./ext/libs/*:./ext/* \
      -Xmx800M "com.vividsolutions.jump.workbench.JUMPWorkbench" \
      -plug-in-directory "./ext"
 
