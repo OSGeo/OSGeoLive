@@ -37,16 +37,19 @@ apt-get install --assume-yes ossim-core libgdal1-1.10.1-grass
 # install main dependencies
 apt-get install --assume-yes libtiff5 libgeotiff2 \
   libfreetype6 libcurl3 libopenscenegraph99 libqt4-opengl \
-  libexpat1 libpng3 libfftw3-3 libqt3-mt \
+  libexpat1 libpng3 libfftw3-3 \
   libopenmpi1.6 libqt4-qt3support python-pip
 
 # python-pandas python-netcdf spyder
 
 apt-get install --assume-yes krb5-multidev libexpat-ocaml libfindlib-ocaml \
-  libgnutls-openssl27 libopenjpeg2 libpodofo0.9.0 libpthread-stubs0 \
+  libgnutls-openssl27 libopenjpeg2 libpodofo0.9.0 \
   libqt4-sql-sqlite libtiffxx5 ocaml-base-nox \
   ocaml-findlib ocaml-interp ocaml-nox pkg-config \
   libqt4-core
+
+#FIXME: does not exist in ubu 14.04: libqt3-mt libpthread-stubs0
+
 
 # for planetsasha:
 # qt4-dev-tools qt4-linguist-tools qt4-qmake xorg-sgml-doctools
