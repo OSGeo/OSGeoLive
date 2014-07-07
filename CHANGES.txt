@@ -14,7 +14,7 @@ Version 8.0alpha3
  * updated script to latest version: 52nSOS 4.0.0 including removal of database creation
  * activated tomcat autodeploy option
  * updated cartaro installer to use other apt distribution
- * 
+ * 52nSOS update
 
 Version 8.0alpha2
 ===================
