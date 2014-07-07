@@ -198,12 +198,13 @@ export GRASS_HTML_BROWSER
 GRASS_PAGER=cat
 export GRASS_PAGER
 
-cat << EOF > ~/.grassrc6
-GISDBASE: /usr/local/share/grass
-LOCATION_NAME: spearfish60
-MAPSET: user1
-GRASS_GUI: text
-EOF
+# /roots/ does not exist in the chroot? batch jobs seems to run anyway..
+#cat << EOF > ~/.grassrc6
+#GISDBASE: /usr/local/share/grass
+#LOCATION_NAME: spearfish60
+#MAPSET: user1
+#GRASS_GUI: text
+#EOF
 
 
 GRASS_BATCH_JOB="$BUILD_DIR"/../app-conf/grass/install_grass_addons.sh
@@ -213,7 +214,7 @@ export GRASS_BATCH_JOB
 grass64 -text "$GRASS_BASEDIR"/spearfish60/user1
 
 unset GRASS_BATCH_JOB 
-rm ~/.grassrc6
+#rm ~/.grassrc6
 
 
 
