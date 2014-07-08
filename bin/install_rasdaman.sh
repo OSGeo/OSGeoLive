@@ -157,14 +157,16 @@ if [ "$FULL" -eq 1 ] ; then
   echo "cd $RASVIEWHOME && ./rview.bin" >> "$RASVIEWSCRIPT"
   chmod +x "$RASVIEWSCRIPT"
 
-  # allow starting portmap in "insecure mode", required by rasdaview
-  sed -i 's/OPTIONS="-w"/OPTIONS="-w -i"/g' /etc/init/portmap.conf
+  if [ -f /etc/init/portmap.conf ]; then
+     # allow starting portmap in "insecure mode", required by rasdaview
+     sed -i 's/OPTIONS="-w"/OPTIONS="-w -i"/g' /etc/init/portmap.conf
 
-  # restart portmap
-  stop portmap
-  killall rpcbind
-  initctl reload-configuration portmap
-  start portmap
+     # restart portmap
+     stop portmap
+     killall rpcbind
+     initctl reload-configuration portmap
+     start portmap
+  fi 
 
   # this needs to be fixed upstream in rasdaman
   cp "$TMP"/rasdaman/config.h "$RASDAMAN_HOME"/include
