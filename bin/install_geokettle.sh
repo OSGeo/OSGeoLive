@@ -42,8 +42,8 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_geokettle"
-GEOKETTLE_URL="http://spatialytics.fetchapp.com/files/udelaj"
-GEOKETTLE_BASENAME="geokettle-2.5"
+GEOKETTLE_URL="http://jenkins.spatialytics.com/job/GeoKettle-2.x/75/artifact/geokettle-2.0/geokettle-2.6-r192-with_plugins.zip"
+GEOKETTLE_BASENAME="geokettle-2.6"
 GEOKETTLE_FILENAME="$GEOKETTLE_BASENAME.zip"
 INSTALL_FOLDER="/opt"
 GEOKETTLE_FOLDER="$INSTALL_FOLDER/geokettle"
