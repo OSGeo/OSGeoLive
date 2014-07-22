@@ -55,12 +55,14 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 apt-get -q update
 
 #Plugin interaction with R
-apt-get --assume-yes install python-rpy python-all-dev libgdal1-dev \
-   grass-dev libxml2-dev python-shapely tcl8.5-dev tk8.5-dev \
-   libgl1-mesa-dev libglu1-mesa-dev python-setuptools build-essential \
-   gfortran libblas-dev liblapack-dev libsprng2-dev libsprng2 \
-   libnetcdf-dev netcdf-bin libgeos-dev libproj-dev \
-   libgdal1-1.10.1-grass
+apt-get --assume-yes install python-rpy grass-dev python-shapely \
+    build-essential gfortran libblas-dev liblapack-dev  \
+    netcdf-bin libgdal1-1.10.1-grass
+
+# These dependencies were only necessary for building packages which is now done in the ppa
+# apt-get --assume-yes install python-all-dev libgdal1-dev \
+#    libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
+#    libglu1-mesa-dev libsprng2-dev libnetcdf-dev libgeos-dev libproj-dev
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -81,8 +83,12 @@ apt-get --assume-yes install r-recommended
 # not found in Lucid: r-cran-adapt
 
 #Calls R script to do install with feedback to stdout
-R --no-save < ../app-conf/R/installRpackages.r
-
+#R --no-save < ../app-conf/R/installRpackages.r
+# This is replaced with the following line which installs packages from our repository:
+apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
+ r-cran-geor r-cran-gstat r-cran-maptools r-cran-randomfields r-cran-raster\
+ r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
+ r-cran-splancs r-cran-spgrass6 r-cran-rgeos r-cran-ncdf r-cran-rsaga
 
 # add user to the staff group so that they can install system-wide packages
 adduser "$USER_NAME" staff
