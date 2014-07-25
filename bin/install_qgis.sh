@@ -71,10 +71,10 @@ apt-get --assume-yes install python-psycopg2 \
    python-sqlalchemy python-owslib python-shapely
 
 # Install plugins
-# wget -c --progress=dot:mega \
-#    "http://download.osgeo.org/livedvd/data/qgis/qgis-osgeolive-plugins_7.9-3_all.deb"
-# dpkg -i qgis-osgeolive-plugins_7.9-3_all.deb
-#rm -rf qgis-osgeolive-plugins_7.9-2_all.deb
+wget -c --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/qgis/qgis-osgeolive-plugins_8.0-1_all.deb"
+dpkg -i qgis-osgeolive-plugins_8.0-1_all.deb
+rm -rf qgis-osgeolive-plugins_8.0-1_all.deb
 
 #Make sure old qt uim isn't installed
 apt-get --assume-yes remove uim-qt uim-qt3
