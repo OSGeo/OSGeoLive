@@ -173,9 +173,9 @@ fi
 
 echo "[install_cartaro.sh] Configure Apache2  ..."
 
-if [ ! -f /etc/apache2/conf.d/conf-enabled/cartaro.conf ] ; then
+if [ ! -f /etc/apache2/conf.d/conf-available/cartaro.conf ] ; then
 
-cat << EOF > /etc/apache2/conf-enabled/cartaro.conf
+cat << EOF > /etc/apache2/conf-available/cartaro.conf
 <Directory /var/www/html/cartaro>
 	RewriteEngine On
 	RewriteRule "(^|/)\." - [F]
@@ -186,8 +186,9 @@ cat << EOF > /etc/apache2/conf-enabled/cartaro.conf
 </Directory>
 EOF
 
-/usr/sbin/a2enmod rewrite
-/etc/init.d/apache2 restart
+a2enconf cartaro
+a2enmod rewrite
+service apache2 restart
 fi
 
 ####################
