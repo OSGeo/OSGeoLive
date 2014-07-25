@@ -64,7 +64,7 @@ cp ../sources.list.d/geopublishing.list /etc/apt/sources.list.d/
 # Get and import the key that the .deb packages are signed with
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7450D04751B576FD
 apt-get -q update
-apt-get --assume-yes install xulrunner-1.9.2
+# apt-get --assume-yes install xulrunner-1.9.2
 
 
 ## Install Application ##
