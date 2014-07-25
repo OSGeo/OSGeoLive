@@ -25,23 +25,23 @@ apt-get --assume-yes install saga libsaga
 mkdir -p /usr/local/share/saga
 cd /usr/local/share/saga
 
-# Demo dataset
-wget -N --progress=dot:mega \
-  http://zadeh.ugent.be/~johan/saga/DGM_30m_Mt.St.Helens_SRTM.grd
-# Link demo dataset to user_home
-ln -s /usr/local/share/saga "$USER_HOME"/saga
-ln -s /usr/local/share/saga /etc/skel/saga
-
-
-# Desktop icon
-# temporarily disabled: a custom .desktop file with a 64x64 logo is used - to be fixed in the package
-wget -nv http://zadeh.ugent.be/~johan/saga/saga_gui_64x64.png \
-   --output-document=/usr/share/pixmaps/saga_gui_64x64.png
-wget -nv http://zadeh.ugent.be/~johan/saga/saga_gui.desktop \
-   --output-document=/usr/share/applications/saga_gui.desktop
-
-cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/saga_gui.desktop"
+# # Demo dataset
+# wget -N --progress=dot:mega \
+#   http://zadeh.ugent.be/~johan/saga/DGM_30m_Mt.St.Helens_SRTM.grd
+# # Link demo dataset to user_home
+# ln -s /usr/local/share/saga "$USER_HOME"/saga
+# ln -s /usr/local/share/saga /etc/skel/saga
+# 
+# 
+# # Desktop icon
+# # temporarily disabled: a custom .desktop file with a 64x64 logo is used - to be fixed in the package
+# wget -nv http://zadeh.ugent.be/~johan/saga/saga_gui_64x64.png \
+#    --output-document=/usr/share/pixmaps/saga_gui_64x64.png
+# wget -nv http://zadeh.ugent.be/~johan/saga/saga_gui.desktop \
+#    --output-document=/usr/share/applications/saga_gui.desktop
+# 
+# cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
+# chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/saga_gui.desktop"
 
 #add-apt-repository --yes --remove ppa:johanvdw/sagacvs
 
