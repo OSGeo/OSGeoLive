@@ -92,19 +92,17 @@ Alias /tmp "/tmp"
 Alias /mapserver_demos "/usr/local/share/mapserver/demos"
 
 <Directory "/usr/local/share/mapserver">
-   AllowOverride None
-   Order allow,deny
-   Allow from all
+  Require all granted
+  Options +Indexes
 </Directory>
 
 <Directory "/usr/local/share/mapserver/demos">
-   AllowOverride None
-   Order allow,deny
-   Allow from all
+  Require all granted
+  Options +Indexes
 </Directory>
 EOF
 
-ln -s $MS_APACHE_CONF $APACHE_CONF_ENABLED_DIR$MS_APACHE_CONF_FILE
+a2enconf $MS_APACHE_CONF_FILE
 echo "Finished configuring Apache"
 
 #Add Launch icon to desktop
