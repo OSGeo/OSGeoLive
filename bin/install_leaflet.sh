@@ -32,7 +32,6 @@ apt-get --assume-yes install libjs-leaflet
 ln -s /usr/share/javascript/leaflet/ /var/www/html/leaflet
 
 #add demo file
-wget -nv http://zadeh.ugent.be/~johan/leaflet-demo.html --output-document=/var/www/html/leaflet-demo.html
 cp -f ../app-conf/leaflet/leaflet-demo.html /var/www/html/
 
 
