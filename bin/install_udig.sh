@@ -59,12 +59,12 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-#Dependency for Udig to load web views correctly
-cp ../sources.list.d/geopublishing.list /etc/apt/sources.list.d/
-# Get and import the key that the .deb packages are signed with
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7450D04751B576FD
-apt-get -q update
-# apt-get --assume-yes install xulrunner-1.9.2
+# #Dependency for Udig to load web views correctly
+# cp ../sources.list.d/geopublishing.list /etc/apt/sources.list.d/
+# # Get and import the key that the .deb packages are signed with
+# apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7450D04751B576FD
+# apt-get -q update
+# # apt-get --assume-yes install xulrunner-1.9.2
 
 
 ## Install Application ##
