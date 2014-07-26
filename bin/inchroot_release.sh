@@ -147,7 +147,7 @@ export USER_NAME
 ./install_geomoose.sh
 ./install_mb-system.sh
 ./install_gvsig.sh
-./install_tilemill.sh
+#./install_tilemill.sh
 ./install_eoxserver.sh
 ./install_cartaro.sh
 ./install_iris.sh
@@ -202,20 +202,27 @@ cp /usr/local/share/gisvm/app-conf/build_chroot/casper.conf /etc/casper.conf
 #Check for users above 999
 awk -F: '$3 > 999' /etc/passwd
 
-#Cleanup
-#Be sure to remove any temporary files which are no longer needed, as space on a CD is limited
+#### Cleanup ####
+
+# Be sure to remove any temporary files which are no longer needed, as space on a CD is limited
 apt-get clean
-#Or delete temporary files
+
+# delete temporary files
 rm -rf /tmp/* ~/.bash_history
-#Or delete hosts file 
+
+# delete hosts file 
 rm /etc/hosts
-#Or nameserver settings 
+
+# nameserver settings 
 rm /etc/resolv.conf
-#If you installed software, be sure to run 
+ln -s /run/resolvconf/resolv.conf /etc/resolv.conf
+
+# If you installed software, be sure to run 
 rm /var/lib/dbus/machine-id
 rm /sbin/initctl
 dpkg-divert --rename --remove /sbin/initctl
-#now umount (unmount) special filesystems and exit chroot 
+
+# now umount (unmount) special filesystems and exit chroot 
 umount /proc || umount -lf /proc
 umount /sys
 umount /dev/pts
