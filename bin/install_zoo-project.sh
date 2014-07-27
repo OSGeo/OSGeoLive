@@ -37,15 +37,16 @@ fi
 cd "$TMP_DIR"
 
 
-apt-get --assume-yes install libmozjs185-1.0
+apt-get --assume-yes install libmozjs185-1.0 zoo-kernel zoo-services
 
 # Download ZOO Project deb file.
 wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/zoo/zoo-project_1.3.0-2_i386.deb"
+   "http://download.osgeo.org/livedvd/data/zoo/zoo-osgeolive-demo_1.3.0-3_all.deb"
 
-dpkg -i zoo-project_1.3.0-2_i386.deb
+dpkg -i zoo-osgeolive-demo_1.3.0-3_all.deb
 
 a2enmod rewrite
+a2enmod cgi
 
 cp /usr/share/applications/zoo-project.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/zoo-project.desktop"
