@@ -54,6 +54,40 @@ chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/zoo-project.desktop"
 cd /usr/lib/cgi-bin
 ldconfig
 
+rm /usr/lib/cgi-bin/main.cfg
+
+cat << EOF > /usr/lib/cgi-bin/main.cfg
+[main]
+encoding = utf-8
+version = 1.0.0
+serverAddress = http://localhost/cgi-bin/zoo_loader.cgi
+lang = fr-FR,en-CA
+tmpPath=/var/www/html/temp/
+tmpUrl = ../temp/
+
+[identification]
+title = The Zoo WPS Development Server
+abstract = Development version of ZooWPS. See http://www.zoo-project.org
+fees = None
+accessConstraints = none
+keywords = WPS,GIS,buffer
+
+[provider]
+providerName=ZOO Project
+providerSite=http://www.zoo-project.org
+individualName=Gerald FENOY
+positionName=Developer
+role=Dev
+addressDeliveryPoint=1280, avenue des Platanes
+addressCity=Lattes
+addressAdministrativeArea=False
+addressPostalCode=34970
+addressCountry=fr
+addressElectronicMailAddress=gerald@geolabs.fr
+phoneVoice=False
+phoneFacsimile=False
+EOF
+
 # Reload Apache
 /etc/init.d/apache2 force-reload
 
