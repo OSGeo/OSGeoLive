@@ -69,21 +69,21 @@ echo "linux-image-generic hold" | dpkg --set-selections
 apt-get -q update
 
 # work-around for ubu pkg breakage ver 204-5ubuntu20.2 (see trac #1334)
-#sed -i -e 's/exit $?/exit 0/' \
-#   "/var/lib/dpkg/info/libpam-systemd:i386.prerm"
-#service systemd-logind stop
-#
-#apt-get --yes install systemd-services
-#
-#sed -i -e 's/exit $?/exit 0/' \
-#   "/var/lib/dpkg/info/libpam-systemd:i386.postinst"
-#
-#apt-get --yes install libpam-systemd
-#apt-get -f install --yes
-#
+sed -i -e 's/exit $?/exit 0/' \
+   "/var/lib/dpkg/info/libpam-systemd:i386.prerm"
+service systemd-logind stop
+
+apt-get --yes install systemd-services
+
+sed -i -e 's/exit $?/exit 0/' \
+   "/var/lib/dpkg/info/libpam-systemd:i386.postinst"
+
+apt-get --yes install libpam-systemd
+apt-get -f install --yes
+
 # argh, whoopsie has the same missing init.d script bug.
-#sed -i -e 's/exit $?/exit 0/' \
-#   "/var/lib/dpkg/info/whoopsie.prerm"
+sed -i -e 's/exit $?/exit 0/' \
+   "/var/lib/dpkg/info/whoopsie.prerm"
 apt-get --yes remove whoopsie libwhoopsie0
 
 
