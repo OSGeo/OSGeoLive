@@ -26,15 +26,16 @@ mkdir -p /usr/local/share/saga
 cd /usr/local/share/saga
 
 # Demo dataset
- wget -N --progress=dot:mega \
-http://downloads.sourceforge.net/project/saga-gis/SAGA%20-%20Demo%20Data/Demo%20Data%20for%20SAGA/DGM_30m_Mt.St.Helens_SRTM.zip
+wget -N --progress=dot:mega \
+   "http://downloads.sourceforge.net/project/saga-gis/SAGA%20-%20Demo%20Data/Demo%20Data%20for%20SAGA/DGM_30m_Mt.St.Helens_SRTM.zip"
 unzip DGM_30m_Mt.St.Helens_SRTM.zip
-rm -rf DGM_30m_Mt.St.Helens_SRTM.zip
+rm -f DGM_30m_Mt.St.Helens_SRTM.zip
+
 # Link demo dataset to user_home
 ln -s /usr/local/share/saga "$USER_HOME"/saga
 ln -s /usr/local/share/saga /etc/skel/saga
-# 
-# 
+ 
+ 
 # # Desktop icon
 # # temporarily disabled: a custom .desktop file with a 64x64 logo is used - to be fixed in the package
 # wget -nv http://zadeh.ugent.be/~johan/saga/saga_gui_64x64.png \

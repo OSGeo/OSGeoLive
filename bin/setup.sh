@@ -232,9 +232,9 @@ apt-get remove --yes \
 # nvidia proprietary driver will need to reinstall it. ah well.
 #Version must be kept up to date (removes 3 packages)
 ##apt-get --assume-yes remove linux-headers-generic
-##apt-get --assume-yes remove linux-headers-3.13.0-24
+##apt-get --assume-yes remove linux-headers-3.13.0-32
 # ...
-#apt-get --assume-yes remove linux-headers-3.13.0-25
+#apt-get --assume-yes remove linux-headers-3.13.0-33
 
 #temp to get past dep blockage
 #apt-get --assume-yes install libgrip0
