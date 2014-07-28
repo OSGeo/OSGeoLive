@@ -41,9 +41,9 @@ apt-get --assume-yes install libmozjs185-1.0 zoo-kernel zoo-services
 
 # Download ZOO Project deb file.
 wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/zoo/zoo-osgeolive-demo_1.3.0-3_all.deb"
+   "http://download.osgeo.org/livedvd/data/zoo/zoo-osgeolive-demo_1.3.0-4_all.deb"
 
-dpkg -i zoo-osgeolive-demo_1.3.0-3_all.deb
+dpkg -i zoo-osgeolive-demo_1.3.0-4_all.deb
 
 a2enmod rewrite
 a2enmod cgi
