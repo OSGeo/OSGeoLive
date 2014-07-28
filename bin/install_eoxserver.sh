@@ -44,9 +44,8 @@ fi
 
 #Install packages
 apt-get -q update
-apt-get --assume-yes install gcc libgdal1-dev python-gdal libxml2 python-lxml \
-    python-libxml2 python-pip libproj0 libproj-dev libgeos-dev libgeos++-dev \
-    cgi-mapserver python-mapscript libapache2-mod-wsgi python-psycopg2
+apt-get --assume-yes install python-gdal libxml2 python-lxml python-psycopg2 \
+    python-libxml2 cgi-mapserver python-mapscript libapache2-mod-wsgi python-eoxserver 
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
@@ -58,11 +57,6 @@ if [ ! -d "$TMP_DIR" ] ; then
     mkdir "$TMP_DIR"
 fi
 cd "$TMP_DIR"
-
-
-# Install EOxServer
-pip install --upgrade --no-deps --install-option="--disable-extended-reftools" eoxserver=="$EOXSVER"
-
 
 # Create database for demonstration instance
 sudo -u $POSTGRES_USER createdb eoxserver_demo
