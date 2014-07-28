@@ -54,6 +54,8 @@ chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/zoo-project.desktop"
 cd /usr/lib/cgi-bin
 ldconfig
 
+sed "s:Gérald:Gerald:g" -i /usr/lib/cgi-bin/ogr_sp.py
+
 rm /usr/lib/cgi-bin/main.cfg
 
 cat << EOF > /usr/lib/cgi-bin/main.cfg
