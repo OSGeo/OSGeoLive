@@ -79,6 +79,7 @@ if [ ! -d "$MAPSERVER_DATA" ] ; then
     ln -s "$MAPSERVER_DATA"/demos/itasca "$MAPSERVER_DATA"/demos/workshop
     ln -s /usr/local/share/mapserver/demos /usr/local/www/docs_maps/mapserver_demos
     ln -s /tmp /usr/local/www/docs_maps/tmp
+    ln -s /tmp /var/www/html/tmp
 fi
 
 
@@ -97,6 +98,11 @@ Alias /mapserver_demos "/usr/local/share/mapserver/demos"
 </Directory>
 
 <Directory "/usr/local/share/mapserver/demos">
+  Require all granted
+  Options +Indexes
+</Directory>
+
+<Directory "/tmp">
   Require all granted
   Options +Indexes
 </Directory>
