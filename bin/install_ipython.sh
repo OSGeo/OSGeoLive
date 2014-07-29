@@ -29,12 +29,7 @@ BUILD_DIR=`pwd`
 ## 24jan14  change in iPython+numpy+matplotlib
 ## 04jul14  jtaylor iPython
 
-##-- no longer needed ?
-#apt-get install --assume-yes libfreetype6-dev libpng12-dev
-#apt-get install --assume-yes python-dev python-setuptools
-
 ##-- causes a rebuild of numpy, unfortunatly..
-apt-get install --assume-yes python-pip
 apt-get install --assume-yes python-scipy python-pandas python-netcdf
 
 #-- iPython from jtaylor .deb
@@ -45,8 +40,6 @@ apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
 
 #-- Clean-up
 apt-add-repository --yes --remove ppa:jtaylor/ipython
-#apt-get remove --assume-yes python-dev
-#apt-get remove --assume-yes libfreetype6-dev libpng12-dev
 
 ##-------------------------------------------------------
 #### Setup OSSIM workspace
@@ -56,9 +49,6 @@ DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
 
 mkdir -p /usr/local/share/ossim/quickstart/workspace
 QUICKSTART=/usr/local/share/ossim/quickstart
-
-#pip install --upgrade ipython
-#pip install http://archive.ipython.org/testing/1.0.0/ipython-1.0.0a1.zip
 
 ##### Setup custom IPython profile
 # commenting out, the keywords are now in the command line fro ipython_grass.sh
