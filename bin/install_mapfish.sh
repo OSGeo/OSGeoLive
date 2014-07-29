@@ -27,7 +27,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-APACHE_CONF="/etc/apache2/conf.d/mapfish"
+APACHE_CONF="/etc/apache2/conf-enabled/mapfish.conf"
 TOMCAT_SERVER_CONF="/etc/tomcat6/server.xml"
 
 MAPFISH_TMP_DIR="/tmp/build_mapfish"
