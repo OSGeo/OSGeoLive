@@ -29,9 +29,13 @@ apt-get install -y python-dev netcdf-bin libhdf5-serial-dev libnetcdf-dev \
     libpng-dev tk-dev python-tk cython python-scipy  python-nose python-pyke \
     python-pyshp python-mock python-sphinx python-shapely python-pip g++
 
+##-- 29jul14 odd errors installing netCDF, add workarounds
+apt-get install libpython2.7-dev
+
 # Install additional python packages using pip:
-echo "FIXME: do not use pip. make a deb instead. see pypi-install in install_tilemill.sh for an example."
-pip install netCDF4 pyshp
+#echo "FIXME: try not to use pip. prefer a deb instead. see pypi-install in install_tilemill.sh for an example."
+#pip install netCDF4 pyshp
+easy_install netCDF4
 
 ## in any case, matplotlib is required
 if [ ! -e /usr/share/pyshared/matplotlib ] ; then
@@ -62,23 +66,23 @@ echo "/usr/local/lib/python2.7/site-packages/grib_api" > gribapi.pth
 cp gribapi.pth /usr/local/lib/python2.7/dist-packages/
 
 # Build and install the PP packing library (optional):
-cd /tmp/build_iris
-wget -c -nv \
-  "https://puma.nerc.ac.uk/trac/UM_TOOLS/raw-attachment/wiki/unpack/unpack-030712.tgz"
-
-tar xzf "unpack-030712.tgz"
-
-cd unpack-030712
-cd libmo_unpack
-
-wget -c -nv \
-  "https://raw.github.com/scitools/installation-recipes/master/xubuntu12.04/unpack-030712_xubuntu.patch"
-
-patch -p2 < "unpack-030712_xubuntu.patch"
-
-bash ./make_library
-./distribute.sh /usr/local
-
+#cd /tmp/build_iris
+#wget -c -nv \
+#  "https://puma.nerc.ac.uk/trac/UM_TOOLS/raw-attachment/wiki/unpack/unpack-030712.tgz"
+#
+#tar xzf "unpack-030712.tgz"
+#
+#cd unpack-030712
+#cd libmo_unpack
+#
+#wget -c -nv \
+#  "https://raw.github.com/scitools/installation-recipes/master/xubuntu12.04/unpack-030712_xubuntu.patch"
+#
+#patch -p2 < "unpack-030712_xubuntu.patch"
+#
+#bash ./make_library
+#./distribute.sh /usr/local
+#
 ldconfig
 
 # Install Cartopy dependancy: (6 MB)
@@ -98,19 +102,20 @@ wget --progress=dot:mega -O iris.zip \
 unzip -q iris.zip
 
 cd iris-1.6.1
-python setup.py --with-unpack install
-touch /usr/local/lib/python2.7/dist-packages/Iris-1.6.1-py2.7-linux-i686.egg/iris/fileformats/_pyke_rules/compiled_krb/*
+#python setup.py --with-unpack install
+python setup.py install
+#touch /usr/local/lib/python2.7/dist-packages/Iris-1.6.1-py2.7-linux-i686.egg/iris/fileformats/_pyke_rules/compiled_krb/*
 
 # Tidy up
 apt-get --yes remove python-dev libhdf5-serial-dev libnetcdf-dev \
-               libgeos-dev libproj-dev \
+               libgeos-dev libproj-dev libpython2.7-dev\
 	       libjasper-dev libfreetype6-dev libpng-dev tk-dev
 
-rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/data \
-       /usr/local/lib/python2.7/dist-packages/cartopy/examples \
-       /usr/local/lib/python2.7/dist-packages/cartopy/sphinxext \
-       /usr/local/lib/python2.7/dist-packages/cartopy/tests \
-       /usr/local/lib/python2.7/dist-packages/Iris-1.6.1-py2.7-linux-i686.egg/iris/tests
+#rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/data \
+#       /usr/local/lib/python2.7/dist-packages/cartopy/examples \
+#       /usr/local/lib/python2.7/dist-packages/cartopy/sphinxext \
+#       /usr/local/lib/python2.7/dist-packages/cartopy/tests \
+#       /usr/local/lib/python2.7/dist-packages/Iris-1.6.1-py2.7-linux-i686.egg/iris/tests
 
 cd "$BUILD_DIR"
 rm -rf /tmp/build_iris
