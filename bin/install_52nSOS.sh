@@ -239,10 +239,13 @@ TOMCAT=\`sudo service $TOMCAT_SCRIPT_NAME status | grep pid | wc -l\`
 if [ \$TOMCAT -eq 1 ]; then
     sudo service $TOMCAT_SCRIPT_NAME stop
 fi
-POSTGRES=\`sudo service $PG_SCRIPT_NAME status | grep online | wc -l\`
-if [ \$POSTGRES -eq 1 ]; then
-    sudo service $PG_SCRIPT_NAME stop
-fi
+
+## OSGeo Live 30Jul14 - do not stop postgres
+#POSTGRES=\`sudo service $PG_SCRIPT_NAME status | grep online | wc -l\`
+#if [ \$POSTGRES -eq 1 ]; then
+#    sudo service $PG_SCRIPT_NAME stop
+#fi
+
 zenity --info --text "52North SOS stopped"
 EOF
 fi
