@@ -33,14 +33,14 @@ DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/sites-available/geonode"
 GEONODE_CONF="/etc/geonode/local_settings.py"
 GEONODE_DB="geonode"
-GEOSERVER_VERSION="2.4.4"
+GEOSERVER_VERSION="2.5"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 
 #Install packages
-#add-apt-repository -y ppa:geonode/release
+add-apt-repository -y ppa:geonode/osgeo
 apt-get -q update
-apt-get --assume-yes install python-geonode libapache2-mod-wsgi curl
+apt-get --assume-yes install geonode libapache2-mod-wsgi curl
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
@@ -53,7 +53,7 @@ echo '127.0.0.1 geonode' | sudo tee -a /etc/hosts
 # Deploy demonstration instance in Apache
 echo "Deploying geonode demonstration instance"
 cat << EOF > "$APACHE_CONF"
-WSGIDaemonProcess geonode user=www-data threads=15 processes=2
+WSGIDaemonProcess geonode user=www-data threads=10 processes=1
 <VirtualHost *:80>
     ServerName geonode
     ServerAdmin webmaster@localhost
@@ -300,7 +300,6 @@ sed -i -e 's|Alias /static/ /usr/lib/python2.7/dist-packages/geonode/static|Alia
 # Uninstall dev packages
 apt-get --assume-yes autoremove
 
-###
 #FIXME: There should be a better way to do this...
 cp -f "$USER_HOME/gisvm/app-conf/geonode/rc.geonode" \
        /etc
@@ -311,10 +310,7 @@ ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
 ###
 
 
-#testing for upgrade FIXME: Remove this and use the ppa version
-#sudo pip install -U --no-deps GeoNode==2.0
-
-#apt-add-repository --yes --remove ppa:geonode/release
+apt-add-repository --yes --remove ppa:geonode/osgeo
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
