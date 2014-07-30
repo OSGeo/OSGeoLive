@@ -83,6 +83,20 @@ wget -c --progress=dot:mega \
 
 tar -x -z --no-same-owner -C / -f ossim-qt_1.8.16.tar.gz
 
+# copy in old OSG libraries (trac #1359)
+wget -c --progress=dot:mega \
+  "http://download.osgeo.org/livedvd/data/ossim/libosg3.0.1_libs.tgz"
+
+mkdir libosg
+cd libosg
+tar xzf ../libosg3.0.1_libs.tgz
+for file in libosg*.3.0.1 ; do
+   cp "$file" /usr/local/lib/
+   ALTNAME=`basename "$file" .3.0.1`.80
+   ln -s "/usr/local/lib/$file" "/usr/local/lib/$ALTNAME"
+done
+cd ..
+
 ldconfig
 
 mkdir -p /usr/share/ossim/
@@ -95,7 +109,6 @@ tar xzf ossim_settings.tar.gz
 chown -R root.root ossim_settings/
 #FIXME: "cannot move: Directory not empty"
 mv ossim_settings/* /usr/share/ossim/
-
 
 #patch for ticket https://trac.osgeo.org/osgeo/ticket/647 
 sed -i -e 's/OsssimPlanet/OssimPlanet/g' /usr/share/ossim/ossimplanet.desktop
