@@ -34,6 +34,10 @@ apt-get install -y python-scipy  python-nose python-pyke python-pyshp python-mat
 #echo "FIXME: try not to use pip. prefer a deb instead. see pypi-install in install_tilemill.sh for an example."
 #pip install netCDF4 pyshp
 # easy_install netCDF4
+wget https://bootstrap.pypa.io/ez_setup.py
+python ez_setup.py
+pip install netCDF4
+rm -f ez_setup.py setuptools-5*
 
 # ## in any case, matplotlib is required
 # if [ ! -e /usr/share/pyshared/matplotlib ] ; then
