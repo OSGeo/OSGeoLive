@@ -180,18 +180,18 @@ if [ $SOS_DB_EXISTS -gt 0 ] ; then
 fi
 #
 echo "[$(date +%M:%S)]: Create SOS db"
-su $PG_USER -c "createdb --owner=$USER_NAME $PG_DB_NAME"
-su $PG_USER -c "psql $PG_DB_NAME -c 'create extension postgis;'"
-su $PG_USER -c "psql $PG_DB_NAME -c 'create extension postgis_topology;'"
+su $PG_USER -c "PGOPTIONS='$PG_OPTIONS' createdb --owner=$USER_NAME $PG_DB_NAME"
+su $PG_USER -c "PGOPTIONS='$PG_OPTIONS' psql $PG_DB_NAME -c 'create extension postgis;'"
+# su $PG_USER -c "PGOPTIONS='$PG_OPTIONS' psql $PG_DB_NAME -c 'create extension postgis_topology;'"
 echo "[$(date +%M:%S)]: DB $PG_DB_NAME created"
 #
 #   set-up SOS structure and data
 #
-su $PG_USER -c "PGOPTIONS='$PGOPTIONS' psql -d $PG_DB_NAME -q -f $TMP/52nSOS.sql"
+su $PG_USER -c "PGOPTIONS='$PG_OPTIONS' psql -d $PG_DB_NAME -q -f $TMP/52nSOS.sql"
 echo "[$(date +%M:%S)]: $PG_DB_NAME -> SOS database filled"
 #
 # final tidy up
-su $PG_USER -c "psql -d $PG_DB_NAME -q -c 'VACUUM ANALYZE'"
+su $PG_USER -c "PGOPTIONS='$PG_OPTIONS' psql -d $PG_DB_NAME -q -c 'VACUUM ANALYZE'"
 #
 # 3.0 check for tomcat webapps folder
 #
@@ -239,13 +239,6 @@ TOMCAT=\`sudo service $TOMCAT_SCRIPT_NAME status | grep pid | wc -l\`
 if [ \$TOMCAT -eq 1 ]; then
     sudo service $TOMCAT_SCRIPT_NAME stop
 fi
-
-## OSGeo Live 30Jul14 - do not stop postgres
-#POSTGRES=\`sudo service $PG_SCRIPT_NAME status | grep online | wc -l\`
-#if [ \$POSTGRES -eq 1 ]; then
-#    sudo service $PG_SCRIPT_NAME stop
-#fi
-
 zenity --info --text "52North SOS stopped"
 EOF
 fi
