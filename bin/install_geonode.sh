@@ -40,7 +40,7 @@ GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 #Install packages
 add-apt-repository -y ppa:geonode/osgeo
 apt-get -q update
-apt-get --assume-yes install geonode libapache2-mod-wsgi curl
+apt-get --assume-yes install python-geonode libapache2-mod-wsgi curl
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
