@@ -31,7 +31,9 @@ EOXSVER="0.3.2"
 
 DATA_DIR="/usr/local/share/eoxserver"
 DOC_DIR="$DATA_DIR/doc"
-APACHE_CONF="/etc/apache2/conf.d/eoxserver"
+APACHE_CONF_FILE="eoxserver.conf"
+APACHE_CONF_DIR="/etc/apache2/conf-available/"
+APACHE_CONF=$APACHE_CONF_DIR$APACHE_CONF_FILE
 TMP_DIR="/tmp/build_eoxserver"
 POSTGRES_USER="$USER_NAME"
 
@@ -133,7 +135,7 @@ if [ ! -d eoxserver_demonstration ] ; then
 
     touch eoxserver_demonstration/logs/eoxserver.log
     chown www-data eoxserver_demonstration/logs/eoxserver.log
-    sed -e 's,http_service_url=http://localhost:8000/ows,http_service_url=http://localhost/eoxserver/ows,' \
+    sed -e 's,http_service_url=http://localhost:8000/ows,http_service_url=/eoxserver/ows,' \
         -i eoxserver_demonstration/conf/eoxserver.conf
 
     # Collect static files
@@ -165,10 +167,10 @@ WSGIDaemonProcess eoxserver processes=5 threads=1
     Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
     AddHandler wsgi-script .py
     WSGIProcessGroup eoxserver
-    Order allow,deny
-    allow from all
+    Require all granted
 </Directory>
 EOF
+a2enconf $APACHE_CONF_FILE
 echo "Done"
 
 
@@ -238,7 +240,7 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/eoxserver-docs.desktop"
 
 
 # Reload Apache
-/etc/init.d/apache2 force-reload
+service apache2 --full-restart
 
 
 # Uninstall dev packages (no: other software need them)
