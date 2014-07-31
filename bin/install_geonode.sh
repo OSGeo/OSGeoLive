@@ -66,10 +66,11 @@ WSGIDaemonProcess geonode user=www-data threads=10 processes=1
     WSGIScriptAlias / /usr/lib/python2.7/dist-packages/geonode/wsgi.py
 
     <Directory "/usr/lib/python2.7/dist-packages/geonode/">
-       Order allow,deny
+        Order allow,deny
         Options Indexes FollowSymLinks
-        Allow from all
         IndexOptions FancyIndexing
+        Allow from all
+        Require all granted
     </Directory>
 
     Alias /static/ /usr/lib/python2.7/dist-packages/geonode/static/
@@ -125,7 +126,6 @@ echo "Done"
 
 # make the uploaded dir
 mkdir -p /usr/lib/python2.7/dist-packages/geonode/uploaded
-chown -R www-data:www-data /usr/lib/python2.7/dist-packages/geonode/uploaded
 
 echo "Configuring GeoNode"
 # Create tables in the database
@@ -158,9 +158,7 @@ echo "Stopping GeoServer"
 sleep 30;
 
 # Make the apache user the owner of the required dirs.
-#chown www-data /usr/lib/python2.7/dist-packages/geonode/development.db
-chown -R www-data:www-data /usr/lib/python2.7/dist-packages/geonode/static/
-chown -R www-data:www-data /usr/lib/python-2.7/dist-packages/geonode/uploaded
+chown -R www-data:www-data /usr/lib/python2.7/dist-packages/geonode/
 
 # Install desktop icon
 echo "Installing geonode icon"
