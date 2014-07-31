@@ -91,6 +91,8 @@ chmod a+x "$USER_HOME"/Desktop/josm.desktop
 
 cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
 
+# keep out of unrelated menus
+sed -i -e 's/Network;//' /usr/share/applications/merkaartor.desktop
 
 
 # add an icon for viewing The Map online

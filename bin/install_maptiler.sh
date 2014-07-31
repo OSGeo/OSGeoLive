@@ -61,6 +61,7 @@ fi
 if [ -e /usr/share/applications/maptiler.desktop ] ; then
   cp /usr/share/applications/maptiler.desktop "$USER_HOME"/Desktop/
   chown "$USER_NAME"."$USER_NAME" "$USER_HOME"/Desktop/maptiler.desktop
+  sed -i -e 's/Graphics;/Geography;/' /usr/share/applications/maptiler.desktop
 else
   echo "ERROR: Installation of the MapTiler failed."
   exit 1
