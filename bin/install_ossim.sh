@@ -137,7 +137,7 @@ chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
 sed -i -e 's/^Name=imagelinker/Name=Imagelinker/' \
    "$USER_HOME/Desktop/imagelinker.desktop"
 # keep out of unrelated menus
-sed -i -e 's/Network;Graphics;//' /usr/share/applications/merkaartor.desktop
+sed -i -e 's/Network;Graphics;//' /usr/share/applications/imagelinker.desktop
 
 cp /usr/share/applications/ossimplanet.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/ossimplanet.desktop"
