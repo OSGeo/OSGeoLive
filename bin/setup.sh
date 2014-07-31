@@ -155,7 +155,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   vim medit nedit nano screen iotop xfonts-jmk \
   ghostscript a2ps netpbm qiv htop \
   lynx mutt mc xchat rxvt units scrot \
-  gdebi fslint arandr sgt-puzzles xkb-data \
+  gdebi fslint arandr sgt-puzzles sopwith xkb-data \
   xfonts-100dpi xfonts-75dpi
 
 # smallish KDE apps to install only if KDE libs are already present:
