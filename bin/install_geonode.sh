@@ -30,8 +30,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 DATA_DIR="/usr/local/share/geonode"
 DOC_DIR="$DATA_DIR/doc"
-APACHE_CONF="/etc/apache2/sites-available/geonode"
-GEONODE_CONF="/etc/geonode/local_settings.py"
+APACHE_CONF="/etc/apache2/sites-available/geonode.conf"
 GEONODE_DB="geonode"
 GEOSERVER_VERSION="2.5"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
@@ -130,7 +129,7 @@ chown -R www-data:www-data /usr/lib/python2.7/dist-packages/geonode/uploaded
 
 echo "Configuring GeoNode"
 # Create tables in the database
-sudo -u "$USER_NAME" django-admin syncdb --all --noinput --settings=geonode.settings
+sudo -u "$USER_NAME" django-admin syncdb --noinput --settings=geonode.settings
 
 # create a superuser (one from fixtures doesnt seem to work)
 sudo -u "$USER_NAME" django-admin createsuperuser --username="$USER_NAME" \
