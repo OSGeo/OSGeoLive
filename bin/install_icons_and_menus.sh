@@ -121,9 +121,13 @@ mkdir -p /usr/local/share/applications
 
 # pared down copy of /etc/xdg/menus/lxde-applications.menu or
 #   /etc/xdg/lubuntu/menus/lxde-applications.menu
-cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-main.menu /etc/xdg/lubuntu/menus/
-#cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-*.directory /usr/local/share/desktop-directories/
+#xfce:
+#cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-main.menu /etc/xdg/lubuntu/menus/
+#lubuntu:
+cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-main.menu /etc/xdg/menus/applications-merged/
+
 # lubuntu's lxpanel is ignoring /usr/local
+#cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-*.directory /usr/local/share/desktop-directories/
 cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-*.directory /usr/share/desktop-directories/
 
 sed -e 's/^Name=.*/Name=OSGeo Software Help/' live_GIS_help.desktop \

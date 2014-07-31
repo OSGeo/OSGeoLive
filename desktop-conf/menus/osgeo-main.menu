@@ -1,9 +1,12 @@
 <!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
-  "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+   "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
 
 <Menu>
-    <Name>OSGeo</Name>
-    
+  <Name>Applications</Name>
+
+  <Menu>
+    <Name>Geospatial</Name>
+
     <DefaultAppDirs/>
     <DefaultDirectoryDirs/>
 
@@ -216,5 +219,6 @@
 	</Include>
     </Menu>
 
+  </Menu>
 </Menu>
 
