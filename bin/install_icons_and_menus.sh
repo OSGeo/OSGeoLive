@@ -463,6 +463,11 @@ if [ ! -e /usr/share/icons/hicolor/48x48/apps/ktip.png ] ; then
    tar xf "$BUILD_DIR"/../desktop-conf/ktip_icons.tar --no-same-owner
 fi
 
+### make the Education menu less noisy
+#FIXME: first verify we're not vanishing anything which doesn't exist elsewhere
+#sed -i -e 's/Education;//' \
+#  `grep -l 'Geography;' /usr/share/applications/*.desktop` \
+#  /usr/local/share/applications/*.desktop
 
 
 ####
