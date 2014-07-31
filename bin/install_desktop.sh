@@ -48,12 +48,12 @@ wget -N --progress=dot:mega \
 cd -
 
 ### set the desktop background, turn on keyboard layout select control
-sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/OrteliusWorldMap1570.jpg|' \
+sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
        -e 's|^keyboard=0$|keyboard=1|' \
     /etc/xdg/lubuntu/lxdm/lxdm.conf
 
 # Actually, I think this is the one which really does it:
-sed -i -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/OrteliusWorldMap1570.jpg|' \
+sed -i -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
    /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
 
