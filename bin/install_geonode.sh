@@ -65,7 +65,7 @@ WSGIDaemonProcess geonode user=www-data threads=10 processes=1
     WSGIPassAuthorization On
     WSGIScriptAlias / /usr/lib/python2.7/dist-packages/geonode/wsgi.py
 
-    <Directory "/usr/lib/python2.7/disk-packages/geonode/">
+    <Directory "/usr/lib/python2.7/dist-packages/geonode/">
        Order allow,deny
         Options Indexes FollowSymLinks
         Allow from all
