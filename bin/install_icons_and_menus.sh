@@ -310,7 +310,7 @@ for APP in $APP_GROUPS ; do
   <Menu>
     <Name>Geospatial</Name>
     <Menu>
-      <Name>Geoservers</Name>
+      <Name>Web Services</Name>
       <Menu>
         <Name>$APP</Name>
         <Directory>$APP.directory</Directory>
@@ -361,7 +361,7 @@ for APP in $APP_GROUPS ; do
   <Menu>
     <Name>Geospatial</Name>
     <Menu>
-      <Name>Geoclients</Name>
+      <Name>Browser Clients</Name>
       <Menu>
         <Name>$APP</Name>
         <Directory>$APP.directory</Directory>
