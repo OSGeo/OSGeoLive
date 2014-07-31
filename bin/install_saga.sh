@@ -42,9 +42,9 @@ ln -s /usr/local/share/saga /etc/skel/saga
 #    --output-document=/usr/share/pixmaps/saga_gui_64x64.png
 # wget -nv http://zadeh.ugent.be/~johan/saga/saga_gui.desktop \
 #    --output-document=/usr/share/applications/saga_gui.desktop
-# 
-# cp /usr/share/applications/saga_gui.desktop "$USER_HOME/Desktop/"
-# chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/saga_gui.desktop"
+
+cp /usr/share/applications/saga.desktop "$USER_HOME/Desktop/"
+chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/saga.desktop"
 
 #add-apt-repository --yes --remove ppa:johanvdw/sagacvs
 
