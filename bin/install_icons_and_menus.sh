@@ -299,20 +299,24 @@ Rasdaman
 
 for APP in $APP_GROUPS ; do
    cat << EOF > "/etc/xdg/menus/applications-merged/$APP.menu"
-<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+   "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
 <Menu>
-<Name>Applications</Name>
+  <Name>Applications</Name>
   <Menu>
-  <Name>Geoservers</Name>
+    <Name>Geospatial</Name>
     <Menu>
-    <Name>$APP</Name>
-    <Directory>$APP.directory</Directory>
-    <Include>
-    <Category>$APP</Category>
-    </Include>
+      <Name>Geoservers</Name>
+      <Menu>
+        <Name>$APP</Name>
+        <Directory>$APP.directory</Directory>
+        <Include>
+          <Category>$APP</Category>
+        </Include>
+      </Menu>
     </Menu>
-  </Menu> 
-</Menu> 
+  </Menu>
+</Menu>
 EOF
 
    case "$APP" in
@@ -346,20 +350,24 @@ APP_GROUPS="Cartaro Geomajas GeoNode MapFish"
 
 for APP in $APP_GROUPS ; do
    cat << EOF > "/etc/xdg/menus/applications-merged/$APP.menu"
-<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+   "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
 <Menu>
-<Name>Applications</Name>
+  <Name>Applications</Name>
   <Menu>
-  <Name>Geoclients</Name>
+    <Name>Geospatial</Name>
     <Menu>
-    <Name>$APP</Name>
-    <Directory>$APP.directory</Directory>
-    <Include>
-    <Category>$APP</Category>
-    </Include>
+      <Name>Geoclients</Name>
+      <Menu>
+        <Name>$APP</Name>
+        <Directory>$APP.directory</Directory>
+        <Include>
+          <Category>$APP</Category>
+        </Include>
+      </Menu>
     </Menu>
-  </Menu> 
-</Menu> 
+  </Menu>
+</Menu>
 EOF
 
    case "$APP" in
@@ -386,20 +394,24 @@ done
 #### OpenStreetMap submenu
 APP=OpenStreetMap
 cat << EOF > "/etc/xdg/menus/applications-merged/$APP.menu"
-<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN" "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
+<!DOCTYPE Menu PUBLIC "-//freedesktop//DTD Menu 1.0//EN"
+   "http://www.freedesktop.org/standards/menu-spec/1.0/menu.dtd">
 <Menu>
-<Name>Applications</Name>
+  <Name>Applications</Name>
   <Menu>
-  <Name>Navigation and Maps</Name>
+    <Name>Geospatial</Name>
     <Menu>
-    <Name>$APP</Name>
-    <Directory>$APP.directory</Directory>
-    <Include>
-    <Category>$APP</Category>
-    </Include>
+      <Name>Navigation and Maps</Name>
+      <Menu>
+        <Name>$APP</Name>
+        <Directory>$APP.directory</Directory>
+        <Include>
+          <Category>$APP</Category>
+        </Include>
+      </Menu>
     </Menu>
-  </Menu> 
-</Menu> 
+  </Menu>
+</Menu>
 EOF
 
 APP_ICON=josm-32
