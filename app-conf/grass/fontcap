@@ -32,9 +32,6 @@ b018032l|URW Bookman L Light Italic|1|/usr/share/fonts/X11/Type1/b018032l.pfb|0|
 b018032l|URW Bookman L Light Italic|1|/usr/share/fonts/type1/gsfonts/b018032l.pfb|0|utf-8|
 b018035l|URW Bookman L Demi Bold Italic|1|/usr/share/fonts/X11/Type1/b018035l.pfb|0|utf-8|
 b018035l|URW Bookman L Demi Bold Italic|1|/usr/share/fonts/type1/gsfonts/b018035l.pfb|0|utf-8|
-c0419bt_|Courier 10 Pitch Regular|1|/usr/share/fonts/X11/Type1/c0419bt_.pfb|0|utf-8|
-c0582bt_|Courier 10 Pitch Italic|1|/usr/share/fonts/X11/Type1/c0582bt_.pfb|0|utf-8|
-c0583bt_|Courier 10 Pitch Bold|1|/usr/share/fonts/X11/Type1/c0583bt_.pfb|0|utf-8|
 c059013l|Century Schoolbook L Roman|1|/usr/share/fonts/X11/Type1/c059013l.pfb|0|utf-8|
 c059013l|Century Schoolbook L Roman|1|/usr/share/fonts/type1/gsfonts/c059013l.pfb|0|utf-8|
 c059016l|Century Schoolbook L Bold|1|/usr/share/fonts/X11/Type1/c059016l.pfb|0|utf-8|
@@ -43,43 +40,65 @@ c059033l|Century Schoolbook L Italic|1|/usr/share/fonts/X11/Type1/c059033l.pfb|0
 c059033l|Century Schoolbook L Italic|1|/usr/share/fonts/type1/gsfonts/c059033l.pfb|0|utf-8|
 c059036l|Century Schoolbook L Bold Italic|1|/usr/share/fonts/X11/Type1/c059036l.pfb|0|utf-8|
 c059036l|Century Schoolbook L Bold Italic|1|/usr/share/fonts/type1/gsfonts/c059036l.pfb|0|utf-8|
-c0611bt_|Courier 10 Pitch Bold Italic|1|/usr/share/fonts/X11/Type1/c0611bt_.pfb|0|utf-8|
-c0632bt_|Bitstream Charter Bold|1|/usr/share/fonts/X11/Type1/c0632bt_.pfb|0|utf-8|
-c0633bt_|Bitstream Charter Bold Italic|1|/usr/share/fonts/X11/Type1/c0633bt_.pfb|0|utf-8|
-c0648bt_|Bitstream Charter Regular|1|/usr/share/fonts/X11/Type1/c0648bt_.pfb|0|utf-8|
-c0649bt_|Bitstream Charter Italic|1|/usr/share/fonts/X11/Type1/c0649bt_.pfb|0|utf-8|
-cmex10|cmex10 Regular|1|/usr/share/fonts/truetype/ttf-lyx/cmex10.ttf|0|utf-8|
-cmmi10|cmmi10 Regular|1|/usr/share/fonts/truetype/ttf-lyx/cmmi10.ttf|0|utf-8|
-cmr10|cmr10 Regular|1|/usr/share/fonts/truetype/ttf-lyx/cmr10.ttf|0|utf-8|
-cmsy10|cmsy10 Regular|1|/usr/share/fonts/truetype/ttf-lyx/cmsy10.ttf|0|utf-8|
+cmex10|cmex10 Regular|1|/usr/share/fonts/truetype/lyx/cmex10.ttf|0|utf-8|
+cmmi10|cmmi10 Regular|1|/usr/share/fonts/truetype/lyx/cmmi10.ttf|0|utf-8|
+cmr10|cmr10 Regular|1|/usr/share/fonts/truetype/lyx/cmr10.ttf|0|utf-8|
+cmsy10|cmsy10 Regular|1|/usr/share/fonts/truetype/lyx/cmsy10.ttf|0|utf-8|
 d050000l|Dingbats Regular|1|/usr/share/fonts/X11/Type1/d050000l.pfb|0|utf-8|
 d050000l|Dingbats Regular|1|/usr/share/fonts/type1/gsfonts/d050000l.pfb|0|utf-8|
+DejaVuSans|DejaVu Sans Book|1|/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf|0|utf-8|
 DejaVuSans|DejaVu Sans Book|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans.ttf|0|utf-8|
+DejaVuSans-Bold|DejaVu Sans Bold|1|/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf|0|utf-8|
 DejaVuSans-Bold|DejaVu Sans Bold|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Bold.ttf|0|utf-8|
+DejaVuSans-BoldOblique|DejaVu Sans Bold Oblique|1|/usr/share/fonts/truetype/dejavu/DejaVuSans-BoldOblique.ttf|0|utf-8|
 DejaVuSans-BoldOblique|DejaVu Sans Bold Oblique|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-BoldOblique.ttf|0|utf-8|
+DejaVuSans-ExtraLight|DejaVu Sans ExtraLight|1|/usr/share/fonts/truetype/dejavu/DejaVuSans-ExtraLight.ttf|0|utf-8|
 DejaVuSans-ExtraLight|DejaVu Sans ExtraLight|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-ExtraLight.ttf|0|utf-8|
+DejaVuSans-Oblique|DejaVu Sans Oblique|1|/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf|0|utf-8|
 DejaVuSans-Oblique|DejaVu Sans Oblique|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSans-Oblique.ttf|0|utf-8|
+DejaVuSansCondensed|DejaVu Sans Condensed|1|/usr/share/fonts/truetype/dejavu/DejaVuSansCondensed.ttf|0|utf-8|
 DejaVuSansCondensed|DejaVu Sans Condensed|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSansCondensed.ttf|0|utf-8|
+DejaVuSansCondensed-Bold|DejaVu Sans Condensed Bold|1|/usr/share/fonts/truetype/dejavu/DejaVuSansCondensed-Bold.ttf|0|utf-8|
 DejaVuSansCondensed-Bold|DejaVu Sans Condensed Bold|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSansCondensed-Bold.ttf|0|utf-8|
+DejaVuSansCondensed-BoldOblique|DejaVu Sans Condensed Bold Oblique|1|/usr/share/fonts/truetype/dejavu/DejaVuSansCondensed-BoldOblique.ttf|0|utf-8|
 DejaVuSansCondensed-BoldOblique|DejaVu Sans Condensed Bold Oblique|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSansCondensed-BoldOblique.ttf|0|utf-8|
+DejaVuSansCondensed-Oblique|DejaVu Sans Condensed Oblique|1|/usr/share/fonts/truetype/dejavu/DejaVuSansCondensed-Oblique.ttf|0|utf-8|
 DejaVuSansCondensed-Oblique|DejaVu Sans Condensed Oblique|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSansCondensed-Oblique.ttf|0|utf-8|
+DejaVuSansMono|DejaVu Sans Mono Book|1|/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf|0|utf-8|
 DejaVuSansMono|DejaVu Sans Mono Book|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSansMono.ttf|0|utf-8|
+DejaVuSansMono-Bold|DejaVu Sans Mono Bold|1|/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf|0|utf-8|
 DejaVuSansMono-Bold|DejaVu Sans Mono Bold|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSansMono-Bold.ttf|0|utf-8|
+DejaVuSansMono-BoldOblique|DejaVu Sans Mono Bold Oblique|1|/usr/share/fonts/truetype/dejavu/DejaVuSansMono-BoldOblique.ttf|0|utf-8|
 DejaVuSansMono-BoldOblique|DejaVu Sans Mono Bold Oblique|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSansMono-BoldOblique.ttf|0|utf-8|
+DejaVuSansMono-Oblique|DejaVu Sans Mono Oblique|1|/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Oblique.ttf|0|utf-8|
 DejaVuSansMono-Oblique|DejaVu Sans Mono Oblique|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSansMono-Oblique.ttf|0|utf-8|
+DejaVuSerif|DejaVu Serif Book|1|/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf|0|utf-8|
 DejaVuSerif|DejaVu Serif Book|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif.ttf|0|utf-8|
+DejaVuSerif-Bold|DejaVu Serif Bold|1|/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf|0|utf-8|
 DejaVuSerif-Bold|DejaVu Serif Bold|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif-Bold.ttf|0|utf-8|
+DejaVuSerif-BoldItalic|DejaVu Serif Bold Italic|1|/usr/share/fonts/truetype/dejavu/DejaVuSerif-BoldItalic.ttf|0|utf-8|
 DejaVuSerif-BoldItalic|DejaVu Serif Bold Italic|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif-BoldItalic.ttf|0|utf-8|
+DejaVuSerif-Italic|DejaVu Serif Italic|1|/usr/share/fonts/truetype/dejavu/DejaVuSerif-Italic.ttf|0|utf-8|
 DejaVuSerif-Italic|DejaVu Serif Italic|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerif-Italic.ttf|0|utf-8|
+DejaVuSerifCondensed|DejaVu Serif Condensed|1|/usr/share/fonts/truetype/dejavu/DejaVuSerifCondensed.ttf|0|utf-8|
 DejaVuSerifCondensed|DejaVu Serif Condensed|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerifCondensed.ttf|0|utf-8|
+DejaVuSerifCondensed-Bold|DejaVu Serif Condensed Bold|1|/usr/share/fonts/truetype/dejavu/DejaVuSerifCondensed-Bold.ttf|0|utf-8|
 DejaVuSerifCondensed-Bold|DejaVu Serif Condensed Bold|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerifCondensed-Bold.ttf|0|utf-8|
+DejaVuSerifCondensed-BoldItalic|DejaVu Serif Condensed Bold Italic|1|/usr/share/fonts/truetype/dejavu/DejaVuSerifCondensed-BoldItalic.ttf|0|utf-8|
 DejaVuSerifCondensed-BoldItalic|DejaVu Serif Condensed Bold Italic|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerifCondensed-BoldItalic.ttf|0|utf-8|
+DejaVuSerifCondensed-Italic|DejaVu Serif Condensed Italic|1|/usr/share/fonts/truetype/dejavu/DejaVuSerifCondensed-Italic.ttf|0|utf-8|
 DejaVuSerifCondensed-Italic|DejaVu Serif Condensed Italic|1|/usr/share/fonts/truetype/ttf-dejavu/DejaVuSerifCondensed-Italic.ttf|0|utf-8|
+DroidNaskh-Bold|Droid Arabic Naskh Bold|1|/usr/share/fonts/truetype/droid/DroidNaskh-Bold.ttf|0|utf-8|
+DroidNaskh-Regular|Droid Arabic Naskh Regular|1|/usr/share/fonts/truetype/droid/DroidNaskh-Regular.ttf|0|utf-8|
 DroidSans|Droid Sans Regular|1|/usr/share/fonts/truetype/droid/DroidSans.ttf|0|utf-8|
 DroidSans-Bold|Droid Sans Bold|1|/usr/share/fonts/truetype/droid/DroidSans-Bold.ttf|0|utf-8|
-DroidSansArabic|Droid Sans Arabic Regular|1|/usr/share/fonts/truetype/droid/DroidSansArabic.ttf|0|utf-8|
-DroidSansFallback|Droid Sans Fallback Regular|1|/usr/share/fonts/truetype/droid/DroidSansFallback.ttf|0|utf-8|
-DroidSansHebrew|Droid Sans Hebrew Regular|1|/usr/share/fonts/truetype/droid/DroidSansHebrew.ttf|0|utf-8|
+DroidSansArmenian|Droid Sans Armenian Regular|1|/usr/share/fonts/truetype/droid/DroidSansArmenian.ttf|0|utf-8|
+DroidSansEthiopic-Bold|Droid Sans Ethiopic Bold|1|/usr/share/fonts/truetype/droid/DroidSansEthiopic-Bold.ttf|0|utf-8|
+DroidSansEthiopic-Regular|Droid Sans Ethiopic Regular|1|/usr/share/fonts/truetype/droid/DroidSansEthiopic-Regular.ttf|0|utf-8|
+DroidSansFallbackFull|Droid Sans Fallback Regular|1|/usr/share/fonts/truetype/droid/DroidSansFallbackFull.ttf|0|utf-8|
+DroidSansGeorgian|Droid Sans Georgian Regular|1|/usr/share/fonts/truetype/droid/DroidSansGeorgian.ttf|0|utf-8|
+DroidSansHebrew-Bold|Droid Sans Hebrew Bold|1|/usr/share/fonts/truetype/droid/DroidSansHebrew-Bold.ttf|0|utf-8|
+DroidSansHebrew-Regular|Droid Sans Hebrew Regular|1|/usr/share/fonts/truetype/droid/DroidSansHebrew-Regular.ttf|0|utf-8|
 DroidSansJapanese|Droid Sans Japanese Regular|1|/usr/share/fonts/truetype/droid/DroidSansJapanese.ttf|0|utf-8|
 DroidSansMono|Droid Sans Mono Regular|1|/usr/share/fonts/truetype/droid/DroidSansMono.ttf|0|utf-8|
 DroidSansThai|Droid Sans Thai Regular|1|/usr/share/fonts/truetype/droid/DroidSansThai.ttf|0|utf-8|
@@ -87,52 +106,23 @@ DroidSerif-Bold|Droid Serif Bold|1|/usr/share/fonts/truetype/droid/DroidSerif-Bo
 DroidSerif-BoldItalic|Droid Serif Bold Italic|1|/usr/share/fonts/truetype/droid/DroidSerif-BoldItalic.ttf|0|utf-8|
 DroidSerif-Italic|Droid Serif Italic|1|/usr/share/fonts/truetype/droid/DroidSerif-Italic.ttf|0|utf-8|
 DroidSerif-Regular|Droid Serif Regular|1|/usr/share/fonts/truetype/droid/DroidSerif-Regular.ttf|0|utf-8|
-esint10|esint10 regular|1|/usr/share/fonts/truetype/ttf-lyx/esint10.ttf|0|utf-8|
-eufm10|eufm10 Regular|1|/usr/share/fonts/truetype/ttf-lyx/eufm10.ttf|0|utf-8|
-fonts-japanese-gothic|TakaoPGothic Regular|1|/usr/share/fonts/truetype/fonts-japanese-gothic.ttf|0|utf-8|
-FreeMono|FreeMono Medium|1|/usr/share/fonts/truetype/freefont/FreeMono.ttf|0|utf-8|
+esint10|esint10 regular|1|/usr/share/fonts/truetype/lyx/esint10.ttf|0|utf-8|
+eufm10|eufm10 Regular|1|/usr/share/fonts/truetype/lyx/eufm10.ttf|0|utf-8|
+FontAwesome|FontAwesome Regular|1|/usr/share/fonts/opentype/font-awesome/FontAwesome.otf|0|utf-8|
+fontawesome-webfont|FontAwesome Regular|1|/usr/share/fonts/truetype/font-awesome/fontawesome-webfont.ttf|0|utf-8|
+fontawesome-webfont|FontAwesome Regular|1|/usr/share/fonts/woff/font-awesome/fontawesome-webfont.woff|0|utf-8|
+FreeMono|FreeMono Regular|1|/usr/share/fonts/truetype/freefont/FreeMono.ttf|0|utf-8|
 FreeMonoBold|FreeMono Bold|1|/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf|0|utf-8|
-FreeMonoBoldOblique|FreeMono BoldOblique|1|/usr/share/fonts/truetype/freefont/FreeMonoBoldOblique.ttf|0|utf-8|
+FreeMonoBoldOblique|FreeMono Bold Oblique|1|/usr/share/fonts/truetype/freefont/FreeMonoBoldOblique.ttf|0|utf-8|
 FreeMonoOblique|FreeMono Oblique|1|/usr/share/fonts/truetype/freefont/FreeMonoOblique.ttf|0|utf-8|
-FreeSans|FreeSans Medium|1|/usr/share/fonts/truetype/freefont/FreeSans.ttf|0|utf-8|
+FreeSans|FreeSans Regular|1|/usr/share/fonts/truetype/freefont/FreeSans.ttf|0|utf-8|
 FreeSansBold|FreeSans Bold|1|/usr/share/fonts/truetype/freefont/FreeSansBold.ttf|0|utf-8|
-FreeSansBoldOblique|FreeSans BoldOblique|1|/usr/share/fonts/truetype/freefont/FreeSansBoldOblique.ttf|0|utf-8|
+FreeSansBoldOblique|FreeSans Bold Oblique|1|/usr/share/fonts/truetype/freefont/FreeSansBoldOblique.ttf|0|utf-8|
 FreeSansOblique|FreeSans Oblique|1|/usr/share/fonts/truetype/freefont/FreeSansOblique.ttf|0|utf-8|
-FreeSerif|FreeSerif Medium|1|/usr/share/fonts/truetype/freefont/FreeSerif.ttf|0|utf-8|
+FreeSerif|FreeSerif Regular|1|/usr/share/fonts/truetype/freefont/FreeSerif.ttf|0|utf-8|
 FreeSerifBold|FreeSerif Bold|1|/usr/share/fonts/truetype/freefont/FreeSerifBold.ttf|0|utf-8|
-FreeSerifBoldItalic|FreeSerif BoldItalic|1|/usr/share/fonts/truetype/freefont/FreeSerifBoldItalic.ttf|0|utf-8|
+FreeSerifBoldItalic|FreeSerif Bold Italic|1|/usr/share/fonts/truetype/freefont/FreeSerifBoldItalic.ttf|0|utf-8|
 FreeSerifItalic|FreeSerif Italic|1|/usr/share/fonts/truetype/freefont/FreeSerifItalic.ttf|0|utf-8|
-gargi|gargi Medium|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/gargi.ttf|0|utf-8|
-Garuda|Garuda Book|1|/usr/share/fonts/truetype/tlwg/Garuda.ttf|0|utf-8|
-Garuda-Bold|Garuda Bold|1|/usr/share/fonts/truetype/tlwg/Garuda-Bold.ttf|0|utf-8|
-Garuda-BoldOblique|Garuda BoldOblique|1|/usr/share/fonts/truetype/tlwg/Garuda-BoldOblique.ttf|0|utf-8|
-Garuda-Oblique|Garuda Oblique|1|/usr/share/fonts/truetype/tlwg/Garuda-Oblique.ttf|0|utf-8|
-KacstArt|KacstArt Medium|1|/usr/share/fonts/truetype/kacst/KacstArt.ttf|0|utf-8|
-KacstBook|KacstBook Medium|1|/usr/share/fonts/truetype/kacst/KacstBook.ttf|0|utf-8|
-KacstDecorative|KacstDecorative Medium|1|/usr/share/fonts/truetype/kacst/KacstDecorative.ttf|0|utf-8|
-KacstDigital|KacstDigital Medium|1|/usr/share/fonts/truetype/kacst/KacstDigital.ttf|0|utf-8|
-KacstFarsi|KacstFarsi Medium|1|/usr/share/fonts/truetype/kacst/KacstFarsi.ttf|0|utf-8|
-KacstLetter|KacstLetter Medium|1|/usr/share/fonts/truetype/kacst/KacstLetter.ttf|0|utf-8|
-KacstNaskh|KacstNaskh Medium|1|/usr/share/fonts/truetype/kacst/KacstNaskh.ttf|0|utf-8|
-KacstOffice|KacstOffice Medium|1|/usr/share/fonts/truetype/kacst/KacstOffice.ttf|0|utf-8|
-KacstOne|KacstOne Regular|1|/usr/share/fonts/truetype/kacst-one/KacstOne.ttf|0|utf-8|
-KacstOne-Bold|KacstOne Bold|1|/usr/share/fonts/truetype/kacst-one/KacstOne-Bold.ttf|0|utf-8|
-KacstPen|KacstPen Medium|1|/usr/share/fonts/truetype/kacst/KacstPen.ttf|0|utf-8|
-KacstPoster|KacstPoster Medium|1|/usr/share/fonts/truetype/kacst/KacstPoster.ttf|0|utf-8|
-KacstQurn|KacstQurn Medium|1|/usr/share/fonts/truetype/kacst/KacstQurn.ttf|0|utf-8|
-KacstScreen|KacstScreen Medium|1|/usr/share/fonts/truetype/kacst/KacstScreen.ttf|0|utf-8|
-KacstTitle|KacstTitle Medium|1|/usr/share/fonts/truetype/kacst/KacstTitle.ttf|0|utf-8|
-KacstTitleL|KacstTitleL Medium|1|/usr/share/fonts/truetype/kacst/KacstTitleL.ttf|0|utf-8|
-Kedage-b|Kedage Bold|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/Kedage-b.ttf|0|utf-8|
-Kedage-n|Kedage Normal|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/Kedage-n.ttf|0|utf-8|
-KhmerOS|Khmer OS Regular|1|/usr/share/fonts/truetype/ttf-khmeros-core/KhmerOS.ttf|0|utf-8|
-KhmerOSsys|Khmer OS System Regular|1|/usr/share/fonts/truetype/ttf-khmeros-core/KhmerOSsys.ttf|0|utf-8|
-Kinnari|Kinnari Medium|1|/usr/share/fonts/truetype/tlwg/Kinnari.ttf|0|utf-8|
-Kinnari-Bold|Kinnari Bold|1|/usr/share/fonts/truetype/tlwg/Kinnari-Bold.ttf|0|utf-8|
-Kinnari-BoldItalic|Kinnari BoldItalic|1|/usr/share/fonts/truetype/tlwg/Kinnari-BoldItalic.ttf|0|utf-8|
-Kinnari-BoldOblique|Kinnari BoldOblique|1|/usr/share/fonts/truetype/tlwg/Kinnari-BoldOblique.ttf|0|utf-8|
-Kinnari-Italic|Kinnari Italic|1|/usr/share/fonts/truetype/tlwg/Kinnari-Italic.ttf|0|utf-8|
-Kinnari-Oblique|Kinnari Oblique|1|/usr/share/fonts/truetype/tlwg/Kinnari-Oblique.ttf|0|utf-8|
 LiberationMono-Bold|Liberation Mono Bold|1|/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf|0|utf-8|
 LiberationMono-BoldItalic|Liberation Mono Bold Italic|1|/usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf|0|utf-8|
 LiberationMono-Italic|Liberation Mono Italic|1|/usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf|0|utf-8|
@@ -149,23 +139,30 @@ LiberationSerif-Bold|Liberation Serif Bold|1|/usr/share/fonts/truetype/liberatio
 LiberationSerif-BoldItalic|Liberation Serif Bold Italic|1|/usr/share/fonts/truetype/liberation/LiberationSerif-BoldItalic.ttf|0|utf-8|
 LiberationSerif-Italic|Liberation Serif Italic|1|/usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf|0|utf-8|
 LiberationSerif-Regular|Liberation Serif Regular|1|/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf|0|utf-8|
-lohit_bn|Lohit Bengali Regular|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_bn.ttf|0|utf-8|
-lohit_gu|Lohit Gujarati Regular|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_gu.ttf|0|utf-8|
-lohit_hi|Lohit Hindi Regular|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_hi.ttf|0|utf-8|
-lohit_pa|Lohit Punjabi Regular|1|/usr/share/fonts/truetype/ttf-punjabi-fonts/lohit_pa.ttf|0|utf-8|
-lohit_ta|Lohit Tamil Regular|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/lohit_ta.ttf|0|utf-8|
-Loma|Loma Book|1|/usr/share/fonts/truetype/tlwg/Loma.ttf|0|utf-8|
-Loma-Bold|Loma Bold|1|/usr/share/fonts/truetype/tlwg/Loma-Bold.ttf|0|utf-8|
-Loma-BoldOblique|Loma BoldOblique|1|/usr/share/fonts/truetype/tlwg/Loma-BoldOblique.ttf|0|utf-8|
-Loma-Oblique|Loma Oblique|1|/usr/share/fonts/truetype/tlwg/Loma-Oblique.ttf|0|utf-8|
-Malige-b|Mallige Bold|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/Malige-b.ttf|0|utf-8|
-Malige-n|Mallige Normal|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/Malige-n.ttf|0|utf-8|
-Meera_04|Meera Regular|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/Meera_04.ttf|0|utf-8|
-mry_KacstQurn|mry_KacstQurn Regular|1|/usr/share/fonts/truetype/kacst/mry_KacstQurn.ttf|0|utf-8|
-msam10|msam10 Regular|1|/usr/share/fonts/truetype/ttf-lyx/msam10.ttf|0|utf-8|
-msbm10|msbm10 Regular|1|/usr/share/fonts/truetype/ttf-lyx/msbm10.ttf|0|utf-8|
-MuktiNarrow|Mukti Narrow Regular|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/MuktiNarrow.ttf|0|utf-8|
-MuktiNarrowBold|Mukti Narrow Regular|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/MuktiNarrowBold.ttf|0|utf-8|
+MathJax_AMS-Regular|MathJax_AMS Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_AMS-Regular.otf|0|utf-8|
+MathJax_Caligraphic-Bold|MathJax_Caligraphic Bold|1|/usr/share/fonts/opentype/mathjax/MathJax_Caligraphic-Bold.otf|0|utf-8|
+MathJax_Caligraphic-Regular|MathJax_Caligraphic Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_Caligraphic-Regular.otf|0|utf-8|
+MathJax_Fraktur-Bold|MathJax_Fraktur Bold|1|/usr/share/fonts/opentype/mathjax/MathJax_Fraktur-Bold.otf|0|utf-8|
+MathJax_Fraktur-Regular|MathJax_Fraktur Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_Fraktur-Regular.otf|0|utf-8|
+MathJax_Main-Bold|MathJax_Main Bold|1|/usr/share/fonts/opentype/mathjax/MathJax_Main-Bold.otf|0|utf-8|
+MathJax_Main-Italic|MathJax_Main Italic|1|/usr/share/fonts/opentype/mathjax/MathJax_Main-Italic.otf|0|utf-8|
+MathJax_Main-Regular|MathJax_Main Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_Main-Regular.otf|0|utf-8|
+MathJax_Math-BoldItalic|MathJax_Math BoldItalic|1|/usr/share/fonts/opentype/mathjax/MathJax_Math-BoldItalic.otf|0|utf-8|
+MathJax_Math-Italic|MathJax_Math Italic|1|/usr/share/fonts/opentype/mathjax/MathJax_Math-Italic.otf|0|utf-8|
+MathJax_Math-Regular|MathJax_Math Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_Math-Regular.otf|0|utf-8|
+MathJax_SansSerif-Bold|MathJax_SansSerif Bold|1|/usr/share/fonts/opentype/mathjax/MathJax_SansSerif-Bold.otf|0|utf-8|
+MathJax_SansSerif-Italic|MathJax_SansSerif Italic|1|/usr/share/fonts/opentype/mathjax/MathJax_SansSerif-Italic.otf|0|utf-8|
+MathJax_SansSerif-Regular|MathJax_SansSerif Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_SansSerif-Regular.otf|0|utf-8|
+MathJax_Script-Regular|MathJax_Script Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_Script-Regular.otf|0|utf-8|
+MathJax_Size1-Regular|MathJax_Size1 Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_Size1-Regular.otf|0|utf-8|
+MathJax_Size2-Regular|MathJax_Size2 Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_Size2-Regular.otf|0|utf-8|
+MathJax_Size3-Regular|MathJax_Size3 Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_Size3-Regular.otf|0|utf-8|
+MathJax_Size4-Regular|MathJax_Size4 Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_Size4-Regular.otf|0|utf-8|
+MathJax_Typewriter-Regular|MathJax_Typewriter Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_Typewriter-Regular.otf|0|utf-8|
+MathJax_WinChrome-Regular|MathJax_WinChrome Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_WinChrome-Regular.otf|0|utf-8|
+MathJax_WinIE6-Regular|MathJax_WinIE6 Regular|1|/usr/share/fonts/opentype/mathjax/MathJax_WinIE6-Regular.otf|0|utf-8|
+msam10|msam10 Regular|1|/usr/share/fonts/truetype/lyx/msam10.ttf|0|utf-8|
+msbm10|msbm10 Regular|1|/usr/share/fonts/truetype/lyx/msbm10.ttf|0|utf-8|
 n019003l|Nimbus Sans L Regular|1|/usr/share/fonts/X11/Type1/n019003l.pfb|0|utf-8|
 n019003l|Nimbus Sans L Regular|1|/usr/share/fonts/type1/gsfonts/n019003l.pfb|0|utf-8|
 n019004l|Nimbus Sans L Bold|1|/usr/share/fonts/X11/Type1/n019004l.pfb|0|utf-8|
@@ -198,17 +195,12 @@ n022023l|Nimbus Mono L Regular Oblique|1|/usr/share/fonts/X11/Type1/n022023l.pfb
 n022023l|Nimbus Mono L Regular Oblique|1|/usr/share/fonts/type1/gsfonts/n022023l.pfb|0|utf-8|
 n022024l|Nimbus Mono L Bold Oblique|1|/usr/share/fonts/X11/Type1/n022024l.pfb|0|utf-8|
 n022024l|Nimbus Mono L Bold Oblique|1|/usr/share/fonts/type1/gsfonts/n022024l.pfb|0|utf-8|
+NanumBarunGothic|NanumBarunGothic Regular|1|/usr/share/fonts/truetype/nanum/NanumBarunGothic.ttf|0|utf-8|
+NanumBarunGothicBold|NanumBarunGothic Bold|1|/usr/share/fonts/truetype/nanum/NanumBarunGothicBold.ttf|0|utf-8|
 NanumGothic|NanumGothic Regular|1|/usr/share/fonts/truetype/nanum/NanumGothic.ttf|0|utf-8|
 NanumGothicBold|NanumGothic Bold|1|/usr/share/fonts/truetype/nanum/NanumGothicBold.ttf|0|utf-8|
 NanumMyeongjo|NanumMyeongjo Regular|1|/usr/share/fonts/truetype/nanum/NanumMyeongjo.ttf|0|utf-8|
 NanumMyeongjoBold|NanumMyeongjo Bold|1|/usr/share/fonts/truetype/nanum/NanumMyeongjoBold.ttf|0|utf-8|
-Norasi|Norasi Regular|1|/usr/share/fonts/truetype/tlwg/Norasi.ttf|0|utf-8|
-Norasi-Bold|Norasi Bold|1|/usr/share/fonts/truetype/tlwg/Norasi-Bold.ttf|0|utf-8|
-Norasi-BoldItalic|Norasi BoldItalic|1|/usr/share/fonts/truetype/tlwg/Norasi-BoldItalic.ttf|0|utf-8|
-Norasi-BoldOblique|Norasi BoldOblique|1|/usr/share/fonts/truetype/tlwg/Norasi-BoldOblique.ttf|0|utf-8|
-Norasi-Italic|Norasi Italic|1|/usr/share/fonts/truetype/tlwg/Norasi-Italic.ttf|0|utf-8|
-Norasi-Oblique|Norasi Oblique|1|/usr/share/fonts/truetype/tlwg/Norasi-Oblique.ttf|0|utf-8|
-opens___|OpenSymbol Regular|1|/usr/share/fonts/truetype/openoffice/opens___.ttf|0|utf-8|
 p052003l|URW Palladio L Roman|1|/usr/share/fonts/X11/Type1/p052003l.pfb|0|utf-8|
 p052003l|URW Palladio L Roman|1|/usr/share/fonts/type1/gsfonts/p052003l.pfb|0|utf-8|
 p052004l|URW Palladio L Bold|1|/usr/share/fonts/X11/Type1/p052004l.pfb|0|utf-8|
@@ -217,65 +209,22 @@ p052023l|URW Palladio L Italic|1|/usr/share/fonts/X11/Type1/p052023l.pfb|0|utf-8
 p052023l|URW Palladio L Italic|1|/usr/share/fonts/type1/gsfonts/p052023l.pfb|0|utf-8|
 p052024l|URW Palladio L Bold Italic|1|/usr/share/fonts/X11/Type1/p052024l.pfb|0|utf-8|
 p052024l|URW Palladio L Bold Italic|1|/usr/share/fonts/type1/gsfonts/p052024l.pfb|0|utf-8|
-Phetsarath_OT|Phetsarath OT Regular|1|/usr/share/fonts/truetype/lao/Phetsarath_OT.ttf|0|utf-8|
-Pothana2000|Pothana2000 Pothana2000|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/Pothana2000.ttf|0|utf-8|
-Purisa|Purisa Medium|1|/usr/share/fonts/truetype/tlwg/Purisa.ttf|0|utf-8|
-Purisa-Bold|Purisa Bold|1|/usr/share/fonts/truetype/tlwg/Purisa-Bold.ttf|0|utf-8|
-Purisa-BoldOblique|Purisa BoldOblique|1|/usr/share/fonts/truetype/tlwg/Purisa-BoldOblique.ttf|0|utf-8|
-Purisa-Oblique|Purisa Oblique|1|/usr/share/fonts/truetype/tlwg/Purisa-Oblique.ttf|0|utf-8|
-Rachana_04|Rachana Regular|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/Rachana_04.ttf|0|utf-8|
-Rekha|Rekha Medium|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/Rekha.ttf|0|utf-8|
-rsfs10|rsfs10 Roman|1|/usr/share/fonts/truetype/ttf-lyx/rsfs10.ttf|0|utf-8|
+rsfs10|rsfs10 Roman|1|/usr/share/fonts/truetype/lyx/rsfs10.ttf|0|utf-8|
 s050000l|Standard Symbols L Regular|1|/usr/share/fonts/X11/Type1/s050000l.pfb|0|utf-8|
 s050000l|Standard Symbols L Regular|1|/usr/share/fonts/type1/gsfonts/s050000l.pfb|0|utf-8|
-Saab|Saab Regular|1|/usr/share/fonts/truetype/ttf-punjabi-fonts/Saab.ttf|0|utf-8|
-Sawasdee|Sawasdee Regular|1|/usr/share/fonts/truetype/tlwg/Sawasdee.ttf|0|utf-8|
-Sawasdee-Bold|Sawasdee Bold|1|/usr/share/fonts/truetype/tlwg/Sawasdee-Bold.ttf|0|utf-8|
-Sawasdee-BoldOblique|Sawasdee BoldOblique|1|/usr/share/fonts/truetype/tlwg/Sawasdee-BoldOblique.ttf|0|utf-8|
-Sawasdee-Oblique|Sawasdee Oblique|1|/usr/share/fonts/truetype/tlwg/Sawasdee-Oblique.ttf|0|utf-8|
-TakaoPGothic|TakaoPGothic Regular|1|/usr/share/fonts/truetype/takao-gothic/TakaoPGothic.ttf|0|utf-8|
-TlwgMono|TlwgMono Medium|1|/usr/share/fonts/truetype/tlwg/TlwgMono.ttf|0|utf-8|
-TlwgMono-Bold|TlwgMono Bold|1|/usr/share/fonts/truetype/tlwg/TlwgMono-Bold.ttf|0|utf-8|
-TlwgMono-BoldOblique|TlwgMono BoldOblique|1|/usr/share/fonts/truetype/tlwg/TlwgMono-BoldOblique.ttf|0|utf-8|
-TlwgMono-Oblique|TlwgMono Oblique|1|/usr/share/fonts/truetype/tlwg/TlwgMono-Oblique.ttf|0|utf-8|
-TlwgTypewriter|TlwgTypewriter Medium|1|/usr/share/fonts/truetype/tlwg/TlwgTypewriter.ttf|0|utf-8|
-TlwgTypewriter-Bold|TlwgTypewriter Bold|1|/usr/share/fonts/truetype/tlwg/TlwgTypewriter-Bold.ttf|0|utf-8|
-TlwgTypewriter-BoldOblique|TlwgTypewriter BoldOblique|1|/usr/share/fonts/truetype/tlwg/TlwgTypewriter-BoldOblique.ttf|0|utf-8|
-TlwgTypewriter-Oblique|TlwgTypewriter Oblique|1|/usr/share/fonts/truetype/tlwg/TlwgTypewriter-Oblique.ttf|0|utf-8|
-TlwgTypist|Tlwg Typist Medium|1|/usr/share/fonts/truetype/tlwg/TlwgTypist.ttf|0|utf-8|
-TlwgTypist-Bold|Tlwg Typist Bold|1|/usr/share/fonts/truetype/tlwg/TlwgTypist-Bold.ttf|0|utf-8|
-TlwgTypist-BoldOblique|Tlwg Typist BoldOblique|1|/usr/share/fonts/truetype/tlwg/TlwgTypist-BoldOblique.ttf|0|utf-8|
-TlwgTypist-Oblique|Tlwg Typist Oblique|1|/usr/share/fonts/truetype/tlwg/TlwgTypist-Oblique.ttf|0|utf-8|
-TlwgTypo|Tlwg Typo Medium|1|/usr/share/fonts/truetype/tlwg/TlwgTypo.ttf|0|utf-8|
-TlwgTypo-Bold|Tlwg Typo Bold|1|/usr/share/fonts/truetype/tlwg/TlwgTypo-Bold.ttf|0|utf-8|
-TlwgTypo-BoldOblique|Tlwg Typo BoldOblique|1|/usr/share/fonts/truetype/tlwg/TlwgTypo-BoldOblique.ttf|0|utf-8|
-TlwgTypo-Oblique|Tlwg Typo Oblique|1|/usr/share/fonts/truetype/tlwg/TlwgTypo-Oblique.ttf|0|utf-8|
 Ubuntu-B|Ubuntu Bold|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-B.ttf|0|utf-8|
 Ubuntu-BI|Ubuntu Bold Italic|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-BI.ttf|0|utf-8|
 Ubuntu-C|Ubuntu Condensed Regular|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-C.ttf|0|utf-8|
 Ubuntu-L|Ubuntu Light|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-L.ttf|0|utf-8|
 Ubuntu-LI|Ubuntu Light Italic|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-LI.ttf|0|utf-8|
+Ubuntu-M|Ubuntu Medium|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-M.ttf|0|utf-8|
+Ubuntu-MI|Ubuntu Medium Italic|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-MI.ttf|0|utf-8|
 Ubuntu-R|Ubuntu Regular|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-R.ttf|0|utf-8|
 Ubuntu-RI|Ubuntu Italic|1|/usr/share/fonts/truetype/ubuntu-font-family/Ubuntu-RI.ttf|0|utf-8|
 UbuntuMono-B|Ubuntu Mono Bold|1|/usr/share/fonts/truetype/ubuntu-font-family/UbuntuMono-B.ttf|0|utf-8|
 UbuntuMono-BI|Ubuntu Mono Bold Italic|1|/usr/share/fonts/truetype/ubuntu-font-family/UbuntuMono-BI.ttf|0|utf-8|
 UbuntuMono-R|Ubuntu Mono Regular|1|/usr/share/fonts/truetype/ubuntu-font-family/UbuntuMono-R.ttf|0|utf-8|
 UbuntuMono-RI|Ubuntu Mono Italic|1|/usr/share/fonts/truetype/ubuntu-font-family/UbuntuMono-RI.ttf|0|utf-8|
-Umpush|Umpush Book|1|/usr/share/fonts/truetype/tlwg/Umpush.ttf|0|utf-8|
-Umpush-Bold|Umpush Bold|1|/usr/share/fonts/truetype/tlwg/Umpush-Bold.ttf|0|utf-8|
-Umpush-BoldOblique|Umpush BoldOblique|1|/usr/share/fonts/truetype/tlwg/Umpush-BoldOblique.ttf|0|utf-8|
-Umpush-Light|Umpush Light|1|/usr/share/fonts/truetype/tlwg/Umpush-Light.ttf|0|utf-8|
-Umpush-LightOblique|Umpush LightOblique|1|/usr/share/fonts/truetype/tlwg/Umpush-LightOblique.ttf|0|utf-8|
-Umpush-Oblique|Umpush Oblique|1|/usr/share/fonts/truetype/tlwg/Umpush-Oblique.ttf|0|utf-8|
-unifont|unifont Medium|1|/usr/share/fonts/truetype/unifont/unifont.ttf|0|utf-8|
-Untitled1|Untitled1 Medium|1|/usr/share/fonts/truetype/freefont/Untitled1.ttf|0|utf-8|
-utkal|ori1Uni Medium|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/utkal.ttf|0|utf-8|
-Vemana|Vemana2000 Pothana2000|1|/usr/share/fonts/truetype/ttf-indic-fonts-core/Vemana.ttf|0|utf-8|
-Waree|Waree Book|1|/usr/share/fonts/truetype/tlwg/Waree.ttf|0|utf-8|
-Waree-Bold|Waree Bold|1|/usr/share/fonts/truetype/tlwg/Waree-Bold.ttf|0|utf-8|
-Waree-BoldOblique|Waree BoldOblique|1|/usr/share/fonts/truetype/tlwg/Waree-BoldOblique.ttf|0|utf-8|
-Waree-Oblique|Waree Oblique|1|/usr/share/fonts/truetype/tlwg/Waree-Oblique.ttf|0|utf-8|
-wasy10|wasy10 Normal|1|/usr/share/fonts/truetype/ttf-lyx/wasy10.ttf|0|utf-8|
-wqy-microhei|WenQuanYi Micro Hei Regular|1|/usr/share/fonts/truetype/wqy/wqy-microhei.ttc|0|utf-8|
+wasy10|wasy10 Normal|1|/usr/share/fonts/truetype/lyx/wasy10.ttf|0|utf-8|
 z003034l|URW Chancery L Medium Italic|1|/usr/share/fonts/X11/Type1/z003034l.pfb|0|utf-8|
 z003034l|URW Chancery L Medium Italic|1|/usr/share/fonts/type1/gsfonts/z003034l.pfb|0|utf-8|
