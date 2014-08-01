@@ -46,14 +46,16 @@ cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
    "$USER_DESKTOP"/
 chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
 
-# no-op?
 
 cp "$BUILD_DIR"/../app-data/ipython/ipython_grass.sh /usr/local/bin/ipython_grass.sh
 chmod a+x /usr/local/bin/ipython_grass.sh
 
-mkdir -p /home/user/ipython/
-git clone https://github.com/OSGeo/IPython_notebooks /home/user/ipython/IPython_notebooks
-chmod -R 777 /home/user/ipython/IPython_notebooks
+mkdir -p "$USER_HOME/ipython"
+git clone https://github.com/OSGeo/IPython_notebooks "$USER_HOME/ipython/IPython_notebooks"
+chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/ipython"
+cp -r /home/user/ipython /etc/skel
+
+
 
 # TODO :  add a proper osgeolive profile inclusing js extensions such reveal.js and few other extensions
 
