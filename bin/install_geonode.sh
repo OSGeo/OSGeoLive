@@ -92,16 +92,17 @@ echo "Done"
 #FIXME: The default configuration in apache does not have a ServerName for localhost
 # and takes over requests for GeoNode's virtualhost, the following patch is a workaround:
 cat << EOF > "$TMP_DIR/servername.patch"
---- /etc/apache2/sites-available/default.ORIG	2013-07-17 19:29:32.559707270 +0000
-+++ /etc/apache2/sites-available/default	2013-07-17 19:30:50.703705186 +0000
-@@ -1,5 +1,7 @@
- <VirtualHost *:80>
- 	ServerAdmin webmaster@localhost
-+        ServerName localhost
-+        ServerAlias osgeolive
+--- 000-default.conf.ORIG	2014-08-01 20:22:44.651088110 +0000
++++ 000-default.conf	2014-08-01 20:23:32.211086359 +0000
+@@ -9,6 +9,8 @@
+ 	#ServerName www.example.com
  
+ 	ServerAdmin webmaster@localhost
++	ServerName localhost
++	ServerAlias osgeolive
  	DocumentRoot /var/www/html
- 	<Directory />
+ 
+ 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 EOF
 
 if [ `grep -c 'ServerName' /etc/apache2/sites-available/default` -eq 0 ] ; then
