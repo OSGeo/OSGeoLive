@@ -1,0 +1,13 @@
+
+[Desktop Entry]
+Version=1.1
+Name=IPython Notebook
+Comment=IPython Notebook
+Exec=firefox http://localhost:12345/
+Icon=ipython
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Education;Science;
+GenericName=
+Path=

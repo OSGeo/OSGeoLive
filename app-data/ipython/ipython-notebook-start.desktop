@@ -1,0 +1,13 @@
+
+[Desktop Entry]
+Version=1.1
+Name=Start IPython Notebook
+Comment=IPython Notebook
+Exec=/usr/local/bin/ipython_grass.sh
+Icon=ipython
+Terminal=true
+Type=Application
+StartupNotify=true
+Categories=Education;Science;
+GenericName=
+Path=
