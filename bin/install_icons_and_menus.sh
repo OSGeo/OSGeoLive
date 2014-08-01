@@ -124,6 +124,7 @@ mkdir -p /usr/local/share/applications
 #xfce:
 #cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-main.menu /etc/xdg/lubuntu/menus/
 #lubuntu:
+mkdir -p /etc/xdg/menus/applications-merged
 cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-main.menu /etc/xdg/menus/applications-merged/
 
 # lubuntu's lxpanel is ignoring /usr/local
