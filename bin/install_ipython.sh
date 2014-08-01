@@ -24,13 +24,14 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+USER_DESKTOP="$USER_HOME/Desktop"
 BUILD_DIR=`pwd`
 
 ## 24jan14  change in iPython+numpy+matplotlib
 ## 04jul14  jtaylor iPython
 
 ##-- causes a rebuild of numpy, unfortunatly..
-apt-get install --assume-yes python-scipy python-pandas python-netcdf
+apt-get install --assume-yes git python-scipy python-pandas python-netcdf
 
 #-- iPython from jtaylor .deb
 apt-add-repository --yes ppa:jtaylor/ipython
@@ -41,87 +42,20 @@ apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
 #-- Clean-up
 apt-add-repository --yes --remove ppa:jtaylor/ipython
 
-##-------------------------------------------------------
-#### Setup OSSIM workspace
-#### epifanio - FIXME  04jul14
-
-DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
-
-mkdir -p /usr/local/share/ossim/quickstart/workspace
-QUICKSTART=/usr/local/share/ossim/quickstart
-
-##### Setup custom IPython profile
-# commenting out, the keywords are now in the command line fro ipython_grass.sh
-
-
-#mkdir -p "$USER_HOME"/.config
-#chown "$USER.$USER" "$USER_HOME"/.config
-
-## 'sudo -u "$USER_NAME"' by itself doesn't work, need to overset $HOME as well.
-#HOME="$USER_HOME" \
-# sudo -u "$USER_NAME" \
-# ipython profile create osgeolive
-
-#mkdir -p /etc/skel/.config
-
-# weirdness (see trac bug #1215)
-#if [ -d "$USER_HOME"/.config/ipython ] ; then
-#   cp -r "$USER_HOME"/.config/ipython /etc/skel/.config
-#   IPY_CONF="$USER_HOME/.config/ipython/profile_osgeolive/ipython_notebook_config.py"
-#else
-#   cp -r "$USER_HOME"/.ipython /etc/skel/.config/ipython
-#   IPY_CONF="$USER_HOME/.ipython/profile_osgeolive/ipython_notebook_config.py"
-#fi
-
-#cat << EOF >> "$IPY_CONF"
-#c.NotebookApp.open_browser = False
-#c.NotebookApp.port = 12345
-#c.NotebookManager.save_script=True
-#c.FileNotebookManager.notebook_dir = u'/usr/local/share/ossim/quickstart/workspace/geo-notebook'
-#c.NotebookApp.ip = '*'
-#EOF
-
-#cp "$IPY_CONF" /etc/skel/.config/ipython/profile_osgeolive/
-#chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/.config
-
-#cp "$BUILD_DIR/../app-data/ossim/ipython_grass.sh" \
-#   /usr/local/bin/
-
-#cp "$BUILD_DIR"/../app-data/ossim/ipython-notebook*.desktop \
-#   "$QUICKSTART"/workspace/
-
-#TODO:
-#cp "$BUILD_DIR"/../app-data/ossim/ipython-notebook*.desktop \
-#   "$USER_DESKTOP"/
-#chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
+cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
+   "$USER_DESKTOP"/
+chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
 
 # no-op?
-#chmod a+x /usr/local/bin/ipython_grass.sh
 
-# probably better to move this to a script in the app-conf/ dir.
-#IPY_GRASS="/usr/local/bin/ipython_grass.sh"
-#cat << EOF > "$IPY_GRASS"
-#!/bin/bash -l
-#export LD_LIBRARY_PATH=/usr/lib/grass64/lib:\$LD_LIBRARY_PATH
-#export PYTHONPATH=/usr/lib/grass64/etc/python:\$PYTHONPATH
-#export GISBASE=/usr/lib/grass64/
-#export PATH=/usr/lib/grass64/bin/:\$GISBASE/bin:\$GISBASE/scripts:\$PATH
-#export GIS_LOCK=\$$
-#export GISRC=/home/\$USER/.grassrc6
-#export GISDBASE=/home/\$USER/grassdata
-#export GRASS_TRANSPARENT=TRUE
-#export GRASS_TRUECOLOR=TRUE
-#export GRASS_PNG_COMPRESSION=9
-#export GRASS_PNG_AUTO_WRITE=TRUE
-#ipython notebook --pylab=inline --profile=osgeolive
-#EOF
-#chmod a+x "$IPY_GRASS"
+cp "$BUILD_DIR"/../app-data/ipython/ipython_grass.sh /usr/local/bin/ipython_grass.sh
+chmod a+x /usr/local/bin/ipython_grass.sh
 
-#git clone https://github.com/epifanio/geo-notebook \
-#  /usr/local/share/ossim/quickstart/workspace/geo-notebook
+mkdir -p /home/user/ipython/
+git clone https://github.com/OSGeo/IPython_notebooks /home/user/ipython/IPython_notebooks
+chmod -R 777 /home/user/ipython/IPython_notebooks
 
-#rm -rf /usr/local/share/ossim/quickstart/workspace/geo-notebook/.git
-
+# TODO :  add a proper osgeolive profile inclusing js extensions such reveal.js and few other extensions
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
