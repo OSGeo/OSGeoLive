@@ -210,8 +210,11 @@ echo "=== debug ==="
 echo ~
 echo "$HOME"
 echo `uname -n`
+ls -la "$HOME"
 echo "============="
 
+#bah, comment out the interactivity
+sed -i -e 's/read ans/#read ans/' /usr/lib/grass64/etc/Init.sh
 
 GRASS_BATCH_JOB="$BUILD_DIR"/../app-conf/grass/install_grass_addons.sh
 export GRASS_BATCH_JOB
@@ -221,7 +224,7 @@ grass64 -text "$GRASS_BASEDIR"/spearfish60/user1
 
 unset GRASS_BATCH_JOB 
 rm "$HOME/.grassrc6"
-
+sed -i -e 's/#read ans/read ans/' /usr/lib/grass64/etc/Init.sh
 
 
 ####
