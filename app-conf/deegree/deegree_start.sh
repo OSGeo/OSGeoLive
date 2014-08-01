@@ -6,11 +6,11 @@
 ##
 ## author: Johannes Wilden
 ##
-## Credits: Judit Mays, Johannes Kuepper 
+## Credits: Judit Mays, Johannes Kuepper, Danilo Bretschneider
 #########################
 
 export DEEGREE_WORKSPACE_ROOT="/usr/local/share/deegree"
-DEE_DIR="/usr/local/lib/deegree-webservices-3.3.1"
+DEE_DIR="/usr/local/lib/deegree-webservices-3.3.10"
 
 ## start tomcat (and deegree webapps)
 cd $DEE_DIR
