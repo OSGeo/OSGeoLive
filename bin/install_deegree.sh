@@ -77,7 +77,7 @@ cd "$TMP"
 
 ## download required stuff into tmp folder
 wget -N --progress=dot:mega \
-   "http://repo.deegree.org/content/groups/public/org/deegree/deegree-webservices/3.3.10/deegree-webservices-3.3.10.war"
+   "http://repo.deegree.org/content/groups/public/org/deegree/deegree-webservices/3.3.10/deegree-webservices-3.3.10.zip"
 wget -N --progress=dot:mega \
    "http://repo.deegree.org/content/groups/public/org/deegree/deegree-workspace-inspire/3.3.10/deegree-workspace-inspire-3.3.10.deegree-workspace"
 
