@@ -31,7 +31,7 @@ BUILD_DIR=`pwd`
 ## 04jul14  jtaylor iPython
 
 apt-get install --assume-yes git python-scipy python-pandas python-netcdf \
-        python-rasterio python-fiona python-matplotlib python-shapely
+        python-rasterio python-fiona python-matplotlib python-geopandas
 
 #-- iPython from jtaylor .deb
 apt-add-repository --yes ppa:jtaylor/ipython
