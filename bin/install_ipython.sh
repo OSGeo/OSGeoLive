@@ -30,8 +30,7 @@ BUILD_DIR=`pwd`
 ## 24jan14  change in iPython+numpy+matplotlib
 ## 04jul14  jtaylor iPython
 
-##-- causes a rebuild of numpy, unfortunatly..
-apt-get install --assume-yes git python-scipy python-pandas python-netcdf
+apt-get install --assume-yes git python-scipy python-pandas python-netcdf python-rasterio
 
 #-- iPython from jtaylor .deb
 apt-add-repository --yes ppa:jtaylor/ipython
