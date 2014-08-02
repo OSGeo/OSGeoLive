@@ -1,6 +1,30 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 8.0beta1
+===================
+
+ * Desktop sketch to match FOSS4G colors and theme
+ * Menus: lubuntu's lxpanel fixes to add Geospatial menu
+ * Updated ZOO installation (#1222)
+ * Added pywps overview, logo and quickstart
+ * Bump to latest ubuntu kernel
+ * Use newer version of cartaro due to security update
+ * Moved EOxServer to Debian package (#1353)
+ * Mapserver ready for Apache 2.4 (#1358)
+ * Moved Iris to Debian package (#1355)
+ * Ossimplanet lib fix (#1359)
+ * Updated 52nWPS
+ * Mapbender version change to 3.0.3.2
+ * Updated install_geonode.sh for the 2.4 version
+ * Enabled saga icon + menu entry
+ * Updated fontcap for latest build
+ * Updated OSM Portland dataset
+ * GRASS addons: don't pause on chroot root home startup error
+ * Updated deegree webservices 3.3.10
+ * Added support data for ipython notebook (wrapper script to start grass)
+ * Updated geopython/scipy stack
+
 Version 8.0alpha4
 ===================
 
