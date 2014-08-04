@@ -339,17 +339,17 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 mkdir -p /usr/local/share/doc
 
 wget -c --progress=dot:mega \
-  "http://ubuntu-manual.org/download/12.04/en_US/screen" \
-  -O "/usr/local/share/doc/Getting_Started_with_Ubuntu_12.04.pdf"
+  "http://ubuntu-manual.org/download/13.10/en_US/screen" \
+  -O "/usr/local/share/doc/Getting_Started_with_Ubuntu_13.10.pdf"
 
 if [ $? -ne 0 ] ; then
    # try try again
    wget -c --progress=dot:mega \
-     "http://ubuntu-manual.org/download/12.04/en_US/screen" \
-     -O "/usr/local/share/doc/Getting_Started_with_Ubuntu_12.04.pdf"
+     "http://ubuntu-manual.org/download/13.10/en_US/screen" \
+     -O "/usr/local/share/doc/Getting_Started_with_Ubuntu_13.10.pdf"
 fi
 
-ln -s /usr/local/share/doc/Getting_Started_with_Ubuntu_12.04.pdf \
+ln -s /usr/local/share/doc/Getting_Started_with_Ubuntu_13.10.pdf \
   "$USER_HOME/Desktop/Getting Started with Ubuntu.pdf"
 
 
