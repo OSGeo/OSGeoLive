@@ -298,9 +298,7 @@ GeoNetwork
 GeoServer
 MapProxy
 ncWMS
-Rasdaman
 "
-# Rasdaman is actually in the database menu, but it doesn't seem to harm to process it here..
 
 for APP in $APP_GROUPS ; do
    cat << EOF > "/etc/xdg/menus/applications-merged/$APP.menu"
@@ -333,7 +331,6 @@ EOF
      Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
      MapProxy) APP_ICON=gnome-globe;;
      ncWMS) APP_ICON=/usr/local/share/icons/ncWMS_icon.png;;
-     Rasdaman) APP_ICON=gnome-globe;;
      *) unset APP_ICON;;
    esac
 
