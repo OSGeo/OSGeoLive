@@ -25,7 +25,7 @@
 
     <Menu>
 	<Name>Desktop GIS</Name>
-	<Directory>xfce-desktopgis.directory</Directory>
+	<Directory>osgeo-desktopgis.directory</Directory>
 	<Include>
 	    <Category>Desktop GIS</Category>
 	</Include>
@@ -33,7 +33,7 @@
 
     <Menu>
 	<Name>Navigation and Maps</Name>
-	<Directory>xfce-navigation.directory</Directory>
+	<Directory>osgeo-navigation.directory</Directory>
 	<Include>
 	    <Category>Navigation</Category>
 	</Include>
@@ -52,7 +52,7 @@
 
     <Menu>
 	<Name>Web Services</Name>
-	<Directory>xfce-geoservers.directory</Directory>
+	<Directory>osgeo-geoservers.directory</Directory>
 	<Include>
 	    <Category>Geoservers</Category>
 	</Include>
@@ -126,7 +126,7 @@
 
     <Menu>
 	<Name>Browser Clients</Name>
-	<Directory>xfce-geoclients.directory</Directory>
+	<Directory>osgeo-geoclients.directory</Directory>
 	<Include>
 	    <Category>Geoclients</Category>
 	</Include>
@@ -178,7 +178,7 @@
 
     <Menu>
 	<Name>Databases</Name>
-	<Directory>xfce-geodatabase.directory</Directory>
+	<Directory>osgeo-geodatabase.directory</Directory>
 	<Include>
 	    <Category>Database</Category>
 	</Include>
@@ -197,7 +197,7 @@
 
     <Menu>
 	<Name>Spatial Tools</Name>
-	<Directory>xfce-spatialtools.directory</Directory>
+	<Directory>osgeo-spatialtools.directory</Directory>
 	<Include>
 	    <Category>Spatial Tools</Category>
 	</Include>
@@ -205,7 +205,7 @@
 
     <Menu>
 	<Name>Crisis Management</Name>
-	<Directory>xfce-relief.directory</Directory>
+	<Directory>osgeo-relief.directory</Directory>
 	<Include>
 	    <Category>Relief</Category>
 	</Include>
@@ -213,7 +213,7 @@
 
     <Menu>
 	<Name>Beta software</Name>
-	<Directory>xfce-geobeta.directory</Directory>
+	<Directory>osgeo-geobeta.directory</Directory>
 	<Include>
 	    <Category>Geobeta</Category>
 	</Include>
