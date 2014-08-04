@@ -35,12 +35,12 @@
 	<Name>Navigation and Maps</Name>
 	<Directory>osgeo-navigation.directory</Directory>
 	<Include>
-	    <Category>Navigation</Category>
+	    <And>
+		<Category>Navigation</Category>
+		<Not><Category>OpenStreetMap</Category></Not>
+	    </And>
 	</Include>
 
-	<Exclude>
-	    <Category>OpenStreetMap</Category>
-	</Exclude>
 	<Menu>
 	    <Name>OpenStreetMap</Name>
 	    <Directory>OpenStreetMap.directory</Directory>
@@ -54,12 +54,17 @@
 	<Name>Web Services</Name>
 	<Directory>osgeo-geoservers.directory</Directory>
 	<Include>
-	    <Category>Geoservers</Category>
+	    <And>
+		<Category>Geoservers</Category>
+		<Not><Category>52North</Category></Not>
+		<Not><Category>deegree</Category></Not>
+		<Not><Category>GeoNetwork</Category></Not>
+		<Not><Category>GeoServer</Category></Not>
+		<Not><Category>MapProxy</Category></Not>
+		<Not><Category>ncWMS</Category></Not>
+	    </And>
 	</Include>
 
-	<Exclude>
-	    <Category>52North</Category>
-	</Exclude>
 	<Menu>
 	    <Name>52North</Name>
 	    <Directory>52North.directory</Directory>
@@ -68,9 +73,6 @@
 	    </Include>
 	</Menu>
 
-	<Exclude>
-	    <Category>deegree</Category>
-	</Exclude>
 	<Menu>
 	    <Name>deegree</Name>
 	    <Directory>deegree.directory</Directory>
@@ -79,9 +81,6 @@
 	    </Include>
 	</Menu>
 
-	<Exclude>
-	    <Category>GeoNetwork</Category>
-	</Exclude>
 	<Menu>
 	    <Name>GeoNetwork</Name>
 	    <Directory>GeoNetwork.directory</Directory>
@@ -90,9 +89,6 @@
 	    </Include>
 	</Menu>
 
-	<Exclude>
-	    <Category>GeoServer</Category>
-	</Exclude>
 	<Menu>
 	    <Name>GeoServer</Name>
 	    <Directory>GeoServer.directory</Directory>
@@ -101,9 +97,6 @@
 	    </Include>
 	</Menu>
 
-	<Exclude>
-	    <Category>MapProxy</Category>
-	</Exclude>
 	<Menu>
 	    <Name>MapProxy</Name>
 	    <Directory>MapProxy.directory</Directory>
@@ -112,9 +105,6 @@
 	    </Include>
 	</Menu>
 
-	<Exclude>
-	    <Category>ncWMS</Category>
-	</Exclude>
 	<Menu>
 	    <Name>ncWMS</Name>
 	    <Directory>ncWMS.directory</Directory>
@@ -128,12 +118,15 @@
 	<Name>Browser Clients</Name>
 	<Directory>osgeo-geoclients.directory</Directory>
 	<Include>
-	    <Category>Geoclients</Category>
+	    <And>
+		<Category>Geoclients</Category>
+		<Not><Category>Cartaro</Category></Not>
+		<Not><Category>Geomajas</Category></Not>
+		<Not><Category>GeoNode</Category></Not>
+		<Not><Category>MapFish</Category></Not>
+	    </And>
 	</Include>
 
-	<Exclude>
-	    <Category>Cartaro</Category>
-	</Exclude>
 	<Menu>
 	    <Name>Cartaro</Name>
 	    <Directory>Cartaro.directory</Directory>
@@ -142,9 +135,6 @@
 	    </Include>
 	</Menu>
 
-	<Exclude>
-	    <Category>Geomajas</Category>
-	</Exclude>
 	<Menu>
 	    <Name>Geomajas</Name>
 	    <Directory>Geomajas.directory</Directory>
@@ -153,9 +143,6 @@
 	    </Include>
 	</Menu>
 
-	<Exclude>
-	    <Category>GeoNode</Category>
-	</Exclude>
 	<Menu>
 	    <Name>GeoNode</Name>
 	    <Directory>GeoNode.directory</Directory>
@@ -164,9 +151,6 @@
 	    </Include>
 	</Menu>
 
-	<Exclude>
-	    <Category>MapFish</Category>
-	</Exclude>
 	<Menu>
 	    <Name>MapFish</Name>
 	    <Directory>MapFish.directory</Directory>
@@ -180,12 +164,12 @@
 	<Name>Databases</Name>
 	<Directory>osgeo-geodatabase.directory</Directory>
 	<Include>
-	    <Category>Database</Category>
+	    <And>
+		<Category>Database</Category>
+		<Not><Category>Rasdaman</Category></Not>
+	    </And>
 	</Include>
 
-	<Exclude>
-	    <Category>Rasdaman</Category>
-	</Exclude>
 	<Menu>
 	    <Name>Rasdaman</Name>
 	    <Directory>Rasdaman.directory</Directory>
@@ -221,4 +205,3 @@
 
   </Menu>
 </Menu>
-
