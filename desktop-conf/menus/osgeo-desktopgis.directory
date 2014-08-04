@@ -2,6 +2,6 @@
 Version=1.0
 Encoding=UTF-8
 Type=Directory
-Icon=gnome-globe16blue
+Icon=/usr/share/icons/Humanity/apps/24/vinagre.svg
 Name=Desktop GIS
 Comment=
