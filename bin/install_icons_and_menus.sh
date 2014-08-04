@@ -470,7 +470,7 @@ fi
 #  `grep -l 'Geography;' /usr/share/applications/*.desktop` \
 #  /usr/local/share/applications/*.desktop
 #if all are dupes, just nuke it:
-#sed -i '53,66d' /etc/xdg/lubuntu/menus/lxde-applications.menu
+sed -i '53,66d' /etc/xdg/lubuntu/menus/lxde-applications.menu
 
 
 ####
