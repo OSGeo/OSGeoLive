@@ -175,7 +175,7 @@ sed -i -e 's|-20037508,-19929239,20037508,19929239|-122.8,45.4,-122.5,45.6|' \
   "/etc/skel/.gpsdrive/osm.xml"
 
 # avoid shapefile column city name mismatch & tweak its map scale render rule:
-sed -i -e 's|\[place_name\]</TextSymbolizer>|[NAME]</TextSymbolizer>|' \
+sed -i -e 's|TextSymbolizer name="\[place_name\]"|TextSymbolizer name="[NAME]"|' \
        -e 's|<MaxScaleDenominator>10000000</|<MaxScaleDenominator>500000</|' \
        -e 's|<MinScaleDenominator>10000000</|<MinScaleDenominator>1000000</|' \
   "/etc/skel/.gpsdrive/osm.xml"
@@ -188,6 +188,12 @@ sed -i -e 's/ face_name=/ face-name=/' \
        -e 's/Map bgcolor=/Map background-color=/' \
        -e 's|CssParameter name="\([^"]*\)">|Css>\1="|' \
        -e 's|</CssParameter|"</Css|' \
+       -e 's|halo_fill|halo-fill|' \
+       -e 's|halo_radius|halo-radius|' \
+       -e 's|allow_overlap|allow-overlap|' \
+       -e 's|wrap_width|wrap-width|' \
+       -e 's|min_distance|minimum-distance|' \
+       -e 's|\.png" type="png" width="[^"]*" height="[^"]*"|.png|' \
   "/etc/skel/.gpsdrive/osm.xml"
 
 # todo: combine into a single command:
