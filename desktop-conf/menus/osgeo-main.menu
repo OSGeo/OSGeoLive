@@ -6,6 +6,7 @@
 
   <Menu>
     <Name>Geospatial</Name>
+    <Directory>osgeo-main.directory</Directory>
 
     <DefaultAppDirs/>
     <DefaultDirectoryDirs/>
