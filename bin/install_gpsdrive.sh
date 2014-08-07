@@ -193,7 +193,7 @@ sed -i -e 's/ face_name=/ face-name=/' \
        -e 's|allow_overlap|allow-overlap|' \
        -e 's|wrap_width|wrap-width|' \
        -e 's|min_distance|minimum-distance|' \
-       -e 's|\.png" type="png" width="[^"]*" height="[^"]*"|.png|' \
+       -e 's|\.png" type="png" width="[^"]*" height="[^"]*"|.png" |' \
   "/etc/skel/.gpsdrive/osm.xml"
 
 # todo: combine into a single command:
