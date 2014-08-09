@@ -80,6 +80,10 @@ sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 6/' \
   "$USER_HOME/Desktop/Desktop GIS/grass64.desktop"
 
 
+## ppa repo version number snafu cleanup (FIXME in the grass ppa)
+sed -i -e 's/71/70/' -e 's/7\.1/7.0/'  /usr/bin/grass70
+
+
 #### get sample data ####
 
 # put static data in /usr/local ..
