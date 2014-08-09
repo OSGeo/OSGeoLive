@@ -237,7 +237,7 @@ find / -nogroup | grep -v '^/rofs/'> "$LOG_DIR"/bad_GIDs.log 2> /dev/null
 echo "==============================================================="
 (
 grep -iwn 'ERROR\|^E:' "$LOG_DIR/$MAIN_LOG_FILE" | \
-   grep -v 'libgpg-error-dev\|DHAVE_STRERROR\|error.cc:'
+   grep -v 'libgpg-error-dev\|DHAVE_STRERROR\|error.cc:\|Werror=format-security'
 grep '^..: cannot stat' "$LOG_DIR/$MAIN_LOG_FILE"
 grep '^cp: cannot create regular file' "$LOG_DIR/$MAIN_LOG_FILE"
 grep "^sed: " "$LOG_DIR/$MAIN_LOG_FILE"
