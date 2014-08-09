@@ -132,12 +132,12 @@ cd /tmp/build_R
 wget -N --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/R/spgrass6_pdf.zip"
 unzip spgrass6_pdf.zip
-cp -f *.pdf /usr/local/lib/R/site-library/spgrass6/doc/
+cp *.pdf /usr/lib/R/site-library/spgrass6/doc/
 
 
 # link sample data to central location
 mkdir -p /usr/local/share/data/vector
-ln -s /usr/local/lib/R/site-library/rgdal/vectors \
+ln -s /usr/lib/R/site-library/rgdal/vectors \
    /usr/local/share/data/vector/R
 
 ####
