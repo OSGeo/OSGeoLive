@@ -59,15 +59,20 @@ mkdir "$TMP_DIR"
 # https://launchpad.net/~grass/+archive/grass-stable?field.series_filter=trusty
 apt-add-repository --yes ppa:grass/grass-stable
 apt-get --quiet update
-apt-get --yes install grass70-core grass70-gui grass70-dev
-# man pages conflict with grass6's doc package: grass70-doc
+apt-get --yes install grass70-core grass70-gui grass70-doc grass70-dev
 
 sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 7/' \
        -e 's/^Icon=grass$/Icon=grass70/' \
   /usr/share/applications/grass70.desktop
-sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 6/' \
-  /usr/share/applications/grass64.desktop
 
+cp /usr/share/applications/grass70.desktop "$USER_HOME/Desktop/Destop GIS/"
+cp /usr/share/applications/grass70.desktop \
+  /usr/local/share/applications/osgeo-grass70.desktop
+
+sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 6/' \
+  /usr/share/applications/grass64.desktop \
+  /usr/local/share/applications/osgeo-grass64.desktop \
+  "$USER_HOME/Desktop/Destop GIS/grass64.desktop"
 
 
 #### get sample data ####
@@ -131,21 +136,6 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata/addons"
 mkdir -p "$USER_HOME/.config/gtk-2.0"
 chown $USER_NAME.$USER_NAME "$USER_HOME/.config/gtk-2.0"
 chmod go-rx "$USER_HOME/.config/gtk-2.0"
-
-
-#### runtime easy-install script:
-cat << EOF > /usr/local/bin/install_grass7
-#!/bin/sh
-# installs grass 7 on the osgeo live dvd
-#   (to be run as the default user)
-#  HB 1 July 2014
-
-cd ~/gisvm/bin
-svn up install_grass7.sh
-sudo ./install_grass7.sh
-EOF
-
-chmod a+x /usr/local/bin/install_grass7
 
 
 # cleanup

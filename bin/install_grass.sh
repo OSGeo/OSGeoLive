@@ -227,5 +227,26 @@ rm "$HOME/.grassrc6"
 sed -i -e 's/#read ans/read ans/' /usr/lib/grass64/etc/Init.sh
 
 
+#### runtime easy-install script for GRASS 7:
+cat << EOF > /usr/local/bin/install_grass7
+#!/bin/sh
+# installs grass 7 on the osgeo live dvd
+#   (to be run as the default user)
+#  HB 1 July 2014
+
+cd ~/gisvm/bin
+svn up install_grass7.sh
+
+if [ $? -ne 0 ] ; then
+  echo "ERROR: Update failed. Do you have a working network connection?" 1>&2
+  exit 1
+fi
+
+sudo ./install_grass7.sh
+EOF
+
+chmod a+x /usr/local/bin/install_grass7
+
+
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
