@@ -63,16 +63,21 @@ apt-get --yes install grass70-core grass70-gui grass70-doc grass70-dev
 
 sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 7/' \
        -e 's/^Icon=grass$/Icon=grass70/' \
+       -e 's/^Exec=grass7$/Exec=grass70/' \
   /usr/share/applications/grass70.desktop
 
 cp /usr/share/applications/grass70.desktop "$USER_HOME/Desktop/Destop GIS/"
+chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/Desktop GIS/"
+
 cp /usr/share/applications/grass70.desktop \
+  /usr/local/share/applications/osgeo-grass70.desktop
+sed -i -e 's|^Categories=.*|Categories=Geospatial;Desktop GIS;|' \
   /usr/local/share/applications/osgeo-grass70.desktop
 
 sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 6/' \
   /usr/share/applications/grass64.desktop \
   /usr/local/share/applications/osgeo-grass64.desktop \
-  "$USER_HOME/Desktop/Destop GIS/grass64.desktop"
+  "$USER_HOME/Desktop/Desktop GIS/grass64.desktop"
 
 
 #### get sample data ####
