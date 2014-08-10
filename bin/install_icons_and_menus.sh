@@ -428,6 +428,19 @@ Name=$APP
 EOF
 
 
+#### Rasdaman submenu
+APP=Rasdaman
+APP_ICON=gnome-globe
+
+cat << EOF > "/usr/share/desktop-directories/$APP.directory"
+[Desktop Entry]
+Encoding=UTF-8
+Type=Directory
+Comment=
+Icon=$APP_ICON
+Name=$APP
+EOF
+
 
 ##### Setup workshop installation icon
 WORKSHOP_INSTALL_FILE="workshop_installation.desktop"
