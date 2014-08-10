@@ -48,8 +48,8 @@ apt-add-repository --yes --remove ppa:jtaylor/ipython
 #chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
 
 
-#cp "$BUILD_DIR"/../app-data/ipython/ipython_grass.sh /usr/local/bin/ipython_grass.sh
-#chmod a+x /usr/local/bin/ipython_grass.sh
+cp "$BUILD_DIR"/../app-data/ipython/ipython_grass.sh /usr/local/bin/ipython_grass.sh
+chmod a+x /usr/local/bin/ipython_grass.sh
 
 #mkdir -p "$USER_HOME/ipython"
 #git clone https://github.com/OSGeo/IPython_notebooks "$USER_HOME/ipython/IPython_notebooks"
