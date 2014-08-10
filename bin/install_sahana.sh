@@ -47,7 +47,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-SAHANA_CONF="/etc/apache2/conf.d/sahana"
+SAHANA_CONF="/etc/apache2/conf-available/sahana.conf"
 TMP_DIR="/tmp/build_sahana"
 WEBSERVER="apache2"
 # FIXME: Script doesn't currently use this var
@@ -347,6 +347,8 @@ cat << EOF > "$SAHANA_CONF"
   #  WSGIProcessGroup web2py
   #</Location>
 EOF
+
+a2enconf sahana.conf
 
 # Restart Apache2
 apache2ctl restart
