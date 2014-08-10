@@ -74,6 +74,15 @@ chmod -R a-x "$PKG_DATA"/*
 
 #############################
 ### GUI start icons ###
+
+# copy icons into somewhere where they might get picked up (how do do this into /usr/local?)
+for SIZE in 16 32 48 64 ; do
+  cp "$BUILD_TMP/../app-conf/spatialite/spatialite_${SIZE}px.png" \
+    /usr/share/icons/lubuntu/apps/$SIZE/spatialite.png
+done
+echo "Icon=spatialite" >> /usr/share/applications/spatialite-gui.desktop
+
+
 #mkdir -p /usr/local/share/applications
 #cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
 #    /usr/local/share/applications/
