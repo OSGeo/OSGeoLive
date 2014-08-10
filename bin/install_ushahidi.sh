@@ -121,8 +121,8 @@ fi
 a2enmod rewrite
 
 # enable php5 mcrypt
-sudo ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available
-sudo php5enmod mcrypt
+ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available
+php5enmod mcrypt
 
 echo "Restarting apache2..."
 service apache2 restart
