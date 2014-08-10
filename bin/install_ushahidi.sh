@@ -35,6 +35,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_ushahidi"
+USHAHIDI_APACHE_CONF="/etc/apache2/conf-available/ushahidi.conf"
 
 mkdir -p "$TMP_DIR"
 
@@ -51,7 +52,7 @@ fi
 
 cd "$TMP_DIR"
 
-# the archive changed from .tgz to .zip updating accordingly 
+# The archive changed from .tgz to .zip updating accordingly 
 if [ ! -e "ushahidi.zip" ] ; then 
    wget -O ushahidi.zip --progress=dot:mega \
       "http://download.ushahidi.com/track_download.php?download=ushahidi"
@@ -59,26 +60,26 @@ else
     echo "... Ushahidi already downloaded"
 fi
 
-# uncompress ushahidi
+# Uncompress ushahidi
 unzip -q "ushahidi.zip"
 
-# delete the zip file to leave only the extracted folder
+# Delete the zip file to leave only the extracted folder
 rm ushahidi.zip
 
-#check if '__MACOSX' folder exist. if it does, rm it
+# Check if '__MACOSX' folder exist. if it does, rm it
 if [ -e "__MACOSX" ] ; then
     rm -r __MACOSX
 fi
 
-# now rename the extracted folder to ushahidi
+# Now rename the extracted folder to ushahidi
 mv * ushahidi
 
-#now copy the ushahidi folder to a different location
+# Now copy the ushahidi folder to a different location
 cp -R ushahidi/ /usr/local/share/
 ln -s /usr/local/share/ushahidi /var/www/html/ushahidi
 chown -R www-data:www-data /usr/local/share/ushahidi
 
-#check if mysql is running and do appropriate action
+# Check if mysql is running and do appropriate action
 if [ `pgrep -cf '/usr/sbin/mysqld'` -eq 0 ] ; then
     echo "Starting mysql.."
     service mysql start
@@ -88,7 +89,7 @@ else
 fi
 
 ## (Note: on installing mysql-server you should have been prompted to
-##  create a new root password. Repeat that here)
+# Create a new root password. Repeat that here)
 MYSQL_ADMIN_NM="root"
 MYSQL_ADMIN_PW="user"
 echo "
@@ -96,32 +97,23 @@ CREATE DATABASE ushahidi;
 GRANT ALL PRIVILEGES ON ushahidi.* TO '$USER_NAME'@'localhost' IDENTIFIED BY '$USER_NAME';
 " | mysql -u"$MYSQL_ADMIN_NM" -p"$MYSQL_ADMIN_PW"
 
-
-
-# tweak apache to allow Clean URLs
-cat << EOF > "$TMP_DIR/allow_htaccess.patch"
---- /etc/apache2/sites-available/default.ORIG	2010-07-14 20:49:54.6 +1200
-+++ /etc/apache2/sites-available/default	2010-07-14 20:50:07.9 +1200
-@@ -8,7 +8,7 @@
- 	</Directory>
- 	<Directory /var/www/html/>
- 		Options Indexes FollowSymLinks MultiViews
--		AllowOverride None
-+		AllowOverride All
- 		Order allow,deny
- 		allow from all
- 	</Directory>
+# Create Ushahidi conf for Apache2
+cat << EOF > "$USHAHIDI_APACHE_CONF"
+<Directory /var/www/html/>
+	Options Indexes FollowSymLinks MultiViews
+	AllowOverride All
+ 	Order allow,deny
+ 	allow from all
+</Directory>
 EOF
 
-if [ `grep -c 'AllowOverride All' /etc/apache2/sites-available/default` -eq 0 ] ; then
-  patch -p0 < "$TMP_DIR/allow_htaccess.patch"
-fi
+# Enable Ushahidi Apache2 conf
+a2enconf ushahidi.conf
 
-
+# Enable Apache2 mod rewrite
 a2enmod rewrite
 
-# enable php5 mcrypt
-ln -s /etc/php5/conf.d/mcrypt.ini /etc/php5/mods-available
+# Enable php5 mcrypt
 php5enmod mcrypt
 
 echo "Restarting apache2..."
