@@ -99,7 +99,7 @@ GRANT ALL PRIVILEGES ON ushahidi.* TO '$USER_NAME'@'localhost' IDENTIFIED BY '$U
 
 # Create Ushahidi conf for Apache2
 cat << EOF > "$USHAHIDI_APACHE_CONF"
-<Directory /var/www/html/>
+<Directory /var/www/html/ushahidi/>
 	Options Indexes FollowSymLinks MultiViews
 	AllowOverride All
  	Order allow,deny
