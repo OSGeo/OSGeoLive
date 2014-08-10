@@ -66,7 +66,7 @@ sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 7/' \
        -e 's/^Exec=grass7$/Exec=grass70/' \
   /usr/share/applications/grass70.desktop
 
-cp /usr/share/applications/grass70.desktop "$USER_HOME/Desktop/Destop GIS/"
+cp /usr/share/applications/grass70.desktop "$USER_HOME/Desktop/Desktop GIS/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/Desktop GIS/"
 
 cp /usr/share/applications/grass70.desktop \
