@@ -21,7 +21,7 @@
 # Uninstall:
 # ============
 # sudo apt-get remove cgi-mapserver mapserver-bin php5-mapscript python-mapscript
-# sudo rm /etc/apache2/conf.d/mapserver
+# sudo rm /etc/apache2/conf-available/mapserver
 # sudo rm -rf /usr/local/share/mapserver/
 # sudo rm -rf /usr/local/www/docs_maps
 

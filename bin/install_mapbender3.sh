@@ -110,7 +110,7 @@ chmod -R ug+w "$INSTALL_DIR/mapbender3/web/"
 
 #Create apache2 configuration for mapbender
 #FIXME: make cleaner like
-# cat << EOF > /etc/apache2/conf.d/mapbender3
+# cat << EOF > /etc/apache2/conf-available/mapbender3
 #content
 #content
 #content

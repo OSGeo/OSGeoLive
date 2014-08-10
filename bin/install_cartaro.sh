@@ -173,7 +173,7 @@ fi
 
 echo "[install_cartaro.sh] Configure Apache2  ..."
 
-if [ ! -f /etc/apache2/conf.d/conf-available/cartaro.conf ] ; then
+if [ ! -f /etc/apache2/conf-available/cartaro.conf ] ; then
 
 cat << EOF > /etc/apache2/conf-available/cartaro.conf
 <Directory /var/www/html/cartaro>
