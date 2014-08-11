@@ -147,14 +147,25 @@ else
     done
 fi
 
-## Get Raster basemap -- Cross Blended Hypso with Shaded Relief and Water 1:50 million (40mb)
+## Get Raster basemap -- Cross Blended Hypso with Shaded Relief and Water
+#    1:50 million (97mb, reduce to 3.75mb)
 RFILE="HYP_50M_SR_W.zip"
 wget -c --progress=dot:mega \
 	"$BASE_URL/http//www.naturalearthdata.com/download/50m/raster/$RFILE"
-unzip -q "$RFILE" -d "$NE2_DATA_FOLDER"
+unzip "$RFILE"
+
+mv HYP_50M_SR_W.tif HYP_50M_SR_W_orig.tif
+
+gdal_translate HYP_50M_SR_W_orig.tif HYP_50M_SR_W.tif \
+  -co compress=jpeg -co photometric=ycbcr -co tiled=yes
+
+rm HYP_50M_SR_W_orig.tif
+
+mv HYP_* "$NE2_DATA_FOLDER"
+
 
 ##--------------------------------
-if [ $HAS_ATLASSTYLER = 1 ]; then
+if [ "$HAS_ATLASSTYLER" = 1 ] ; then
   # Add Geotools .fix and .qix files to all Shapefiles. Normally Geotools application would create these
   # files when opeing the Shapefile, but since the data-dir is read-only, we do it here.
   # This REQUIRES that install_atlasstyler.sh has been executed before (which is checked above)
