@@ -52,7 +52,9 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-
+# aftermarket bugfix for 6.4.4 Help->About
+sed -i -e 's/name, email, rfc2_agreed/name, email, country, rfc2_agreed/' \
+   /usr/lib/grass64/etc/wxpython/gui_core/ghelp.py
 
 #### get sample data ####
 
