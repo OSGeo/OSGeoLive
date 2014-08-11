@@ -159,7 +159,7 @@ mv HYP_50M_SR_W.tif HYP_50M_SR_W_orig.tif
 gdal_translate HYP_50M_SR_W_orig.tif HYP_50M_SR_W.tif \
   -co compress=jpeg -co photometric=ycbcr -co tiled=yes
 
-rm HYP_50M_SR_W_orig.tif
+rm HYP_50M_SR_W_orig.tif "$RFILE"
 
 mv HYP_* "$NE2_DATA_FOLDER"
 
