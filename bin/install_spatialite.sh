@@ -78,9 +78,11 @@ chmod -R a-x "$PKG_DATA"/*
 # copy icons into somewhere where they might get picked up (how do do this into /usr/local?)
 for SIZE in 16 32 48 64 ; do
   cp "$BUILD_DIR/../app-conf/spatialite/spatialite_${SIZE}px.png" \
-    /usr/share/icons/lubuntu/apps/$SIZE/spatialite.png
+    /usr/share/icons/hicolor/${SIZE}x${SIZE}/apps/spatialite.png
 done
-echo "Icon=spatialite" >> /usr/share/applications/spatialite-gui.desktop
+# bah, 'Icon=spatialite' isn't working for some reason
+echo "Icon=/usr/share/icons/hicolor/32x32/apps/spatialite.png" \
+  >> /usr/share/applications/spatialite-gui.desktop
 
 
 #mkdir -p /usr/local/share/applications
