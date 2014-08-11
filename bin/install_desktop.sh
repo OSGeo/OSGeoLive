@@ -219,6 +219,11 @@ sed -i -e 's|lxsession-default terminal|x-terminal-emulator|' \
    /usr/share/lxpanel/profile/Lubuntu/config
 
 
+# set default TIFF viewer to QGIS
+sed -i -e 's|^image/tiff=.*|image/tiff=qgis.desktop|' \
+   /etc/xdg/lubuntu/applications/default.list
+
+
 #### Make Unity Usable (Muu..)
 # we are using xubuntu so it's a bit academic, but in case anyone wants to
 #  use OSGeo on stock Ubuntu these changes can make it a lot less annoying.
