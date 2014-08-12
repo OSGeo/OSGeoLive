@@ -249,8 +249,9 @@ echo "application/x-netcdf=ncWMS-start.desktop" >> \
 # ipython notebooks
 echo -e "application/x-ipythonnotebook\t\t\t\tipynb" >> \
    /etc/mime.types
-#echo "application/x-ipythonnotebook=???.desktop" >> \
-#   /etc/xdg/lubuntu/applications/default.list
+# erhm..
+echo "application/x-ipythonnotebook=ipython-qtconsole.desktop" >> \
+   /etc/xdg/lubuntu/applications/default.list
 
 echo -e "application/x-mbtiles+sql\t\t\t\tmbtiles" >> \
    /etc/mime.types
