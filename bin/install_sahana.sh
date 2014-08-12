@@ -142,8 +142,8 @@ rm -rf "$INSTALL_DIR"/web2py
 cd "$INSTALL_DIR"
 git clone git://github.com/web2py/web2py.git
 cd web2py
-git checkout 828a4d7a60021b20bd9dfacf8235e9113156271b
-git reset --hard
+#git checkout 828a4d7a60021b20bd9dfacf8235e9113156271b
+#git reset --hard
 
 cat << EOF > "$INSTALL_DIR/web2py/routes.py"
 default_application = 'eden'
