@@ -219,8 +219,38 @@ sed -i -e 's|lxsession-default terminal|x-terminal-emulator|' \
    /usr/share/lxpanel/profile/Lubuntu/config
 
 
+# add some file types to the master mime.types file
+#  ("users can create their own by creating a .mime.types
+#   files in their home directory")
+
 # set default TIFF viewer to QGIS
 sed -i -e 's|^image/tiff=.*|image/tiff=qgis.desktop|' \
+   /etc/xdg/lubuntu/applications/default.list
+
+# associate shapefiles and .qgs with QGIS
+echo "application/x-qgis=qgis.desktop" >> \
+   /etc/xdg/lubuntu/applications/default.list
+
+echo >> /etc/mime.types
+echo -e "application/x-sqlite3\t\t\t\tsqlite" >> \
+   /etc/mime.types
+echo "application/x-sqlite3=spatialite-gui.desktop" >> \
+   /etc/xdg/lubuntu/applications/default.list
+
+echo -e "application/x-openstreetmap+xml\t\tosm osc" >> \
+   /etc/mime.types
+echo "application/x-openstreetmap+xml=josm.desktop" >> \
+   /etc/xdg/lubuntu/applications/default.list
+
+# mmph, should be a drag-and-drop viewer
+echo "application/x-netcdf=ncWMS-start.desktop" >> \
+   /etc/xdg/lubuntu/applications/default.list
+
+# ipython notebooks...?
+
+echo -e "application/x-mbtiles+sql\t\t\t\tmbtiles" >> \
+   /etc/mime.types
+echo "application/x-mbtiles+sql=qgis.desktop" >> \
    /etc/xdg/lubuntu/applications/default.list
 
 
