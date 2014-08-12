@@ -246,7 +246,11 @@ echo "application/x-openstreetmap+xml=josm.desktop" >> \
 echo "application/x-netcdf=ncWMS-start.desktop" >> \
    /etc/xdg/lubuntu/applications/default.list
 
-# ipython notebooks...?
+# ipython notebooks
+echo -e "application/x-ipythonnotebook\t\t\t\tipynb" >> \
+   /etc/mime.types
+#echo "application/x-ipythonnotebook=???.desktop" >> \
+#   /etc/xdg/lubuntu/applications/default.list
 
 echo -e "application/x-mbtiles+sql\t\t\t\tmbtiles" >> \
    /etc/mime.types
