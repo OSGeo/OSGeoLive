@@ -138,7 +138,7 @@ export USER_NAME
 ./install_ossim.sh
 ./install_osgearth.sh
 ./install_spatialite.sh
-./install_zoo-project.sh
+# ./install_zoo-project.sh
 ./install_52nSOS.sh
 ./install_otb.sh
 ./install_rasdaman.sh
