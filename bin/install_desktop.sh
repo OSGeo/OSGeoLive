@@ -42,10 +42,10 @@ cp ../desktop-conf/osgeo-desktop-transparent.png \
    /usr/share/lubuntu/wallpapers/
 
 # copy in placeholder background image
-cd /usr/share/lubuntu/wallpapers/
-wget -N --progress=dot:mega \
-   "http://upload.wikimedia.org/wikipedia/commons/e/e2/OrteliusWorldMap1570.jpg"
-cd -
+#cd /usr/share/lubuntu/wallpapers/
+#wget -N --progress=dot:mega \
+#   "http://upload.wikimedia.org/wikipedia/commons/e/e2/OrteliusWorldMap1570.jpg"
+#cd -
 
 ### set the desktop background, turn on keyboard layout select control
 sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
