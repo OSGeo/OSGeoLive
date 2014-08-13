@@ -62,9 +62,9 @@ EOF
 for URL in \
   http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86.exe \
   http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86_64.exe \
-  http://qgis.org/downloads/QGIS-OSGeo4W-2.0.1-3-Setup-x86.exe \
-  http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.3-1-Setup.exe \
-  http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.4.4-Setup.exe \
+  http://qgis.org/downloads/QGIS-OSGeo4W-2.4.0-1-Setup-x86.exe \
+  http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.4-1-Setup.exe \
+  http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.5.1-Setup.exe \
   http://gpsvp.googlecode.com/files/gpsVPxp_0.4.24.zip \
   http://downloads.sourceforge.net/project/opencpn/opencpn/3.2.2/opencpn_3.2.2_setup.exe?use_mirror=cdnetworks-us-2 \
   http://downloads.sourceforge.net/project/saga-gis/SAGA%20-%202.1/SAGA%202.1.2/saga_2.1.2_win32.zip \

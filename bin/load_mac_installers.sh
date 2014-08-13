@@ -62,28 +62,27 @@ EOF
 
 # 1 Base Packages (Frameworks)
 A_PKG="
-frameworks/GDAL_Complete-1.10.dmg
-frameworks/FreeType_Framework-2.4.10-1.dmg
+frameworks/GDAL_Complete-1.11.dmg
+frameworks/FreeType_Framework-2.4.12-1.dmg
 frameworks/cairo_Framework-1.12.2-1.dmg
 frameworks/GSL_Framework-1.16-1.dmg
 frameworks/TclTk_Aqua-8.5.8-2.dmg
 frameworks/Spatialite_Tools-4.1.zip
-frameworks/rgdal-0.8.8-1.dmg
-frameworks/UnixImageIO_Framework-1.4.3.dmg
+frameworks/rgdal-0.8.16-1.dmg
 "
 
 # 2 Support Packages
 B_PKG="
-postgresql/PostgreSQL-9.3.1-1.dmg
+postgresql/PostgreSQL-9.3.4-1.dmg
 python/PIL-1.1.7-4.dmg
-python/matplotlib-1.3.1-1.dmg
+python/matplotlib-1.3.1-2.dmg
 "
 
 # 3 End-User Packages
 C_PKG="
-grass/GRASS-6.4.3-2-Snow.dmg
-postgresql/PostGIS-2.1.1-1.dmg
-qgis/QGIS-2.2.0-7.dmg
+grass/GRASS-6.4.4-1-Lion.dmg
+postgresql/PostGIS-2.1.3-2.dmg
+qgis/QGIS-2.4.0-1.dmg
 "
 
 
@@ -154,15 +153,21 @@ wget -c --progress=dot:mega \
 
 #############################################
 #Add R-stats
-PKG="R-3.0.2.pkg"
+PKG="R-3.1.1-mavericks.pkg"
 #sorry, no space left this time
 #wget -c --progress=dot:mega \
 #   http://cran.stat.ucla.edu/bin/macosx/"$PKG" -O "$PKG_DIR/$PKG"
-
 
 #############################################
 #Add TileMill
 PKG="TileMill-0.10.1.zip"
 wget -c --no-check-certificate --progress=dot:mega \
   "http://github.com/downloads/mapbox/tilemill/$PKG" -O "$PKG_DIR/$PKG"
+# alt: http://tilemill.s3.amazonaws.com/latest/TileMill-0.10.1.zip
+
+#############################################
+#Add GPSBabel (25mb)
+PKG="GPSBabel-1.5.1.dmg"
+wget -c --progress=dot:mega \
+  "http://download.osgeo.org/livedvd/data/gpsbabel/$PKG" -O "$PKG_DIR/$PKG"
 
