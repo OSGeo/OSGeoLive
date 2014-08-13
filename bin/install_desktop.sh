@@ -223,6 +223,8 @@ sed -i -e 's|lxsession-default terminal|x-terminal-emulator|' \
 #  ("users can create their own by creating a .mime.types
 #   files in their home directory")
 
+ls -l /etc/xdg/lubuntu/applications/default.list
+
 # set default TIFF viewer to QGIS
 sed -i -e 's|^image/tiff=.*|image/tiff=qgis.desktop|' \
    /etc/xdg/lubuntu/applications/default.list
@@ -258,6 +260,7 @@ echo -e "application/x-mbtiles+sql\t\t\t\tmbtiles" >> \
 echo "application/x-mbtiles+sql=qgis.desktop" >> \
    /etc/xdg/lubuntu/applications/default.list
 
+ls -l /etc/xdg/lubuntu/applications/default.list
 
 #### Make Unity Usable (Muu..)
 # we are using xubuntu so it's a bit academic, but in case anyone wants to
