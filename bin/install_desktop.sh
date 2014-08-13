@@ -234,12 +234,12 @@ echo "application/x-qgis=qgis.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
 echo >> /etc/mime.types
-echo -e "application/x-sqlite3\t\t\t\tsqlite" >> \
+echo "application/x-sqlite3\t\t\t\tsqlite" >> \
    /etc/mime.types
 echo "application/x-sqlite3=spatialite-gui.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
-echo -e "application/x-openstreetmap+xml\t\tosm osc" >> \
+echo "application/x-openstreetmap+xml\t\t\tosm osc" >> \
    /etc/mime.types
 echo "application/x-openstreetmap+xml=josm.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
@@ -249,13 +249,13 @@ echo "application/x-netcdf=ncWMS-start.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
 # ipython notebooks
-echo -e "application/x-ipythonnotebook\t\t\t\tipynb" >> \
+echo "application/x-ipythonnotebook\t\t\tipynb" >> \
    /etc/mime.types
 # erhm..
 echo "application/x-ipythonnotebook=ipython-qtconsole.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
-echo -e "application/x-mbtiles+sql\t\t\t\tmbtiles" >> \
+echo "application/x-mbtiles+sql\t\t\tmbtiles" >> \
    /etc/mime.types
 echo "application/x-mbtiles+sql=qgis.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
