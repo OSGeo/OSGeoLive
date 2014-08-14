@@ -201,8 +201,8 @@ mkdir -p "$VRT_DATA"
 
 
 
-# disabled: $VRT_DATA $KML_DATA $SAT_DATA
-for ITEM in $RASTER_DATA $ELEV_DATA $VRT_DATA $KML_DATA ;  do
+# disabled: $KML_DATA $SAT_DATA
+for ITEM in $RASTER_DATA $ELEV_DATA $VRT_DATA ;  do
    chmod -R 775 "$ITEM"
    chgrp -R users "$ITEM"
 done
