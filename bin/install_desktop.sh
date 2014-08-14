@@ -247,10 +247,10 @@ echo "application/x-netcdf=ncWMS-start.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
 # ipython notebooks
-echo "application/x-ipythonnotebook\t\t\tipynb" >> \
+echo "application/x-ipynb+json\t\t\tipynb" >> \
    /etc/mime.types
 # erhm..
-echo "application/x-ipythonnotebook=ipython-qtconsole.desktop" >> \
+echo "application/x-ipynb+json=ipython-notebook.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
 echo "application/x-mbtiles+sql\t\t\tmbtiles" >> \

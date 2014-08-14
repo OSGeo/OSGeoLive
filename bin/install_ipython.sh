@@ -53,12 +53,12 @@ chmod a+x /usr/local/bin/ipython_grass.sh
 
 mkdir -p "$USER_HOME/ipython"
 git clone https://github.com/OSGeo/IPython_notebooks \
-   "$USER_HOME/ipython/IPython_notebooks"
+   "$USER_HOME/ipython/notebooks"
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/ipython"
 
 ##-- 8.0b1  simple example, launch not resolved
-cp "$BUILD_DIR"/../app-conf/IPython/cartopy_simple.ipynb \
-   "$USER_HOME/ipython/IPython_notebooks/"
+cp "$BUILD_DIR"/../app-data/ipython/cartopy_simple.ipynb \
+   "$USER_HOME/ipython/notebooks/"
 cp -r /home/user/ipython /etc/skel
 
 

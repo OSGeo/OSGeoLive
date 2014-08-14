@@ -36,6 +36,6 @@ export GRASS_TRANSPARENT GRASS_TRUECOLOR GRASS_PNG_COMPRESSION GRASS_PNG_AUTO_WR
 mkdir -p /home/user/ossim/workspace
 
 ipython notebook --port=12345 --no-browser \
-   --notebook-dir=/home/user/ipython/IPython_notebooks \
+   --notebook-dir=/home/user/ipython/notebooks \
    --ip='*'
 

@@ -8,4 +8,4 @@ Exec=firefox http://localhost:12345
 Icon=ipython
 Terminal=false
 StartupNotify=false
-MimeType=application/x-ipythonnotebook;
+MimeType=application/x-ipynb+json;
