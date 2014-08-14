@@ -42,26 +42,31 @@ apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
 #-- Clean-up
 apt-add-repository --yes --remove ppa:jtaylor/ipython
 
-## 8.0b1 -- is this complete ?  re-enable with testing
-#cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
-#   "$USER_DESKTOP"/
-#chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
+cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
+   "$USER_DESKTOP"/
+chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
 
 
-cp "$BUILD_DIR"/../app-data/ipython/ipython_grass.sh /usr/local/bin/ipython_grass.sh
+cp "$BUILD_DIR"/../app-data/ipython/ipython_grass.sh \
+   /usr/local/bin/ipython_grass.sh
 chmod a+x /usr/local/bin/ipython_grass.sh
 
-#mkdir -p "$USER_HOME/ipython"
-#git clone https://github.com/OSGeo/IPython_notebooks "$USER_HOME/ipython/IPython_notebooks"
-#chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/ipython"
+mkdir -p "$USER_HOME/ipython"
+git clone https://github.com/OSGeo/IPython_notebooks \
+   "$USER_HOME/ipython/IPython_notebooks"
+chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/ipython"
 
 ##-- 8.0b1  simple example, launch not resolved
-"$BUILD_DIR"/../app-conf/IPython/cartopy_simple.ipynb  "$USER_HOME/ipython/IPython_notebooks/"
+cp "$BUILD_DIR"/../app-conf/IPython/cartopy_simple.ipynb \
+   "$USER_HOME/ipython/IPython_notebooks/"
 cp -r /home/user/ipython /etc/skel
 
 
 
-# TODO :  add a proper osgeolive profile inclusing js extensions such reveal.js and few other extensions
+#
+# TODO :  add a proper osgeolive profile inclusing js extensions such reveal.js
+#         and few other extensions
+
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
