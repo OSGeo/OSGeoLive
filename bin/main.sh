@@ -243,6 +243,7 @@ grep '^cp: cannot create regular file' "$LOG_DIR/$MAIN_LOG_FILE"
 grep "^sed: " "$LOG_DIR/$MAIN_LOG_FILE"
 grep '^ls: cannot access' "$LOG_DIR/$MAIN_LOG_FILE"
 grep -iwn 'FIXME\|failed' "$LOG_DIR/$MAIN_LOG_FILE"
+grep 'Permission denied' "$LOG_DIR/$MAIN_LOG_FILE"
 ) > "$LOG_DIR"/main_log_errors.log 2> /dev/null
 
 echo
