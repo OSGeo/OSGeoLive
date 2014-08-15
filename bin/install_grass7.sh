@@ -59,7 +59,7 @@ mkdir "$TMP_DIR"
 # https://launchpad.net/~grass/+archive/grass-stable?field.series_filter=trusty
 apt-add-repository --yes ppa:grass/grass-stable
 apt-get --quiet update
-apt-get --yes install grass70 grass70-doc grass70-dev
+apt-get --yes install grass70-core grass70-gui grass70-doc grass70-dev
 
 sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 7/' \
        -e 's/^Icon=grass$/Icon=grass70/' \
