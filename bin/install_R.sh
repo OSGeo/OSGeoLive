@@ -57,7 +57,7 @@ apt-get -q update
 #Plugin interaction with R
 apt-get --assume-yes install python-rpy grass-dev python-shapely \
     build-essential gfortran libblas-dev liblapack-dev  \
-    netcdf-bin libgdal1-1.11.0-grass
+    netcdf-bin libgdal1-1.10.1-grass
 
 # These dependencies were only necessary for building packages which is now done in the ppa
 # apt-get --assume-yes install python-all-dev libgdal1-dev \

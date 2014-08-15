@@ -32,7 +32,7 @@ BUILD_DATE=20140202
 
 apt-get -q update
 
-apt-get install --assume-yes ossim-core libgdal1-1.11.0-grass
+apt-get install --assume-yes ossim-core libgdal1-1.10.1-grass
 
 # install main dependencies
 apt-get install --assume-yes libtiff5 libgeotiff2 \
@@ -56,7 +56,7 @@ apt-get install --assume-yes krb5-multidev libexpat-ocaml libfindlib-ocaml \
 
 
 # fragile @ ubuntugis
-#apt-get install --assume-yes libgdal1h  libgdal1-1.11.0-grass
+#apt-get install --assume-yes libgdal1h  libgdal1-1.10.1-grass
 
 
 ## update for next release ##
