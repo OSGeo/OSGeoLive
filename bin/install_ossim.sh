@@ -193,7 +193,7 @@ SAT_DATA="$RASTER_DATA/cape_cod"
 VRT_DATA="$DATA_FOLDER/vrt"
 QUICKSTART=/usr/local/share/ossim/quickstart
 
-mkdir -p "$KML_DATA"
+#mkdir -p "$KML_DATA"
 mkdir -p "$RASTER_DATA"
 #mkdir -p "$SAT_DATA"
 mkdir -p "$ELEV_DATA"   # ?? unused ??
