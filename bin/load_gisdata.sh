@@ -148,19 +148,24 @@ else
 fi
 
 ## Get Raster basemap -- Cross Blended Hypso with Shaded Relief and Water
-#    1:50 million (97mb, reduce to 3.75mb)
-RFILE="HYP_50M_SR_W.zip"
+#    1:50 million (97mb, reduce to 7.2mbmb)
+#RFILE="HYP_50M_SR_W.zip"
+RFILE=HYP_50M_SR_W_reduced.zip
 wget -c --progress=dot:mega \
-	"$BASE_URL/http//www.naturalearthdata.com/download/50m/raster/$RFILE"
+   "http://download.osgeo.org/livedvd/data/natural_earth2/$RFILE"
+
+#	"$BASE_URL/http//www.naturalearthdata.com/download/50m/raster/$RFILE"
+
 unzip "$RFILE"
 
-mv HYP_50M_SR_W.tif HYP_50M_SR_W_orig.tif
-
-gdal_translate HYP_50M_SR_W_orig.tif HYP_50M_SR_W.tif \
-  -co compress=jpeg -co photometric=ycbcr -co tiled=yes \
-  -co JPEG_QUALITY=90
-
-rm HYP_50M_SR_W_orig.tif "$RFILE"
+#mv HYP_50M_SR_W.tif HYP_50M_SR_W_orig.tif
+#
+#gdal_translate HYP_50M_SR_W_orig.tif HYP_50M_SR_W.tif \
+#  -co compress=jpeg -co photometric=ycbcr -co tiled=yes \
+#  -co JPEG_QUALITY=90
+#
+#rm HYP_50M_SR_W_orig.tif "$RFILE"
+rm "$RFILE"
 
 mv HYP_* "$NE2_DATA_FOLDER"
 
