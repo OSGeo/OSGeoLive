@@ -290,7 +290,7 @@ a2ensite geonode
 
 # change apache entry to static_root
 sed -i -e 's|Alias /static/ /usr/lib/python2.7/dist-packages/geonode/static|Alias /static/ /usr/lib/python2.7/dist-packages/geonode/static_root|' \
-    /etc/apache2/sites-available/geonode
+    "$APACHE_CONF"
 
 # Reload Apache
 /etc/init.d/apache2 force-reload
