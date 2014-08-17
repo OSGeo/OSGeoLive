@@ -135,12 +135,12 @@ cp /usr/share/applications/openlayers.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/openlayers.desktop"
 
 
+# add a symbolic link into the ipython notebook extension directory
+mkdir -p "$USER_HOME"/.ipython/nbextensions/
+ln -s /var/www/html/openlayers/ "$USER_HOME"/.ipython/nbextensions/
+
 #TODO: Create local example that uses data from the many wms/wfs sources on the live disc
 
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
-
-# add a simbolik link into the ipython notebook extension directory
-mkdir -p /home/user/.ipython/nbextensions/
-ln -s /var/www/html/openlayers/ /home/user/.ipython/nbextensions/
