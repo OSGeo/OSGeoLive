@@ -17,6 +17,18 @@ else
    PYTHONPATH="/usr/lib/grass64/etc/python"
 fi
 
+if [ ! -d "/home/user/.ipython/profile_default/" ] ; then
+mkdir -p /home/user/.ipython/profile_default/
+cp -r /usr/local/share/gisvm/app-data/ipython/static/ .ipython/profile_default/
+fi
+
+if [ ! -d "/home/user/.ipython/nbextensions/" ] ; then
+mkdir -p /home/user/.ipython/nbextensions/
+cp -r /usr/local/share/gisvm/app-data/ipython/nbextensions/ .ipython/nbextensions/
+ln -s /var/www/html/openlayers/ .ipython/nbextensions/
+ln -s /var/www/html/reveal.js/ .ipython/nbextensions/ 
+fi
+
 GISBASE="/usr/lib/grass64"
 PATH="$GISBASE/bin:$GISBASE/scripts:$PATH"
 GIS_LOCK="$$"
