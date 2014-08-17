@@ -12,7 +12,7 @@ Version 8.0rc1
  * GPSDrive adapted to Mapnik2
  * Added Spatialite icons 
  * Upgraded GRASS to 6.4.4
- * Rebuilded OSGeoLive Release PPA and pulled updates from UbuntuGIS
+ * Rebuilt OSGeoLive Release PPA and pulled updates from UbuntuGIS
  * Updated Documentation to reflect 8.0 release
  * Updated screenshots with new background
  * Fixed R data paths
@@ -21,7 +21,6 @@ Version 8.0rc1
  * Created apache config to enable clean urls for ushahidi
  * Fixed Tilemill chroot vs init script workaround (#1348)
  * Set default TIFF viewer to QGIS
- * Added ipython notebooks as a mime type
  * Updated web2py for Sahana
  * Updated Mac and MS Windows installer URLs 
  * Avoid deegree starting firefox as root (#1389)
