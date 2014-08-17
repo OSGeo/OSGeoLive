@@ -86,7 +86,7 @@ pkg_cleanup()
      flex krb5-multidev libecpg-dev libjpeg-dev \
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
-     luatex libgssrpc4 libkdb5-7 libgdal1-dev git libsigsegv-dev
+     luatex libgssrpc4 libkdb5-7 libgdal1-dev libsigsegv-dev
 
   apt-get --yes autoremove
 }
