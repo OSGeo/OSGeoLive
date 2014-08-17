@@ -37,5 +37,6 @@ mkdir -p /home/user/ossim/workspace
 
 ipython notebook --port=12345 --no-browser \
    --notebook-dir=/home/user/ipython/notebooks \
+   --matplotlib=inline \
    --ip='*'
 
