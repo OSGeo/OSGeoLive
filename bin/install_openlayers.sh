@@ -140,3 +140,7 @@ chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/openlayers.desktop"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
+
+# add a simbolik link into the ipython notebook extension directory
+mkdir -p /home/user/.ipython/nbextensions/
+ln -s /var/www/html/openlayers/ /home/user/.ipython/nbextensions/

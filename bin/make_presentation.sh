@@ -88,3 +88,7 @@ cp -p images/presentation/* "$target/../../_images"
 #<img src="../../images/screenshots/1024x768/mapwindow-screenshot.jpg"
 # becomes <img src="_images/mapwindow-screenshot.jpg"
 sed -e 's#\(<img.*\)\(src="../../images[^\.]*/\)\([^\.]*\.[^\/]*"\)#\1 src="../../_images/\3#' "$tmp" > "$target/index.html"
+
+# add a simbolik link into the ipython notebook extension directory 
+mkdir -p /home/user/.ipython/nbextensions/
+ln -s /var/www/html/reveal.js/ /home/user/.ipython/nbextensions/
