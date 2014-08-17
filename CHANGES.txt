@@ -1,6 +1,32 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 8.0rc1
+===================
+
+ * Geospatial menu finalized for LXDE
+ * Bugfix deegree install script 
+ * Fixed submenu parameter files (#1373)
+ * Desktop icon text colors to match a light background 
+ * Bumped to latest available version of ubuntu manual
+ * GPSDrive adapted to Mapnik2
+ * Added Spatialite icons 
+ * Upgraded GRASS to 6.4.4
+ * Rebuilded OSGeoLive Release PPA and pulled updates from UbuntuGIS
+ * Updated Documentation to reflect 8.0 release
+ * Updated screenshots with new background
+ * Fixed R data paths
+ * Fixed GeoMoose problem with Yahoo map
+ * Updated apache2 conf file location (#1386)
+ * Created apache config to enable clean urls for ushahidi
+ * Fixed Tilemill chroot vs init script workaround (#1348)
+ * Set default TIFF viewer to QGIS
+ * Added ipython notebooks as a mime type
+ * Updated web2py for Sahana
+ * Updated Mac and MS Windows installer URLs 
+ * Avoid deegree starting firefox as root (#1389)
+ * Removed MapFish from build
+
 Version 8.0beta1
 ===================
 
