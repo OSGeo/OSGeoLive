@@ -49,12 +49,15 @@ for DIR in  ../doc/en/overview ../doc/en/quickstart ;  do
     echo -n '","'
     awk '/^:Reviewer:/{printf("%s; ", $0)}' "$FILE" | \
       sed -e 's/:Reviewer:\s*//g' -e 's/; $//'
+    echo -n '"'
 
     # License(s)
-    echo -n '","'
+    echo -n ',"'
     awk '/^:License:/{printf("%s", $0)}' "$FILE" | \
       sed -e 's/:License:\s*//g'
-    echo "\""
+    echo -n "\""
+
+    echo
 
   done
 done
