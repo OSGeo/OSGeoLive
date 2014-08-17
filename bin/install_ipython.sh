@@ -61,11 +61,14 @@ cp "$BUILD_DIR"/../app-data/ipython/cartopy_simple.ipynb \
    "$USER_HOME/ipython/notebooks/"
 cp -r /home/user/ipython /etc/skel
 
-
+# gist utility (ruby + jist extension = 15 mb)
+apt-get install ruby ruby-dev
+gem install jist
 
 #
 # TODO :  add a proper osgeolive profile inclusing js extensions such reveal.js
-#         and few other extensions
+#         and few other notebook extensions
+#         instructions to do so can be stored on a extra script to run from a live session
 
 
 ####
