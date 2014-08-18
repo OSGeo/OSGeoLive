@@ -70,6 +70,21 @@ gem install jist
 #         and few other notebook extensions
 #         instructions to do so can be stored on a extra script to run from a live session
 
+if [ ! -d "/etc/skel/.ipython/profile_default" ] ; then
+   mkdir -p "/etc/skel/.ipython/profile_default"
+   cp -r "$BUILD_DIR"/../app-data/ipython/static/ \
+      /etc/skel/.ipython/profile_default/
+fi
+
+if [ ! -d "/etc/skel/.ipython/nbextensions" ] ; then
+   mkdir -p "/etc/skel/.ipython/nbextensions"
+   cp -r "$BUILD_DIR"/../app-data/ipython/nbextensions/ \
+      /etc/skel/.ipython/nbextensions/
+   # these only exist after build is complete, so dangling symlinks during the build
+   ln -s /var/www/html/openlayers/ /etc/skel/.ipython/nbextensions/
+   ln -s /var/www/html/reveal.js/ /etc/skel/.ipython/nbextensions/ 
+fi
+
 
 ####
 ./diskspace_probe.sh "`basename $0`" end

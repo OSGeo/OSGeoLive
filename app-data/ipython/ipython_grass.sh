@@ -17,20 +17,6 @@ else
    PYTHONPATH="/usr/lib/grass64/etc/python"
 fi
 
-# would it be better to just copy this into /etc/skel/ as part of install_ipython.sh?
-if [ ! -d "/home/$USER/.ipython/profile_default" ] ; then
-   mkdir -p "/home/$USER/.ipython/profile_default"
-   cp -r /usr/local/share/gisvm/app-data/ipython/static/ \
-      /home/$USER/.ipython/profile_default/
-fi
-
-if [ ! -d "/home/$USER/.ipython/nbextensions" ] ; then
-   mkdir -p "/home/$USER/.ipython/nbextensions"
-   cp -r /usr/local/share/gisvm/app-data/ipython/nbextensions/ \
-      /home/$USER/.ipython/nbextensions/
-   ln -s /var/www/html/openlayers/ /home/$USER/.ipython/nbextensions/
-   ln -s /var/www/html/reveal.js/ /home/$USER/.ipython/nbextensions/ 
-fi
 
 GISBASE="/usr/lib/grass64"
 PATH="$GISBASE/bin:$GISBASE/scripts:$PATH"
@@ -48,7 +34,7 @@ GRASS_PNG_COMPRESSION=9
 GRASS_PNG_AUTO_WRITE=TRUE
 export GRASS_TRANSPARENT GRASS_TRUECOLOR GRASS_PNG_COMPRESSION GRASS_PNG_AUTO_WRITE
 
-mkdir -p /home/$USER/ossim/workspace
+mkdir -p "/home/$USER/ossim/workspace"
 
 ipython notebook --port=12345 --no-browser \
    --notebook-dir="/home/$USER/ipython/notebooks" \
