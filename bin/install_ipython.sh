@@ -62,8 +62,7 @@ cp "$BUILD_DIR"/../app-data/ipython/cartopy_simple.ipynb \
 cp -r /home/user/ipython /etc/skel
 
 # gist utility (ruby + jist extension = 15 mb)
-##-- this breaks the build ?~!
-#apt-get install ruby ruby-dev
+#apt-get --assume-yes install ruby ruby-dev
 #gem install jist
 
 #
