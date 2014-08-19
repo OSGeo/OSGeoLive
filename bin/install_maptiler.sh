@@ -57,6 +57,16 @@ if [ `dpkg -l maptiler | grep -c '^ii'` -eq 0 ] ; then
   #rm "$MAPTILERDEB"
 fi
 
+# for file picker, recently-used.xbel
+mkdir -p /etc/skel/.local/share
+
+# gdal 1.10 does not like epsg code 900913, replace with (trac #1391)
+sed -i -e 's/EPSG(900913)/EPSG(3857)/' \
+       -e 's/"EPSG:900913"/"EPSG:3857"/' \
+   /usr/lib/maptiler/maptiler/gdal2tiles.py \
+   /usr/bin/gdal2tiles.py
+
+
 # Test if installation was correct and create the Desktop icon
 if [ -e /usr/share/applications/maptiler.desktop ] ; then
   cp /usr/share/applications/maptiler.desktop "$USER_HOME"/Desktop/
