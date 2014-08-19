@@ -52,10 +52,10 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 # Download OrfeoToolBox data and documentation (software guide and cookbook
 [ -d $DATA_DIR ] || mkdir $DATA_DIR
 [ -f $DATA_DIR/OTBSoftwareGuide.pdf ] || \
-   wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
+   wget --tries=2 --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
      -O $DATA_DIR/OTBSoftwareGuide.pdf
 [ -f $DATA_DIR/OTBCookBook.pdf ] || \
-   wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBCookBook.pdf" \
+   wget --tries=2 --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBCookBook.pdf" \
      -O $DATA_DIR/OTBCookBook.pdf
 #[ -f $DATA_DIR/OTB-Data-Examples.tgz ] || \
    #wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTB-Data-Examples.tgz" \
