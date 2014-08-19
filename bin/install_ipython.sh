@@ -62,8 +62,9 @@ cp "$BUILD_DIR"/../app-data/ipython/cartopy_simple.ipynb \
 cp -r /home/user/ipython /etc/skel
 
 # gist utility (ruby + jist extension = 15 mb)
-apt-get install ruby ruby-dev
-gem install jist
+##-- this breaks the build ?~!
+#apt-get install ruby ruby-dev
+#gem install jist
 
 #
 # TODO :  add a proper osgeolive profile inclusing js extensions such reveal.js
