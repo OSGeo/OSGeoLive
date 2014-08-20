@@ -78,7 +78,7 @@ fi
 
 if [ ! -d "/etc/skel/.ipython/nbextensions" ] ; then
    mkdir -p "/etc/skel/.ipython/nbextensions"
-   cp -r "$BUILD_DIR"/../app-data/ipython/nbextensions/ \
+   cp -r "$BUILD_DIR"/../app-data/ipython/nbextensions/* \
       /etc/skel/.ipython/nbextensions/
    # these only exist after build is complete, so dangling symlinks during the build
    ln -s /var/www/html/openlayers/ /etc/skel/.ipython/nbextensions/
