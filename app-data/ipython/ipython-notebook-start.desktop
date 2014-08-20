@@ -6,5 +6,5 @@ Comment=IPython Notebook
 Categories=Application;Education;Geography;
 Exec=/usr/local/bin/ipython_grass.sh
 Icon=ipython
-Terminal=false
+Terminal=true
 StartupNotify=false
