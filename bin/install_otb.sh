@@ -50,30 +50,31 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 
 
 # Download OrfeoToolBox data and documentation (software guide and cookbook
-[ -d $DATA_DIR ] || mkdir $DATA_DIR
-[ -f $DATA_DIR/OTBSoftwareGuide.pdf ] || \
-   wget --tries=2 --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
-     -O $DATA_DIR/OTBSoftwareGuide.pdf
-[ -f $DATA_DIR/OTBCookBook.pdf ] || \
-   wget --tries=2 --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBCookBook.pdf" \
-     -O $DATA_DIR/OTBCookBook.pdf
-#[ -f $DATA_DIR/OTB-Data-Examples.tgz ] || \
-   #wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTB-Data-Examples.tgz" \
-     #-O $DATA_DIR/OTB-Data-Examples.tgz
+# Total: 60MB
+# [ -d $DATA_DIR ] || mkdir $DATA_DIR
+# [ -f $DATA_DIR/OTBSoftwareGuide.pdf ] || \
+#    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
+#      -O $DATA_DIR/OTBSoftwareGuide.pdf
+# [ -f $DATA_DIR/OTBCookBook.pdf ] || \
+#    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBCookBook.pdf" \
+#      -O $DATA_DIR/OTBCookBook.pdf
+# [ -f $DATA_DIR/OTB-Data-Examples.tgz ] || \
+#    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTB-Data-Examples.tgz" \
+#      -O $DATA_DIR/OTB-Data-Examples.tgz
 
 # Install docs and demos
-if [ ! -d "$OTB_DATA" ]; then
-    mkdir -p "$OTB_DATA/demos"
-    echo "Moving  OTB pdf  doc in $OTB_DATA/....."
-    mv "$DATA_DIR/OTBSoftwareGuide.pdf" "$OTB_DATA/"
-    echo "Done"
-    echo "Moving  OTB cookbook pdf  doc in $OTB_DATA/....."
-    mv "$DATA_DIR/OTBCookBook.pdf" "$OTB_DATA/"
-    echo "Done"
-    #echo "Extracting OTB data examples $OTB_DATA/demos/..."
-    #tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/
-    #echo "Done"
-fi
+# if [ ! -d "$OTB_DATA" ]; then
+#     mkdir -p "$OTB_DATA/demos"
+#     echo "Moving  OTB pdf  doc in $OTB_DATA/....."
+#     mv "$DATA_DIR/OTBSoftwareGuide.pdf" "$OTB_DATA/"
+#     echo "Done"
+#     echo "Moving  OTB cookbook pdf  doc in $OTB_DATA/....."
+#     mv "$DATA_DIR/OTBCookBook.pdf" "$OTB_DATA/"
+#     echo "Done"
+#     echo "Extracting OTB data examples $OTB_DATA/demos/..."
+#     tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/
+#     echo "Done"
+# fi
 
 
 #MONTEVERDI plugin can't do this for now since it requires a recompile of MONTEVERDI according to the docs
