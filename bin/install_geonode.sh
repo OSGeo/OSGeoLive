@@ -91,6 +91,9 @@ echo "Done"
 
 #FIXME: The default configuration in apache does not have a ServerName for localhost
 # and takes over requests for GeoNode's virtualhost, the following patch is a workaround:
+TMP_DIR=/tmp/build_geonode
+mkdir -p "$TMP_DIR"
+
 cat << EOF > "$TMP_DIR/servername.patch"
 --- 000-default.conf.ORIG	2014-08-01 20:22:44.651088110 +0000
 +++ 000-default.conf	2014-08-01 20:23:32.211086359 +0000
@@ -105,8 +108,8 @@ cat << EOF > "$TMP_DIR/servername.patch"
  	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
 EOF
 
-if [ `grep -c 'ServerName' /etc/apache2/sites-available/default` -eq 0 ] ; then
-  patch -p0 < "$TMP_DIR/servername.patch"
+if [ `grep -c 'ServerName' /etc/apache2/sites-available/000-default.conf` -eq 0 ] ; then
+   patch -p0 < "$TMP_DIR/servername.patch"
 fi
 
 #Create database
@@ -170,22 +173,34 @@ cp -f "$USER_HOME/gisvm/app-conf/geonode/geonode.png" \
 mkdir -p "$GEONODE_BIN_FOLDER"
 chgrp users "$GEONODE_BIN_FOLDER"
 
-if [ ! -e $GEONODE_BIN_FOLDER/geonode-start.sh ] ; then
-   cat << EOF > $GEONODE_BIN_FOLDER/geonode-start.sh
-#!/bin/bash
+if [ ! -e "$GEONODE_BIN_FOLDER/geonode-start.sh" ] ; then
+   cat << EOF > "$GEONODE_BIN_FOLDER/geonode-start.sh"
+#!/bin/sh
+
 STAT=\`curl -s "http://localhost:8082/geoserver/ows" | grep 8082\`
-if [ "\$STAT" = "" ]; then
+
+if [ -z "\$STAT" ] ; then
     $GEOSERVER_PATH/bin/startup.sh &
-    (sleep 4; echo "25"; sleep 4; echo "50"; sleep 4; echo "75"; sleep 4; echo "100") | zenity --progress --auto-close --text "GeoNode is starting GeoServer"
+
+    DELAY=20
+    (
+    for TIME in \`seq \$DELAY\` ; do
+	sleep 1
+	echo "\$TIME \$DELAY" | awk '{print int(0.5+100*\$1/\$2)}'
+	done
+    ) | zenity --progress --auto-close --text "GeoNode is starting GeoServer ..."
 fi
+
 firefox http://geonode/
 EOF
 fi
 
-if [ ! -e $GEONODE_BIN_FOLDER/geonode-stop.sh ] ; then
-   cat << EOF > $GEONODE_BIN_FOLDER/geonode-stop.sh
-#!/bin/bash
+if [ ! -e "$GEONODE_BIN_FOLDER/geonode-stop.sh" ] ; then
+   cat << EOF > "$GEONODE_BIN_FOLDER/geonode-stop.sh"
+#!/bin/sh
+
 $GEOSERVER_PATH/bin/shutdown.sh &
+
 zenity --info --text "GeoNode and GeoServer stopped"
 EOF
 fi
