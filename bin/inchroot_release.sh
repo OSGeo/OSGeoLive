@@ -70,7 +70,7 @@ EOF
 
 cd /tmp/
 
-wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh"
+wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/branches/osgeolive_8_0/bin/bootstrap.sh"
 
 chmod a+x bootstrap.sh
 
