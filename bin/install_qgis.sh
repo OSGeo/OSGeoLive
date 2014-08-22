@@ -184,9 +184,8 @@ cp "$BUILD_DIR/../app-data/qgis/QGIS-Itasca-Example.qgs" /usr/local/share/qgis/
 #borked: cp "$BUILD_DIR/../app-data/qgis/QGIS-Grass-Example.qgs" /usr/local/share/qgis/
 cp "$BUILD_DIR/../app-data/qgis/QGIS-NaturalEarth-Example.qgs" /usr/local/share/qgis/
 
-chmod 644 /usr/local/share/qgis/*.qgs
-#  oi! don't do this:
-#chown $USER_NAME.$USER_NAME /usr/local/share/qgis/*.qgs
+chmod 664 /usr/local/share/qgis/*.qgs
+chgrp users /usr/local/share/qgis/*.qgs
 #Link example to the home directory
 ln -s /usr/local/share/qgis "$USER_HOME"/qgis-examples
 ln -s /usr/local/share/qgis /etc/skel/qgis-examples
