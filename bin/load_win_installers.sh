@@ -66,11 +66,8 @@ for URL in \
   http://grass.osgeo.org/grass64/binary/mswindows/native/WinGRASS-6.4.4-1-Setup.exe \
   http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.5.1-Setup.exe \
   http://gpsvp.googlecode.com/files/gpsVPxp_0.4.24.zip \
-  http://downloads.sourceforge.net/project/opencpn/opencpn/3.2.2/opencpn_3.2.2_setup.exe?use_mirror=cdnetworks-us-2 \
-  http://downloads.sourceforge.net/project/saga-gis/SAGA%20-%202.1/SAGA%202.1.2/saga_2.1.2_win32.zip \
   http://zygrib.org/getfile.php?file=zyGrib_win-6.2.3.zip \
   http://download.osgeo.org/fdo/3.8.0/release/binaries/win32/fdo-win32-3.8.0_3601.tar.gz \
-  http://download.osgeo.org/livedvd/data/mapwindow/MapWindowx86Full-v488SR-installer.exe \
 ; do
 
   # zygrib and sourceforge filename sanitation:
@@ -90,6 +87,9 @@ done;
 #  http://www.opensig.es/public/kosmo/v_2.0.1/binaries/kosmo_desktop_2.0.1_windows_jre_setup.exe \
 #  http://download.osgeo.org/mapguide/releases/2.5.2/MapGuideOpenSource-2.5.2.7949-Final-x86.exe \
 #  http://github.com/downloads/mapbox/tilemill/TileMill-v0.10.1-Setup.exe \
+#  http://downloads.sourceforge.net/project/opencpn/opencpn/3.2.2/opencpn_3.2.2_setup.exe?use_mirror=cdnetworks-us-2 \
+#  http://downloads.sourceforge.net/project/saga-gis/SAGA%20-%202.1/SAGA%202.1.2/saga_2.1.2_win32.zip \
+#  http://download.osgeo.org/livedvd/data/mapwindow/MapWindowx86Full-v488SR-installer.exe \
 
 
 #Disabled because they are very outdated

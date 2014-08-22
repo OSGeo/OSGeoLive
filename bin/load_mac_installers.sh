@@ -138,11 +138,11 @@ PKG="udig-1.4.0.macosx.cocoa.x86_64.zip"
 #############################################
 #Add Ossim Stuff (Imagelinker, Ossimplanet)
 PKG="imagelinker-1.7.15-appbundle.dmg"
-wget -c --progress=dot:mega \
-   http://download.osgeo.org/ossim/installers/mac/"$PKG" -O "$PKG_DIR/$PKG"
+# wget -c --progress=dot:mega \
+#    http://download.osgeo.org/ossim/installers/mac/"$PKG" -O "$PKG_DIR/$PKG"
 PKG="ossimplanet-appbundle-1.8.4.dmg"
-wget -c --progress=dot:mega \
-   http://download.osgeo.org/ossim/installers/mac/"$PKG" -O "$PKG_DIR/$PKG"
+# wget -c --progress=dot:mega \
+#    http://download.osgeo.org/ossim/installers/mac/"$PKG" -O "$PKG_DIR/$PKG"
 
 
 #############################################
@@ -161,13 +161,13 @@ PKG="R-3.1.1-mavericks.pkg"
 #############################################
 #Add TileMill
 PKG="TileMill-0.10.1.zip"
-wget -c --no-check-certificate --progress=dot:mega \
-  "http://github.com/downloads/mapbox/tilemill/$PKG" -O "$PKG_DIR/$PKG"
+# wget -c --no-check-certificate --progress=dot:mega \
+#   "http://github.com/downloads/mapbox/tilemill/$PKG" -O "$PKG_DIR/$PKG"
 # alt: http://tilemill.s3.amazonaws.com/latest/TileMill-0.10.1.zip
 
 #############################################
 #Add GPSBabel (25mb)
 PKG="GPSBabel-1.5.1.dmg"
-wget -c --progress=dot:mega \
-  "http://download.osgeo.org/livedvd/data/gpsbabel/$PKG" -O "$PKG_DIR/$PKG"
+# wget -c --progress=dot:mega \
+#   "http://download.osgeo.org/livedvd/data/gpsbabel/$PKG" -O "$PKG_DIR/$PKG"
 
