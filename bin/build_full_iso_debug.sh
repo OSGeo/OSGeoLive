@@ -46,6 +46,7 @@ else
     MINI_ISO_NAME="$PACKAGE_NAME-mini-$VERSION.iso"
 fi
 ISO_NAME="$PACKAGE_NAME-$VERSION"
+IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
 
 echo
 echo "==============================================================="
