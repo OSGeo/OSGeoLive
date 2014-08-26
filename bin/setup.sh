@@ -49,6 +49,10 @@ APT::Install-Suggests "false";
 EOF
 fi
 
+# only look for updates once a week
+sed -i -e 's|\(APT::Periodic::Update-Package-Lists\) "1";|\1 "7";|' \
+   /etc/apt/apt.conf.d/10periodic
+
 
 ## tests for #1334
 echo --
