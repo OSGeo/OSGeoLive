@@ -211,9 +211,10 @@ DBS="
 52nSOS
 cartaro
 eoxserver_demo
-pgrouting
-v2.2_mapfishsample"
-#disabled: osm_local_smerc
+pgrouting"
+#disabled:
+#v2.2_mapfishsample
+# osm_local_smerc
 
 cat << EOF > "$TMPFILE"
 [SpatiaLite]
