@@ -143,7 +143,7 @@ sudo -u "$USER_NAME" django-admin createsuperuser --username="$USER_NAME" \
 sudo -u "$USER_NAME" django-admin loaddata sample_admin --settings=geonode.settings
 
 # Collect static files
-django-admin collectstatic --noinput --settings=geonode.settings
+django-admin collectstatic --noinput --settings=geonode.settings --verbosity=0
 echo "Done"
 
 echo "Starting GeoServer to update layers in the geonode db"
