@@ -53,7 +53,7 @@ SOS_TAR_URL="http://52north.org/files/security/osgeo-live/"
 PG_OPTIONS='--client-min-messages=warning'
 PG_USER="postgres"
 PG_SCRIPT_NAME="postgresql"
-PG_DB_NAME="52nsos"
+PG_DB_NAME="52nSOS"
 # -----------------------------------------------------------------------------
 #
 echo "[$(date +%M:%S)]: 52nSOS install started"
