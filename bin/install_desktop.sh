@@ -55,8 +55,10 @@ sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
 # Actually, I think this is the one which really does it:
 sed -i -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
        -e 's|^desktop_fg=.*|desktop_fg=#232323|' \
-       -e 's|^desktop_shadow=.*|desktop_shadow=#ffffff|' \
+       -e 's|^desktop_shadow=.*|desktop_shadow=#ffffff\nshow_mounts=1|' \
    /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
+
+echo "desktop_folder_new_win=1" >> /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
 
 # New way to set login screen background as of 12.04 that uses lightdm instead of gdm
@@ -250,12 +252,17 @@ echo "application/x-netcdf=ncWMS-start.desktop" >> \
 echo "application/x-ipynb+json\t\t\tipynb" >> \
    /etc/mime.types
 # erhm..
-echo "application/x-ipynb+json=ipython-notebook.desktop" >> \
+echo "application/x-ipynb+json=osgeo-ipython-notebook.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
 echo "application/x-mbtiles+sql\t\t\tmbtiles" >> \
    /etc/mime.types
 echo "application/x-mbtiles+sql=qgis.desktop" >> \
+   /etc/xdg/lubuntu/applications/defaults.list
+
+echo "application/gpx+xml\t\t\t\tgpx" >> \
+   /etc/mime.types
+echo "application/gpx+xml=gpsprune.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
 
