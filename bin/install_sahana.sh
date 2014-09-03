@@ -69,7 +69,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
     -o DPkg::Options::=--force-confdef \
     -o DPkg::Options::=--force-confold \
     install \
-	git-core \
+	git \
 	unzip \
 	zlib1g-dev \
 	libgeos-c1 \
