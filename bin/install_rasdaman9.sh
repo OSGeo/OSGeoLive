@@ -75,7 +75,7 @@ PACKAGES="make autoconf automake libtool gawk flex bison build-essential \
  g++ gcc cpp libstdc++6 libreadline-dev libssl-dev \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg-dev \
  libhdf4-0 libpng12-dev libnetpbm10-dev tomcat6 php5-cgi libedit-dev\
- wget libgdal1-dev openjdk-7-jdk libnetcdf-dev rpcbind git git-core rpcbind libsigsegv-dev"
+ wget libgdal-dev openjdk-7-jdk libnetcdf-dev rpcbind git git-core rpcbind libsigsegv-dev"
 
 
 pkg_cleanup()
@@ -86,7 +86,7 @@ pkg_cleanup()
      flex krb5-multidev libecpg-dev libjpeg-dev \
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
-     luatex libgssrpc4 libkdb5-7 libgdal1-dev git libsigsegv-dev
+     luatex libgssrpc4 libkdb5-7 libgdal-dev git libsigsegv-dev
 
   apt-get --yes autoremove
 }

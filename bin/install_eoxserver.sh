@@ -244,7 +244,7 @@ service apache2 --full-restart
 
 
 # Uninstall dev packages (no: other software need them)
-#apt-get --assume-yes remove libgdal1-dev libproj-dev libgeos-dev libgeos++-dev
+#apt-get --assume-yes remove libgdal-dev libproj-dev libgeos-dev libgeos++-dev
 apt-get --assume-yes autoremove
 
 # make symlinks for geotifs to common data dir so all projects can use them

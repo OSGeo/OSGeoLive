@@ -60,7 +60,7 @@ apt-get --assume-yes install python-rpy grass-dev python-shapely \
     netcdf-bin libgdal1-1.10.1-grass
 
 # These dependencies were only necessary for building packages which is now done in the ppa
-# apt-get --assume-yes install python-all-dev libgdal1-dev \
+# apt-get --assume-yes install python-all-dev libgdal-dev \
 #    libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
 #    libglu1-mesa-dev libsprng2-dev libnetcdf-dev libgeos-dev libproj-dev
 
