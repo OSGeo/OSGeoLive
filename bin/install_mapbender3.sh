@@ -50,6 +50,8 @@ echo "Installing mapbender"
 apt-get install --assume-yes php5 php5-imagick php5-pgsql php5-gd \
   php5-curl php5-cli php5-sqlite sqlite php-apc php5-intl
 
+a2enmod rewrite
+
 if [ ! -x "`which wget`" ] ; then
     apt-get --assume-yes install wget
 fi
@@ -120,8 +122,15 @@ echo "Alias /mapbender3 $INSTALL_DIR/mapbender3/web/" >> \
    /etc/apache2/conf-available/mapbender3.conf
 echo "<Directory $INSTALL_DIR/mapbender3/web>" >> /etc/apache2/conf-available/mapbender3.conf
 echo "Options MultiViews" >> /etc/apache2/conf-available/mapbender3.conf
-echo "DirectoryIndex app_dev.php" >> /etc/apache2/conf-available/mapbender3.conf
+echo "DirectoryIndex app.php" >> /etc/apache2/conf-available/mapbender3.conf
 echo "Require all granted" >> /etc/apache2/conf-available/mapbender3.conf
+
+echo "RewriteEngine On" >> /etc/apache2/conf-available/mapbender3.conf
+echo "RewriteBase /mapbender3/" >> /etc/apache2/conf-available/mapbender3.conf
+echo "RewriteCond %{ENV:REDIRECT_STATUS} ^$" >> /etc/apache2/conf-available/mapbender3.conf
+echo "RewriteCond %{REQUEST_FILENAME} !-f" >> /etc/apache2/conf-available/mapbender3.conf
+echo "RewriteCond %{REQUEST_FILENAME} !-d" >> /etc/apache2/conf-available/mapbender3.conf
+echo "RewriteRule ^(.*)$ app.php/$1 [PT,L,QSA]" >> /etc/apache2/conf-available/mapbender3.conf
 echo "</Directory>" >> /etc/apache2/conf-available/mapbender3.conf       
 
 ln -s /etc/apache2/conf-available/mapbender3.conf /etc/apache2/conf-enabled/mapbender3.conf
@@ -148,7 +157,7 @@ Encoding=UTF-8
 Name=Mapbender3
 Comment=Mapbender
 Categories=Application;Geography;Geoscience;Education;
-Exec=firefox http://localhost/mapbender3/app_dev.php
+Exec=firefox http://localhost/mapbender3/app.php
 Icon=/usr/local/share/icons/mapbender3_desktop_48x48.png
 Terminal=false
 StartupNotify=false
