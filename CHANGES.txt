@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 8.5alpha1
+===================
+
+ * GDAL 1.11.0
+ * QGIS 2.6
+ * Updates from UbuntuGIS
+
 Version 8.0rc1
 ===================
 
