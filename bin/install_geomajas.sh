@@ -25,7 +25,7 @@ BUILD_DIR=`pwd`
 TMP="/tmp/build_geomajas"
 INSTALL_FOLDER="/usr/lib"  ## hard-wired to repo scripts
 BIN=/usr/local/bin
-GEOMAJAS_VERSION=1.14.0
+GEOMAJAS_VERSION=2.1.2
 GEOMAJAS_HOME="$INSTALL_FOLDER/geomajas-$GEOMAJAS_VERSION-bin"
 GEOMAJAS_PORT=3420
 
