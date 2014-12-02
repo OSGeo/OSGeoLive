@@ -37,9 +37,9 @@ cd /tmp/build-geomoose
 
 ## Download and extract GeoMOOSE 2.6.1
 wget -c --progress=dot:mega \
-   "http://www.geomoose.org/downloads/geomoose-2.6.1-livedemo.tar.gz"
+   "http://www.geomoose.org/downloads/geomoose-2.7.1.tar.gz"
 
-tar -xzf geomoose-2.6.1-livedemo.tar.gz
+tar -xzf geomoose-2.7.1.tar.gz
 
 rm -rf /usr/local/geomoose
 
