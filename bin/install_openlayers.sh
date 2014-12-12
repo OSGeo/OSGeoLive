@@ -14,7 +14,7 @@
 #
 # About:
 # =====
-# This script will install OpenLayers 2.13
+# This script will install OpenLayers 3.0.0
 #
 # Running:
 # =======
@@ -22,67 +22,73 @@
 # Then open a web browser and go to http://localhost/openLayers/
 
 ./diskspace_probe.sh "`basename $0`" begin
-BUILD_DIR=`pwd`
+BIN_DIR=`pwd`
 ####
-
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-
 TMP_DIR="/tmp/build_openlayers"
-OL_VERSION="2.13.1"
+OL_VERSION="v3.0.0"
+GIT_DIR="$TMP_DIR/openlayers-$OL_VERSION"
+GIT_OL3_URL="https://github.com/openlayers/ol3.git"
+BUILD_DIR="build/hosted/HEAD"
+WWW_DIR=/var/www/html/openlayers
 
-
-#Install naturaldocs if not installed yet
-hash naturaldocs 2>/dev/null
-if [ $? -ne 0 ] ; then
-    echo "Installing naturaldocs..."
-    apt-get --assume-yes install naturaldocs 
-    OL_APT_REMOVE=naturaldocs
-fi
-
+#
+# Clone repository, checkout the latest stable tag and install dependencies
+#
+echo "\nCreating temporary directory $TMP_DIR..."
 mkdir -p "$TMP_DIR"
 cd "$TMP_DIR"
-
-GIT_DIR="openlayers-$OL_VERSION"
-
-echo "\nFetching git clone..."
+echo "\nFetching project..."
 if [ ! -d "$GIT_DIR" ] ; then
-    git clone https://github.com/openlayers/openlayers.git "$GIT_DIR" 
+    # Clone project and checkout the stable tag
+    echo "\nClonning project from $GIT_OL3_URL..."
+    git clone "$GIT_OL3_URL" "$GIT_DIR" 
+    echo "\nChanging to tag $OL_VERSION..."
+    cd "$GIT_DIR"
+    git checkout "$OL_VERSION"
+
+    # Install dependencies for build process
+    echo "\nInstalling npm dependencies..."
+    npm install
+    echo "\nInstalling other dependencies..."
+    pip install -r requirements.txt
+    cd -
 else
-    echo "... openLayers-$OL_VERSION already cloned"
+    echo "... OpenLayers-$OL_VERSION already cloned\n"
 fi
 
 cd "$GIT_DIR"
 
-echo "\nBuilding examples index"
-if [ ! -s examples/example-list.js ] ; then
-    cd tools
-    ./exampleparser.py
-    cd ..
-else
-    echo "... example index already built"
+#
+# Build OpenLayers and examples
+#
+echo "\nBuilding OpenLayers and examples..."
+if [ ! -d "$GIT_DIR/build" ] ; then
+    # NOTE: The 'host-examples' also includes the 'build' target
+    ./build.py host-examples
+else 
+    echo "... previous built for OpenLayers-$OL_VERSION exists. Remove $GIT_DIR/build to create a fresh built.\n"
 fi
 
-ln -sf example-list.html examples/index.html
-echo "Done."
-
-echo "\nBuilding full uncompressed OpenLayers.js"
-cd build
-./buildUncompressed.py
-cd ..
-ln -sf build/OpenLayers.js
-
+#
+# Build API docs
+#
 echo "\nBuilding API docs..."
-if [ ! -d doc ] ; then
-    mkdir doc
+if [ ! -d "$GIT_DIR/$BUILD_DIR/apidoc" ] ; then
+    ./build.py apidoc
+else 
+    echo "... previous version of API docs for OpenLayers-$OL_VERSION exists. Remove $GIT_DIR/build/apidocs to create a fresh built.\n"
 fi
-echo `pwd`
-naturaldocs -i lib/ -o HTML doc/ -p doc_config/ -s Default OL
 
-#Index Page
+#
+# Generate index page
+#
+cd "$GIT_DIR/$BUILD_DIR"
+
 cat << EOF > "index.html"
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -92,7 +98,7 @@ cat << EOF > "index.html"
 <body>
 <h2>OpenLayers $OL_VERSION</h2>
 <ul>
-<li><a href="doc/">API Docs</a></li>
+<li><a href="apidoc/">API Docs</a></li>
 <li><a href="examples/">Examples</a></li>
 <li><a href="http://openlayers.org/">OpenLayers.org website</a></li>
 </ul>
@@ -100,22 +106,23 @@ cat << EOF > "index.html"
 </html>
 EOF
 
-cd "$TMP_DIR"
+#
+# Copy files to apache dir
+#
+mkdir -p "$WWW_DIR"
+cp -R "$GIT_DIR/$BUILD_DIR/apidoc" "$WWW_DIR"
+cp -R "$GIT_DIR/$BUILD_DIR/css" "$WWW_DIR"
+cp -R "$GIT_DIR/$BUILD_DIR/examples" "$WWW_DIR"
+cp -R "$GIT_DIR/$BUILD_DIR/ol" "$WWW_DIR"
+cp -R "$GIT_DIR/$BUILD_DIR/resources" "$WWW_DIR"
+cp -R "$GIT_DIR/$BUILD_DIR/index.html" "$WWW_DIR"
+chmod -R uga+r "$WWW_DIR"
 
-mkdir -p /var/www/html/openlayers
-cp -R "$GIT_DIR"/* /var/www/html/openlayers/
-chmod -R uga+r /var/www/html/openlayers
-
-#Remove packages
-if [ -n "$OL_APT_REMOVE" ] ; then
-    echo "Removing naturaldocs..."
-    apt-get --assume-yes remove $OL_APT_REMOVE
-fi
-
-#TODO: Launch script and icon for OpenLayers to take you to a documentation page and examples listing
-#Add Launch icon to desktop
-cp "$BUILD_DIR"/../doc/images/project_logos/logo-OpenLayers.png \
-    /usr/share/pixmaps/openlayers.png
+#
+# Launch script and icon for OpenLayers to take you to a documentation 
+# page and examples listing
+#
+cp "$GIT_DIR/$BUILD_DIR/resources/logo.png" /usr/share/pixmaps/openlayers.png
 
 if [ ! -e /usr/share/applications/openlayers.desktop ] ; then
    cat << EOF > /usr/share/applications/openlayers.desktop
@@ -125,7 +132,7 @@ Encoding=UTF-8
 Name=OpenLayers
 Comment=Sample constructions
 Categories=Application;Internet;
-Exec=firefox http://localhost/openlayers/examples/ http://localhost/en/quickstart/openlayers_quickstart.html
+Exec=firefox http://localhost/openlayers/ http://localhost/en/quickstart/openlayers_quickstart.html
 Icon=openlayers
 Terminal=false
 StartupNotify=false
@@ -134,13 +141,12 @@ fi
 cp /usr/share/applications/openlayers.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/openlayers.desktop"
 
-
-# add a symbolic link into the ipython notebook extension directory
+#
+# Add a symbolic link into the ipython notebook extension directory
+# TODO - Necessary ???
+#
 mkdir -p "$USER_HOME"/.ipython/nbextensions/
 ln -s /var/www/html/openlayers/ "$USER_HOME"/.ipython/nbextensions/
 
-#TODO: Create local example that uses data from the many wms/wfs sources on the live disc
-
-
 ####
-"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
+"$BIN_DIR"/diskspace_probe.sh "`basename $0`" end
