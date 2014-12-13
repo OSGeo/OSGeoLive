@@ -98,8 +98,9 @@ cat << EOF > "index.html"
 <body>
 <h2>OpenLayers $OL_VERSION</h2>
 <ul>
-<li><a href="apidoc/">API Docs</a></li>
-<li><a href="examples/">Examples</a></li>
+build/hosted/HEAD/apidoc
+<li><a href="build/hosted/HEAD/apidoc/">API Docs</a></li>
+<li><a href="build/hosted/HEAD/examples/">Examples</a></li>
 <li><a href="http://openlayers.org/">OpenLayers.org website</a></li>
 </ul>
 </body>
@@ -110,12 +111,7 @@ EOF
 # Copy files to apache dir
 #
 mkdir -p "$WWW_DIR"
-cp -R "$GIT_DIR/$BUILD_DIR/apidoc" "$WWW_DIR"
-cp -R "$GIT_DIR/$BUILD_DIR/css" "$WWW_DIR"
-cp -R "$GIT_DIR/$BUILD_DIR/examples" "$WWW_DIR"
-cp -R "$GIT_DIR/$BUILD_DIR/ol" "$WWW_DIR"
-cp -R "$GIT_DIR/$BUILD_DIR/resources" "$WWW_DIR"
-cp -R "$GIT_DIR/$BUILD_DIR/index.html" "$WWW_DIR"
+cp -R "$GIT_DIR/$BUILD_DIR" "$WWW_DIR"
 chmod -R uga+r "$WWW_DIR"
 
 #
