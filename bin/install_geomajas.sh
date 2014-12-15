@@ -25,7 +25,7 @@ BUILD_DIR=`pwd`
 TMP="/tmp/build_geomajas"
 INSTALL_FOLDER="/usr/lib"  ## hard-wired to repo scripts
 BIN=/usr/local/bin
-GEOMAJAS_VERSION=2.1.1
+GEOMAJAS_VERSION=2.2.0
 GEOMAJAS_HOME="$INSTALL_FOLDER/geomajas-$GEOMAJAS_VERSION-bin"
 GEOMAJAS_PORT=3420
 
@@ -153,7 +153,7 @@ ln -s /usr/lib/geomajas-$GEOMAJAS_VERSION-bin/webapps/showcase/WEB-INF/classes/o
       /usr/local/share/data/vector/geomajas
 
 # remove local jai libraries to work with ones provided in default-java (fix for #959)
-rm "$GEOMAJAS_HOME"/webapps/showcase/WEB-INF/lib/jai*.jar
+#rm "$GEOMAJAS_HOME"/webapps/showcase/WEB-INF/lib/jai*.jar
 
 
 ####
