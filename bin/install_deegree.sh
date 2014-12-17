@@ -31,7 +31,7 @@
 # =====
 # This script will install deegree-webservices
 #
-# deegree webservices version 3.3.12 runs with openjdk7 on Apache Tomcat 6.0.35
+# deegree webservices version 3.3.13 runs with openjdk7 on Apache Tomcat 6.0.35
 #
 
 # Running:
@@ -48,7 +48,7 @@ BUILD_DIR=`pwd`
 
 TMP="/tmp/build_deegree"
 INSTALL_FOLDER="/usr/local/lib"
-DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.3.12"
+DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.3.13"
 DEEGREE_WORKSPACE_ROOT="/usr/local/share/deegree"
 BIN="/usr/local/bin"
 
@@ -77,9 +77,9 @@ cd "$TMP"
 
 ## download required stuff into tmp folder
 wget -N --progress=dot:mega \
-   "http://repo.deegree.org/content/groups/public/org/deegree/deegree-webservices/3.3.12/deegree-webservices-3.3.12.zip"
+   "http://repo.deegree.org/content/groups/public/org/deegree/deegree-webservices/3.3.13/deegree-webservices-3.3.13.zip"
 wget -N --progress=dot:mega \
-   "http://repo.deegree.org/content/groups/public/org/deegree/deegree-workspace-inspire/3.3.12/deegree-workspace-inspire-3.3.12.deegree-workspace"
+   "http://repo.deegree.org/content/groups/public/org/deegree/deegree-workspace-inspire/3.3.13/deegree-workspace-inspire-3.3.13.deegree-workspace"
 
 cp "$BUILD_DIR"/../app-conf/deegree/deegree_start.sh .
 cp "$BUILD_DIR"/../app-conf/deegree/deegree_stop.sh .
@@ -88,8 +88,8 @@ cp "$BUILD_DIR"/../app-conf/deegree/deegree_stop.sh .
 
 ## unpack as root
 cd "$TMP"
-unzip -q deegree-webservices-3.3.12.zip
-mv deegree-webservices-3.3.12 "$INSTALL_FOLDER"
+unzip -q deegree-webservices-3.3.13.zip
+mv deegree-webservices-3.3.13 "$INSTALL_FOLDER"
 # "user" must not own files outside of /home
 # do "chmod g+w; chgrp users" if needed, but only on stuff that really needs it
 #chown -R $USER_NAME:$USER_NAME "$DEEGREE_FOLDER"
@@ -119,7 +119,7 @@ if [ ! -e /usr/share/applications/deegree-start.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Start deegree
-Comment=deegree webservices 3.3.12
+Comment=deegree webservices 3.3.13
 Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
 Exec=dash $USER_HOME/bin/launchassist.sh $BIN/deegree_start.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
@@ -138,7 +138,7 @@ if [ ! -e /usr/share/applications/deegree-stop.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Stop deegree
-Comment=deegree webservices 3.3.12
+Comment=deegree webservices 3.3.13
 Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
 Exec=dash $USER_HOME/bin/launchassist.sh  $BIN/deegree_stop.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
@@ -175,9 +175,9 @@ mkdir -p "$DEEGREE_WORKSPACE_ROOT"
 
 ## Extract INSPIRE workspace in DEEGREE_WORKSPACE_ROOT
 cd "$DEEGREE_WORKSPACE_ROOT"
-mkdir deegree-workspace-inspire-3.3.12
-cd deegree-workspace-inspire-3.3.12
-unzip -q "$TMP"/deegree-workspace-inspire-3.3.12.deegree-workspace
+mkdir deegree-workspace-inspire-3.3.13
+cd deegree-workspace-inspire-3.3.13
+unzip -q "$TMP"/deegree-workspace-inspire-3.3.13.deegree-workspace
 
 ## Fix permissions
 # "user" must not own files outside of /home

@@ -11,7 +11,7 @@
 
 ## stop tomcat (and deegree webapps):
 ## kill the deegree-tomcat process
-DEE_DIR="/usr/local/lib/deegree-webservices-3.3.12"
+DEE_DIR="/usr/local/lib/deegree-webservices-3.3.13"
 
 ## stop tomcat (and deegree webapps)
 cd $DEE_DIR
