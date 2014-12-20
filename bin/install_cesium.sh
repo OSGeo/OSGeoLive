@@ -1,8 +1,8 @@
 #!/bin/sh
-# Author: Balasubramaniam Natarajan <bala150985 gmail> / Brian M Hamlin <dbb> 
+# Author: Balasubramaniam Natarajan <bala150985 gmail> / Brian M Hamlin <dbb>
 # Copyright (c) 2014 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -53,5 +53,11 @@ cp -rf $BUILD_DIR/cesium /var/www/html/
 
 chgrp www-data -R /var/www/html/cesium
 
+## TODO make a desktop launcher
 #firefox -new-window http://localhost/cesium/Apps/HelloWorld.html -new-tab http://localhost/cesium/ &
+
+## Cleanup
+
+rm -rf $BUILD_DIR
+#rm -rf /var/www/html/cesium/Build
 
