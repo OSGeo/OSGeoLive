@@ -37,6 +37,11 @@ BUILD_DIR="build/hosted/HEAD"
 WWW_DIR=/var/www/html/openlayers
 
 #
+# Make certain of some prerequisites
+#
+apt-get install --yes python-pip python-pystache node npm 
+
+#
 # Clone repository, checkout the latest stable tag and install dependencies
 #
 echo "\nCreating temporary directory $TMP_DIR..."
