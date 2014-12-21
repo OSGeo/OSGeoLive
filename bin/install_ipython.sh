@@ -30,8 +30,12 @@ BUILD_DIR=`pwd`
 ## 24jan14  change in iPython+numpy+matplotlib
 ## 04jul14  jtaylor iPython
 
-apt-get install --assume-yes git python-scipy python-pandas python-netcdf \
-        python-rasterio python-fiona python-matplotlib
+apt-get install --assume-yes  git \
+        python-matplotlib python-scipy python-pandas \
+        python-netcdf python-netcdf4 \
+        python-shapely python-rasterio python-fiona
+
+pip install descartes
 
 #-- iPython from jtaylor .deb
 apt-add-repository --yes ppa:jtaylor/ipython
