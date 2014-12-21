@@ -94,6 +94,7 @@ fi
 #
 cd "$GIT_DIR/$BUILD_DIR"
 
+echo "\nGenerating index file..."
 cat << EOF > "index.html"
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -101,11 +102,11 @@ cat << EOF > "index.html"
 <head>
 </head>
 <body>
-<h2>OpenLayers $OL_VERSION</h2>
+<h1>OpenLayers $OL_VERSION</h1>
+<p>Welcome to OpenLayers index page:</p>
 <ul>
-build/hosted/HEAD/apidoc
-<li><a href="build/hosted/HEAD/apidoc/">API Docs</a></li>
-<li><a href="build/hosted/HEAD/examples/">Examples</a></li>
+<li><a href="apidoc/">API Docs</a>: explore the project documentation</li>
+<li><a href="examples/">Examples</a>: see the project in action</li>
 <li><a href="http://openlayers.org/">OpenLayers.org website</a></li>
 </ul>
 </body>
@@ -115,14 +116,22 @@ EOF
 #
 # Copy files to apache dir
 #
+echo "\nCopying files to web directory..."
 mkdir -p "$WWW_DIR"
-cp -R "$GIT_DIR/$BUILD_DIR" "$WWW_DIR"
+cp -rf "$GIT_DIR/$BUILD_DIR"/apidoc "$WWW_DIR"
+cp -rf "$GIT_DIR/$BUILD_DIR"/build "$WWW_DIR"
+cp -rf "$GIT_DIR/$BUILD_DIR"/css "$WWW_DIR"
+cp -rf "$GIT_DIR/$BUILD_DIR"/examples "$WWW_DIR"
+cp -rf "$GIT_DIR/$BUILD_DIR"/ol "$WWW_DIR"
+cp -rf "$GIT_DIR/$BUILD_DIR"/resources "$WWW_DIR"
+cp -rf "$GIT_DIR/$BUILD_DIR"/index.html "$WWW_DIR"
 chmod -R uga+r "$WWW_DIR"
 
 #
 # Launch script and icon for OpenLayers to take you to a documentation 
 # page and examples listing
 #
+echo "\nGenerating launcher..."
 cp "$GIT_DIR/$BUILD_DIR/resources/logo.png" /usr/share/pixmaps/openlayers.png
 
 if [ ! -e /usr/share/applications/openlayers.desktop ] ; then
@@ -141,13 +150,6 @@ EOF
 fi
 cp /usr/share/applications/openlayers.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/openlayers.desktop"
-
-#
-# Add a symbolic link into the ipython notebook extension directory
-# TODO - Necessary ???
-#
-mkdir -p "$USER_HOME"/.ipython/nbextensions/
-ln -s /var/www/html/openlayers/ "$USER_HOME"/.ipython/nbextensions/
 
 ####
 "$BIN_DIR"/diskspace_probe.sh "`basename $0`" end
