@@ -30,7 +30,7 @@ BUILD_DIR=`pwd`
 ## 24jan14  change in iPython+numpy+matplotlib
 ## 04jul14  jtaylor iPython
 
-apt-get install --assume-yes  git \
+apt-get install --assume-yes  git python-pip \
         python-matplotlib python-scipy python-pandas \
         python-netcdf python-netcdf4 \
         python-shapely python-rasterio python-fiona
