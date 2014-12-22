@@ -33,7 +33,8 @@ BUILD_DIR=`pwd`
 apt-get install --assume-yes  git python-pip \
         python-matplotlib python-scipy python-pandas \
         python-netcdf python-netcdf4 \
-        python-shapely python-rasterio python-fiona
+        python-shapely python-rasterio python-fiona \
+        python-geopandas python-descartes
 
 pip install descartes
 
