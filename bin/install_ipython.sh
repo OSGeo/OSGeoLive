@@ -36,8 +36,6 @@ apt-get install --assume-yes  git python-pip \
         python-shapely python-rasterio python-fiona \
         python-geopandas python-descartes
 
-pip install descartes
-
 #-- iPython from jtaylor .deb
 apt-add-repository --yes ppa:jtaylor/ipython
 apt-get update
