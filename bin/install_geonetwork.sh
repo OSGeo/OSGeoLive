@@ -173,13 +173,7 @@ mkdir -p /usr/local/share/icons
 cp -f "$USER_HOME/gisvm/doc/images/project_logos/logo-GeoNetwork.png" \
     /usr/local/share/icons/geonetwork_icon.png
 
-#Manual is being put into /usr/local/share and linked to the geonetwork documentation
-#mkdir -p /usr/local/share/geonetwork
-#cp GeoNetwork_opensource_v264_Manual.pdf /usr/local/share/geonetwork/GeoNetwork_opensource_v264_Manual.pdf
-#chmod 644 /usr/local/share/geonetwork/*.pdf
-#cp GeoNetwork_opensource_v264_Manual.pdf $USER_HOME/Desktop
-#chown $USER_NAME:$USER_NAME $USER_HOME/Desktop/GeoNetwork_opensource_v264_Manual.pdf
-
-
+# No manual/doco as these are included in the geonetwork release as html
+# pages
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
