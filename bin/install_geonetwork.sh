@@ -144,6 +144,9 @@ cp -f mapviewer.wmc "$GEONETWORK_FOLDER/web/geonetwork/maps/mapviewer.wmc"
 cp -f data-db-default.sql "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/."
 cp -f start-geonetwork.sh "$GEONETWORK_FOLDER/bin/start-geonetwork.sh"
 cp -f stop-geonetwork.sh "$GEONETWORK_FOLDER/bin/stop-geonetwork.sh"
+# copy special mef files into place so that port numbers for files available
+# for download are on 8880 when sample data are loaded
+cp -f iso-19139-*.mef "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/data/config/schema_plugins/iso19139/sample-data"
 
 # fix permissions on installed software
 #   what's really needed here? the logs for sure, the rest are guesses
