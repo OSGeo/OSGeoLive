@@ -28,7 +28,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-mkdir $BUILD_DIR
+mkdir -p $BUILD_DIR
 cd $BUILD_DIR
 wget -c http://cesiumjs.org/releases/Cesium-1.4.zip
 
@@ -42,7 +42,7 @@ if [ -d $BUILD_DIR/cesium ]; then
   rm -rf $BUILD_DIR/cesium
 fi
 
-mkdir $BUILD_DIR/cesium
+mkdir -p $BUILD_DIR/cesium
 unzip $BUILD_DIR/Cesium-1.4.zip -d /tmp/build_cesium/cesium/
 
 if [ -d /var/www/html/cesium ]; then
@@ -61,3 +61,5 @@ chgrp www-data -R /var/www/html/cesium
 rm -rf $BUILD_DIR
 #rm -rf /var/www/html/cesium/Build
 
+####
+./diskspace_probe.sh "`basename $0`" end
