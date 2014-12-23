@@ -27,7 +27,7 @@
 # About:
 # =====
 # This script will install geonetwork into Xubuntu
-# stable version: v2.10.0 (14 Juin 2013) (also the manuals)
+# stable version: v2.10.4 (23 Dec 2014) (also the manuals)
 # based on Jetty + Geoserver + H2
 # Installed at /usr/local/lib/geonetwork
 # Port number =8880
@@ -43,7 +43,7 @@
 # To enter geonetwork, start browser with url:
 # http://localhost:8880/geonetwork
 #
-# GeoNetwork version 2.10.0 runs with java-sun-1.5 or java-sun-1.6.
+# GeoNetwork version 2.10.4 runs with java-sun-1.6 or higher.
 # It can be installed into servlet containers: jetty and tomcat. Jetty is   
 # bundled with the installer.
 
@@ -114,6 +114,7 @@ install.xml
 jetty.xml
 jetty-webapps.xml
 config-gui.xml
+mapviewer.wmc
 start-geonetwork.sh
 stop-geonetwork.sh
 data-db-default.sql
@@ -137,6 +138,7 @@ java -jar geonetwork-install-$GEONETWORK_VERSION.jar install.xml
 cp -f jetty.xml "$GEONETWORK_FOLDER/jetty/etc/jetty.xml"
 cp -f jetty-webapps.xml "$GEONETWORK_FOLDER/jetty/etc/jetty-webapps.xml"
 cp -f config-gui.xml "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/config-gui.xml"
+cp -f mapviewer.wmc "$GEONETWORK_FOLDER/web/geonetwork/maps/mapviewer.wmc"
 # HTML5UI is using path with port number so we need to modify the settings in SQL
 # Needed until https://github.com/geonetwork/core-geonetwork/issues/138
 cp -f data-db-default.sql "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/."
