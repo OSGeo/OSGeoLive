@@ -1,6 +1,26 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 8.5alpha2
+===================
+
+ * Upgraded OpenLayers to version 3.0.0
+ * Upgraded GDAL to 1.11.1
+ * Upgraded QGIS to 2.6.1
+ * Upgraded pycsw to 1.10.0
+ * Upgraded GeoServer to 2.6.1
+ * Updated deegree webservices 3.3.13
+ * Update cartaro to version 1.5
+ * Cesium added to the disk
+ * Temporarily disable Tilemill (#1429) 
+ * Update geonetwork quickstart for 2.10.4 
+ * Install geopandas and descartes from ppa
+ * Upgraded Geomajas to 2.2.0
+ * New 8.5 desktop background
+ * Updated 52nWPS version to 3.3.1
+ * Update GeoMoose from version 2.6.1 to 2.7.1
+ * Update otb version number to 4.2.1
+
 Version 8.5alpha1
 ===================
 
