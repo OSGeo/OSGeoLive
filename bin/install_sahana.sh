@@ -398,8 +398,8 @@ mkdir -p "$USER_HOME/Desktop"
 cp -f /usr/share/applications/sahana.desktop \
    "$USER_HOME/Desktop/sahana.desktop"
 
-# cleanup
-apt-get --assume-yes remove python-dev
+# cleanup, but do not remove python-dev here
+# apt-get --assume-yes remove python-dev
 
 rm -rf "$INSTALL_DIR/web2py/.git"*
 rm -rf "$INSTALL_DIR/web2py/applications/eden/.git"*
