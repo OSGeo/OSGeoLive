@@ -117,7 +117,8 @@ export USER_NAME
 ./install_mapbender3.sh
 ./install_geokettle.sh
 ./install_gmt.sh
-./install_grass.sh
+# ./install_grass.sh
+./install_grass7.sh
 ./install_qgis.sh
 ./install_qgis_mapserver.sh
 ./install_saga.sh
