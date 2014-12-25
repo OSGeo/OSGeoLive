@@ -1,0 +1,12 @@
+--- /usr/lib/python2.7/dist-packages/cartopy/io/shapereader.py	2014-06-19 09:10:20.000000000 -0700
++++ shapereader.py	2014-12-24 21:49:39.280181856 -0800
+@@ -261,7 +261,8 @@
+     # define the NaturalEarth url template. The natural earth website
+     # returns a 302 status if accessing directly, so we use the nacis
+     # url directly
+-    _NE_URL_TEMPLATE = ('http://www.nacis.org/naturalearth/{resolution}'
++    ## patch dec14  cdn url
++    _NE_URL_TEMPLATE = ('http://www.naciscdn.org/naturalearth/{resolution}'
+                         '/{category}/ne_{resolution}_{name}.zip')
+ 
+     def __init__(self,
