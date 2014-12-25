@@ -46,7 +46,7 @@ mkdir -p "$TMP_DIR"
 
 echo "\nCreating OpenLayers2 directory $OL2_DIR..."
 mkdir -p "$OL2_DIR"
-echo "\nCreating OpenLayers3 directory $OL2_DIR..."
+echo "\nCreating OpenLayers3 directory $WWW_DIR..."
 mkdir -p "$WWW_DIR"
 
 echo "\nDownloading OpenLayers2..."
