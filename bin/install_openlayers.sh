@@ -51,7 +51,13 @@ mkdir -p "$WWW_DIR"
 
 echo "\nDownloading OpenLayers2..."
 cd "$TMP_DIR"
-wget "http://github.com/openlayers/openlayers/releases/download/release-$OL2_VERSION/OpenLayers-$OL2_VERSION.tar.gz"
+if [ -f "OpenLayers-$OL2_VERSION.tar.gz" ]
+then
+   echo "OpenLayers-$OL2_VERSION.tar.gz has already been downloaded."
+else
+   wget -c --progress=dot:mega \
+      "http://github.com/openlayers/openlayers/releases/download/release-$OL2_VERSION/OpenLayers-$OL2_VERSION.tar.gz"
+fi
 
 echo "\nInstalling OpenLayers2..."
 tar zxvf "OpenLayers-$OL2_VERSION.tar.gz"
@@ -61,6 +67,7 @@ mv img "$OL2_DIR"/
 mv theme "$OL2_DIR"/
 chmod -R uga+r "$OL2_DIR"
 
+echo "\nCleaning up..."
 cd "$TMP_DIR"
 rm -rf "OpenLayers-$OL2_VERSION"
 rm "OpenLayers-$OL2_VERSION.tar.gz"
