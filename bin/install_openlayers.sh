@@ -14,12 +14,12 @@
 #
 # About:
 # =====
-# This script will install OpenLayers 3.0.0
+# This script will install OpenLayers 3.0.0 (and OpenLayers 2.13.1 for legacy demos in OSGeoLive)
 #
 # Running:
 # =======
 # sudo service apache2 start
-# Then open a web browser and go to http://localhost/openLayers/
+# Then open a web browser and go to http://localhost/ol3/
 
 ./diskspace_probe.sh "`basename $0`" begin
 BIN_DIR=`pwd`
@@ -31,10 +31,43 @@ fi
 USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_openlayers"
 OL_VERSION="v3.0.0"
+OL2_VERSION="2.13.1" 
 GIT_DIR="$TMP_DIR/openlayers-$OL_VERSION"
 GIT_OL3_URL="https://github.com/openlayers/ol3.git"
 BUILD_DIR="build/hosted/HEAD"
-WWW_DIR=/var/www/html/openlayers
+WWW_DIR=/var/www/html/ol3
+OL2_DIR=/var/www/html/openlayers
+
+#
+# Install OpenLayers 2
+#
+echo "\nCreating temporary directory $TMP_DIR..."
+mkdir -p "$TMP_DIR"
+
+echo "\nCreating OpenLayers2 directory $OL2_DIR..."
+mkdir -p "$OL2_DIR"
+echo "\nCreating OpenLayers3 directory $OL2_DIR..."
+mkdir -p "$WWW_DIR"
+
+echo "\nDownloading OpenLayers2..."
+cd "$TMP_DIR"
+wget "http://github.com/openlayers/openlayers/releases/download/release-$OL2_VERSION/OpenLayers-$OL2_VERSION.tar.gz"
+
+echo "\nInstalling OpenLayers2..."
+tar zxvf "OpenLayers-$OL2_VERSION.tar.gz"
+cd "OpenLayers-$OL2_VERSION"
+mv OpenLayers.js "$OL2_DIR"/
+mv img "$OL2_DIR"/
+mv theme "$OL2_DIR"/
+chmod -R uga+r "$OL2_DIR"
+
+cd "$TMP_DIR"
+rm -rf "OpenLayers-$OL2_VERSION"
+rm "OpenLayers-$OL2_VERSION.tar.gz"
+
+#
+# Install OpenLayers 3
+#
 
 #
 # Make certain of some prerequisites
@@ -44,10 +77,8 @@ apt-get install --yes python-pip python-pystache node npm
 #
 # Clone repository, checkout the latest stable tag and install dependencies
 #
-echo "\nCreating temporary directory $TMP_DIR..."
-mkdir -p "$TMP_DIR"
 cd "$TMP_DIR"
-echo "\nFetching project..."
+echo "\nFetching OpenLayers3..."
 if [ ! -d "$GIT_DIR" ] ; then
     # Clone project and checkout the stable tag
     echo "\nClonning project from $GIT_OL3_URL..."
@@ -117,7 +148,7 @@ EOF
 # Copy files to apache dir
 #
 echo "\nCopying files to web directory..."
-mkdir -p "$WWW_DIR"
+
 cp -rf "$GIT_DIR/$BUILD_DIR"/apidoc "$WWW_DIR"
 cp -rf "$GIT_DIR/$BUILD_DIR"/build "$WWW_DIR"
 cp -rf "$GIT_DIR/$BUILD_DIR"/css "$WWW_DIR"
@@ -142,7 +173,7 @@ Encoding=UTF-8
 Name=OpenLayers
 Comment=Sample constructions
 Categories=Application;Internet;
-Exec=firefox http://localhost/openlayers/ http://localhost/en/quickstart/openlayers_quickstart.html
+Exec=firefox http://localhost/ol3/ http://localhost/en/quickstart/openlayers_quickstart.html
 Icon=openlayers
 Terminal=false
 StartupNotify=false
