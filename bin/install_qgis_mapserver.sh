@@ -38,7 +38,7 @@ QS_APACHE_CONF=$APP_CONF_DIR$QS_APACHE_CONF_FILE
 APACHE_CONF_DIR="/etc/apache2/conf-available/"
 
 ## get qgis_mapserver
-apt-get install --assume-yes qgis-mapserver libapache2-mod-fcgid
+apt-get install --assume-yes qgis-server libapache2-mod-fcgid
 
 # Make sure Apache has cgi-bin setup, and that fcgid is enabled
 a2enmod cgi
