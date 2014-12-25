@@ -57,7 +57,7 @@ TMP_DIR=/tmp/build_grass
 mkdir "$TMP_DIR"
 
 # https://launchpad.net/~grass/+archive/grass-stable?field.series_filter=trusty
-apt-add-repository --yes ppa:grass/grass-stable
+# apt-add-repository --yes ppa:grass/grass-stable
 apt-get --quiet update
 apt-get --yes install grass70-core grass70-gui grass70-doc grass70-dev
 
