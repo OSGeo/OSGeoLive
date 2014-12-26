@@ -100,8 +100,8 @@ sed -i -e 's/Network;//' /usr/share/applications/merkaartor.desktop
 # add an icon for viewing The Map online
 mkdir -p /usr/local/share/applications
 
-MAP_CENTER="lat=45.5282&lon=-122.6632"
-MARKER="mlat=45.52875&mlon=-122.6632"
+MAP_CENTER="lat=37.5&lon=-122.3"
+MARKER="mlat=37.5&mlon=-122.3"
 ZOOM="16"
 
 cat << EOF > /usr/local/share/applications/osm_online.desktop
@@ -122,8 +122,8 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
 
 #### install sample OSM data
-CITY="Portland_OR"
-BBOX="-122.8,45.4,-122.5,45.6"
+CITY="SanMateo_CA"
+BBOX="-122.4,37.6,-122.2,37.4"
 
 # visualize: (FIXME!)
 #http://www.openstreetmap.org/?box=yes&bbox=$BBOX
