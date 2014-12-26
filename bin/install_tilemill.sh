@@ -59,12 +59,7 @@ chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/Documents
 mkdir -p /etc/skel/Documents/MapBox/
 cp "$USER_HOME"/Documents/MapBox/app.db /etc/skel/Documents/MapBox/
 
-
-#### install MBTiles utility as python-mbutil.deb
-#  https://github.com/mapbox/mbutil
-
-pypi-install mbutil
-
+apt-get --assume-yes install python-mbutil
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
