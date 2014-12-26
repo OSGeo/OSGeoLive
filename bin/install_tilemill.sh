@@ -30,13 +30,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-
-add-apt-repository --yes ppa:developmentseed/mapbox
-
-apt-get -q update
-
 apt-get --assume-yes install tilemill
-
 
 # trac #1348: install fails in chroot environment due to init script trouble.
 ### hack to work around it ###
@@ -64,8 +58,6 @@ chown -R "$USER_NAME:$USER_NAME" "$USER_HOME"/Documents
 
 mkdir -p /etc/skel/Documents/MapBox/
 cp "$USER_HOME"/Documents/MapBox/app.db /etc/skel/Documents/MapBox/
-
-add-apt-repository --yes --remove ppa:developmentseed/mapbox
 
 
 #### install MBTiles utility as python-mbutil.deb
