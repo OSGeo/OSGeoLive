@@ -18,7 +18,12 @@
 #
 
 ./diskspace_probe.sh "`basename $0`" begin
+
+## make a tmp dir to download Cesium,
+##  remember the subdir name, use as the local URL
 BUILD_DIR='/tmp/build_cesium'
+WEB_DIR=cesium
+UNZIP_DIR=$BUILD_DIR/$WEB_DIR
 ####
 
 
@@ -38,20 +43,19 @@ if [ $IsUnZipPresent -eq 0 ]; then
   apt-get install unzip
 fi
 
-if [ -d $BUILD_DIR/cesium ]; then
-  rm -rf $BUILD_DIR/cesium
+if [ -d $UNZIP_DIR ]; then
+  rm -rf $UNZIP_DIR
 fi
 
-mkdir -p $BUILD_DIR/cesium
-unzip $BUILD_DIR/Cesium-1.4.zip -d /tmp/build_cesium/cesium/
+mkdir -p $UNZIP_DIR
+unzip $BUILD_DIR/Cesium-1.4.zip -d $UNZIP_DIR/
 
 if [ -d /var/www/html/cesium ]; then
   rm -rf /var/www/html/cesium
 fi
 
-cp -rf $BUILD_DIR/cesium /var/www/html/
-
-chgrp www-data -R /var/www/html/cesium
+cp -rf $UNZIP_DIR /var/www/html/
+chgrp www-data -R /var/www/html/$WEB_DIR
 
 ## TODO make a desktop launcher
 #firefox -new-window http://localhost/cesium/Apps/HelloWorld.html -new-tab http://localhost/cesium/ &
