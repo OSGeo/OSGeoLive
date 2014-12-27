@@ -123,7 +123,7 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
 #### install sample OSM data
 CITY="SanMateo_CA"
-BBOX="-122.4,37.6,-122.2,37.4"
+BBOX="-122.44,37.4,-122.2,37.7"
 
 # visualize: (FIXME!)
 #http://www.openstreetmap.org/?box=yes&bbox=$BBOX
