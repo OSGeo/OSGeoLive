@@ -55,9 +55,9 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 apt-get -q update
 
 #Plugin interaction with R
-apt-get --assume-yes install python-rpy grass-dev python-shapely \
+apt-get --assume-yes install python-rpy python-shapely \
     build-essential gfortran libblas-dev liblapack-dev  \
-    netcdf-bin libgdal1-1.10.1-grass
+    netcdf-bin
 
 # These dependencies were only necessary for building packages which is now done in the ppa
 # apt-get --assume-yes install python-all-dev libgdal-dev \
@@ -88,7 +88,7 @@ apt-get --assume-yes install r-recommended
 apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
  r-cran-geor r-cran-gstat r-cran-maptools r-cran-randomfields r-cran-raster\
  r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
- r-cran-splancs r-cran-spgrass6 r-cran-rgeos r-cran-ncdf r-cran-rsaga
+ r-cran-splancs r-cran-rgeos r-cran-ncdf r-cran-rsaga
 
 # add user to the staff group so that they can install system-wide packages
 adduser "$USER_NAME" staff
@@ -129,10 +129,10 @@ apt-get --assume-yes autoremove
 ## fix for broken PDFs, fixed in upstream SVN Aug 2011  (bug #769)
 mkdir /tmp/build_R
 cd /tmp/build_R
-wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/R/spgrass6_pdf.zip"
-unzip spgrass6_pdf.zip
-cp *.pdf /usr/lib/R/site-library/spgrass6/doc/
+# wget -N --progress=dot:mega \
+#    "http://download.osgeo.org/livedvd/data/R/spgrass6_pdf.zip"
+# unzip spgrass6_pdf.zip
+# cp *.pdf /usr/lib/R/site-library/spgrass6/doc/
 
 
 # link sample data to central location

@@ -32,7 +32,7 @@ BUILD_DATE=20140202
 
 apt-get -q update
 
-apt-get install --assume-yes ossim-core libgdal1-1.10.1-grass
+apt-get install --assume-yes ossim-core
 
 # install main dependencies
 apt-get install --assume-yes libtiff5 libgeotiff2 \
@@ -126,7 +126,7 @@ BRCFILE="/etc/skel/.bashrc"
 echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$BRCFILE"
 echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$USER_HOME/.bashrc"
 
-apt-get install --assume-yes grass-core qgis python-pysqlite2 \
+apt-get install --assume-yes python-pysqlite2 \
    python-scipy python-serial python-psycopg2 proj-bin python-lxml \
    libqt4-core python-distutils-extra python-setuptools \
    python-qscintilla2
