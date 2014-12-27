@@ -35,12 +35,12 @@ apt-get --assume-yes install tilemill
 # trac #1348: install fails in chroot environment due to init script trouble.
 ### hack to work around it ###
 # make errors non-fatal to install
-sed -i -e 's/exit $?/exit 0/' \
-   "/var/lib/dpkg/info/tilemill.postinst"
-
-apt-get --assume-yes install tilemill
-
-apt-get --yes -f install
+# sed -i -e 's/exit $?/exit 0/' \
+#    "/var/lib/dpkg/info/tilemill.postinst"
+# 
+# apt-get --assume-yes install tilemill
+# 
+# apt-get --yes -f install
 ### end of hack ###
 
 
