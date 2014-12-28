@@ -44,18 +44,32 @@ mkdir /usr/local/share/osm
 apt-get install --assume-yes josm josm-plugins gpsd gpsd-clients \
    merkaartor xmlstarlet imposm osmosis
 
-## TODO review - needed for 1404 ?!
+## reviewed - 1404 - Pg9.3x - Postgis 2.1x
 # fix for 2.1.1-1~precise3 postgis-java package breakage (for osmosis)
 #rm -f /usr/share/java/postgis.jar
 #ln -s /usr/share/java/postgis-jdbc-2.1.0~rc1.jar /usr/share/java/postgis.jar
 
-# (imposm is an OpenStreetMap importer for PostGIS)
+##-----------------------------------------------
+# imposm -- OpenStreetMap importer for PostGIS
 # http://wiki.openstreetmap.org/wiki/Imposm
+##----------------
 
-
-### PythonOsmApi: a handy python utility
+##-----------------------------------------------
+## OsmApi.py -- a handy python utility
 # http://wiki.openstreetmap.org/wiki/PythonOsmApi
-svn export http://svn.openstreetmap.org/applications/utils/python_lib/OsmApi
+# svn export http://svn.openstreetmap.org/applications/utils/python_lib/OsmApi
+BUILD_OSMAPI_DIR=/tmp/build_osmapi
+mkdir -p $BUILD_OSMAPI_DIR
+cd $BUILD_OSMAPI_DIR
+git clone https://github.com/metaodi/osmapi.git
+if [ -d osmapi ] ; then
+  cd osmapi
+  python setup.py build
+  python setup.py install
+  cd
+fi
+rm -rf $BUILD_OSMAPI_DIR
+
 # FIXEDME: install to /usr/local/lib python2
 cp OsmApi/OsmApi.py /usr/local/lib/python2.7/site-packages/
 
