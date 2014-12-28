@@ -274,32 +274,34 @@ chmod g+w /usr/share/ossim/elevation
 chgrp users /usr/share/ossim/elevation
 
 
-#### spearfish subset to VRT
-GISBASE=/usr/lib/grass64
-export GISBASE
-SPEARFISH_RASTER="/usr/local/share/grass/spearfish60/PERMANENT/cellhd"
+## TODO: Port the following to GRASS7
 
-for MAP in "$SPEARFISH_RASTER"/* ; do
-    gdal_translate -of VRT "$MAP" "$VRT_DATA/`basename $MAP`.vrt"
-done
-
-FILES=`ls "$VRT_DATA"/*.vrt`
-/usr/bin/ossim-img2rr $FILES
-/usr/bin/ossim-create-histo $FILES
-
-
-/usr/bin/gdal_translate -of VRT \
-    "$SPEARFISH_RASTER"/elevation.10m \
-    "$QUICKSTART"/workspace/elevation10m.vrt
-
-/usr/bin/gdal_translate -of GTIFF -ot Float64 \
-    "$QUICKSTART"/workspace/elevation10m.vrt \
-    "$QUICKSTART"/workspace/elevation10m.tif
-
-OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference \
-  /usr/bin/ossim-orthoigen -w general_raster_bip \
-    "$QUICKSTART"/workspace/elevation10m.tif \
-    /usr/share/ossim/elevation/spearfish/elevation10m.ras
+# #### spearfish subset to VRT
+# GISBASE=/usr/lib/grass64
+# export GISBASE
+# SPEARFISH_RASTER="/usr/local/share/grass/spearfish60/PERMANENT/cellhd"
+# 
+# for MAP in "$SPEARFISH_RASTER"/* ; do
+#     gdal_translate -of VRT "$MAP" "$VRT_DATA/`basename $MAP`.vrt"
+# done
+# 
+# FILES=`ls "$VRT_DATA"/*.vrt`
+# /usr/bin/ossim-img2rr $FILES
+# /usr/bin/ossim-create-histo $FILES
+# 
+# 
+# /usr/bin/gdal_translate -of VRT \
+#     "$SPEARFISH_RASTER"/elevation.10m \
+#     "$QUICKSTART"/workspace/elevation10m.vrt
+# 
+# /usr/bin/gdal_translate -of GTIFF -ot Float64 \
+#     "$QUICKSTART"/workspace/elevation10m.vrt \
+#     "$QUICKSTART"/workspace/elevation10m.tif
+# 
+# OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference \
+#   /usr/bin/ossim-orthoigen -w general_raster_bip \
+#     "$QUICKSTART"/workspace/elevation10m.tif \
+#     /usr/share/ossim/elevation/spearfish/elevation10m.ras
 
 
 unset OSSIM_PREFS_FILE
