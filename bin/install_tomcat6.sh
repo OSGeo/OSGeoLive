@@ -48,6 +48,7 @@ adduser "$USER_NAME" tomcat6
 # TODO: (?)
 # add start/stop to sudoers file to allow alternate VM users to launch without password?
 
+service tomcat6 stop
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
