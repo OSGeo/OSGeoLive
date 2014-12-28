@@ -192,7 +192,7 @@ if [ -e /etc/ssh/sshd_config ] ; then
    sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 fi
 
-# Restart tomcat to ensure all applications are deployed
+# Start tomcat to ensure all applications are deployed
 service tomcat6 start
 service tomcat6 stop
 
