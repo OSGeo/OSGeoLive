@@ -136,8 +136,8 @@ MAPSET: user1
 GRASS_GUI: wxpython
 EOF
 
-# buggy (prompt.py not found), so disable it for now
-echo "unset PROMPT_COMMAND" > "$USER_HOME/.grass7/bashrc"
+# # buggy (prompt.py not found), so disable it for now
+# echo "unset PROMPT_COMMAND" > "$USER_HOME/.grass7/bashrc"
 
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/.grass7"
 
