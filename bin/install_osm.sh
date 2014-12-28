@@ -70,10 +70,9 @@ if [ -d osmapi ] ; then
 fi
 rm -rf $BUILD_OSMAPI_DIR
 
-# FIXEDME: install to /usr/local/lib python2
-cp OsmApi/OsmApi.py /usr/local/lib/python2.7/site-packages/
 
-
+##-----------------------------------------------
+## JOSM -- OpenStreetMap feature editor
 # the stock Ubuntu JOSM is badly out of date, so get the latest:
 #   leave it installed to keep dependencies
 #   file name is not versioned so don't use "wget -c"
@@ -136,6 +135,7 @@ Categories=Education;Science;Geoscience;
 EOF
 chmod a+x /usr/local/share/applications/osm_online.desktop
 cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
+
 
 #########################################################################
 #### install sample OSM data
@@ -221,7 +221,7 @@ ln -s /usr/local/share/data/osm/"${CITY}_CBD.osm.bz2" \
 
 
 ###########################
-####testing for osm2pgsql 0.8x
+#### testing for osm2pgsql 0.8x
 add-apt-repository --yes ppa:kakrueger/openstreetmap
 apt-get -q update
 apt-get --assume-yes --no-install-recommends install osm2pgsql
