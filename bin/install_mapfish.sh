@@ -115,7 +115,7 @@ fi
 wget -O - "http://www.mapfish.org/downloads/foss4g_livedvd/tomcat-server.xml.patch" \
     | patch -N "$TOMCAT_SERVER_CONF"
 
-/etc/init.d/tomcat6 restart
+#/etc/init.d/tomcat6 restart
 
 # configure apache
 a2enmod proxy_ajp
