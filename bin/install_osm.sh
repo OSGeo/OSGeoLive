@@ -56,8 +56,8 @@ apt-get install --assume-yes josm josm-plugins gpsd gpsd-clients \
 ### PythonOsmApi: a handy python utility
 # http://wiki.openstreetmap.org/wiki/PythonOsmApi
 svn export http://svn.openstreetmap.org/applications/utils/python_lib/OsmApi
-# FIXME: install to /usr/local/ or similar.
-cp OsmApi/OsmApi.py /usr/lib/python2.7/
+# FIXEDME: install to /usr/local/lib python2
+cp OsmApi/OsmApi.py /usr/local/lib/python2.7/site-packages/
 
 
 # the stock Ubuntu JOSM is badly out of date, so get the latest:
@@ -66,11 +66,16 @@ cp OsmApi/OsmApi.py /usr/lib/python2.7/
 
 # see also  http://josm.openstreetmap.de/wiki/Download#Ubuntu
 
-wget --progress=dot:mega -O /usr/local/share/osm/josm-tested.jar \
-   http://josm.openstreetmap.de/josm-tested.jar
+JOSM_INSTALL_DIR=/usr/local/share/osm
+JOSM_INSTALL_JAR=josm-tested.jar
+if [ ! -e ${JOSM_INSTALL_DIR}/${JOSM_INSTALL_JAR} ] ; then
+	wget --progress=dot:mega -O ${JOSM_INSTALL_DIR}/${JOSM_INSTALL_JAR} \
+	  http://josm.openstreetmap.de/josm-tested.jar
+fi
+
 # replace symlink
 rm /usr/share/josm/josm.jar
-ln -s /usr/local/share/osm/josm-tested.jar /usr/share/josm/josm.jar
+ln -s ${JOSM_INSTALL_DIR}/${JOSM_INSTALL_JAR} /usr/share/josm/josm.jar
 
 #Hack to make josm launch with openjdk7
 sed -i -e 's/openjdk-6-jre/openjdk-*-jre/' /usr/bin/josm
@@ -118,9 +123,7 @@ EOF
 chmod a+x /usr/local/share/applications/osm_online.desktop
 cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
-
-
-
+#########################################################################
 #### install sample OSM data
 CITY="SanMateo_CA"
 BBOX="-122.44,37.4,-122.2,37.7"
@@ -144,7 +147,7 @@ BBOX="-122.44,37.4,-122.2,37.7"
 #
 # $ createdb -T template_postgis osm_$CITY
 # $ osm2pgsql -d osm_$CITY $CITY.osm
-# 
+#
 
 ### Please update to latest data at the last minute! See data dir on server for details.
 wget -N --progress=dot:mega \
@@ -204,7 +207,7 @@ ln -s /usr/local/share/data/osm/"${CITY}_CBD.osm.bz2" \
 
 
 ###########################
-####testing for osm2pgsql 0.80
+####testing for osm2pgsql 0.8x
 add-apt-repository --yes ppa:kakrueger/openstreetmap
 apt-get -q update
 apt-get --assume-yes --no-install-recommends install osm2pgsql
@@ -213,23 +216,23 @@ add-apt-repository --yes --remove ppa:kakrueger/openstreetmap
 #apt-get --assume-yes install osm2pgsql
 
 
-# 
+#
 # ### Make hi-res OSM coastline a shapefile polygon for Mapnik rendering
-# 
+#
 # # Xapi OSM extractor:  http://wiki.openstreetmap.org/wiki/Xapi
 # wget -O barcelona_coastline.osm \
 #    "http://osmxapi.hypercube.telascience.org/api/0.6/way[natural=coastline][bbox=1.5,41.0,2.5,41.75]"
-# 
+#
 # # GRASS GIS commands to turn the .osm coastline segment into a closed shapefile polygon
 # v.in.gpsbabel -r in=barcelona_coastline.osm format=osm \
 #   out=barcelona_coastline
-# 
+#
 # eval `v.info -g barcelona_coastline`
 #  north=41.562324
 #  south=41.163893
 #  east=2.515893
 #  west=1.462335
-# 
+#
 # echo "
 # L 4
 #  $west $south
@@ -237,16 +240,16 @@ add-apt-repository --yes --remove ppa:kakrueger/openstreetmap
 #  $east 41.75
 #  $east $north
 # " | v.in.ascii -n format=standard out=barcelona_ul_box --o
-# 
+#
 # v.patch in=barcelona_coastline,barcelona_ul_box out=barcelona_coastline_box1
 # v.type in=barcelona_coastline_box1 out=barcelona_coastline_box2 type=line,boundary
 # v.centroids in=barcelona_coastline_box2 out=barcelona_coastline_box
 # g.remove v=barcelona_coastline_box1,barcelona_coastline_box2
-# 
+#
 # v.out.ogr -c in=barcelona_coastline_box dsn=barcelona_coastline_box type=area
-# 
+#
 # tar czf barcelona_coastline_box.tgz barcelona_coastline_box/
-# 
+#
 #FILE="barcelona_coastline_box.tgz"
 #wget -N --progress=dot "http://download.osgeo.org/livedvd/data/osm/$FILE"
 #tar xzf "$FILE"
