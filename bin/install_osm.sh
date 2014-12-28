@@ -40,7 +40,6 @@ cd "$TMP_DIR"
 
 mkdir /usr/local/share/osm
 
-
 apt-get install --assume-yes josm josm-plugins gpsd gpsd-clients \
    merkaartor xmlstarlet imposm osmosis python-osmapi
 
@@ -200,13 +199,7 @@ ln -s /usr/local/share/data/osm/"${CITY}_CBD.osm.bz2" \
 
 ###########################
 #### testing for osm2pgsql 0.8x
-add-apt-repository --yes ppa:kakrueger/openstreetmap
-apt-get -q update
 apt-get --assume-yes --no-install-recommends install osm2pgsql
-add-apt-repository --yes --remove ppa:kakrueger/openstreetmap
-###########################
-#apt-get --assume-yes install osm2pgsql
-
 
 #
 # ### Make hi-res OSM coastline a shapefile polygon for Mapnik rendering
