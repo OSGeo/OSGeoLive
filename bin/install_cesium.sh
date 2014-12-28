@@ -21,6 +21,7 @@
 
 ## make a tmp dir to download Cesium,
 ##  remember the subdir name, use as the local URL
+BIN_DIR=`pwd`
 BUILD_DIR='/tmp/build_cesium'
 WEB_DIR=cesium
 UNZIP_DIR=$BUILD_DIR/$WEB_DIR
@@ -66,4 +67,4 @@ rm -rf $BUILD_DIR
 #rm -rf /var/www/html/cesium/Build
 
 ####
-./diskspace_probe.sh "`basename $0`" end
+"$BIN_DIR"/diskspace_probe.sh "`basename $0`" end
