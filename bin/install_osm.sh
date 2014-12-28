@@ -42,34 +42,12 @@ mkdir /usr/local/share/osm
 
 
 apt-get install --assume-yes josm josm-plugins gpsd gpsd-clients \
-   merkaartor xmlstarlet imposm osmosis
+   merkaartor xmlstarlet imposm osmosis python-osmapi
 
 ## reviewed - 1404 - Pg9.3x - Postgis 2.1x
 # fix for 2.1.1-1~precise3 postgis-java package breakage (for osmosis)
 #rm -f /usr/share/java/postgis.jar
 #ln -s /usr/share/java/postgis-jdbc-2.1.0~rc1.jar /usr/share/java/postgis.jar
-
-##-----------------------------------------------
-# imposm -- OpenStreetMap importer for PostGIS
-# http://wiki.openstreetmap.org/wiki/Imposm
-##----------------
-
-##-----------------------------------------------
-## OsmApi.py -- a handy python utility
-# http://wiki.openstreetmap.org/wiki/PythonOsmApi
-# svn export http://svn.openstreetmap.org/applications/utils/python_lib/OsmApi
-BUILD_OSMAPI_DIR=/tmp/build_osmapi
-mkdir -p $BUILD_OSMAPI_DIR
-cd $BUILD_OSMAPI_DIR
-git clone https://github.com/metaodi/osmapi.git --branch v0.4.1
-if [ -d osmapi ] ; then
-  cd osmapi
-  python setup.py build
-  python setup.py install
-  cd
-fi
-rm -rf $BUILD_OSMAPI_DIR
-
 
 ##-----------------------------------------------
 ## JOSM -- OpenStreetMap feature editor
@@ -81,14 +59,14 @@ rm -rf $BUILD_OSMAPI_DIR
 
 JOSM_INSTALL_DIR=/usr/local/share/osm
 JOSM_INSTALL_JAR=josm-tested.jar
-if [ ! -e ${JOSM_INSTALL_DIR}/${JOSM_INSTALL_JAR} ] ; then
-	wget --progress=dot:mega -O ${JOSM_INSTALL_DIR}/${JOSM_INSTALL_JAR} \
+if [ ! -e "$JOSM_INSTALL_DIR/$JOSM_INSTALL_JAR" ] ; then
+	wget --progress=dot:mega -O "$JOSM_INSTALL_DIR/$JOSM_INSTALL_JAR" \
 	  http://josm.openstreetmap.de/josm-tested.jar
 fi
 
 # replace symlink
 rm /usr/share/josm/josm.jar
-ln -s ${JOSM_INSTALL_DIR}/${JOSM_INSTALL_JAR} /usr/share/josm/josm.jar
+ln -s "$JOSM_INSTALL_DIR/$JOSM_INSTALL_JAR" /usr/share/josm/josm.jar
 
 #Hack to make josm launch with openjdk7
 sed -i -e 's/openjdk-6-jre/openjdk-*-jre/' /usr/bin/josm
