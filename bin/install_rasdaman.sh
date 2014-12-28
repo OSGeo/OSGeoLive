@@ -59,6 +59,8 @@ WCPS_DATABASE="petascopedb"
 WCPS_USER="petauser"
 WCPS_PASSWORD="petapasswd"
 
+service tomcat6 start
+
 mkdir -p "$TMP"
 cd "$TMP"
 chgrp users "$TMP" -R
@@ -382,7 +384,7 @@ if [ $FULL -eq 1 ]; then
 fi # if FULL
 
 # back to sleep & cleanup
-#/etc/init.d/tomcat6 stop
+/etc/init.d/tomcat6 stop
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 rm -f "$RASDAMAN_HOME"/log/*.log
 chown root "$RASDAMAN_HOME"/etc/rasmgr.conf
@@ -407,20 +409,20 @@ fi
 rm -rf $WARDIR/def
 
 # start stopped services
-# start_rasdaman.sh
-# pgrep rasserver > /dev/null
-# if [ $? -ne 0 ] ; then
-#   stop_rasdaman.sh
-#   start_rasdaman.sh
-# fi
+start_rasdaman.sh
+pgrep rasserver > /dev/null
+if [ $? -ne 0 ] ; then
+  stop_rasdaman.sh
+  start_rasdaman.sh
+fi
 
 # Activate tomcat autodeploy option 
 sed -i 's/unpackWARs=\"false\"/unpackWARs=\"true\"/g' $TOMCAT_CONFDIR/server.xml
 sed -i 's/autoDeploy=\"false\"/autoDeploy=\"true\"/g' $TOMCAT_CONFDIR/server.xml
 
-# service tomcat6 start
-# service tomcat6 stop
-# stop_rasdaman.sh
+service tomcat6 start
+service tomcat6 stop
+stop_rasdaman.sh
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
