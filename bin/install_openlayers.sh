@@ -60,7 +60,7 @@ else
 fi
 
 echo "\nInstalling OpenLayers2..."
-tar zxvf "OpenLayers-$OL2_VERSION.tar.gz"
+tar zxf "OpenLayers-$OL2_VERSION.tar.gz"
 cd "OpenLayers-$OL2_VERSION"
 mv OpenLayers.js "$OL2_DIR"/
 mv img "$OL2_DIR"/
