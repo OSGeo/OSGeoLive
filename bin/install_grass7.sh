@@ -94,9 +94,11 @@ if [ ! -d "$USER_HOME/grassdata" ] ; then
 fi
 
 # NC08 for G7 is 141mb; nc_basic_spm_grass7 is 50mb; Spearfish is 21mb
-#FILE="spearfish_grass70data-0.3"
+FILE="spearfish_grass70data-0.3"
+FOLDER_NAME="spearfish60_grass7"
 #FILE="north_carolina/nc_basic_spm_grass7"
-FILE="north_carolina/nc_spm_08_grass7"
+#FILE="north_carolina/nc_spm_08_grass7"
+#FOLDER_NAME="nc_spm_08_grass7"
 
 cd "$TMP_DIR"
 wget -c --progress=dot:mega \
@@ -105,21 +107,22 @@ wget -c --progress=dot:mega \
 cd /usr/local/share/grass/
 BASE=`echo "$FILE" | sed -e 's+.*/++'`
 tar xzf "$TMP_DIR/$BASE.tar.gz"
-chown -R root.users nc_spm_08_grass7
-chmod -R a+rX nc_spm_08_grass7
+chown -R root.users "$FOLDER_NAME"
+chmod -R a+rX "$FOLDER_NAME"
 
 # free disk space ASAP
 rm "$TMP_DIR"/*.tar.gz
 
 
 cd "$USER_HOME/grassdata"
-mkdir nc_spm_08_grass7
-cd nc_spm_08_grass7
-cp -r /usr/local/share/grass/nc_spm_08_grass7/user1/ .
-ln -s /usr/local/share/grass/nc_spm_08_grass7/PERMANENT .
-ln -s /usr/local/share/grass/nc_spm_08_grass7/landsat .
+mkdir "$FOLDER_NAME"
+cd "$FOLDER_NAME"
+cp -r "/usr/local/share/grass/$FOLDER_NAME/user1/" .
+ln -s "/usr/local/share/grass/$FOLDER_NAME/PERMANENT" .
+# only in nc_spm_08_grass7
+#ln -s "/usr/local/share/grass/$FOLDER_NAME/landsat" .
 cd ..
-chown -R "$USER_NAME.$USER_NAME" nc_spm_08_grass7
+chown -R "$USER_NAME.$USER_NAME" "$FOLDER_NAME"
 
 
 
@@ -128,7 +131,7 @@ mkdir "$USER_HOME/.grass7"
 
 cat << EOF > "$USER_HOME/.grass7/rc"
 GISDBASE: $USER_HOME/grassdata
-LOCATION_NAME: nc_spm_08_grass7
+LOCATION_NAME: $FOLDER_NAME
 MAPSET: user1
 GRASS_GUI: wxpython
 EOF
