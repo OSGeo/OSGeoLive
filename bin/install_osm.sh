@@ -61,7 +61,7 @@ apt-get install --assume-yes josm josm-plugins gpsd gpsd-clients \
 BUILD_OSMAPI_DIR=/tmp/build_osmapi
 mkdir -p $BUILD_OSMAPI_DIR
 cd $BUILD_OSMAPI_DIR
-git clone https://github.com/metaodi/osmapi.git
+git clone https://github.com/metaodi/osmapi.git --branch v0.4.1
 if [ -d osmapi ] ; then
   cd osmapi
   python setup.py build
