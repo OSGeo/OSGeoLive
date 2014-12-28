@@ -14,8 +14,6 @@
 #
 # Version: 2014-12-10
 # Author: e.h.juerrens@52north.org, b.pross@52north.org (modified for WPS)
-# TODO
-# - maybe delete war file after set-up in tomcat (?) -> save space on disc
 #
 # About:
 # =====
