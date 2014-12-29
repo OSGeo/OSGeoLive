@@ -44,7 +44,7 @@ apt-get install -y python-scipy  python-nose python-pyke python-pyshp python-mat
 #     ## closed in tickets #1271 #1285 commentary/attachments
 #     apt-get install -y python-matplotlib
 #     # xx   -> matplotlib 1.1.1rc
-# 
+#
 #     #pip install matplotlib
 #     #pip install --upgrade matplotlib
 #     #   -> matplotlib 1.3.1
@@ -53,20 +53,20 @@ apt-get install -y python-scipy  python-nose python-pyke python-pyshp python-mat
 # # Build and install grib_api (optional):
 # mkdir /tmp/build_iris
 # cd /tmp/build_iris
-# 
+#
 # wget --no-check-certificate -c --progress=dot:mega \
 #   "https://software.ecmwf.int/wiki/download/attachments/3473437/grib_api-1.9.16.tar.gz"
-# 
+#
 # tar xzf grib_api-1.9.16.tar.gz
-# 
+#
 # cd grib_api-1.9.16
 # ./configure --enable-python
 # make
 # make install
-# 
+#
 # echo "/usr/local/lib/python2.7/site-packages/grib_api" > gribapi.pth
 # cp gribapi.pth /usr/local/lib/python2.7/dist-packages/
-# 
+#
 # # Build and install the PP packing library (optional):
 # #cd /tmp/build_iris
 # #wget -c -nv \
@@ -92,26 +92,30 @@ apt-get install -y python-scipy  python-nose python-pyke python-pyshp python-mat
 # wget --progress=dot:mega -O cartopy.zip \
 #   "https://github.com/SciTools/cartopy/archive/v0.11.0.zip"
 # unzip -q cartopy.zip
-# 
+#
 # cd cartopy-0.11.0
 # python setup.py install
-# 
+#
 # # Install Iris: (3.5 MB)
 # cd /tmp/build_iris
 # wget --progress=dot:mega -O iris.zip \
 #   "https://github.com/SciTools/iris/archive/v1.6.1.zip"
-# 
+#
 # unzip -q iris.zip
-# 
+#
 # cd iris-1.6.1
 # #python setup.py --with-unpack install
 # python setup.py install
 # #touch /usr/local/lib/python2.7/dist-packages/Iris-1.6.1-py2.7-linux-i686.egg/iris/fileformats/_pyke_rules/compiled_krb/*
-# 
+#
 # # Tidy up
 # apt-get --yes remove python-dev libhdf5-serial-dev libnetcdf-dev \
 #                libgeos-dev libproj-dev libpython2.7-dev\
 # 	       libjasper-dev libfreetype6-dev libpng-dev tk-dev
+
+rm -rf /usr/local/lib/python2.7/dist-packages/iris/tests/*pyc
+rm -rf /usr/local/lib/python2.7/dist-packages/iris/tests/results/*
+#rm -rf /usr/local/lib/python2.7/dist-packages/iris/tests
 
 #rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/data \
 #       /usr/local/lib/python2.7/dist-packages/cartopy/examples \
