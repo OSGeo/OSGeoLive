@@ -22,7 +22,7 @@
 # Then open a web browser and go to http://localhost/ol3/
 
 ./diskspace_probe.sh "`basename $0`" begin
-BIN_DIR=`pwd`
+BUILD_DIR=`pwd`
 ####
 
 if [ -z "$USER_NAME" ] ; then
@@ -30,12 +30,10 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_openlayers"
-OL_VERSION="v3.0.0"
+OL3_VERSION="3.1.1"
 OL2_VERSION="2.13.1" 
-GIT_DIR="$TMP_DIR/openlayers-$OL_VERSION"
-GIT_OL3_URL="https://github.com/openlayers/ol3.git"
-BUILD_DIR="build/hosted/HEAD"
-WWW_DIR=/var/www/html/ol3
+OL3_DIR=/var/www/html/ol3
+OL3_SRC_DIR=/usr/share/openlayers3
 OL2_DIR=/var/www/html/openlayers
 
 #
@@ -43,11 +41,10 @@ OL2_DIR=/var/www/html/openlayers
 #
 echo "\nCreating temporary directory $TMP_DIR..."
 mkdir -p "$TMP_DIR"
-
 echo "\nCreating OpenLayers2 directory $OL2_DIR..."
 mkdir -p "$OL2_DIR"
-echo "\nCreating OpenLayers3 directory $WWW_DIR..."
-mkdir -p "$WWW_DIR"
+echo "\nCreating OpenLayers3 directory $OL3_DIR..."
+mkdir -p "$OL3_DIR"
 
 echo "\nDownloading OpenLayers2..."
 cd "$TMP_DIR"
@@ -75,62 +72,16 @@ rm "OpenLayers-$OL2_VERSION.tar.gz"
 #
 # Install OpenLayers 3
 #
-
-#
-# Make certain of some prerequisites
-#
-apt-get install --yes python-pip python-pystache node npm 
-
-#
-# Clone repository, checkout the latest stable tag and install dependencies
-#
-cd "$TMP_DIR"
-echo "\nFetching OpenLayers3..."
-if [ ! -d "$GIT_DIR" ] ; then
-    # Clone project and checkout the stable tag
-    echo "\nClonning project from $GIT_OL3_URL..."
-    git clone "$GIT_OL3_URL" "$GIT_DIR" 
-    echo "\nChanging to tag $OL_VERSION..."
-    cd "$GIT_DIR"
-    git checkout "$OL_VERSION"
-
-    # Install dependencies for build process
-    echo "\nInstalling npm dependencies..."
-    npm install
-    echo "\nInstalling other dependencies..."
-    pip install -r requirements.txt
-    cd -
-else
-    echo "... OpenLayers-$OL_VERSION already cloned\n"
-fi
-
-cd "$GIT_DIR"
-
-#
-# Build OpenLayers and examples
-#
-echo "\nBuilding OpenLayers and examples..."
-if [ ! -d "$GIT_DIR/build" ] ; then
-    # NOTE: The 'host-examples' also includes the 'build' target
-    ./build.py host-examples
-else 
-    echo "... previous built for OpenLayers-$OL_VERSION exists. Remove $GIT_DIR/build to create a fresh built.\n"
-fi
-
-#
-# Build API docs
-#
-echo "\nBuilding API docs..."
-if [ ! -d "$GIT_DIR/$BUILD_DIR/apidoc" ] ; then
-    ./build.py apidoc
-else 
-    echo "... previous version of API docs for OpenLayers-$OL_VERSION exists. Remove $GIT_DIR/build/apidocs to create a fresh built.\n"
-fi
+echo "\nInstalling OpenLayers3..."
+wget -c --progress=dot:mega \
+   "http://aiolos.survey.ntua.gr/gisvm/dev/libjs-openlayers3_3.1.1-1_all.deb"
+dpkg -i libjs-openlayers3_3.1.1-1_all.deb
+rm -rf libjs-openlayers3_3.1.1-1_all.deb
 
 #
 # Generate index page
 #
-cd "$GIT_DIR/$BUILD_DIR"
+cd "$OL3_DIR"
 
 echo "\nGenerating index file..."
 cat << EOF > "index.html"
@@ -140,7 +91,7 @@ cat << EOF > "index.html"
 <head>
 </head>
 <body>
-<h1>OpenLayers $OL_VERSION</h1>
+<h1>OpenLayers $OL3_VERSION</h1>
 <p>Welcome to OpenLayers index page:</p>
 <ul>
 <li><a href="apidoc/">API Docs</a>: explore the project documentation</li>
@@ -152,25 +103,24 @@ cat << EOF > "index.html"
 EOF
 
 #
-# Copy files to apache dir
+# Link files to apache dir
 #
-echo "\nCopying files to web directory..."
+echo "\nConfiguring web directory..."
 
-cp -rf "$GIT_DIR/$BUILD_DIR"/apidoc "$WWW_DIR"
-cp -rf "$GIT_DIR/$BUILD_DIR"/build "$WWW_DIR"
-cp -rf "$GIT_DIR/$BUILD_DIR"/css "$WWW_DIR"
-cp -rf "$GIT_DIR/$BUILD_DIR"/examples "$WWW_DIR"
-cp -rf "$GIT_DIR/$BUILD_DIR"/ol "$WWW_DIR"
-cp -rf "$GIT_DIR/$BUILD_DIR"/resources "$WWW_DIR"
-cp -rf "$GIT_DIR/$BUILD_DIR"/index.html "$WWW_DIR"
-chmod -R uga+r "$WWW_DIR"
+ln -s "$OL3_SRC_DIR"/hosted/master/apidoc "$OL3_DIR"/apidoc
+ln -s "$OL3_SRC_DIR"/hosted/master/build "$OL3_DIR"/build
+ln -s "$OL3_SRC_DIR"/hosted/master/css "$OL3_DIR"/css
+ln -s "$OL3_SRC_DIR"/hosted/master/examples "$OL3_DIR"/examples
+ln -s "$OL3_SRC_DIR"/hosted/master/ol "$OL3_DIR"/ol
+ln -s "$OL3_SRC_DIR"/hosted/master/resources "$OL3_DIR"/resources
+chmod -R uga+r "$OL3_DIR"
 
 #
 # Launch script and icon for OpenLayers to take you to a documentation 
 # page and examples listing
 #
 echo "\nGenerating launcher..."
-cp "$GIT_DIR/$BUILD_DIR/resources/logo.png" /usr/share/pixmaps/openlayers.png
+cp "$OL3_SRC_DIR/hosted/master/resources/logo.png" /usr/share/pixmaps/openlayers.png
 
 if [ ! -e /usr/share/applications/openlayers.desktop ] ; then
    cat << EOF > /usr/share/applications/openlayers.desktop
@@ -190,4 +140,4 @@ cp /usr/share/applications/openlayers.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/openlayers.desktop"
 
 ####
-"$BIN_DIR"/diskspace_probe.sh "`basename $0`" end
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
