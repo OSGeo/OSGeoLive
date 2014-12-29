@@ -113,8 +113,8 @@ apt-get install -y python-scipy  python-nose python-pyke python-pyshp python-mat
 #                libgeos-dev libproj-dev libpython2.7-dev\
 # 	       libjasper-dev libfreetype6-dev libpng-dev tk-dev
 
-rm -rf /usr/local/lib/python2.7/dist-packages/iris/tests/*pyc
-rm -rf /usr/local/lib/python2.7/dist-packages/iris/tests/results/*
+rm -rf /usr/lib/python2.7/dist-packages/iris/tests/*pyc
+rm -rf /usr/lib/python2.7/dist-packages/iris/tests/results/*
 #rm -rf /usr/local/lib/python2.7/dist-packages/iris/tests
 
 #rm -rf /usr/local/lib/python2.7/dist-packages/cartopy/data \
