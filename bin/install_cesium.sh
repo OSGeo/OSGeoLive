@@ -27,18 +27,18 @@ WEB_DIR=cesium
 UNZIP_DIR=$BUILD_DIR/$WEB_DIR
 ####
 
-
-# live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
 
+echo "\nCreating temporary directory $BUILD_DIR..."
 mkdir -p $BUILD_DIR
 cd $BUILD_DIR
+echo "\nDownloading Cesium..."
 wget -c http://cesiumjs.org/releases/Cesium-1.4.zip
 
-#The next four lines will make sure unzip program is intalled
+echo "\nInstalling Cesium..."
 IsUnZipPresent=`/usr/bin/which unzip | /usr/bin/wc -l`
 if [ $IsUnZipPresent -eq 0 ]; then
   apt-get install unzip
@@ -58,12 +58,30 @@ fi
 cp -rf $UNZIP_DIR /var/www/html/
 chgrp www-data -R /var/www/html/$WEB_DIR
 
-## TODO make a desktop launcher
-#firefox -new-window http://localhost/cesium/Apps/HelloWorld.html -new-tab http://localhost/cesium/ &
+echo "\nGenerating launcher..."
+cp /var/www/html/cesium/logo.png /usr/share/pixmaps/cesium.png
+
+if [ ! -e /usr/share/applications/cesium.desktop ] ; then
+   cat << EOF > /usr/share/applications/cesium.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Cesium
+Comment=Cesium Examples
+Categories=Application;Internet;
+Exec=firefox http://localhost/cesium/ http://localhost/cesium/Apps/HelloWorld.html http://localhost/en/quickstart/cesium_quickstart.html
+Icon=cesium
+Terminal=false
+StartupNotify=false
+EOF
+fi
+cp /usr/share/applications/cesium.desktop "$USER_HOME/Desktop/"
+chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/cesium.desktop"
 
 ## Cleanup
-
+echo "\nCleanup..."
 rm -rf $BUILD_DIR
+## TODO are all the files in $UNZIP_DIR needed? The total size is 98MB, can we save a bit here?
 #rm -rf /var/www/html/cesium/Build
 
 ####
