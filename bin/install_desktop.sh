@@ -54,8 +54,7 @@ sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
 
 # Actually, I think this is the one which really does it:
 sed -i -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
-       -e 's|^desktop_fg=.*|desktop_fg=#232323|' \
-       -e 's|^desktop_shadow=.*|desktop_shadow=#ffffff\nshow_mounts=1|' \
+       -e 's|^desktop_shadow=.*|desktop_shadow=.*\nshow_mounts=1|' \
    /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
 echo "desktop_folder_new_win=1" >> /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
