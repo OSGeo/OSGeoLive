@@ -1,6 +1,26 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 8.5alpha3
+===================
+
+ * Moved to GRASS7
+ * Upgraded OpenLayers to version 3.1.0
+ * Restored core OpenLayers2 files for legacy applications in the disk
+ * Fixed QGIS Server installation
+ * SanMateo_CA as OSM featured City
+ * Cesium cleanup and desktop launcher added (#1432)
+ * Fixed Tilemill deb package
+ * Removed all GRASS6 related packages
+ * Added osmapi as Debian package
+ * Cleared up Tomcat setup after disabling MapFish
+ * Fixed rasdaman to properly shutdown during build time
+ * Switching to spearfish dataset for GRASS7 
+ * Saved some space with iris
+ * Fixed desktop font
+ * Updated geoserver path in geonode (#1442)
+ * Updated Marble to 1.9
+
 Version 8.5alpha2
 ===================
 
