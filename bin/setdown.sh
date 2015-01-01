@@ -76,7 +76,7 @@ apt-get --yes remove python2.7-dev
 # grass-dev will depend on libgdal-dev or libgdal1-dev as needed, so
 #  during the transition we'll let gdal just be implicit. libpq-dev will
 #  also be pulled in automatically by this.
-apt-get install --assume-yes grass-dev
+apt-get install --assume-yes grass70-dev
 
 
 # remove any leftover orphans
