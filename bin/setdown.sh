@@ -194,6 +194,7 @@ fi
 
 # Start tomcat to ensure all applications are deployed
 service tomcat6 start
+sleep 120
 service tomcat6 stop
 
 # Disable auto-deploy to prevent applications to get removed after removing war files
