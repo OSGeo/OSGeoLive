@@ -27,7 +27,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 # Set EOxServer version to install
-EOXSVER="0.3.2"
+EOXSVER="0.4.0"
 
 DATA_DIR="/usr/local/share/eoxserver"
 DOC_DIR="$DATA_DIR/doc"
@@ -95,8 +95,6 @@ if [ ! -d eoxserver_demonstration ] ; then
     sed -e "/'PORT': .*/d" \
         -i eoxserver_demonstration/settings.py
 
-    # Configure logging
-    sed -e 's/#logging_level=/logging_level=INFO/' -i eoxserver_demonstration/conf/eoxserver.conf
     sed -e 's/DEBUG = True/DEBUG = False/' -i eoxserver_demonstration/settings.py
 
     # Further configuration
@@ -127,16 +125,15 @@ if [ ! -d eoxserver_demonstration ] ; then
     rm release-$EOXSVER.tar.gz
     rm -r autotest-release-$EOXSVER/
 
-    python manage.py loaddata auth_data.json initial_rangetypes.json
-    python manage.py eoxs_add_dataset_series --id MER_FRS_1P_RGB_reduced
-    python manage.py eoxs_register_dataset \
-        --data-files "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_RGB_reduced/*.tif \
-        --rangetype RGB --dataset-series MER_FRS_1P_RGB_reduced --invisible
+    python manage.py loaddata auth_data.json range_types.json
+    python manage.py eoxs_collection_create -i MER_FRS_1P_RGB_reduced
+
+    python manage.py eoxs_dataset_register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060816_090929_000001972050_00222_23322_0058_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060816_090929_000001972050_00222_23322_0058_RGB_reduced.xml -r RGB
+    python manage.py eoxs_dataset_register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060822_092058_000001972050_00308_23408_0077_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060822_092058_000001972050_00308_23408_0077_RGB_reduced.xml -r RGB
+    python manage.py eoxs_dataset_register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060830_100949_000001972050_00423_23523_0079_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060830_100949_000001972050_00423_23523_0079_RGB_reduced.xml -r RGB
 
     touch eoxserver_demonstration/logs/eoxserver.log
     chown www-data eoxserver_demonstration/logs/eoxserver.log
-    sed -e 's,http_service_url=http://localhost:8000/ows,http_service_url=/eoxserver/ows,' \
-        -i eoxserver_demonstration/conf/eoxserver.conf
 
     # Collect static files
     python manage.py collectstatic --noinput
