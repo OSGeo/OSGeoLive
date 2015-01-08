@@ -103,27 +103,29 @@ if [ ! -d eoxserver_demonstration ] ; then
     # Initialize database
     python manage.py syncdb --noinput
 
+    AUTOTESTVER="0.4beta2"
+
     # Download and register demonstration data
     wget -c --progress=dot:mega \
-       "https://github.com/EOxServer/autotest/archive/release-$EOXSVER.tar.gz"
+       "https://github.com/EOxServer/autotest/archive/release-$AUTOTESTVER.tar.gz"
 
     echo "Extracting demonstration data in `pwd`."
-    tar -xzf release-$EOXSVER.tar.gz
+    tar -xzf release-$AUTOTESTVER.tar.gz
     chown -R root.root autotest-release-*
 
     mkdir -p eoxserver_demonstration/data/fixtures/
-    mv autotest-release-$EOXSVER/autotest/data/fixtures/auth_data.json \
-        autotest-release-$EOXSVER/autotest/data/fixtures/initial_rangetypes.json \
+    mv autotest-release-$AUTOTESTVER/autotest/data/fixtures/auth_data.json \
+        autotest-release-$AUTOTESTVER/autotest/data/fixtures/initial_rangetypes.json \
         eoxserver_demonstration/data/fixtures/
 
     mkdir -p eoxserver_demonstration/data/meris/
-    mv autotest-release-$EOXSVER/autotest/data/meris/README \
+    mv autotest-release-$AUTOTESTVER/autotest/data/meris/README \
         eoxserver_demonstration/data/meris/
-    mv autotest-release-$EOXSVER/autotest/data/meris/mosaic_MER_FRS_1P_RGB_reduced/ \
+    mv autotest-release-$AUTOTESTVER/autotest/data/meris/mosaic_MER_FRS_1P_RGB_reduced/ \
         eoxserver_demonstration/data/meris/
 
-    rm release-$EOXSVER.tar.gz
-    rm -r autotest-release-$EOXSVER/
+    rm release-$AUTOTESTVER.tar.gz
+    rm -r autotest-release-$AUTOTESTVER/
 
     python manage.py loaddata auth_data.json range_types.json
     python manage.py eoxs_collection_create -i MER_FRS_1P_RGB_reduced
@@ -209,7 +211,7 @@ chmod g+w .
 chgrp users .
 
 wget -c --progress=dot:mega \
-    "https://github.com/EOxServer/eoxserver/releases/download/release-$EOXSVER/EOxServer_documentation-$EOXSVER.pdf" \
+    "https://media.readthedocs.org/pdf/eoxserver/0.4/eoxserver.pdf" \
     -O EOxServer_documentation-$EOXSVER.pdf
 
 ln -sf EOxServer_documentation-$EOXSVER.pdf EOxServer_documentation.pdf
