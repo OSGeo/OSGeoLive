@@ -115,19 +115,19 @@ if [ ! -d eoxserver_demonstration ] ; then
 
     mkdir -p eoxserver_demonstration/data/fixtures/
     mv autotest-release-$AUTOTESTVER/autotest/data/fixtures/auth_data.json \
-        autotest-release-$AUTOTESTVER/autotest/data/fixtures/initial_rangetypes.json \
+        autotest-release-$AUTOTESTVER/autotest/data/fixtures/range_types.json \
         eoxserver_demonstration/data/fixtures/
 
     mkdir -p eoxserver_demonstration/data/meris/
     mv autotest-release-$AUTOTESTVER/autotest/data/meris/README \
         eoxserver_demonstration/data/meris/
-    mv autotest-release-$AUTOTESTVER/autotest/data/meris/mosaic_MER_FRS_1P_RGB_reduced/ \
+    mv autotest-release-$AUTOTESTVER/autotest/data/meris/mosaic_MER_FRS_1P_reduced_RGB/ \
         eoxserver_demonstration/data/meris/
 
     rm release-$AUTOTESTVER.tar.gz
     rm -r autotest-release-$AUTOTESTVER/
 
-    python manage.py loaddata auth_data.json range_types.json
+    python manage.py loaddata eoxserver_demonstration/data/fixtures/auth_data.json eoxserver_demonstration/data/fixtures/range_types.json
     python manage.py eoxs_collection_create -i MER_FRS_1P_RGB_reduced
 
     python manage.py eoxs_dataset_register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060816_090929_000001972050_00222_23322_0058_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060816_090929_000001972050_00222_23322_0058_RGB_reduced.xml -r RGB
