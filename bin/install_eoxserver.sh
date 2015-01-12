@@ -150,7 +150,7 @@ fi
 
 
 # Django 1.6 results in a bug, thus install 1.5 locally for the moment
-sudo pip install django==1.5.12 -t "$DATA_DIR/eoxserver_demonstration"
+#sudo pip install django==1.5.12 -t "$DATA_DIR/eoxserver_demonstration"
 
 #### final tidy up
 sudo -u "$POSTGRES_USER" psql eoxserver_demo -c 'VACUUM ANALYZE;'
