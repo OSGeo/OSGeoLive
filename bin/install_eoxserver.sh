@@ -141,7 +141,7 @@ if [ ! -d eoxserver_demonstration ] ; then
     python manage.py collectstatic --noinput
 
     # Configure WSGI
-    sed -e "s,^import os$,import os\nimport sys\n\npath = \"$DATA_DIR/eoxserver_demonstration/\"\nif path not in sys.path:\n    sys.path.append(path)\n," \
+    sed -e "s,^import os$,import os\nimport sys\n\npath = \"$DATA_DIR/eoxserver_demonstration/\"\nif path not in sys.path:\n    sys.path.insert(0, path)\n," \
         -i eoxserver_demonstration/wsgi.py
 
     chmod g+w -R .
@@ -149,10 +149,11 @@ if [ ! -d eoxserver_demonstration ] ; then
 fi
 
 
+# Django 1.6 results in a bug, thus install 1.5 locally for the moment
+sudo pip install django==1.5.12 -t "$DATA_DIR/eoxserver_demonstration"
+
 #### final tidy up
 sudo -u "$POSTGRES_USER" psql eoxserver_demo -c 'VACUUM ANALYZE;'
-
-
 
 # Deploy demonstration instance in Apache
 echo "Deploying EOxServer demonstration instance"
