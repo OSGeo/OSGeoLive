@@ -1,6 +1,17 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 8.5alpha4
+===================
+
+ * MapWindow update (installers and documentation)
+ * Reconfigured tomcat restart during build
+ * IPython documentation added
+ * Fixed ncWMS installation (#1450)
+ * OpenJUMP fixed (#1452)
+ * Updated eoxserver installation script for version 0.4.
+ * MapBender: ALIAS error fixes FollowSymLinks (#1436)
+
 Version 8.5alpha3
 ===================
 
