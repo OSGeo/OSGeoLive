@@ -34,7 +34,11 @@ apt-get install --assume-yes  git python-pip \
         python-matplotlib python-scipy python-pandas \
         python-netcdf python-netcdf4 \
         python-shapely python-rasterio python-fiona \
-        python-geopandas python-descartes
+        python-geopandas python-descartes \
+        python-enum34
+
+pip install cligj  ## per ticket #1455 -- rasterio requirements
+
 
 #-- iPython from jtaylor .deb
 apt-add-repository --yes ppa:jtaylor/ipython
