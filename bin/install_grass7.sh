@@ -93,26 +93,41 @@ if [ ! -d "$USER_HOME/grassdata" ] ; then
   chown "$USER_NAME.$USER_NAME" "$USER_HOME/grassdata"
 fi
 
-# NC08 for G7 is 141mb; nc_basic_spm_grass7 is 50mb; Spearfish is 21mb
-FILE="spearfish_grass70data-0.3"
-FOLDER_NAME="spearfish60_grass7"
-#FILE="north_carolina/nc_basic_spm_grass7"
-#FILE="north_carolina/nc_spm_08_grass7"
-#FOLDER_NAME="nc_spm_08_grass7"
+# # NC08 for G7 is 141mb; nc_basic_spm_grass7 is 50mb; Spearfish is 21mb
+# FILE="spearfish_grass70data-0.3"
+# FOLDER_NAME="spearfish60_grass7"
+# #FILE="north_carolina/nc_basic_spm_grass7"
+# #FILE="north_carolina/nc_spm_08_grass7"
+# #FOLDER_NAME="nc_spm_08_grass7"
+# 
+# cd "$TMP_DIR"
+# wget -c --progress=dot:mega \
+#      "http://grass.osgeo.org/sampledata/$FILE.tar.gz"
+# 
+# cd /usr/local/share/grass/
+# BASE=`echo "$FILE" | sed -e 's+.*/++'`
+# tar xzf "$TMP_DIR/$BASE.tar.gz"
+# chown -R root.users "$FOLDER_NAME"
+# chmod -R a+rX "$FOLDER_NAME"
+# 
+# # free disk space ASAP
+# rm "$TMP_DIR"/*.tar.gz
 
+##############
+# New dataset#
+##############
+FILE="loc_ncarolina_spm_base0.3.1.zip"
+FOLDER_NAME="loc_ncarolina_spm_base0.3.1"
 cd "$TMP_DIR"
 wget -c --progress=dot:mega \
-     "http://grass.osgeo.org/sampledata/$FILE.tar.gz"
-
+     "http://www4.ncsu.edu/~hmitaso/grasswork/grassbookdat4ed/loc_ncarolina_spm_base0.3.1.zip"
+unzip "$FILE" -d /usr/local/share/grass/
 cd /usr/local/share/grass/
-BASE=`echo "$FILE" | sed -e 's+.*/++'`
-tar xzf "$TMP_DIR/$BASE.tar.gz"
 chown -R root.users "$FOLDER_NAME"
 chmod -R a+rX "$FOLDER_NAME"
+rm "$TMP_DIR"/*.zip
 
-# free disk space ASAP
-rm "$TMP_DIR"/*.tar.gz
-
+#############
 
 cd "$USER_HOME/grassdata"
 mkdir "$FOLDER_NAME"
