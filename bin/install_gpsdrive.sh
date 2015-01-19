@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2009-2013 by Hamish Bowman, and the Open Source Geospatial Foundation
 # Licensed under the GNU LGPL version >= 2.1.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -22,8 +22,8 @@
 BUILD_DIR=`pwd`
 ####
 
-
-CITY="Portland_OR"
+## same as install_osm.sh def
+CITY="SanMateo_CA"
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -35,11 +35,12 @@ TMP_DIR=/tmp/build_gpsdrive
 
 
 #### install program ####
+####  (postgresql is installed once, system-wide
+####   so do not repeat the PG install here)
 
 PACKAGES="gpsd gpsd-clients python-gps \
    espeak gdal-bin gpsbabel \
    graphicsmagick-imagemagick-compat \
-   postgresql-9.3-postgis-2.1 \
    python-mapnik \
    speech-dispatcher \
    openstreetmap-map-icons-square \
@@ -55,7 +56,6 @@ if [ $? -ne 0 ] ; then
    echo "An error occurred installing packages. Aborting install."
    exit 1
 fi
-
 
 
 #######################
@@ -93,8 +93,8 @@ mkdir "$USER_HOME/.gpsdrive"
 
 # program defaults
 cat << EOF > "/etc/skel/.gpsdrive/gpsdriverc"
-lastlong = -122.6535
-lastlat = 45.5307
+lastlong = -122.3
+lastlat  =  37.5
 scalewanted = 10000
 dashboard_3 = 12
 autobestmap = 0
