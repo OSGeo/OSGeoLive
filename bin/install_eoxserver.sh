@@ -48,7 +48,7 @@ fi
 apt-get -q update
 apt-get --assume-yes install python-gdal libxml2 python-lxml python-psycopg2 \
     python-libxml2 cgi-mapserver python-mapscript libapache2-mod-wsgi \
-    python-eoxserver=0.3.2-0~trusty4 
+    python-eoxserver 
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
