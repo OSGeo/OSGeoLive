@@ -27,7 +27,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 # Set EOxServer version to install
-EOXSVER="0.4.0"
+EOXSVER="0.3.2"
 
 DATA_DIR="/usr/local/share/eoxserver"
 DOC_DIR="$DATA_DIR/doc"
@@ -47,7 +47,8 @@ fi
 #Install packages
 apt-get -q update
 apt-get --assume-yes install python-gdal libxml2 python-lxml python-psycopg2 \
-    python-libxml2 cgi-mapserver python-mapscript libapache2-mod-wsgi python-eoxserver 
+    python-libxml2 cgi-mapserver python-mapscript libapache2-mod-wsgi \
+    python-eoxserver=0.3.2-0~trusty4 
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
