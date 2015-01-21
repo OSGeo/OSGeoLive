@@ -47,8 +47,7 @@ fi
 #Install packages
 apt-get -q update
 apt-get --assume-yes install python-gdal libxml2 python-lxml python-psycopg2 \
-    python-libxml2 cgi-mapserver python-mapscript libapache2-mod-wsgi \
-    python-eoxserver 
+    python-libxml2 cgi-mapserver python-mapscript libapache2-mod-wsgi python-eoxserver 
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
@@ -96,6 +95,8 @@ if [ ! -d eoxserver_demonstration ] ; then
     sed -e "/'PORT': .*/d" \
         -i eoxserver_demonstration/settings.py
 
+    # Configure logging
+    sed -e 's/#logging_level=/logging_level=INFO/' -i eoxserver_demonstration/conf/eoxserver.conf
     sed -e 's/DEBUG = True/DEBUG = False/' -i eoxserver_demonstration/settings.py
 
     # Further configuration
@@ -104,45 +105,44 @@ if [ ! -d eoxserver_demonstration ] ; then
     # Initialize database
     python manage.py syncdb --noinput
 
-    AUTOTESTVER="0.4beta2"
-
     # Download and register demonstration data
     wget -c --progress=dot:mega \
-       "https://github.com/EOxServer/autotest/archive/release-$AUTOTESTVER.tar.gz"
+       "https://github.com/EOxServer/autotest/archive/release-$EOXSVER.tar.gz"
 
     echo "Extracting demonstration data in `pwd`."
-    tar -xzf release-$AUTOTESTVER.tar.gz
+    tar -xzf release-$EOXSVER.tar.gz
     chown -R root.root autotest-release-*
 
     mkdir -p eoxserver_demonstration/data/fixtures/
-    mv autotest-release-$AUTOTESTVER/autotest/data/fixtures/auth_data.json \
-        autotest-release-$AUTOTESTVER/autotest/data/fixtures/range_types.json \
+    mv autotest-release-$EOXSVER/autotest/data/fixtures/auth_data.json \
+        autotest-release-$EOXSVER/autotest/data/fixtures/initial_rangetypes.json \
         eoxserver_demonstration/data/fixtures/
 
     mkdir -p eoxserver_demonstration/data/meris/
-    mv autotest-release-$AUTOTESTVER/autotest/data/meris/README \
+    mv autotest-release-$EOXSVER/autotest/data/meris/README \
         eoxserver_demonstration/data/meris/
-    mv autotest-release-$AUTOTESTVER/autotest/data/meris/mosaic_MER_FRS_1P_reduced_RGB/ \
+    mv autotest-release-$EOXSVER/autotest/data/meris/mosaic_MER_FRS_1P_RGB_reduced/ \
         eoxserver_demonstration/data/meris/
 
-    rm release-$AUTOTESTVER.tar.gz
-    rm -r autotest-release-$AUTOTESTVER/
+    rm release-$EOXSVER.tar.gz
+    rm -r autotest-release-$EOXSVER/
 
-    python manage.py loaddata eoxserver_demonstration/data/fixtures/auth_data.json eoxserver_demonstration/data/fixtures/range_types.json
-    python manage.py eoxs_collection_create -i MER_FRS_1P_RGB_reduced
-
-    python manage.py eoxs_dataset_register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060816_090929_000001972050_00222_23322_0058_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060816_090929_000001972050_00222_23322_0058_RGB_reduced.xml -r RGB
-    python manage.py eoxs_dataset_register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060822_092058_000001972050_00308_23408_0077_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060822_092058_000001972050_00308_23408_0077_RGB_reduced.xml -r RGB
-    python manage.py eoxs_dataset_register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060830_100949_000001972050_00423_23523_0079_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060830_100949_000001972050_00423_23523_0079_RGB_reduced.xml -r RGB
+    python manage.py loaddata auth_data.json initial_rangetypes.json
+    python manage.py eoxs_add_dataset_series --id MER_FRS_1P_RGB_reduced
+    python manage.py eoxs_register_dataset \
+        --data-files "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_RGB_reduced/*.tif \
+        --rangetype RGB --dataset-series MER_FRS_1P_RGB_reduced --invisible
 
     touch eoxserver_demonstration/logs/eoxserver.log
     chown www-data eoxserver_demonstration/logs/eoxserver.log
+    sed -e 's,http_service_url=http://localhost:8000/ows,http_service_url=/eoxserver/ows,' \
+        -i eoxserver_demonstration/conf/eoxserver.conf
 
     # Collect static files
     python manage.py collectstatic --noinput
 
     # Configure WSGI
-    sed -e "s,^import os$,import os\nimport sys\n\npath = \"$DATA_DIR/eoxserver_demonstration/\"\nif path not in sys.path:\n    sys.path.insert(0, path)\n," \
+    sed -e "s,^import os$,import os\nimport sys\n\npath = \"$DATA_DIR/eoxserver_demonstration/\"\nif path not in sys.path:\n    sys.path.append(path)\n," \
         -i eoxserver_demonstration/wsgi.py
 
     chmod g+w -R .
@@ -150,11 +150,10 @@ if [ ! -d eoxserver_demonstration ] ; then
 fi
 
 
-# Django 1.6 results in a bug, thus install 1.5 locally for the moment
-#sudo pip install django==1.5.12 -t "$DATA_DIR/eoxserver_demonstration"
-
 #### final tidy up
 sudo -u "$POSTGRES_USER" psql eoxserver_demo -c 'VACUUM ANALYZE;'
+
+
 
 # Deploy demonstration instance in Apache
 echo "Deploying EOxServer demonstration instance"
@@ -213,7 +212,7 @@ chmod g+w .
 chgrp users .
 
 wget -c --progress=dot:mega \
-    "https://media.readthedocs.org/pdf/eoxserver/0.4/eoxserver.pdf" \
+    "https://github.com/EOxServer/eoxserver/releases/download/release-$EOXSVER/EOxServer_documentation-$EOXSVER.pdf" \
     -O EOxServer_documentation-$EOXSVER.pdf
 
 ln -sf EOxServer_documentation-$EOXSVER.pdf EOxServer_documentation.pdf
