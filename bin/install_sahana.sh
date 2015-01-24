@@ -161,8 +161,8 @@ EOF
 cd "$INSTALL_DIR/web2py/applications"
 git clone git://github.com/flavour/eden.git
 cd eden
-#git checkout 5d04ac2d58bdd0db4f6ba30df61dc82a03128b3a
-#git reset --hard
+git checkout deca684114b572b1965521cf7d28afd76cdd9fc6
+git reset --hard
 
 # Create Eden Directories
 mkdir -p "$INSTALL_DIR/web2py/applications/eden/cache"
