@@ -22,8 +22,9 @@
 
 ./diskspace_probe.sh "`basename $0`" begin
 
-BUILD_DIR=/tmp/iris_build
-mkdir -p ${BUILD_DIR}
+BUILD_DIR=`pwd`
+TMP_DIR=/tmp/iris_build
+mkdir -p "$TMP_DIR"
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -134,7 +135,7 @@ rm -rf /usr/lib/python2.7/dist-packages/iris/tests/results/*
 
 
 ## Live 8.5 -- pre-cache natural_earth 110m shapefiles
-cd ${BUILD_DIR}
+cd "$TMP_DIR"
 wget -c http://download.osgeo.org/livedvd/data/cartopy/natural_earth_cartopy.tgz
 if [ ! -e natural_earth_cartopy.tgz ]; then
   echo "Download of cartopy cache files failed"
@@ -148,7 +149,7 @@ mv natural_earth /home/user/.local/share/cartopy/shapefiles/
 chown --recursive ${USER_NAME}:${USER_NAME} /home/user/.local/share/cartopy
 
 cd
-rm -rf ${BUILD_DIR}
+rm -rf "$TMP_DIR"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
