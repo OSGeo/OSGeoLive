@@ -18,7 +18,7 @@
 # Copyright 2003-2009 Peter Baumann / rasdaman GmbH.
 #
 # For more information please see <http://www.rasdaman.org>
-# or contact Peter Baumann via <baumann@rasdaman.com>.     
+# or contact Peter Baumann via <baumann@rasdaman.com>.   
 #
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -30,9 +30,9 @@ BUILD_DIR=`pwd`
 # 0 = setup just petascope (this should be used only for testing)
 FULL=1
 
-OSGEOLIVE_TAG="release_8.5"
+OSGEOLIVE_TAG="v9.0.4"
 
-VERSION=8.5.4
+VERSION=9.0.4
 RASDAMAN_LOCATION="http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo"
 
 # live disc's username is "user"
@@ -59,8 +59,7 @@ WCPS_DATABASE="petascopedb"
 WCPS_USER="petauser"
 WCPS_PASSWORD="petapasswd"
 
-service tomcat6 start
-
+rm -rf "$TMP"
 mkdir -p "$TMP"
 cd "$TMP"
 chgrp users "$TMP" -R
@@ -76,7 +75,7 @@ fi
 PACKAGES="make autoconf automake libtool gawk flex bison build-essential \
  g++ gcc cpp libstdc++6 libreadline-dev libssl-dev \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg-dev \
- libhdf4-0 libpng12-dev libnetpbm10-dev tomcat6 php5-cgi \
+ libhdf4-0 libpng12-dev libnetpbm10-dev tomcat6 php5-cgi libedit-dev\
  wget libgdal-dev openjdk-7-jdk libnetcdf-dev rpcbind git rpcbind libsigsegv-dev"
 
 
@@ -88,7 +87,7 @@ pkg_cleanup()
      flex krb5-multidev libecpg-dev libjpeg-dev \
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
-     luatex libgssrpc4 libkdb5-7 libgdal-dev libsigsegv-dev
+     luatex libgssrpc4 libkdb5-7 libgdal-dev git libsigsegv-dev
 
   apt-get --yes autoremove
 }
@@ -111,7 +110,7 @@ if [ "$FULL" -eq 1 ] ; then
   fi
 
   cd "rasdaman"
-  
+ 
   # switch to current osgeo live tag
   git checkout "$OSGEOLIVE_TAG"
 
@@ -168,7 +167,7 @@ if [ "$FULL" -eq 1 ] ; then
      killall rpcbind
      initctl reload-configuration portmap
      start portmap
-  fi 
+  fi
 
   # this needs to be fixed upstream in rasdaman
   cp "$TMP"/rasdaman/config.h "$RASDAMAN_HOME"/include
@@ -223,15 +222,16 @@ echo "Updated database."
 
 cd "$TMP"
 
-if [ ! -d "rasdaman_data" ] ; then
-  # 39mb download
-  wget -c --progress=dot:mega "$RASDAMAN_LOCATION/rasdaman_data.tar.gz"
-  tar xzmf rasdaman_data.tar.gz -C . --no-same-owner
+if [ ! -d "rasdaman_data_v9" ] ; then
+  # 40mb download
+  wget -c --progress=dot:mega "$RASDAMAN_LOCATION/rasdaman_data_v9.tar.gz"
+  tar xzmf rasdaman_data_v9.tar.gz -C . --no-same-owner
 fi
 
 echo -n "Importing data... "
-cd rasdaman_data/
+cd rasdaman_data_v9/
 
+sudo service tomcat6 stop
 for db in RASBASE petascopedb; do
     dropdb $db > /dev/null 2>&1
     createdb "$db"
@@ -257,6 +257,7 @@ fi
 
 echo "copying earthlook folder into $EARTHLOOKDIR/rasdaman-demo..."
 #cp -r public_html "$EARTHLOOKDIR/rasdaman-demo"
+rm -r "$EARTHLOOKDIR/rasdaman-demo"
 mv public_html "$EARTHLOOKDIR/rasdaman-demo"
 
 adduser "$USER_NAME" www-data
@@ -266,14 +267,14 @@ adduser "$USER_NAME" www-data
 #chgrp www-data /var/www/html/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
 
 
-mv /var/lib/tomcat6/webapps/petascope.war \
+mv /var/lib/tomcat6/webapps/rasdaman.war \
    /var/lib/tomcat6/webapps/petascope_earthlook.war
-rm -rf /var/lib/tomcat6/webapps/petascope.war
+rm -rf /var/lib/tomcat6/webapps/rasdaman.war
 rm -rf /var/lib/tomcat6/webapps/petascope
 
 #
 #-------------------------------------------------------------------------------
-# Enable webgl in firefox 
+# Enable webgl in firefox
 #
 sudo echo 'pref("webgl.force-enabled", true);' > /usr/lib/firefox/defaults/pref/all-rasdaman.js
 
@@ -406,7 +407,7 @@ if [ `grep -c 'rasdaman' /etc/rc.local` -eq 0 ] ; then
 fi
 
 # remove secore
-rm -rf $WARDIR/def
+#rm -rf $WARDIR/def
 
 # start stopped services
 start_rasdaman.sh
@@ -416,13 +417,18 @@ if [ $? -ne 0 ] ; then
   start_rasdaman.sh
 fi
 
-# Activate tomcat autodeploy option 
+# Activate tomcat autodeploy option
 sed -i 's/unpackWARs=\"false\"/unpackWARs=\"true\"/g' $TOMCAT_CONFDIR/server.xml
 sed -i 's/autoDeploy=\"false\"/autoDeploy=\"true\"/g' $TOMCAT_CONFDIR/server.xml
 
+# We need to have enough tomcat memory for secor3e to extract the CRS definitions
+echo 'JAVA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 
+-server -Xms1536m -Xmx1536m
+-XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m 
+-XX:MaxPermSize=256m -XX:+DisableExplicitGC"' > /usr/share/tomcat6/bin/setenv.sh
+
 service tomcat6 start
-service tomcat6 stop
-stop_rasdaman.sh
+
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
