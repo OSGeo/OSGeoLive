@@ -21,9 +21,14 @@
 # This script will install Iris
 
 ./diskspace_probe.sh "`basename $0`" begin
+
 BUILD_DIR=/tmp/iris_build
 mkdir -p ${BUILD_DIR}
 
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
 ####
 
 apt-get install -y  \
@@ -137,8 +142,11 @@ if [ ! -e natural_earth_cartopy.tgz ]; then
 fi
 
 tar xzf natural_earth_cartopy.tgz
-mkdir -p /home/user/.local/share/cartopy/shapefiles
+
+mkdir -p ${USER_HOME}/.local/share/cartopy/shapefiles
 mv natural_earth /home/user/.local/share/cartopy/shapefiles/
+chown -r ${USER_NAME}:${USER_NAME} /home/user/.local/share/cartopy
+
 cd
 rm -rf ${BUILD_DIR}
 
