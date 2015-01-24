@@ -424,11 +424,11 @@ fi
 sed -i 's/unpackWARs=\"false\"/unpackWARs=\"true\"/g' $TOMCAT_CONFDIR/server.xml
 sed -i 's/autoDeploy=\"false\"/autoDeploy=\"true\"/g' $TOMCAT_CONFDIR/server.xml
 
-# We need to have enough tomcat memory for secor3e to extract the CRS definitions
-echo 'JAVA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 
--server -Xms256m -Xmx1024m
--XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m 
--XX:MaxPermSize=256m -XX:+DisableExplicitGC"' > /usr/share/tomcat6/bin/setenv.sh
+# # We need to have enough tomcat memory for secor3e to extract the CRS definitions
+# echo 'JAVA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 
+# -server -Xms256m -Xmx1024m
+# -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m 
+# -XX:MaxPermSize=256m -XX:+DisableExplicitGC"' > /usr/share/tomcat6/bin/setenv.sh
 
 service tomcat6 start
 sleep 60
