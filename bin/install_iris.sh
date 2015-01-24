@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# (C) British Crown Copyright 2010 - 2013, Met Office
+# IRIS (C) British Crown Copyright 2010 - 2013, Met Office
 # Licensed under the GNU LGPL.
 #
 # Iris is free software: you can redistribute it and/or modify it under
@@ -21,11 +21,15 @@
 # This script will install Iris
 
 ./diskspace_probe.sh "`basename $0`" begin
-BUILD_DIR=`pwd`
+BUILD_DIR=/tmp/iris_build
+mkdir -p ${BUILD_DIR}
+
 ####
 
-apt-get install -y python-scipy  python-nose python-pyke python-pyshp python-matplotlib \
-        python-mock python-sphinx python-shapely python-netcdf4 python-cartopy python-iris
+apt-get install -y  \
+    python-nose python-sphinx python-mock python-pyke \
+    python-scipy  python-matplotlib python-pyshp python-shapely \
+    python-netcdf4 python-cartopy python-iris
 
 ##-- 29jul14 odd errors installing netCDF, add workarounds
 # apt-get install libpython2.7-dev
@@ -123,9 +127,20 @@ rm -rf /usr/lib/python2.7/dist-packages/iris/tests/results/*
 #       /usr/local/lib/python2.7/dist-packages/cartopy/tests \
 #       /usr/local/lib/python2.7/dist-packages/Iris-1.6.1-py2.7-linux-i686.egg/iris/tests
 
-# cd "$BUILD_DIR"
-# rm -rf /tmp/build_iris
 
+## Live 8.5 -- pre-cache natural_earth 110m shapefiles
+cd ${BUILD_DIR}
+wget -c http://download.osgeo.org/livedvd/data/cartopy/natural_earth_cartopy.tgz
+if [ ! -e natural_earth_cartopy.tgz ]; then
+  echo "Download of cartopy cache files failed"
+  exit 1
+fi
+
+tar xzf natural_earth_cartopy.tgz
+mkdir -p /home/user/.local/share/cartopy/shapefiles
+mv natural_earth /home/user/.local/share/cartopy/shapefiles/
+cd
+rm -rf ${BUILD_DIR}
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
