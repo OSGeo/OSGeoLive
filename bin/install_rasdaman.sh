@@ -59,6 +59,8 @@ WCPS_DATABASE="petascopedb"
 WCPS_USER="petauser"
 WCPS_PASSWORD="petapasswd"
 
+service tomcat6 start
+
 rm -rf "$TMP"
 mkdir -p "$TMP"
 cd "$TMP"
@@ -84,10 +86,10 @@ pkg_cleanup()
    # be careful that no other project on the disc wanted any of these!
 
   apt-get --yes remove libtool bison comerr-dev doxygen doxygen-latex \
-     flex krb5-multidev libecpg-dev libjpeg-dev \
+     flex krb5-multidev libecpg-dev libjpeg-dev libedit-dev\
      libkrb5-dev libncurses5-dev libnetpbm10-dev libpng12-dev \
      libpq-dev libreadline-dev libreadline6-dev libtiff4-dev \
-     luatex libgssrpc4 libkdb5-7 libgdal-dev git libsigsegv-dev
+     luatex libgssrpc4 libkdb5-7 libgdal-dev libsigsegv-dev
 
   apt-get --yes autoremove
 }
@@ -232,6 +234,7 @@ echo -n "Importing data... "
 cd rasdaman_data_v9/
 
 sudo service tomcat6 stop
+
 for db in RASBASE petascopedb; do
     dropdb $db > /dev/null 2>&1
     createdb "$db"
@@ -423,12 +426,14 @@ sed -i 's/autoDeploy=\"false\"/autoDeploy=\"true\"/g' $TOMCAT_CONFDIR/server.xml
 
 # We need to have enough tomcat memory for secor3e to extract the CRS definitions
 echo 'JAVA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 
--server -Xms1536m -Xmx1536m
+-server -Xms256m -Xmx1024m
 -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m 
 -XX:MaxPermSize=256m -XX:+DisableExplicitGC"' > /usr/share/tomcat6/bin/setenv.sh
 
 service tomcat6 start
-
+sleep 60
+service tomcat6 stop
+stop_rasdaman.sh
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
