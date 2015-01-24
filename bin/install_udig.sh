@@ -167,5 +167,8 @@ cp "$REL_DOC" "$DOCS_FOLDER/udig-docs"
 cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
 cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
 
+#force eclipse to use mozilla as the default browser (#1394)
+echo -e "-Dorg.eclipse.swt.browser.DefaultType=mozilla\n" >> /usr/lib/udig/udig_internal.ini
+
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
