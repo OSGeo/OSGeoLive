@@ -145,7 +145,7 @@ tar xzf natural_earth_cartopy.tgz
 
 mkdir -p ${USER_HOME}/.local/share/cartopy/shapefiles
 mv natural_earth /home/user/.local/share/cartopy/shapefiles/
-chown -r ${USER_NAME}:${USER_NAME} /home/user/.local/share/cartopy
+chown --recursive ${USER_NAME}:${USER_NAME} /home/user/.local/share/cartopy
 
 cd
 rm -rf ${BUILD_DIR}
