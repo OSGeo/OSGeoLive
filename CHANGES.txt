@@ -1,6 +1,24 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 8.5beta1
+===================
+
+ * rasdaman update to 9.0.4 (installer and documentation)
+ * IPython and Cesium documentation added
+ * uDig fix: forced to use mozilla as default browser (#1394)
+ * NetCDF logo added (#1320)
+ * Increased Tomcat default memory allocation
+ * Sahana installation tagged, to avoid breakage from git master (#1457)
+ * Added ~okeanos to sponsors
+ * Cartopy caching enabled
+ * Mapbender update to 3.0.4.1
+ * Python liblas error fixed (#1256)
+ * EOxServer reverted to 0.3.2 due to incompatibility with upstream django version (#1456)
+ * GRASS updated to 7.0.0RC1 (#1433)
+ * Added new North Carolina subset for GRASS7 (#1446)
+ * rasterio requirements fixed (#1455)
+
 Version 8.5alpha4
 ===================
 
