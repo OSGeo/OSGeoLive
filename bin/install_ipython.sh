@@ -37,6 +37,7 @@ apt-get install --assume-yes  git python-pip \
         python-geopandas python-descartes \
         python-enum34
 
+pip install geojson
 #pip install cligj  ## per ticket #1455 -- rasterio requirements
 #The deb package in our ppa is way older than the day this requirement was added...
 
