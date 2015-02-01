@@ -80,7 +80,7 @@ txxETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc
 txxETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc.txt
 "
 for n in $t_netcdf_files; do
-	wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/netcdf/$n
+	wget -c -N --progress=dot:mega http://download.osgeo.org/livedvd/data/netcdf/$n
 done
 
 mv * /usr/local/share/data/netcdf/
@@ -130,7 +130,7 @@ physical/$SCALE-rivers-lake-centerlines
       for LAYER in $LAYERS ; do
     	     wget --progress=dot:mega -O "`basename $LAYER`.zip" \
     	       "$BASE_URL/http//www.naturalearthdata.com/download/$SCALE/$LAYER.zip"
-      done  
+      done
     fi
 
     # Unzip files into the gisdata directory
@@ -239,12 +239,22 @@ cd "$TMP"
 mkdir -p nc_data
 cd nc_data
 
+mkdir -p "$DATA_FOLDER/north_carolina"
+
+##-- useful metadata  31jan15
+##-- TODO: wget -N http://www.grassbook.org/presentations/MitOSGeoDataFOSS4G9.pdf
+wget -N http://www.grassbook.org/grasslocations/nc_epsg_codes.html
+wget -N http://grass.osgeo.org/sampledata/north_carolina/README.html
+
+mv nc_epsg_codes.html README.html "$DATA_FOLDER/north_carolina/"
+touch epsg-3358.txt
+
+#--
 for FILE in $FILES ; do
    wget -N --progress=dot:mega "$BASE_URL/nc_$FILE.tar.gz"
 done
 
 #and install them ...
-mkdir -p "$DATA_FOLDER/north_carolina"
 cd "$DATA_FOLDER/north_carolina"
 for FILE in $FILES ; do
    mkdir -p "$FILE"
