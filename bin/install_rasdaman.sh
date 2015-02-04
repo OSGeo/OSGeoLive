@@ -62,6 +62,7 @@ WCPS_PASSWORD="petapasswd"
 service tomcat6 start
 
 rm -rf "$TMP"
+rm -rf "$RASDAMAN_HOME"
 mkdir -p "$TMP"
 cd "$TMP"
 chgrp users "$TMP" -R
@@ -197,6 +198,8 @@ export PATH="$PATH:$RASDAMAN_HOME/bin"
 # Add sleep to start_rasdaman.sh to avoid race condition
 sed -i '84i\sleep 0.5' /usr/local/rasdaman/bin/start_rasdaman.sh
 
+# Make a request to secore to start the load process
+sed -i '55i\nohup wget --spider localhost:8080/def &' /usr/local/rasdaman/bin/start_rasdaman.sh
 
 #
 #-------------------------------------------------------------------------------
