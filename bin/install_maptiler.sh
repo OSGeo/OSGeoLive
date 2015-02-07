@@ -51,11 +51,13 @@ fi
 
 # If MapTiler is not installed then download the .deb package and install it
 if [ `dpkg -l maptiler | grep -c '^ii'` -eq 0 ] ; then
-  wget -c --progress=dot:mega "http://maptiler.googlecode.com/files/$MAPTILERDEB" \
+  wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/maptiler/$MAPTILERDEB" \
      --output-document="$TMP/$MAPTILERDEB"
   dpkg -i "$TMP/$MAPTILERDEB"
   #rm "$MAPTILERDEB"
 fi
+
+ln -s /usr/lib/maptiler/maptiler.py /usr/bin/maptiler
 
 # for file picker, recently-used.xbel
 mkdir -p /etc/skel/.local/share
