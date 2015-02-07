@@ -79,9 +79,13 @@ rm -rf qgis-osgeolive-plugins_8.0-1_all.deb
 #Make sure old qt uim isn't installed
 apt-get --assume-yes remove uim-qt uim-qt3
 
-#TODO: Remove this
-#apt-get --assume-yes install python-setuptools
-#easy_install owslib
+###FIXME: Temp patch for #1466
+wget -c --progress=dot:mega \
+   "http://aiolos.survey.ntua.gr/gisvm/dev/grass7.tar.gz"
+tar zxvf grass7.tar.gz
+rm grass7.tar.gz
+cp -r grass7/* /usr/share/qgis/python/plugins/processing/algs/grass7/
+rm -rf grass7
 
 #### install desktop icon ####
 INSTALLED_VERSION=`dpkg -s qgis | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
