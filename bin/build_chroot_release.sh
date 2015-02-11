@@ -78,7 +78,7 @@ echo "====================================="
 mkdir -p ~/livecdtmp
 cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
-UBU_MIRROR="http://se.archive.ubuntu.com/mirror/cdimage.ubuntu.com"
+UBU_MIRROR="http://cdimage.ubuntu.com"
 UBU_RELEASE="14.04"
 ISO_RELEASE="14.04.1"
 UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
@@ -123,10 +123,10 @@ echo "======================================"
 
 #NOW IN CHROOT
 #sudo chroot edit
-sudo cp "$DIR"/inchroot_nightly.sh ~/livecdtmp/edit/tmp/
+sudo cp "$DIR"/inchroot_release.sh ~/livecdtmp/edit/tmp/
 sudo cp "$SVN_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
 sudo cp "$SVN_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
-sudo chroot edit /bin/sh /tmp/inchroot_nightly.sh
+sudo chroot edit /bin/sh /tmp/inchroot_release.sh
 
 #exit
 #OUT OF CHROOT
