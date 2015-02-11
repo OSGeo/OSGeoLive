@@ -117,7 +117,6 @@ export USER_NAME
 ./install_mapbender3.sh
 ./install_geokettle.sh
 ./install_gmt.sh
-# ./install_grass.sh
 ./install_grass7.sh
 ./install_qgis.sh
 ./install_qgis_mapserver.sh
@@ -132,7 +131,6 @@ export USER_NAME
 ./install_zygrib.sh
 ./install_liblas.sh
 ./install_gpsdrive.sh
-# ./install_mapfish.sh
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_R.sh
