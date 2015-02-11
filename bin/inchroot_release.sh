@@ -168,9 +168,12 @@ export USER_NAME
 
 # save space on ISO by removing the .svn/ dirs
 #   (or control this in bootstrap.sh by uncommenting the 'svn export' line)
-for DIR in `find /usr/local/share/gisvm | grep '\.svn$'` ; do
-   rm -rf "$DIR"
-done
+NEAR_RC=1
+if [ "$NEAR_RC" -eq 1 ] ; then
+   for DIR in `find /usr/local/share/gisvm | grep '\.svn$'` ; do
+      rm -rf "$DIR"
+   done
+fi
 
 # user shouldn't own outside of /home, but a group can
 chown -R root.staff /usr/local/share/gisvm
