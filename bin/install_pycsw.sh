@@ -34,7 +34,7 @@ echo 'Installing pycsw dependencies ...'
 
 # install dependencies
 apt-get install --yes apache2 python-lxml python-sqlalchemy \
-   python-shapely python-pyproj
+   python-shapely python-pyproj libjs-jquery
 
 echo 'Installing pycsw ...'
 
