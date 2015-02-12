@@ -38,14 +38,10 @@ apt-get install --yes apache2 python-lxml python-sqlalchemy \
 
 echo 'Installing pycsw ...'
 
-apt-get install --yes python-owslib python-pycsw pycsw-cgi
+apt-get install --yes python-owslib python-pycsw python-pycsw-wsgi python-pycsw-doc
 
 cp /usr/share/applications/pycsw.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/pycsw.desktop"
-
-# Temp fix: to be added in deb
-wget https://github.com/geopython/pycsw/raw/master/docs/_static/pycsw-logo.png
-mv pycsw-logo.png /var/www/html/pycsw/docs/_static/
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
