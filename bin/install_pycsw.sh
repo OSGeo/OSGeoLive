@@ -43,5 +43,8 @@ apt-get install --yes python-owslib python-pycsw python-pycsw-wsgi python-pycsw-
 cp /usr/share/applications/pycsw.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/pycsw.desktop"
 
+# make jquery accessible for pycsw tester (#1472)
+ln -s /usr/share/javascript /var/www/html/javascript
+
 ####
 ./diskspace_probe.sh "`basename $0`" end
