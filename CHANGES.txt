@@ -1,6 +1,21 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 8.5beta2
+===================
+
+ * GRASS updated to 7.0.0RC2 (#1433)
+ * Patched QGIS processing plugin for GRASS7 support (#1466)
+ * Updated pycsw installer to use new wsgi deb package (#1472)
+ * Documentation updates and translations
+ * Added python-geojson
+ * Added north_carolina metadata
+ * GRASS GIS documentation: updated to GRASS GIS 7
+ * Updated OSGeoLive presentation for 8.5
+ * Add link to OSGeo Metrics from presentation page
+ * Retired MapTiler from OSGeo-Live docs
+ * New ppa for 8.5 release is now available
+
 Version 8.5beta1
 ===================
 
