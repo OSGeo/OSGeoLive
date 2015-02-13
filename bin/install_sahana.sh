@@ -55,7 +55,7 @@ PORT="8007"
 # PostgreSQL
 PG_VERSION="9.3"
 # Geoserver
-GS_VERSION="2.2.2"
+GS_VERSION="2.6.1"
 GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"
 
 mkdir -p "$TMP_DIR"
@@ -142,8 +142,9 @@ rm -rf "$INSTALL_DIR"/web2py
 cd "$INSTALL_DIR"
 git clone git://github.com/web2py/web2py.git
 cd web2py
+git checkout 354e63d0fea30e35b7d55f4f26dd34b4d887232f
 #git checkout 828a4d7a60021b20bd9dfacf8235e9113156271b
-#git reset --hard
+git reset --hard
 
 cat << EOF > "$INSTALL_DIR/web2py/routes.py"
 default_application = 'eden'
