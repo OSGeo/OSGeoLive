@@ -105,11 +105,11 @@ SCALE="10m"  # 1:10 million
 # Simple Populated Places 1:10m
 #    http://www.naturalearthdata.com/downloads/10m-cultural-vectors/
 # Admin 0 - Countries 1:10m
-# Populated Places (simple, less columns) 1:10m 
-# Land 1:10m 
-# Ocean 1:10m 
-# Lakes + Reservoirs 1:10m 
-# Rivers, Lake Ceterlines 1:10m 
+# Populated Places (simple, less columns) 1:10m
+# Land 1:10m
+# Ocean 1:10m
+# Lakes + Reservoirs 1:10m
+# Rivers, Lake Ceterlines 1:10m
 
 LAYERS="
 cultural/$SCALE-populated-places-simple
@@ -247,7 +247,6 @@ wget -N http://www.grassbook.org/grasslocations/nc_epsg_codes.html
 wget -N http://grass.osgeo.org/sampledata/north_carolina/README.html
 
 mv nc_epsg_codes.html README.html "$DATA_FOLDER/north_carolina/"
-touch epsg-3358.txt
 
 #--
 for FILE in $FILES ; do
@@ -266,6 +265,8 @@ for FILE in $FILES ; do
    chgrp users "$FILE"
    chmod g+w "$FILE"
 done
+
+touch "$DATA_FOLDER"/north_carolina/shape/epsg-3358.txt
 
 
 cd "$TMP"
