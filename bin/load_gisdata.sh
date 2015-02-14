@@ -54,6 +54,9 @@ else
    HAS_ATLASSTYLER=1
 fi
 
+##-- patch feb15 -- pdf from where ?
+#rm /usr/local/share/doc/Getting_Started_with_Ubuntu_13.10.pdf
+
 ##------------------------
 # create tmp folders
 mkdir "$TMP"
