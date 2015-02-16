@@ -1,10 +1,10 @@
 #!/bin/sh
 #
-# Install the MapTiler application
+# Install the MapSlicer application
 #
 # Created by Klokan Petr Pridal <petr.pridal@klokantech.com>
 #
-# Copyright (c) 2010-13 The Open Source Geospatial Foundation.
+# Copyright (c) 2010-15 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 
@@ -19,24 +19,14 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-TMP="/tmp/build_maptiler"
-MAPTILERDEB="maptiler_1.0.beta2_all.deb"
-DATA_FOLDER="/usr/local/share/maptiler"
+TMP="/tmp/build_mapslicer"
+MAPSLICERDEB="mapslicer_1.0.beta3_all.deb"
+DATA_FOLDER="/usr/local/share/mapslicer"
 TESTDATA_URL="http://download.osgeo.org/gdal/data/gtiff/utm.tif"
 
 
 #Can't cd to a directory before you make it, may be uneeded now
 mkdir -p "$TMP"
-
-#CAUTION: UbuntuGIS should be enabled only through setup.sh
-# Add UbuntuGIS repository (same as QGIS)
-#cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
-
-#Add signed key for repositorys LTS and non-LTS  (not needed?)
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF  
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
-apt-get -q update
-
 
 # Install dependencies
 PACKAGES="python python-wxgtk2.8 python-gdal"
@@ -49,15 +39,15 @@ if [ $? -ne 0 ] ; then
 fi
 
 
-# If MapTiler is not installed then download the .deb package and install it
-if [ `dpkg -l maptiler | grep -c '^ii'` -eq 0 ] ; then
-  wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/maptiler/$MAPTILERDEB" \
-     --output-document="$TMP/$MAPTILERDEB"
-  dpkg -i "$TMP/$MAPTILERDEB"
-  #rm "$MAPTILERDEB"
+# If MapSlicer is not installed then download the .deb package and install it
+if [ `dpkg -l mapslicer | grep -c '^ii'` -eq 0 ] ; then
+  wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/mapslicer/$MAPSLICERDEB" \
+     --output-document="$TMP/$MAPSLICERDEB"
+  dpkg -i "$TMP/$MAPSLICERDEB"
+  #rm "$MAPSLICERDEB"
 fi
 
-ln -s /usr/lib/maptiler/maptiler.py /usr/bin/maptiler
+ln -s /usr/lib/mapslicer/mapslicer.py /usr/bin/mapslicer
 
 # for file picker, recently-used.xbel
 mkdir -p /etc/skel/.local/share
@@ -65,17 +55,17 @@ mkdir -p /etc/skel/.local/share
 # gdal 1.10 does not like epsg code 900913, replace with (trac #1391)
 sed -i -e 's/EPSG(900913)/EPSG(3857)/' \
        -e 's/"EPSG:900913"/"EPSG:3857"/' \
-   /usr/lib/maptiler/maptiler/gdal2tiles.py \
+   /usr/lib/mapslicer/mapslicer/gdal2tiles.py \
    /usr/bin/gdal2tiles.py
 
 
 # Test if installation was correct and create the Desktop icon
-if [ -e /usr/share/applications/maptiler.desktop ] ; then
-  cp /usr/share/applications/maptiler.desktop "$USER_HOME"/Desktop/
-  chown "$USER_NAME"."$USER_NAME" "$USER_HOME"/Desktop/maptiler.desktop
-  sed -i -e 's/Graphics;/Geography;/' /usr/share/applications/maptiler.desktop
+if [ -e /usr/share/applications/mapslicer.desktop ] ; then
+  cp /usr/share/applications/mapslicer.desktop "$USER_HOME"/Desktop/
+  chown "$USER_NAME"."$USER_NAME" "$USER_HOME"/Desktop/mapslicer.desktop
+  sed -i -e 's/Graphics;/Geography;/' /usr/share/applications/mapslicer.desktop
 else
-  echo "ERROR: Installation of the MapTiler failed."
+  echo "ERROR: Installation of the MapSlicer failed."
   exit 1
 fi
 
@@ -91,22 +81,6 @@ wget -N --progress=dot:mega "$TESTDATA_URL"
 # make it available to all projects:
 mkdir -p /usr/local/share/data/raster
 ln -s "$DATA_FOLDER/utm.tif" /usr/local/share/data/raster/utm11N.tif
-
-
-# Everything is OK
-if [ -n "$VERBOSE" ] ; then
-   echo "MapTiler is installed"
-   echo "---------------------"
-   echo "To try it you should:"
-   echo ""
-   echo " 1. Start MapTiler by clicking the icon on the Desktop"
-   echo " 2. Load in the second step an raster geodata (with georerence/srs), you can try /home/user/data/maptiler/utm.tif"
-   echo " 3. Go trough all the steps with 'Next' up to the Render"
-   echo " 4. Once the render is finished you can click in the GUI to open a folder with tiles. When you open googlemaps.html or openlayers.html then you see your geodata warped to the overlay of popular interactive web maps as Google Maps."
-   echo ""
-   echo "The map tiles are displayed directly from your disk. To publish the map to Internet just upload the folder with tiles to any webserver or Amazon S3" 
-fi
-
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

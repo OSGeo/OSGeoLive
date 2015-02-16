@@ -54,7 +54,7 @@ BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 MapFish-* GeoMO
 
 #Infrastructure and miscellanea
 SPATIAL_TOOLS="imagelinker r geokettle ipython-notebook*
-               maptiler tilemill mapnik-* monteverdi"
+               mapslicer tilemill mapnik-* monteverdi"
 
 #Future home of PostGIS and Spatialite; pgRouting???
 #  pgadmin, sqlitebrowser, etc  (parts of this one are automatic)
