@@ -20,7 +20,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_mapslicer"
-MAPSLICERDEB="mapslicer_1.0.beta3_all.deb"
+MAPSLICERDEB="mapslicer_1.0.rc1_all.deb"
 DATA_FOLDER="/usr/local/share/mapslicer"
 TESTDATA_URL="http://download.osgeo.org/gdal/data/gtiff/utm.tif"
 
