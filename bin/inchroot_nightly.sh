@@ -123,7 +123,7 @@ export USER_NAME
 ./install_saga.sh
 ./install_mapnik.sh
 ./install_mapproxy.sh
-./install_maptiler.sh
+./install_mapslicer.sh
 ./install_marble.sh
 ./install_opencpn.sh
 ./install_prune.sh
