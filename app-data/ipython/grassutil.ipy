@@ -1,0 +1,114 @@
+from IPython.core.display import Image
+
+def getLayerList(type='rast', mapset=None, verbose=None):
+    if mapset:
+        mapset = [mapset]
+    if not mapset:
+        mapset = !g.mapsets -l
+        mapset = mapset[1].split()
+    if verbose:
+        print type, 'layers available in mapset : ', mapset[0]
+    layerlist = []
+    for m in mapset:
+        llist = !g.list {type} 
+    return llist
+
+def list2dict(inputlist, sep="=", inverse=False):
+    if inverse:
+        dictionary = dict([(i.split(sep)[1],i.split(sep)[0]) for i in inputlist])
+    else :
+        dictionary = dict([(i.split(sep)[0],i.split(sep)[1]) for i in inputlist])
+    return dictionary
+
+def vlayerInfo(map,layer=1):
+    hist = !v.info map={map} layer={layer} -h
+    map_history = {'COMMAND' : hist[0].split(':')[1],
+                   'GISDBASE' : hist[1].split(':')[1],
+                   'LOCATION' : hist[2].split(' ')[1],
+                   'MAPSET' : hist[2].split(' ')[3],
+                   'USER' : hist[2].split(' ')[5],
+                   'DATE' : hist[2].split(' ')[7:]}
+    map_table = !v.info map={map} layer={layer} -c
+    map_table = list2dict(map_table[1:], sep='|', inverse=True)
+    map_region = !v.info map={map} layer={layer} -g
+    map_region = list2dict(map_region)
+    #map_title = !v.info map={map} layer={layer} -m
+    #try:
+    #    map_title = map_title[0].split("=")[1].replace("(",'').replace(")",'').strip()
+    #except:
+    #    'no title found'
+    map_topology = !v.info map={map} layer={layer} -t
+    map_topology = list2dict(map_topology)
+    info = {'table' : map_table,
+            'region' : map_region,
+            'history' : map_history,
+            'topology' : map_topology,
+            } #'title' : map_title
+    return info
+
+def rlayerInfo(map):
+    raster_info = !r.info map=basins -g
+    raster_info = list2dict(raster_info)
+    
+    map_range = !r.info map={map} -r
+    map_range=list2dict(map_range)
+    raster_info['range'] = map_range
+    
+    map_history = !r.info map={map} -h
+    raster_info['history'] = '\n'.join(map_history)
+    return raster_info
+
+def region2dict(rast=None, vect=None):
+    if rast:
+        region = !g.region rast={rast} -p
+    if vect:
+        region = !g.region vect={vect} -p
+    else :
+        region = !g.region -p
+        regiondict = {}
+        for i in region:
+            info = i.split(':')
+            try:
+                regiondict[info[0]] = info[1].strip()
+            except:
+                print 'done'
+    return regiondict
+
+
+def makeImage(mapname='', maptype='raster', lcolor='grey', vcolor='grey', vsize=1, icon='basic/diamond', 
+              maptitle='', region=None, gridsize=1000, title_at=(45,95), legend_at=(22,65,8,10)):
+    if not region:
+        try:
+            array_info = rlayerInfo(mapname)
+            n=array_info['north']
+            s=array_info['south'] 
+            w=array_info['west'] 
+            e=array_info['east']
+        except:
+            print 'no region boundary provided and unable to retrieve map layer region, using default region settings'
+    else:
+        region=region2dict()
+        n=region['north']
+        s=region['south'] 
+        w=region['west'] 
+        e=region['east']
+
+    !rm -rf {mapname}.png
+    !g.region n={n} s={s} w={w} e={e} -a --q
+    !d.mon start=cairo --q output={mapname}.png
+    if maptype=='raster':
+        !g.region rast={mapname} n={n} s={s} w={w} e={e} -a --q
+        !d.rast map={mapname} --q
+        !d.legend at={legend_at[0]},{legend_at[1]},{legend_at[2]},{legend_at[3]} raster={mapname} --q
+    if maptype=='vector':
+        !g.region vect={mapname} n={n} s={s} w={w} e={e} -a #p
+        !d.vect map={mapname} color={vcolor} size={vsize} icon={icon} --q
+    if maptype=='overlay':
+        for i in mapname['raster']:
+            !d.rast map={i} --q
+        for i in mapname['vector']:
+            !d.vect map={i} color={vcolor} size={vsize} icon={icon} --q
+    !d.grid size={gridsize} color=blue --q
+    !d.text at={title_at[0]},{title_at[1]} text={maptitle} color=red --q
+    !d.mon stop=cairo --q
+    return Image('map.png')
