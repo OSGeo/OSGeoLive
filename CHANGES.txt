@@ -1,6 +1,19 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 8.5rc1
+===================
+
+ * Moved to OSGeoLive release-8.5 ppa
+ * Reverted Sahana to a working web2py version (#1474)
+ * Replaced MapTiler with MapSlicer (#1467)
+ * Added text file to indicate proj in nc/data/shape
+ * Updated screenshots in docs
+ * Optimized png files
+ * Added grassutil.ipy adapted to work with grass 70
+ * Installed grass70 desktop file properly (#1458)
+ * Updated OSGeoLive presentation
+
 Version 8.5beta2
 ===================
 
