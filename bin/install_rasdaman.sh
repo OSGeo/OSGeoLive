@@ -199,7 +199,7 @@ export PATH="$PATH:$RASDAMAN_HOME/bin"
 sed -i '84i\sleep 0.5' /usr/local/rasdaman/bin/start_rasdaman.sh
 
 # Make a request to secore to start the load process
-sed -i '55i\nohup wget --spider localhost:8080/def &' /usr/local/rasdaman/bin/start_rasdaman.sh
+sed -i "55i\nohup wget --spider 'localhost:8080/petascope_earthlook?query=for t1 in (NN3_1) return encode(t1, \"csv\")' &" /usr/local/rasdaman/bin/start_rasdaman.sh
 
 #
 #-------------------------------------------------------------------------------
