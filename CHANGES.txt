@@ -1,8 +1,8 @@
 OSGeo Live GIS Disc
 ===================
 
-Version 8.5rc1
-===================
+Version 8.5rc1/final
+====================
 
  * Moved to OSGeoLive release-8.5 ppa
  * Reverted Sahana to a working web2py version (#1474)
@@ -105,8 +105,8 @@ Version 8.5alpha1
  * QGIS 2.6
  * Updates from UbuntuGIS
 
-Version 8.0rc1
-===================
+Version 8.0rc1/final
+====================
 
  * Geospatial menu finalized for LXDE
  * Bugfix deegree install script 
