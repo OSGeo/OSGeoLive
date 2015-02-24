@@ -80,11 +80,10 @@ python/matplotlib-1.3.1-2.dmg
 
 # 3 End-User Packages
 C_PKG="
-grass/GRASS-6.4.4-1-Lion.dmg
 postgresql/PostGIS-2.1.4-2.dmg
 qgis/QGIS-2.6.1-1.dmg
 "
-
+##grass/GRASS-6.4.4-1-Lion.dmg
 
 ### Base Packages
 PKG_DIR="A__Base_Packages"

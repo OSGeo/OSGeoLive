@@ -64,9 +64,6 @@ for URL in \
   http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86_64.exe \
   http://qgis.org/downloads/QGIS-OSGeo4W-2.6.1-1-Setup-x86.exe \
   http://grass.osgeo.org/grass70/binary/mswindows/native/WinGRASS-7.0.0-1-Setup.exe \
-  http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.5.1-Setup.exe \
-  http://gpsvp.googlecode.com/files/gpsVPxp_0.4.24.zip \
-  http://zygrib.org/getfile.php?file=zyGrib_win-6.2.3.zip \
   http://download.osgeo.org/fdo/3.8.0/release/binaries/win32/fdo-win32-3.8.0_3601.tar.gz \
 ; do
 
@@ -90,6 +87,9 @@ done;
 #  http://downloads.sourceforge.net/project/opencpn/opencpn/3.2.2/opencpn_3.2.2_setup.exe?use_mirror=cdnetworks-us-2 \
 #  http://downloads.sourceforge.net/project/saga-gis/SAGA%20-%202.1/SAGA%202.1.2/saga_2.1.2_win32.zip \
 #  http://download.osgeo.org/livedvd/data/mapwindow/MapWindowx86Full-v488SR-installer.exe \
+#  http://www.zygrib.org/getfile.php?file=zyGrib_win-7.0.0.zip \
+#  http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.5.1-Setup.exe \
+#  http://gpsvp.googlecode.com/files/gpsVPxp_0.4.24.zip \
 
 
 #Disabled because they are very outdated
