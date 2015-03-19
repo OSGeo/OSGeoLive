@@ -76,6 +76,10 @@ wget -c --progress=dot:mega \
 dpkg -i qgis-osgeolive-plugins_8.0-1_all.deb
 rm -rf qgis-osgeolive-plugins_8.0-1_all.deb
 
+#Install optional packages for workshops
+apt-get --assume-yes install qt4-designer \
+   pyqt4-dev-tools
+
 #Make sure old qt uim isn't installed
 apt-get --assume-yes remove uim-qt uim-qt3
 
