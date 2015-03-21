@@ -141,7 +141,7 @@ mkdir /usr/local/share/qgis
 #	--output-document=/usr/local/share/qgis/qgis-1.0.0_a-gentle-gis-introduction_en.pdf
 
 # TODO: Consider including translations
-VER=2.2
+VER=2.6
 DOCURL="http://docs.qgis.org/$VER/pdf/en"
 for DOC in UserGuide QGISTrainingManual ; do
    wget -c --progress=dot:mega \
