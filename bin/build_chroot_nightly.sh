@@ -158,10 +158,10 @@ echo "======================================"
 
 #NOW IN CHROOT
 #sudo chroot edit
-sudo cp "$DIR"/inchroot_release.sh ~/livecdtmp/edit/tmp/
+sudo cp "$DIR"/inchroot.sh ~/livecdtmp/edit/tmp/
 sudo cp "$GIT_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
 sudo cp "$GIT_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
-sudo chroot edit /bin/sh /tmp/inchroot_release.sh
+sudo chroot edit /bin/sh /tmp/inchroot.sh "$BUILD_MODE" "$GIT_BRANCH" "$GIT_USER"
 
 #exit
 #OUT OF CHROOT
