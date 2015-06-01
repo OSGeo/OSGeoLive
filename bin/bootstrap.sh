@@ -32,10 +32,10 @@ USER_HOME="/home/$USER_NAME"
 
 # Parse arguments to be able to build specific branch from specific git repository.
 # Defaults to master branch and official OSGeo git repository.
-if [ $# -eq 2 ]; then
+if [ "$#" -eq 2 ]; then
     GITHUB_USER="$2"
     GIT_BRANCH="$1"
-elif [ $# -eq 1 ]; then
+elif [ "$#" -eq 1 ]; then
     GITHUB_USER="OSGeo"
     GIT_BRANCH="$1"
 else
@@ -63,7 +63,7 @@ ln -s "$SCRIPT_DIR/gisvm" .
 ln -s "$SCRIPT_DIR/gisvm" /etc/skel/gisvm
 
 # make a directory for the install logs
-mkdir /var/log/osgeolive/
+mkdir -p /var/log/osgeolive/
 
 # note: a+w is to be avoided always!
 chmod ug+wr /var/log/osgeolive/
