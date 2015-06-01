@@ -73,9 +73,15 @@ REVISION_FULL=`git show-ref --head --hash head`
 
 GIT_BUILD=`git describe --long --tags | awk -F'-' '{print $2}'`
 
-#Is it a public or an internal build?
-#ISO_NAME="$PACKAGE_NAME-mini-$VERSION-$ARCH"
-ISO_NAME="$PACKAGE_NAME-nightly-build$GIT_BUILD-$ARCH-$REVISION"
+# Selecting iso name and build name
+if [ "$BUILD_MODE" == "release" ]; then
+    ISO_NAME="$PACKAGE_NAME-mini-$VERSION-$ARCH"
+    VERSION_MODE="$VERSION"
+else
+    ISO_NAME="$PACKAGE_NAME-nightly-build$GIT_BUILD-$ARCH-$REVISION"
+    VERSION_MODE="build-$REVISION"
+fi
+
 #volume name, max 11 chars:
 IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
 
@@ -206,14 +212,14 @@ chmod a+x scripts/casper-bottom/25adduser
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 
 #Change the text on the loader
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" \
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
    lib/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 #might be in this file
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" \
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
    lib/plymouth/themes/text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" \
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
     ../extract-cd/.disk/info
 
 #copy in a different background
