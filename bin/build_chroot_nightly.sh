@@ -32,22 +32,50 @@
 #     6. QEMU/KVM, VirtualBox or VMware for testing (optional) 
 #
 
+if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
+    echo "Wrong number of arguments"
+    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
+fi
+
 if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
-   echo "Did not find build architecture, try using i386 or amd64 as an argument"
-   exit 1
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
 fi
 ARCH="$1"
 
+if [ "$2" != "release" ] && [ "$2" != "nightly" ] ; then
+    echo "Did not specify build mode, try using release or nightly as an argument"
+    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
+fi
+BUILD_MODE="$2"
+
+if [ "$#" -eq 4 ]; then
+    GIT_BRANCH="$3"
+    GIT_USER="$4"
+elif [ "$#" -eq 3 ]; then
+    GIT_BRANCH="$3"
+    GIT_USER="OSGeo"
+else
+    GIT_BRANCH="master"
+    GIT_USER="OSGeo"
+fi
+
 DIR="/usr/local/share/gisvm/bin"
-SVN_DIR="/usr/local/share/gisvm"
+GIT_DIR="/usr/local/share/gisvm"
 VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeo-live"
-cd "$SVN_DIR"
-REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
+cd "$GIT_DIR"
+REVISION=`git show-ref --head --hash head --hash=8`
+REVISION_FULL=`git show-ref --head --hash head`
+
+GIT_BUILD=`git describe --long --tags | awk -F'-' '{print $2}'`
 
 #Is it a public or an internal build?
-#ISO_NAME="$PACKAGE_NAME-$VERSION"
-ISO_NAME="$PACKAGE_NAME-nightly-build$REVISION-$ARCH"
+#ISO_NAME="$PACKAGE_NAME-mini-$VERSION-$ARCH"
+ISO_NAME="$PACKAGE_NAME-nightly-build$GIT_BUILD-$ARCH-$REVISION"
 #volume name, max 11 chars:
 IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
 
@@ -124,8 +152,8 @@ echo "======================================"
 #NOW IN CHROOT
 #sudo chroot edit
 sudo cp "$DIR"/inchroot_release.sh ~/livecdtmp/edit/tmp/
-sudo cp "$SVN_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
-sudo cp "$SVN_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
+sudo cp "$GIT_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
+sudo cp "$GIT_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
 sudo chroot edit /bin/sh /tmp/inchroot_release.sh
 
 #exit
