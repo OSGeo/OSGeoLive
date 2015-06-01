@@ -8,7 +8,7 @@
 #	   Angelos Tzotsos <tzotsos@gmail.com>
 #
 #################################################
-# Copyright (c) 2010-2014 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2015 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -23,6 +23,41 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 ##################################################
+
+if [ "$#" -gt 3 ]; then
+  echo "Usage: inchroot.sh MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+  exit 1
+fi
+
+if [ "$#" -eq 1 ]; then
+    if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
+        BUILD_MODE="nightly"
+    else
+        BUILD_MODE="$1"
+    fi
+    GIT_BRANCH="master"
+    GIT_USER="OSGeo"
+elif [ "$#" -eq 2 ]; then
+    if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
+        BUILD_MODE="nightly"
+    else
+        BUILD_MODE="$1"
+    fi
+    GIT_BRANCH="$2"
+    GIT_USER="OSGeo"
+elif [ "$#" -eq 3 ]; then
+    if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
+        BUILD_MODE="nightly"
+    else
+        BUILD_MODE="$1"
+    fi
+    GIT_BRANCH="$2"
+    GIT_USER="$3"
+else
+    BUILD_MODE="nightly"
+    GIT_BRANCH="master"
+    GIT_USER="OSGeo"
+fi
 
 run_installer()
 {
@@ -70,11 +105,11 @@ EOF
 
 cd /tmp/
 
-wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh"
+wget -nv "https://github.com/$GIT_USER/OSGeoLive/raw/$GIT_BRANCH/bin/bootstrap.sh"
 
 chmod a+x bootstrap.sh
 
-./bootstrap.sh
+./bootstrap.sh "$GIT_BRANCH" "$GIT_USER"
 
 cd /usr/local/share/gisvm/bin
 
@@ -89,7 +124,7 @@ cp /tmp/CHANGES.txt /usr/local/share/gisvm/
 USER_NAME="user"
 export USER_NAME
 
-./setup.sh nightly
+./setup.sh "$BUILD_MODE"
 ./install_services.sh
 ./install_language.sh
 ./install_mysql.sh
@@ -166,13 +201,10 @@ export USER_NAME
 #Remove doc folder to save space
 #rm -rf /usr/local/share/gisvm/doc
 
-# save space on ISO by removing the .svn/ dirs
-#   (or control this in bootstrap.sh by uncommenting the 'svn export' line)
-NEAR_RC=0
+# save space on ISO by removing the .git dir
+NEAR_RC=1
 if [ "$NEAR_RC" -eq 1 ] ; then
-   for DIR in `find /usr/local/share/gisvm | grep '\.svn$'` ; do
-      rm -rf "$DIR"
-   done
+   rm -rf /usr/local/share/gisvm/.git
 fi
 
 # user shouldn't own outside of /home, but a group can
