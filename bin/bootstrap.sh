@@ -48,15 +48,10 @@ GIT_REPO="https://github.com/$GIT_USER/OSGeoLive.git"
 # Install git
 apt-get --assume-yes install git
 
-# Clone git repository
+# Clone git repository to specified branch
 cd "$SCRIPT_DIR"
-git clone "$GIT_REPO" gisvm
-# Switch to prefered branch
-cd gisvm
-git fetch origin -a
-git checkout "$GIT_BRANCH"
+git clone -b "$GIT_BRANCH" "$GIT_REPO" gisvm
 
-cd "$SCRIPT_DIR"
 chown -R "$USER_NAME":"$USER_NAME" gisvm
 cd "$USER_HOME"
 ln -s "$SCRIPT_DIR/gisvm" .
