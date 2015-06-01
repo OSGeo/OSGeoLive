@@ -268,8 +268,9 @@ sudo rm -rf edit
 #Can probably use sed magic or copy a predefined file from gisvm/app-data
 #sudo nano extract-cd/README.diskdefines
 # fixme: can you copy from the local ../filesystem instead?
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/build_chroot/README.diskdefines \
-     --output-document=extract-cd/README.diskdefines
+cp "$GIT_DIR/app-conf/build_chroot/README.diskdefines" extract-cd/README.diskdefines
+# wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/build_chroot/README.diskdefines \
+#      --output-document=extract-cd/README.diskdefines
 
 echo
 echo "Calculating new md5 sums..."
