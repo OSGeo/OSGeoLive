@@ -1,7 +1,15 @@
 #!/bin/sh
-# Copyright (c) 2009-2015 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
-# 
+#############################################################################
+#
+# Purpose: This script bootstraps the OSGeoLive build procedure.
+#   For detailed build instructions, refer to:
+#   http://wiki.osgeo.org/wiki/GISVM_Build#Build_the_Live_DVD_ISO_image
+#
+#############################################################################
+# Copyright (c) 2009-2015 Open Source Geospatial Foundation (OSGeo)
+#
+# Licensed under the GNU LGPL version >= 2.1.
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -11,17 +19,10 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
-# About:
-# =====
-# This script bootstraps the OSGeoLive build procedure.
-# For detailed build instructions, refer to:
-#   http://wiki.osgeo.org/wiki/GISVM_Build#Build_the_Live_DVD_ISO_image
-
-
-# Running:
-# =======
+#############################################################################
+# Usage:
 # sudo ./boostrap.sh [git_branch (default=master)] [GitHub_username (default=OSGeo)]
+#############################################################################
 
 SCRIPT_DIR=/usr/local/share
 
