@@ -2,12 +2,12 @@
 #############################################################################
 # 
 # Purpose: Creating OSGeoLive as an Ubuntu customization
-# 	   https://help.ubuntu.com/community/LiveCDCustomization
+#          https://help.ubuntu.com/community/LiveCDCustomization
 # Authors: Alex Mandel <tech_dev@wildintellect.com>
-#	   Angelos Tzotsos <tzotsos@gmail.com>
+#          Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2014 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2013-2015 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
 # 
@@ -21,7 +21,7 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
-
+#
 # System Requirements
 #
 #     1. At least 3-5 GB of free space
@@ -31,6 +31,7 @@
 #     5. An Ubuntu kernel with squashfs support (present in Ubuntu 6.06 and later)
 #     6. QEMU/KVM, VirtualBox or VMware for testing (optional) 
 #
+#############################################################################
 
 if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
     echo "Wrong number of arguments"
@@ -213,10 +214,10 @@ sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 
 #Change the text on the loader
 sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
-   lib/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
+    lib/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 #might be in this file
 sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
-   lib/plymouth/themes/text.plymouth
+    lib/plymouth/themes/text.plymouth
 
 #Optional change it in the .disk/info too
 sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
@@ -231,7 +232,6 @@ find . | cpio --quiet --dereference -o -H newc | \
 
 #sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
 cd ..
-
 
 echo
 echo "Regenerating manifest..."
