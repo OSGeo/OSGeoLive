@@ -55,7 +55,7 @@ git clone -b "$GIT_BRANCH" "$GIT_REPO" gisvm
 
 chown -R "$USER_NAME":"$USER_NAME" gisvm
 cd "$USER_HOME"
-ln -s "$SCRIPT_DIR/gisvm" .
+ln -s "$SCRIPT_DIR/gisvm" "$USER_HOME/gisvm"
 ln -s "$SCRIPT_DIR/gisvm" /etc/skel/gisvm
 
 # make a directory for the install logs
