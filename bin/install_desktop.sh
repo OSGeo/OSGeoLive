@@ -1,5 +1,13 @@
 #!/bin/sh
-# Copyright (c) 2009-2013 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install a desktop background image, password file,
+# taskbar,and generally clean up the user desktop-interface experience.
+# The menu creation and icon sorting has moved to install_icons_and_menus.sh
+#
+#############################################################################
+# Copyright (c) 2009-2015 Open Source Geospatial Foundation (OSGeo)
+#
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -11,13 +19,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
-# About:
-# =====
-# This script will install a desktop background image, password file,
-# taskbar,and generally clean up the user desktop-interface experience.
-# The menu creation and icon sorting has moved to install_icons_and_menus.sh
-#
+#############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
