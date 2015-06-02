@@ -46,6 +46,10 @@ fi
 
 GIT_REPO="https://github.com/$GIT_USER/OSGeoLive.git"
 
+echo "Running bootstrap.sh with the following settings:"
+echo "GIT_REPO: $GIT_REPO"
+echo "GIT_BRANCH: $GIT_BRANCH"
+
 # Install git
 apt-get --assume-yes install git
 
