@@ -56,6 +56,7 @@ apt-get --assume-yes install git
 # Clone git repository to specified branch
 cd "$SCRIPT_DIR"
 git clone -b "$GIT_BRANCH" "$GIT_REPO" gisvm
+echo "Git clone finished."
 
 chown -R "$USER_NAME":"$USER_NAME" gisvm
 cd "$USER_HOME"

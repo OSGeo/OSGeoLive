@@ -80,7 +80,7 @@ if [ "$BUILD_MODE" == "release" ]; then
     VERSION_MODE="$VERSION"
 else
     ISO_NAME="$PACKAGE_NAME-nightly-build$GIT_BUILD-$ARCH-$REVISION"
-    VERSION_MODE="build-$REVISION"
+    VERSION_MODE="build$GIT_BUILD-$REVISION"
 fi
 
 #volume name, max 11 chars:
