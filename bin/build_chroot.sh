@@ -64,6 +64,16 @@ else
     GIT_USER="OSGeo"
 fi
 
+echo
+echo "==============================================================="
+echo "Build parameters"
+echo "==============================================================="
+
+echo "ARCH: $ARCH"
+echo "MODE: $BUILD_MODE"
+echo "Git repository: https://github.com/$GIT_USER/OSGeoLive.git"
+echo "Git branch: $GIT_BRANCH"
+
 DIR="/usr/local/share/gisvm/bin"
 GIT_DIR="/usr/local/share/gisvm"
 VERSION=`cat "$DIR"/../VERSION.txt`
