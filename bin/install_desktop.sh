@@ -30,7 +30,7 @@ USER_HOME="/home/$USER_NAME"
 
 
 # Default password list on the desktop to be replaced by html help in the future.
-cp ../doc/passwords.txt "$USER_HOME/Desktop/"
+cp ../desktop-conf/passwords.txt "$USER_HOME/Desktop/"
 chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 
 
@@ -160,11 +160,11 @@ cp "$BUILD_DIR/../desktop-conf/welcome_message.sh" \
 #cp "$BUILD_DIR/../doc/$LANG_CODE"/welcome_message.* \
 #   /usr/local/share/osgeo-desktop/
 
-if [ -e "$BUILD_DIR/../doc/$LANG_CODE"/welcome_message.txt ] ; then
-  cp "$BUILD_DIR/../doc/$LANG_CODE"/welcome_message.txt \
+if [ -e "$BUILD_DIR/../desktop-conf/$LANG_CODE"/welcome_message.txt ] ; then
+  cp "$BUILD_DIR/../desktop-conf/$LANG_CODE"/welcome_message.txt \
     /usr/local/share/osgeo-desktop/
 else
-  cp "$BUILD_DIR/../doc/en"/welcome_message.txt \
+  cp "$BUILD_DIR/../desktop-conf"/welcome_message.txt \
     /usr/local/share/osgeo-desktop/
 fi
 

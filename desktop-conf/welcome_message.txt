@@ -1,0 +1,38 @@
+Welcome to the OSGeo Live GIS DVD.
+
+
+See the road-sign Help icon on the Desktop for information about the        
+Live disc and virtual-machine, including a synopsis of bundled
+geospatial packages and a series of quick-start short tutorials.
+
+To change the language, log out (lower menu bar), enter the user name
+"user", click on the password box below it to confirm the user name,
+and along the top of the login window is a language drop-down menu
+which starts as "en_US". After selecting the language finish entering
+the password (it's also "user") and press the "Log In" button. If it
+doesn't work the first time just log out and try again.
+
+Once you log back in, there is a keyboard icon on the lower menu bar
+that lets you pick the keyboard layout. You can also set it via the
+main applications menu with Preferences > Language Support and
+Preferences > Keyboard Input Methods. See the internationalization
+quickstart in the OSGeo Live help pages for more information.
+
+If you have the full DVD edition, various program installers for
+Macintosh and Microsoft Windows can be found in the MacInstallers
+and WindowsInstallers directories; see the main help page.
+
+Passwords for various things can be found in the passwords.txt file
+on the Desktop.
+
+If you need to become "root" (the UNIX super-user) open a Terminal
+and type "sudo su", then enter "user" as the password if you are
+asked.
+
+The living FAQ can be found here:
+  http://wiki.osgeo.org/wiki/Live_GIS_Disc_FAQ
+
+
+
+Happy mapping!
+The OSGeo Live GIS Team
