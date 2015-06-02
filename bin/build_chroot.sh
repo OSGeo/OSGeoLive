@@ -69,7 +69,7 @@ GIT_DIR="/usr/local/share/gisvm"
 VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeo-live"
 cd "$GIT_DIR"
-REVISION=`git show-ref --head --hash head --hash=8`
+REVISION=`git show-ref --head --hash head --hash=7`
 REVISION_FULL=`git show-ref --head --hash head`
 
 GIT_BUILD=`git describe --long --tags | awk -F'-' '{print $2}'`
