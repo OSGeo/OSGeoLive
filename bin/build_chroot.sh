@@ -2,12 +2,12 @@
 #############################################################################
 # 
 # Purpose: Creating OSGeoLive as an Ubuntu customization
-# 	   https://help.ubuntu.com/community/LiveCDCustomization
+#          https://help.ubuntu.com/community/LiveCDCustomization
 # Authors: Alex Mandel <tech_dev@wildintellect.com>
-#	   Angelos Tzotsos <tzotsos@gmail.com>
+#          Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2014 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2013-2015 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
 # 
@@ -21,7 +21,7 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
-
+#
 # System Requirements
 #
 #     1. At least 3-5 GB of free space
@@ -31,23 +31,68 @@
 #     5. An Ubuntu kernel with squashfs support (present in Ubuntu 6.06 and later)
 #     6. QEMU/KVM, VirtualBox or VMware for testing (optional) 
 #
+#############################################################################
+
+if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
+    echo "Wrong number of arguments"
+    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
+fi
 
 if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
-   echo "Did not find build architecture, try using i386 or amd64 as an argument"
-   exit 1
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
 fi
 ARCH="$1"
 
+if [ "$2" != "release" ] && [ "$2" != "nightly" ] ; then
+    echo "Did not specify build mode, try using release or nightly as an argument"
+    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
+fi
+BUILD_MODE="$2"
+
+if [ "$#" -eq 4 ]; then
+    GIT_BRANCH="$3"
+    GIT_USER="$4"
+elif [ "$#" -eq 3 ]; then
+    GIT_BRANCH="$3"
+    GIT_USER="OSGeo"
+else
+    GIT_BRANCH="master"
+    GIT_USER="OSGeo"
+fi
+
+echo
+echo "==============================================================="
+echo "Build parameters"
+echo "==============================================================="
+
+echo "ARCH: $ARCH"
+echo "MODE: $BUILD_MODE"
+echo "Git repository: https://github.com/$GIT_USER/OSGeoLive.git"
+echo "Git branch: $GIT_BRANCH"
+
 DIR="/usr/local/share/gisvm/bin"
-SVN_DIR="/usr/local/share/gisvm"
+GIT_DIR="/usr/local/share/gisvm"
 VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeo-live"
-cd "$SVN_DIR"
-REVISION=`svn info | grep "Revision" | sed 's/Revision: //'`
+cd "$GIT_DIR"
+REVISION=`git show-ref --head --hash head --hash=7`
+REVISION_FULL=`git show-ref --head --hash head`
 
-#Is it a public or an internal build?
-#ISO_NAME="$PACKAGE_NAME-$VERSION"
-ISO_NAME="$PACKAGE_NAME-nightly-build$REVISION-$ARCH"
+GIT_BUILD=`git describe --long --tags | awk -F'-' '{print $2}'`
+
+# Selecting iso name and build name
+if [ "$BUILD_MODE" == "release" ]; then
+    ISO_NAME="$PACKAGE_NAME-mini-$VERSION-$ARCH"
+    VERSION_MODE="$VERSION"
+else
+    ISO_NAME="$PACKAGE_NAME-nightly-build$GIT_BUILD-$ARCH-$REVISION"
+    VERSION_MODE="build$GIT_BUILD-$REVISION"
+fi
+
 #volume name, max 11 chars:
 IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
 
@@ -123,10 +168,10 @@ echo "======================================"
 
 #NOW IN CHROOT
 #sudo chroot edit
-sudo cp "$DIR"/inchroot_release.sh ~/livecdtmp/edit/tmp/
-sudo cp "$SVN_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
-sudo cp "$SVN_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
-sudo chroot edit /bin/sh /tmp/inchroot_release.sh
+sudo cp "$DIR"/inchroot.sh ~/livecdtmp/edit/tmp/
+sudo cp "$GIT_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
+sudo cp "$GIT_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
+sudo chroot edit /bin/sh /tmp/inchroot.sh "$BUILD_MODE" "$GIT_BRANCH" "$GIT_USER"
 
 #exit
 #OUT OF CHROOT
@@ -178,14 +223,14 @@ chmod a+x scripts/casper-bottom/25adduser
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 
 #Change the text on the loader
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" \
-   lib/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
+    lib/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 #might be in this file
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" \
-   lib/plymouth/themes/text.plymouth
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
+    lib/plymouth/themes/text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live build$REVISION/g" \
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
     ../extract-cd/.disk/info
 
 #copy in a different background
@@ -197,7 +242,6 @@ find . | cpio --quiet --dereference -o -H newc | \
 
 #sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
 cd ..
-
 
 echo
 echo "Regenerating manifest..."
@@ -240,8 +284,9 @@ sudo rm -rf edit
 #Can probably use sed magic or copy a predefined file from gisvm/app-data
 #sudo nano extract-cd/README.diskdefines
 # fixme: can you copy from the local ../filesystem instead?
-wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/build_chroot/README.diskdefines \
-     --output-document=extract-cd/README.diskdefines
+cp "$GIT_DIR/app-conf/build_chroot/README.diskdefines" extract-cd/README.diskdefines
+# wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/build_chroot/README.diskdefines \
+#      --output-document=extract-cd/README.diskdefines
 
 echo
 echo "Calculating new md5 sums..."
