@@ -85,7 +85,7 @@ REVISION_FULL=`git show-ref --head --hash head`
 GIT_BUILD=`git describe --long --tags | awk -F'-' '{print $2}'`
 
 # Selecting iso name and build name
-if [ "$BUILD_MODE" == "release" ]; then
+if [ "$BUILD_MODE" = "release" ]; then
     ISO_NAME="$PACKAGE_NAME-mini-$VERSION-$ARCH"
     VERSION_MODE="$VERSION"
 else
