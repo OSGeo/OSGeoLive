@@ -146,7 +146,9 @@ echo "----"
 #cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
 
 if [ "$BUILD_MODE" = "release" ] ; then
-   cp ../sources.list.d/osgeolive.list /etc/apt/sources.list.d/
+   # # To revert when release ppa is populated
+   # cp ../sources.list.d/osgeolive.list /etc/apt/sources.list.d/
+   cp ../sources.list.d/osgeolive-nightly.list /etc/apt/sources.list.d/
 else
    cp ../sources.list.d/osgeolive-nightly.list /etc/apt/sources.list.d/
 fi
