@@ -28,7 +28,14 @@ apt-get install --yes openjdk-7-jdk openjdk-7-jre
 
 apt-get --assume-yes install gsfonts-x11 ttf-dejavu-extra
 
-ln -s /usr/lib/jvm/java-7-openjdk-i386 /usr/lib/jvm/default-java
+# Detect build architecture for JAVA_HOME default
+if [ -e /usr/lib/jvm/java-7-openjdk-i386 ] ; then
+	ln -s /usr/lib/jvm/java-7-openjdk-i386 /usr/lib/jvm/default-java
+fi
+
+if [ -e /usr/lib/jvm/java-7-openjdk-amd64 ] ; then
+	ln -s /usr/lib/jvm/java-7-openjdk-amd64 /usr/lib/jvm/default-java
+fi
 
 # in case of emergency break glass:
 #cat << EOF > /etc/profile.d/set_JAVA_HOME.sh
