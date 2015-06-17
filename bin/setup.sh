@@ -80,12 +80,16 @@ apt-get -q update
 # work-around for ubu pkg breakage ver 204-5ubuntu20.2 (see trac #1334)
 sed -i -e 's/exit $?/exit 0/' \
    "/var/lib/dpkg/info/libpam-systemd:i386.prerm"
+sed -i -e 's/exit $?/exit 0/' \
+   "/var/lib/dpkg/info/libpam-systemd:amd64.prerm"
 service systemd-logind stop
 
 apt-get --yes install systemd-services
 
 sed -i -e 's/exit $?/exit 0/' \
    "/var/lib/dpkg/info/libpam-systemd:i386.postinst"
+sed -i -e 's/exit $?/exit 0/' \
+   "/var/lib/dpkg/info/libpam-systemd:amd64.postinst"
 
 apt-get --yes install libpam-systemd
 apt-get -f install --yes
