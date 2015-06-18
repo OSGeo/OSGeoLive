@@ -1,5 +1,12 @@
 #!/bin/sh
-# Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will cleanup the system after running OSGeoLive
+# install scripts.
+#
+#############################################################################
+# Copyright (c) 2009-2015 Open Source Geospatial Foundation (OSGeo)
+#
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -11,14 +18,11 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
-# About:
-# =====
-# This script will cleanup the system after running GISVM install scripts.
-
+#############################################################################
 # Running:
 # =======
 # sudo ./setdown.sh 2>&1 | tee /var/log/osgeolive/setdown.log
+#############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`

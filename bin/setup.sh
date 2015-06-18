@@ -1,5 +1,12 @@
 #!/bin/sh
-# Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will take a raw Lubuntu system and update it ready to run
+# OSGeoLive install scripts.
+#
+#############################################################################
+# Copyright (c) 2009-2015 Open Source Geospatial Foundation (OSGeo)
+#
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -11,11 +18,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
-# About:
-# =====
-# This script will take a raw Xubuntu system and update it ready to run
-# GISVM install scripts.
+#############################################################################
 
 if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
    echo "Did not specify build mode, try using release or nightly as an argument"
@@ -34,6 +37,8 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
+echo "Running setup.sh with the following settings:"
+echo "BUILD_MODE: $BUILD_MODE"
 
 if [ "`uname -m`" != "i686" ] ; then
    echo "WARNING: Current system is not i686; any binaries built may be tied to current system (`uname -m`)"
@@ -75,12 +80,16 @@ apt-get -q update
 # work-around for ubu pkg breakage ver 204-5ubuntu20.2 (see trac #1334)
 sed -i -e 's/exit $?/exit 0/' \
    "/var/lib/dpkg/info/libpam-systemd:i386.prerm"
+sed -i -e 's/exit $?/exit 0/' \
+   "/var/lib/dpkg/info/libpam-systemd:amd64.prerm"
 service systemd-logind stop
 
 apt-get --yes install systemd-services
 
 sed -i -e 's/exit $?/exit 0/' \
    "/var/lib/dpkg/info/libpam-systemd:i386.postinst"
+sed -i -e 's/exit $?/exit 0/' \
+   "/var/lib/dpkg/info/libpam-systemd:amd64.postinst"
 
 apt-get --yes install libpam-systemd
 apt-get -f install --yes

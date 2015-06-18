@@ -1,8 +1,18 @@
 #!/bin/sh
-# Author: Hamish Bowman
-# Copyright (c) 2013 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL version >= 2.1.
+#############################################################################
+# 
+# Purpose: This script will take program icons collected on the Desktop, sort them
+# into folders, and create the Geospatial menu on the top-bar from them.
+# All the member-project's install_project.sh script has to do is place
+# the icon on the Desktop, this script does the rest.
 #
+# Author: Hamish Bowman
+#
+#############################################################################
+# Copyright (c) 2013-2015 Open Source Geospatial Foundation (OSGeo)
+#
+# Licensed under the GNU LGPL version >= 2.1.
+# 
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -12,14 +22,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# About:
-# =====
-# This script will take program icons collected on the Desktop, sort them
-# into folders, and create the Geospatial menu on the top-bar from them.
-# All the member-project's install_project.sh script has to do is place
-# the icon on the Desktop, this script does the rest.
-#
+#############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
