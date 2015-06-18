@@ -206,9 +206,9 @@ if (test ! -d "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME") then
 	mv -v "$TMP/$SOS_WEB_APP_NAME##$SOS_VERSION.war" "$SOS_WAR_INSTALL_FOLDER"/
  	chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
 	   "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME##$SOS_VERSION.war"
-	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $VERSION installed in tomcat webapps folder"
+	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION installed in tomcat webapps folder"
 else
-	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $VERSION already installed in tomcat"
+	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION already installed in tomcat"
 fi
 #
 #
