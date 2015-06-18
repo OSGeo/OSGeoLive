@@ -38,8 +38,8 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-TOMCAT_USER_NAME="tomcat6"
-TOMCAT_SCRIPT_NAME="tomcat6"
+TOMCAT_USER_NAME="tomcat7"
+TOMCAT_SCRIPT_NAME="$TOMCAT_USER_NAME"
 SOS_WEB_APP_NAME="52nSOS"
 SOS_ICON_NAME="52nSOS.png"
 SOS_URL="http://localhost:8080/$SOS_WEB_APP_NAME"
@@ -84,7 +84,7 @@ echo "PG_DB_NAME: $PG_DB_NAME"
 # =============================================================================
 # 1 wget
 # 2 java
-# 3 tomcat6
+# 3 tomcat
 # 4 postgresql
 #
 # 1 WGET
@@ -104,7 +104,7 @@ if [ ! -x "`which java`" ] ; then
 fi
 #
 #
-# 3 tomcat6
+# 3 tomcat
 #
 if [ -f "/etc/init.d/$TOMCAT_SCRIPT_NAME" ] ; then
    	echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
@@ -162,7 +162,7 @@ fi
 #
 # 2 Database set-up
 #
-# we need to stop tomcat6 around this process
+# we need to stop tomcat around this process
 TOMCAT=`service $TOMCAT_SCRIPT_NAME status | grep pid | wc -l`
 if [ $TOMCAT -eq 1 ]; then
     service $TOMCAT_SCRIPT_NAME stop
