@@ -112,15 +112,8 @@ cp "$BUILD_DIR"/../app-conf/udig/udig.sh "$UDIG_FOLDER"
 # create link to startup script
 ln -s "$UDIG_FOLDER/udig.sh" "$BIN/udig"
 
-# Download desktop icon
-if [ -f "uDig.desktop" ]
-then
-   echo "uDig.desktop has already been downloaded."
-else
-   wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/udig/uDig.desktop
-fi
-# copy it into the udig folder
-cp uDig.desktop "$USER_HOME/Desktop"
+# copy desktop icon into the udig folder
+cp "$BUILD_DIR"/../app-conf/udig/uDig.desktop "$USER_HOME/Desktop"
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/uDig.desktop"
 
 
