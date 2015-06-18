@@ -45,9 +45,9 @@ VM="${PACKAGE_NAME}-$VERSION"
 if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] ; then
     sed -i -e 's|exit 0||' /etc/rc.local
 
-#   GRPS="audio dialout fuse plugdev pulse staff tomcat6 users www-data"
+#   GRPS="audio dialout fuse plugdev pulse staff tomcat7 users www-data"
 #bad smelling hack to mitigate the effects of #1104's race condition
-    GRPS="users tomcat6 www-data staff fuse plugdev audio dialout pulse"
+    GRPS="users tomcat7 www-data staff fuse plugdev audio dialout pulse"
 
     for GRP in $GRPS ; do
        echo "adduser $USER_NAME $GRP" >> /etc/rc.local
@@ -197,24 +197,24 @@ if [ -e /etc/ssh/sshd_config ] ; then
 fi
 
 # Start tomcat to ensure all applications are deployed
-service tomcat6 start
+service tomcat7 start
 sleep 120
-service tomcat6 stop
+service tomcat7 stop
 
 # Disable auto-deploy to prevent applications to get removed after removing war files
 # TODO: Add some note to wiki for users that want to deploy their own tomcat applications
 sed -i -e 's/unpackWARs="true"/unpackWARs="false"/' -e 's/autoDeploy="true"/autoDeploy="false"/' \
-    /etc/tomcat6/server.xml
+    /etc/tomcat7/server.xml
 
 #Cleaning up war files to save disk space
-rm -f /var/lib/tomcat6/webapps/*.war
+rm -f /var/lib/tomcat7/webapps/*.war
 
 #Disabling default tomcat startup
-update-rc.d -f tomcat6 remove
+update-rc.d -f tomcat7 remove
 
 if [ ! -e /etc/sudoers.d/tomcat ] ; then
    cat << EOF > /etc/sudoers.d/tomcat
-%users ALL=(root) NOPASSWD: /usr/sbin/service tomcat6 start,/usr/sbin/service tomcat6 stop,/usr/sbin/service tomcat6 status
+%users ALL=(root) NOPASSWD: /usr/sbin/service tomcat7 start,/usr/sbin/service tomcat7 stop,/usr/sbin/service tomcat7 status
 EOF
 fi
 chmod 440 /etc/sudoers.d/tomcat
