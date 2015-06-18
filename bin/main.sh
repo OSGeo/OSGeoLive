@@ -100,7 +100,7 @@ for SCRIPT in \
   ./install_mysql.sh \
   ./install_java.sh \
   ./install_apache2.sh \
-  ./install_tomcat6.sh \
+  ./install_tomcat.sh \
   ./install_geoserver.sh \
   ./install_geomajas.sh \
   ./install_geonetwork.sh \

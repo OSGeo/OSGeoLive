@@ -28,7 +28,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 APACHE_CONF="/etc/apache2/conf-enabled/mapfish.conf"
-TOMCAT_SERVER_CONF="/etc/tomcat6/server.xml"
+TOMCAT_SERVER_CONF="/etc/tomcat7/server.xml"
 
 MAPFISH_TMP_DIR="/tmp/build_mapfish"
 MAPFISH_INSTALL_DIR="/usr/local/lib/mapfish"
@@ -42,7 +42,7 @@ if [ ! -x "`which wget`" ] ; then
 fi
 
 apt-get --assume-yes install python python-dev \
-    cgi-mapserver postgis postgresql-9.3-postgis-2.1 tomcat6 \
+    cgi-mapserver postgis postgresql-9.3-postgis-2.1 tomcat7 \
     libpq-dev libapache2-mod-fcgid libapache2-mod-wsgi \
     patch python-setuptools
     #TODO: firebug no longer in repos
@@ -78,7 +78,7 @@ parts += print deploy-print
 index = http://pypi.camptocamp.net/pypi/
 
 [deploy-print]
-output = /var/lib/tomcat6/webapps/print-mapfishsample-\${vars:instanceid}.war
+output = /var/lib/tomcat7/webapps/print-mapfishsample-\${vars:instanceid}.war
 
 [vars]
 apache-entry-point = /mapfishsample_2.2/
@@ -115,7 +115,7 @@ fi
 wget -O - "http://www.mapfish.org/downloads/foss4g_livedvd/tomcat-server.xml.patch" \
     | patch -N "$TOMCAT_SERVER_CONF"
 
-#/etc/init.d/tomcat6 restart
+#/etc/init.d/tomcat7 restart
 
 # configure apache
 a2enmod proxy_ajp
@@ -134,9 +134,9 @@ apache2ctl restart
 if [ ! -e "$MAPFISH_INSTALL_DIR/mapfish-start.sh" ] ; then
    cat << EOF > "$MAPFISH_INSTALL_DIR/mapfish-start.sh"
 #!/bin/bash
-STAT=\`sudo service tomcat6 status | grep pid\`
+STAT=\`sudo service tomcat7 status | grep pid\`
 if [ "\$STAT" = "" ]; then
-    sudo service tomcat6 start
+    sudo service tomcat7 start
     (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") | zenity --progress --auto-close --text "MapFish starting"
 fi
 sensible-browser http://localhost/mapfishsample/osgeolive/wsgi/
@@ -146,9 +146,9 @@ fi
 if [ ! -e "$MAPFISH_INSTALL_DIR/mapfish-stop.sh" ] ; then
    cat << EOF > "$MAPFISH_INSTALL_DIR/mapfish-stop.sh"
 #!/bin/bash
-STAT=\`sudo service tomcat6 status | grep pid\`
+STAT=\`sudo service tomcat7 status | grep pid\`
 if [ "\$STAT" != "" ]; then
-    sudo service tomcat6 stop
+    sudo service tomcat7 stop
     zenity --info --text "MapFish stopped"
 fi
 EOF

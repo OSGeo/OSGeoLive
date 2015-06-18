@@ -32,15 +32,15 @@ USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_ncWMS"
 
-TOMCAT_USER_NAME="tomcat6"
-TOMCAT_USER_HOME="/usr/share/tomcat6"
-WMS_WAR_INSTALL_DIR="/var/lib/tomcat6/webapps"
+TOMCAT_USER_NAME="tomcat7"
+TOMCAT_USER_HOME="/usr/share/tomcat7"
+WMS_WAR_INSTALL_DIR="/var/lib/tomcat7/webapps"
 WMS_BIN_DIR="/usr/local/share/ncWMS"
 WMS_TAR_NAME="ncWMS_osgeo.tar.gz"
 WMS_TAR_URL="http://downloads.sourceforge.net/project/ncwms/ncwms/osgeo-1.1.1/"
 WMS_WAR_NAME="ncWMS-1.1.1.war"
 WMS_WEB_APP_NAME="ncWMS"
-WMS_TOMCAT_SCRIPT_NAME="tomcat6"
+WMS_TOMCAT_SCRIPT_NAME="tomcat7"
 WMS_ICON_NAME="ncWMS_icon.png"
 WMS_URL="http://localhost:8080/$WMS_WEB_APP_NAME"
 WMS_QUICKSTART_URL="http://localhost/en/quickstart/ncWMS_quickstart.html"
@@ -66,7 +66,7 @@ echo "WMS_OVERVIEW_URL: $WMS_OVERVIEW_URL"
 # =============================================================================
 # 1 wget
 # 2 java
-# 3 tomcat6
+# 3 tomcat7
 
 # 1 WGET
 # It is required to download the ncWMS package:
@@ -83,7 +83,7 @@ if [ ! -x "`which java`" ] ; then
     apt-get --assume-yes install openjdk-7-jre
 fi
 
-# 3 tomcat6
+# 3 tomcat7
 if [ -f "/etc/init.d/$WMS_TOMCAT_SCRIPT_NAME" ] ; then
     echo "[$(date +%M:%S)]: $WMS_TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
 else
@@ -157,9 +157,9 @@ chgrp users "$WMS_BIN_DIR"
 if [ ! -e "$WMS_BIN_DIR/ncWMS-start.sh" ] ; then
     cat << EOF > "$WMS_BIN_DIR/ncWMS-start.sh"
     #!/bin/bash
-    STAT=\`sudo service tomcat6 status | grep pid\`
+    STAT=\`sudo service tomcat7 status | grep pid\`
     if [ -z "\$STAT" ] ; then
-        sudo service tomcat6 start
+        sudo service tomcat7 start
         (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") \
 	   | zenity --progress --auto-close --text "ncWMS starting"
     fi
@@ -171,9 +171,9 @@ fi
 if [ ! -e "$WMS_BIN_DIR/ncWMS-stop.sh" ] ; then
     cat << EOF > "$WMS_BIN_DIR/ncWMS-stop.sh"
     #!/bin/bash
-    STAT=\`sudo service tomcat6 status | grep pid\`
+    STAT=\`sudo service tomcat7 status | grep pid\`
     if [ -n "\$STAT" ] ; then
-        sudo service tomcat6 stop
+        sudo service tomcat7 stop
         zenity --info --text "ncWMS stopped"
     fi
 EOF
