@@ -36,15 +36,15 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 BIN="/usr/local/bin"
-TOMCAT_USER_NAME="tomcat6"
-WSS_WAR_INSTALL_FOLDER="/var/lib/tomcat6/webapps"
+TOMCAT_USER_NAME="tomcat7"
+WSS_WAR_INSTALL_FOLDER="/var/lib/tomcat7/webapps"
 WSS_INSTALL_FOLDER="/usr/local/52nWSS"
 WSS_BIN_FOLDER="/usr/local/share/52nWSS"
 WSS_TAR_NAME="52n-wss-osgeo-live.tar.gz"
 WSS_TAR_URL="http://52north.org/files/security/osgeo-live"
 WSS_WEBAPP_CONTEXT="wss"
 WSS_WAR_NAME="wss";
-WSS_TOMCAT_SCRIPT_NAME="tomcat6"
+WSS_TOMCAT_SCRIPT_NAME="tomcat7"
 WSS_DESKTOP_STARTER_NAME="52nWSS-start.desktop"
 WSS_DESKTOP_STOPER_NAME="52nWSS-stop.desktop"
 WSS_ICON_NAME="52nWSS.png"
@@ -79,7 +79,7 @@ fi
 # =============================================================================
 # 1 wget
 # 2 java
-# 3 tomcat6
+# 3 tomcat7
 #
 #
 #
@@ -105,7 +105,7 @@ fi
 #
 #
 #
-# 3 tomcat6
+# 3 tomcat7
 if [ -f "/etc/init.d/$WSS_TOMCAT_SCRIPT_NAME" ] ; then
    	echo "$WSS_TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
 else
@@ -177,9 +177,9 @@ chgrp users "$WSS_BIN_FOLDER"
 if [ ! -e $WSS_BIN_FOLDER/52nWSS-start.sh ] ; then
    cat << EOF > $WSS_BIN_FOLDER/52nWSS-start.sh
 #!/bin/bash
-STAT=\`sudo service tomcat6 status | grep pid\`
+STAT=\`sudo service tomcat7 status | grep pid\`
 if [ "\$STAT" = "" ]; then
-    sudo service tomcat6 start
+    sudo service tomcat7 start
     (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") | zenity --progress --auto-close --text "52North WSS starting"
 fi
 firefox $WSS_URL $WSS_QUICKSTART_URL $WSS_OVERVIEW_URL
@@ -189,9 +189,9 @@ fi
 if [ ! -e $WSS_BIN_FOLDER/52nWSS-stop.sh ] ; then
    cat << EOF > $WSS_BIN_FOLDER/52nWSS-stop.sh
 #!/bin/bash
-STAT=\`sudo service tomcat6 status | grep pid\`
+STAT=\`sudo service tomcat7 status | grep pid\`
 if [ "\$STAT" != "" ]; then
-    sudo service tomcat6 stop
+    sudo service tomcat7 stop
     zenity --info --text "52North WSS stopped"
 fi
 EOF
