@@ -24,37 +24,33 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
-if [ "$#" -gt 3 ]; then
-  echo "Usage: inchroot.sh MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
-  exit 1
+if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
+    echo "Wrong number of arguments"
+    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
 fi
 
-if [ "$#" -eq 1 ]; then
-    if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
-        BUILD_MODE="nightly"
-    else
-        BUILD_MODE="$1"
-    fi
-    GIT_BRANCH="master"
-    GIT_USER="OSGeo"
-elif [ "$#" -eq 2 ]; then
-    if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
-        BUILD_MODE="nightly"
-    else
-        BUILD_MODE="$1"
-    fi
-    GIT_BRANCH="$2"
-    GIT_USER="OSGeo"
+if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
+fi
+ARCH="$1"
+
+if [ "$2" != "release" ] && [ "$2" != "nightly" ] ; then
+    echo "Did not specify build mode, try using release or nightly as an argument"
+    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
+fi
+BUILD_MODE="$2"
+
+if [ "$#" -eq 4 ]; then
+    GIT_BRANCH="$3"
+    GIT_USER="$4"
 elif [ "$#" -eq 3 ]; then
-    if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
-        BUILD_MODE="nightly"
-    else
-        BUILD_MODE="$1"
-    fi
-    GIT_BRANCH="$2"
-    GIT_USER="$3"
+    GIT_BRANCH="$3"
+    GIT_USER="OSGeo"
 else
-    BUILD_MODE="nightly"
     GIT_BRANCH="master"
     GIT_USER="OSGeo"
 fi
