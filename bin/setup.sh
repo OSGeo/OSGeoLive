@@ -40,9 +40,9 @@ USER_HOME="/home/$USER_NAME"
 echo "Running setup.sh with the following settings:"
 echo "BUILD_MODE: $BUILD_MODE"
 
-if [ "`uname -m`" != "i686" ] ; then
-   echo "WARNING: Current system is not i686; any binaries built may be tied to current system (`uname -m`)"
-fi
+# if [ "`uname -m`" != "i686" ] ; then
+#    echo "WARNING: Current system is not i686; any binaries built may be tied to current system (`uname -m`)"
+# fi
 # look for ./configure --build=BUILD, --host=HOST, --target=TARGET  to try and force build for i686.
 # For .deb package building something like: 'debuild binary-arch i686' ???????
 
