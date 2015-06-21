@@ -17,18 +17,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# About:
-# =====
-# This script will install tomcat 7
-#
-# Authors:
-# ========
-# @kalxas
-# @darkblue-b
-# @wildintellect
-# @camerons
-# @EHJ-52n
+#############################################################################
 #
 # TODO:
 # =====
@@ -40,6 +29,7 @@
 # To manually launch:
 # ===================
 # sudo /etc/init.d tomcat7 start
+#############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 ####
