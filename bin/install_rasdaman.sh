@@ -44,12 +44,12 @@ if [ -z "$GROUP_NAME" ] ; then
    GROUP_NAME="user"
 fi
 
-TOMCAT_USER_NAME="tomcat6"
+TOMCAT_USER_NAME="tomcat7"
 USER_HOME="/home/$USER_NAME"
 RASDAMAN_HOME="/usr/local/rasdaman"
 TMP="/tmp/build_rasdaman"
-WARDIR="/var/lib/tomcat6/webapps"
-TOMCAT_CONFDIR="/var/lib/tomcat6/conf"
+WARDIR="/var/lib/tomcat7/webapps"
+TOMCAT_CONFDIR="/var/lib/tomcat7/conf"
 SETTINGS="$RASDAMAN_HOME/etc/petascope.properties"
 EARTHLOOKDIR="/var/www/html"
 BIN="/usr/local/bin"
@@ -59,7 +59,7 @@ WCPS_DATABASE="petascopedb"
 WCPS_USER="petauser"
 WCPS_PASSWORD="petapasswd"
 
-service tomcat6 start
+service tomcat7 start
 
 rm -rf "$TMP"
 rm -rf "$RASDAMAN_HOME"
@@ -78,7 +78,7 @@ fi
 PACKAGES="make autoconf automake libtool gawk flex bison build-essential \
  g++ gcc cpp libstdc++6 libreadline-dev libssl-dev \
  libncurses5-dev postgresql libecpg-dev libtiff4-dev libjpeg-dev \
- libhdf4-0 libpng12-dev libnetpbm10-dev tomcat6 php5-cgi libedit-dev\
+ libhdf4-0 libpng12-dev libnetpbm10-dev tomcat7 php5-cgi libedit-dev\
  wget libgdal-dev openjdk-7-jdk libnetcdf-dev rpcbind git rpcbind libsigsegv-dev"
 
 
@@ -236,7 +236,7 @@ fi
 echo -n "Importing data... "
 cd rasdaman_data_v9/
 
-sudo service tomcat6 stop
+sudo service tomcat7 stop
 
 for db in RASBASE petascopedb; do
     dropdb $db > /dev/null 2>&1
@@ -273,10 +273,10 @@ adduser "$USER_NAME" www-data
 #chgrp www-data /var/www/html/rasdaman-demo/demos/demo_items/img/ccip_processing_files/
 
 
-mv /var/lib/tomcat6/webapps/rasdaman.war \
-   /var/lib/tomcat6/webapps/petascope_earthlook.war
-rm -rf /var/lib/tomcat6/webapps/rasdaman.war
-rm -rf /var/lib/tomcat6/webapps/petascope
+mv /var/lib/tomcat7/webapps/rasdaman.war \
+   /var/lib/tomcat7/webapps/petascope_earthlook.war
+rm -rf /var/lib/tomcat7/webapps/rasdaman.war
+rm -rf /var/lib/tomcat7/webapps/petascope
 
 #
 #-------------------------------------------------------------------------------
@@ -295,9 +295,9 @@ chgrp users "$RASDAMAN_BIN_FOLDER"
 if [ ! -e "$RASDAMAN_BIN_FOLDER"/rasdaman-start.sh ] ; then
    cat << EOF > "$RASDAMAN_BIN_FOLDER"/rasdaman-start.sh
 #!/bin/sh
-STAT=\`sudo service tomcat6 status | grep pid\`
+STAT=\`sudo service tomcat7 status | grep pid\`
 if [ -z "\$STAT" ] ; then
-    sudo service tomcat6 start
+    sudo service tomcat7 start
 fi
 /usr/local/bin/start_rasdaman.sh
 zenity --info --text "Rasdaman started"
@@ -307,9 +307,9 @@ fi
 if [ ! -e "$RASDAMAN_BIN_FOLDER"/rasdaman-stop.sh ] ; then
    cat << EOF > "$RASDAMAN_BIN_FOLDER"/rasdaman-stop.sh
 #!/bin/sh
-STAT=\`sudo service tomcat6 status | grep pid\`
+STAT=\`sudo service tomcat7 status | grep pid\`
 if [ -n "\$STAT" ] ; then
-    sudo service tomcat6 stop
+    sudo service tomcat7 stop
 fi
 /usr/local/bin/stop_rasdaman.sh
 zenity --info --text "Rasdaman stopped"
@@ -391,7 +391,7 @@ if [ $FULL -eq 1 ]; then
 fi # if FULL
 
 # back to sleep & cleanup
-/etc/init.d/tomcat6 stop
+/etc/init.d/tomcat7 stop
 su - "$USER_NAME" "$RASDAMAN_HOME"/bin/stop_rasdaman.sh
 rm -f "$RASDAMAN_HOME"/log/*.log
 chown root "$RASDAMAN_HOME"/etc/rasmgr.conf
@@ -428,11 +428,11 @@ sed -i 's/unpackWARs=\"false\"/unpackWARs=\"true\"/g' $TOMCAT_CONFDIR/server.xml
 sed -i 's/autoDeploy=\"false\"/autoDeploy=\"true\"/g' $TOMCAT_CONFDIR/server.xml
 
 # We need to have enough tomcat memory for secor3e to extract the CRS definitions
-sed -i 's|JAVA_OPTS="-Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC"|JAVA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms512m -Xmx1024m -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m -XX:+DisableExplicitGC"|g' /etc/default/tomcat6
+sed -i 's|JAVA_OPTS="-Djava.awt.headless=true -Xmx128m -XX:+UseConcMarkSweepGC"|JAVA_OPTS="-Djava.awt.headless=true -Dfile.encoding=UTF-8 -server -Xms512m -Xmx1024m -XX:NewSize=256m -XX:MaxNewSize=256m -XX:PermSize=256m -XX:+DisableExplicitGC"|g' /etc/default/tomcat7
 
-service tomcat6 start
+service tomcat7 start
 sleep 60
-service tomcat6 stop
+service tomcat7 stop
 stop_rasdaman.sh
 
 ####
