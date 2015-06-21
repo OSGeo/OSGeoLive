@@ -123,7 +123,7 @@ export USER_NAME
 ./install_mysql.sh
 ./install_java.sh
 ./install_apache2.sh
-./install_tomcat6.sh
+./install_tomcat.sh
 ./install_ipython.sh
 ./install_django.sh
 
