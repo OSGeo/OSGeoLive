@@ -92,6 +92,54 @@ if [ ! -d "/etc/skel/.ipython/nbextensions" ] ; then
    ln -s /var/www/html/reveal.js/ /etc/skel/.ipython/nbextensions/ 
 fi
 
+### INSTALL JUPYTERHUB ###
+
+#apt-get update
+#apt-get upgrade
+# apt-get install gnome-terminal # few kb to make terminal experience much more enjoyable (copy/paste drug'n'drop)
+
+# jupyterhub depends on python3
+apt-get install python3-pip
+npm install -g configurable-http-proxy
+# be sure build toold and libs are here
+apt-get install build-essential python-dev
+apt-get install python3.4-dev
+apt-get install libzmq3-dev
+apt-get install libcurl4-openssl-dev
+# main dependences for python 3
+pip3 install zmq
+pip3 install jsonschema
+pip3 install terminado
+# install jupyterhub from git repository
+git clone https://github.com/jupyter/jupyterhub.git
+cd jupyterhub
+pip install -r requirements.txt
+pip3 install -r requirements.txt
+pip3 install .
+cd ..
+rm -rf jupyterhub
+# add python 2 and 3 kernels
+python -m IPython kernelspec install-self
+python3 -m IPython kernelspec install-self
+# add bash kernel
+pip3 install bash_kernel
+# install R kernel
+Rscript "$BUILD_DIR"/../app-data/ipython/ir_kernel.r
+# add octave kernel
+apt-get install octave # 53.5 MB of additional disk space
+pip3 install octave_kernel
+
+
+cp "$BUILD_DIR"/../app-data/ipython/jupyter*.sh \
+   /usr/local/bin/
+chmod a+x /usr/local/bin/jupyter*.sh
+
+cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
+   "$USER_DESKTOP"/
+chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
+
+cp "$BUILD_DIR"/../app-data/ipython/jupyterhub_config.py \
+  /usr/local/share/jupyter/
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
