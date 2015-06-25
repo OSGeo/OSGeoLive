@@ -19,6 +19,19 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
+if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
+    echo "Wrong number of arguments"
+    echo "Usage: install_java.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+
+if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: install_java.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+ARCH="$1"
+
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
@@ -29,12 +42,12 @@ apt-get install --yes openjdk-7-jdk openjdk-7-jre
 apt-get --assume-yes install gsfonts-x11 ttf-dejavu-extra
 
 # Detect build architecture for JAVA_HOME default
-if [ -e /usr/lib/jvm/java-7-openjdk-i386 ] ; then
-	ln -s /usr/lib/jvm/java-7-openjdk-i386 /usr/lib/jvm/default-java
+if [ "$ARCH" = "i386" ] ; then
+    ln -s /usr/lib/jvm/java-7-openjdk-i386 /usr/lib/jvm/default-java
 fi
 
-if [ -e /usr/lib/jvm/java-7-openjdk-amd64 ] ; then
-	ln -s /usr/lib/jvm/java-7-openjdk-amd64 /usr/lib/jvm/default-java
+if [ "$ARCH" = "amd64" ] ; then
+    ln -s /usr/lib/jvm/java-7-openjdk-amd64 /usr/lib/jvm/default-java
 fi
 
 # in case of emergency break glass:
