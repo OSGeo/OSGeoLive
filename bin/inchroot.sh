@@ -24,37 +24,33 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
-if [ "$#" -gt 3 ]; then
-  echo "Usage: inchroot.sh MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
-  exit 1
+if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
+    echo "Wrong number of arguments"
+    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
 fi
 
-if [ "$#" -eq 1 ]; then
-    if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
-        BUILD_MODE="nightly"
-    else
-        BUILD_MODE="$1"
-    fi
-    GIT_BRANCH="master"
-    GIT_USER="OSGeo"
-elif [ "$#" -eq 2 ]; then
-    if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
-        BUILD_MODE="nightly"
-    else
-        BUILD_MODE="$1"
-    fi
-    GIT_BRANCH="$2"
-    GIT_USER="OSGeo"
+if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
+fi
+ARCH="$1"
+
+if [ "$2" != "release" ] && [ "$2" != "nightly" ] ; then
+    echo "Did not specify build mode, try using release or nightly as an argument"
+    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
+fi
+BUILD_MODE="$2"
+
+if [ "$#" -eq 4 ]; then
+    GIT_BRANCH="$3"
+    GIT_USER="$4"
 elif [ "$#" -eq 3 ]; then
-    if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
-        BUILD_MODE="nightly"
-    else
-        BUILD_MODE="$1"
-    fi
-    GIT_BRANCH="$2"
-    GIT_USER="$3"
+    GIT_BRANCH="$3"
+    GIT_USER="OSGeo"
 else
-    BUILD_MODE="nightly"
     GIT_BRANCH="master"
     GIT_USER="OSGeo"
 fi
@@ -123,72 +119,72 @@ export USER_NAME
 
 ./setup.sh "$BUILD_MODE"
 ./install_services.sh
-# ./install_language.sh
-# ./install_mysql.sh
+./install_language.sh
+./install_mysql.sh
 ./install_java.sh
 ./install_apache2.sh
-./install_tomcat6.sh
-# ./install_ipython.sh
-# ./install_django.sh
+./install_tomcat.sh
+./install_ipython.sh
+./install_django.sh
 
-# ./install_geoserver.sh
-# ./install_geomajas.sh
-# ./install_geonetwork.sh
-# ./install_deegree.sh
-# ./install_52nWPS.sh
-# ./install_kosmo.sh
-# ./install_udig.sh
-# ./install_openjump.sh
-# ./install_postgis.sh
-# ./install_osm.sh
-# ./load_postgis.sh
-# ./install_pgrouting.sh
-# ./install_sahana.sh
-# ./install_ushahidi.sh
-# ./install_mapserver.sh
-# ./install_mapbender3.sh
-# ./install_geokettle.sh
-# ./install_gmt.sh
-# ./install_grass7.sh
-# ./install_qgis.sh
-# ./install_qgis_mapserver.sh
-# ./install_saga.sh
-# ./install_mapnik.sh
-# ./install_mapproxy.sh
-# ./install_mapslicer.sh
-# ./install_marble.sh
-# ./install_opencpn.sh
-# ./install_prune.sh
-# ./install_viking.sh
-# ./install_zygrib.sh
-# ./install_liblas.sh
-# ./install_gpsdrive.sh
-# ./install_openlayers.sh
-# ./install_leaflet.sh
-# ./install_R.sh
-# ./install_ossim.sh
-# ./install_osgearth.sh
-# ./install_spatialite.sh
-# ./install_zoo-project.sh
-# ./install_52nSOS.sh
-# ./install_otb.sh
-# ./install_rasdaman.sh
-# ./install_tinyows.sh
-# ./install_pycsw.sh
-# ./install_geomoose.sh
-# ./install_mb-system.sh
-# ./install_gvsig.sh
-# ./install_tilemill.sh
-# ./install_eoxserver.sh
-# ./install_cartaro.sh
-# ./install_iris.sh
-# ./install_ncWMS.sh
-# ./install_geonode.sh
-# ./install_cesium.sh
+./install_geoserver.sh
+./install_geomajas.sh
+./install_geonetwork.sh
+./install_deegree.sh
+./install_52nWPS.sh
+./install_kosmo.sh
+./install_udig.sh
+./install_openjump.sh
+./install_postgis.sh
+./install_osm.sh
+./load_postgis.sh
+./install_pgrouting.sh
+./install_sahana.sh
+./install_ushahidi.sh
+./install_mapserver.sh
+./install_mapbender3.sh
+./install_geokettle.sh
+./install_gmt.sh
+./install_grass7.sh
+./install_qgis.sh
+./install_qgis_mapserver.sh
+./install_saga.sh
+./install_mapnik.sh
+./install_mapproxy.sh
+./install_mapslicer.sh
+./install_marble.sh
+./install_opencpn.sh
+./install_prune.sh
+./install_viking.sh
+./install_zygrib.sh
+./install_liblas.sh
+./install_gpsdrive.sh
+./install_openlayers.sh
+./install_leaflet.sh
+./install_R.sh
+./install_ossim.sh
+./install_osgearth.sh
+./install_spatialite.sh
+./install_zoo-project.sh
+./install_52nSOS.sh
+./install_otb.sh
+./install_rasdaman.sh
+./install_tinyows.sh
+./install_pycsw.sh
+./install_geomoose.sh
+./install_mb-system.sh
+./install_gvsig.sh
+./install_tilemill.sh
+./install_eoxserver.sh
+./install_cartaro.sh
+./install_iris.sh
+./install_ncWMS.sh
+./install_geonode.sh
+./install_cesium.sh
 
-# ./load_gisdata.sh
+./load_gisdata.sh
 # ./install_docs.sh
-# ./install_edutools.sh
+./install_edutools.sh
 
 ./install_desktop.sh
 ./install_icons_and_menus.sh

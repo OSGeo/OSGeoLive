@@ -1,6 +1,15 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 9.0alpha1
+====================
+
+ * GDAL 1.11.2
+ * QGIS 2.8.2
+ * GRASS 7.0.0
+ * GeoNetwork 3.0.0
+ * Updates from UbuntuGIS
+
 Version 8.5rc1/final
 ====================
 
