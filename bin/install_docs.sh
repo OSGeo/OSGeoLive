@@ -31,10 +31,11 @@ DEST="/var/www/html"
 DATA_FOLDER="/usr/local/share/data"
 
 #Install from daily repository
-add-apt-repository  ppa:johanvdw/osgeolive-doc-daily
+add-apt-repository  --yes ppa:johanvdw/osgeolive-doc-daily
+apt-get update
 apt-get install osgeolive-docs javascript-common
 
-ln -s /usr/share/doc/osgeolive-docs $DEST
+ln -s /usr/share/doc/osgeolive-docs $DEST/osgeolive
 
 # Create symbolic links to project specific documentation
 cd "$DEST"
