@@ -121,7 +121,7 @@ export USER_NAME
 ./install_services.sh
 ./install_language.sh
 ./install_mysql.sh
-./install_java.sh
+./install_java.sh "$ARCH"
 ./install_apache2.sh
 ./install_tomcat.sh
 ./install_ipython.sh
