@@ -103,7 +103,7 @@ if [ ! -d eoxserver_demonstration ] ; then
     # Initialize database
     python manage.py syncdb --noinput
 
-    AUTOTESTVER="0.4beta2"
+    AUTOTESTVER="0.4beta3"
 
     # Download and register demonstration data
     wget -c --progress=dot:mega \
@@ -150,7 +150,7 @@ fi
 
 
 # Django 1.6 results in a bug, thus install 1.5 locally for the moment
-sudo pip install django==1.5.12 -t "$DATA_DIR/eoxserver_demonstration"
+# sudo pip install django==1.5.12 -t "$DATA_DIR/eoxserver_demonstration"
 
 #### final tidy up
 sudo -u "$POSTGRES_USER" psql eoxserver_demo -c 'VACUUM ANALYZE;'
