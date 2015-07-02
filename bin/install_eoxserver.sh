@@ -45,6 +45,7 @@ fi
 
 
 #Install packages
+add-apt-repository -y ppa:gcpp-kalxas/osgeolive
 apt-get -q update
 apt-get --assume-yes install python-gdal libxml2 python-lxml python-psycopg2 \
     python-libxml2 cgi-mapserver python-mapscript libapache2-mod-wsgi python-eoxserver 
@@ -246,6 +247,8 @@ service apache2 --full-restart
 # Uninstall dev packages (no: other software need them)
 #apt-get --assume-yes remove libgdal-dev libproj-dev libgeos-dev libgeos++-dev
 apt-get --assume-yes autoremove
+
+apt-add-repository --yes --remove ppa:gcpp-kalxas/osgeolive
 
 # make symlinks for geotifs to common data dir so all projects can use them
 mkdir -p /usr/local/share/data/raster
