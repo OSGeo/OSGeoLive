@@ -14,8 +14,7 @@
 #
 # About:
 # =====
-# This script will install mapbender3 and will create a PostgreSQL database
-#  mapbender3.0.4.0. 
+# This script will install mapbender3 and will create a PostgreSQL database. 
 # The script will also add an ALIAS for Mapbender3 and a Desktop icon.
 #
 # Requires: Apache2, PHP5, PostgreSQL
@@ -38,8 +37,8 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_mapbender3"
 PARAMETERSINSTALLURL="http://mapbender3.org/builds/"
 INSTALLURL="http://mapbender3.org/builds/"
-INSTALLFILE="mapbender3-3.0.4.1"
-PARAMETERSFILE="mapbender3-3.0.4.1"
+INSTALLFILE="mapbender3-3.0.5.0"
+PARAMETERSFILE="mapbender3-3.0.5.0"
 INSTALL_DIR="/var/www/html"
 
 mkdir -p "$TMP_DIR"
@@ -48,7 +47,7 @@ mkdir -p "$TMP_DIR"
 echo "Installing mapbender"
 
 apt-get install --assume-yes php5 php5-imagick php5-pgsql php5-gd \
-  php5-curl php5-cli php5-sqlite sqlite php-apc php5-intl
+  php5-curl php5-cli php5-sqlite sqlite php-apc php5-intl openssl
 
 a2enmod rewrite
 
