@@ -71,9 +71,9 @@ mv ossim-geocell.desktop /usr/share/applications/ossim-geocell.desktop
 
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossimPlanet.xpm"
-mv /usr/local/share/ossim/images/ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
+mv ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossim.xpm"
-mv /usr/local/share/ossim/images/ossim.xpm /usr/share/pixmaps/ossim.xpm
+mv ossim.xpm /usr/share/pixmaps/ossim.xpm
 
 OSSIM_PREFS_FILE="/usr/local/share/ossim/ossim_preference"
 export OSSIM_PREFS_FILE
