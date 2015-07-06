@@ -94,6 +94,22 @@ fi
 
 ### INSTALL JUPYTERHUB ###
 
+
+if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
+    echo "Wrong number of arguments"
+    echo "Usage: install_java.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+
+if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: install_ossim.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+ARCH="$1"
+
+
+
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-share-hub_1.0_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-python3-kernel_1.0_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-python2-kernel_1.0_all.deb"
@@ -108,7 +124,9 @@ wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-certifi_2015.04.28_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-notebook_4.0.0.dev_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-traitlets_4.1.0.dev_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-tornado_4.2_amd64.deb"
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-tornado_4.2_$ARCH.deb"
+
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-qtconsole_4.0.0.dev_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-terminado_0.5_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-pickleshare_0.5_all.deb"
@@ -126,24 +144,26 @@ wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-ipyparallel_4.0.0.dev_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-bash-kernel_0.3_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-traitlets_4.1.0.dev_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-tornado_4.2_amd64.deb"
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-tornado_4.2_$ARCH.deb"
+
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-pickleshare_0.5_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-path.py_7.3_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-jupyter-core_4.1.0.dev_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-jupyter-client_4.0.0.dev_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-ipykernel_4.0.0.dev_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-share-hub_1.0_amd64.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-python2-kernel_1.0_amd64.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-share-hub_1.0_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-python2-kernel_1.0_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-ipython-genutils_0.2.0.dev_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-ipython_4.0.0-dev_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-python3-kernel_1.0_amd64.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-bash-kernel_1.0_amd64.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-python3-kernel_1.0_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-bash-kernel_1.0_all.deb"
 
 apt-get install python3-pip python3-zmq python3-jsonschema python3-jinja2 python3-sqlalchemy python3-requests python3-decorator python3-simplegeneric python3-pyside python3-pygments
 
 
 
-dpkg -i python3-tornado_4.2_amd64.deb
+dpkg -i python3-tornado_4.2_$ARCH.deb
 dpkg -i python3-traitlets_4.1.0.dev_all.deb
 dpkg -i python3-jupyter-core_4.1.0.dev_all.deb
 dpkg -i python3-nbformat_4.1.0.dev_all.deb
@@ -174,10 +194,10 @@ dpkg -i python2-path.py_7.3_all.deb
 dpkg -i python2-pickleshare_0.5_all.deb
 dpkg -i python2-certifi_2015.04.28_all.deb
 dpkg -i python2-backports.ssl-match-hostname_3.4.0.2_all.deb
-dpkg -i python2-tornado_4.2_amd64.deb
+dpkg -i python2-tornado_4.2_$ARCH.deb
 dpkg -i python2-traitlets_4.1.0.dev_all.deb
 dpkg -i jupyter-share-hub_1.0_all.deb
-dpkg -i jupyter-bash-kernel_1.0_amd64.deb
+dpkg -i jupyter-bash-kernel_1.0_all.deb
 dpkg -i python2-ipywidgets_4.0.0.dev_all.deb
 dpkg -i python3-ipyparallel_4.0.0.dev_all.deb
 dpkg -i python2-pexpect_4.0.dev_all.deb
