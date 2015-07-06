@@ -41,13 +41,13 @@ apt-get install --assume-yes  git python-pip \
 #The deb package in our ppa is way older than the day this requirement was added...
 
 #-- iPython from jtaylor .deb
-apt-add-repository --yes ppa:jtaylor/ipython
-apt-get update
+#apt-add-repository --yes ppa:jtaylor/ipython
+#apt-get update
 
-apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
+#apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
 
 #-- Clean-up
-apt-add-repository --yes --remove ppa:jtaylor/ipython
+#apt-add-repository --yes --remove ppa:jtaylor/ipython
 
 cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
    "$USER_DESKTOP"/
