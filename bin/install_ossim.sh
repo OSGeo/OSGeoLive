@@ -60,16 +60,19 @@ dpkg -i ossim_1.18.19_$ARCH.deb
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-share_1.18.19_all.deb"	     
 dpkg -i ossim-share_1.18.19_all.deb
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/imagelinker.desktop"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/imagelinker.desktop"
 mv imagelinker.desktop /usr/share/applications/imagelinker.desktop
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossimplanet.desktop"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossimplanet.desktop"
 mv ossimplanet.desktop /usr/share/applications/ossimplanet.desktop
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim-geocell.desktop"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossim-geocell.desktop"
 mv ossim-geocell.desktop /usr/share/applications/ossim-geocell.desktop
 
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossimPlanet.xpm"
 mv /usr/local/share/ossim/images/ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossim.xpm"
 mv /usr/local/share/ossim/images/ossim.xpm /usr/share/pixmaps/ossim.xpm
 
 OSSIM_PREFS_FILE="/usr/local/share/ossim/ossim_preference"
