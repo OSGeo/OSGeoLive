@@ -60,13 +60,13 @@ dpkg -i ossim_1.18.19_$ARCH.deb
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-share_1.18.19_all.deb"	     
 dpkg -i ossim-share_1.18.19_all.deb
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim/imagelinker.desktop" 
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/imagelinker.desktop"
 mv imagelinker.desktop /usr/share/applications/imagelinker.desktop
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim/ossimplanet.desktop"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossimplanet.desktop"
 mv ossimplanet.desktop /usr/share/applications/ossimplanet.desktop
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim/ossim-geocell.desktop"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim-geocell.desktop"
 mv ossim-geocell.desktop /usr/share/applications/ossim-geocell.desktop
 
 mv /usr/local/share/ossim/images/ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
@@ -110,7 +110,7 @@ echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$USER_HOME/.ba
 
 ln -s /usr/local/share/ossim/images/reference/bluemarble.tif \
   /usr/local/share/data/raster/   
-   
+
 cp /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
 sed -i -e 's/^Name=imagelinker/Name=Imagelinker/' \
