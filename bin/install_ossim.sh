@@ -11,7 +11,7 @@
 BUILD_DIR=`pwd`
 ####
 
-$USER_NAME=user
+USER_NAME="user"
 
 USER_HOME="/home/$USER_NAME"
 
