@@ -111,20 +111,17 @@ echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$BRCFILE"
 echo 'export OSSIM_PREFS_FILE="/usr/local/share/ossim/ossim_preference"' >> "$USER_HOME/.bashrc"
 echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$USER_HOME/.bashrc"
 
-
 ln -s /usr/local/share/ossim/images/reference/bluemarble.tif \
   /usr/local/share/data/raster/   
 
-
-cp /usr/share/applications/imagelinker.desktop "$HOME/$USER/Desktop/"
+cp /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
-sed -i -e 's/^Name=imagelinker/Name=Imagelinker/' \
-   "$USER_HOME/Desktop/imagelinker.desktop"
-# keep out of unrelated menus
-sed -i -e 's/Network;Graphics;//' /usr/share/applications/imagelinker.desktop
 
 cp /usr/share/applications/ossimplanet.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/ossimplanet.desktop"
+
+cp /usr/share/applications/ossim-geocell.desktop "$USER_HOME/Desktop/"
+chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/ossim-geocell.desktop"
 
 # add menu item
 if [ ! -e /usr/share/menu/imagelinker ] ; then
