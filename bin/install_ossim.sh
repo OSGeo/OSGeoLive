@@ -11,6 +11,7 @@
 BUILD_DIR=`pwd`
 ####
 
+$USER_NAME=user
 
 USER_HOME="/home/$USER_NAME"
 
@@ -114,7 +115,8 @@ echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$USER_HOME/.ba
 ln -s /usr/local/share/ossim/images/reference/bluemarble.tif \
   /usr/local/share/data/raster/   
 
-cp /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
+
+cp /usr/share/applications/imagelinker.desktop "$HOME/$USER/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
 sed -i -e 's/^Name=imagelinker/Name=Imagelinker/' \
    "$USER_HOME/Desktop/imagelinker.desktop"
