@@ -44,7 +44,7 @@ fi
 
 if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
     echo "Wrong number of arguments"
-    echo "Usage: install_java.sh ARCH(i386 or amd64)"
+    echo "Usage: install_ossim.sh ARCH(i386 or amd64)"
     exit 1
 fi
 
