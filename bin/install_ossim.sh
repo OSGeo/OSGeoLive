@@ -30,7 +30,7 @@ apt-get -q update
 
 apt-get install --assume-yes libtiff5 libfreetype6 libcurl3 libexpat1 libpng3 libfftw3-3  \
                              libgeotiff2 libqt4-core libqt4-opengl libpodofo0.9.0 libopenscenegraph99 \
-                             libopenthreads14 libc6 libgcc1 libstdc++6 libgdal1h libgeos-c1 libgeos-3.4.2
+                             libopenthreads14 libc6 libgcc1 libstdc++6 libgdal1h libgeos-c1 libgeos-3.4.2 libqt4-qt3support
 
 #### download ossim
 mkdir -p /tmp/build_ossim
