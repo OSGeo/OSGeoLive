@@ -183,7 +183,7 @@ export USER_NAME
 ./install_cesium.sh
 
 ./load_gisdata.sh
-# ./install_docs.sh
+./install_docs.sh
 ./install_edutools.sh
 
 ./install_desktop.sh
