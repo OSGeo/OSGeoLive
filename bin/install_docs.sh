@@ -33,7 +33,7 @@ DATA_FOLDER="/usr/local/share/data"
 #Install from daily repository
 add-apt-repository  --yes ppa:johanvdw/osgeolive-doc-daily
 apt-get update
-apt-get install osgeolive-docs javascript-common
+apt-get install --assume-yes osgeolive-docs javascript-common
 
 ln -s /usr/share/doc/osgeolive-docs $DEST/osgeolive
 
