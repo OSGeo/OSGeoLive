@@ -27,7 +27,7 @@
 # About:
 # =====
 # This script will install geonetwork into OSGeo live
-# stable version: v3.0.0
+# stable version: v3.0.1
 # based on Jetty + GeoNetwork + H2
 # Installed at /usr/local/lib/geonetwork
 # Port number = 8880
@@ -43,7 +43,7 @@
 # To enter geonetwork, start browser with url:
 # http://localhost:8880/geonetwork
 #
-# GeoNetwork version 3.0.0 runs with java 7 or higher.
+# GeoNetwork version 3.0.1 runs with java 7 or higher.
 # It can be installed into servlet containers: jetty and tomcat. Jetty is   
 # bundled with the installer.
 
@@ -57,8 +57,8 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-GEONETWORK_VERSION=3.0.0-0
-GEONETWORK_VERSION_FOLDER=3.0.0
+GEONETWORK_VERSION=3.0.1-0
+GEONETWORK_VERSION_FOLDER=3.0.1
 
 TMP="/tmp/build_geonetwork"
 INSTALL_FOLDER="/usr/local/lib"
