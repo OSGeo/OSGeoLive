@@ -32,22 +32,13 @@ BUILD_DIR=`pwd`
 
 apt-get install --assume-yes  git python-pip \
         python-matplotlib python-scipy python-pandas \
-        python-netcdf python-netcdf \
-        python-shapely python-rasterio python-fiona \
-        python-geopandas python-descartes \
-        python-enum34 python-geojson
+        python-netcdf python-shapely \
+        python-enum34  python3-numpy python3-scipy \
+        python3-pandas python3-matplotlib python3-shapely python-gdal python3-gdal \
+        python-enum34 python3-enum34 python-six python3-six python-pyproj python3-pyproj
 
-#pip install cligj  ## per ticket #1455 -- rasterio requirements
-#The deb package in our ppa is way older than the day this requirement was added...
 
-#-- iPython from jtaylor .deb
-#apt-add-repository --yes ppa:jtaylor/ipython
-#apt-get update
 
-#apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
-
-#-- Clean-up
-#apt-add-repository --yes --remove ppa:jtaylor/ipython
 
 cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
    "$USER_DESKTOP"/
@@ -105,6 +96,74 @@ if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
     exit 1
 fi
 ARCH="$1"
+
+# install
+# extra python packages not available on standard debian repository
+#
+
+
+
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-cython_0.22.1_$ARCH.deb"
+#dpkg -i python2-cython_0.22.1_$ARCH.deb
+
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-affine_1.2.0_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-click_4.0_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-snuggs_1.3.1_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-cligj_0.2.0_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-fiona_1.6.0pre0_$ARCH.deb"
+
+dpkg -i python2-affine_1.2.0_all.deb
+dpkg -i python2-click_4.0_all.deb
+dpkg -i python2-snuggs_1.3.1_all.deb
+dpkg -i python2-cligj_0.2.0_all.deb
+ddpkg -i python2-fiona_1.6.0pre0_$ARCH.deb
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-affine_1.2.0_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-click_4.0_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-snuggs_1.3.1_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-cligj_0.2.0_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-fiona_1.6.0pre0_$ARCH.deb"
+
+dpkg -i python3-affine_1.2.0_all.deb
+dpkg -i python3-click_4.0_all.deb
+dpkg -i python3-snuggs_1.3.1_all.deb
+dpkg -i python3-cligj_0.2.0_all.deb
+ddpkg -i python3-fiona_1.6.0pre0_$ARCH.deb
+
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-rasterio_0.24.1_$ARCH.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-netcdf4_1.1.9_$ARCH.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-descartes_1.0.1_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-geojson_1.2.1_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-geopandas_0.1.1_all.deb"
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-rasterio_0.24.1_$ARCH.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-netcdf4_1.1.9_$ARCH.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-descartes_1.0.1_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-geojson_1.2.1_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-geopandas_0.1.1_all.deb"
+
+
+
+dpkg -i python2-rasterio_0.24.1_$ARCH.deb
+dpkg -i python2-netcdf4_1.1.9_$ARCH.deb
+dpkg -i python2-descartes_1.0.1_all.deb
+dpkg -i python2-geojson_1.2.1_all.deb
+dpkg -i python2-geopandas_0.1.1_all.deb
+
+dpkg -i python3-rasterio_0.24.1_$ARCH.deb
+dpkg -i python3-netcdf4_1.1.9_$ARCH.deb
+dpkg -i python3-descartes_1.0.1_all.deb
+dpkg -i python3-geojson_1.2.1_all.deb
+dpkg -i python3-geopandas_0.1.1_all.deb
+
+#python3-cython_0.22.1_i386.deb
+#python2-cython_0.22.1_i386.deb
+
+
+# install jupyter, ipython and co... 
+
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-share-hub_1.0_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-python3-kernel_1.0_all.deb"
