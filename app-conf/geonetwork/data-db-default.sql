@@ -554,8 +554,8 @@ INSERT INTO Operations (id, name) VALUES  (6,'featured');
 INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('system/site/name', 'My GeoNetwork on OSGeo live', 0, 110, 'n');
 INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('system/site/siteId', '', 0, 120, 'n');
 INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('system/site/organization', 'OSGeo', 0, 130, 'n');
-INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('system/platform/version', '3.0.0', 0, 150, 'n');
-INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('system/platform/subVersion', 'SNAPSHOT', 0, 160, 'n');
+INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('system/platform/version', '3.0.1', 0, 150, 'n');
+INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('system/platform/subVersion', '0', 0, 160, 'n');
 INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('system/site/svnUuid', '', 0, 170, 'y');
 INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('system/server/host', 'localhost', 0, 210, 'n');
 INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('system/server/protocol', 'http', 0, 220, 'n');
@@ -644,9 +644,9 @@ INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('system
 INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('system/requestedLanguage/preferUiLanguage', 'true', 2, 9595, 'y');
 
 
--- INSERT INTO Settings (name, value, datatype, position, internal) VALUES 
+-- INSERT INTO Settings (name, value, datatype, position, internal) VALUES
 --  ('map/backgroundChoices', '{"contextList": []}', 0, 9590, false);
-INSERT INTO Settings (name, value, datatype, position, internal) VALUES 
+INSERT INTO Settings (name, value, datatype, position, internal) VALUES
   ('map/config', '{"viewerMap": "../../map/config-viewer.xml", "listOfServices": {"wms": [], "wmts": []}, "useOSM":true,"context":"","layer":{"url":"http://www2.demis.nl/mapserver/wms.asp?","layers":"Countries","version":"1.1.1"},"projection":"EPSG:3857","projectionList":[{"code":"EPSG:4326","label":"WGS84 (EPSG:4326)"},{"code":"EPSG:3857","label":"Google mercator (EPSG:3857)"}]}', 0, 9590, 'n');
 
 INSERT INTO Settings (name, value, datatype, position, internal) VALUES ('region/getmap/background', 'osm', 0, 9590, 'n');
@@ -659,9 +659,13 @@ INSERT INTO Settings (name, value, datatype, position, internal) VALUES
 
 INSERT INTO Settings (name, value, datatype, position, internal) VALUES
   ('map/isMapViewerEnabled', 'true', 2, 9592, 'n');
+INSERT INTO Settings (name, value, datatype, position, internal) VALUES
+  ('map/is3DModeAllowed', 'true', 2, 9593, 'n');
+INSERT INTO Settings (name, value, datatype, position, internal) VALUES
+  ('map/isSaveMapInCatalogAllowed', 'true', 2, 9594, 'n');
 
-  
-INSERT INTO Settings (name, value, datatype, position, internal) VALUES 
+
+INSERT INTO Settings (name, value, datatype, position, internal) VALUES
   ('metadata/editor/schemaConfig', '{"iso19110":{"defaultTab":"default","displayToolTip":false,"related":{"display":true,"readonly":true,"categories":["dataset"]},"validation":{"display":true}},"iso19139":{"defaultTab":"default","displayToolTip":false,"related":{"display":true,"categories":[]},"suggestion":{"display":true},"validation":{"display":true}},"dublin-core":{"defaultTab":"default","related":{"display":true,"readonly":false,"categories":["parent","onlinesrc"]}}}', 0, 10000, 'n');
 
 
@@ -678,4 +682,3 @@ INSERT INTO HarvesterSettings (id, parentid, name, value) VALUES  (1,NULL,'harve
 INSERT INTO Users (id, username, password, name, surname, profile, kind, organisation, security, authtype) VALUES  (1,'admin','46e44386069f7cf0d4f2a420b9a2383a612f316e2024b0fe84052b0b96c479a23e8a0be8b90fb8c2','admin','admin',0,'','','','');
 INSERT INTO Address (id, address, city, country, state, zip) VALUES  (1, '', '', '', '', '');
 INSERT INTO UserAddress (userid, addressid) VALUES  (1, 1);
-
