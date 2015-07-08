@@ -1,7 +1,15 @@
 #!/bin/sh
-# Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL.
-# 
+#############################################################################
+#
+# Purpose: This script bootstraps the OSGeoLive build procedure.
+#   For detailed build instructions, refer to:
+#   http://wiki.osgeo.org/wiki/GISVM_Build#Build_the_Live_DVD_ISO_image
+#
+#############################################################################
+# Copyright (c) 2009-2015 Open Source Geospatial Foundation (OSGeo)
+#
+# Licensed under the GNU LGPL version >= 2.1.
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -11,54 +19,60 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
-# About:
-# =====
-# This script provides the steps to be run on the LiveDVD in order to get the
-# install scripts onto the LiveDVD, and start installing.
-# For detailed build instructions, refer to:
-#   http://wiki.osgeo.org/wiki/GISVM_Build#Creating_a_fresh_Virtual_Machine
-
-
-# Running:
-# =======
-# sudo ./boostrap.sh
+#############################################################################
+# Usage:
+# sudo ./boostrap.sh [git_branch (default=master)] [GitHub_username (default=OSGeo)]
+#############################################################################
 
 SCRIPT_DIR=/usr/local/share
 
 if [ -z "$USER_NAME" ] ; then 
-   USER_NAME="user" 
+    USER_NAME="user" 
 fi 
 USER_HOME="/home/$USER_NAME"
 
-# copy in pre-downloaded data files. flavour to suit or just skip 
-# rsync -avz cshorter@192.168.2.166::/media/Shorter/repository/livedvd/Arramagong_tmp/ /tmp/
+# Parse arguments to be able to build specific branch from specific git repository.
+# Defaults to master branch and official OSGeo git repository.
+if [ "$#" -eq 2 ]; then
+    GIT_USER="$2"
+    GIT_BRANCH="$1"
+elif [ "$#" -eq 1 ]; then
+    GIT_USER="OSGeo"
+    GIT_BRANCH="$1"
+else
+    GIT_USER="OSGeo"
+    GIT_BRANCH="master"
+fi
 
-apt-get --assume-yes install subversion
+GIT_REPO="https://github.com/$GIT_USER/OSGeoLive.git"
 
-# check out the install scripts from subversion
+echo "Running bootstrap.sh with the following settings:"
+echo "GIT_REPO: $GIT_REPO"
+echo "GIT_BRANCH: $GIT_BRANCH"
+
+# Install git
+apt-get --assume-yes install git
+
+# Clone git repository to specified branch
 cd "$SCRIPT_DIR"
-
-# Use "svn export" instead of "svn checkout" to save space by not having the
-#   cached .svn/ files stored locally  (n.b. later cleansed by build_iso.sh)
-#svn checkout "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk" gisvm
-svn export "http://svn.osgeo.org/osgeo/livedvd/gisvm/trunk" gisvm
+git clone -b "$GIT_BRANCH" "$GIT_REPO" gisvm
+echo "Git clone finished."
 
 chown -R "$USER_NAME":"$USER_NAME" gisvm
 cd "$USER_HOME"
-ln -s "$SCRIPT_DIR/gisvm" .
+ln -s "$SCRIPT_DIR/gisvm" "$USER_HOME/gisvm"
 ln -s "$SCRIPT_DIR/gisvm" /etc/skel/gisvm
 
 # make a directory for the install logs
-mkdir /var/log/osgeolive/
+mkdir -p /var/log/osgeolive/
 
 # note: a+w is to be avoided always!
 chmod ug+wr /var/log/osgeolive/
 chgrp adm /var/log/osgeolive/
 
 
-echo "If you have a local copy if the tmp/ directory and wish to"
-echo "save bandwidth, then copy it across to your DVD now, using a"
-echo "command like:"
-echo "  rsync -avz username@hostname.org:/path_to_tmp_dir/ /tmp/"
-echo "  rsync -avz username@hostname.org:/path_to_tmp_apt_dir/ /var/cache/apt/"
+# If you have a local copy if the tmp/ directory and wish to
+# save bandwidth, then copy it across to your DVD now, using a
+# command like:
+# "  rsync -avz username@hostname.org:/path_to_tmp_dir/ /tmp/"
+# "  rsync -avz username@hostname.org:/path_to_tmp_apt_dir/ /var/cache/apt/"

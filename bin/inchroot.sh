@@ -1,14 +1,14 @@
 #!/bin/sh
-#################################################
+#############################################################################
 #
 # Purpose: Creating OSGeoLive as an Ubuntu customization. In chroot part
-# 	   https://help.ubuntu.com/community/LiveCDCustomization
+#     https://help.ubuntu.com/community/LiveCDCustomization
 # Author:  Stefan Hansen <shansen@lisasoft.com>
-#	   Alex Mandel <tech_dev@wildintellect.com>
-#	   Angelos Tzotsos <tzotsos@gmail.com>
+#	         Alex Mandel <tech_dev@wildintellect.com>
+#	         Angelos Tzotsos <tzotsos@gmail.com>
 #
-#################################################
-# Copyright (c) 2010-2014 Open Source Geospatial Foundation (OSGeo)
+#############################################################################
+# Copyright (c) 2010-2015 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -22,7 +22,38 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-##################################################
+#############################################################################
+
+if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
+    echo "Wrong number of arguments"
+    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
+fi
+
+if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
+fi
+ARCH="$1"
+
+if [ "$2" != "release" ] && [ "$2" != "nightly" ] ; then
+    echo "Did not specify build mode, try using release or nightly as an argument"
+    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    exit 1
+fi
+BUILD_MODE="$2"
+
+if [ "$#" -eq 4 ]; then
+    GIT_BRANCH="$3"
+    GIT_USER="$4"
+elif [ "$#" -eq 3 ]; then
+    GIT_BRANCH="$3"
+    GIT_USER="OSGeo"
+else
+    GIT_BRANCH="master"
+    GIT_USER="OSGeo"
+fi
 
 run_installer()
 {
@@ -37,28 +68,28 @@ mount -t proc none /proc
 mount -t sysfs none /sys
 mount -t devpts none /dev/pts
 
-#To avoid locale issues and in order to import GPG keys 
+# To avoid locale issues and in order to import GPG keys
 export HOME=/roots
 export LC_ALL=C
 
-#In 9.10, before installing or upgrading packages you need to run
-#TODO: Check/ask if this needs to be done in 12.04
+# In 9.10, before installing or upgrading packages you need to run
+# TODO: Check/ask if this needs to be done in 12.04
 dbus-uuidgen > /var/lib/dbus/machines-id
 dpkg-divert --local --rename --add /sbin/initctl
 ln -s /bin/true /sbin/initctl
 
-#To view installed packages by size
-#dpkg-query -W --showformat='${Installed-Size}\t${Package}\n' | sort -nr | less
-#When you want to remove packages remember to use purge 
-#aptitude purge package-name
+# To view installed packages by size
+# dpkg-query -W --showformat='${Installed-Size}\t${Package}\n' | sort -nr | less
+# When you want to remove packages remember to use purge
+# aptitude purge package-name
 
-#Execute the osgeolive build
-#Adding "user" to help the build process
+# Execute the osgeolive build
+# Adding "user" to help the build process
 adduser user --disabled-password --gecos user
 
-#change ID under 999 so that iso boot does not fail
-#usermod -u 500 user
-#TODO Set the password for "user"
+# Change ID under 999 so that iso boot does not fail
+# usermod -u 500 user
+# TODO: Set the password for "user"
 mkdir -p /home/user/Desktop
 chown user:user /home/user/Desktop
 
@@ -70,32 +101,29 @@ EOF
 
 cd /tmp/
 
-wget -nv "https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/bin/bootstrap.sh"
+wget -nv "https://github.com/$GIT_USER/OSGeoLive/raw/$GIT_BRANCH/bin/bootstrap.sh"
 
 chmod a+x bootstrap.sh
 
-./bootstrap.sh
+./bootstrap.sh "$GIT_BRANCH" "$GIT_USER"
 
 cd /usr/local/share/gisvm/bin
 
-#copy external version information to be able to rename the builds
+# Copy external version information to be able to rename the builds
 cp /tmp/VERSION.txt /usr/local/share/gisvm/
 cp /tmp/CHANGES.txt /usr/local/share/gisvm/
 
-#Redirecting to main_install.log does not allow main.sh to exit properly
-#./main.sh 2>&1 | tee /var/log/osgeolive/main_install.log
-#./main.sh
-
+# Replacement for main.sh
 USER_NAME="user"
 export USER_NAME
 
-./setup.sh nightly
+./setup.sh "$BUILD_MODE"
 ./install_services.sh
 ./install_language.sh
 ./install_mysql.sh
-./install_java.sh
+./install_java.sh "$ARCH"
 ./install_apache2.sh
-./install_tomcat6.sh
+./install_tomcat.sh
 ./install_ipython.sh
 ./install_django.sh
 
@@ -155,7 +183,7 @@ export USER_NAME
 ./install_cesium.sh
 
 ./load_gisdata.sh
-./install_docs.sh
+# ./install_docs.sh
 ./install_edutools.sh
 
 ./install_desktop.sh
@@ -163,16 +191,13 @@ export USER_NAME
 ./setdown.sh
 
 
-#Remove doc folder to save space
-#rm -rf /usr/local/share/gisvm/doc
+# Remove doc folder to save space
+# rm -rf /usr/local/share/gisvm/doc
 
-# save space on ISO by removing the .svn/ dirs
-#   (or control this in bootstrap.sh by uncommenting the 'svn export' line)
-NEAR_RC=0
+# Save space on ISO by removing the .git dir
+NEAR_RC=1
 if [ "$NEAR_RC" -eq 1 ] ; then
-   for DIR in `find /usr/local/share/gisvm | grep '\.svn$'` ; do
-      rm -rf "$DIR"
-   done
+    rm -rf /usr/local/share/gisvm/.git
 fi
 
 # user shouldn't own outside of /home, but a group can
@@ -182,8 +207,8 @@ chmod -R g+w /usr/local/share/gisvm
 # Update the file search index
 updatedb
 
-#Experimental dist variant, comment out and swap to backup below
-#Do we need to change the user to ubuntu in all scripts for this method?
+# Experimental dist variant, comment out and swap to backup below
+# Do we need to change the user to ubuntu in all scripts for this method?
 # -- No, set user in casper.conf
 tar -zcf /tmp/user_home.tar.gz -C /home/user .
 tar -zxf /tmp/user_home.tar.gz -C /etc/skel .
@@ -191,14 +216,14 @@ rm /tmp/user_home.tar.gz
 cp -a /home/user/*  /etc/skel
 chown -hR root:root /etc/skel
 
-#TODO: Should we remove the "user" after the installation? 
-#By keeping this user, /home/user exists and installation fails if someone uses the same username.
-#killall -u user
-#userdel -r user
+# TODO: Should we remove the "user" after the installation?
+# By keeping this user, /home/user exists and installation fails if someone uses the same username.
+# killall -u user
+# userdel -r user
 deluser --remove-home user
 
-#Copy casper.conf with default username and hostname
-#FIXME: User is still "xubuntu" in live session... perhaps because user is already created?
+# Copy casper.conf with default username and hostname
+# FIXME: User is still "xubuntu" in live session... perhaps because user is already created?
 cp /usr/local/share/gisvm/app-conf/build_chroot/casper.conf /etc/casper.conf
 
 # After the build
@@ -210,13 +235,13 @@ awk -F: '$3 > 999' /etc/passwd
 # Be sure to remove any temporary files which are no longer needed, as space on a CD is limited
 apt-get clean
 
-# delete temporary files
+# Delete temporary files
 rm -rf /tmp/* ~/.bash_history
 
-# delete hosts file 
+# Delete hosts file
 rm /etc/hosts
 
-# nameserver settings 
+# Nameserver settings
 rm /etc/resolv.conf
 ln -s /run/resolvconf/resolv.conf /etc/resolv.conf
 
@@ -225,7 +250,7 @@ rm /var/lib/dbus/machine-id
 rm /sbin/initctl
 dpkg-divert --rename --remove /sbin/initctl
 
-# now umount (unmount) special filesystems and exit chroot 
+# Now umount (unmount) special filesystems and exit chroot 
 umount /proc || umount -lf /proc
 umount /sys
 umount /dev/pts

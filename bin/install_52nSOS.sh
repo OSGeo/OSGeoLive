@@ -28,7 +28,7 @@
 #
 # Variables
 # -----------------------------------------------------------------------------
-
+START=$(date +%M:%S)
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
@@ -38,8 +38,8 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-TOMCAT_USER_NAME="tomcat6"
-TOMCAT_SCRIPT_NAME="tomcat6"
+TOMCAT_USER_NAME="tomcat7"
+TOMCAT_SCRIPT_NAME="$TOMCAT_USER_NAME"
 SOS_WEB_APP_NAME="52nSOS"
 SOS_ICON_NAME="52nSOS.png"
 SOS_URL="http://localhost:8080/$SOS_WEB_APP_NAME"
@@ -48,15 +48,16 @@ SOS_OVERVIEW_URL="http://localhost/en/overview/52nSOS_overview.html"
 SOS_WAR_INSTALL_FOLDER="/var/lib/$TOMCAT_SCRIPT_NAME/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
 SOS_BIN_FOLDER="/usr/local/share/52nSOS"
-SOS_TAR_NAME="52n-sensorweb-sos-osgeolive-8.0.tar.gz"
-SOS_TAR_URL="http://52north.org/files/security/osgeo-live/"
+SOS_TAR_NAME="52n-sos-osgeo-live-9.0.tar.gz"
+SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
+SOS_VERSION="4.3.0"
 PG_OPTIONS='--client-min-messages=warning'
 PG_USER="postgres"
 PG_SCRIPT_NAME="postgresql"
 PG_DB_NAME="52nSOS"
 # -----------------------------------------------------------------------------
 #
-echo "[$(date +%M:%S)]: 52nSOS install started"
+echo "[$START]: $SOS_WEB_APP_NAME $SOS_VERSION install started"
 echo "TMP: $TMP"
 echo "USER_NAME: $USER_NAME"
 echo "USER_HOME: $USER_HOME"
@@ -71,6 +72,7 @@ echo "SOS_ICON_NAME: $SOS_ICON_NAME"
 echo "SOS_URL: $SOS_URL"
 echo "SOS_QUICKSTART_URL: $SOS_QUICKSTART_URL"
 echo "SOS_OVERVIEW_URL: $SOS_OVERVIEW_URL"
+echo "SOS_VERSION: $SOS_VERSION"
 echo "PG_OPTIONS: $PG_OPTIONS"
 echo "PG_USER: $PG_USER"
 echo "PG_SCRIPT_NAME: $PG_SCRIPT_NAME" 
@@ -82,7 +84,7 @@ echo "PG_DB_NAME: $PG_DB_NAME"
 # =============================================================================
 # 1 wget
 # 2 java
-# 3 tomcat6
+# 3 tomcat
 # 4 postgresql
 #
 # 1 WGET
@@ -102,7 +104,7 @@ if [ ! -x "`which java`" ] ; then
 fi
 #
 #
-# 3 tomcat6
+# 3 tomcat
 #
 if [ -f "/etc/init.d/$TOMCAT_SCRIPT_NAME" ] ; then
    	echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
@@ -160,7 +162,7 @@ fi
 #
 # 2 Database set-up
 #
-# we need to stop tomcat6 around this process
+# we need to stop tomcat around this process
 TOMCAT=`service $TOMCAT_SCRIPT_NAME status | grep pid | wc -l`
 if [ $TOMCAT -eq 1 ]; then
     service $TOMCAT_SCRIPT_NAME stop
@@ -201,12 +203,12 @@ mkdir -p -v "$SOS_WAR_INSTALL_FOLDER"
 # 3.1 check for webapp set-up
 #
 if (test ! -d "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME") then
-	mv -v "$TMP/$SOS_WEB_APP_NAME.war" "$SOS_WAR_INSTALL_FOLDER"/
+	mv -v "$TMP/$SOS_WEB_APP_NAME##$SOS_VERSION.war" "$SOS_WAR_INSTALL_FOLDER"/
  	chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
-	   "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war"
-	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME installed in tomcat webapps folder"
+	   "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME##$SOS_VERSION.war"
+	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION installed in tomcat webapps folder"
 else
-	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME already installed in tomcat"
+	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION already installed in tomcat"
 fi
 #
 #
@@ -294,3 +296,4 @@ chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-stop.desktop"
 #
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
+echo -e "Timing:\nStart: $START\nEnd  : $(date +%M:%S)"
