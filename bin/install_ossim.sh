@@ -84,22 +84,6 @@ mv ossim.xpm /usr/share/pixmaps/ossim.xpm
 OSSIM_PREFS_FILE="/usr/local/share/ossim/ossim_preference"
 export OSSIM_PREFS_FILE
 
-
-# install main dependencies
-
-#apt-get install --assume-yes libtiff5 libgeotiff2 \
-#  libfreetype6 libcurl3 libopenscenegraph99 libqt4-opengl \
-#  libexpat1 libpng3 libfftw3-3 \
-#  libopenmpi1.6 libqt4-qt3support # opencv hdf5 png jpeg podofo openkpeg2 gdal
-
-#apt-get install --assume-yes krb5-multidev libexpat-ocaml libfindlib-ocaml \
-#  libgnutls-openssl27 libopenjpeg2 libpodofo0.9.0 \
-#  libqt4-sql-sqlite libtiffxx5 ocaml-base-nox \
-#  ocaml-findlib ocaml-interp ocaml-nox pkg-config \
-#  libqt4-core
-
-#apt-get --assume-yes install libjpeg62
-
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
@@ -177,7 +161,6 @@ mkdir -p "$RASTER_DATA"
 #mkdir -p "$SAT_DATA"
 mkdir -p "$ELEV_DATA"   # ?? unused ??
 mkdir -p "$VRT_DATA"
-
 
 
 # disabled: $KML_DATA $SAT_DATA
