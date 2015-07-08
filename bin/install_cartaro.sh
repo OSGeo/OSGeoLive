@@ -32,7 +32,7 @@
 CARTARO_PASSWORD="geoserver"
 CARTARO_USER="cartaro-admin"
 
-CARTARO_VERSION="1.5"
+CARTARO_VERSION="1.8"
 
 DB_NAME="cartaro"
 DB_USER="cartaro"
@@ -276,26 +276,15 @@ if [ ! -f "$TARGET_DIR/bin/start_cartaro.sh" ] ; then
 
 PASSWORD=user
 
-# TODO nicer way to find whether geoserver is already running or not
-echo "\$PASSWORD" | sudo -S $GEO_PATH/bin/shutdown.sh &
-
-DELAY=20
-
 # Enable JSONP for GeoServer
 JAVA_OPTS="-DENABLE_JSONP=true -XX:MaxPermSize=128m" 
 
-(
-for TIME in \`seq \$DELAY\` ; do
-        sleep 1
-        echo "\$TIME \$DELAY" | awk '{print int(0.5+100*\$1/\$2)}'
-        done
-        ) | zenity --progress --auto-close --text "Preparing GeoServer...."
 
 echo "\$PASSWORD" | sudo -S JAVA_OPTS="\$JAVA_OPTS" $GEO_PATH/bin/startup.sh &
 echo "\$PASSWORD" | sudo -S /etc/init.d/postgresql start
 echo "\$PASSWORD" | sudo -S /etc/init.d/apache2 start
 
-DELAY=20
+DELAY=40
 (
 for TIME in \`seq \$DELAY\` ; do
       sleep 1
