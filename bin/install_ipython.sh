@@ -39,10 +39,6 @@ apt-get install --assume-yes  git python-pip \
 
 apt-get install --assume-yes python3-pip python3-zmq python3-jsonschema python3-jinja2 python3-sqlalchemy python3-requests python3-decorator python3-simplegeneric python3-pyside python3-pygments
 
-# littler is better .. but requires 100mb
-sudo apt-get install --assume-yes r-base-core
-
-
 cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
    "$USER_DESKTOP"/
 chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
@@ -98,14 +94,13 @@ if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
     echo "Usage: install_ossim.sh ARCH(i386 or amd64)"
     exit 1
 fi
+
 ARCH="$1"
 
 # install
 # extra python packages not available on standard debian repository
-#
 
-
-
+# Cython
 #wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-cython_0.22.1_$ARCH.deb"
 #dpkg -i python2-cython_0.22.1_$ARCH.deb
 
@@ -257,6 +252,23 @@ dpkg -i python2-bash-kernel_0.3_all.deb
 
 
 # install R kernel
+
+cp ../sources.list.d/cran.list /etc/apt/sources.list.d/
+
+#old key
+#apt-key adv --keyserver subkeys.pgp.net --recv-key E2A11821
+#new key as of 2/2011, package manager changed
+apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+
+#Apparently subkeys.pgp.net decided to refuse requests from the vm for a few hours
+# TODO: if key import fails switch to another keyserver
+# pgp.mit.edu keyserver.ubuntu.com
+
+apt-get -q update
+
+apt-get --assume-yes install r-base r-base-core r-cran-rcurl libcurl4-openssl-dev libxml2-dev
+
+
 Rscript "$BUILD_DIR"/../app-data/ipython/ir_kernel.r
 # add octave kernel
 apt-get --assume-yes install octave # 53.5 MB of additional disk space
