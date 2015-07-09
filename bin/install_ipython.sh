@@ -291,6 +291,14 @@ chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
 cp "$BUILD_DIR"/../app-data/ipython/jupyterhub_config.py \
   /usr/local/share/jupyter/
 
+
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/launchers/jupyter.png"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/launchers/jupyter.desktop"
+mv jupyter.desktop /usr/share/applications/jupyter.desktop
+mv jupyter.png /usr/local/share/jupyter/jupyter.png
+
+
 ####
 ./diskspace_probe.sh "`basename $0`" end
 
