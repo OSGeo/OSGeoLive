@@ -33,7 +33,7 @@ BUILD_DIR=`pwd`
 apt-get install --assume-yes  git python-pip \
         python-matplotlib python-scipy python-pandas \
         python-netcdf python-shapely python3-setuptools \
-        python-enum34  python3-numpy python3-scipy \
+        python-enum34  python3-numpy python3-scipy python-simplegeneric python-zmq \
         python3-pandas python3-matplotlib python3-shapely python-gdal python3-gdal \
         python-enum34 python3-enum34 python-six python3-six python-pyproj python3-pyproj
 
