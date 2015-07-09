@@ -1,5 +1,6 @@
 install.packages('devtools', repos='http://cran.us.r-project.org')
 install.packages('RCurl', repos='http://cran.us.r-project.org')
+install.packages('rzmq', repos='http://cran.us.r-project.org')
 library(devtools)
 install_github('IRkernel/repr')
 install_github('IRkernel/IRdisplay')
