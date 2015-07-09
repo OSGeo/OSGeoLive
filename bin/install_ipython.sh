@@ -271,8 +271,10 @@ apt-get --assume-yes install r-base r-base-core r-cran-rcurl libcurl4-openssl-de
 
 Rscript "$BUILD_DIR"/../app-data/ipython/ir_kernel.r
 
-mv /home/user/.local/share/jupyter/kernels/ir '/usr/local/share/jupyter/kernels/ir'
-chmod -R 644 /usr/local/share/jupyter/kernels/ir
+
+mv /home/user/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
+rm -rf /home/user/.local/share/jupyter
+chmod -R 777 /usr/local/share/jupyter/kernels/ir/
 
 # add octave kernel
 apt-get --assume-yes install octave # 53.5 MB of additional disk space
