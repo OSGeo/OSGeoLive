@@ -266,7 +266,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 
 apt-get -q update
 
-apt-get --assume-yes install r-base r-base-core r-cran-rcurl libcurl4-openssl-dev libxml2-dev
+apt-get --assume-yes install r-base r-base-core r-cran-rcurl libcurl4-openssl-dev libxml2-dev libzmq3-dev
 
 
 Rscript "$BUILD_DIR"/../app-data/ipython/ir_kernel.r
