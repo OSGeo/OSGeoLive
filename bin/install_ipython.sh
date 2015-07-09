@@ -162,7 +162,7 @@ dpkg -i python3-geopandas_0.1.1_all.deb
 #python2-cython_0.22.1_i386.deb
 
 
-# install jupyter, ipython and co... 
+# install jupyter, ipython and co...
 
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-share-hub_1.0_all.deb"
