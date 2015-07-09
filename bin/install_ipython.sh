@@ -39,6 +39,8 @@ apt-get install --assume-yes  git python-pip \
 
 apt-get install --assume-yes python3-pip python3-zmq python3-jsonschema python3-jinja2 python3-sqlalchemy python3-requests python3-decorator python3-simplegeneric python3-pyside python3-pygments
 
+# littler is better .. but requires 100mb
+sudo apt-get install --assume-yes r-base-core
 
 
 cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
