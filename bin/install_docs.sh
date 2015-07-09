@@ -35,7 +35,7 @@ add-apt-repository  --yes ppa:johanvdw/osgeolive-doc-daily
 apt-get update
 apt-get install --assume-yes osgeolive-docs javascript-common
 
-ln -s /usr/share/doc/osgeolive-docs $DEST/osgeolive
+ln -s /usr/share/doc/osgeolive-docs/html $DEST/osgeolive
 
 # Create symbolic links to project specific documentation
 cd "$DEST"
