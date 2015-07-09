@@ -24,6 +24,19 @@
 # =====
 # This script will install udig into ubuntu
 
+if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
+    echo "Wrong number of arguments"
+    echo "Usage: install_udig.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+
+if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: install_udig.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+ARCH="$1"
+
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
@@ -89,7 +102,14 @@ cd "$TMP"
 #   For specific env requirements please review udig.sh script
 
 # CASE OF A ZIP
-ZIP="udig-$UDIG_VERSION.linux.gtk.x86.zip"
+if [ "$ARCH" = "i386" ] ; then
+    ZIP="udig-$UDIG_VERSION.linux.gtk.x86.zip"
+fi
+
+if [ "$ARCH" = "amd64" ] ; then
+    ZIP="udig-$UDIG_VERSION.linux.gtk.x86_64.zip"
+fi
+
 if [ -f "$ZIP" ] ; then
    echo "$ZIP has already been downloaded."
 else
@@ -124,8 +144,8 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/uDig.desktop"
 cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $JAVA_INSTALL_FOLDER/lib/ext/
 cp $UDIG_FOLDER/jre/lib/ext/*jai.jar $JAVA_INSTALL_FOLDER/lib/ext/
 cp $UDIG_FOLDER/jre/lib/ext/*jiio.jar $JAVA_INSTALL_FOLDER/lib/ext/
-cp $UDIG_FOLDER/jre/lib/i386/*_jai.so $JAVA_INSTALL_FOLDER/lib/i386/
-cp $UDIG_FOLDER/jre/lib/i386/*_jiio.so $JAVA_INSTALL_FOLDER/lib/i386/
+cp $UDIG_FOLDER/jre/lib/$ARCH/*_jai.so $JAVA_INSTALL_FOLDER/lib/$ARCH/
+cp $UDIG_FOLDER/jre/lib/$ARCH/*_jiio.so $JAVA_INSTALL_FOLDER/lib/$ARCH/
 
 #delete jre folder from udig install folder
 rm -rf $UDIG_FOLDER/jre

@@ -133,7 +133,7 @@ export USER_NAME
 ./install_deegree.sh
 ./install_52nWPS.sh
 ./install_kosmo.sh
-./install_udig.sh
+./install_udig.sh "$ARCH"
 ./install_openjump.sh
 ./install_postgis.sh
 ./install_osm.sh
@@ -162,7 +162,7 @@ export USER_NAME
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_R.sh
-./install_ossim.sh
+./install_ossim.sh "$ARCH"
 ./install_osgearth.sh
 ./install_spatialite.sh
 ./install_zoo-project.sh
