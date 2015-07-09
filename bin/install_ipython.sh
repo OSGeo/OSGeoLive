@@ -37,6 +37,7 @@ apt-get install --assume-yes  git python-pip \
         python3-pandas python3-matplotlib python3-shapely python-gdal python3-gdal \
         python-enum34 python3-enum34 python-six python3-six python-pyproj python3-pyproj
 
+apt-get install --assume-yes python3-pip python3-zmq python3-jsonschema python3-jinja2 python3-sqlalchemy python3-requests python3-decorator python3-simplegeneric python3-pyside python3-pygments
 
 
 
@@ -117,7 +118,7 @@ dpkg -i python2-affine_1.2.0_all.deb
 dpkg -i python2-click_4.0_all.deb
 dpkg -i python2-snuggs_1.3.1_all.deb
 dpkg -i python2-cligj_0.2.0_all.deb
-ddpkg -i python2-fiona_1.6.0pre0_$ARCH.deb
+dpkg -i python2-fiona_1.6.0pre0_$ARCH.deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-affine_1.2.0_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-click_4.0_all.deb"
@@ -129,7 +130,7 @@ dpkg -i python3-affine_1.2.0_all.deb
 dpkg -i python3-click_4.0_all.deb
 dpkg -i python3-snuggs_1.3.1_all.deb
 dpkg -i python3-cligj_0.2.0_all.deb
-ddpkg -i python3-fiona_1.6.0pre0_$ARCH.deb
+dpkg -i python3-fiona_1.6.0pre0_$ARCH.deb
 
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-rasterio_0.24.1_$ARCH.deb"
@@ -138,8 +139,8 @@ wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-geojson_1.2.1_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-geopandas_0.1.1_all.deb"
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-rasterio_0.24.1_$ARCH.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-netcdf4_1.1.9_$ARCH.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-rasterio_0.24.1_$ARCH.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-netcdf4_1.1.9_$ARCH.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-descartes_1.0.1_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-geojson_1.2.1_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-geopandas_0.1.1_all.deb"
@@ -210,7 +211,6 @@ wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-python3-kernel_1.0_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-bash-kernel_1.0_all.deb"
 
-apt-get install python3-pip python3-zmq python3-jsonschema python3-jinja2 python3-sqlalchemy python3-requests python3-decorator python3-simplegeneric python3-pyside python3-pygments
 
 dpkg -i python3-tornado_4.2_$ARCH.deb
 dpkg -i python3-traitlets_4.1.0.dev_all.deb
@@ -257,7 +257,7 @@ dpkg -i python2-bash-kernel_0.3_all.deb
 # install R kernel
 Rscript "$BUILD_DIR"/../app-data/ipython/ir_kernel.r
 # add octave kernel
-apt-get install octave # 53.5 MB of additional disk space
+apt-get --assume-yes install octave # 53.5 MB of additional disk space
 pip3 install octave_kernel
 
 cp "$BUILD_DIR"/../app-data/ipython/jupyter*.sh \
