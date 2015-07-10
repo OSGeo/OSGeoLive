@@ -40,4 +40,4 @@ GRASS_RENDER_READ_FILE=TRUE
 export GRASS_RENDER_FILE_READ GRASS_RENDER_IMMEDIATE GRASS_RENDER_WIDTH GRASS_RENDER_HEIGHT GRASS_RENDER_TRANSPARENT GRASS_RENDER_TRUECOLOR GRASS_RENDER_PNG_COMPRESSION GRASS_RENDER_PNG_AUTO_WRITE GRASS_RENDER_READ_FILE
  
  
-jupyterhub --config=/usr/local/share/jupyter/jupyterhub_config.py --debug
+jupyter notebook --config=/usr/local/share/jupyter/jupyterhub_config.py --debug

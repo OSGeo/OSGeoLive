@@ -1,10 +1,10 @@
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Start Jupyterhub
-Comment=Jupyterhub
+Name=Start Jupyter Notebook
+Comment=Jupyter Notebook
 Categories=Application;Education;Geography;
 Exec=/usr/local/bin/Jupyter.sh
-Icon=ipython
+Icon=/usr/local/share/jupyter/jupyter.png
 Terminal=true
 StartupNotify=false

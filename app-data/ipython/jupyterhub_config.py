@@ -1,12 +1,12 @@
 # Configuration file for jupyterhub.
  
-from jupyterhub.spawner import LocalProcessSpawner
+#from jupyterhub.spawner import LocalProcessSpawner
  
-class MySpawner(LocalProcessSpawner):
-    def user_env(self, env):
-        env = super().user_env(env)
-        env['GISRC'] = '/home/%s/.grass7/rc' % self.user.name
-        return env
+#class MySpawner(LocalProcessSpawner):
+#    def user_env(self, env):
+#        env = super().user_env(env)
+#        env['GISRC'] = '/home/%s/.grass7/rc' % self.user.name
+#        return env
  
 c = get_config()
  
