@@ -10,7 +10,7 @@
  
 c = get_config()
  
-c.JupyterHub.spawner_class = MySpawner
+#c.JupyterHub.spawner_class = MySpawner
  
 c.Spawner.notebook_dir = '~/jupyter'
  

@@ -8,10 +8,7 @@ export GISBASE=/usr/lib/grass70
 export PATH=$GISBASE/bin:$GISBASE/scripts:$PATH
  
 export GIS_LOCK=$$
- 
-mkdir -p /home/epilib/Envs/grass7data
-mkdir -p /home/epilib/Envs/.grass7
- 
+  
 export GISRC=/home/user/.grass7/rc
 export GISDBASE=/home/user/grassdata
  
