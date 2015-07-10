@@ -14,7 +14,7 @@ c = get_config()
  
 c.Spawner.notebook_dir = '~/jupyter'
  
-c.JupyterHub.port = 8888 
+c.JupyterHub.port = 8884
  
 c.JupyterHub.proxy_api_port = 9985
 c.JupyterHub.hub_port = 9995
