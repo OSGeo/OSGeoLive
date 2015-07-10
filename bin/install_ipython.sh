@@ -35,7 +35,7 @@ apt-get install --assume-yes  git python-pip \
         python-netcdf python-shapely python3-setuptools \
         python-enum34  python3-numpy python3-scipy python-simplegeneric python-zmq \
         python3-pandas python3-matplotlib python3-shapely python-gdal python3-gdal \
-        python-enum34 python3-enum34 python-six python3-six python-pyproj python3-pyproj
+        python-enum34 python3-enum34 python-six python3-six python-pyproj python3-pyproj gnome-terminal
 
 apt-get install --assume-yes python3-pip python3-zmq python3-jsonschema python3-jinja2 python3-sqlalchemy python3-requests python3-decorator python3-simplegeneric python3-pyside python3-pygments
 
@@ -275,8 +275,7 @@ cp "$BUILD_DIR"/../app-data/ipython/jupyterhub_config.py \
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/launchers/jupyter.png"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/launchers/ipynb.png"
-#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/launchers/jupyter.desktop"
-#mv jupyter.desktop /usr/share/applications/jupyter.desktop
+
 mv jupyter.png /usr/local/share/jupyter/jupyter.png
 mv ipynb.png /usr/local/share/jupyter/ipynb.png
 chown "$USER_NAME:$USER_NAME" /usr/local/share/jupyter/jupyter.png
