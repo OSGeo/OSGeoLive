@@ -256,32 +256,6 @@ dpkg -i python2-pexpect_4.0.dev_all.deb
 dpkg -i python2-ptyprocess_0.5_all.deb
 dpkg -i python2-bash-kernel_0.3_all.deb
 
-
-# install R kernel
-
-cp ../sources.list.d/cran.list /etc/apt/sources.list.d/
-
-#old key
-#apt-key adv --keyserver subkeys.pgp.net --recv-key E2A11821
-#new key as of 2/2011, package manager changed
-apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
-
-#Apparently subkeys.pgp.net decided to refuse requests from the vm for a few hours
-# TODO: if key import fails switch to another keyserver
-# pgp.mit.edu keyserver.ubuntu.com
-
-apt-get -q update
-
-apt-get --assume-yes install r-base r-base-core r-cran-rcurl libcurl4-openssl-dev libxml2-dev libzmq3-dev
-
-
-Rscript "$BUILD_DIR"/../app-data/ipython/ir_kernel.r
-
-
-mv /home/user/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
-rm -rf /home/user/.local/share/jupyter
-chmod -R 777 /usr/local/share/jupyter/kernels/ir/
-
 # add octave kernel
 apt-get --assume-yes install octave # 53.5 MB of additional disk space
 pip3 install octave_kernel
@@ -307,6 +281,29 @@ mv jupyter.png /usr/local/share/jupyter/jupyter.png
 mv ipynb.png /usr/local/share/jupyter/ipynb.png
 chown "$USER_NAME:$USER_NAME" /usr/local/share/jupyter/jupyter.png
 chown "$USER_NAME:$USER_NAME" /usr/local/share/jupyter/ipynb.png
+
+
+# install R kernel
+
+cp ../sources.list.d/cran.list /etc/apt/sources.list.d/
+
+#old key
+#apt-key adv --keyserver subkeys.pgp.net --recv-key E2A11821
+#new key as of 2/2011, package manager changed
+apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+
+#Apparently subkeys.pgp.net decided to refuse requests from the vm for a few hours
+# TODO: if key import fails switch to another keyserver
+# pgp.mit.edu keyserver.ubuntu.com
+
+apt-get -q update
+apt-get --assume-yes install r-base r-base-core r-cran-rcurl libcurl4-openssl-dev libxml2-dev libzmq3-dev
+
+Rscript "$BUILD_DIR"/../app-data/ipython/ir_kernel.r
+
+mv /home/user/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
+rm -rf /home/user/.local/share/jupyter
+chmod -R 777 /usr/local/share/jupyter/kernels/ir/
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
