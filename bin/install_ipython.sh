@@ -163,7 +163,8 @@ dpkg -i python3-geopandas_0.1.1_all.deb
 # install jupyter, ipython and co...
 
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-share-hub_1.0_all.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-share-hub_1.0_all.deb"
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyterhub_1.0_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-python3-kernel_1.0_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/jupyter-python2-kernel_1.0_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-ptyprocess_0.5_all.deb"
@@ -242,7 +243,8 @@ dpkg -i python2-certifi_2015.04.28_all.deb
 dpkg -i python2-backports.ssl-match-hostname_3.4.0.2_all.deb
 dpkg -i python2-tornado_4.2_$ARCH.deb
 dpkg -i python2-traitlets_4.1.0.dev_all.deb
-dpkg -i jupyter-share-hub_1.0_all.deb
+#dpkg -i jupyter-share-hub_1.0_all.deb
+dpkg -i jupyterhub_1.0_all.deb
 dpkg -i jupyter-bash-kernel_1.0_all.deb
 dpkg -i python2-ipywidgets_4.0.0.dev_all.deb
 dpkg -i python3-ipyparallel_4.0.0.dev_all.deb
