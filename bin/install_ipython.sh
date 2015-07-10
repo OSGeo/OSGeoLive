@@ -43,6 +43,10 @@ cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
    "$USER_DESKTOP"/
 chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
 
+cp "$BUILD_DIR"/../app-data/ipython/jupyter-notebook*.desktop \
+   "$USER_DESKTOP"/
+chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/jupyter-notebook*.desktop
+
 cp "$BUILD_DIR"/../app-data/ipython/ipython_*.sh \
    /usr/local/bin/
 chmod a+x /usr/local/bin/ipython_*.sh
@@ -296,10 +300,13 @@ cp "$BUILD_DIR"/../app-data/ipython/jupyterhub_config.py \
 
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/launchers/jupyter.png"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/launchers/jupyter.desktop"
-mv jupyter.desktop /usr/share/applications/jupyter.desktop
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/launchers/ipynb.png"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/launchers/jupyter.desktop"
+#mv jupyter.desktop /usr/share/applications/jupyter.desktop
 mv jupyter.png /usr/local/share/jupyter/jupyter.png
-
+mv ipynb.png /usr/local/share/jupyter/ipynb.png
+chown "$USER_NAME:$USER_NAME" /usr/local/share/jupyter/jupyter.png
+chown "$USER_NAME:$USER_NAME" /usr/local/share/jupyter/ipynb.png
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
