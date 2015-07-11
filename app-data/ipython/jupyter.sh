@@ -36,5 +36,5 @@ GRASS_RENDER_PNG_AUTO_WRITE=TRUE
 GRASS_RENDER_READ_FILE=TRUE
 export GRASS_RENDER_FILE_READ GRASS_RENDER_IMMEDIATE GRASS_RENDER_WIDTH GRASS_RENDER_HEIGHT GRASS_RENDER_TRANSPARENT GRASS_RENDER_TRUECOLOR GRASS_RENDER_PNG_COMPRESSION GRASS_RENDER_PNG_AUTO_WRITE GRASS_RENDER_READ_FILE
  
- 
-jupyter notebook --config=/usr/local/share/jupyter/jupyterhub_config.py --debug --no-browser
+#--config=/usr/local/share/jupyter/jupyterhub_config.py
+jupyter notebook --debug --no-browser --port=8884 --notebook-dir=/home/user/ipython/notebooks
