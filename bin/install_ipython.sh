@@ -35,7 +35,8 @@ apt-get install --assume-yes  git python-pip \
         python-netcdf python-shapely python3-setuptools \
         python-enum34  python3-numpy python3-scipy python-simplegeneric python-zmq \
         python3-pandas python3-matplotlib python3-shapely python-gdal python3-gdal \
-        python-enum34 python3-enum34 python-six python3-six python-pyproj python3-pyproj gnome-terminal
+        python-enum34 python3-enum34 python-six python3-six python-pyproj python3-pyproj gnome-terminal \
+        python-skimage python3-skimage python-sklearn python-scikits.statsmodels
 
 apt-get install --assume-yes python3-pip python3-zmq python3-jsonschema python3-jinja2 python3-sqlalchemy python3-requests python3-decorator python3-simplegeneric python3-pyside python3-pygments
 
