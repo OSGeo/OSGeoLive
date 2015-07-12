@@ -27,18 +27,22 @@ USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop"
 BUILD_DIR=`pwd`
 
-## 24jan14  change in iPython+numpy+matplotlib
-## 04jul14  jtaylor iPython
 
 apt-get install --assume-yes  git python-pip \
         python-matplotlib python-scipy python-pandas \
         python-netcdf python-shapely python3-setuptools \
-        python-enum34  python3-numpy python3-scipy python-simplegeneric python-zmq \
-        python3-pandas python3-matplotlib python3-shapely python-gdal python3-gdal \
-        python-enum34 python3-enum34 python-six python3-six python-pyproj python3-pyproj gnome-terminal \
-        python-skimage python3-skimage python-sklearn python-scikits.statsmodels
+        python-enum34 python-simplegeneric python-zmq \
+        python-gdal \
+        python3-enum34 python-six python3-six python-pyproj gnome-terminal \
+        python-skimage python-sklearn python-scikits.statsmodels
 
 apt-get install --assume-yes python3-pip python3-zmq python3-jsonschema python3-jinja2 python3-sqlalchemy python3-requests python3-decorator python3-simplegeneric python3-pyside python3-pygments
+
+#
+# python3 :
+#
+# apt-get install --assume-yes python3-numpy python3-scipy python3-pandas python3-matplotlib python3-shapely python3-gdal python3-pyproj python3-skimage
+
 
 cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
    "$USER_DESKTOP"/
@@ -122,17 +126,18 @@ dpkg -i python2-snuggs_1.3.1_all.deb
 dpkg -i python2-cligj_0.2.0_all.deb
 dpkg -i python2-fiona_1.6.0pre0_$ARCH.deb
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-affine_1.2.0_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-click_4.0_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-snuggs_1.3.1_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-cligj_0.2.0_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-fiona_1.6.0pre0_$ARCH.deb"
+# python 3:
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-affine_1.2.0_all.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-click_4.0_all.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-snuggs_1.3.1_all.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-cligj_0.2.0_all.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-fiona_1.6.0pre0_$ARCH.deb"
 
-dpkg -i python3-affine_1.2.0_all.deb
-dpkg -i python3-click_4.0_all.deb
-dpkg -i python3-snuggs_1.3.1_all.deb
-dpkg -i python3-cligj_0.2.0_all.deb
-dpkg -i python3-fiona_1.6.0pre0_$ARCH.deb
+#dpkg -i python3-affine_1.2.0_all.deb
+#dpkg -i python3-click_4.0_all.deb
+#dpkg -i python3-snuggs_1.3.1_all.deb
+#dpkg -i python3-cligj_0.2.0_all.deb
+#dpkg -i python3-fiona_1.6.0pre0_$ARCH.deb
 
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-rasterio_0.24.1_$ARCH.deb"
@@ -141,11 +146,12 @@ wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-geojson_1.2.1_all.deb"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-geopandas_0.1.1_all.deb"
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-rasterio_0.24.1_$ARCH.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-netcdf4_1.1.9_$ARCH.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-descartes_1.0.1_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-geojson_1.2.1_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-geopandas_0.1.1_all.deb"
+# python 3:
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-rasterio_0.24.1_$ARCH.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-netcdf4_1.1.9_$ARCH.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-descartes_1.0.1_all.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-geojson_1.2.1_all.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-geopandas_0.1.1_all.deb"
 
 
 
@@ -155,11 +161,14 @@ dpkg -i python2-descartes_1.0.1_all.deb
 dpkg -i python2-geojson_1.2.1_all.deb
 dpkg -i python2-geopandas_0.1.1_all.deb
 
-dpkg -i python3-rasterio_0.24.1_$ARCH.deb
-dpkg -i python3-netcdf4_1.1.9_$ARCH.deb
-dpkg -i python3-descartes_1.0.1_all.deb
-dpkg -i python3-geojson_1.2.1_all.deb
-dpkg -i python3-geopandas_0.1.1_all.deb
+# python 3:
+#dpkg -i python3-rasterio_0.24.1_$ARCH.deb
+#dpkg -i python3-netcdf4_1.1.9_$ARCH.deb
+#dpkg -i python3-descartes_1.0.1_all.deb
+#dpkg -i python3-geojson_1.2.1_all.deb
+#dpkg -i python3-geopandas_0.1.1_all.deb
+
+###
 
 #python3-cython_0.22.1_i386.deb
 #python2-cython_0.22.1_i386.deb
@@ -257,6 +266,7 @@ dpkg -i python2-pexpect_4.0.dev_all.deb
 dpkg -i python2-ptyprocess_0.5_all.deb
 dpkg -i python2-bash-kernel_0.3_all.deb
 
+
 # add octave kernel
 apt-get --assume-yes install octave # 53.5 MB of additional disk space
 pip3 install octave_kernel
@@ -271,7 +281,6 @@ chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
 
 cp "$BUILD_DIR"/../app-data/ipython/jupyterhub_config.py \
   /usr/local/share/jupyter/
-
 
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/launchers/jupyter.png"
