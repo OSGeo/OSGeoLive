@@ -74,7 +74,7 @@ rm "OpenLayers-$OL2_VERSION.tar.gz"
 #
 echo "\nInstalling OpenLayers3..."
 wget -c --progress=dot:mega \
-   "http://aiolos.survey.ntua.gr/gisvm/dev/libjs-openlayers3_3.1.1-1_all.deb"
+   "http://download.osgeo.org/livedvd/data/openlayers/libjs-openlayers3_3.1.1-1_all.deb"
 dpkg -i libjs-openlayers3_3.1.1-1_all.deb
 rm -rf libjs-openlayers3_3.1.1-1_all.deb
 

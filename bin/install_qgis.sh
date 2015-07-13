@@ -85,7 +85,7 @@ apt-get --assume-yes remove uim-qt uim-qt3
 
 ###FIXME: Temp patch for #1466
 wget -c --progress=dot:mega \
-   "http://aiolos.survey.ntua.gr/gisvm/dev/grass7.tar.gz"
+   "http://download.osgeo.org/livedvd/data/grass/grass7.tar.gz"
 tar zxvf grass7.tar.gz
 rm grass7.tar.gz
 cp -r grass7/* /usr/share/qgis/python/plugins/processing/algs/grass7/
