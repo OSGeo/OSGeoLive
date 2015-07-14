@@ -46,8 +46,8 @@ WPS_WEB_APP_NAME="52nWPS"
 WPS_TOMCAT_SCRIPT_NAME="tomcat7"
 WPS_ICON_NAME="52n.png"
 WPS_URL="http://localhost:8080/$WPS_WEB_APP_NAME"
-WPS_QUICKSTART_URL="http://localhost/en/quickstart/52nWPS_quickstart.html"
-WPS_OVERVIEW_URL="http://localhost/en/overview/52nWPS_overview.html"
+WPS_QUICKSTART_URL="http://localhost/osgeolive/en/quickstart/52nWPS_quickstart.html"
+WPS_OVERVIEW_URL="http://localhost/osgeolive/en/overview/52nWPS_overview.html"
 # -----------------------------------------------------------------------------
 #
 echo "[$(date +%M:%S)]: 52nWPS install started"

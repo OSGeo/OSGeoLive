@@ -74,7 +74,7 @@ rm "OpenLayers-$OL2_VERSION.tar.gz"
 #
 echo "\nInstalling OpenLayers3..."
 wget -c --progress=dot:mega \
-   "http://aiolos.survey.ntua.gr/gisvm/dev/libjs-openlayers3_3.1.1-1_all.deb"
+   "http://download.osgeo.org/livedvd/data/openlayers/libjs-openlayers3_3.1.1-1_all.deb"
 dpkg -i libjs-openlayers3_3.1.1-1_all.deb
 rm -rf libjs-openlayers3_3.1.1-1_all.deb
 
@@ -130,7 +130,7 @@ Encoding=UTF-8
 Name=OpenLayers
 Comment=Sample constructions
 Categories=Application;Internet;
-Exec=firefox http://localhost/ol3/ http://localhost/en/quickstart/openlayers_quickstart.html
+Exec=firefox http://localhost/ol3/ http://localhost/osgeolive/en/quickstart/openlayers_quickstart.html
 Icon=openlayers
 Terminal=false
 StartupNotify=false

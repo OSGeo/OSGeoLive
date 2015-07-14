@@ -53,15 +53,13 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 # Total: 60MB
 [ -d $DATA_DIR ] || mkdir $DATA_DIR
 [ -f $DATA_DIR/OTBSoftwareGuide.pdf ] || \
-   wget --progress=dot:mega "http://aiolos.survey.ntua.gr/gisvm/dev/OTBSoftwareGuide.pdf" \
+   wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
      -O $DATA_DIR/OTBSoftwareGuide.pdf
-#    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
-#      -O $DATA_DIR/OTBSoftwareGuide.pdf
+
 [ -f $DATA_DIR/OTBCookBook.pdf ] || \
-   wget --progress=dot:mega "http://aiolos.survey.ntua.gr/gisvm/dev/OTBCookBook.pdf" \
+   wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBCookBook.pdf" \
      -O $DATA_DIR/OTBCookBook.pdf
-#    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBCookBook.pdf" \
-#      -O $DATA_DIR/OTBCookBook.pdf
+
 # [ -f $DATA_DIR/OTB-Data-Examples.tgz ] || \
 #    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTB-Data-Examples.tgz" \
 #      -O $DATA_DIR/OTB-Data-Examples.tgz

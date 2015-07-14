@@ -48,7 +48,7 @@ Encoding=UTF-8
 Name=Leaflet
 Comment=LeafletJS Examples
 Categories=Application;Internet;
-Exec=firefox http://localhost/en/quickstart/leaflet_quickstart.html http://localhost/leaflet-demo.html
+Exec=firefox http://localhost/osgeolive/en/quickstart/leaflet_quickstart.html http://localhost/leaflet-demo.html
 Icon=/usr/share/icons/leafletjs_logo.png
 Terminal=false
 EOF

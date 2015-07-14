@@ -49,8 +49,8 @@ WSS_DESKTOP_STARTER_NAME="52nWSS-start.desktop"
 WSS_DESKTOP_STOPER_NAME="52nWSS-stop.desktop"
 WSS_ICON_NAME="52nWSS.png"
 WSS_URL="http://localhost:8080/wss/"
-WSS_QUICKSTART_URL="http://localhost/en/quickstart/52nWSS_quickstart.html"
-WSS_OVERVIEW_URL="http://localhost/en/overview/52nWSS_overview.html"
+WSS_QUICKSTART_URL="http://localhost/osgeolive/en/quickstart/52nWSS_quickstart.html"
+WSS_OVERVIEW_URL="http://localhost/osgeolive/en/overview/52nWSS_overview.html"
 # -----------------------------------------------------------------------------
 #
 echo "52nWSS install started"
