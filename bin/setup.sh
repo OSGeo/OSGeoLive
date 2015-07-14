@@ -188,6 +188,11 @@ apt-get install --yes apturl
 apt-get install --yes gcc build-essential devscripts pbuilder fakeroot \
   svn-buildpackage lintian debhelper pkg-config dpkg-dev cmake
 
+# Install virtualbox guest additions
+# If running on virtualbox this will allow us to use full-screen/usb2/...
+# If running outside virtualbox the drivers will not be loaded
+apt-get install virtualbox-guest-dkms virtualbox-guest-x11 virtualbox-guest-utils
+
 # install the python .deb maker
 apt-get install --yes python-stdeb python-all-dev
 
