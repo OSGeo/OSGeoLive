@@ -1,6 +1,21 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 9.0alpha2
+====================
+
+ * Upgrade to tomcat7
+ * new Ubuntu manual included
+ * 52North SOS upgrade to 4.3.0
+ * GeoMajas upgrade to 2.4.0
+ * MapBender upgrade to 3.0.5.1
+ * EOxServer upgrade to 0.4.0
+ * Cartaro upgrade to 1.8
+ * GeoNetwork 3.0.1
+ * Fixed OSSIM installation
+ * uDig installer fix to work on 64 bit
+ * OSGeoLive documentation installed from deb package now
+
 Version 9.0alpha1
 ====================
 
