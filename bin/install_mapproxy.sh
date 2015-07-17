@@ -71,9 +71,6 @@ chmod 755 $BIN/mapproxy_start.sh
 
 
 ## Create Desktop Shortcut for starting MapProxy Server in shell
-# Note: MapProxy when run with the 'mapproxy-util serve-develop'
-# script is in development  mode and is intended to be run within
-# a viewable terminal, thus 'Terminal=true'
 cat << EOF > /usr/share/applications/mapproxy-start.desktop
 [Desktop Entry]
 Type=Application
