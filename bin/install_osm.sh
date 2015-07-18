@@ -40,35 +40,13 @@ cd "$TMP_DIR"
 
 mkdir /usr/local/share/osm
 
-apt-get install --assume-yes josm josm-plugins gpsd gpsd-clients \
+apt-get install --assume-yes josm gpsd gpsd-clients \
    merkaartor xmlstarlet imposm osmosis python-osmapi
 
-## reviewed - 1404 - Pg9.3x - Postgis 2.1x
-# fix for 2.1.1-1~precise3 postgis-java package breakage (for osmosis)
-#rm -f /usr/share/java/postgis.jar
-#ln -s /usr/share/java/postgis-jdbc-2.1.0~rc1.jar /usr/share/java/postgis.jar
 
 ##-----------------------------------------------
 ## JOSM -- OpenStreetMap feature editor
-# the stock Ubuntu JOSM is badly out of date, so get the latest:
-#   leave it installed to keep dependencies
-#   file name is not versioned so don't use "wget -c"
-
 # see also  http://josm.openstreetmap.de/wiki/Download#Ubuntu
-
-JOSM_INSTALL_DIR=/usr/local/share/osm
-JOSM_INSTALL_JAR=josm-tested.jar
-if [ ! -e "$JOSM_INSTALL_DIR/$JOSM_INSTALL_JAR" ] ; then
-	wget --progress=dot:mega -O "$JOSM_INSTALL_DIR/$JOSM_INSTALL_JAR" \
-	  http://josm.openstreetmap.de/josm-tested.jar
-fi
-
-# replace symlink
-rm /usr/share/josm/josm.jar
-ln -s "$JOSM_INSTALL_DIR/$JOSM_INSTALL_JAR" /usr/share/josm/josm.jar
-
-#Hack to make josm launch with openjdk7
-sed -i -e 's/openjdk-6-jre/openjdk-*-jre/' /usr/bin/josm
 
 # pre-seed the josmrc file to make the default window size fit on a smaller display
 mkdir -p "$USER_HOME"/.josm
@@ -77,7 +55,6 @@ gui.geometry=800x600+40+40
 gui.maximized=false
 EOF
 chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
-
 
 #### desktop icons
 echo "MimeType=application/x-openstreetmap+xml;" \
