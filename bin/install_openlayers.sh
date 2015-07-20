@@ -14,7 +14,7 @@
 #
 # About:
 # =====
-# This script will install OpenLayers 3.0.0 (and OpenLayers 2.13.1 for legacy demos in OSGeoLive)
+# This script will install OpenLayers 3 (and OpenLayers 2.13.1 for legacy demos in OSGeoLive)
 #
 # Running:
 # =======
@@ -30,11 +30,12 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_openlayers"
-OL3_VERSION="3.1.1"
+
 OL2_VERSION="2.13.1" 
-OL3_DIR=/var/www/html/ol3
-OL3_SRC_DIR=/usr/share/openlayers3
 OL2_DIR=/var/www/html/openlayers
+
+OL3_VERSION="3.7.0"
+OL3_DIR=/var/www/html/ol3
 
 #
 # Install OpenLayers 2
@@ -73,10 +74,44 @@ rm "OpenLayers-$OL2_VERSION.tar.gz"
 # Install OpenLayers 3
 #
 echo "\nInstalling OpenLayers3..."
-wget -c --progress=dot:mega \
-   "http://aiolos.survey.ntua.gr/gisvm/dev/libjs-openlayers3_3.1.1-1_all.deb"
-dpkg -i libjs-openlayers3_3.1.1-1_all.deb
-rm -rf libjs-openlayers3_3.1.1-1_all.deb
+
+cd "$TMP_DIR"
+
+OL3_ARCHIVE_FULL="v$OL3_VERSION.zip"
+if [ -f "$OL3_ARCHIVE_FULL" ]
+then
+   echo "OpenLayers $OL3_VERSION full version has already been downloaded. Skipping download."
+else
+   wget -c --progress=dot:mega \
+      "https://github.com/openlayers/ol3/releases/download/v$OL3_VERSION/v$OL3_VERSION.zip"
+   echo "OpenLayers $OL3_VERSION full version download complete."
+fi
+
+OL3_ARCHIVE_DIST="v$OL3_VERSION-dist.zip"
+if [ -f "$OL3_ARCHIVE_DIST" ]
+then
+   echo "OpenLayers $OL3_VERSION distribution version has already been downloaded. Skipping download."
+else
+   wget -c --progress=dot:mega \
+      "https://github.com/openlayers/ol3/releases/download/v$OL3_VERSION/v$OL3_VERSION-dist.zip"
+   echo "OpenLayers $OL3_VERSION distribution version download complete."
+fi
+
+#
+# Unzip 
+#
+echo "\nUnzipping archive..."
+unzip -qo $OL3_ARCHIVE_FULL
+unzip -qo $OL3_ARCHIVE_DIST
+echo "Unzipping done"
+
+#
+# Copy to www
+#
+echo "\nCopying files to $OL3_DIR"
+rsync -r v$OL3_VERSION/* $OL3_DIR
+rsync -r v$OL3_VERSION-dist/* $OL3_DIR/dist
+echo "Copying done"
 
 #
 # Generate index page
@@ -101,26 +136,14 @@ cat << EOF > "index.html"
 </body>
 </html>
 EOF
-
-#
-# Link files to apache dir
-#
-echo "\nConfiguring web directory..."
-
-ln -s "$OL3_SRC_DIR"/hosted/master/apidoc "$OL3_DIR"/apidoc
-ln -s "$OL3_SRC_DIR"/hosted/master/build "$OL3_DIR"/build
-ln -s "$OL3_SRC_DIR"/hosted/master/css "$OL3_DIR"/css
-ln -s "$OL3_SRC_DIR"/hosted/master/examples "$OL3_DIR"/examples
-ln -s "$OL3_SRC_DIR"/hosted/master/ol "$OL3_DIR"/ol
-ln -s "$OL3_SRC_DIR"/hosted/master/resources "$OL3_DIR"/resources
-chmod -R uga+r "$OL3_DIR"
+echo "Index file generation done"
 
 #
 # Launch script and icon for OpenLayers to take you to a documentation 
 # page and examples listing
 #
 echo "\nGenerating launcher..."
-cp "$OL3_SRC_DIR/hosted/master/resources/logo.png" /usr/share/pixmaps/openlayers.png
+cp "/var/www/html/_images/logo-OpenLayers.png" /usr/share/pixmaps/openlayers.png
 
 if [ ! -e /usr/share/applications/openlayers.desktop ] ; then
    cat << EOF > /usr/share/applications/openlayers.desktop
