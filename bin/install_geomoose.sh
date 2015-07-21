@@ -35,11 +35,11 @@ mkdir -p /tmp/build-geomoose
 
 cd /tmp/build-geomoose
 
-## Download and extract GeoMOOSE 2.6.1
+## Download and extract GeoMOOSE 2.8.0
 wget -c --progress=dot:mega \
-   "http://www.geomoose.org/downloads/geomoose-2.7.1.tar.gz"
+   "http://www.geomoose.org/downloads/geomoose-2.8.0.tar.gz"
 
-tar -xzf geomoose-2.7.1.tar.gz
+tar -xzf geomoose-2.8.0.tar.gz
 
 rm -rf /usr/local/geomoose
 
@@ -52,7 +52,7 @@ mv /tmp/build-geomoose/geomoose*/* .
 ## Setup htdocs directory to be available to apache
 ln -s /usr/local/geomoose/htdocs /var/www/html/geomoose
 
-## Configure GeoMOOSE 2.6.1
+## Configure GeoMOOSE 2.8.0
 cat > /usr/local/geomoose/conf/local_settings.ini <<'EOF'
 [paths]
 root=/usr/local/geomoose/maps/
