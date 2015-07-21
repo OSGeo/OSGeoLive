@@ -28,54 +28,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-
-VERS="5.4.2191-0"
-
-
-#### get dependencies ####
-
-PACKAGES="gmt gv libxm4 libxt6 libnetcdfc7 libgl1-mesa-glx libglu1-mesa
-          csh proj-bin libfftw3-3 libparallel-forkmanager-perl"
-
-apt-get --assume-yes install $PACKAGES
-
-
-# add GMT apps to the PATH if needed
-#if [ `grep -c '/usr/lib/gmt/bin' "$USER_HOME/.bashrc"` -eq 0 ] && \
-#   [ ! -e /etc/profile.d/gmt_path.sh ] ; then
-#      echo 'PATH="$PATH:/usr/lib/gmt/bin"' >> "$USER_HOME/.bashrc"
-#fi
-
-
-mkdir -p /tmp/build_mbsystem
-cd /tmp/build_mbsystem
-
-#### get tarball ####
-
-if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install it and try again" 
-   exit 1
-fi
-
-DL_URL="http://download.osgeo.org/livedvd/data/mbsystem/trusty/i386"
-
-for file in mbsystem_${VERS}_i386.deb \
-            mbsystem-doc_${VERS}_all.deb \
-            mbsystem-data_${VERS}_all.deb ; do
-
-   wget -c --progress=dot:mega "$DL_URL/$file"
-   if [ $? -ne 0 ] ; then
-      echo "Download error on <$file>. Aborting."
-      exit 1
-   fi
-
-   gdebi --non-interactive --quiet "$file"
-   if [ $? -ne 0 ] ; then
-      echo "Install error on <$file>. Aborting."
-      exit 1
-   fi
-done
-
+apt-get --assume-yes install mbsystem mbsystem-doc mbsystem-data
 
 #### user config ####
 if [ `grep -c 'MB_PS_VIEWER=' "$USER_HOME/.bashrc"` -eq 0 ] ; then
@@ -84,8 +37,6 @@ fi
 if [ `grep -c 'MB_PS_VIEWER=' "/etc/skel/.bashrc"` -eq 0 ] ; then
    echo "export MB_PS_VIEWER=gv" >> "/etc/skel/.bashrc"
 fi
-
-
 
 #### get and install sample data ####
 # ftp://ftp.ldeo.columbia.edu/pub/MB-System/
@@ -97,30 +48,16 @@ fi
 # Cheers,
 # Dave
 
-cd /tmp/build_mbsystem
-
-wget -c --progress=dot:mega ftp://ftp.ldeo.columbia.edu/pub/MB-System/MB-SystemExamples.5.1.0.tar.gz
-
-mkdir -p /usr/local/share/mbsystem
-cd /usr/local/share/mbsystem/
-
-tar xzf /tmp/build_mbsystem/MB-SystemExamples.5.1.0.tar.gz
-mv MB-SystemExamples.5.1.0/ examples/
-chmod -R g+w examples/
-chown -R root.users examples/
-adduser $USER_NAME users
-
-
 #### get and install cookbook tutorial ####
 
-cd /tmp/build_mbsystem
-wget -c --progress=dot:mega ftp://ftp.ldeo.columbia.edu/pub/MB-System/mbcookbook.pdf
-cp mbcookbook.pdf /usr/local/share/mbsystem/
+# cd /tmp/build_mbsystem
+# wget -c --progress=dot:mega ftp://ftp.ldeo.columbia.edu/pub/MB-System/mbcookbook.pdf
+# cp mbcookbook.pdf /usr/local/share/mbsystem/
 
-# symlink into the livedvd's common data dir (maybe not needed)
-ln -s /usr/local/share/mbsystem /usr/local/mbsystem
+# # symlink into the livedvd's common data dir (maybe not needed)
+# ln -s /usr/local/share/mbsystem /usr/local/mbsystem
 
-ln -s /usr/share/doc/mbsystem-doc/docs /usr/local/share/mbsystem/
+# ln -s /usr/share/doc/mbsystem-doc/docs /usr/local/share/mbsystem/
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
