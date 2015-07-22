@@ -143,7 +143,7 @@ echo "Index file generation done"
 # page and examples listing
 #
 echo "\nGenerating launcher..."
-cp "/var/www/html/_images/logo-OpenLayers.png" /usr/share/pixmaps/openlayers.png
+cp "$OL3_DIR/apidoc/logo-70x70.png" /usr/share/pixmaps/openlayers.png
 
 if [ ! -e /usr/share/applications/openlayers.desktop ] ; then
    cat << EOF > /usr/share/applications/openlayers.desktop
