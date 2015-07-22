@@ -10,7 +10,6 @@
 BUILD_DIR=`pwd`
 ####
 
-
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
@@ -19,35 +18,19 @@ USER_HOME="/home/$USER_NAME"
 BIN="/usr/local/bin"
 TMP="/tmp/build_mapproxy"
 MAPPROXY_VERSION="1.8.0"
-MAPPROXY_DEB_FILE="mapproxy_${MAPPROXY_VERSION}_all.deb"
-MAPPROXY_DEB_URL="http://mapproxy.org/static/rel/osgeo-live/$MAPPROXY_DEB_FILE"
 MAPPROXY_DOCS_FILE="MapProxy-docs-$MAPPROXY_VERSION.tar.gz"
 MAPPROXY_DOCS_URL="http://mapproxy.org/static/rel/$MAPPROXY_DOCS_FILE"
 MAPPROXY_DIR="/usr/local/share/mapproxy"
 
+apt-get install --yes mapproxy
+
 mkdir -p "$TMP"
 cd "$TMP"
-
-apt-get install --yes gdebi
-
-echo "Downloading: $MAPPROXY_DEB_URL"
-wget --timestamping --continue --progress=dot:mega "$MAPPROXY_DEB_URL"
-if [ $? -ne 0 ] ; then
-   echo "ERROR: download failed"
-   exit 1
-fi
 
 echo "Downloading: $MAPPROXY_DOCS_URL"
 wget --timestamping --continue --progress=dot:mega "$MAPPROXY_DOCS_URL"
 if [ $? -ne 0 ] ; then
    echo "ERROR: download failed"
-   exit 1
-fi
-
-echo "Installing: $MAPPROXY_DEB_FILE"
-gdebi --non-interactive --quiet "$MAPPROXY_DEB_FILE"
-if [ $? -ne 0 ] ; then
-   echo "ERROR: package install failed"
    exit 1
 fi
 
