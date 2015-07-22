@@ -39,7 +39,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-apt-get --assume-yes install gpsd gpsd-clients python-gps opencpn opencpn-doc opencpn-tcdata
+apt-get --assume-yes --no-install-recommends install gpsd gpsd-clients python-gps opencpn opencpn-doc
 
 # TMP_DIR=/tmp/build_opencpn
 #
