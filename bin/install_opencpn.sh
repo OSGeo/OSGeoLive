@@ -39,45 +39,46 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
+apt-get --assume-yes install gpsd gpsd-clients python-gps opencpn opencpn-doc opencpn-tcdata
 
-TMP_DIR=/tmp/build_opencpn
+# TMP_DIR=/tmp/build_opencpn
+#
+# if [ ! -d "$TMP_DIR" ] ; then
+#    mkdir "$TMP_DIR"
+# fi
+# cd "$TMP_DIR"
+#
+# OLD=no
+# ####
+# if [ "$OLD" = "yes" ] ; then
+# URL="http://download.osgeo.org/livedvd/data/opencpn/precise/i386"
+# PKGS="
+# opencpn-data_2.5.0+dfsg-0_all.deb
+# opencpn-doc_2.5.0+dfsg-0_all.deb
+# opencpn_2.5.0+dfsg-0_i386.deb
+# opencpn-plugins_2.5.0+dfsg-0_i386.deb
+# "
+# for PKG in $PKGS ; do
+#    wget -c --progress=dot:mega "$URL/$PKG"
+# done
 
-if [ ! -d "$TMP_DIR" ] ; then
-   mkdir "$TMP_DIR"
-fi
-cd "$TMP_DIR"
-
-OLD=no
-####
-if [ "$OLD" = "yes" ] ; then
-URL="http://download.osgeo.org/livedvd/data/opencpn/precise/i386"
-PKGS="
-opencpn-data_2.5.0+dfsg-0_all.deb
-opencpn-doc_2.5.0+dfsg-0_all.deb
-opencpn_2.5.0+dfsg-0_i386.deb
-opencpn-plugins_2.5.0+dfsg-0_i386.deb
-"
-for PKG in $PKGS ; do
-   wget -c --progress=dot:mega "$URL/$PKG"
-done
-
-####
-else
-####
-
-BASEURL="http://downloads.sourceforge.net/project/opencpn/opencpn"
-OCPNVER="3.2.2"
-URL="$BASEURL/$OCPNVER/opencpn_${OCPNVER}-1_i386.deb"
-
-wget -c --progress=dot:mega "$URL"
-
-PKGS="opencpn_${OCPNVER}-1_i386.deb"
-fi
-####
-
-
-# recommended:
-apt-get --assume-yes install gpsd gpsd-clients python-gps gdebi
+# ####
+# else
+# ####
+#
+# BASEURL="http://downloads.sourceforge.net/project/opencpn/opencpn"
+# OCPNVER="3.2.2"
+# URL="$BASEURL/$OCPNVER/opencpn_${OCPNVER}-1_i386.deb"
+#
+# wget -c --progress=dot:mega "$URL"
+#
+# PKGS="opencpn_${OCPNVER}-1_i386.deb"
+# fi
+# ####
+#
+#
+# # recommended:
+# apt-get --assume-yes install gpsd gpsd-clients python-gps gdebi
 
 # dpkg -I <packagename.deb>
 # Depends: libatk1.0-0 (>= 1.29.3), libbz2-1.0, libc6 (>= 2.7), libcairo2 (>= 1.2.4),
@@ -87,27 +88,27 @@ apt-get --assume-yes install gpsd gpsd-clients python-gps gdebi
 #  libwxbase2.8-0 (>= 2.8.10.1), libwxgtk2.8-0 (>= 2.8.10.1), libx11-6, libxext6,
 #  zlib1g (>= 1:1.1.4), libgps19
 
-DEPS="libgl1-mesa-glx libglu1-mesa \
-      libglib2.0-0 libgtk2.0-0 libstdc++6 \
-      libwxbase2.8-0 libwxgtk2.8-0 zlib1g \
-      libtinyxml2.6.2 xtide-coastline"
-
-apt-get --assume-yes install $DEPS
-
-for PKG in $PKGS ; do
-   gdebi --non-interactive --quiet "$PKG"
-
-   if [ $? -ne 0 ] ; then
-      echo 'ERROR: Package install failed! Aborting.'
-      exit 1
-   fi
-done
-
-wget -nv -O tips.html \
-  "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/doc/tips.html"
-mkdir -p /usr/share/doc/opencpn-doc/doc/
-cp tips.html /usr/share/doc/opencpn-doc/doc/
-
+# DEPS="libgl1-mesa-glx libglu1-mesa \
+#       libglib2.0-0 libgtk2.0-0 libstdc++6 \
+#       libwxbase2.8-0 libwxgtk2.8-0 zlib1g \
+#       libtinyxml2.6.2 xtide-coastline"
+#
+# apt-get --assume-yes install $DEPS
+#
+# for PKG in $PKGS ; do
+#    gdebi --non-interactive --quiet "$PKG"
+#
+#    if [ $? -ne 0 ] ; then
+#       echo 'ERROR: Package install failed! Aborting.'
+#       exit 1
+#    fi
+# done
+#
+# wget -nv -O tips.html \
+#   "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/doc/tips.html"
+# mkdir -p /usr/share/doc/opencpn-doc/doc/
+# cp tips.html /usr/share/doc/opencpn-doc/doc/
+#
 
 #### download sample data
 # RNC raster (BSB format)
