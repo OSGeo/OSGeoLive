@@ -63,8 +63,8 @@ mv imagelinker.desktop /usr/share/applications/imagelinker.desktop
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossimplanet.desktop"
 mv ossimplanet.desktop /usr/share/applications/ossimplanet.desktop
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossim-geocell.desktop"
-mv ossim-geocell.desktop /usr/share/applications/ossim-geocell.desktop
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossim-geocell.desktop"
+# mv ossim-geocell.desktop /usr/share/applications/ossim-geocell.desktop
 
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossimPlanet.xpm"
