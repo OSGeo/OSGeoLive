@@ -18,9 +18,9 @@ USER_HOME="/home/$USER_NAME"
 
 BIN="/usr/local/bin"
 TMP="/tmp/build_mapproxy"
-MAPPROXY_VERSION="1.6.0"
+MAPPROXY_VERSION="1.8.0"
 MAPPROXY_DEB_FILE="mapproxy_${MAPPROXY_VERSION}_all.deb"
-MAPPROXY_DEB_URL="http://mapproxy.org/static/rel/$MAPPROXY_DEB_FILE"
+MAPPROXY_DEB_URL="http://mapproxy.org/static/rel/osgeo-live/$MAPPROXY_DEB_FILE"
 MAPPROXY_DOCS_FILE="MapProxy-docs-$MAPPROXY_VERSION.tar.gz"
 MAPPROXY_DOCS_URL="http://mapproxy.org/static/rel/$MAPPROXY_DOCS_FILE"
 MAPPROXY_DIR="/usr/local/share/mapproxy"
@@ -71,9 +71,6 @@ chmod 755 $BIN/mapproxy_start.sh
 
 
 ## Create Desktop Shortcut for starting MapProxy Server in shell
-# Note: MapProxy when run with the 'mapproxy-util serve-develop'
-# script is in development  mode and is intended to be run within
-# a viewable terminal, thus 'Terminal=true'
 cat << EOF > /usr/share/applications/mapproxy-start.desktop
 [Desktop Entry]
 Type=Application
