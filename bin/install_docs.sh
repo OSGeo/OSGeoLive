@@ -246,7 +246,7 @@ if [ $? -ne 0 ] ; then
      -O "/usr/local/share/doc/Getting Started with Ubuntu 14.04 - Second edition.pdf"
 fi
 
-ln -s /usr/local/share/doc/Getting_Started_with_Ubuntu_13.10.pdf \
+ln -s "/usr/local/share/doc/Getting Started with Ubuntu 14.04 - Second edition.pdf" \
   "$USER_HOME/Desktop/Getting Started with Ubuntu 14.04 - Second edition.pdf"
 
 
