@@ -18,6 +18,19 @@
 #    GpsDrive homepage: http://www.gpsdrive.de
 #
 
+if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
+    echo "Wrong number of arguments"
+    echo "Usage: install_gpsdrive.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+
+if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: install_gpsdrive.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+ARCH="$1"
+
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
@@ -66,13 +79,13 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
-URL="http://download.osgeo.org/livedvd/data/gpsdrive/trusty/i386"
+URL="http://download.osgeo.org/livedvd/data/gpsdrive/trusty/$ARCH"
 VER="2.12+svn2726-1"
-MAIN_FILE="gpsdrive_${VER}_i386.deb"
+MAIN_FILE="gpsdrive_${VER}_${ARCH}.deb"
 EXTRA_FILES="
   gpsdrive-data_${VER}_all.deb
-  gpsdrive-friendsd_${VER}_i386.deb
-  gpsdrive-utils_${VER}_i386.deb"
+  gpsdrive-friendsd_${VER}_${ARCH}.deb
+  gpsdrive-utils_${VER}_${ARCH}.deb"
 
 wget -c --progress=dot:mega "$URL/$MAIN_FILE"
 for FILE in $EXTRA_FILES ; do
@@ -80,9 +93,9 @@ for FILE in $EXTRA_FILES ; do
 done
 
 gdebi --non-interactive --quiet gpsdrive-data_${VER}_all.deb
-gdebi --non-interactive --quiet gpsdrive-friendsd_${VER}_i386.deb
-gdebi --non-interactive --quiet gpsdrive-utils_${VER}_i386.deb
-gdebi --non-interactive --quiet gpsdrive_${VER}_i386.deb
+gdebi --non-interactive --quiet gpsdrive-friendsd_${VER}_${ARCH}.deb
+gdebi --non-interactive --quiet gpsdrive-utils_${VER}_${ARCH}.deb
+gdebi --non-interactive --quiet gpsdrive_${VER}_${ARCH}.deb
 
 
 
