@@ -39,6 +39,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
+apt-get --assume-yes install gpsd gpsd-clients python-gps opencpn opencpn-doc
 
 TMP_DIR=/tmp/build_opencpn
 
@@ -47,67 +48,12 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
-OLD=no
-####
-if [ "$OLD" = "yes" ] ; then
-URL="http://download.osgeo.org/livedvd/data/opencpn/precise/i386"
-PKGS="
-opencpn-data_2.5.0+dfsg-0_all.deb
-opencpn-doc_2.5.0+dfsg-0_all.deb
-opencpn_2.5.0+dfsg-0_i386.deb
-opencpn-plugins_2.5.0+dfsg-0_i386.deb
-"
-for PKG in $PKGS ; do
-   wget -c --progress=dot:mega "$URL/$PKG"
-done
-
-####
-else
-####
-
-BASEURL="http://downloads.sourceforge.net/project/opencpn/opencpn"
-OCPNVER="3.2.2"
-URL="$BASEURL/$OCPNVER/opencpn_${OCPNVER}-1_i386.deb"
-
-wget -c --progress=dot:mega "$URL"
-
-PKGS="opencpn_${OCPNVER}-1_i386.deb"
-fi
-####
-
-
-# recommended:
-apt-get --assume-yes install gpsd gpsd-clients python-gps gdebi
-
-# dpkg -I <packagename.deb>
-# Depends: libatk1.0-0 (>= 1.29.3), libbz2-1.0, libc6 (>= 2.7), libcairo2 (>= 1.2.4),
-#  libgcc1 (>= 1:4.1.1), libgl1-mesa-glx | libgl1, libglib2.0-0 (>= 2.12.0),
-#  libglu1-mesa | libglu1, libgtk2.0-0 (>= 2.8.0), libice6 (>= 1:1.0.0),
-#  libpango1.0-0 (>= 1.14.0), libsm6, libstdc++6 (>= 4.1.1), libtinyxml2.6.2 (>= 2.5.3-3),
-#  libwxbase2.8-0 (>= 2.8.10.1), libwxgtk2.8-0 (>= 2.8.10.1), libx11-6, libxext6,
-#  zlib1g (>= 1:1.1.4), libgps19
-
-DEPS="libgl1-mesa-glx libglu1-mesa \
-      libglib2.0-0 libgtk2.0-0 libstdc++6 \
-      libwxbase2.8-0 libwxgtk2.8-0 zlib1g \
-      libtinyxml2.6.2 xtide-coastline"
-
-apt-get --assume-yes install $DEPS
-
-for PKG in $PKGS ; do
-   gdebi --non-interactive --quiet "$PKG"
-
-   if [ $? -ne 0 ] ; then
-      echo 'ERROR: Package install failed! Aborting.'
-      exit 1
-   fi
-done
-
-wget -nv -O tips.html \
-  "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/doc/tips.html"
-mkdir -p /usr/share/doc/opencpn-doc/doc/
-cp tips.html /usr/share/doc/opencpn-doc/doc/
-
+#
+# wget -nv -O tips.html \
+#   "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/doc/tips.html"
+# mkdir -p /usr/share/doc/opencpn-doc/doc/
+# cp tips.html /usr/share/doc/opencpn-doc/doc/
+#
 
 #### download sample data
 # RNC raster (BSB format)
@@ -271,10 +217,9 @@ mkdir "$USER_HOME/.opencpn"
 cp "/etc/skel/.opencpn/opencpn.conf" "$USER_HOME/.opencpn/"
 chown -R "$USER_NAME.$USER_NAME" "$USER_HOME/.opencpn/"
 
-
 #### install icon on desktop/menus
 cd "$TMP_DIR"
-wget -nv "http://opencpn.cvs.sourceforge.net/viewvc/*checkout*/opencpn/opencpn/data/opencpn.png" \
+wget -nv "https://github.com/OpenCPN/OpenCPN/raw/master/data/opencpn.png" \
   -O opencpn.png
 cp opencpn.png /usr/share/icons/
 
