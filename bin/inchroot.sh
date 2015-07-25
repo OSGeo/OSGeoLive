@@ -173,7 +173,7 @@ export USER_NAME
 ./install_pycsw.sh
 ./install_geomoose.sh
 ./install_mb-system.sh
-./install_gvsig.sh
+./install_gvsig.sh "$ARCH"
 ./install_tilemill.sh
 ./install_eoxserver.sh
 ./install_cartaro.sh
