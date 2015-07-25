@@ -132,7 +132,7 @@ export USER_NAME
 ./install_geonetwork.sh
 ./install_deegree.sh
 ./install_52nWPS.sh
-./install_kosmo.sh
+./install_kosmo.sh "$ARCH"
 ./install_udig.sh "$ARCH"
 ./install_openjump.sh
 ./install_postgis.sh
