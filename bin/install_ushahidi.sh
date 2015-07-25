@@ -55,7 +55,7 @@ cd "$TMP_DIR"
 # The archive changed from .tgz to .zip updating accordingly 
 if [ ! -e "ushahidi.zip" ] ; then 
    wget -O ushahidi.zip --progress=dot:mega \
-      "http://download.ushahidi.com/track_download.php?download=ushahidi"
+      "https://github.com/ushahidi/Ushahidi_Web/archive/2.7.4.zip"
 else
     echo "... Ushahidi already downloaded"
 fi
