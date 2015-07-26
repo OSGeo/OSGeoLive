@@ -132,7 +132,7 @@ export USER_NAME
 ./install_geonetwork.sh
 ./install_deegree.sh
 ./install_52nWPS.sh
-./install_kosmo.sh
+./install_kosmo.sh "$ARCH"
 ./install_udig.sh "$ARCH"
 ./install_openjump.sh
 ./install_postgis.sh
@@ -173,7 +173,7 @@ export USER_NAME
 ./install_pycsw.sh
 ./install_geomoose.sh
 ./install_mb-system.sh
-./install_gvsig.sh
+./install_gvsig.sh "$ARCH"
 ./install_tilemill.sh
 ./install_eoxserver.sh
 ./install_cartaro.sh

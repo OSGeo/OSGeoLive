@@ -49,6 +49,19 @@
 #   * Changed to the "with-jre" version because the Xubuntu 9.10 version
 #     doesn't have the packages of Java 1.5
 
+if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
+    echo "Wrong number of arguments"
+    echo "Usage: install_gvsig.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+
+if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: install_gvsig.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+ARCH="$1"
+
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
@@ -62,7 +75,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop"
 
-GVSIG_PACKAGE="gvsig_2.1.0-2218_i386_BN2.deb"
+GVSIG_PACKAGE="gvsig_2.1.0-2218_${ARCH}_BN2.deb"
 GVSIG_URL="http://aiolos.survey.ntua.gr/gisvm/dev/"
 #GVSIG_URL="http://download.osgeo.org/livedvd/data/gvsig/"
 #GVSIG_URL="http://downloads.gvsig.org/download/gvsig-desktop/other-dists/osgeo-live"
