@@ -72,9 +72,9 @@ apt-get --assume-yes install python-psycopg2 \
 
 # Install plugins
 wget -c --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/qgis/qgis-osgeolive-plugins_8.0-1_all.deb"
-dpkg -i qgis-osgeolive-plugins_8.0-1_all.deb
-rm -rf qgis-osgeolive-plugins_8.0-1_all.deb
+   "http://download.osgeo.org/livedvd/data/qgis/python-qgis-osgeolive_9.0-1_all.deb"
+dpkg -i python-qgis-osgeolive_9.0-1_all.deb
+rm -rf python-qgis-osgeolive_9.0-1_all.deb
 
 #Install optional packages for workshops
 apt-get --assume-yes install qt4-designer \
@@ -141,7 +141,7 @@ mkdir /usr/local/share/qgis
 #	--output-document=/usr/local/share/qgis/qgis-1.0.0_a-gentle-gis-introduction_en.pdf
 
 # TODO: Consider including translations
-VER=2.6
+VER=2.8
 DOCURL="http://docs.qgis.org/$VER/pdf/en"
 for DOC in UserGuide QGISTrainingManual ; do
    wget -c --progress=dot:mega \
@@ -165,7 +165,6 @@ apt-get --assume-yes install python-sphinx
 make html
 cp -R _build/html /usr/local/share/qgis/tutorials
 
-# FIXME
 # # Install some popular python plugins
 # 
 # # be careful with 'wget -c', if the file changes on the server the local
