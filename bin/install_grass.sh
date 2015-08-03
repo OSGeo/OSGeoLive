@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2014 The Open Source Geospatial Foundation.
+# Copyright (c) 2014 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -12,19 +12,37 @@
 # in the "LGPL-2.1.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-#
-# script to install GRASS GIS
+#  A script to install GRASS GIS 7.
 #    written by H.Bowman <hamish_b  yahoo com>
 #    GRASS homepage: http://grass.osgeo.org/
+#
+# This does not attempt to install QGIS-plugin infrastructure, that is
+#  done in install_qgis.sh. Your QGIS packages will have to have been
+#  built with grass7-enabled plugins.
+#
+# It assumes the GRASS 6 livedvd install script has already been run,
+#  the two versions can co-exist.
+#
+# ***
+# This script is intended to be run by the User on an existing live disc,
+#  Not at build time of the disc -- that will come when grass 7.0 is
+#  released and in the stable repositories. The North Carolina GRASS 7
+#  sample dataset will also be downloaded and installed. A result of all
+#  this is that users of a non-persistent ISO boot will have everything
+#  on the RAM drive, which may be quite limited to begin with depending
+#  on your computer's available RAM. Users with >2gb RAM shouldn't have
+#  to worry, but those on old netbooks might. If run from a persistent VM
+#  or 8gb USB things should be ok too.
+# ***
+#
+# It should be run as the superuser (sudo).
+#
 
-
-# this does not attempt to install QGIS-plugin infrastructure, that is
-#  done in install_qgis.sh
+# FIXME: grass version parsing
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
-
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -32,223 +50,126 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-#### install grass ####
 
-PACKAGES="grass grass-doc grass-dev python-opengl python-wxgtk2.8 avce00 \
-  e00compr gdal-bin proj-bin python-gdal gpsbabel xml2 sqlitebrowser \
-  dbview libtiff-tools python-rpy2 gnuplot"
-
+#### install grass 7 packages from GRASS team PPA ####
 
 TMP_DIR=/tmp/build_grass
 mkdir "$TMP_DIR"
 
+# https://launchpad.net/~grass/+archive/grass-stable?field.series_filter=trusty
+# apt-add-repository --yes ppa:grass/grass-stable
+apt-get --quiet update
+apt-get --yes install grass-core grass-gui grass-doc grass-dev
 
-#CAUTION: UbuntuGIS should be enabled only through setup.sh
+#### install desktop icon ####
+sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 7/' \
+       -e 's/^Icon=grass$/Icon=grass70/' \
+       -e 's/^Exec=grass7$/Exec=grass70/' \
+  /usr/share/applications/grass70.desktop
 
-apt-get --assume-yes install $PACKAGES
+cp /usr/share/applications/grass70.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass70.desktop"
 
-if [ $? -ne 0 ] ; then
-   echo 'ERROR: Package install failed! Aborting.'
-   exit 1
-fi
+cp /usr/share/applications/grass70.desktop \
+  /usr/local/share/applications/osgeo-grass70.desktop
+# sed -i -e 's|^Categories=.*|Categories=Geospatial;Desktop GIS;|' \
+#   /usr/local/share/applications/osgeo-grass70.desktop
 
-# aftermarket bugfix for 6.4.4 Help->About
-sed -i -e 's/name, email, rfc2_agreed/name, email, country, rfc2_agreed/' \
-   /usr/lib/grass64/etc/wxpython/gui_core/ghelp.py
+# sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 6/' \
+#   /usr/share/applications/grass64.desktop \
+#   /usr/local/share/applications/osgeo-grass64.desktop \
+#   "$USER_HOME/Desktop/Desktop GIS/grass64.desktop"
+
+
+## ppa repo version number snafu cleanup (FIXME in the grass ppa)
+sed -i -e 's/71/70/' -e 's/7\.1/7.0/'  /usr/bin/grass70
+
 
 #### get sample data ####
 
 # put static data in /usr/local ..
 mkdir -p /usr/local/share/grass
-
-# Spearfish dataset, 20mb .tgz
-## North Carolina simplified dataset, nc_basic_spm.tar.gz  47mb
-## North Carolina dataset, 135mb nc_spm_latest.tar.gz
-# North Carolina: replaced by user-run import script from shapefiles
-#   and geotiffs on the disc
-### { TODO } 
-
-#avoid mix of old and new datasets
-#rm -rf /usr/local/share/grass/nc_basic_spm/
-
-#for FILE in spearfish_grass60data-0.3 north_carolina/nc_basic_spm ; do
-   FILE=spearfish_grass60data-0.3
-   cd "$TMP_DIR"
-   if [ ! -e "$FILE.tar.gz" ] ; then
-      # [! -e] bypasses "wget -c" opportunity, oh well
-      wget -c --progress=dot:mega \
-         "http://grass.osgeo.org/sampledata/$FILE.tar.gz"
-   fi
-
-   cd /usr/local/share/grass/
-   BASE=`echo "$FILE" | sed -e 's+.*/++'`
-   tar xzf "$TMP_DIR/$BASE.tar.gz"
-
-   #if [ $? -eq 0 ] ; then
-   #   \rm "$TMP_DIR/$FILE.tar.gz"
-   #fi
-#done
-
-#minor cleanup and rearrangement
-#mv /usr/local/share/grass/nc_basic_spm/gisdemo_ncspm/* \
-#   /usr/local/share/grass/nc_basic_spm/
-#rmdir /usr/local/share/grass/nc_basic_spm/gisdemo_ncspm
-# remove some cruft
-#rm -f /usr/local/share/grass/nc_basic_spm/.[D_]*
-
-
-# but link into $HOME for easy access & so user owns mapset
-mkdir "$USER_HOME/grassdata"
-cd "$USER_HOME/grassdata"
-
-#for LOCATION in spearfish60 nc_basic_spm ; do
-   LOCATION=spearfish60
-   mkdir "$LOCATION"
-   ln -s "/usr/local/share/grass/$LOCATION/PERMANENT" "$LOCATION/"
-   mkdir -p "$LOCATION/user1/dbf"
-   cp "/usr/local/share/grass/$LOCATION/user1"/* "$LOCATION/user1/"
-
-   # PERMANENT can be read-only
-   # are we the owner of the symlinked PERMANENT? (yes) We don't have
-   #  to be but it would be nice. otherwise libgis enforces read-only.
-   chmod -R a+rX /usr/local/share/grass/$LOCATION
-   chown -R root.users /usr/local/share/grass/$LOCATION
-#done
-
-# link in an extra mapset with satellite data
-#ln -s /usr/local/share/grass/nc_spm_08/landsat \
-#      "$USER_HOME"/grassdata/nc_spm_08/landsat
-
-adduser $USER_NAME users
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata"
-
-# copy into /etc/skel too
-cp -r "$USER_HOME/grassdata" /etc/skel/
-chown -R root.root /etc/skel/grassdata
-
-
-### Bug #868: QGIS: Permissions on GRASS LOCATIONS ###
-#  -- Crappy workaround --
-# QGIS can't handle multi-user GRASS locations, so to get the quickstart
-# examples to work well we need to change the file ownership of PERMANENT
-# to the user.  We do this at boot time to allow the end-user to easily
-# disable it if they want something more sane or create another user acc't.
-if [ `grep -c 'grass.*/PERMANENT' /etc/rc.local` -eq 0 ] ; then
-    sed -i -e 's|exit 0||' /etc/rc.local
-    echo "chown $USER_NAME /usr/local/share/grass/spearfish60/PERMANENT" >> /etc/rc.local
-#    echo "chown $USER_NAME /usr/local/share/grass/nc_basic_spm/PERMANENT" >> /etc/rc.local
-    echo >> /etc/rc.local
-    echo "exit 0" >> /etc/rc.local
+if [ ! -d "$USER_HOME/grassdata" ] ; then
+  mkdir -p "$USER_HOME/grassdata"
+  chown "$USER_NAME.$USER_NAME" "$USER_HOME/grassdata"
 fi
-######
+
+# # NC08 for G7 is 141mb; nc_basic_spm_grass7 is 50mb; Spearfish is 21mb
+# FILE="spearfish_grass70data-0.3"
+# FOLDER_NAME="spearfish60_grass7"
+# #FILE="north_carolina/nc_basic_spm_grass7"
+# #FILE="north_carolina/nc_spm_08_grass7"
+# #FOLDER_NAME="nc_spm_08_grass7"
+# 
+# cd "$TMP_DIR"
+# wget -c --progress=dot:mega \
+#      "http://grass.osgeo.org/sampledata/$FILE.tar.gz"
+# 
+# cd /usr/local/share/grass/
+# BASE=`echo "$FILE" | sed -e 's+.*/++'`
+# tar xzf "$TMP_DIR/$BASE.tar.gz"
+# chown -R root.users "$FOLDER_NAME"
+# chmod -R a+rX "$FOLDER_NAME"
+# 
+# # free disk space ASAP
+# rm "$TMP_DIR"/*.tar.gz
+
+##############
+# New dataset#
+##############
+FILE="loc_ncarolina_spm_base0.3.1.zip"
+FOLDER_NAME="loc_ncarolina_spm_base0.3.1"
+cd "$TMP_DIR"
+wget -c --progress=dot:mega \
+     "http://www4.ncsu.edu/~hmitaso/grasswork/grassbookdat4ed/loc_ncarolina_spm_base0.3.1.zip"
+unzip "$FILE" -d /usr/local/share/grass/
+cd /usr/local/share/grass/
+chown -R root.users "$FOLDER_NAME"
+chmod -R a+rX "$FOLDER_NAME"
+rm "$TMP_DIR"/*.zip
+
+#############
+
+cd "$USER_HOME/grassdata"
+mkdir "$FOLDER_NAME"
+cd "$FOLDER_NAME"
+cp -r "/usr/local/share/grass/$FOLDER_NAME/user1/" .
+ln -s "/usr/local/share/grass/$FOLDER_NAME/PERMANENT" .
+# only in nc_spm_08_grass7
+#ln -s "/usr/local/share/grass/$FOLDER_NAME/landsat" .
+cd ..
+chown -R "$USER_NAME.$USER_NAME" "$FOLDER_NAME"
 
 
 
 #### preconfig setup ####
-cat << EOF > "$USER_HOME/.grassrc6"
+mkdir "$USER_HOME/.grass7"
+
+cat << EOF > "$USER_HOME/.grass7/rc"
 GISDBASE: $USER_HOME/grassdata
-LOCATION_NAME: spearfish60
+LOCATION_NAME: $FOLDER_NAME
 MAPSET: user1
 GRASS_GUI: wxpython
 EOF
 
+# # buggy (prompt.py not found), so disable it for now
+# echo "unset PROMPT_COMMAND" > "$USER_HOME/.grass7/bashrc"
 
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/.grassrc6"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/.grass7"
 
 mkdir -p "$USER_HOME/grassdata/addons"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata/addons"
 
-
-cat << EOF > /etc/profile.d/grass_settings.sh
-GRASS_PAGER=more
-GRASS_ADDON_PATH=~/grassdata/addons:/usr/local/share/grass/addons
-export GRASS_PAGER GRASS_ADDON_PATH
-EOF
-mkdir -p "/etc/skel/grassdata/addons"
+#### make gtk happy
+mkdir -p "$USER_HOME/.config/gtk-2.0"
+chown $USER_NAME.$USER_NAME "$USER_HOME/.config/gtk-2.0"
+chmod go-rx "$USER_HOME/.config/gtk-2.0"
 
 
-#copy over prebuilt font list
-cp -f "$BUILD_DIR"/../app-conf/grass/fontcap /usr/lib/grass64/etc/
-
-#and let it be overwritten
-chmod g+w /usr/lib/grass64/etc/fontcap
-chgrp users /usr/lib/grass64/etc/fontcap
-
-
-#### install desktop icon ####
-cp /usr/share/applications/grass64.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass64.desktop"
-
-
-
-
-#### Run a batch job to download, build, and install some add-on modules (for OSSIM)
-# The list of addon modules to install is in app-conf/grass/install_grass_addons.sh
-
-GRASS_BASEDIR="/usr/local/share/grass"
-
-# Need to specify addon path before starting GRASS
-GRASS_ADDON_PATH="$GRASS_BASEDIR/addons"
-export GRASS_ADDON_PATH
-mkdir -p "$GRASS_ADDON_PATH"
-
-# avoid a needless search
-GRASS_HTML_BROWSER=false
-export GRASS_HTML_BROWSER
-
-# avoid interactive pauses
-GRASS_PAGER=cat
-export GRASS_PAGER
-
-# /roots/ does not exist in the chroot? batch jobs seems to run anyway..
-cat << EOF > "$HOME"/.grassrc6
-GISDBASE: /usr/local/share/grass
-LOCATION_NAME: spearfish60
-MAPSET: user1
-GRASS_GUI: text
-EOF
-
-echo "=== debug ==="
-echo ~
-echo "$HOME"
-echo `uname -n`
-ls -la "$HOME"
-echo "============="
-
-#bah, comment out the interactivity
-sed -i -e 's/read ans/#read ans/' /usr/lib/grass64/etc/Init.sh
-
-GRASS_BATCH_JOB="$BUILD_DIR"/../app-conf/grass/install_grass_addons.sh
-export GRASS_BATCH_JOB
-
-# the user1 mapset in /usr/local/share is already owned by root
-grass64 -text "$GRASS_BASEDIR"/spearfish60/user1
-
-unset GRASS_BATCH_JOB 
-rm "$HOME/.grassrc6"
-sed -i -e 's/#read ans/read ans/' /usr/lib/grass64/etc/Init.sh
-
-
-#### runtime easy-install script for GRASS 7:
-cat << EOF > /usr/local/bin/install_grass7
-#!/bin/sh
-# installs grass 7 on the osgeo live dvd
-#   (to be run as the default user)
-#  HB 1 July 2014
-
-cd ~/gisvm/bin
-svn up install_grass7.sh
-
-if [ $? -ne 0 ] ; then
-  echo "ERROR: Update failed. Do you have a working network connection?" 1>&2
-  exit 1
-fi
-
-sudo ./install_grass7.sh
-EOF
-
-chmod a+x /usr/local/bin/install_grass7
+# cleanup
+rmdir "$TMP_DIR"
 
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
+
