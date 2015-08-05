@@ -28,9 +28,22 @@ BUILD_DATE=20150707
 
 apt-get -q update
 
+"""
 apt-get install --assume-yes libtiff5 libfreetype6 libcurl3 libexpat1 libpng3 libfftw3-3  \
                              libgeotiff2 libqt4-core libqt4-opengl libpodofo0.9.0 libopenscenegraph99 \
                              libopenthreads14 libc6 libgcc1 libstdc++6 libgdal1h libgeos-c1 libgeos-3.4.2 libqt4-qt3support
+
+"""
+
+
+
+apt-get install --assume-yes libfftw3-bin libfftw3-long3 libfftw3-quad3 libgtkglext1 libilmbase6 \
+  libopencv-calib3d2.4 libopencv-contrib2.4 libopencv-features2d2.4 \
+  libopencv-flann2.4 libopencv-gpu2.4 libopencv-highgui2.4 \
+  libopencv-imgproc2.4 libopencv-legacy2.4 libopencv-objdetect2.4 \
+  libopencv-video2.4 libopenexr6 libpodofo0.9.0
+
+apt-get install --assume-yes ossim-core libossim1 libossim-dev
 
 #### download ossim
 mkdir -p /tmp/build_ossim
@@ -60,8 +73,11 @@ ARCH="$1"
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/gpstk_2.5_$ARCH.deb"	     
 dpkg -i gpstk_2.5_$ARCH.deb
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim_1.18.19_$ARCH.deb"	     
-dpkg -i ossim_1.18.19_$ARCH.deb
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-qt_1.8.18_$ARCH.deb"
+dpkg -i ossim-qt_1.8.18_amd64.deb
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-plugins_1.8.18_$ARCH.deb"
+dpkg -i ossim-plugins_1.8.18_amd64.deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-share_1.18.19_all.deb"	     
 dpkg -i ossim-share_1.18.19_all.deb
