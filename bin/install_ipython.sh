@@ -27,6 +27,7 @@ USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop"
 BUILD_DIR=`pwd`
 
+add-apt-repository -y ppa:johanvdw/osgeolive
 
 apt-get install --assume-yes  git python-pip \
         python-matplotlib python-scipy python-pandas \
@@ -37,6 +38,8 @@ apt-get install --assume-yes  git python-pip \
         python-skimage python-sklearn python-scikits.statsmodels
 
 apt-get install --assume-yes python3-pip python3-zmq python3-jsonschema python3-jinja2 python3-sqlalchemy python3-requests python3-decorator python3-simplegeneric python3-pyside python3-pygments
+
+apt-get install
 
 #
 # python3 :
@@ -114,17 +117,18 @@ ARCH="$1"
 #dpkg -i python2-cython_0.22.1_$ARCH.deb
 
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-affine_1.2.0_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-click_4.0_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-snuggs_1.3.1_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-cligj_0.2.0_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-fiona_1.6.0pre0_$ARCH.deb"
+# aleady on osgeo ppa
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-affine_1.2.0_all.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-click_4.0_all.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-snuggs_1.3.1_all.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-cligj_0.2.0_all.deb"
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-fiona_1.6.0pre0_$ARCH.deb"
 
-dpkg -i python2-affine_1.2.0_all.deb
-dpkg -i python2-click_4.0_all.deb
-dpkg -i python2-snuggs_1.3.1_all.deb
-dpkg -i python2-cligj_0.2.0_all.deb
-dpkg -i python2-fiona_1.6.0pre0_$ARCH.deb
+#dpkg -i python2-affine_1.2.0_all.deb
+#dpkg -i python2-click_4.0_all.deb
+#dpkg -i python2-snuggs_1.3.1_all.deb
+#dpkg -i python2-cligj_0.2.0_all.deb
+#dpkg -i python2-fiona_1.6.0pre0_$ARCH.deb
 
 # python 3:
 #wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-affine_1.2.0_all.deb"
@@ -140,11 +144,13 @@ dpkg -i python2-fiona_1.6.0pre0_$ARCH.deb
 #dpkg -i python3-fiona_1.6.0pre0_$ARCH.deb
 
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-rasterio_0.24.1_$ARCH.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-netcdf4_1.1.9_$ARCH.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-descartes_1.0.1_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-geojson_1.2.1_all.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-geopandas_0.1.1_all.deb"
+# aleady on osgeo ppa
+
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-rasterio_0.24.1_$ARCH.deb"
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-netcdf4_1.1.9_$ARCH.deb"
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-descartes_1.0.1_all.deb"
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-geojson_1.2.1_all.deb"
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python2-geopandas_0.1.1_all.deb"
 
 # python 3:
 #wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ipython/debs/Jupyter-debs/python3-rasterio_0.24.1_$ARCH.deb"
