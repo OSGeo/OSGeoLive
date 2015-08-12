@@ -47,17 +47,17 @@ apt-get install
 # apt-get install --assume-yes python3-numpy python3-scipy python3-pandas python3-matplotlib python3-shapely python3-gdal python3-pyproj python3-skimage
 
 
-cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
-   "$USER_DESKTOP"/
-chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
+#cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
+#   "$USER_DESKTOP"/
+#chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
 
 cp "$BUILD_DIR"/../app-data/ipython/jupyter-notebook*.desktop \
    "$USER_DESKTOP"/
 chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/jupyter-notebook*.desktop
 
-cp "$BUILD_DIR"/../app-data/ipython/ipython_*.sh \
-   /usr/local/bin/
-chmod a+x /usr/local/bin/ipython_*.sh
+#cp "$BUILD_DIR"/../app-data/ipython/ipython_*.sh \
+#   /usr/local/bin/
+#chmod a+x /usr/local/bin/ipython_*.sh
 
 mkdir -p "$USER_HOME/ipython"
 git clone https://github.com/OSGeo/IPython_notebooks \
