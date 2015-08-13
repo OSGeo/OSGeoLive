@@ -276,6 +276,14 @@ chgrp users /usr/local/share/ossim/elevation
 #     /usr/share/ossim/elevation/spearfish/elevation10m.ras
 
 
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.prj
+mv rgb.prj "$QUICKSTART"/workspace/
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.spec
+mv rgb.spec "$QUICKSTART"/workspace/
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/ossim-dem-color-table-template.kwl
+mv ossim-dem-color-table-template.kwl "$QUICKSTART"/workspace/
+
+
 unset OSSIM_PREFS_FILE
 
 cp -r "$APP_DATA_DIR"/* "$QUICKSTART"/
@@ -294,7 +302,11 @@ for dir in "$QUICKSTART" "$RASTER_DATA" "$DATA_FOLDER" ; do
   chmod -R g+w $dir
 done
 
+# ossim-geocell tutorial
+# wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/OSSIMGeoCell__User_Manual__1.8.18-1.pdf
+# mv OSSIMGeoCell__User_Manual__1.8.18-1.pdf /usr/local/share/ossim/
 chmod 644 /usr/local/share/ossim/*.pdf
+
 
 #### cleanup
 rm -rf "$QUICKSTART"/.svn
