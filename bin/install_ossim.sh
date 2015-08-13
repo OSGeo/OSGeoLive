@@ -39,20 +39,17 @@ BUILD_DATE=20150707
 apt-get -q update
 
 # ossim-qt dependencies
-# FIXME: Those should be added to the deb control file (or in fpm using -d)
-apt-get install --assume-yes libtiff5 libfreetype6 libcurl3 libexpat1 libpng3 libfftw3-3  \
-        libgeotiff2 libqt4-core libqt4-opengl libpodofo0.9.0 libopenscenegraph99 \
-        libopenthreads14 libc6 libgcc1 libstdc++6 libgdal1h libgeos-c1 libgeos-3.4.2 libqt4-qt3support
+# FIXME: be sure all of those dep are added to the deb control file (or in fpm using -d)
+apt-get install --assume-yes ossim-core libossim1 libossim-dev libopenscenegraph99 libqt4-opengl libossim-dev libqt4-core libqt4-qt3support
 
 # ossim-plugins dependencies
-# FIXME: Those should be added to the deb control file (or in fpm using -d)
-apt-get install --assume-yes libfftw3-bin libfftw3-long3 libfftw3-quad3 libgtkglext1 libilmbase6 \
+# FIXME: be sure all of those dep are added to the deb control file (or in fpm using -d)
+apt-get install --assume-yes libfftw3-3 libfftw3-bin libfftw3-long3 libfftw3-quad3 libgtkglext1 libilmbase6 \
         libopencv-calib3d2.4 libopencv-contrib2.4 libopencv-features2d2.4 \
         libopencv-flann2.4 libopencv-gpu2.4 libopencv-highgui2.4 \
         libopencv-imgproc2.4 libopencv-legacy2.4 libopencv-objdetect2.4 \
-        libopencv-video2.4 libopenexr6 libpodofo0.9.0
+        libopencv-video2.4 libopenexr6 libpodofo0.9.0 libgdal1h
 
-apt-get install --assume-yes ossim-core libossim1 libossim-dev
 
 #### download ossim
 mkdir -p "$TMP_DIR"
