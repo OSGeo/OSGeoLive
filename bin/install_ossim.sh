@@ -80,7 +80,7 @@ wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/os
 dpkg -i ossim-plugins_1.8.18_amd64.deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-share_1.18.18_all.deb"
-dpkg -i ossim-share_1.18.19_all.deb
+dpkg -i ossim-share_1.18.18_all.deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/imagelinker.desktop"
 mv imagelinker.desktop /usr/share/applications/imagelinker.desktop
