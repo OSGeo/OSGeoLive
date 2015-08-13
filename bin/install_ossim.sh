@@ -43,7 +43,7 @@ apt-get install --assume-yes libfftw3-bin libfftw3-long3 libfftw3-quad3 libgtkgl
   libopencv-imgproc2.4 libopencv-legacy2.4 libopencv-objdetect2.4 \
   libopencv-video2.4 libopenexr6 libpodofo0.9.0
 
-apt-get install --assume-yes ossim-core libossim1 libossim-dev
+apt-get install --assume-yes ossim-core libossim1 libossim-dev libossim1
 
 #### download ossim
 mkdir -p /tmp/build_ossim
@@ -303,8 +303,8 @@ for dir in "$QUICKSTART" "$RASTER_DATA" "$DATA_FOLDER" ; do
 done
 
 # ossim-geocell tutorial
-# wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/OSSIMGeoCell__User_Manual__1.8.18-1.pdf
-# mv OSSIMGeoCell__User_Manual__1.8.18-1.pdf /usr/local/share/ossim/
+wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/OSSIMGeoCell__User_Manual__1.8.18-1.pdf
+mv OSSIMGeoCell__User_Manual__1.8.18-1.pdf /usr/local/share/ossim/
 chmod 644 /usr/local/share/ossim/*.pdf
 
 
