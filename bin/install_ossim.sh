@@ -7,54 +7,6 @@
 # Licensed under the GNU LGPL version >= 2.1.
 #
 
-./diskspace_probe.sh "`basename $0`" begin
-BUILD_DIR=`pwd`
-####
-
-
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
-
-#USER_NAME="user"
-
-USER_HOME="/home/$USER_NAME"
-
-TMP_DIR=/tmp/build_ossim
-APP_DATA_DIR="$BUILD_DIR/../app-data/ossim"
-DATA_FOLDER="/usr/local/share/data"
-OSSIM_VERSION=1.8.19
-BUILD_DATE=20150707
-
-apt-get -q update
-
-"""
-apt-get install --assume-yes libtiff5 libfreetype6 libcurl3 libexpat1 libpng3 libfftw3-3  \
-                             libgeotiff2 libqt4-core libqt4-opengl libpodofo0.9.0 libopenscenegraph99 \
-                             libopenthreads14 libc6 libgcc1 libstdc++6 libgdal1h libgeos-c1 libgeos-3.4.2 libqt4-qt3support
-
-"""
-
-
-
-apt-get install --assume-yes libfftw3-bin libfftw3-long3 libfftw3-quad3 libgtkglext1 libilmbase6 \
-  libopencv-calib3d2.4 libopencv-contrib2.4 libopencv-features2d2.4 \
-  libopencv-flann2.4 libopencv-gpu2.4 libopencv-highgui2.4 \
-  libopencv-imgproc2.4 libopencv-legacy2.4 libopencv-objdetect2.4 \
-  libopencv-video2.4 libopenexr6 libpodofo0.9.0
-
-apt-get install --assume-yes ossim-core libossim1 libossim-dev
-
-#### download ossim
-mkdir -p /tmp/build_ossim
-cd /tmp/build_ossim
-
-
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
-
-
 if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
     echo "Wrong number of arguments"
     echo "Usage: install_ossim.sh ARCH(i386 or amd64)"
@@ -68,19 +20,52 @@ if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
 fi
 ARCH="$1"
 
+./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
+####
 
+
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+
+USER_HOME="/home/$USER_NAME"
+
+TMP_DIR=/tmp/build_ossim
+APP_DATA_DIR="$BUILD_DIR/../app-data/ossim"
+DATA_FOLDER="/usr/local/share/data"
+OSSIM_VERSION=1.8.18
+BUILD_DATE=20150707
+
+apt-get -q update
+
+# apt-get install --assume-yes libtiff5 libfreetype6 libcurl3 libexpat1 libpng3 libfftw3-3  \
+#                              libgeotiff2 libqt4-core libqt4-opengl libpodofo0.9.0 libopenscenegraph99 \
+#                              libopenthreads14 libc6 libgcc1 libstdc++6 libgdal1h libgeos-c1 libgeos-3.4.2 libqt4-qt3support
+
+apt-get install --assume-yes libfftw3-bin libfftw3-long3 libfftw3-quad3 libgtkglext1 libilmbase6 \
+  libopencv-calib3d2.4 libopencv-contrib2.4 libopencv-features2d2.4 \
+  libopencv-flann2.4 libopencv-gpu2.4 libopencv-highgui2.4 \
+  libopencv-imgproc2.4 libopencv-legacy2.4 libopencv-objdetect2.4 \
+  libopencv-video2.4 libopenexr6 libpodofo0.9.0
+
+apt-get install --assume-yes ossim-core libossim1 libossim-dev
+
+#### download ossim
+mkdir -p "$TMP_DIR"
+cd "$TMP_DIR"
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/gpstk_2.5_$ARCH.deb"	     
 dpkg -i gpstk_2.5_$ARCH.deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-qt_1.8.18_$ARCH.deb"
-dpkg -i ossim-qt_1.8.18_amd64.deb
+dpkg -i ossim-qt_1.8.18_$ARCH.deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-plugins_1.8.18_$ARCH.deb"
-dpkg -i ossim-plugins_1.8.18_amd64.deb
+dpkg -i ossim-plugins_1.8.18_$ARCH.deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-share_1.18.18_all.deb"
-dpkg -i ossim-share_1.18.19_all.deb
+dpkg -i ossim-share_1.18.18_all.deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/imagelinker.desktop"
 mv imagelinker.desktop /usr/share/applications/imagelinker.desktop
