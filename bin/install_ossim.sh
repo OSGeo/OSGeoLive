@@ -43,7 +43,7 @@ apt-get install --assume-yes libfftw3-bin libfftw3-long3 libfftw3-quad3 libgtkgl
   libopencv-imgproc2.4 libopencv-legacy2.4 libopencv-objdetect2.4 \
   libopencv-video2.4 libopenexr6 libpodofo0.9.0
 
-apt-get install --assume-yes ossim-core libossim1 libossim-dev
+apt-get install --assume-yes ossim-core libossim1 libossim-dev libossim1
 
 #### download ossim
 mkdir -p /tmp/build_ossim
@@ -80,7 +80,7 @@ wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/os
 dpkg -i ossim-plugins_1.8.18_amd64.deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-share_1.18.18_all.deb"
-dpkg -i ossim-share_1.18.19_all.deb
+dpkg -i ossim-share_1.18.18_all.deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/imagelinker.desktop"
 mv imagelinker.desktop /usr/share/applications/imagelinker.desktop
@@ -276,6 +276,14 @@ chgrp users /usr/local/share/ossim/elevation
 #     /usr/share/ossim/elevation/spearfish/elevation10m.ras
 
 
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.prj
+mv rgb.prj "$QUICKSTART"/workspace/
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.spec
+mv rgb.spec "$QUICKSTART"/workspace/
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/ossim-dem-color-table-template.kwl
+mv ossim-dem-color-table-template.kwl "$QUICKSTART"/workspace/
+
+
 unset OSSIM_PREFS_FILE
 
 cp -r "$APP_DATA_DIR"/* "$QUICKSTART"/
@@ -294,7 +302,11 @@ for dir in "$QUICKSTART" "$RASTER_DATA" "$DATA_FOLDER" ; do
   chmod -R g+w $dir
 done
 
+# ossim-geocell tutorial
+wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/OSSIMGeoCell__User_Manual__1.8.18-1.pdf
+mv OSSIMGeoCell__User_Manual__1.8.18-1.pdf /usr/local/share/ossim/
 chmod 644 /usr/local/share/ossim/*.pdf
+
 
 #### cleanup
 rm -rf "$QUICKSTART"/.svn
