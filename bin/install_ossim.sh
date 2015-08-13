@@ -24,7 +24,6 @@ ARCH="$1"
 BUILD_DIR=`pwd`
 ####
 
-
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
@@ -39,15 +38,19 @@ BUILD_DATE=20150707
 
 apt-get -q update
 
-# apt-get install --assume-yes libtiff5 libfreetype6 libcurl3 libexpat1 libpng3 libfftw3-3  \
-#                              libgeotiff2 libqt4-core libqt4-opengl libpodofo0.9.0 libopenscenegraph99 \
-#                              libopenthreads14 libc6 libgcc1 libstdc++6 libgdal1h libgeos-c1 libgeos-3.4.2 libqt4-qt3support
+# ossim-qt dependencies
+# FIXME: Those should be added to the deb control file (or in fpm using -d)
+apt-get install --assume-yes libtiff5 libfreetype6 libcurl3 libexpat1 libpng3 libfftw3-3  \
+        libgeotiff2 libqt4-core libqt4-opengl libpodofo0.9.0 libopenscenegraph99 \
+        libopenthreads14 libc6 libgcc1 libstdc++6 libgdal1h libgeos-c1 libgeos-3.4.2 libqt4-qt3support
 
+# ossim-plugins dependencies
+# FIXME: Those should be added to the deb control file (or in fpm using -d)
 apt-get install --assume-yes libfftw3-bin libfftw3-long3 libfftw3-quad3 libgtkglext1 libilmbase6 \
-  libopencv-calib3d2.4 libopencv-contrib2.4 libopencv-features2d2.4 \
-  libopencv-flann2.4 libopencv-gpu2.4 libopencv-highgui2.4 \
-  libopencv-imgproc2.4 libopencv-legacy2.4 libopencv-objdetect2.4 \
-  libopencv-video2.4 libopenexr6 libpodofo0.9.0
+        libopencv-calib3d2.4 libopencv-contrib2.4 libopencv-features2d2.4 \
+        libopencv-flann2.4 libopencv-gpu2.4 libopencv-highgui2.4 \
+        libopencv-imgproc2.4 libopencv-legacy2.4 libopencv-objdetect2.4 \
+        libopencv-video2.4 libopenexr6 libpodofo0.9.0
 
 apt-get install --assume-yes ossim-core libossim1 libossim-dev
 
@@ -261,6 +264,14 @@ chgrp users /usr/local/share/ossim/elevation
 #     /usr/share/ossim/elevation/spearfish/elevation10m.ras
 
 
+# add suppport files used for the ossim tutorials
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.prj
+mv rgb.prj "$QUICKSTART"/workspace/
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.spec
+mv rgb.spec "$QUICKSTART"/workspace/
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/ossim-dem-color-table-template.kwl
+mv ossim-dem-color-table-template.kwl "$QUICKSTART"/workspace/
+
 unset OSSIM_PREFS_FILE
 
 cp -r "$APP_DATA_DIR"/* "$QUICKSTART"/
@@ -278,6 +289,11 @@ for dir in "$QUICKSTART" "$RASTER_DATA" "$DATA_FOLDER" ; do
   chgrp -R users $dir
   chmod -R g+w $dir
 done
+
+
+# ossim-geocell tutorial
+wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/OSSIMGeoCell__User_Manual__1.8.18-1.pdf
+mv OSSIMGeoCell__User_Manual__1.8.18-1.pdf /usr/local/share/ossim/
 
 chmod 644 /usr/local/share/ossim/*.pdf
 
