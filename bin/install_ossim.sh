@@ -48,7 +48,7 @@ apt-get install --assume-yes libfftw3-3 libfftw3-bin libfftw3-long3 libfftw3-qua
         libopencv-calib3d2.4 libopencv-contrib2.4 libopencv-features2d2.4 \
         libopencv-flann2.4 libopencv-gpu2.4 libopencv-highgui2.4 \
         libopencv-imgproc2.4 libopencv-legacy2.4 libopencv-objdetect2.4 \
-        libopencv-video2.4 libopenexr6 libpodofo0.9.0 libgdal1h
+        libopencv-video2.4 libopenexr6 libpodofo0.9.0 libgdal1h liblas-c2
 
 
 #### download ossim
