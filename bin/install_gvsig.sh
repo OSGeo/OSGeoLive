@@ -19,6 +19,9 @@
 
 # Changelog:   "svn log install_gvsig.sh --limit 10"
 # ===========
+# 2015-08-19
+#  * Updated to gvSIG 2.2
+#
 # 2014-02-02
 #  * Updated to gvSIG 2.1
 #
@@ -75,9 +78,17 @@ fi
 USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop"
 
-GVSIG_PACKAGE="gvsig_2.1.0-2218_${ARCH}_BN2.deb"
-GVSIG_URL="http://aiolos.survey.ntua.gr/gisvm/dev/"
-#GVSIG_URL="http://download.osgeo.org/livedvd/data/gvsig/"
+if [ "$ARCH" = "i386" ] ; then
+    GVSIG_PACKAGE="gvsig-desktop_2.2.0-2313-3_${ARCH}.deb"
+fi
+
+if [ "$ARCH" = "amd64" ] ; then
+    GVSIG_PACKAGE="gvsig-desktop_2.2.0-2313-2_${ARCH}.deb"
+fi
+
+#GVSIG_PACKAGE="gvsig_2.1.0-2218_${ARCH}_BN2.deb"
+#GVSIG_URL="http://aiolos.survey.ntua.gr/gisvm/dev/"
+GVSIG_URL="http://download.osgeo.org/livedvd/data/gvsig/"
 #GVSIG_URL="http://downloads.gvsig.org/download/gvsig-desktop/other-dists/osgeo-live"
 #GVSIG_URL="https://www.dropbox.com/s/6ujajdxa048pgii/"
 
