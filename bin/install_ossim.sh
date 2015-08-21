@@ -67,20 +67,66 @@ dpkg -i ossim-plugins_1.8.18_$ARCH.deb
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-share_1.18.18_all.deb"
 dpkg -i ossim-share_1.18.18_all.deb
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/imagelinker.desktop"
-mv imagelinker.desktop /usr/share/applications/imagelinker.desktop
-
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossimplanet.desktop"
-mv ossimplanet.desktop /usr/share/applications/ossimplanet.desktop
-
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossim-geocell.desktop"
-mv ossim-geocell.desktop /usr/share/applications/ossim-geocell.desktop
-
-
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossimPlanet.xpm"
 mv ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossim.xpm"
 mv ossim.xpm /usr/share/pixmaps/ossim.xpm
+
+# create launchers
+cat << EOF > /usr/share/applications/imagelinker.desktop
+[Desktop Entry]
+Version=1.0
+Name=Imagelinker
+Comment=OSSIM imagelinker
+Exec=/usr/local/ossim-qt/imagelinker -P /usr/local/share/ossim/ossim_preference
+Icon=ossim
+Terminal=false
+Type=Application
+StartupNotify=true
+Path=/usr/local/ossim-qt/
+Categories=Education;Science;Geography;
+GenericName=
+EOF
+
+cp -a /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
+
+cat << EOF > /usr/share/applications/ossimplanet.desktop
+[Desktop Entry]
+Version=1.0
+Name=OssimPlanet
+Comment=OSSIM Planet
+Exec=/usr/local/ossim-qt/ossimplanet -P /usr/local/share/ossim/ossim_preference
+Icon=ossimPlanet
+Terminal=false
+Type=Application
+StartupNotify=true
+Path=/usr/local/ossim-qt/
+Categories=Education;Science;Geography;
+GenericName=
+EOF
+
+cp -a /usr/share/applications/ossimplanet.desktop "$USER_HOME/Desktop/"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/ossimplanet.desktop"
+
+cat << EOF > /usr/share/applications/ossim-geocell.desktop
+[Desktop Entry]
+Version=1.0
+Name=OSSIM-geocell
+Comment=OSSIM-geocell
+Exec=/usr/local/ossim-qt/ossim-geocell -P /usr/local/share/ossim/ossim_preference
+Icon=ossim
+Terminal=false
+Type=Application
+StartupNotify=true
+Path=/usr/local/ossim-qt/
+Categories=Education;Science;Geography;Network;Graphics;Qt;
+GenericName=
+EOF
+
+cp -a /usr/share/applications/ossim-geocell.desktop "$USER_HOME/Desktop/"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/ossim-geocell.desktop"
+
 
 OSSIM_PREFS_FILE="/usr/local/share/ossim/ossim_preference"
 export OSSIM_PREFS_FILE
@@ -104,48 +150,39 @@ echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$USER_HOME/.ba
 ln -s /usr/local/share/ossim/images/reference/bluemarble.tif \
   /usr/local/share/data/raster/   
 
-cp /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
-
-cp /usr/share/applications/ossimplanet.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/ossimplanet.desktop"
-
-cp /usr/share/applications/ossim-geocell.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/ossim-geocell.desktop"
-
 # add menu item
-if [ ! -e /usr/share/menu/imagelinker ] ; then
-   cat << EOF > /usr/share/menu/imagelinker
-?package(imagelinker):needs="X11"\
-  section="Applications/Science/Geoscience"\
-  title="Imagelinker"\
-  command="/usr/local/ossim/bin/imagelinker"\
-  icon="/usr/share/pixmaps/ossim.xpm"
-EOF
-  update-menus
-fi
-
-if [ ! -e /usr/share/menu/ossimplanet ] ; then
-   cat << EOF > /usr/share/menu/ossimplanet
-?package(ossimplanet):needs="X11"\
-  section="Applications/Science/Geoscience"\
-  title="Ossimplanet"\
-  command="/usr/local/ossim/bin/ossimplanet"\
-  icon="/usr/share/pixmaps/ossimPlanet.xpm"
-EOF
-  update-menus
-fi
-
-if [ ! -e /usr/share/menu/ossim-geocell ] ; then
-   cat << EOF > /usr/share/menu/ossim-geocell
-?package(imagelinker):needs="X11"\
-  section="Applications/Science/Geoscience"\
-  title="Imagelinker"\
-  command="/usr/local/ossim/bin/ossim-geocell"\
-  icon="/usr/share/pixmaps/ossim.xpm"
-EOF
-  update-menus
-fi
+# if [ ! -e /usr/share/menu/imagelinker ] ; then
+#    cat << EOF > /usr/share/menu/imagelinker
+# ?package(imagelinker):needs="X11"\
+#   section="Applications/Science/Geoscience"\
+#   title="Imagelinker"\
+#   command="/usr/local/ossim/bin/imagelinker"\
+#   icon="/usr/share/pixmaps/ossim.xpm"
+# EOF
+#   update-menus
+# fi
+#
+# if [ ! -e /usr/share/menu/ossimplanet ] ; then
+#    cat << EOF > /usr/share/menu/ossimplanet
+# ?package(ossimplanet):needs="X11"\
+#   section="Applications/Science/Geoscience"\
+#   title="Ossimplanet"\
+#   command="/usr/local/ossim/bin/ossimplanet"\
+#   icon="/usr/share/pixmaps/ossimPlanet.xpm"
+# EOF
+#   update-menus
+# fi
+#
+# if [ ! -e /usr/share/menu/ossim-geocell ] ; then
+#    cat << EOF > /usr/share/menu/ossim-geocell
+# ?package(imagelinker):needs="X11"\
+#   section="Applications/Science/Geoscience"\
+#   title="Imagelinker"\
+#   command="/usr/local/ossim/bin/ossim-geocell"\
+#   icon="/usr/share/pixmaps/ossim.xpm"
+# EOF
+#   update-menus
+# fi
 
 
 #Download data used to test the application
