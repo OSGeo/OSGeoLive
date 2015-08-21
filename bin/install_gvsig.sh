@@ -130,29 +130,14 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-# fix broken permissions in the deb
-chown -R root.root /opt/gvSIG_*
-
-# user needs to write on the gvSIG folder by some legacy plugins
-chgrp users /opt/gvSIG_*
-chmod g+w /opt/gvSIG_*
-adduser "$USER_NAME" users
-
-# pkg lint cleanup
-rm -f /debian-binary
-
-chown -R root.root /usr/share/applications/gvsig.desktop \
-  /usr/share/icons/ico-gvSIG.png /usr/share/mime/packages/gvsig.xml \
-  /var/lib/dpkg/info/gvsig.*
-
 rm "$TMP/$GVSIG_PACKAGE"
 
 # place a gvSIG icon on desktop
 if [ -d $USER_DESKTOP ] ; then
    echo "Copying icon to desktop at $USER_DESKTOP"
-   cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP"
-   chown $USER_NAME:$USER_NAME "$USER_DESKTOP/gvsig.desktop"
-   chmod +x "$USER_DESKTOP/gvsig.desktop"
+   cp /usr/share/applications/gvsig-desktop.desktop "$USER_DESKTOP"
+   chown $USER_NAME:$USER_NAME "$USER_DESKTOP/gvsig-desktop.desktop"
+   chmod +x "$USER_DESKTOP/gvsig-desktop.desktop"
 fi
 
 ####
