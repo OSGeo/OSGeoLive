@@ -262,11 +262,11 @@ chgrp users /usr/local/share/ossim/elevation
 
 
 # add suppport files used for the ossim tutorials
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.prj
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.prj"
 mv rgb.prj "$QUICKSTART"/workspace/
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.spec
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.spec"
 mv rgb.spec "$QUICKSTART"/workspace/
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/ossim-dem-color-table-template.kwl
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/ossim-dem-color-table-template.kwl"
 mv ossim-dem-color-table-template.kwl "$QUICKSTART"/workspace/
 
 unset OSSIM_PREFS_FILE
