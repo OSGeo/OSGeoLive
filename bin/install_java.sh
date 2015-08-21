@@ -37,7 +37,7 @@ ARCH="$1"
 
 
 #apt-get install --yes default-jdk default-jre
-apt-get install --yes openjdk-7-jdk openjdk-7-jre
+apt-get install --yes openjdk-7-jdk openjdk-7-jre default-jre
 
 apt-get --assume-yes install gsfonts-x11 ttf-dejavu-extra
 
