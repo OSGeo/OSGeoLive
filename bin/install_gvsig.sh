@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2010 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2015 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -14,8 +14,7 @@
 
 # About:
 # =====
-# This script will install gvSIG 1.11 (BN1305) using
-# a deb package.
+# This script will install gvSIG 2.2 using a deb package.
 
 # Changelog:   "svn log install_gvsig.sh --limit 10"
 # ===========
@@ -133,12 +132,25 @@ fi
 rm "$TMP/$GVSIG_PACKAGE"
 
 # place a gvSIG icon on desktop
-if [ -d $USER_DESKTOP ] ; then
-   echo "Copying icon to desktop at $USER_DESKTOP"
-   cp /usr/share/applications/gvsig-desktop.desktop "$USER_DESKTOP"
-   chown $USER_NAME:$USER_NAME "$USER_DESKTOP/gvsig-desktop.desktop"
-   chmod +x "$USER_DESKTOP/gvsig-desktop.desktop"
-fi
+rm /usr/share/applications/gvsig-desktop.desktop
+
+cat << EOF > /usr/share/applications/gvsig-desktop.desktop
+[Desktop Entry]
+Name=gvSIG desktop
+Version=2.2.0-2313
+Exec=gvsig-desktop
+Comment=
+Icon=/usr/share/pixmaps/gvsig-desktop.png
+Type=Application
+Terminal=false
+StartupNotify=true
+Encoding=UTF-8
+Categories=Graphics;
+EOF
+
+cp -a /usr/share/applications/gvsig-desktop.desktop "$USER_HOME/Desktop/"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/gvsig-desktop.desktop"
+chmod +x "$USER_HOME/Desktop/gvsig-desktop.desktop"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
