@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2010 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2015 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -14,11 +14,13 @@
 
 # About:
 # =====
-# This script will install gvSIG 1.11 (BN1305) using
-# a deb package.
+# This script will install gvSIG 2.2 using a deb package.
 
 # Changelog:   "svn log install_gvsig.sh --limit 10"
 # ===========
+# 2015-08-19
+#  * Updated to gvSIG 2.2
+#
 # 2014-02-02
 #  * Updated to gvSIG 2.1
 #
@@ -75,9 +77,17 @@ fi
 USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop"
 
-GVSIG_PACKAGE="gvsig_2.1.0-2218_${ARCH}_BN2.deb"
-GVSIG_URL="http://aiolos.survey.ntua.gr/gisvm/dev/"
-#GVSIG_URL="http://download.osgeo.org/livedvd/data/gvsig/"
+if [ "$ARCH" = "i386" ] ; then
+    GVSIG_PACKAGE="gvsig-desktop_2.2.0-2313-3_${ARCH}.deb"
+fi
+
+if [ "$ARCH" = "amd64" ] ; then
+    GVSIG_PACKAGE="gvsig-desktop_2.2.0-2313-2_${ARCH}.deb"
+fi
+
+#GVSIG_PACKAGE="gvsig_2.1.0-2218_${ARCH}_BN2.deb"
+#GVSIG_URL="http://aiolos.survey.ntua.gr/gisvm/dev/"
+GVSIG_URL="http://download.osgeo.org/livedvd/data/gvsig/"
 #GVSIG_URL="http://downloads.gvsig.org/download/gvsig-desktop/other-dists/osgeo-live"
 #GVSIG_URL="https://www.dropbox.com/s/6ujajdxa048pgii/"
 
@@ -119,30 +129,28 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-# fix broken permissions in the deb
-chown -R root.root /opt/gvSIG_*
-
-# user needs to write on the gvSIG folder by some legacy plugins
-chgrp users /opt/gvSIG_*
-chmod g+w /opt/gvSIG_*
-adduser "$USER_NAME" users
-
-# pkg lint cleanup
-rm -f /debian-binary
-
-chown -R root.root /usr/share/applications/gvsig.desktop \
-  /usr/share/icons/ico-gvSIG.png /usr/share/mime/packages/gvsig.xml \
-  /var/lib/dpkg/info/gvsig.*
-
 rm "$TMP/$GVSIG_PACKAGE"
 
 # place a gvSIG icon on desktop
-if [ -d $USER_DESKTOP ] ; then
-   echo "Copying icon to desktop at $USER_DESKTOP"
-   cp /usr/share/applications/gvsig.desktop "$USER_DESKTOP"
-   chown $USER_NAME:$USER_NAME "$USER_DESKTOP/gvsig.desktop"
-   chmod +x "$USER_DESKTOP/gvsig.desktop"
-fi
+rm /usr/share/applications/gvsig-desktop.desktop
+
+cat << EOF > /usr/share/applications/gvsig-desktop.desktop
+[Desktop Entry]
+Name=gvSIG desktop
+Version=2.2.0-2313
+Exec=gvsig-desktop
+Comment=
+Icon=/usr/share/pixmaps/gvsig-desktop.png
+Type=Application
+Terminal=false
+StartupNotify=true
+Encoding=UTF-8
+Categories=Graphics;
+EOF
+
+cp -a /usr/share/applications/gvsig-desktop.desktop "$USER_HOME/Desktop/"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/gvsig-desktop.desktop"
+chmod +x "$USER_HOME/Desktop/gvsig-desktop.desktop"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

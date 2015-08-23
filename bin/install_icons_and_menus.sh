@@ -38,7 +38,7 @@ USER_HOME="/home/$USER_NAME"
 ################################################
 
 #Desktop apps part 1 (traditional analytic GIS)
-DESKTOP_APPS="grass70 qgis gvsig openjump uDig ossimplanet *Kosmo*
+DESKTOP_APPS="grass70 qgis gvsig* openjump uDig ossimplanet *Kosmo*
               spatialite-gis saga"
 #disabled: atlasstyler geopublisher
 
@@ -57,7 +57,7 @@ BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 MapFish-* GeoMO
 
 #Infrastructure and miscellanea
 SPATIAL_TOOLS="imagelinker r geokettle ipython-notebook*
-               mapslicer tilemill mapnik-* monteverdi"
+               mapslicer tilemill mapnik-* monteverdi ossim-geocell"
 
 #Future home of PostGIS and Spatialite; pgRouting???
 #  pgadmin, sqlitebrowser, etc  (parts of this one are automatic)
