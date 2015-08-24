@@ -140,9 +140,12 @@ for FILE in start_geonetwork stop_geonetwork geonetwork ; do
 done
 
 #copy project logo to use as menu icon
+cd "$TMP"
+wget -c --progress=dot:mega \
+ "https://github.com/OSGeo/OSGeoLive-doc/raw/master/images/project_logos/logo-GeoNetwork.png" \
+ -O geonetwork_icon.png
 mkdir -p /usr/local/share/icons
-cp -f "$USER_HOME/gisvm/doc/images/project_logos/logo-GeoNetwork.png" \
-    /usr/local/share/icons/geonetwork_icon.png
+mv geonetwork_icon.png /usr/local/share/icons/geonetwork_icon.png
 
 # No manual/doco as these are included in the geonetwork release as html
 # pages
