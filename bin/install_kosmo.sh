@@ -42,6 +42,10 @@ ARCH="$1"
 BUILD_DIR=`pwd`
 ####
 
+if [ "$ARCH" = "amd64" ] ; then
+    "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
+    exit 1
+fi
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
