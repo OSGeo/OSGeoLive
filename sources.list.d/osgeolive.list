@@ -1,4 +1,4 @@
 #OSGeoLive Release ppa
-deb http://ppa.launchpad.net/osgeolive/release-8.5/ubuntu trusty main
-#deb-src http://ppa.launchpad.net/osgeolive/release-8.5/ubuntu trusty main
+deb http://ppa.launchpad.net/osgeolive/release-9.0/ubuntu trusty main
+#deb-src http://ppa.launchpad.net/osgeolive/release-9.0/ubuntu trusty main
 
