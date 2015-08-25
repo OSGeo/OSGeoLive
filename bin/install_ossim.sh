@@ -114,7 +114,7 @@ cat << EOF > /usr/share/applications/ossim-geocell.desktop
 Version=1.0
 Name=OSSIM-geocell
 Comment=OSSIM-geocell
-Exec=/usr/local/ossim-qt/ossim-geocell -P /usr/local/share/ossim/ossim_preference
+Exec=env LD_LIBRARY_PATH=/usr/local/ossim-qt /usr/local/ossim-qt/ossim-geocell -P /usr/local/share/ossim/ossim_preference
 Icon=ossim
 Terminal=false
 Type=Application
