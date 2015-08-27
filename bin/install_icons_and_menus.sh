@@ -61,7 +61,7 @@ SPATIAL_TOOLS="imagelinker r geokettle ipython-notebook*
 
 #Future home of PostGIS and Spatialite; pgRouting???
 #  pgadmin, sqlitebrowser, etc  (parts of this one are automatic)
-DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser"
+DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser shp2pgsql-gui"
 
 #Server apps part 3 (public good theme)
 RELIEF_APPS="sahana ushahidi"
