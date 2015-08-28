@@ -85,9 +85,9 @@ done
 cat << EOF > /usr/share/applications/shp2pgsql-gui.desktop
 [Desktop Entry]
 Type=Application
-Name=shp2pgsql-gui
-Comment=Shapefile to PostGIS Tool
-Categories=Application;Geography;Geoscience;Database;
+Name=shp2pgsql
+Comment=Shapefile to PostGIS Import Tool
+Categories=Application;Geography;Geoscience;
 Exec=shp2pgsql-gui
 Icon=pgadmin3
 Terminal=false
