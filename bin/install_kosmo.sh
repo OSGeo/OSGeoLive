@@ -42,10 +42,10 @@ ARCH="$1"
 BUILD_DIR=`pwd`
 ####
 
-if [ "$ARCH" = "amd64" ] ; then
-    "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
-    exit 1
-fi
+# if [ "$ARCH" = "amd64" ] ; then
+#     "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
+#     exit 1
+# fi
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -53,6 +53,7 @@ fi
 TMP="/tmp/build_kosmo"
 INSTALL_FOLDER="/usr/lib"
 KOSMO_FOLDER="$INSTALL_FOLDER/Kosmo-3.1"
+KOSMO_URL="http://www.kosmoland.es/public/kosmo/v_3.1/livedvd"
 BIN="/usr/bin"
 USER_HOME="/home/$USER_NAME"
 
@@ -70,11 +71,20 @@ cd "$TMP"
 ## Install Application ##
 
 # get kosmo
-wget -c --progress=dot:mega \
-   "http://www.kosmoland.es/public/kosmo/v_3.1/livedvd/kd_3.1_lin32_jre_20140707-1257.tar.gz"
+if [ "$ARCH" = "i386" ] ; then
+    KOSMO_PACKAGE="kd_3.1_lin32_20150826-2300.tar.gz"
+fi
+
+if [ "$ARCH" = "amd64" ] ; then
+    KOSMO_PACKAGE="kd_3.1_lin64_20150826-2300.tar.gz"
+fi
+
+if [ ! -e "$KOSMO_PACKAGE" ] ; then
+   wget -c --progress=dot:mega "$KOSMO_URL/$KOSMO_PACKAGE"
+fi
 
 # unpack it and copy it to /usr/lib
-tar xzf kd_3.1_lin32_jre_20140707-1257.tar.gz \
+tar xzf "$KOSMO_PACKAGE" \
    -C "$INSTALL_FOLDER" --no-same-owner
 
 if [ $? -ne 0 ] ; then
@@ -88,7 +98,6 @@ chmod -R g+w "$KOSMO_FOLDER"
 
 ## execute the links.sh script
 cd "$KOSMO_FOLDER"/native
-cp -f "$BUILD_DIR"/../app-conf/kosmo/links.sh .
 chmod a+x "$KOSMO_FOLDER"/native/links.sh
 ./links.sh
 cd "$TMP"
