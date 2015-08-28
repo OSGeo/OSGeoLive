@@ -72,7 +72,7 @@ cd "$TMP"
 
 # get kosmo
 if [ "$ARCH" = "i386" ] ; then
-    KOSMO_PACKAGE="kd_3.1_lin32_jre_20140707-1257.tar.gz"
+    KOSMO_PACKAGE="kd_3.1_lin32_20150826-2300.tar.gz"
 fi
 
 if [ "$ARCH" = "amd64" ] ; then
@@ -98,7 +98,6 @@ chmod -R g+w "$KOSMO_FOLDER"
 
 ## execute the links.sh script
 cd "$KOSMO_FOLDER"/native
-cp -f "$BUILD_DIR"/../app-conf/kosmo/links.sh .
 chmod a+x "$KOSMO_FOLDER"/native/links.sh
 ./links.sh
 cd "$TMP"
