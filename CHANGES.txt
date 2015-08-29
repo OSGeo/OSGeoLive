@@ -1,6 +1,16 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 9.0rc1
+====================
+
+ * ncWMS 1.2
+ * gvSIG 2.2
+ * Updated to Monteverdi2
+ * Added OSSIM plugins and qt packages for 1.8.18
+ * Kosmo fix for 64 bit architecture
+ * GeoNetwork reverted to 2.10.x for this release, due to blocker issue
+
 Version 9.0beta1
 ====================
 
