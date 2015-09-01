@@ -117,11 +117,12 @@ fi
 ##############
 # New dataset#
 ##############
-FILE="loc_ncarolina_spm_base0.3.1.zip"
-FOLDER_NAME="loc_ncarolina_spm_base0.3.1"
+#This dataset is maintained by GRASS community
+FILE="nc_basic_spm_grass7.zip"
+FOLDER_NAME="nc_basic_spm_grass7"
 cd "$TMP_DIR"
 wget -c --progress=dot:mega \
-     "http://www4.ncsu.edu/~hmitaso/grasswork/grassbookdat4ed/loc_ncarolina_spm_base0.3.1.zip"
+     "https://grass.osgeo.org/sampledata/north_carolina/nc_basic_spm_grass7.zip"
 unzip "$FILE" -d /usr/local/share/grass/
 cd /usr/local/share/grass/
 chown -R root.users "$FOLDER_NAME"
