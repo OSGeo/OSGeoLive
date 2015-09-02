@@ -116,6 +116,7 @@ java -jar geonetwork-install-$GEONETWORK_VERSION.jar install.xml
 
 cp -f jetty.xml "$GEONETWORK_FOLDER/jetty/etc/jetty.xml"
 cp -f data-db-default.sql "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/."
+cp -f wro4j-cache.* "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/data/."
 cp -f startup.sh "$GEONETWORK_FOLDER/bin/startup.sh"
 cp -f shutdown.sh "$GEONETWORK_FOLDER/bin/shutdown.sh"
 
