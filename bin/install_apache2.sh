@@ -36,6 +36,18 @@ adduser "$USER_NAME" www-data
 mkdir -p /var/www/html
 wget -nv http://www.osgeo.org/favicon.ico -O /var/www/html/favicon.ico
 
+rm /var/www/html/index.html
+
+cat << EOF > /var/www/html/index.html
+<html>
+<head>
+<meta http-equiv="Refresh" content="0;url=http://localhost/osgeolive" />
+</head>
+<body>
+</body>
+</html>
+EOF
+
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
