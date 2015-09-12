@@ -67,6 +67,9 @@ for URL in \
   http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86.exe \
   http://download.osgeo.org/osgeo4w/osgeo4w-setup-x86_64.exe \
   http://grass.osgeo.org/grass70/binary/mswindows/native/WinGRASS-7.0.1-1-Setup.exe \
+  http://download.osgeo.org/livedvd/data/mapwindow/MapWindowx86Full-v488SR-installer.exe \
+  http://download.osgeo.org/mapguide/releases/3.0.0/Final/windows/MapGuideOpenSource-3.0.0.8701-Final-x64.exe \
+  http://download.osgeo.org/mapguide/releases/3.0.0/Final/windows/MapGuideOpenSource-3.0.0.8701-Final-x86.exe \
 ; do
 
   # zygrib and sourceforge filename sanitation:
@@ -88,7 +91,6 @@ done;
 #  http://github.com/downloads/mapbox/tilemill/TileMill-v0.10.1-Setup.exe \
 #  http://downloads.sourceforge.net/project/opencpn/opencpn/3.2.2/opencpn_3.2.2_setup.exe?use_mirror=cdnetworks-us-2 \
 #  http://downloads.sourceforge.net/project/saga-gis/SAGA%20-%202.1/SAGA%202.1.2/saga_2.1.2_win32.zip \
-#  http://download.osgeo.org/livedvd/data/mapwindow/MapWindowx86Full-v488SR-installer.exe \
 #  http://www.zygrib.org/getfile.php?file=zyGrib_win-7.0.0.zip \
 #  http://download.osgeo.org/livedvd/data/gpsbabel/GPSBabel-1.5.1-Setup.exe \
 #  http://gpsvp.googlecode.com/files/gpsVPxp_0.4.24.zip \
