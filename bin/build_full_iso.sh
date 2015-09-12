@@ -34,18 +34,25 @@
 # Run as 
 # sudo ./build_full_iso.sh /path/to/file.iso 2>&1 | tee ~/build_full_iso.log
 
+if [ "$#" -lt 2 ] || [ "$#" -gt 2 ]; then
+    echo "Wrong number of arguments"
+    echo "Usage: build_full_iso.sh ARCH(i386 or amd64) PATH_TO_MINI_ISO"
+    exit 1
+fi
+
+if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: build_full_iso.sh ARCH(i386 or amd64) PATH_TO_MINI_ISO"
+    exit 1
+fi
+ARCH="$1"
+MINI_ISO_NAME="$2"
+
 VERSION=`cat ../VERSION.txt`
 PACKAGE_NAME="osgeo-live"
 CUR_DIR=`pwd`
 
-if [ $1 ]; then
-    #If argument is given, path to the iso to remaster
-    MINI_ISO_NAME=$1
-else
-    #If no arguement is give assume the file is in the current folder
-    MINI_ISO_NAME="$PACKAGE_NAME-mini-$VERSION.iso"
-fi
-ISO_NAME="$PACKAGE_NAME-$VERSION"
+ISO_NAME="$PACKAGE_NAME-$VERSION-$ARCH"
 IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
 
 echo
@@ -93,16 +100,17 @@ echo "============================================="
 
 # First remove index.htm files if they exist, otherwise you won't see the
 # directory of files.
-sudo chroot edit rm -f /var/www/html/WindowsInstallers/index.html
-sudo chroot edit rm -f /var/www/html/MacInstallers/index.html
-sudo chroot edit rmdir /var/www/html/WindowsInstallers
-sudo chroot edit rmdir /var/www/html/MacInstallers
-sudo chroot edit ln -s /media/cdrom/WindowsInstallers /var/www/html/WindowsInstallers
-sudo chroot edit ln -s /media/cdrom/MacInstallers  /var/www/html/MacInstallers
+# FIXME: This won't work after an update of osgeolive-docs deb package since the files will be restored...
+sudo chroot edit rm -f /var/www/html/osgeolive/WindowsInstallers/index.html
+sudo chroot edit rm -f /var/www/html/osgeolive/MacInstallers/index.html
+sudo chroot edit rmdir /var/www/html/osgeolive/WindowsInstallers
+sudo chroot edit rmdir /var/www/html/osgeolive/MacInstallers
+sudo chroot edit ln -s /media/cdrom/WindowsInstallers /var/www/html/osgeolive/WindowsInstallers
+sudo chroot edit ln -s /media/cdrom/MacInstallers  /var/www/html/osgeolive/MacInstallers
 
 cd extract-cd
-sh "$CUR_DIR"/load_win_installers.sh
-sh "$CUR_DIR"/load_mac_installers.sh
+sh "$CUR_DIR"/load_win_installers.sh "$ARCH"
+sh "$CUR_DIR"/load_mac_installers.sh "$ARCH"
 cd ~/livecdtmp
 
 echo

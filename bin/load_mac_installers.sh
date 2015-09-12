@@ -23,6 +23,13 @@
 # sudo ./load_mac_installers.sh
 
 
+if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: load_mac_installers.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+ARCH="$1"
+
 #Add the files to the directory where remastersys wants them
 #TMP="/tmp/build_mac_installers"
 #TMP="/tmp/remastersys/ISOTMP/MacInstallers"
@@ -63,13 +70,13 @@ EOF
 # 1 Base Packages (Frameworks)
 A_PKG="
 frameworks/GDAL_Complete-1.11.dmg
-frameworks/FreeType_Framework-2.4.12-1.dmg
-frameworks/cairo_Framework-1.12.2-1.dmg
-frameworks/GSL_Framework-1.16-1.dmg
-frameworks/TclTk_Aqua-8.5.8-2.dmg
 frameworks/Spatialite_Tools-4.1.zip
-frameworks/rgdal-0.8.16-1.dmg
 "
+##frameworks/rgdal-0.8.16-1.dmg
+##frameworks/FreeType_Framework-2.4.12-1.dmg
+##frameworks/cairo_Framework-1.12.2-1.dmg
+##frameworks/GSL_Framework-1.16-1.dmg
+##frameworks/TclTk_Aqua-8.5.8-2.dmg
 
 # 2 Support Packages
 B_PKG="
@@ -81,7 +88,7 @@ python/matplotlib-1.3.1-2.dmg
 # 3 End-User Packages
 C_PKG="
 postgresql/PostGIS-2.1.4-2.dmg
-qgis/QGIS-2.6.1-1.dmg
+qgis/QGIS-2.8.3-1.dmg
 "
 ##grass/GRASS-6.4.4-1-Lion.dmg
 
