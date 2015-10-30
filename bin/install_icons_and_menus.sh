@@ -57,11 +57,11 @@ BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 MapFish-* GeoMO
 
 #Infrastructure and miscellanea
 SPATIAL_TOOLS="imagelinker r geokettle ipython-notebook*
-               mapslicer tilemill mapnik-* monteverdi ossim-geocell"
+               mapslicer tilemill mapnik-* monteverdi* ossim-geocell"
 
 #Future home of PostGIS and Spatialite; pgRouting???
 #  pgadmin, sqlitebrowser, etc  (parts of this one are automatic)
-DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser"
+DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser shp2pgsql-gui"
 
 #Server apps part 3 (public good theme)
 RELIEF_APPS="sahana ushahidi"

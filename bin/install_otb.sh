@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2015 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -14,12 +14,12 @@
 #
 # About:
 # =====
-# This script will install Orfeo Tooblox including Monteverdi and OTB apps,
+# This script will install Orfeo Tooblox including Monteverdi2 and OTB apps,
 #  assumes script is run with sudo privileges.
 #
 # Running:
 # =======
-# monteverdi
+# monteverdi2
 # TODO: list all the apps, preferably Qt versions in /usr/bin/?
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -45,8 +45,8 @@ apt-get -q update
 apt-get --assume-yes install libotb monteverdi2 otb-bin otb-bin-qt
 
 #### install desktop icon ####
-cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
+cp /usr/share/applications/monteverdi2.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi2.desktop"
 
 
 # Download OrfeoToolBox data and documentation (software guide and cookbook)
@@ -78,11 +78,6 @@ if [ ! -d "$OTB_DATA" ]; then
 #     tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/
 #     echo "Done"
 fi
-
-
-#MONTEVERDI plugin can't do this for now since it requires a recompile of MONTEVERDI according to the docs
-#TODO install otb qgis plugins when it will be available with debian packages
-#hg clone http://hg.orfeo-toolbox.org/OTB-QGis-plugins
 
 #OTB does not need this app, just added here since OTB pulls libkml in the Disk.
 apt-get --assume-yes install python-kml

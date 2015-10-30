@@ -81,5 +81,20 @@ done
 # rm -f /usr/share/java/postgis.jar
 # ln -s /usr/share/java/postgis-jdbc-2.1.0~rc1.jar /usr/share/java/postgis.jar
 
+## shp2pgsql-gui desktop launcher
+cat << EOF > /usr/share/applications/shp2pgsql-gui.desktop
+[Desktop Entry]
+Type=Application
+Name=shp2pgsql
+Comment=Shapefile to PostGIS Import Tool
+Categories=Application;Geography;Geoscience;
+Exec=shp2pgsql-gui
+Icon=pgadmin3
+Terminal=false
+EOF
+
+cp -a /usr/share/applications/shp2pgsql-gui.desktop "$USER_HOME/Desktop/"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/shp2pgsql-gui.desktop"
+
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
