@@ -42,7 +42,7 @@ apt-get -q update
 #Lot's of these applications have been ported in modules in monteverdi but there are still remainning applications
 #in the legacy not available in monteverdi (simple viewer manager, vector database/raster registration...
 #Monteverdi is perhap's sufficient in a first approach,if you need to save space we  can eliminate otbapp-legacy
-apt-get --assume-yes install libotb monteverdi2 otb-bin otb-bin-qt
+apt-get --assume-yes install libotb libotb-dev monteverdi2 otb-bin otb-bin-qt
 
 #### install desktop icon ####
 cp /usr/share/applications/monteverdi2.desktop "$USER_HOME/Desktop/"
