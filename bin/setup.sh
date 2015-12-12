@@ -94,6 +94,18 @@ sed -i -e 's/exit $?/exit 0/' \
 apt-get --yes install libpam-systemd
 apt-get -f install --yes
 
+# modemmanager has the same missing init.d script bug. (see trac #1582)
+sed -i -e 's/exit $?/exit 0/' \
+   "/var/lib/dpkg/info/modemmanager.prerm"
+
+apt-get --yes install modemmanager
+
+sed -i -e 's/exit $?/exit 0/' \
+   "/var/lib/dpkg/info/modemmanager.postinst"
+
+apt-get --yes install modemmanager
+apt-get -f install --yes
+
 # argh, whoopsie has the same missing init.d script bug.
 sed -i -e 's/exit $?/exit 0/' \
    "/var/lib/dpkg/info/whoopsie.prerm"
