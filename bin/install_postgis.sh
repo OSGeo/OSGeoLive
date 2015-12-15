@@ -28,7 +28,7 @@ USER_HOME="/home/$USER_NAME"
 
 # Not to be confused with PGIS_Version, this has one less number and period
 #  to correspond to install paths
-PG_VERSION="9.3"
+PG_VERSION="9.4"
 
 #debug:
 echo "#DEBUG The locale settings are currently:"
@@ -45,7 +45,7 @@ locale
 echo "------------------------------------"
 
 ##-- TODO pgdg repo ?
-apt-get install --yes postgis "postgresql-$PG_VERSION-postgis-2.1"
+apt-get install --yes postgis "postgresql-$PG_VERSION-postgis-2.2"
 #TODO: Restore postgis-gui in the future.
 
 if [ $? -ne 0 ] ; then

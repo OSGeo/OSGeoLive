@@ -71,13 +71,13 @@ sudo -u $POSTGRES_USER psql osm_local -c 'create extension postgis;'
 
 # Kosmo, gpsdrive, please update your API calls ....
 cp "$BUILD_DIR"/../app-conf/postgis/legacy*.sql \
-  /usr/share/postgresql/9.3/contrib/postgis-2.1/
+  /usr/share/postgresql/9.4/contrib/postgis-2.2/
 
-sed -i -e 's/postgis-2.0/postgis-2.1/' \
-  /usr/share/postgresql/9.3/contrib/postgis-2.1/legacy*.sql
+sed -i -e 's/postgis-2.0/postgis-2.2/' \
+  /usr/share/postgresql/9.4/contrib/postgis-2.2/legacy*.sql
 
 sudo -u $POSTGRES_USER psql osm_local \
-  -f /usr/share/postgresql/9.3/contrib/postgis-2.1/legacy_minimal.sql
+  -f /usr/share/postgresql/9.4/contrib/postgis-2.2/legacy_minimal.sql
 
 #sudo -u $POSTGRES_USER createdb osm_local_smerc
 #sudo -u $POSTGRES_USER psql osm_local_smerc -c 'create extension postgis;'
