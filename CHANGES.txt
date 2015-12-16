@@ -1,6 +1,18 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 9.5alpha1
+====================
+
+ * PostgreSQL 9.4
+ * GDAL 1.11.3
+ * PostGIS 2.2 (including SFCGAL)
+ * GRASS 7.0.2
+ * MapServer 7.0.0
+ * GeoNetwork 3.0.1
+ * pycsw 1.10.3
+ * libLAS 1.8.0
+
 Version 9.0rc1/final
 ====================
 
