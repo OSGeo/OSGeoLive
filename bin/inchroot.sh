@@ -162,7 +162,7 @@ export USER_NAME
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_R.sh
-./install_ossim.sh "$ARCH"
+# ./install_ossim.sh "$ARCH"
 ./install_osgearth.sh
 ./install_spatialite.sh
 ./install_zoo-project.sh
