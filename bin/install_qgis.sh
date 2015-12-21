@@ -49,7 +49,7 @@ apt-get -q update
 apt-get --assume-yes install qgis \
    qgis-common python-qgis python-qgis-common \
    gpsbabel python-rpy2 python-qt4-phonon \
-   libqt4-sql-sqlite
+   libqt4-sql-sqlite qgis-plugin-grass
 
 
 if [ $? -ne 0 ] ; then
@@ -83,13 +83,13 @@ apt-get --assume-yes install qt4-designer \
 #Make sure old qt uim isn't installed
 apt-get --assume-yes remove uim-qt uim-qt3
 
-###FIXME: Temp patch for #1466
-wget -c --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/grass/grass7.tar.gz"
-tar zxvf grass7.tar.gz
-rm grass7.tar.gz
-cp -r grass7/* /usr/share/qgis/python/plugins/processing/algs/grass7/
-rm -rf grass7
+# ###FIXME: Temp patch for #1466
+# wget -c --progress=dot:mega \
+#    "http://download.osgeo.org/livedvd/data/grass/grass7.tar.gz"
+# tar zxvf grass7.tar.gz
+# rm grass7.tar.gz
+# cp -r grass7/* /usr/share/qgis/python/plugins/processing/algs/grass7/
+# rm -rf grass7
 
 #### install desktop icon ####
 INSTALLED_VERSION=`dpkg -s qgis | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
