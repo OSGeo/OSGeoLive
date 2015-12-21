@@ -49,7 +49,7 @@ apt-get -q update
 apt-get --assume-yes install qgis \
    qgis-common python-qgis python-qgis-common \
    gpsbabel python-rpy2 python-qt4-phonon \
-   libqt4-sql-sqlite
+   libqt4-sql-sqlite qgis-plugin-grass
 
 
 if [ $? -ne 0 ] ; then
