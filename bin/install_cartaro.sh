@@ -40,7 +40,7 @@ DB_PASSWORD="cartaro"
 
 GEO_ADMIN="admin"
 GEO_PASS="geoserver"
-GEO_VERSION="2.7.2"
+GEO_VERSION="2.7.5"
 GEO_PATH="/usr/local/lib/geoserver-$GEO_VERSION"
 
 TMP_DIR="/tmp/build_cartaro"
