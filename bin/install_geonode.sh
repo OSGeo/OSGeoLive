@@ -36,8 +36,9 @@ GEOSERVER_VERSION="2.7.5"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 
-#Install packages
-add-apt-repository -y ppa:geonode/osgeo
+# Install packages
+# add-apt-repository -y ppa:geonode/osgeo
+add-apt-repository -y ppa:gcpp-kalxas/geonode
 apt-get -q update
 apt-get --assume-yes install python-geonode libapache2-mod-wsgi curl
 
@@ -323,7 +324,8 @@ ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
 ###
 
 
-apt-add-repository --yes --remove ppa:geonode/osgeo
+# apt-add-repository --yes --remove ppa:geonode/osgeo
+apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
