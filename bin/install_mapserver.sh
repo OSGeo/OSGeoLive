@@ -56,7 +56,7 @@ apt-get install --yes cgi-mapserver mapserver-bin php5-mapscript \
 wget -c --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/mapserver/mapserver-6-2-html-docs.zip"
 wget -c --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/mapserver/mapserver-itasca-ms60.zip"
+   "http://download.osgeo.org/livedvd/data/mapserver/mapserver-itasca-ms70.zip"
 
 
 # Install docs and demos
@@ -66,7 +66,7 @@ if [ ! -d "$MAPSERVER_DATA" ] ; then
     echo -n "Extracting MapServer html doc in $MAPSERVER_DATA/..."
     unzip -q "$TMP_DIR/mapserver-6-2-html-docs.zip" -d "$MAPSERVER_DATA"/
     echo -n "Done\nExtracting MapServer itasca demo in $MAPSERVER_DATA/demos/..."
-    unzip -q "$TMP_DIR/mapserver-itasca-ms60.zip" -d "$MAPSERVER_DATA"/demos/ 
+    unzip -q "$TMP_DIR/mapserver-itasca-ms70.zip" -d "$MAPSERVER_DATA"/demos/ 
     echo "Done"
 
     mv "$MAPSERVER_DATA/demos/workshop" "$MAPSERVER_DATA/demos/itasca"
