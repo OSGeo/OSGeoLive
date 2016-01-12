@@ -35,6 +35,7 @@ GEONODE_DB="geonode"
 GEOSERVER_VERSION="2.7.5"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
+GEONODE_DIR="/usr/lib/python2.7/dist-packages/geonode"
 
 # Install packages
 add-apt-repository -y ppa:geonode/osgeo
@@ -121,15 +122,17 @@ echo "Done"
 echo "patching settings files"
 #Replace local_settings.py
 sudo cp -f "$USER_HOME/gisvm/app-conf/geonode/local_settings.py.sample" \
-    /usr/lib/python2.7/dist-packages/geonode/local_settings.py
+    "$GEONODE_DIR/local_settings.py"
 
 #Change GeoServer port in settings.py
 sed -i -e 's|http://localhost:8080/geoserver/|http://localhost:8082/geoserver/|' \
-    /usr/lib/python2.7/dist-packages/geonode/settings.py
+    "$GEONODE_DIR/settings.py"
+sed -i -e 's|http://localhost:8000/|http://geonode/|' \
+    "$GEONODE_DIR/settings.py"
 echo "Done"
 
 # make the uploaded dir
-mkdir -p /usr/lib/python2.7/dist-packages/geonode/uploaded
+mkdir -p "$GEONODE_DIR/uploaded"
 
 echo "Configuring GeoNode"
 # Create tables in the database
