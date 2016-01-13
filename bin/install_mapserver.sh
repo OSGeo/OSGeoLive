@@ -69,7 +69,7 @@ if [ ! -d "$MAPSERVER_DATA" ] ; then
     unzip -q "$TMP_DIR/mapserver-itasca-ms70.zip" -d "$MAPSERVER_DATA"/demos/ 
     echo "Done"
 
-    mv "$MAPSERVER_DATA/demos/workshop" "$MAPSERVER_DATA/demos/itasca"
+    mv "$MAPSERVER_DATA/demos/mapserver-demo-master" "$MAPSERVER_DATA/demos/itasca"
     mv "$MAPSERVER_DATA/mapserver-6-2-docs" "$MAPSERVER_DATA/doc"
     rm -rf "$MAPSERVER_DATA/demos/ms4w"
 
