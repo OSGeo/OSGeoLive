@@ -1,6 +1,25 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 9.5alpha2
+====================
+
+ * GEOS 3.5.0
+ * PostGIS 2.2.1
+ * QGIS 2.12.1
+ * GeoServer 2.7.5
+ * GeoNode 2.4.0
+ * OSSIM 1.8.20
+ * OTB 5.2.0
+ * Monteverdi 3.0.0
+ * MapServer demo updated for 7.0.0
+ * osm2pgsql 0.88.1
+ * QGIS-GRASS plugin re-enabled
+ * QGIS plugins updated to latest versions
+ * OWSLib 0.10.0
+ * pgadmin 1.20.0
+ * Django 1.6.11
+
 Version 9.5alpha1
 ====================
 
