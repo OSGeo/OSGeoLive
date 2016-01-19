@@ -72,7 +72,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 	git \
 	unzip \
 	zlib1g-dev \
-	libgeos-c1 \
+	libgeos-c1v5 \
 	python-dev \
 	python-lxml \
 	python-dateutil \
