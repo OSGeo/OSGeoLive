@@ -76,6 +76,19 @@ for FILE in  pgadmin3  pgpass  ; do
     chmod 600 "$USER_HOME/.$FILE"
 done
 
+## Live 9.5 / PG 9.4
+##   enable gdal drivers
+cat << EOF > /tmp/ppgdal.txt
+
+## https://trac.osgeo.org/gdal/wiki/SecurityIssues
+##
+postgis.gdal_enabled_drivers = 'ENABLE_ALL'
+
+EOF
+
+cat /tmp/ppgdal.txt >> /var/lib/postgresql/9.4/main/postgresql.auto.conf
+
+
 ## TODO review - needed for 1404 ?!
 # fix for 2.1.1-1~precise3 package breakage
 # rm -f /usr/share/java/postgis.jar
