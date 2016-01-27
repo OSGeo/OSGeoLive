@@ -182,6 +182,7 @@ export USER_NAME
 ./install_geonode.sh
 ./install_cesium.sh
 ./install_istsos.sh
+./install_javaworldwind.sh
 
 ./load_gisdata.sh
 ./install_docs.sh
