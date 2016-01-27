@@ -30,24 +30,23 @@ BUILD_DIR=`pwd`
 ## 24jan14  change in iPython+numpy+matplotlib
 ## 04jul14  jtaylor iPython
 
-apt-get install --assume-yes  git python-pip \
-        python-matplotlib python-scipy python-pandas \
+apt-get install --assume-yes  python-matplotlib \
+        python-scipy python-pandas \
         python-netcdf python-netcdf4 \
         python-shapely python-rasterio python-fiona \
         python-geopandas python-descartes \
         python-enum34 python-geojson
 
-#pip install cligj  ## per ticket #1455 -- rasterio requirements
-#The deb package in our ppa is way older than the day this requirement was added...
 
-#-- iPython from jtaylor .deb
-apt-add-repository --yes ppa:jtaylor/ipython
+#-- Jupyter ppa
+apt-add-repository --yes ppa:gcpp-kalxas/jupyter
 apt-get update
 
-apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
+# From Jupyter 1.0.0 setup.py dependencies
+apt-get install --assume-yes python-notebook python-jupyter-qtconsole python-jupyter-console python-nbconvert python-ipykernel python-ipywidgets
 
 #-- Clean-up
-apt-add-repository --yes --remove ppa:jtaylor/ipython
+apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
 
 cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
    "$USER_DESKTOP"/
