@@ -14,8 +14,7 @@
 #
 # About:
 # =====
-# This script will install ipython and ipython-notebook in ubuntu
-# The future may hold interesting graphical examples using notebook + tools
+# This script will install istSOS server
 
 ./diskspace_probe.sh "`basename $0`" begin
 ####
