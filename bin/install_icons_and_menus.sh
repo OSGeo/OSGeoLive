@@ -56,7 +56,7 @@ BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 MapFish-* GeoMO
 #disabled: i3geo
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="imagelinker r geokettle ipython-notebook*
+SPATIAL_TOOLS="imagelinker r geokettle ipython-notebook* nasa*
                mapslicer tilemill mapnik-* monteverdi* ossim-geocell"
 
 #Future home of PostGIS and Spatialite; pgRouting???
