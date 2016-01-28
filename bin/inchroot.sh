@@ -181,6 +181,7 @@ export USER_NAME
 ./install_ncWMS.sh
 ./install_geonode.sh
 ./install_cesium.sh
+./install_istsos.sh
 
 ./load_gisdata.sh
 ./install_docs.sh
