@@ -63,7 +63,7 @@ if [ -d $UNZIP_DIR ]; then
 fi
 
 mkdir -p $UNZIP_DIR
-unzip $BUILD_DIR/worldwind-2.0.0.zip -d $UNZIP_DIR/
+unzip -q $BUILD_DIR/worldwind-2.0.0.zip -d $UNZIP_DIR/
 
 #removing doc,gdal, sample data to save space
 rm -rf $UNZIP_DIR/lib-external/gdal
@@ -114,4 +114,3 @@ rm -rf $BUILD_DIR
 
 ####
 "$BIN_DIR"/diskspace_probe.sh "`basename $0`" end
-
