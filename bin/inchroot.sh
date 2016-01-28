@@ -8,7 +8,7 @@
 #	         Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2010-2015 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -182,6 +182,7 @@ export USER_NAME
 ./install_geonode.sh
 ./install_cesium.sh
 ./install_istsos.sh
+./install_javaworldwind.sh
 
 ./load_gisdata.sh
 ./install_docs.sh
