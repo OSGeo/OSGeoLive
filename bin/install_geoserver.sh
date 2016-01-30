@@ -53,6 +53,7 @@ mkdir -p "$TMP"
 cd "$TMP"
 
 
+###------------------------------------------
 ### Download and unpack GeoServer ###
 
 ## get GeoServer
@@ -66,7 +67,7 @@ echo "Unpacking GeoServer in $GS_HOME"
 unzip -o -q "geoserver-$GS_VERSION-bin.zip" -d "$INSTALL_FOLDER"
 
 
-
+###------------------------------------------
 ### Configure Application ###
 
 ## We need to make sure the scripts use the proper JDK version ##
@@ -142,6 +143,7 @@ if [ ! -e "$BIN/geoserver_stop_notify.sh" ] ; then
   ln -s "$GS_HOME/bin/stop_notify.sh" "$BIN/geoserver_stop_notify.sh"
 fi
 
+###------------------------------------------
 ### download the documentation
 
 mkdir -p "$DOC_DIR"
@@ -154,7 +156,9 @@ wget --progress=dot:mega \
 echo "Installing GeoServer documentation"
 unzip -o -q "geoserver-$GS_VERSION-htmldoc.zip" -d "$DOC_DIR"
 
+###------------------------------------------
 ### download and install INSPIRE extension
+
 echo "Getting INSPIRE extension"
 wget --progress=dot:mega \
   -O "geoserver-$GS_VERSION-inspire-plugin.zip" \
@@ -162,6 +166,17 @@ wget --progress=dot:mega \
 echo "Installing INSPIRE extension"
 unzip -o -q "geoserver-$GS_VERSION-inspire-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
 
+###------------------------------------------
+### download and install CSS extension
+
+echo "Getting CSS extension"
+wget --progress=dot:mega \
+  -O "geoserver-$GS_VERSION-css-plugin.zip" \
+  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-css-plugin.zip/download"
+echo "Installing CSS extension"
+unzip -o -q "geoserver-$GS_VERSION-css-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
+
+###------------------------------------------
 ### install desktop icons ##
 echo "Installing GeoServer icons"
 cp -f "$USER_HOME/gisvm/app-conf/geoserver/geoserver_48x48.logo.png" \
