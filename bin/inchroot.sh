@@ -158,7 +158,7 @@ export USER_NAME
 ./install_viking.sh
 ./install_zygrib.sh
 ./install_liblas.sh
-./install_gpsdrive.sh "$ARCH"
+# ./install_gpsdrive.sh "$ARCH"
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_R.sh
