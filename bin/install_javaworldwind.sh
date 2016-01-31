@@ -47,8 +47,8 @@ fi
 
 #Temp dir creation and download
 echo "\nCreating temporary directory $BUILD_DIR..."
-mkdir -p $BUILD_DIR
-cd $BUILD_DIR
+mkdir -p "$BUILD_DIR"
+cd "$BUILD_DIR"
 
 echo "\nDownloading Nasa Java World Wind..."
 wget -c --tries=3 --progress=dot:mega \
@@ -58,17 +58,17 @@ wget -c --tries=3 --progress=dot:mega \
 echo "\nInstalling Java Web Start..."
 apt-get install --assume-yes icedtea-7-plugin
 
-if [ -d $UNZIP_DIR ]; then
-  rm -rf $UNZIP_DIR
+if [ -d "$UNZIP_DIR" ]; then
+  rm -rf "$UNZIP_DIR"
 fi
 
-mkdir -p $UNZIP_DIR
-unzip -q $BUILD_DIR/worldwind-2.0.0.zip -d $UNZIP_DIR/
+mkdir -p "$UNZIP_DIR"
+unzip -q "$BUILD_DIR/worldwind-2.0.0.zip" -d "$UNZIP_DIR"/
 
 #removing doc,gdal, sample data to save space
-rm -rf $UNZIP_DIR/lib-external/gdal
-rm -rf $UNZIP_DIR/doc
-rm -rf $UNZIP_DIR/testData
+rm -rf "$UNZIP_DIR/lib-external/gdal"
+rm -rf "$UNZIP_DIR/doc"
+rm -rf "$UNZIP_DIR/testData"
 
 #creating an executable of a sample
 if [ ! -e $INST_DIR/runSample.sh ]; then
@@ -110,7 +110,7 @@ chmod +x "$USER_HOME/Desktop/nasa_jww.desktop"
 
 ## Cleanup
 echo "\nCleanup..."
-rm -rf $BUILD_DIR
+rm -rf "$BUILD_DIR"
 
 ####
 "$BIN_DIR"/diskspace_probe.sh "`basename $0`" end
