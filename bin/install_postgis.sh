@@ -81,6 +81,7 @@ cat << EOF >> "/var/lib/postgresql/$PG_VERSION/main/postgresql.auto.conf"
 
 ## https://trac.osgeo.org/gdal/wiki/SecurityIssues
 postgis.gdal_enabled_drivers = 'ENABLE_ALL'
+postgis.enable_outdb_rasters = TRUE
 
 EOF
 
