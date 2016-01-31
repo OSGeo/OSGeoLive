@@ -76,12 +76,21 @@ for FILE in  pgadmin3  pgpass  ; do
     chmod 600 "$USER_HOME/.$FILE"
 done
 
+#enable gdal drivers
+cat << EOF >> "/var/lib/postgresql/$PG_VERSION/main/postgresql.auto.conf"
+
+## https://trac.osgeo.org/gdal/wiki/SecurityIssues
+postgis.gdal_enabled_drivers = 'ENABLE_ALL'
+postgis.enable_outdb_rasters = TRUE
+
+EOF
+
 ## TODO review - needed for 1404 ?!
 # fix for 2.1.1-1~precise3 package breakage
 # rm -f /usr/share/java/postgis.jar
 # ln -s /usr/share/java/postgis-jdbc-2.1.0~rc1.jar /usr/share/java/postgis.jar
 
-## shp2pgsql-gui desktop launcher
+#shp2pgsql-gui desktop launcher
 cat << EOF > /usr/share/applications/shp2pgsql-gui.desktop
 [Desktop Entry]
 Type=Application
