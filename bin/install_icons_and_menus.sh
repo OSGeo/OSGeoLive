@@ -44,7 +44,7 @@ DESKTOP_APPS="grass70 qgis gvsig* openjump uDig ossimplanet *Kosmo*
 
 #Desktop apps part 2 (geodata viewers and editors)
 NAV_APPS="marble gpsdrive opencpn josm merkaartor osm_online
-          viking zygrib gpsprune"
+          viking zygrib gpsprune nasa*"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
@@ -56,7 +56,7 @@ BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 MapFish-* GeoMO
 #disabled: i3geo
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="imagelinker r geokettle ipython-notebook* nasa*
+SPATIAL_TOOLS="imagelinker r geokettle ipython-notebook*
                mapslicer tilemill mapnik-* monteverdi* ossim-geocell"
 
 #Future home of PostGIS and Spatialite; pgRouting???
