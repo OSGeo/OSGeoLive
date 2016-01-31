@@ -52,8 +52,8 @@ WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 MapFish-* GeoMOOSE geonode-* cartaro-*"
-#disabled: i3geo
+BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonode-* cartaro-*"
+#disabled: i3geo MapFish-*
 
 #Infrastructure and miscellanea
 SPATIAL_TOOLS="imagelinker r geokettle ipython-notebook*
@@ -379,7 +379,6 @@ EOF
      Cartaro) APP_ICON=/usr/local/share/icons/logo-cartaro-48.png;;
      Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
      GeoNode) APP_ICON=/usr/share/icons/geonode.png;;
-     MapFish) APP_ICON=/usr/local/lib/mapfish/mapfish.png;;
      *) unset APP_ICON;;
    esac
 
