@@ -43,7 +43,7 @@ apt-add-repository --yes ppa:gcpp-kalxas/jupyter
 apt-get update
 
 # From Jupyter 1.0.0 setup.py dependencies
-apt-get install --assume-yes python-notebook python-jupyter-qtconsole python-jupyter-console python-nbconvert python-ipykernel python-ipywidgets
+apt-get install --assume-yes python-notebook python-qtconsole python-jupyter-console python-nbconvert python-ipykernel python-ipywidgets python-ipython
 
 #-- Clean-up
 apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
