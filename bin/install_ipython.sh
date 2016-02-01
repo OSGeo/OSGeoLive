@@ -30,24 +30,33 @@ BUILD_DIR=`pwd`
 ## 24jan14  change in iPython+numpy+matplotlib
 ## 04jul14  jtaylor iPython
 
-apt-get install --assume-yes  git python-pip \
-        python-matplotlib python-scipy python-pandas \
+apt-get install --assume-yes  python-matplotlib \
+        python-scipy python-pandas \
         python-netcdf python-netcdf4 \
         python-shapely python-rasterio python-fiona \
         python-geopandas python-descartes \
         python-enum34 python-geojson
 
-#pip install cligj  ## per ticket #1455 -- rasterio requirements
-#The deb package in our ppa is way older than the day this requirement was added...
 
-#-- iPython from jtaylor .deb
-apt-add-repository --yes ppa:jtaylor/ipython
+#-- Jupyter ppa
+apt-add-repository --yes ppa:gcpp-kalxas/jupyter
 apt-get update
 
-apt-get install --assume-yes ipython ipython-notebook ipython-qtconsole
+# From Jupyter 1.0.0 setup.py dependencies
+apt-get install --assume-yes python-notebook python-qtconsole python-jupyter-console python-nbconvert python-ipykernel python-ipywidgets python-ipython
 
 #-- Clean-up
-apt-add-repository --yes --remove ppa:jtaylor/ipython
+apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
+
+# Get Jupyter and IPython logos
+if [ ! -e "/usr/share/pixmaps/jupyter.png" ] ; then
+    wget -c --tries=3 --progress=dot:mega \
+        "https://github.com/OSGeo/OSGeoLive-doc/raw/master/images/project_logos/logo-jupyter.png" \
+        -O /usr/share/pixmaps/jupyter.png
+fi
+
+cp "$BUILD_DIR"/../app-data/ipython/ipython.png \
+   /usr/share/pixmaps/ipython.png
 
 cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
    "$USER_DESKTOP"/
