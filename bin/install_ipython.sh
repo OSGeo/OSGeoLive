@@ -49,19 +49,15 @@ apt-get install --assume-yes python-notebook python-qtconsole python-jupyter-con
 apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
 
 # Get Jupyter and IPython logos
-if [ ! -e "/usr/share/pixmaps/jupyter.png" ] ; then
-    wget -c --tries=3 --progress=dot:mega \
-        "https://github.com/OSGeo/OSGeoLive-doc/raw/master/images/project_logos/logo-jupyter.png" \
-        -O /usr/share/pixmaps/jupyter.png
-fi
+cp "$BUILD_DIR"/../app-data/ipython/jupyter.svg \
+   /usr/share/icons/hicolor/scalable/apps/jupyter.svg
 
-cp "$BUILD_DIR"/../app-data/ipython/ipython.png \
-   /usr/share/pixmaps/ipython.png
+cp "$BUILD_DIR"/../app-data/ipython/ipython.svg \
+   /usr/share/icons/hicolor/scalable/apps/ipython.svg
 
 cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
    "$USER_DESKTOP"/
 chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
-
 
 cp "$BUILD_DIR"/../app-data/ipython/ipython_*.sh \
    /usr/local/bin/
