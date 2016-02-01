@@ -1,11 +1,11 @@
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=IPython Notebook
-Comment=IPython Notebook
+Name=Jupyter Notebook (IPython)
+Comment=Jupyter Notebook (IPython)
 Categories=Application;Education;Geography;
 Exec=firefox http://localhost:8883
-Icon=ipython
+Icon=/usr/share/pixmaps/jupyter.png
 Terminal=false
 StartupNotify=false
 MimeType=application/x-ipynb+json;
