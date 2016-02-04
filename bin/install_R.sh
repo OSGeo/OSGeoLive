@@ -57,7 +57,7 @@ apt-get -q update
 #Plugin interaction with R
 apt-get --assume-yes install python-rpy python-shapely \
     build-essential gfortran libblas-dev liblapack-dev  \
-    netcdf-bin
+    netcdf-bin libzmq3-dev
 
 # These dependencies were only necessary for building packages which is now done in the ppa
 # apt-get --assume-yes install python-all-dev libgdal-dev \
