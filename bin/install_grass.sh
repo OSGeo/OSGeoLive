@@ -59,7 +59,7 @@ mkdir "$TMP_DIR"
 # https://launchpad.net/~grass/+archive/grass-stable?field.series_filter=trusty
 # apt-add-repository --yes ppa:grass/grass-stable
 apt-get --quiet update
-apt-get --yes install grass-core grass-gui grass-doc grass-dev
+apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal1-1.11.3-grass
 
 #### install desktop icon ####
 sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 7/' \
