@@ -33,8 +33,8 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR=/tmp/build_ossim
 APP_DATA_DIR="$BUILD_DIR/../app-data/ossim"
 DATA_FOLDER="/usr/local/share/data"
-OSSIM_VERSION=1.8.18
-BUILD_DATE=20150707
+OSSIM_VERSION=1.8.20
+BUILD_DATE=20160203
 
 apt-get -q update
 
@@ -55,17 +55,16 @@ apt-get install --assume-yes libfftw3-3 libfftw3-bin libfftw3-long3 libfftw3-qua
 mkdir -p "$TMP_DIR"
 cd "$TMP_DIR"
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/gpstk_2.5_$ARCH.deb"	     
-dpkg -i gpstk_2.5_$ARCH.deb
+wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/gpstk_2.5_"$ARCH".deb
+wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/libossimqt4_"$OSSIM_VERSION"_"$ARCH".deb
+wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/libossim-wms_"$OSSIM_VERSION"_"$ARCH".deb
+wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/libossimplanet_"$OSSIM_VERSION"_"$ARCH".deb
+wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/ossim-gui_"$OSSIM_VERSION"_"$ARCH".deb
+wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/ossim-plugins_"$OSSIM_VERSION"_"$ARCH".deb
+wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/ossim-share_"$OSSIM_VERSION"_"$ARCH".deb
+wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/ossimplanet_"$OSSIM_VERSION"_"$ARCH".deb
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-qt_1.8.18_$ARCH.deb"
-dpkg -i ossim-qt_1.8.18_$ARCH.deb
-
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-plugins_1.8.18_$ARCH.deb"
-dpkg -i ossim-plugins_1.8.18_$ARCH.deb
-
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-share_1.18.18_all.deb"
-dpkg -i ossim-share_1.18.18_all.deb
+dpkg -i gpstk_2.5_"$ARCH".deb libossimqt4_"$OSSIM_VERSION"_"$ARCH".deb libossim-wms_"$OSSIM_VERSION"_"$ARCH".deb libossimplanet_"$OSSIM_VERSION"_"$ARCH".deb ossim-gui_"$OSSIM_VERSION"_"$ARCH".deb ossim-plugins_"$OSSIM_VERSION"_"$ARCH".deb ossim-share_"$OSSIM_VERSION"_"$ARCH".deb ossimplanet_"$OSSIM_VERSION"_"$ARCH".deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossimPlanet.xpm"
 mv ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
