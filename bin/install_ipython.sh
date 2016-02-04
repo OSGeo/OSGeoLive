@@ -35,7 +35,7 @@ apt-get install --assume-yes  python-matplotlib \
         python-netcdf python-netcdf4 \
         python-shapely python-rasterio python-fiona \
         python-geopandas python-descartes \
-        python-enum34 python-geojson
+        python-enum34 python-geojson python-folium
 
 
 #-- Jupyter ppa
@@ -47,9 +47,6 @@ apt-get install --assume-yes python-notebook python-qtconsole python-jupyter-con
 
 #-- Clean-up
 apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
-
-##-- demo packages
-apt-get install python-folium
 
 # Get Jupyter and IPython logos
 cp "$BUILD_DIR"/../app-data/ipython/jupyter.svg \
