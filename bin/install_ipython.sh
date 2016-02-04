@@ -48,6 +48,9 @@ apt-get install --assume-yes python-notebook python-qtconsole python-jupyter-con
 #-- Clean-up
 apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
 
+##-- demo packages
+apt-get install python-folium
+
 # Get Jupyter and IPython logos
 cp "$BUILD_DIR"/../app-data/ipython/jupyter.svg \
    /usr/share/icons/hicolor/scalable/apps/jupyter.svg
