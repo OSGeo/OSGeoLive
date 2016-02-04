@@ -55,16 +55,29 @@ apt-get install --assume-yes libfftw3-3 libfftw3-bin libfftw3-long3 libfftw3-qua
 mkdir -p "$TMP_DIR"
 cd "$TMP_DIR"
 
-wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/gpstk_2.5_"$ARCH".deb
-wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/libossimqt4_"$OSSIM_VERSION"_"$ARCH".deb
-wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/libossim-wms_"$OSSIM_VERSION"_"$ARCH".deb
-wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/libossimplanet_"$OSSIM_VERSION"_"$ARCH".deb
-wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/ossim-gui_"$OSSIM_VERSION"_"$ARCH".deb
-wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/ossim-plugins_"$OSSIM_VERSION"_"$ARCH".deb
-wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/ossim-share_"$OSSIM_VERSION"_"$ARCH".deb
-wget -c --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/deb/ossimplanet_"$OSSIM_VERSION"_"$ARCH".deb
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-plugins_${OSSIM_VERSION}_${ARCH}.deb"
+dpkg -i ossim-plugins_${OSSIM_VERSION}_${ARCH}.deb
 
-dpkg -i gpstk_2.5_"$ARCH".deb libossimqt4_"$OSSIM_VERSION"_"$ARCH".deb libossim-wms_"$OSSIM_VERSION"_"$ARCH".deb libossimplanet_"$OSSIM_VERSION"_"$ARCH".deb ossim-gui_"$OSSIM_VERSION"_"$ARCH".deb ossim-plugins_"$OSSIM_VERSION"_"$ARCH".deb ossim-share_"$OSSIM_VERSION"_"$ARCH".deb ossimplanet_"$OSSIM_VERSION"_"$ARCH".deb
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/gpstk_2.5_${ARCH}.deb"
+dpkg -i gpstk_2.5_${ARCH}.deb
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/libossim-wms_${OSSIM_VERSION}_${ARCH}.deb"
+dpkg -i libossim-wms_${OSSIM_VERSION}_${ARCH}.deb
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-gui_${OSSIM_VERSION}_${ARCH}.deb"
+dpkg -i ossim-gui_${OSSIM_VERSION}_${ARCH}.deb
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/libossimqt4_${OSSIM_VERSION}_${ARCH}.deb"
+dpkg -i libossimqt4_${OSSIM_VERSION}_${ARCH}.deb
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/libossimplanet_${OSSIM_VERSION}_${ARCH}.deb"
+dpkg -i libossimplanet_${OSSIM_VERSION}_${ARCH}.deb
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossimplanet_${OSSIM_VERSION}_${ARCH}.deb"
+dpkg -i ossimplanet_${OSSIM_VERSION}_${ARCH}.de
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-share_${OSSIM_VERSION}_${ARCH}.deb"
+dpkg -i ossim-share_${OSSIM_VERSION}_${ARCH}.deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossimPlanet.xpm"
 mv ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
@@ -77,12 +90,11 @@ cat << EOF > /usr/share/applications/imagelinker.desktop
 Version=1.0
 Name=Imagelinker
 Comment=OSSIM imagelinker
-Exec=env LD_LIBRARY_PATH=/usr/local/ossim-qt/ /usr/local/ossim-qt/imagelinker -P /usr/local/share/ossim/ossim_preference
+Exec=/usr/bin/imagelinker -P /usr/share/ossim/ossim_preference
 Icon=ossim
 Terminal=false
 Type=Application
 StartupNotify=true
-Path=/usr/local/ossim-qt/
 Categories=Education;Science;Geography;
 GenericName=
 EOF
@@ -95,12 +107,11 @@ cat << EOF > /usr/share/applications/ossimplanet.desktop
 Version=1.0
 Name=OssimPlanet
 Comment=OSSIM Planet
-Exec=env LD_LIBRARY_PATH=/usr/local/ossim-qt /usr/local/ossim-qt/ossimplanet -P /usr/local/share/ossim/ossim_preference
+Exec=/usr/bin/ossimplanet -P /usr/share/ossim/ossim_preference
 Icon=ossimPlanet
 Terminal=false
 Type=Application
 StartupNotify=true
-Path=/usr/local/ossim-qt/
 Categories=Education;Science;Geography;
 GenericName=
 EOF
@@ -113,12 +124,11 @@ cat << EOF > /usr/share/applications/ossim-geocell.desktop
 Version=1.0
 Name=OSSIM-geocell
 Comment=OSSIM-geocell
-Exec=env LD_LIBRARY_PATH=/usr/local/ossim-qt /usr/local/ossim-qt/ossim-geocell -P /usr/local/share/ossim/ossim_preference
+Exec=/usr/bin/ossim-geocell -P /usr/share/ossim/ossim_preference
 Icon=ossim
 Terminal=false
 Type=Application
 StartupNotify=true
-Path=/usr/local/ossim-qt/
 Categories=Education;Science;Geography;Network;Graphics;Qt;
 GenericName=
 EOF
@@ -127,7 +137,7 @@ cp -a /usr/share/applications/ossim-geocell.desktop "$USER_HOME/Desktop/"
 chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/ossim-geocell.desktop"
 
 
-OSSIM_PREFS_FILE="/usr/local/share/ossim/ossim_preference"
+OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"
 export OSSIM_PREFS_FILE
 
 if [ $? -ne 0 ] ; then
@@ -136,17 +146,13 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
-
-ldconfig
-
 BRCFILE="/etc/skel/.bashrc"
-echo 'export OSSIM_PREFS_FILE="/usr/local/share/ossim/ossim_preference"' >> "$BRCFILE"
-echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$BRCFILE"
-echo 'export OSSIM_PREFS_FILE="/usr/local/share/ossim/ossim_preference"' >> "$USER_HOME/.bashrc"
-echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$USER_HOME/.bashrc"
+echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$BRCFILE"
+#echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$BRCFILE"
+echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$USER_HOME/.bashrc"
+#echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$USER_HOME/.bashrc"
 
-ln -s /usr/local/share/ossim/images/reference/bluemarble.tif \
+ln -s /usr/share/ossim/images/reference/bluemarble.tif \
   /usr/local/share/data/raster/   
 
 # add menu item
@@ -187,11 +193,11 @@ ln -s /usr/local/share/ossim/images/reference/bluemarble.tif \
 #Download data used to test the application
 KML_DATA="$DATA_FOLDER/kml"
 RASTER_DATA="$DATA_FOLDER/raster"
-ELEV_DATA=/usr/local/share/ossim/elevation/elev
+ELEV_DATA=/usr/share/ossim/elevation/elev
 SAT_DATA="$RASTER_DATA/cape_cod"
 #echo "FIXME: does VRT data actually ship anymore?"
 VRT_DATA="$DATA_FOLDER/vrt"
-QUICKSTART=/usr/local/share/ossim/quickstart
+QUICKSTART=/usr/share/ossim/quickstart
 
 #mkdir -p "$KML_DATA"
 mkdir -p "$RASTER_DATA"
@@ -263,8 +269,8 @@ mkdir -p "$QUICKSTART"/workspace
 chmod g+w "$QUICKSTART"/workspace
 chgrp users "$QUICKSTART"/workspace
 
-chmod g+w /usr/local/share/ossim/elevation
-chgrp users /usr/local/share/ossim/elevation
+chmod g+w /usr/share/ossim/elevation
+chgrp users /usr/share/ossim/elevation
 
 
 ## TODO: Port the following to GRASS7 - this part needs gdal-grass plugin (not yet available for grass 7.x)
@@ -326,9 +332,9 @@ done
 
 # ossim-geocell tutorial
 wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/OSSIMGeoCell__User_Manual__1.8.18-1.pdf
-mv OSSIMGeoCell__User_Manual__1.8.18-1.pdf /usr/local/share/ossim/
+mv OSSIMGeoCell__User_Manual__1.8.18-1.pdf /usr/share/ossim/
 
-chmod 644 /usr/local/share/ossim/*.pdf
+chmod 644 /usr/share/ossim/*.pdf
 
 #### cleanup
 rm -rf "$QUICKSTART"/.svn
