@@ -40,7 +40,7 @@ apt-get -q update
 
 # ossim-qt dependencies
 # FIXME: be sure all of those dep are added to the deb control file (or in fpm using -d)
-apt-get install --assume-yes ossim-core libossim1 libossim-dev libopenscenegraph99 libqt4-opengl libossim-dev libqt4-core libqt4-qt3support
+apt-get install --assume-yes ossim-core libossim1 libossim-dev libopenscenegraph99 libqt4-opengl libossim-dev libqt4-core libqt4-qt3support openscenegraph
 
 # ossim-plugins dependencies
 # FIXME: be sure all of those dep are added to the deb control file (or in fpm using -d)
