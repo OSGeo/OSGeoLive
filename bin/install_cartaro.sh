@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Copyright (c) 2012 geOps (www.geops.de)
+# Copyright (c) 2012-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -23,7 +24,7 @@
 #
 # Depedencies:
 # ===========
-# Needs already installed Geoserver with at leas version 2.2
+# Needs already installed Geoserver with at least version 2.2
 #
 
 ./diskspace_probe.sh "`basename $0`" begin

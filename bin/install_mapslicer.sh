@@ -4,7 +4,7 @@
 #
 # Created by Klokan Petr Pridal <petr.pridal@klokantech.com>
 #
-# Copyright (c) 2010-15 The Open Source Geospatial Foundation.
+# Copyright (c) 2010-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 

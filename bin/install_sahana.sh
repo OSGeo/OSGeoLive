@@ -4,7 +4,7 @@
 # Purpose: Installation of Sahana Eden into Xubuntu
 # Author:  Fran Boon, Rik Goldman, Steven Robinson, Jerel Moses, Maurice Quarles
 #
-# Copyright (c) 2011-12 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2011-2016 Open Source Geospatial Foundation (OSGeo)
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
