@@ -32,7 +32,7 @@
 CARTARO_PASSWORD="geoserver"
 CARTARO_USER="cartaro-admin"
 
-CARTARO_VERSION="1.8"
+CARTARO_VERSION="1.9"
 
 DB_NAME="cartaro"
 DB_USER="cartaro"
