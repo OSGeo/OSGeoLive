@@ -58,7 +58,8 @@ if [ -d /var/www/html/cesium ]; then
 fi
 
 cp -rf $UNZIP_DIR /var/www/html/
-chgrp www-data -R /var/www/html/$WEB_DIR
+chgrp www-data -R /var/www/html/"$WEB_DIR"
+chmod -R 755 /var/www/html/"$WEB_DIR"/Build
 
 echo "\nGenerating launcher..."
 cp /var/www/html/cesium/logo.png /usr/share/pixmaps/cesium.png
