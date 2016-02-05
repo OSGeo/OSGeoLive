@@ -49,7 +49,7 @@ cd "$BUILD_TMP"
 echo "Getting and installing spatialite"
 apt-get install --assume-yes spatialite-bin 
 # Now the GUI and rasterlite libs
-apt-get install --assume-yes librasterlite2 rasterlite-bin spatialite-gui
+apt-get install --assume-yes librasterlite2 rasterlite-bin spatialite-gui sqlite3 sqlitebrowser
 
 
 
