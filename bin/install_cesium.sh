@@ -51,7 +51,7 @@ if [ -d "$UNZIP_DIR" ]; then
 fi
 
 mkdir -p "$UNZIP_DIR"
-unzip "${BUILD_DIR}/Cesium-${CESIUM_VERSION}.zip" -d "$UNZIP_DIR"/
+unzip -q "${BUILD_DIR}/Cesium-${CESIUM_VERSION}.zip" -d "$UNZIP_DIR"/
 
 if [ -d /var/www/html/cesium ]; then
   rm -rf /var/www/html/cesium
