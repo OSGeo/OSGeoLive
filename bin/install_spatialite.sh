@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -49,7 +49,7 @@ cd "$BUILD_TMP"
 echo "Getting and installing spatialite"
 apt-get install --assume-yes spatialite-bin 
 # Now the GUI and rasterlite libs
-apt-get install --assume-yes librasterlite2 rasterlite-bin spatialite-gui
+apt-get install --assume-yes librasterlite2 rasterlite-bin spatialite-gui sqlite3 sqlitebrowser
 
 
 

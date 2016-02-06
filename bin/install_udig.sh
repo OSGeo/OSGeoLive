@@ -4,7 +4,7 @@
 # Purpose: Installation of udig into Xubuntu
 # Author:  Stefan Hansen <shansen@lisasoft.com>
 #
-# Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.

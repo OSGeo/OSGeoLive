@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013 The Open Source Geospatial Foundation.
+# Copyright (c) 2013-2016 The Open Source Geospatial Foundation.
 # Author:  Brian Hamlin dbb maplabs@light42.com
 #
 # Licensed under the GNU LGPL version >= 2.1.
