@@ -123,20 +123,23 @@ if [ "$FULL" -eq 1 ] ; then
   adduser "$USER_NAME" users
   autoreconf -fi
 
+  # 08feb16 quiet the configure/make output
   ./configure --with-logdir="$RASDAMAN_HOME"/log \
       --prefix="$RASDAMAN_HOME" --with-wardir="$WARDIR" \
-      --with-netcdf
+      --with-netcdf  > /tmp/rasdaman_config_out.txt
 
   if [ $? -ne 0 ] ; then
      echo "ERROR: configure failed."
+     cat /tmp/rasdaman_config_out.txt
      pkg_cleanup
      exit 1
   fi
  
-  make version
-  make
+  make version > /tmp/rasdaman_make_out.txt 2> /tmp/rasdaman_make_outerr.txt
+  make > /tmp/rasdaman_make_out0.txt 2> /tmp/rasdaman_make_outerr0.txt
   if [ $? -ne 0 ] ; then
      echo "ERROR: compilation failed."
+     cat /tmp/rasdaman_make*
      pkg_cleanup
      exit 1
   fi
@@ -149,7 +152,7 @@ if [ "$FULL" -eq 1 ] ; then
   fi
 
   # free up the disk space
-  make clean
+  make clean > /tmp/rasdaman_make_out.txt 2> /tmp/rasdaman_make_outerr.txt
 
 
   # setup rasdaview
