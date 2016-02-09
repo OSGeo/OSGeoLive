@@ -18,7 +18,7 @@
 # Copyright 2003-2009 Peter Baumann / rasdaman GmbH.
 #
 # For more information please see <http://www.rasdaman.org>
-# or contact Peter Baumann via <baumann@rasdaman.com>.   
+# or contact Peter Baumann via <baumann@rasdaman.com>.
 #
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -113,7 +113,7 @@ if [ "$FULL" -eq 1 ] ; then
   fi
 
   cd "rasdaman"
- 
+
   # switch to current osgeo live tag
   git checkout "$OSGEOLIVE_TAG"
 
@@ -134,7 +134,7 @@ if [ "$FULL" -eq 1 ] ; then
      pkg_cleanup
      exit 1
   fi
- 
+
   make version > /tmp/rasdaman_make_out.txt 2> /tmp/rasdaman_make_outerr.txt
   make > /tmp/rasdaman_make_out0.txt 2> /tmp/rasdaman_make_outerr0.txt
   if [ $? -ne 0 ] ; then
@@ -144,9 +144,10 @@ if [ "$FULL" -eq 1 ] ; then
      exit 1
   fi
 
-  make install
+  make install  > /tmp/rasdaman_make_out.txt 2> /tmp/rasdaman_make_outerr.txt
   if [ $? -ne 0 ] ; then
      echo "ERROR: package install failed."
+     cat /tmp/rasdaman_make*
      pkg_cleanup
      exit 1
   fi
@@ -189,7 +190,7 @@ if [ "$FULL" -eq 1 ] ; then
   if [ `grep -c rasdaman/bin /etc/skel/.bashrc` -eq 0 ] ; then
      echo "export PATH=\"\$PATH:$RASDAMAN_HOME/bin\"" >> "/etc/skel/.bashrc"
   fi
- 
+
   # set host name
   chgrp -R users "$RASDAMAN_HOME"/etc/
   chmod -R g+w "$RASDAMAN_HOME"/etc/
