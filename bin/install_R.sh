@@ -83,7 +83,7 @@ apt-get --assume-yes install r-recommended
 # not found in Lucid: r-cran-adapt
 
 #Calls R script to do install with feedback to stdout
-#R --no-save < ../app-conf/R/installRpackages.r
+R --no-save < ../app-conf/R/installRpackages.r
 # This is replaced with the following line which installs packages from our repository:
 apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
  r-cran-geor r-cran-gstat r-cran-maptools r-cran-randomfields r-cran-raster\
