@@ -63,10 +63,11 @@ cp "$BUILD_DIR"/../app-data/ipython/ipython_*.sh \
    /usr/local/bin/
 chmod a+x /usr/local/bin/ipython_*.sh
 
-mkdir -p "$USER_HOME/ipython"
+## feb16 rename to jupyter dir
+mkdir -p "$USER_HOME/jupyter"
 git clone https://github.com/OSGeo/IPython_notebooks \
-   "$USER_HOME/ipython/notebooks"
-chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/ipython"
+   "$USER_HOME/jupyter/notebooks"
+chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/jupyter"
 
 ##-- 8.0b1  simple example, launch not resolved
 cp "$BUILD_DIR"/../app-data/ipython/cartopy_simple.ipynb \
