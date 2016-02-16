@@ -249,11 +249,11 @@ echo "application/x-openstreetmap+xml=josm.desktop" >> \
 echo "application/x-netcdf=ncWMS-start.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
-# ipython notebooks
+# jupyter/ipython notebooks
 echo "application/x-ipynb+json\t\t\tipynb" >> \
    /etc/mime.types
 # erhm..
-echo "application/x-ipynb+json=osgeo-ipython-notebook.desktop" >> \
+echo "application/x-ipynb+json=osgeo-jupyter-notebook.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
 echo "application/x-mbtiles+sql\t\t\tmbtiles" >> \
