@@ -36,5 +36,5 @@ export GRASS_TRANSPARENT GRASS_TRUECOLOR GRASS_PNG_COMPRESSION GRASS_PNG_AUTO_WR
 
 mkdir -p "/home/$USER/ossim/workspace"
 
-ipython_net_start.sh
+jupyterlive_net_start.sh
 
