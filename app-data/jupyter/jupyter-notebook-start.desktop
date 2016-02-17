@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Start Jupyter/IPython Notebook
-Comment=Jupyter/IPython Notebook
+Name=Start Jupyter Notebook
+Comment=Jupyter Notebook
 Categories=Application;Education;Geography;
 Exec=/usr/local/bin/jupyter_net_start.sh
 Icon=jupyter
