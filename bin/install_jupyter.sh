@@ -49,17 +49,17 @@ apt-get install --assume-yes python-notebook python-qtconsole python-jupyter-con
 apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
 
 # Get Jupyter and IPython logos
-cp "$BUILD_DIR"/../app-data/ipython/jupyter.svg \
+cp "$BUILD_DIR"/../app-data/jupyter/jupyter.svg \
    /usr/share/icons/hicolor/scalable/apps/jupyter.svg
 
-cp "$BUILD_DIR"/../app-data/ipython/ipython.svg \
+cp "$BUILD_DIR"/../app-data/jupyter/ipython.svg \
    /usr/share/icons/hicolor/scalable/apps/ipython.svg
 
-cp "$BUILD_DIR"/../app-data/ipython/ipython-notebook*.desktop \
+cp "$BUILD_DIR"/../app-data/jupyter/ipython-notebook*.desktop \
    "$USER_DESKTOP"/
 chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
 
-cp "$BUILD_DIR"/../app-data/ipython/ipython_*.sh \
+cp "$BUILD_DIR"/../app-data/jupyter/ipython_*.sh \
    /usr/local/bin/
 chmod a+x /usr/local/bin/ipython_*.sh
 
@@ -70,7 +70,7 @@ git clone https://github.com/OSGeo/IPython_notebooks \
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/jupyter"
 
 ##-- 8.0b1  simple example, launch not resolved
-cp "$BUILD_DIR"/../app-data/ipython/cartopy_simple.ipynb \
+cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/ipython/notebooks/"
 cp -r /home/user/ipython /etc/skel
 
@@ -85,18 +85,18 @@ cp -r /home/user/ipython /etc/skel
 
 if [ ! -d "/etc/skel/.ipython/profile_default" ] ; then
    mkdir -p "/etc/skel/.ipython/profile_default"
-   cp -r "$BUILD_DIR"/../app-data/ipython/static/ \
+   cp -r "$BUILD_DIR"/../app-data/jupyter/static/ \
       /etc/skel/.ipython/profile_default/
 fi
 
-if [ ! -d "/etc/skel/.ipython/nbextensions" ] ; then
-   mkdir -p "/etc/skel/.ipython/nbextensions"
-   cp -r "$BUILD_DIR"/../app-data/ipython/nbextensions/* \
-      /etc/skel/.ipython/nbextensions/
-   # these only exist after build is complete, so dangling symlinks during the build
-   ln -s /var/www/html/openlayers/ /etc/skel/.ipython/nbextensions/
-   ln -s /var/www/html/reveal.js/ /etc/skel/.ipython/nbextensions/ 
-fi
+#if [ ! -d "/etc/skel/.ipython/nbextensions" ] ; then
+#   mkdir -p "/etc/skel/.ipython/nbextensions"
+#   cp -r "$BUILD_DIR"/../app-data/ipython/nbextensions/* \
+#      /etc/skel/.ipython/nbextensions/
+#   # these only exist after build is complete, so dangling symlinks during the build
+#   ln -s /var/www/html/openlayers/ /etc/skel/.ipython/nbextensions/
+#   ln -s /var/www/html/reveal.js/ /etc/skel/.ipython/nbextensions/ 
+#fi
 
 
 ####
