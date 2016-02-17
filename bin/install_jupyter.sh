@@ -59,9 +59,9 @@ cp "$BUILD_DIR"/../app-data/jupyter/ipython-notebook*.desktop \
    "$USER_DESKTOP"/
 chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/ipython-notebook*.desktop
 
-cp "$BUILD_DIR"/../app-data/jupyter/ipython_*.sh \
+cp "$BUILD_DIR"/../app-data/jupyter/jupyterlive_* \
    /usr/local/bin/
-chmod a+x /usr/local/bin/ipython_*.sh
+chmod a+x /usr/local/bin/jupyterlive_*.sh
 
 ## feb16 rename to jupyter dir
 mkdir -p "$USER_HOME/jupyter"
