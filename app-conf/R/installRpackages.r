@@ -6,8 +6,7 @@ core <- c("classInt", "DCluster", "deldir", "geoR", "gstat", "maptools",
 
 #non-spatial <- c("RPostgresql","RSQLite","RODBC")
 
-packagelist <- core
-
+#packagelist <- core
 #for (i in packagelist) {
 #	#Generic Version followed by Australian Repos
 #	#install.packages(i, repos= "http://cran.r-project.org", lib = "/usr/local/lib/R/site-library/" , dependencies = TRUE)
