@@ -4,7 +4,7 @@
 # Purpose: This script will install tomcat 7
 #
 #############################################################################
-# Copyright (c) 2009-2015 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #

@@ -8,8 +8,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-ipython notebook --port=8883 --no-browser \
-   --notebook-dir="$USER_HOME/ipython/notebooks" \
-   --matplotlib=inline \
+jupyter notebook --port=8883 --no-browser \
+   --notebook-dir="$USER_HOME/jupyter/notebooks" \
    --ip='*'
 

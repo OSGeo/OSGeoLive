@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2014 The Open Source Geospatial Foundation.
+# Copyright (c) 2014-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -59,7 +59,7 @@ mkdir "$TMP_DIR"
 # https://launchpad.net/~grass/+archive/grass-stable?field.series_filter=trusty
 # apt-add-repository --yes ppa:grass/grass-stable
 apt-get --quiet update
-apt-get --yes install grass-core grass-gui grass-doc grass-dev
+apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal1-1.11.3-grass
 
 #### install desktop icon ####
 sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 7/' \

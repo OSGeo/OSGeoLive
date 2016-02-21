@@ -1,6 +1,6 @@
 #!/bin/sh
 # Author: H.Bowman <hamish_b  yahoo com>
-# Copyright (c) 2012 The Open Source Geospatial Foundation.
+# Copyright (c) 2012-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it

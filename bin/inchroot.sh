@@ -124,7 +124,7 @@ export USER_NAME
 ./install_java.sh "$ARCH"
 ./install_apache2.sh
 ./install_tomcat.sh
-./install_ipython.sh
+./install_jupyter.sh
 ./install_django.sh
 
 ./install_geoserver.sh
@@ -158,11 +158,10 @@ export USER_NAME
 ./install_viking.sh
 ./install_zygrib.sh
 ./install_liblas.sh
-# ./install_gpsdrive.sh "$ARCH"
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_R.sh
-# ./install_ossim.sh "$ARCH"
+./install_ossim.sh "$ARCH"
 ./install_osgearth.sh
 ./install_spatialite.sh
 ./install_zoo-project.sh

@@ -1,6 +1,25 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 9.5beta1
+====================
+
+ * NASA Java World Wind added
+ * istSOS project added
+ * GRASS 7.0.3
+ * Jupyter 1.0 and IPython 4.0 upgrade
+ * GeoServer 2.8.2 (including CSS extension)
+ * Cartaro 1.9
+ * Cesium 1.18
+ * OpenLayers 3.13.1
+ * MapBender 3.0.5.3
+ * SAGA 2.2.3
+ * Enabled GDAL drivers and outdb rasters for PostGIS
+ * Disabled GPSDrive from builds
+ * OSSIM plugins/GUI rebuilt on top of new libossim-dev (#1515)
+ * Added libgdal-grass
+ * Updated python packages (rasterio, fiona, folium, cartopy)
+
 Version 9.5alpha2
 ====================
 

@@ -1,5 +1,6 @@
 #!/bin/sh
-# Copyright (c) 2009-2013 by Hamish Bowman, and the Open Source Geospatial Foundation
+# Copyright (c) 2009-2013 by Hamish Bowman
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it

@@ -6,7 +6,7 @@
 # The menu creation and icon sorting has moved to install_icons_and_menus.sh
 #
 #############################################################################
-# Copyright (c) 2009-2015 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
 #
@@ -249,11 +249,11 @@ echo "application/x-openstreetmap+xml=josm.desktop" >> \
 echo "application/x-netcdf=ncWMS-start.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
-# ipython notebooks
+# jupyter notebooks
 echo "application/x-ipynb+json\t\t\tipynb" >> \
    /etc/mime.types
 # erhm..
-echo "application/x-ipynb+json=osgeo-ipython-notebook.desktop" >> \
+echo "application/x-ipynb+json=osgeo-jupyter-notebook.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
 echo "application/x-mbtiles+sql\t\t\tmbtiles" >> \

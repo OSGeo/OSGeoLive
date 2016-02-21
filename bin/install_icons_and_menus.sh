@@ -9,7 +9,7 @@
 # Author: Hamish Bowman
 #
 #############################################################################
-# Copyright (c) 2013-2015 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2013-2016 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL version >= 2.1.
 # 
@@ -56,7 +56,7 @@ BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonod
 #disabled: i3geo MapFish-*
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="imagelinker r geokettle ipython-notebook*
+SPATIAL_TOOLS="imagelinker r geokettle jupyter-notebook*
                mapslicer tilemill mapnik-* monteverdi* ossim-geocell"
 
 #Future home of PostGIS and Spatialite; pgRouting???
