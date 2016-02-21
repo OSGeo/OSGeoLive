@@ -90,6 +90,8 @@ apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
  r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
  r-cran-splancs r-cran-rgeos r-cran-ncdf r-cran-rsaga
 
+R --no-save < ../app-conf/R/installRpackages.r
+
 # add user to the staff group so that they can install system-wide packages
 adduser "$USER_NAME" staff
 
