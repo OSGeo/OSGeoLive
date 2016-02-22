@@ -92,7 +92,8 @@ apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
 #Calls R script to do install with feedback to stdout
 mkdir -p /usr/local/share/jupyter/kernels
 R --no-save < ../app-conf/R/installRpackages.r
-mv /home/user/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
+mv /roots/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
+
 
 # add user to the staff group so that they can install system-wide packages
 adduser "$USER_NAME" staff
