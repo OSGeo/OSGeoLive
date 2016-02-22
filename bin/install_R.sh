@@ -90,7 +90,7 @@ apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
  r-cran-splancs r-cran-rgeos r-cran-ncdf r-cran-rsaga
 
 #Calls R script to do install with feedback to stdout
-mkdir -P /usr/local/share/jupyter/kernels
+mkdir -p /usr/local/share/jupyter/kernels
 R --no-save < ../app-conf/R/installRpackages.r
 mv /home/user/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
 
