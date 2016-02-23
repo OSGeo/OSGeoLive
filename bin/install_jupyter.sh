@@ -32,7 +32,7 @@ apt-get install --assume-yes  python-matplotlib \
         python-netcdf python-netcdf4 \
         python-shapely python-rasterio python-fiona \
         python-geopandas python-descartes \
-        python-enum34 python-geojson python-folium
+        python-enum34 python-geojson python-folium python-pysal
 
 
 #-- Jupyter ppa
@@ -65,6 +65,10 @@ git clone https://github.com/OSGeo/IPython_notebooks \
    "$USER_HOME/jupyter/notebooks"
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/jupyter"
 
+wget -q http://download.osgeo.org/livedvd/9.5/jupyter/iris/sample_data.tgz
+tar xf sample_data.tgz
+mv sample_data ~/jupyter/notebooks/OSGeo-live/IRIS/
+
 ##-- 8.0b1  simple example, launch not resolved
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/jupyter/notebooks/"
@@ -79,20 +83,21 @@ cp -r /home/user/jupyter /etc/skel
 #         and few other notebook extensions
 #         instructions to do so can be stored on a extra script to run from a live session
 
-if [ ! -d "/etc/skel/.ipython/profile_default" ] ; then
-   mkdir -p "/etc/skel/.ipython/profile_default"
-   cp -r "$BUILD_DIR"/../app-data/jupyter/static/ \
-      /etc/skel/.ipython/profile_default/
-fi
+#if [ ! -d "/etc/skel/.ipython/profile_default" ] ; then
+#   mkdir -p "/etc/skel/.ipython/profile_default"
+#   cp -r "$BUILD_DIR"/../app-data/jupyter/static/ \
+#      /etc/skel/.ipython/profile_default/
+#fi
 
-if [ ! -d "/etc/skel/.ipython/nbextensions" ] ; then
-   mkdir -p "/etc/skel/.ipython/nbextensions"
-   cp -r "$BUILD_DIR"/../app-data/jupyter/nbextensions/* \
-      /etc/skel/.ipython/nbextensions/
-   # these only exist after build is complete, so dangling symlinks during the build
-   ln -s /var/www/html/openlayers/ /etc/skel/.ipython/nbextensions/
-   ln -s /var/www/html/reveal.js/ /etc/skel/.ipython/nbextensions/ 
-fi
+#if [ ! -d "/etc/skel/.ipython/nbextensions" ] ; then
+#   mkdir -p "/etc/skel/.ipython/nbextensions"
+#   cp -r "$BUILD_DIR"/../app-data/jupyter/nbextensions/* \
+#      /etc/skel/.ipython/nbextensions/
+#   # these only exist after build is complete, so dangling symlinks during the build
+#   ln -s /var/www/html/openlayers/ /etc/skel/.ipython/nbextensions/
+#   ln -s /var/www/html/reveal.js/ /etc/skel/.ipython/nbextensions/
+#fi
+
 
 
 ####
