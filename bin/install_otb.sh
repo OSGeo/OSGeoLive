@@ -52,7 +52,7 @@ cat << EOF > /usr/share/applications/otb-mapla.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=OTB Applications
+Name=OTB Launcher
 Comment=OTB Mapla
 Categories=Application;Geography;Geoscience;Education;
 Exec=/usr/bin/mapla
