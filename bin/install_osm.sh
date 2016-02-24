@@ -56,6 +56,11 @@ gui.maximized=false
 EOF
 chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
 
+## v9.5 add util nik4.py
+wget -q http://download.osgeo.org/livedvd/9.5/osm/nik4.py
+chmod a+x nik4.py
+mv nik4.py /usr/local/bin/nik4
+
 #### desktop icons
 echo "MimeType=application/x-openstreetmap+xml;" \
    >> /usr/share/applications/josm.desktop
