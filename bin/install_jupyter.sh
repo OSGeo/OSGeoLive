@@ -65,9 +65,13 @@ git clone https://github.com/OSGeo/IPython_notebooks \
    "$USER_HOME/jupyter/notebooks"
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/jupyter"
 
-wget -q http://download.osgeo.org/livedvd/9.5/jupyter/iris/sample_data.tgz
+cd /tmp
+wget -c --tries=3 --progress=dot:mega \
+  "http://download.osgeo.org/livedvd/9.5/jupyter/iris/sample_data.tgz"
 tar xf sample_data.tgz
-mv sample_data ~/jupyter/notebooks/OSGeo-live/IRIS/
+mkdir -p "$USER_HOME/jupyter/notebooks/OSGeo-live/IRIS"
+mv sample_data "$USER_HOME/jupyter/notebooks/OSGeo-live/IRIS/"
+cd "$BUILD_DIR"
 
 ##-- 8.0b1  simple example, launch not resolved
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
