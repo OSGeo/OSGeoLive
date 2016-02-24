@@ -27,7 +27,7 @@
 # About:
 # =====
 # This script will install geonetwork into OSGeo live
-# stable version: v3.0.1
+# stable version: v3.0.3
 # based on Jetty + GeoNetwork + H2
 # Installed at /usr/local/lib/geonetwork
 # Port number = 8880
@@ -43,7 +43,7 @@
 # To enter geonetwork, start browser with url:
 # http://localhost:8880/geonetwork
 #
-# GeoNetwork version 3.0.1 runs with java 7 or higher.
+# GeoNetwork version 3.0.3 runs with java 7 or higher.
 # It can be installed into servlet containers: jetty and tomcat. Jetty is   
 # bundled with the installer.
 
@@ -57,8 +57,8 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-GEONETWORK_VERSION=3.0.1-0
-GEONETWORK_VERSION_FOLDER=3.0.1
+GEONETWORK_VERSION=3.0.3-0
+GEONETWORK_VERSION_FOLDER=3.0.3
 
 TMP="/tmp/build_geonetwork"
 INSTALL_FOLDER="/usr/local/lib"
@@ -85,8 +85,9 @@ if [ -f "geonetwork-install-$GEONETWORK_VERSION.jar" ]
 then
    echo "geonetwork-install-$GEONETWORK_VERSION.jar has already been downloaded."
 else
+#     "http://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v$GEONETWORK_VERSION_FOLDER/geonetwork-install-$GEONETWORK_VERSION.jar/download" \
    wget -c --progress=dot:mega \
-     "http://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v$GEONETWORK_VERSION_FOLDER/geonetwork-install-$GEONETWORK_VERSION.jar/download" \
+     "http://oa-gis.csiro.au/geonetwork-install-$GEONETWORK_VERSION.jar" \
      -O geonetwork-install-$GEONETWORK_VERSION.jar
 fi
 
@@ -116,7 +117,6 @@ java -jar geonetwork-install-$GEONETWORK_VERSION.jar install.xml
 
 cp -f jetty.xml "$GEONETWORK_FOLDER/jetty/etc/jetty.xml"
 cp -f data-db-default.sql "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/."
-cp -f wro4j-cache.* "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/data/."
 cp -f startup.sh "$GEONETWORK_FOLDER/bin/startup.sh"
 cp -f shutdown.sh "$GEONETWORK_FOLDER/bin/shutdown.sh"
 
