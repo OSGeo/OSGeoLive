@@ -63,7 +63,7 @@ chmod a+x /usr/local/bin/jupyter_*.sh
 
 ## feb16 rename to jupyter dir
 mkdir -p "$USER_HOME/jupyter"
-git clone https://github.com/OSGeo/Jupyter_notebooks \
+git clone https://github.com/OSGeo/osgeolive-jnb \
    "$USER_HOME/jupyter/notebooks"
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/jupyter"
 
