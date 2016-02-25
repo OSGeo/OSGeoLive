@@ -71,8 +71,8 @@ cd /tmp
 wget -c --tries=3 --progress=dot:mega \
   "http://download.osgeo.org/livedvd/9.5/jupyter/iris/sample_data.tgz"
 tar xf sample_data.tgz
-mkdir -p "$USER_HOME/jupyter/notebooks/OSGeo-live/IRIS"
-mv sample_data "$USER_HOME/jupyter/notebooks/python2-all/IRIS/"
+mkdir -p "$USER_HOME/jupyter/notebooks/python2-notebooks/IRIS"
+mv sample_data "$USER_HOME/jupyter/notebooks/python2-notebooks/IRIS/"
 cd "$BUILD_DIR"
 
 
