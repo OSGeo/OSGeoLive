@@ -57,7 +57,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-GEONETWORK_VERSION=3.0.3-0
+GEONETWORK_VERSION=3.0.3-osgeolive
 GEONETWORK_VERSION_FOLDER=3.0.3
 
 TMP="/tmp/build_geonetwork"
@@ -85,9 +85,8 @@ if [ -f "geonetwork-install-$GEONETWORK_VERSION.jar" ]
 then
    echo "geonetwork-install-$GEONETWORK_VERSION.jar has already been downloaded."
 else
-#     "http://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v$GEONETWORK_VERSION_FOLDER/geonetwork-install-$GEONETWORK_VERSION.jar/download" \
    wget -c --progress=dot:mega \
-     "http://oa-gis.csiro.au/geonetwork-install-$GEONETWORK_VERSION.jar" \
+     "http://sourceforge.net/projects/geonetwork/files/GeoNetwork_unstable_development_versions/$GEONETWORK_VERSION_FOLDER/geonetwork-install-$GEONETWORK_VERSION.jar/download" \
      -O geonetwork-install-$GEONETWORK_VERSION.jar
 fi
 
