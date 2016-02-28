@@ -32,8 +32,8 @@ apt-get install --assume-yes  python-matplotlib \
         python-netcdf python-netcdf4 \
         python-shapely python-rasterio python-fiona \
         python-geopandas python-descartes \
-        python-enum34 python-geojson python-folium
-
+        python-enum34 python-geojson python-folium \
+        python-pysal fiona rasterio
 
 #-- Jupyter ppa
 apt-add-repository --yes ppa:gcpp-kalxas/jupyter
@@ -61,9 +61,18 @@ chmod a+x /usr/local/bin/jupyter_*.sh
 
 ## feb16 rename to jupyter dir
 mkdir -p "$USER_HOME/jupyter"
-git clone https://github.com/OSGeo/IPython_notebooks \
+git clone https://github.com/OSGeo/osgeolive-jnb \
    "$USER_HOME/jupyter/notebooks"
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/jupyter"
+
+cd /tmp
+wget -c --tries=3 --progress=dot:mega \
+  "http://download.osgeo.org/livedvd/9.5/jupyter/iris/sample_data.tgz"
+tar xf sample_data.tgz
+mkdir -p "$USER_HOME/jupyter/notebooks/python2-notebooks/IRIS"
+mv sample_data "$USER_HOME/jupyter/notebooks/python2-notebooks/IRIS/"
+cd "$BUILD_DIR"
+
 
 ##-- 8.0b1  simple example, launch not resolved
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
@@ -79,20 +88,20 @@ cp -r /home/user/jupyter /etc/skel
 #         and few other notebook extensions
 #         instructions to do so can be stored on a extra script to run from a live session
 
-if [ ! -d "/etc/skel/.ipython/profile_default" ] ; then
-   mkdir -p "/etc/skel/.ipython/profile_default"
-   cp -r "$BUILD_DIR"/../app-data/jupyter/static/ \
-      /etc/skel/.ipython/profile_default/
-fi
+#if [ ! -d "/etc/skel/.ipython/profile_default" ] ; then
+#   mkdir -p "/etc/skel/.ipython/profile_default"
+#   cp -r "$BUILD_DIR"/../app-data/jupyter/static/ \
+#      /etc/skel/.ipython/profile_default/
+#fi
 
-if [ ! -d "/etc/skel/.ipython/nbextensions" ] ; then
-   mkdir -p "/etc/skel/.ipython/nbextensions"
-   cp -r "$BUILD_DIR"/../app-data/jupyter/nbextensions/* \
-      /etc/skel/.ipython/nbextensions/
-   # these only exist after build is complete, so dangling symlinks during the build
-   ln -s /var/www/html/openlayers/ /etc/skel/.ipython/nbextensions/
-   ln -s /var/www/html/reveal.js/ /etc/skel/.ipython/nbextensions/ 
-fi
+#if [ ! -d "/etc/skel/.ipython/nbextensions" ] ; then
+#   mkdir -p "/etc/skel/.ipython/nbextensions"
+#   cp -r "$BUILD_DIR"/../app-data/jupyter/nbextensions/* \
+#      /etc/skel/.ipython/nbextensions/
+#   # these only exist after build is complete, so dangling symlinks during the build
+#   ln -s /var/www/html/openlayers/ /etc/skel/.ipython/nbextensions/
+#   ln -s /var/www/html/reveal.js/ /etc/skel/.ipython/nbextensions/ 
+#fi
 
 
 ####
