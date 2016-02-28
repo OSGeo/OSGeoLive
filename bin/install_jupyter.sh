@@ -32,10 +32,8 @@ apt-get install --assume-yes  python-matplotlib \
         python-netcdf python-netcdf4 \
         python-shapely python-rasterio python-fiona \
         python-geopandas python-descartes \
-        python-enum34 python-geojson python-folium python-pysal
-
-##-- sgilles CLI tools - ref ticket #1630
-apt-get install fiona fiona-doc   rasterio
+        python-enum34 python-geojson python-folium \
+        python-pysal fiona rasterio
 
 #-- Jupyter ppa
 apt-add-repository --yes ppa:gcpp-kalxas/jupyter
