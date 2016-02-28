@@ -84,6 +84,7 @@ mv ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossim.xpm"
 mv ossim.xpm /usr/share/pixmaps/ossim.xpm
 
+
 # create launchers
 cat << EOF > /usr/share/applications/imagelinker.desktop
 [Desktop Entry]
@@ -136,6 +137,7 @@ EOF
 cp -a /usr/share/applications/ossim-geocell.desktop "$USER_HOME/Desktop/"
 chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/ossim-geocell.desktop"
 
+wget --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/ossim_preference -O /usr/share/ossim/ossim_preference
 
 OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"
 export OSSIM_PREFS_FILE
