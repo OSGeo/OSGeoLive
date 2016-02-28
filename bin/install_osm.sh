@@ -60,7 +60,8 @@ chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
 wget -c --tries=3 --progress=dot:mega \
   "https://github.com/Zverik/Nik4/raw/3415338e53ed67318c7b4c9f9d8402156d2ee4da/nik4.py"
 chmod a+x nik4.py
-mv nik4.py /usr/local/bin/nik4
+mv nik4.py /usr/local/bin/nik4.py
+ls -l /usr/local/bin/
 
 #### desktop icons
 echo "MimeType=application/x-openstreetmap+xml;" \
