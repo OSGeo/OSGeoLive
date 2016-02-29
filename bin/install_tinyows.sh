@@ -56,6 +56,7 @@ fi
 
 #Setup sample config
 ### HB: put into /usr/local/share/tinyows/ and not /etc?
+cd "$BUILD_DIR"
 cp ../app-conf/tinyows/tinyows.xml /etc/
 
 ####
