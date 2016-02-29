@@ -48,6 +48,20 @@ apt-get --assume-yes install libotb monteverdi otb-bin otb-bin-qt
 cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 
+cat << EOF > /usr/share/applications/otb-mapla.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=OTB Launcher
+Comment=OTB Mapla
+Categories=Application;Geography;Geoscience;Education;
+Exec=/usr/bin/mapla
+Icon=monteverdi
+Terminal=false
+EOF
+
+cp /usr/share/applications/otb-mapla.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/otb-mapla.desktop"
 
 # Download OrfeoToolBox data and documentation (software guide and cookbook)
 # Total: 60MB
