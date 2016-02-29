@@ -119,6 +119,8 @@ cp -f data-db-default.sql "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/set
 cp -f startup.sh "$GEONETWORK_FOLDER/bin/startup.sh"
 cp -f shutdown.sh "$GEONETWORK_FOLDER/bin/shutdown.sh"
 
+rm -f "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/lib/jai_*"
+
 # fix permissions on installed software
 #   what's really needed here? the logs for sure, the rest are guesses
 chgrp users "$GEONETWORK_FOLDER"/jetty
