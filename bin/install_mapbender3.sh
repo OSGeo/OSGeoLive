@@ -104,7 +104,7 @@ chmod -R ug+w "$INSTALL_DIR/mapbender3/app/cache/"
 chmod -R ug+w "$INSTALL_DIR/mapbender3/app/logs/"
 app/console assets:install web
 
-chown -R www-data:www-data "$INSTALL_DIR/mapbender3"
+chown -R user:www-data "$INSTALL_DIR/mapbender3"
 chmod -R ug+w "$INSTALL_DIR/mapbender3/app/cache/"
 chmod -R ug+w "$INSTALL_DIR/mapbender3/app/logs/"
 chmod -R ug+w "$INSTALL_DIR/mapbender3/web/"
