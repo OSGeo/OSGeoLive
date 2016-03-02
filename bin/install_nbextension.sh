@@ -76,4 +76,5 @@ ln -s /var/www/html/cesium /usr/local/lib/python2.7/dist-packages/CesiumWidget-0
 
 cd ../
 rm -rf CesiumWidget
-
+rm -rf python-pygeoif_0.6-1~trusty0_all.deb
+rm -rf python-czml_0.3.2-0~trusty1_all.deb
