@@ -30,5 +30,10 @@ sudo bash install.sh -p osgeo
 sudo service rasdaman stop
 sudo service tomcat7 stop
 
+echo "Rasdaman command log:"
+echo "==============================================="
+cat /tmp/rasdaman_command_log
+echo "==============================================="
+
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
