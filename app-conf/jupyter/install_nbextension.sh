@@ -52,7 +52,7 @@ apt-add-repository --yes ppa:gcpp-kalxas/jupyter
 apt-get update
 
 # 30 mb and w
-apt-get install python3-notebook
+#apt-get install python3-notebook -yes
 
 # install cesiumextension
 
