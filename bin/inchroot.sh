@@ -125,6 +125,7 @@ export USER_NAME
 ./install_apache2.sh
 ./install_tomcat.sh
 ./install_jupyter.sh
+./install_nbextension.sh "$ARCH"
 ./install_django.sh
 
 ./install_geoserver.sh
