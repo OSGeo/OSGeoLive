@@ -17,18 +17,36 @@
 # This script will install tinyows in ubuntu
 
 ./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
 ####
 
-#CAUTION: UbuntuGIS should be enabled only through setup.sh
-#Add repositories
-#cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
 
-#Add signed key for repositorys LTS and non-LTS
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160  
+TMP_DIR=/tmp/build_tinyows
+if [ ! -d "$TMP_DIR" ] ; then
+   mkdir "$TMP_DIR"
+fi
 
-apt-get -q update
+#Download sample data and add to PostgreSQL
+cd "$TMP_DIR"
+wget -c --tries=3 --progress=dot:mega \
+   "https://github.com/mapserver/tinyows/raw/master/demo/france.dbf"
+wget -c --tries=3 --progress=dot:mega \
+   "https://github.com/mapserver/tinyows/raw/master/demo/france.shp"
+wget -c --tries=3 --progress=dot:mega \
+   "https://github.com/mapserver/tinyows/raw/master/demo/france.shx"
+
+sudo -u $USER_NAME createdb tinyows_demo
+sudo -u $USER_NAME psql tinyows_demo -c 'create extension postgis;'
+sudo -u $USER_NAME shp2pgsql -s 27582 -I -W latin1 ./france.shp france > france.sql
+sudo -u $USER_NAME psql tinyows_demo < france.sql
+rm -rf france.*
 
 #Install packages
+apt-get -q update
 apt-get --assume-yes install tinyows
 
 if [ $? -ne 0 ] ; then
@@ -38,8 +56,8 @@ fi
 
 #Setup sample config
 ### HB: put into /usr/local/share/tinyows/ and not /etc?
+cd "$BUILD_DIR"
 cp ../app-conf/tinyows/tinyows.xml /etc/
 
-
 ####
-./diskspace_probe.sh "`basename $0`" end
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
