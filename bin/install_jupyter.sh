@@ -73,7 +73,7 @@ mkdir -p "$USER_HOME/jupyter/notebooks/python2-notebooks/IRIS"
 mv sample_data "$USER_HOME/jupyter/notebooks/python2-notebooks/IRIS/"
 cd "$BUILD_DIR"
 
-/usr/bin/sh ../app-conf/jupyter/install_nbextension.sh
+/bin/sh ../app-conf/jupyter/install_nbextension.sh amd64
 
 ##-- 8.0b1  simple example, launch not resolved
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
