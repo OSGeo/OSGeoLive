@@ -33,8 +33,8 @@ apt-get install python-czml python-pygeoif
 
 git clone https://github.com/OSGeo-live/CesiumWidget
 cd CesiumWidget
-python setup.py install
-jupyter nbextension install CesiumWidget/static/CesiumWidget
+python setup.py -q install
+jupyter nbextension install CesiumWidget/static/CesiumWidget --quiet
 
 rm -rf /usr/local/share/jupyter/nbextensions/CesiumWidget/cesium
 rm -rf /usr/local/lib/python2.7/dist-packages/CesiumWidget-0.1.0-py2.7.egg/CesiumWidget/static/CesiumWidget/cesium
