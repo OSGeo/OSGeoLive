@@ -19,18 +19,21 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
-if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
-    echo "Wrong number of arguments"
-    echo "Usage: install_nbextension.sh ARCH(i386 or amd64)"
-    exit 1
-fi
+# commenting the lines below 
+# as long there are no extensions depending on a specifi achitecture
 
-if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
-    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
-    echo "Usage: install_nbextension.sh ARCH(i386 or amd64)"
-    exit 1
-fi
-ARCH="$1"
+#if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
+#    echo "Wrong number of arguments"
+#    echo "Usage: install_nbextension.sh ARCH(i386 or amd64)"
+#    exit 1
+#fi
+
+#if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+#    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+#    echo "Usage: install_nbextension.sh ARCH(i386 or amd64)"
+#    exit 1
+#fi
+#ARCH="$1"
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
