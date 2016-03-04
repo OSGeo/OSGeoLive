@@ -19,17 +19,12 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
-./diskspace_probe.sh "`basename $0`" begin
-BUILD_DIR=`pwd`
-####
-
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 
 USER_HOME="/home/$USER_NAME"
 
-TMP_DIR=/tmp/build_ossim
 APP_DATA_DIR="$BUILD_DIR/../app-data/notebooks"
 SHARED_FOLDER="/usr/local/share/jupyter"
 
