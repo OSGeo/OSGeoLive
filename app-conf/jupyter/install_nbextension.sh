@@ -19,22 +19,6 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
-# commenting the lines below 
-# as long there are no extensions depending on a specifi achitecture
-
-#if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
-#    echo "Wrong number of arguments"
-#    echo "Usage: install_nbextension.sh ARCH(i386 or amd64)"
-#    exit 1
-#fi
-
-#if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
-#    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
-#    echo "Usage: install_nbextension.sh ARCH(i386 or amd64)"
-#    exit 1
-#fi
-#ARCH="$1"
-
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
@@ -49,23 +33,8 @@ TMP_DIR=/tmp/build_ossim
 APP_DATA_DIR="$BUILD_DIR/../app-data/notebooks"
 SHARED_FOLDER="/usr/local/share/jupyter"
 
-
-#-- Jupyter ppa
-apt-add-repository --yes ppa:gcpp-kalxas/jupyter
-apt-get update
-
-# 30 mb and w
-#apt-get install python3-notebook -yes
-
 # install cesiumextension
-
-# dependencies:
-#
-wget -c --progress=dot:mega "https://launchpad.net/~gcpp-kalxas/+archive/ubuntu/osgeolive/+files/python-czml_0.3.2-0~trusty1_all.deb"
-wget -c --progress=dot:mega "https://launchpad.net/~gcpp-kalxas/+archive/ubuntu/osgeolive/+files/python-pygeoif_0.6-1~trusty0_all.deb"
-
-dpkg -i python-pygeoif_0.6-1~trusty0_all.deb
-dpkg -i python-czml_0.3.2-0~trusty1_all.deb
+apt-get install python-czml python-pygeoif
 
 git clone https://github.com/OSGeo-live/CesiumWidget
 cd CesiumWidget
