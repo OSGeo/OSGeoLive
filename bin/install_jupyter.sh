@@ -35,7 +35,6 @@ apt-get install --assume-yes  python-matplotlib \
         python-enum34 python-geojson python-folium \
         python-pysal fiona rasterio gdal-bin
 
-
 #-- Jupyter ppa
 apt-add-repository --yes ppa:gcpp-kalxas/jupyter
 apt-get update
@@ -48,7 +47,7 @@ apt-get install --assume-yes python-notebook python-qtconsole \
 #-- Clean-up
 apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
 
-# Get Jupyter and IPython logos
+# Get Jupyter logo
 cp "$BUILD_DIR"/../app-data/jupyter/jupyter.svg \
    /usr/share/icons/hicolor/scalable/apps/jupyter.svg
 
@@ -60,9 +59,8 @@ cp "$BUILD_DIR"/../app-data/jupyter/jupyter_*.sh \
    /usr/local/bin/
 chmod a+x /usr/local/bin/jupyter_*.sh
 
-## feb16 rename to jupyter dir
 mkdir -p "$USER_HOME/jupyter"
-git clone https://github.com/OSGeo/osgeolive-jnb \
+git clone https://github.com/OSGeo/OSGeoLive-Notebooks.git \
    "$USER_HOME/jupyter/notebooks"
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/jupyter"
 
@@ -70,41 +68,15 @@ cd /tmp
 wget -c --tries=3 --progress=dot:mega \
   "http://download.osgeo.org/livedvd/9.5/jupyter/iris/sample_data.tgz"
 tar xf sample_data.tgz
-mkdir -p "$USER_HOME/jupyter/notebooks/python2-notebooks/IRIS"
-mv sample_data "$USER_HOME/jupyter/notebooks/python2-notebooks/IRIS/"
+mkdir -p "$USER_HOME/jupyter/notebooks/projects/IRIS"
+mv sample_data "$USER_HOME/jupyter/notebooks/projects/IRIS/"
 cd "$BUILD_DIR"
 
-/bin/sh ../app-conf/jupyter/install_nbextension.sh  # amd64
+/bin/sh ../app-conf/jupyter/install_nbextension.sh
 
-##-- 8.0b1  simple example, launch not resolved
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/jupyter/notebooks/"
 cp -r /home/user/jupyter /etc/skel
-
-# gist utility (ruby + jist extension = 15 mb)
-#apt-get --assume-yes install ruby ruby-dev
-#gem install jist
-
-#
-# TODO :  add a proper osgeolive profile inclusing js extensions such reveal.js
-#         and few other notebook extensions
-#         instructions to do so can be stored on a extra script to run from a live session
-
-#if [ ! -d "/etc/skel/.ipython/profile_default" ] ; then
-#   mkdir -p "/etc/skel/.ipython/profile_default"
-#   cp -r "$BUILD_DIR"/../app-data/jupyter/static/ \
-#      /etc/skel/.ipython/profile_default/
-#fi
-
-#if [ ! -d "/etc/skel/.ipython/nbextensions" ] ; then
-#   mkdir -p "/etc/skel/.ipython/nbextensions"
-#   cp -r "$BUILD_DIR"/../app-data/jupyter/nbextensions/* \
-#      /etc/skel/.ipython/nbextensions/
-#   # these only exist after build is complete, so dangling symlinks during the build
-#   ln -s /var/www/html/openlayers/ /etc/skel/.ipython/nbextensions/
-#   ln -s /var/www/html/reveal.js/ /etc/skel/.ipython/nbextensions/ 
-#fi
-
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
