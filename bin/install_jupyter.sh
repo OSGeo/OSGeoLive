@@ -33,7 +33,7 @@ apt-get install --assume-yes  python-matplotlib \
         python-shapely python-rasterio python-fiona \
         python-geopandas python-descartes \
         python-enum34 python-geojson python-folium \
-        python-pysal fiona rasterio gdal-bin
+        python-pysal fiona rasterio gdal-bin python-geographiclib
 
 #-- Jupyter ppa
 apt-add-repository --yes ppa:gcpp-kalxas/jupyter
