@@ -73,6 +73,13 @@ if [ ! -d "$MAPSERVER_DATA" ] ; then
     mv "$MAPSERVER_DATA/mapserver-6-2-docs" "$MAPSERVER_DATA/doc"
     rm -rf "$MAPSERVER_DATA/demos/ms4w"
 
+    echo -n "Patching itasca.map to enable WMS..."
+    rm "$MAPSERVER_DATA"/demos/itasca/itasca.map
+    wget -c --progress=dot:mega \
+        "https://github.com/kalxas/mapserver-demo/raw/master/itasca.map" \
+        -O "$MAPSERVER_DATA"/demos/itasca/itasca.map
+    echo -n "Done"
+
     echo "Configuring the system...."
     # Itasca Demo hacks
     mkdir -p /usr/local/www/docs_maps/
