@@ -76,7 +76,7 @@ if [ ! -d "$MAPSERVER_DATA" ] ; then
     echo -n "Patching itasca.map to enable WMS..."
     rm "$MAPSERVER_DATA"/demos/itasca/itasca.map
     wget -c --progress=dot:mega \
-        "https://github.com/kalxas/mapserver-demo/raw/master/itasca.map" \
+        "https://github.com/mapserver/mapserver-demo/raw/master/itasca.map" \
         -O "$MAPSERVER_DATA"/demos/itasca/itasca.map
     echo -n "Done"
 
