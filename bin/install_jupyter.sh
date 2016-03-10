@@ -74,8 +74,9 @@ cd "$BUILD_DIR"
 
 /bin/sh ../app-conf/jupyter/install_nbextension.sh
 
+mkdir -p "$USER_HOME/jupyter/notebooks/projects/CARTOPY"
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
-   "$USER_HOME/jupyter/notebooks/"
+   "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
 cp -r /home/user/jupyter /etc/skel
 
 ####
