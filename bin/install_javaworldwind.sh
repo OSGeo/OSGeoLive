@@ -72,7 +72,7 @@ rm -rf "$UNZIP_DIR/testData"
 
 #creating an executable of a sample
 if [ ! -e $INST_DIR/runSample.sh ]; then
-  echo 'cd /usr/local/share/WorldWindJava/&&./run-demo.bash gov.nasa.worldwindx.examples.ApplicationTemplate&firefox http://localhost/osgeolive/en/quickstart/javaworldwind_quickstart.html'>> $INST_DIR/runSample.sh
+  echo 'cd /usr/local/share/WorldWindJava/&&./run-demo.bash gov.nasa.worldwindx.examples.ApplicationTemplate&firefox http://localhost/osgeolive/en/quickstart/worldwindjava_quickstart.html'>> $INST_DIR/runSample.sh
 fi
 chmod +x $INST_DIR/runSample.sh
 chmod +x $INST_DIR/run-demo.bash

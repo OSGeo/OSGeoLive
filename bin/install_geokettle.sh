@@ -68,7 +68,7 @@ cd "$TMP"
 if [ -f "$GEOKETTLE_FILENAME" ] ; then
    echo "$GEOKETTLE_FILENAME has already been downloaded."
 else
-   wget --progress=dot:mega "$GEOKETTLE_URL" -O "$GEOKETTLE_FILENAME"
+   wget --tries=3 --progress=dot:mega "$GEOKETTLE_URL" -O "$GEOKETTLE_FILENAME"
 fi
 # unpack it
 unzip -q "$GEOKETTLE_FILENAME" -d "$TMP/$GEOKETTLE_BASENAME"
