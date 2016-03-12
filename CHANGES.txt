@@ -1,6 +1,22 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 9.5rc1
+====================
+
+ * QGIS 2.14.0
+ * GeoNetwork 3.0.3
+ * GSoC 2015 Jupyter Notebooks added
+ * GPSDrive retired
+ * Rasdaman 9.2
+ * SAGA 2.2.4
+ * R Kernel for Jupyter added
+ * Added OTB Application Launcher
+ * rasterio and fiona CLI added
+ * TinyOWS quickstart fixed (#1233)
+ * Enabled MapServer WMS demo (#1622)
+ * New release-9.5 ppa
+
 Version 9.5beta1
 ====================
 
