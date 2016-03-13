@@ -31,7 +31,7 @@ DEST="/var/www/html"
 DATA_FOLDER="/usr/local/share/data"
 
 #Install from daily repository
-add-apt-repository  --yes ppa:johanvdw/osgeolive-doc-daily
+add-apt-repository  --yes ppa:osgeolive/docs
 apt-get update
 apt-get install --assume-yes osgeolive-docs javascript-common
 
