@@ -18,10 +18,15 @@
 # =====
 # This script will install documentation
 
+if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
+   echo "Did not specify build mode, try using release or nightly as an argument"
+   exit 1
+fi
+BUILD_MODE="$1"
+
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
-
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -30,9 +35,15 @@ USER_HOME="/home/$USER_NAME"
 DEST="/var/www/html"
 DATA_FOLDER="/usr/local/share/data"
 
-#Install from daily repository
-add-apt-repository  --yes ppa:osgeolive/docs
-apt-get update
+echo "Running install_docs.sh with the following settings:"
+echo "BUILD_MODE: $BUILD_MODE"
+
+# Install from daily repository only in nightly mode
+if [ "$BUILD_MODE" = "nightly" ] ; then
+   add-apt-repository  --yes ppa:osgeolive/docs
+   apt-get update
+fi
+
 apt-get install --assume-yes osgeolive-docs javascript-common
 
 ln -s /usr/share/doc/osgeolive-docs/html $DEST/osgeolive
