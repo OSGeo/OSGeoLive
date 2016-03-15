@@ -149,11 +149,15 @@ sudo -u "$USER_NAME" django-admin loaddata sample_admin --settings=geonode.setti
 django-admin collectstatic --noinput --settings=geonode.settings --verbosity=0
 echo "Done"
 
-echo "Starting GeoServer to update layers in the geonode db"
+echo "Stopping GeoServer"
 "$GEOSERVER_PATH"/bin/shutdown.sh &> /dev/null &
 sleep 30;
+echo "Done"
+
+echo "Starting GeoServer to update layers in the geonode db"
 "$GEOSERVER_PATH"/bin/startup.sh &> /dev/null &
-sleep 60;
+sleep 90;
+echo "Done"
 
 # run updatelayers
 echo "Updating GeoNode layers..."
@@ -163,6 +167,7 @@ echo "Done"
 echo "Stopping GeoServer"
 "$GEOSERVER_PATH"/bin/shutdown.sh &> /dev/null &
 sleep 30;
+echo "Done"
 
 # Make the apache user the owner of the required dirs.
 chown -R www-data:www-data /usr/lib/python2.7/dist-packages/geonode/
