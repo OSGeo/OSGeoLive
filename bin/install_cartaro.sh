@@ -202,11 +202,15 @@ echo "[install_cartaro.sh] Install Cartaro ..."
 
 chown -R root.root "$TARGET_DIR"
 
+echo "Stopping GeoServer"
 "$GEO_PATH"/bin/shutdown.sh &> /dev/null &
 sleep 30;
-"$GEO_PATH"/bin/startup.sh &> /dev/null &
-sleep 60;
+echo "Done"
 
+echo "Starting GeoServer to import layers"
+"$GEO_PATH"/bin/startup.sh &> /dev/null &
+sleep 90;
+echo "Done"
 
 # attempt to run a site-install and reenter the password a few times
 pushd "$TARGET_DIR"
