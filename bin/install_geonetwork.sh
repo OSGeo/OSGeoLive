@@ -1,7 +1,7 @@
 #!/bin/sh
 #################################################
 # 
-# Purpose: Installation of GeoNetwork into Xubuntu
+# Purpose: Installation of GeoNetwork into Lubuntu
 # Author:  Ricardo Pinho <ricardo.pinho@gisvm.com>
 # Author:  Simon Pigot <simon.pigot@csiro.au>
 # Author:  Francois Prunayre <fx.prunayre@gmail.com>
