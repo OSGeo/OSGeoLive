@@ -1,6 +1,12 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 9.5rc2
+====================
+
+ * Fixed GeoNetwork build for 32 bit (#1522)
+ * Fixed Rasdaman installer for 32 bit (#1645)
+
 Version 9.5rc1
 ====================
 
