@@ -307,9 +307,7 @@ ln -s "$QUICKSTART" "$USER_HOME"/ossim
 if [ -L /etc/skel/ossim ] ; then
    rm -f /etc/skel/ossim
 fi
-ln -s "$QUICKSTART" /etc/skel/ossim
-
-for dir in "$QUICKSTART" "$RASTER_DATA" "$DATA_FOLDER" ; do
+ln -s "$QUICKSTART" /etc/skelATA" "$DATA_FOLDER" ; do
   chgrp -R users $dir
   chmod -R g+w $dir
 done
@@ -326,3 +324,6 @@ rm -rf "$QUICKSTART"/.svn
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
+/ossim
+
+for dir in "$QUICKSTART" "$RASTER_D
