@@ -335,6 +335,3 @@ rm -rf "$QUICKSTART"/.svn
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
-/ossim
-
-for dir in "$QUICKSTART" "$RASTER_D
