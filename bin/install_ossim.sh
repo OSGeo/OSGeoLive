@@ -333,16 +333,16 @@ done
 
 
 # ossim-geocell tutorial
-wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/OSSIMGeoCell__User_Manual__1.8.18-1.pdf
-mv OSSIMGeoCell__User_Manual__1.8.18-1.pdf /usr/share/ossim/
+#wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/OSSIMGeoCell__User_Manual__1.8.18-1.pdf
+#mv OSSIMGeoCell__User_Manual__1.8.18-1.pdf /usr/share/ossim/
 
 # ossim tutorial
 wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf
 mv ossim_users_guide.pdf /usr/share/ossim/
 
 # ossimplanet tutorial
-wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossimPlanetUsers.pdf
-mv ossimPlanetUsers.pdf /usr/share/ossim/
+#wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossimPlanetUsers.pdf
+#mv ossimPlanetUsers.pdf /usr/share/ossim/
 
 chmod 644 /usr/share/ossim/*.pdf
 mkdir -p /var/www/html/ossim/
