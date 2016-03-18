@@ -1,10 +1,10 @@
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Start Jupyter Notebook
-Comment=Jupyter Notebook
+Name=Start IPython Notebook
+Comment=IPython Notebook
 Categories=Application;Education;Geography;
-Exec=/usr/local/bin/jupyter_net_start.sh
-Icon=jupyter
-Terminal=true
+Exec=gnome-terminal -x /usr/local/bin/ipython_grass.sh
+Icon=/usr/local/share/jupyter/ipynb.png
+Terminal=false
 StartupNotify=false
