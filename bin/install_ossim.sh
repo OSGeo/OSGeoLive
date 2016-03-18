@@ -154,7 +154,7 @@ echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$BRCFILE"
 echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$USER_HOME/.bashrc"
 #echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$USER_HOME/.bashrc"
 
-ln -s /usr/share/ossim/images/reference/bluemarble.tif \
+ln -s /usr/share/ossim/images/reference/earth.jpg \
   /usr/local/share/data/raster/   
 
 # add menu item
@@ -276,6 +276,7 @@ chgrp users /usr/share/ossim/elevation
 
 
 ## TODO: Port the following to GRASS7 - this part needs gdal-grass plugin (not yet available for grass 7.x)
+## gdal-ossim plugin is broken (doen't load correctly grass7 float64 dataset)
 
 # #### spearfish subset to VRT
 # GISBASE=/usr/lib/grass64
@@ -306,10 +307,12 @@ chgrp users /usr/share/ossim/elevation
 
 
 # add suppport files used for the ossim tutorials
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.prj"
-mv rgb.prj "$QUICKSTART"/workspace/
+#wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.prj"
+#mv rgb.prj "$QUICKSTART"/workspace/
+
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.spec"
 mv rgb.spec "$QUICKSTART"/workspace/
+
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/ossim-dem-color-table-template.kwl"
 mv ossim-dem-color-table-template.kwl "$QUICKSTART"/workspace/
 
@@ -336,7 +339,18 @@ done
 wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/OSSIMGeoCell__User_Manual__1.8.18-1.pdf
 mv OSSIMGeoCell__User_Manual__1.8.18-1.pdf /usr/share/ossim/
 
+# ossim tutorial
+wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf
+mv ossim_users_guide.pdf /usr/share/ossim/
+
+# ossimplanet tutorial
+wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossimPlanetUsers.pdf
+mv ossimPlanetUsers.pdf /usr/share/ossim/
+
+
 chmod 644 /usr/share/ossim/*.pdf
+mkdir -p /var/www/html/ossim
+ln -s -f /usr/share/ossim/*.pdf /var/www/html/ossim/
 
 #### cleanup
 rm -rf "$QUICKSTART"/.svn
