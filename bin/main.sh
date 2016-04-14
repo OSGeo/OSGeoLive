@@ -138,8 +138,6 @@ for SCRIPT in \
   ./install_leaflet.sh \
   ./install_R.sh \
   ./install_rstudio.sh \
-  #Uncomment the following line to install RStudio Server
-  #./install_rstudio-server.sh
   ./install_ossim.sh \
   ./install_osgearth.sh \
   ./install_spatialite.sh \
