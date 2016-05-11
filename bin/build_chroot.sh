@@ -124,8 +124,8 @@ mkdir -p ~/livecdtmp
 cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://cdimage.ubuntu.com"
-UBU_RELEASE="14.04"
-ISO_RELEASE="14.04.1"
+UBU_RELEASE="16.04"
+ISO_RELEASE="16.04"
 UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
    "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
@@ -197,7 +197,7 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.13.0-32-generic
+sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 4.4.0-21-generic
 
 #continue
 mkdir lzfiles
@@ -223,14 +223,14 @@ chmod a+x scripts/casper-bottom/25adduser
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 
 #Change the text on the loader
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
-    lib/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo-Live $VERSION_MODE/g" \
+    usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 #might be in this file
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
-    lib/plymouth/themes/text.plymouth
+# sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
+#     lib/plymouth/themes/text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
+sed -i -e "s/.ubuntu $UBU_RELEASE LTS \"Xenial Xerus\"/OSGeo-Live $VERSION_MODE/g" \
     ../extract-cd/.disk/info
 
 #copy in a different background
@@ -263,7 +263,8 @@ echo "Compressing filesystem..."
 echo "======================================"
 #Compress filesystem
 sudo rm extract-cd/casper/filesystem.squashfs
-sudo mksquashfs edit extract-cd/casper/filesystem.squashfs -no-progress
+sudo mksquashfs edit extract-cd/casper/filesystem.squashfs
+# sudo mksquashfs edit extract-cd/casper/filesystem.squashfs -no-progress
 
 echo
 echo "Calculating new filesystem size..."
