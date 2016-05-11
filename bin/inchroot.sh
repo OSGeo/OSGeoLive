@@ -117,15 +117,15 @@ cp /tmp/CHANGES.txt /usr/local/share/gisvm/
 USER_NAME="user"
 export USER_NAME
 
-./setup.sh "$BUILD_MODE"
-./install_services.sh
-./install_language.sh
-./install_mysql.sh
-./install_java.sh "$ARCH"
-./install_apache2.sh
-./install_tomcat.sh
-./install_jupyter.sh
-./install_django.sh
+# ./setup.sh "$BUILD_MODE"
+# ./install_services.sh
+# ./install_language.sh
+# ./install_mysql.sh
+# ./install_java.sh "$ARCH"
+# ./install_apache2.sh
+# ./install_tomcat.sh
+# ./install_jupyter.sh
+# ./install_django.sh
 
 # ./install_geoserver.sh
 # ./install_geomajas.sh
@@ -183,13 +183,13 @@ export USER_NAME
 # ./install_istsos.sh
 # ./install_javaworldwind.sh
 
-./load_gisdata.sh
-./install_docs.sh "$BUILD_MODE"
-./install_edutools.sh
+# ./load_gisdata.sh
+# ./install_docs.sh "$BUILD_MODE"
+# ./install_edutools.sh
 
-./install_desktop.sh
-./install_icons_and_menus.sh
-./setdown.sh
+# ./install_desktop.sh
+# ./install_icons_and_menus.sh
+# ./setdown.sh
 
 
 # Remove doc folder to save space
