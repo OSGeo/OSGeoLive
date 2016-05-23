@@ -35,11 +35,13 @@ mkdir -p /tmp/build-geomoose
 
 cd /tmp/build-geomoose
 
-## Download and extract GeoMOOSE 2.8.0
+## Download and extract GeoMOOSE 2.9.0
 wget -c --tries=3 --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/geomoose/geomoose-2.8.0.tar.gz"
+   "http://www.geomoose.org/downloads/geomoose-2.9.0.tar.gz"
+#wget -c --tries=3 --progress=dot:mega \
+#   "http://download.osgeo.org/livedvd/data/geomoose/geomoose-2.9.0.tar.gz"
 
-tar -xzf geomoose-2.8.0.tar.gz
+tar -xzf geomoose-2.9.0.tar.gz
 
 rm -rf /usr/local/geomoose
 
