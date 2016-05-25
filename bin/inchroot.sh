@@ -121,8 +121,8 @@ export USER_NAME
 
 ./setup.sh "$BUILD_MODE"
 
-./install_c.sh
-./install_python.sh
+./base_c.sh
+./base_python.sh
 # ./install_services.sh
 # ./install_language.sh
 # ./install_mysql.sh
