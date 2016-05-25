@@ -60,7 +60,7 @@ cp ../app-conf/build_chroot/27osgeo_groups \
   /usr/share/initramfs-tools/scripts/casper-bottom/
 
 # remove build stuff no longer of use
-apt-get --yes remove python-dev
+apt-get --yes remove python-all-dev
 
 # remove any leftover orphans
 apt-get --yes autoremove

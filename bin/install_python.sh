@@ -27,7 +27,13 @@ apt-get -q update
 
 # install the python .deb maker
 apt-get install --yes python-all-dev
-
 # removed from list: python-stdeb
+
+# Install Geospatial Python libraries
+apt-get install --yes python-gdal python-shapely python-rasterio \
+	python-fiona fiona rasterio python-matplotlib python-geopandas \
+	python-netcdf4 python-geojson python-scipy python-pandas \
+	python-pyshp python-descartes python-enum34 python-geographiclib \
+	python-geocoder
 
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

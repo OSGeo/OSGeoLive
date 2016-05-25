@@ -27,10 +27,10 @@ apt-get -q update
 
 # Install C development packages
 apt-get install --yes build-essential cmake pkg-config
-
 # removed from list:
 # pbuilder fakeroot devscripts debhelper svn-buildpackage lintian dpkg-dev 
 
-
+# Install OSGeo C stack libraries
+apt-get install --yes libgdal20 gdal-bin proj-bin libgeos-c1v5 geotiff-bin
 
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
