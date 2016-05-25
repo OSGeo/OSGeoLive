@@ -35,20 +35,20 @@
 
 if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
     echo "Wrong number of arguments"
-    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo) or git clone url]"
     exit 1
 fi
 
 if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
     echo "Did not specify build architecture, try using i386 or amd64 as an argument"
-    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo) or git clone url]"
     exit 1
 fi
 ARCH="$1"
 
 if [ "$2" != "release" ] && [ "$2" != "nightly" ] ; then
     echo "Did not specify build mode, try using release or nightly as an argument"
-    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo) or git clone url]"
     exit 1
 fi
 BUILD_MODE="$2"
@@ -71,7 +71,11 @@ echo "==============================================================="
 
 echo "ARCH: $ARCH"
 echo "MODE: $BUILD_MODE"
-echo "Git repository: https://github.com/$GIT_USER/OSGeoLive.git"
+if echo "$GIT_USER" | grep -q "://"; then
+    echo "Git repository: $GIT_USER"
+else
+    echo "Git repository: https://github.com/$GIT_USER/OSGeoLive.git"
+fi
 echo "Git branch: $GIT_BRANCH"
 
 DIR="/usr/local/share/gisvm/bin"
@@ -169,6 +173,7 @@ echo "======================================"
 #NOW IN CHROOT
 #sudo chroot edit
 sudo cp "$DIR"/inchroot.sh ~/livecdtmp/edit/tmp/
+sudo cp "$DIR"/bootstrap.sh ~/livecdtmp/edit/tmp/
 sudo cp "$GIT_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
 sudo cp "$GIT_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
 sudo chroot edit /bin/sh /tmp/inchroot.sh "$ARCH" "$BUILD_MODE" "$GIT_BRANCH" "$GIT_USER"

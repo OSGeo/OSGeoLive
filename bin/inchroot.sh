@@ -26,20 +26,20 @@
 
 if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
     echo "Wrong number of arguments"
-    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo) or git clone url]"
     exit 1
 fi
 
 if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
     echo "Did not specify build architecture, try using i386 or amd64 as an argument"
-    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo) or git clone url]"
     exit 1
 fi
 ARCH="$1"
 
 if [ "$2" != "release" ] && [ "$2" != "nightly" ] ; then
     echo "Did not specify build mode, try using release or nightly as an argument"
-    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    echo "Usage: inchroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo) or git clone url]"
     exit 1
 fi
 BUILD_MODE="$2"
@@ -101,8 +101,6 @@ EOF
 
 cd /tmp/
 
-wget -nv "https://github.com/$GIT_USER/OSGeoLive/raw/$GIT_BRANCH/bin/bootstrap.sh"
-
 chmod a+x bootstrap.sh
 
 ./bootstrap.sh "$GIT_BRANCH" "$GIT_USER"
@@ -121,10 +119,12 @@ export USER_NAME
 
 ./setup.sh "$BUILD_MODE"
 
+# Base installers
 ./base_c.sh
 ./base_python.sh
 ./base_java.sh "$ARCH"
 
+# Service installers
 # ./install_language.sh
 # ./install_mysql.sh
 # ./install_apache2.sh
@@ -132,6 +132,7 @@ export USER_NAME
 # ./install_jupyter.sh
 # ./install_django.sh
 
+# Project installers
 # ./install_geoserver.sh
 # ./install_geomajas.sh
 # ./install_geonetwork.sh

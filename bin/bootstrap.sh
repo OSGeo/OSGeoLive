@@ -44,7 +44,12 @@ else
     GIT_BRANCH="master"
 fi
 
-GIT_REPO="https://github.com/$GIT_USER/OSGeoLive.git"
+# Check if user provided a clone url
+if echo "$GIT_USER" | grep -q "://"; then
+    GIT_REPO="$GIT_USER"
+else
+    GIT_REPO="https://github.com/$GIT_USER/OSGeoLive.git"
+fi
 
 echo "Running bootstrap.sh with the following settings:"
 echo "GIT_REPO: $GIT_REPO"
