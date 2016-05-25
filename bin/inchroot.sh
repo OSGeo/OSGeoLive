@@ -123,10 +123,10 @@ export USER_NAME
 
 ./base_c.sh
 ./base_python.sh
-# ./install_services.sh
+./base_java.sh "$ARCH"
+
 # ./install_language.sh
 # ./install_mysql.sh
-# ./install_java.sh "$ARCH"
 # ./install_apache2.sh
 # ./install_tomcat.sh
 # ./install_jupyter.sh
