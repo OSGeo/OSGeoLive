@@ -1,7 +1,7 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will install python development tools and libraries to use in
+# Purpose: This script will install Python development tools and libraries to use in
 # OSGeoLive.
 #
 #############################################################################

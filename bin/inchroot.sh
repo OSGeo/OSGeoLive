@@ -113,11 +113,16 @@ cd /usr/local/share/gisvm/bin
 cp /tmp/VERSION.txt /usr/local/share/gisvm/
 cp /tmp/CHANGES.txt /usr/local/share/gisvm/
 
+#######################################################
 # Replacement for main.sh
+#######################################################
 USER_NAME="user"
 export USER_NAME
 
-# ./setup.sh "$BUILD_MODE"
+./setup.sh "$BUILD_MODE"
+
+./install_c.sh
+./install_python.sh
 # ./install_services.sh
 # ./install_language.sh
 # ./install_mysql.sh
@@ -189,8 +194,12 @@ export USER_NAME
 
 # ./install_desktop.sh
 # ./install_icons_and_menus.sh
-# ./setdown.sh
+./setdown.sh
 
+
+#######################################################
+# End of main.sh
+#######################################################
 
 # Remove doc folder to save space
 # rm -rf /usr/local/share/gisvm/doc
