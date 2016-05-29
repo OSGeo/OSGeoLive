@@ -129,7 +129,7 @@ export USER_NAME
 ./service_apache2.sh
 ./service_tomcat.sh
 ./service_postgresql.sh
-# ./service_mysql.sh
+./service_mysql.sh
 
 # Project installers
 # ./install_postgis.sh

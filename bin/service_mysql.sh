@@ -39,78 +39,78 @@ EOF
 #apt-get install --yes mysql-server mysql-admin
 apt-get install --yes mysql-server
 
-## just to be sure if mysql server is running
+# ## just to be sure if mysql server is running
 
-#debug:
-echo "--- before"
-ps -ef | grep mysql
-echo "---"
+# #debug:
+# echo "--- before"
+# ps -ef | grep mysql
+# echo "---"
 
-## check if mysql is running and do appropriate action
-if [ `pgrep -cf '/usr/sbin/mysqld'` -eq 0 ] ; then
-    echo "Starting mysql.."
-    service mysql start 2>&1
-    echo $?
-else
-    echo "Restarting mysql.."
-    service mysql restart 2>&1
-    echo $?
-fi
+# ## check if mysql is running and do appropriate action
+# if [ `pgrep -cf '/usr/sbin/mysqld'` -eq 0 ] ; then
+#     echo "Starting mysql.."
+#     service mysql start 2>&1
+#     echo $?
+# else
+#     echo "Restarting mysql.."
+#     service mysql restart 2>&1
+#     echo $?
+# fi
 
-### debugging
-echo "There are `ps aux | grep -c '[m]ysql'` mysqld's running"
+# ### debugging
+# echo "There are `ps aux | grep -c '[m]ysql'` mysqld's running"
 
-echo "=== after"
-ps -ef | grep mysql
-echo "==="
+# echo "=== after"
+# ps -ef | grep mysql
+# echo "==="
 
-# dpkg -l:
-#   installed ok: mysql-server
-#   not installed: phpmyadmin
-ls -l /var/log/mysql*
-tail /var/log/syslog
-#chmod 775 /var/lib/mysql
-ls -l /var/lib/mysql
-ls -la /var/run/mysqld
+# # dpkg -l:
+# #   installed ok: mysql-server
+# #   not installed: phpmyadmin
+# ls -l /var/log/mysql*
+# tail /var/log/syslog
+# #chmod 775 /var/lib/mysql
+# ls -l /var/lib/mysql
+# ls -la /var/run/mysqld
 
-#perhaps this is needed:  ???
-#chown mysql.mysql /var/run/mysqld -R 
+# #perhaps this is needed:  ???
+# #chown mysql.mysql /var/run/mysqld -R
 
-ls -l /var/run/mysqld/mysqld.sock
-#it's a socket created when mysql starts:
-#   touch /var/run/mysqld/mysqld.sock
-#ls -l /var/run/mysqld/mysqld.sock
-#chmod 775 /var/run/mysqld/mysqld.sock
-#ls -l /var/run/mysqld/mysqld.sock
-#doesn't exist: tail -n 30 /var/log/mysql/error.log
-echo "try for another restart"
-/etc/init.d/mysql status 2>&1
-echo $?
-/etc/init.d/mysql restart 2>&1
-echo $?
-mysqlcheck -A -uroot -puser --verbose
+# ls -l /var/run/mysqld/mysqld.sock
+# #it's a socket created when mysql starts:
+# #   touch /var/run/mysqld/mysqld.sock
+# #ls -l /var/run/mysqld/mysqld.sock
+# #chmod 775 /var/run/mysqld/mysqld.sock
+# #ls -l /var/run/mysqld/mysqld.sock
+# #doesn't exist: tail -n 30 /var/log/mysql/error.log
+# echo "try for another restart"
+# /etc/init.d/mysql status 2>&1
+# echo $?
+# /etc/init.d/mysql restart 2>&1
+# echo $?
+# mysqlcheck -A -uroot -puser --verbose
 
-# to be continued:
-#   see http://ubuntuforums.org/showthread.php?t=804021&page=5
-# try 
-grep bind-address /etc/mysql/*.cnf
-nslookup localhost
-grep run /etc/apparmor.d/usr.sbin.mysqld
-#"""
-#The problem was caused by the apparmor daemon.
-#I just changed the lines in /etc/apparmor.d/usr.sbin.mysqld
-#- /var/run/mysqld/mysqld.pid w,
-#- /var/run/mysqld/mysqld.sock w,
-#to
-#+ /{,var/}run/mysqld/mysqld.pid w,
-#+ /{,var/}run/mysqld/mysqld.sock w,
-#and restarted appamor daemnon with
-#/etc/init.d/appamor restart
-#After restarting mysql daemon everthing works fine
-#/etc/init.d/mysql restart
-#"""
-echo "..on with the show.."
-### end of debugging
+# # to be continued:
+# #   see http://ubuntuforums.org/showthread.php?t=804021&page=5
+# # try
+# grep bind-address /etc/mysql/*.cnf
+# nslookup localhost
+# grep run /etc/apparmor.d/usr.sbin.mysqld
+# #"""
+# #The problem was caused by the apparmor daemon.
+# #I just changed the lines in /etc/apparmor.d/usr.sbin.mysqld
+# #- /var/run/mysqld/mysqld.pid w,
+# #- /var/run/mysqld/mysqld.sock w,
+# #to
+# #+ /{,var/}run/mysqld/mysqld.pid w,
+# #+ /{,var/}run/mysqld/mysqld.sock w,
+# #and restarted appamor daemnon with
+# #/etc/init.d/appamor restart
+# #After restarting mysql daemon everthing works fine
+# #/etc/init.d/mysql restart
+# #"""
+# echo "..on with the show.."
+# ### end of debugging
 
 
 #if needed: sudo mysqladmin password newpassword
@@ -135,13 +135,13 @@ CREATE USER '$USER_NAME'@'localhost' IDENTIFIED BY '$USER_NAME';
 GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'localhost' WITH GRANT OPTION;
 " | mysql -u"$MYSQL_ADMIN_NM" -p"$MYSQL_ADMIN_PW"
 
-###
-#argh it's still broken. stupid hack to get it to work
-cp ../app-conf/ushahidi/rc.go_mysql /etc
-chmod u+rx,go-rx /etc/rc.go_mysql
-cp /etc/init.d/rc.local /etc/init.d/rc.go_mysql
-sed -i -e 's/rc\.local/rc.go_mysql/' /etc/init.d/rc.go_mysql
-ln -s /etc/init.d/rc.go_mysql /etc/rc2.d/S99rc.go_mysql
+# ###
+# #argh it's still broken. stupid hack to get it to work
+# cp ../app-conf/ushahidi/rc.go_mysql /etc
+# chmod u+rx,go-rx /etc/rc.go_mysql
+# cp /etc/init.d/rc.local /etc/init.d/rc.go_mysql
+# sed -i -e 's/rc\.local/rc.go_mysql/' /etc/init.d/rc.go_mysql
+# ln -s /etc/init.d/rc.go_mysql /etc/rc2.d/S99rc.go_mysql
 
 
 ####
