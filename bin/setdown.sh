@@ -54,8 +54,7 @@ fi
 # try to get those changes applied sooner
 # mv /etc/rc2.d/S99rc.local /etc/rc2.d/S10rc.local
 
-# bloody hell..
-# FIXME: (perhaps it does not apply to lxde anymore)
+# Re-enable if user does not belong to groups
 # cp ../app-conf/build_chroot/27osgeo_groups \
 #   /usr/share/initramfs-tools/scripts/casper-bottom/
 
