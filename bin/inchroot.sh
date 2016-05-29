@@ -132,7 +132,6 @@ export USER_NAME
 
 # Project installers
 # ./install_jupyter.sh
-# ./install_django.sh
 # ./install_geoserver.sh
 # ./install_geomajas.sh
 # ./install_geonetwork.sh

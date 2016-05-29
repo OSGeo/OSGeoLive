@@ -29,6 +29,9 @@ apt-get -q update
 apt-get install --yes python-all-dev
 # removed from list: python-stdeb
 
+# Install Django
+apt-get install --yes python-django
+
 # Install Geospatial Python libraries
 apt-get install --yes python-gdal python-shapely python-rasterio \
 	python-fiona fiona rasterio python-matplotlib python-geopandas \
