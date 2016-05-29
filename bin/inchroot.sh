@@ -128,9 +128,11 @@ export USER_NAME
 # Service installers
 ./service_apache2.sh
 ./service_tomcat.sh
+./service_postgresql.sh
 # ./service_mysql.sh
 
 # Project installers
+# ./install_postgis.sh
 # ./install_jupyter.sh
 # ./install_geoserver.sh
 # ./install_geomajas.sh
@@ -140,7 +142,6 @@ export USER_NAME
 # ./install_kosmo.sh "$ARCH"
 # ./install_udig.sh "$ARCH"
 # ./install_openjump.sh
-# ./install_postgis.sh
 # ./install_osm.sh
 # ./load_postgis.sh
 # ./install_pgrouting.sh

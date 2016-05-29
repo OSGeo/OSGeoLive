@@ -14,7 +14,7 @@
 
 # About:
 # =====
-# This script will install postgres, postgis, and pgadmin3
+# This script will install postgres and postgis
 #
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -28,23 +28,8 @@ USER_HOME="/home/$USER_NAME"
 
 # Not to be confused with PGIS_Version, this has one less number and period
 #  to correspond to install paths
-PG_VERSION="9.4"
+PG_VERSION="9.5"
 
-#debug:
-echo "#DEBUG The locale settings are currently:"
-locale
-
-# DB is created in the current locale, which was reset to "C". Put it
-#  back to UTF so the templates will be created using UTF8 encoding.
-unset LC_ALL
-update-locale LC_ALL=en_US.UTF-8
-
-# another debug
-echo "#DEBUG The locale settings updated:"
-locale
-echo "------------------------------------"
-
-##-- TODO pgdg repo ?
 apt-get install --yes postgis "postgresql-$PG_VERSION-postgis-2.2"
 #TODO: Restore postgis-gui in the future.
 
@@ -52,29 +37,6 @@ if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
-
-apt-get install --yes pgadmin3
-
-### config ###
-
-#set default user/password to the system user for easy login
-sudo -u postgres createuser --superuser $USER_NAME
-
-echo "alter role \"user\" with password 'user'" > /tmp/build_postgre.sql
-sudo -u postgres psql -f /tmp/build_postgre.sql
-# rm /tmp/build_postgre.sql
-
-#add a gratuitous db called user to avoid psql inconveniences
-sudo -u $USER_NAME createdb -E UTF8 $USER_NAME
-sudo -u "$USER_NAME" psql -d "$USER_NAME" -c 'VACUUM ANALYZE;'
-
-#include pgadmin3 profile for connection
-for FILE in  pgadmin3  pgpass  ; do
-    cp ../app-conf/postgis/"$FILE" "$USER_HOME/.$FILE"
-
-    chown $USER_NAME:$USER_NAME "$USER_HOME/.$FILE"
-    chmod 600 "$USER_HOME/.$FILE"
-done
 
 #enable gdal drivers
 cat << EOF >> "/var/lib/postgresql/$PG_VERSION/main/postgresql.auto.conf"
