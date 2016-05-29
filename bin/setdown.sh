@@ -154,32 +154,29 @@ if [ -e /etc/ssh/sshd_config ] ; then
    sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 fi
 
-#TODO: Re-enable tomcat later...
+# Start tomcat to ensure all applications are deployed
+service tomcat8 start
+sleep 120
+service tomcat8 stop
 
-# # Start tomcat to ensure all applications are deployed
-# service tomcat7 start
-# sleep 120
-# service tomcat7 stop
+# Disable auto-deploy to prevent applications to get removed after removing war files
+# TODO: Add some note to wiki for users that want to deploy their own tomcat applications
+sed -i -e 's/unpackWARs="true"/unpackWARs="false"/' -e 's/autoDeploy="true"/autoDeploy="false"/' \
+    /etc/tomcat8/server.xml
 
-# # Disable auto-deploy to prevent applications to get removed after removing war files
-# # TODO: Add some note to wiki for users that want to deploy their own tomcat applications
-# sed -i -e 's/unpackWARs="true"/unpackWARs="false"/' -e 's/autoDeploy="true"/autoDeploy="false"/' \
-#     /etc/tomcat7/server.xml
+# Cleaning up war files to save disk space
+rm -f /var/lib/tomcat8/webapps/*.war
 
-# #Cleaning up war files to save disk space
-# rm -f /var/lib/tomcat7/webapps/*.war
+# Disabling default tomcat startup
+#update-rc.d -f tomcat7 remove
+systemctl disable tomcat8.service
 
-# #Disabling default tomcat startup
-# update-rc.d -f tomcat7 remove
-
-# if [ ! -e /etc/sudoers.d/tomcat ] ; then
-#    cat << EOF > /etc/sudoers.d/tomcat
-# %users ALL=(root) NOPASSWD: /usr/sbin/service tomcat7 start,/usr/sbin/service tomcat7 stop,/usr/sbin/service tomcat7 status
-# EOF
-# fi
-# chmod 440 /etc/sudoers.d/tomcat
-
-
+if [ ! -e /etc/sudoers.d/tomcat ] ; then
+   cat << EOF > /etc/sudoers.d/tomcat
+%users ALL=(root) NOPASSWD: /usr/sbin/service tomcat8 start,/usr/sbin/service tomcat8 stop,/usr/sbin/service tomcat8 status
+EOF
+fi
+chmod 440 /etc/sudoers.d/tomcat
 
 
 # Switching to default IPv6
