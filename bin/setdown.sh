@@ -56,8 +56,8 @@ fi
 
 # bloody hell..
 # FIXME: (perhaps it does not apply to lxde anymore)
-cp ../app-conf/build_chroot/27osgeo_groups \
-  /usr/share/initramfs-tools/scripts/casper-bottom/
+# cp ../app-conf/build_chroot/27osgeo_groups \
+#   /usr/share/initramfs-tools/scripts/casper-bottom/
 
 # remove build stuff no longer of use
 apt-get --yes remove python-all-dev
