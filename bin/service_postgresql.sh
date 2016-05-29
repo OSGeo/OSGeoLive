@@ -36,6 +36,15 @@ locale
 #  back to UTF so the templates will be created using UTF8 encoding.
 unset LC_ALL
 update-locale LC_ALL=en_US.UTF-8
+export LC_NUMERIC="en_US.UTF-8"
+export LC_TIME="en_US.UTF-8"
+export LC_MONETARY="en_US.UTF-8"
+export LC_PAPER="en_US.UTF-8"
+export LC_NAME="en_US.UTF-8"
+export C_ADDRESS="en_US.UTF-8"
+export LC_TELEPHONE="en_US.UTF-8"
+export LC_MEASUREMENT="en_US.UTF-8"
+export LC_IDENTIFICATION="en_US.UTF-8"
 
 # another debug
 echo "#DEBUG The locale settings updated:"
@@ -50,6 +59,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 ### config ###
+service postgresql start
 #set default user/password to the system user for easy login
 sudo -u postgres createuser --superuser $USER_NAME
 
