@@ -47,7 +47,7 @@ apt-get install --yes tomcat8 tomcat8-admin
 
 
 cp ../app-conf/tomcat/tomcat-users.xml \
-   /etc/tomcat7/tomcat-users.xml
+   /etc/tomcat8/tomcat-users.xml
 
 chown tomcat8:tomcat8 /etc/tomcat8/tomcat-users.xml
 
