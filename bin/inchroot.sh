@@ -132,7 +132,7 @@ export USER_NAME
 ./service_mysql.sh
 
 # Project installers
-# ./install_postgis.sh
+./install_postgis.sh
 # ./install_jupyter.sh
 # ./install_geoserver.sh
 # ./install_geomajas.sh
