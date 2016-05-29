@@ -20,8 +20,8 @@
 #############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
+BUILD_DIR=`pwd`
 ####
-
 
 apt-get install --yes apache2
 
@@ -34,7 +34,8 @@ adduser "$USER_NAME" www-data
 
 
 mkdir -p /var/www/html
-wget -nv http://www.osgeo.org/favicon.ico -O /var/www/html/favicon.ico
+cp "$BUILD_DIR"/../app-conf/apache2/favicon.ico \
+  /var/www/html/favicon.ico
 
 rm /var/www/html/index.html
 
