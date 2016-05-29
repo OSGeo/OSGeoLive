@@ -123,16 +123,16 @@ export USER_NAME
 ./base_c.sh
 ./base_python.sh
 ./base_java.sh "$ARCH"
+# ./base_language.sh
 
 # Service installers
-# ./install_language.sh
-# ./install_mysql.sh
-# ./install_apache2.sh
-# ./install_tomcat.sh
-# ./install_jupyter.sh
-# ./install_django.sh
+# ./service_apache2.sh
+# ./service_tomcat.sh
+# ./service_mysql.sh
 
 # Project installers
+# ./install_jupyter.sh
+# ./install_django.sh
 # ./install_geoserver.sh
 # ./install_geomajas.sh
 # ./install_geonetwork.sh
