@@ -36,7 +36,7 @@ apt-get install --yes python-django
 apt-get install --yes python-gdal python-shapely python-rasterio \
 	python-fiona fiona rasterio python-matplotlib python-geopandas \
 	python-netcdf4 python-geojson python-scipy python-pandas \
-	python-pyshp python-descartes python-enum34 python-geographiclib \
-	python-geocoder
+	python-pyshp python-descartes python-enum34 python-geographiclib
+	
 
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

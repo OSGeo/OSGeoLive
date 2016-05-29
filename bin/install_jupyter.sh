@@ -28,7 +28,7 @@ USER_DESKTOP="$USER_HOME/Desktop"
 BUILD_DIR=`pwd`
 
 apt-get install --assume-yes python-netcdf python-folium \
-        python-pysal
+        python-pysal python-geocoder
 
 #-- Jupyter ppa
 apt-add-repository --yes ppa:gcpp-kalxas/jupyter
