@@ -143,7 +143,7 @@ export USER_NAME
 ./install_mapserver.sh
 ./install_tinyows.sh
 ./install_gmt.sh
-./install_mb-system.sh
+# ./install_mb-system.sh
 ./install_mapnik.sh
 ./install_otb.sh
 ./install_liblas.sh
@@ -153,7 +153,7 @@ export USER_NAME
 ./install_qgis_mapserver.sh
 # ./install_zoo-project.sh
 ./install_marble.sh
-./install_opencpn.sh
+# ./install_opencpn.sh
 ./install_viking.sh
 ./install_zygrib.sh
 
