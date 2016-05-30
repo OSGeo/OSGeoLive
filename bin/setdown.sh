@@ -186,7 +186,7 @@ mv /etc/gai.conf.orig /etc/gai.conf
 # stop PostgreSQL and MySQL to avoid them thinking a crash happened next boot
 service postgresql stop
 service mysql stop
-
+service apache2 stop
 
 # This is done on an extra step after rebooting and tmp is cleared
 #echo "==============================================================="
