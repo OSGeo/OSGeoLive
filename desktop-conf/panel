@@ -24,12 +24,6 @@ Plugin {
     type = menu
     Config {
         image=/usr/share/lubuntu/images/lubuntu-logo.png
-#        item {
-#            image=/usr/local/share/icons/arramagong-wombat-small.png
-#            command=run
-#        }
-#        separator {
-#        }
         system {
         }
         separator {
@@ -43,21 +37,6 @@ Plugin {
             image=gnome-logout
             command=logout
         }
-    }
-}
-
-Plugin {
-    type = wincmd
-    Config {
-        Button1=iconify
-        Button2=shade
-    }
-}
-
-Plugin {
-    type = space
-    Config {
-        Size=4
     }
 }
 
@@ -79,7 +58,33 @@ Plugin {
 Plugin {
     type = space
     Config {
-        Size=8
+        Size=4
+    }
+}
+
+Plugin {
+    type = wincmd
+    Config {
+        Button1=iconify
+        Button2=shade
+    }
+}
+
+Plugin {
+    type = space
+    Config {
+        Size=4
+    }
+}
+
+Plugin {
+    type = pager
+}
+
+Plugin {
+    type = space
+    Config {
+        Size=4
     }
 }
 
@@ -105,16 +110,8 @@ Plugin {
     type = volumealsa
 }
 
-Plugin {
-    type = xkb
-    Config {
-        DisplayType=2
-        PerWinLayout=0
-        NoResetOpt=0
-        KeepSysLayouts=1
-        ToggleOpt=shift_caps_toggle
-        FlagSize=6
-    }
+Plugin{
+  type= lxde_power_manager
 }
 
 Plugin {
@@ -134,10 +131,6 @@ Plugin {
 }
 
 Plugin {
-    type = pager
-}
-
-Plugin {
     type = cpu
 }
 
@@ -154,7 +147,7 @@ Plugin {
     type = launchbar
     Config {
         Button {
-            id=lubuntu-logout.desktop
+            id=/usr/share/applications/lubuntu-logout.desktop
         }
     }
 }
