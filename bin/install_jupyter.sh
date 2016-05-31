@@ -27,7 +27,7 @@ USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop"
 BUILD_DIR=`pwd`
 
-apt-get install --assume-yes python-netcdf python-folium \
+apt-get install --assume-yes python-folium \
         python-pysal python-geocoder
 
 #-- Jupyter ppa
