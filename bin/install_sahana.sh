@@ -53,9 +53,9 @@ WEBSERVER="apache2"
 
 ## versions syncd manually
 # PostgreSQL
-PG_VERSION="9.4"
+PG_VERSION="9.5"
 # Geoserver
-GS_VERSION="2.8.2"
+GS_VERSION="2.8.3"
 GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"
 
 # FIXME: Script doesn't currently use this var
