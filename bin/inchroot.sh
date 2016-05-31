@@ -160,27 +160,29 @@ export USER_NAME
 # Python stack
 # ./install_jupyter.sh
 # ./install_mapproxy.sh
-# ./install_mapslicer.sh
-# ./install_pycsw.sh
+./install_mapslicer.sh
+./install_pycsw.sh
 # ./install_eoxserver.sh
 # ./install_iris.sh
 # ./install_istsos.sh
 
 # Java stack
-# ./install_geoserver.sh
-# ./install_geonetwork.sh
-# ./install_deegree.sh
-# ./install_geomajas.sh
+./install_geoserver.sh
+./install_geonetwork.sh
+./install_deegree.sh
+./install_geomajas.sh
+./install_kosmo.sh "$ARCH"
+./install_udig.sh "$ARCH"
+./install_openjump.sh
+./install_gvsig.sh "$ARCH"
+./install_geokettle.sh
+./install_javaworldwind.sh
+./install_prune.sh
+
+# Java + default tomcat
 # ./install_52nWPS.sh
 # ./install_52nSOS.sh
 # ./install_ncWMS.sh
-# ./install_kosmo.sh "$ARCH"
-# ./install_udig.sh "$ARCH"
-# ./install_openjump.sh
-# ./install_gvsig.sh "$ARCH"
-# ./install_geokettle.sh
-# ./install_javaworldwind.sh
-# ./install_prune.sh
 
 # PHP stack
 # ./install_mapbender3.sh
