@@ -484,7 +484,7 @@ cp "$BUILD_DIR"/../desktop-conf/gnome-globe16blue.svg /usr/local/share/icons/
 #  `grep -l 'Geography;' /usr/share/applications/*.desktop` \
 #  /usr/local/share/applications/*.desktop
 #if all are dupes, just nuke it:
-sed -i '53,66d' /etc/xdg/lubuntu/menus/lxde-applications.menu
+sed -i '63,78d' /etc/xdg/lubuntu/menus/lxde-applications.menu
 
 
 ####
