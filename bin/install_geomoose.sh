@@ -24,7 +24,7 @@ BUILD_DIR=`pwd`
 ####
 
 
-apt-get --assume-yes install php5-sqlite
+apt-get --assume-yes install php-sqlite3
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
