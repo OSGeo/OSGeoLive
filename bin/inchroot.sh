@@ -132,7 +132,7 @@ export USER_NAME
 ./service_mysql.sh
 
 ### Project installers
-# C stack
+## C stack
 ./install_postgis.sh
 ./install_spatialite.sh
 ./install_osgearth.sh
@@ -157,7 +157,7 @@ export USER_NAME
 ./install_viking.sh
 ./install_zygrib.sh
 
-# Python stack
+## Python stack
 # ./install_jupyter.sh
 # ./install_mapproxy.sh
 ./install_mapslicer.sh
@@ -166,7 +166,7 @@ export USER_NAME
 # ./install_iris.sh
 # ./install_istsos.sh
 
-# Java stack
+## Java stack
 ./install_geoserver.sh
 ./install_geonetwork.sh
 ./install_deegree.sh
@@ -179,34 +179,34 @@ export USER_NAME
 ./install_javaworldwind.sh
 ./install_prune.sh
 
-# Java + default tomcat
-# ./install_52nWPS.sh
-# ./install_52nSOS.sh
-# ./install_ncWMS.sh
+## Java + default tomcat
+./install_52nWPS.sh
+./install_52nSOS.sh
+./install_ncWMS.sh
 
-# PHP stack
-# ./install_mapbender3.sh
-# ./install_geomoose.sh
-# ./install_cartaro.sh
+## PHP stack
+./install_mapbender3.sh
+./install_geomoose.sh
+./install_cartaro.sh
 
-# Javascript et al
-# ./install_openlayers.sh
-# ./install_leaflet.sh
-# ./install_cesium.sh
-# ./install_sahana.sh
-# ./install_ushahidi.sh
-# ./install_R.sh
-# ./install_rasdaman.sh
+## Javascript et al
+./install_openlayers.sh
+./install_leaflet.sh
+./install_cesium.sh
+./install_sahana.sh
+./install_ushahidi.sh
+./install_R.sh
+./install_rasdaman.sh
 # ./install_geonode.sh
 # ./install_tilemill.sh
 
-# Housekeeping
-# ./load_gisdata.sh
+./load_gisdata.sh
 # ./install_docs.sh "$BUILD_MODE"
 # ./install_edutools.sh
 
-# ./install_desktop.sh
-# ./install_icons_and_menus.sh
+## Housekeeping
+./install_desktop.sh
+./install_icons_and_menus.sh
 ./setdown.sh
 
 
