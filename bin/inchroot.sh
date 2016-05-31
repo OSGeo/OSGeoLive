@@ -187,7 +187,7 @@ export USER_NAME
 ## PHP stack
 ./install_mapbender3.sh
 ./install_geomoose.sh
-./install_cartaro.sh
+# ./install_cartaro.sh
 
 ## Javascript et al
 ./install_openlayers.sh
@@ -196,7 +196,7 @@ export USER_NAME
 ./install_sahana.sh
 ./install_ushahidi.sh
 ./install_R.sh
-./install_rasdaman.sh
+# ./install_rasdaman.sh
 # ./install_geonode.sh
 # ./install_tilemill.sh
 
