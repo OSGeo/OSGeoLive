@@ -42,8 +42,8 @@ mkdir -p "$TMP_DIR"
 # Install ushahidi dependencies.
 echo "Installing ushahidi"
 
-apt-get --assume-yes install php5 php5-mcrypt php5-curl apache2 \
-   php5-gd php5-imap mysql-server libapache2-mod-php5 php5-mysql 
+apt-get --assume-yes install php php-mcrypt php-curl apache2 \
+   php-gd php-imap mysql-server libapache2-mod-php php-mysql
 
 if [ ! -x "`which wget`" ] ; then
     echo "ERROR: wget is required, please install it and try again"
