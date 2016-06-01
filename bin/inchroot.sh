@@ -163,7 +163,7 @@ export USER_NAME
 # ./install_mapslicer.sh
 ./install_pycsw.sh
 ./install_eoxserver.sh
-# ./install_iris.sh
+./install_iris.sh
 ./install_istsos.sh
 
 ## Java stack
