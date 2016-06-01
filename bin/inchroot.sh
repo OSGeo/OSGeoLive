@@ -159,12 +159,12 @@ export USER_NAME
 
 ## Python stack
 # ./install_jupyter.sh
-# ./install_mapproxy.sh
+./install_mapproxy.sh
 # ./install_mapslicer.sh
 ./install_pycsw.sh
-# ./install_eoxserver.sh
+./install_eoxserver.sh
 # ./install_iris.sh
-# ./install_istsos.sh
+./install_istsos.sh
 
 ## Java stack
 ./install_geoserver.sh
