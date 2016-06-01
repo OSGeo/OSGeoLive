@@ -17,12 +17,12 @@ USER_HOME="/home/$USER_NAME"
 
 BIN="/usr/local/bin"
 TMP="/tmp/build_mapproxy"
-MAPPROXY_VERSION="1.8.0"
+MAPPROXY_VERSION="1.8.2"
 MAPPROXY_DOCS_FILE="MapProxy-docs-$MAPPROXY_VERSION.tar.gz"
 MAPPROXY_DOCS_URL="http://mapproxy.org/static/rel/$MAPPROXY_DOCS_FILE"
 MAPPROXY_DIR="/usr/local/share/mapproxy"
 
-apt-get install --yes mapproxy
+apt-get install --yes python-mapproxy
 
 mkdir -p "$TMP"
 cd "$TMP"
