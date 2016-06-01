@@ -153,7 +153,7 @@ export USER_NAME
 ./install_qgis_mapserver.sh
 # ./install_zoo-project.sh
 ./install_marble.sh
-# ./install_opencpn.sh
+./install_opencpn.sh
 ./install_viking.sh
 ./install_zygrib.sh
 
