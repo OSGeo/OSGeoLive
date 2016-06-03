@@ -51,12 +51,14 @@ cp ../app-conf/tomcat/tomcat-users.xml \
 
 chown tomcat8:tomcat8 /etc/tomcat8/tomcat-users.xml
 
-
 # something screwed up with the ISO permissions:
 chgrp tomcat8 /usr/share/tomcat8/bin/*.sh
 adduser "$USER_NAME" tomcat8
 
 service tomcat8 stop
+
+# Assign 1GB of RAM to default tomcat
+sed -i -e 's/-Xmx128m/-Xmx1024m/' /etc/default/tomcat8
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
