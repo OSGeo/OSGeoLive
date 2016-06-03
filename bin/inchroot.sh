@@ -158,7 +158,7 @@ export USER_NAME
 ./install_zygrib.sh
 
 ## Python stack
-# ./install_jupyter.sh
+./install_jupyter.sh
 ./install_mapproxy.sh
 # ./install_mapslicer.sh
 ./install_pycsw.sh
@@ -202,7 +202,7 @@ export USER_NAME
 
 ./load_gisdata.sh
 ./install_docs.sh "$BUILD_MODE"
-# ./install_edutools.sh
+./install_edutools.sh
 
 ## Housekeeping
 ./install_desktop.sh
