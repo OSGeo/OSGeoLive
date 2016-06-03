@@ -159,7 +159,7 @@ wget --progress=dot:mega \
 
 tar xzf "$TMP_DIR"/tutorials.tgz -C "$TMP_DIR"
 
-cd "$TMP_DIR"/*osgeo-live-qgis-tutorials*
+cd "$TMP_DIR"/*QGIS-OSGEO-Live-Tutorials*
 
 apt-get --assume-yes install python-sphinx
 make html
