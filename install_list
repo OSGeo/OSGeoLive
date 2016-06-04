@@ -50,6 +50,7 @@ pgrouting
 postgis
 prune
 pycsw
+pywps
 qgis
 qgis_mapserver
 R
