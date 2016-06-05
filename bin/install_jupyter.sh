@@ -27,13 +27,8 @@ USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop"
 BUILD_DIR=`pwd`
 
-apt-get install --assume-yes  python-matplotlib \
-        python-scipy python-pandas \
-        python-netcdf python-netcdf4 \
-        python-shapely python-rasterio python-fiona \
-        python-geopandas python-descartes \
-        python-enum34 python-geojson python-folium \
-        python-pysal fiona rasterio gdal-bin python-geographiclib python-geocoder
+apt-get install --assume-yes python-folium \
+        python-pysal python-geocoder
 
 #-- Jupyter ppa
 apt-add-repository --yes ppa:gcpp-kalxas/jupyter

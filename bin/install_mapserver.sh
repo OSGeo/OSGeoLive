@@ -48,16 +48,13 @@ mkdir "$TMP_DIR"
 cd "$TMP_DIR"
 
 # Install MapServer and its php, python bindings.
-apt-get install --yes cgi-mapserver mapserver-bin php5-mapscript \
-   python-mapscript
-
+apt-get install --yes cgi-mapserver mapserver-bin python-mapscript
 
 # Download MapServer data
 wget -c --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/mapserver/mapserver-6-2-html-docs.zip"
 wget -c --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/mapserver/mapserver-itasca-ms70.zip"
-
 
 # Install docs and demos
 if [ ! -d "$MAPSERVER_DATA" ] ; then

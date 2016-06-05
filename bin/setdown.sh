@@ -5,7 +5,7 @@
 # install scripts.
 #
 #############################################################################
-# Copyright (c) 2009-2015 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
 #
@@ -18,10 +18,6 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#############################################################################
-# Running:
-# =======
-# sudo ./setdown.sh 2>&1 | tee /var/log/osgeolive/setdown.log
 #############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -47,7 +43,7 @@ if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] ; then
 
 #   GRPS="audio dialout fuse plugdev pulse staff tomcat7 users www-data"
 #bad smelling hack to mitigate the effects of #1104's race condition
-    GRPS="users tomcat7 www-data staff fuse plugdev audio dialout pulse"
+    GRPS="users tomcat8 www-data staff fuse plugdev audio dialout pulse"
 
     for GRP in $GRPS ; do
        echo "adduser $USER_NAME $GRP" >> /etc/rc.local
@@ -56,32 +52,14 @@ if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] ; then
     echo "exit 0" >> /etc/rc.local
 fi
 # try to get those changes applied sooner
-mv /etc/rc2.d/S99rc.local /etc/rc2.d/S10rc.local
+# mv /etc/rc2.d/S99rc.local /etc/rc2.d/S10rc.local
 
-# bloody hell..
-cp ../app-conf/build_chroot/27osgeo_groups \
-  /usr/share/initramfs-tools/scripts/casper-bottom/
-
-
-# re-enable ability to create persistent USB installs on a 4gb thumb drive
-sed -i -e 's/\(^MIN_PERSISTENCE =\) .*/\1 256/' \
-   /usr/lib/python3/dist-packages/usbcreator/misc.py
+# Re-enable if user does not belong to groups
+# cp ../app-conf/build_chroot/27osgeo_groups \
+#   /usr/share/initramfs-tools/scripts/casper-bottom/
 
 # remove build stuff no longer of use
-apt-get --yes remove devscripts pbuilder \
-   svn-buildpackage \
-   lintian debhelper pkg-config dpkg-dev
-
-apt-get --yes remove python2.7-dev
-
-# libgdal-dev, libpq-dev, and grass-dev get installed and uninstalled
-# so many times it's hard to keep track. let's install them one final
-# time just to be sure they make it on...
-# grass-dev will depend on libgdal-dev or libgdal1-dev as needed, so
-#  during the transition we'll let gdal just be implicit. libpq-dev will
-#  also be pulled in automatically by this.
-apt-get install --assume-yes grass-dev proj-bin gdal-bin
-
+apt-get --yes remove python-all-dev
 
 # remove any leftover orphans
 apt-get --yes autoremove
@@ -102,26 +80,6 @@ chmod g-w /usr/share/ossim/
 
 # now that everything is installed rebuild library search cache
 ldconfig
-
-
-#shrink help page images
-# echo "Shrinking images, please wait as this may take some time ..."
-
-# cd /var/www/html/
-# # instrument it to see if it's worth the effort (takes 2.25 minutes, saves <1mb)
-# echo "`date`: /var/www/html takes `du -sm /var/www/html | cut -f1` mb"
-# optipng -quiet -o5 `find | grep '\.png$' | grep -v './_images/'`
-# echo "`date`: /var/www/html takes `du -sm /var/www/html | cut -f1` mb"
-# cd -
-#
-# cd /usr/local/
-# # takes 32 minutes, saves 5mb
-# echo "`date`: /usr/local takes `du -sm /usr/local | cut -f1` mb"
-# optipng -quiet -o5 `find | grep '\.png$' | grep -v gisvm`
-# echo "`date`: /usr/local takes `du -sm /usr/local | cut -f1` mb"
-# cd -
-# maybe do this after fslint so that hardlink'd dupes get done too?
-
 
 #### Check how much space is wasted by double files in /usr
 # Checking which duplicate files are present can be useful to save
@@ -197,27 +155,29 @@ if [ -e /etc/ssh/sshd_config ] ; then
 fi
 
 # Start tomcat to ensure all applications are deployed
-service tomcat7 start
+service tomcat8 start
 sleep 120
-service tomcat7 stop
+service tomcat8 stop
 
 # Disable auto-deploy to prevent applications to get removed after removing war files
 # TODO: Add some note to wiki for users that want to deploy their own tomcat applications
 sed -i -e 's/unpackWARs="true"/unpackWARs="false"/' -e 's/autoDeploy="true"/autoDeploy="false"/' \
-    /etc/tomcat7/server.xml
+    /etc/tomcat8/server.xml
 
-#Cleaning up war files to save disk space
-rm -f /var/lib/tomcat7/webapps/*.war
+# Cleaning up war files to save disk space
+rm -f /var/lib/tomcat8/webapps/*.war
 
-#Disabling default tomcat startup
-update-rc.d -f tomcat7 remove
+# Disabling default tomcat startup
+#update-rc.d -f tomcat7 remove
+systemctl disable tomcat8.service
 
 if [ ! -e /etc/sudoers.d/tomcat ] ; then
    cat << EOF > /etc/sudoers.d/tomcat
-%users ALL=(root) NOPASSWD: /usr/sbin/service tomcat7 start,/usr/sbin/service tomcat7 stop,/usr/sbin/service tomcat7 status
+%users ALL=(root) NOPASSWD: /usr/sbin/service tomcat8 start,/usr/sbin/service tomcat8 stop,/usr/sbin/service tomcat8 status
 EOF
 fi
 chmod 440 /etc/sudoers.d/tomcat
+
 
 # Switching to default IPv6
 rm /etc/gai.conf
@@ -226,7 +186,7 @@ mv /etc/gai.conf.orig /etc/gai.conf
 # stop PostgreSQL and MySQL to avoid them thinking a crash happened next boot
 service postgresql stop
 service mysql stop
-
+service apache2 stop
 
 # This is done on an extra step after rebooting and tmp is cleared
 #echo "==============================================================="

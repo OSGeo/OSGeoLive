@@ -74,9 +74,9 @@ apt-get install --assume-yes -q --no-install-recommends $PACKAGES
 
 
 ## experiment 6.5a4  generate the iso-8859-1x locale
-locale-gen en_US ISO-8859-1
-locale-gen en_US ISO-8859-15
-dpkg-reconfigure locales
+#locale-gen en_US ISO-8859-1
+#locale-gen en_US ISO-8859-15
+#dpkg-reconfigure locales
 
 
 #TODO: allow select at boot splash screen

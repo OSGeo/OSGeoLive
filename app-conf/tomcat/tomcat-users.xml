@@ -15,7 +15,20 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<tomcat-users>
+<tomcat-users xmlns="http://tomcat.apache.org/xml"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://tomcat.apache.org/xml tomcat-users.xsd"
+              version="1.0">
+<!--
+  NOTE:  By default, no user is included in the "manager-gui" role required
+  to operate the "/manager/html" web application.  If you wish to use this app,
+  you must define such a user - the username and password are arbitrary.
+-->
+<!--
+  NOTE:  The sample user and role entries below are wrapped in a comment
+  and thus are ignored when reading this file. Do not forget to remove
+  <!.. ..> that surrounds them.
+-->
 <!--
   <role rolename="tomcat"/>
   <role rolename="role1"/>
@@ -23,7 +36,7 @@
   <user username="both" password="tomcat" roles="tomcat,role1"/>
   <user username="role1" password="tomcat" roles="role1"/>
 -->
-	<role rolename="admin" />
+    <role rolename="admin" />
     <role rolename="manager" />
     <user username="user" password="user" roles="admin,manager" /> 
 </tomcat-users>

@@ -1,10 +1,11 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will install apache2
+# Purpose: This script will install C development tools and libraries to use in
+# OSGeoLive.
 #
 #############################################################################
-# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2016 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
 #
@@ -20,34 +21,16 @@
 #############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
-####
+BUILD_DIR=`pwd`
 
+apt-get -q update
 
-apt-get install --yes apache2
+# Install C development packages
+apt-get install --yes build-essential cmake pkg-config
+# removed from list:
+# pbuilder fakeroot devscripts debhelper svn-buildpackage lintian dpkg-dev 
 
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
+# Install OSGeo C stack libraries
+apt-get install --yes libgdal20 gdal-bin proj-bin libgeos-c1v5 geotiff-bin
 
-# add "user" to the www-data group
-adduser "$USER_NAME" www-data
-
-
-mkdir -p /var/www/html
-wget -nv http://www.osgeo.org/favicon.ico -O /var/www/html/favicon.ico
-
-rm /var/www/html/index.html
-
-cat << EOF > /var/www/html/index.html
-<html>
-<head>
-<meta http-equiv="Refresh" content="0;url=http://localhost/osgeolive" />
-</head>
-<body>
-</body>
-</html>
-EOF
-
-
-####
-./diskspace_probe.sh "`basename $0`" end
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

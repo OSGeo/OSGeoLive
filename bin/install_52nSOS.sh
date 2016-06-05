@@ -38,7 +38,7 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-TOMCAT_USER_NAME="tomcat7"
+TOMCAT_USER_NAME="tomcat8"
 TOMCAT_SCRIPT_NAME="$TOMCAT_USER_NAME"
 SOS_WEB_APP_NAME="52nSOS"
 SOS_ICON_NAME="52nSOS.png"
@@ -100,7 +100,7 @@ fi
 if [ ! -x "`which java`" ] ; then
 	apt-get -q update
 	#
-	apt-get --assume-yes install openjdk-7-jre
+	apt-get --assume-yes install openjdk-8-jre
 fi
 #
 #

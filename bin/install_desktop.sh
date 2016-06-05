@@ -35,14 +35,15 @@ USER_HOME="/home/$USER_NAME"
 cp ../desktop-conf/passwords.txt "$USER_HOME/Desktop/"
 chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 
-# Download the desktop background image
-wget -N --tries=3 --progress=dot:mega \
-    "http://download.osgeo.org/livedvd/9.5/desktop95_F.png" \
-    -O "/usr/share/lubuntu/wallpapers/osgeo-desktop.png"
+#TODO: Uncomment when new background is uploaded
+# # Download the desktop background image
+# wget -N --tries=3 --progress=dot:mega \
+#     "http://download.osgeo.org/livedvd/9.5/desktop95_F.png" \
+#     -O "/usr/share/lubuntu/wallpapers/osgeo-desktop.png"
 
 # Setup the default desktop background image
-# cp ../desktop-conf/osgeo-desktop.png \
-#    /usr/share/lubuntu/wallpapers/
+cp ../desktop-conf/osgeo-desktop.png \
+    /usr/share/lubuntu/wallpapers/
 
 # cp ../desktop-conf/osgeo-desktop-transparent.png \
 #    /usr/share/lubuntu/wallpapers/
@@ -59,15 +60,19 @@ sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
     /etc/xdg/lubuntu/lxdm/lxdm.conf
 
 # Actually, I think this is the one which really does it:
-sed -i -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
-       -e 's|^desktop_shadow=.*|desktop_shadow=.*\nshow_mounts=1|' \
+sed -i -e 's|^wallpaper_mode=.*|wallpaper_mode=fit|' \
+       -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
+       -e 's|^desktop_bg=.*|desktop_bg=#000000|' \
    /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
+
+## Removed this for xenial: -e 's|^desktop_shadow=.*|desktop_shadow=.*\nshow_mounts=1|' \
 
 echo "desktop_folder_new_win=1" >> /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
 
 # New way to set login screen background as of 12.04 that uses lightdm instead of gdm
 #  (awaiting graphic with text overlay explaining what the user name and password is)
+# Update: The contents of this file are commented out... we need to find where this gets set.
 sed -i -e 's|^background=.*|background=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
    /etc/lightdm/lightdm-gtk-greeter.conf
 
@@ -186,17 +191,18 @@ cp /etc/xdg/autostart/nm-applet.desktop  /etc/skel/.config/autostart/
 # if [ `ifconfig -s | grep -cw ^eth0` -eq 1 ] ; then
 #   dhclient eth0   # sudo needed?
 # fi
-cat << EOF > "/etc/skel/.config/autostart/force_dns.desktop"
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=Manually trigger DNS setting from DHCP
-Comment=Work around for missing resolv.conf bug
-Exec=sudo --non-interactive dhclient eth0
-Terminal=false
-StartupNotify=false
-Hidden=false
-EOF
+
+# cat << EOF > "/etc/skel/.config/autostart/force_dns.desktop"
+# [Desktop Entry]
+# Type=Application
+# Encoding=UTF-8
+# Name=Manually trigger DNS setting from DHCP
+# Comment=Work around for missing resolv.conf bug
+# Exec=sudo --non-interactive dhclient eth0
+# Terminal=false
+# StartupNotify=false
+# Hidden=false
+# EOF
 
 #### replace the Software Center on the Apps menu with the more useful Synaptic
 # .. TODO   (right click the Apps menu, properties, edit, add synaptic-pkexec, 
@@ -218,12 +224,12 @@ EOF
 
 # work around for launchpad bug #975152 (opens empty lxterminal; trac #1363)
 #   and make the icons not so huge
-sed -i -e 's|lxsession-default-terminal %s|x-terminal-emulator -e %s|' \
-       -e 's|big_icon_size=48|big_icon_size=36|' \
-   /etc/xdg/lubuntu/libfm/libfm.conf
+# sed -i -e 's|lxsession-default-terminal %s|x-terminal-emulator -e %s|' \
+#        -e 's|big_icon_size=48|big_icon_size=36|' \
+#    /etc/xdg/lubuntu/libfm/libfm.conf
 
-sed -i -e 's|lxsession-default terminal|x-terminal-emulator|' \
-   /usr/share/lxpanel/profile/Lubuntu/config
+# sed -i -e 's|lxsession-default terminal|x-terminal-emulator|' \
+#    /usr/share/lxpanel/profile/Lubuntu/config
 
 
 # add some file types to the master mime.types file
@@ -271,107 +277,107 @@ echo "application/gpx+xml=gpsprune.desktop" >> \
    /etc/xdg/lubuntu/applications/defaults.list
 
 
-#### Make Unity Usable (Muu..)
-# we are using xubuntu so it's a bit academic, but in case anyone wants to
-#  use OSGeo on stock Ubuntu these changes can make it a lot less annoying.
-if [ "$DESKTOP_SESSION" = "Unity" ] ; then
-  apt-get install --yes gconf-editor dconf-tools
+# #### Make Unity Usable (Muu..)
+# # we are using xubuntu so it's a bit academic, but in case anyone wants to
+# #  use OSGeo on stock Ubuntu these changes can make it a lot less annoying.
+# if [ "$DESKTOP_SESSION" = "Unity" ] ; then
+#   apt-get install --yes gconf-editor dconf-tools
 
-  # The hardest part is finding where the heck the gnome people hid the option.
-  # To locate what you are looking for (e.g. setting the icon_size) search through:
-  #gconftool --dump /apps | grep -w -B5 -A5 icon_size
-  # more options can be found here:
-  #dconf dump / | less
-  # See also:
-  # http://www.tuxgarage.com/2011/07/customizing-gnome-lock-screen.html
-  # http://www.tuxgarage.com/2011/05/customize-gdm-plymouth-grub2.html
-  # http://library.gnome.org/admin/system-admin-guide/stable/dconf-profiles.html.en
+#   # The hardest part is finding where the heck the gnome people hid the option.
+#   # To locate what you are looking for (e.g. setting the icon_size) search through:
+#   #gconftool --dump /apps | grep -w -B5 -A5 icon_size
+#   # more options can be found here:
+#   #dconf dump / | less
+#   # See also:
+#   # http://www.tuxgarage.com/2011/07/customizing-gnome-lock-screen.html
+#   # http://www.tuxgarage.com/2011/05/customize-gdm-plymouth-grub2.html
+#   # http://library.gnome.org/admin/system-admin-guide/stable/dconf-profiles.html.en
 
-  # set the web browser homepage:
-  gconftool-2 --direct \
-    --config-source xml:readwrite:/etc/opt/gnome/gconf/gconf.xml.mandatory \
-    --type string --set /apps/firefox/general/homepage_url live.osgeo.org
+#   # set the web browser homepage:
+#   gconftool-2 --direct \
+#     --config-source xml:readwrite:/etc/opt/gnome/gconf/gconf.xml.mandatory \
+#     --type string --set /apps/firefox/general/homepage_url live.osgeo.org
 
-  # make the launcher icons smaller, this isn't a touchscreen
-  gconftool-2 --direct \
-    --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
-    --type int --set /apps/compiz-1/plugins/unityshell/screen0/options/icon_size 38
-  #also you might check the setting here: (same goes for other options too)
-  #  --type int --set /apps/compizconfig-1/profiles/Default/plugins/unityshell/screen0/options/icon_size 38
+#   # make the launcher icons smaller, this isn't a touchscreen
+#   gconftool-2 --direct \
+#     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+#     --type int --set /apps/compiz-1/plugins/unityshell/screen0/options/icon_size 38
+#   #also you might check the setting here: (same goes for other options too)
+#   #  --type int --set /apps/compizconfig-1/profiles/Default/plugins/unityshell/screen0/options/icon_size 38
 
-  # only put a launcher bar on one monitor (maybe nice for laptop+monitor but bad for dual headed setups)
-  gconftool-2 --direct \
-    --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
-    --type int --set /apps/compiz-1/plugins/unityshell/screen0/options/num_launchers 1
+#   # only put a launcher bar on one monitor (maybe nice for laptop+monitor but bad for dual headed setups)
+#   gconftool-2 --direct \
+#     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+#     --type int --set /apps/compiz-1/plugins/unityshell/screen0/options/num_launchers 1
   
-  # don't be sticky at the edge of the monitor (another huge frustration for dual-headed monitors)
-  gconftool-2 --direct \
-    --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
-    --type bool --set /apps/compiz-1/plugins/unityshell/screen0/options/launcher_capture_mouse false
+#   # don't be sticky at the edge of the monitor (another huge frustration for dual-headed monitors)
+#   gconftool-2 --direct \
+#     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+#     --type bool --set /apps/compiz-1/plugins/unityshell/screen0/options/launcher_capture_mouse false
   
-  # keep windows stacked as you left them,
-  gconftool-2 --direct \
-    --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
-    --type bool --set /apps/metacity/general/auto_raise false
+#   # keep windows stacked as you left them,
+#   gconftool-2 --direct \
+#     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+#     --type bool --set /apps/metacity/general/auto_raise false
   
-  # don't maximize if the window happens to brush the top of the screen while moving it
-  gconftool-2 --direct \
-    --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
-    --type int --set /apps/compiz-1/plugins/grid/screen0/options/top_edge_action 0
+#   # don't maximize if the window happens to brush the top of the screen while moving it
+#   gconftool-2 --direct \
+#     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+#     --type int --set /apps/compiz-1/plugins/grid/screen0/options/top_edge_action 0
   
-  # right mouse button exists for the context menu, no need to waste the screen real estate
-  gconftool-2 --direct \
-    --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
-      --type bool --set /apps/gnome-terminal/profiles/Default/default_show_menubar false
+#   # right mouse button exists for the context menu, no need to waste the screen real estate
+#   gconftool-2 --direct \
+#     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
+#       --type bool --set /apps/gnome-terminal/profiles/Default/default_show_menubar false
 
 
-  # dconf weirdness:
-  mkdir -p /etc/dconf/db/local.d
-  mkdir -p /etc/dconf/profile
-  # basic setup for local mods:
-  cat << EOF > /etc/dconf/profile/user
-user-db:user
-system-db:local
-EOF
-  cat << EOF > /etc/dconf/profile/gdm
-user
-gdm
-EOF
+#   # dconf weirdness:
+#   mkdir -p /etc/dconf/db/local.d
+#   mkdir -p /etc/dconf/profile
+#   # basic setup for local mods:
+#   cat << EOF > /etc/dconf/profile/user
+# user-db:user
+# system-db:local
+# EOF
+#   cat << EOF > /etc/dconf/profile/gdm
+# user
+# gdm
+# EOF
 
-  # set the default desktop background:
-  cat << EOF > /etc/dconf/db/local.d/00_default-wallpaper
-[org/gnome/desktop/background]
-#picture-options='zoom'
-picture-uri='file:///usr/share/backgrounds/Precise_Pangolin_by_Vlad_Gerasimov.jpg'
-EOF
+#   # set the default desktop background:
+#   cat << EOF > /etc/dconf/db/local.d/00_default-wallpaper
+# [org/gnome/desktop/background]
+# #picture-options='zoom'
+# picture-uri='file:///usr/share/backgrounds/Precise_Pangolin_by_Vlad_Gerasimov.jpg'
+# EOF
 
-  # set the default login background image when Unity-greeter is used by lightdm:
-  cat << EOF > /usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.override
-[com.canonical.unity-greeter]
-draw-user-backgrounds=false
-background='/usr/share/lubuntu/wallpapers/osgeo-desktop.png'
-EOF
-  glib-compile-schemas /usr/share/glib-2.0/schemas/
+#   # set the default login background image when Unity-greeter is used by lightdm:
+#   cat << EOF > /usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.override
+# [com.canonical.unity-greeter]
+# draw-user-backgrounds=false
+# background='/usr/share/lubuntu/wallpapers/osgeo-desktop.png'
+# EOF
+#   glib-compile-schemas /usr/share/glib-2.0/schemas/
 
-  # set what icons will be on the taskbar (launcher) by default for new users
-  cat << EOF > /etc/dconf/db/local.d/01_unity_favorites
-[desktop/unity/launcher]
-favorites=['nautilus-home.desktop', 'firefox.desktop', 'libreoffice-writer.desktop', 'libreoffice-calc.desktop', 'gnome-control-center.desktop', 'gnome-terminal.desktop', 'nedit.desktop']
-EOF
+#   # set what icons will be on the taskbar (launcher) by default for new users
+#   cat << EOF > /etc/dconf/db/local.d/01_unity_favorites
+# [desktop/unity/launcher]
+# favorites=['nautilus-home.desktop', 'firefox.desktop', 'libreoffice-writer.desktop', 'libreoffice-calc.desktop', 'gnome-control-center.desktop', 'gnome-terminal.desktop', 'nedit.desktop']
+# EOF
 
-  # blank screen after 5 minutes
-  cat << EOF > /etc/dconf/db/local.d/02_5min_timeout
-[org/gnome/desktop/session]
-idle-delay=uint32 300
+#   # blank screen after 5 minutes
+#   cat << EOF > /etc/dconf/db/local.d/02_5min_timeout
+# [org/gnome/desktop/session]
+# idle-delay=uint32 300
 
-[org/gnome/settings-daemon/plugins/power]
-sleep-display-ac=300
-sleep-display-battery=300
-EOF
+# [org/gnome/settings-daemon/plugins/power]
+# sleep-display-ac=300
+# sleep-display-battery=300
+# EOF
 
-  # apply the changes to the dconf DB
-  dconf update
-fi
+#   # apply the changes to the dconf DB
+#   dconf update
+# fi
 
 
 ####

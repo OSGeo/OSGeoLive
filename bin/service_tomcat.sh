@@ -1,7 +1,7 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will install tomcat 7
+# Purpose: This script will install tomcat 8
 #
 #############################################################################
 # Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo)
@@ -28,7 +28,7 @@
 #
 # To manually launch:
 # ===================
-# sudo /etc/init.d tomcat7 start
+# sudo /etc/init.d tomcat8 start
 #############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -39,7 +39,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 
 
-apt-get install --yes tomcat7 tomcat7-admin
+apt-get install --yes tomcat8 tomcat8-admin
 
 #Add the following lines to <tomcat-users> in /etc/tomcat7/tomcat-users.xml
 #<role rolename="manager"/>
@@ -47,16 +47,18 @@ apt-get install --yes tomcat7 tomcat7-admin
 
 
 cp ../app-conf/tomcat/tomcat-users.xml \
-   /etc/tomcat7/tomcat-users.xml
+   /etc/tomcat8/tomcat-users.xml
 
-chown tomcat7:tomcat7 /etc/tomcat7/tomcat-users.xml
-
+chown tomcat8:tomcat8 /etc/tomcat8/tomcat-users.xml
 
 # something screwed up with the ISO permissions:
-chgrp tomcat7 /usr/share/tomcat7/bin/*.sh
-adduser "$USER_NAME" tomcat7
+chgrp tomcat8 /usr/share/tomcat8/bin/*.sh
+adduser "$USER_NAME" tomcat8
 
-service tomcat7 stop
+service tomcat8 stop
+
+# Assign 1GB of RAM to default tomcat
+sed -i -e 's/-Xmx128m/-Xmx1024m/' /etc/default/tomcat8
 
 ####
 ./diskspace_probe.sh "`basename $0`" end

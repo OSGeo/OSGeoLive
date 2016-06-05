@@ -56,7 +56,7 @@ wget -c --tries=3 --progress=dot:mega \
 
 #Install icedtea for the web start
 echo "\nInstalling Java Web Start..."
-apt-get install --assume-yes icedtea-7-plugin
+apt-get install --assume-yes icedtea-8-plugin
 
 if [ -d "$UNZIP_DIR" ]; then
   rm -rf "$UNZIP_DIR"

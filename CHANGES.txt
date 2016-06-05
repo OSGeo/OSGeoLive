@@ -1,6 +1,38 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 10.0alpha1
+====================
+
+ * Re-based to Lubuntu 16.04 LTS Xenial
+ * Unmount problem during build process now solved (#1046)
+ * Refactored installer scripts to 3 layers (base, services, projects)
+ * PostgreSQL 9.5
+ * MySQL 5.7
+ * OpenJDK 8
+ * Tomcat 8
+ * GDAL 2.1.0
+ * PostGIS 2.2.1
+ * GRASS 7.0.3
+ * QGIS 2.14.1
+ * Mapnik 3.0.9
+ * GeoServer 2.8.3
+ * MapServer 7.0.1
+ * pycsw 1.10.4
+ * mbsystem 5.5.2274
+ * MapProxy 1.8.2
+ * istsos 2.3.0
+ * netcdf4-python 1.2.4
+ * cartopy 0.14.2
+ * opencpn 4.2.0
+ * osgearth 2.7.0
+ * pgrouting 2.1.0
+ * OTB 5.4.0
+ * SAGA 2.2.7
+ * GeoMoose 2.9.0
+ * GMT 5.2.1
+ * PHP 7
+
 Version 9.5rc2/final
 ====================
 

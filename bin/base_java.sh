@@ -21,7 +21,7 @@
 
 if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
     echo "Wrong number of arguments"
-    echo "Usage: install_java.sh ARCH(i386 or amd64)"
+    echo "Usage: base_java.sh ARCH(i386 or amd64)"
     exit 1
 fi
 
@@ -35,19 +35,18 @@ ARCH="$1"
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
-
 #apt-get install --yes default-jdk default-jre
-apt-get install --yes openjdk-7-jdk openjdk-7-jre default-jre
+apt-get install --yes openjdk-8-jdk openjdk-8-jre default-jre
 
 apt-get --assume-yes install gsfonts-x11 ttf-dejavu-extra
 
 # Detect build architecture for JAVA_HOME default
 if [ "$ARCH" = "i386" ] ; then
-    ln -s /usr/lib/jvm/java-7-openjdk-i386 /usr/lib/jvm/default-java
+    ln -s /usr/lib/jvm/java-8-openjdk-i386 /usr/lib/jvm/default-java
 fi
 
 if [ "$ARCH" = "amd64" ] ; then
-    ln -s /usr/lib/jvm/java-7-openjdk-amd64 /usr/lib/jvm/default-java
+    ln -s /usr/lib/jvm/java-8-openjdk-amd64 /usr/lib/jvm/default-java
 fi
 
 # in case of emergency break glass:
@@ -55,11 +54,6 @@ fi
 #JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386
 #export JAVA_HOME
 #EOF
-
-### see if we can reinstall this without bringing in the kitchen sink
-###   otherwise we'll drop it
-#apt-get --assume-yes install pdftk
-
 
 ####
 ./diskspace_probe.sh "`basename $0`" end

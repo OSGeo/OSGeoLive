@@ -28,7 +28,7 @@ BUILD_DIR=`pwd`
 wget http://download.rasdaman.org/installer/install.sh
 sudo bash install.sh -p osgeo
 sudo service rasdaman stop
-sudo service tomcat7 stop
+sudo service tomcat8 stop
 
 echo "Rasdaman command log:"
 echo "==============================================="
