@@ -49,6 +49,7 @@ cd "$TMP_DIR"
 
 # Install MapServer and its php, python bindings.
 apt-get install --yes cgi-mapserver mapserver-bin python-mapscript
+apt-get install --yes php5-mapscript
 
 # Download MapServer data
 wget -c --progress=dot:mega \
