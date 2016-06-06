@@ -127,6 +127,7 @@ export USER_NAME
 
 ### Service installers
 ./service_apache2.sh
+./base_php.sh
 ./service_tomcat.sh
 ./service_postgresql.sh
 ./service_mysql.sh
@@ -160,12 +161,12 @@ export USER_NAME
 ## Python stack
 ./install_jupyter.sh
 ./install_mapproxy.sh
-# ./install_mapslicer.sh
 ./install_pycsw.sh
 ./install_pywps.sh
 ./install_eoxserver.sh
 ./install_iris.sh
 ./install_istsos.sh
+# ./install_mapslicer.sh
 
 ## Java stack
 ./install_geoserver.sh
@@ -188,24 +189,27 @@ export USER_NAME
 ## PHP stack
 ./install_mapbender3.sh
 ./install_geomoose.sh
+./install_ushahidi.sh
 # ./install_cartaro.sh
+
+## more Python (GeoServer rdeps)
+./install_sahana.sh
+# ./install_geonode.sh
 
 ## Javascript et al
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_cesium.sh
-./install_sahana.sh
-./install_ushahidi.sh
 ./install_R.sh
 # ./install_rasdaman.sh
-# ./install_geonode.sh
 # ./install_tilemill.sh
 
+## Docs, Data and extras
 ./load_gisdata.sh
 ./install_docs.sh "$BUILD_MODE"
 ./install_edutools.sh
 
-## Housekeeping
+## Desktop and Housekeeping
 ./install_desktop.sh
 ./install_icons_and_menus.sh
 ./setdown.sh

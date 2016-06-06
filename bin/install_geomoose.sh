@@ -24,7 +24,7 @@ BUILD_DIR=`pwd`
 ####
 
 
-apt-get --assume-yes install php-sqlite3
+apt-get --assume-yes install php5.6 php5.6-sqlite3 php5.6-mbstring
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
