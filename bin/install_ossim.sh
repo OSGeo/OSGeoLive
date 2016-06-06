@@ -19,19 +19,6 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
-if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
-    echo "Wrong number of arguments"
-    echo "Usage: install_ossim.sh ARCH(i386 or amd64)"
-    exit 1
-fi
-
-if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
-    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
-    echo "Usage: install_ossim.sh ARCH(i386 or amd64)"
-    exit 1
-fi
-ARCH="$1"
-
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
@@ -45,45 +32,28 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR=/tmp/build_ossim
 APP_DATA_DIR="$BUILD_DIR/../app-data/ossim"
 DATA_FOLDER="/usr/local/share/data"
-OSSIM_VERSION=1.8.20
-BUILD_DATE=20160203
 
+#### install ossim from ppa
 apt-get -q update
 
-# ossim-qt dependencies
-# FIXME: be sure all of those dep are added to the deb control file (or in fpm using -d)
-apt-get install --assume-yes ossim-core libossim1 libossim-dev libopenscenegraph99 libqt4-opengl libossim-dev libqt4-core libqt4-qt3support openscenegraph
+apt-get install --yes ossim-core libossim1 ossim-plugins ossim-planet-qt \
+    ossim-planet ossim-gui
 
-# ossim-plugins dependencies
-# FIXME: be sure all of those dep are added to the deb control file (or in fpm using -d)
-apt-get install --assume-yes libfftw3-3 libfftw3-bin libfftw3-long3 libfftw3-quad3 libgtkglext1 libilmbase6 \
-        libopencv-calib3d2.4 libopencv-contrib2.4 libopencv-features2d2.4 \
-        libopencv-flann2.4 libopencv-gpu2.4 libopencv-highgui2.4 \
-        libopencv-imgproc2.4 libopencv-legacy2.4 libopencv-objdetect2.4 \
-        libopencv-video2.4 libopenexr6 libpodofo0.9.0 libgdal1i liblas-c3
+if [ $? -ne 0 ] ; then
+   echo 'ERROR: Package install failed! Aborting.'
+   "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
+   exit 1
+fi
 
-
-#### download ossim
+#### download ossim icons
 mkdir -p "$TMP_DIR"
+mkdir -p /usr/share/ossim
 cd "$TMP_DIR"
-
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-plugins_${OSSIM_VERSION}_${ARCH}.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/gpstk_2.5_${ARCH}.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/libossim-wms_${OSSIM_VERSION}_${ARCH}.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-gui_${OSSIM_VERSION}_${ARCH}.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/libossimqt4_${OSSIM_VERSION}_${ARCH}.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/libossimplanet_${OSSIM_VERSION}_${ARCH}.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossimplanet_${OSSIM_VERSION}_${ARCH}.deb"
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/deb/ossim-share_${OSSIM_VERSION}_${ARCH}.deb"
-
-
-dpkg -i ossim-plugins_${OSSIM_VERSION}_${ARCH}.deb gpstk_2.5_${ARCH}.deb libossim-wms_${OSSIM_VERSION}_${ARCH}.deb ossim-gui_${OSSIM_VERSION}_${ARCH}.deb libossimqt4_${OSSIM_VERSION}_${ARCH}.deb libossimplanet_${OSSIM_VERSION}_${ARCH}.deb ossimplanet_${OSSIM_VERSION}_${ARCH}.deb ossim-share_${OSSIM_VERSION}_${ARCH}.deb
 
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossimPlanet.xpm"
 mv ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
 wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossim.xpm"
 mv ossim.xpm /usr/share/pixmaps/ossim.xpm
-
 
 # create launchers
 cat << EOF > /usr/share/applications/imagelinker.desktop
@@ -142,77 +112,36 @@ wget --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/ossim_pref
 OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"
 export OSSIM_PREFS_FILE
 
-if [ $? -ne 0 ] ; then
-   echo 'ERROR: Package install failed! Aborting.'
-   "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
-   exit 1
-fi
-
 BRCFILE="/etc/skel/.bashrc"
 echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$BRCFILE"
 #echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$BRCFILE"
 echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$USER_HOME/.bashrc"
 #echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$USER_HOME/.bashrc"
 
-ln -s /usr/share/ossim/images/reference/bluemarble.tif \
-  /usr/local/share/data/raster/   
+# ln -s /usr/share/ossim/images/reference/bluemarble.tif \
+#   /usr/local/share/data/raster/
 
-# add menu item
-# if [ ! -e /usr/share/menu/imagelinker ] ; then
-#    cat << EOF > /usr/share/menu/imagelinker
-# ?package(imagelinker):needs="X11"\
-#   section="Applications/Science/Geoscience"\
-#   title="Imagelinker"\
-#   command="/usr/local/ossim/bin/imagelinker"\
-#   icon="/usr/share/pixmaps/ossim.xpm"
-# EOF
-#   update-menus
-# fi
-#
-# if [ ! -e /usr/share/menu/ossimplanet ] ; then
-#    cat << EOF > /usr/share/menu/ossimplanet
-# ?package(ossimplanet):needs="X11"\
-#   section="Applications/Science/Geoscience"\
-#   title="Ossimplanet"\
-#   command="/usr/local/ossim/bin/ossimplanet"\
-#   icon="/usr/share/pixmaps/ossimPlanet.xpm"
-# EOF
-#   update-menus
-# fi
-#
-# if [ ! -e /usr/share/menu/ossim-geocell ] ; then
-#    cat << EOF > /usr/share/menu/ossim-geocell
-# ?package(imagelinker):needs="X11"\
-#   section="Applications/Science/Geoscience"\
-#   title="Imagelinker"\
-#   command="/usr/local/ossim/bin/ossim-geocell"\
-#   icon="/usr/share/pixmaps/ossim.xpm"
-# EOF
-#   update-menus
-# fi
+# #Download data used to test the application
+# KML_DATA="$DATA_FOLDER/kml"
+# RASTER_DATA="$DATA_FOLDER/raster"
+# ELEV_DATA=/usr/share/ossim/elevation/elev
+# SAT_DATA="$RASTER_DATA/cape_cod"
+# #echo "FIXME: does VRT data actually ship anymore?"
+# VRT_DATA="$DATA_FOLDER/vrt"
+# QUICKSTART=/usr/share/ossim/quickstart
+
+# #mkdir -p "$KML_DATA"
+# mkdir -p "$RASTER_DATA"
+# #mkdir -p "$SAT_DATA"
+# mkdir -p "$ELEV_DATA"   # ?? unused ??
+# mkdir -p "$VRT_DATA"
 
 
-#Download data used to test the application
-KML_DATA="$DATA_FOLDER/kml"
-RASTER_DATA="$DATA_FOLDER/raster"
-ELEV_DATA=/usr/share/ossim/elevation/elev
-SAT_DATA="$RASTER_DATA/cape_cod"
-#echo "FIXME: does VRT data actually ship anymore?"
-VRT_DATA="$DATA_FOLDER/vrt"
-QUICKSTART=/usr/share/ossim/quickstart
-
-#mkdir -p "$KML_DATA"
-mkdir -p "$RASTER_DATA"
-#mkdir -p "$SAT_DATA"
-mkdir -p "$ELEV_DATA"   # ?? unused ??
-mkdir -p "$VRT_DATA"
-
-
-# disabled: $KML_DATA $SAT_DATA
-for ITEM in $RASTER_DATA $ELEV_DATA $VRT_DATA ;  do
-   chmod -R 775 "$ITEM"
-   chgrp -R users "$ITEM"
-done
+# # disabled: $KML_DATA $SAT_DATA
+# for ITEM in $RASTER_DATA $ELEV_DATA $VRT_DATA ;  do
+#    chmod -R 775 "$ITEM"
+#    chgrp -R users "$ITEM"
+# done
 
 
 # Cape Cod SRTM and LANDSAT  (this part is disble because of disc space issue)
@@ -267,12 +196,12 @@ done
 #    /usr/local/share/ossim/images/reference/bluemarble.tif
 
 
-mkdir -p "$QUICKSTART"/workspace
-chmod g+w "$QUICKSTART"/workspace
-chgrp users "$QUICKSTART"/workspace
+# mkdir -p "$QUICKSTART"/workspace
+# chmod g+w "$QUICKSTART"/workspace
+# chgrp users "$QUICKSTART"/workspace
 
-chmod g+w /usr/share/ossim/elevation
-chgrp users /usr/share/ossim/elevation
+# chmod g+w /usr/share/ossim/elevation
+# chgrp users /usr/share/ossim/elevation
 
 
 ## TODO: Port the following to GRASS7 - this part needs gdal-grass plugin (not yet available for grass 7.x)
@@ -305,31 +234,31 @@ chgrp users /usr/share/ossim/elevation
 #     /usr/share/ossim/elevation/spearfish/elevation10m.ras
 
 
-# add suppport files used for the ossim tutorials
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.prj"
-mv rgb.prj "$QUICKSTART"/workspace/
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.spec"
-mv rgb.spec "$QUICKSTART"/workspace/
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/ossim-dem-color-table-template.kwl"
-mv ossim-dem-color-table-template.kwl "$QUICKSTART"/workspace/
+# # add suppport files used for the ossim tutorials
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.prj"
+# mv rgb.prj "$QUICKSTART"/workspace/
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.spec"
+# mv rgb.spec "$QUICKSTART"/workspace/
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/ossim-dem-color-table-template.kwl"
+# mv ossim-dem-color-table-template.kwl "$QUICKSTART"/workspace/
 
-unset OSSIM_PREFS_FILE
+# unset OSSIM_PREFS_FILE
 
-cp -r "$APP_DATA_DIR"/* "$QUICKSTART"/
-if [ -L "$USER_HOME/ossim" ] ; then
-   rm -f "$USER_HOME"/ossim
-fi
-ln -s "$QUICKSTART" "$USER_HOME"/ossim
-# does the above symlink need to be owned by $USER?
-if [ -L /etc/skel/ossim ] ; then
-   rm -f /etc/skel/ossim
-fi
-ln -s "$QUICKSTART" /etc/skel/ossim
+# cp -r "$APP_DATA_DIR"/* "$QUICKSTART"/
+# if [ -L "$USER_HOME/ossim" ] ; then
+#    rm -f "$USER_HOME"/ossim
+# fi
+# ln -s "$QUICKSTART" "$USER_HOME"/ossim
+# # does the above symlink need to be owned by $USER?
+# if [ -L /etc/skel/ossim ] ; then
+#    rm -f /etc/skel/ossim
+# fi
+# ln -s "$QUICKSTART" /etc/skel/ossim
 
-for dir in "$QUICKSTART" "$RASTER_DATA" "$DATA_FOLDER" ; do
-  chgrp -R users $dir
-  chmod -R g+w $dir
-done
+# for dir in "$QUICKSTART" "$RASTER_DATA" "$DATA_FOLDER" ; do
+#   chgrp -R users $dir
+#   chmod -R g+w $dir
+# done
 
 
 # ossim-geocell tutorial
@@ -350,8 +279,8 @@ ln -s -f /usr/share/ossim/*.pdf /var/www/html/ossim/
 
 
 
-#### cleanup
-rm -rf "$QUICKSTART"/.svn
+# #### cleanup
+# rm -rf "$QUICKSTART"/.svn
 
 
 ####
