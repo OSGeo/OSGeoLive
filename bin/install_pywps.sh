@@ -201,8 +201,6 @@ echo 'enabling Apache wsgi module'
 a2enmod wsgi
 echo 'enabling Apache configuration'
 a2enconf pywps
-echo 'restarting Apache'
-apache2ctl restart
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
