@@ -52,7 +52,7 @@ PYWPS_ETC=/etc/pywps
 PYWPS_PROCESSES=$PYWPS_ETC/processes
 PYWPS_CFG=$PYWPS_ETC/pywps.cfg
 PYWPS_WSGI=$PYWPS_ETC/wps.py
-PYWPS_APACHE_CONF=/etc/apache2/sites-available/pywps.conf
+PYWPS_APACHE_CONF=/etc/apache2/conf-available/pywps.conf
 PYWPS_URL=http://localhost/pywps/wps.py
 PYWPS_DESKTOP=/usr/share/applications/pywps.desktop
 
