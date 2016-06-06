@@ -30,7 +30,7 @@
 # sudo a2dismod wsgi
 # sudo apache2ctl restart
 # sudo rm -fr /etc/pywps
-# sudo rm -f /etc/apache2/sites-available/pywps.conf
+# sudo rm -f /etc/apache2/conf-available/pywps.conf
 # sudo rm -f /usr/share/applications/pywps.desktop
 # sudo rm -f /home/$USER_NAME/Desktop/pywps.desktop
 
