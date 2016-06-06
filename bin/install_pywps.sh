@@ -60,6 +60,12 @@ echo 'Setting up directories'
 
 mkdir -p "$PYWPS_PROCESSES"
 
+echo 'Downloading logo'
+
+wget -c --progress=dot:mega \
+   -O /usr/local/share/icons/pywps.png \
+   "http://pywps.org/images/pywps.png"
+
 echo 'creating PyWPS configuration'
 
 cat << EOF > "$PYWPS_CFG"
@@ -188,7 +194,7 @@ Name=PyWPS
 Comment=PyWPS
 Categories=Application;Education;Geography;WPS
 Exec=firefox $PYWPS_URL?service=WPS&version=1.0.0&request=GetCapabilities
-Icon=/usr/local/share/icons/$ICON_NAME
+Icon=/usr/local/share/icons/pywps.png
 Terminal=false
 StartupNotify=false
 Categories=Education;Geography;
