@@ -47,7 +47,7 @@ mkdir -p "$TMP_DIR"
 echo "Installing mapbender"
 
 apt-get install --assume-yes php php-imagick php-pgsql php-gd \
-  php-curl php-cli php-sqlite3 sqlite3 php-apcu php-intl openssl
+  php-curl php-cli php-xml php-sqlite3 sqlite3 php-apcu php-intl openssl
 
 a2enmod rewrite
 
