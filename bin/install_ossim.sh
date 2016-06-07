@@ -56,22 +56,23 @@ wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launch
 mv ossim.xpm /usr/share/pixmaps/ossim.xpm
 
 # create launchers
-cat << EOF > /usr/share/applications/imagelinker.desktop
-[Desktop Entry]
-Version=1.0
-Name=Imagelinker
-Comment=OSSIM imagelinker
-Exec=/usr/bin/imagelinker -P /usr/share/ossim/ossim_preference
-Icon=ossim
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=Education;Science;Geography;
-GenericName=
-EOF
 
-cp -a /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
-chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
+# cat << EOF > /usr/share/applications/imagelinker.desktop
+# [Desktop Entry]
+# Version=1.0
+# Name=Imagelinker
+# Comment=OSSIM imagelinker
+# Exec=/usr/bin/imagelinker -P /usr/share/ossim/ossim_preference
+# Icon=ossim
+# Terminal=false
+# Type=Application
+# StartupNotify=true
+# Categories=Education;Science;Geography;
+# GenericName=
+# EOF
+
+# cp -a /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
+# chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
 
 cat << EOF > /usr/share/applications/ossimplanet.desktop
 [Desktop Entry]
