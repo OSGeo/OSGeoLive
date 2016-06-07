@@ -1,6 +1,25 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 10.0alpha2
+====================
+
+ * Added alternative PHP version (5.6)
+ * PyWPS 3.2.5 added
+ * MapServer re-built with PHP Mapscript support.
+ * MapProxy issue fixed (#1704)
+ * Zenity issue fixed (#1709)
+ * GeoMajas issue fixed (#1713)
+ * Jupyter packaging completed for Xenial (#1711)
+ * Fixed QGIS tutorial build (#1703)
+ * Fixed memory issue for default tomcat (#1715)
+ * Added php5.6-xml which is needed by MapBender3 (#1716)
+ * Added php5.6-mbstring to geomoose installer (#1717)
+ * Modified OSSIM installer to use debian packages from ppa (#1700)
+ * Update to latest version of MapSlicer (#1712)
+ * Fixed istsos icon (#1708)
+ * Monteverdi added back to ppa (#1702)
+
 Version 10.0alpha1
 ====================
 
