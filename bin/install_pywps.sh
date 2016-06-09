@@ -29,7 +29,7 @@
 # sudo a2disconf pywps
 # sudo a2dismod wsgi
 # sudo apache2ctl restart
-# sudo rm -fr /etc/pywps
+# sudo rm -fr /usr/local/share/pywps
 # sudo rm -f /etc/apache2/conf-available/pywps.conf
 # sudo rm -f /usr/share/applications/pywps.desktop
 # sudo rm -f /home/$USER_NAME/Desktop/pywps.desktop
@@ -48,10 +48,10 @@ echo 'Installing PyWPS ...'
 
 apt-get install --yes python libapache2-mod-wsgi python-pywps
 
-PYWPS_ETC=/etc/pywps
-PYWPS_PROCESSES=$PYWPS_ETC/processes
-PYWPS_CFG=$PYWPS_ETC/pywps.cfg
-PYWPS_WSGI=$PYWPS_ETC/wps.py
+PYWPS_APP=/usr/local/share/pywps
+PYWPS_PROCESSES=$PYWPS_APP/processes
+PYWPS_CFG=$PYWPS_APP/pywps.cfg
+PYWPS_WSGI=$PYWPS_APP/wps.py
 PYWPS_APACHE_CONF=/etc/apache2/conf-available/pywps.conf
 PYWPS_URL=http://localhost/pywps/wps.py
 PYWPS_DESKTOP=/usr/share/applications/pywps.desktop
