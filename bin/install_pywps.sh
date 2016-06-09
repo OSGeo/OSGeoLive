@@ -178,6 +178,9 @@ echo 'creating Apache configuration'
 
 cat << EOF > "$PYWPS_APACHE_CONF"
 WSGIScriptAlias /pywps/wps.py $PYWPS_WSGI
+<Directory "$PYWPS_APP">
+  Require all granted
+</Directory>
 <Location /pywps/wps.py>
   SetEnv PYWPS_CFG $PYWPS_CFG
   SetEnv PYWPS_PROCESSES $PYWPS_PROCESSES
