@@ -12,7 +12,7 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-# Version: 2014-07-30
+# Version: 2016-06-10
 # Author: e.h.juerrens@52north.org
 # TODO
 # - check new version
@@ -38,7 +38,7 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-TOMCAT_USER_NAME="tomcat7"
+TOMCAT_USER_NAME="tomcat8"
 TOMCAT_SCRIPT_NAME="$TOMCAT_USER_NAME"
 SOS_WEB_APP_NAME="52nSOS"
 SOS_ICON_NAME="52nSOS.png"
