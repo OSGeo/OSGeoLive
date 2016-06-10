@@ -14,8 +14,6 @@
 #
 # Version: 2016-06-10
 # Author: e.h.juerrens@52north.org
-# TODO
-# - check new version
 #
 # About:
 # =====
