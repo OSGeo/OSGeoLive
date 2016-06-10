@@ -55,6 +55,7 @@ PG_OPTIONS='--client-min-messages=warning'
 PG_USER="postgres"
 PG_SCRIPT_NAME="postgresql"
 PG_DB_NAME="52nSOS"
+JAVA_PKG="openjdk-8-jre"
 # -----------------------------------------------------------------------------
 #
 echo "[$START]: $SOS_WEB_APP_NAME $SOS_VERSION install started"
@@ -77,6 +78,7 @@ echo "PG_OPTIONS: $PG_OPTIONS"
 echo "PG_USER: $PG_USER"
 echo "PG_SCRIPT_NAME: $PG_SCRIPT_NAME"
 echo "PG_DB_NAME: $PG_DB_NAME"
+echo "JAVA_PKG: $JAVA_PKG"
 #
 #
 # =============================================================================
@@ -100,7 +102,7 @@ fi
 if [ ! -x "`which java`" ] ; then
 	apt-get -q update
 	#
-	apt-get --assume-yes install openjdk-7-jre
+	apt-get --assume-yes install $JAVA_PKG
 fi
 #
 #
