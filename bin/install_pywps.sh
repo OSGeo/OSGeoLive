@@ -162,10 +162,11 @@ class HelloWorldProcess(WPSProcess):
             storeSupported=False,
             statusSupported=False)
 
-        self.data = self.addComplexInput(identifier='name',
+        self.data = self.addLiteralInput(identifier='name',
+                                         type=type('string'),
                                          title='Name')
 
-        self.out = self.addComplexOutput(identifier='output',
+        self.out = self.addLiteralOutput(identifier='output',
                                          title='Output')
 
     def execute(self):
