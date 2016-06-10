@@ -12,7 +12,7 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-# Version: 2014-07-30
+# Version: 2016-06-10
 # Author: e.h.juerrens@52north.org
 # TODO
 # - check new version
