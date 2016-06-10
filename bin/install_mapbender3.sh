@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -14,8 +14,7 @@
 #
 # About:
 # =====
-# This script will install mapbender3 and will create a PostgreSQL database
-#  mapbender3.0.4.0. 
+# This script will install mapbender3 and will create a PostgreSQL database. 
 # The script will also add an ALIAS for Mapbender3 and a Desktop icon.
 #
 # Requires: Apache2, PHP5, PostgreSQL
@@ -38,8 +37,8 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_mapbender3"
 PARAMETERSINSTALLURL="http://mapbender3.org/builds/"
 INSTALLURL="http://mapbender3.org/builds/"
-INSTALLFILE="mapbender3-3.0.4.1"
-PARAMETERSFILE="mapbender3-3.0.4.1"
+INSTALLFILE="mapbender3-3.0.5.3"
+PARAMETERSFILE="mapbender3-3.0.5.3"
 INSTALL_DIR="/var/www/html"
 
 mkdir -p "$TMP_DIR"
@@ -47,8 +46,8 @@ mkdir -p "$TMP_DIR"
 # Install mapbender dependencies.
 echo "Installing mapbender"
 
-apt-get install --assume-yes php5 php5-imagick php5-pgsql php5-gd \
-  php5-curl php5-cli php5-sqlite sqlite php-apc php5-intl
+apt-get install --assume-yes php5.6 php5.6-imagick php5.6-pgsql php5.6-gd \
+  php5.6-curl php5.6-cli php5.6-xml php5.6-sqlite3 sqlite3 php5.6-apcu php5.6-intl openssl
 
 a2enmod rewrite
 
@@ -105,7 +104,7 @@ chmod -R ug+w "$INSTALL_DIR/mapbender3/app/cache/"
 chmod -R ug+w "$INSTALL_DIR/mapbender3/app/logs/"
 app/console assets:install web
 
-chown -R www-data:www-data "$INSTALL_DIR/mapbender3"
+chown -R user:www-data "$INSTALL_DIR/mapbender3"
 chmod -R ug+w "$INSTALL_DIR/mapbender3/app/cache/"
 chmod -R ug+w "$INSTALL_DIR/mapbender3/app/logs/"
 chmod -R ug+w "$INSTALL_DIR/mapbender3/web/"

@@ -1,14 +1,14 @@
 #!/bin/sh
 #################################################
 # 
-# Purpose: Installation of GeoNetwork into Xubuntu
+# Purpose: Installation of GeoNetwork into Lubuntu
 # Author:  Ricardo Pinho <ricardo.pinho@gisvm.com>
 # Author:  Simon Pigot <simon.pigot@csiro.au>
 # Author:  Francois Prunayre <fx.prunayre@gmail.com>
 # Small edits: Jeroen Ticheler <Jeroen.Ticheler@GeoCat.net>
 #
 #################################################
-# Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 GISVM.COM
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -27,7 +27,7 @@
 # About:
 # =====
 # This script will install geonetwork into OSGeo live
-# stable version: v3.0.0
+# stable version: v3.0.3
 # based on Jetty + GeoNetwork + H2
 # Installed at /usr/local/lib/geonetwork
 # Port number = 8880
@@ -43,7 +43,7 @@
 # To enter geonetwork, start browser with url:
 # http://localhost:8880/geonetwork
 #
-# GeoNetwork version 3.0.0 runs with java 7 or higher.
+# GeoNetwork version 3.0.3 runs with java 7 or higher.
 # It can be installed into servlet containers: jetty and tomcat. Jetty is   
 # bundled with the installer.
 
@@ -57,8 +57,8 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-GEONETWORK_VERSION=3.0.0-0
-GEONETWORK_VERSION_FOLDER=3.0.0
+GEONETWORK_VERSION=3.0.3-osgeolive
+GEONETWORK_VERSION_FOLDER=3.0.3
 
 TMP="/tmp/build_geonetwork"
 INSTALL_FOLDER="/usr/local/lib"
@@ -86,7 +86,7 @@ then
    echo "geonetwork-install-$GEONETWORK_VERSION.jar has already been downloaded."
 else
    wget -c --progress=dot:mega \
-     "http://sourceforge.net/projects/geonetwork/files/GeoNetwork_opensource/v$GEONETWORK_VERSION_FOLDER/geonetwork-install-$GEONETWORK_VERSION.jar/download" \
+     "http://sourceforge.net/projects/geonetwork/files/GeoNetwork_unstable_development_versions/$GEONETWORK_VERSION_FOLDER/geonetwork-install-$GEONETWORK_VERSION.jar/download" \
      -O geonetwork-install-$GEONETWORK_VERSION.jar
 fi
 
@@ -119,6 +119,8 @@ cp -f data-db-default.sql "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/set
 cp -f startup.sh "$GEONETWORK_FOLDER/bin/startup.sh"
 cp -f shutdown.sh "$GEONETWORK_FOLDER/bin/shutdown.sh"
 
+rm -fv "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/lib/jai_*
+
 # fix permissions on installed software
 #   what's really needed here? the logs for sure, the rest are guesses
 chgrp users "$GEONETWORK_FOLDER"/jetty
@@ -140,9 +142,12 @@ for FILE in start_geonetwork stop_geonetwork geonetwork ; do
 done
 
 #copy project logo to use as menu icon
+cd "$TMP"
+wget -c --progress=dot:mega \
+ "https://github.com/OSGeo/OSGeoLive-doc/raw/master/images/project_logos/logo-GeoNetwork.png" \
+ -O geonetwork_icon.png
 mkdir -p /usr/local/share/icons
-cp -f "$USER_HOME/gisvm/doc/images/project_logos/logo-GeoNetwork.png" \
-    /usr/local/share/icons/geonetwork_icon.png
+mv geonetwork_icon.png /usr/local/share/icons/geonetwork_icon.png
 
 # No manual/doco as these are included in the geonetwork release as html
 # pages

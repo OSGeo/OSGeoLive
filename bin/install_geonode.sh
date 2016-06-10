@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2013-2016 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL version >= 2.1.
 # 
@@ -32,11 +32,12 @@ DATA_DIR="/usr/local/share/geonode"
 DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/sites-available/geonode.conf"
 GEONODE_DB="geonode"
-GEOSERVER_VERSION="2.6.1"
+GEOSERVER_VERSION="2.8.2"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
+GEONODE_DIR="/usr/lib/python2.7/dist-packages/geonode"
 
-#Install packages
+# Install packages
 add-apt-repository -y ppa:geonode/osgeo
 apt-get -q update
 apt-get --assume-yes install python-geonode libapache2-mod-wsgi curl
@@ -121,15 +122,17 @@ echo "Done"
 echo "patching settings files"
 #Replace local_settings.py
 sudo cp -f "$USER_HOME/gisvm/app-conf/geonode/local_settings.py.sample" \
-    /usr/lib/python2.7/dist-packages/geonode/local_settings.py
+    "$GEONODE_DIR/local_settings.py"
 
 #Change GeoServer port in settings.py
 sed -i -e 's|http://localhost:8080/geoserver/|http://localhost:8082/geoserver/|' \
-    /usr/lib/python2.7/dist-packages/geonode/settings.py
+    "$GEONODE_DIR/settings.py"
+sed -i -e 's|http://localhost:8000/|http://geonode/|' \
+    "$GEONODE_DIR/settings.py"
 echo "Done"
 
 # make the uploaded dir
-mkdir -p /usr/lib/python2.7/dist-packages/geonode/uploaded
+mkdir -p "$GEONODE_DIR/uploaded"
 
 echo "Configuring GeoNode"
 # Create tables in the database
@@ -146,11 +149,15 @@ sudo -u "$USER_NAME" django-admin loaddata sample_admin --settings=geonode.setti
 django-admin collectstatic --noinput --settings=geonode.settings --verbosity=0
 echo "Done"
 
-echo "Starting GeoServer to update layers in the geonode db"
+echo "Stopping GeoServer"
 "$GEOSERVER_PATH"/bin/shutdown.sh &> /dev/null &
 sleep 30;
+echo "Done"
+
+echo "Starting GeoServer to update layers in the geonode db"
 "$GEOSERVER_PATH"/bin/startup.sh &> /dev/null &
-sleep 60;
+sleep 90;
+echo "Done"
 
 # run updatelayers
 echo "Updating GeoNode layers..."
@@ -160,6 +167,7 @@ echo "Done"
 echo "Stopping GeoServer"
 "$GEOSERVER_PATH"/bin/shutdown.sh &> /dev/null &
 sleep 30;
+echo "Done"
 
 # Make the apache user the owner of the required dirs.
 chown -R www-data:www-data /usr/lib/python2.7/dist-packages/geonode/

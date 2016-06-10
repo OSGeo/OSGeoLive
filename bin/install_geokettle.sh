@@ -42,7 +42,8 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_geokettle"
-GEOKETTLE_URL="http://jenkins.spatialytics.com/job/GeoKettle-2.x/75/artifact/geokettle-2.0/geokettle-2.6-r192-with_plugins.zip"
+#GEOKETTLE_URL="http://jenkins.spatialytics.com/job/GeoKettle-2.x/75/artifact/geokettle-2.0/geokettle-2.6-r192-with_plugins.zip"
+GEOKETTLE_URL="http://download.osgeo.org/livedvd/data/geokettle/geokettle-2.6-r192-with_plugins.zip"
 GEOKETTLE_BASENAME="geokettle-2.6"
 GEOKETTLE_FILENAME="$GEOKETTLE_BASENAME.zip"
 INSTALL_FOLDER="/opt"
@@ -68,7 +69,7 @@ cd "$TMP"
 if [ -f "$GEOKETTLE_FILENAME" ] ; then
    echo "$GEOKETTLE_FILENAME has already been downloaded."
 else
-   wget --progress=dot:mega "$GEOKETTLE_URL" -O "$GEOKETTLE_FILENAME"
+   wget --tries=3 --progress=dot:mega "$GEOKETTLE_URL" -O "$GEOKETTLE_FILENAME"
 fi
 # unpack it
 unzip -q "$GEOKETTLE_FILENAME" -d "$TMP/$GEOKETTLE_BASENAME"

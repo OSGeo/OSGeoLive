@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2013 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
 # Copyright (c) 2009 LISAsoft
 # Copyright (c) 2009 Cameron Shorter
 # Licensed under the GNU LGPL version >= 2.1.
@@ -18,10 +18,15 @@
 # =====
 # This script will install documentation
 
+if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
+   echo "Did not specify build mode, try using release or nightly as an argument"
+   exit 1
+fi
+BUILD_MODE="$1"
+
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
-
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -30,115 +35,18 @@ USER_HOME="/home/$USER_NAME"
 DEST="/var/www/html"
 DATA_FOLDER="/usr/local/share/data"
 
+echo "Running install_docs.sh with the following settings:"
+echo "BUILD_MODE: $BUILD_MODE"
 
-apt-get --assume-yes install python-sphinx
-
-# Use sphynx to build the OSGeo-Live documentation
-cd "$BUILD_DIR"/../doc
-make clean
-make html
-
-# Create target directory if it doesn't exist
-mkdir -p "$DEST"
-
-# Remove then replace target documentation, leaving other files
-cd "$BUILD_DIR"/../doc/_build/html
-for FILE in `ls` ; do
-  rm -fr "$DEST/$FILE"
-done
-mv * "$DEST"
-
-# post-install cleanup build dir
-cd "$BUILD_DIR"/../doc
-make clean
-
-
-#### work around sphinx bug #704: clear out duplicate images
-#  (osgeo trac #952)
-replace_w_symlink()
-{
-# only act if base is a regular file
-if [ -f "$NONUM.$ext" ] ; then
-   # only act if files are identical
-   diff "$NONUM.$ext" "$file" > /dev/null
-   if [ $? -eq 0 ] ; then
-      #echo "[$file] -> [$NONUM.$ext]"
-      rm -f "$file"
-      ln -s "$NONUM.$ext" "$file"
-      # avoid the need for symlinks
-      #HITS=`grep -rl "../../_images/$file.$ext" ../[a-z][a-z]/*`
-      #if [ -n "$HITS" ] ; then
-      #   sed -i -e "s|../../_images/$file.$ext|../../_images/$NONUM.$ext|" $HITS
-      #fi
-   fi
+# Install from daily repository only in nightly mode
+if [ "$BUILD_MODE" = "nightly" ] ; then
+   add-apt-repository  --yes ppa:osgeolive/docs
+   apt-get update
 fi
-}
 
-cd "$DEST/_images/"
-SPHX_VER=`dpkg -l python-sphinx | grep sphinx | awk '{print $3}' | cut -f1 -d'+'`
-if [ "$SPHX_VER" = "1.2.2" ] ; then
-   for ext in png jpg gif ; do
-      for file in *.$ext ; do
-	 if [ -h "$file" ] ; then
-	    # already a symlink
-	    continue
-	 fi
+apt-get install --assume-yes osgeolive-docs javascript-common
 
-	 NONUM=`echo "$file" | sed -e "s/[0-9]\+\.$ext//"`
-
-	 if [ -h "$NONUM.$ext" ] ; then
-	    # replace anyway?? base is already a symlink
-	    continue
-	 fi
-
-	 if [ "$NONUM" = "$file" ] ; then
-	    continue
-	 fi
-
-	 if [ -f "$NONUM.$ext" ] ; then
-	    replace_w_symlink
-	    continue
-	 fi
-
-	   # try with a number after it
-	 if [ `ls "$NONUM"[0-9]."$ext" 2> /dev/null | wc -l` -gt 0 ] ; then
-	    NONUM=`echo "$file" | sed -e "s/[0-9]\.$ext//"`
-	    if [ -f "$NONUM.$ext" ] ; then
-	       replace_w_symlink
-	       continue
-            fi
-	 fi
-
-	   # or two
-	 if [ `ls "$NONUM"[0-9][0-9]."$ext" 2> /dev/null | wc -l` -gt 0 ] ; then
-	    NONUM=`echo "$file" | sed -e "s/[0-9]\.$ext//"`
-	    if [ -f "$NONUM.$ext" ] ; then
-	       replace_w_symlink
-	       continue
-            fi
-	 fi
-
-	   # or three
-	 if [ `ls "$NONUM"[0-9][0-9][0-9]."$ext" 2> /dev/null | wc -l` -gt 0 ] ; then
-	    NONUM=`echo "$file" | sed -e "s/[0-9]\.$ext//"`
-	    if [ -f "$NONUM.$ext" ] ; then
-	       replace_w_symlink
-	       continue
-            fi
-	 fi
-
-	   # or four
-	 if [ `ls "$NONUM"[0-9][0-9][0-9][0-9]."$ext" 2> /dev/null | wc -l` -gt 0 ] ; then
-	    NONUM=`echo "$file" | sed -e "s/[0-9]\.$ext//"`
-	    if [ -f "$NONUM.$ext" ] ; then
-	       replace_w_symlink
-	       continue
-            fi
-	 fi
-	 # ... still more?
-      done
-   done
-fi
+ln -s /usr/share/doc/osgeolive-docs/html $DEST/osgeolive
 
 # Create symbolic links to project specific documentation
 cd "$DEST"
@@ -300,7 +208,7 @@ Encoding=UTF-8
 Name=Help
 Comment=Live Demo Help
 Categories=Application;Education;Geography;
-Exec=firefox http://localhost
+Exec=firefox http://localhost/osgeolive/
 Icon=/usr/local/share/icons/arramagong-wombat-small.png
 Terminal=false
 StartupNotify=false
@@ -339,18 +247,18 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 mkdir -p /usr/local/share/doc
 
 wget -c --progress=dot:mega \
-  "http://ubuntu-manual.org/download/13.10/en_US/screen" \
-  -O "/usr/local/share/doc/Getting_Started_with_Ubuntu_13.10.pdf"
+  "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/14.04e2/en_US/screen/Getting%20Started%20with%20Ubuntu%2014.04%20-%20Second%20edition.pdf" \
+  -O "/usr/local/share/doc/Getting Started with Ubuntu 14.04 - Second edition.pdf"
 
 if [ $? -ne 0 ] ; then
    # try try again
    wget -c --progress=dot:mega \
-     "http://ubuntu-manual.org/download/13.10/en_US/screen" \
-     -O "/usr/local/share/doc/Getting_Started_with_Ubuntu_13.10.pdf"
+     "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/14.04e2/en_US/screen/Getting%20Started%20with%20Ubuntu%2014.04%20-%20Second%20edition.pdf" \
+     -O "/usr/local/share/doc/Getting Started with Ubuntu 14.04 - Second edition.pdf"
 fi
 
-ln -s /usr/local/share/doc/Getting_Started_with_Ubuntu_13.10.pdf \
-  "$USER_HOME/Desktop/Getting Started with Ubuntu.pdf"
+ln -s "/usr/local/share/doc/Getting Started with Ubuntu 14.04 - Second edition.pdf" \
+  "$USER_HOME/Desktop/Getting Started with Ubuntu 14.04 - Second edition.pdf"
 
 
 ####

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013 The Open Source Geospatial Foundation.
+# Copyright (c) 2013-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -48,7 +48,7 @@ Encoding=UTF-8
 Name=Leaflet
 Comment=LeafletJS Examples
 Categories=Application;Internet;
-Exec=firefox http://localhost/en/quickstart/leaflet_quickstart.html http://localhost/leaflet-demo.html
+Exec=firefox http://localhost/osgeolive/en/quickstart/leaflet_quickstart.html http://localhost/leaflet-demo.html
 Icon=/usr/share/icons/leafletjs_logo.png
 Terminal=false
 EOF

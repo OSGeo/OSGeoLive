@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013 The Open Source Geospatial Foundation.
+# Copyright (c) 2013-2016 The Open Source Geospatial Foundation.
 # Author:  Brian Hamlin dbb maplabs@light42.com
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -29,7 +29,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 echo 'Installing libLAS ...'
-apt-get install --yes liblas-bin python-liblas liblas2
+apt-get install --yes liblas-bin python-liblas liblas3
 
 # work-around for #1256 (remove this if liblas-c-dev pkg gets installed)
 ln -s /usr/lib/liblas_c.so.2.2.0 /usr/lib/liblas_c.so

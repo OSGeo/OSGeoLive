@@ -4,7 +4,7 @@
 # Purpose: Installation of Sahana Eden into Xubuntu
 # Author:  Fran Boon, Rik Goldman, Steven Robinson, Jerel Moses, Maurice Quarles
 #
-# Copyright (c) 2011-12 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2011-2016 Open Source Geospatial Foundation (OSGeo)
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -50,13 +50,16 @@ USER_HOME="/home/$USER_NAME"
 SAHANA_CONF="/etc/apache2/conf-available/sahana.conf"
 TMP_DIR="/tmp/build_sahana"
 WEBSERVER="apache2"
+
+## versions syncd manually
+# PostgreSQL
+PG_VERSION="9.5"
+# Geoserver
+GS_VERSION="2.8.3"
+GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"
+
 # FIXME: Script doesn't currently use this var
 PORT="8007"
-# PostgreSQL
-PG_VERSION="9.3"
-# Geoserver
-GS_VERSION="2.6.1"
-GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"
 
 mkdir -p "$TMP_DIR"
 
@@ -72,7 +75,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 	git \
 	unzip \
 	zlib1g-dev \
-	libgeos-c1 \
+	libgeos-c1v5 \
 	python-dev \
 	python-lxml \
 	python-dateutil \
@@ -86,7 +89,7 @@ DEBIAN_FRONTEND=noninteractive apt-get -y \
 	python-psycopg2
 
 ## 09feb14  do not install python-matplotlib
-##  pip install version is newer..
+##  pip install version is newer.. more pip wars
 ##  TODO even more defensive scripting
 
 if [ ! -e /usr/share/pyshared/matplotlib ] ; then
@@ -102,8 +105,7 @@ fi
 ##apt-get -q update
 ##apt-get install --yes python-tweepy
 
-# Install PostGIS 2.0
-# done already by install_postgis.sh
+# Install PostGIS 2.2  done elsewhere
 #apt-get install --yes "postgresql-$PG_VERSION-postgis" postgis libgdal1
 
 # Add DB User

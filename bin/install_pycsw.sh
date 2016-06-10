@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013 The Open Source Geospatial Foundation.
+# Copyright (c) 2013-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -30,21 +30,13 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-echo 'Installing pycsw dependencies ...'
-
-# install dependencies
-apt-get install --yes apache2 python-lxml python-sqlalchemy \
-   python-shapely python-pyproj libjs-jquery
 
 echo 'Installing pycsw ...'
 
-apt-get install --yes python-owslib python-pycsw python-pycsw-wsgi python-pycsw-doc
+apt-get install --yes python-pycsw python-pycsw-wsgi python-pycsw-doc javascript-common
 
 cp /usr/share/applications/pycsw.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/pycsw.desktop"
-
-# make jquery accessible for pycsw tester (#1472)
-ln -s /usr/share/javascript /var/www/html/javascript
 
 ####
 ./diskspace_probe.sh "`basename $0`" end

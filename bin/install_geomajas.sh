@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -25,7 +25,7 @@ BUILD_DIR=`pwd`
 TMP="/tmp/build_geomajas"
 INSTALL_FOLDER="/usr/lib"  ## hard-wired to repo scripts
 BIN=/usr/local/bin
-GEOMAJAS_VERSION=2.2.0
+GEOMAJAS_VERSION=2.4.0
 GEOMAJAS_HOME="$INSTALL_FOLDER/geomajas-$GEOMAJAS_VERSION-bin"
 GEOMAJAS_PORT=3420
 
@@ -145,11 +145,11 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geomajas-stop.desktop"
 
 
 # something possibly screwed up with the ISO permissions:
-chgrp tomcat7 /usr/lib/geomajas-$GEOMAJAS_VERSION-bin/bin/*.sh
+chgrp tomcat8 /usr/lib/geomajas-$GEOMAJAS_VERSION-bin/bin/*.sh
 
 # share data with the rest of the disc
 mkdir -p /usr/local/share/data/vector
-ln -s /usr/lib/geomajas-$GEOMAJAS_VERSION-bin/webapps/showcase/WEB-INF/classes/org/mypackage/shapes \
+ln -s /usr/lib/geomajas-$GEOMAJAS_VERSION-bin/webapps/showcase/WEB-INF/classes/org/geomajas/quickstart/gwt2/shapes \
       /usr/local/share/data/vector/geomajas
 
 # remove local jai libraries to work with ones provided in default-java (fix for #959)

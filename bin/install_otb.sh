@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -14,12 +14,12 @@
 #
 # About:
 # =====
-# This script will install Orfeo Tooblox including Monteverdi and OTB apps,
+# This script will install Orfeo Tooblox including Monteverdi2 and OTB apps,
 #  assumes script is run with sudo privileges.
 #
 # Running:
 # =======
-# monteverdi
+# monteverdi2
 # TODO: list all the apps, preferably Qt versions in /usr/bin/?
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -42,26 +42,38 @@ apt-get -q update
 #Lot's of these applications have been ported in modules in monteverdi but there are still remainning applications
 #in the legacy not available in monteverdi (simple viewer manager, vector database/raster registration...
 #Monteverdi is perhap's sufficient in a first approach,if you need to save space we  can eliminate otbapp-legacy
-apt-get --assume-yes install libotb monteverdi otb-bin otb-bin-qt
+apt-get --assume-yes install libotb otb-bin otb-bin-qt monteverdi
 
 #### install desktop icon ####
 cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 
+cat << EOF > /usr/share/applications/otb-mapla.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=OTB Launcher
+Comment=OTB Mapla
+Categories=Application;Geography;Geoscience;Education;
+Exec=/usr/bin/mapla
+Icon=monteverdi
+Terminal=false
+EOF
+
+cp /usr/share/applications/otb-mapla.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/otb-mapla.desktop"
 
 # Download OrfeoToolBox data and documentation (software guide and cookbook)
 # Total: 60MB
 [ -d $DATA_DIR ] || mkdir $DATA_DIR
 [ -f $DATA_DIR/OTBSoftwareGuide.pdf ] || \
-   wget --progress=dot:mega "http://aiolos.survey.ntua.gr/gisvm/dev/OTBSoftwareGuide.pdf" \
+   wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
      -O $DATA_DIR/OTBSoftwareGuide.pdf
-#    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
-#      -O $DATA_DIR/OTBSoftwareGuide.pdf
+
 [ -f $DATA_DIR/OTBCookBook.pdf ] || \
-   wget --progress=dot:mega "http://aiolos.survey.ntua.gr/gisvm/dev/OTBCookBook.pdf" \
+   wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBCookBook.pdf" \
      -O $DATA_DIR/OTBCookBook.pdf
-#    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBCookBook.pdf" \
-#      -O $DATA_DIR/OTBCookBook.pdf
+
 # [ -f $DATA_DIR/OTB-Data-Examples.tgz ] || \
 #    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTB-Data-Examples.tgz" \
 #      -O $DATA_DIR/OTB-Data-Examples.tgz
@@ -80,11 +92,6 @@ if [ ! -d "$OTB_DATA" ]; then
 #     tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/
 #     echo "Done"
 fi
-
-
-#MONTEVERDI plugin can't do this for now since it requires a recompile of MONTEVERDI according to the docs
-#TODO install otb qgis plugins when it will be available with debian packages
-#hg clone http://hg.orfeo-toolbox.org/OTB-QGis-plugins
 
 #OTB does not need this app, just added here since OTB pulls libkml in the Disk.
 apt-get --assume-yes install python-kml

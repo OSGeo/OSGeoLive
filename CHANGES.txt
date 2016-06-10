@@ -1,6 +1,174 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 10.0alpha2
+====================
+
+ * Added alternative PHP version (5.6)
+ * PyWPS 3.2.5 added
+ * MapServer re-built with PHP Mapscript support.
+ * MapProxy issue fixed (#1704)
+ * Zenity issue fixed (#1709)
+ * GeoMajas issue fixed (#1713)
+ * Jupyter packaging completed for Xenial (#1711)
+ * Fixed QGIS tutorial build (#1703)
+ * Fixed memory issue for default tomcat (#1715)
+ * Added php5.6-xml which is needed by MapBender3 (#1716)
+ * Added php5.6-mbstring to geomoose installer (#1717)
+ * Modified OSSIM installer to use debian packages from ppa (#1700)
+ * Update to latest version of MapSlicer (#1712)
+ * Fixed istsos icon (#1708)
+ * Monteverdi added back to ppa (#1702)
+
+Version 10.0alpha1
+====================
+
+ * Re-based to Lubuntu 16.04 LTS Xenial
+ * Unmount problem during build process now solved (#1046)
+ * Refactored installer scripts to 3 layers (base, services, projects)
+ * PostgreSQL 9.5
+ * MySQL 5.7
+ * OpenJDK 8
+ * Tomcat 8
+ * GDAL 2.1.0
+ * PostGIS 2.2.1
+ * GRASS 7.0.3
+ * QGIS 2.14.1
+ * Mapnik 3.0.9
+ * GeoServer 2.8.3
+ * MapServer 7.0.1
+ * pycsw 1.10.4
+ * mbsystem 5.5.2274
+ * MapProxy 1.8.2
+ * istsos 2.3.0
+ * netcdf4-python 1.2.4
+ * cartopy 0.14.2
+ * opencpn 4.2.0
+ * osgearth 2.7.0
+ * pgrouting 2.1.0
+ * OTB 5.4.0
+ * SAGA 2.2.7
+ * GeoMoose 2.9.0
+ * GMT 5.2.1
+ * PHP 7
+
+Version 9.5rc2/final
+====================
+
+ * Fixed GeoNetwork build for 32 bit (#1522)
+ * Fixed Rasdaman installer for 32 bit (#1645)
+
+Version 9.5rc1
+====================
+
+ * QGIS 2.14.0
+ * GeoNetwork 3.0.3
+ * GSoC 2015 Jupyter Notebooks added
+ * GPSDrive retired
+ * Rasdaman 9.2
+ * SAGA 2.2.4
+ * R Kernel for Jupyter added
+ * Added OTB Application Launcher
+ * rasterio and fiona CLI added
+ * TinyOWS quickstart fixed (#1233)
+ * Enabled MapServer WMS demo (#1622)
+ * New release-9.5 ppa
+
+Version 9.5beta1
+====================
+
+ * NASA Java World Wind added
+ * istSOS project added
+ * GRASS 7.0.3
+ * Jupyter 1.0 and IPython 4.0 upgrade
+ * GeoServer 2.8.2 (including CSS extension)
+ * Cartaro 1.9
+ * Cesium 1.18
+ * OpenLayers 3.13.1
+ * MapBender 3.0.5.3
+ * SAGA 2.2.3
+ * Enabled GDAL drivers and outdb rasters for PostGIS
+ * Disabled GPSDrive from builds
+ * OSSIM plugins/GUI rebuilt on top of new libossim-dev (#1515)
+ * Added libgdal-grass
+ * Updated python packages (rasterio, fiona, folium, cartopy)
+
+Version 9.5alpha2
+====================
+
+ * GEOS 3.5.0
+ * PostGIS 2.2.1
+ * QGIS 2.12.1
+ * GeoServer 2.7.5
+ * GeoNode 2.4.0
+ * OSSIM 1.8.20
+ * OTB 5.2.0
+ * Monteverdi 3.0.0
+ * MapServer demo updated for 7.0.0
+ * osm2pgsql 0.88.1
+ * QGIS-GRASS plugin re-enabled
+ * QGIS plugins updated to latest versions
+ * OWSLib 0.10.0
+ * pgadmin 1.20.0
+ * Django 1.6.11
+
+Version 9.5alpha1
+====================
+
+ * PostgreSQL 9.4
+ * GDAL 1.11.3
+ * PostGIS 2.2 (including SFCGAL)
+ * GRASS 7.0.2
+ * MapServer 7.0.0
+ * GeoNetwork 3.0.1
+ * pycsw 1.10.3
+ * libLAS 1.8.0
+
+Version 9.0rc1/final
+====================
+
+ * ncWMS 1.2
+ * gvSIG 2.2
+ * Updated to Monteverdi2
+ * Added OSSIM plugins and qt packages for 1.8.18
+ * Kosmo fix for 64 bit architecture
+ * GeoNetwork reverted to 2.10.x for this release, due to blocker issue
+
+Version 9.0beta1
+====================
+
+ * QGIS 2.8.3 LTR
+ * GRASS 7.0.1
+ * GeoServer 2.7.2
+ * GeoMoose 2.8.0
+ * New GMT debian package
+ * New JOSM debian package
+ * New mbsystem debian package
+ * OSSIM 1.8.18
+ * MapProxy 1.8.0
+ * OpenLayers 3.7.0
+ * OpenCPN 4.0.0
+ * GPSDrive 64bit package added
+ * Ushahidi build fixed (#1509)
+ * VirtualBox guest additions installed by default
+ * More R visualization packages
+ * Updated QGIS plugins
+
+Version 9.0alpha2
+====================
+
+ * Upgrade to tomcat7
+ * new Ubuntu manual included
+ * 52North SOS upgrade to 4.3.0
+ * GeoMajas upgrade to 2.4.0
+ * MapBender upgrade to 3.0.5.1
+ * EOxServer upgrade to 0.4.0
+ * Cartaro upgrade to 1.8
+ * GeoNetwork 3.0.1
+ * Fixed OSSIM installation
+ * uDig installer fix to work on 64 bit
+ * OSGeoLive documentation installed from deb package now
+
 Version 9.0alpha1
 ====================
 

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Copyright (c) 2012 geOps (www.geops.de)
+# Copyright (c) 2012-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -23,7 +24,7 @@
 #
 # Depedencies:
 # ===========
-# Needs already installed Geoserver with at leas version 2.2
+# Needs already installed Geoserver with at least version 2.2
 #
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -32,7 +33,7 @@
 CARTARO_PASSWORD="geoserver"
 CARTARO_USER="cartaro-admin"
 
-CARTARO_VERSION="1.5"
+CARTARO_VERSION="1.9"
 
 DB_NAME="cartaro"
 DB_USER="cartaro"
@@ -40,7 +41,7 @@ DB_PASSWORD="cartaro"
 
 GEO_ADMIN="admin"
 GEO_PASS="geoserver"
-GEO_VERSION="2.6.1"
+GEO_VERSION="2.8.3"
 GEO_PATH="/usr/local/lib/geoserver-$GEO_VERSION"
 
 TMP_DIR="/tmp/build_cartaro"
@@ -72,7 +73,7 @@ cat << EOF > /etc/apt/sources.list.d/cartaro.list
 
 # Repo for Cartaro
 
-deb http://apt.geops.de trusty main
+deb http://apt.geops.de xenial main
 
 EOF
 
@@ -201,11 +202,15 @@ echo "[install_cartaro.sh] Install Cartaro ..."
 
 chown -R root.root "$TARGET_DIR"
 
+echo "Stopping GeoServer"
 "$GEO_PATH"/bin/shutdown.sh &> /dev/null &
 sleep 30;
-"$GEO_PATH"/bin/startup.sh &> /dev/null &
-sleep 60;
+echo "Done"
 
+echo "Starting GeoServer to import layers"
+"$GEO_PATH"/bin/startup.sh &> /dev/null &
+sleep 90;
+echo "Done"
 
 # attempt to run a site-install and reenter the password a few times
 pushd "$TARGET_DIR"
@@ -276,26 +281,15 @@ if [ ! -f "$TARGET_DIR/bin/start_cartaro.sh" ] ; then
 
 PASSWORD=user
 
-# TODO nicer way to find whether geoserver is already running or not
-echo "\$PASSWORD" | sudo -S $GEO_PATH/bin/shutdown.sh &
-
-DELAY=20
-
 # Enable JSONP for GeoServer
 JAVA_OPTS="-DENABLE_JSONP=true -XX:MaxPermSize=128m" 
 
-(
-for TIME in \`seq \$DELAY\` ; do
-        sleep 1
-        echo "\$TIME \$DELAY" | awk '{print int(0.5+100*\$1/\$2)}'
-        done
-        ) | zenity --progress --auto-close --text "Preparing GeoServer...."
 
 echo "\$PASSWORD" | sudo -S JAVA_OPTS="\$JAVA_OPTS" $GEO_PATH/bin/startup.sh &
 echo "\$PASSWORD" | sudo -S /etc/init.d/postgresql start
 echo "\$PASSWORD" | sudo -S /etc/init.d/apache2 start
 
-DELAY=20
+DELAY=40
 (
 for TIME in \`seq \$DELAY\` ; do
       sleep 1

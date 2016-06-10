@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # About:
@@ -120,7 +120,7 @@ Encoding=UTF-8
 Name=Mapnik Introduction
 Comment=Mapnik Introduction
 Categories=Application;Geography;Geoscience;Education;
-Exec=firefox http://localhost/en/overview/mapnik_overview.html
+Exec=firefox http://localhost/osgeolive/en/overview/mapnik_overview.html
 Icon=gnome-globe
 Terminal=false
 StartupNotify=false

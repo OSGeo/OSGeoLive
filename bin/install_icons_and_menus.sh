@@ -9,7 +9,7 @@
 # Author: Hamish Bowman
 #
 #############################################################################
-# Copyright (c) 2013-2015 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2013-2016 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL version >= 2.1.
 # 
@@ -38,30 +38,30 @@ USER_HOME="/home/$USER_NAME"
 ################################################
 
 #Desktop apps part 1 (traditional analytic GIS)
-DESKTOP_APPS="grass70 qgis gvsig openjump uDig ossimplanet *Kosmo*
+DESKTOP_APPS="grass70 qgis gvsig* openjump uDig ossimplanet *Kosmo*
               spatialite-gis saga"
 #disabled: atlasstyler geopublisher
 
 #Desktop apps part 2 (geodata viewers and editors)
 NAV_APPS="marble gpsdrive opencpn josm merkaartor osm_online
-          viking zygrib gpsprune"
+          viking zygrib gpsprune nasa_jww"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
-              qgis-mapserver zoo-project 52n* eoxserver* ncWMS-* pycsw"
+              qgis-mapserver zoo-project 52n* eoxserver* ncWMS-* pycsw istsos pywps"
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 MapFish-* GeoMOOSE geonode-* cartaro-*"
-#disabled: i3geo
+BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonode-* cartaro-*"
+#disabled: i3geo MapFish-*
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="imagelinker r geokettle ipython-notebook*
-               mapslicer tilemill mapnik-* monteverdi"
+SPATIAL_TOOLS="imagelinker r geokettle jupyter-notebook* otb-*
+               mapslicer tilemill mapnik-* monteverdi* ossim-geocell"
 
 #Future home of PostGIS and Spatialite; pgRouting???
 #  pgadmin, sqlitebrowser, etc  (parts of this one are automatic)
-DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser"
+DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser shp2pgsql-gui"
 
 #Server apps part 3 (public good theme)
 RELIEF_APPS="sahana ushahidi"
@@ -379,7 +379,6 @@ EOF
      Cartaro) APP_ICON=/usr/local/share/icons/logo-cartaro-48.png;;
      Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
      GeoNode) APP_ICON=/usr/share/icons/geonode.png;;
-     MapFish) APP_ICON=/usr/local/lib/mapfish/mapfish.png;;
      *) unset APP_ICON;;
    esac
 
@@ -485,7 +484,7 @@ cp "$BUILD_DIR"/../desktop-conf/gnome-globe16blue.svg /usr/local/share/icons/
 #  `grep -l 'Geography;' /usr/share/applications/*.desktop` \
 #  /usr/local/share/applications/*.desktop
 #if all are dupes, just nuke it:
-sed -i '53,66d' /etc/xdg/lubuntu/menus/lxde-applications.menu
+sed -i '63,78d' /etc/xdg/lubuntu/menus/lxde-applications.menu
 
 
 ####

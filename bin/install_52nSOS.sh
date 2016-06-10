@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2011 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -40,7 +40,6 @@ fi
 USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat7"
 TOMCAT_SCRIPT_NAME="$TOMCAT_USER_NAME"
-TOMCAT_SCRIPT_NAME="tomcat7"
 SOS_WEB_APP_NAME="52nSOS"
 SOS_ICON_NAME="52nSOS.png"
 SOS_URL="http://localhost:8080/$SOS_WEB_APP_NAME"
@@ -49,7 +48,7 @@ SOS_OVERVIEW_URL="http://localhost/en/overview/52nSOS_overview.html"
 SOS_WAR_INSTALL_FOLDER="/var/lib/$TOMCAT_SCRIPT_NAME/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
 SOS_BIN_FOLDER="/usr/local/share/52nSOS"
-SOS_TAR_NAME="52n-sos-osgeo-live-9.0.tar.gz"
+SOS_TAR_NAME="52n-sos-osgeo-live-10.0.tar.gz"
 SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
 SOS_VERSION="4.3.0"
 PG_OPTIONS='--client-min-messages=warning'
@@ -76,7 +75,7 @@ echo "SOS_OVERVIEW_URL: $SOS_OVERVIEW_URL"
 echo "SOS_VERSION: $SOS_VERSION"
 echo "PG_OPTIONS: $PG_OPTIONS"
 echo "PG_USER: $PG_USER"
-echo "PG_SCRIPT_NAME: $PG_SCRIPT_NAME" 
+echo "PG_SCRIPT_NAME: $PG_SCRIPT_NAME"
 echo "PG_DB_NAME: $PG_DB_NAME"
 #
 #

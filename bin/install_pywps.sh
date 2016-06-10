@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -14,21 +14,28 @@
 #
 # About:
 # =====
-# This script will install pywps
+# This script will install pywps as follows
+# - python-pywps debian package
+# - /etc/pywps (configuration, WSGI wrapper, processes)
+# - /etc/apache2/sites-available/pywps.conf
+# - /usr/share/applications/pywps.desktop
 #
-# Requires: Apache2, Python, lxml
+# Requires: Apache2, Python, python-pywps
 #
 # Uninstall:
 # ============
-# sudo apt-get remove cgi-mapserver mapserver-bin python python-lxml
-# sudo rm /etc/pywps/pywps.cfg
-# sudo rm /usr/local/bin/wps.py
-# sudo rm /usr/lib/cgi-bin/pywps
-# sudo rm -rf /usr/local/lib/python2.7/dist-packages/pywps-3.2.2_master-py2.7.egg
-# sudo rm -rf /usr/local/share/pywps
+# sudo apt-get remove python libapache2-mod-wsgi python-pywps
+#
+# sudo a2disconf pywps
+# sudo a2dismod wsgi
+# sudo apache2ctl restart
+# sudo rm -fr /usr/local/share/pywps
+# sudo rm -f /etc/apache2/conf-available/pywps.conf
+# sudo rm -f /usr/share/applications/pywps.desktop
+# sudo rm -f /home/$USER_NAME/Desktop/pywps.desktop
+
 
 ./diskspace_probe.sh "`basename $0`" begin
-BUILD_DIR=`pwd`
 ####
 
 # live disc's username is "user"
@@ -37,121 +44,172 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-PYWPS_VERSION=3.2.2
-PYWPS_OUTPUTS="/var/www/wps/wpsoutputs"
-PYWPS_WORKING_DIR="/usr/local/share/pywps"
-PYWPS_PROCESSES="$PYWPS_WORKING_DIR/processes"
-PYWPS_CFG="$PYWPS_WORKING_DIR/pywps.cfg"
-PYWPS_DOCS="$PYWPS_WORKING_DIR/docs"
-ICON_NAME="pywps.png"
+echo 'Installing PyWPS ...'
 
-TMP_DIR="/tmp/build_pywps"
-mkdir "$TMP_DIR"
-cd "$TMP_DIR"
+apt-get install --yes python libapache2-mod-wsgi python-pywps
 
-# desktop icon
-wget "http://pywps.wald.intevation.org/_static/pywps.png"
-cp "$ICON_NAME" /usr/local/share/icons/
+PYWPS_APP=/usr/local/share/pywps
+PYWPS_PROCESSES=$PYWPS_APP/processes
+PYWPS_CFG=$PYWPS_APP/pywps.cfg
+PYWPS_WSGI=$PYWPS_APP/wps.py
+PYWPS_APACHE_CONF=/etc/apache2/conf-available/pywps.conf
+PYWPS_URL=http://localhost/pywps/wps.py
+PYWPS_DESKTOP=/usr/share/applications/pywps.desktop
 
+echo 'Setting up directories'
 
-# Install PyWPS and its php, python bindings.
-apt-get install --yes python python-lxml wget
-
-# create working directory
-mkdir -p "$PYWPS_WORKING_DIR"
-mkdir -p "$PYWPS_OUTPUTS"
 mkdir -p "$PYWPS_PROCESSES"
-chmod 777 "$PYWPS_OUTPUTS"
 
-# Download PyWPS
-wget -c "https://github.com/geopython/PyWPS/aaggrchive/pywps-3.2.2.tar.gz"
-tar xzf pywps-3.2.2.tar.gz
-cd PyWPS-pywps-3.2.2
+echo 'Downloading logo'
 
-# install
-python setup.py install
+wget -c --progress=dot:mega \
+   -O /usr/local/share/icons/pywps.png \
+   "http://pywps.org/images/pywps.png"
 
-# create configuration file
+echo 'creating PyWPS configuration'
+
 cat << EOF > "$PYWPS_CFG"
-echo "[wps]
+[wps]
 encoding=utf-8
-title=PyWPS OSGeo-Live server
+title=PyWPS OSGeo-Live Demo
 version=1.0.0
-abstract=PyWPS distribution for OSGeo-Live project
+abstract=PyWPS is an implementation of the Web Processing Service standard from the Open Geospatial Consortium. PyWPS is written in Python.
 fees=None
-constraints=none
-serveraddress=http://localhost/cgi-bin/pywps
-keywords=PyWPS,OSGeo
-lang=eng
+constraints=None
+serveraddress=$PYWPS_URL
+keywords=PyWPS,WPS,OGC,processing,ogc,interoperability
+lang=en-US
 
 [provider]
-providerName=OSGeo
-individualName=Jachym
-positionName=Code writer
-role=PyWPS Contant persion
-deliveryPoint=Here
-city=There
-postalCode=000 00
-country=Internet
-electronicMailAddress=pywps-dev@lists.osgeo.org
-providerSite=http://pywps.wald.intevation.org
-phoneVoice=False
-phoneFacsimile=False
-administrativeArea=False
+providerName=Organization Name
+individualName=Lastname, Firstname
+positionName=Position Title
+role=pointOfContact
+deliveryPoint=Mailing Address
+city=City
+postalCode=Zip or Postal Code
+country=Country
+electronicMailAddress=Email Address
+providerSite=http://pywps.org
+phoneVoice=+xx-xxx-xxx-xxxx
+phoneFacsimile=+xx-xxx-xxx-xxxx
+administrativeArea=Administrative Area
 
 [server]
 maxoperations=50
 maxinputparamlength=1024
 maxfilesize=3mb
-tempPath=/var/www/pywps
-output>Url=http://localhost/wps/
-outputPath=$PYWPS_OUTPUTS
+tempPath=/tmp
 debug=true
 EOF
 
-# copy processes to target dir
-cp tests/processes/* "$PYWPS_PROCESSES"
+echo 'creating WSGI wrapper'
 
-# Create wrapper script
-cat << EOF > "/usr/lib/cgi-bin/pywps"
-#!/bin/sh
-PYWPS_CFG=${PYWPS_CFG}
-PYWPS_PROCESSES=${PYWPS_PROCESSES}
-/usr/local/bin/wps.py
+cat << EOF > "$PYWPS_WSGI"
+import os
+import pywps
+from pywps.Exceptions import NoApplicableCode, WPSException
+
+
+def application(environ, start_response):
+
+    os.environ['PYWPS_CFG'] = environ['PYWPS_CFG']
+    os.environ['PYWPS_PROCESSES'] = environ['PYWPS_PROCESSES']
+
+    status = '200 OK'
+    response_headers = [('Content-type', 'text/xml')]
+    start_response(status, response_headers)
+
+    inputQuery = None
+    if "REQUEST_METHOD" in environ and environ["REQUEST_METHOD"] == "GET":
+        inputQuery = environ["QUERY_STRING"]
+    elif "wsgi.input" in environ:
+        inputQuery = environ['wsgi.input']
+
+    if not inputQuery:
+        err = NoApplicableCode("No query string found.")
+        return [err.getResponse()]
+
+    # create the WPS object
+    try:
+        wps = pywps.Pywps(environ["REQUEST_METHOD"])
+        if wps.parseRequest(inputQuery):
+            pywps.debug(wps.inputs)
+            wps.performRequest()
+            return wps.response
+    except WPSException as e:
+        return [e]
+    except Exception as e:
+        return [e]
 EOF
 
-chmod 755 "/usr/lib/cgi-bin/pywps"
+echo 'creating PyWPS processes'
 
+cat << EOF > "$PYWPS_PROCESSES/__init__.py"
+__all__ = ['hello_world']
+EOF
 
+cat << EOF > "$PYWPS_PROCESSES/hello_world.py"
+from pywps.Process import WPSProcess
+class HelloWorldProcess(WPSProcess):
+    def __init__(self):
+        WPSProcess.__init__(
+            self,
+            version='0.1.0',
+            identifier='hello-world',
+            title='Hello World',
+            abstract='Sample process',
+            storeSupported=False,
+            statusSupported=False)
 
-# Install docs and demos
-cd doc
-make html
-mkdir -p "$PYWPS_DOCS"
-cp -r build/html/* "$PYWPS_DOCS"
+        self.data = self.addComplexInput(identifier='name',
+                                         title='Name')
 
-cat << EOF > "/usr/share/applications/pywps.desktop"
+        self.out = self.addComplexOutput(identifier='output',
+                                         title='Output')
+
+    def execute(self):
+        value = self.data.getValue()
+        self.out.setValue('Hello World from %s' % value)
+        return
+EOF
+
+echo 'creating Apache configuration'
+
+cat << EOF > "$PYWPS_APACHE_CONF"
+WSGIScriptAlias /pywps/wps.py $PYWPS_WSGI
+<Directory "$PYWPS_APP">
+  Require all granted
+</Directory>
+<Location /pywps/wps.py>
+  SetEnv PYWPS_CFG $PYWPS_CFG
+  SetEnv PYWPS_PROCESSES $PYWPS_PROCESSES
+</Location>
+EOF
+
+echo 'creating desktop launcher'
+
+cat << EOF > "$PYWPS_DESKTOP"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
 Name=PyWPS
 Comment=PyWPS
 Categories=Application;Education;Geography;WPS
-Exec=firefox http://localhost/cgi-bin/pywps?service=wps&request=getcapabilities
-Icon=/usr/local/share/icons/$ICON_NAME
+Exec=firefox $PYWPS_URL?service=WPS&version=1.0.0&request=GetCapabilities
+Icon=/usr/local/share/icons/pywps.png
 Terminal=false
 StartupNotify=false
 Categories=Education;Geography;
 EOF
 
+cp "$PYWPS_DESKTOP" "$USER_HOME/Desktop"
+chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/pywps.desktop"
 
-cp /usr/share/applications/pywps.desktop "$USER_HOME/Desktop/Web Services"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/Web Services/pywps.desktop"
-
-
-# clean installation
-cd
-rm -rf "$TMP_DIR"
+echo 'enabling Apache wsgi module'
+a2enmod wsgi
+echo 'enabling Apache configuration'
+a2enconf pywps
 
 ####
-"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
+./diskspace_probe.sh "`basename $0`" end

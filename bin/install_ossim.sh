@@ -2,69 +2,42 @@
 #
 # install_ossim.sh
 #
+#############################################################################
 # Created by Massimo Di Stefano on 07/12/09.
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
+#
 # Licensed under the GNU LGPL version >= 2.1.
 #
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation, either version 2.1 of the License,
+# or any later version.  This library is distributed in the hope that
+# it will be useful, but WITHOUT ANY WARRANTY, without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Lesser General Public License for more details, either
+# in the "LICENSE.LGPL.txt" file distributed with this software or at
+# web page "http://www.fsf.org/licenses/lgpl.html".
+#############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
 
-
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
+
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR=/tmp/build_ossim
 APP_DATA_DIR="$BUILD_DIR/../app-data/ossim"
 DATA_FOLDER="/usr/local/share/data"
-OSSIM_VERSION=1.8.16
-BUILD_DATE=20140202
 
-#CAUTION: UbuntuGIS should be enabled only through setup.sh
-#Add repositories
-#wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/sources.list.d/ubuntugis.list \
-#     --output-document=/etc/apt/sources.list.d/ubuntugis.list
-
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
-
+#### install ossim from ppa
 apt-get -q update
 
-apt-get install --assume-yes ossim-core
-
-# install main dependencies
-apt-get install --assume-yes libtiff5 libgeotiff2 \
-  libfreetype6 libcurl3 libopenscenegraph99 libqt4-opengl \
-  libexpat1 libpng3 libfftw3-3 \
-  libopenmpi1.6 libqt4-qt3support python-pip
-
-# python-pandas python-netcdf spyder
-
-apt-get install --assume-yes krb5-multidev libexpat-ocaml libfindlib-ocaml \
-  libgnutls-openssl27 libopenjpeg2 libpodofo0.9.0 \
-  libqt4-sql-sqlite libtiffxx5 ocaml-base-nox \
-  ocaml-findlib ocaml-interp ocaml-nox pkg-config \
-  libqt4-core
-
-#FIXME: does not exist in ubu 14.04: libqt3-mt libpthread-stubs0
-
-
-# for planetsasha:
-# qt4-dev-tools qt4-linguist-tools qt4-qmake xorg-sgml-doctools
-
-
-# fragile @ ubuntugis
-#apt-get install --assume-yes libgdal1h  libgdal1-1.10.1-grass
-
-
-## update for next release ##
-# apt-get install --assume-yes python-dev  # python-mpltoolkits.basemap # 170 mb!!! 
-# pip install --upgrade pandas
-# pip install bottleneck
-# pip install oct2py
-
+apt-get install --yes ossim-core libossim1 ossim-plugins ossim-planet-qt \
+    ossim-planet ossim-gui
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -72,145 +45,110 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
+#### download ossim icons
+mkdir -p "$TMP_DIR"
+mkdir -p /usr/share/ossim
+cd "$TMP_DIR"
 
-#### download ossim
-mkdir -p /tmp/build_ossim
-cd /tmp/build_ossim
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossimPlanet.xpm"
+mv ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/launchers/ossim.xpm"
+mv ossim.xpm /usr/share/pixmaps/ossim.xpm
 
-# OSSIM Qt apps built on live dvd
-wget -c --progress=dot:mega \
-  "http://download.osgeo.org/livedvd/data/ossim/ossim-qt_1.8.16.tar.gz"
+# create launchers
 
-tar -x -z --no-same-owner -C / -f ossim-qt_1.8.16.tar.gz
+# cat << EOF > /usr/share/applications/imagelinker.desktop
+# [Desktop Entry]
+# Version=1.0
+# Name=Imagelinker
+# Comment=OSSIM imagelinker
+# Exec=/usr/bin/imagelinker -P /usr/share/ossim/ossim_preference
+# Icon=ossim
+# Terminal=false
+# Type=Application
+# StartupNotify=true
+# Categories=Education;Science;Geography;
+# GenericName=
+# EOF
 
-# copy in old OSG libraries (trac #1359)
-wget -c --progress=dot:mega \
-  "http://download.osgeo.org/livedvd/data/ossim/libosg3.0.1_libs.tgz"
+# cp -a /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
+# chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
 
-mkdir libosg
-cd libosg
-tar xzf ../libosg3.0.1_libs.tgz
-for file in libosg*.3.0.1 ; do
-   cp "$file" /usr/local/lib/
-   ALTNAME=`basename "$file" .3.0.1`.80
-   ln -s "/usr/local/lib/$file" "/usr/local/lib/$ALTNAME"
-done
-cd ..
+cat << EOF > /usr/share/applications/ossimplanet.desktop
+[Desktop Entry]
+Version=1.0
+Name=OssimPlanet
+Comment=OSSIM Planet
+Exec=/usr/bin/ossimplanet -P /usr/share/ossim/ossim_preference
+Icon=ossimPlanet
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Education;Science;Geography;
+GenericName=
+EOF
 
-ldconfig
+cp -a /usr/share/applications/ossimplanet.desktop "$USER_HOME/Desktop/"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/ossimplanet.desktop"
 
-mkdir -p /usr/share/ossim/
+cat << EOF > /usr/share/applications/ossim-geocell.desktop
+[Desktop Entry]
+Version=1.0
+Name=OSSIM-geocell
+Comment=OSSIM-geocell
+Exec=/usr/bin/ossim-geocell -P /usr/share/ossim/ossim_preference
+Icon=ossim
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Education;Science;Geography;Network;Graphics;Qt;
+GenericName=
+EOF
 
-wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/ossim/ossim_settings.tar.gz"
+cp -a /usr/share/applications/ossim-geocell.desktop "$USER_HOME/Desktop/"
+chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/ossim-geocell.desktop"
 
-tar xzf ossim_settings.tar.gz
-
-chown -R root.root ossim_settings/
-#FIXME: "cannot move: Directory not empty"
-mv ossim_settings/* /usr/share/ossim/
-
-#patch for ticket https://trac.osgeo.org/osgeo/ticket/647 
-sed -i -e 's/OsssimPlanet/OssimPlanet/g' /usr/share/ossim/ossimplanet.desktop
-
-mv /usr/share/ossim/images/ossimPlanet.xpm /usr/share/pixmaps/ossimPlanet.xpm
-mv /usr/share/ossim/images/ossim.xpm /usr/share/pixmaps/ossim.xpm
-
-mv /usr/share/ossim/imagelinker.desktop /usr/share/applications/imagelinker.desktop
-mv /usr/share/ossim/ossimplanet.desktop /usr/share/applications/ossimplanet.desktop
+wget --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/ossim_preference -O /usr/share/ossim/ossim_preference
 
 OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"
 export OSSIM_PREFS_FILE
 
 BRCFILE="/etc/skel/.bashrc"
 echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$BRCFILE"
+#echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$BRCFILE"
 echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$USER_HOME/.bashrc"
+#echo 'export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH' >> "$USER_HOME/.bashrc"
 
-apt-get install --assume-yes python-pysqlite2 \
-   python-scipy python-serial python-psycopg2 proj-bin python-lxml \
-   libqt4-core python-distutils-extra python-setuptools \
-   python-qscintilla2
-   
-   
-cp /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
-sed -i -e 's/^Name=imagelinker/Name=Imagelinker/' \
-   "$USER_HOME/Desktop/imagelinker.desktop"
-# keep out of unrelated menus
-sed -i -e 's/Network;Graphics;//' /usr/share/applications/imagelinker.desktop
+# ln -s /usr/share/ossim/images/reference/bluemarble.tif \
+#   /usr/local/share/data/raster/
 
-cp /usr/share/applications/ossimplanet.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/ossimplanet.desktop"
+# #Download data used to test the application
+# KML_DATA="$DATA_FOLDER/kml"
+# RASTER_DATA="$DATA_FOLDER/raster"
+# ELEV_DATA=/usr/share/ossim/elevation/elev
+# SAT_DATA="$RASTER_DATA/cape_cod"
+# #echo "FIXME: does VRT data actually ship anymore?"
+# VRT_DATA="$DATA_FOLDER/vrt"
+# QUICKSTART=/usr/share/ossim/quickstart
 
-# add menu item
-if [ ! -e /usr/share/menu/imagelinker ] ; then
-   cat << EOF > /usr/share/menu/imagelinker
-?package(imagelinker):needs="X11"\
-  section="Applications/Science/Geoscience"\
-  title="Imagelinker"\
-  command="/usr/local/ossim/bin/imagelinker"\
-  icon="/usr/share/pixmaps/ossim.xpm"
-EOF
-  update-menus
-fi
-
-if [ ! -e /usr/share/menu/ossimplanet ] ; then
-   cat << EOF > /usr/share/menu/ossimplanet
-?package(ossimplanet):needs="X11"\
-  section="Applications/Science/Geoscience"\
-  title="Ossimplanet"\
-  command="/usr/local/ossim/bin/ossimplanet"\
-  icon="/usr/share/pixmaps/ossimPlanet.xpm"
-EOF
-  update-menus
-fi
+# #mkdir -p "$KML_DATA"
+# mkdir -p "$RASTER_DATA"
+# #mkdir -p "$SAT_DATA"
+# mkdir -p "$ELEV_DATA"   # ?? unused ??
+# mkdir -p "$VRT_DATA"
 
 
+# # disabled: $KML_DATA $SAT_DATA
+# for ITEM in $RASTER_DATA $ELEV_DATA $VRT_DATA ;  do
+#    chmod -R 775 "$ITEM"
+#    chgrp -R users "$ITEM"
+# done
 
 
-#Install the Manual and Intro guide locally and link them to the description.html
-mkdir -p /usr/local/share/ossim
+# Cape Cod SRTM and LANDSAT  (this part is disble because of disc space issue)
 
-wget --read-timeout=20 --tries=5 --progress=dot:mega \
-     "http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf" \
-     --output-document=/usr/local/share/ossim/ossim_users_guide.pdf
-
-#echo "FIXME: doesn't exist ==>
-# 'ln -s /usr/share/doc/ossim-doc/ossimPlanetUsers.pdf /usr/local/share/ossim/'"
-
-# pdf temporary stored on my ftp, waiting to add it on ossim download page.   
-wget --read-timeout=20 --tries=5 --progress=dot:mega \
-     "http://download.osgeo.org/livedvd/data/ossim/OSSIM_Whitepaper.pdf" \
-     --output-document=/usr/local/share/ossim/OSSIM_Whitepaper.pdf
-
-
-#Download data used to test the application
-KML_DATA="$DATA_FOLDER/kml"
-RASTER_DATA="$DATA_FOLDER/raster"
-ELEV_DATA=/usr/share/ossim/elevation/elev
-SAT_DATA="$RASTER_DATA/cape_cod"
-#echo "FIXME: does VRT data actually ship anymore?"
-VRT_DATA="$DATA_FOLDER/vrt"
-QUICKSTART=/usr/local/share/ossim/quickstart
-
-#mkdir -p "$KML_DATA"
-mkdir -p "$RASTER_DATA"
-#mkdir -p "$SAT_DATA"
-mkdir -p "$ELEV_DATA"   # ?? unused ??
-mkdir -p "$VRT_DATA"
-
-
-
-# disabled: $KML_DATA $SAT_DATA
-for ITEM in $RASTER_DATA $ELEV_DATA $VRT_DATA ;  do
-   chmod -R 775 "$ITEM"
-   chgrp -R users "$ITEM"
-done
-
-
-# Cape Cod SRTM and LANDSAT
-DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
-BASENAME="p011r031_7t19990918_z19_nn"
+#DATA_URL="http://download.osgeo.org/livedvd/data/ossim/"
+#BASENAME="p011r031_7t19990918_z19_nn"
 ##for BAND in 10 20 30 ; do
 ##    # LANDSAT
 ##    wget --progress=dot:mega "$DATA_URL/ossim_data/${BASENAME}$BAND.tif" \
@@ -237,44 +175,37 @@ BASENAME="p011r031_7t19990918_z19_nn"
 #wget --progress=dot:mega $DATA_URL/ossim_data/session.session \
 #     --output-document=$PKG_DATA/session.session
 
-wget -nv "$DATA_URL/ossim_preference" \
-     --output-document=/usr/share/ossim/ossim_preference
 
-apt-get --assume-yes install libjpeg62
+#OSSIM_PREFS_FILE=/usr/local/share/ossim/ossim_preference
+#export OSSIM_PREFS_FILE
 
-OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference
-export OSSIM_PREFS_FILE
+#if [ -e "$SAT_DATA/p011r031_7t19990918_z19_nn10.tif" ] ; then
+# /usr/bin/ossim-img2rr \
+#    "$SAT_DATA/p011r031_7t19990918_z19_nn10.tif" \
+#    "$SAT_DATA/p011r031_7t19990918_z19_nn20.tif" \
+#    "$SAT_DATA/p011r031_7t19990918_z19_nn30.tif"
 
-if [ -e "$SAT_DATA/p011r031_7t19990918_z19_nn10.tif" ] ; then
- /usr/bin/ossim-img2rr \
-    "$SAT_DATA/p011r031_7t19990918_z19_nn10.tif" \
-    "$SAT_DATA/p011r031_7t19990918_z19_nn20.tif" \
-    "$SAT_DATA/p011r031_7t19990918_z19_nn30.tif"
-
- /usr/bin/ossim-create-histo \
-    "$SAT_DATA/p011r031_7t19990918_z19_nn10.tif" \
-    "$SAT_DATA/p011r031_7t19990918_z19_nn20.tif" \
-    "$SAT_DATA/p011r031_7t19990918_z19_nn30.tif"
-fi
+# /usr/bin/ossim-create-histo \
+#    "$SAT_DATA/p011r031_7t19990918_z19_nn10.tif" \
+#    "$SAT_DATA/p011r031_7t19990918_z19_nn20.tif" \
+#    "$SAT_DATA/p011r031_7t19990918_z19_nn30.tif"
+#fi
 
 
 # it turns up there anyway?
 #/usr/bin/gdal_translate -of VRT "$RASTER_DATA"/BlueMarble_small.tif \
-#    /usr/share/ossim/images/reference/bluemarble.tif
-
-ln -s /usr/share/ossim/images/reference/bluemarble.tif \
-  /usr/local/share/data/raster/
+#    /usr/local/share/ossim/images/reference/bluemarble.tif
 
 
-mkdir -p "$QUICKSTART"/workspace
-chmod g+w "$QUICKSTART"/workspace
-chgrp users "$QUICKSTART"/workspace
+# mkdir -p "$QUICKSTART"/workspace
+# chmod g+w "$QUICKSTART"/workspace
+# chgrp users "$QUICKSTART"/workspace
 
-chmod g+w /usr/share/ossim/elevation
-chgrp users /usr/share/ossim/elevation
+# chmod g+w /usr/share/ossim/elevation
+# chgrp users /usr/share/ossim/elevation
 
 
-## TODO: Port the following to GRASS7
+## TODO: Port the following to GRASS7 - this part needs gdal-grass plugin (not yet available for grass 7.x)
 
 # #### spearfish subset to VRT
 # GISBASE=/usr/lib/grass64
@@ -304,32 +235,55 @@ chgrp users /usr/share/ossim/elevation
 #     /usr/share/ossim/elevation/spearfish/elevation10m.ras
 
 
-unset OSSIM_PREFS_FILE
+# # add suppport files used for the ossim tutorials
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.prj"
+# mv rgb.prj "$QUICKSTART"/workspace/
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/rgb.spec"
+# mv rgb.spec "$QUICKSTART"/workspace/
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim_data/ossim-dem-color-table-template.kwl"
+# mv ossim-dem-color-table-template.kwl "$QUICKSTART"/workspace/
+
+# unset OSSIM_PREFS_FILE
+
+# cp -r "$APP_DATA_DIR"/* "$QUICKSTART"/
+# if [ -L "$USER_HOME/ossim" ] ; then
+#    rm -f "$USER_HOME"/ossim
+# fi
+# ln -s "$QUICKSTART" "$USER_HOME"/ossim
+# # does the above symlink need to be owned by $USER?
+# if [ -L /etc/skel/ossim ] ; then
+#    rm -f /etc/skel/ossim
+# fi
+# ln -s "$QUICKSTART" /etc/skel/ossim
+
+# for dir in "$QUICKSTART" "$RASTER_DATA" "$DATA_FOLDER" ; do
+#   chgrp -R users $dir
+#   chmod -R g+w $dir
+# done
 
 
-cp -r "$APP_DATA_DIR"/* "$QUICKSTART"/
-if [ -L "$USER_HOME/ossim" ] ; then
-   rm -f "$USER_HOME"/ossim
-fi
-ln -s "$QUICKSTART" "$USER_HOME"/ossim
-# does the above symlink need to be owned by $USER?
-if [ -L /etc/skel/ossim ] ; then
-   rm -f /etc/skel/ossim
-fi
-ln -s "$QUICKSTART" /etc/skel/ossim
+# ossim-geocell tutorial
+#wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/OSSIMGeoCell__User_Manual__1.8.18-1.pdf
+#mv OSSIMGeoCell__User_Manual__1.8.18-1.pdf /usr/share/ossim/
 
-for dir in "$QUICKSTART" "$RASTER_DATA" "$DATA_FOLDER" ; do
-  chgrp -R users $dir
-  chmod -R g+w $dir
-done
+# ossim tutorial
+wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossim_users_guide.pdf
+mv ossim_users_guide.pdf /usr/share/ossim/
 
-chmod 644 /usr/local/share/ossim/*.pdf
+# ossimplanet tutorial
+#wget -c --progress=dot:mega http://download.osgeo.org/ossim/docs/pdfs/ossimPlanetUsers.pdf
+#mv ossimPlanetUsers.pdf /usr/share/ossim/
+
+chmod 644 /usr/share/ossim/*.pdf
+mkdir -p /var/www/html/ossim/
+ln -s -f /usr/share/ossim/*.pdf /var/www/html/ossim/
 
 
 
-#### cleanup
-rm -rf "$QUICKSTART"/.svn
+# #### cleanup
+# rm -rf "$QUICKSTART"/.svn
 
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
+

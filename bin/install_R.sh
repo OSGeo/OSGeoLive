@@ -6,7 +6,7 @@
 # Author:  Massimo Di Stefano <info@geofemengineering.it>
 #
 #################################################
-# Copyright (c) 2010-2011 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 GeofemEngineering 
 #
 # Licensed under the GNU LGPL.
@@ -57,7 +57,7 @@ apt-get -q update
 #Plugin interaction with R
 apt-get --assume-yes install python-rpy python-shapely \
     build-essential gfortran libblas-dev liblapack-dev  \
-    netcdf-bin
+    netcdf-bin libzmq3-dev
 
 # These dependencies were only necessary for building packages which is now done in the ppa
 # apt-get --assume-yes install python-all-dev libgdal-dev \
@@ -82,13 +82,18 @@ apt-get --assume-yes install r-recommended
 # package does not exist in Jaunty+: r-cran-e1071
 # not found in Lucid: r-cran-adapt
 
-#Calls R script to do install with feedback to stdout
-#R --no-save < ../app-conf/R/installRpackages.r
+
 # This is replaced with the following line which installs packages from our repository:
 apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
  r-cran-geor r-cran-gstat r-cran-maptools r-cran-randomfields r-cran-raster\
  r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
  r-cran-splancs r-cran-rgeos r-cran-ncdf r-cran-rsaga
+
+#Calls R script to do install with feedback to stdout
+mkdir -p /usr/local/share/jupyter/kernels
+R --no-save < ../app-conf/R/installRpackages.r
+mv /roots/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
+
 
 # add user to the staff group so that they can install system-wide packages
 adduser "$USER_NAME" staff

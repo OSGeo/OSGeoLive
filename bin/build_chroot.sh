@@ -7,7 +7,7 @@
 #          Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2013-2015 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2013-2016 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
 # 
@@ -35,20 +35,20 @@
 
 if [ "$#" -lt 2 ] || [ "$#" -gt 4 ]; then
     echo "Wrong number of arguments"
-    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo) or git clone url]"
     exit 1
 fi
 
 if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
     echo "Did not specify build architecture, try using i386 or amd64 as an argument"
-    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo) or git clone url]"
     exit 1
 fi
 ARCH="$1"
 
 if [ "$2" != "release" ] && [ "$2" != "nightly" ] ; then
     echo "Did not specify build mode, try using release or nightly as an argument"
-    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo)]"
+    echo "Usage: build_chroot.sh ARCH(i386 or amd64) MODE(release or nightly) [git_branch (default=master)] [github_username (default=OSGeo) or git clone url]"
     exit 1
 fi
 BUILD_MODE="$2"
@@ -71,7 +71,11 @@ echo "==============================================================="
 
 echo "ARCH: $ARCH"
 echo "MODE: $BUILD_MODE"
-echo "Git repository: https://github.com/$GIT_USER/OSGeoLive.git"
+if echo "$GIT_USER" | grep -q "://"; then
+    echo "Git repository: $GIT_USER"
+else
+    echo "Git repository: https://github.com/$GIT_USER/OSGeoLive.git"
+fi
 echo "Git branch: $GIT_BRANCH"
 
 DIR="/usr/local/share/gisvm/bin"
@@ -86,7 +90,7 @@ GIT_BUILD=`git describe --long --tags | awk -F'-' '{print $2}'`
 
 # Selecting iso name and build name
 if [ "$BUILD_MODE" = "release" ]; then
-    ISO_NAME="$PACKAGE_NAME-mini-$VERSION-$ARCH"
+    ISO_NAME="$PACKAGE_NAME-$VERSION-$ARCH"
     VERSION_MODE="$VERSION"
 else
     ISO_NAME="$PACKAGE_NAME-nightly-build$GIT_BUILD-$ARCH-$REVISION"
@@ -124,8 +128,8 @@ mkdir -p ~/livecdtmp
 cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://cdimage.ubuntu.com"
-UBU_RELEASE="14.04"
-ISO_RELEASE="14.04.1"
+UBU_RELEASE="16.04"
+ISO_RELEASE="16.04"
 UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
    "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
@@ -169,6 +173,7 @@ echo "======================================"
 #NOW IN CHROOT
 #sudo chroot edit
 sudo cp "$DIR"/inchroot.sh ~/livecdtmp/edit/tmp/
+sudo cp "$DIR"/bootstrap.sh ~/livecdtmp/edit/tmp/
 sudo cp "$GIT_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
 sudo cp "$GIT_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
 sudo chroot edit /bin/sh /tmp/inchroot.sh "$ARCH" "$BUILD_MODE" "$GIT_BRANCH" "$GIT_USER"
@@ -197,7 +202,7 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 3.13.0-32-generic
+sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 4.4.0-21-generic
 
 #continue
 mkdir lzfiles
@@ -223,14 +228,14 @@ chmod a+x scripts/casper-bottom/25adduser
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 
 #Change the text on the loader
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
-    lib/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
+sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo-Live $VERSION_MODE/g" \
+    usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 #might be in this file
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
-    lib/plymouth/themes/text.plymouth
+# sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
+#     lib/plymouth/themes/text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
+sed -i -e "s/.ubuntu $UBU_RELEASE LTS \"Xenial Xerus\"/OSGeo-Live $VERSION_MODE/g" \
     ../extract-cd/.disk/info
 
 #copy in a different background
@@ -263,7 +268,8 @@ echo "Compressing filesystem..."
 echo "======================================"
 #Compress filesystem
 sudo rm extract-cd/casper/filesystem.squashfs
-sudo mksquashfs edit extract-cd/casper/filesystem.squashfs -no-progress
+sudo mksquashfs edit extract-cd/casper/filesystem.squashfs
+# sudo mksquashfs edit extract-cd/casper/filesystem.squashfs -no-progress
 
 echo
 echo "Calculating new filesystem size..."

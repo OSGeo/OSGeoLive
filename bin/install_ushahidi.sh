@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This program is free software; you can redistribute it and/or modify it
@@ -42,8 +42,8 @@ mkdir -p "$TMP_DIR"
 # Install ushahidi dependencies.
 echo "Installing ushahidi"
 
-apt-get --assume-yes install php5 php5-mcrypt php5-curl apache2 \
-   php5-gd php5-imap mysql-server libapache2-mod-php5 php5-mysql 
+apt-get --assume-yes install php5.6 php5.6-mcrypt php5.6-curl apache2 \
+   php5.6-gd php5.6-imap mysql-server libapache2-mod-php5.6 php5.6-mysql
 
 if [ ! -x "`which wget`" ] ; then
     echo "ERROR: wget is required, please install it and try again"
@@ -55,7 +55,7 @@ cd "$TMP_DIR"
 # The archive changed from .tgz to .zip updating accordingly 
 if [ ! -e "ushahidi.zip" ] ; then 
    wget -O ushahidi.zip --progress=dot:mega \
-      "http://download.ushahidi.com/track_download.php?download=ushahidi"
+      "https://github.com/ushahidi/Ushahidi_Web/archive/2.7.4.zip"
 else
     echo "... Ushahidi already downloaded"
 fi
