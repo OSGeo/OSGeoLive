@@ -43,7 +43,7 @@ DESKTOP_APPS="grass70 qgis gvsig* openjump uDig ossimplanet *Kosmo*
 #disabled: atlasstyler geopublisher
 
 #Desktop apps part 2 (geodata viewers and editors)
-NAV_APPS="marble gpsdrive opencpn josm merkaartor osm_online
+NAV_APPS="marble opencpn josm merkaartor osm_online
           viking zygrib gpsprune nasa_jww"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
