@@ -36,59 +36,37 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
-
-apt-get --assume-yes install libmozjs185-1.0 zoo-kernel zoo-services
+apt-get --assume-yes install libmozjs185-1.0 zoo-kernel zoo-services zoo-api libzoo-service1.5
 
 # Download ZOO Project deb file.
 wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/zoo/zoo-osgeolive-demo_1.3.0-4_all.deb"
+   -O "$TMP_DIR"/examples.7z \
+   "http://download.osgeo.org/livedvd/data/zoo/examples.7z"
 
-dpkg -i zoo-osgeolive-demo_1.3.0-4_all.deb
+7zr x examples.7z 
+cp -r examples /var/www/html/zoo-demo
+chmod -R 755 /var/www/html/zoo-demo
 
-a2enmod rewrite
-a2enmod cgi
+wget --progress=dot:mega \
+  -O /usr/share/icons/zoo-icon.png \
+  "http://download.osgeo.org/livedvd/data/zoo/zoo-icon.png"
+
+# Add desktop file
+cat << EOF > /usr/share/applications/zoo-project.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=ZOO Project
+Comment=ZOO Project Demo
+Categories=Application;Education;Geography;
+Exec=firefox http://localhost/zoo-demo
+Icon=/usr/share/icons/zoo-icon.png
+Terminal=false
+StartupNotify=false
+EOF
 
 cp /usr/share/applications/zoo-project.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/zoo-project.desktop"
-
-cd /usr/lib/cgi-bin
-ldconfig
-
-sed "s:Gérald:Gerald:g" -i /usr/lib/cgi-bin/ogr_sp.py
-
-rm /usr/lib/cgi-bin/main.cfg
-
-cat << EOF > /usr/lib/cgi-bin/main.cfg
-[main]
-encoding = utf-8
-version = 1.0.0
-serverAddress = http://localhost/cgi-bin/zoo_loader.cgi
-lang = fr-FR,en-CA
-tmpPath=/var/www/html/temp/
-tmpUrl = ../temp/
-
-[identification]
-title = The Zoo WPS Development Server
-abstract = Development version of ZooWPS. See http://www.zoo-project.org
-fees = None
-accessConstraints = none
-keywords = WPS,GIS,buffer
-
-[provider]
-providerName=ZOO Project
-providerSite=http://www.zoo-project.org
-individualName=Gerald FENOY
-positionName=Developer
-role=Dev
-addressDeliveryPoint=1280, avenue des Platanes
-addressCity=Lattes
-addressAdministrativeArea=False
-addressPostalCode=34970
-addressCountry=fr
-addressElectronicMailAddress=gerald@geolabs.fr
-phoneVoice=False
-phoneFacsimile=False
-EOF
 
 # Reload Apache
 /etc/init.d/apache2 force-reload
