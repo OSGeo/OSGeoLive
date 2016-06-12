@@ -190,7 +190,7 @@ export USER_NAME
 ./install_mapbender3.sh
 ./install_geomoose.sh
 ./install_ushahidi.sh
-# ./install_cartaro.sh
+./install_cartaro.sh
 
 ## more Python (GeoServer rdeps)
 ./install_sahana.sh

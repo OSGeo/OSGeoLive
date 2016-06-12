@@ -65,24 +65,24 @@ fi
 # Add extra APT-Repository 
 ##############################
 
-echo "[install_cartaro.sh] Configure APT-Repo and install extra module"
+# echo "[install_cartaro.sh] Configure APT-Repo and install extra module"
 
-if [ ! -f /etc/apt/sources.list.d/cartaro.list ] ; then
+# if [ ! -f /etc/apt/sources.list.d/cartaro.list ] ; then
 
-cat << EOF > /etc/apt/sources.list.d/cartaro.list
+# cat << EOF > /etc/apt/sources.list.d/cartaro.list
 
-# Repo for Cartaro
+# # Repo for Cartaro
 
-deb http://apt.geops.de xenial main
+# deb http://apt.geops.de xenial main
 
-EOF
+# EOF
 
-fi
+# fi
 
-apt-key adv  --keyserver hkp://keys.gnupg.net --recv-keys B6AA9BC9E7BDBF3D
-apt-get update
-apt-get --no-remove -y install php5-gdal 
-php5enmod -s ALL gdal
+# apt-key adv  --keyserver hkp://keys.gnupg.net --recv-keys B6AA9BC9E7BDBF3D
+# apt-get update
+# apt-get --no-remove -y install php5-gdal
+# php5enmod -s ALL gdal
 
 
 ###############################
