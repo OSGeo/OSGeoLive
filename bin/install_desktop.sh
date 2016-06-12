@@ -63,6 +63,7 @@ sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
 sed -i -e 's|^wallpaper_mode=.*|wallpaper_mode=fit|' \
        -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
        -e 's|^desktop_bg=.*|desktop_bg=#000000|' \
+       -e 's|^show_trash=.*|show_trash=0|' \
    /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
 ## Removed this for xenial: -e 's|^desktop_shadow=.*|desktop_shadow=.*\nshow_mounts=1|' \
