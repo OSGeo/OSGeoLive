@@ -32,6 +32,9 @@ apt-get install --yes python-all-dev
 # Install Django
 apt-get install --yes python-django=1.6.11-2~xenial0
 
+# Hold Django version to avoid upgrades from upstream
+apt-mark hold python-django
+
 # Install Geospatial Python libraries
 apt-get install --yes python-gdal python-shapely python-rasterio \
 	python-fiona fiona rasterio python-matplotlib python-geopandas \
