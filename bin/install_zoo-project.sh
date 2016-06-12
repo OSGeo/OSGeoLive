@@ -40,7 +40,7 @@ apt-get --assume-yes install libmozjs185-1.0 zoo-kernel zoo-services zoo-api lib
 
 # Download ZOO Project deb file.
 wget -N --progress=dot:mega \
-   -O "$TMP_DIR"/examples.7z
+   -O "$TMP_DIR"/examples.7z \
    "http://download.osgeo.org/livedvd/data/zoo/examples.7z"
 
 7zr x examples.7z 
