@@ -44,9 +44,11 @@ apt-get -q update
 # Install specific versions of packages available in GeoNode ppa
 apt-get --assume-yes install python-django-downloadview=1.2-1~xenial0 \
     python-django-guardian=1.2.0-1~xenial0 \
-    python-django-polymorphic=0.5.6-1~xenial0
+    python-django-polymorphic=0.5.6-1~xenial0 \
+    python-django-mptt=0.6.0-1~xenial0
 
 apt-get --assume-yes install python-geonode libapache2-mod-wsgi curl
+apt-mark hold python-geonode
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
