@@ -194,7 +194,7 @@ export USER_NAME
 
 ## more Python (GeoServer rdeps)
 ./install_sahana.sh
-# ./install_geonode.sh
+./install_geonode.sh
 
 ## Javascript et al
 ./install_openlayers.sh

@@ -32,7 +32,7 @@ DATA_DIR="/usr/local/share/geonode"
 DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/sites-available/geonode.conf"
 GEONODE_DB="geonode"
-GEOSERVER_VERSION="2.8.2"
+GEOSERVER_VERSION="2.8.3"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 GEONODE_DIR="/usr/lib/python2.7/dist-packages/geonode"
@@ -40,7 +40,15 @@ GEONODE_DIR="/usr/lib/python2.7/dist-packages/geonode"
 # Install packages
 add-apt-repository -y ppa:geonode/osgeo
 apt-get -q update
+
+# Install specific versions of packages available in GeoNode ppa
+apt-get --assume-yes install python-django-downloadview=1.2-1~xenial0 \
+    python-django-guardian=1.2.0-1~xenial0 \
+    python-django-polymorphic=0.5.6-1~xenial0 \
+    python-django-mptt=0.6.0-1~xenial0
+
 apt-get --assume-yes install python-geonode libapache2-mod-wsgi curl
+apt-mark hold python-geonode
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'

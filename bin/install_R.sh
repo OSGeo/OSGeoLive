@@ -121,14 +121,13 @@ cp -a /usr/share/applications/r.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 
 #Remove build libraries
-apt-get --assume-yes remove python-all-dev \
-   libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
+apt-get --assume-yes remove libxml2-dev \
+   tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
    libglu1-mesa-dev libsprng2-dev
 #libgdal-dev libnetcdf-dev libgeos-dev libproj-dev
 
 #cleanup leftovers
-apt-get --assume-yes autoremove
-
+# apt-get --assume-yes autoremove
 
 
 ## fix for broken PDFs, fixed in upstream SVN Aug 2011  (bug #769)
