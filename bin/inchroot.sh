@@ -202,7 +202,6 @@ export USER_NAME
 ./install_cesium.sh
 ./install_R.sh
 ./install_rasdaman.sh
-# ./install_tilemill.sh
 
 ## Docs, Data and extras
 ./load_gisdata.sh
