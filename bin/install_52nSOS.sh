@@ -48,7 +48,7 @@ SOS_INSTALL_FOLDER="/usr/local/52nSOS"
 SOS_BIN_FOLDER="/usr/local/share/52nSOS"
 SOS_TAR_NAME="52n-sos-osgeo-live-10.0.tar.gz"
 SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
-SOS_VERSION="4.3.0"
+SOS_VERSION="4.3.6"
 PG_OPTIONS='--client-min-messages=warning'
 PG_USER="postgres"
 PG_SCRIPT_NAME="postgresql"
