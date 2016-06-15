@@ -142,7 +142,7 @@ mkdir /usr/local/share/qgis
 
 # TODO: Consider including translations
 VER=2.8
-DOCURL="http://docs.qgis.org/$VER/pdf/en"
+DOCURL="http://download.osgeo.org/livedvd/data/qgis"
 for DOC in UserGuide QGISTrainingManual ; do
    wget -c --progress=dot:mega \
        "$DOCURL/QGIS-$VER-$DOC-en.pdf" \
