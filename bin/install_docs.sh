@@ -247,18 +247,18 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 mkdir -p /usr/local/share/doc
 
 wget -c --progress=dot:mega \
-  "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/14.04e2/en_US/screen/Getting%20Started%20with%20Ubuntu%2014.04%20-%20Second%20edition.pdf" \
-  -O "/usr/local/share/doc/Getting Started with Ubuntu 14.04 - Second edition.pdf"
+  "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/16.04/en_US/screen/Getting%20Started%20with%20Ubuntu%2016.04.pdf" \
+  -O "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf"
 
 if [ $? -ne 0 ] ; then
    # try try again
    wget -c --progress=dot:mega \
-     "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/14.04e2/en_US/screen/Getting%20Started%20with%20Ubuntu%2014.04%20-%20Second%20edition.pdf" \
-     -O "/usr/local/share/doc/Getting Started with Ubuntu 14.04 - Second edition.pdf"
+  "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/16.04/en_US/screen/Getting%20Started%20with%20Ubuntu%2016.04.pdf" \
+  -O "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf"
 fi
 
-ln -s "/usr/local/share/doc/Getting Started with Ubuntu 14.04 - Second edition.pdf" \
-  "$USER_HOME/Desktop/Getting Started with Ubuntu 14.04 - Second edition.pdf"
+ln -s "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf" \
+  "$USER_HOME/Desktop/Getting Started with Ubuntu 16.04.pdf"
 
 
 ####
