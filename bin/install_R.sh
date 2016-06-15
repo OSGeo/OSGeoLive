@@ -87,7 +87,7 @@ apt-get --assume-yes install r-recommended
 apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
  r-cran-geor r-cran-gstat r-cran-maptools r-cran-randomfields r-cran-raster\
  r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
- r-cran-splancs r-cran-rgeos r-cran-ncdf r-cran-rsaga
+ r-cran-splancs r-cran-rgeos r-cran-ncdf r-cran-rsaga r-cran-rgrass7
 
 #Calls R script to do install with feedback to stdout
 mkdir -p /usr/local/share/jupyter/kernels
