@@ -152,5 +152,12 @@ cp -a /usr/share/applications/gvsig-desktop.desktop "$USER_HOME/Desktop/"
 chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/gvsig-desktop.desktop"
 chmod +x "$USER_HOME/Desktop/gvsig-desktop.desktop"
 
+# the package for gvSIG contains a static library for gdal
+# this is not useful as we are not building anything. gvSIG also contains
+# a shared library. Ideally this would use the debian version instead.
+# removing this file is an ugly fix - a cleaner way would be fixing this in de package.
+# removing this file saves 107Mb
+rm -rf /usr/local/lib/gvsig-desktop/2.2.0-2313-2-amd64/gvSIG/extensiones/org.gvsig.raster.gdal.app/gdal/bin/libgdal.a
+
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
