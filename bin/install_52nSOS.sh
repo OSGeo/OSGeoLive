@@ -46,7 +46,7 @@ SOS_OVERVIEW_URL="http://localhost/osgeolive/en/overview/52nSOS_overview.html"
 SOS_WAR_INSTALL_FOLDER="/var/lib/$TOMCAT_SCRIPT_NAME/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
 SOS_BIN_FOLDER="/usr/local/share/52nSOS"
-SOS_TAR_NAME="52n-sos-osgeo-live-9.0.tar.gz"
+SOS_TAR_NAME="52n-sos-osgeo-live-10.0.tar.gz"
 SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
 SOS_VERSION="4.3.0"
 PG_OPTIONS='--client-min-messages=warning'
