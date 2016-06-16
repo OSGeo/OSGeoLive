@@ -157,7 +157,8 @@ chmod +x "$USER_HOME/Desktop/gvsig-desktop.desktop"
 # a shared library. Ideally this would use the debian version instead.
 # removing this file is an ugly fix - a cleaner way would be fixing this in de package.
 # removing this file saves 107Mb
-rm -rf /usr/local/lib/gvsig-desktop/2.2.0-2313-2-amd64/gvSIG/extensiones/org.gvsig.raster.gdal.app/gdal/bin/libgdal.a
+rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-2-${ARCH}/gvSIG/extensiones/org.gvsig.raster.gdal.app/gdal/bin/libgdal.a"
+rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-2-${ARCH}/gvSIG/extensiones/org.gvsig.raster.ermapper.app"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
