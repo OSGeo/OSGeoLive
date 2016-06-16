@@ -1,6 +1,24 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 10.0alpha3
+====================
+
+ * Downgraded Django to 1.6.11
+ * Improved PyWPS packaging (#1730)
+ * 52nSOS 4.3.6 update
+ * 52nWPS 3.4.0 update
+ * Leaflet demo updated
+ * ZOO-Project demo fixed (#1710)
+ * Cartaro installation fixed (#1718)
+ * GeoNode packaging provided for Xenial (#1722)
+ * EOxServer installation fixed (#1706)
+ * Rasdaman installer available for Xenial (#1721)
+ * TileMill retired (#1723)
+ * R packages updated to Xenial (#1720)
+ * r-cran-grass7 added (#1444)
+ * Updated Ubuntu documentation to 16.04
+
 Version 10.0alpha2
 ====================
 
