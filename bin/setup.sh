@@ -145,8 +145,10 @@ ln -s /usr/local/share/data /etc/skel/data
 
 # and there was music and laughter and much rejoicing
 adduser user audio
+
+## https://bugs.launchpad.net/ubuntu/+source/fuse/+bug/1581163
 # and connectivity too
-adduser user fuse
+#adduser user fuse
 
 # highly useful tricks
 #  (/etc/skel/.bashrc seems to be clobbered by the copy in USER_HOME)
