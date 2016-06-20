@@ -100,8 +100,8 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
 #########################################################################
 #### install sample OSM data
-CITY="SanMateo_CA"
-BBOX="-122.44,37.4,-122.2,37.7"
+CITY="BONN_DE"
+BBOX="7.097,50.6999,7.1778,50.7721"
 
 # visualize: (FIXME!)
 #http://www.openstreetmap.org/?box=yes&bbox=$BBOX
@@ -168,12 +168,12 @@ ln -s /usr/local/share/data/osm/"$CITY.osm.bz2" \
 
 ####
 # Smaller extract for pgRouting examples
-wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/osm/$CITY/${CITY}_CBD.osm.bz2"
-cp -f "${CITY}_CBD.osm.bz2" /usr/local/share/osm/
-ln -s /usr/local/share/osm/${CITY}_CBD.osm.bz2 /usr/local/share/data/osm
-ln -s /usr/local/share/data/osm/"${CITY}_CBD.osm.bz2" \
-   /usr/local/share/data/osm/feature_city_CBD.osm.bz2
+#wget -N --progress=dot:mega \
+#   "http://download.osgeo.org/livedvd/data/osm/$CITY/${CITY}_CBD.osm.bz2"
+#cp -f "${CITY}_CBD.osm.bz2" /usr/local/share/osm/
+#ln -s /usr/local/share/osm/${CITY}_CBD.osm.bz2 /usr/local/share/data/osm
+#ln -s /usr/local/share/data/osm/"${CITY}_CBD.osm.bz2" \
+#   /usr/local/share/data/osm/feature_city_CBD.osm.bz2
 
 
 # To make the sqlite POI db, use osm2poidb from GpsDrive utils,
