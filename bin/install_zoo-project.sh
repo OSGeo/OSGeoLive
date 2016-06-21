@@ -36,7 +36,7 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
-apt-get --assume-yes install zoo-kernel zoo-services zoo-api
+apt-get --assume-yes install zoo-kernel zoo-service-ogr zoo-api
 
 # Download ZOO Project deb file.
 wget -N --progress=dot:mega \
