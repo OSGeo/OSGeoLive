@@ -74,8 +74,9 @@ apt-get install --assume-yes -q --no-install-recommends $PACKAGES
 
 
 ## experiment 6.5a4  generate the iso-8859-1x locale
-#locale-gen en_US ISO-8859-1
-#locale-gen en_US ISO-8859-15
+## xenial - ref /usr/share/i18n/SUPPORTED
+#locale-gen en_US iso88591
+#locale-gen en_US iso885915
 #dpkg-reconfigure locales
 
 
