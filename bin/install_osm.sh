@@ -79,8 +79,8 @@ sed -i -e 's/Network;//' /usr/share/applications/merkaartor.desktop
 # add an icon for viewing The Map online
 mkdir -p /usr/local/share/applications
 
-MAP_CENTER="lat=37.5&lon=-122.3"
-MARKER="mlat=37.5&mlon=-122.3"
+MAP_CENTER="lat=50.72&lon=7.1"
+MARKER="mlat=50.72&mlon=7.1"
 ZOOM="16"
 
 cat << EOF > /usr/local/share/applications/osm_online.desktop
