@@ -50,12 +50,22 @@ apt-get install --assume-yes josm gpsd gpsd-clients \
 
 # pre-seed the josmrc file to make the default window size fit on a smaller display
 mkdir -p "$USER_HOME"/.josm
+
 cat << EOF > "$USER_HOME"/.josm/preferences
 gui.geometry=800x600+40+40
 gui.maximized=false
 EOF
+
+cd "$TMP_DIR"
+wget -c --tries=3 --progress=dot:mega \
+    "http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2"
+tar xf josm_plugs.tar.bz2
+mkdir -p "$USER_HOME"/.josm/plugins
+mv *jar "$USER_HOME"/.josm/plugins/
+
 chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
 
+##-----------------------------------------------
 ## v9.5 add util nik4.py
 wget -c --tries=3 --progress=dot:mega \
   "https://github.com/Zverik/Nik4/raw/3415338e53ed67318c7b4c9f9d8402156d2ee4da/nik4.py"
