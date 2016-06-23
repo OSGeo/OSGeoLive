@@ -41,7 +41,8 @@ cd "$TMP_DIR"
 mkdir /usr/local/share/osm
 
 apt-get install --assume-yes josm gpsd gpsd-clients \
-   merkaartor xmlstarlet imposm osmosis python-osmapi
+   merkaartor xmlstarlet imposm osmosis python-osmapi \
+   osmctools osmium-tool  
 
 
 ##-----------------------------------------------
