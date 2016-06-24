@@ -98,8 +98,8 @@ wget -c --tries=3 --progress=dot:mega \
     "http://download.osgeo.org/livedvd/data/jupyter/debs/python-ipyleaflet_0.2.0_all.deb"
 dpkg -i python-ipyleaflet_0.2.0_all.deb
 
-jupyter nbextension enable --py widgetsnbextension
-jupyter nbextension enable --py ipyleaflet
+jupyter nbextension enable --py --sys-prefix widgetsnbextension
+jupyter nbextension enable --py --sys-prefix ipyleaflet
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
