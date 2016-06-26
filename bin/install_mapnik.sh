@@ -65,7 +65,7 @@ cp demo/* "$MAPNIK_DATA"/demo/
 cd "$TMP"
 rm -rf "$TMP/demo"
 
-# Create startup script for TileLite Mapnik Server
+# Create startup script for TileStache Mapnik Server
 cat << EOF > "$BIN/mapnik_start_tilestache.sh"
 #!/bin/sh
 tilestache-server -c /usr/local/share/mapnik/demo/tilestache.cfg -p 8012
@@ -79,8 +79,8 @@ cat << EOF > /usr/share/applications/mapnik-start.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Start Mapnik & TileLite
-Comment=Mapnik tile-serving using TileLite Server
+Name=Start Mapnik & TileStache
+Comment=Mapnik tile-serving using TileStache Server
 Categories=Application;Geography;Geoscience;Education;
 Exec=mapnik_start_tilestache.sh
 Icon=gnome-globe
