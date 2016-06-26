@@ -120,9 +120,9 @@ services:
       fees: 'None'
 
 layers:
-  - name: tilelite
-    title: World population (Mapnik + TileLite TMS)
-    sources: [tilelite_cache]
+  - name: tilestache
+    title: World population (Mapnik + Tilestache TMS)
+    sources: [tilestache_cache]
   - name: mapnik
     title: World population (Mapnik, uncached)
     sources: [mapnik]
@@ -137,9 +137,9 @@ layers:
     sources: [mapnik, geoserver]
 
 caches:
-  tilelite_cache:
+  tilestache_cache:
     grids: [GLOBAL_MERCATOR]
-    sources: [tilelite]
+    sources: [tilestache]
 
 sources:
   geoserver:
@@ -154,9 +154,9 @@ sources:
       bbox: -124.73142200000001,24.955967,-66.969849,49.371735
       bbox_srs: 'EPSG:4326'
 
-  tilelite:
+  tilestache:
     type: tile
-    url: http://127.0.0.1:8012/%(z)d/%(x)d/%(y)d.png
+    url: http://127.0.0.1:8012/example/%(z)d/%(x)d/%(y)d.png
     grid: global_mercator_inverse
     transparent: true
 

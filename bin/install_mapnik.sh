@@ -4,8 +4,8 @@
 #
 # About:
 # =====
-# This script will install Mapnik library and Python bindings
-# and TileLite for a demo 'World Borders' application
+# This script will install Mapnik library, Python bindings
+# and Tilestache for a demo 'World Borders' application
 #
 # Requires:
 # =========
@@ -13,10 +13,8 @@
 #
 # Uninstall:
 # ==========
-# sudo apt-get remove python-mapnik
-# rm -rf /usr/local/lib/python2.7/dist-packages/tilelite*
+# sudo apt-get remove python-mapnik tilestache python-modestmaps
 # rm -rf /usr/local/share/mapnik/
-# rm /usr/local/bin/liteserv.py
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -34,20 +32,16 @@ DATA_FOLDER="/usr/local/share"
 MAPNIK_DATA="$DATA_FOLDER/mapnik"
 BIN="/usr/local/bin"
 
-
-# package name change in precise
-apt-get install --yes python-mapnik python-werkzeug
+apt-get install --yes python-mapnik python-werkzeug tilestache python-modestmaps
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
 
-
 mkdir -p "$TMP"
 cd "$TMP"
 
-## Setup things... ##
 # check required tools are installed
 if [ ! -x "`which wget`" ] ; then
    echo "ERROR: wget is required, please install it and try again"
@@ -59,51 +53,36 @@ if [ ! -d "$MAPNIK_DATA" ] ; then
    mkdir "$MAPNIK_DATA"
 fi
 
-# download TileLite sources
-## some problems with filenames, substitute package --Live 4.5b3
-#wget -N --progress=dot:mega http://bitbucket.org/springmeyer/tilelite/get/tip.zip
-#unzip -o tip.zip
-#rm tip.zip # We wish to backup files downloaded. The tmp directory is
-#           #   automatically emptied upon computer shutdown.
+# download Tilestache demo
 wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/mapnik/tilelite.tgz"
+   "http://download.osgeo.org/livedvd/data/mapnik/tilestache_demo.tar.gz"
 
-tar xzf tilelite.tgz
-cd "$TMP/tilelite"
-
-# install tilelite using the standard python installation tools
-python setup.py install # will install 'tilelite.py' in dist-packages and 'liteserv.py' in default bin directory
-
-# copy TileLite demo application and data to 'mapnik' subfolder of DATA_FOLDER
+tar zxf tilestache_demo.tar.gz
 mkdir -p "$MAPNIK_DATA"/demo/
 cp demo/* "$MAPNIK_DATA"/demo/
-#truly local only demo relies on jquery and openlayers from other installers
-cp "$BUILD_DIR/../app-conf/mapnik/local.html" "$MAPNIK_DATA"/demo/
 
 # now get rid of temporary unzipped sources
 cd "$TMP"
-rm -rf "$TMP/tilelite"
+rm -rf "$TMP/demo"
 
-# Create startup script for TileLite Mapnik Server
-cat << EOF > "$BIN/mapnik_start_tilelite.sh"
+# Create startup script for TileStache Mapnik Server
+cat << EOF > "$BIN/mapnik_start_tilestache.sh"
 #!/bin/sh
-liteserv.py --port 8012 /usr/local/share/mapnik/demo/population.xml
+tilestache-server -c /usr/local/share/mapnik/demo/tilestache.cfg -p 8012
 EOF
 
-chmod 755 "$BIN/mapnik_start_tilelite.sh"
+chmod 755 "$BIN/mapnik_start_tilestache.sh"
 
 
-## Create Desktop Shortcut for starting TileLite Mapnik Server in shell
-# Note: TileLite when run with the 'liteserv.py' script is in development
-# mode and is intended to be run within a viewable terminal, thus 'Terminal=true'
+## Create Desktop Shortcut for starting Tilestache Server in shell
 cat << EOF > /usr/share/applications/mapnik-start.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Start Mapnik & TileLite
-Comment=Mapnik tile-serving using TileLite Server
+Name=Start Mapnik & TileStache
+Comment=Mapnik tile-serving using TileStache Server
 Categories=Application;Geography;Geoscience;Education;
-Exec=mapnik_start_tilelite.sh
+Exec=mapnik_start_tilestache.sh
 Icon=gnome-globe
 Terminal=true
 StartupNotify=false
