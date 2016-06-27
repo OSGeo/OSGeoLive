@@ -36,17 +36,32 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
-apt-get --assume-yes install zoo-kernel zoo-service-ogr zoo-api
+apt-get --assume-yes install zoo-kernel zoo-service-ogr \
+	zoo-service-status zoo-service-cgal zoo-service-otb zoo-api
 
-# Download ZOO Project deb file.
+# Patch OTB zcfg files as per ticket #1710
+cd /usr/lib/cgi-bin/OTB
+for i in BandMath Despeckle KMeansClassification; do
+   sed "s:mimeType = image/png:mimeType = image/png\nuseMapserver = true\nmsClassify = true:g" -i $i.zcfg
+done
+sed "s:mimeType = image/png:mimeType = image/png\nuseMapserver = true:g" -i Smoothing.zcfg
+
+# Download and setup ZOO Project demo files.
+cd "$TMP_DIR"
 wget -N --progress=dot:mega \
-   -O "$TMP_DIR"/examples.7z \
-   "http://download.osgeo.org/livedvd/data/zoo/examples.7z"
+   -O "$TMP_DIR"/examples-livedvd.tar.bz2 \
+   "http://download.osgeo.org/livedvd/data/zoo/examples-livedvd.tar.bz2"
 
-7zr x examples.7z 
-cp -r examples /var/www/html/zoo-demo
+tar xf examples-livedvd.tar.bz2
+cp -r zoo-demo /var/www/html/zoo-demo
 chmod -R 755 /var/www/html/zoo-demo
+cp zoo-demo/main.cfg /usr/lib/cgi-bin/
+cp zoo-demo/symbols.sym /var/data
+ln -s /tmp /var/www/html/mpPathRelativeToServerAdress
+chown -R www-data:www-data /var/data
+rm -rf zoo-demo
 
+# Get ZOO-Project icon
 wget --progress=dot:mega \
   -O /usr/share/icons/zoo-icon.png \
   "http://download.osgeo.org/livedvd/data/zoo/zoo-icon.png"
