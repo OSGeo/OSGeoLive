@@ -91,7 +91,7 @@ cp -r /home/user/jupyter /etc/skel
 # add geoalchemy to easy access to postgis from python
 wget -c --tries=3 --progress=dot:mega \
     "http://download.osgeo.org/livedvd/data/jupyter/debs/python-geoalchemy2_0.3.0_all.deb"
-dpkg -i
+dpkg -i python-geoalchemy2_0.3.0_all.deb
 
 # add ipyleaflet
 wget -c --tries=3 --progress=dot:mega \
