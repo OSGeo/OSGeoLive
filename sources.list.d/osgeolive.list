@@ -1,4 +1,4 @@
 #OSGeoLive Release ppa
-deb http://ppa.launchpad.net/osgeolive/release-9.5/ubuntu xenial main
-#deb-src http://ppa.launchpad.net/osgeolive/release-9.5/ubuntu xenial main
+deb http://ppa.launchpad.net/osgeolive/release-10.0/ubuntu xenial main
+#deb-src http://ppa.launchpad.net/osgeolive/release-10.0/ubuntu xenial main
 
