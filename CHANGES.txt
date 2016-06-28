@@ -1,6 +1,21 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 10.0beta1
+====================
+
+ * QGIS 2.14.3
+ * PostGIS 2.2.2
+ * pgRouting 2.2.3
+ * Mapnik 3.0.11 and latest python-mapnik
+ * Iris 1.9.2
+ * Downgraded osgearth to 2.5.0 (#1699)
+ * TileStache 1.49.8 replaced TileLite (#1701)
+ * Featured OSM city switched to Bonn (#1698)
+ * ZOO-Project packaging now supports CGAL and OTB (#1710)
+ * JOSM plugins added
+ * Added OSM cli tools
+
 Version 10.0alpha3
 ====================
 
