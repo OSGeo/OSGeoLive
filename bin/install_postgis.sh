@@ -30,7 +30,7 @@ USER_HOME="/home/$USER_NAME"
 #  to correspond to install paths
 PG_VERSION="9.5"
 
-apt-get install --yes postgis "postgresql-$PG_VERSION-postgis-2.2"
+apt-get install --yes postgis postgis-gui "postgresql-$PG_VERSION-postgis-2.2"
 #TODO: Restore postgis-gui in the future.
 
 if [ $? -ne 0 ] ; then
