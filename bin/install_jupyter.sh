@@ -37,21 +37,8 @@ apt-get update
 # From Jupyter 1.0.0 setup.py dependencies
 apt-get install --assume-yes python-notebook python-qtconsole \
         python-jupyter-console python-nbconvert python-ipykernel \
-        python-ipywidgets python-ipython python-terminado
-
-# upgrade notebook and widgets to new version, needed by leaflet and ney jupyter widget system
-wget -c --tries=3 --progress=dot:mega \
-    "http://download.osgeo.org/livedvd/data/jupyter/debs/python-notebook_4.2.1_all.deb"
-
-wget -c --tries=3 --progress=dot:mega \
-    "http://download.osgeo.org/livedvd/data/jupyter/debs/python-ipywidgets_5.1.5_all.deb"
-
-wget -c --tries=3 --progress=dot:mega \
-    "http://download.osgeo.org/livedvd/data/jupyter/debs/python-widgetsnbextension_1.2.3_all.deb"
-
-dpkg -i python-notebook_4.2.1_all.deb
-dpkg -i python-widgetsnbextension_1.2.3_all.deb
-dpkg -i python-ipywidgets_5.1.5_all.deb
+        python-ipywidgets python-widgetsnbextension python-ipython \
+        python-ipyleaflet python-terminado
 
 #-- Clean-up
 apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
@@ -92,11 +79,6 @@ cp -r /home/user/jupyter /etc/skel
 wget -c --tries=3 --progress=dot:mega \
     "http://download.osgeo.org/livedvd/data/jupyter/debs/python-geoalchemy2_0.3.0_all.deb"
 dpkg -i python-geoalchemy2_0.3.0_all.deb
-
-# add ipyleaflet
-wget -c --tries=3 --progress=dot:mega \
-    "http://download.osgeo.org/livedvd/data/jupyter/debs/python-ipyleaflet_0.2.0_all.deb"
-dpkg -i python-ipyleaflet_0.2.0_all.deb
 
 jupyter nbextension enable --py --sys-prefix widgetsnbextension
 jupyter nbextension enable --py --sys-prefix ipyleaflet
