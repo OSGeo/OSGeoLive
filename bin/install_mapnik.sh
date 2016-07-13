@@ -32,7 +32,7 @@ DATA_FOLDER="/usr/local/share"
 MAPNIK_DATA="$DATA_FOLDER/mapnik"
 BIN="/usr/local/bin"
 
-apt-get install --yes python-mapnik python-werkzeug tilestache python-modestmaps
+apt-get install --yes python-mapnik python-werkzeug tilestache python-modestmaps libjs-modestmaps
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
