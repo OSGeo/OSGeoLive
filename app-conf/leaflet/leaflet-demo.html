@@ -16,7 +16,9 @@
     <script>
         var map = L.map('map').setView([50.7035, 7.0972], 5)
 
-        L.tileLayer('http://localhost:8012/{z}/{x}/{y}.png',{}).addTo(map);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{}).addTo(map);
+        //In case we are offline, start TileStache to get a base layer
+        L.tileLayer('http://localhost:8012/example/{z}/{x}/{y}.png',{}).addTo(map);
 
         var marker = L.marker([50.7035, 7.0972]).addTo(map);            
 
