@@ -28,7 +28,7 @@ USER_DESKTOP="$USER_HOME/Desktop"
 BUILD_DIR=`pwd`
 
 apt-get install --assume-yes python-folium \
-        python-pysal python-geocoder
+        python-pysal python-geocoder python-geoalchemy2
 
 #-- Jupyter ppa
 apt-add-repository --yes ppa:gcpp-kalxas/jupyter
@@ -69,17 +69,13 @@ mv sample_data "$USER_HOME/jupyter/notebooks/projects/IRIS/"
 cd "$BUILD_DIR"
 
 #TODO: Add cesiumpy instead of the cesium widget
+#Update: python-cesiumpy is available in our ppa
 # /bin/sh ../app-conf/jupyter/install_nbextension.sh
 
 mkdir -p "$USER_HOME/jupyter/notebooks/projects/CARTOPY"
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
 cp -r /home/user/jupyter /etc/skel
-
-# add geoalchemy to easy access to postgis from python
-wget -c --tries=3 --progress=dot:mega \
-    "http://download.osgeo.org/livedvd/data/jupyter/debs/python-geoalchemy2_0.3.0_all.deb"
-dpkg -i python-geoalchemy2_0.3.0_all.deb
 
 jupyter nbextension enable --py --sys-prefix widgetsnbextension
 jupyter nbextension enable --py --sys-prefix ipyleaflet
