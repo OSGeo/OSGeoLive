@@ -68,7 +68,8 @@ mkdir -p "$USER_HOME/jupyter/notebooks/projects/IRIS"
 mv sample_data "$USER_HOME/jupyter/notebooks/projects/IRIS/"
 cd "$BUILD_DIR"
 
-/bin/sh ../app-conf/jupyter/install_nbextension.sh
+#TODO: Add cesiumpy instead of the cesium widget
+# /bin/sh ../app-conf/jupyter/install_nbextension.sh
 
 mkdir -p "$USER_HOME/jupyter/notebooks/projects/CARTOPY"
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
