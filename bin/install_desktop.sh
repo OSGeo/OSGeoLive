@@ -35,24 +35,17 @@ USER_HOME="/home/$USER_NAME"
 cp ../desktop-conf/passwords.txt "$USER_HOME/Desktop/"
 chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 
-#TODO: Uncomment when new background is uploaded
-# # Download the desktop background image
-# wget -N --tries=3 --progress=dot:mega \
-#     "http://download.osgeo.org/livedvd/9.5/desktop95_F.png" \
-#     -O "/usr/share/lubuntu/wallpapers/osgeo-desktop.png"
+# Download the desktop background image
+wget -N --tries=3 --progress=dot:mega \
+    "http://download.osgeo.org/livedvd/10.0/desktop10_int.png" \
+    -O "/usr/share/lubuntu/wallpapers/osgeo-desktop.png"
 
 # Setup the default desktop background image
-cp ../desktop-conf/osgeo-desktop.png \
-    /usr/share/lubuntu/wallpapers/
+# cp ../desktop-conf/osgeo-desktop.png \
+#     /usr/share/lubuntu/wallpapers/
 
 # cp ../desktop-conf/osgeo-desktop-transparent.png \
 #    /usr/share/lubuntu/wallpapers/
-
-# copy in placeholder background image
-#cd /usr/share/lubuntu/wallpapers/
-#wget -N --progress=dot:mega \
-#   "http://upload.wikimedia.org/wikipedia/commons/e/e2/OrteliusWorldMap1570.jpg"
-#cd -
 
 ### set the desktop background, turn on keyboard layout select control
 sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
