@@ -1,6 +1,19 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 10.0rc1
+====================
+
+ * Updated documentation
+ * New artwork (Thanks Brian Hamlin)
+ * All packages moved to release-10.0 ppa
+ * Added postgis-gui (#1750)
+ * Jupyter Notebook 4.2.1
+ * Fixed TileStache previewer (#1737)
+ * Added failover to OSM for Leaflet demo (#1307)
+ * Fixed MapQuest issue in GeoNode and ZOO-Project (#1754)
+ * Updated QGIS plugins for 10.0
+
 Version 10.0beta1
 ====================
 
