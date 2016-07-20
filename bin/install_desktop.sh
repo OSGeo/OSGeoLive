@@ -37,7 +37,7 @@ chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 
 # Download the desktop background image
 wget -N --tries=3 --progress=dot:mega \
-    "http://download.osgeo.org/livedvd/10.0/desktop10_int.png" \
+    "http://download.osgeo.org/livedvd/10.0/desktop10_osmF.png" \
     -O "/usr/share/lubuntu/wallpapers/osgeo-desktop.png"
 
 # Setup the default desktop background image
