@@ -29,11 +29,11 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 
-PACKAGES="gmt gmt-doc gmt-gshhs-low \
+PACKAGES="gmt gmt-doc gmt-dcw gmt-gshhs-low \
    gmt-examples gv"
 
-# pkg not installed to save 15mb disc space:
-#   gmt-doc-pdf gmt-gshhs-full gmt-gshhs-high gmt-tutorial gmt-tutorial-pdf
+# pkg not installed to save disc space:
+#   gmt-gshhg-full gmt-gshhg-high
 
 apt-get --assume-yes install $PACKAGES
 
