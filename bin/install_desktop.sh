@@ -53,7 +53,7 @@ sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
     /etc/xdg/lubuntu/lxdm/lxdm.conf
 
 # Actually, I think this is the one which really does it:
-sed -i -e 's|^wallpaper_mode=.*|wallpaper_mode=fit|' \
+sed -i -e 's|^wallpaper_mode=.*|wallpaper_mode=stretch|' \
        -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
        -e 's|^desktop_bg=.*|desktop_bg=#000000|' \
        -e 's|^show_trash=.*|show_trash=0|' \
