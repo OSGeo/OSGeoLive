@@ -98,7 +98,9 @@ else
 fi
 
 #volume name, max 11 chars:
-IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
+IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | cut -d '.' -f 1`
+#IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
+
 
 echo
 echo "==============================================================="
