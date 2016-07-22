@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 10.0rc2
+====================
+
+ * Minor desktop configuration fix
+ * Updated documentation
+ * ISO creation configuration update
+
 Version 10.0rc1
 ====================
 
