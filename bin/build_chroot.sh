@@ -230,14 +230,14 @@ chmod a+x scripts/casper-bottom/25adduser
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 
 #Change the text on the loader
-sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo-Live $VERSION_MODE/g" \
+sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeo-Live ${VERSION_MODE}/g" \
     usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 #might be in this file
 # sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
 #     lib/plymouth/themes/text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/.ubuntu $UBU_RELEASE LTS \"Xenial Xerus\"/OSGeo-Live $VERSION_MODE/g" \
+sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Xenial Xerus\"/OSGeo-Live ${VERSION_MODE}/g" \
     ../extract-cd/.disk/info
 
 #copy in a different background
