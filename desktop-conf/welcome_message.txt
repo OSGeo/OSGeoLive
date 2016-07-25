@@ -18,16 +18,15 @@ main applications menu with Preferences > Language Support and
 Preferences > Keyboard Input Methods. See the internationalization
 quickstart in the OSGeo Live help pages for more information.
 
-If you have the full DVD edition, various program installers for
-Macintosh and Microsoft Windows can be found in the MacInstallers
-and WindowsInstallers directories; see the main help page.
-
 Passwords for various things can be found in the passwords.txt file
 on the Desktop.
 
 If you need to become "root" (the UNIX super-user) open a Terminal
 and type "sudo su", then enter "user" as the password if you are
 asked.
+
+The desktop artwork is a Produced Work based on OpenStreetMap data
+(© OpenStreetMap contributors)
 
 The living FAQ can be found here:
   http://wiki.osgeo.org/wiki/Live_GIS_Disc_FAQ
