@@ -281,7 +281,7 @@ ln -s -f /usr/share/ossim/*.pdf /var/www/html/ossim/
 
 # simlink background image for ossimplanet
 
-cp -R ../app-data/images /usr/share/ossim/
+cp -R "$BUILD_DIR"/../app-data/ossim/images /usr/share/ossim/
 ln -s /usr/local/share/data/raster/world.tif /usr/share/ossim/images/reference/
 ossim-img2rr /usr/share/ossim/images/reference/world.tif
 ossim-create-histo /usr/share/ossim/images/reference/world.tif
