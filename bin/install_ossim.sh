@@ -108,10 +108,11 @@ EOF
 cp -a /usr/share/applications/ossim-geocell.desktop "$USER_HOME/Desktop/"
 chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/ossim-geocell.desktop"
 
-wget --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/ossim_preference -O /usr/share/ossim/ossim_preference
+cp ../app-conf/ossim_preference /usr/share/ossim/ossim_preference
 
 OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"
 export OSSIM_PREFS_FILE
+
 
 BRCFILE="/etc/skel/.bashrc"
 echo 'export OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"' >> "$BRCFILE"
@@ -278,6 +279,16 @@ chmod 644 /usr/share/ossim/*.pdf
 mkdir -p /var/www/html/ossim/
 ln -s -f /usr/share/ossim/*.pdf /var/www/html/ossim/
 
+# simlink background image for ossimplanet
+
+cp -R ../app-data/images /usr/share/ossim/
+ln -s /usr/local/share/data/raster/world.tif /usr/share/ossim/images/reference/
+ossim-img2rr /usr/share/ossim/images/reference/world.tif
+ossim-create-histo /usr/share/ossim/images/reference/world.tif
+
+mkdir -p /usr/share/ossim/geoids/geoid1996/
+wget --progress=dot:mega "http://download.osgeo.org/ossim/egm96.grd" \
+         --output-document="/usr/share/ossim/geoids/geoid1996/egm96.grd"
 
 
 # #### cleanup
