@@ -108,7 +108,7 @@ EOF
 cp -a /usr/share/applications/ossim-geocell.desktop "$USER_HOME/Desktop/"
 chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/ossim-geocell.desktop"
 
-cp ../app-conf/ossim_preference /usr/share/ossim/ossim_preference
+cp "$BUILD_DIR"/../app-conf/ossim/ossim_preference /usr/share/ossim/ossim_preference
 
 OSSIM_PREFS_FILE="/usr/share/ossim/ossim_preference"
 export OSSIM_PREFS_FILE
