@@ -287,7 +287,7 @@ ossim-img2rr /usr/share/ossim/images/reference/world.tif
 ossim-create-histo /usr/share/ossim/images/reference/world.tif
 
 mkdir -p /usr/share/ossim/geoids/geoid1996/
-wget --progress=dot:mega "http://download.osgeo.org/ossim/egm96.grd" \
+wget --progress=dot:mega "http://download.osgeo.org/ossim/data/geoids/geoid1996/egm96.grd" \
          --output-document="/usr/share/ossim/geoids/geoid1996/egm96.grd"
 
 
