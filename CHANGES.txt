@@ -1,10 +1,11 @@
 OSGeo Live GIS Disc
 ===================
 
-Version 10.0rc2
+Version 10.0
 ====================
 
  * Lubuntu 16.04.1 base iso used.
+ * Added OSM attribution in welcome message (#1765)
  * Minor desktop configuration fix
  * Updated documentation
  * ISO creation configuration update
