@@ -28,7 +28,7 @@ BUILD_DIR=`pwd`
 
 sudo apt-get install gdebi-core
 # wget https://download2.rstudio.org/rstudio-0.99.893-amd64.deb
-wget https://download1.rstudio.org/rstudio-0.99.893-amd64.deb
+wget https://download1.rstudio.org/rstudio-0.99.903-amd64.deb
 sudo dpkg -i rstudio-0.99.893-amd64.deb
 rm rstudio-0.99.893-amd64.deb
  
