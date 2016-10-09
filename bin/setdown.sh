@@ -41,7 +41,8 @@ VM="${PACKAGE_NAME}-$VERSION"
 if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] ; then
     sed -i -e 's|exit 0||' /etc/rc.local
 
-#   GRPS="audio dialout fuse plugdev pulse staff tomcat7 users www-data vboxsf "
+# Add 'user' to needed groups
+#   GRPS="audio dialout fuse plugdev pulse staff tomcat7 users www-data vboxsf"
 #bad smelling hack to mitigate the effects of #1104's race condition
     GRPS="users tomcat8 www-data staff fuse plugdev audio dialout pulse vboxsf"
 
