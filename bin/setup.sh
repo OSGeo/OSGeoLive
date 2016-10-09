@@ -85,7 +85,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   ghostscript htop units gdebi fslint xkb-data \
   xfonts-100dpi xfonts-75dpi zenity
 
-# removed from list: 
+# removed from list:
 # cvs cvsutils fuseiso dlocate medit nedit a2ps netpbm qiv lynx mutt mc
 # xchat rxvt scrot arandr sgt-puzzles sopwith
 
@@ -93,10 +93,6 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
 # If running on virtualbox this will allow us to use full-screen/usb2/...
 # If running outside virtualbox the drivers will not be loaded
 apt-get install --yes virtualbox-guest-dkms virtualbox-guest-x11 virtualbox-guest-utils
-
-## Adding the user to vboxsf group to permit access to virtualbox 
-# shared folders at logon
-usermod -a -G vboxsf $USER_NAME
 
 # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
 # FIXME: similar thing needed for man pages?
