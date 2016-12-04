@@ -182,6 +182,16 @@ echo "Installing CSS extension"
 unzip -o -q "geoserver-$GS_VERSION-css-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
 
 ###------------------------------------------
+### download and install NetCDF extension
+
+echo "Getting NetCDF extension"
+wget --progress=dot:mega \
+  -O "geoserver-$GS_VERSION-netcdf-plugin.zip" \
+  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-netcdf-plugin.zip/download"
+echo "Installing NetCDF extension"
+unzip -o -q "geoserver-$GS_VERSION-netcdf-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
+
+###------------------------------------------
 ### install desktop icons ##
 echo "Installing GeoServer icons"
 cp -f "$USER_HOME/gisvm/app-conf/geoserver/geoserver_48x48.logo.png" \
