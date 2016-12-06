@@ -28,8 +28,9 @@
 #     2. At least 512 MB RAM and 1 GB swap (recommended)
 #     3. squashfs-tools
 #     4. genisoimage, which provides mkisofs
-#     5. An Ubuntu kernel with squashfs support (present in Ubuntu 6.06 and later)
-#     6. QEMU/KVM, VirtualBox or VMware for testing (optional) 
+#     5. syslinux-utils, which provides isohybrid
+#     6. An Ubuntu kernel with squashfs support (present in Ubuntu 6.06 and later)
+#     7. QEMU/KVM, VirtualBox or VMware for testing (optional) 
 #
 #############################################################################
 
@@ -113,10 +114,10 @@ rm -rf ~/livecdtmp/edit
 rm -rf ~/livecdtmp/lzfiles
 
 echo
-echo "Installing squashfs and genisoimage"
-echo "==================================="
+echo "Installing tools"
+echo "================"
 
-sudo apt-get install --yes squashfs-tools genisoimage lzip
+sudo apt-get install --yes squashfs-tools genisoimage syslinux-utils lzip
 
 #TODO add wget to grab a fresh image, optional
 
@@ -311,7 +312,10 @@ echo "======================================"
 #Create the ISO image
 sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -quiet -b \
    isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot \
-   -boot-load-size 4 -boot-info-table -o ../"$ISO_NAME.iso" .
+   -boot-load-size 4 -boot-info-table \
+   -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot \
+   -o ../"$ISO_NAME.iso" .
+sudo isohybrid -u ../"$ISO_NAME.iso"
 
 echo
 echo "Cleaning up..."
