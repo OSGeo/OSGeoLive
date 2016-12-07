@@ -181,6 +181,15 @@ echo "Stopping GeoServer"
 sleep 30;
 echo "Done"
 
+# GeoServer startup above will create files and directories
+# owned by root in the GeoServer directory. Ordinary users must
+# have write access to these to be able to start GeoServer.
+adduser "$USER_NAME" users
+chmod -R g+w "$GEOSERVER_PATH/data_dir"
+chmod -R g+w "$GEOSERVER_PATH/logs"
+chgrp -R users "$GEOSERVER_PATH/data_dir"
+chgrp -R users "$GEOSERVER_PATH/logs"
+
 # Make the apache user the owner of the required dirs.
 chown -R www-data:www-data /usr/lib/python2.7/dist-packages/geonode/
 
