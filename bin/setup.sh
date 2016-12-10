@@ -85,7 +85,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   ghostscript htop units gdebi fslint xkb-data \
   xfonts-100dpi xfonts-75dpi zenity
 
-# removed from list: 
+# removed from list:
 # cvs cvsutils fuseiso dlocate medit nedit a2ps netpbm qiv lynx mutt mc
 # xchat rxvt scrot arandr sgt-puzzles sopwith
 
