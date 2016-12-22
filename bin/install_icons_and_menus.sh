@@ -39,8 +39,8 @@ USER_HOME="/home/$USER_NAME"
 
 #Desktop apps part 1 (traditional analytic GIS)
 DESKTOP_APPS="grass70 qgis gvsig* openjump uDig ossimplanet *Kosmo*
-              spatialite-gis saga"
-#disabled: atlasstyler geopublisher
+              saga"
+#disabled: atlasstyler geopublisher spatialite-gis
 
 #Desktop apps part 2 (geodata viewers and editors)
 NAV_APPS="marble opencpn josm merkaartor osm_online
@@ -52,12 +52,13 @@ WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonode-* cartaro-*"
-#disabled: i3geo MapFish-*
+BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonode-*"
+#disabled: i3geo MapFish-* cartaro-*
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="imagelinker r geokettle jupyter-notebook* otb-*
+SPATIAL_TOOLS="r geokettle jupyter-notebook* otb-*
                mapslicer mapnik-* monteverdi* ossim-geocell"
+#disabled: imagelinker
 
 #Future home of PostGIS and Spatialite; pgRouting???
 #  pgadmin, sqlitebrowser, etc  (parts of this one are automatic)
