@@ -54,7 +54,7 @@ TMP_DIR=/tmp/build_grass
 mkdir "$TMP_DIR"
 
 apt-get --quiet update
-apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal20-2.1.2-grass
+apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal-grass
 
 #### install desktop icon ####
 sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 7/' \
