@@ -52,8 +52,8 @@ WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonode-* cartaro-*"
-#disabled: i3geo MapFish-*
+BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonode-*"
+#disabled: i3geo MapFish-* cartaro-*
 
 #Infrastructure and miscellanea
 SPATIAL_TOOLS="imagelinker r geokettle jupyter-notebook* otb-*
