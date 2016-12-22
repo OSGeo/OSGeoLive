@@ -36,13 +36,13 @@ cp ../desktop-conf/passwords.txt "$USER_HOME/Desktop/"
 chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 
 # Download the desktop background image
-wget -N --tries=3 --progress=dot:mega \
-    "http://download.osgeo.org/livedvd/10.0/desktop10_osmF32.png" \
-    -O "/usr/share/lubuntu/wallpapers/osgeo-desktop.png"
+# wget -N --tries=3 --progress=dot:mega \
+#     "http://download.osgeo.org/livedvd/10.0/desktop10_osmF32.png" \
+#     -O "/usr/share/lubuntu/wallpapers/osgeo-desktop.png"
 
 # Setup the default desktop background image
-# cp ../desktop-conf/osgeo-desktop.png \
-#     /usr/share/lubuntu/wallpapers/
+cp ../desktop-conf/osgeo-desktop.png \
+    /usr/share/lubuntu/wallpapers/
 
 # cp ../desktop-conf/osgeo-desktop-transparent.png \
 #    /usr/share/lubuntu/wallpapers/
