@@ -1,6 +1,22 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 10.5alpha1
+====================
+
+ * Supporting isohybrid ISO images with UEFI
+ * GEOS 3.5.1
+ * GDAL 2.1.2
+ * PostGIS 2.3.1
+ * GeoServer 2.10.1
+ * GRASS 7.0.5
+ * QGIS 2.14.10
+ * libLAS 1.8.1
+ * pgRouting 2.3.1
+ * Deegree 3.3.18
+ * retired Cartaro
+ * Added GeoServer NetCDF extension
+
 Version 10.0
 ====================
 
