@@ -114,8 +114,8 @@ rm -rf ~/livecdtmp/edit
 rm -rf ~/livecdtmp/lzfiles
 
 echo
-echo "Installing tools"
-echo "================"
+echo "Installing build tools"
+echo "======================"
 
 sudo apt-get install --yes squashfs-tools genisoimage syslinux-utils lzip
 
@@ -310,12 +310,19 @@ echo
 echo "Creating iso..."
 echo "======================================"
 #Create the ISO image
-sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -quiet -b \
-   isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot \
-   -boot-load-size 4 -boot-info-table \
-   -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot \
-   -o ../"$ISO_NAME.iso" .
-sudo isohybrid -u ../"$ISO_NAME.iso"
+#isohybrid used only in 64bit architecture
+if [ "$ARCH" = "amd64" ] ; then
+   sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -quiet -b \
+      isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot \
+      -boot-load-size 4 -boot-info-table \
+      -eltorito-alt-boot -e boot/grub/efi.img -no-emul-boot \
+      -o ../"$ISO_NAME.iso" .
+   sudo isohybrid -u ../"$ISO_NAME.iso"
+else
+   sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -quiet -b \
+      isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot \
+      -boot-load-size 4 -boot-info-table -o ../"$ISO_NAME.iso" .
+fi
 
 echo
 echo "Cleaning up..."
