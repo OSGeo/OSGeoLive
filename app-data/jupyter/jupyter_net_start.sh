@@ -8,10 +8,10 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-export LD_LIBRARY_PATH=/usr/lib/grass70/lib:$LD_LIBRARY_PATH
-export PYTHONPATH=/usr/lib/grass70/etc/python:$PYTHONPATH
-export GISBASE=/usr/lib/grass70/
-export PATH=/usr/lib/grass70/bin/:$GISBASE/bin:$GISBASE/scripts:$PATH
+export LD_LIBRARY_PATH=/usr/lib/grass72/lib:$LD_LIBRARY_PATH
+export PYTHONPATH=/usr/lib/grass72/etc/python:$PYTHONPATH
+export GISBASE=/usr/lib/grass72/
+export PATH=/usr/lib/grass72/bin/:$GISBASE/bin:$GISBASE/scripts:$PATH
 
 export GIS_LOCK=$$
 
