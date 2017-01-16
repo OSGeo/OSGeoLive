@@ -20,7 +20,7 @@
 #
 # Uninstall:
 # ============
-# sudo apt-get remove cgi-mapserver mapserver-bin php5-mapscript python-mapscript
+# sudo apt-get remove cgi-mapserver mapserver-bin php-mapscript python-mapscript
 # sudo rm /etc/apache2/conf-available/mapserver
 # sudo rm -rf /usr/local/share/mapserver/
 # sudo rm -rf /usr/local/www/docs_maps
@@ -48,7 +48,7 @@ mkdir "$TMP_DIR"
 cd "$TMP_DIR"
 
 # Install MapServer and its php, python bindings.
-apt-get install --yes cgi-mapserver mapserver-bin python-mapscript php5.6-mapscript
+apt-get install --yes cgi-mapserver mapserver-bin python-mapscript php-mapscript
 
 # Download MapServer data
 wget -c --progress=dot:mega \
