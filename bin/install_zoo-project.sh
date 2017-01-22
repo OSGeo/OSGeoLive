@@ -18,6 +18,18 @@
 #
 # Requires: Apache2, GeoServer (for the demo only)
 
+if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
+    echo "Wrong number of arguments"
+    echo "Usage: install_zoo-project.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+
+if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
+    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+    echo "Usage: install_zoo-project.sh ARCH(i386 or amd64)"
+    exit 1
+fi
+ARCH="$1"
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -56,10 +68,17 @@ tar xf examples-livedvd.tar.bz2
 cp -r zoo-demo /var/www/html/zoo-demo
 chmod -R 755 /var/www/html/zoo-demo
 cp zoo-demo/main.cfg /usr/lib/cgi-bin/
-cp zoo-demo/symbols.sym /var/data
+# FIXME: Use another folder than /var/data See #1850
+mkdir -p /var/data
+cp zoo-demo/symbols.sym /var/data/
+cp /usr/share/zoo-service-status/updateStatus.xsl /var/data/
 ln -s /tmp /var/www/html/mpPathRelativeToServerAdress
 chown -R www-data:www-data /var/data
 rm -rf zoo-demo
+
+cat << EOF > /etc/ld.so.conf.d/zoo-project.conf
+/usr/lib/jvm/default-java/jre/lib/${ARCH}/server
+EOF
 
 # Get ZOO-Project icon
 wget --progress=dot:mega \
