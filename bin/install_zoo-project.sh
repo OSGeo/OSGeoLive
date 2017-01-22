@@ -56,8 +56,10 @@ tar xf examples-livedvd.tar.bz2
 cp -r zoo-demo /var/www/html/zoo-demo
 chmod -R 755 /var/www/html/zoo-demo
 cp zoo-demo/main.cfg /usr/lib/cgi-bin/
+# FIXME: Use another folder than /var/data See #1850
 mkdir -p /var/data
 cp zoo-demo/symbols.sym /var/data/
+cp /usr/share/zoo-service-status/updateStatus.xsl /var/data/
 ln -s /tmp /var/www/html/mpPathRelativeToServerAdress
 chown -R www-data:www-data /var/data
 rm -rf zoo-demo
