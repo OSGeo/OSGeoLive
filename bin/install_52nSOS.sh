@@ -12,7 +12,7 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-# Version: 2016-06-10
+# Version: 2017-01-26
 # Author: e.h.juerrens@52north.org
 #
 # About:
@@ -46,9 +46,9 @@ SOS_OVERVIEW_URL="http://localhost/en/overview/52nSOS_overview.html"
 SOS_WAR_INSTALL_FOLDER="/var/lib/$TOMCAT_SCRIPT_NAME/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
 SOS_BIN_FOLDER="/usr/local/share/52nSOS"
-SOS_TAR_NAME="52n-sos-osgeo-live-10.0.tar.gz"
+SOS_TAR_NAME="52n-sos-osgeo-live-10.5.tar.gz"
 SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
-SOS_VERSION="4.3.6"
+SOS_VERSION="4.3.9"
 PG_OPTIONS='--client-min-messages=warning'
 PG_USER="postgres"
 PG_SCRIPT_NAME="postgresql"
