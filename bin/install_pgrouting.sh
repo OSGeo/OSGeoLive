@@ -26,8 +26,8 @@
 #       - osm2pgrouting converter
 #       - pgRouting workshop
 #
-# NOTE: To make use of OSM sample data "install_osm.sh" should be run first  
-#       Import of OSM sample data and converter can take some time   
+# NOTE: To make use of OSM sample data "install_osm.sh" should be run first
+#       Import of OSM sample data and converter can take some time
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -40,7 +40,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_pgrouting"
-OSM_FILE="/usr/local/share/data/osm/feature_city_CBD.osm.bz2"
+OSM_FILE="/usr/local/share/data/osm/feature_city.osm.bz2"
 OSM_DB="pgrouting"
 
 # Add pgRouting launchpad repository
@@ -52,7 +52,7 @@ apt-get update -qq
 
 # Install pgRouting packages
 apt-get install -y -qq postgresql-9.5-pgrouting
-	
+
 if [ $? -ne 0 ] ; then
    echo 'ERROR: pgRouting Package install failed! Aborting.'
    exit 1
@@ -68,7 +68,10 @@ apt-get install -y -qq osm2pgrouting
 # Create tmp folders
 mkdir -p "$TMP" && cd "$TMP"
 
-# create $OSM_DB database
+# create $OSM_DB database EXAMPLE
+#  10.0 - the quickstart will guide a user through making the sample db
+#    drop this sample, after confirming it works
+
 echo "create $OSM_DB database with PostGIS and pgRouting"
 sudo -u "$USER_NAME" createdb -E UTF8 "$OSM_DB"
 sudo -u "$USER_NAME" psql "$OSM_DB" -c 'CREATE EXTENSION postgis;'
@@ -96,7 +99,8 @@ else
 	    -clean \
 	  > pgrouting_import.log
 
-	sudo -u "$USER_NAME" psql "$OSM_DB" -c "VACUUM ANALYZE;"
+	#sudo -u "$USER_NAME" psql "$OSM_DB" -c "VACUUM ANALYZE;"
+	sudo -u "$USER_NAME" psql  -c "DROP database ""$OSM_DB"
 fi
 
 # NOTE: the following is going to change with the updated workshop

@@ -35,6 +35,26 @@ echo 'Installing pycsw ...'
 
 apt-get install --yes python-pycsw python-pycsw-wsgi python-pycsw-doc javascript-common
 
+echo 'Downloading pycsw logo ...'
+wget -c --progress=dot:mega \
+   -O /usr/local/share/icons/pycsw.png \
+   "https://github.com/geopython/pycsw/raw/master/docs/_static/pycsw-logo.png"
+
+echo 'Installing desktop launcher ...'
+
+cat << EOF > /usr/share/applications/pycsw.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=pycsw
+Comment=pycsw catalog server
+Exec=xdg-open http://localhost/pycsw/tests/index.html
+Icon=pycsw
+Terminal=false
+StartupNotify=false
+Categories=Application;Education;Geography;CSW
+EOF
+
 cp /usr/share/applications/pycsw.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/pycsw.desktop"
 

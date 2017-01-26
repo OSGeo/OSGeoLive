@@ -1,6 +1,78 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 10.5alpha1
+====================
+
+ * Supporting isohybrid ISO images with UEFI
+ * GEOS 3.5.1
+ * GDAL 2.1.2
+ * PostGIS 2.3.1
+ * GeoServer 2.10.1
+ * GRASS 7.0.5
+ * QGIS 2.14.10
+ * libLAS 1.8.1
+ * pgRouting 2.3.1
+ * Deegree 3.3.18
+ * retired Cartaro
+ * Added GeoServer NetCDF extension
+
+Version 10.0
+====================
+
+ * Lubuntu 16.04.1 base iso used.
+ * Added OSM attribution in welcome message (#1765)
+ * Minor desktop configuration fix
+ * Updated documentation
+ * ISO creation configuration update
+ * Viking MapQuest tiles disabled by default (#1754)
+
+Version 10.0rc1
+====================
+
+ * Updated documentation
+ * New artwork (Thanks Brian Hamlin)
+ * All packages moved to release-10.0 ppa
+ * Added postgis-gui (#1750)
+ * Jupyter Notebook 4.2.1
+ * Fixed TileStache previewer (#1737)
+ * Added failover to OSM for Leaflet demo (#1307)
+ * Fixed MapQuest issue in GeoNode and ZOO-Project (#1754)
+ * Updated QGIS plugins for 10.0
+
+Version 10.0beta1
+====================
+
+ * QGIS 2.14.3
+ * PostGIS 2.2.2
+ * pgRouting 2.2.3
+ * Mapnik 3.0.11 and latest python-mapnik
+ * Iris 1.9.2
+ * Downgraded osgearth to 2.5.0 (#1699)
+ * TileStache 1.49.8 replaced TileLite (#1701)
+ * Featured OSM city switched to Bonn (#1698)
+ * ZOO-Project packaging now supports CGAL and OTB (#1710)
+ * JOSM plugins added
+ * Added OSM cli tools
+
+Version 10.0alpha3
+====================
+
+ * Downgraded Django to 1.6.11
+ * Improved PyWPS packaging (#1730)
+ * 52nSOS 4.3.6 update
+ * 52nWPS 3.4.0 update
+ * Leaflet demo updated
+ * ZOO-Project demo fixed (#1710)
+ * Cartaro installation fixed (#1718)
+ * GeoNode packaging provided for Xenial (#1722)
+ * EOxServer installation fixed (#1706)
+ * Rasdaman installer available for Xenial (#1721)
+ * TileMill retired (#1723)
+ * R packages updated to Xenial (#1720)
+ * r-cran-grass7 added (#1444)
+ * Updated Ubuntu documentation to 16.04
+
 Version 10.0alpha2
 ====================
 

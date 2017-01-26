@@ -87,7 +87,7 @@ apt-get --assume-yes install r-recommended
 apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
  r-cran-geor r-cran-gstat r-cran-maptools r-cran-randomfields r-cran-raster\
  r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
- r-cran-splancs r-cran-rgeos r-cran-ncdf r-cran-rsaga
+ r-cran-splancs r-cran-rgeos r-cran-ncdf4 r-cran-rsaga r-cran-rgrass7
 
 #Calls R script to do install with feedback to stdout
 mkdir -p /usr/local/share/jupyter/kernels
@@ -121,14 +121,13 @@ cp -a /usr/share/applications/r.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 
 #Remove build libraries
-apt-get --assume-yes remove python-all-dev \
-   libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
+apt-get --assume-yes remove libxml2-dev \
+   tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
    libglu1-mesa-dev libsprng2-dev
 #libgdal-dev libnetcdf-dev libgeos-dev libproj-dev
 
 #cleanup leftovers
-apt-get --assume-yes autoremove
-
+# apt-get --assume-yes autoremove
 
 
 ## fix for broken PDFs, fixed in upstream SVN Aug 2011  (bug #769)

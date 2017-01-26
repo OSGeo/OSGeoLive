@@ -41,7 +41,7 @@ export LC_TIME="en_US.UTF-8"
 export LC_MONETARY="en_US.UTF-8"
 export LC_PAPER="en_US.UTF-8"
 export LC_NAME="en_US.UTF-8"
-export C_ADDRESS="en_US.UTF-8"
+export LC_ADDRESS="en_US.UTF-8"
 export LC_TELEPHONE="en_US.UTF-8"
 export LC_MEASUREMENT="en_US.UTF-8"
 export LC_IDENTIFICATION="en_US.UTF-8"
@@ -63,8 +63,8 @@ service postgresql start
 #set default user/password to the system user for easy login
 sudo -u postgres createuser --superuser $USER_NAME
 
-echo "alter role \"user\" with password 'user'" > /tmp/build_postgre.sql
-sudo -u postgres psql -f /tmp/build_postgre.sql
+echo "alter role \"user\" with password 'user'" > /tmp/build_postgres.sql
+sudo -u postgres psql -f /tmp/build_postgres.sql
 # rm /tmp/build_postgre.sql
 
 #add a gratuitous db called user to avoid psql inconveniences

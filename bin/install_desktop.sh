@@ -35,10 +35,9 @@ USER_HOME="/home/$USER_NAME"
 cp ../desktop-conf/passwords.txt "$USER_HOME/Desktop/"
 chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 
-#TODO: Uncomment when new background is uploaded
-# # Download the desktop background image
+# Download the desktop background image
 # wget -N --tries=3 --progress=dot:mega \
-#     "http://download.osgeo.org/livedvd/9.5/desktop95_F.png" \
+#     "http://download.osgeo.org/livedvd/10.0/desktop10_osmF32.png" \
 #     -O "/usr/share/lubuntu/wallpapers/osgeo-desktop.png"
 
 # Setup the default desktop background image
@@ -48,21 +47,16 @@ cp ../desktop-conf/osgeo-desktop.png \
 # cp ../desktop-conf/osgeo-desktop-transparent.png \
 #    /usr/share/lubuntu/wallpapers/
 
-# copy in placeholder background image
-#cd /usr/share/lubuntu/wallpapers/
-#wget -N --progress=dot:mega \
-#   "http://upload.wikimedia.org/wikipedia/commons/e/e2/OrteliusWorldMap1570.jpg"
-#cd -
-
 ### set the desktop background, turn on keyboard layout select control
 sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
        -e 's|^keyboard=0$|keyboard=1|' \
     /etc/xdg/lubuntu/lxdm/lxdm.conf
 
 # Actually, I think this is the one which really does it:
-sed -i -e 's|^wallpaper_mode=.*|wallpaper_mode=fit|' \
+sed -i -e 's|^wallpaper_mode=.*|wallpaper_mode=stretch|' \
        -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
        -e 's|^desktop_bg=.*|desktop_bg=#000000|' \
+       -e 's|^show_trash=.*|show_trash=0|' \
    /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
 ## Removed this for xenial: -e 's|^desktop_shadow=.*|desktop_shadow=.*\nshow_mounts=1|' \
