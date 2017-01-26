@@ -66,6 +66,10 @@ wget -c --progress=dot:mega \
 echo "Unpacking GeoServer in $GS_HOME"
 unzip -o -q "geoserver-$GS_VERSION-bin.zip" -d "$INSTALL_FOLDER"
 
+## add an unversioned symlink to GeoServer home (used in quickstart)
+if [ ! -e "$INSTALL_FOLDER/geoserver" ]; then
+  ln -s "$GS_HOME" "$INSTALL_FOLDER/geoserver"
+fi
 
 ###------------------------------------------
 ### Configure Application ###
