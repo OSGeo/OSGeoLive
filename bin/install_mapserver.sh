@@ -117,6 +117,7 @@ echo "Finished configuring Apache"
 
 #Add Launch icon to desktop
 echo 'Downloading MapServer logo ...'
+mkdir -p /usr/local/share/icons
 wget -c --progress=dot:mega \
    -O /usr/local/share/icons/mapserver.png \
    "https://github.com/OSGeo/OSGeoLive-doc/raw/master/images/project_logos/logo-mapserver-new.png"
