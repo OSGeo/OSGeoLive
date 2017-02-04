@@ -333,7 +333,7 @@ EOF
      GeoNetwork) APP_ICON=/usr/local/share/icons/geonetwork_icon.png;;
      GeoServer) APP_ICON=/usr/share/icons/geoserver_48x48.logo.png;;
      Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
-     MapProxy) APP_ICON=gnome-globe;;
+     MapProxy) APP_ICON=/usr/local/share/icons/mapproxy.png;;
      ncWMS) APP_ICON=/usr/local/share/icons/ncWMS_icon.png;;
      *) unset APP_ICON;;
    esac
