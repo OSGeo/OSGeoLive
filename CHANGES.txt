@@ -1,6 +1,34 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 10.5beta1
+====================
+
+ * GRASS 7.2.0
+ * QGIS 2.14.11
+ * GDAL 2.1.3
+ * PostGIS 2.3.2
+ * MapServer 7.0.4
+ * pycsw 2.0.2
+ * GeoMoose 2.9.2
+ * PyWPS 4.0.0
+ * OTB 5.8.0
+ * SAGA 2.3.1
+ * ZOO-Project 1.6.0
+ * pgRouting 2.3.2
+ * 52nSOS 4.3.9
+ * fiona 1.7.2
+ * rasterio 0.36.0
+ * josm 0.0.svn11427
+ * MapCache 1.4.0
+ * MapProxy 1.9.0
+ * osm2pgrouting 2.2.0
+ * osm2pgsql 0.88.1
+ * OWSLib 0.14.0
+ * python-osmapi 0.7.2
+ * UEFI supported only in amd64 architecture (#1831)
+ * MapProxy installer updated based on the recent debian packaging (#1774)
+
 Version 10.5alpha1
 ====================
 
