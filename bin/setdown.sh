@@ -134,7 +134,7 @@ EOF
 apt-get clean
 
 
-echo "linux-image-generic install" | dpkg --set-selections
+echo "linux-image-generic-hwe-16.04 install" | dpkg --set-selections
 
 rm -fr \
   "$USER_HOME"/.bash_history \
