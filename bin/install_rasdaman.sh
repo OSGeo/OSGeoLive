@@ -30,6 +30,10 @@ sudo bash install.sh -p osgeo
 sudo service rasdaman stop
 sudo service tomcat8 stop
 
+# Patchung the urls in the demo website
+sudo sed -i 's/flanche.com:9090/ows.rasdaman.org/g' /var/www/html/rasdaman-demo/demo/demo-frames/2d/app.js
+sudo sed -i 's/flanche.com:9090/ows.rasdaman.org/g' /var/www/html/rasdaman-demo/demo/demo-frames/ww3d/app.js
+
 echo "Rasdaman command log:"
 echo "==============================================="
 cat /tmp/rasdaman_command_log
