@@ -14,15 +14,15 @@
 
     <script src="/leaflet/leaflet.js"></script>
     <script>
-        var map = L.map('map').setView([50.7035, 7.0972], 5)
+        var map = L.map('map').setView([42.35100,-71.03941], 5)
 
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{}).addTo(map);
         //In case we are offline, start TileStache to get a base layer
         L.tileLayer('http://localhost:8012/example/{z}/{x}/{y}.png',{}).addTo(map);
 
-        var marker = L.marker([50.7035, 7.0972]).addTo(map);            
+        var marker = L.marker([43.86622, -66.09375]).addTo(map);            
 
-        var circle = L.circle([49.70, 6.12], 25000, {
+        var circle = L.circle([41.62366, -69.98], 25000, {
            color: 'red',
            fillColor: '#f03',
            fillOpacity: 0.5
@@ -30,14 +30,14 @@
         
         
         var polygon = L.polygon([
-           [51.01, -1.01],
-           [45.81, 1.76],
-           [49.15, -4.23]
+           [41.01, -71.01],
+           [41.81, -72.76],
+           [41.95, -71.13]
         ]).addTo(map);
         
         var popup = L.popup()
-           .setLatLng([50.703541, 7.09719])
-           .setContent("Foss4G is here this year!")
+           .setLatLng([42.35100,-71.03941])
+           .setContent("FOSS4G is here this year!")
            .openOn(map);
 
         function onMapClick(e) {
@@ -52,4 +52,3 @@
    </script>
 </body>
 </html>
-
