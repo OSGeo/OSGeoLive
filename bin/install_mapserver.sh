@@ -20,7 +20,7 @@
 #
 # Uninstall:
 # ============
-# sudo apt-get remove cgi-mapserver mapserver-bin php5-mapscript python-mapscript
+# sudo apt-get remove cgi-mapserver mapserver-bin php-mapscript python-mapscript
 # sudo rm /etc/apache2/conf-available/mapserver
 # sudo rm -rf /usr/local/share/mapserver/
 # sudo rm -rf /usr/local/www/docs_maps
@@ -48,16 +48,13 @@ mkdir "$TMP_DIR"
 cd "$TMP_DIR"
 
 # Install MapServer and its php, python bindings.
-apt-get install --yes cgi-mapserver mapserver-bin php5-mapscript \
-   python-mapscript
-
+apt-get install --yes cgi-mapserver mapserver-bin python-mapscript php-mapscript
 
 # Download MapServer data
 wget -c --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/mapserver/mapserver-6-2-html-docs.zip"
 wget -c --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/mapserver/mapserver-itasca-ms70.zip"
-
 
 # Install docs and demos
 if [ ! -d "$MAPSERVER_DATA" ] ; then
@@ -119,7 +116,12 @@ a2enconf $MS_APACHE_CONF_FILE
 echo "Finished configuring Apache"
 
 #Add Launch icon to desktop
-#?What Icon should be used?
+echo 'Downloading MapServer logo ...'
+mkdir -p /usr/local/share/icons
+wget -c --progress=dot:mega \
+   -O /usr/local/share/icons/mapserver.png \
+   "https://github.com/OSGeo/OSGeoLive-doc/raw/master/images/project_logos/logo-mapserver-new.png"
+
 INSTALLED_VERSION=`dpkg -s mapserver-bin | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
 
 cat << EOF > "/usr/share/applications/mapserver.desktop"
@@ -130,7 +132,7 @@ Name=Mapserver
 Comment=Mapserver
 Categories=Application;Education;Geography;
 Exec=firefox http://localhost/mapserver_demos/itasca/
-Icon=gnome-globe
+Icon=mapserver
 Terminal=false
 StartupNotify=false
 Categories=Education;Geography;

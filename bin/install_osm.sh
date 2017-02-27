@@ -41,7 +41,8 @@ cd "$TMP_DIR"
 mkdir /usr/local/share/osm
 
 apt-get install --assume-yes josm gpsd gpsd-clients \
-   merkaartor xmlstarlet imposm osmosis python-osmapi
+   merkaartor xmlstarlet imposm osmosis python-osmapi \
+   osmctools osmium-tool nik4
 
 
 ##-----------------------------------------------
@@ -50,18 +51,24 @@ apt-get install --assume-yes josm gpsd gpsd-clients \
 
 # pre-seed the josmrc file to make the default window size fit on a smaller display
 mkdir -p "$USER_HOME"/.josm
+
 cat << EOF > "$USER_HOME"/.josm/preferences
 gui.geometry=800x600+40+40
 gui.maximized=false
 EOF
-chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
 
-## v9.5 add util nik4.py
+cd "$TMP_DIR"
 wget -c --tries=3 --progress=dot:mega \
-  "https://github.com/Zverik/Nik4/raw/3415338e53ed67318c7b4c9f9d8402156d2ee4da/nik4.py"
-chmod a+x nik4.py
-mv nik4.py /usr/local/bin/nik4.py
-ls -l /usr/local/bin/
+    "http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2"
+    
+## TODO bail on err
+curl http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2.sha1 | sha1sum --check -
+
+tar xf josm_plugs.tar.bz2
+mkdir -p "$USER_HOME"/.josm/plugins
+mv *jar "$USER_HOME"/.josm/plugins/
+
+chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
 
 #### desktop icons
 echo "MimeType=application/x-openstreetmap+xml;" \
@@ -79,8 +86,8 @@ sed -i -e 's/Network;//' /usr/share/applications/merkaartor.desktop
 # add an icon for viewing The Map online
 mkdir -p /usr/local/share/applications
 
-MAP_CENTER="lat=37.5&lon=-122.3"
-MARKER="mlat=37.5&mlon=-122.3"
+MAP_CENTER="lat=50.72&lon=7.1"
+MARKER="mlat=50.72&mlon=7.1"
 ZOOM="16"
 
 cat << EOF > /usr/local/share/applications/osm_online.desktop
@@ -100,8 +107,8 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
 #########################################################################
 #### install sample OSM data
-CITY="SanMateo_CA"
-BBOX="-122.44,37.4,-122.2,37.7"
+CITY="BONN_DE"
+BBOX="7.097,50.6999,7.1778,50.7721"
 
 # visualize: (FIXME!)
 #http://www.openstreetmap.org/?box=yes&bbox=$BBOX
@@ -168,12 +175,12 @@ ln -s /usr/local/share/data/osm/"$CITY.osm.bz2" \
 
 ####
 # Smaller extract for pgRouting examples
-wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/osm/$CITY/${CITY}_CBD.osm.bz2"
-cp -f "${CITY}_CBD.osm.bz2" /usr/local/share/osm/
-ln -s /usr/local/share/osm/${CITY}_CBD.osm.bz2 /usr/local/share/data/osm
-ln -s /usr/local/share/data/osm/"${CITY}_CBD.osm.bz2" \
-   /usr/local/share/data/osm/feature_city_CBD.osm.bz2
+#wget -N --progress=dot:mega \
+#   "http://download.osgeo.org/livedvd/data/osm/$CITY/${CITY}_CBD.osm.bz2"
+#cp -f "${CITY}_CBD.osm.bz2" /usr/local/share/osm/
+#ln -s /usr/local/share/osm/${CITY}_CBD.osm.bz2 /usr/local/share/data/osm
+#ln -s /usr/local/share/data/osm/"${CITY}_CBD.osm.bz2" \
+#   /usr/local/share/data/osm/feature_city_CBD.osm.bz2
 
 
 # To make the sqlite POI db, use osm2poidb from GpsDrive utils,

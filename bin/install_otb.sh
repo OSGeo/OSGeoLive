@@ -42,7 +42,7 @@ apt-get -q update
 #Lot's of these applications have been ported in modules in monteverdi but there are still remainning applications
 #in the legacy not available in monteverdi (simple viewer manager, vector database/raster registration...
 #Monteverdi is perhap's sufficient in a first approach,if you need to save space we  can eliminate otbapp-legacy
-apt-get --assume-yes install libotb monteverdi otb-bin otb-bin-qt
+apt-get --assume-yes install libotb otb-bin otb-bin-qt monteverdi
 
 #### install desktop icon ####
 cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
@@ -55,7 +55,7 @@ Encoding=UTF-8
 Name=OTB Launcher
 Comment=OTB Mapla
 Categories=Application;Geography;Geoscience;Education;
-Exec=/usr/bin/mapla
+Exec=env OTB_APPLICATION_PATH=/usr/lib/otb/applications /usr/bin/mapla
 Icon=monteverdi
 Terminal=false
 EOF

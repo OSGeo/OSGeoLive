@@ -20,7 +20,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_mapslicer"
-MAPSLICERDEB="mapslicer_1.0.rc1_all.deb"
+MAPSLICERDEB="mapslicer_1.0.rc2_all.deb"
 DATA_FOLDER="/usr/local/share/mapslicer"
 TESTDATA_URL="http://download.osgeo.org/gdal/data/gtiff/utm.tif"
 
@@ -29,7 +29,7 @@ TESTDATA_URL="http://download.osgeo.org/gdal/data/gtiff/utm.tif"
 mkdir -p "$TMP"
 
 # Install dependencies
-PACKAGES="python python-wxgtk2.8 python-gdal"
+PACKAGES="python python-wxgtk3.0 python-gdal"
 
 echo "Installing: $PACKAGES"
 apt-get --assume-yes install $PACKAGES

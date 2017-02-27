@@ -38,26 +38,27 @@ USER_HOME="/home/$USER_NAME"
 ################################################
 
 #Desktop apps part 1 (traditional analytic GIS)
-DESKTOP_APPS="grass70 qgis gvsig* openjump uDig ossimplanet *Kosmo*
-              spatialite-gis saga"
-#disabled: atlasstyler geopublisher
+DESKTOP_APPS="grass72 qgis gvsig* openjump uDig ossimplanet *Kosmo*
+              saga"
+#disabled: atlasstyler geopublisher spatialite-gis
 
 #Desktop apps part 2 (geodata viewers and editors)
-NAV_APPS="marble gpsdrive opencpn josm merkaartor osm_online
+NAV_APPS="marble opencpn josm merkaartor osm_online
           viking zygrib gpsprune nasa_jww"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
-              qgis-mapserver zoo-project 52n* eoxserver* ncWMS-* pycsw istsos"
+              qgis-mapserver zoo-project 52n* eoxserver* ncWMS-* pycsw istsos pywps"
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonode-* cartaro-*"
-#disabled: i3geo MapFish-*
+BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonode-*"
+#disabled: i3geo MapFish-* cartaro-*
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="imagelinker r geokettle jupyter-notebook* otb-*
-               mapslicer tilemill mapnik-* monteverdi* ossim-geocell"
+SPATIAL_TOOLS="r geokettle jupyter-notebook* otb-*
+               mapslicer mapnik-* monteverdi* ossim-geocell"
+#disabled: imagelinker
 
 #Future home of PostGIS and Spatialite; pgRouting???
 #  pgadmin, sqlitebrowser, etc  (parts of this one are automatic)
@@ -332,7 +333,7 @@ EOF
      GeoNetwork) APP_ICON=/usr/local/share/icons/geonetwork_icon.png;;
      GeoServer) APP_ICON=/usr/share/icons/geoserver_48x48.logo.png;;
      Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
-     MapProxy) APP_ICON=gnome-globe;;
+     MapProxy) APP_ICON=/usr/local/share/icons/mapproxy.png;;
      ncWMS) APP_ICON=/usr/local/share/icons/ncWMS_icon.png;;
      *) unset APP_ICON;;
    esac
@@ -484,7 +485,7 @@ cp "$BUILD_DIR"/../desktop-conf/gnome-globe16blue.svg /usr/local/share/icons/
 #  `grep -l 'Geography;' /usr/share/applications/*.desktop` \
 #  /usr/local/share/applications/*.desktop
 #if all are dupes, just nuke it:
-sed -i '53,66d' /etc/xdg/lubuntu/menus/lxde-applications.menu
+sed -i '63,78d' /etc/xdg/lubuntu/menus/lxde-applications.menu
 
 
 ####

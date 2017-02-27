@@ -29,7 +29,7 @@ APP_DATA_DIR="$BUILD_DIR/../app-data/notebooks"
 SHARED_FOLDER="/usr/local/share/jupyter"
 
 # install cesiumextension
-apt-get install python-czml python-pygeoif
+apt-get install --yes python-czml python-pygeoif
 
 git clone https://github.com/OSGeo-live/CesiumWidget
 cd CesiumWidget

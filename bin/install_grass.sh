@@ -50,40 +50,17 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-
-#### install grass 7 packages from GRASS team PPA ####
-
 TMP_DIR=/tmp/build_grass
 mkdir "$TMP_DIR"
 
-# https://launchpad.net/~grass/+archive/grass-stable?field.series_filter=trusty
-# apt-add-repository --yes ppa:grass/grass-stable
 apt-get --quiet update
-apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal1-1.11.3-grass
+apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal-grass
 
-#### install desktop icon ####
-sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 7/' \
-       -e 's/^Icon=grass$/Icon=grass70/' \
-       -e 's/^Exec=grass7$/Exec=grass70/' \
-  /usr/share/applications/grass70.desktop
+cp /usr/share/applications/grass72.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass72.desktop"
 
-cp /usr/share/applications/grass70.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass70.desktop"
-
-cp /usr/share/applications/grass70.desktop \
-  /usr/local/share/applications/osgeo-grass70.desktop
-# sed -i -e 's|^Categories=.*|Categories=Geospatial;Desktop GIS;|' \
-#   /usr/local/share/applications/osgeo-grass70.desktop
-
-# sed -i -e 's/^Name=GRASS GIS$/Name=GRASS GIS 6/' \
-#   /usr/share/applications/grass64.desktop \
-#   /usr/local/share/applications/osgeo-grass64.desktop \
-#   "$USER_HOME/Desktop/Desktop GIS/grass64.desktop"
-
-
-## ppa repo version number snafu cleanup (FIXME in the grass ppa)
-sed -i -e 's/71/70/' -e 's/7\.1/7.0/'  /usr/bin/grass70
-
+cp /usr/share/applications/grass72.desktop \
+  /usr/local/share/applications/osgeo-grass72.desktop
 
 #### get sample data ####
 

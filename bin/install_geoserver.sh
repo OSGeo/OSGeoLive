@@ -31,7 +31,7 @@ USER_HOME="/home/$USER_NAME"
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/local/lib"
 BIN="/usr/local/bin"
-GS_VERSION="2.8.2"
+GS_VERSION="2.10.1"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 DOC_DIR="$GS_HOME/doc"
@@ -66,6 +66,10 @@ wget -c --progress=dot:mega \
 echo "Unpacking GeoServer in $GS_HOME"
 unzip -o -q "geoserver-$GS_VERSION-bin.zip" -d "$INSTALL_FOLDER"
 
+## add an unversioned symlink to GeoServer home (used in quickstart)
+if [ ! -e "$INSTALL_FOLDER/geoserver" ]; then
+  ln -s "$GS_HOME" "$INSTALL_FOLDER/geoserver"
+fi
 
 ###------------------------------------------
 ### Configure Application ###
@@ -78,11 +82,21 @@ sed -i "1 i # Define Java home\nJAVA_HOME=/usr/lib/jvm/default-java; export JAVA
    "$GS_HOME/bin/shutdown.sh"
 
 ## Make Jetty run on a different port
-sed -i -e "s/8080/$GS_PORT/g" "$GS_HOME"/etc/jetty.xml
+sed -i -e "s/8080/$GS_PORT/g" "$GS_HOME"/start.ini
+
+## Remove the pure-Java JAI and ImageIO jars bundled with GeoServer
+## because they conflict with the native JAI and ImageIO
+## installed at the system level by install_udig.sh
+rm -f "$GS_HOME"/webapps/geoserver/WEB-INF/lib/jai_*.jar
 
 ## Add a script that will launch the browser after starting GS
 cat << EOF > "$GS_HOME/bin/start_admin.sh"
 #!/bin/sh
+
+# Writable location for GeoServer NetCDF index files
+NETCDF_DATA_DIR="\$HOME/.geoserver"
+mkdir -p "\$NETCDF_DATA_DIR"
+export JAVA_OPTS="-DNETCDF_DATA_DIR=\$NETCDF_DATA_DIR"
 
 $GS_HOME/bin/startup.sh &
 
@@ -175,6 +189,16 @@ wget --progress=dot:mega \
   "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-css-plugin.zip/download"
 echo "Installing CSS extension"
 unzip -o -q "geoserver-$GS_VERSION-css-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
+
+###------------------------------------------
+### download and install NetCDF extension
+
+echo "Getting NetCDF extension"
+wget --progress=dot:mega \
+  -O "geoserver-$GS_VERSION-netcdf-plugin.zip" \
+  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-netcdf-plugin.zip/download"
+echo "Installing NetCDF extension"
+unzip -o -q "geoserver-$GS_VERSION-netcdf-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
 
 ###------------------------------------------
 ### install desktop icons ##

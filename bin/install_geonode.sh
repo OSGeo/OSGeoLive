@@ -32,7 +32,7 @@ DATA_DIR="/usr/local/share/geonode"
 DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/sites-available/geonode.conf"
 GEONODE_DB="geonode"
-GEOSERVER_VERSION="2.8.2"
+GEOSERVER_VERSION="2.10.1"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 GEONODE_DIR="/usr/lib/python2.7/dist-packages/geonode"
@@ -40,12 +40,24 @@ GEONODE_DIR="/usr/lib/python2.7/dist-packages/geonode"
 # Install packages
 add-apt-repository -y ppa:geonode/osgeo
 apt-get -q update
+
+# Install specific versions of packages available in GeoNode ppa
+apt-get --assume-yes install python-django-downloadview=1.2-1~xenial0 \
+    python-django-guardian=1.2.0-1~xenial0 \
+    python-django-polymorphic=0.5.6-1~xenial0 \
+    python-django-mptt=0.6.0-1~xenial0
+
 apt-get --assume-yes install python-geonode libapache2-mod-wsgi curl
+apt-mark hold python-geonode
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
     exit 1
 fi
+
+# MapQuest issue fix: replacing settings.py
+#FIXME with sed in future versions if needed.
+cp "$BUILD_DIR"/../app-conf/geonode/settings.py "$GEONODE_DIR/settings.py"
 
 # Add an entry in /etc/hosts for geonode, to enable http://geonode/
 echo '127.0.0.1 geonode' | sudo tee -a /etc/hosts
@@ -149,11 +161,15 @@ sudo -u "$USER_NAME" django-admin loaddata sample_admin --settings=geonode.setti
 django-admin collectstatic --noinput --settings=geonode.settings --verbosity=0
 echo "Done"
 
-echo "Starting GeoServer to update layers in the geonode db"
+echo "Stopping GeoServer"
 "$GEOSERVER_PATH"/bin/shutdown.sh &> /dev/null &
 sleep 30;
+echo "Done"
+
+echo "Starting GeoServer to update layers in the geonode db"
 "$GEOSERVER_PATH"/bin/startup.sh &> /dev/null &
-sleep 60;
+sleep 90;
+echo "Done"
 
 # run updatelayers
 echo "Updating GeoNode layers..."
@@ -163,6 +179,16 @@ echo "Done"
 echo "Stopping GeoServer"
 "$GEOSERVER_PATH"/bin/shutdown.sh &> /dev/null &
 sleep 30;
+echo "Done"
+
+# GeoServer startup above will create files and directories
+# owned by root in the GeoServer directory. Ordinary users must
+# have write access to these to be able to start GeoServer.
+adduser "$USER_NAME" users
+chmod -R g+w "$GEOSERVER_PATH/data_dir"
+chmod -R g+w "$GEOSERVER_PATH/logs"
+chgrp -R users "$GEOSERVER_PATH/data_dir"
+chgrp -R users "$GEOSERVER_PATH/logs"
 
 # Make the apache user the owner of the required dirs.
 chown -R www-data:www-data /usr/lib/python2.7/dist-packages/geonode/

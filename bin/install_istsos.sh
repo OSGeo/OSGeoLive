@@ -30,7 +30,7 @@ echo "Installing istSOS package"
 apt-get install --assume-yes python-istsos
 
 echo "Installing istSOS icon"
-cp -f /usr/share/istsos/html/admin/images/istsos-logo.png \
+cp -f /usr/share/istsos/interface/admin/images/istsos-logo.png \
        /usr/share/icons/
 
 ## desktop launcher
