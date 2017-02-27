@@ -52,7 +52,7 @@ cd "$BUILD_DIR"
 
 echo "\nDownloading Nasa Java World Wind..."
 wget -c --tries=3 --progress=dot:mega \
-	"http://builds.worldwind.arc.nasa.gov/worldwind-releases/2.0/builds/worldwind-2.0.0.zip"
+	"https://github.com/NASAWorldWind/WorldWindJava/releases/download/v2.0.0/worldwind-2.0.0.zip"
 
 #Install icedtea for the web start
 echo "\nInstalling Java Web Start..."
