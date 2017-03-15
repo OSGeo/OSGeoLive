@@ -1,7 +1,7 @@
 OSGeo Live GIS Disc
 ===================
 
-Version 10.5rc2
+Version 10.5
 ====================
 
  * QGIS fixed: libtiff5 Ubuntu patch reverted (#1897)
