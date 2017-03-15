@@ -58,7 +58,7 @@ sed -i -e 's|^wallpaper_mode=.*|wallpaper_mode=stretch|' \
        -e 's|^desktop_bg=.*|desktop_bg=#000000|' \
        -e 's|^desktop_fg=.*|desktop_fg=#232323|' \
        -e 's|^show_trash=.*|show_trash=0|' \
-       -e '|^desktop_shadow=.*|d' \
+       -e 's|^desktop_shadow=.*|desktop_shadow=#A09A8F|' \
    /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
 ## Removed this for xenial: -e 's|^desktop_shadow=.*|desktop_shadow=.*\nshow_mounts=1|' \
