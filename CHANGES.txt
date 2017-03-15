@@ -1,6 +1,16 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 10.5rc1
+====================
+
+ * rasdaman 9.3.0
+ * Leaflet demo fix
+ * Fixed Java World Wind download link
+ * Removed gmt-doc from the build to save some disk space (#467)
+ * New artwork for 10.5 release
+ * Downgraded PyWPS to 3.2.5
+
 Version 10.5beta1
 ====================
 
