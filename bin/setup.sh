@@ -55,6 +55,11 @@ sed -i -e 's|\(APT::Periodic::Update-Package-Lists\) "1";|\1 "7";|' \
 # Pin down kernel version
 echo "linux-image-generic hold" | dpkg --set-selections
 
+# Temporary fix for #1897
+echo "libtiff5 hold" | dpkg --set-selections
+echo "libtiff5-dev hold" | dpkg --set-selections
+echo "libtiffxx5 hold" | dpkg --set-selections
+
 # Install latest greatest security packages etc.
 apt-get -q update
 apt-get --yes upgrade
