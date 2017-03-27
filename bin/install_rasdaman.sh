@@ -25,6 +25,10 @@
 BUILD_DIR=`pwd`
 ####
 
+apt-get install --yes libtiffxx5=4.0.6-1 libtiff5-dev=4.0.6-1
+apt-mark hold libtiffxx5
+apt-mark hold libtiff5-dev
+
 wget http://download.rasdaman.org/installer/install.sh
 sudo bash install.sh -p osgeo
 sudo service rasdaman stop
