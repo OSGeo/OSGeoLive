@@ -25,9 +25,10 @@
 BUILD_DIR=`pwd`
 ####
 
-apt-get install --yes libtiffxx5=4.0.6-1 libtiff5-dev=4.0.6-1
-apt-mark hold libtiffxx5
-apt-mark hold libtiff5-dev
+# Temporarily disable update repository
+cp /etc/apt/sources.list /etc/apt/sources.list.orig
+sed -i -e '3,4d' /etc/apt/sources.list
+apt-get update
 
 wget http://download.rasdaman.org/installer/install.sh
 sudo bash install.sh -p osgeo
@@ -42,6 +43,10 @@ echo "Rasdaman command log:"
 echo "==============================================="
 cat /tmp/rasdaman_command_log
 echo "==============================================="
+
+# Update repository is back
+mv /etc/apt/sources.list.orig /etc/apt/sources.list
+apt-get update
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
