@@ -35,7 +35,7 @@ export JAVA_OPTS="$JAVA_MEM_OPTS -Xss2M -Djeeves.filecharsetdetectandconvert=ena
 # Set custom data directory location using Java property
 # export JAVA_OPTS="$JAVA_OPTS -Dgeonetwork.dir=/app/geonetwork_data_dir -Dgeonetwork.lucene.dir=/ssd/geonetwork_lucene_dir"
 
-export JETTY_CMD="$JAVA_OPTS -jar $JETTY_HOME/start.jar  -Djetty.port=8880"
+export JETTY_CMD="$JAVA_OPTS -jar $JETTY_HOME/start.jar  -Djetty.http.port=8880"
 
 if [ $JETTY_FOREGROUND = 1 ];
 then $JAVA_HOME/bin/java $JETTY_CMD
