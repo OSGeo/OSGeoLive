@@ -1,0 +1,61 @@
+elevation_manager.enabled:  true
+
+epsg_database_file1: /usr/share/ossim/projection/ossim_epsg_projections-v7_4.csv
+epsg_database_file2: /usr/share/ossim/projection/ossim_harn_state_plane_epsg.csv
+epsg_database_file3: /usr/share/ossim/projection/ossim_state_plane_spcs.csv
+epsg_database_file4: /usr/share/ossim/projection/ossim_harn_state_plane_esri.csv
+#epsg_database_file4: /usr/share/ossim/projection/ossim_wkt_pcs.csv
+
+geoid_egm_96_grid: /usr/share/ossim/geoids/geoid1996/egm96.grd
+
+font.file1: /usr/share/ossim/fonts/arial.ttf
+font.dir1: /usr/share/ossim/fonts
+
+plugin.file1: /usr/lib/ossim/plugins/libossimgdal_plugin.so
+
+plugin.file2: /usr/lib/ossim/plugins/libossimopencv_plugin.so
+
+plugin.file3: /usr/lib/ossim/plugins/libossimgeopdf_plugin.so
+
+plugin.file4: /usr/lib/ossim/plugins/libossim_plugin.so
+
+plugin.file5: /usr/lib/ossim/plugins/libossimhdf5_plugin.so
+
+plugin.file6: /usr/lib/ossim/plugins/libossimpng_plugin.so
+
+plugin.file7: /usr/lib/ossim/plugins/libossimlas_plugin.so
+
+plugin.file8: /usr/lib/ossim/plugins/libossimregistration_plugin.so
+
+plugin.file9: /usr/lib/ossim/plugins/libossimlibraw_plugin.so
+
+plugin.file10: /usr/lib/ossim/plugins/libossimsqlite_plugin.so
+
+plugin.file11: /usr/lib/ossim/plugins/libossimndf_plugin.so
+
+plugin.file12: /usr/lib/ossim/plugins/libossimweb_plugin.so
+
+statusLatLon: true
+statusHeight: true
+statusDatum: true
+statusGSD: true
+statusUpdateOnClick: true
+
+overview_stop_dimension: 64
+
+tile_size: 64 64
+
+shapefile_colors_auto: false
+shapefile_normalized_rgb_pen_color: 0.004 1.0 0.004
+shapefile_normalized_rgb_brush_color: 0.004 1.0 0.004
+
+autogenerate_histogram: true
+
+ossimosgplanet.background.type: local
+
+// each image listed with file0 ... file<n>
+//
+//ossimosgplanet.background.file0: C:\Program Files\Common Files\ossim\images\earth.tif
+ossimosgplanet.background.transparent_color_flag:0
+ossimosgplanet.background.transparent_color: 0 0 0
+ossimosgplanet.background.opacity: 255
