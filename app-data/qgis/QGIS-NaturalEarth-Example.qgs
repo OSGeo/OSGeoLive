@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="Natural Earth" version="2.14.0-Essen">
+<qgis projectname="Natural Earth" version="2.14.11-Essen">
   <title>Natural Earth</title>
   <layer-tree-group expanded="1" checked="Qt::PartiallyChecked" name="">
     <customproperties/>
@@ -97,11 +97,14 @@
   </legend>
   <projectlayers>
     <maplayer minimumScale="0" maximumScale="1e+08" type="raster" hasScaleBasedVisibilityFlag="0">
+      <extent>
+        <xmin>-179.99999999999997158</xmin>
+        <ymin>-89.99999999998200906</ymin>
+        <xmax>179.99999999996404654</xmax>
+        <ymax>90</ymax>
+      </extent>
       <id>HYP_50M_SR_W20100719084154256</id>
       <datasource>/home/user/data/natural_earth2/HYP_50M_SR_W.tif</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
@@ -153,11 +156,14 @@
       <blendMode>0</blendMode>
     </maplayer>
     <maplayer minimumScale="1" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="1" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+      <extent>
+        <xmin>-165.965581688293355</xmin>
+        <ymin>-50.66966651748361983</ymin>
+        <xmax>176.09377623426627224</xmax>
+        <ymax>81.95520786930867985</ymax>
+      </extent>
       <id>ne_10m_lakes20100719082900581</id>
       <datasource>/home/user/data/natural_earth2/ne_10m_lakes.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
@@ -282,9 +288,6 @@
     <maplayer minimumScale="1" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="1" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>ne_10m_land20100719082900615</id>
       <datasource>/home/user/data/natural_earth2/ne_10m_land.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
@@ -385,9 +388,6 @@
     <maplayer minimumScale="1" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="1" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>ne_10m_ocean20100719082900623</id>
       <datasource>/home/user/data/natural_earth2/ne_10m_ocean.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
@@ -488,9 +488,6 @@
     <maplayer minimumScale="1" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="1" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Point" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>ne_10m_populated_places20100719082900629</id>
       <datasource>/home/user/data/natural_earth2/ne_10m_populated_places.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
@@ -958,11 +955,14 @@
       </conditionalstyles>
     </maplayer>
     <maplayer minimumScale="1" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="1" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Line" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+      <extent>
+        <xmin>-164.90347246002036741</xmin>
+        <ymin>-52.15772877396429408</ymin>
+        <xmax>177.21119225352123294</xmax>
+        <ymax>75.79348379113986311</ymax>
+      </extent>
       <id>ne_10m_rivers_lake_centerlines20100719082900647</id>
       <datasource>/home/user/data/natural_earth2/ne_10m_rivers_lake_centerlines.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
