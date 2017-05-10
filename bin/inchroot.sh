@@ -203,7 +203,7 @@ export USER_NAME
 # ./install_rasdaman.sh
 
 ## Docs, Data and extras
-# ./load_gisdata.sh
+./load_gisdata.sh
 # ./install_docs.sh "$BUILD_MODE"
 # ./install_edutools.sh
 
