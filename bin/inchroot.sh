@@ -134,14 +134,14 @@ export USER_NAME
 
 ### Project installers
 ## C stack
-# ./install_postgis.sh
+./install_postgis.sh
 # ./install_spatialite.sh
 # ./install_osgearth.sh
 # ./install_osm.sh
-# ./load_postgis.sh
+./load_postgis.sh
 # ./install_pgrouting.sh
 # ./install_ossim.sh
-# ./install_mapserver.sh
+./install_mapserver.sh
 # ./install_tinyows.sh
 # ./install_gmt.sh
 # ./install_mb-system.sh
@@ -149,8 +149,8 @@ export USER_NAME
 # ./install_otb.sh
 # ./install_liblas.sh
 # ./install_saga.sh
-# ./install_grass.sh
-# ./install_qgis.sh
+./install_grass.sh
+./install_qgis.sh
 # ./install_qgis_mapserver.sh
 # ./install_zoo-project.sh "$ARCH"
 # ./install_marble.sh
@@ -169,7 +169,7 @@ export USER_NAME
 # ./install_mapslicer.sh
 
 ## Java stack
-# ./install_geoserver.sh
+./install_geoserver.sh
 # ./install_geonetwork.sh
 # ./install_deegree.sh
 # ./install_geomajas.sh
