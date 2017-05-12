@@ -35,8 +35,8 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR="/tmp/build_mapbender3"
-PARAMETERSINSTALLURL="http://mapbender3.org/builds/"
-INSTALLURL="http://mapbender3.org/builds/"
+PARAMETERSINSTALLURL="http://www.mapbender3.org/builds/osgeolive/"
+INSTALLURL="http://www.mapbender3.org/builds/3.0.6.0/"
 INSTALLFILE="mapbender3-starter-3.0.6.0"
 PARAMETERSFILE="mapbender3-starter-3.0.6.0"
 INSTALL_DIR="/var/www/html"
