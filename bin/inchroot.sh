@@ -135,7 +135,7 @@ export USER_NAME
 ### Project installers
 ## C stack
 ./install_postgis.sh
-# ./install_spatialite.sh
+./install_spatialite.sh
 # ./install_osgearth.sh
 # ./install_osm.sh
 ./load_postgis.sh
@@ -151,9 +151,9 @@ export USER_NAME
 # ./install_saga.sh
 ./install_grass.sh
 ./install_qgis.sh
-# ./install_qgis_mapserver.sh
+./install_qgis_server.sh
 # ./install_zoo-project.sh "$ARCH"
-# ./install_marble.sh
+./install_marble.sh
 # ./install_opencpn.sh
 # ./install_viking.sh
 # ./install_zygrib.sh
