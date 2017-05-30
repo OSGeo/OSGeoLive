@@ -106,6 +106,13 @@ unzip -qo $OPENLAYERS_ARCHIVE_DIST
 echo "Unzipping done"
 
 #
+# Replace assets url and workshop url
+#
+sed -i 's/..\/..\/..\/assets/https:\/\/openlayers.org\/assets/g' v$OPENLAYERS_VERSION/doc/*.html
+sed -i 's/..\/..\/..\/..\/assets/https:\/\/openlayers.org\/assets/g' v$OPENLAYERS_VERSION/doc/**/*.html
+sed -i 's/\/workshop\//https:\/\/openlayers.org\/workshop\//g' v$OPENLAYERS_VERSION/doc/index.html
+
+#
 # Copy to www
 #
 echo "\nCopying files to $OPENLAYERS_DIR"
