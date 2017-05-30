@@ -112,6 +112,8 @@ Alias /mapserver_demos "/usr/local/share/mapserver/demos"
 </Directory>
 EOF
 
+# Make sure Apache has cgi-bin setup
+a2enmod cgi
 a2enconf $MS_APACHE_CONF_FILE
 echo "Finished configuring Apache"
 
