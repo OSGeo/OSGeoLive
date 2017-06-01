@@ -13,7 +13,7 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
 # Requires: apache2 php5 libapache2-mod-php5 cgi-mapserver mapserver-bin
-#      php5-mapscript php5-gd php5-sqlite gfortran r-base r-base-core
+#      php-mapscript php5-gd php5-sqlite gfortran r-base r-base-core
 #      r-base-sp r-cran-maptools
 #
 # Uninstall:
@@ -39,7 +39,7 @@ I3GEO_DOWNLOAD_URL="http://svn.gvsig.org/svn/i3geo/arquivos_versoes/v46"
 I3GEO_COMPRESSED_FILE="livedvdosgeo_i3geo46_26_dezembro_2012.zip"
 
 #i3GEO dependencies
-I3GEO_DEPENDENCIES=(apache2 php5 libapache2-mod-php5 cgi-mapserver mapserver-bin php5-mapscript php5-gd php5-sqlite)
+I3GEO_DEPENDENCIES=(apache2 php5 libapache2-mod-php5 cgi-mapserver mapserver-bin php-mapscript php5-gd php5-sqlite)
 R_DEPENDENCIES=(r-cran-maptools)
 
 #Installation variables

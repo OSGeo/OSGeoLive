@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="Itasca Example" version="2.14.0-Essen">
+<qgis projectname="Itasca Example" version="2.14.11-Essen">
   <title>Itasca Example</title>
   <layer-tree-group expanded="1" checked="Qt::PartiallyChecked" name="">
     <customproperties/>
@@ -140,11 +140,14 @@
   </Composer>
   <projectlayers>
     <maplayer minimumScale="1" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="1" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Point" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+      <extent>
+        <xmin>434634</xmin>
+        <ymin>5228719</ymin>
+        <xmax>496393</xmax>
+        <ymax>5291930</ymax>
+      </extent>
       <id>airports20090926195218796</id>
       <datasource>/usr/local/share/mapserver/demos/itasca/data/airports.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
@@ -294,11 +297,14 @@
       </conditionalstyles>
     </maplayer>
     <maplayer minimumScale="1" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="1" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+      <extent>
+        <xmin>189775.33203935710480437</xmin>
+        <ymin>4816305.37003782298415899</ymin>
+        <xmax>761662.27345262910239398</xmax>
+        <ymax>5472414.18182945530861616</ymax>
+      </extent>
       <id>ctybdpy220090926195218921</id>
       <datasource>/usr/local/share/mapserver/demos/itasca/data/ctybdpy2.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
@@ -415,11 +421,14 @@
       </conditionalstyles>
     </maplayer>
     <maplayer minimumScale="1" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="1" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Line" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+      <extent>
+        <xmin>393588.45836909359786659</xmin>
+        <ymin>5207995.52565169520676136</ymin>
+        <xmax>495769.57929425337351859</xmax>
+        <ymax>5305108.60195055697113276</ymax>
+      </extent>
       <id>ctyrdln320090926195218953</id>
       <datasource>/usr/local/share/mapserver/demos/itasca/data/ctyrdln3.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
@@ -539,9 +548,6 @@
     <maplayer minimumScale="1" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="1" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>drgidx20090926195219059</id>
       <datasource>/usr/local/share/mapserver/demos/itasca/data/drgidx.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
@@ -638,11 +644,14 @@
       </conditionalstyles>
     </maplayer>
     <maplayer minimumScale="1" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="1" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+      <extent>
+        <xmin>393234.39370126312132925</xmin>
+        <ymin>5208170.53119061328470707</ymin>
+        <xmax>495403.17132630909327418</xmax>
+        <ymax>5303964.8767541442066431</ymax>
+      </extent>
       <id>lakespy220090926195219074</id>
       <datasource>/usr/local/share/mapserver/demos/itasca/data/lakespy2.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
@@ -765,11 +774,14 @@
       </conditionalstyles>
     </maplayer>
     <maplayer minimumScale="1" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="1" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Line" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+      <extent>
+        <xmin>393731.89666630671126768</xmin>
+        <ymin>5208085.21915708854794502</ymin>
+        <xmax>494784.27934773615561426</xmax>
+        <ymax>5305369.02701572515070438</ymax>
+      </extent>
       <id>majrdln320090926195219144</id>
       <datasource>/usr/local/share/mapserver/demos/itasca/data/majrdln3.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
@@ -887,11 +899,14 @@
       </conditionalstyles>
     </maplayer>
     <maplayer minimumScale="0" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="0" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Line" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
+      <extent>
+        <xmin>414168.24048786831554025</xmin>
+        <ymin>5219335.25</ymin>
+        <xmax>495189.36999999999534339</xmax>
+        <ymax>5300029.66999999992549419</ymax>
+      </extent>
       <id>mcdrdln320090926195219197</id>
       <datasource>/usr/local/share/mapserver/demos/itasca/data/mcdrdln3.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>
@@ -1005,9 +1020,6 @@
     <maplayer minimumScale="1" maximumScale="1e+08" simplifyDrawingHints="1" minLabelScale="1" maxLabelScale="1e+08" simplifyDrawingTol="1" geometry="Polygon" simplifyMaxScale="1" type="vector" hasScaleBasedVisibilityFlag="0" simplifyLocal="1" scaleBasedLabelVisibilityFlag="0">
       <id>plsscpy320090926195219227</id>
       <datasource>/usr/local/share/mapserver/demos/itasca/data/plsscpy3.shp</datasource>
-      <shortname></shortname>
-      <title></title>
-      <abstract></abstract>
       <keywordList>
         <value></value>
       </keywordList>

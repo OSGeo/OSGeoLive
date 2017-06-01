@@ -1,4 +1,4 @@
-Welcome to the OSGeo Live GIS DVD.
+Welcome to OSGeo Live.
 
 
 See the road-sign Help icon on the Desktop for information about the        
@@ -18,10 +18,6 @@ main applications menu with Preferences > Language Support and
 Preferences > Keyboard Input Methods. See the internationalization
 quickstart in the OSGeo Live help pages for more information.
 
-If you have the full DVD edition, various program installers for
-Macintosh and Microsoft Windows can be found in the MacInstallers
-and WindowsInstallers directories; see the main help page.
-
 Passwords for various things can be found in the passwords.txt file
 on the Desktop.
 
@@ -35,4 +31,4 @@ The living FAQ can be found here:
 
 
 Happy mapping!
-The OSGeo Live GIS Team
+The OSGeo Live Team

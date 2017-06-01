@@ -85,14 +85,16 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   ghostscript htop units gdebi fslint xkb-data \
   xfonts-100dpi xfonts-75dpi zenity
 
-# removed from list: 
+# removed from list:
 # cvs cvsutils fuseiso dlocate medit nedit a2ps netpbm qiv lynx mutt mc
 # xchat rxvt scrot arandr sgt-puzzles sopwith
 
 # Install virtualbox guest additions
 # If running on virtualbox this will allow us to use full-screen/usb2/...
 # If running outside virtualbox the drivers will not be loaded
-apt-get install --yes virtualbox-guest-dkms virtualbox-guest-x11 virtualbox-guest-utils
+apt-get install --yes virtualbox-guest-dkms virtualbox-guest-utils
+# Removed from Xenial 16.04.2
+#apt-get install --yes virtualbox-guest-x11
 
 # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
 # FIXME: similar thing needed for man pages?
@@ -145,8 +147,10 @@ ln -s /usr/local/share/data /etc/skel/data
 
 # and there was music and laughter and much rejoicing
 adduser user audio
+
+## https://bugs.launchpad.net/ubuntu/+source/fuse/+bug/1581163
 # and connectivity too
-adduser user fuse
+#adduser user fuse
 
 # highly useful tricks
 #  (/etc/skel/.bashrc seems to be clobbered by the copy in USER_HOME)

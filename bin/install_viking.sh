@@ -18,19 +18,20 @@
 
 ./diskspace_probe.sh "`basename $0`" begin
 ####
-
+BUILD_DIR=`pwd`
 if [ -z "$USER_NAME" ] ; then 
    USER_NAME="user" 
 fi 
 USER_HOME="/home/$USER_NAME"
 
-
 apt-get --assume-yes install viking gpsbabel gpsd
-
 
 # copy icon to Desktop
 cp /usr/share/applications/viking.desktop "$USER_HOME/Desktop/"
 
+#Temp fix for #1754
+mkdir -p "$USER_HOME"/.viking
+cp "$BUILD_DIR"/../app-conf/viking/* "$USER_HOME"/.viking/
 
 ####
 ./diskspace_probe.sh "`basename $0`" end

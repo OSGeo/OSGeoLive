@@ -12,10 +12,8 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-# Version: 2014-07-30
+# Version: 2017-01-26
 # Author: e.h.juerrens@52north.org
-# TODO
-# - check new version
 #
 # About:
 # =====
@@ -48,13 +46,14 @@ SOS_OVERVIEW_URL="http://localhost/osgeolive/en/overview/52nSOS_overview.html"
 SOS_WAR_INSTALL_FOLDER="/var/lib/$TOMCAT_SCRIPT_NAME/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
 SOS_BIN_FOLDER="/usr/local/share/52nSOS"
-SOS_TAR_NAME="52n-sos-osgeo-live-9.0.tar.gz"
+SOS_TAR_NAME="52n-sos-osgeo-live-10.5.tar.gz"
 SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
-SOS_VERSION="4.3.0"
+SOS_VERSION="4.3.9"
 PG_OPTIONS='--client-min-messages=warning'
 PG_USER="postgres"
 PG_SCRIPT_NAME="postgresql"
 PG_DB_NAME="52nSOS"
+JAVA_PKG="openjdk-8-jre"
 # -----------------------------------------------------------------------------
 #
 echo "[$START]: $SOS_WEB_APP_NAME $SOS_VERSION install started"
@@ -77,6 +76,7 @@ echo "PG_OPTIONS: $PG_OPTIONS"
 echo "PG_USER: $PG_USER"
 echo "PG_SCRIPT_NAME: $PG_SCRIPT_NAME" 
 echo "PG_DB_NAME: $PG_DB_NAME"
+echo "JAVA_PKG: $JAVA_PKG"
 #
 #
 # =============================================================================
@@ -100,7 +100,7 @@ fi
 if [ ! -x "`which java`" ] ; then
 	apt-get -q update
 	#
-	apt-get --assume-yes install openjdk-8-jre
+	apt-get --assume-yes install $JAVA_PKG
 fi
 #
 #

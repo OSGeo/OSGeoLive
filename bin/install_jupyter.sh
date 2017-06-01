@@ -28,7 +28,7 @@ USER_DESKTOP="$USER_HOME/Desktop"
 BUILD_DIR=`pwd`
 
 apt-get install --assume-yes python-folium \
-        python-pysal python-geocoder
+        python-pysal python-geocoder python-geoalchemy2
 
 #-- Jupyter ppa
 apt-add-repository --yes ppa:gcpp-kalxas/jupyter
@@ -37,7 +37,8 @@ apt-get update
 # From Jupyter 1.0.0 setup.py dependencies
 apt-get install --assume-yes python-notebook python-qtconsole \
         python-jupyter-console python-nbconvert python-ipykernel \
-        python-ipywidgets python-ipython python-terminado
+        python-ipywidgets python-widgetsnbextension python-ipython \
+        python-ipyleaflet python-terminado
 
 #-- Clean-up
 apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
@@ -67,12 +68,17 @@ mkdir -p "$USER_HOME/jupyter/notebooks/projects/IRIS"
 mv sample_data "$USER_HOME/jupyter/notebooks/projects/IRIS/"
 cd "$BUILD_DIR"
 
-/bin/sh ../app-conf/jupyter/install_nbextension.sh
+#TODO: Add cesiumpy instead of the cesium widget
+#Update: python-cesiumpy is available in our ppa
+# /bin/sh ../app-conf/jupyter/install_nbextension.sh
 
 mkdir -p "$USER_HOME/jupyter/notebooks/projects/CARTOPY"
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
 cp -r /home/user/jupyter /etc/skel
+
+jupyter nbextension enable --py --sys-prefix widgetsnbextension
+jupyter nbextension enable --py --sys-prefix ipyleaflet
 
 ####
 ./diskspace_probe.sh "`basename $0`" end

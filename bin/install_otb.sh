@@ -55,7 +55,7 @@ Encoding=UTF-8
 Name=OTB Launcher
 Comment=OTB Mapla
 Categories=Application;Geography;Geoscience;Education;
-Exec=/usr/bin/mapla
+Exec=env OTB_APPLICATION_PATH=/usr/lib/otb/applications /usr/bin/mapla
 Icon=monteverdi
 Terminal=false
 EOF

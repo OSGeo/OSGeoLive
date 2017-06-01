@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2017 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -35,13 +35,13 @@ mkdir -p /tmp/build-geomoose
 
 cd /tmp/build-geomoose
 
-## Download and extract GeoMOOSE 2.9.0
+## Download and extract GeoMOOSE 2.9.3
 wget -c --tries=3 --progress=dot:mega \
-   "http://www.geomoose.org/downloads/geomoose-2.9.0.tar.gz"
+   "http://www.geomoose.org/downloads/geomoose-2.9.3.tar.gz"
 #wget -c --tries=3 --progress=dot:mega \
 #   "http://download.osgeo.org/livedvd/data/geomoose/geomoose-2.9.0.tar.gz"
 
-tar -xzf geomoose-2.9.0.tar.gz
+tar -xzf geomoose-2.9.3.tar.gz
 
 rm -rf /usr/local/geomoose
 
@@ -54,7 +54,7 @@ mv /tmp/build-geomoose/geomoose*/* .
 ## Setup htdocs directory to be available to apache
 ln -s /usr/local/geomoose/htdocs /var/www/html/geomoose
 
-## Configure GeoMOOSE 2.8.0
+## Configure GeoMOOSE 2.9.3
 cat > /usr/local/geomoose/conf/local_settings.ini <<'EOF'
 [paths]
 root=/usr/local/geomoose/maps/

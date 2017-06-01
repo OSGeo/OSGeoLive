@@ -46,146 +46,16 @@ USER_HOME="/home/$USER_NAME"
 
 echo 'Installing PyWPS ...'
 
-apt-get install --yes python libapache2-mod-wsgi python-pywps
+apt-get install --yes pywps
 
-PYWPS_APP=/usr/local/share/pywps
-PYWPS_PROCESSES=$PYWPS_APP/processes
-PYWPS_CFG=$PYWPS_APP/pywps.cfg
-PYWPS_WSGI=$PYWPS_APP/wps.py
-PYWPS_APACHE_CONF=/etc/apache2/conf-available/pywps.conf
 PYWPS_URL=http://localhost/pywps/wps.py
 PYWPS_DESKTOP=/usr/share/applications/pywps.desktop
-
-echo 'Setting up directories'
-
-mkdir -p "$PYWPS_PROCESSES"
 
 echo 'Downloading logo'
 
 wget -c --progress=dot:mega \
    -O /usr/local/share/icons/pywps.png \
    "http://pywps.org/images/pywps.png"
-
-echo 'creating PyWPS configuration'
-
-cat << EOF > "$PYWPS_CFG"
-[wps]
-encoding=utf-8
-title=PyWPS OSGeo-Live Demo
-version=1.0.0
-abstract=PyWPS is an implementation of the Web Processing Service standard from the Open Geospatial Consortium. PyWPS is written in Python.
-fees=None
-constraints=None
-serveraddress=$PYWPS_URL
-keywords=PyWPS,WPS,OGC,processing,ogc,interoperability
-lang=en-US
-
-[provider]
-providerName=Organization Name
-individualName=Lastname, Firstname
-positionName=Position Title
-role=pointOfContact
-deliveryPoint=Mailing Address
-city=City
-postalCode=Zip or Postal Code
-country=Country
-electronicMailAddress=Email Address
-providerSite=http://pywps.org
-phoneVoice=+xx-xxx-xxx-xxxx
-phoneFacsimile=+xx-xxx-xxx-xxxx
-administrativeArea=Administrative Area
-
-[server]
-maxoperations=50
-maxinputparamlength=1024
-maxfilesize=3mb
-tempPath=/tmp
-debug=true
-EOF
-
-echo 'creating WSGI wrapper'
-
-cat << EOF > "$PYWPS_WSGI"
-import os
-import pywps
-from pywps.Exceptions import NoApplicableCode, WPSException
-
-
-def application(environ, start_response):
-
-    os.environ['PYWPS_CFG'] = environ['PYWPS_CFG']
-    os.environ['PYWPS_PROCESSES'] = environ['PYWPS_PROCESSES']
-
-    status = '200 OK'
-    response_headers = [('Content-type', 'text/xml')]
-    start_response(status, response_headers)
-
-    inputQuery = None
-    if "REQUEST_METHOD" in environ and environ["REQUEST_METHOD"] == "GET":
-        inputQuery = environ["QUERY_STRING"]
-    elif "wsgi.input" in environ:
-        inputQuery = environ['wsgi.input']
-
-    if not inputQuery:
-        err = NoApplicableCode("No query string found.")
-        return [err.getResponse()]
-
-    # create the WPS object
-    try:
-        wps = pywps.Pywps(environ["REQUEST_METHOD"])
-        if wps.parseRequest(inputQuery):
-            pywps.debug(wps.inputs)
-            wps.performRequest()
-            return wps.response
-    except WPSException as e:
-        return [e]
-    except Exception as e:
-        return [e]
-EOF
-
-echo 'creating PyWPS processes'
-
-cat << EOF > "$PYWPS_PROCESSES/__init__.py"
-__all__ = ['hello_world']
-EOF
-
-cat << EOF > "$PYWPS_PROCESSES/hello_world.py"
-from pywps.Process import WPSProcess
-class HelloWorldProcess(WPSProcess):
-    def __init__(self):
-        WPSProcess.__init__(
-            self,
-            version='0.1.0',
-            identifier='hello-world',
-            title='Hello World',
-            abstract='Sample process',
-            storeSupported=False,
-            statusSupported=False)
-
-        self.data = self.addComplexInput(identifier='name',
-                                         title='Name')
-
-        self.out = self.addComplexOutput(identifier='output',
-                                         title='Output')
-
-    def execute(self):
-        value = self.data.getValue()
-        self.out.setValue('Hello World from %s' % value)
-        return
-EOF
-
-echo 'creating Apache configuration'
-
-cat << EOF > "$PYWPS_APACHE_CONF"
-WSGIScriptAlias /pywps/wps.py $PYWPS_WSGI
-<Directory "$PYWPS_APP">
-  Require all granted
-</Directory>
-<Location /pywps/wps.py>
-  SetEnv PYWPS_CFG $PYWPS_CFG
-  SetEnv PYWPS_PROCESSES $PYWPS_PROCESSES
-</Location>
-EOF
 
 echo 'creating desktop launcher'
 
@@ -209,7 +79,7 @@ chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/pywps.desktop"
 echo 'enabling Apache wsgi module'
 a2enmod wsgi
 echo 'enabling Apache configuration'
-a2enconf pywps
+a2enconf pywps-wsgi
 
 ####
 ./diskspace_probe.sh "`basename $0`" end

@@ -152,7 +152,7 @@ export USER_NAME
 ./install_grass.sh
 ./install_qgis.sh
 ./install_qgis_mapserver.sh
-# ./install_zoo-project.sh
+./install_zoo-project.sh "$ARCH"
 ./install_marble.sh
 ./install_opencpn.sh
 ./install_viking.sh
@@ -190,19 +190,17 @@ export USER_NAME
 ./install_mapbender3.sh
 ./install_geomoose.sh
 ./install_ushahidi.sh
-# ./install_cartaro.sh
 
 ## more Python (GeoServer rdeps)
 ./install_sahana.sh
-# ./install_geonode.sh
+./install_geonode.sh
 
 ## Javascript et al
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_cesium.sh
 ./install_R.sh
-# ./install_rasdaman.sh
-# ./install_tilemill.sh
+./install_rasdaman.sh
 
 ## Docs, Data and extras
 ./load_gisdata.sh

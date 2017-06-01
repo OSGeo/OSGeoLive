@@ -14,13 +14,15 @@
 
     <script src="/leaflet/leaflet.js"></script>
     <script>
-        var map = L.map('map').setView([45.52875, -122.6632], 5)
+        var map = L.map('map').setView([42.35100,-71.03941], 5)
 
-        L.tileLayer('http://localhost:8012/{z}/{x}/{y}.png',{}).addTo(map);
+        L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{}).addTo(map);
+        //In case we are offline, start TileStache to get a base layer
+        L.tileLayer('http://localhost:8012/example/{z}/{x}/{y}.png',{}).addTo(map);
 
-        var marker = L.marker([45.52875, -122.6632]).addTo(map);            
+        var marker = L.marker([43.86622, -66.09375]).addTo(map);            
 
-        var circle = L.circle([44.056287, -123.07572], 25000, {
+        var circle = L.circle([41.62366, -69.98], 25000, {
            color: 'red',
            fillColor: '#f03',
            fillOpacity: 0.5
@@ -28,14 +30,14 @@
         
         
         var polygon = L.polygon([
-           [46.01, -130.01],
-           [40.81, -128.76],
-           [44.15, -133.23]
+           [41.01, -71.01],
+           [41.81, -72.76],
+           [41.95, -71.13]
         ]).addTo(map);
         
         var popup = L.popup()
-           .setLatLng([45.52875, -122.6632])
-           .setContent("Foss4G is here this year!")
+           .setLatLng([42.35100,-71.03941])
+           .setContent("FOSS4G is here this year!")
            .openOn(map);
 
         function onMapClick(e) {
@@ -50,4 +52,3 @@
    </script>
 </body>
 </html>
-
