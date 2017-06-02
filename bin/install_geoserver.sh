@@ -93,6 +93,11 @@ rm -f "$GS_HOME"/webapps/geoserver/WEB-INF/lib/jai_*.jar
 cat << EOF > "$GS_HOME/bin/start_admin.sh"
 #!/bin/sh
 
+# Writable location for GeoServer NetCDF index files
+NETCDF_DATA_DIR="\$HOME/.geoserver"
+mkdir -p "\$NETCDF_DATA_DIR"
+export JAVA_OPTS="-DNETCDF_DATA_DIR=\$NETCDF_DATA_DIR"
+
 $GS_HOME/bin/startup.sh &
 
 DELAY=40

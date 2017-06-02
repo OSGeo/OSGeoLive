@@ -112,11 +112,18 @@ Alias /mapserver_demos "/usr/local/share/mapserver/demos"
 </Directory>
 EOF
 
+# Make sure Apache has cgi-bin setup
+a2enmod cgi
 a2enconf $MS_APACHE_CONF_FILE
 echo "Finished configuring Apache"
 
 #Add Launch icon to desktop
-#?What Icon should be used?
+echo 'Downloading MapServer logo ...'
+mkdir -p /usr/local/share/icons
+wget -c --progress=dot:mega \
+   -O /usr/local/share/icons/mapserver.png \
+   "https://github.com/OSGeo/OSGeoLive-doc/raw/master/images/project_logos/logo-mapserver-new.png"
+
 INSTALLED_VERSION=`dpkg -s mapserver-bin | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
 
 cat << EOF > "/usr/share/applications/mapserver.desktop"
@@ -127,7 +134,7 @@ Name=Mapserver
 Comment=Mapserver
 Categories=Application;Education;Geography;
 Exec=firefox http://localhost/mapserver_demos/itasca/
-Icon=gnome-globe
+Icon=mapserver
 Terminal=false
 StartupNotify=false
 Categories=Education;Geography;

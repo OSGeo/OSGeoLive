@@ -92,7 +92,9 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
 # Install virtualbox guest additions
 # If running on virtualbox this will allow us to use full-screen/usb2/...
 # If running outside virtualbox the drivers will not be loaded
-apt-get install --yes virtualbox-guest-dkms virtualbox-guest-x11 virtualbox-guest-utils
+apt-get install --yes virtualbox-guest-dkms virtualbox-guest-utils
+# Removed from Xenial 16.04.2
+#apt-get install --yes virtualbox-guest-x11
 
 # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
 # FIXME: similar thing needed for man pages?

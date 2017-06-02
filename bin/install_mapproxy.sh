@@ -1,10 +1,26 @@
 #!/bin/sh
-#
-# Install MapProxy server
-#
-# Created by Oliver Tonnhofer <olt@omniscale.de>
-# Copyright (c) 2010-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
+#
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation, either version 2.1 of the License,
+# or any later version.  This library is distributed in the hope that
+# it will be useful, but WITHOUT ANY WARRANTY, without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Lesser General Public License for more details, either
+# in the "LICENSE.LGPL.txt" file distributed with this software or at
+# web page "http://www.fsf.org/licenses/lgpl.html".
+#
+# About:
+# =====
+# This script will install MapProxy server
+# Created by Oliver Tonnhofer <olt@omniscale.de>
+#
+# Running:
+# =======
+# sudo service apache2 start
+# Then open a web browser and go to http://localhost/ol3/
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -16,35 +32,18 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 BIN="/usr/local/bin"
-TMP="/tmp/build_mapproxy"
-MAPPROXY_VERSION="1.8.2"
-MAPPROXY_DOCS_FILE="MapProxy-docs-1.8.0.tar.gz"
-MAPPROXY_DOCS_URL="http://mapproxy.org/static/rel/$MAPPROXY_DOCS_FILE"
 MAPPROXY_DIR="/usr/local/share/mapproxy"
 
-apt-get install --yes python-mapproxy
+apt-get install --yes mapproxy mapproxy-doc
 
-mkdir -p "$TMP"
-cd "$TMP"
-
-echo "Downloading: $MAPPROXY_DOCS_URL"
-wget --timestamping --continue --progress=dot:mega "$MAPPROXY_DOCS_URL"
-if [ $? -ne 0 ] ; then
-   echo "ERROR: download failed"
-   exit 1
-fi
-
-mkdir -p $MAPPROXY_DIR/docs
-echo "Extracting docs: $MAPPROXY_DOCS_FILE"
-tar -xz --strip-components 1 -C "$MAPPROXY_DIR"/docs -f "$MAPPROXY_DOCS_FILE"
-if [ $? -ne 0 ] ; then
-   echo "ERROR: docs install failed"
-   exit 1
-fi
-ln -sf "$MAPPROXY_DIR/docs" /var/www/html/mapproxy
+echo 'Downloading mapproxy logo ...'
+wget -c --progress=dot:mega \
+   -O /usr/local/share/icons/mapproxy.png \
+   "https://github.com/mapproxy/mapproxy/raw/master/doc/_static/logo.png"
 
 echo "Creating Scripts/Links"
 # Create startup script for MapProxy Server
+mkdir -p "$BIN"
 cat << EOF > "$BIN/mapproxy_start.sh"
 #!/bin/sh
 mapproxy-util serve-develop -b 0.0.0.0:8011 /usr/local/share/mapproxy/mapproxy.yaml
@@ -52,6 +51,7 @@ EOF
 
 chmod 755 $BIN/mapproxy_start.sh
 
+ln -sf /usr/share/doc/mapproxy/html /var/www/html/mapproxy
 
 ## Create Desktop Shortcut for starting MapProxy Server in shell
 cat << EOF > /usr/share/applications/mapproxy-start.desktop
@@ -62,7 +62,7 @@ Name=Start MapProxy
 Comment=MapProxy for LiveDVD WMS services
 Categories=Application;Geography;Geoscience;Education;
 Exec=lxterminal -e mapproxy_start.sh
-Icon=gnome-globe
+Icon=mapproxy
 Terminal=false
 StartupNotify=false
 EOF
@@ -79,7 +79,7 @@ Name=MapProxy Introduction
 Comment=MapProxy Introduction
 Categories=Application;Geography;Geoscience;Education;
 Exec=firefox http://localhost/osgeolive/en/overview/mapproxy_overview.html
-Icon=gnome-globe
+Icon=mapproxy
 Terminal=false
 StartupNotify=false
 EOF
@@ -88,6 +88,7 @@ cp -a /usr/share/applications/mapproxy-intro.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/mapproxy-intro.desktop"
 
 echo "Creating Configuration"
+mkdir -p "$MAPPROXY_DIR"
 cat << EOF > "$MAPPROXY_DIR/mapproxy.yaml"
 services:
   demo:
@@ -265,9 +266,6 @@ EOF
 chgrp users "$MAPPROXY_DIR/mapproxy.yaml"
 chmod g+w "$MAPPROXY_DIR/mapproxy.yaml"
 adduser "$USER_NAME" users
-
-#snafu'd ownership
-chown -R root.root "$MAPPROXY_DIR/docs/"
 
 
 ####
