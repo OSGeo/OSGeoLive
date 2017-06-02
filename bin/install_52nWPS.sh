@@ -38,7 +38,7 @@ USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat8"
 WPS_WAR_INSTALL_FOLDER="/var/lib/${TOMCAT_USER_NAME}/webapps"
 WPS_BIN_FOLDER="/usr/local/share/52nWPS"
-WPS_TAR_NAME="52nWPS-3.4.0.tar.gz"
+WPS_TAR_NAME="52nWPS-3.6.1.tar.gz"
 WPS_TAR_URL="http://52north.org/files/geoprocessing/OSGeoLiveDVD/"
 # when changing this, adjust the name in line 215, too,
 # and the quickstart, which links to this, too
