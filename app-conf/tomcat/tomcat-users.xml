@@ -37,6 +37,7 @@
   <user username="role1" password="tomcat" roles="role1"/>
 -->
     <role rolename="admin" />
+    <role rolename="ncWMS-admin" />
     <role rolename="manager" />
-    <user username="user" password="user" roles="admin,manager" /> 
+    <user username="user" password="user" roles="admin,ncWMS-admin,manager" /> 
 </tomcat-users>
