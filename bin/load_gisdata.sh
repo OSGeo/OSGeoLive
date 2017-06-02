@@ -313,7 +313,8 @@ chmod g+w landsat
 rm -rf landsat.tar.gz
 
 # make srtm elevation
-/usr/bin/ossim-orthoigen --writer general_raster_bip \
+mkdir -p /usr/share/ossim/elevation/srtm/
+OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference /usr/bin/ossim-orthoigen --writer general_raster_bip \
    "$DATA_FOLDER/landsat/srtm.tif" \
    /usr/share/ossim/elevation/srtm/srtm.ras
 
