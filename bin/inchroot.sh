@@ -146,7 +146,7 @@ export USER_NAME
 # ./install_gmt.sh
 # ./install_mb-system.sh
 # ./install_mapnik.sh
-# ./install_otb.sh
+./install_otb.sh
 # ./install_liblas.sh
 # ./install_saga.sh
 ./install_grass.sh
@@ -170,7 +170,7 @@ export USER_NAME
 
 ## Java stack
 ./install_geoserver.sh
-# ./install_geonetwork.sh
+./install_geonetwork.sh
 # ./install_deegree.sh
 # ./install_geomajas.sh
 # ./install_kosmo.sh "$ARCH"
@@ -182,12 +182,12 @@ export USER_NAME
 # ./install_prune.sh
 
 ## Java + default tomcat
-# ./install_52nWPS.sh
-# ./install_52nSOS.sh
+./install_52nWPS.sh
+./install_52nSOS.sh
 # ./install_ncWMS.sh
 
 ## PHP stack
-# ./install_mapbender3.sh
+./install_mapbender3.sh
 # ./install_geomoose.sh
 # ./install_ushahidi.sh
 
@@ -196,7 +196,7 @@ export USER_NAME
 # ./install_geonode.sh
 
 ## Javascript et al
-# ./install_openlayers.sh
+./install_openlayers.sh
 # ./install_leaflet.sh
 # ./install_cesium.sh
 # ./install_R.sh
