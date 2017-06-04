@@ -163,7 +163,7 @@ export USER_NAME
 # ./install_mapproxy.sh
 # ./install_pycsw.sh
 # ./install_pywps.sh
-# ./install_eoxserver.sh
+./install_eoxserver.sh
 # ./install_iris.sh
 # ./install_istsos.sh
 # ./install_mapslicer.sh
@@ -188,7 +188,7 @@ export USER_NAME
 
 ## PHP stack
 ./install_mapbender3.sh
-# ./install_geomoose.sh
+./install_geomoose.sh
 # ./install_ushahidi.sh
 
 ## more Python (GeoServer rdeps)
