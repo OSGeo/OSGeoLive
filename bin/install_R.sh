@@ -1,12 +1,12 @@
 #!/bin/sh
 #################################################
 # 
-# Purpose: Installation of R, R-spatial packages and python dependencies
-#	   needed by some qgis plug-in into Xubuntu
-# Author:  Massimo Di Stefano <info@geofemengineering.it>
+# Purpose: Installation of R, R-spatial packages 
+#
+# Author:  Massimo Di Stefano <info@geofemengineering.it> + live team
 #
 #################################################
-# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2017 Open Source Geospatial Foundation (OSGeo)
 # Copyright (c) 2009 GeofemEngineering 
 #
 # Licensed under the GNU LGPL.
@@ -24,12 +24,8 @@
 #
 # About:
 # =====
-# This script will install : R and spatial packages plus python
-# dependencies needed by qgis plugins into Xubuntu
+# This script will install : R and spatial packages 
 #
-# Running:
-# =======
-# sudo ./install_PyDep_and_R.sh
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -55,14 +51,10 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 apt-get -q update
 
 #Plugin interaction with R
-apt-get --assume-yes install python-rpy python-shapely \
+apt-get --assume-yes install  \
     build-essential gfortran libblas-dev liblapack-dev  \
-    netcdf-bin libzmq3-dev
+    netcdf-bin 
 
-# These dependencies were only necessary for building packages which is now done in the ppa
-# apt-get --assume-yes install python-all-dev libgdal-dev \
-#    libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
-#    libglu1-mesa-dev libsprng2-dev libnetcdf-dev libgeos-dev libproj-dev
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -71,16 +63,11 @@ fi
 
 #Required for QGIS plugins - Switching to apt above
 #easy_install -Z rpy2
-apt-get --assume-yes install python-rpy2 r-cran-rcolorbrewer
+apt-get --assume-yes install  r-cran-rcolorbrewer
 
 
 # R specific packages
 apt-get --assume-yes install r-recommended 
-
-#apt-get --assume-yes install r-cran-rgtk2 r-cran-rjava
-
-# package does not exist in Jaunty+: r-cran-e1071
-# not found in Lucid: r-cran-adapt
 
 
 # This is replaced with the following line which installs packages from our repository:
@@ -89,14 +76,15 @@ apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
  r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
  r-cran-splancs r-cran-rgeos r-cran-ncdf4 r-cran-rsaga r-cran-rgrass7
 
+## TODO:  Jupyter kernel install for R here ??  05jun17
 #Calls R script to do install with feedback to stdout
-mkdir -p /usr/local/share/jupyter/kernels
-R --no-save < ../app-conf/R/installRpackages.r
-mv /roots/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
+#mkdir -p /usr/local/share/jupyter/kernels
+#R --no-save < ../app-conf/R/installRpackages.r
+#mv /roots/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
 
 
 # add user to the staff group so that they can install system-wide packages
-adduser "$USER_NAME" staff
+#adduser "$USER_NAME" staff
 
 
 #Add Desktop shortcut
@@ -121,9 +109,9 @@ cp -a /usr/share/applications/r.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 
 #Remove build libraries
-apt-get --assume-yes remove libxml2-dev \
-   tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
-   libglu1-mesa-dev libsprng2-dev
+#apt-get --assume-yes remove libxml2-dev \
+#   tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
+#   libglu1-mesa-dev libsprng2-dev
 #libgdal-dev libnetcdf-dev libgeos-dev libproj-dev
 
 #cleanup leftovers
