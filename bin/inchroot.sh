@@ -192,7 +192,6 @@ export USER_NAME
 # ./install_ushahidi.sh
 
 ## more Python (GeoServer rdeps)
-# ./install_sahana.sh
 # ./install_geonode.sh
 
 ## Javascript et al
