@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2011-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -74,7 +74,7 @@ echo "SOS_OVERVIEW_URL: $SOS_OVERVIEW_URL"
 echo "SOS_VERSION: $SOS_VERSION"
 echo "PG_OPTIONS: $PG_OPTIONS"
 echo "PG_USER: $PG_USER"
-echo "PG_SCRIPT_NAME: $PG_SCRIPT_NAME" 
+echo "PG_SCRIPT_NAME: $PG_SCRIPT_NAME"
 echo "PG_DB_NAME: $PG_DB_NAME"
 echo "JAVA_PKG: $JAVA_PKG"
 #
@@ -203,9 +203,9 @@ mkdir -p -v "$SOS_WAR_INSTALL_FOLDER"
 # 3.1 check for webapp set-up
 #
 if (test ! -d "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME") then
-	mv -v "$TMP/$SOS_WEB_APP_NAME##$SOS_VERSION.war" "$SOS_WAR_INSTALL_FOLDER"/
+	mv -v "$TMP/$SOS_WEB_APP_NAME.war" "$SOS_WAR_INSTALL_FOLDER"/
  	chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
-	   "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME##$SOS_VERSION.war"
+	   "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war"
 	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION installed in tomcat webapps folder"
 else
 	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION already installed in tomcat"
