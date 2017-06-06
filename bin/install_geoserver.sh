@@ -87,7 +87,7 @@ sed -i -e "s/8080/$GS_PORT/g" "$GS_HOME"/start.ini
 ## Remove the pure-Java JAI and ImageIO jars bundled with GeoServer
 ## because they conflict with the native JAI and ImageIO
 ## installed at the system level by install_udig.sh
-rm -f "$GS_HOME"/webapps/geoserver/WEB-INF/lib/jai_*.jar
+#rm -f "$GS_HOME"/webapps/geoserver/WEB-INF/lib/jai_*.jar
 
 ## Add a script that will launch the browser after starting GS
 cat << EOF > "$GS_HOME/bin/start_admin.sh"

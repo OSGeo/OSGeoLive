@@ -220,23 +220,23 @@ chmod g+w -R EOxServer_documentation*
 chgrp users -R EOxServer_documentation*
 ln -sTf "$DOC_DIR" /var/www/html/eoxserver-docs
 
-# Add Documentation Launch icon to desktop
-if [ ! -e /usr/local/share/applications/eoxserver-docs.desktop ] ; then
-    cat << EOF > /usr/local/share/applications/eoxserver-docs.desktop
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=EOxServer Documentation
-Comment=EOxServer Documentation
-Categories=Application;Geography;Geoscience;Education;
-Exec=evince "$DOC_DIR/EOxServer_documentation.pdf"
-Icon=/usr/share/icons/eoxserver_60x60.logo.png
-Terminal=false
-StartupNotify=false
-EOF
-fi
-cp -a /usr/local/share/applications/eoxserver-docs.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/eoxserver-docs.desktop"
+# # Add Documentation Launch icon to desktop
+# if [ ! -e /usr/local/share/applications/eoxserver-docs.desktop ] ; then
+#     cat << EOF > /usr/local/share/applications/eoxserver-docs.desktop
+# [Desktop Entry]
+# Type=Application
+# Encoding=UTF-8
+# Name=EOxServer Documentation
+# Comment=EOxServer Documentation
+# Categories=Application;Geography;Geoscience;Education;
+# Exec=evince "$DOC_DIR/EOxServer_documentation.pdf"
+# Icon=/usr/share/icons/eoxserver_60x60.logo.png
+# Terminal=false
+# StartupNotify=false
+# EOF
+# fi
+# cp -a /usr/local/share/applications/eoxserver-docs.desktop "$USER_HOME/Desktop/"
+# chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/eoxserver-docs.desktop"
 
 
 # Reload Apache

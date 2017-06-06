@@ -65,7 +65,7 @@ SPATIAL_TOOLS="r geokettle jupyter-notebook* otb-*
 DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser shp2pgsql-gui"
 
 #Server apps part 3 (public good theme)
-RELIEF_APPS="sahana ushahidi"
+RELIEF_APPS="ushahidi"
 
 ################################################
 

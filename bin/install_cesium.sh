@@ -25,7 +25,7 @@ BIN_DIR=`pwd`
 BUILD_DIR='/tmp/build_cesium'
 WEB_DIR=cesium
 UNZIP_DIR="$BUILD_DIR/$WEB_DIR"
-CESIUM_VERSION="1.18"
+CESIUM_VERSION="1.34"
 ####
 
 if [ -z "$USER_NAME" ] ; then
@@ -62,7 +62,7 @@ chgrp www-data -R /var/www/html/"$WEB_DIR"
 chmod -R 755 /var/www/html/"$WEB_DIR"/Build
 
 echo "\nGenerating launcher..."
-cp /var/www/html/cesium/logo.png /usr/share/pixmaps/cesium.png
+cp /var/www/html/cesium/Build/Documentation/images/CesiumLogo.png /usr/share/pixmaps/cesium.png
 
 if [ ! -e /usr/share/applications/cesium.desktop ] ; then
    cat << EOF > /usr/share/applications/cesium.desktop
