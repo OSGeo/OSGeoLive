@@ -161,7 +161,7 @@ export USER_NAME
 ## Python stack
 # ./install_jupyter.sh
 ./install_mapproxy.sh
-# ./install_pycsw.sh
+./install_pycsw.sh
 # ./install_pywps.sh
 ./install_eoxserver.sh
 # ./install_iris.sh
@@ -196,15 +196,15 @@ export USER_NAME
 
 ## Javascript et al
 ./install_openlayers.sh
-# ./install_leaflet.sh
-# ./install_cesium.sh
+./install_leaflet.sh
+./install_cesium.sh
 # ./install_R.sh
 # ./install_rasdaman.sh
 
 ## Docs, Data and extras
 ./load_gisdata.sh
-# ./install_docs.sh "$BUILD_MODE"
-# ./install_edutools.sh
+./install_docs.sh "$BUILD_MODE"
+./install_edutools.sh
 
 ## Desktop and Housekeeping
 ./install_desktop.sh
