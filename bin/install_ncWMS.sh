@@ -130,11 +130,11 @@ fi
 mkdir -p -v "$TOMCAT_USER_HOME/.ncWMS"
 
 if [ ! -e "$TOMCAT_USER_HOME/.ncWMS/config.xml" ] ; then
-    cp -v ../app-conf/ncwms/config.xml "$TOMCAT_USER_HOME/.ncWMS2/config.xml"
-    chmod 644 "$TOMCAT_USER_HOME/.ncWMS2/config.xml"
+    cp -v ../app-conf/ncwms/config.xml "$TOMCAT_USER_HOME/.ncWMS/config.xml"
+    chmod 644 "$TOMCAT_USER_HOME/.ncWMS/config.xml"
 fi
 
-chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME "$TOMCAT_USER_HOME/.ncWMS2"
+chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME "$TOMCAT_USER_HOME/.ncWMS"
 
 # Create startup/shutdown scripts
 mkdir -p "$WMS_BIN_DIR"
@@ -148,7 +148,7 @@ if [ ! -e "$WMS_BIN_DIR/ncWMS-start.sh" ] ; then
     STAT=\`sudo service "$WMS_TOMCAT_SCRIPT_NAME" status | grep pid\`
     if [ -z "\$STAT" ] ; then
         sudo service "$WMS_TOMCAT_SCRIPT_NAME" start
-        (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") \
+        (sleep 5; echo "25"; sleep 5; echo "50"; sleep 5; echo "75"; sleep 5; echo "100") \
 	   | zenity --progress --auto-close --text "ncWMS starting"
     fi
     firefox "$WMS_URL/Godiva3.html" "$WMS_QUICKSTART_URL" "$WMS_OVERVIEW_URL"
