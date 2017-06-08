@@ -51,7 +51,6 @@ echo "USER_NAME: $USER_NAME"
 echo "USER_HOME: $USER_HOME"
 echo "TOMCAT_USER_NAME: $TOMCAT_USER_NAME"
 echo "WMS_WAR_INSTALL_DIR: $WMS_WAR_INSTALL_DIR"
-echo "WMS_TAR_URL: $WMS_TAR_URL"
 echo "WMS_WEB_APP_NAME: $WMS_WEB_APP_NAME"
 echo "WMS_TOMCAT_SCRIPT_NAME: $WMS_TOMCAT_SCRIPT_NAME"
 echo "WMS_ICON_NAME: $WMS_ICON_NAME"
@@ -95,7 +94,6 @@ fi
 
 # Create the TMP directory
 mkdir -p "$TMP"
-cd "$TMP"
 
 # Download tar.gz from sf.net server
 if [ -f "$WMS_WAR_NAME" ] ; then
@@ -105,7 +103,7 @@ else
 	### danger: if $TMP gets commented out above it becomes empty, then guess what happens...
 	rm -v -r "$TMP"/*
     fi
-    wget -N --progress=dot:mega "$WMS_TAR_URL$WMS_TAR_NAME"
+    wget -N --progress=dot:mega "$WMS_TAR_URL$WMS_WAR_NAME" -O "$TMP/$WMS_WAR_NAME"
 fi
 
 # Copy icon to the icons dir
