@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2017 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 #
 # This script is free software; you can redistribute it and/or modify it
@@ -41,7 +41,7 @@ cd "$TMP_DIR"
 mkdir /usr/local/share/osm
 
 apt-get install --assume-yes josm gpsd gpsd-clients \
-   merkaartor xmlstarlet imposm osmosis python-osmapi \
+   xmlstarlet imposm osmosis python-osmapi \
    osmctools osmium-tool nik4
 
 
@@ -76,12 +76,6 @@ echo "MimeType=application/x-openstreetmap+xml;" \
 echo '#!/usr/bin/env xdg-open' > "$USER_HOME"/Desktop/josm.desktop
 cat /usr/share/applications/josm.desktop >> "$USER_HOME"/Desktop/josm.desktop
 chmod a+x "$USER_HOME"/Desktop/josm.desktop
-
-cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
-
-# keep out of unrelated menus
-sed -i -e 's/Network;//' /usr/share/applications/merkaartor.desktop
-
 
 # add an icon for viewing The Map online
 mkdir -p /usr/local/share/applications

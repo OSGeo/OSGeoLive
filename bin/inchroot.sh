@@ -137,7 +137,7 @@ export USER_NAME
 ./install_postgis.sh
 ./install_spatialite.sh
 # ./install_osgearth.sh
-# ./install_osm.sh
+./install_osm.sh
 ./load_postgis.sh
 ./install_pgrouting.sh
 # ./install_ossim.sh
