@@ -127,14 +127,14 @@ fi
 
 # Copy the configuration file to the ncWMS config dir, creating it if necessary
 ###  ? does it really need to be hidden? makes it harder to maintain
-mkdir -p -v "$TOMCAT_USER_HOME/.ncWMS"
+mkdir -p -v "$TOMCAT_USER_HOME/.ncWMS2"
 
-if [ ! -e "$TOMCAT_USER_HOME/.ncWMS/config.xml" ] ; then
-    cp -v ../app-conf/ncwms/config.xml "$TOMCAT_USER_HOME/.ncWMS/config.xml"
-    chmod 644 "$TOMCAT_USER_HOME/.ncWMS/config.xml"
+if [ ! -e "$TOMCAT_USER_HOME/.ncWMS2/config.xml" ] ; then
+    cp -v ../app-conf/ncwms/config.xml "$TOMCAT_USER_HOME/.ncWMS2/config.xml"
+    chmod 644 "$TOMCAT_USER_HOME/.ncWMS2/config.xml"
 fi
 
-chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME "$TOMCAT_USER_HOME/.ncWMS"
+chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME "$TOMCAT_USER_HOME/.ncWMS2"
 
 # Create startup/shutdown scripts
 mkdir -p "$WMS_BIN_DIR"
