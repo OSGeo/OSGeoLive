@@ -114,5 +114,9 @@ cat << EOF > $USER_HOME/.jupyter/jupyter_notebook_config.json
 
 EOF
 
+chown -R user:user $USER_HOME/.jupyter
+#-------------------------------------
+
+
 ####
 ./diskspace_probe.sh "`basename $0`" end
