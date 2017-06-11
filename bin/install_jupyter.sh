@@ -99,5 +99,19 @@ cp -r /home/user/jupyter /etc/skel
 #jupyter nbextension enable --py --sys-prefix widgetsnbextension
 #jupyter nbextension enable --py --sys-prefix ipyleaflet
 
+
+## Jupyter password
+##  https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+##  password:  jupyter
+
+cat << EOF > $USER_HOME/.jupyter/jupyter_notebook_config.json
+{
+  "NotebookApp": {
+    "password": "sha1:800ea401e3b3:1d01f9739a6077930fd255f7a591c42cf6878cf4"
+  }
+}
+
+EOF
+
 ####
 ./diskspace_probe.sh "`basename $0`" end
