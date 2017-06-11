@@ -37,8 +37,8 @@ apt-get install --assume-yes python-folium \
 ##                    use pip to set versions prior to packaging
 ##
 
-apt-get install libpython2.7-dev
-apt-get install python-pip  python3-pip
+apt-get install -y libpython2.7-dev
+apt-get install -y python-pip  python3-pip
 pip install --upgrade pip
 pip install --upgrade setuptools
 
@@ -104,6 +104,7 @@ cp -r /home/user/jupyter /etc/skel
 ##  https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
 ##  password:  jupyter
 
+mkdir -p $USER_HOME/.jupyter
 cat << EOF > $USER_HOME/.jupyter/jupyter_notebook_config.json
 {
   "NotebookApp": {
