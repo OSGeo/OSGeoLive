@@ -142,7 +142,7 @@ export USER_NAME
 ./install_pgrouting.sh
 # ./install_ossim.sh
 ./install_mapserver.sh
-# ./install_tinyows.sh
+./install_tinyows.sh
 # ./install_gmt.sh
 # ./install_mb-system.sh
 ./install_mapnik.sh
@@ -152,7 +152,7 @@ export USER_NAME
 ./install_grass.sh
 ./install_qgis.sh
 ./install_qgis_server.sh
-# ./install_zoo-project.sh "$ARCH"
+./install_zoo-project.sh "$ARCH"
 ./install_marble.sh
 # ./install_opencpn.sh
 # ./install_viking.sh
@@ -179,7 +179,7 @@ export USER_NAME
 # ./install_gvsig.sh "$ARCH"
 # ./install_geokettle.sh
 # ./install_javaworldwind.sh
-# ./install_prune.sh
+./install_prune.sh
 
 ## Java + default tomcat
 ./install_52nWPS.sh
