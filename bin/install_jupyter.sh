@@ -37,8 +37,8 @@ apt-get install --assume-yes python-folium \
 ##                    use pip to set versions prior to packaging
 ##
 
-apt-get install libpython2.7-dev
-apt-get install python-pip  python3-pip
+apt-get install -y libpython2.7-dev
+apt-get install -y python-pip  python3-pip
 pip install --upgrade pip
 pip install --upgrade setuptools
 
@@ -113,6 +113,25 @@ cp -r /home/user/jupyter /etc/skel
 
 #jupyter nbextension enable --py --sys-prefix widgetsnbextension
 #jupyter nbextension enable --py --sys-prefix ipyleaflet
+
+
+## Jupyter password
+##  https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+##  password:  jupyter
+
+mkdir -p $USER_HOME/.jupyter
+cat << EOF > $USER_HOME/.jupyter/jupyter_notebook_config.json
+{
+  "NotebookApp": {
+    "password": "sha1:800ea401e3b3:1d01f9739a6077930fd255f7a591c42cf6878cf4"
+  }
+}
+
+EOF
+
+chown -R user:user $USER_HOME/.jupyter
+#-------------------------------------
+
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
