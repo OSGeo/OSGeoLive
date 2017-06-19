@@ -46,6 +46,21 @@ pip install notebook==5.0 ipython==5.4
 ## same for pip3, once this is tested with a full build
 ##
 ##  Jupyter 5 is now installed with default setup
+##
+
+##----------------------------------------
+##  widgets install  18jun17  epifanio dbb
+
+pip install ipywidgets
+jupyter nbextension enable --py --sys-prefix widgetsnbextension
+
+pip install ipyleaflet
+jupyter nbextension enable --py --sys-prefix ipyleaflet
+
+##  clean-up
+
+apt-get remove  libpython2.7-dev
+
 
 ##--------------------------------------------------------------------------
 #-- Jupyter ppa
