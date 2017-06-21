@@ -122,6 +122,7 @@ fi
 
 # install the deb package forcing the version
 echo "Installing gvSIG package"
+apt-get install --assume-yes --no-install-recommends openjfx
 dpkg -i "$GVSIG_PACKAGE"
 
 if [ $? -ne 0 ] ; then
