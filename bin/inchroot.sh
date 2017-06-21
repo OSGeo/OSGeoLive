@@ -156,7 +156,7 @@ export USER_NAME
 ./install_marble.sh
 ./install_opencpn.sh
 # ./install_viking.sh
-# ./install_zygrib.sh
+./install_zygrib.sh
 
 ## Python stack
 # ./install_jupyter.sh
@@ -198,7 +198,7 @@ export USER_NAME
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_cesium.sh
-# ./install_R.sh
+./install_R.sh
 ./install_rasdaman.sh
 
 ## Docs, Data and extras
