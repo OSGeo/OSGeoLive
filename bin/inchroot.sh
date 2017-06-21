@@ -147,7 +147,7 @@ export USER_NAME
 # ./install_mb-system.sh
 ./install_mapnik.sh
 ./install_otb.sh
-# ./install_liblas.sh
+./install_liblas.sh
 ./install_saga.sh
 ./install_grass.sh
 ./install_qgis.sh
