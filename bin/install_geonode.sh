@@ -181,7 +181,7 @@ chown -R www-data:www-data "$UPLOAD_PATH"
 
 # Install desktop icon
 echo "Installing geonode icon"
-cp -f "$USER_HOME/gisvm/app-conf/geonode/geonode.png" \
+cp -f "$BUILD_DIR/../app-conf/geonode/geonode.png" \
        /usr/share/icons/
 
 # Startup/Stop scripts set-up
@@ -326,7 +326,7 @@ a2ensite geonode
 #apt-get --assume-yes autoremove
 
 #FIXME: There should be a better way to do this...
-cp -f "$USER_HOME/gisvm/app-conf/geonode/rc.geonode" \
+cp -f "$BUILD_DIR/../app-conf/geonode/rc.geonode" \
        /etc
 chmod u+rx,go-rx /etc/rc.geonode
 cp /etc/init.d/rc.local /etc/init.d/rc.geonode

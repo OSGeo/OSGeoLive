@@ -192,7 +192,7 @@ export USER_NAME
 # ./install_ushahidi.sh
 
 ## more Python (GeoServer rdeps)
-# ./install_geonode.sh
+./install_geonode.sh
 
 ## Javascript et al
 ./install_openlayers.sh
