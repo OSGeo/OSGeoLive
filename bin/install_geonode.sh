@@ -111,6 +111,10 @@ sudo cp -f "$BUILD_DIR/../app-conf/geonode/local_settings.py.sample" \
     "$GEONODE_DIR/local_settings.py"
 sudo cp -f "$BUILD_DIR/../app-conf/geonode/sample_admin.json" \
     "$GEONODE_DIR/base/fixtures/sample_admin.json"
+sudo cp -f "$BUILD_DIR/../app-conf/geonode/default_oauth_apps.json" \
+    "$GEONODE_DIR/base/fixtures/default_oauth_apps.json"
+sudo cp -f "$BUILD_DIR/../app-conf/geonode/create_db_store.py" \
+    "$GEONODE_DIR/create_db_store.py"
 
 #Change GeoServer port in settings.py
 sed -i -e 's|http://localhost:8080/geoserver/|http://localhost:8082/geoserver/|' \
@@ -135,6 +139,9 @@ django-admin loaddata "$GEONODE_DIR/base/fixtures/initial_data.json" --settings=
 # Install sample admin. Username:admin password:admin
 django-admin loaddata "$GEONODE_DIR/base/fixtures/sample_admin.json" --settings=geonode.settings
 
+#TODO: Import oauth settings
+#django-admin loaddata "$GEONODE_DIR/base/fixtures/default_oauth_apps.json" --settings=geonode.settings
+
 # Collect static files
 django-admin collectstatic --noinput --settings=geonode.settings --verbosity=0
 echo "Done"
@@ -149,8 +156,8 @@ echo "Starting GeoServer to update layers in the geonode db"
 sleep 90;
 echo "Done"
 
-#TODO: python create_db_store.py
-#TODO: import oauth settings
+#TODO: Create GeoServer store
+#python "$GEONODE_DIR"/create_db_store.py
 
 # run updatelayers
 echo "Updating GeoNode layers..."
