@@ -154,7 +154,7 @@ export USER_NAME
 ./install_qgis_server.sh
 ./install_zoo-project.sh "$ARCH"
 ./install_marble.sh
-# ./install_opencpn.sh
+./install_opencpn.sh
 # ./install_viking.sh
 # ./install_zygrib.sh
 
@@ -176,7 +176,7 @@ export USER_NAME
 # ./install_kosmo.sh "$ARCH"
 # ./install_udig.sh "$ARCH"
 ./install_openjump.sh
-# ./install_gvsig.sh "$ARCH"
+./install_gvsig.sh "$ARCH"
 # ./install_geokettle.sh
 # ./install_javaworldwind.sh
 ./install_gpsprune.sh
