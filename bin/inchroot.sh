@@ -179,7 +179,7 @@ export USER_NAME
 # ./install_gvsig.sh "$ARCH"
 # ./install_geokettle.sh
 # ./install_javaworldwind.sh
-./install_prune.sh
+./install_gpsprune.sh
 
 ## Java + default tomcat
 ./install_52nWPS.sh
