@@ -55,9 +55,10 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 apt-get -q update
 
 #Plugin interaction with R
-apt-get --assume-yes install python-rpy python-shapely \
-    build-essential gfortran libblas-dev liblapack-dev  \
-    netcdf-bin libzmq3-dev
+apt-get --assume-yes install python-rpy \
+    gfortran netcdf-bin
+
+# build-essential libblas-dev liblapack-dev libzmq3-dev
 
 # These dependencies were only necessary for building packages which is now done in the ppa
 # apt-get --assume-yes install python-all-dev libgdal-dev \
@@ -90,9 +91,9 @@ apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
  r-cran-splancs r-cran-rgeos r-cran-ncdf4 r-cran-rsaga r-cran-rgrass7
 
 #Calls R script to do install with feedback to stdout
-mkdir -p /usr/local/share/jupyter/kernels
-R --no-save < ../app-conf/R/installRpackages.r
-mv /roots/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
+# mkdir -p /usr/local/share/jupyter/kernels
+# R --no-save < ../app-conf/R/installRpackages.r
+# mv /roots/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
 
 
 # add user to the staff group so that they can install system-wide packages
@@ -121,9 +122,9 @@ cp -a /usr/share/applications/r.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 
 #Remove build libraries
-apt-get --assume-yes remove libxml2-dev \
-   tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
-   libglu1-mesa-dev libsprng2-dev
+# apt-get --assume-yes remove libxml2-dev \
+#    tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
+#    libglu1-mesa-dev libsprng2-dev
 #libgdal-dev libnetcdf-dev libgeos-dev libproj-dev
 
 #cleanup leftovers
@@ -131,8 +132,8 @@ apt-get --assume-yes remove libxml2-dev \
 
 
 ## fix for broken PDFs, fixed in upstream SVN Aug 2011  (bug #769)
-mkdir /tmp/build_R
-cd /tmp/build_R
+# mkdir /tmp/build_R
+# cd /tmp/build_R
 # wget -N --progress=dot:mega \
 #    "http://download.osgeo.org/livedvd/data/R/spgrass6_pdf.zip"
 # unzip spgrass6_pdf.zip
