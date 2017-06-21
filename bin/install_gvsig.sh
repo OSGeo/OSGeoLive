@@ -82,7 +82,7 @@ if [ "$ARCH" = "i386" ] ; then
 fi
 
 if [ "$ARCH" = "amd64" ] ; then
-    GVSIG_PACKAGE="gvsig-desktop_2.2.0-2313-2_${ARCH}.deb"
+    GVSIG_PACKAGE="gvsig-desktop_2.3.1-2501-2-withoutjre_${ARCH}.deb"
 fi
 
 #GVSIG_PACKAGE="gvsig_2.1.0-2218_${ARCH}_BN2.deb"
@@ -157,8 +157,10 @@ chmod +x "$USER_HOME/Desktop/gvsig-desktop.desktop"
 # a shared library. Ideally this would use the debian version instead.
 # removing this file is an ugly fix - a cleaner way would be fixing this in de package.
 # removing this file saves 107Mb
-rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-2-${ARCH}/gvSIG/extensiones/org.gvsig.raster.gdal.app/gdal/bin/libgdal.a"
-rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-2-${ARCH}/gvSIG/extensiones/org.gvsig.raster.ermapper.app"
+rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-3-${ARCH}/gvSIG/extensiones/org.gvsig.raster.gdal.app/gdal/bin/libgdal.a"
+rm -rf "/usr/local/lib/gvsig-desktop/2.3.1-2501-2-${ARCH}/gvSIG/extensiones/org.gvsig.raster.gdal.app/gdal/bin/libgdal.a"
+rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-3-${ARCH}/gvSIG/extensiones/org.gvsig.raster.ermapper.app"
+rm -rf "/usr/local/lib/gvsig-desktop/2.3.1-2501-2-${ARCH}/gvSIG/extensiones/org.gvsig.raster.ermapper.app"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
