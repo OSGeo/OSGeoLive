@@ -138,7 +138,7 @@ rm /usr/share/applications/gvsig-desktop.desktop
 cat << EOF > /usr/share/applications/gvsig-desktop.desktop
 [Desktop Entry]
 Name=gvSIG desktop
-Version=2.2.0-2313
+Version=2.3.1-2501
 Exec=gvsig-desktop
 Comment=
 Icon=/usr/share/pixmaps/gvsig-desktop.png
@@ -159,9 +159,9 @@ chmod +x "$USER_HOME/Desktop/gvsig-desktop.desktop"
 # removing this file is an ugly fix - a cleaner way would be fixing this in de package.
 # removing this file saves 107Mb
 rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-3-${ARCH}/gvSIG/extensiones/org.gvsig.raster.gdal.app/gdal/bin/libgdal.a"
-rm -rf "/usr/local/lib/gvsig-desktop/2.3.1-2501-2-${ARCH}/gvSIG/extensiones/org.gvsig.raster.gdal.app/gdal/bin/libgdal.a"
+#rm -rf "/usr/local/lib/gvsig-desktop/2.3.1-2501-2-withoutjre-${ARCH}/gvSIG/extensiones/org.gvsig.gdal.app.mainplugin"
 rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-3-${ARCH}/gvSIG/extensiones/org.gvsig.raster.ermapper.app"
-rm -rf "/usr/local/lib/gvsig-desktop/2.3.1-2501-2-${ARCH}/gvSIG/extensiones/org.gvsig.raster.ermapper.app"
+rm -rf "/usr/local/lib/gvsig-desktop/2.3.1-2501-2-withoutjre-${ARCH}/gvSIG/extensiones/org.gvsig.raster.ermapper.app"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
