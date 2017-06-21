@@ -108,9 +108,9 @@ echo "Done"
 
 echo "Copying settings files"
 #Replace local_settings.py
-sudo cp -f "$USER_HOME/gisvm/app-conf/geonode/local_settings.py.sample" \
+sudo cp -f "$BUILD_DIR/../app-conf/geonode/local_settings.py.sample" \
     "$GEONODE_DIR/local_settings.py"
-sudo cp -f "$USER_HOME/gisvm/app-conf/geonode/sample_admin.json" \
+sudo cp -f "$BUILD_DIR/../app-conf/geonode/sample_admin.json" \
     "$GEONODE_DIR/base/fixtures/sample_admin.json"
 
 #Change GeoServer port in settings.py
@@ -127,8 +127,8 @@ mkdir -p "$UPLOAD_PATH"
 echo "Configuring GeoNode"
 # Create tables in the database
 django-admin makemigrations --noinput --settings=geonode.settings
-django-admin migrate --noinput --settings=geonode.settings
-django-admin syncdb --noinput --settings=geonode.settings
+sudo -u "$USER_NAME" django-admin migrate --noinput --settings=geonode.settings
+sudo -u "$USER_NAME" django-admin syncdb --noinput --settings=geonode.settings
 
 # Insert default data
 django-admin loaddata "$GEONODE_DIR/base/fixtures/initial_data.json" --settings=geonode.settings
