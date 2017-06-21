@@ -38,6 +38,11 @@ fi
 
 cp /usr/share/applications/gpsprune.desktop "$USER_HOME/Desktop/"
 
+echo 'Downloading demo data ...'
+mkdir -p /usr/local/share/data/vector/gpx
+wget -c --progress=dot:mega \
+    "http://download.osgeo.org/livedvd/data/gpsprune/test_trk2.gpx" \
+    -O /usr/local/share/data/vector/gpx/test_trk2.gpx
 
 ####
 ./diskspace_probe.sh "`basename $0`" end

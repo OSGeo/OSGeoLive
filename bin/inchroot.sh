@@ -137,22 +137,22 @@ export USER_NAME
 ./install_postgis.sh
 ./install_spatialite.sh
 # ./install_osgearth.sh
-# ./install_osm.sh
+./install_osm.sh
 ./load_postgis.sh
 ./install_pgrouting.sh
 # ./install_ossim.sh
 ./install_mapserver.sh
-# ./install_tinyows.sh
+./install_tinyows.sh
 # ./install_gmt.sh
 # ./install_mb-system.sh
 ./install_mapnik.sh
 ./install_otb.sh
-# ./install_liblas.sh
-# ./install_saga.sh
+./install_liblas.sh
+./install_saga.sh
 ./install_grass.sh
 ./install_qgis.sh
 ./install_qgis_server.sh
-# ./install_zoo-project.sh "$ARCH"
+./install_zoo-project.sh "$ARCH"
 ./install_marble.sh
 # ./install_opencpn.sh
 # ./install_viking.sh
@@ -161,7 +161,7 @@ export USER_NAME
 ## Python stack
 # ./install_jupyter.sh
 ./install_mapproxy.sh
-# ./install_pycsw.sh
+./install_pycsw.sh
 # ./install_pywps.sh
 ./install_eoxserver.sh
 # ./install_iris.sh
@@ -171,20 +171,20 @@ export USER_NAME
 ## Java stack
 ./install_geoserver.sh
 ./install_geonetwork.sh
-# ./install_deegree.sh
+./install_deegree.sh
 # ./install_geomajas.sh
 # ./install_kosmo.sh "$ARCH"
 # ./install_udig.sh "$ARCH"
-# ./install_openjump.sh
+./install_openjump.sh
 # ./install_gvsig.sh "$ARCH"
 # ./install_geokettle.sh
 # ./install_javaworldwind.sh
-# ./install_prune.sh
+./install_gpsprune.sh
 
 ## Java + default tomcat
 ./install_52nWPS.sh
 ./install_52nSOS.sh
-# ./install_ncWMS.sh
+./install_ncWMS.sh
 
 ## PHP stack
 ./install_mapbender3.sh
@@ -192,19 +192,19 @@ export USER_NAME
 # ./install_ushahidi.sh
 
 ## more Python (GeoServer rdeps)
-# ./install_geonode.sh
+./install_geonode.sh
 
 ## Javascript et al
 ./install_openlayers.sh
-# ./install_leaflet.sh
-# ./install_cesium.sh
+./install_leaflet.sh
+./install_cesium.sh
 # ./install_R.sh
-# ./install_rasdaman.sh
+./install_rasdaman.sh
 
 ## Docs, Data and extras
 ./load_gisdata.sh
-# ./install_docs.sh "$BUILD_MODE"
-# ./install_edutools.sh
+./install_docs.sh "$BUILD_MODE"
+./install_edutools.sh
 
 ## Desktop and Housekeeping
 ./install_desktop.sh

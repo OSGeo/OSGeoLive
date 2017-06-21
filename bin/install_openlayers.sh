@@ -32,10 +32,10 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_openlayers"
 
 OL2_VERSION="2.13.1" 
-OL2_DIR=/var/www/html/openlayers
+OL2_DIR=/var/www/html/ol2
 
-OL3_VERSION="3.13.1"
-OL3_DIR=/var/www/html/ol3
+OPENLAYERS_VERSION="4.1.1"
+OPENLAYERS_DIR=/var/www/html/openlayers
 
 #
 # Install OpenLayers 2
@@ -44,8 +44,8 @@ echo "\nCreating temporary directory $TMP_DIR..."
 mkdir -p "$TMP_DIR"
 echo "\nCreating OpenLayers2 directory $OL2_DIR..."
 mkdir -p "$OL2_DIR"
-echo "\nCreating OpenLayers3 directory $OL3_DIR..."
-mkdir -p "$OL3_DIR"
+echo "\nCreating OpenLayers directory $OPENLAYERS_DIR..."
+mkdir -p "$OPENLAYERS_DIR"
 
 echo "\nDownloading OpenLayers2..."
 cd "$TMP_DIR"
@@ -54,7 +54,7 @@ then
    echo "OpenLayers-$OL2_VERSION.tar.gz has already been downloaded."
 else
    wget -c --progress=dot:mega \
-      "http://github.com/openlayers/openlayers/releases/download/release-$OL2_VERSION/OpenLayers-$OL2_VERSION.tar.gz"
+      "http://github.com/openlayers/ol2/releases/download/release-$OL2_VERSION/OpenLayers-$OL2_VERSION.tar.gz"
 fi
 
 echo "\nInstalling OpenLayers2..."
@@ -71,52 +71,59 @@ rm -rf "OpenLayers-$OL2_VERSION"
 rm "OpenLayers-$OL2_VERSION.tar.gz"
 
 #
-# Install OpenLayers 3
+# Install OpenLayers
 #
-echo "\nInstalling OpenLayers3..."
+echo "\nInstalling OpenLayers..."
 
 cd "$TMP_DIR"
 
-OL3_ARCHIVE_FULL="v$OL3_VERSION.zip"
-if [ -f "$OL3_ARCHIVE_FULL" ]
+OPENLAYERS_ARCHIVE_FULL="v$OPENLAYERS_VERSION.zip"
+if [ -f "$OPENLAYERS_ARCHIVE_FULL" ]
 then
-   echo "OpenLayers $OL3_VERSION full version has already been downloaded. Skipping download."
+   echo "OpenLayers $OPENLAYERS_VERSION full version has already been downloaded. Skipping download."
 else
    wget -c --progress=dot:mega \
-      "https://github.com/openlayers/ol3/releases/download/v$OL3_VERSION/v$OL3_VERSION.zip"
-   echo "OpenLayers $OL3_VERSION full version download complete."
+      "https://github.com/openlayers/openlayers/releases/download/v$OPENLAYERS_VERSION/v$OPENLAYERS_VERSION.zip"
+   echo "OpenLayers $OPENLAYERS_VERSION full version download complete."
 fi
 
-OL3_ARCHIVE_DIST="v$OL3_VERSION-dist.zip"
-if [ -f "$OL3_ARCHIVE_DIST" ]
+OPENLAYERS_ARCHIVE_DIST="v$OPENLAYERS_VERSION-dist.zip"
+if [ -f "$OPENLAYERS_ARCHIVE_DIST" ]
 then
-   echo "OpenLayers $OL3_VERSION distribution version has already been downloaded. Skipping download."
+   echo "OpenLayers $OPENLAYERS_VERSION distribution version has already been downloaded. Skipping download."
 else
    wget -c --progress=dot:mega \
-      "https://github.com/openlayers/ol3/releases/download/v$OL3_VERSION/v$OL3_VERSION-dist.zip"
-   echo "OpenLayers $OL3_VERSION distribution version download complete."
+      "https://github.com/openlayers/openlayers/releases/download/v$OPENLAYERS_VERSION/v$OPENLAYERS_VERSION-dist.zip"
+   echo "OpenLayers $OPENLAYERS_VERSION distribution version download complete."
 fi
 
 #
 # Unzip 
 #
 echo "\nUnzipping archive..."
-unzip -qo $OL3_ARCHIVE_FULL
-unzip -qo $OL3_ARCHIVE_DIST
+unzip -qo $OPENLAYERS_ARCHIVE_FULL
+unzip -qo $OPENLAYERS_ARCHIVE_DIST
 echo "Unzipping done"
+
+#
+# Replace assets url and workshop url
+#
+sed -i 's/..\/..\/..\/assets/https:\/\/openlayers.org\/assets/g' v$OPENLAYERS_VERSION/doc/*.html
+sed -i 's/..\/..\/..\/..\/assets/https:\/\/openlayers.org\/assets/g' v$OPENLAYERS_VERSION/doc/**/*.html
+sed -i 's/\/workshop\//https:\/\/openlayers.org\/workshop\//g' v$OPENLAYERS_VERSION/doc/index.html
 
 #
 # Copy to www
 #
-echo "\nCopying files to $OL3_DIR"
-rsync -r v$OL3_VERSION/* $OL3_DIR
-rsync -r v$OL3_VERSION-dist/* $OL3_DIR/dist
+echo "\nCopying files to $OPENLAYERS_DIR"
+rsync -r v$OPENLAYERS_VERSION/* $OPENLAYERS_DIR
+rsync -r v$OPENLAYERS_VERSION-dist/* $OPENLAYERS_DIR/dist
 echo "Copying done"
 
 #
 # Generate index page
 #
-cd "$OL3_DIR"
+cd "$OPENLAYERS_DIR"
 
 echo "\nGenerating index file..."
 cat << EOF > "index.html"
@@ -126,12 +133,12 @@ cat << EOF > "index.html"
 <head>
 </head>
 <body>
-<h1>OpenLayers $OL3_VERSION</h1>
+<h1>OpenLayers $OPENLAYERS_VERSION</h1>
 <p>Welcome to OpenLayers index page:</p>
 <ul>
 <li><a href="apidoc/">API Docs</a>: explore the project documentation</li>
 <li><a href="examples/">Examples</a>: see the project in action</li>
-<li><a href="http://openlayers.org/">OpenLayers.org website</a></li>
+<li><a href="https://openlayers.org/">OpenLayers.org website</a></li>
 </ul>
 </body>
 </html>
@@ -143,7 +150,7 @@ echo "Index file generation done"
 # page and examples listing
 #
 echo "\nGenerating launcher..."
-cp "$OL3_DIR/apidoc/logo-70x70.png" /usr/share/pixmaps/openlayers.png
+cp "$OPENLAYERS_DIR/apidoc/logo-70x70.png" /usr/share/pixmaps/openlayers.png
 
 if [ ! -e /usr/share/applications/openlayers.desktop ] ; then
    cat << EOF > /usr/share/applications/openlayers.desktop
@@ -153,7 +160,7 @@ Encoding=UTF-8
 Name=OpenLayers
 Comment=Sample constructions
 Categories=Application;Internet;
-Exec=firefox http://localhost/ol3/ http://localhost/osgeolive/en/quickstart/openlayers_quickstart.html
+Exec=firefox http://localhost/openlayers/ http://localhost/osgeolive/en/quickstart/openlayers_quickstart.html
 Icon=openlayers
 Terminal=false
 StartupNotify=false
