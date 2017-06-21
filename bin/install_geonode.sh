@@ -41,8 +41,7 @@ STATIC_PATH="/var/www/geonode/static"
 UPLOAD_PATH="/var/www/geonode/uploaded"
 
 # Install packages
-#add-apt-repository -y ppa:geonode/osgeo
-add-apt-repository -y ppa:gcpp-kalxas/geonode
+add-apt-repository -y ppa:geonode/osgeo
 apt-get -q update
 
 apt-get install --assume-yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
@@ -136,10 +135,6 @@ django-admin loaddata "$GEONODE_DIR/base/fixtures/initial_data.json" --settings=
 # Install sample admin. Username:admin password:admin
 django-admin loaddata "$GEONODE_DIR/base/fixtures/sample_admin.json" --settings=geonode.settings
 
-# create a superuser (one from fixtures doesnt seem to work)
-# sudo -u "$USER_NAME" django-admin createsuperuser --username="$USER_NAME" \
-#     --email=user@osgeo.org --noinput --settings=geonode.settings
-
 # Collect static files
 django-admin collectstatic --noinput --settings=geonode.settings --verbosity=0
 echo "Done"
@@ -154,7 +149,8 @@ echo "Starting GeoServer to update layers in the geonode db"
 sleep 90;
 echo "Done"
 
-# python create_db_store.py
+#TODO: python create_db_store.py
+#TODO: import oauth settings
 
 # run updatelayers
 echo "Updating GeoNode layers..."
@@ -322,9 +318,6 @@ a2ensite geonode
 # Reload Apache
 /etc/init.d/apache2 force-reload
 
-# Uninstall dev packages
-#apt-get --assume-yes autoremove
-
 #FIXME: There should be a better way to do this...
 cp -f "$BUILD_DIR/../app-conf/geonode/rc.geonode" \
        /etc
@@ -334,9 +327,7 @@ sed -i -e 's/rc\.local/rc.geonode/' /etc/init.d/rc.geonode
 ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
 ###
 
-
-#apt-add-repository --yes --remove ppa:geonode/osgeo
-apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
+apt-add-repository --yes --remove ppa:geonode/osgeo
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
