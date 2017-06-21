@@ -30,18 +30,52 @@ BUILD_DIR=`pwd`
 apt-get install --assume-yes python-folium \
         python-pysal python-geocoder python-geoalchemy2
 
+
+##--------------------------------------------------------------------------
+##
+##  TODO:  05jun17   Jupyter 5 not yet packaged
+##                    use pip to set versions prior to packaging
+##
+
+apt-get install -y libpython2.7-dev
+apt-get install -y python-pip  python3-pip
+pip install --upgrade pip
+pip install --upgrade setuptools
+
+pip install notebook==5.0 ipython==5.4
+## same for pip3, once this is tested with a full build
+##
+##  Jupyter 5 is now installed with default setup
+##
+
+##----------------------------------------
+##  widgets install  18jun17  epifanio dbb
+
+pip install ipywidgets
+jupyter nbextension enable --py --sys-prefix widgetsnbextension
+
+pip install ipyleaflet
+jupyter nbextension enable --py --sys-prefix ipyleaflet
+
+##  clean-up
+
+apt-get remove  libpython2.7-dev
+
+
+##--------------------------------------------------------------------------
 #-- Jupyter ppa
-apt-add-repository --yes ppa:gcpp-kalxas/jupyter
-apt-get update
+#apt-add-repository --yes ppa:gcpp-kalxas/jupyter
+#apt-get update
 
 # From Jupyter 1.0.0 setup.py dependencies
-apt-get install --assume-yes python-notebook python-qtconsole \
-        python-jupyter-console python-nbconvert python-ipykernel \
-        python-ipywidgets python-widgetsnbextension python-ipython \
-        python-ipyleaflet python-terminado
+#apt-get install --assume-yes python-notebook python-qtconsole \
+#        python-jupyter-console python-nbconvert python-ipykernel \
+#        python-ipywidgets python-widgetsnbextension python-ipython \
+#        python-ipyleaflet python-terminado
 
 #-- Clean-up
-apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
+#apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
+##--------------------------------------------------------------------------
 
 # Get Jupyter logo
 cp "$BUILD_DIR"/../app-data/jupyter/jupyter.svg \
@@ -77,8 +111,27 @@ cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
 cp -r /home/user/jupyter /etc/skel
 
-jupyter nbextension enable --py --sys-prefix widgetsnbextension
-jupyter nbextension enable --py --sys-prefix ipyleaflet
+#jupyter nbextension enable --py --sys-prefix widgetsnbextension
+#jupyter nbextension enable --py --sys-prefix ipyleaflet
+
+
+## Jupyter password
+##  https://jupyter-notebook.readthedocs.io/en/stable/public_server.html
+##  password:  jupyter
+
+mkdir -p $USER_HOME/.jupyter
+cat << EOF > $USER_HOME/.jupyter/jupyter_notebook_config.json
+{
+  "NotebookApp": {
+    "password": "sha1:800ea401e3b3:1d01f9739a6077930fd255f7a591c42cf6878cf4"
+  }
+}
+
+EOF
+
+chown -R user:user $USER_HOME/.jupyter
+#-------------------------------------
+
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
