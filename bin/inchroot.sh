@@ -174,7 +174,7 @@ export USER_NAME
 ./install_deegree.sh
 ./install_geomajas.sh
 # ./install_kosmo.sh "$ARCH"
-# ./install_udig.sh "$ARCH"
+./install_udig.sh "$ARCH"
 ./install_openjump.sh
 ./install_gvsig.sh "$ARCH"
 # ./install_geokettle.sh
