@@ -159,7 +159,7 @@ export USER_NAME
 ./install_zygrib.sh
 
 ## Python stack
-# ./install_jupyter.sh
+./install_jupyter.sh
 ./install_mapproxy.sh
 ./install_pycsw.sh
 # ./install_pywps.sh
