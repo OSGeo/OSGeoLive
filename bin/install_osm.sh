@@ -102,7 +102,7 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 #########################################################################
 #### install sample OSM data
 CITY="Boston_MA"
-BBOX="-71.16528,42.31628,-70.99396,42.39493"
+BBOX="-71.10,42.31628,-70.995,42.39493"
 
 # visualize: (FIXME!)
 #http://www.openstreetmap.org/?box=yes&bbox=$BBOX
