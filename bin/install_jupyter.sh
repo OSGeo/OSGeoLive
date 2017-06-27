@@ -35,7 +35,9 @@ apt-add-repository --yes ppa:gcpp-kalxas/jupyter
 apt-get update
 
 # Install latest jupyter notebook
-apt-get install --assume-yes jupyter-notebook python-qtconsole \
+apt-get install --assume-yes \
+        jupyter-notebook jupyter-client jupyter-core jupyter-nbconvert \
+        python-qtconsole jupyter-qtconsole \
         python-ipywidgets python-ipyleaflet
 
 #-- Clean-up
