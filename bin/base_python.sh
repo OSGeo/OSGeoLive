@@ -56,7 +56,6 @@ python3-owslib \
 python3-geojson \
 python3-netcdf4 \
 python3-grib \
-python3-mpltoolkits.basemap \
 python3-matplotlib \
 python3-pandas \
 cython3 \
