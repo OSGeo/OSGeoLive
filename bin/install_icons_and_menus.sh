@@ -44,7 +44,7 @@ DESKTOP_APPS="grass72 qgis gvsig* openjump uDig ossimplanet *Kosmo*
 
 #Desktop apps part 2 (geodata viewers and editors)
 NAV_APPS="marble opencpn josm merkaartor osm_online
-          viking zygrib gpsprune nasa_jww"
+          viking zygrib gpsprune"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
