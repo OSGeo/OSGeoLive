@@ -136,7 +136,6 @@ export USER_NAME
 ## C stack
 ./install_postgis.sh
 ./install_spatialite.sh
-# ./install_osgearth.sh
 ./install_osm.sh
 ./load_postgis.sh
 ./install_pgrouting.sh
