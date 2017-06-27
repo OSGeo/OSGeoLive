@@ -154,7 +154,6 @@ export USER_NAME
 ./install_zoo-project.sh "$ARCH"
 ./install_marble.sh
 ./install_opencpn.sh
-# ./install_viking.sh
 ./install_zygrib.sh
 
 ## Python stack
