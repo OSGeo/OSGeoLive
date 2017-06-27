@@ -1,6 +1,29 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 11.0beta1
+====================
+
+ * GeoServer 2.10.4
+ * GeoNode 2.6.1
+ * EOxServer 0.4.0
+ * gpsprune 18.6
+ * Iris 1.13.0
+ * istsos 2.3.1
+ * Jupyter 4.2.0
+ * OpenCPN 4.6.1
+ * R 3.4.0
+ * uDig 2.0.0RC1
+ * Zygrib 7.0.0
+ * Django 1.8
+ * OSM featured city now Boston
+ * Geokettle retired
+ * JavaWorldWind retired
+ * Kosmo retired
+ * OSGEarth retired
+ * Ushahidi retired
+ * Viking retired
+
 Version 11.0alpha1
 ====================
 
