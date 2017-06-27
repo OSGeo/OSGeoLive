@@ -177,7 +177,6 @@ export USER_NAME
 ./install_udig.sh "$ARCH"
 ./install_openjump.sh
 ./install_gvsig.sh "$ARCH"
-# ./install_geokettle.sh
 # ./install_javaworldwind.sh
 ./install_gpsprune.sh
 

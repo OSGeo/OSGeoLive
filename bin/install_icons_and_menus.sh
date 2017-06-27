@@ -56,7 +56,7 @@ BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonod
 #disabled: i3geo MapFish-* cartaro-*
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="r geokettle jupyter-notebook* otb-*
+SPATIAL_TOOLS="r jupyter-notebook* otb-*
                mapslicer mapnik-* monteverdi* ossim-geocell"
 #disabled: imagelinker
 
