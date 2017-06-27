@@ -139,11 +139,11 @@ export USER_NAME
 ./install_osm.sh
 ./load_postgis.sh
 ./install_pgrouting.sh
-# ./install_ossim.sh
+./install_ossim.sh
 ./install_mapserver.sh
 ./install_tinyows.sh
-# ./install_gmt.sh
-# ./install_mb-system.sh
+./install_gmt.sh
+./install_mb-system.sh
 ./install_mapnik.sh
 ./install_otb.sh
 ./install_liblas.sh
@@ -160,11 +160,11 @@ export USER_NAME
 ./install_jupyter.sh
 ./install_mapproxy.sh
 ./install_pycsw.sh
-# ./install_pywps.sh
+./install_pywps.sh
 ./install_eoxserver.sh
-# ./install_iris.sh
-# ./install_istsos.sh
-# ./install_mapslicer.sh
+./install_iris.sh
+./install_istsos.sh
+./install_mapslicer.sh
 
 ## Java stack
 ./install_geoserver.sh
