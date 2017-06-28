@@ -78,8 +78,8 @@ cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
 cp -r /home/user/jupyter /etc/skel
 
-jupyter nbextension enable --py --sys-prefix widgetsnbextension
-jupyter nbextension enable --py --sys-prefix ipyleaflet
+#jupyter nbextension enable --py --sys-prefix widgetsnbextension
+#jupyter nbextension enable --py --sys-prefix ipyleaflet
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
