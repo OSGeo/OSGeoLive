@@ -83,6 +83,7 @@ chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/cesium.desktop"
 
 ## Cleanup
 echo "\nCleanup..."
+cd "$BIN_DIR"
 rm -rf "$BUILD_DIR"
 ## TODO are all the files in $UNZIP_DIR needed? The total size is 98MB, can we save a bit here?
 #rm -rf /var/www/html/cesium/Build
