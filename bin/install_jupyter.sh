@@ -38,7 +38,8 @@ apt-get update
 apt-get install --assume-yes \
         jupyter-notebook jupyter-client jupyter-core jupyter-nbconvert \
         python-qtconsole jupyter-qtconsole \
-        python-ipywidgets python-ipyleaflet
+        python-ipywidgets python-widgetsnbextension \
+        python-ipyleaflet
 
 #-- Clean-up
 apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
@@ -78,8 +79,8 @@ cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
 cp -r /home/user/jupyter /etc/skel
 
-#jupyter nbextension enable --py --sys-prefix widgetsnbextension
-#jupyter nbextension enable --py --sys-prefix ipyleaflet
+#jupyter-nbextension enable --py --sys-prefix widgetsnbextension
+#jupyter-nbextension enable --py --sys-prefix ipyleaflet
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
