@@ -116,7 +116,7 @@ else
    wget -c --progress=dot:mega "http://udig.refractions.net/files/downloads/$ZIP"
 fi
 # unpack to /usr/lib/udig
-unzip -q "$ZIP" -d "$INSTALL_FOLDER"
+unzip -q "$ZIP" -d "$UDIG_FOLDER"
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: expanding $ZIP"
