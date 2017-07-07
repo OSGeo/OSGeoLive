@@ -148,6 +148,14 @@ mkdir -p ${USER_HOME}/.local/share/cartopy/shapefiles
 mv natural_earth /home/user/.local/share/cartopy/shapefiles/
 chown --recursive ${USER_NAME}:${USER_NAME} /home/user/.local/share/cartopy
 
+## Live 11 -- Iris samples (42MB)
+cd "$TMP_DIR"
+mkdir -p  /usr/lib/python2.7/dist-packages/iris/sample_data
+wget -c http://download.osgeo.org/livedvd/data/iris/iris_sdata.tgz
+tar xf iris_sdata.tgz
+mv  usr/lib/python2.7/dist-packages/iris/sample_data/* /usr/lib/python2.7/dist-packages/iris/sample_data/
+
+#--  clean tmp files
 cd
 rm -rf "$TMP_DIR"
 
