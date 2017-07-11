@@ -30,6 +30,14 @@ USER_HOME="/home/$USER_NAME"
 
 apt-get --assume-yes install mbsystem mbsystem-doc mbsystem-data
 
+## per Ticket #1640
+##  mb-system loads after GMT in the install sequence
+echo '' >> /usr/share/gmt/conf/gmt.conf
+echo '##' >> /usr/share/gmt/conf/gmt.conf
+echo 'GMT_CUSTOM_LIBS = /usr/lib/libmbgmt.so.0' >> /usr/share/gmt/conf/gmt.conf
+echo '' >> /usr/share/gmt/conf/gmt.conf
+##--
+
 #### user config ####
 if [ `grep -c 'MB_PS_VIEWER=' "$USER_HOME/.bashrc"` -eq 0 ] ; then
    echo "export MB_PS_VIEWER=gv" >> "$USER_HOME/.bashrc"

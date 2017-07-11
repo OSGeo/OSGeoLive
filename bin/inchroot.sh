@@ -136,15 +136,14 @@ export USER_NAME
 ## C stack
 ./install_postgis.sh
 ./install_spatialite.sh
-# ./install_osgearth.sh
 ./install_osm.sh
 ./load_postgis.sh
 ./install_pgrouting.sh
-# ./install_ossim.sh
+./install_ossim.sh
 ./install_mapserver.sh
 ./install_tinyows.sh
-# ./install_gmt.sh
-# ./install_mb-system.sh
+./install_gmt.sh
+./install_mb-system.sh
 ./install_mapnik.sh
 ./install_otb.sh
 ./install_liblas.sh
@@ -155,30 +154,26 @@ export USER_NAME
 ./install_zoo-project.sh "$ARCH"
 ./install_marble.sh
 ./install_opencpn.sh
-# ./install_viking.sh
 ./install_zygrib.sh
 
 ## Python stack
 ./install_jupyter.sh
 ./install_mapproxy.sh
 ./install_pycsw.sh
-# ./install_pywps.sh
+./install_pywps.sh
 ./install_eoxserver.sh
-# ./install_iris.sh
-# ./install_istsos.sh
-# ./install_mapslicer.sh
+./install_iris.sh
+./install_istsos.sh
+./install_mapslicer.sh
 
 ## Java stack
 ./install_geoserver.sh
 ./install_geonetwork.sh
 ./install_deegree.sh
 ./install_geomajas.sh
-# ./install_kosmo.sh "$ARCH"
 ./install_udig.sh "$ARCH"
 ./install_openjump.sh
 ./install_gvsig.sh "$ARCH"
-# ./install_geokettle.sh
-# ./install_javaworldwind.sh
 ./install_gpsprune.sh
 
 ## Java + default tomcat
@@ -189,7 +184,6 @@ export USER_NAME
 ## PHP stack
 ./install_mapbender3.sh
 ./install_geomoose.sh
-# ./install_ushahidi.sh
 
 ## more Python (GeoServer rdeps)
 ./install_geonode.sh

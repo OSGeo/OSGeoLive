@@ -91,16 +91,15 @@ echo "JAVA_PKG: $JAVA_PKG"
 # It is required to download the 52North SOS package:
 #
 if [ ! -x "`which wget`" ] ; then
-   apt-get install wget
+    apt-get install wget
 fi
 #
 #
 # 2 Check for OpenJDK
 #
 if [ ! -x "`which java`" ] ; then
-	apt-get -q update
-	#
-	apt-get --assume-yes install $JAVA_PKG
+    apt-get -q update
+    apt-get --assume-yes install $JAVA_PKG
 fi
 #
 #
@@ -109,8 +108,8 @@ fi
 if [ -f "/etc/init.d/$TOMCAT_SCRIPT_NAME" ] ; then
    	echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
 else
-	echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME not found. Installing it..."
-	apt-get install --assume-yes "$TOMCAT_SCRIPT_NAME" "${TOMCAT_SCRIPT_NAME}-admin"
+    echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME not found. Installing it..."
+    apt-get install --assume-yes "$TOMCAT_SCRIPT_NAME" "${TOMCAT_SCRIPT_NAME}-admin"
 fi
 #
 #
@@ -155,8 +154,8 @@ echo "[$(date +%M:%S)]: $SOS_TAR_NAME extracted"
 # copy logo
 mkdir -p /usr/local/share/icons
 if [ ! -e "/usr/local/share/icons/$SOS_ICON_NAME" ] ; then
-   chmod 644 "$SOS_ICON_NAME"
-   mv -v "$SOS_ICON_NAME" /usr/local/share/icons/
+    chmod 644 "$SOS_ICON_NAME"
+    mv -v "$SOS_ICON_NAME" /usr/local/share/icons/
 fi
 #
 #
@@ -177,8 +176,8 @@ fi
 #
 SOS_DB_EXISTS="`su $PG_USER -c 'psql -l' | grep $PG_DB_NAME | wc -l`"
 if [ $SOS_DB_EXISTS -gt 0 ] ; then
-	echo "[$(date +%M:%S)]: SOS db $PG_DB_NAME exists -> drop it"
-	su $PG_USER -c "dropdb $PG_DB_NAME"
+    echo "[$(date +%M:%S)]: SOS db $PG_DB_NAME exists -> drop it"
+    su $PG_USER -c "dropdb $PG_DB_NAME"
 fi
 #
 echo "[$(date +%M:%S)]: Create SOS db"
@@ -197,19 +196,21 @@ su $PG_USER -c "PGOPTIONS='$PG_OPTIONS' psql -d $PG_DB_NAME -q -c 'VACUUM ANALYZ
 #
 # 3.0 check for tomcat webapps folder
 #
-mkdir -p -v "$SOS_WAR_INSTALL_FOLDER"
+if (test ! -d "$SOS_WAR_INSTALL_FOLDER") then
+    mkdir -p -v "$SOS_WAR_INSTALL_FOLDER"
+fi
 #
 #
 # 3.1 check for webapp set-up
 #
-if (test ! -d "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME") then
-	mv -v "$TMP/$SOS_WEB_APP_NAME.war" "$SOS_WAR_INSTALL_FOLDER"/
- 	chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
-	   "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war"
-	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION installed in tomcat webapps folder"
-else
-	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION already installed in tomcat"
+if (test -d "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME") then
+    echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION already installed in tomcat. Removing..."
+    rm -rv "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME"
 fi
+mv -v "$TMP/$SOS_WEB_APP_NAME.war" "$SOS_WAR_INSTALL_FOLDER"/
+chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
+    "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war"
+echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION installed in tomcat webapps folder"
 #
 #
 #
@@ -219,7 +220,7 @@ mkdir -p "$SOS_BIN_FOLDER"
 chgrp users "$SOS_BIN_FOLDER"
 
 if [ ! -e $SOS_BIN_FOLDER/52nSOS-start.sh ] ; then
-   cat << EOF > $SOS_BIN_FOLDER/52nSOS-start.sh
+    cat << EOF > $SOS_BIN_FOLDER/52nSOS-start.sh
 #!/bin/bash
 (sleep 5; echo "25"; sleep 5; echo "50"; sleep 5; echo "75"; sleep 5; echo "100") | zenity --progress --auto-close --text "52North SOS starting"&
 POSTGRES=\`sudo service $PG_SCRIPT_NAME status | grep online | wc -l\`
@@ -257,7 +258,7 @@ mkdir -p -v "$USER_HOME/Desktop"
 # Relies on launchassist in home dir
 mkdir -p /usr/local/share/applications
 if [ ! -e /usr/local/share/applications/52nSOS-start.desktop ] ; then
-   cat << EOF > /usr/local/share/applications/52nSOS-start.desktop
+    cat << EOF > /usr/local/share/applications/52nSOS-start.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -275,7 +276,7 @@ cp -v /usr/local/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
 #
 if [ ! -e /usr/local/share/applications/52nSOS-stop.desktop ] ; then
-   cat << EOF > /usr/local/share/applications/52nSOS-stop.desktop
+    cat << EOF > /usr/local/share/applications/52nSOS-stop.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
