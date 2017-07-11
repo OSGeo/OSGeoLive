@@ -129,6 +129,9 @@ BBOX="-71.10,42.31628,-70.995,42.39493"
 wget -N --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/osm/$CITY/$CITY.osm.bz2"
 
+wget -c --tries=3 --progress=dot:mega \
+   -O /usr/local/share/osm/sample.osm \
+   "http://learnosm.org/files/sample.osm"
 
 #download as part of disc build process
 # Downloading from the osmxapi takes me about 6 minutes and is around 20MB.
