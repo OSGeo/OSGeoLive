@@ -29,7 +29,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 
-PACKAGES="gmt gmt-gshhs-low \
+PACKAGES="gmt gmt-gshhs-low gmt-tutorial \
    gmt-examples gv"
 
 # pkg not installed to save disc space:
