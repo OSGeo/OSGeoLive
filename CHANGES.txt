@@ -1,6 +1,18 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 11.0rc1
+====================
+
+ * Cesium 1.35
+ * Retired MB-System
+ * Retired PyWPS
+ * New artwork for 11.0
+ * Patched gmt.conf (#1640)
+ * OSSIM planet files added
+ * Fixed Cesium error (#1954)
+ * Fixed uDig install folder (#1953)
+
 Version 11.0beta1
 ====================
 
