@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2011-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -12,7 +12,7 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-# Version: 2017-01-26
+# Version: 2017-06-02
 # Author: e.h.juerrens@52north.org
 #
 # About:
@@ -46,9 +46,9 @@ SOS_OVERVIEW_URL="http://localhost/osgeolive/en/overview/52nSOS_overview.html"
 SOS_WAR_INSTALL_FOLDER="/var/lib/$TOMCAT_SCRIPT_NAME/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
 SOS_BIN_FOLDER="/usr/local/share/52nSOS"
-SOS_TAR_NAME="52n-sos-osgeo-live-10.5.tar.gz"
+SOS_TAR_NAME="52n-sos-osgeo-live-11.0.tar.gz"
 SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
-SOS_VERSION="4.3.9"
+SOS_VERSION="4.4.0"
 PG_OPTIONS='--client-min-messages=warning'
 PG_USER="postgres"
 PG_SCRIPT_NAME="postgresql"
@@ -74,7 +74,7 @@ echo "SOS_OVERVIEW_URL: $SOS_OVERVIEW_URL"
 echo "SOS_VERSION: $SOS_VERSION"
 echo "PG_OPTIONS: $PG_OPTIONS"
 echo "PG_USER: $PG_USER"
-echo "PG_SCRIPT_NAME: $PG_SCRIPT_NAME" 
+echo "PG_SCRIPT_NAME: $PG_SCRIPT_NAME"
 echo "PG_DB_NAME: $PG_DB_NAME"
 echo "JAVA_PKG: $JAVA_PKG"
 #
@@ -91,16 +91,15 @@ echo "JAVA_PKG: $JAVA_PKG"
 # It is required to download the 52North SOS package:
 #
 if [ ! -x "`which wget`" ] ; then
-   apt-get install wget
+    apt-get install wget
 fi
 #
 #
 # 2 Check for OpenJDK
 #
 if [ ! -x "`which java`" ] ; then
-	apt-get -q update
-	#
-	apt-get --assume-yes install $JAVA_PKG
+    apt-get -q update
+    apt-get --assume-yes install $JAVA_PKG
 fi
 #
 #
@@ -109,8 +108,8 @@ fi
 if [ -f "/etc/init.d/$TOMCAT_SCRIPT_NAME" ] ; then
    	echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
 else
-	echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME not found. Installing it..."
-	apt-get install --assume-yes "$TOMCAT_SCRIPT_NAME" "${TOMCAT_SCRIPT_NAME}-admin"
+    echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME not found. Installing it..."
+    apt-get install --assume-yes "$TOMCAT_SCRIPT_NAME" "${TOMCAT_SCRIPT_NAME}-admin"
 fi
 #
 #
@@ -155,8 +154,8 @@ echo "[$(date +%M:%S)]: $SOS_TAR_NAME extracted"
 # copy logo
 mkdir -p /usr/local/share/icons
 if [ ! -e "/usr/local/share/icons/$SOS_ICON_NAME" ] ; then
-   chmod 644 "$SOS_ICON_NAME"
-   mv -v "$SOS_ICON_NAME" /usr/local/share/icons/
+    chmod 644 "$SOS_ICON_NAME"
+    mv -v "$SOS_ICON_NAME" /usr/local/share/icons/
 fi
 #
 #
@@ -177,8 +176,8 @@ fi
 #
 SOS_DB_EXISTS="`su $PG_USER -c 'psql -l' | grep $PG_DB_NAME | wc -l`"
 if [ $SOS_DB_EXISTS -gt 0 ] ; then
-	echo "[$(date +%M:%S)]: SOS db $PG_DB_NAME exists -> drop it"
-	su $PG_USER -c "dropdb $PG_DB_NAME"
+    echo "[$(date +%M:%S)]: SOS db $PG_DB_NAME exists -> drop it"
+    su $PG_USER -c "dropdb $PG_DB_NAME"
 fi
 #
 echo "[$(date +%M:%S)]: Create SOS db"
@@ -197,19 +196,21 @@ su $PG_USER -c "PGOPTIONS='$PG_OPTIONS' psql -d $PG_DB_NAME -q -c 'VACUUM ANALYZ
 #
 # 3.0 check for tomcat webapps folder
 #
-mkdir -p -v "$SOS_WAR_INSTALL_FOLDER"
+if (test ! -d "$SOS_WAR_INSTALL_FOLDER") then
+    mkdir -p -v "$SOS_WAR_INSTALL_FOLDER"
+fi
 #
 #
 # 3.1 check for webapp set-up
 #
-if (test ! -d "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME") then
-	mv -v "$TMP/$SOS_WEB_APP_NAME##$SOS_VERSION.war" "$SOS_WAR_INSTALL_FOLDER"/
- 	chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
-	   "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME##$SOS_VERSION.war"
-	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION installed in tomcat webapps folder"
-else
-	echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION already installed in tomcat"
+if (test -d "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME") then
+    echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION already installed in tomcat. Removing..."
+    rm -rv "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME"
 fi
+mv -v "$TMP/$SOS_WEB_APP_NAME.war" "$SOS_WAR_INSTALL_FOLDER"/
+chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME \
+    "$SOS_WAR_INSTALL_FOLDER/$SOS_WEB_APP_NAME.war"
+echo "[$(date +%M:%S)]: $SOS_WEB_APP_NAME $SOS_VERSION installed in tomcat webapps folder"
 #
 #
 #
@@ -219,7 +220,7 @@ mkdir -p "$SOS_BIN_FOLDER"
 chgrp users "$SOS_BIN_FOLDER"
 
 if [ ! -e $SOS_BIN_FOLDER/52nSOS-start.sh ] ; then
-   cat << EOF > $SOS_BIN_FOLDER/52nSOS-start.sh
+    cat << EOF > $SOS_BIN_FOLDER/52nSOS-start.sh
 #!/bin/bash
 (sleep 5; echo "25"; sleep 5; echo "50"; sleep 5; echo "75"; sleep 5; echo "100") | zenity --progress --auto-close --text "52North SOS starting"&
 POSTGRES=\`sudo service $PG_SCRIPT_NAME status | grep online | wc -l\`
@@ -257,7 +258,7 @@ mkdir -p -v "$USER_HOME/Desktop"
 # Relies on launchassist in home dir
 mkdir -p /usr/local/share/applications
 if [ ! -e /usr/local/share/applications/52nSOS-start.desktop ] ; then
-   cat << EOF > /usr/local/share/applications/52nSOS-start.desktop
+    cat << EOF > /usr/local/share/applications/52nSOS-start.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -275,7 +276,7 @@ cp -v /usr/local/share/applications/52nSOS-start.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nSOS-start.desktop"
 #
 if [ ! -e /usr/local/share/applications/52nSOS-stop.desktop ] ; then
-   cat << EOF > /usr/local/share/applications/52nSOS-stop.desktop
+    cat << EOF > /usr/local/share/applications/52nSOS-stop.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8

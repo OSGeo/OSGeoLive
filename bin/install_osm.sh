@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2017 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 #
 # This script is free software; you can redistribute it and/or modify it
@@ -41,7 +41,7 @@ cd "$TMP_DIR"
 mkdir /usr/local/share/osm
 
 apt-get install --assume-yes josm gpsd gpsd-clients \
-   merkaartor xmlstarlet imposm osmosis python-osmapi \
+   xmlstarlet imposm osmosis python-osmapi \
    osmctools osmium-tool nik4
 
 
@@ -77,17 +77,11 @@ echo '#!/usr/bin/env xdg-open' > "$USER_HOME"/Desktop/josm.desktop
 cat /usr/share/applications/josm.desktop >> "$USER_HOME"/Desktop/josm.desktop
 chmod a+x "$USER_HOME"/Desktop/josm.desktop
 
-cp /usr/share/applications/merkaartor.desktop "$USER_HOME/Desktop/"
-
-# keep out of unrelated menus
-sed -i -e 's/Network;//' /usr/share/applications/merkaartor.desktop
-
-
 # add an icon for viewing The Map online
 mkdir -p /usr/local/share/applications
 
-MAP_CENTER="lat=50.72&lon=7.1"
-MARKER="mlat=50.72&mlon=7.1"
+MAP_CENTER="lat=42.3743935&lon=-71.1184512"
+MARKER="mlat=42.3743935&mlon=-71.1184512"
 ZOOM="16"
 
 cat << EOF > /usr/local/share/applications/osm_online.desktop
@@ -107,8 +101,8 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
 #########################################################################
 #### install sample OSM data
-CITY="BONN_DE"
-BBOX="7.097,50.6999,7.1778,50.7721"
+CITY="Boston_MA"
+BBOX="-71.10,42.31628,-70.995,42.39493"
 
 # visualize: (FIXME!)
 #http://www.openstreetmap.org/?box=yes&bbox=$BBOX
@@ -135,6 +129,9 @@ BBOX="7.097,50.6999,7.1778,50.7721"
 wget -N --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/osm/$CITY/$CITY.osm.bz2"
 
+wget -c --tries=3 --progress=dot:mega \
+   -O /usr/local/share/osm/sample.osm \
+   "http://learnosm.org/files/sample.osm"
 
 #download as part of disc build process
 # Downloading from the osmxapi takes me about 6 minutes and is around 20MB.

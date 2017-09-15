@@ -31,33 +31,26 @@ USER_HOME="/home/$USER_NAME"
 DATA_DIR="/usr/local/share/geonode"
 DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/sites-available/geonode.conf"
-GEONODE_DB="geonode"
-GEOSERVER_VERSION="2.10.1"
+GEONODE_DB="geonode_app"
+GEONODE_STORE="geonode_data"
+GEOSERVER_VERSION="2.10.4"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 GEONODE_DIR="/usr/lib/python2.7/dist-packages/geonode"
+STATIC_PATH="/var/www/geonode/static"
+UPLOAD_PATH="/var/www/geonode/uploaded"
 
 # Install packages
 add-apt-repository -y ppa:geonode/osgeo
 apt-get -q update
 
-# Install specific versions of packages available in GeoNode ppa
-apt-get --assume-yes install python-django-downloadview=1.2-1~xenial0 \
-    python-django-guardian=1.2.0-1~xenial0 \
-    python-django-polymorphic=0.5.6-1~xenial0 \
-    python-django-mptt=0.6.0-1~xenial0
-
-apt-get --assume-yes install python-geonode libapache2-mod-wsgi curl
-apt-mark hold python-geonode
+apt-get install --assume-yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
+#apt-mark hold python-geonode
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
     exit 1
 fi
-
-# MapQuest issue fix: replacing settings.py
-#FIXME with sed in future versions if needed.
-cp "$BUILD_DIR"/../app-conf/geonode/settings.py "$GEONODE_DIR/settings.py"
 
 # Add an entry in /etc/hosts for geonode, to enable http://geonode/
 echo '127.0.0.1 geonode' | sudo tee -a /etc/hosts
@@ -86,8 +79,8 @@ WSGIDaemonProcess geonode user=www-data threads=10 processes=1
         Require all granted
     </Directory>
 
-    Alias /static/ /usr/lib/python2.7/dist-packages/geonode/static/
-    Alias /uploaded/ /usr/lib/python2.7/dist-packages/geonode/uploaded/
+    Alias /static/ /var/www/geonode/static/
+    Alias /uploaded/ /var/www/geonode/uploaded/
 
     <Proxy *>
       Order allow,deny
@@ -101,40 +94,27 @@ WSGIDaemonProcess geonode user=www-data threads=10 processes=1
 EOF
 echo "Done"
 
-
-#FIXME: The default configuration in apache does not have a ServerName for localhost
-# and takes over requests for GeoNode's virtualhost, the following patch is a workaround:
-TMP_DIR=/tmp/build_geonode
-mkdir -p "$TMP_DIR"
-
-cat << EOF > "$TMP_DIR/servername.patch"
---- 000-default.conf.ORIG	2014-08-01 20:22:44.651088110 +0000
-+++ 000-default.conf	2014-08-01 20:23:32.211086359 +0000
-@@ -9,6 +9,8 @@
- 	#ServerName www.example.com
- 
- 	ServerAdmin webmaster@localhost
-+	ServerName localhost
-+	ServerAlias osgeolive
- 	DocumentRoot /var/www/html
- 
- 	# Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
-EOF
-
-if [ `grep -c 'ServerName' /etc/apache2/sites-available/000-default.conf` -eq 0 ] ; then
-   patch -p0 < "$TMP_DIR/servername.patch"
-fi
-
-#Create database
+#Create databases
 echo "create $GEONODE_DB database with PostGIS"
 sudo -u "$USER_NAME" createdb -E UTF8 "$GEONODE_DB"
 sudo -u "$USER_NAME" psql "$GEONODE_DB" -c 'CREATE EXTENSION postgis;'
 echo "Done"
 
-echo "patching settings files"
+echo "create $GEONODE_STORE database with PostGIS"
+sudo -u "$USER_NAME" createdb -E UTF8 "$GEONODE_STORE"
+sudo -u "$USER_NAME" psql "$GEONODE_STORE" -c 'CREATE EXTENSION postgis;'
+echo "Done"
+
+echo "Copying settings files"
 #Replace local_settings.py
-sudo cp -f "$USER_HOME/gisvm/app-conf/geonode/local_settings.py.sample" \
+sudo cp -f "$BUILD_DIR/../app-conf/geonode/local_settings.py.sample" \
     "$GEONODE_DIR/local_settings.py"
+sudo cp -f "$BUILD_DIR/../app-conf/geonode/sample_admin.json" \
+    "$GEONODE_DIR/base/fixtures/sample_admin.json"
+sudo cp -f "$BUILD_DIR/../app-conf/geonode/default_oauth_apps.json" \
+    "$GEONODE_DIR/base/fixtures/default_oauth_apps.json"
+sudo cp -f "$BUILD_DIR/../app-conf/geonode/create_db_store.py" \
+    "$GEONODE_DIR/create_db_store.py"
 
 #Change GeoServer port in settings.py
 sed -i -e 's|http://localhost:8080/geoserver/|http://localhost:8082/geoserver/|' \
@@ -143,19 +123,24 @@ sed -i -e 's|http://localhost:8000/|http://geonode/|' \
     "$GEONODE_DIR/settings.py"
 echo "Done"
 
-# make the uploaded dir
-mkdir -p "$GEONODE_DIR/uploaded"
+# make the static & upload dir
+mkdir -p "$STATIC_PATH"
+mkdir -p "$UPLOAD_PATH"
 
 echo "Configuring GeoNode"
 # Create tables in the database
+django-admin makemigrations --noinput --settings=geonode.settings
+sudo -u "$USER_NAME" django-admin migrate --noinput --settings=geonode.settings
 sudo -u "$USER_NAME" django-admin syncdb --noinput --settings=geonode.settings
 
-# create a superuser (one from fixtures doesnt seem to work)
-sudo -u "$USER_NAME" django-admin createsuperuser --username="$USER_NAME" \
-    --email=user@osgeo.org --noinput --settings=geonode.settings
+# Insert default data
+django-admin loaddata "$GEONODE_DIR/base/fixtures/initial_data.json" --settings=geonode.settings
 
 # Install sample admin. Username:admin password:admin
-sudo -u "$USER_NAME" django-admin loaddata sample_admin --settings=geonode.settings
+django-admin loaddata "$GEONODE_DIR/base/fixtures/sample_admin.json" --settings=geonode.settings
+
+#TODO: Import oauth settings
+#django-admin loaddata "$GEONODE_DIR/base/fixtures/default_oauth_apps.json" --settings=geonode.settings
 
 # Collect static files
 django-admin collectstatic --noinput --settings=geonode.settings --verbosity=0
@@ -170,6 +155,9 @@ echo "Starting GeoServer to update layers in the geonode db"
 "$GEOSERVER_PATH"/bin/startup.sh &> /dev/null &
 sleep 90;
 echo "Done"
+
+#TODO: Create GeoServer store
+#python "$GEONODE_DIR"/create_db_store.py
 
 # run updatelayers
 echo "Updating GeoNode layers..."
@@ -191,11 +179,12 @@ chgrp -R users "$GEOSERVER_PATH/data_dir"
 chgrp -R users "$GEOSERVER_PATH/logs"
 
 # Make the apache user the owner of the required dirs.
-chown -R www-data:www-data /usr/lib/python2.7/dist-packages/geonode/
+chown -R www-data:www-data "$STATIC_PATH"
+chown -R www-data:www-data "$UPLOAD_PATH"
 
 # Install desktop icon
 echo "Installing geonode icon"
-cp -f "$USER_HOME/gisvm/app-conf/geonode/geonode.png" \
+cp -f "$BUILD_DIR/../app-conf/geonode/geonode.png" \
        /usr/share/icons/
 
 # Startup/Stop scripts set-up
@@ -294,63 +283,56 @@ fi
 cp /usr/local/share/applications/geonode-stop.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/geonode-stop.desktop"
 
-# geonode Documentation
-echo "Getting geonode documentation"
-[ -d "$DOC_DIR" ] || mkdir -p "$DOC_DIR"
+# # geonode Documentation
+# echo "Getting geonode documentation"
+# [ -d "$DOC_DIR" ] || mkdir -p "$DOC_DIR"
 
-cd "$DOC_DIR"
-chmod g+w .
-chgrp users .
+# cd "$DOC_DIR"
+# chmod g+w .
+# chgrp users .
 
-wget -c --progress=dot:mega \
-    "https://media.readthedocs.org/pdf/geonode/latest/geonode.pdf" \
-    -O geonode_documentation-latest.pdf
+# wget -c --progress=dot:mega \
+#     "https://media.readthedocs.org/pdf/geonode/latest/geonode.pdf" \
+#     -O geonode_documentation-latest.pdf
 
-ln -sf geonode_documentation-latest.pdf geonode_documentation.pdf
-chmod g+w -R geonode_documentation*
-chgrp users -R geonode_documentation*
-ln -sTf "$DOC_DIR" /var/www/html/geonode-docs
+# ln -sf geonode_documentation-latest.pdf geonode_documentation.pdf
+# chmod g+w -R geonode_documentation*
+# chgrp users -R geonode_documentation*
+# ln -sTf "$DOC_DIR" /var/www/html/geonode-docs
 
-# Add Documentation Launch icon to desktop
-if [ ! -e /usr/local/share/applications/geonode-docs.desktop ] ; then
-    cat << EOF > /usr/local/share/applications/geonode-docs.desktop
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=GeoNode Documentation
-Comment=GeoNode Documentation
-Categories=Application;Geography;Geoscience;Education;
-Exec=evince "$DOC_DIR/geonode_documentation.pdf"
-Icon=/usr/share/icons/geonode.png
-Terminal=false
-StartupNotify=false
-EOF
-fi
-cp -a /usr/local/share/applications/geonode-docs.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geonode-docs.desktop"
+# # Add Documentation Launch icon to desktop
+# if [ ! -e /usr/local/share/applications/geonode-docs.desktop ] ; then
+#     cat << EOF > /usr/local/share/applications/geonode-docs.desktop
+# [Desktop Entry]
+# Type=Application
+# Encoding=UTF-8
+# Name=GeoNode Documentation
+# Comment=GeoNode Documentation
+# Categories=Application;Geography;Geoscience;Education;
+# Exec=evince "$DOC_DIR/geonode_documentation.pdf"
+# Icon=/usr/share/icons/geonode.png
+# Terminal=false
+# StartupNotify=false
+# EOF
+# fi
+# cp -a /usr/local/share/applications/geonode-docs.desktop "$USER_HOME/Desktop/"
+# chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geonode-docs.desktop"
 
 #Enable GeoNode and reload apache
+a2enmod proxy
 a2ensite geonode
-
-# change apache entry to static_root
-sed -i -e 's|Alias /static/ /usr/lib/python2.7/dist-packages/geonode/static|Alias /static/ /usr/lib/python2.7/dist-packages/geonode/static_root|' \
-    "$APACHE_CONF"
 
 # Reload Apache
 /etc/init.d/apache2 force-reload
 
-# Uninstall dev packages
-apt-get --assume-yes autoremove
-
 #FIXME: There should be a better way to do this...
-cp -f "$USER_HOME/gisvm/app-conf/geonode/rc.geonode" \
+cp -f "$BUILD_DIR/../app-conf/geonode/rc.geonode" \
        /etc
 chmod u+rx,go-rx /etc/rc.geonode
 cp /etc/init.d/rc.local /etc/init.d/rc.geonode
 sed -i -e 's/rc\.local/rc.geonode/' /etc/init.d/rc.geonode
 ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
 ###
-
 
 apt-add-repository --yes --remove ppa:geonode/osgeo
 

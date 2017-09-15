@@ -36,7 +36,7 @@ mkdir -p /tmp/build-geomoose
 cd /tmp/build-geomoose
 
 ## Download and extract GeoMOOSE 2.9.3
-wget -c --tries=3 --progress=dot:mega \
+wget -c --tries=3 --progress=dot:mega --no-check-certificate \
    "http://www.geomoose.org/downloads/geomoose-2.9.3.tar.gz"
 #wget -c --tries=3 --progress=dot:mega \
 #   "http://download.osgeo.org/livedvd/data/geomoose/geomoose-2.9.0.tar.gz"

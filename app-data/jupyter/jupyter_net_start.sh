@@ -28,7 +28,7 @@ export GRASS_PNG_AUTO_WRITE=TRUE
 
 export OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference
 
-jupyter notebook --port=8883 --no-browser \
+jupyter-notebook --port=8883 --no-browser \
    --notebook-dir="$USER_HOME/jupyter/notebooks" \
    --ip='*'
 

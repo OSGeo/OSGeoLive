@@ -61,6 +61,9 @@ sed -i -e 's|^wallpaper_mode=.*|wallpaper_mode=stretch|' \
        -e 's|^desktop_shadow=.*|desktop_shadow=#A09A8F|' \
    /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
+## Desktop shadow configuration ^^
+##        -e 's|^desktop_shadow=.*|desktop_shadow=#A09A8F|' \
+
 ## Removed this for xenial: -e 's|^desktop_shadow=.*|desktop_shadow=.*\nshow_mounts=1|' \
 
 echo "desktop_folder_new_win=1" >> /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf

@@ -278,6 +278,11 @@ chmod 644 /usr/share/ossim/*.pdf
 mkdir -p /var/www/html/ossim/
 ln -s -f /usr/share/ossim/*.pdf /var/www/html/ossim/
 
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim.tar.gz"
+tar -zxvf ossim.tar.gz
+mv ossim/* /usr/share/ossim/
+rm -rf ossim ossim.tar.gz
+
 
 
 # #### cleanup
