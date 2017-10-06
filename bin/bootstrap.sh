@@ -26,9 +26,9 @@
 
 SCRIPT_DIR=/usr/local/share
 
-if [ -z "$USER_NAME" ] ; then 
-    USER_NAME="user" 
-fi 
+if [ -z "$USER_NAME" ] ; then
+    USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 # Parse arguments to be able to build specific branch from specific git repository.
@@ -54,6 +54,9 @@ fi
 echo "Running bootstrap.sh with the following settings:"
 echo "GIT_REPO: $GIT_REPO"
 echo "GIT_BRANCH: $GIT_BRANCH"
+
+# Update sources before installation
+apt update
 
 # Install git
 apt-get --assume-yes install git
