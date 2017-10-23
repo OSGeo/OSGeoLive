@@ -26,9 +26,9 @@
 
 SCRIPT_DIR=/usr/local/share
 
-if [ -z "$USER_NAME" ] ; then 
-    USER_NAME="user" 
-fi 
+if [ -z "$USER_NAME" ] ; then
+    USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 # Parse arguments to be able to build specific branch from specific git repository.
@@ -56,6 +56,7 @@ echo "GIT_REPO: $GIT_REPO"
 echo "GIT_BRANCH: $GIT_BRANCH"
 
 # Install git
+apt-get -q update
 apt-get --assume-yes install git
 
 # Clone git repository to specified branch
