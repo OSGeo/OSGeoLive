@@ -496,6 +496,8 @@ fi
 
 cp "$BUILD_DIR"/../desktop-conf/gnome-globe16blue.svg /usr/local/share/icons/
 
+cp "$BUILD_DIR"/../desktop-conf/inspire.png /usr/local/share/icons/
+
 ### make the Education menu less noisy
 #FIXME: first verify we're not vanishing anything which doesn't exist elsewhere
 #sed -i -e 's/Education;//' \
