@@ -1,4 +1,9 @@
 #!/bin/sh
+#############################################################################
+#
+# Purpose: This script will install some OpenStreetMap utilities
+#
+#############################################################################
 # Copyright (c) 2009-2017 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 #
@@ -11,10 +16,6 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
-# About:
-# =====
-# This script will install some OpenStreetMap utilities
 
 # Running:
 # =======

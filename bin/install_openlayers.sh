@@ -1,4 +1,10 @@
 #!/bin/sh
+#############################################################################
+#
+# Purpose: This script will OpenLayers 3 (and OpenLayers 2.13.1 for legacy
+# demos in OSGeoLive)
+#
+#############################################################################
 # Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
@@ -11,11 +17,8 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# About:
-# =====
-# This script will install OpenLayers 3 (and OpenLayers 2.13.1 for legacy demos in OSGeoLive)
-#
+#############################################################################
+
 # Running:
 # =======
 # sudo service apache2 start
