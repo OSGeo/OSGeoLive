@@ -1,5 +1,12 @@
 #!/bin/sh
-# Copyright (c) 2010 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install AtlasStyler SLD editor. It will also download the openmapsymbols 
+# for AtlasStyler to the local ~/.AtlasStyler/templates directory.
+# Author: Stefan A. Tzeggai
+#
+#############################################################################
+# Copyright (c) 2010-2018 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -11,13 +18,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
-# Author: Stefan A. Tzeggai
-
-# About:
-# =====
-# This script will install AtlasStyler SLD editor. It will also download the openmapsymbols 
-# for AtlasStyler to the local ~/.AtlasStyler/templates directory.
+#############################################################################
 
 # Running:
 # =======

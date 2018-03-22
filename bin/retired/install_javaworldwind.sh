@@ -5,7 +5,7 @@
 # NASA OPEN SOURCE AGREEMENT VERSION 1.3
 #
 #############################################################################
-# Copyright (c) 2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2016-2018 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #

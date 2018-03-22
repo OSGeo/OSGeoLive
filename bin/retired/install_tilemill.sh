@@ -1,6 +1,11 @@
 #!/bin/sh
-# Author: H.Bowman <hamish_b  yahoo com>
-# Copyright (c) 2012-2016 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install TileMill
+# Author: H. Bowman <hamish_b  yahoo com>
+#
+#############################################################################
+# Copyright (c) 2012-2018 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -12,10 +17,8 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LGPL-2.1.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# script to install TileMill
-#    homepage: http://mapbox.com/tilemill
-#
+#############################################################################
+
 # Need to get 68.4 MB of archives.
 # After this operation, 186 MB of additional disk space will be used.
 
