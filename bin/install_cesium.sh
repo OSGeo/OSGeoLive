@@ -1,4 +1,9 @@
 #!/bin/sh
+#############################################################################
+#
+# Purpose: This script will install Cesium, homepage http://cesiumjs.org/
+#
+#############################################################################
 # Author: Balasubramaniam Natarajan <bala150985 gmail> / Brian M Hamlin <dbb>
 # Copyright (c) 2014-2016 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
@@ -12,10 +17,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LGPL-2.1.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# script to install Cesium
-#    homepage: http://cesiumjs.org/
-#
+#############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 
