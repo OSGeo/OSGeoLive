@@ -4,7 +4,7 @@
 #
 #############################################################################
 # Created by Massimo Di Stefano on 07/12/09.
-# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
