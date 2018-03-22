@@ -1,5 +1,12 @@
 #!/bin/sh
-# Copyright (c) 2011-2016 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install 52nSOS
+# Author: e.h.juerrens@52north.org
+# Version 2017-06-02
+#
+#############################################################################
+# Copyright (c) 2011-2018 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -12,14 +19,8 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-# Version: 2017-06-02
-# Author: e.h.juerrens@52north.org
-#
-# About:
-# =====
-# This script installs 52nSOS
-#
-#
+#############################################################################
+
 # =============================================================================
 # Install script for 52nSOS
 # =============================================================================

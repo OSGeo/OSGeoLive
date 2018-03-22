@@ -1,5 +1,10 @@
 #!/bin/sh
-# Copyright (c) 2013-2016 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install libLAS
+#
+#############################################################################
+# Copyright (c) 2013-2018 The Open Source Geospatial Foundation.
 # Author:  Brian Hamlin dbb maplabs@light42.com
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -13,10 +18,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-
-# About:
-# =====
-# This script will build and install libLAS into ubuntu
+#############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
