@@ -79,15 +79,15 @@ apt-get -q update
 
 # Install some useful stuff
 apt-get install --yes wget less zip unzip bzip2 p7zip \
-  subversion subversion-tools mercurial git \
-  openssh-client lftp sl usbutils wireless-tools \
+  git openssh-client lftp sl usbutils wireless-tools \
   locate patch menu vim nano screen iotop xfonts-jmk \
   ghostscript htop units gdebi fslint xkb-data \
   xfonts-100dpi xfonts-75dpi zenity
 
 # removed from list:
 # cvs cvsutils fuseiso dlocate medit nedit a2ps netpbm qiv lynx mutt mc
-# xchat rxvt scrot arandr sgt-puzzles sopwith
+# xchat rxvt scrot arandr sgt-puzzles sopwith subversion subversion-tools
+# mercurial
 
 # Install virtualbox guest additions
 # If running on virtualbox this will allow us to use full-screen/usb2/...
