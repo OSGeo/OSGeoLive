@@ -7,7 +7,7 @@
 # OpenCPN license: GPLv2
 #
 #############################################################################
-# Copyright (c) 2009-2018 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # This script is free software; you can redistribute it and/or modify it

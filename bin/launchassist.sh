@@ -5,7 +5,7 @@
 # Seems to alleviate strange behavior of desktop icons not launching apps properly
 #
 #############################################################################
-# Copyright (c) 2009-2018 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
