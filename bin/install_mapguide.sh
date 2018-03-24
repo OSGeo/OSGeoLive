@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 #  Copyright (C) 2010 by Autodesk, Inc.
-#  Copyright (c) 2011-2018 Open Source Geospatial Foundation (OSGeo)
+#  Copyright (c) 2011-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 # 

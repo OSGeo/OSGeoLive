@@ -4,7 +4,7 @@
 # Purpose: This script will install apache2
 #
 #############################################################################
-# Copyright (c) 2009-2018 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #

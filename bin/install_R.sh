@@ -6,7 +6,7 @@
 # Author:  Massimo Di Stefano <info@geofemengineering.it>
 #
 #################################################
-# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 GeofemEngineering 
 #
 # Licensed under the GNU LGPL.

@@ -4,7 +4,7 @@
 #
 #############################################################################
 # Created by Johan Van de Wauw on 2010-07-02
-# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #

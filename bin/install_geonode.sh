@@ -4,7 +4,7 @@
 # Purpose: This script will install GeoNode
 #
 #############################################################################
-# Copyright (c) 2013-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2013-2016 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 # 
