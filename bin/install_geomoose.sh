@@ -1,5 +1,9 @@
 #!/bin/sh
+#############################################################################
 #
+# Purpose: This script will install geomoose
+#
+#############################################################################
 # Copyright (c) 2009-2017 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
@@ -12,11 +16,8 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# About:
-# =====
-# This script will install geomoose
-#
+#############################################################################
+
 # Requires: Apache2, PHP5, MapServer
 
 ./diskspace_probe.sh "`basename $0`" begin

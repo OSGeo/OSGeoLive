@@ -1,5 +1,11 @@
 #!/bin/sh
-# Copyright (c) 2011-2016 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install the 52North WPS
+# Author: e.h.juerrens@52north.org, b.pross@52north.org (modified for WPS)
+#
+#############################################################################
+# Copyright (c) 2011-2018 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -11,14 +17,9 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
+#############################################################################
 # Version: 2014-12-10
-# Author: e.h.juerrens@52north.org, b.pross@52north.org (modified for WPS)
-#
-# About:
-# =====
-# This script installs the 52North WPS
-#
+
 #
 # =============================================================================
 # Install script for 52nWPS
