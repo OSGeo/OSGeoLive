@@ -10,10 +10,10 @@
 #for (i in packagelist) {
 	#Generic Version followed by Australian Repos
 	#install.packages(i, repos= "http://cran.r-project.org", lib = "/usr/local/lib/R/site-library/" , dependencies = TRUE)
-	#For AU builds	
+	#For AU builds
 	#install.packages(i, repos= "http://cran.ms.unimelb.edu.au/", lib = "/usr/local/lib/R/site-library/")
 	#For EU builds
-	#install.packages(i, repos= "http://stat.ethz.ch/CRAN/", lib = "/usr/local/lib/R/site-library/") 
+	#install.packages(i, repos= "http://stat.ethz.ch/CRAN/", lib = "/usr/local/lib/R/site-library/")
 	#For US builds
 #	install.packages(i, repos= "http://cran.rstudio.com/", lib = "/usr/local/lib/R/site-library/")
 #	output <- paste("Finished installing",i,sep=" ")
