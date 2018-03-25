@@ -463,7 +463,7 @@ cp -a "/usr/share/applications/$WORKSHOP_INSTALL_FILE" "$USER_HOME/Desktop/"
 chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$WORKSHOP_INSTALL_FILE"
 
 ##### Setup INSPIRE installation icon
-WORKSHOP_INSTALL_FILE="inspire.desktop"
+INSPIRE_INSTALL_FILE="inspire.desktop"
 cat << EOF > "/usr/share/applications/$INSPIRE_INSTALL_FILE"
 [Desktop Entry]
 Name=INSPIRE resources
