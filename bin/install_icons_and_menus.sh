@@ -462,6 +462,23 @@ EOF
 cp -a "/usr/share/applications/$WORKSHOP_INSTALL_FILE" "$USER_HOME/Desktop/"
 chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$WORKSHOP_INSTALL_FILE"
 
+##### Setup INSPIRE installation icon
+WORKSHOP_INSTALL_FILE="inspire.desktop"
+cat << EOF > "/usr/share/applications/$INSPIRE_INSTALL_FILE"
+[Desktop Entry]
+Name=INSPIRE resources
+Comment=Resources for implementation of the EU INSPIRE Directive
+Exec=firefox https://wiki.osgeo.org/wiki/INSPIRE
+Icon=/usr/local/share/icons/inspire.png
+Terminal=false
+Type=Application
+Categories=Application;Education;Geography;
+StartupNotify=true
+EOF
+
+cp -a "/usr/share/applications/$INSPIRE_INSTALL_FILE" "$USER_HOME/Desktop/"
+chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$INSPIRE_INSTALL_FILE"
+
 
 #### permissions cleanup (if needed)
 chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/" -R
@@ -478,6 +495,8 @@ if [ ! -e /usr/share/icons/hicolor/48x48/apps/ktip.png ] ; then
 fi
 
 cp "$BUILD_DIR"/../desktop-conf/gnome-globe16blue.svg /usr/local/share/icons/
+
+cp "$BUILD_DIR"/../desktop-conf/inspire.png /usr/local/share/icons/
 
 ### make the Education menu less noisy
 #FIXME: first verify we're not vanishing anything which doesn't exist elsewhere
