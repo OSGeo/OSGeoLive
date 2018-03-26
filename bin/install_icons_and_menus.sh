@@ -52,7 +52,7 @@ WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonode-*"
+BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMoose3 geonode-*"
 #disabled: i3geo MapFish-* cartaro-*
 
 #Infrastructure and miscellanea
