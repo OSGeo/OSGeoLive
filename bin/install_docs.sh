@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2013 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Copyright (c) 2009 LISAsoft
 # Copyright (c) 2009 Cameron Shorter
 # Licensed under the GNU LGPL version >= 2.1.
@@ -18,10 +18,15 @@
 # =====
 # This script will install documentation
 
+if [ "$1" != "release" ] && [ "$1" != "nightly" ] ; then
+   echo "Did not specify build mode, try using release or nightly as an argument"
+   exit 1
+fi
+BUILD_MODE="$1"
+
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
-
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
@@ -30,9 +35,15 @@ USER_HOME="/home/$USER_NAME"
 DEST="/var/www/html"
 DATA_FOLDER="/usr/local/share/data"
 
-#Install from daily repository
-add-apt-repository  --yes ppa:johanvdw/osgeolive-doc-daily
-apt-get update
+echo "Running install_docs.sh with the following settings:"
+echo "BUILD_MODE: $BUILD_MODE"
+
+# Install from daily repository only in nightly mode
+if [ "$BUILD_MODE" = "nightly" ] ; then
+   add-apt-repository  --yes ppa:osgeolive/docs
+   apt-get update
+fi
+
 apt-get install --assume-yes osgeolive-docs javascript-common
 
 ln -s /usr/share/doc/osgeolive-docs/html $DEST/osgeolive
@@ -236,18 +247,18 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 mkdir -p /usr/local/share/doc
 
 wget -c --progress=dot:mega \
-  "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/14.04e2/en_US/screen/Getting%20Started%20with%20Ubuntu%2014.04%20-%20Second%20edition.pdf" \
-  -O "/usr/local/share/doc/Getting Started with Ubuntu 14.04 - Second edition.pdf"
+  "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/16.04/en_US/screen/Getting%20Started%20with%20Ubuntu%2016.04.pdf" \
+  -O "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf"
 
 if [ $? -ne 0 ] ; then
    # try try again
    wget -c --progress=dot:mega \
-     "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/14.04e2/en_US/screen/Getting%20Started%20with%20Ubuntu%2014.04%20-%20Second%20edition.pdf" \
-     -O "/usr/local/share/doc/Getting Started with Ubuntu 14.04 - Second edition.pdf"
+  "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/16.04/en_US/screen/Getting%20Started%20with%20Ubuntu%2016.04.pdf" \
+  -O "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf"
 fi
 
-ln -s "/usr/local/share/doc/Getting Started with Ubuntu 14.04 - Second edition.pdf" \
-  "$USER_HOME/Desktop/Getting Started with Ubuntu 14.04 - Second edition.pdf"
+ln -s "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf" \
+  "$USER_HOME/Desktop/Getting Started with Ubuntu 16.04.pdf"
 
 
 ####

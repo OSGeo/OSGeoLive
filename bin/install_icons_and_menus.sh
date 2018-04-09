@@ -9,7 +9,7 @@
 # Author: Hamish Bowman
 #
 #############################################################################
-# Copyright (c) 2013-2015 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2013-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 # 
@@ -38,33 +38,34 @@ USER_HOME="/home/$USER_NAME"
 ################################################
 
 #Desktop apps part 1 (traditional analytic GIS)
-DESKTOP_APPS="grass70 qgis gvsig* openjump uDig ossimplanet *Kosmo*
-              spatialite-gis saga"
-#disabled: atlasstyler geopublisher
+DESKTOP_APPS="grass72 qgis gvsig* openjump uDig ossimplanet
+              saga"
+#disabled: atlasstyler geopublisher spatialite-gis
 
 #Desktop apps part 2 (geodata viewers and editors)
-NAV_APPS="marble gpsdrive opencpn josm merkaartor osm_online
-          viking zygrib gpsprune"
+NAV_APPS="marble opencpn josm merkaartor osm_online
+          zygrib gpsprune"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
-              qgis-mapserver zoo-project 52n* eoxserver* ncWMS-* pycsw"
+              qgis-mapserver zoo-project 52n* eoxserver* ncWMS-* pycsw istsos pywps"
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 MapFish-* GeoMOOSE geonode-* cartaro-*"
-#disabled: i3geo
+BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonode-*"
+#disabled: i3geo MapFish-* cartaro-*
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="imagelinker r geokettle ipython-notebook*
-               mapslicer tilemill mapnik-* monteverdi* ossim-geocell"
+SPATIAL_TOOLS="r jupyter-notebook* otb-*
+               mapslicer mapnik-* monteverdi* ossim-geocell"
+#disabled: imagelinker
 
 #Future home of PostGIS and Spatialite; pgRouting???
 #  pgadmin, sqlitebrowser, etc  (parts of this one are automatic)
 DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser shp2pgsql-gui"
 
 #Server apps part 3 (public good theme)
-RELIEF_APPS="sahana ushahidi"
+RELIEF_APPS="ushahidi"
 
 ################################################
 
@@ -332,7 +333,7 @@ EOF
      GeoNetwork) APP_ICON=/usr/local/share/icons/geonetwork_icon.png;;
      GeoServer) APP_ICON=/usr/share/icons/geoserver_48x48.logo.png;;
      Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
-     MapProxy) APP_ICON=gnome-globe;;
+     MapProxy) APP_ICON=/usr/local/share/icons/mapproxy.png;;
      ncWMS) APP_ICON=/usr/local/share/icons/ncWMS_icon.png;;
      *) unset APP_ICON;;
    esac
@@ -379,7 +380,6 @@ EOF
      Cartaro) APP_ICON=/usr/local/share/icons/logo-cartaro-48.png;;
      Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
      GeoNode) APP_ICON=/usr/share/icons/geonode.png;;
-     MapFish) APP_ICON=/usr/local/lib/mapfish/mapfish.png;;
      *) unset APP_ICON;;
    esac
 
@@ -462,6 +462,23 @@ EOF
 cp -a "/usr/share/applications/$WORKSHOP_INSTALL_FILE" "$USER_HOME/Desktop/"
 chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$WORKSHOP_INSTALL_FILE"
 
+##### Setup INSPIRE installation icon
+INSPIRE_INSTALL_FILE="inspire.desktop"
+cat << EOF > "/usr/share/applications/$INSPIRE_INSTALL_FILE"
+[Desktop Entry]
+Name=INSPIRE resources
+Comment=Resources for implementation of the EU INSPIRE Directive
+Exec=firefox https://wiki.osgeo.org/wiki/INSPIRE
+Icon=/usr/local/share/icons/inspire.png
+Terminal=false
+Type=Application
+Categories=Application;Education;Geography;
+StartupNotify=true
+EOF
+
+cp -a "/usr/share/applications/$INSPIRE_INSTALL_FILE" "$USER_HOME/Desktop/"
+chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$INSPIRE_INSTALL_FILE"
+
 
 #### permissions cleanup (if needed)
 chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/" -R
@@ -479,13 +496,15 @@ fi
 
 cp "$BUILD_DIR"/../desktop-conf/gnome-globe16blue.svg /usr/local/share/icons/
 
+cp "$BUILD_DIR"/../desktop-conf/inspire.png /usr/local/share/icons/
+
 ### make the Education menu less noisy
 #FIXME: first verify we're not vanishing anything which doesn't exist elsewhere
 #sed -i -e 's/Education;//' \
 #  `grep -l 'Geography;' /usr/share/applications/*.desktop` \
 #  /usr/local/share/applications/*.desktop
 #if all are dupes, just nuke it:
-sed -i '53,66d' /etc/xdg/lubuntu/menus/lxde-applications.menu
+sed -i '63,78d' /etc/xdg/lubuntu/menus/lxde-applications.menu
 
 
 ####

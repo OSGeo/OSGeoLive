@@ -6,7 +6,7 @@
 # Author:  Massimo Di Stefano <info@geofemengineering.it>
 #
 #################################################
-# Copyright (c) 2010-2011 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 GeofemEngineering 
 #
 # Licensed under the GNU LGPL.
@@ -55,9 +55,10 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 apt-get -q update
 
 #Plugin interaction with R
-apt-get --assume-yes install python-rpy python-shapely \
-    build-essential gfortran libblas-dev liblapack-dev  \
-    netcdf-bin
+apt-get --assume-yes install python-rpy \
+    gfortran netcdf-bin
+
+# build-essential libblas-dev liblapack-dev libzmq3-dev
 
 # These dependencies were only necessary for building packages which is now done in the ppa
 # apt-get --assume-yes install python-all-dev libgdal-dev \
@@ -82,13 +83,18 @@ apt-get --assume-yes install r-recommended
 # package does not exist in Jaunty+: r-cran-e1071
 # not found in Lucid: r-cran-adapt
 
-#Calls R script to do install with feedback to stdout
-#R --no-save < ../app-conf/R/installRpackages.r
+
 # This is replaced with the following line which installs packages from our repository:
 apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
  r-cran-geor r-cran-gstat r-cran-maptools r-cran-randomfields r-cran-raster\
  r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
- r-cran-splancs r-cran-rgeos r-cran-ncdf r-cran-rsaga
+ r-cran-splancs r-cran-rgeos r-cran-ncdf4 r-cran-rsaga r-cran-rgrass7
+
+#Calls R script to do install with feedback to stdout
+# mkdir -p /usr/local/share/jupyter/kernels
+# R --no-save < ../app-conf/R/installRpackages.r
+# mv /roots/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
+
 
 # add user to the staff group so that they can install system-wide packages
 adduser "$USER_NAME" staff
@@ -116,19 +122,18 @@ cp -a /usr/share/applications/r.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 
 #Remove build libraries
-apt-get --assume-yes remove python-all-dev \
-   libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
-   libglu1-mesa-dev libsprng2-dev
+# apt-get --assume-yes remove libxml2-dev \
+#    tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
+#    libglu1-mesa-dev libsprng2-dev
 #libgdal-dev libnetcdf-dev libgeos-dev libproj-dev
 
 #cleanup leftovers
-apt-get --assume-yes autoremove
-
+# apt-get --assume-yes autoremove
 
 
 ## fix for broken PDFs, fixed in upstream SVN Aug 2011  (bug #769)
-mkdir /tmp/build_R
-cd /tmp/build_R
+# mkdir /tmp/build_R
+# cd /tmp/build_R
 # wget -N --progress=dot:mega \
 #    "http://download.osgeo.org/livedvd/data/R/spgrass6_pdf.zip"
 # unzip spgrass6_pdf.zip

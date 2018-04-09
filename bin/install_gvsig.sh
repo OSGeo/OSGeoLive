@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2015 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -151,6 +151,16 @@ EOF
 cp -a /usr/share/applications/gvsig-desktop.desktop "$USER_HOME/Desktop/"
 chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/gvsig-desktop.desktop"
 chmod +x "$USER_HOME/Desktop/gvsig-desktop.desktop"
+
+# the package for gvSIG contains a static library for gdal
+# this is not useful as we are not building anything. gvSIG also contains
+# a shared library. Ideally this would use the debian version instead.
+# removing this file is an ugly fix - a cleaner way would be fixing this in de package.
+# removing this file saves 107Mb
+rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-2-${ARCH}/gvSIG/extensiones/org.gvsig.raster.gdal.app/gdal/bin/libgdal.a"
+rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-3-${ARCH}/gvSIG/extensiones/org.gvsig.raster.gdal.app/gdal/bin/libgdal.a"
+rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-2-${ARCH}/gvSIG/extensiones/org.gvsig.raster.ermapper.app"
+rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-3-${ARCH}/gvSIG/extensiones/org.gvsig.raster.ermapper.app"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

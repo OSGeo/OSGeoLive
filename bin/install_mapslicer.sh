@@ -1,17 +1,27 @@
 #!/bin/sh
 #
-# Install the MapSlicer application
+# install_mapslicer.sh
 #
+#############################################################################
 # Created by Klokan Petr Pridal <petr.pridal@klokantech.com>
+# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
-# Copyright (c) 2010-15 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 #
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation, either version 2.1 of the License,
+# or any later version.  This library is distributed in the hope that
+# it will be useful, but WITHOUT ANY WARRANTY, without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Lesser General Public License for more details, either
+# in the "LICENSE.LGPL.txt" file distributed with this software or at
+# web page "http://www.fsf.org/licenses/lgpl.html".
+#############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
-
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -20,7 +30,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_mapslicer"
-MAPSLICERDEB="mapslicer_1.0.rc1_all.deb"
+MAPSLICERDEB="mapslicer_1.0.rc2_all.deb"
 DATA_FOLDER="/usr/local/share/mapslicer"
 TESTDATA_URL="http://download.osgeo.org/gdal/data/gtiff/utm.tif"
 
@@ -29,7 +39,7 @@ TESTDATA_URL="http://download.osgeo.org/gdal/data/gtiff/utm.tif"
 mkdir -p "$TMP"
 
 # Install dependencies
-PACKAGES="python python-wxgtk2.8 python-gdal"
+PACKAGES="python python-wxgtk3.0 python-gdal"
 
 echo "Installing: $PACKAGES"
 apt-get --assume-yes install $PACKAGES

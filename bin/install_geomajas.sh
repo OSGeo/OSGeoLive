@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -145,7 +145,7 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/geomajas-stop.desktop"
 
 
 # something possibly screwed up with the ISO permissions:
-chgrp tomcat7 /usr/lib/geomajas-$GEOMAJAS_VERSION-bin/bin/*.sh
+chgrp tomcat8 /usr/lib/geomajas-$GEOMAJAS_VERSION-bin/bin/*.sh
 
 # share data with the rest of the disc
 mkdir -p /usr/local/share/data/vector

@@ -1,5 +1,11 @@
 #!/bin/sh
-# Copyright (c) 2009-2015 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install Orfeo Tooblox including Monteverdi2 and 
+# OTB apps, assumes script is run with sudo privileges.
+#
+#############################################################################
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -12,11 +18,8 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-# About:
-# =====
-# This script will install Orfeo Tooblox including Monteverdi2 and OTB apps,
-#  assumes script is run with sudo privileges.
-#
+#############################################################################
+
 # Running:
 # =======
 # monteverdi2
@@ -42,12 +45,26 @@ apt-get -q update
 #Lot's of these applications have been ported in modules in monteverdi but there are still remainning applications
 #in the legacy not available in monteverdi (simple viewer manager, vector database/raster registration...
 #Monteverdi is perhap's sufficient in a first approach,if you need to save space we  can eliminate otbapp-legacy
-apt-get --assume-yes install libotb libotb-dev monteverdi2 otb-bin otb-bin-qt
+apt-get --assume-yes install libotb otb-bin otb-bin-qt monteverdi
 
 #### install desktop icon ####
-cp /usr/share/applications/monteverdi2.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi2.desktop"
+cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 
+cat << EOF > /usr/share/applications/otb-mapla.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=OTB Launcher
+Comment=OTB Mapla
+Categories=Application;Geography;Geoscience;Education;
+Exec=env OTB_APPLICATION_PATH=/usr/lib/otb/applications /usr/bin/mapla
+Icon=monteverdi
+Terminal=false
+EOF
+
+cp /usr/share/applications/otb-mapla.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/otb-mapla.desktop"
 
 # Download OrfeoToolBox data and documentation (software guide and cookbook)
 # Total: 60MB

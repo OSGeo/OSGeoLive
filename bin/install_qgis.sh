@@ -1,5 +1,10 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install QGIS including Python and GRASS support,
+#
+#############################################################################
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -11,11 +16,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# About:
-# =====
-# This script will install Quantum GIS including python and GRASS support,
-#  assumes script is run with sudo priveleges.
+#############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -49,7 +50,7 @@ apt-get -q update
 apt-get --assume-yes install qgis \
    qgis-common python-qgis python-qgis-common \
    gpsbabel python-rpy2 python-qt4-phonon \
-   libqt4-sql-sqlite
+   libqt4-sql-sqlite qgis-plugin-grass
 
 
 if [ $? -ne 0 ] ; then
@@ -72,9 +73,9 @@ apt-get --assume-yes install python-psycopg2 \
 
 # Install plugins
 wget -c --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/qgis/python-qgis-osgeolive_9.0-1_all.deb"
-dpkg -i python-qgis-osgeolive_9.0-1_all.deb
-rm -rf python-qgis-osgeolive_9.0-1_all.deb
+   "http://download.osgeo.org/livedvd/data/qgis/python-qgis-osgeolive_10.0-1_all.deb"
+dpkg -i python-qgis-osgeolive_10.0-1_all.deb
+rm -rf python-qgis-osgeolive_10.0-1_all.deb
 
 #Install optional packages for workshops
 apt-get --assume-yes install qt4-designer \
@@ -83,13 +84,13 @@ apt-get --assume-yes install qt4-designer \
 #Make sure old qt uim isn't installed
 apt-get --assume-yes remove uim-qt uim-qt3
 
-###FIXME: Temp patch for #1466
-wget -c --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/grass/grass7.tar.gz"
-tar zxvf grass7.tar.gz
-rm grass7.tar.gz
-cp -r grass7/* /usr/share/qgis/python/plugins/processing/algs/grass7/
-rm -rf grass7
+# ###FIXME: Temp patch for #1466
+# wget -c --progress=dot:mega \
+#    "http://download.osgeo.org/livedvd/data/grass/grass7.tar.gz"
+# tar zxvf grass7.tar.gz
+# rm grass7.tar.gz
+# cp -r grass7/* /usr/share/qgis/python/plugins/processing/algs/grass7/
+# rm -rf grass7
 
 #### install desktop icon ####
 INSTALLED_VERSION=`dpkg -s qgis | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
@@ -142,7 +143,7 @@ mkdir /usr/local/share/qgis
 
 # TODO: Consider including translations
 VER=2.8
-DOCURL="http://docs.qgis.org/$VER/pdf/en"
+DOCURL="http://download.osgeo.org/livedvd/data/qgis"
 for DOC in UserGuide QGISTrainingManual ; do
    wget -c --progress=dot:mega \
        "$DOCURL/QGIS-$VER-$DOC-en.pdf" \
@@ -159,7 +160,7 @@ wget --progress=dot:mega \
 
 tar xzf "$TMP_DIR"/tutorials.tgz -C "$TMP_DIR"
 
-cd "$TMP_DIR"/*osgeo-live-qgis-tutorials*
+cd "$TMP_DIR"/*QGIS-OSGEO-Live-Tutorials*
 
 apt-get --assume-yes install python-sphinx
 make html

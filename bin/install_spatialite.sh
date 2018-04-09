@@ -1,5 +1,10 @@
 #!/bin/bash
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install spatialite
+#
+#############################################################################
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -11,10 +16,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# About:
-# =====
-# This script will install spatialite in xubuntu
+#############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -29,8 +31,6 @@ BUILD_TMP="/tmp/build_spatialite"
 DATA_FOLDER="/usr/local/share/data"
 PKG_DATA=$DATA_FOLDER/spatialite
 
-### Setup things... ###
- 
 ## check required tools are installed
 if [ ! -x "`which wget`" ] ; then
    echo "ERROR: wget is required, please install it and try again" 
@@ -41,17 +41,8 @@ fi
 mkdir -p "$BUILD_TMP"
 cd "$BUILD_TMP"
 
-
-###########################
-### Install from repo ###
-## get spatialite cli and libs
-
 echo "Getting and installing spatialite"
-apt-get install --assume-yes spatialite-bin 
-# Now the GUI and rasterlite libs
-apt-get install --assume-yes librasterlite2 rasterlite-bin spatialite-gui
-
-
+apt-get install --assume-yes spatialite-bin spatialite-gui sqlite3 sqlitebrowser
 
 ##########################
 ### Sample data ###
@@ -74,7 +65,6 @@ chmod -R a-x "$PKG_DATA"/*
 
 #############################
 ### GUI start icons ###
-
 # copy icons into somewhere where they might get picked up (how do do this into /usr/local?)
 for SIZE in 16 32 48 64 ; do
   cp "$BUILD_DIR/../app-conf/spatialite/spatialite_${SIZE}px.png" \
@@ -85,31 +75,11 @@ echo "Icon=/usr/share/icons/hicolor/32x32/apps/spatialite.png" \
   >> /usr/share/applications/spatialite-gui.desktop
 
 
-#mkdir -p /usr/local/share/applications
-#cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
-#    /usr/local/share/applications/
-#cp $BUILD_TMP/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.desktop \
-#    "$USER_HOME"/Desktop/
-
 cp /usr/share/applications/spatialite-gui.desktop "$USER_HOME"/Desktop/
 chown "$USER_NAME.$USER_NAME" "$USER_HOME"/Desktop/spatialite-gui.desktop
 
 # tweak to avoid duplication in menus
 sed -i -e 's/Database;/Geography;/' /usr/share/applications/spatialite-gui.desktop
-
-
-#cp "$BUILD_TMP"/spatialite_gui-1.5.0-stable/gnome_resource/spatialite-gui.png \
-#    /usr/share/pixmaps/
-
-#cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
-#    /usr/local/share/applications/
-#cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.desktop \
-#    "$USER_HOME"/Desktop/
-#chown "$USER_NAME.$USER_NAME" "$USER_HOME"/Desktop/spatialite-gis.desktop
-#cp "$BUILD_TMP"/spatialite_gis-1.0.0c/gnome_resource/spatialite-gis.png \
-#    /usr/share/pixmaps/
-
-
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

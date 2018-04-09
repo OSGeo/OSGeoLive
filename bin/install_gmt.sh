@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL v.2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -29,11 +29,11 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 
-PACKAGES="gmt gmt-doc gmt-gshhs-low \
+PACKAGES="gmt gmt-gshhs-low gmt-tutorial \
    gmt-examples gv"
 
-# pkg not installed to save 15mb disc space:
-#   gmt-doc-pdf gmt-gshhs-full gmt-gshhs-high gmt-tutorial gmt-tutorial-pdf
+# pkg not installed to save disc space:
+#   gmt-doc gmt-doc-pdf gmt-gshhs-full gmt-gshhs-high gmt-tutorial gmt-tutorial-pdf
 
 apt-get --assume-yes install $PACKAGES
 

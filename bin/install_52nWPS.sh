@@ -1,5 +1,11 @@
 #!/bin/sh
-# Copyright (c) 2011 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install the 52North WPS
+# Author: e.h.juerrens@52north.org, b.pross@52north.org (modified for WPS)
+#
+#############################################################################
+# Copyright (c) 2011-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -11,14 +17,9 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
+#############################################################################
 # Version: 2014-12-10
-# Author: e.h.juerrens@52north.org, b.pross@52north.org (modified for WPS)
-#
-# About:
-# =====
-# This script installs the 52North WPS
-#
+
 #
 # =============================================================================
 # Install script for 52nWPS
@@ -35,15 +36,15 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-TOMCAT_USER_NAME="tomcat7"
-WPS_WAR_INSTALL_FOLDER="/var/lib/tomcat7/webapps"
+TOMCAT_USER_NAME="tomcat8"
+WPS_WAR_INSTALL_FOLDER="/var/lib/${TOMCAT_USER_NAME}/webapps"
 WPS_BIN_FOLDER="/usr/local/share/52nWPS"
-WPS_TAR_NAME="52nWPS-3.3.1.tar.gz"
+WPS_TAR_NAME="52nWPS-3.6.1.tar.gz"
 WPS_TAR_URL="http://52north.org/files/geoprocessing/OSGeoLiveDVD/"
 # when changing this, adjust the name in line 215, too,
 # and the quickstart, which links to this, too
 WPS_WEB_APP_NAME="52nWPS"
-WPS_TOMCAT_SCRIPT_NAME="tomcat7"
+WPS_TOMCAT_SCRIPT_NAME="$TOMCAT_USER_NAME"
 WPS_ICON_NAME="52n.png"
 WPS_URL="http://localhost:8080/$WPS_WEB_APP_NAME"
 WPS_QUICKSTART_URL="http://localhost/osgeolive/en/quickstart/52nWPS_quickstart.html"
@@ -71,7 +72,7 @@ echo "WPS_OVERVIEW_URL: $WPS_OVERVIEW_URL"
 # =============================================================================
 # 1 wget
 # 2 java
-# 3 tomcat7
+# 3 tomcat
 #
 #
 #
@@ -89,12 +90,12 @@ fi
 if [ ! -x "`which java`" ] ; then
 	apt-get -q update
 	#
-	apt-get --assume-yes install openjdk-7-jre
+	apt-get --assume-yes install openjdk-8-jre
 fi
 #
 #
 #
-# 3 tomcat7
+# 3 tomcat
 if [ -f "/etc/init.d/$WPS_TOMCAT_SCRIPT_NAME" ] ; then
    	echo "[$(date +%M:%S)]: $WPS_TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
 else
@@ -175,9 +176,9 @@ chgrp users "$WPS_BIN_FOLDER"
 if [ ! -e $WPS_BIN_FOLDER/52nWPS-start.sh ] ; then
    cat << EOF > $WPS_BIN_FOLDER/52nWPS-start.sh
 #!/bin/bash
-STAT=\`sudo service tomcat7 status | grep pid\`
+STAT=\`sudo service "$WPS_TOMCAT_SCRIPT_NAME" status | grep pid\`
 if [ "\$STAT" = "" ]; then
-    sudo service tomcat7 start
+    sudo service "$WPS_TOMCAT_SCRIPT_NAME" start
     (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") | zenity --progress --auto-close --text "52North WPS starting"
 fi
 firefox $WPS_URL $WPS_QUICKSTART_URL $WPS_OVERVIEW_URL
@@ -187,9 +188,9 @@ fi
 if [ ! -e $WPS_BIN_FOLDER/52nWPS-stop.sh ] ; then
    cat << EOF > $WPS_BIN_FOLDER/52nWPS-stop.sh
 #!/bin/bash
-STAT=\`sudo service tomcat7 status | grep pid\`
+STAT=\`sudo service "$WPS_TOMCAT_SCRIPT_NAME" status | grep pid\`
 if [ "\$STAT" != "" ]; then
-    sudo service tomcat7 stop
+    sudo service "$WPS_TOMCAT_SCRIPT_NAME" stop
     zenity --info --text "52North WPS stopped"
 fi
 EOF

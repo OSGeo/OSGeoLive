@@ -1,10 +1,11 @@
 #!/bin/sh
-#################################################
+#############################################################################
 # 
 # Purpose: Installation of udig into Xubuntu
 # Author:  Stefan Hansen <shansen@lisasoft.com>
 #
-# Copyright (c) 2010 Open Source Geospatial Foundation (OSGeo)
+#############################################################################
+# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -18,11 +19,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-##################################################
-#
-# About:
-# =====
-# This script will install udig into ubuntu
+#############################################################################
 
 if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
     echo "Wrong number of arguments"
@@ -48,7 +45,7 @@ USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_udig"
 INSTALL_FOLDER="/usr/lib"
-UDIG_VERSION="1.4.0"
+UDIG_VERSION="2.0.0.RC1"
 UDIG_FOLDER="$INSTALL_FOLDER/udig"
 DOCS_FOLDER="/usr/local/share/udig"
 DATA_GLOBAL="/usr/local/share/data"
@@ -115,14 +112,13 @@ if [ -f "$ZIP" ] ; then
 else
    wget -c --progress=dot:mega "http://udig.refractions.net/files/downloads/$ZIP"
 fi
-# unpack it and copy it to /usr/lib
-unzip -q "$ZIP" -d "$INSTALL_FOLDER"
+# unpack to /usr/lib/udig
+unzip -q "$ZIP" -d "$UDIG_FOLDER"
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: expanding $ZIP"
    exit 1
 fi
-
 
 ## Configure Application ##
 
@@ -141,14 +137,14 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/uDig.desktop"
 # see ticket http://trac.osgeo.org/osgeo/ticket/922
 # copy jai libs into openjdk lib/ext folder
 
-cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $JAVA_INSTALL_FOLDER/lib/ext/
-cp $UDIG_FOLDER/jre/lib/ext/*jai.jar $JAVA_INSTALL_FOLDER/lib/ext/
-cp $UDIG_FOLDER/jre/lib/ext/*jiio.jar $JAVA_INSTALL_FOLDER/lib/ext/
-cp $UDIG_FOLDER/jre/lib/$ARCH/*_jai.so $JAVA_INSTALL_FOLDER/lib/$ARCH/
-cp $UDIG_FOLDER/jre/lib/$ARCH/*_jiio.so $JAVA_INSTALL_FOLDER/lib/$ARCH/
+# cp $UDIG_FOLDER/jre/lib/ext/jai_*.jar $JAVA_INSTALL_FOLDER/lib/ext/
+# cp $UDIG_FOLDER/jre/lib/ext/*jai.jar $JAVA_INSTALL_FOLDER/lib/ext/
+# cp $UDIG_FOLDER/jre/lib/ext/*jiio.jar $JAVA_INSTALL_FOLDER/lib/ext/
+# cp $UDIG_FOLDER/jre/lib/$ARCH/*_jai.so $JAVA_INSTALL_FOLDER/lib/$ARCH/
+# cp $UDIG_FOLDER/jre/lib/$ARCH/*_jiio.so $JAVA_INSTALL_FOLDER/lib/$ARCH/
 
 #delete jre folder from udig install folder
-rm -rf $UDIG_FOLDER/jre
+# rm -rf $UDIG_FOLDER/jre
 
 ## Documentation ##
 

@@ -8,7 +8,7 @@
 # Source:  http://www.naturalearthdata.com
 #
 #################################################
-# Copyright (c) 2010-2013 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -45,15 +45,6 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-## 12dec12 atlasstyler no longer installed, however no change needed
-if [ ! -x "`which atlasstyler`" ] ; then
-   echo "WARNING: atlasstyler is not install, using ogrinfo instead to create .qix files for Natural Earth shapefiles"
-#   echo "ERROR: atlasstyler is required as a tool to create .fix and .qix files for all shapefiles, please install it with bin/install_atlasstyler.sh and try again"
-   HAS_ATLASSTYLER=0
-else
-   HAS_ATLASSTYLER=1
-fi
-
 ##-- patch feb15 -- pdf from where ?
 #rm /usr/local/share/doc/Getting_Started_with_Ubuntu_13.10.pdf
 
@@ -61,7 +52,6 @@ fi
 # create tmp folders
 mkdir "$TMP"
 cd "$TMP"
-
 
 
 ##################################
@@ -204,7 +194,7 @@ sudo -u $POSTGRES_USER createdb natural_earth2
 sudo -u $POSTGRES_USER psql natural_earth2 -c 'create extension postgis;'
 # 1/2013 Needed for Kosmo and gvSIG:
 sudo -u $POSTGRES_USER psql natural_earth2 \
-  -f /usr/share/postgresql/9.3/contrib/postgis-2.1/legacy.sql
+  -f /usr/share/postgresql/9.5/contrib/postgis-2.1/legacy.sql
 
 for n in "$SRC_DIR"/*.shp;
 do
@@ -273,13 +263,15 @@ touch "$DATA_FOLDER"/north_carolina/shape/epsg-3358.txt
 
 
 cd "$TMP"
+
 #### Updated North Carolina KML
-DATA_URL="http://geofemengineering.it/osgeolive/"
-wget -N --progress=dot:mega "$DATA_URL/ossim_data/kml.tar.gz"
-tar xzf kml.tar.gz
-chown -R root.root kml/
-mv -f kml/* "$DATA_FOLDER"/north_carolina/kml/
-rm -rf kml/
+# this dataset and website are no longer available
+#DATA_URL="http://geofemengineering.it/osgeolive/"
+#wget -N --progress=dot:mega "$DATA_URL/ossim_data/kml.tar.gz"
+#tar xzf kml.tar.gz
+#chown -R root.root kml/
+#mv -f kml/* "$DATA_FOLDER"/north_carolina/kml/
+#rm -rf kml/
 
 
 # create overviews and histograms for OSSIM
@@ -287,27 +279,43 @@ OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference
 export OSSIM_PREFS_FILE
 
 # replace 32bit Landsat files with 8bit versions
-DATA_DIR="$DATA_FOLDER/north_carolina/rast_geotiff"
+#DATA_DIR="$DATA_FOLDER/north_carolina/rast_geotiff"
 
-for BAND in 10 20 30 40 50 61 62 70 80 ; do
-   BASENAME="lsat7_2002_$BAND.tif"
-   NEWNAME="lsat7_2002_${BAND}_8bit.tif"
+# this dataset are not found in the north_carolina/rast_geotiff directory
 
-   /usr/bin/gdal_translate -ot Byte "$DATA_DIR/$BASENAME" "$DATA_DIR/$NEWNAME"
-   rm "$DATA_DIR/$BASENAME"
-   mv "$DATA_DIR/$NEWNAME" "$DATA_DIR/$BASENAME"
+#for BAND in 10 20 30 40 50 61 62 70 80 ; do
+#   BASENAME="lsat7_2002_$BAND.tif"
+#   NEWNAME="lsat7_2002_${BAND}_8bit.tif"
 
-   ossim-img2rr "$DATA_DIR/$BASENAME"
-   ossim-create-histo "$DATA_DIR/$BASENAME"
-done
+#   /usr/bin/gdal_translate -ot Byte "$DATA_DIR/$BASENAME" "$DATA_DIR/$NEWNAME"
+#   rm "$DATA_DIR/$BASENAME"
+#   mv "$DATA_DIR/$NEWNAME" "$DATA_DIR/$BASENAME"
 
-/usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip \
+#   ossim-img2rr "$DATA_DIR/$BASENAME"
+#   ossim-create-histo "$DATA_DIR/$BASENAME"
+#done
+
+/usr/bin/ossim-orthoigen --writer general_raster_bip \
    "$DATA_DIR/elevation.tif" \
    /usr/share/ossim/elevation/nc/elevation.ras
 
-/usr/local/ossim/bin/ossim-orthoigen --writer general_raster_bip \
+/usr/bin/ossim-orthoigen --writer general_raster_bip \
    "$DATA_DIR/elev_lid792_1m.tif" \
    /usr/share/ossim/elevation/lidar/elev_lid792_1m.ras
+
+
+# add landsat and srtm dataset
+cd $DATA_FOLDER
+wget -N --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/landsat.tar.gz"
+tar xzf landsat.tar.gz
+chgrp users landsat
+chmod g+w landsat
+rm -rf landsat.tar.gz
+
+# make srtm elevation
+/usr/bin/ossim-orthoigen --writer general_raster_bip \
+   "$DATA_FOLDER/landsat/srtm.tif" \
+   /usr/share/ossim/elevation/srtm/srtm.ras
 
 unset OSSIM_PREFS_FILE
 

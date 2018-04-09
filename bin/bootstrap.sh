@@ -6,7 +6,7 @@
 #   http://wiki.osgeo.org/wiki/GISVM_Build#Build_the_Live_DVD_ISO_image
 #
 #############################################################################
-# Copyright (c) 2009-2015 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2015 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -26,9 +26,9 @@
 
 SCRIPT_DIR=/usr/local/share
 
-if [ -z "$USER_NAME" ] ; then 
-    USER_NAME="user" 
-fi 
+if [ -z "$USER_NAME" ] ; then
+    USER_NAME="user"
+fi
 USER_HOME="/home/$USER_NAME"
 
 # Parse arguments to be able to build specific branch from specific git repository.
@@ -44,13 +44,19 @@ else
     GIT_BRANCH="master"
 fi
 
-GIT_REPO="https://github.com/$GIT_USER/OSGeoLive.git"
+# Check if user provided a clone url
+if echo "$GIT_USER" | grep -q "://"; then
+    GIT_REPO="$GIT_USER"
+else
+    GIT_REPO="https://github.com/$GIT_USER/OSGeoLive.git"
+fi
 
 echo "Running bootstrap.sh with the following settings:"
 echo "GIT_REPO: $GIT_REPO"
 echo "GIT_BRANCH: $GIT_BRANCH"
 
 # Install git
+apt-get -q update
 apt-get --assume-yes install git
 
 # Clone git repository to specified branch

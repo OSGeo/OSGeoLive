@@ -35,7 +35,6 @@ if [ -z "$USER_NAME" ] ; then
 fi
 
 POSTGRES_USER="$USER_NAME"
-CITY="Portland_OR"
 TMP_DIR="/tmp/build_postgis"
 
 if [ ! -d "$TMP_DIR" ] ; then
@@ -50,6 +49,7 @@ cd "$TMP_DIR"
 ##  provided by ** install_osm.sh **, instead of getting it here
 ##  File name will change from time to time.
 
+#CITY=""
 OSM_FILE="/usr/local/share/data/osm/feature_city.osm.bz2"
 
 # download package is not versioned so we really shouldn't use "wget -c"
@@ -70,20 +70,19 @@ sudo -u $POSTGRES_USER psql osm_local -c 'create extension postgis;'
 
 
 # Kosmo, gpsdrive, please update your API calls ....
-cp "$BUILD_DIR"/../app-conf/postgis/legacy*.sql \
-  /usr/share/postgresql/9.3/contrib/postgis-2.1/
-
-sed -i -e 's/postgis-2.0/postgis-2.1/' \
-  /usr/share/postgresql/9.3/contrib/postgis-2.1/legacy*.sql
-
-sudo -u $POSTGRES_USER psql osm_local \
-  -f /usr/share/postgresql/9.3/contrib/postgis-2.1/legacy_minimal.sql
+#cp "$BUILD_DIR"/../app-conf/postgis/legacy*.sql \
+#  /usr/share/postgresql/9.5/contrib/postgis-2.2/
+#
+#sed -i -e 's/postgis-2.0/postgis-2.2/' \
+#  /usr/share/postgresql/9.5/contrib/postgis-2.2/legacy*.sql
+#
+#sudo -u $POSTGRES_USER psql osm_local \
+#  -f /usr/share/postgresql/9.5/contrib/postgis-2.2/legacy_minimal.sql
 
 #sudo -u $POSTGRES_USER createdb osm_local_smerc
 #sudo -u $POSTGRES_USER psql osm_local_smerc -c 'create extension postgis;'
 #sudo -u $POSTGRES_USER psql osm_local_smerc \
 #  -f /usr/share/postgresql/9.3/contrib/postgis-2.1/legacy_minimal.sql
-
 
 # v3 - simplified the script, was too hard to debug with all the commands
 #  attempting to be piped continuously with each other
@@ -93,7 +92,7 @@ sudo -u $POSTGRES_USER psql osm_local \
 #sudo -u $POSTGRES_USER psql --quiet -d denver -f `basename $DL_FILE .bz2`
 
 ## July10 - 
-## Now importing data from already downloaded sources (osm)
+##   Now importing data from already downloaded sources (osm)
 
 if [ ! -e "$OSM_FILE" ] ; then
     echo "ERROR: $OSM_FILE sample data is not available"

@@ -2,7 +2,7 @@
 # post_build_checks.sh
 #
 # Written by H.Bowman
-# Copyright (c) 2014 The Open Source Geospatial Foundation
+# Copyright (c) 2014-2018 The Open Source Geospatial Foundation
 # Licensed under the GNU LGPL version >= 2.1
 #
 # This library is free software; you can redistribute it and/or modify it

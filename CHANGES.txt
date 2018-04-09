@@ -1,6 +1,315 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 11.0
+====================
+
+ * Cesium 1.35
+ * Retired MB-System
+ * Retired PyWPS
+ * New artwork for 11.0
+ * Patched gmt.conf (#1640)
+ * OSSIM planet files added
+ * Fixed Cesium error (#1954)
+ * Fixed uDig install folder (#1953)
+
+Version 11.0beta1
+====================
+
+ * GeoServer 2.10.4
+ * GeoNode 2.6.1
+ * EOxServer 0.4.0
+ * gpsprune 18.6
+ * Iris 1.13.0
+ * istsos 2.3.1
+ * Jupyter 4.2.0
+ * OpenCPN 4.6.1
+ * R 3.4.0
+ * uDig 2.0.0RC1
+ * Zygrib 7.0.0
+ * Django 1.8
+ * OSM featured city now Boston
+ * Geokettle retired
+ * JavaWorldWind retired
+ * Kosmo retired
+ * OSGEarth retired
+ * Ushahidi retired
+ * Viking retired
+
+Version 11.0alpha1
+====================
+
+ * Lubuntu 16.04.2 base iso used.
+ * GDAL 2.2.0
+ * OTB 6.0.0
+ * QGIS 2.14.14
+ * GRASS 7.2.1
+ * OpenLayers 4.1.1
+ * Leaflet 1.0.3
+ * GeoNetwork 2.3.1
+ * pycsw 2.0.3
+ * pgRouting 2.4.1
+ * MapServer 7.0.5
+ * Deegree 3.3.20
+ * ncWMS 2.1.8
+ * 52nSOS 4.4.0
+ * 52nWPS 3.6.1
+ * Cesium 1.34
+ * GeoMoose 2.9.3
+ * MapBender 3.0.6.1
+ * MapProxy 1.10.0
+ * OpenJUMP 1.11
+ * Rasdaman 9.4.1
+ * Sahana retired
+
+Version 10.5
+====================
+
+ * QGIS fixed: libtiff5 Ubuntu patch reverted (#1897)
+ 
+Version 10.5rc1
+====================
+
+ * rasdaman 9.3.0
+ * Leaflet demo fix
+ * Fixed Java World Wind download link
+ * Removed gmt-doc from the build to save some disk space (#467)
+ * New artwork for 10.5 release
+ * Downgraded PyWPS to 3.2.5
+
+Version 10.5beta1
+====================
+
+ * GRASS 7.2.0
+ * QGIS 2.14.11
+ * GDAL 2.1.3
+ * PostGIS 2.3.2
+ * MapServer 7.0.4
+ * pycsw 2.0.2
+ * GeoMoose 2.9.2
+ * PyWPS 4.0.0
+ * OTB 5.8.0
+ * SAGA 2.3.1
+ * ZOO-Project 1.6.0
+ * pgRouting 2.3.2
+ * 52nSOS 4.3.9
+ * fiona 1.7.2
+ * rasterio 0.36.0
+ * josm 0.0.svn11427
+ * MapCache 1.4.0
+ * MapProxy 1.9.0
+ * osm2pgrouting 2.2.0
+ * osm2pgsql 0.88.1
+ * OWSLib 0.14.0
+ * python-osmapi 0.7.2
+ * UEFI supported only in amd64 architecture (#1831)
+ * MapProxy installer updated based on the recent debian packaging (#1774)
+
+Version 10.5alpha1
+====================
+
+ * Supporting isohybrid ISO images with UEFI
+ * GEOS 3.5.1
+ * GDAL 2.1.2
+ * PostGIS 2.3.1
+ * GeoServer 2.10.1
+ * GRASS 7.0.5
+ * QGIS 2.14.10
+ * libLAS 1.8.1
+ * pgRouting 2.3.1
+ * Deegree 3.3.18
+ * retired Cartaro
+ * Added GeoServer NetCDF extension
+
+Version 10.0
+====================
+
+ * Lubuntu 16.04.1 base iso used.
+ * Added OSM attribution in welcome message (#1765)
+ * Minor desktop configuration fix
+ * Updated documentation
+ * ISO creation configuration update
+ * Viking MapQuest tiles disabled by default (#1754)
+
+Version 10.0rc1
+====================
+
+ * Updated documentation
+ * New artwork (Thanks Brian Hamlin)
+ * All packages moved to release-10.0 ppa
+ * Added postgis-gui (#1750)
+ * Jupyter Notebook 4.2.1
+ * Fixed TileStache previewer (#1737)
+ * Added failover to OSM for Leaflet demo (#1307)
+ * Fixed MapQuest issue in GeoNode and ZOO-Project (#1754)
+ * Updated QGIS plugins for 10.0
+
+Version 10.0beta1
+====================
+
+ * QGIS 2.14.3
+ * PostGIS 2.2.2
+ * pgRouting 2.2.3
+ * Mapnik 3.0.11 and latest python-mapnik
+ * Iris 1.9.2
+ * Downgraded osgearth to 2.5.0 (#1699)
+ * TileStache 1.49.8 replaced TileLite (#1701)
+ * Featured OSM city switched to Bonn (#1698)
+ * ZOO-Project packaging now supports CGAL and OTB (#1710)
+ * JOSM plugins added
+ * Added OSM cli tools
+
+Version 10.0alpha3
+====================
+
+ * Downgraded Django to 1.6.11
+ * Improved PyWPS packaging (#1730)
+ * 52nSOS 4.3.6 update
+ * 52nWPS 3.4.0 update
+ * Leaflet demo updated
+ * ZOO-Project demo fixed (#1710)
+ * Cartaro installation fixed (#1718)
+ * GeoNode packaging provided for Xenial (#1722)
+ * EOxServer installation fixed (#1706)
+ * Rasdaman installer available for Xenial (#1721)
+ * TileMill retired (#1723)
+ * R packages updated to Xenial (#1720)
+ * r-cran-grass7 added (#1444)
+ * Updated Ubuntu documentation to 16.04
+
+Version 10.0alpha2
+====================
+
+ * Added alternative PHP version (5.6)
+ * PyWPS 3.2.5 added
+ * MapServer re-built with PHP Mapscript support.
+ * MapProxy issue fixed (#1704)
+ * Zenity issue fixed (#1709)
+ * GeoMajas issue fixed (#1713)
+ * Jupyter packaging completed for Xenial (#1711)
+ * Fixed QGIS tutorial build (#1703)
+ * Fixed memory issue for default tomcat (#1715)
+ * Added php5.6-xml which is needed by MapBender3 (#1716)
+ * Added php5.6-mbstring to geomoose installer (#1717)
+ * Modified OSSIM installer to use debian packages from ppa (#1700)
+ * Update to latest version of MapSlicer (#1712)
+ * Fixed istsos icon (#1708)
+ * Monteverdi added back to ppa (#1702)
+
+Version 10.0alpha1
+====================
+
+ * Re-based to Lubuntu 16.04 LTS Xenial
+ * Unmount problem during build process now solved (#1046)
+ * Refactored installer scripts to 3 layers (base, services, projects)
+ * PostgreSQL 9.5
+ * MySQL 5.7
+ * OpenJDK 8
+ * Tomcat 8
+ * GDAL 2.1.0
+ * PostGIS 2.2.1
+ * GRASS 7.0.3
+ * QGIS 2.14.1
+ * Mapnik 3.0.9
+ * GeoServer 2.8.3
+ * MapServer 7.0.1
+ * pycsw 1.10.4
+ * mbsystem 5.5.2274
+ * MapProxy 1.8.2
+ * istsos 2.3.0
+ * netcdf4-python 1.2.4
+ * cartopy 0.14.2
+ * opencpn 4.2.0
+ * osgearth 2.7.0
+ * pgrouting 2.1.0
+ * OTB 5.4.0
+ * SAGA 2.2.7
+ * GeoMoose 2.9.0
+ * GMT 5.2.1
+ * PHP 7
+
+Version 9.5rc2/final
+====================
+
+ * Fixed GeoNetwork build for 32 bit (#1522)
+ * Fixed Rasdaman installer for 32 bit (#1645)
+
+Version 9.5rc1
+====================
+
+ * QGIS 2.14.0
+ * GeoNetwork 3.0.3
+ * GSoC 2015 Jupyter Notebooks added
+ * GPSDrive retired
+ * Rasdaman 9.2
+ * SAGA 2.2.4
+ * R Kernel for Jupyter added
+ * Added OTB Application Launcher
+ * rasterio and fiona CLI added
+ * TinyOWS quickstart fixed (#1233)
+ * Enabled MapServer WMS demo (#1622)
+ * New release-9.5 ppa
+
+Version 9.5beta1
+====================
+
+ * NASA Java World Wind added
+ * istSOS project added
+ * GRASS 7.0.3
+ * Jupyter 1.0 and IPython 4.0 upgrade
+ * GeoServer 2.8.2 (including CSS extension)
+ * Cartaro 1.9
+ * Cesium 1.18
+ * OpenLayers 3.13.1
+ * MapBender 3.0.5.3
+ * SAGA 2.2.3
+ * Enabled GDAL drivers and outdb rasters for PostGIS
+ * Disabled GPSDrive from builds
+ * OSSIM plugins/GUI rebuilt on top of new libossim-dev (#1515)
+ * Added libgdal-grass
+ * Updated python packages (rasterio, fiona, folium, cartopy)
+
+Version 9.5alpha2
+====================
+
+ * GEOS 3.5.0
+ * PostGIS 2.2.1
+ * QGIS 2.12.1
+ * GeoServer 2.7.5
+ * GeoNode 2.4.0
+ * OSSIM 1.8.20
+ * OTB 5.2.0
+ * Monteverdi 3.0.0
+ * MapServer demo updated for 7.0.0
+ * osm2pgsql 0.88.1
+ * QGIS-GRASS plugin re-enabled
+ * QGIS plugins updated to latest versions
+ * OWSLib 0.10.0
+ * pgadmin 1.20.0
+ * Django 1.6.11
+
+Version 9.5alpha1
+====================
+
+ * PostgreSQL 9.4
+ * GDAL 1.11.3
+ * PostGIS 2.2 (including SFCGAL)
+ * GRASS 7.0.2
+ * MapServer 7.0.0
+ * GeoNetwork 3.0.1
+ * pycsw 1.10.3
+ * libLAS 1.8.0
+
+Version 9.0rc1/final
+====================
+
+ * ncWMS 1.2
+ * gvSIG 2.2
+ * Updated to Monteverdi2
+ * Added OSSIM plugins and qt packages for 1.8.18
+ * Kosmo fix for 64 bit architecture
+ * GeoNetwork reverted to 2.10.x for this release, due to blocker issue
+
 Version 9.0beta1
 ====================
 

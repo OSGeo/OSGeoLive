@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2012 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -31,7 +31,7 @@ USER_HOME="/home/$USER_NAME"
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/local/lib"
 BIN="/usr/local/bin"
-GS_VERSION="2.7.2"
+GS_VERSION="2.10.4"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 DOC_DIR="$GS_HOME/doc"
@@ -53,6 +53,7 @@ mkdir -p "$TMP"
 cd "$TMP"
 
 
+###------------------------------------------
 ### Download and unpack GeoServer ###
 
 ## get GeoServer
@@ -65,8 +66,12 @@ wget -c --progress=dot:mega \
 echo "Unpacking GeoServer in $GS_HOME"
 unzip -o -q "geoserver-$GS_VERSION-bin.zip" -d "$INSTALL_FOLDER"
 
+## add an unversioned symlink to GeoServer home (used in quickstart)
+if [ ! -e "$INSTALL_FOLDER/geoserver" ]; then
+  ln -s "$GS_HOME" "$INSTALL_FOLDER/geoserver"
+fi
 
-
+###------------------------------------------
 ### Configure Application ###
 
 ## We need to make sure the scripts use the proper JDK version ##
@@ -77,11 +82,21 @@ sed -i "1 i # Define Java home\nJAVA_HOME=/usr/lib/jvm/default-java; export JAVA
    "$GS_HOME/bin/shutdown.sh"
 
 ## Make Jetty run on a different port
-sed -i -e "s/8080/$GS_PORT/g" "$GS_HOME"/etc/jetty.xml
+sed -i -e "s/8080/$GS_PORT/g" "$GS_HOME"/start.ini
+
+## Remove the pure-Java JAI and ImageIO jars bundled with GeoServer
+## because they conflict with the native JAI and ImageIO
+## installed at the system level by install_udig.sh
+#rm -f "$GS_HOME"/webapps/geoserver/WEB-INF/lib/jai_*.jar
 
 ## Add a script that will launch the browser after starting GS
 cat << EOF > "$GS_HOME/bin/start_admin.sh"
 #!/bin/sh
+
+# Writable location for GeoServer NetCDF index files
+NETCDF_DATA_DIR="\$HOME/.geoserver"
+mkdir -p "\$NETCDF_DATA_DIR"
+export JAVA_OPTS="-DNETCDF_DATA_DIR=\$NETCDF_DATA_DIR"
 
 $GS_HOME/bin/startup.sh &
 
@@ -142,6 +157,7 @@ if [ ! -e "$BIN/geoserver_stop_notify.sh" ] ; then
   ln -s "$GS_HOME/bin/stop_notify.sh" "$BIN/geoserver_stop_notify.sh"
 fi
 
+###------------------------------------------
 ### download the documentation
 
 mkdir -p "$DOC_DIR"
@@ -154,7 +170,9 @@ wget --progress=dot:mega \
 echo "Installing GeoServer documentation"
 unzip -o -q "geoserver-$GS_VERSION-htmldoc.zip" -d "$DOC_DIR"
 
+###------------------------------------------
 ### download and install INSPIRE extension
+
 echo "Getting INSPIRE extension"
 wget --progress=dot:mega \
   -O "geoserver-$GS_VERSION-inspire-plugin.zip" \
@@ -162,6 +180,27 @@ wget --progress=dot:mega \
 echo "Installing INSPIRE extension"
 unzip -o -q "geoserver-$GS_VERSION-inspire-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
 
+###------------------------------------------
+### download and install CSS extension
+
+echo "Getting CSS extension"
+wget --progress=dot:mega \
+  -O "geoserver-$GS_VERSION-css-plugin.zip" \
+  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-css-plugin.zip/download"
+echo "Installing CSS extension"
+unzip -o -q "geoserver-$GS_VERSION-css-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
+
+###------------------------------------------
+### download and install NetCDF extension
+
+echo "Getting NetCDF extension"
+wget --progress=dot:mega \
+  -O "geoserver-$GS_VERSION-netcdf-plugin.zip" \
+  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-netcdf-plugin.zip/download"
+echo "Installing NetCDF extension"
+unzip -o -q "geoserver-$GS_VERSION-netcdf-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
+
+###------------------------------------------
 ### install desktop icons ##
 echo "Installing GeoServer icons"
 cp -f "$USER_HOME/gisvm/app-conf/geoserver/geoserver_48x48.logo.png" \

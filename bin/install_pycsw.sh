@@ -1,5 +1,10 @@
 #!/bin/sh
-# Copyright (c) 2013 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install pycsw
+#
+#############################################################################
+# Copyright (c) 2013-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -11,13 +16,8 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
+#############################################################################
 
-# About:
-# =====
-# This script will install pycsw, an OGC CSW server implementation
-# written in Python.
-#   http://pycsw.org
-#
 # Requires: Apache2, python-lxml, python-shapely and python-sqlalchemy
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -34,6 +34,26 @@ USER_HOME="/home/$USER_NAME"
 echo 'Installing pycsw ...'
 
 apt-get install --yes python-pycsw python-pycsw-wsgi python-pycsw-doc javascript-common
+
+echo 'Downloading pycsw logo ...'
+wget -c --progress=dot:mega \
+   -O /usr/local/share/icons/pycsw.png \
+   "https://github.com/geopython/pycsw/raw/master/docs/_static/pycsw-logo.png"
+
+echo 'Installing desktop launcher ...'
+
+cat << EOF > /usr/share/applications/pycsw.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=pycsw
+Comment=pycsw catalog server
+Exec=xdg-open http://localhost/pycsw/tests/index.html
+Icon=pycsw
+Terminal=false
+StartupNotify=false
+Categories=Application;Education;Geography;CSW
+EOF
 
 cp /usr/share/applications/pycsw.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/pycsw.desktop"
