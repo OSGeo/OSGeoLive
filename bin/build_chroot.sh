@@ -211,7 +211,7 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 4.15.0-12-generic
+sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 4.15.0-15-generic
 
 #continue
 mkdir lzfiles
