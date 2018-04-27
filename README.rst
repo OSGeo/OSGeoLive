@@ -3,7 +3,7 @@ OSGeo live installation scripts
 OSGeo-Live_ is a self-contained bootable DVD, USB thumb drive or Virtual Machine based on Lubuntu, that allows you to try a wide variety of open source geospatial software without installing anything. It is composed entirely of free software, allowing it to be freely distributed, duplicated and passed around.
 
 The set of scripts in this repository will make a GIS Virtual
-Machine or bootable ISO from a base Lubuntu 16.04 (Xenial) system.
+Machine or bootable ISO from a base Lubuntu 18.04 (Bionic) system.
 
 Running:
 ~~~~~~~~
