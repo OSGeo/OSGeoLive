@@ -260,7 +260,7 @@ rm /etc/hosts
 
 # Nameserver settings
 rm /etc/resolv.conf
-ln -s /run/resolvconf/resolv.conf /etc/resolv.conf
+ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
 # If you installed software, be sure to run 
 rm /var/lib/dbus/machine-id
