@@ -82,7 +82,7 @@ echo "Git branch: $GIT_BRANCH"
 DIR="/usr/local/share/gisvm/bin"
 GIT_DIR="/usr/local/share/gisvm"
 VERSION=`cat "$DIR"/../VERSION.txt`
-PACKAGE_NAME="osgeo-live"
+PACKAGE_NAME="osgeolive"
 cd "$GIT_DIR"
 REVISION=`git show-ref --head --hash head --hash=7`
 REVISION_FULL=`git show-ref --head --hash head`
