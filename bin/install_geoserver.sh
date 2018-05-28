@@ -292,6 +292,12 @@ chmod g+w /usr/local/share/geoserver
 cp /usr/local/share/gisvm/app-data/geoserver/ne_10m*.sld \
    /usr/local/share/geoserver/
 
+## add sample data for NetCDF section of quickstart (from GeoServer 2.10.4 as removed in later versions)
+mkdir -p /usr/local/share/data/netcdf
+wget --progress=dot:mega \
+  -O /usr/local/share/data/netcdf/polyphemus_20120401.nc \
+  "https://github.com/geoserver/geoserver/raw/2.10.4/doc/en/user/source/rest/examples/polyphemus_20120401.nc"
+
 ## clean up eventual leftover Jetty cache directory
 echo "Cleaning up Jetty JSP cache in /tmp"
 rm -rf /tmp/Jetty*geoserver*
