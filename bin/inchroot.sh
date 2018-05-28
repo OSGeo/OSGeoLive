@@ -121,8 +121,8 @@ export USER_NAME
 
 ### Base installers
 ./base_c.sh
-# ./base_python.sh
-# ./base_java.sh "$ARCH"
+./base_python.sh
+./base_java.sh "$ARCH"
 # ./base_language.sh
 
 ### Service installers
