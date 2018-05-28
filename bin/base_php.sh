@@ -25,6 +25,6 @@ BUILD_DIR=`pwd`
 
 apt-get -q update
 
-apt-get install --yes php5.6
+apt-get install --yes php
 
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
