@@ -36,7 +36,8 @@ ARCH="$1"
 ####
 
 #apt-get install --yes default-jdk default-jre
-apt-get install --yes openjdk-8-jdk openjdk-8-jre default-jre
+apt-get install --yes openjdk-8-jdk openjdk-8-jre
+# Bionic has openjdk-11-jre as default-jre, temporarily removed.
 
 apt-get --assume-yes install gsfonts-x11 ttf-dejavu-extra
 
