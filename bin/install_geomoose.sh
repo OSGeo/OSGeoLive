@@ -1,6 +1,10 @@
 #!/bin/sh
+#############################################################################
 #
-# Copyright (c) 2009-2017 The Open Source Geospatial Foundation.
+# Purpose: This script will install geomoose
+#
+#############################################################################
+# Copyright (c) 2009-2017 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -12,11 +16,8 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# About:
-# =====
-# This script will install geomoose
-#
+#############################################################################
+
 # Requires: Apache2, PHP5, MapServer
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -36,7 +37,7 @@ mkdir -p /tmp/build-geomoose
 cd /tmp/build-geomoose
 
 ## Download and extract GeoMOOSE 2.9.3
-wget -c --tries=3 --progress=dot:mega \
+wget -c --tries=3 --progress=dot:mega --no-check-certificate \
    "http://www.geomoose.org/downloads/geomoose-2.9.3.tar.gz"
 #wget -c --tries=3 --progress=dot:mega \
 #   "http://download.osgeo.org/livedvd/data/geomoose/geomoose-2.9.0.tar.gz"

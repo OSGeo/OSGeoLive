@@ -6,7 +6,7 @@
 # The menu creation and icon sorting has moved to install_icons_and_menus.sh
 #
 #############################################################################
-# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -60,6 +60,9 @@ sed -i -e 's|^wallpaper_mode=.*|wallpaper_mode=stretch|' \
        -e 's|^show_trash=.*|show_trash=0|' \
        -e 's|^desktop_shadow=.*|desktop_shadow=#A09A8F|' \
    /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
+
+## Desktop shadow configuration ^^
+##        -e 's|^desktop_shadow=.*|desktop_shadow=#A09A8F|' \
 
 ## Removed this for xenial: -e 's|^desktop_shadow=.*|desktop_shadow=.*\nshow_mounts=1|' \
 

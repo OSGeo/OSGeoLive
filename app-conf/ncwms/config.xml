@@ -1,0 +1,50 @@
+<config>
+   <datasets>
+      <dataset id="histprec" location="/usr/local/share/data/netcdf/rx5dayETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc" queryable="true" dataReaderClass="" copyrightStatement="" moreInfo="" disabled="false" title="Historical precipitation" updateInterval="-1">
+         <variables>
+            <variable id="rx5dayETCCDI" title="Annual Maximum Consecutive 5-day Precipitation" colorScaleRange="-33.731453 730.3707" palette="rainbow" scaling="linear" numColorBands="253"/>
+         </variables>
+      </dataset>
+      <dataset id="histtemp" location="/usr/local/share/data/netcdf/txxETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc" queryable="true" dataReaderClass="" copyrightStatement="" moreInfo="" disabled="false" title="Historical temperatures" updateInterval="-1">
+         <variables>
+            <variable id="rx5dayETCCDI" title="Annual Maximum Consecutive 5-day Precipitation" colorScaleRange="-40.76913 879.6696" palette="rainbow" scaling="linear" numColorBands="253"/>
+            <variable id="txxETCCDI" title="Annual Maximum of Daily Maximum Temperature" colorScaleRange="-25.788244 60.696785" palette="rainbow" scaling="linear" numColorBands="253"/>
+         </variables>
+      </dataset>
+      <dataset id="modprec" location="/usr/local/share/data/netcdf/rx5dayETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc" queryable="true" dataReaderClass="" copyrightStatement="" moreInfo="" disabled="false" title="Modelled precipitation" updateInterval="-1">
+         <variables>
+            <variable id="txxETCCDI" title="Annual Maximum of Daily Maximum Temperature" colorScaleRange="-25.788244 60.696785" palette="rainbow" scaling="linear" numColorBands="253"/>
+            <variable id="rx5dayETCCDI" title="Annual Maximum Consecutive 5-day Precipitation" colorScaleRange="-40.76913 879.6696" palette="rainbow" scaling="linear" numColorBands="253"/>
+         </variables>
+      </dataset>
+      <dataset id="modtemp" location="/usr/local/share/data/netcdf/txxETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc" queryable="true" dataReaderClass="" copyrightStatement="" moreInfo="" disabled="false" title="Modelled temperatures" updateInterval="-1">
+         <variables>
+            <variable id="txxETCCDI" title="Annual Maximum of Daily Maximum Temperature" colorScaleRange="-25.6968 60.510963" palette="rainbow" scaling="linear" numColorBands="253"/>
+         </variables>
+      </dataset>
+   </datasets>
+   <threddsCatalog> </threddsCatalog>
+   <contact>
+      <name> </name>
+      <organization> </organization>
+      <telephone> </telephone>
+      <email> </email>
+   </contact>
+   <server>
+      <title>My ncWMS server</title>
+      <allowFeatureInfo>true</allowFeatureInfo>
+      <maxImageWidth>1024</maxImageWidth>
+      <maxImageHeight>1024</maxImageHeight>
+      <abstract> </abstract>
+      <keywords> </keywords>
+      <url> </url>
+      <adminpassword>ncWMS</adminpassword>
+      <allowglobalcapabilities>true</allowglobalcapabilities>
+   </server>
+   <cache enabled="false">
+      <elementLifetimeMinutes>1440</elementLifetimeMinutes>
+      <maxNumItemsInMemory>200</maxNumItemsInMemory>
+      <enableDiskStore>true</enableDiskStore>
+      <maxNumItemsOnDisk>2000</maxNumItemsOnDisk>
+   </cache>
+</config>

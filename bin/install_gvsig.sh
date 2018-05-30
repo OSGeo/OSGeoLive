@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -158,7 +158,9 @@ chmod +x "$USER_HOME/Desktop/gvsig-desktop.desktop"
 # removing this file is an ugly fix - a cleaner way would be fixing this in de package.
 # removing this file saves 107Mb
 rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-2-${ARCH}/gvSIG/extensiones/org.gvsig.raster.gdal.app/gdal/bin/libgdal.a"
+rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-3-${ARCH}/gvSIG/extensiones/org.gvsig.raster.gdal.app/gdal/bin/libgdal.a"
 rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-2-${ARCH}/gvSIG/extensiones/org.gvsig.raster.ermapper.app"
+rm -rf "/usr/local/lib/gvsig-desktop/2.2.0-2313-3-${ARCH}/gvSIG/extensiones/org.gvsig.raster.ermapper.app"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

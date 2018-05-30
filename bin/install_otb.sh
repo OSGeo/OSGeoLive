@@ -1,5 +1,11 @@
 #!/bin/sh
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install Orfeo Tooblox including Monteverdi2 and 
+# OTB apps, assumes script is run with sudo privileges.
+#
+#############################################################################
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -12,11 +18,8 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
-# About:
-# =====
-# This script will install Orfeo Tooblox including Monteverdi2 and OTB apps,
-#  assumes script is run with sudo privileges.
-#
+#############################################################################
+
 # Running:
 # =======
 # monteverdi2

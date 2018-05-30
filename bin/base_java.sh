@@ -4,7 +4,7 @@
 # Purpose: This script will install Jave JRE and Java JDK
 #
 #############################################################################
-# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -36,7 +36,8 @@ ARCH="$1"
 ####
 
 #apt-get install --yes default-jdk default-jre
-apt-get install --yes openjdk-8-jdk openjdk-8-jre default-jre
+apt-get install --yes openjdk-8-jdk openjdk-8-jre
+# Bionic has openjdk-11-jre as default-jre, temporarily removed.
 
 apt-get --assume-yes install gsfonts-x11 ttf-dejavu-extra
 

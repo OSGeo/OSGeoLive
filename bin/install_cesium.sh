@@ -1,6 +1,11 @@
 #!/bin/sh
+#############################################################################
+#
+# Purpose: This script will install Cesium, homepage http://cesiumjs.org/
+#
+#############################################################################
 # Author: Balasubramaniam Natarajan <bala150985 gmail> / Brian M Hamlin <dbb>
-# Copyright (c) 2014-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2014-2016 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -12,10 +17,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LGPL-2.1.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# script to install Cesium
-#    homepage: http://cesiumjs.org/
-#
+#############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 
@@ -25,7 +27,7 @@ BIN_DIR=`pwd`
 BUILD_DIR='/tmp/build_cesium'
 WEB_DIR=cesium
 UNZIP_DIR="$BUILD_DIR/$WEB_DIR"
-CESIUM_VERSION="1.18"
+CESIUM_VERSION="1.35"
 ####
 
 if [ -z "$USER_NAME" ] ; then
@@ -62,7 +64,7 @@ chgrp www-data -R /var/www/html/"$WEB_DIR"
 chmod -R 755 /var/www/html/"$WEB_DIR"/Build
 
 echo "\nGenerating launcher..."
-cp /var/www/html/cesium/logo.png /usr/share/pixmaps/cesium.png
+cp /var/www/html/cesium/Build/Documentation/images/CesiumLogo.png /usr/share/pixmaps/cesium.png
 
 if [ ! -e /usr/share/applications/cesium.desktop ] ; then
    cat << EOF > /usr/share/applications/cesium.desktop
@@ -83,6 +85,7 @@ chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/cesium.desktop"
 
 ## Cleanup
 echo "\nCleanup..."
+cd "$BIN_DIR"
 rm -rf "$BUILD_DIR"
 ## TODO are all the files in $UNZIP_DIR needed? The total size is 98MB, can we save a bit here?
 #rm -rf /var/www/html/cesium/Build

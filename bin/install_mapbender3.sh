@@ -1,5 +1,11 @@
 #!/bin/sh
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install mapbender3 and will create a PostgreSQL database. 
+# The script will also add an ALIAS for Mapbender3 and a Desktop icon.
+#
+#############################################################################
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -11,11 +17,8 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# About:
-# =====
-# This script will install mapbender3 and will create a PostgreSQL database. 
-# The script will also add an ALIAS for Mapbender3 and a Desktop icon.
+#############################################################################
+
 #
 # Requires: Apache2, PHP5, PostgreSQL
 #
@@ -35,10 +38,10 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR="/tmp/build_mapbender3"
-PARAMETERSINSTALLURL="http://mapbender3.org/builds/"
-INSTALLURL="http://mapbender3.org/builds/"
-INSTALLFILE="mapbender3-3.0.5.3"
-PARAMETERSFILE="mapbender3-3.0.5.3"
+PARAMETERSINSTALLURL="http://www.mapbender3.org/builds/osgeolive/"
+INSTALLURL="http://www.mapbender3.org/builds/3.0.6.1/"
+INSTALLFILE="mapbender3-starter-3.0.6.1"
+PARAMETERSFILE="mapbender3-starter-3.0.6.1"
 INSTALL_DIR="/var/www/html"
 
 mkdir -p "$TMP_DIR"

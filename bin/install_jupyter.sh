@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2013-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -34,11 +34,12 @@ apt-get install --assume-yes python-folium \
 apt-add-repository --yes ppa:gcpp-kalxas/jupyter
 apt-get update
 
-# From Jupyter 1.0.0 setup.py dependencies
-apt-get install --assume-yes python-notebook python-qtconsole \
-        python-jupyter-console python-nbconvert python-ipykernel \
-        python-ipywidgets python-widgetsnbextension python-ipython \
-        python-ipyleaflet python-terminado
+# Install latest jupyter notebook
+apt-get install --assume-yes \
+        jupyter-notebook jupyter-client jupyter-core jupyter-nbconvert \
+        python-qtconsole jupyter-qtconsole \
+        python-ipywidgets python-widgetsnbextension \
+        python-ipyleaflet
 
 #-- Clean-up
 apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
@@ -60,12 +61,13 @@ git clone https://github.com/OSGeo/OSGeoLive-Notebooks.git \
    "$USER_HOME/jupyter/notebooks"
 chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/jupyter"
 
-cd /tmp
-wget -c --tries=3 --progress=dot:mega \
-  "http://download.osgeo.org/livedvd/9.5/jupyter/iris/sample_data.tgz"
-tar xf sample_data.tgz
-mkdir -p "$USER_HOME/jupyter/notebooks/projects/IRIS"
-mv sample_data "$USER_HOME/jupyter/notebooks/projects/IRIS/"
+# IRIS is not included in the disk
+# cd /tmp
+# wget -c --tries=3 --progress=dot:mega \
+#   "http://download.osgeo.org/livedvd/9.5/jupyter/iris/sample_data.tgz"
+# tar xf sample_data.tgz
+# mkdir -p "$USER_HOME/jupyter/notebooks/projects/IRIS"
+# mv sample_data "$USER_HOME/jupyter/notebooks/projects/IRIS/"
 cd "$BUILD_DIR"
 
 #TODO: Add cesiumpy instead of the cesium widget
@@ -77,8 +79,8 @@ cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
 cp -r /home/user/jupyter /etc/skel
 
-jupyter nbextension enable --py --sys-prefix widgetsnbextension
-jupyter nbextension enable --py --sys-prefix ipyleaflet
+#jupyter-nbextension enable --py --sys-prefix widgetsnbextension
+#jupyter-nbextension enable --py --sys-prefix ipyleaflet
 
 ####
 ./diskspace_probe.sh "`basename $0`" end

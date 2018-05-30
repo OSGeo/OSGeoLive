@@ -4,7 +4,7 @@
 #
 #############################################################################
 # Created by Massimo Di Stefano on 07/12/09.
-# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -277,6 +277,11 @@ mv ossim_users_guide.pdf /usr/share/ossim/
 chmod 644 /usr/share/ossim/*.pdf
 mkdir -p /var/www/html/ossim/
 ln -s -f /usr/share/ossim/*.pdf /var/www/html/ossim/
+
+wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim.tar.gz"
+tar -zxvf ossim.tar.gz
+mv ossim/* /usr/share/ossim/
+rm -rf ossim ossim.tar.gz
 
 
 

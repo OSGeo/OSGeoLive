@@ -1,5 +1,10 @@
 #!/bin/sh
-# Copyright (c) 2013-2016 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install pycsw
+#
+#############################################################################
+# Copyright (c) 2013-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -11,13 +16,8 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
+#############################################################################
 
-# About:
-# =====
-# This script will install pycsw, an OGC CSW server implementation
-# written in Python.
-#   http://pycsw.org
-#
 # Requires: Apache2, python-lxml, python-shapely and python-sqlalchemy
 
 ./diskspace_probe.sh "`basename $0`" begin

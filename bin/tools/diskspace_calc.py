@@ -1,9 +1,13 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
+#############################################################################
+#
+# Purpose: This script is calculating the disk space
+#
+#############################################################################
 # Copyright (c) 2013 Angelos Tzotsos
-# Copyright (c) 2013 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL version >= 2.1.
+# Copyright (c) 2013-2018 The Open Source Geospatial Foundation.
+# Lpcensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -14,6 +18,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
+#############################################################################
 
 import sys
 import re

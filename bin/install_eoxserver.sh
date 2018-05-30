@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2012-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2012-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -103,29 +103,27 @@ if [ ! -d eoxserver_demonstration ] ; then
     # Initialize database
     python manage.py syncdb --noinput
 
-    AUTOTESTVER="0.4beta3"
-
     # Download and register demonstration data
     wget -c --progress=dot:mega \
-       "https://github.com/EOxServer/autotest/archive/release-$AUTOTESTVER.tar.gz"
+       "https://github.com/EOxServer/eoxserver/archive/release-$EOXSVER.tar.gz"
 
     echo "Extracting demonstration data in `pwd`."
-    tar -xzf release-$AUTOTESTVER.tar.gz
-    chown -R root.root autotest-release-*
+    tar -xzf release-$EOXSVER.tar.gz
+    chown -R root.root eoxserver-release-*
 
     mkdir -p eoxserver_demonstration/data/fixtures/
-    mv autotest-release-$AUTOTESTVER/autotest/data/fixtures/auth_data.json \
-        autotest-release-$AUTOTESTVER/autotest/data/fixtures/range_types.json \
+    mv eoxserver-release-$EOXSVER/autotest/autotest/data/fixtures/auth_data.json \
+        eoxserver-release-$EOXSVER/autotest/autotest/data/fixtures/range_types.json \
         eoxserver_demonstration/data/fixtures/
 
     mkdir -p eoxserver_demonstration/data/meris/
-    mv autotest-release-$AUTOTESTVER/autotest/data/meris/README \
+    mv eoxserver-release-$EOXSVER/autotest/autotest/data/meris/README \
         eoxserver_demonstration/data/meris/
-    mv autotest-release-$AUTOTESTVER/autotest/data/meris/mosaic_MER_FRS_1P_reduced_RGB/ \
+    mv eoxserver-release-$EOXSVER/autotest/autotest/data/meris/mosaic_MER_FRS_1P_reduced_RGB/ \
         eoxserver_demonstration/data/meris/
 
-    rm release-$AUTOTESTVER.tar.gz
-    rm -r autotest-release-$AUTOTESTVER/
+    rm release-$EOXSVER.tar.gz
+    rm -r eoxserver-release-$EOXSVER/
 
     python manage.py loaddata eoxserver_demonstration/data/fixtures/auth_data.json eoxserver_demonstration/data/fixtures/range_types.json
     python manage.py eoxs_collection_create -i MER_FRS_1P_RGB_reduced
@@ -220,23 +218,23 @@ chmod g+w -R EOxServer_documentation*
 chgrp users -R EOxServer_documentation*
 ln -sTf "$DOC_DIR" /var/www/html/eoxserver-docs
 
-# Add Documentation Launch icon to desktop
-if [ ! -e /usr/local/share/applications/eoxserver-docs.desktop ] ; then
-    cat << EOF > /usr/local/share/applications/eoxserver-docs.desktop
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=EOxServer Documentation
-Comment=EOxServer Documentation
-Categories=Application;Geography;Geoscience;Education;
-Exec=evince "$DOC_DIR/EOxServer_documentation.pdf"
-Icon=/usr/share/icons/eoxserver_60x60.logo.png
-Terminal=false
-StartupNotify=false
-EOF
-fi
-cp -a /usr/local/share/applications/eoxserver-docs.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/eoxserver-docs.desktop"
+# # Add Documentation Launch icon to desktop
+# if [ ! -e /usr/local/share/applications/eoxserver-docs.desktop ] ; then
+#     cat << EOF > /usr/local/share/applications/eoxserver-docs.desktop
+# [Desktop Entry]
+# Type=Application
+# Encoding=UTF-8
+# Name=EOxServer Documentation
+# Comment=EOxServer Documentation
+# Categories=Application;Geography;Geoscience;Education;
+# Exec=evince "$DOC_DIR/EOxServer_documentation.pdf"
+# Icon=/usr/share/icons/eoxserver_60x60.logo.png
+# Terminal=false
+# StartupNotify=false
+# EOF
+# fi
+# cp -a /usr/local/share/applications/eoxserver-docs.desktop "$USER_HOME/Desktop/"
+# chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/eoxserver-docs.desktop"
 
 
 # Reload Apache

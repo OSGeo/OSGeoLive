@@ -5,7 +5,7 @@
 # OSGeoLive install scripts.
 #
 #############################################################################
-# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -79,22 +79,20 @@ apt-get -q update
 
 # Install some useful stuff
 apt-get install --yes wget less zip unzip bzip2 p7zip \
-  subversion subversion-tools mercurial git \
-  openssh-client lftp sl usbutils wireless-tools \
+  git openssh-client lftp sl usbutils wireless-tools \
   locate patch menu vim nano screen iotop xfonts-jmk \
   ghostscript htop units gdebi fslint xkb-data \
   xfonts-100dpi xfonts-75dpi zenity
 
 # removed from list:
 # cvs cvsutils fuseiso dlocate medit nedit a2ps netpbm qiv lynx mutt mc
-# xchat rxvt scrot arandr sgt-puzzles sopwith
+# xchat rxvt scrot arandr sgt-puzzles sopwith subversion subversion-tools
+# mercurial
 
 # Install virtualbox guest additions
 # If running on virtualbox this will allow us to use full-screen/usb2/...
 # If running outside virtualbox the drivers will not be loaded
-apt-get install --yes virtualbox-guest-dkms virtualbox-guest-utils
-# Removed from Xenial 16.04.2
-#apt-get install --yes virtualbox-guest-x11
+apt-get install --yes virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
 
 # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
 # FIXME: similar thing needed for man pages?

@@ -1,7 +1,7 @@
 #!/bin/sh
-# Copyright (c) 2013-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2013-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -36,24 +36,21 @@ TOMCAT_USER_NAME="tomcat8"
 TOMCAT_USER_HOME="/usr/share/${TOMCAT_USER_NAME}"
 WMS_WAR_INSTALL_DIR="/var/lib/${TOMCAT_USER_NAME}/webapps"
 WMS_BIN_DIR="/usr/local/share/ncWMS"
-WMS_TAR_NAME="ncWMS_osgeo.tar.gz"
-WMS_TAR_URL="http://downloads.sourceforge.net/project/ncwms/ncwms/osgeo-1.2/"
-WMS_WAR_NAME="ncWMS-1.2.war"
-WMS_WEB_APP_NAME="ncWMS"
+WMS_WAR_URL="https://github.com/Reading-eScience-Centre/ncwms/releases/download/ncwms-2.2.8/"
+WMS_WAR_NAME="ncWMS2.war"
+WMS_WEB_APP_NAME="ncWMS2"
 WMS_TOMCAT_SCRIPT_NAME="$TOMCAT_USER_NAME"
 WMS_ICON_NAME="ncWMS_icon.png"
 WMS_URL="http://localhost:8080/$WMS_WEB_APP_NAME"
 WMS_QUICKSTART_URL="http://localhost/osgeolive/en/quickstart/ncWMS_quickstart.html"
 WMS_OVERVIEW_URL="http://localhost/osgeolive/en/overview/ncWMS_overview.html"
 
-echo "[$(date +%M:%S)]: ncWMS install started"
+echo "[$(date +%M:%S)]: ncWMS2 install started"
 echo "TMP: $TMP"
 echo "USER_NAME: $USER_NAME"
 echo "USER_HOME: $USER_HOME"
 echo "TOMCAT_USER_NAME: $TOMCAT_USER_NAME"
 echo "WMS_WAR_INSTALL_DIR: $WMS_WAR_INSTALL_DIR"
-echo "WMS_TAR_NAME: $WMS_TAR_NAME"
-echo "WMS_TAR_URL: $WMS_TAR_URL"
 echo "WMS_WEB_APP_NAME: $WMS_WEB_APP_NAME"
 echo "WMS_TOMCAT_SCRIPT_NAME: $WMS_TOMCAT_SCRIPT_NAME"
 echo "WMS_ICON_NAME: $WMS_ICON_NAME"
@@ -80,7 +77,7 @@ fi
 if [ ! -x "`which java`" ] ; then
     apt-get -q update
     #
-    apt-get --assume-yes install openjdk-7-jre
+    apt-get --assume-yes install openjdk-8-jre
 fi
 
 # 3 tomcat
@@ -97,32 +94,23 @@ fi
 
 # Create the TMP directory
 mkdir -p "$TMP"
-cd "$TMP"
 
 # Download tar.gz from sf.net server
-if [ -f "$WMS_TAR_NAME" ] ; then
-    echo "[$(date +%M:%S)]: $WMS_TAR_NAME has already been downloaded."
+if [ -f "$WMS_WAR_NAME" ] ; then
+    echo "[$(date +%M:%S)]: $WMS_WAR_NAME has already been downloaded."
 else
     if [ `ls "$TMP" | wc -l` -ne 0 ] ; then
 	### danger: if $TMP gets commented out above it becomes empty, then guess what happens...
 	rm -v -r "$TMP"/*
     fi
-    wget -N --progress=dot:mega "$WMS_TAR_URL$WMS_TAR_NAME"
-fi
-
-# Extract .war file (+ config + icon) from tar.gz file
-if [ -f "$WMS_WAR_NAME" ] ; then
-    echo "[$(date +%M:%S)]: $WMS_WAR_NAME has already been extracted."
-else
-    tar xzf "$WMS_TAR_NAME" --no-same-owner
-    echo "[$(date +%M:%S)]: $WMS_TAR_NAME extracted"
+    wget -N --progress=dot:mega "$WMS_WAR_URL$WMS_WAR_NAME" -O "$TMP/$WMS_WAR_NAME"
 fi
 
 # Copy icon to the icons dir
 mkdir -p /usr/local/share/icons
 if [ ! -e "/usr/local/share/icons/$WMS_ICON_NAME" ] ; then
-    chmod 644 "$WMS_ICON_NAME"
-    mv -v "$WMS_ICON_NAME" /usr/local/share/icons/
+    cp -v "../app-conf/ncwms/$WMS_ICON_NAME" /usr/local/share/icons/
+    chmod 644 "/usr/local/share/icons/$WMS_ICON_NAME"
 fi
 
 # Check for tomcat webapps folder
@@ -139,14 +127,14 @@ fi
 
 # Copy the configuration file to the ncWMS config dir, creating it if necessary
 ###  ? does it really need to be hidden? makes it harder to maintain
-mkdir -p -v "$TOMCAT_USER_HOME/.ncWMS"
+mkdir -p -v "$TOMCAT_USER_HOME/.ncWMS2"
 
-if [ ! -e "$TOMCAT_USER_HOME/.ncWMS/config.xml" ] ; then
-    chmod 644 ncWMS_config.xml
-    mv -v ncWMS_config.xml "$TOMCAT_USER_HOME/.ncWMS/config.xml"
+if [ ! -e "$TOMCAT_USER_HOME/.ncWMS2/config.xml" ] ; then
+    cp -v ../app-conf/ncwms/config.xml "$TOMCAT_USER_HOME/.ncWMS2/config.xml"
+    chmod 644 "$TOMCAT_USER_HOME/.ncWMS2/config.xml"
 fi
 
-chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME "$TOMCAT_USER_HOME/.ncWMS"
+chown -v -R $TOMCAT_USER_NAME:$TOMCAT_USER_NAME "$TOMCAT_USER_HOME/.ncWMS2"
 
 # Create startup/shutdown scripts
 mkdir -p "$WMS_BIN_DIR"
@@ -160,10 +148,10 @@ if [ ! -e "$WMS_BIN_DIR/ncWMS-start.sh" ] ; then
     STAT=\`sudo service "$WMS_TOMCAT_SCRIPT_NAME" status | grep pid\`
     if [ -z "\$STAT" ] ; then
         sudo service "$WMS_TOMCAT_SCRIPT_NAME" start
-        (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") \
+        (sleep 5; echo "25"; sleep 5; echo "50"; sleep 5; echo "75"; sleep 5; echo "100") \
 	   | zenity --progress --auto-close --text "ncWMS starting"
     fi
-    firefox "$WMS_URL/godiva2.html" "$WMS_QUICKSTART_URL" "$WMS_OVERVIEW_URL"
+    firefox "$WMS_URL/Godiva3.html" "$WMS_QUICKSTART_URL" "$WMS_OVERVIEW_URL"
 EOF
 fi
 
@@ -192,7 +180,7 @@ if [ ! -e /usr/local/share/applications/ncWMS-start.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Start ncWMS
+Name=Start ncWMS2
 Comment=ncWMS - A WMS server for NetCDF files
 Categories=Application;Geography;Geoscience;
 Exec=$WMS_BIN_DIR/ncWMS-start.sh
@@ -210,7 +198,7 @@ if [ ! -e /usr/local/share/applications/ncWMS-stop.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Stop ncWMS
+Name=Stop ncWMS2
 Comment=ncWMS - A WMS server for NetCDF files
 Categories=Application;Geography;Geoscience;
 Exec=$WMS_BIN_DIR/ncWMS-stop.sh

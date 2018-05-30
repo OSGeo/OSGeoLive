@@ -9,7 +9,7 @@
 # Author: Hamish Bowman
 #
 #############################################################################
-# Copyright (c) 2013-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2013-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 # 
@@ -38,13 +38,13 @@ USER_HOME="/home/$USER_NAME"
 ################################################
 
 #Desktop apps part 1 (traditional analytic GIS)
-DESKTOP_APPS="grass72 qgis gvsig* openjump uDig ossimplanet *Kosmo*
+DESKTOP_APPS="grass72 qgis gvsig* openjump uDig ossimplanet
               saga"
 #disabled: atlasstyler geopublisher spatialite-gis
 
 #Desktop apps part 2 (geodata viewers and editors)
 NAV_APPS="marble opencpn josm merkaartor osm_online
-          viking zygrib gpsprune nasa_jww"
+          zygrib gpsprune"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
@@ -56,7 +56,7 @@ BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMOOSE geonod
 #disabled: i3geo MapFish-* cartaro-*
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="r geokettle jupyter-notebook* otb-*
+SPATIAL_TOOLS="r jupyter-notebook* otb-*
                mapslicer mapnik-* monteverdi* ossim-geocell"
 #disabled: imagelinker
 
@@ -65,7 +65,7 @@ SPATIAL_TOOLS="r geokettle jupyter-notebook* otb-*
 DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser shp2pgsql-gui"
 
 #Server apps part 3 (public good theme)
-RELIEF_APPS="sahana ushahidi"
+RELIEF_APPS="ushahidi"
 
 ################################################
 
@@ -462,6 +462,23 @@ EOF
 cp -a "/usr/share/applications/$WORKSHOP_INSTALL_FILE" "$USER_HOME/Desktop/"
 chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$WORKSHOP_INSTALL_FILE"
 
+##### Setup INSPIRE installation icon
+INSPIRE_INSTALL_FILE="inspire.desktop"
+cat << EOF > "/usr/share/applications/$INSPIRE_INSTALL_FILE"
+[Desktop Entry]
+Name=INSPIRE resources
+Comment=Resources for implementation of the EU INSPIRE Directive
+Exec=firefox https://wiki.osgeo.org/wiki/INSPIRE
+Icon=/usr/local/share/icons/inspire.png
+Terminal=false
+Type=Application
+Categories=Application;Education;Geography;
+StartupNotify=true
+EOF
+
+cp -a "/usr/share/applications/$INSPIRE_INSTALL_FILE" "$USER_HOME/Desktop/"
+chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$INSPIRE_INSTALL_FILE"
+
 
 #### permissions cleanup (if needed)
 chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/" -R
@@ -478,6 +495,8 @@ if [ ! -e /usr/share/icons/hicolor/48x48/apps/ktip.png ] ; then
 fi
 
 cp "$BUILD_DIR"/../desktop-conf/gnome-globe16blue.svg /usr/local/share/icons/
+
+cp "$BUILD_DIR"/../desktop-conf/inspire.png /usr/local/share/icons/
 
 ### make the Education menu less noisy
 #FIXME: first verify we're not vanishing anything which doesn't exist elsewhere

@@ -1,5 +1,10 @@
 #!/bin/bash
-# Copyright (c) 2009-2010 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install i3geo
+#
+#############################################################################
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -12,6 +17,8 @@
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
+#############################################################################
+
 # Requires: apache2 php5 libapache2-mod-php5 cgi-mapserver mapserver-bin
 #      php-mapscript php5-gd php5-sqlite gfortran r-base r-base-core
 #      r-base-sp r-cran-maptools
