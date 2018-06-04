@@ -58,7 +58,7 @@ adduser "$USER_NAME" tomcat8
 service tomcat8 stop
 
 # Assign 1GB of RAM to default tomcat
-sed -i -e 's|-Djava.awt.headless=true -XX:+UseConcMarkSweepGC|-Djava.awt.headless=true -Xmx1024m -XX:+UserConcMarkSweepGC|' /etc/default/tomcat8
+sed -i -e 's|-Djava.awt.headless=true -XX:+UseConcMarkSweepGC|-Djava.awt.headless=true -Xmx1024m -XX:+UseConcMarkSweepGC|' /etc/default/tomcat8
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
