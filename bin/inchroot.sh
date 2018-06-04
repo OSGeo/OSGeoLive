@@ -129,7 +129,7 @@ export USER_NAME
 ./service_apache2.sh
 ./base_php.sh
 ./service_tomcat.sh
-# ./service_postgresql.sh
+./service_postgresql.sh
 # ./service_mysql.sh
 
 ### Project installers
@@ -165,7 +165,7 @@ export USER_NAME
 # ./install_mapslicer.sh
 
 ## Java stack
-./install_geoserver.sh
+# ./install_geoserver.sh
 # ./install_geonetwork.sh
 # ./install_deegree.sh
 # ./install_geomajas.sh
