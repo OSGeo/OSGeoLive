@@ -46,7 +46,7 @@ my %cfg = (
 	    udd_db_user => 'public-udd-mirror',
 	    udd_db_pass => 'public-udd-mirror',
 	    ppa_url     => 'http://ppa.launchpad.net/osgeolive/nightly/ubuntu',
-	    ppa_series  => 'xenial',
+	    ppa_series  => 'bionic',
 	    format      => 'text',
 	    verbose     => 0,
 	    help        => 0,
@@ -261,7 +261,7 @@ sub get_ubuntu_packages {
 	print "Retrieving source package information for Ubuntu...\n" if($cfg{verbose});
 
 	my $distribution = 'ubuntu';
-	my $release      = 'xenial';
+	my $release      = $cfg{ppa_series};
 
 	$query = "
 	          SELECT s.source,
