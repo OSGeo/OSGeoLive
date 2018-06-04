@@ -31,7 +31,7 @@ USER_HOME="/home/$USER_NAME"
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/local/lib"
 BIN="/usr/local/bin"
-GS_VERSION="2.10.4"
+GS_VERSION="2.13.1"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 DOC_DIR="$GS_HOME/doc"
@@ -291,6 +291,12 @@ chgrp users /usr/local/share/geoserver
 chmod g+w /usr/local/share/geoserver
 cp /usr/local/share/gisvm/app-data/geoserver/ne_10m*.sld \
    /usr/local/share/geoserver/
+
+## add sample data for NetCDF section of quickstart (from GeoServer 2.10.4 as removed in later versions)
+mkdir -p /usr/local/share/data/netcdf
+wget --progress=dot:mega \
+  -O /usr/local/share/data/netcdf/polyphemus_20120401.nc \
+  "https://github.com/geoserver/geoserver/raw/2.10.4/doc/en/user/source/rest/examples/polyphemus_20120401.nc"
 
 ## clean up eventual leftover Jetty cache directory
 echo "Cleaning up Jetty JSP cache in /tmp"
