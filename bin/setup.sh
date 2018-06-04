@@ -97,7 +97,7 @@ apt-get install --yes virtualbox-guest-dkms virtualbox-guest-utils virtualbox-gu
 ##-------
 # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
 # FIXME: similar thing needed for man pages?
-# Ubuntu 1804 - this is no longer an issue AND both ifs eq True
+# Ubuntu 1804 - this is no longer an issue, path exists in /etc/ld.so.conf.d/libc.conf
 ## -- for reference only --
 #if [ -d /etc/ld.so.conf.d ] ; then
 #   echo "/usr/local/lib" > /etc/ld.so.conf.d/usr_local.conf
@@ -130,7 +130,7 @@ depmod
 #rm -fr "$USER_HOME"/Documents
 rm -fr "$USER_HOME"/Pictures
 rm -fr "$USER_HOME"/Music
-#rm -fr "$USER_HOME"/Public
+rm -fr "$USER_HOME"/Public
 rm -fr "$USER_HOME"/Templates
 rm -fr "$USER_HOME"/Videos
 # and don't come back now
@@ -147,9 +147,8 @@ ln -s /usr/local/share/data data
 chown -h "$USER_NAME":"$USER_NAME" data
 ln -s /usr/local/share/data /etc/skel/data
 
-##-- Ubuntu 1804 - group audio already exists
 # and there was music and laughter and much rejoicing
-# adduser user audio
+adduser user audio
 
 ## https://bugs.launchpad.net/ubuntu/+source/fuse/+bug/1581163
 # and connectivity too
