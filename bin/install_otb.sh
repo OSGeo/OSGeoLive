@@ -96,9 +96,5 @@ if [ ! -d "$OTB_DATA" ]; then
 #     echo "Done"
 fi
 
-#OTB does not need this app, just added here since OTB pulls libkml in the Disk.
-apt-get --assume-yes install python-kml
-
-
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

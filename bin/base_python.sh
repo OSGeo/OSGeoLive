@@ -39,7 +39,7 @@ apt-get install --yes python-django
 apt-get install --yes python-gdal python-shapely python-rasterio \
 	python-fiona python-matplotlib python-geopandas \
 	python-netcdf4 python-geojson python-scipy python-pandas \
-	python-pyshp python-descartes python-geographiclib
+	python-pyshp python-descartes python-geographiclib python-kml
 	
 # Install Geospatial Python3 libraries
 apt-get install --yes python3-gdal fiona rasterio
