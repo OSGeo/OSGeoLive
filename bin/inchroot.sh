@@ -156,16 +156,16 @@ export USER_NAME
 ./install_zygrib.sh
 
 ## Python stack
-# ./install_jupyter.sh
-# ./install_mapproxy.sh
-# ./install_pycsw.sh
+./install_jupyter.sh
+./install_mapproxy.sh
+./install_pycsw.sh
 # ./install_eoxserver.sh
 # ./install_iris.sh
 # ./install_istsos.sh
 # ./install_mapslicer.sh
 
 ## Java stack
-# ./install_geoserver.sh
+./install_geoserver.sh
 # ./install_geonetwork.sh
 # ./install_deegree.sh
 # ./install_geomajas.sh
