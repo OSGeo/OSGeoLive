@@ -34,7 +34,7 @@ echo 'Installing libLAS ...'
 apt-get install --yes liblas-bin python-liblas liblas3
 
 # work-around for #1256 (remove this if liblas-c-dev pkg gets installed)
-ln -s /usr/lib/liblas_c.so.2.2.0 /usr/lib/liblas_c.so
+# ln -s /usr/lib/liblas_c.so.2.2.0 /usr/lib/liblas_c.so
 
 echo 'Downloading demo data ...'
 mkdir -p /usr/local/share/data/las

@@ -140,20 +140,20 @@ export USER_NAME
 ./load_postgis.sh
 ./install_pgrouting.sh
 # ./install_ossim.sh
-# ./install_mapserver.sh
-# ./install_tinyows.sh
-# ./install_gmt.sh
-# ./install_mapnik.sh
-# ./install_otb.sh
-# ./install_liblas.sh
-# ./install_saga.sh
-# ./install_grass.sh
-# ./install_qgis.sh
-# ./install_qgis_server.sh
+./install_mapserver.sh
+./install_tinyows.sh
+./install_gmt.sh
+./install_mapnik.sh
+./install_otb.sh
+./install_liblas.sh
+./install_saga.sh
+./install_grass.sh
+./install_qgis.sh
+./install_qgis_server.sh
 # ./install_zoo-project.sh "$ARCH"
-# ./install_marble.sh
+./install_marble.sh
 # ./install_opencpn.sh
-# ./install_zygrib.sh
+./install_zygrib.sh
 
 ## Python stack
 # ./install_jupyter.sh
