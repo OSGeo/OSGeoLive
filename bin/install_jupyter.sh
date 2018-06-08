@@ -27,60 +27,33 @@ USER_HOME="/home/$USER_NAME"
 USER_DESKTOP="$USER_HOME/Desktop"
 BUILD_DIR=`pwd`
 
-apt-get install --assume-yes python-folium \
-        python-pysal python-geocoder python-geoalchemy2
-
-#-- Jupyter ppa
-apt-add-repository --yes ppa:gcpp-kalxas/jupyter
-apt-get update
-
 # Install latest jupyter notebook
-apt-get install --assume-yes \
-        jupyter-notebook jupyter-client jupyter-core jupyter-nbconvert \
-        python-qtconsole jupyter-qtconsole \
-        python-ipywidgets python-widgetsnbextension \
-        python-ipyleaflet
-
-#-- Clean-up
-apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
+apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert
 
 # Get Jupyter logo
 cp "$BUILD_DIR"/../app-data/jupyter/jupyter.svg \
    /usr/share/icons/hicolor/scalable/apps/jupyter.svg
 
-cp "$BUILD_DIR"/../app-data/jupyter/jupyter-notebook*.desktop \
+cp "$BUILD_DIR"/../app-data/jupyter/jupyter-notebook.desktop \
    "$USER_DESKTOP"/
-chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/jupyter-notebook*.desktop
+chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/jupyter-notebook.desktop
 
-cp "$BUILD_DIR"/../app-data/jupyter/jupyter_*.sh \
+cp "$BUILD_DIR"/../app-data/jupyter/jupyter_start.sh \
    /usr/local/bin/
-chmod a+x /usr/local/bin/jupyter_*.sh
+chmod a+x /usr/local/bin/jupyter_start.sh
 
-mkdir -p "$USER_HOME/jupyter"
-git clone https://github.com/OSGeo/OSGeoLive-Notebooks.git \
-   "$USER_HOME/jupyter/notebooks"
-chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/jupyter"
+# TODO: Test if these notebooks work fine 
+# mkdir -p "$USER_HOME/jupyter"
+# git clone https://github.com/OSGeo/OSGeoLive-Notebooks.git \
+#    "$USER_HOME/jupyter/notebooks"
+# chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/jupyter"
 
-# IRIS is not included in the disk
-# cd /tmp
-# wget -c --tries=3 --progress=dot:mega \
-#   "http://download.osgeo.org/livedvd/9.5/jupyter/iris/sample_data.tgz"
-# tar xf sample_data.tgz
-# mkdir -p "$USER_HOME/jupyter/notebooks/projects/IRIS"
-# mv sample_data "$USER_HOME/jupyter/notebooks/projects/IRIS/"
 cd "$BUILD_DIR"
-
-#TODO: Add cesiumpy instead of the cesium widget
-#Update: python-cesiumpy is available in our ppa
-# /bin/sh ../app-conf/jupyter/install_nbextension.sh
 
 mkdir -p "$USER_HOME/jupyter/notebooks/projects/CARTOPY"
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
 cp -r /home/user/jupyter /etc/skel
-
-#jupyter-nbextension enable --py --sys-prefix widgetsnbextension
-#jupyter-nbextension enable --py --sys-prefix ipyleaflet
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
