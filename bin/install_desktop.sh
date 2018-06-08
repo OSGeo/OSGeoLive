@@ -56,9 +56,8 @@ sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.p
 sed -i -e 's|^wallpaper_mode=.*|wallpaper_mode=stretch|' \
        -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
        -e 's|^desktop_bg=.*|desktop_bg=#000000|' \
-       -e 's|^desktop_fg=.*|desktop_fg=#232323|' \
+       -e 's|^desktop_fg=.*|desktop_fg=#FFFFFF|' \
        -e 's|^show_trash=.*|show_trash=0|' \
-       -e 's|^desktop_shadow=.*|desktop_shadow=#A09A8F|' \
    /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
 ## Desktop shadow configuration ^^
