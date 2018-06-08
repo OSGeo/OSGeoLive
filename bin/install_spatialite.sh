@@ -42,7 +42,9 @@ mkdir -p "$BUILD_TMP"
 cd "$BUILD_TMP"
 
 echo "Getting and installing spatialite"
-apt-get install --assume-yes spatialite-bin spatialite-gui sqlite3 sqlitebrowser
+apt-get install --assume-yes spatialite-bin spatialite-gui sqlite3
+# Saves ~40MB of disk space. To enable back if absolutely needed.
+# apt-get install --assume-yes sqlitebrowser
 
 ##########################
 ### Sample data ###

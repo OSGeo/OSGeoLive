@@ -134,8 +134,8 @@ export USER_NAME
 
 ### Project installers
 ## C stack
-# ./install_postgis.sh
-# ./install_spatialite.sh
+./install_postgis.sh
+./install_spatialite.sh
 # ./install_osm.sh
 # ./load_postgis.sh
 # ./install_pgrouting.sh
