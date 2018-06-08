@@ -51,7 +51,7 @@ OSM_DB="pgrouting"
 apt-get update -qq
 
 # Install pgRouting packages
-apt-get install -y -qq postgresql-9.5-pgrouting
+apt-get install -y -qq postgresql-10-pgrouting
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: pgRouting Package install failed! Aborting.'
