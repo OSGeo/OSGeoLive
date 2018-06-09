@@ -76,7 +76,7 @@ rm -rf python-qgis-osgeolive_10.0-1_all.deb
 #    pyqt4-dev-tools
 
 #Make sure old qt uim isn't installed
-apt-get --assume-yes remove uim-qt uim-qt3
+# apt-get --assume-yes remove uim-qt uim-qt3
 
 # ###FIXME: Temp patch for #1466
 # wget -c --progress=dot:mega \
