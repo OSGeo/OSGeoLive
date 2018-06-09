@@ -28,7 +28,7 @@ USER_DESKTOP="$USER_HOME/Desktop"
 BUILD_DIR=`pwd`
 
 # Install latest jupyter notebook
-apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert
+apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert python-ipykernel
 
 # Get Jupyter logo
 cp "$BUILD_DIR"/../app-data/jupyter/jupyter.svg \
