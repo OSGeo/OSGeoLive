@@ -139,7 +139,7 @@ export USER_NAME
 ./install_osm.sh
 ./load_postgis.sh
 ./install_pgrouting.sh
-# ./install_ossim.sh
+./install_ossim.sh
 ./install_mapserver.sh
 ./install_tinyows.sh
 ./install_gmt.sh
@@ -194,7 +194,7 @@ export USER_NAME
 # ./install_rasdaman.sh
 
 ## Docs, Data and extras
-# ./load_gisdata.sh
+./load_gisdata.sh
 # ./install_docs.sh "$BUILD_MODE"
 # ./install_edutools.sh
 
