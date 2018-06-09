@@ -194,7 +194,7 @@ sudo -u $POSTGRES_USER createdb natural_earth2
 sudo -u $POSTGRES_USER psql natural_earth2 -c 'create extension postgis;'
 # 1/2013 Needed for Kosmo and gvSIG:
 sudo -u $POSTGRES_USER psql natural_earth2 \
-  -f /usr/share/postgresql/9.5/contrib/postgis-2.1/legacy.sql
+  -f /usr/share/postgresql/10/contrib/postgis-2.4/legacy.sql
 
 for n in "$SRC_DIR"/*.shp;
 do
