@@ -181,7 +181,7 @@ export USER_NAME
 
 ## PHP stack
 # ./install_mapbender3.sh
-# ./install_geomoose.sh
+./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
 # ./install_geonode.sh
