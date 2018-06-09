@@ -132,11 +132,11 @@ cp -f shutdown.sh "$GEONETWORK_FOLDER/bin/shutdown.sh"
 chgrp users "$GEONETWORK_FOLDER"/jetty
 chgrp users "$GEONETWORK_FOLDER"/jetty/logs -R
 chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/ -R
-chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
+# chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
 chmod g+w "$GEONETWORK_FOLDER"/jetty
 chmod g+w "$GEONETWORK_FOLDER"/jetty/logs -R
 chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/ -R
-chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
+# chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
 adduser "$USER_NAME" users
 
 
