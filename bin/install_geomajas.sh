@@ -92,8 +92,8 @@ fi
 
 
 ##### Step5: Make the logs directory writable
-chgrp users "$GEOMAJAS_HOME/logs"
-chmod g+w "$GEOMAJAS_HOME/logs"
+# chgrp users "$GEOMAJAS_HOME/logs"
+# chmod g+w "$GEOMAJAS_HOME/logs"
 adduser "$USER_NAME" users
 
 #####Make the webapps folder accessible
