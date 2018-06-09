@@ -187,9 +187,9 @@ export USER_NAME
 # ./install_geonode.sh
 
 ## Javascript et al
-# ./install_openlayers.sh
-# ./install_leaflet.sh
-# ./install_cesium.sh
+./install_openlayers.sh
+./install_leaflet.sh
+./install_cesium.sh
 # ./install_R.sh
 # ./install_rasdaman.sh
 
