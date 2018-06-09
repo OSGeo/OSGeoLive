@@ -90,7 +90,7 @@ fi
 if [ ! -x "`which java`" ] ; then
 	apt-get -q update
 	#
-	apt-get --assume-yes install openjdk-8-jre
+	apt-get --assume-yes install default-jre
 fi
 #
 #

@@ -150,7 +150,7 @@ done
 #copy project logo to use as menu icon
 cd "$TMP"
 wget -c --progress=dot:mega \
- "https://github.com/OSGeo/OSGeoLive-doc/raw/master/images/project_logos/logo-GeoNetwork.png" \
+ "https://github.com/OSGeo/OSGeoLive-doc/raw/master/doc/images/projects/geonetwork/logo_geonetwork.png" \
  -O geonetwork_icon.png
 mkdir -p /usr/local/share/icons
 mv geonetwork_icon.png /usr/local/share/icons/geonetwork_icon.png

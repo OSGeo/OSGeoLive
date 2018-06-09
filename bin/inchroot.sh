@@ -166,18 +166,18 @@ export USER_NAME
 
 ## Java stack
 ./install_geoserver.sh
-# ./install_geonetwork.sh
-# ./install_deegree.sh
-# ./install_geomajas.sh
-# ./install_udig.sh "$ARCH"
-# ./install_openjump.sh
-# ./install_gvsig.sh "$ARCH"
-# ./install_gpsprune.sh
+./install_geonetwork.sh
+./install_deegree.sh
+./install_geomajas.sh
+./install_udig.sh "$ARCH"
+./install_openjump.sh
+./install_gvsig.sh "$ARCH"
+./install_gpsprune.sh
 
 ## Java + default tomcat
-# ./install_52nWPS.sh
-# ./install_52nSOS.sh
-# ./install_ncWMS.sh
+./install_52nWPS.sh
+./install_52nSOS.sh
+./install_ncWMS.sh
 
 ## PHP stack
 # ./install_mapbender3.sh

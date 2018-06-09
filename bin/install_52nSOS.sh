@@ -54,7 +54,7 @@ PG_OPTIONS='--client-min-messages=warning'
 PG_USER="postgres"
 PG_SCRIPT_NAME="postgresql"
 PG_DB_NAME="52nSOS"
-JAVA_PKG="openjdk-8-jre"
+JAVA_PKG="default-jre"
 # -----------------------------------------------------------------------------
 #
 echo "[$START]: $SOS_WEB_APP_NAME $SOS_VERSION install started"
