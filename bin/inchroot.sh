@@ -152,18 +152,18 @@ export USER_NAME
 ./install_qgis_server.sh
 # ./install_zoo-project.sh "$ARCH"
 ./install_marble.sh
-# ./install_opencpn.sh
+./install_opencpn.sh
 ./install_zygrib.sh
 
 ## Python stack
 ./install_jupyter.sh
 ./install_mapproxy.sh
 ./install_pycsw.sh
-# ./install_pywps.sh
+./install_pywps.sh
 # ./install_eoxserver.sh
 # ./install_iris.sh
 # ./install_istsos.sh
-# ./install_mapslicer.sh
+./install_mapslicer.sh
 
 ## Java stack
 ./install_geoserver.sh
@@ -191,7 +191,7 @@ export USER_NAME
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_cesium.sh
-# ./install_R.sh
+./install_R.sh
 # ./install_rasdaman.sh
 
 ## Docs, Data and extras
