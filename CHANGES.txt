@@ -1,6 +1,42 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 12.0alpha1
+====================
+
+ * Lubuntu 18.04 base iso used.
+ * New OSGeoLive logo
+ * New INSPIRE desktop link
+ * Python 3.6.5/2.7.15
+ * OpenJDK 1.8.0.171
+ * PostgreSQL 10
+ * GDAL 2.2.4
+ * GEOS 3.6.2
+ * PROJ 4.9.3
+ * GRASS 7.4.0
+ * QGIS 2.18.17
+ * PostGIS 2.4.3
+ * Spatialite 4.3.0
+ * JOSM svn13878
+ * MapServer 7.0.7
+ * GeoServer 2.13.1
+ * OTB 6.4.0
+ * OpenLayers 4.6.5
+ * Cesium 1.46
+ * OpenCPN 4.8.4
+ * OSSIM 2.2.2
+ * pgRouting 2.5.2
+ * Marble 2.2.20
+ * ZyGrib 8.0.1
+ * Jupyter 5.2.2
+ * R 3.4.4
+ * MapProxy 1.11.0
+ * PyWPS 4.0.0
+ * Iris 2.1.0
+ * uDig 2.0.0
+ * 52nWPS 3.6.2
+ * GeoMoose 3.2.0
+
 Version 11.0
 ====================
 
