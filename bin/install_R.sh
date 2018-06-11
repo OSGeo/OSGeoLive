@@ -1,8 +1,7 @@
 #!/bin/sh
 #################################################
 # 
-# Purpose: Installation of R, R-spatial packages and python dependencies
-#	   needed by some qgis plug-in into Xubuntu
+# Purpose: Installation of R and R-spatial packages
 # Author:  Massimo Di Stefano <info@geofemengineering.it>
 #
 #################################################
@@ -24,12 +23,11 @@
 #
 # About:
 # =====
-# This script will install : R and spatial packages plus python
-# dependencies needed by qgis plugins into Xubuntu
+# This script will install : R and spatial packages
 #
 # Running:
 # =======
-# sudo ./install_PyDep_and_R.sh
+# sudo ./install_R.sh
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -41,12 +39,10 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 #Install packages from debs if available
-cp ../sources.list.d/cran.list /etc/apt/sources.list.d/
+# cp ../sources.list.d/cran.list /etc/apt/sources.list.d/
 
-#old key
-#apt-key adv --keyserver subkeys.pgp.net --recv-key E2A11821
 #new key as of 2/2011, package manager changed
-apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
+# apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 
 #Apparently subkeys.pgp.net decided to refuse requests from the vm for a few hours
 # TODO: if key import fails switch to another keyserver
@@ -55,15 +51,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-key E084DAB9
 apt-get -q update
 
 #Plugin interaction with R
-apt-get --assume-yes install python-rpy \
-    gfortran netcdf-bin
-
-# build-essential libblas-dev liblapack-dev libzmq3-dev
-
-# These dependencies were only necessary for building packages which is now done in the ppa
-# apt-get --assume-yes install python-all-dev libgdal-dev \
-#    libxml2-dev tcl8.5-dev tk8.5-dev libgl1-mesa-dev \
-#    libglu1-mesa-dev libsprng2-dev libnetcdf-dev libgeos-dev libproj-dev
+apt-get --assume-yes install r-base r-recommended
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -71,34 +59,22 @@ if [ $? -ne 0 ] ; then
 fi
 
 #Required for QGIS plugins - Switching to apt above
-#easy_install -Z rpy2
 apt-get --assume-yes install python-rpy2 r-cran-rcolorbrewer
 
-
-# R specific packages
-apt-get --assume-yes install r-recommended 
-
-#apt-get --assume-yes install r-cran-rgtk2 r-cran-rjava
-
-# package does not exist in Jaunty+: r-cran-e1071
-# not found in Lucid: r-cran-adapt
-
-
 # This is replaced with the following line which installs packages from our repository:
-apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
- r-cran-geor r-cran-gstat r-cran-maptools r-cran-randomfields r-cran-raster\
- r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
- r-cran-splancs r-cran-rgeos r-cran-ncdf4 r-cran-rsaga r-cran-rgrass7
+# Not yet available for Bionic
+# apt-get --assume-yes install r-cran-classint r-cran-dcluster r-cran-deldir\
+#  r-cran-geor r-cran-gstat r-cran-maptools r-cran-randomfields r-cran-raster\
+#  r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
+#  r-cran-splancs r-cran-rgeos r-cran-ncdf4 r-cran-rsaga r-cran-rgrass7
 
 #Calls R script to do install with feedback to stdout
 # mkdir -p /usr/local/share/jupyter/kernels
 # R --no-save < ../app-conf/R/installRpackages.r
 # mv /roots/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
 
-
 # add user to the staff group so that they can install system-wide packages
 adduser "$USER_NAME" staff
-
 
 #Add Desktop shortcut
 if [ ! -e /usr/share/applications/r.desktop ] ; then
