@@ -20,7 +20,7 @@
 #############################################################################
 
 #
-# Requires: Apache2, PHP7.1, PostgreSQL
+# Requires: Apache2, PHP7.2, PostgreSQL
 #
 # Uninstall:
 # ============
@@ -49,7 +49,7 @@ mkdir -p "$TMP_DIR"
 # Install mapbender dependencies.
 echo "Installing mapbender dependencies"
 
-apt-get install --assume-yes php7.1 php7.1-imagick php7.1-pgsql php7.1-gd  php7.1-curl php7.1-cli php7.1-xml php7.1-sqlite3 sqlite3 php7.1-apcu php7.1-intl php7.1-zip php7.1-mbstring php7.1-bz2 openssl
+apt-get install --assume-yes php php-imagick php-pgsql php-gd php-curl php-cli php-xml php-sqlite3 php-apcu php-intl php-zip php-mbstring php-bz2
 
 a2enmod rewrite
 
@@ -65,9 +65,9 @@ fi
 # download and unzip sources...
 
 cd "$TMP_DIR"
-if [ ! -f "$INSTALLFILE.zip" ] ; then 
-   wget -O $INSTALLFILE.zip --progress=dot:mega \
-      "$INSTALLURL/$INSTALLFILE.zip"
+if [ ! -f "$INSTALLFILE.tar.gz" ] ; then 
+   wget -O $INSTALLFILE.tar.gz --progress=dot:mega \
+      "$INSTALLURL/$INSTALLFILE.tar.gz"
 else
     echo "... Mapbender already downloaded"
 fi
@@ -79,9 +79,7 @@ else
 fi
 
 # uncompress mapbender
-#tar xfz "$INSTALLFILE.zip"
-
-unzip "$INSTALLFILE.zip"
+tar xfz "$INSTALLFILE.tar.gz"
 
 #rm -rf "$INSTALL_DIR/$INSTALLFILE"
 cp -R "$INSTALLFILE" "$INSTALL_DIR/"
