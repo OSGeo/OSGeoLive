@@ -28,7 +28,11 @@ USER_DESKTOP="$USER_HOME/Desktop"
 BUILD_DIR=`pwd`
 
 # Install latest jupyter notebook
-apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert python-ipykernel
+apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert \
+  python-ipykernel python-nbformat python-ipywidgets
+
+# 12dev -- note ticket #1965 for trial log
+
 # ipython CLI as well
 apt-get install --assume-yes ipython
 
