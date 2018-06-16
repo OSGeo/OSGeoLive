@@ -36,6 +36,7 @@ Version 12.0alpha1
  * uDig 2.0.0
  * 52nWPS 3.6.2
  * GeoMoose 3.2.0
+ * 52nSOS 4.4.3
 
 Version 11.0
 ====================
