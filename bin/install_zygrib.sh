@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2010-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2010-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -24,20 +24,6 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-
-#install latest version
-# http://zygrib.org/forum/viewtopic.php?f=7&t=156
-#
-#wget -nv http://doc.hausser.ch/debpackages/dha-debpackages.key \
-#   -O - | sudo apt-key add -
-#
-#echo "deb http://doc.hausser.ch/debpackages ubuntu-dha precise" \
-#   > /etc/apt/sources.list.d/zygrib.list
-#
-#apt-get -q update
-# grumble
-#echo "opencpn hold" | dpkg --set-selections
-
 
 apt-get --assume-yes install zygrib
 

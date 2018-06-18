@@ -5,7 +5,7 @@
 # OSGeoLive.
 #
 #############################################################################
-# Copyright (c) 2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2016-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -35,11 +35,14 @@ apt-get install --yes python-django
 # Hold Django version to avoid upgrades from upstream
 #apt-mark hold python-django
 
-# Install Geospatial Python libraries
+# Install Geospatial Python2 libraries
 apt-get install --yes python-gdal python-shapely python-rasterio \
-	python-fiona fiona rasterio python-matplotlib python-geopandas \
+	python-fiona python-matplotlib python-geopandas python-pysal \
 	python-netcdf4 python-geojson python-scipy python-pandas \
-	python-pyshp python-descartes python-enum34 python-geographiclib
-	
+	python-pyshp python-descartes python-geographiclib python-kml \
+	python-cartopy python-seaborn
+
+# Install Geospatial Python3 libraries
+apt-get install --yes python3-gdal fiona rasterio
 
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

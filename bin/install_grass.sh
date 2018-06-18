@@ -1,7 +1,14 @@
 #!/bin/sh
-# Copyright (c) 2014-2016 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install GRASS GIS 7
+#
+#############################################################################
+# Copyright (c) 2014-2018 The Open Source Geospatial Foundation and others.
+# Author: H.Bowman <hamish_b  yahoo com>
+#
 # Licensed under the GNU LGPL version >= 2.1.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -11,17 +18,13 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LGPL-2.1.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-#  A script to install GRASS GIS 7.
-#    written by H.Bowman <hamish_b  yahoo com>
-#    GRASS homepage: http://grass.osgeo.org/
+#############################################################################
+
+
 #
 # This does not attempt to install QGIS-plugin infrastructure, that is
 #  done in install_qgis.sh. Your QGIS packages will have to have been
 #  built with grass7-enabled plugins.
-#
-# It assumes the GRASS 6 livedvd install script has already been run,
-#  the two versions can co-exist.
 #
 # ***
 # This script is intended to be run by the User on an existing live disc,
@@ -34,9 +37,6 @@
 #  to worry, but those on old netbooks might. If run from a persistent VM
 #  or 8gb USB things should be ok too.
 # ***
-#
-# It should be run as the superuser (sudo).
-#
 
 # FIXME: grass version parsing
 
@@ -56,11 +56,11 @@ mkdir "$TMP_DIR"
 apt-get --quiet update
 apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal-grass
 
-cp /usr/share/applications/grass72.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass72.desktop"
+cp /usr/share/applications/grass74.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass74.desktop"
 
-cp /usr/share/applications/grass72.desktop \
-  /usr/local/share/applications/osgeo-grass72.desktop
+cp /usr/share/applications/grass74.desktop \
+  /usr/local/share/applications/osgeo-grass74.desktop
 
 #### get sample data ####
 

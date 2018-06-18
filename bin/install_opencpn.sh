@@ -1,5 +1,13 @@
 #!/bin/sh
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install the OpenCPN GPS navigation software
+# Author: by H.Bowman <hamish_b  yahoo com>
+# OpenCPN homepage: http://www.opencpn.org/
+# OpenCPN license: GPLv2
+#
+#############################################################################
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # This script is free software; you can redistribute it and/or modify it
@@ -11,13 +19,8 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
+#############################################################################
 
-# About:
-# =====
-# This script will install the OpenCPN GPS navigation software
-#    written by H.Bowman <hamish_b  yahoo com>
-#    OpenCPN homepage: http://www.opencpn.org/
-#    OpenCPN license: GPLv2
 #
 # Description: OpenCPN is an OpenSource Chart PLotter/Navigator
 #     OpenCPN supports:

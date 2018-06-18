@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -48,7 +48,9 @@ mkdir "$TMP_DIR"
 cd "$TMP_DIR"
 
 # Install MapServer and its php, python bindings.
-apt-get install --yes cgi-mapserver mapserver-bin python-mapscript php-mapscript
+apt-get install --yes cgi-mapserver mapserver-bin python-mapscript
+# PHP 7.x not yet supported on MapServer 7.x
+# apt-get install --yes php-mapscript
 
 # Download MapServer data
 wget -c --progress=dot:mega \
@@ -122,7 +124,7 @@ echo 'Downloading MapServer logo ...'
 mkdir -p /usr/local/share/icons
 wget -c --progress=dot:mega \
    -O /usr/local/share/icons/mapserver.png \
-   "https://github.com/OSGeo/OSGeoLive-doc/raw/master/images/project_logos/logo-mapserver-new.png"
+   "https://github.com/OSGeo/OSGeoLive-doc/raw/master/doc/images/projects/mapserver/logo_mapserver.png"
 
 INSTALLED_VERSION=`dpkg -s mapserver-bin | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
 

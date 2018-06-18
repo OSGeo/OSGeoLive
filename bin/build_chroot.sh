@@ -7,7 +7,7 @@
 #          Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2013-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2013-2016 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 # 
@@ -82,7 +82,7 @@ echo "Git branch: $GIT_BRANCH"
 DIR="/usr/local/share/gisvm/bin"
 GIT_DIR="/usr/local/share/gisvm"
 VERSION=`cat "$DIR"/../VERSION.txt`
-PACKAGE_NAME="osgeo-live"
+PACKAGE_NAME="osgeolive"
 cd "$GIT_DIR"
 REVISION=`git show-ref --head --hash head --hash=7`
 REVISION_FULL=`git show-ref --head --hash head`
@@ -94,7 +94,7 @@ if [ "$BUILD_MODE" = "release" ]; then
     ISO_NAME="$PACKAGE_NAME-$VERSION-$ARCH"
     VERSION_MODE="$VERSION"
 else
-    ISO_NAME="$PACKAGE_NAME-nightly-build$GIT_BUILD-$ARCH-$REVISION"
+    ISO_NAME="$PACKAGE_NAME-nightly-build$GIT_BUILD-$ARCH-$REVISION-$GIT_BRANCH"
     VERSION_MODE="build$GIT_BUILD-$REVISION"
 fi
 
@@ -131,8 +131,8 @@ mkdir -p ~/livecdtmp
 cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://cdimage.ubuntu.com"
-UBU_RELEASE="16.04"
-ISO_RELEASE="16.04.2"
+UBU_RELEASE="18.04"
+ISO_RELEASE="18.04"
 UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
    "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
@@ -205,7 +205,7 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 4.8.0-36-generic
+sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 4.15.0-20-generic
 
 #continue
 mkdir lzfiles

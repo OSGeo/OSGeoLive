@@ -1,5 +1,24 @@
 #!/bin/sh
-# Kosmo.sh
+#################################################
+# 
+# Purpose: Kosmo launcher
+#
+#################################################
+# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010 SAIG
+#
+# Licensed under the GNU GPL.
+# 
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published
+# by the Free Software Foundation, either version 2.1 of the License,
+# or any later version.  This library is distributed in the hope that
+# it will be useful, but WITHOUT ANY WARRANTY, without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU General Public License for more details, either
+# in the "LICENSE.GPL.txt" file distributed with this software or at
+# web page "http://www.fsf.org/licenses/gpl.html".
+##################################################
 
 cd /usr/lib/Kosmo-3.1/bin
 

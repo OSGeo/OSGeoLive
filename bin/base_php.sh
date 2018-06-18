@@ -5,7 +5,7 @@
 # OSGeoLive.
 #
 #############################################################################
-# Copyright (c) 2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2016-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -25,6 +25,6 @@ BUILD_DIR=`pwd`
 
 apt-get -q update
 
-apt-get install --yes php5.6
+apt-get install --yes php
 
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

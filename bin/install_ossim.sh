@@ -4,7 +4,7 @@
 #
 #############################################################################
 # Created by Massimo Di Stefano on 07/12/09.
-# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -36,8 +36,9 @@ DATA_FOLDER="/usr/local/share/data"
 #### install ossim from ppa
 apt-get -q update
 
-apt-get install --yes ossim-core libossim1 ossim-plugins ossim-planet-qt \
-    ossim-planet ossim-gui
+apt-get install --yes ossim-core
+# apt-get install --yes libossim1 ossim-plugins ossim-planet-qt \
+#     ossim-planet ossim-gui
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -74,39 +75,39 @@ mv ossim.xpm /usr/share/pixmaps/ossim.xpm
 # cp -a /usr/share/applications/imagelinker.desktop "$USER_HOME/Desktop/"
 # chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/imagelinker.desktop"
 
-cat << EOF > /usr/share/applications/ossimplanet.desktop
-[Desktop Entry]
-Version=1.0
-Name=OssimPlanet
-Comment=OSSIM Planet
-Exec=/usr/bin/ossimplanet -P /usr/share/ossim/ossim_preference
-Icon=ossimPlanet
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=Education;Science;Geography;
-GenericName=
-EOF
+# cat << EOF > /usr/share/applications/ossimplanet.desktop
+# [Desktop Entry]
+# Version=1.0
+# Name=OssimPlanet
+# Comment=OSSIM Planet
+# Exec=/usr/bin/ossimplanet -P /usr/share/ossim/ossim_preference
+# Icon=ossimPlanet
+# Terminal=false
+# Type=Application
+# StartupNotify=true
+# Categories=Education;Science;Geography;
+# GenericName=
+# EOF
 
-cp -a /usr/share/applications/ossimplanet.desktop "$USER_HOME/Desktop/"
-chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/ossimplanet.desktop"
+# cp -a /usr/share/applications/ossimplanet.desktop "$USER_HOME/Desktop/"
+# chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/ossimplanet.desktop"
 
-cat << EOF > /usr/share/applications/ossim-geocell.desktop
-[Desktop Entry]
-Version=1.0
-Name=OSSIM-geocell
-Comment=OSSIM-geocell
-Exec=/usr/bin/ossim-geocell -P /usr/share/ossim/ossim_preference
-Icon=ossim
-Terminal=false
-Type=Application
-StartupNotify=true
-Categories=Education;Science;Geography;Network;Graphics;Qt;
-GenericName=
-EOF
+# cat << EOF > /usr/share/applications/ossim-geocell.desktop
+# [Desktop Entry]
+# Version=1.0
+# Name=OSSIM-geocell
+# Comment=OSSIM-geocell
+# Exec=/usr/bin/ossim-geocell -P /usr/share/ossim/ossim_preference
+# Icon=ossim
+# Terminal=false
+# Type=Application
+# StartupNotify=true
+# Categories=Education;Science;Geography;Network;Graphics;Qt;
+# GenericName=
+# EOF
 
-cp -a /usr/share/applications/ossim-geocell.desktop "$USER_HOME/Desktop/"
-chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/ossim-geocell.desktop"
+# cp -a /usr/share/applications/ossim-geocell.desktop "$USER_HOME/Desktop/"
+# chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/ossim-geocell.desktop"
 
 wget --progress=dot:mega http://download.osgeo.org/livedvd/data/ossim/ossim_preference -O /usr/share/ossim/ossim_preference
 
@@ -278,10 +279,10 @@ chmod 644 /usr/share/ossim/*.pdf
 mkdir -p /var/www/html/ossim/
 ln -s -f /usr/share/ossim/*.pdf /var/www/html/ossim/
 
-wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim.tar.gz"
-tar -zxvf ossim.tar.gz
-mv ossim/* /usr/share/ossim/
-rm -rf ossim ossim.tar.gz
+# wget -c --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/ossim.tar.gz"
+# tar -zxvf ossim.tar.gz
+# mv ossim/* /usr/share/ossim/
+# rm -rf ossim ossim.tar.gz
 
 
 

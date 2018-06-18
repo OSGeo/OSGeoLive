@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2013-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -77,7 +77,7 @@ fi
 if [ ! -x "`which java`" ] ; then
     apt-get -q update
     #
-    apt-get --assume-yes install openjdk-8-jre
+    apt-get --assume-yes install default-jre
 fi
 
 # 3 tomcat

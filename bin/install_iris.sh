@@ -32,10 +32,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 ####
 
-apt-get install -y  \
-    python-nose python-sphinx python-mock python-pyke \
-    python-scipy python-matplotlib python-pyshp python-shapely \
-    python-netcdf4 python-cartopy python-iris
+apt-get install -y python-iris
 
 ##-- 29jul14 odd errors installing netCDF, add workarounds
 # apt-get install libpython2.7-dev

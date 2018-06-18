@@ -1,11 +1,25 @@
 #!/bin/sh
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL version >= 2.1.
+#############################################################################
 #
-# About:
-# =====
-# This script will install Mapnik library, Python bindings
-# and Tilestache for a demo 'World Borders' application
+# Purpose: This script will install Mapnik library, Python bindings and
+# Tilestache for a demo 'World Borders' application
+#
+#############################################################################
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
+#
+# Licensed under the GNU LGPL.
+#
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation, either version 2.1 of the License,
+# or any later version.  This library is distributed in the hope that
+# it will be useful, but WITHOUT ANY WARRANTY, without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Lesser General Public License for more details, either
+# in the "LICENSE.LGPL.txt" file distributed with this software or at
+# web page "http://www.fsf.org/licenses/lgpl.html".
+#############################################################################
+
 #
 # Requires:
 # =========
@@ -32,7 +46,7 @@ DATA_FOLDER="/usr/local/share"
 MAPNIK_DATA="$DATA_FOLDER/mapnik"
 BIN="/usr/local/bin"
 
-apt-get install --yes python-mapnik python-werkzeug tilestache python-modestmaps libjs-modestmaps
+apt-get install --yes python-mapnik tilestache libjs-modestmaps
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'

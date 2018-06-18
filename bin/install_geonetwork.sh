@@ -8,7 +8,7 @@
 # Small edits: Jeroen Ticheler <Jeroen.Ticheler@GeoCat.net>
 #
 #################################################
-# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 GISVM.COM
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -132,11 +132,11 @@ cp -f shutdown.sh "$GEONETWORK_FOLDER/bin/shutdown.sh"
 chgrp users "$GEONETWORK_FOLDER"/jetty
 chgrp users "$GEONETWORK_FOLDER"/jetty/logs -R
 chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/ -R
-chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
+# chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
 chmod g+w "$GEONETWORK_FOLDER"/jetty
 chmod g+w "$GEONETWORK_FOLDER"/jetty/logs -R
 chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/ -R
-chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
+# chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
 adduser "$USER_NAME" users
 
 
@@ -150,7 +150,7 @@ done
 #copy project logo to use as menu icon
 cd "$TMP"
 wget -c --progress=dot:mega \
- "https://github.com/OSGeo/OSGeoLive-doc/raw/master/images/project_logos/logo-GeoNetwork.png" \
+ "https://github.com/OSGeo/OSGeoLive-doc/raw/master/doc/images/projects/geonetwork/logo_geonetwork.png" \
  -O geonetwork_icon.png
 mkdir -p /usr/local/share/icons
 mv geonetwork_icon.png /usr/local/share/icons/geonetwork_icon.png

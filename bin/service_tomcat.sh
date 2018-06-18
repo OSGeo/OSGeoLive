@@ -4,7 +4,7 @@
 # Purpose: This script will install tomcat 8
 #
 #############################################################################
-# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -58,7 +58,7 @@ adduser "$USER_NAME" tomcat8
 service tomcat8 stop
 
 # Assign 1GB of RAM to default tomcat
-sed -i -e 's/-Xmx128m/-Xmx1024m/' /etc/default/tomcat8
+sed -i -e 's|-Djava.awt.headless=true -XX:+UseConcMarkSweepGC|-Djava.awt.headless=true -Xmx1024m -XX:+UseConcMarkSweepGC|' /etc/default/tomcat8
 
 ####
 ./diskspace_probe.sh "`basename $0`" end

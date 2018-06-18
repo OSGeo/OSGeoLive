@@ -8,7 +8,7 @@
 #	         Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -122,8 +122,8 @@ export USER_NAME
 ### Base installers
 ./base_c.sh
 ./base_python.sh
-./base_java.sh "$ARCH"
-./base_language.sh
+./base_java.sh
+# ./base_language.sh
 
 ### Service installers
 ./service_apache2.sh
@@ -150,7 +150,7 @@ export USER_NAME
 ./install_grass.sh
 ./install_qgis.sh
 ./install_qgis_server.sh
-./install_zoo-project.sh "$ARCH"
+# ./install_zoo-project.sh "$ARCH"
 ./install_marble.sh
 ./install_opencpn.sh
 ./install_zygrib.sh
@@ -159,7 +159,8 @@ export USER_NAME
 ./install_jupyter.sh
 ./install_mapproxy.sh
 ./install_pycsw.sh
-./install_eoxserver.sh
+./install_pywps.sh
+# ./install_eoxserver.sh
 ./install_iris.sh
 ./install_istsos.sh
 ./install_mapslicer.sh
@@ -180,23 +181,23 @@ export USER_NAME
 ./install_ncWMS.sh
 
 ## PHP stack
-./install_mapbender3.sh
+./install_mapbender.sh
 ./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
-./install_geonode.sh
+# ./install_geonode.sh
 
 ## Javascript et al
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_cesium.sh
 ./install_R.sh
-./install_rasdaman.sh
+# ./install_rasdaman.sh
 
 ## Docs, Data and extras
 ./load_gisdata.sh
-./install_docs.sh "$BUILD_MODE"
-./install_edutools.sh
+# ./install_docs.sh "$BUILD_MODE"
+# ./install_edutools.sh
 
 ## Desktop and Housekeeping
 ./install_desktop.sh
@@ -260,7 +261,7 @@ rm /etc/hosts
 
 # Nameserver settings
 rm /etc/resolv.conf
-ln -s /run/resolvconf/resolv.conf /etc/resolv.conf
+ln -s /run/systemd/resolve/stub-resolv.conf /etc/resolv.conf
 
 # If you installed software, be sure to run 
 rm /var/lib/dbus/machine-id

@@ -5,7 +5,7 @@
 # install scripts.
 #
 #############################################################################
-# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -133,8 +133,8 @@ EOF
 # remove the apt-get cache
 apt-get clean
 
-
-echo "linux-image-generic-hwe-16.04 install" | dpkg --set-selections
+# This might be needed in the future when more kernels get included in .x releases
+# echo "linux-image-generic-hwe-16.04 install" | dpkg --set-selections
 
 rm -fr \
   "$USER_HOME"/.bash_history \

@@ -4,7 +4,7 @@
 # Purpose: This script will install Jave JRE and Java JDK
 #
 #############################################################################
-# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2009-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -19,41 +19,12 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
-if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
-    echo "Wrong number of arguments"
-    echo "Usage: base_java.sh ARCH(i386 or amd64)"
-    exit 1
-fi
-
-if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
-    echo "Did not specify build architecture, try using i386 or amd64 as an argument"
-    echo "Usage: install_java.sh ARCH(i386 or amd64)"
-    exit 1
-fi
-ARCH="$1"
-
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
-#apt-get install --yes default-jdk default-jre
-apt-get install --yes openjdk-8-jdk openjdk-8-jre default-jre
+apt-get install --yes default-jdk default-jre
 
-apt-get --assume-yes install gsfonts-x11 ttf-dejavu-extra
-
-# Detect build architecture for JAVA_HOME default
-if [ "$ARCH" = "i386" ] ; then
-    ln -s /usr/lib/jvm/java-8-openjdk-i386 /usr/lib/jvm/default-java
-fi
-
-if [ "$ARCH" = "amd64" ] ; then
-    ln -s /usr/lib/jvm/java-8-openjdk-amd64 /usr/lib/jvm/default-java
-fi
-
-# in case of emergency break glass:
-#cat << EOF > /etc/profile.d/set_JAVA_HOME.sh
-#JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386
-#export JAVA_HOME
-#EOF
+apt-get install --yes gsfonts-x11 ttf-dejavu-extra
 
 ####
 ./diskspace_probe.sh "`basename $0`" end

@@ -1,10 +1,11 @@
 #!/bin/sh
-#################################################
+#############################################################################
 # 
 # Purpose: Installation of udig into Xubuntu
 # Author:  Stefan Hansen <shansen@lisasoft.com>
 #
-# Copyright (c) 2010-2016 Open Source Geospatial Foundation (OSGeo)
+#############################################################################
+# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -18,11 +19,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-##################################################
-#
-# About:
-# =====
-# This script will install udig into ubuntu
+#############################################################################
 
 if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
     echo "Wrong number of arguments"
@@ -48,7 +45,7 @@ USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_udig"
 INSTALL_FOLDER="/usr/lib"
-UDIG_VERSION="2.0.0.RC1"
+UDIG_VERSION="2.0.0"
 UDIG_FOLDER="$INSTALL_FOLDER/udig"
 DOCS_FOLDER="/usr/local/share/udig"
 DATA_GLOBAL="/usr/local/share/data"

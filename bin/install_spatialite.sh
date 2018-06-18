@@ -1,5 +1,10 @@
 #!/bin/bash
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install spatialite
+#
+#############################################################################
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -11,10 +16,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# About:
-# =====
-# This script will install spatialite in xubuntu
+#############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -40,7 +42,9 @@ mkdir -p "$BUILD_TMP"
 cd "$BUILD_TMP"
 
 echo "Getting and installing spatialite"
-apt-get install --assume-yes spatialite-bin spatialite-gui sqlite3 sqlitebrowser
+apt-get install --assume-yes spatialite-bin spatialite-gui sqlite3
+# Saves ~40MB of disk space. To enable back if absolutely needed.
+# apt-get install --assume-yes sqlitebrowser
 
 ##########################
 ### Sample data ###
