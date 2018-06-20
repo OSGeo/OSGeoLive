@@ -248,8 +248,7 @@ add_rasdaman_path_to_bashrc()
 # Install and setup demos
 #
 
-# TODO: change nightly to stable once the bionic stable packages are available
-setup_rasdaman_repo "bionic" "nightly"
+setup_rasdaman_repo "bionic" "stable"
 install_rasdaman_pkg
 
 sudo service rasdaman stop
