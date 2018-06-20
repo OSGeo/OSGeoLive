@@ -54,14 +54,26 @@ install_rasdaman_pkg()
   export DEBIAN_FRONTEND=noninteractive
   apt-get -o Dpkg::Options::="--force-confdef" install -y rasdaman \
     || { echo "Failed installing rasdaman package."; return 1; }
-  pip -q install glob2
-  # add rasdaman user to tomcat8 group
-  adduser rasdaman tomcat8
-  # and user to rasdaman group
-  adduser $USER_NAME rasdaman
+  apt-get -q install python-glob2
   echo
   echo "Rasdaman package installed successfully."
   echo
+}
+
+replace_rasdaman_user_with_system_user()
+{
+  local rasdaman_user=rasdaman
+  local rasdaman_group=rasdaman
+  echo "Replacing regular user '$rasdaman_user' with a system user..."
+  userdel $rasdaman_user || { echo "Failed removing rasdaman user."; return 1; }
+  groupdel $rasdaman_group > /dev/null 2>&1
+
+  adduser --system --group --home /opt/rasdaman --no-create-home --shell /bin/bash $rasdaman_user
+  chown -R $rasdaman_user:$rasdaman_group /opt/rasdaman
+  # add rasdaman user to tomcat8 group
+  adduser $rasdaman_user tomcat8
+  # and user to rasdaman group
+  adduser $USER_NAME $rasdaman_group
 }
 
 create_bin_starters()
@@ -251,9 +263,10 @@ add_rasdaman_path_to_bashrc()
 setup_rasdaman_repo "bionic" "stable"
 install_rasdaman_pkg
 
-sudo service rasdaman stop
+sudo -u rasdaman /opt/rasdaman/bin/stop_rasdaman.sh
 sudo service tomcat8 stop
 
+replace_rasdaman_user_with_system_user
 create_bin_starters
 create_demo_scripts
 create_desktop_applications
