@@ -1,15 +1,15 @@
 #!/bin/sh
 #################################################
-# 
+#
 # Purpose: Installation of R and R-spatial packages
 # Author:  Massimo Di Stefano <info@geofemengineering.it>
 #
 #################################################
 # Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
-# Copyright (c) 2009 GeofemEngineering 
+# Copyright (c) 2009 GeofemEngineering
 #
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -72,6 +72,16 @@ apt-get --assume-yes install python-rpy2 r-cran-rcolorbrewer
 # mkdir -p /usr/local/share/jupyter/kernels
 # R --no-save < ../app-conf/R/installRpackages.r
 # mv /roots/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
+
+
+## 12dev alpha1  -- install R geo module sf  -dbb  --------------------------
+apt install libudunits2-dev
+apt install gfortran --yes
+
+su - -c "R -e \"install.packages('udunits2')\""
+su - -c "R -e \"install.packages('sf', repos='http://cran.rstudio.com/')\""
+
+##-----------------------------------------------------------------------------
 
 # add user to the staff group so that they can install system-wide packages
 adduser "$USER_NAME" staff
