@@ -155,6 +155,8 @@ export USER_NAME
 ./install_opencpn.sh
 ./install_zygrib.sh
 
+./install_PDAL.sh
+
 ## Python stack
 ./install_jupyter.sh
 ./install_mapproxy.sh
