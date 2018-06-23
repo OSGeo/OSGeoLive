@@ -4,7 +4,7 @@
 # Purpose: This script will install QGIS including Python and GRASS support,
 #
 #############################################################################
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -35,22 +35,13 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
-#CAUTION: UbuntuGIS should be enabled only through setup.sh
-#Add repositories
-#cp ../sources.list.d/ubuntugis.list /etc/apt/sources.list.d/
-
-#Add signed key for repositorys LTS and non-LTS
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 68436DDF
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
-
 apt-get -q update
 
 #Install packages
 ## 23feb14 fix for QGis "can't make bookmarks"
 apt-get --assume-yes install qgis \
    qgis-common python-qgis python-qgis-common \
-   gpsbabel python-rpy2 python-qt4-phonon \
-   libqt4-sql-sqlite qgis-plugin-grass
+   gpsbabel qgis-plugin-grass
 
 
 if [ $? -ne 0 ] ; then
@@ -60,16 +51,19 @@ fi
 
 
 # add pykml needed by qgis-plugin 'geopaparazzi'
-wget -c --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/ossim/pykml_0.1.1-1_all.deb"
-gdebi --non-interactive --quiet pykml_0.1.1-1_all.deb
+# wget -c --progress=dot:mega \
+#    "http://download.osgeo.org/livedvd/data/ossim/pykml_0.1.1-1_all.deb"
+# gdebi --non-interactive --quiet pykml_0.1.1-1_all.deb
 
 
 #Install optional packages that some plugins use
 apt-get --assume-yes install python-psycopg2 \
    python-gdal python-matplotlib python-qt4-sql \
    libqt4-sql-psql python-qwt5-qt4 python-tk \
-   python-sqlalchemy python-owslib python-shapely
+   python-sqlalchemy python-owslib python-shapely \
+   python-qt4-phonon libqt4-sql-sqlite
+
+# Removed since R should be installed on its own script: python-rpy2
 
 # Install plugins
 wget -c --progress=dot:mega \
@@ -78,11 +72,11 @@ dpkg -i python-qgis-osgeolive_10.0-1_all.deb
 rm -rf python-qgis-osgeolive_10.0-1_all.deb
 
 #Install optional packages for workshops
-apt-get --assume-yes install qt4-designer \
-   pyqt4-dev-tools
+# apt-get --assume-yes install qt4-designer \
+#    pyqt4-dev-tools
 
 #Make sure old qt uim isn't installed
-apt-get --assume-yes remove uim-qt uim-qt3
+# apt-get --assume-yes remove uim-qt uim-qt3
 
 # ###FIXME: Temp patch for #1466
 # wget -c --progress=dot:mega \
@@ -141,7 +135,8 @@ mkdir /usr/local/share/qgis
 #        "http://download.osgeo.org/qgis/doc/manual/qgis-1.0.0_a-gentle-gis-introduction_en.pdf" \
 #	--output-document=/usr/local/share/qgis/qgis-1.0.0_a-gentle-gis-introduction_en.pdf
 
-# TODO: Consider including translations
+# TODO: Consider including translations. New version is available but size is 140MB...
+# https://docs.qgis.org/2.18/pdf/en/
 VER=2.8
 DOCURL="http://download.osgeo.org/livedvd/data/qgis"
 for DOC in UserGuide QGISTrainingManual ; do
@@ -217,12 +212,12 @@ PSWD=user
 
 DBS="
 52nSOS
-cartaro
 eoxserver_demo
 pgrouting"
 #disabled:
 #v2.2_mapfishsample
 # osm_local_smerc
+# cartaro
 
 cat << EOF > "$TMPFILE"
 [SpatiaLite]

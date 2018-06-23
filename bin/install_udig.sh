@@ -5,7 +5,7 @@
 # Author:  Stefan Hansen <shansen@lisasoft.com>
 #
 #############################################################################
-# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -45,7 +45,7 @@ USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_udig"
 INSTALL_FOLDER="/usr/lib"
-UDIG_VERSION="2.0.0.RC1"
+UDIG_VERSION="2.0.0"
 UDIG_FOLDER="$INSTALL_FOLDER/udig"
 DOCS_FOLDER="/usr/local/share/udig"
 DATA_GLOBAL="/usr/local/share/data"

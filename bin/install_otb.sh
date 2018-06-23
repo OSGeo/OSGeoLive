@@ -5,7 +5,7 @@
 # OTB apps, assumes script is run with sudo privileges.
 #
 #############################################################################
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2009-2016 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -45,7 +45,7 @@ apt-get -q update
 #Lot's of these applications have been ported in modules in monteverdi but there are still remainning applications
 #in the legacy not available in monteverdi (simple viewer manager, vector database/raster registration...
 #Monteverdi is perhap's sufficient in a first approach,if you need to save space we  can eliminate otbapp-legacy
-apt-get --assume-yes install libotb otb-bin otb-bin-qt monteverdi
+apt-get --assume-yes install libotb otb-bin otb-bin-qt monteverdi python-otb
 
 #### install desktop icon ####
 cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
@@ -95,10 +95,6 @@ if [ ! -d "$OTB_DATA" ]; then
 #     tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/
 #     echo "Done"
 fi
-
-#OTB does not need this app, just added here since OTB pulls libkml in the Disk.
-apt-get --assume-yes install python-kml
-
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

@@ -25,10 +25,10 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-export LD_LIBRARY_PATH=/usr/lib/grass72/lib:$LD_LIBRARY_PATH
-export PYTHONPATH=/usr/lib/grass72/etc/python:$PYTHONPATH
-export GISBASE=/usr/lib/grass72/
-export PATH=/usr/lib/grass72/bin/:$GISBASE/bin:$GISBASE/scripts:$PATH
+export LD_LIBRARY_PATH=/usr/lib/grass74/lib:$LD_LIBRARY_PATH
+export PYTHONPATH=/usr/lib/grass74/etc/python:$PYTHONPATH
+export GISBASE=/usr/lib/grass74/
+export PATH=/usr/lib/grass74/bin/:$GISBASE/bin:$GISBASE/scripts:$PATH
 
 export GIS_LOCK=$$
 
@@ -43,9 +43,7 @@ export GRASS_TRUECOLOR=TRUE
 export GRASS_PNG_COMPRESSION=9
 export GRASS_PNG_AUTO_WRITE=TRUE
 
-export OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference
+# export OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference
 
-jupyter-notebook --port=8883 --no-browser \
-   --notebook-dir="$USER_HOME/jupyter/notebooks" \
-   --ip='*'
+jupyter-notebook --port=8883 --notebook-dir="$USER_HOME/jupyter/notebooks" --ip='*'
 

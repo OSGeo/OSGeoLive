@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2012-2018 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2012-2018 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #

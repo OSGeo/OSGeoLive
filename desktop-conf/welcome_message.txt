@@ -1,4 +1,4 @@
-Welcome to OSGeo-Live 11.0.
+Welcome to OSGeo-Live 12.0alpha1.
 
 
 See the road-sign Help icon on the Desktop for information about the        
@@ -25,11 +25,8 @@ If you need to become "root" (the UNIX super-user) open a Terminal
 and type "sudo su", then enter "user" as the password if you are
 asked.
 
-The desktop artwork is based on a map from United States Geological Survey.
-
 The living FAQ can be found here:
-  http://wiki.osgeo.org/wiki/Live_GIS_Disc_FAQ
-
+  https://wiki.osgeo.org/wiki/OSGeoLive
 
 
 Happy mapping!

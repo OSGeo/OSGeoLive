@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2010-2018 The Open Source Geospatial Foundation.
+# Copyright (c) 2010-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it

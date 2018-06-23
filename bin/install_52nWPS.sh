@@ -5,7 +5,7 @@
 # Author: e.h.juerrens@52north.org, b.pross@52north.org (modified for WPS)
 #
 #############################################################################
-# Copyright (c) 2011-2018 The Open Source Geospatial Foundation.
+# Copyright (c) 2011-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -39,7 +39,7 @@ USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat8"
 WPS_WAR_INSTALL_FOLDER="/var/lib/${TOMCAT_USER_NAME}/webapps"
 WPS_BIN_FOLDER="/usr/local/share/52nWPS"
-WPS_TAR_NAME="52nWPS-3.6.1.tar.gz"
+WPS_TAR_NAME="52nWPS-3.6.2.tar.gz"
 WPS_TAR_URL="http://52north.org/files/geoprocessing/OSGeoLiveDVD/"
 # when changing this, adjust the name in line 215, too,
 # and the quickstart, which links to this, too
@@ -90,7 +90,7 @@ fi
 if [ ! -x "`which java`" ] ; then
 	apt-get -q update
 	#
-	apt-get --assume-yes install openjdk-8-jre
+	apt-get --assume-yes install default-jre
 fi
 #
 #
