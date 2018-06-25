@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL v.2.1.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -21,17 +21,14 @@
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
-
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
 
-
 PACKAGES="pdal python-pdal libpdal-util5 libpdal-base5"
-PDAL_PLUGINS="libpdal-plugins libpdal-plugin-python libpdal-plugin-pgpointcloud"
-
+PDAL_PLUGINS="libpdal-plugins"
 
 # pkg not installed to save disc space:
 #   pdal-doc
@@ -46,14 +43,11 @@ fi
 # install data for PDAL
 #echo "2" | sudo gmt-coastline-download
 
-
-
 #echo 'export PATH="$PATH:/usr/lib/PDAL/bin"' > /etc/profile.d/PDAL_path.sh
-cat << EOF > /etc/profile.d/PDAL_path.sh
-PATH="\$PATH:/usr/lib/pdal/bin"
-export PATH
-EOF
-
+#cat << EOF > /etc/profile.d/PDAL_path.sh
+#PATH="\$PATH:/usr/lib/pdal/bin"
+#export PATH
+#EOF
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
