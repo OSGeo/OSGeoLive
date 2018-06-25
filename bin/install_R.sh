@@ -80,6 +80,7 @@ apt install gfortran --yes
 
 su - -c "R -e \"install.packages('udunits2')\""
 su - -c "R -e \"install.packages('sf', repos='http://cran.rstudio.com/')\""
+su - -c "R -e \"install.packages('lwgeom', repos='http://cran.rstudio.com/')\""
 
 ##-----------------------------------------------------------------------------
 
