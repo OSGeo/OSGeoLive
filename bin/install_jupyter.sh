@@ -36,6 +36,21 @@ apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert \
 # ipython CLI as well
 apt-get install --assume-yes ipython
 
+##=============================================================
+## Add Kernels and Jupyter Mods
+##
+
+##--  IRKernel via github (assumes R core)
+
+su - -c "R -e \"install.packages('devtools','pbdZMQ','uuid','digest')\""
+su - -c "R -e \"install.packages('repr','evaluate','crayon')\""
+su - -c "R -e \"install.packages('IRdisplay')\""
+
+su - -c "R -e \"devtools::install_github('IRkernel/IRkernel')\""
+su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
+
+
+##-----------------------------------
 
 # Get Jupyter logo
 cp "$BUILD_DIR"/../app-data/jupyter/jupyter.svg \
