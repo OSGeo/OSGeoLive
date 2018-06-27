@@ -75,7 +75,7 @@ apt-get --assume-yes install python-rpy2 r-cran-rcolorbrewer
 
 
 ## 12dev alpha1  -- install R geo module sf  -dbb  --------------------------
-apt install libudunits2-dev
+apt install libudunits2-dev --yes
 apt install gfortran --yes
 
 su - -c "R -e \"install.packages('udunits2')\""
