@@ -42,9 +42,18 @@ apt-get install --assume-yes ipython
 
 ##--  IRKernel via github (assumes R core)
 
-su - -c "R -e \"install.packages('devtools','pbdZMQ','uuid','digest')\""
-su - -c "R -e \"install.packages('repr','evaluate','crayon')\""
+su - -c "R -e \"install.packages('pbdZMQ')\""
+su - -c "R -e \"install.packages('uuid')\""
+su - -c "R -e \"install.packages('digest')\""
+
+su - -c "R -e \"install.packages('repr')\""
+su - -c "R -e \"install.packages('evaluate')\""
+su - -c "R -e \"install.packages('crayon')\""
+
 su - -c "R -e \"install.packages('IRdisplay')\""
+
+apt install --assume-yes libssl-dev openssl
+su - -c "R -e \"install.packages('devtools')\""
 
 su - -c "R -e \"devtools::install_github('IRkernel/IRkernel')\""
 su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
