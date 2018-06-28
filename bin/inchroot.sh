@@ -156,7 +156,6 @@ export USER_NAME
 ./install_zygrib.sh
 
 ## Python stack
-./install_jupyter.sh
 ./install_mapproxy.sh
 ./install_pycsw.sh
 ./install_pywps.sh
@@ -167,6 +166,9 @@ export USER_NAME
 
 ## R
 ./install_R.sh
+
+## Jupyter
+./install_jupyter.sh
 
 
 ## Java stack
