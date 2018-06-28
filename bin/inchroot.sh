@@ -165,6 +165,10 @@ export USER_NAME
 ./install_istsos.sh
 ./install_mapslicer.sh
 
+## R
+./install_R.sh
+
+
 ## Java stack
 ./install_geoserver.sh
 ./install_geonetwork.sh
@@ -191,7 +195,6 @@ export USER_NAME
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_cesium.sh
-./install_R.sh
 # ./install_rasdaman.sh
 
 ## Docs, Data and extras
