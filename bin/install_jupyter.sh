@@ -64,8 +64,13 @@ JOVYAN_R='IRkernel-master-97c492b2.zip'
 wget -c http://download.osgeo.org/livedvd/12/jupyter/${JOVYAN_R}
 unzip ${JOVYAN_R}
 R CMD INSTALL IRkernel-master
-#- check status
+#- TODO check status
+
+su - -c "R -e \"IRkernel::installspec()""
+
 #- cleanup
+rm -rf IRk*
+
 
 ##-----------------------------------
 
