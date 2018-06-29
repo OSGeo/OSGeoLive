@@ -74,7 +74,10 @@ apt-get --assume-yes install python-rpy2 r-cran-rcolorbrewer
 # mv /roots/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
 
 
-## 12dev alpha1  -- install R geo module sf  -dbb  --------------------------
+## 12dev alpha1  -- install R geo module sf  -dbb  ------------------------------------
+
+apt install r-cran-rpostgresql --yes    ## installs only in /usr/lib/R ; links to libpq
+
 apt install libudunits2-dev --yes
 apt install gfortran --yes
 
