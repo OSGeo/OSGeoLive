@@ -55,9 +55,17 @@ su - -c "R -e \"install.packages('IRdisplay')\""
 apt install --assume-yes libssl-dev openssl
 su - -c "R -e \"install.packages('devtools')\""
 
-su - -c "R -e \"devtools::install_github('IRkernel/IRkernel')\""
-su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
+## method zero -- pull from Github dot com
+#su - -c "R -e \"devtools::install_github('IRkernel/IRkernel')\""
+#su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
 
+## methode one -- saved, marked copy
+JOVYAN_R='IRkernel-master-97c492b2.zip'
+wget -c http://download.osgeo.org/livedvd/12/jupyter/${JOVYAN_R}
+unzip ${JOVYAN_R}
+R CMD INSTALL IRkernel-master
+#- check status
+#- cleanup
 
 ##-----------------------------------
 
