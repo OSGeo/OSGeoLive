@@ -66,7 +66,8 @@ unzip ${JOVYAN_R}
 R CMD INSTALL IRkernel-master
 #- TODO check status
 
-su - -c "R -e \"IRkernel::installspec()\""
+## must run as $USER
+su ${USER} -c "R -e \"IRkernel::installspec()\""
 
 #- cleanup
 rm -rf IRk*
