@@ -76,6 +76,7 @@ apt-get --assume-yes install python-rpy2 r-cran-rcolorbrewer
 
 ## 12dev alpha1  -- install R geo module sf  -dbb  ------------------------------------
 
+apr install r-cran-sp --yes
 apt install r-cran-rpostgresql --yes    ## installs only in /usr/lib/R ; links to libpq
 
 apt install libudunits2-dev --yes
