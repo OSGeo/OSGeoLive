@@ -36,6 +36,44 @@ apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert \
 # ipython CLI as well
 apt-get install --assume-yes ipython
 
+##=============================================================
+## Add Kernels and Jupyter Mods
+##
+
+##--  IRKernel via github (assumes R core)
+
+su - -c "R -e \"install.packages('pbdZMQ')\""
+su - -c "R -e \"install.packages('uuid')\""
+su - -c "R -e \"install.packages('digest')\""
+
+su - -c "R -e \"install.packages('repr')\""
+su - -c "R -e \"install.packages('evaluate')\""
+su - -c "R -e \"install.packages('crayon')\""
+
+su - -c "R -e \"install.packages('IRdisplay')\""
+
+apt install --assume-yes libssl-dev openssl
+su - -c "R -e \"install.packages('devtools')\""
+
+## method zero -- pull from Github dot com
+#su - -c "R -e \"devtools::install_github('IRkernel/IRkernel')\""
+#su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
+
+## methode one -- saved, marked copy
+JOVYAN_R='IRkernel-master-97c492b2.zip'
+wget -c http://download.osgeo.org/livedvd/12/jupyter/${JOVYAN_R}
+unzip ${JOVYAN_R}
+R CMD INSTALL IRkernel-master
+#- TODO check status
+
+## must run as $USER
+su ${USER} -c "R -e \"IRkernel::installspec()\""
+
+#- cleanup
+rm -rf IRk*
+
+
+##-----------------------------------
 
 # Get Jupyter logo
 cp "$BUILD_DIR"/../app-data/jupyter/jupyter.svg \
