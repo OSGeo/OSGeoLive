@@ -66,8 +66,8 @@ unzip ${JOVYAN_R}
 R CMD INSTALL IRkernel-master
 #- TODO check status
 
-## must run as $USER
-su ${USER} -c "R -e \"IRkernel::installspec()\""
+## global kernel
+su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
 
 #- cleanup
 rm -rf IRk*
@@ -99,6 +99,8 @@ mkdir -p "$USER_HOME/jupyter/notebooks/projects/CARTOPY"
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
 cp -r /home/user/jupyter /etc/skel
+
+chown -R ${USER_NAME}:${USER_NAME} /home/user/jupyter
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
