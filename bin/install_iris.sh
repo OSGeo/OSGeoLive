@@ -145,7 +145,7 @@ mkdir -p ${USER_HOME}/.local/share/cartopy/shapefiles
 mv natural_earth /home/user/.local/share/cartopy/shapefiles/
 chown --recursive ${USER_NAME}:${USER_NAME} /home/user/.local/share/cartopy
 
-cd
+cd /tmp/
 rm -rf "$TMP_DIR"
 
 ####

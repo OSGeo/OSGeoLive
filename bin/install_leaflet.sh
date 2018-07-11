@@ -24,9 +24,14 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-#add-apt-repository --yes ppa:johanvdw/leafletjs
+## use Bionic repos
 apt-get update
 apt-get --assume-yes install libjs-leaflet
+apt-get --assume-yes install libjs-leaflet-geometryutil
+apt-get --assume-yes install libjs-leaflet-markercluster
+
+##-------------------------------------------------
+#add-apt-repository --yes ppa:johanvdw/leafletjs
 #add-apt-repository --yes --remove ppa:johanvdw/leafletjs
 
 ln -s /usr/share/javascript/leaflet/ /var/www/html/leaflet

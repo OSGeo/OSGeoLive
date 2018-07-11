@@ -1,8 +1,8 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will install mapbender3 and will create a PostgreSQL database. 
-# The script will also add an ALIAS for Mapbender3 and a Desktop icon.
+# Purpose: This script will install Mapbender and will create a PostgreSQL database. 
+# The script will also add an ALIAS for Mapbender and a Desktop icon.
 #
 #############################################################################
 # Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
@@ -20,11 +20,11 @@
 #############################################################################
 
 #
-# Requires: Apache2, PHP5, PostgreSQL
+# Requires: Apache2, PHP7.2, PostgreSQL
 #
 # Uninstall:
 # ============
-# sudo rm -rf /var/www/html/mapbender3
+# sudo rm -rf /var/www/html/mapbender
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -37,20 +37,19 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-TMP_DIR="/tmp/build_mapbender3"
-PARAMETERSINSTALLURL="http://www.mapbender3.org/builds/osgeolive/"
-INSTALLURL="http://www.mapbender3.org/builds/3.0.6.1/"
-INSTALLFILE="mapbender3-starter-3.0.6.1"
-PARAMETERSFILE="mapbender3-starter-3.0.6.1"
+TMP_DIR="/tmp/build_mapbender"
+PARAMETERSINSTALLURL="https://www.mapbender.org/builds/osgeolive"
+INSTALLURL="http://www.mapbender.org/builds/osgeolive"
+INSTALLFILE="mapbender3-starter-3.0.7.0-RC2"
+PARAMETERSFILE="mapbender3-starter-3.0.6.2"
 INSTALL_DIR="/var/www/html"
 
 mkdir -p "$TMP_DIR"
 
 # Install mapbender dependencies.
-echo "Installing mapbender"
+echo "Installing mapbender dependencies"
 
-apt-get install --assume-yes php5.6 php5.6-imagick php5.6-pgsql php5.6-gd \
-  php5.6-curl php5.6-cli php5.6-xml php5.6-sqlite3 sqlite3 php5.6-apcu php5.6-intl php5.6-zip openssl
+apt-get install --assume-yes php php-imagick php-pgsql php-gd php-curl php-cli php-xml php-sqlite3 php-apcu php-intl php-zip php-mbstring php-bz2
 
 a2enmod rewrite
 
@@ -70,29 +69,32 @@ if [ ! -f "$INSTALLFILE.tar.gz" ] ; then
    wget -O $INSTALLFILE.tar.gz --progress=dot:mega \
       "$INSTALLURL/$INSTALLFILE.tar.gz"
 else
-    echo "... Mapbender3 already downloaded"
+    echo "... Mapbender already downloaded"
 fi
 if [ ! -f "${INSTALLFILE}_parameters.yml" ] ; then 
-   wget -O ${INSTALLFILE}_parameters.yml --progress=dot:mega \
+   wget -O ${PARAMETERSFILE}_parameters.yml --progress=dot:mega \
       "$PARAMETERSINSTALLURL/${PARAMETERSFILE}_parameters.yml"
 else
-    echo "... Mapbender3 yml already downloaded"
+    echo "... Mapbender yml already downloaded"
 fi
 
 # uncompress mapbender
 tar xfz "$INSTALLFILE.tar.gz"
+
 #rm -rf "$INSTALL_DIR/$INSTALLFILE"
 cp -R "$INSTALLFILE" "$INSTALL_DIR/"
-mv "$INSTALL_DIR/$INSTALLFILE" "$INSTALL_DIR/mapbender3"
-chmod -R uga+r "$INSTALL_DIR/mapbender3"
-chown -R www-data:www-data "$INSTALL_DIR/mapbender3"
+mv "$INSTALL_DIR/$INSTALLFILE" "$INSTALL_DIR/mapbender"
+chmod -R uga+r "$INSTALL_DIR/mapbender"
+chown -R www-data:www-data "$INSTALL_DIR/mapbender"
 
 
 # create mapbender database
-cd "$INSTALL_DIR/mapbender3/"
-#cp "$TMP_DIR/${INSTALLFILE}_parameters.yml"    "$INSTALL_DIR/mapbender3/app/config/parameters.yml"
+cd "$INSTALL_DIR/mapbender/"
+#cp "$TMP_DIR/${INSTALLFILE}_parameters.yml"    "$INSTALL_DIR/mapbender/app/config/parameters.yml"
+rm  "$INSTALL_DIR/mapbender/app/config/parameters.yml"
+cp "$TMP_DIR/${PARAMETERSFILE}_parameters.yml"    "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 
-cp "$TMP_DIR/${PARAMETERSFILE}_parameters.yml"    "$INSTALL_DIR/mapbender3/app/config/parameters.yml"
+sed -i -e 's/3.0.6.2/3.0.7.0/g' "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 
 app/console doctrine:database:create
 app/console doctrine:schema:create
@@ -102,40 +104,42 @@ app/console fom:user:resetroot --username="root" --password="root" --email="root
 app/console doctrine:fixtures:load --fixtures=./mapbender/src/Mapbender/CoreBundle/DataFixtures/ORM/Epsg/ --append
 app/console doctrine:fixtures:load --fixtures=./mapbender/src/Mapbender/CoreBundle/DataFixtures/ORM/Application/ --append
 
-chown -R www-data:www-data "$INSTALL_DIR/mapbender3"
-chmod -R ug+w "$INSTALL_DIR/mapbender3/app/cache/"
-chmod -R ug+w "$INSTALL_DIR/mapbender3/app/logs/"
+chown -R www-data:www-data "$INSTALL_DIR/mapbender"
+chmod -R ug+w "$INSTALL_DIR/mapbender/app/cache/"
+chmod -R ug+w "$INSTALL_DIR/mapbender/app/logs/"
 app/console assets:install web
 
-chown -R user:www-data "$INSTALL_DIR/mapbender3"
-chmod -R ug+w "$INSTALL_DIR/mapbender3/app/cache/"
-chmod -R ug+w "$INSTALL_DIR/mapbender3/app/logs/"
-chmod -R ug+w "$INSTALL_DIR/mapbender3/web/"
+chown -R user:www-data "$INSTALL_DIR/mapbender"
+chmod -R ug+w "$INSTALL_DIR/mapbender/app/cache/"
+chmod -R ug+w "$INSTALL_DIR/mapbender/app/logs/"
+chmod -R ug+w "$INSTALL_DIR/mapbender/web/"
+
+chmod -R ug+w "$INSTALL_DIR/mapbender/app/db/demo.sqlite"
 
 #Create apache2 configuration for mapbender
 #FIXME: make cleaner like
-# cat << EOF > /etc/apache2/conf-available/mapbender3
+# cat << EOF > /etc/apache2/conf-available/mapbender
 #content
 #content
 #content
 #EOF
-echo "#Configure apache for mapbender3 " > /etc/apache2/conf-available/mapbender3.conf
-echo "Alias /mapbender3 $INSTALL_DIR/mapbender3/web/" >> \
-   /etc/apache2/conf-available/mapbender3.conf
-echo "<Directory $INSTALL_DIR/mapbender3/web/>" >> /etc/apache2/conf-available/mapbender3.conf
-echo "Options MultiViews FollowSymLinks" >> /etc/apache2/conf-available/mapbender3.conf
-echo "DirectoryIndex app.php" >> /etc/apache2/conf-available/mapbender3.conf
-echo "Require all granted" >> /etc/apache2/conf-available/mapbender3.conf
+echo "#Configure apache for mapbender " > /etc/apache2/conf-available/mapbender.conf
+echo "Alias /mapbender $INSTALL_DIR/mapbender/web/" >> \
+   /etc/apache2/conf-available/mapbender.conf
+echo "<Directory $INSTALL_DIR/mapbender/web/>" >> /etc/apache2/conf-available/mapbender.conf
+echo "Options MultiViews FollowSymLinks" >> /etc/apache2/conf-available/mapbender.conf
+echo "DirectoryIndex app.php" >> /etc/apache2/conf-available/mapbender.conf
+echo "Require all granted" >> /etc/apache2/conf-available/mapbender.conf
 
-echo "RewriteEngine On" >> /etc/apache2/conf-available/mapbender3.conf
-echo "RewriteBase /mapbender3/" >> /etc/apache2/conf-available/mapbender3.conf
-echo "RewriteCond %{ENV:REDIRECT_STATUS} ^$" >> /etc/apache2/conf-available/mapbender3.conf
-echo "RewriteCond %{REQUEST_FILENAME} !-f" >> /etc/apache2/conf-available/mapbender3.conf
-echo "RewriteCond %{REQUEST_FILENAME} !-d" >> /etc/apache2/conf-available/mapbender3.conf
-echo "RewriteRule ^(.*)$ app.php/$1 [PT,L,QSA]" >> /etc/apache2/conf-available/mapbender3.conf
-echo "</Directory>" >> /etc/apache2/conf-available/mapbender3.conf       
+echo "RewriteEngine On" >> /etc/apache2/conf-available/mapbender.conf
+echo "RewriteBase /mapbender/" >> /etc/apache2/conf-available/mapbender.conf
+echo "RewriteCond %{ENV:REDIRECT_STATUS} ^$" >> /etc/apache2/conf-available/mapbender.conf
+echo "RewriteCond %{REQUEST_FILENAME} !-f" >> /etc/apache2/conf-available/mapbender.conf
+echo "RewriteCond %{REQUEST_FILENAME} !-d" >> /etc/apache2/conf-available/mapbender.conf
+echo "RewriteRule ^(.*)$ app.php/$1 [PT,L,QSA]" >> /etc/apache2/conf-available/mapbender.conf
+echo "</Directory>" >> /etc/apache2/conf-available/mapbender.conf       
 
-ln -s /etc/apache2/conf-available/mapbender3.conf /etc/apache2/conf-enabled/mapbender3.conf
+ln -s /etc/apache2/conf-available/mapbender.conf /etc/apache2/conf-enabled/mapbender.conf
 
 #Restart apache2 for mapbender
 /etc/init.d/apache2 force-reload
@@ -156,10 +160,10 @@ if [ ! -e /usr/local/share/applications/mapbender3.desktop ] ; then
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Mapbender3
+Name=Mapbender
 Comment=Mapbender
 Categories=Application;Geography;Geoscience;Education;
-Exec=firefox http://localhost/mapbender3/app.php
+Exec=firefox http://localhost/mapbender/app.php
 Icon=/usr/local/share/icons/mapbender3_desktop_48x48.png
 Terminal=false
 StartupNotify=false
