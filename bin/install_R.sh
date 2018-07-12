@@ -76,7 +76,7 @@ apt-get --assume-yes install python-rpy2 r-cran-rcolorbrewer
 
 ## 12dev alpha1  -- install R geo module sf  -dbb  ------------------------------------
 
-apr install r-cran-sp --yes
+apt install r-cran-sp --yes
 apt install r-cran-rpostgresql --yes    ## installs only in /usr/lib/R ; links to libpq
 
 apt install libudunits2-dev --yes
@@ -85,6 +85,7 @@ apt install gfortran --yes
 su - -c "R -e \"install.packages('udunits2')\""
 su - -c "R -e \"install.packages('sf', repos='http://cran.rstudio.com/')\""
 su - -c "R -e \"install.packages('lwgeom', repos='http://cran.rstudio.com/')\""
+su - -c "R -e \"install.packages('wkb', repos='http://cran.rstudio.com/')\""
 
 ## cleanup
 apt-get --yes remove gfortran
