@@ -175,9 +175,9 @@ python setup.py build
 python setup.py install
 cd ..
 
-cd
+cd /
 rm -rf /tmp/folium_build
-apt-get remove python-setuptools
+apt-get remove --yes python-setuptools
 ##---------------------------------------------------
 
 
