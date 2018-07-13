@@ -150,6 +150,10 @@ chown --recursive ${USER_NAME}:${USER_NAME} /home/user/.local/share/cartopy
 mkdir -p /usr/lib/python2.7/dist-packages/cartopy/data/raster/natural_earth
 wget http://download.osgeo.org/livedvd/12/cartopy/50-natural-earth-1-downsampled.png \
       -O /usr/lib/python2.7/dist-packages/cartopy/data/raster/natural_earth/50-natural-earth-1-downsampled.png
+
+## 3.6MB demo tif
+wget http://download.osgeo.org/livedvd/12/rasterio/SanMateo_CA.tif \
+    -O ${USER_HOME}/data/
 ##----------------------------
 
 cd /tmp/
