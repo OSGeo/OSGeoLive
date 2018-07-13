@@ -155,6 +155,31 @@ wget http://download.osgeo.org/livedvd/12/cartopy/50-natural-earth-1-downsampled
 wget http://download.osgeo.org/livedvd/12/rasterio/SanMateo_CA.tif \
     -O ${USER_HOME}/data/
 ##----------------------------
+##
+## 12dev  folium install via git snapshot
+apt install python-setuptools --yes
+cd /tmp; mkdir folium_build; cd folium_build
+wget -c http://download.osgeo.org/livedvd/12/folium/folium-0.5.a3c6994.tar.gz
+wget -c http://download.osgeo.org/livedvd/12/folium/branca-0.3.a2e2281.tar.gz
+
+tar xf branca-0.3.a2e2281.tar.gz
+tar xf folium-0.5.a3c6994.tar.gz
+
+cd branca-0.3.0
+python setup.py build
+python setup.py install
+cd ..
+
+cd folium-0.5.0
+python setup.py build
+python setup.py install
+cd ..
+
+cd
+rm -rf /tmp/folium_build
+apt-get remove python-setuptools
+##---------------------------------------------------
+
 
 cd /tmp/
 rm -rf "$TMP_DIR"
