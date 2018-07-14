@@ -81,8 +81,8 @@ chmod a+x "$USER_HOME"/Desktop/josm.desktop
 # add an icon for viewing The Map online
 mkdir -p /usr/local/share/applications
 
-MAP_CENTER="lat=42.3743935&lon=-71.1184512"
-MARKER="mlat=42.3743935&mlon=-71.1184512"
+MAP_CENTER="lat=-6.80&lon=39.28"
+MARKER="mlat=-6.812&mlon=39.279"
 ZOOM="16"
 
 cat << EOF > /usr/local/share/applications/osm_online.desktop
@@ -102,8 +102,9 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
 #########################################################################
 #### install sample OSM data
-CITY="Boston_MA"
-BBOX="-71.10,42.31628,-70.995,42.39493"
+CITY="DS_TZ"
+BBOX="39.251,-6.8275,39.302,-6.792"
+#BBOX="W,S,E,N"
 
 # visualize: (FIXME!)
 #http://www.openstreetmap.org/?box=yes&bbox=$BBOX

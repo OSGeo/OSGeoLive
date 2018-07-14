@@ -33,6 +33,7 @@ USER_HOME="/home/$USER_NAME"
 ####
 
 apt-get install -y python-iris
+apt-get install -y netcdf-bin
 
 ##-- 29jul14 odd errors installing netCDF, add workarounds
 # apt-get install libpython2.7-dev
@@ -145,7 +146,60 @@ mkdir -p ${USER_HOME}/.local/share/cartopy/shapefiles
 mv natural_earth /home/user/.local/share/cartopy/shapefiles/
 chown --recursive ${USER_NAME}:${USER_NAME} /home/user/.local/share/cartopy
 
-cd /tmp/
+## 12dev  cartopy fast image  126K
+mkdir -p /usr/lib/python2.7/dist-packages/cartopy/data/raster/natural_earth
+wget http://download.osgeo.org/livedvd/12/cartopy/50-natural-earth-1-downsampled.png \
+      -O /usr/lib/python2.7/dist-packages/cartopy/data/raster/natural_earth/50-natural-earth-1-downsampled.png
+
+## 3.6MB demo tif
+wget http://download.osgeo.org/livedvd/12/rasterio/SanMateo_CA.tif \
+    -O ${USER_HOME}/data/
+##----------------------------
+##
+## 12dev  folium install via git snapshot
+apt install python-setuptools --yes
+F_DIR=folium_build
+cd /tmp; mkdir ${F_DIR}; cd ${F_DIR}
+wget -c http://download.osgeo.org/livedvd/12/folium/folium-0.5.a3c6994.tar.gz
+wget -c http://download.osgeo.org/livedvd/12/folium/branca-0.3.a2e2281.tar.gz
+
+tar xf branca-0.3.a2e2281.tar.gz
+tar xf folium-0.5.a3c6994.tar.gz
+
+cd branca-0.3.0
+python setup.py build
+python setup.py install
+cd ..
+
+cd folium-0.5.0
+python setup.py build
+python setup.py install
+cd ..
+
+##-- SciTools/nc-time-access is pure-python w/ no depends; mv signed pkg dir to install
+N_DIR=nc_build
+cd /tmp;mkdir ${N_DIR}; cd ${N_DIR}
+wget -c http://download.osgeo.org/livedvd/12/cartopy/nc-time-axis-1.1.d9956a7.tar.gz
+tar xf nc-time-axis-1.1.d9956a7.tar.gz
+cd nc-time-axis-1.1.0; rm -rf nc_time_axis/tests
+mv nc_time_axis /usr/local/lib/python2.7/dist-packages/
+
+##-- palettable is pure-python w/ no depends; mv signed pkg dir to install
+P_DIR=plt_build
+cd /tmp; mkdir ${P_DIR}; cd ${P_DIR}
+wget -c https://files.pythonhosted.org/packages/56/8a/84537c0354f0d1f03bf644b71bf8e0a50db9c1294181905721a5f3efbf66/palettable-3.1.1-py2.py3-none-any.whl
+ mv palettable-3.1.1-py2.py3-none-any.whl palettable-3.1.1-py2.py3-none-any.zip
+unzip -o palettable-3.1.1-py2.py3-none-any.zip
+mv palettable /usr/local/lib/python2.7/dist-packages/
+
+cd /tmp
+rm -rf /tmp/${F_DIR}
+rm -rf /tmp/${P_DIR}
+
+apt-get remove --yes python-setuptools
+##---------------------------------------------------
+
+cd /tmp
 rm -rf "$TMP_DIR"
 
 ####

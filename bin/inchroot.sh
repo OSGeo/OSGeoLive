@@ -156,7 +156,6 @@ export USER_NAME
 ./install_zygrib.sh
 
 ## Python stack
-./install_jupyter.sh
 ./install_mapproxy.sh
 ./install_pycsw.sh
 ./install_pywps.sh
@@ -164,6 +163,13 @@ export USER_NAME
 ./install_iris.sh
 ./install_istsos.sh
 ./install_mapslicer.sh
+
+## R
+./install_R.sh
+
+## Jupyter
+./install_jupyter.sh
+
 
 ## Java stack
 ./install_geoserver.sh
@@ -191,7 +197,6 @@ export USER_NAME
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_cesium.sh
-./install_R.sh
 # ./install_rasdaman.sh
 
 ## Docs, Data and extras
