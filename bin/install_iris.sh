@@ -158,7 +158,8 @@ wget http://download.osgeo.org/livedvd/12/rasterio/SanMateo_CA.tif \
 ##
 ## 12dev  folium install via git snapshot
 apt install python-setuptools --yes
-cd /tmp; mkdir folium_build; cd folium_build
+F_DIR=folium_build
+cd /tmp; mkdir ${F_DIR}; cd ${F_DIR}
 wget -c http://download.osgeo.org/livedvd/12/folium/folium-0.5.a3c6994.tar.gz
 wget -c http://download.osgeo.org/livedvd/12/folium/branca-0.3.a2e2281.tar.gz
 
@@ -175,20 +176,22 @@ python setup.py build
 python setup.py install
 cd ..
 
-##--
-cd /tmp
+##-- palettable is pure-python w/ no depends; mv signed pkg dir to install
+P_DIR=plt_build
+cd /tmp; mkdir ${P_DIR}; cd ${P_DIR}
 wget -c https://files.pythonhosted.org/packages/56/8a/84537c0354f0d1f03bf644b71bf8e0a50db9c1294181905721a5f3efbf66/palettable-3.1.1-py2.py3-none-any.whl
  mv palettable-3.1.1-py2.py3-none-any.whl palettable-3.1.1-py2.py3-none-any.zip
-unzip palettable-3.1.1-py2.py3-none-any.zip
+unzip -o palettable-3.1.1-py2.py3-none-any.zip
 mv palettable /usr/local/lib/python2.7/dist-packages/
 
-cd /
-rm -rf /tmp/folium_build
+cd /tmp
+rm -rf /tmp/${F_DIR}
+rm -rf /tmp/${P_DIR}
+
 apt-get remove --yes python-setuptools
 ##---------------------------------------------------
 
-
-cd /tmp/
+cd /tmp
 rm -rf "$TMP_DIR"
 
 ####
