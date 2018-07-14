@@ -176,6 +176,14 @@ python setup.py build
 python setup.py install
 cd ..
 
+##-- SciTools/nc-time-access is pure-python w/ no depends; mv signed pkg dir to install
+N_DIR=nc_build
+cd /tmp;mkdir ${N_DIR}; cd ${N_DIR}
+wget -c http://download.osgeo.org/livedvd/12/cartopy/nc-time-axis-1.1.d9956a7.tar.gz
+tar xf nc-time-axis-1.1.d9956a7.tar.gz
+cd nc-time-axis-1.1.0; rm -rf nc_time_axis/tests
+mv nc_time_axis /usr/local/lib/python2.7/dist-packages/
+
 ##-- palettable is pure-python w/ no depends; mv signed pkg dir to install
 P_DIR=plt_build
 cd /tmp; mkdir ${P_DIR}; cd ${P_DIR}
