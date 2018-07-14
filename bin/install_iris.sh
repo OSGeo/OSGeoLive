@@ -175,6 +175,13 @@ python setup.py build
 python setup.py install
 cd ..
 
+##--
+cd /tmp
+wget -c https://files.pythonhosted.org/packages/56/8a/84537c0354f0d1f03bf644b71bf8e0a50db9c1294181905721a5f3efbf66/palettable-3.1.1-py2.py3-none-any.whl
+ mv palettable-3.1.1-py2.py3-none-any.whl palettable-3.1.1-py2.py3-none-any.zip
+unzip palettable-3.1.1-py2.py3-none-any.zip
+mv palettable /usr/local/lib/python2.7/dist-packages/
+
 cd /
 rm -rf /tmp/folium_build
 apt-get remove --yes python-setuptools
