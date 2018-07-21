@@ -72,6 +72,8 @@ replace_rasdaman_user_with_system_user()
 
   adduser --system --group --home /opt/rasdaman --no-create-home --shell /bin/bash $rasdaman_user
   chown -R $rasdaman_user:$rasdaman_group /opt/rasdaman
+  # this directory is owned by an invalid uid after the user change, it can be just deleted
+  rm -rf /tmp/rasdaman_*
   # add rasdaman user to tomcat8 group
   adduser $rasdaman_user tomcat8
   # and user to rasdaman group
