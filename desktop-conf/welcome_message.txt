@@ -1,4 +1,4 @@
-Welcome to OSGeo-Live 12.0alpha1.
+Welcome to OSGeo-Live 12.0beta1.
 
 
 See the road-sign Help icon on the Desktop for information about the        
