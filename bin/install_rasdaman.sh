@@ -55,7 +55,8 @@ install_rasdaman_pkg()
   apt-get -o Dpkg::Options::="--force-confdef" install -y rasdaman \
     || { echo "Failed installing rasdaman package."; return 1; }
   # make sure the rasdaman package is not removed by apt-get autoremove
-  apt-mark manual rasdaman
+  echo "rasdaman hold" | dpkg --set-selections
+  # apt-mark manual rasdaman
   apt-get -q install python-glob2
   echo
   echo "Rasdaman package installed successfully."
