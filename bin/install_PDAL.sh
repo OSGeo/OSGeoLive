@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL v.2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -33,7 +33,7 @@ PDAL_PLUGINS="libpdal-plugins"
 # pkg not installed to save disc space:
 #   pdal-doc
 
-apt-get --assume-yes install ${PACKAGES}  ${PDAL_PLUGINS}
+apt-get --assume-yes install ${PACKAGES} ${PDAL_PLUGINS}
 
 if [ $? -ne 0 ] ; then
    echo "ERROR: package install failed."

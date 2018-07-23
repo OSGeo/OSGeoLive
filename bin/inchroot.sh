@@ -154,7 +154,6 @@ export USER_NAME
 ./install_marble.sh
 ./install_opencpn.sh
 ./install_zygrib.sh
-
 ./install_PDAL.sh
 
 ## Python stack
