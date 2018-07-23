@@ -72,31 +72,14 @@ apt-get --assume-yes install python-rpy2 r-cran-rcolorbrewer
 #  r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
 #  r-cran-splancs r-cran-rgeos r-cran-ncdf4 r-cran-rsaga r-cran-rgrass7
 
+apt-get --assume-yes install r-cran-sp
+
 ##  -- jupyter hacks --
 ##
 #Calls R script to do install with feedback to stdout
 # mkdir -p /usr/local/share/jupyter/kernels
 # R --no-save < ../app-conf/R/installRpackages.r
 # mv /roots/.local/share/jupyter/kernels/ir /usr/local/share/jupyter/kernels/ir
-
-
-## 13jun18 -- add a well-known repo for R module sp
-##  verified on 12dev alpha1 that only files added are in
-##   /usr/lib/R
-##  nothing touches gdal or proj dot-so, headers or other
-##
-## Bionic - PPA Announce
-##  http://sites.psu.edu/theubunturblog/cran2deb4ubuntu/
-##
-
-apt-add-repository --yes ppa:marutter/c2d4u
-apt update
-
-apt install r-cran-sp
-
-apt-add-repository --remove ppa:marutter/c2d4u
-
-
 
 ##-------------------------------------------------------------------------------
 # add user to the staff group to install system-wide R packages
