@@ -192,7 +192,7 @@ export USER_NAME
 ./install_leaflet.sh
 ./install_cesium.sh
 ./install_R.sh
-# ./install_rasdaman.sh
+./install_rasdaman.sh
 
 ## Docs, Data and extras
 ./load_gisdata.sh
