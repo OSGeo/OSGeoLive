@@ -60,7 +60,7 @@ fi
 #   /usr/share/initramfs-tools/scripts/casper-bottom/
 
 # remove build stuff no longer of use
-apt-get --yes remove python-all-dev libpython2.7-dev
+# apt-get --yes remove python-all-dev libpython2.7-dev
 
 # remove any leftover orphans
 apt-get --yes autoremove
