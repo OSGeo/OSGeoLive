@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Script to start ipython notebook on a custom port
+# Script to start Jupyter notebook server on a custom port; Bionic
 #
 #############################################################################
 # Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo)
@@ -18,32 +18,11 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
-# install_nbextension.sh
 
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
 
-export LD_LIBRARY_PATH=/usr/lib/grass74/lib:$LD_LIBRARY_PATH
-export PYTHONPATH=/usr/lib/grass74/etc/python:$PYTHONPATH
-export GISBASE=/usr/lib/grass74/
-export PATH=/usr/lib/grass74/bin/:$GISBASE/bin:$GISBASE/scripts:$PATH
-
-export GIS_LOCK=$$
-
-#mkdir -p /home/$USER/Envs/grass7data
-mkdir -p $USER_HOME/.grass7
-export GISRC=$USER_HOME/.grass7/rc
-
-export GISDBASE=/home/user/grassdata/
-
-export GRASS_TRANSPARENT=TRUE
-export GRASS_TRUECOLOR=TRUE
-export GRASS_PNG_COMPRESSION=9
-export GRASS_PNG_AUTO_WRITE=TRUE
-
-# export OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference
-
-jupyter-notebook --port=8883 --notebook-dir="$USER_HOME/jupyter/notebooks" --ip='*'
+jupyter notebook --port=8883 --notebook-dir="${USER_HOME}/jupyter/notebooks" --ip='*'
 
