@@ -3,6 +3,7 @@
 #
 # Purpose: Installation of R and R-spatial packages
 # Author:  Massimo Di Stefano <info@geofemengineering.it>
+#          Brian M Hamlin <maplabs@light42.com>
 #
 #################################################
 # Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
@@ -28,6 +29,7 @@
 # Running:
 # =======
 # sudo ./install_R.sh
+#
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -88,6 +90,25 @@ apt-get --assume-yes install r-cran-sp
 #
 adduser "$USER_NAME" staff
 
+
+## 12dev beta1  -- install R geo module sf  -dbb  ------------------------------------
+
+#apt install r-cran-spdata --yes
+apt install r-cran-rpostgresql --yes    ## installs only in /usr/lib/R ; links to libpq
+apt install libudunits2-dev --yes
+apt install gfortran --yes
+su - -c "R -e \"install.packages('udunits2')\""
+su - -c "R -e \"install.packages('sf', repos='http://cran.rstudio.com/')\""
+su - -c "R -e \"install.packages('lwgeom', repos='http://cran.rstudio.com/')\""
+su - -c "R -e \"install.packages('wkb', repos='http://cran.rstudio.com/')\""
+
+## development ggplot2 per Bakaniko - not yet tested - 28jul18
+# devtools::install_github("tidyverse/ggplot2")
+
+## cleanup
+
+apt-get --yes remove gfortran
+##-----------------------------------------------------------------------------
 
 
 ##------------------------------------------------------
