@@ -88,10 +88,6 @@ create_bin_starters()
 #!/bin/bash
 sudo service tomcat8 start
 sudo service rasdaman start
-echo "Preparing demo data..."
-$RMANHOME/bin/rasdaman-osgeo-demo.sh &> /dev/null
-$RMANHOME/bin/petascope-osgeo-demo.sh &> /dev/null
-echo "Demo data prepared successfully."
 echo "Rasdaman was started correctly."
 EOF
   cat > $RMANHOME/bin/rasdaman-stop.sh <<EOF
@@ -101,38 +97,6 @@ sudo service rasdaman stop
 echo -e "Rasdaman stopped."
 EOF
   chmod 755 $RMANHOME/bin/rasdaman-start.sh $RMANHOME/bin/rasdaman-stop.sh
-}
-
-create_demo_scripts()
-{
-  echo "Creating demo scripts..."
-  cat > $RMANHOME/bin/rasdaman-osgeo-demo.sh <<EOF
-#!/bin/bash
-rasdaman_demo_created="$RMANHOME/rasdaman_demo_success"
-if [ ! -f "\$rasdaman_demo_created" ]; then
-    echo "Ingesting rasdaman data..."
-    $RMANHOME/bin/rasdaman_insertdemo.sh localhost 7001 \
-      $RMANHOME/share/rasdaman/examples/images rasadmin rasadmin
-    sudo touch "\$rasdaman_demo_created"
-    echo "Rasdaman data ingested successfully."
-fi
-EOF
-  cat > $RMANHOME/bin/petascope-osgeo-demo.sh <<EOF
-#!/bin/bash
-petascope_demo_created=$RMANHOME/petascope_demo_success
-wcst_import="$RMANHOME/bin/wcst_import.sh"
-ingest_path="$RMANHOME/ingest"
-if [ ! -f "\$petascope_demo_created" ]; then
-    echo "Ingesting Petascope data..."
-    sudo $RMANHOME/bin/petascope_insertdemo.sh
-    for ingredients in NIR NN3_1 lena; do
-      sudo \$wcst_import \$ingest_path/\$ingredients.json
-    done
-    sudo touch "\$petascope_demo_created"
-    echo "Petascope data ingested successfully."
-fi
-EOF
-  chmod 755 $RMANHOME/bin/rasdaman-osgeo-demo.sh $RMANHOME/bin/petascope-osgeo-demo.sh
 }
 
 create_desktop_applications()
@@ -209,56 +173,29 @@ deploy_local_earthlook()
   wget -q "$data_url" -O earthlook.tar.gz
   # extract
   tar xzf earthlook.tar.gz
+  rm -rf earthlook.tar.gz
+
   local rasdaman_demo_path="/var/www/html/rasdaman-demo"
   rm -rf "$rasdaman_demo_path"
   mkdir -p /var/www/html/
+
   # deploy
-  mv public_html "$rasdaman_demo_path"
+  mv "$tmp_dir" "$rasdaman_demo_path"
   chmod 755 "$rasdaman_demo_path"
   popd > /dev/null
 
-  rm -rf "$tmp_dir"
-}
-
-setup_ingestion_ingredients()
-{
-  echo "Creating ingestion ingredients for demo data..."
-  local ingest_dir=$RMANHOME/ingest
-  local coverage=
-  local ingredients=
-  mkdir -p "$ingest_dir"
-  for coverage in NIR NN3_1 lena; do
-    ingredients="$ingest_dir/$coverage.json"
-    cat > "$ingredients" <<EOF
-{
-  "config": {
-    "service_url": "http://localhost:8080/rasdaman/ows",
-    "tmp_directory": "/tmp/",
-    "crs_resolver": "http://localhost:8080/def/",
-    "default_crs": "http://localhost:8080/def/OGC/0/Index2D",
-    "mock": false,
-    "automated": true,
-    "subset_correction" : false
-  },
-  "input": {
-    "coverage_id": "$coverage"
-  },
-  "recipe": {
-    "name": "wcs_extract",
-    "options": {
-      "coverage_id" : "$coverage",
-      "wcs_endpoint" : "http://ows.rasdaman.org/rasdaman/ows"
-    }
-  }
-}
-EOF
-  done
+  # Then import the selected coverages from Earthlook demo-data to local petascope 
+  # to be used for some demos which use queries on these small coverages.
+  # (total size for Earthlook demo pages + data in tar file should be < 15 MB).
+  "$rasdaman_demo_path/insert_demo_data.sh" 2>&1
 }
 
 add_rasdaman_path_to_bashrc()
 {
   echo "Add rasdaman profile to the user's bashrc..."
   echo "source /etc/profile.d/rasdaman.sh" >> "$USER_HOME/.bashrc"
+  # To find path to wcst_import.sh when deploying Earthlook
+  source /etc/profile.d/rasdaman.sh
 }
 
 #
@@ -268,18 +205,15 @@ add_rasdaman_path_to_bashrc()
 setup_rasdaman_repo "bionic" "stable"
 install_rasdaman_pkg
 
-sudo -u rasdaman /opt/rasdaman/bin/stop_rasdaman.sh
-sudo service tomcat8 stop
-
 replace_rasdaman_user_with_system_user
 create_bin_starters
-create_demo_scripts
 create_desktop_applications
 delete_not_needed_files
-deploy_local_earthlook
-setup_ingestion_ingredients
 add_rasdaman_path_to_bashrc
+deploy_local_earthlook
 
+sudo -u rasdaman /opt/rasdaman/bin/stop_rasdaman.sh
+sudo service tomcat8 stop
 
 echo "Rasdaman command log:"
 echo "==============================================="
