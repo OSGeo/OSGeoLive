@@ -65,6 +65,22 @@ fi
 # remove any leftover orphans
 apt-get --yes autoremove
 
+# Python packages disk space cleanup
+#FIXME: Remove those files from debian packages
+rm -rf /usr/lib/python2.7/dist-packages/pandas/tests/*
+rm -rf /usr/lib/python2.7/dist-packages/simplejson/tests/*
+rm -rf /usr/lib/python2.7/dist-packages/seaborn/tests/*
+rm -rf /usr/lib/python2.7/dist-packages/scipy/special/tests/*
+rm -rf /usr/lib/python2.7/dist-packages/scipy/optimize/tests/*
+rm -rf /usr/lib/python2.7/dist-packages/scipy/io/tests/*
+rm -rf /usr/lib/python2.7/dist-packages/scipy/io/matlab/tests/*
+rm -rf /usr/lib/python2.7/dist-packages/matplotlib/tests/*
+rm -rf /usr/lib/python2.7/dist-packages/numpy/core/tests/*
+rm -rf /usr/lib/python2.7/dist-packages/numpy/lib/tests/*
+rm -rf /usr/lib/python2.7/dist-packages/numpy/ma/tests/*
+rm -rf /usr/lib/python2.7/dist-packages/numpy/polynomial/tests/*
+rm -rf /usr/lib/python2.7/dist-packages/numpy/tests/*
+
 # some tarball or something is making /usr group writable, which
 #  makes openssh-server refuse to start.  (FIXME)
 #/usr/lib/Kosmo-3.0/
@@ -155,7 +171,6 @@ if [ -e /etc/ssh/sshd_config ] ; then
    sed -i -e 's/PermitRootLogin yes/PermitRootLogin no/' /etc/ssh/sshd_config
 fi
 
-##-------------------------------------------------------
 # Start tomcat to ensure all applications are deployed
 service tomcat8 start
 sleep 120
@@ -179,24 +194,7 @@ if [ ! -e /etc/sudoers.d/tomcat ] ; then
 EOF
 fi
 chmod 440 /etc/sudoers.d/tomcat
-##----------------------------------------------------
 
-## py disk space cleanup
-rm -rf /usr/lib/python2.7/dist-packages/pandas/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/simplejson/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/seaborn/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/scipy/special/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/scipy/optimize/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/scipy/io/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/scipy/io/matlab/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/matplotlib/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/numpy/core/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/numpy/lib/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/numpy/ma/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/numpy/polynomial/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/numpy/tests/*
-
-##-----------------------------------------------------
 # Switching to default IPv6
 rm /etc/gai.conf
 mv /etc/gai.conf.orig /etc/gai.conf
