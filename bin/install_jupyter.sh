@@ -25,11 +25,12 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/${USER_NAME}"
 USER_DESKTOP="${USER_HOME}/Desktop"
-BUILD_DIR='/tmp/jupyter_build'
-mkdir -p ${BUILD_DIR}
-cd ${BUILD_DIR}
+BUILD_DIR=`pwd`
+JUPYTER_BUILD_DIR='/tmp/jupyter_build'
+mkdir -p ${JUPYTER_BUILD_DIR}
+cd ${JUPYTER_BUILD_DIR}
 
-# Install jupyter notebook via Bionic dot-deb
+# Install jupyter notebook
 apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert \
   python-ipykernel python-nbformat python-ipywidgets
 
@@ -55,7 +56,7 @@ su - -c "R -e \"install.packages('crayon')\""
 
 su - -c "R -e \"install.packages('IRdisplay')\""
 
-apt install --assume-yes libssl-dev openssl
+apt-get install --assume-yes libssl-dev openssl
 su - -c "R -e \"install.packages('devtools')\""
 
 ## Install method minus-one -- pull directly from Github dot com
@@ -74,7 +75,8 @@ su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
 
 #- cleanup
 cd ${USER_HOME}
-rm -rf ${BUILD_DIR}
+rm -rf ${JUPYTER_BUILD_DIR}
+apt-get remove --yes libssl-dev
 
 ##=============================================================
 
@@ -107,4 +109,4 @@ cp -r /home/user/jupyter /etc/skel
 chown -R ${USER_NAME}:${USER_NAME} /home/user/jupyter
 
 ####
-./diskspace_probe.sh "`basename $0`" end
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

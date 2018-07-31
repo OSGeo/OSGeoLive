@@ -165,14 +165,11 @@ export USER_NAME
 ./install_istsos.sh
 ./install_mapslicer.sh
 
-
-## R
+## R stack
 ./install_R.sh
-
 
 ## Jupyter
 ./install_jupyter.sh
-
 
 ## Java stack
 ./install_geoserver.sh

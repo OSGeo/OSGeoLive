@@ -94,9 +94,9 @@ adduser "$USER_NAME" staff
 ## 12dev beta1  -- install R geo module sf  -dbb  ------------------------------------
 
 #apt install r-cran-spdata --yes
-apt install r-cran-rpostgresql --yes    ## installs only in /usr/lib/R ; links to libpq
-apt install libudunits2-dev --yes
-apt install gfortran --yes
+apt-get install --yes r-cran-rpostgresql     ## installs only in /usr/lib/R ; links to libpq
+apt-get install --yes libudunits2-dev
+apt-get install --yes gfortran
 su - -c "R -e \"install.packages('udunits2')\""
 su - -c "R -e \"install.packages('sf', repos='http://cran.rstudio.com/')\""
 su - -c "R -e \"install.packages('lwgeom', repos='http://cran.rstudio.com/')\""
@@ -153,9 +153,9 @@ chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 
 
 # link sample data to central location
-mkdir -p /usr/local/share/data/vector
-ln -s /usr/lib/R/site-library/rgdal/vectors \
-   /usr/local/share/data/vector/R
+# mkdir -p /usr/local/share/data/vector
+# ln -s /usr/lib/R/site-library/rgdal/vectors \
+#    /usr/local/share/data/vector/R
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
