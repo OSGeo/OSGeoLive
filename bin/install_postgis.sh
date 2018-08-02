@@ -66,8 +66,5 @@ EOF
 cp -a /usr/share/applications/shp2pgsql-gui.desktop "$USER_HOME/Desktop/"
 chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/shp2pgsql-gui.desktop"
 
-### install R package containing sids.shp needed for postgis quickstart
-Rscript -e "install.packages('spData')"
-
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
