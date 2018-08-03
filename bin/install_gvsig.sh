@@ -52,7 +52,7 @@
 #     doesn't have the packages of Java 1.5
 
 #set -x
-GVSIG_VERSION="2.4.0-2850-1"
+GVSIG_VERSION="2.4.0-2850-2"
 GVSIG_BASE_URL="http://download.osgeo.org/livedvd/data/gvsig/"
 
 
