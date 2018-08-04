@@ -157,5 +157,8 @@ chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 # ln -s /usr/lib/R/site-library/rgdal/vectors \
 #    /usr/local/share/data/vector/R
 
+### install R package containing sids.shp needed for postgis quickstart
+Rscript -e "install.packages('spData')"
+
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
