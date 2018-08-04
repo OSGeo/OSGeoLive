@@ -96,6 +96,9 @@ cp "$TMP_DIR/${PARAMETERSFILE}_parameters.yml"    "$INSTALL_DIR/mapbender/app/co
 
 sed -i -e 's/3.0.6.2/3.0.7.3/g' "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 
+# remove documentation 
+rm -R "$INSTALL_DIR/web/docs/"
+
 app/console doctrine:database:create
 app/console doctrine:schema:create
 app/console init:acl
