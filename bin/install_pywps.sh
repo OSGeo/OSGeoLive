@@ -1,5 +1,10 @@
 #!/bin/sh
-# Copyright (c) 2016 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will pywps
+#
+#############################################################################
+# Copyright (c) 2016-2018 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -11,9 +16,8 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# About:
-# =====
+#############################################################################
+
 # This script will install pywps as follows
 # - python-pywps debian package
 # - /etc/pywps (configuration, WSGI wrapper, processes)

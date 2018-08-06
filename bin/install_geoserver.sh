@@ -31,7 +31,7 @@ USER_HOME="/home/$USER_NAME"
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/local/lib"
 BIN="/usr/local/bin"
-GS_VERSION="2.13.1"
+GS_VERSION="2.13.2"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 DOC_DIR="$GS_HOME/doc"
@@ -199,6 +199,16 @@ wget --progress=dot:mega \
   "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-netcdf-plugin.zip/download"
 echo "Installing NetCDF extension"
 unzip -o -q "geoserver-$GS_VERSION-netcdf-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
+
+###------------------------------------------
+### download and install Vector Tiles extension
+
+echo "Getting Vector Tiles extension"
+wget --progress=dot:mega \
+  -O "geoserver-$GS_VERSION-vectortiles-plugin.zip" \
+  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-vectortiles-plugin.zip/download"
+echo "Installing Vector Tiles extension"
+unzip -o -q "geoserver-$GS_VERSION-vectortiles-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
 
 ###------------------------------------------
 ### install desktop icons ##

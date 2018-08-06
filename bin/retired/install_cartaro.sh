@@ -1,7 +1,11 @@
 #!/bin/bash
-
+#############################################################################
+#
+# Purpose: This script will install Cartaro
+#
+#############################################################################
 # Copyright (c) 2012 geOps (www.geops.de)
-# Copyright (c) 2012-2016 The Open Source Geospatial Foundation.
+# Copyright (c) 2012-2018 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -13,11 +17,8 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# About:
-# =====
-# This script will install Cartaro
-#
+#############################################################################
+
 # Running:
 # =======
 # sudo ./install_cartaro.sh
@@ -41,7 +42,7 @@ DB_PASSWORD="cartaro"
 
 GEO_ADMIN="admin"
 GEO_PASS="geoserver"
-GEO_VERSION="2.13.1"
+GEO_VERSION="2.13.2"
 GEO_PATH="/usr/local/lib/geoserver-$GEO_VERSION"
 
 TMP_DIR="/tmp/build_cartaro"
