@@ -52,12 +52,7 @@ cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 
 ## 12dev  otb paths fix #1604
-
-BRCFILE="/etc/skel/.bashrc"
-echo 'export PYTHONPATH=$PYTHONPATH:/usr/lib/otb/python' >> "$BRCFILE"
 echo 'export PYTHONPATH=$PYTHONPATH:/usr/lib/otb/python' >> "$USER_HOME/.bashrc"
-
-echo 'export ITK_AUTOLOAD_PATH=/usr/lib/otb/applications' >> "$BRCFILE"
 echo 'export ITK_AUTOLOAD_PATH=/usr/lib/otb/applications' >> "$USER_HOME/.bashrc"
 
 ##---------------------------------
