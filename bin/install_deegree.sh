@@ -78,9 +78,10 @@ mkdir -p "$TMP"
 cd "$TMP"
 
 ## download required stuff into tmp folder
-wget -N --progress=dot:mega -O "deegree-webservices-3.4.1.zip" \
+wget -c --progress=dot:mega \
+   -O "deegree-webservices-3.4.1.zip" \
    "http://repo.deegree.org/content/groups/public/org/deegree/deegree-webservices-tomcat-bundle/3.4.1/deegree-webservices-tomcat-bundle-3.4.1-distribution.zip"
-wget -N --progress=dot:mega \
+wget -c --progress=dot:mega \
    "http://repo.deegree.org/content/groups/public/org/deegree/deegree-workspace-inspire/3.4.1/deegree-workspace-inspire-3.4.1.deegree-workspace"
 
 cp "$BUILD_DIR"/../app-conf/deegree/deegree_start.sh .
