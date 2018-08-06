@@ -102,6 +102,9 @@ mv deegree-webservices-3.4.1 "$INSTALL_FOLDER"
 
 ### Configure Application ###
 
+## Fix permissions in bin folder
+chmod 775 "$DEEGREE_FOLDER"/bin/*.sh
+
 ## Copy startup script for deegree
 cp $TMP/deegree_start.sh $BIN
 cp $TMP/deegree_stop.sh $BIN
@@ -159,21 +162,18 @@ chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/deegree-stop.desktop"
 cd "$DEEGREE_FOLDER"
 echo "Fixing Tomcat default ports (8080 -> $TOMCAT_PORT, 8005 -> 8006, 8443 -> 8444) in server.xml"
 sed -i -e "s/8080/$TOMCAT_PORT/" \
-       -e 's/8005/8006/' \
-       -e 's/8443/8444/' \
+       -e "s/8005/8006/" \
+       -e "s/8443/8444/" \
    conf/server.xml
 
 
 cd webapps/ROOT/
 FILES_TO_EDIT="
-console/wms/js/sextante.js
-console/wps/openlayers-demo/proxy.jsp
-console/wps/openlayers-demo/sextante.js"
+console/js/sextante.js
+console/webservices/wps/openlayers-demo/sextante.js"
 
-sed -i -e "s/localhost:8080/localhost:$TOMCAT_PORT/g" \
-       -e "s/127.0.0.1:8080/127.0.0.1:$TOMCAT_PORT/g" \
+sed -i -e "s/127.0.0.1:8080/127.0.0.1:$TOMCAT_PORT/g" \
    $FILES_TO_EDIT
-
 
 ## create DEEGREE_WORKSPACE_ROOT
 rm -Rf "$DEEGREE_WORKSPACE_ROOT"
