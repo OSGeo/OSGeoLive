@@ -1,4 +1,4 @@
-Welcome to OSGeo-Live 12.0beta1.
+Welcome to OSGeoLive 12.0beta1.
 
 
 See the road-sign Help icon on the Desktop for information about the        
@@ -16,7 +16,7 @@ Once you log back in, there is a keyboard icon on the lower menu bar
 that lets you pick the keyboard layout. You can also set it via the
 main applications menu with Preferences > Language Support and
 Preferences > Keyboard Input Methods. See the internationalization
-quickstart in the OSGeo Live help pages for more information.
+quickstart in the OSGeoLive help pages for more information.
 
 Passwords for various things can be found in the passwords.txt file
 on the Desktop.
@@ -30,4 +30,4 @@ The living FAQ can be found here:
 
 
 Happy mapping!
-The OSGeo Live Team
+The OSGeoLive Team
