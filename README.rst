@@ -16,6 +16,8 @@ http://wiki.osgeo.org/wiki/Live_GIS_Build
 File Structure:
 ~~~~~~~~~~~~~~~
 
+:: 
+
 bin/
      /setup.sh # Download, and install all core files and set up config files
      /install_project1.sh # Download, and install all files for project1
@@ -44,5 +46,7 @@ app-data/
 desktop-conf/	  # data files and images used for the main desktop background
      
 sources.list.d/ # Supplimentary package repositories for /etc/apt/sources.list
+
+::
 
 .. _OSGeo-Live: https://live.osgeo.org

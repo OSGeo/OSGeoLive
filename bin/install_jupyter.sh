@@ -23,11 +23,14 @@
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
-USER_HOME="/home/$USER_NAME"
-USER_DESKTOP="$USER_HOME/Desktop"
+USER_HOME="/home/${USER_NAME}"
+USER_DESKTOP="${USER_HOME}/Desktop"
 BUILD_DIR=`pwd`
+JUPYTER_BUILD_DIR='/tmp/jupyter_build'
+mkdir -p ${JUPYTER_BUILD_DIR}
+cd ${JUPYTER_BUILD_DIR}
 
-# Install latest jupyter notebook
+# Install jupyter notebook
 apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert \
   python-ipykernel python-nbformat python-ipywidgets
 
@@ -35,6 +38,47 @@ apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert \
 
 # ipython CLI as well
 apt-get install --assume-yes ipython
+
+
+##=============================================================
+## Add Kernels and Jupyter Mods
+##
+
+##--  IRKernel via github (assumes R core)
+
+su - -c "R -e \"install.packages('pbdZMQ')\""
+su - -c "R -e \"install.packages('uuid')\""
+su - -c "R -e \"install.packages('digest')\""
+
+su - -c "R -e \"install.packages('repr')\""
+su - -c "R -e \"install.packages('evaluate')\""
+su - -c "R -e \"install.packages('crayon')\""
+
+su - -c "R -e \"install.packages('IRdisplay')\""
+
+apt-get install --assume-yes libssl-dev openssl
+su - -c "R -e \"install.packages('devtools')\""
+
+## Install method minus-one -- pull directly from Github dot com
+#su - -c "R -e \"devtools::install_github('IRkernel/IRkernel')\""
+#su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
+
+## Install method one -- git snapshot+ID on download.osgeo.org
+JOVYAN_R='IRkernel-master-97c492b2.zip'
+wget -c http://download.osgeo.org/livedvd/12/jupyter/${JOVYAN_R}
+unzip ${JOVYAN_R}
+R CMD INSTALL IRkernel-master
+#- TODO check status
+
+## global kernel
+su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
+
+#- cleanup
+cd ${USER_HOME}
+rm -rf ${JUPYTER_BUILD_DIR}
+apt-get remove --yes libssl-dev
+
+##=============================================================
 
 
 # Get Jupyter logo
@@ -62,5 +106,7 @@ cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
 cp -r /home/user/jupyter /etc/skel
 
+chown -R ${USER_NAME}:${USER_NAME} /home/user/jupyter
+
 ####
-./diskspace_probe.sh "`basename $0`" end
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

@@ -51,6 +51,13 @@ apt-get --assume-yes install libotb otb-bin otb-bin-qt monteverdi python-otb
 cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 
+## 12dev  otb paths fix #1604
+echo 'export PYTHONPATH=$PYTHONPATH:/usr/lib/otb/python' >> "$USER_HOME/.bashrc"
+echo 'export ITK_AUTOLOAD_PATH=/usr/lib/otb/applications' >> "$USER_HOME/.bashrc"
+
+##---------------------------------
+
+
 cat << EOF > /usr/share/applications/otb-mapla.desktop
 [Desktop Entry]
 Type=Application

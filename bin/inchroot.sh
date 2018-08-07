@@ -154,9 +154,9 @@ export USER_NAME
 ./install_marble.sh
 ./install_opencpn.sh
 ./install_zygrib.sh
+./install_PDAL.sh
 
 ## Python stack
-./install_jupyter.sh
 ./install_mapproxy.sh
 ./install_pycsw.sh
 ./install_pywps.sh
@@ -164,6 +164,12 @@ export USER_NAME
 ./install_iris.sh
 ./install_istsos.sh
 ./install_mapslicer.sh
+
+## R stack
+./install_R.sh
+
+## Jupyter
+./install_jupyter.sh
 
 ## Java stack
 ./install_geoserver.sh
@@ -191,12 +197,11 @@ export USER_NAME
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_cesium.sh
-./install_R.sh
-# ./install_rasdaman.sh
+./install_rasdaman.sh
 
 ## Docs, Data and extras
 ./load_gisdata.sh
-# ./install_docs.sh "$BUILD_MODE"
+./install_docs.sh "$BUILD_MODE"
 # ./install_edutools.sh
 
 ## Desktop and Housekeeping
