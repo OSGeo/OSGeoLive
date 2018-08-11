@@ -1,6 +1,20 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 12.0beta2
+====================
+
+ * Documentation translations included
+ * Dar es Salaam osm Feature City
+ * Jupyter R kernel added
+ * GeoServer 2.13.2
+ * Rasdaman demo updated
+ * GeoServer Vector Tiles plugin added
+ * Mapbender 3.0.7.3
+ * Deegree 3.4.1
+ * OTB paths fix (#1604)
+ * Leaflet demo update
+
 Version 12.0beta1
 ====================
 
