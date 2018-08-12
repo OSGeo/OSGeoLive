@@ -35,12 +35,6 @@ VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeolive"
 VM="${PACKAGE_NAME}-$VERSION"
 
-
-# by removing the 'user', it also meant that 'user' was removed from /etc/group
-#  so we have to put it back at boot time.
-if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] ; then
-    sed -i -e 's|exit 0||' /etc/rc.local
-
 # Add 'user' to needed groups
 #   GRPS="audio dialout fuse plugdev pulse staff tomcat7 users www-data vboxsf"
 #bad smelling hack to mitigate the effects of #1104's race condition
