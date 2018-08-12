@@ -196,6 +196,49 @@ rm -rf /usr/lib/python2.7/dist-packages/numpy/ma/tests/*
 rm -rf /usr/lib/python2.7/dist-packages/numpy/polynomial/tests/*
 rm -rf /usr/lib/python2.7/dist-packages/numpy/tests/*
 
+cd /usr/lib/python2.7/dist-packages;
+## ----------------------------------------
+## clear out the larger test dirs manually..
+rm cartopy/tests/*;
+rm iris/tests/*;
+rm mpl_toolkits/tests/*;
+rm scipy/stats/tests/*;
+rm mapproxy/test/*;
+rm scipy/spatial/tests/*;
+rm samba/tests/*;
+rm tornado/test/*;
+rm scipy/linalg/tests/*;
+rm scipy/signal/tests/*;
+rm psycopg2/tests/*;
+rm dask/dataframe/tests/*;
+rm dask/array/tests/*;
+rm sqlalchemy/testing/*;
+rm networkx/classes/tests/*;
+rm scipy/interpolate/tests/*;
+rm scipy/ndimage/tests/*;
+rm biggus/tests/*;
+rm scipy/sparse/tests/*;
+rm scipy/fftpack/tests/*;
+rm mock/tests/*;
+rm numpy/testing/*;
+rm zmq/tests/*;
+rm networkx/algorithms/tests/*;
+rm dask/tests/*;
+rm django/test/*;
+rm dask/dataframe/io/tests/*;
+rm networkx/algorithms/flow/tests/*;
+rm IPython/testing/*;
+rm geopandas/tests/*;
+rm jupyter_core/tests/*;
+rm pbr/tests/*;
+rm matplotlib/testing/*;
+rm networkx/algorithms/shortest_paths/*;
+rm traitlets/tests/*;
+rm future/backports/test/*;
+rm toolz/tests/*;
+##---------------------------------------
+
+
 ##-----------------------------------------------------
 # Switching to default IPv6
 rm /etc/gai.conf
