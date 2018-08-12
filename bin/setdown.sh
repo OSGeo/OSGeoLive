@@ -64,7 +64,7 @@ echo "WantedBy=multi-user.target"  >> /etc/systemd/system/manage_user_groups.ser
 systemctl daemon-reload
 
 ## Enable manage_user_groups service at startup
-sudo systemctl enable
+systemctl enable
 
 # Re-enable if user does not belong to groups
 # cp ../app-conf/build_chroot/27osgeo_groups \
