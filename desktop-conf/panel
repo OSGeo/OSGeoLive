@@ -135,6 +135,17 @@ Plugin {
 }
 
 Plugin {
+    type=xkb
+    Config {
+        Model=pc105
+        LayoutsList=us,fr,de,latam
+        VariantsList=,,,
+        ToggleOpt=grp:shift_caps_toggle
+        KeepSysLayouts=0
+    }
+}
+
+Plugin {
     type = dclock
     Config {
         ClockFmt=%R
@@ -149,15 +160,5 @@ Plugin {
         Button {
             id=/usr/share/applications/lubuntu-logout.desktop
         }
-    }
-}
-Plugin {
-    type=xkb
-    Config {
-        Model=pc105
-        LayoutsList=us,fr,de,latam
-        VariantsList=,,,
-        ToggleOpt=grp:shift_caps_toggle
-        KeepSysLayouts=0
     }
 }
