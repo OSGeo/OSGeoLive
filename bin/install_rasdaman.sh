@@ -197,6 +197,10 @@ deploy_local_earthlook()
   chmod 755 "$rasdaman_demo_path"
   popd > /dev/null
 
+  # start tomcat and rasdaman
+  sudo service tomcat8 start
+  sleep 20
+
   # Then import the selected coverages from Earthlook demo-data to local petascope
   # to be used for some demos which use queries on these small coverages.
   # (total size for Earthlook demo pages + data in tar file should be < 15 MB).
