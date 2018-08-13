@@ -63,7 +63,7 @@ wget -c --tries=3 --progress=dot:mega \
     "http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2"
 
 ## TODO bail on err
-curl http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2.sha1 | sha1sum --check -
+wget  http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2.sha1 | sha1sum --check -
 
 tar xf josm_plugs.tar.bz2
 mkdir -p "$USER_HOME"/.josm/plugins
