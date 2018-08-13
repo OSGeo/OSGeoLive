@@ -193,6 +193,9 @@ export USER_NAME
 ## more Python (GeoServer rdeps)
 # ./install_geonode.sh
 
+## Rust
+./install_trex.sh
+
 ## Javascript et al
 ./install_openlayers.sh
 ./install_leaflet.sh
