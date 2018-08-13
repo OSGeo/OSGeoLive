@@ -42,7 +42,20 @@ apt-get install --yes python-gdal python-shapely python-rasterio \
 	python-pyshp python-descartes python-geographiclib python-kml \
 	python-cartopy python-seaborn python-networkx
 
+##======================================================
+# clean cartopy  12beta  rm 6MB, add 3MB
+rm -rf /usr/lib/python2.7/dist-packages/cartopy/tests/*
+cd /tmp; mkdir tmp_cartopy; cd tmp_cartopy
+wget -c http://download.osgeo.org/livedvd/12/cartopy/cartopy_0143_data.tgz
+tar xf cartopy_0143_data.tgz
+mkdir /usr/lib/python2.7/dist-packages/cartopy/data
+chmod 755 /usr/lib/python2.7/dist-packages/cartopy/data
+cp -R cartopy_0143_data/*  /usr/lib/python2.7/dist-packages/cartopy/data/
+## TODO link to ~/data
+##=========================
+
 # Install Geospatial Python3 libraries
-apt-get install --yes python3-gdal fiona rasterio
+apt-get install --yes python3-gdal fiona rasterio python3-matplotlib
+
 
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
