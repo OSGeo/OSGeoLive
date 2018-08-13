@@ -55,7 +55,7 @@ cp -R cartopy_0143_data/*  /usr/lib/python2.7/dist-packages/cartopy/data/
 ##=========================
 
 # Install Geospatial Python3 libraries
-apt-get install --yes python3-gdal fiona rasterio python3-matplotlib
+apt-get install --yes python3-gdal fiona rasterio
 
 
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
