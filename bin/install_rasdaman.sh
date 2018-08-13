@@ -198,7 +198,6 @@ deploy_local_earthlook()
   popd > /dev/null
 
   # start tomcat and rasdaman
-  rasdaman_service start
   sudo service tomcat8 start
   sleep 20
 
