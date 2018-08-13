@@ -32,7 +32,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 ####
 
-apt-get install -y python-iris
+apt-get install -y python-iris python-folium python-branca python-nc-time-axis python-palettable
 
 ##-- 29jul14 odd errors installing netCDF, add workarounds
 # apt-get install libpython2.7-dev
