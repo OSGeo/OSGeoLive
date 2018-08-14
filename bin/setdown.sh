@@ -36,24 +36,42 @@ PACKAGE_NAME="osgeolive"
 VM="${PACKAGE_NAME}-$VERSION"
 
 
-# by removing the 'user', it also meant that 'user' was removed from /etc/group
-#  so we have to put it back at boot time.
-if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] ; then
-    sed -i -e 's|exit 0||' /etc/rc.local
+
 
 # Add 'user' to needed groups
 #   GRPS="audio dialout fuse plugdev pulse staff tomcat7 users www-data vboxsf"
 #bad smelling hack to mitigate the effects of #1104's race condition
-    GRPS="users tomcat8 www-data staff fuse plugdev audio dialout pulse vboxsf"
+GRPS="users tomcat8 www-data staff plugdev audio dialout pulse vboxsf"
 
-    for GRP in $GRPS ; do
-       echo "adduser $USER_NAME $GRP" >> /etc/rc.local
-    done
-    echo >> /etc/rc.local
-    echo "exit 0" >> /etc/rc.local
-fi
-# try to get those changes applied sooner
-# mv /etc/rc2.d/S99rc.local /etc/rc2.d/S10rc.local
+
+## Create systemd service for manage_user_groups.sh
+## source: https://askubuntu.com/questions/814/how-to-run-scripts-on-start-up/719157#719157
+
+echo "[Unit]"  >> /etc/systemd/system/manage_user_groups.service
+echo "Description=Add user to needed groups"  >> /etc/systemd/system/manage_user_groups.service
+echo ""  >> /etc/systemd/system/manage_user_groups.service
+echo "[Service]"  >> /etc/systemd/system/manage_user_groups.service
+#for GRP in $GRPS ; do
+    #echo "ExecStart=/usr/sbin/adduser $USER_NAME $GRP" >> /etc/systemd/system/manage_user_groups.service
+#done
+
+## Add user to only  the vboxsf group
+echo "ExecStart=/usr/sbin/adduser $USER_NAME vboxsf" >> /etc/systemd/system/manage_user_groups.service
+
+echo "Type=oneshot"  >> /etc/systemd/system/manage_user_groups.service
+echo "RemainAfterExit=yes"  >> /etc/systemd/system/manage_user_groups.service
+echo ""  >> /etc/systemd/system/manage_user_groups.service
+echo "[Install]"  >> /etc/systemd/system/manage_user_groups.service
+echo "WantedBy=multi-user.target"  >> /etc/systemd/system/manage_user_groups.service
+
+## reload systemctl config
+systemctl daemon-reload
+
+## Start service to add user to groups
+systemctl start manage_user_groups.service
+
+## Enable manage_user_groups service at startup
+systemctl enable manage_user_groups.service
 
 # Re-enable if user does not belong to groups
 # cp ../app-conf/build_chroot/27osgeo_groups \
