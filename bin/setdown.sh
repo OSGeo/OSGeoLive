@@ -51,9 +51,13 @@ echo "[Unit]"  >> /etc/systemd/system/manage_user_groups.service
 echo "Description=Add user to needed groups"  >> /etc/systemd/system/manage_user_groups.service
 echo ""  >> /etc/systemd/system/manage_user_groups.service
 echo "[Service]"  >> /etc/systemd/system/manage_user_groups.service
-for GRP in $GRPS ; do
-    echo "ExecStart=/usr/sbin/adduser $USER_NAME $GRP" >> /etc/systemd/system/manage_user_groups.service
-done
+#for GRP in $GRPS ; do
+    #echo "ExecStart=/usr/sbin/adduser $USER_NAME $GRP" >> /etc/systemd/system/manage_user_groups.service
+#done
+
+## Add user to only  the vboxsf group
+echo "ExecStart=/usr/sbin/adduser $USER_NAME vboxsf" >> /etc/systemd/system/manage_user_groups.service
+
 echo "Type=oneshot"  >> /etc/systemd/system/manage_user_groups.service
 echo "RemainAfterExit=yes"  >> /etc/systemd/system/manage_user_groups.service
 echo ""  >> /etc/systemd/system/manage_user_groups.service
@@ -67,7 +71,7 @@ systemctl daemon-reload
 systemctl start manage_user_groups.service
 
 ## Enable manage_user_groups service at startup
-systemctl enable manage_user_groups.service
+#systemctl enable manage_user_groups.service
 
 # Re-enable if user does not belong to groups
 # cp ../app-conf/build_chroot/27osgeo_groups \
