@@ -71,7 +71,7 @@ systemctl daemon-reload
 systemctl start manage_user_groups.service
 
 ## Enable manage_user_groups service at startup
-#systemctl enable manage_user_groups.service
+systemctl enable manage_user_groups.service
 
 # Re-enable if user does not belong to groups
 # cp ../app-conf/build_chroot/27osgeo_groups \
