@@ -104,6 +104,10 @@ cd "$BUILD_DIR"
 mkdir -p "$USER_HOME/jupyter/notebooks/projects/CARTOPY"
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
    "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
+
+mkdir -p "$USER_HOME/jupyter/notebooks/projects/R"
+cp "$BUILD_DIR"/../app-data/jupyter/R_spatial_introduction.ipynb \
+   "$USER_HOME/jupyter/notebooks/projects/R/"
 cp -r /home/user/jupyter /etc/skel
 
 chown -R ${USER_NAME}:${USER_NAME} /home/user/jupyter
