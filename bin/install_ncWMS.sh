@@ -212,5 +212,8 @@ chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/ncWMS-stop.desktop"
 
 # All done
 
+# NOTE (#2084): An extra step is added in setdown.sh to edit WEB-INF/web.xml after
+# tomcat has been restarted and ncWMS has been deployed.
+
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

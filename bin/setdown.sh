@@ -250,6 +250,9 @@ EOF
 fi
 chmod 440 /etc/sudoers.d/tomcat
 
+# #2084: Fix home path for exracted ncWMS
+sed -i -e 's|\$HOME/.ncWMS2|/usr/share/tomcat8/.ncWMS2|' /var/lib/tomcat8/webapps/ncWMS2/WEB-INF/web.xml
+
 # Switching to default IPv6
 rm /etc/gai.conf
 mv /etc/gai.conf.orig /etc/gai.conf
