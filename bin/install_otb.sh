@@ -54,8 +54,7 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 ## 12dev  otb paths fix #1604
 echo 'export PYTHONPATH=$PYTHONPATH:/usr/lib/otb/python' >> "$USER_HOME/.bashrc"
 echo 'export ITK_AUTOLOAD_PATH=/usr/lib/otb/applications' >> "$USER_HOME/.bashrc"
-chgrp user /usr/lib/otb/python
-chmod 775 /usr/lib/otb/python
+python -c 'import otbApplication'  ## import once to pre-compile
 
 ##---------------------------------
 
