@@ -103,7 +103,7 @@ else
 	### danger: if $TMP gets commented out above it becomes empty, then guess what happens...
 	rm -v -r "$TMP"/*
     fi
-    wget -N --progress=dot:mega "$WMS_WAR_URL$WMS_WAR_NAME" -O "$TMP/$WMS_WAR_NAME"
+    wget -c --progress=dot:mega "$WMS_WAR_URL$WMS_WAR_NAME" -O "$TMP/$WMS_WAR_NAME"
 fi
 
 # Copy icon to the icons dir
