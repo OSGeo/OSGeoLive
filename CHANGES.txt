@@ -1,6 +1,19 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 12.0beta3
+====================
+
+ * New artwork included
+ * t-rex 0.9.0
+ * Added keyboard layout widget (#2048)
+ * JOSM plugins fixed
+ * IRIS fixes (#2080)
+ * Rasdaman demo data ingestion fix (#2093)
+ * Python packages test data cleanup
+ * VirtualBox share folder fixed (#1992)
+ * OTB environment fixes (#1604)
+
 Version 12.0beta2
 ====================
 
