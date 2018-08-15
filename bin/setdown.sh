@@ -129,7 +129,7 @@ rm dask/tests/*;
 rm django/test/*;
 rm dask/dataframe/io/tests/*;
 rm networkx/algorithms/flow/tests/*;
-rm IPython/testing/*;
+#rm IPython/testing/*;  ## ipython fails to start if rm'd
 rm geopandas/tests/*;
 rm jupyter_core/tests/*;
 rm pbr/tests/*;
