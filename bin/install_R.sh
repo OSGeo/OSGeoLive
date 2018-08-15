@@ -98,6 +98,7 @@ apt-get install --yes r-cran-rpostgresql     ## installs only in /usr/lib/R ; li
 apt-get install --yes libudunits2-dev
 apt-get install --yes gfortran
 su - -c "R -e \"install.packages('udunits2')\""
+su - -c "R -e \"install.packages('ggplot2')\""
 su - -c "R -e \"install.packages('sf', repos='http://cran.rstudio.com/')\""
 su - -c "R -e \"install.packages('lwgeom', repos='http://cran.rstudio.com/')\""
 su - -c "R -e \"install.packages('wkb', repos='http://cran.rstudio.com/')\""
