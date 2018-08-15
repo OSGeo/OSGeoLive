@@ -35,14 +35,10 @@ VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeolive"
 VM="${PACKAGE_NAME}-$VERSION"
 
-
-
-
 # Add 'user' to needed groups
 #   GRPS="audio dialout fuse plugdev pulse staff tomcat7 users www-data vboxsf"
 #bad smelling hack to mitigate the effects of #1104's race condition
 GRPS="users tomcat8 www-data staff plugdev audio dialout pulse vboxsf"
-
 
 ## Create systemd service for manage_user_groups.sh
 ## source: https://askubuntu.com/questions/814/how-to-run-scripts-on-start-up/719157#719157
@@ -179,8 +175,8 @@ EOF
 echo
 
 ## run some tests to catch common installer mistakes
+cd "$BUILD_DIR"
 ./tools/post_build_checks.sh
-
 
 #### Copy tmp files, apt cache and logs ready for backup
 mkdir "/tmp/$VERSION"

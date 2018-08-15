@@ -205,7 +205,7 @@ export USER_NAME
 ## Docs, Data and extras
 ./load_gisdata.sh
 ./install_docs.sh "$BUILD_MODE"
-# ./install_edutools.sh
+./install_edutools.sh
 
 ## Desktop and Housekeeping
 ./install_desktop.sh
