@@ -250,7 +250,7 @@ deluser --remove-home user
 
 # Copy casper.conf with default username and hostname
 # FIXME: User is still "xubuntu" in live session... perhaps because user is already created?
-cp /usr/local/share/gisvm/app-conf/build_chroot/casper.conf /etc/casper.conf
+cp /usr/local/share/gisvm/desktop-conf/casper/casper.conf /etc/casper.conf
 
 # After the build
 # Check for users above 999

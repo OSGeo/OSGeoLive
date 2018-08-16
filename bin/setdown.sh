@@ -70,7 +70,7 @@ systemctl start manage_user_groups.service
 systemctl enable manage_user_groups.service
 
 # Re-enable if user does not belong to groups
-# cp ../app-conf/build_chroot/27osgeo_groups \
+# cp ../desktop-conf/casper/27osgeo_groups \
 #   /usr/share/initramfs-tools/scripts/casper-bottom/
 
 # remove build stuff no longer of use
