@@ -213,8 +213,8 @@ cd lzfiles
 lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
 
 #Perhaps not needed since this also happens in chroot part.
-cp ../../gisvm/app-conf/build_chroot/casper.conf etc/casper.conf
-#cp ../../gisvm/app-conf/build_chroot/27osgeo_groups scripts/casper-bottom/27osgeo_groups
+cp ../../gisvm/desktop-conf/casper/casper.conf etc/casper.conf
+#cp ../../gisvm/desktop-conf/casper/27osgeo_groups scripts/casper-bottom/27osgeo_groups
 #cat << EOF >> scripts/casper-bottom/ORDER
 #/scripts/casper-bottom/27osgeo_groups
 #[ -e /conf/param.conf ] && ./conf/param.conf
@@ -222,7 +222,7 @@ cp ../../gisvm/app-conf/build_chroot/casper.conf etc/casper.conf
 
 mv scripts/casper-bottom/25adduser scripts/casper-bottom/25adduser.ORIG
 cat scripts/casper-bottom/25adduser.ORIG \
-    ../../gisvm/app-conf/build_chroot/27osgeo_groups \
+    ../../gisvm/desktop-conf/casper/27osgeo_groups \
   > scripts/casper-bottom/25adduser
 rm scripts/casper-bottom/25adduser.ORIG
 chmod a+x scripts/casper-bottom/25adduser
@@ -231,20 +231,25 @@ chmod a+x scripts/casper-bottom/25adduser
 #Replace the user password
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 
-#Change the text on the lubuntu-text plymouth loader
-sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeo-Live ${VERSION_MODE}/g" \
+#Change the graphics on the lubuntu-logo plymouth loader both on lzfiles
+# and on edit folders
+cp ../../gisvm/desktop-conf/plymouth/lubuntu-logo/* \
+    usr/share/plymouth/themes/lubuntu-logo/
+
+cp ../../gisvm/desktop-conf/plymouth/lubuntu-logo/* \
+    ../edit/usr/share/plymouth/themes/lubuntu-logo/
+
+#Change the text on the lubuntu-text plymouth loader both on lzfiles
+# and on edit folders
+sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeoLive ${VERSION_MODE}/g" \
     usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
-#might be in this file
-# sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
-#     lib/plymouth/themes/text.plymouth
+
+sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeoLive ${VERSION_MODE}/g" \
+    ../edit/usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Xenial Xerus\"/OSGeo-Live ${VERSION_MODE}/g" \
+sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Bionic Beaver\"/OSGeoLive ${VERSION_MODE}/g" \
     ../extract-cd/.disk/info
-
-#copy in a different background
-#cp ../../gisvm/desktop-conf/osgeo-desktop.png \
-#   lib/plymouth/themes/lubuntu-logo/xubuntu-greybird.png
 
 find . | cpio --quiet --dereference -o -H newc | \
    lzma -7 > ../extract-cd/casper/initrd.lz
@@ -290,13 +295,7 @@ cd ~/livecdtmp
 sudo rm -rf edit
 
 #Set an image name in extract-cd/README.diskdefines
-#KVM VNC doesn't pass ctrl, can't use vim or nano
-#Can probably use sed magic or copy a predefined file from gisvm/app-data
-#sudo nano extract-cd/README.diskdefines
-# fixme: can you copy from the local ../filesystem instead?
-cp "$GIT_DIR/app-conf/build_chroot/README.diskdefines" extract-cd/README.diskdefines
-# wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/build_chroot/README.diskdefines \
-#      --output-document=extract-cd/README.diskdefines
+cp "$GIT_DIR/desktop-conf/casper/README.diskdefines" extract-cd/README.diskdefines
 
 echo
 echo "Calculating new md5 sums..."
