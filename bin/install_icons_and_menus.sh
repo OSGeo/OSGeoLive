@@ -135,9 +135,9 @@ cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-main.menu /etc/xdg/menus/application
 #cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-*.directory /usr/local/share/desktop-directories/
 cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-*.directory /usr/share/desktop-directories/
 
-sed -e 's/^Name=.*/Name=OSGeo Software Help/' live_GIS_help.desktop \
+sed -e 's/^Name=.*/Name=OSGeo Software Help/' osgeolive_help.desktop \
    > /usr/local/share/applications/osgeo-help.desktop
-cp live_GIS_data.desktop /usr/local/share/applications/osgeo-sample_data.desktop
+cp osgeolive_data.desktop /usr/local/share/applications/osgeo-sample_data.desktop
 
 
 # create individual menu entries from desktop icons:

@@ -198,7 +198,7 @@ echo "fgcolor=#adadadadadad" >> /usr/share/lxterminal/lxterminal.conf
 
 #What logo to use for launching the help?
 # HB: IMO wombat roadsign is good- it says "look here" and is friendly
-ICON_FILE="live_GIS_help.desktop"
+ICON_FILE="osgeolive_help.desktop"
 # perhaps: Icon=/usr/share/icons/oxygen/32x32/categories/system-help.png
 
 cat << EOF > "/usr/local/share/applications/$ICON_FILE"
@@ -206,10 +206,10 @@ cat << EOF > "/usr/local/share/applications/$ICON_FILE"
 Type=Application
 Encoding=UTF-8
 Name=Help
-Comment=Live Demo Help
+Comment=OSGeoLive Help
 Categories=Application;Education;Geography;
 Exec=firefox http://localhost/osgeolive/
-Icon=/usr/local/share/icons/arramagong-wombat-small.png
+Icon=/usr/share/icons/gnome/256x256/apps/help-browser.png
 Terminal=false
 StartupNotify=false
 EOF
@@ -221,7 +221,7 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 #chmod u+x "$USER_HOME/Desktop/$ICON_FILE"
 
 #data dir
-ICON_FILE="live_GIS_data.desktop"
+ICON_FILE="osgeolive_data.desktop"
 cat << EOF > "/usr/local/share/applications/$ICON_FILE"
 [Desktop Entry]
 Type=Application
@@ -230,7 +230,7 @@ Name=Sample data
 Comment=Sample Geo Data
 Categories=Application;Education;Geography;
 Exec=pcmanfm /usr/local/share/data
-Icon=twf
+Icon=/usr/share/icons/gnome/256x256/apps/system-file-manager.png
 Terminal=false
 StartupNotify=false
 EOF
