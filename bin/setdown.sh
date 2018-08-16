@@ -97,43 +97,43 @@ rm -rf /usr/lib/python2.7/dist-packages/numpy/tests/*
 cd /usr/lib/python2.7/dist-packages;
 ## ----------------------------------------
 ## clear out more test dirs manually..
-rm -rf cartopy/tests/*;
-rm -rf iris/tests/*;
-#rm -rf mpl_toolkits/tests/*;
-rm -rf scipy/stats/tests/*;
-rm -rf mapproxy/test/*;
-#rm -rf scipy/spatial/tests/*;
-rm -rf samba/tests/*;
-rm -rf tornado/test/*;
-rm -rf scipy/linalg/tests/*;
-rm -rf scipy/signal/tests/*;
-#rm -rf psycopg2/tests/*;
-rm -rf dask/dataframe/tests/*;
-rm -rf dask/array/tests/*;
-rm -rf sqlalchemy/testing/*;
-rm -rf networkx/classes/tests/*;
-rm -rf scipy/interpolate/tests/*;
-rm -rf scipy/ndimage/tests/*;
-rm -rf biggus/tests/*;
-rm -rf scipy/sparse/tests/*;
-rm -rf scipy/fftpack/tests/*;
-rm -rf mock/tests/*;
-#rm -rf numpy/testing/*;  ## numpy will not start w/o tests
-rm -rf zmq/tests/*;
-rm -rf networkx/algorithms/tests/*;
-rm -rf dask/tests/*;
-rm -rf django/test/*;
-rm -rf dask/dataframe/io/tests/*;
-rm -rf networkx/algorithms/flow/tests/*;
-#rm -rf IPython/testing/*;  ## ipython fails to start if rm'd
-#rm -rf geopandas/tests/*;
-#rm -rf jupyter_core/tests/*;
-rm -rf pbr/tests/*;
-#rm -rf matplotlib/testing/*;
-rm -rf networkx/algorithms/shortest_paths/*;
-rm -rf traitlets/tests/*;
-rm -rf future/backports/test/*;
-rm -rf toolz/tests/*;
+rm -rf cartopy/tests/*
+rm -rf iris/tests/*
+rm -rf mpl_toolkits/tests/*
+rm -rf scipy/stats/tests/*
+rm -rf mapproxy/test/*
+rm -rf scipy/spatial/tests/*
+rm -rf samba/tests/*
+rm -rf tornado/test/*
+rm -rf scipy/linalg/tests/*
+rm -rf scipy/signal/tests/*
+rm -rf psycopg2/tests/*
+rm -rf dask/dataframe/tests/*
+rm -rf dask/array/tests/*
+rm -rf sqlalchemy/testing/*
+rm -rf networkx/classes/tests/*
+rm -rf scipy/interpolate/tests/*
+rm -rf scipy/ndimage/tests/*
+rm -rf biggus/tests/*
+rm -rf scipy/sparse/tests/*
+rm -rf scipy/fftpack/tests/*
+rm -rf mock/tests/*
+#rm -rf numpy/testing/*  ## numpy will not start w/o tests
+rm -rf zmq/tests/*
+rm -rf networkx/algorithms/tests/*
+rm -rf dask/tests/*
+rm -rf django/test/*
+rm -rf dask/dataframe/io/tests/*
+rm -rf networkx/algorithms/flow/tests/*
+#rm -rf IPython/testing/*  ## ipython fails to start if rm'd
+rm -rf geopandas/tests/*
+rm -rf jupyter_core/tests/*
+rm -rf pbr/tests/*
+rm -rf matplotlib/testing/*
+rm -rf networkx/algorithms/shortest_paths/*
+rm -rf traitlets/tests/*
+rm -rf future/backports/test/*
+rm -rf toolz/tests/*
 ##---------------------------------------
 
 

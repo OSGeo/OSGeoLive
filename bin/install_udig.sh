@@ -173,16 +173,11 @@ fi
 #copy into /usr/local/share/udig/udig-docs
 mkdir -p "$DOCS_FOLDER/udig-docs"
 cp "$REL_DOC" "$DOCS_FOLDER/udig-docs"
-cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
+# cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
 cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
 
 #force eclipse to use mozilla as the default browser (#1394)
 echo "-Dorg.eclipse.swt.browser.DefaultType=mozilla" >> /usr/lib/udig/udig_internal.ini
-
-
-##-- disk space v12
-rm /usr/local/share/udig/udig-docs/uDigWalkthrough1.pdf
-
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
