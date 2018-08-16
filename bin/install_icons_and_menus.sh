@@ -495,7 +495,7 @@ if [ ! -e /usr/share/icons/hicolor/48x48/apps/ktip.png ] ; then
 fi
 
 cp "$BUILD_DIR"/../desktop-conf/gnome-globe16blue.svg /usr/local/share/icons/
-
+cp "$BUILD_DIR"/../desktop-conf/icons/sqlitebrowser.svg /usr/share/pixmaps/
 cp "$BUILD_DIR"/../desktop-conf/inspire.png /usr/local/share/icons/
 
 ### make the Education menu less noisy
