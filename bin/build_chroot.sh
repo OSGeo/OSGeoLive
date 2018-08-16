@@ -89,7 +89,7 @@ REVISION_FULL=`git show-ref --head --hash head`
 
 GIT_BUILD=`git describe --long --tags | awk -F'-' '{print $2}'`
 
-# Selecting iso name and build name
+#Selecting iso name and build name
 if [ "$BUILD_MODE" = "release" ]; then
     ISO_NAME="$PACKAGE_NAME-$VERSION-$ARCH"
     VERSION_MODE="$VERSION"
@@ -98,7 +98,7 @@ else
     VERSION_MODE="build$GIT_BUILD-$REVISION"
 fi
 
-#volume name, max 11 chars:
+#Volume name, max 11 chars:
 IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | cut -d '.' -f 1`
 #IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
 
@@ -189,13 +189,13 @@ echo "======================================"
 cd ~/livecdtmp
 sudo umount edit/dev
 
-#compress osgeolive build logs
+#Compress osgeolive build logs
 #tar czf osgeo-live-${VERSION}-log.tar.gz -C edit/var/log osgeolive
 
 echo
 echo "Remastering the dvd..."
 echo "======================================"
-#remaster the dvd
+#Remaster the dvd
 
 #Method 1 requires that dist-upgrade is run on both the host and chroot
 #need to make sure modules.dep exists for the current kernel before next step
@@ -212,6 +212,7 @@ mkdir lzfiles
 cd lzfiles
 lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
 
+#Perhaps not needed since this also happens in chroot part.
 cp ../../gisvm/app-conf/build_chroot/casper.conf etc/casper.conf
 #cp ../../gisvm/app-conf/build_chroot/27osgeo_groups scripts/casper-bottom/27osgeo_groups
 #cat << EOF >> scripts/casper-bottom/ORDER
@@ -227,10 +228,10 @@ rm scripts/casper-bottom/25adduser.ORIG
 chmod a+x scripts/casper-bottom/25adduser
 
 
-#replace the user password, potentially also set backgrounds here
+#Replace the user password
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 
-#Change the text on the loader
+#Change the text on the lubuntu-text plymouth loader
 sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeo-Live ${VERSION_MODE}/g" \
     usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 #might be in this file
