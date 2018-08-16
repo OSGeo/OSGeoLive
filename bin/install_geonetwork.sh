@@ -124,6 +124,8 @@ cp -f jetty.xml "$GEONETWORK_FOLDER/jetty/etc/jetty.xml"
 cp -f data-db-default.sql "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/."
 cp -f startup.sh "$GEONETWORK_FOLDER/bin/startup.sh"
 cp -f shutdown.sh "$GEONETWORK_FOLDER/bin/shutdown.sh"
+rm -rf "$GEONETWORK_FOLDER/web/geonetwork/doc/en"
+rm -rf "$GEONETWORK_FOLDER/web/geonetwork/doc/fr"
 
 # rm -fv "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/lib/jai_*
 
