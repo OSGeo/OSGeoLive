@@ -136,6 +136,13 @@ rm -rf future/backports/test/*;
 rm -rf toolz/tests/*;
 ##---------------------------------------
 
+# other pdf
+rm /usr/local/share/udig/udig-docs/uDigWalkthrough1.pdf
+rm /usr/local/lib/R/site-library/Rcpp/doc/Rcpp-introduction.pdf
+rm -rf /opt/rasdaman/share/rasdaman/doc/doc-guides   ## 3.3MB
+##---------------------------------------
+
+
 # some tarball or something is making /usr group writable, which
 #  makes openssh-server refuse to start.  (FIXME)
 #/usr/lib/Kosmo-3.0/
