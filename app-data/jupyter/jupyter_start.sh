@@ -24,5 +24,5 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-jupyter notebook --port=8883 --notebook-dir="${USER_HOME}/jupyter/notebooks" --ip='*'
+jupyter notebook --port=8883 --notebook-dir="${USER_HOME}/jupyter/notebook_gallery" --ip='*'
 
