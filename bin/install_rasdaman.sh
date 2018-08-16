@@ -232,6 +232,11 @@ deploy_local_earthlook
 rasdaman_service stop
 service tomcat8 stop
 
+
+##---- disk space v12
+rm -rf /opt/rasdaman/share/rasdaman/doc/doc-guides  ## 3.3MB
+
+
 # echo "Rasdaman command log:"
 # echo "==============================================="
 # cat /tmp/rasdaman.install.log

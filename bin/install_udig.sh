@@ -1,6 +1,6 @@
 #!/bin/sh
 #############################################################################
-# 
+#
 # Purpose: Installation of udig into Xubuntu
 # Author:  Stefan Hansen <shansen@lisasoft.com>
 #
@@ -9,7 +9,7 @@
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -84,14 +84,14 @@ mkdir -p "$TMP"
 cd "$TMP"
 
 # get udig
-# 
+#
 # This download incudes a "jre" folder containing a customized Java Runtime
 # Environment that has been extended with
 # - Java Advanced Imaging
 # - Java ImageIO
 # - Java ImageIO-Ext
 # - GDAL
-# 
+#
 # Notes for future maintainers:
 # - This jre could be removed in the future providing the system JRE was set
 #   up in a similar manner (http://udig.refractions.net/confluence/display/ADMIN/JRE+for+Linux)
@@ -178,6 +178,11 @@ cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
 
 #force eclipse to use mozilla as the default browser (#1394)
 echo "-Dorg.eclipse.swt.browser.DefaultType=mozilla" >> /usr/lib/udig/udig_internal.ini
+
+
+##-- disk space v12
+rm /usr/local/share/udig/udig-docs/uDigWalkthrough1.pdf
+
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
