@@ -101,9 +101,23 @@ chmod a+x /usr/local/bin/jupyter_start.sh
 
 cd "$BUILD_DIR"
 
-mkdir -p "$USER_HOME/jupyter/notebooks/projects/CARTOPY"
+mkdir -p "$USER_HOME/jupyter/notebook_gallery/SciTools"
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
-   "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
+   "$USER_HOME/jupyter/notebook_gallery/SciTools/"
+
+mkdir -p "$USER_HOME/jupyter/notebook_gallery/R"
+cp "$BUILD_DIR"/../app-data/jupyter/R_spatial_introduction.ipynb \
+   "$USER_HOME/jupyter/notebook_gallery/R/"
+
+## -- add R sf Intro page -- minimal size embed
+cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/R_sf_module_on_OSGeoLive12.html \
+   "$USER_HOME/jupyter/notebook_gallery/R/"
+cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/sf_logo.gif \
+   "$USER_HOME/jupyter/notebook_gallery/R/"
+cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/RConsortium.png \
+   "$USER_HOME/jupyter/notebook_gallery/R/"
+
+##--------------------------------------------
 cp -r /home/user/jupyter /etc/skel
 
 chown -R ${USER_NAME}:${USER_NAME} /home/user/jupyter
