@@ -161,5 +161,9 @@ chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 ### install R package containing sids.shp needed for postgis quickstart
 Rscript -e "install.packages('spData')"
 
+##-- disk space v12
+rm /usr/local/lib/R/site-library/Rcpp/doc/Rcpp-introduction.pdf
+
+
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
