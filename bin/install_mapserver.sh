@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -53,8 +53,11 @@ apt-get install --yes cgi-mapserver mapserver-bin python-mapscript
 # apt-get install --yes php-mapscript
 
 # Download MapServer data
+#wget -c --progress=dot:mega \
+#   "http://download.osgeo.org/livedvd/data/mapserver/mapserver-6-2-html-docs.zip"
+
 wget -c --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/mapserver/mapserver-6-2-html-docs.zip"
+    "http://download.osgeo.org/livedvd/data/mapserver/mapserver-7-0-html-docs.zip"
 wget -c --progress=dot:mega \
    "http://download.osgeo.org/livedvd/data/mapserver/mapserver-itasca-ms70.zip"
 
@@ -63,13 +66,13 @@ if [ ! -d "$MAPSERVER_DATA" ] ; then
     mkdir -p "$MAPSERVER_DATA"/demos
 
     echo -n "Extracting MapServer html doc in $MAPSERVER_DATA/..."
-    unzip -q "$TMP_DIR/mapserver-6-2-html-docs.zip" -d "$MAPSERVER_DATA"/
+    unzip -q "$TMP_DIR/mapserver-7-0-html-docs.zip" -d "$MAPSERVER_DATA"/
     echo -n "Done\nExtracting MapServer itasca demo in $MAPSERVER_DATA/demos/..."
     unzip -q "$TMP_DIR/mapserver-itasca-ms70.zip" -d "$MAPSERVER_DATA"/demos/ 
     echo "Done"
 
     mv "$MAPSERVER_DATA/demos/mapserver-demo-master" "$MAPSERVER_DATA/demos/itasca"
-    mv "$MAPSERVER_DATA/mapserver-6-2-docs" "$MAPSERVER_DATA/doc"
+    mv "$MAPSERVER_DATA/mapserver-7-0-docs" "$MAPSERVER_DATA/doc"
     rm -rf "$MAPSERVER_DATA/demos/ms4w"
 
     echo -n "Patching itasca.map to enable WMS..."
