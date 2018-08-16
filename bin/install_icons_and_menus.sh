@@ -488,15 +488,15 @@ chmod a+r "$USER_HOME/Desktop/" -R
 #### since KDE is removed we copy in some icons for the menus by hand
 cd /
 if [ ! -e /usr/share/icons/hicolor/48x48/apps/knetattach.png ] ; then
-   tar xf "$BUILD_DIR"/../desktop-conf/knetattach_icons.tar --no-same-owner
+   tar xf "$BUILD_DIR"/../desktop-conf/icons/knetattach_icons.tar --no-same-owner
 fi
 if [ ! -e /usr/share/icons/hicolor/48x48/apps/ktip.png ] ; then
-   tar xf "$BUILD_DIR"/../desktop-conf/ktip_icons.tar --no-same-owner
+   tar xf "$BUILD_DIR"/../desktop-conf/icons/ktip_icons.tar --no-same-owner
 fi
 
-cp "$BUILD_DIR"/../desktop-conf/gnome-globe16blue.svg /usr/local/share/icons/
+cp "$BUILD_DIR"/../desktop-conf/icons/gnome-globe16blue.svg /usr/local/share/icons/
 cp "$BUILD_DIR"/../desktop-conf/icons/sqlitebrowser.svg /usr/share/pixmaps/
-cp "$BUILD_DIR"/../desktop-conf/inspire.png /usr/local/share/icons/
+cp "$BUILD_DIR"/../desktop-conf/icons/inspire.png /usr/local/share/icons/
 
 ### make the Education menu less noisy
 #FIXME: first verify we're not vanishing anything which doesn't exist elsewhere

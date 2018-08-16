@@ -186,7 +186,7 @@ fi
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
 mkdir -p /usr/local/share/icons
-cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
+cp -f ../desktop-conf/icons/arramagong-wombat-small.png  /usr/local/share/icons/
 
 
 # Terminal toolbar off by default, and let's brighten the font
