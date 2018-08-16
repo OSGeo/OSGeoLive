@@ -65,7 +65,7 @@ SPATIAL_TOOLS="r jupyter-notebook* otb-*
 DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser shp2pgsql-gui"
 
 #Server apps part 3 (public good theme)
-RELIEF_APPS="ushahidi"
+# RELIEF_APPS="ushahidi"
 
 ################################################
 
@@ -239,14 +239,14 @@ for APP in $DB_APPS ; do
    fi
 done
 
-for APP in $RELIEF_APPS ; do
-   APPL=`basename $APP .desktop`.desktop
-   #echo "[$APP] -> [$APPL]"
-   if [ -e "$APPL" ] ; then
-      sed -e 's/^Categories=.*/Categories=Geospatial;Relief;/' \
-	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
-   fi
-done
+# for APP in $RELIEF_APPS ; do
+#    APPL=`basename $APP .desktop`.desktop
+#    #echo "[$APP] -> [$APPL]"
+#    if [ -e "$APPL" ] ; then
+#       sed -e 's/^Categories=.*/Categories=Geospatial;Relief;/' \
+# 	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
+#    fi
+# done
 
 
 
@@ -276,10 +276,10 @@ for APP in $SPATIAL_TOOLS ; do
    mv `basename $APP .desktop`.desktop "Spatial Tools"/
 done
 
-mkdir "Crisis Management"
-for APP in $RELIEF_APPS ; do
-   mv `basename $APP .desktop`.desktop "Crisis Management"/
-done
+# mkdir "Crisis Management"
+# for APP in $RELIEF_APPS ; do
+#    mv `basename $APP .desktop`.desktop "Crisis Management"/
+# done
 
 # admin tools already added automatically to the menu ...
 mkdir "Databases"
