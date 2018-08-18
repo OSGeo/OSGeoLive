@@ -30,10 +30,10 @@ apt-get install --yes python-all-dev
 # removed from list: python-stdeb
 
 # Install Django
-apt-get install --yes python-django
+apt-get install --yes python-django=1.8.7-1ubuntu5.6~bionic0
 
 # Hold Django version to avoid upgrades from upstream
-#apt-mark hold python-django
+apt-mark hold python-django
 
 # Install Geospatial Python2 libraries
 apt-get install --yes python-gdal python-shapely python-rasterio \
