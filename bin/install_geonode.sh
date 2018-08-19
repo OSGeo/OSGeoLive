@@ -60,7 +60,8 @@ apt-get install --yes --allow-downgrades --allow-change-held-packages \
     python-django-taggit=0.21.3-1~bionic0 \
     python-django-polymorphic=1.0.2-1~bionic1 \
     python-dj-database-url=0.4.1-1~bionic0 \
-    python-django-modeltranslation=0.12-1~bionic0
+    python-django-modeltranslation=0.12-1~bionic0 \
+    python-shapely=1.5.13-1~bionic1
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
@@ -70,7 +71,7 @@ fi
 apt-mark hold python-celery python-kombu python-django-oauth-toolkit \
     python-six python-oauthlib python-django-tastypie \
     python-django-taggit python-django-polymorphic python-dj-database-url \
-    python-django-modeltranslation
+    python-django-modeltranslation python-shapely
 
 # Add an entry in /etc/hosts for geonode, to enable http://geonode/
 echo '127.0.0.1 geonode' | sudo tee -a /etc/hosts
@@ -345,14 +346,34 @@ a2ensite geonode
 # Reload Apache
 /etc/init.d/apache2 force-reload
 
-# #FIXME: There should be a better way to do this...
-# cp -f "$BUILD_DIR/../app-conf/geonode/rc.geonode" \
-#        /etc
-# chmod u+rx,go-rx /etc/rc.geonode
-# cp /etc/init.d/rc.local /etc/init.d/rc.geonode
-# sed -i -e 's/rc\.local/rc.geonode/' /etc/init.d/rc.geonode
-# ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
-# ###
+# Add geonode in hosts file
+cp -f "$BUILD_DIR/../app-conf/geonode/rc.geonode" \
+       /etc/
+chmod u+rx,go-rx /etc/rc.geonode
+
+if [ ! -e /etc/systemd/system/geonode_hosts.service ] ; then
+    cat << EOF > /etc/systemd/system/geonode_hosts.service
+[Unit]
+Description=Add geonode to hosts file
+
+[Service]
+ExecStart=/bin/sh /etc/rc.geonode
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+fi
+
+## reload systemctl config
+systemctl daemon-reload
+
+## Start service to add user to groups
+systemctl start geonode_hosts.service
+
+## Enable geonode_hosts service at startup
+systemctl enable geonode_hosts.service
 
 # apt-add-repository --yes --remove ppa:geonode/osgeo
 apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
