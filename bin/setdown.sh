@@ -124,7 +124,7 @@ rm -rf mock/tests/*
 rm -rf zmq/tests/*
 rm -rf networkx/algorithms/tests/*
 rm -rf dask/tests/*
-rm -rf django/test/*
+#rm -rf django/test/*   ## geonode will not work without test/utils.py
 rm -rf dask/dataframe/io/tests/*
 rm -rf networkx/algorithms/flow/tests/*
 #rm -rf IPython/testing/*  ## ipython fails to start if rm'd
