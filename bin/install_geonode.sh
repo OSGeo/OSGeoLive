@@ -47,7 +47,11 @@ UPLOAD_PATH="/var/www/geonode/uploaded"
 add-apt-repository -y ppa:gcpp-kalxas/geonode
 apt-get -q update
 
-apt-get install --yes python-celery=3.1.20-1~bionic1 \
+apt-get install --yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
+#apt-mark hold python-geonode
+
+apt-get install --yes --allow-downgrades --allow-change-held-packages \
+    python-celery=3.1.20-1~bionic1 \
     python-kombu=3.0.33-1ubuntu2~bionic1 \
     python-django-oauth-toolkit=0.10.0-1~bionic0 \
     python-six=1.10.0-3~bionic0 \
@@ -58,18 +62,15 @@ apt-get install --yes python-celery=3.1.20-1~bionic1 \
     python-dj-database-url=0.4.1-1~bionic0 \
     python-django-modeltranslation=0.12-1~bionic0
 
-apt-mark hold python-celery python-kombu python-django-oauth-toolkit \
-    python-six python-oauthlib python-django-tastypie \
-    python-django-taggit python-django-polymorphic python-dj-database-url \
-    python-django-modeltranslation
-
-apt-get install --yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
-#apt-mark hold python-geonode
-
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
     exit 1
 fi
+
+apt-mark hold python-celery python-kombu python-django-oauth-toolkit \
+    python-six python-oauthlib python-django-tastypie \
+    python-django-taggit python-django-polymorphic python-dj-database-url \
+    python-django-modeltranslation
 
 # Add an entry in /etc/hosts for geonode, to enable http://geonode/
 echo '127.0.0.1 geonode' | sudo tee -a /etc/hosts
