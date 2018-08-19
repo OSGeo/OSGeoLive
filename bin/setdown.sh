@@ -43,22 +43,24 @@ GRPS="users tomcat8 www-data staff plugdev audio dialout pulse vboxsf"
 ## Create systemd service for manage_user_groups.sh
 ## source: https://askubuntu.com/questions/814/how-to-run-scripts-on-start-up/719157#719157
 
-echo "[Unit]"  >> /etc/systemd/system/manage_user_groups.service
-echo "Description=Add user to needed groups"  >> /etc/systemd/system/manage_user_groups.service
-echo ""  >> /etc/systemd/system/manage_user_groups.service
-echo "[Service]"  >> /etc/systemd/system/manage_user_groups.service
-#for GRP in $GRPS ; do
-    #echo "ExecStart=/usr/sbin/adduser $USER_NAME $GRP" >> /etc/systemd/system/manage_user_groups.service
-#done
+if [ ! -e /etc/systemd/system/manage_user_groups.service ] ; then
+    cat << EOF > /etc/systemd/system/manage_user_groups.service
+[Unit]
+Description=Add user to needed groups
 
-## Add user to only  the vboxsf group
-echo "ExecStart=/usr/sbin/adduser $USER_NAME vboxsf" >> /etc/systemd/system/manage_user_groups.service
+[Service]
+ExecStart=/usr/sbin/adduser $USER_NAME vboxsf
+Type=oneshot
+RemainAfterExit=yes
 
-echo "Type=oneshot"  >> /etc/systemd/system/manage_user_groups.service
-echo "RemainAfterExit=yes"  >> /etc/systemd/system/manage_user_groups.service
-echo ""  >> /etc/systemd/system/manage_user_groups.service
-echo "[Install]"  >> /etc/systemd/system/manage_user_groups.service
-echo "WantedBy=multi-user.target"  >> /etc/systemd/system/manage_user_groups.service
+[Install]
+WantedBy=multi-user.target
+EOF
+fi
+
+# for GRP in $GRPS ; do
+#   echo "ExecStart=/usr/sbin/adduser $USER_NAME $GRP" >> /etc/systemd/system/manage_user_groups.service
+# done
 
 ## reload systemctl config
 systemctl daemon-reload
