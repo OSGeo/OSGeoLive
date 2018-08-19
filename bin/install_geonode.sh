@@ -61,6 +61,7 @@ apt-get install --yes --allow-downgrades --allow-change-held-packages \
     python-django-polymorphic=1.0.2-1~bionic1 \
     python-dj-database-url=0.4.1-1~bionic0 \
     python-django-modeltranslation=0.12-1~bionic0 \
+    python-django-downloadview=1.8-1~bionic0 \
     python-shapely=1.5.13-1~bionic1
 
 if [ $? -ne 0 ] ; then
@@ -71,7 +72,7 @@ fi
 apt-mark hold python-celery python-kombu python-django-oauth-toolkit \
     python-six python-oauthlib python-django-tastypie \
     python-django-taggit python-django-polymorphic python-dj-database-url \
-    python-django-modeltranslation python-shapely
+    python-django-modeltranslation python-django-downloadview python-shapely
 
 # Add an entry in /etc/hosts for geonode, to enable http://geonode/
 echo '127.0.0.1 geonode' | sudo tee -a /etc/hosts
