@@ -1,6 +1,24 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 12.0beta4
+====================
+
+ * New plymouth OSGeoLive theme
+ * Fix for TileStache (#2096)
+ * Fix for ncWMS (#2084)
+ * GeoNetwork docs removed to save disk space
+ * Added intro notebook for R kernel in Jupyter
+ * Added sqlitebrowser icon back (#2094)
+ * Removed empty desktop folders (#2095)
+ * Fixed casper and plymouth settings for Ubuntu Bionic
+ * Mapserver 7.0 docs update
+ * Django 1.8.7 available in Bionic (#2065)
+ * EOxServer fixed (#2065)
+ * GeoNode fixed (#2065)
+ * Updated welcome message (#2108)
+ * Added Mappyfile to python libraries
+
 Version 12.0beta3
 ====================
 
