@@ -41,7 +41,7 @@ apt-get install --yes python-gdal python-shapely python-rasterio \
 	python-fiona python-matplotlib python-geopandas python-pysal \
 	python-netcdf4 python-geojson python-scipy python-pandas \
 	python-pyshp python-descartes python-geographiclib python-kml \
-	python-cartopy python-seaborn python-networkx
+	python-cartopy python-seaborn python-networkx python-mappyfile
 
 ##======================================================
 # clean cartopy  12beta  rm 6MB, add 3MB
