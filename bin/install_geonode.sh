@@ -43,10 +43,27 @@ STATIC_PATH="/var/www/geonode/static"
 UPLOAD_PATH="/var/www/geonode/uploaded"
 
 # Install packages
-add-apt-repository -y ppa:geonode/osgeo
+# add-apt-repository -y ppa:geonode/osgeo
+add-apt-repository -y ppa:gcpp-kalxas/geonode
 apt-get -q update
 
-apt-get install --assume-yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
+apt-get install --yes python-celery=3.1.20-1~bionic1 \
+    python-kombu=3.0.33-1ubuntu2~bionic1 \
+    python-django-oauth-toolkit=0.10.0-1~bionic0 \
+    python-six=1.10.0-3~bionic0 \
+    python-oauthlib=1.0.3-1~bionic0 \
+    python-django-tastypie=0.12.2-1~bionic0 \
+    python-django-taggit=0.21.3-1~bionic0 \
+    python-django-polymorphic=1.0.2-1~bionic1 \
+    python-dj-database-url=0.4.1-1~bionic0 \
+    python-django-modeltranslation=0.12-1~bionic0
+
+apt-mark hold python-celery python-kombu python-django-oauth-toolkit \
+    python-six python-oauthlib python-django-tastypie \
+    python-django-taggit python-django-polymorphic python-dj-database-url \
+    python-django-modeltranslation
+
+apt-get install --yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
 #apt-mark hold python-geonode
 
 if [ $? -ne 0 ] ; then
@@ -327,16 +344,17 @@ a2ensite geonode
 # Reload Apache
 /etc/init.d/apache2 force-reload
 
-#FIXME: There should be a better way to do this...
-cp -f "$BUILD_DIR/../app-conf/geonode/rc.geonode" \
-       /etc
-chmod u+rx,go-rx /etc/rc.geonode
-cp /etc/init.d/rc.local /etc/init.d/rc.geonode
-sed -i -e 's/rc\.local/rc.geonode/' /etc/init.d/rc.geonode
-ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
-###
+# #FIXME: There should be a better way to do this...
+# cp -f "$BUILD_DIR/../app-conf/geonode/rc.geonode" \
+#        /etc
+# chmod u+rx,go-rx /etc/rc.geonode
+# cp /etc/init.d/rc.local /etc/init.d/rc.geonode
+# sed -i -e 's/rc\.local/rc.geonode/' /etc/init.d/rc.geonode
+# ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
+# ###
 
-apt-add-repository --yes --remove ppa:geonode/osgeo
+# apt-add-repository --yes --remove ppa:geonode/osgeo
+apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
