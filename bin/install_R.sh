@@ -153,17 +153,15 @@ chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 # cp *.pdf /usr/lib/R/site-library/spgrass6/doc/
 
 
-# link sample data to central location
-# mkdir -p /usr/local/share/data/vector
-# ln -s /usr/lib/R/site-library/rgdal/vectors \
-#    /usr/local/share/data/vector/R
-
 ### install R package containing sids.shp needed for postgis quickstart
 Rscript -e "install.packages('spData')"
 
+# link sample data to central location
+ln -s /usr/local/lib/R/site-library/spData/shapes \
+       $USER_HOME/data/spdata_shapes
+
 ##-- disk space v12
 rm /usr/local/lib/R/site-library/Rcpp/doc/Rcpp-introduction.pdf
-
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

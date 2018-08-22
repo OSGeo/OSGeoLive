@@ -10,6 +10,7 @@
 #   8 Jan 2012  changes for OJ 1.5
 #  12 Jun 2013  changes for OJ 1.6 live-dvd 7.0
 #  14 Jun 2014  changes for OJ 1.7 live-dvd 8.0
+#  20 Aug 2018  osgeolive12
 #
 #################################################
 # Copyright (c) 2011-2014 Edgar Soldin, openjump team
@@ -157,7 +158,6 @@ touch $PKG_SUCCESS
 mkdir -p $(dirname "$PKG_DATA_SAMPLES_LINK") &&\
 ln -s "$PKG_DATA_SAMPLES" \
       "$PKG_DATA_SAMPLES_LINK"
-
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
