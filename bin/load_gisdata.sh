@@ -234,6 +234,15 @@ cd nc_data
 
 mkdir -p "$DATA_FOLDER/north_carolina"
 
+
+##--  12dev  link to common data dir
+ln -s /usr/lib/python2.7/dist-packages/gisdata/data/good/raster/relief_san_andres.tif \
+       $DATA_FOLDER/raster/relief_san_andres.tif
+
+ln -s /usr/lib/python2.7/dist-packages/gisdata/data/good/raster/test_grid.tif \
+      $DATA_FOLDER/raster/test_grid.tif
+
+
 ##-- useful metadata  31jan15
 ##-- TODO: wget -N http://www.grassbook.org/presentations/MitOSGeoDataFOSS4G9.pdf
 wget -N http://www.grassbook.org/grasslocations/nc_epsg_codes.html

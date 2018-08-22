@@ -7,7 +7,7 @@
 #############################################################################
 # Copyright (c) 2011-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -243,6 +243,11 @@ fi
 #
 cp -v /usr/local/share/applications/52nWPS-stop.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/52nWPS-stop.desktop"
+
+##-- 12dev  link .tif to common data dir
+chmod a+r /var/lib/tomcat8/webapps/52nWPS/testData/elev_srtm_30m21.tif
+ln -s /var/lib/tomcat8/webapps/52nWPS/testData/elev_srtm_30m21.tif \
+       /usr/local/share/data/raster/elev_srtm_30m21.tif
 
 #
 # We just crossed the finish line
