@@ -157,8 +157,9 @@ chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 Rscript -e "install.packages('spData')"
 
 # link sample data to central location
+mkdir -p /usr/local/share/data/vector/R
 ln -s /usr/local/lib/R/site-library/spData/shapes \
-       $USER_HOME/data/spdata_shapes
+       /usr/local/share/data/vector/R/shapes
 
 ##-- disk space v12
 rm /usr/local/lib/R/site-library/Rcpp/doc/Rcpp-introduction.pdf

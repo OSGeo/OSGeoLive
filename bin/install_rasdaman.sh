@@ -236,9 +236,6 @@ service tomcat8 stop
 ##---- disk space v12
 rm -rf /opt/rasdaman/share/rasdaman/doc/doc-guides  ## 3.3MB
 
-chmod a+r /var/lib/tomcat8/webapps/52nWPS/testData/elev_srtm_30m21.tif
-ln -s /var/lib/tomcat8/webapps/52nWPS/testData/elev_srtm_30m21.tif \
-       $USER_HOME/data/raster/elev_srtm_30m21.tif
 
 # echo "Rasdaman command log:"
 # echo "==============================================="
