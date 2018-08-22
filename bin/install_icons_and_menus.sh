@@ -451,7 +451,7 @@ cat << EOF > "/usr/share/applications/$WORKSHOP_INSTALL_FILE"
 [Desktop Entry]
 Name=Workshop Installation
 Comment=Installation for OSGeo-live based workshops
-Exec=firefox http://trac.osgeo.org/osgeo/wiki/Live_GIS_Workshop_Install
+Exec=firefox https://trac.osgeo.org/osgeolive/wiki/Live_GIS_Workshop_Install
 Icon=synaptic
 Terminal=false
 Type=Application
