@@ -56,6 +56,29 @@ mkdir "$TMP_DIR"
 apt-get --quiet update
 apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal-grass
 
+
+## live12 -- so many -dev pkgs!!  -- cleanup
+apt remove --yes  grass-dev
+apt remove --yes   libgdal-dev
+apt remove --yes   libtiff-dev
+apt remove --yes   libgeotiff-dev
+apt remove --yes  libgeos-dev
+apt remove --yes   libicu-dev
+apt remove --yes   libxerces-c-dev
+apt remove --yes   libxml2-dev
+apt remove --yes   unixodbc-dev
+apt remove --yes   libjpeg-dev
+apt remove --yes   libjson-c-dev
+apt remove --yes   libkml-dev
+apt remove --yes  libpq-dev
+apt remove --yes   libproj-dev
+apt remove --yes   libqhull-dev
+apt remove --yes   libspatialite-dev
+apt remove --yes   libsqlite3-dev
+
+apt autoremove --yes
+##----------------------------------------------------------------
+
 cp /usr/share/applications/grass74.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass74.desktop"
 
