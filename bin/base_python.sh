@@ -30,7 +30,7 @@ apt-get install --yes python-all-dev
 # removed from list: python-stdeb
 
 # Install Django
-apt-get install --yes python-django=1.8.7-1ubuntu5.6~bionic2 \
+apt-get install --yes python-django=1.8.7-1ubuntu5.6~bionic3 \
     python-django-common=1.8.7-1ubuntu5.6~bionic3
 
 # Hold Django version to avoid upgrades from upstream
