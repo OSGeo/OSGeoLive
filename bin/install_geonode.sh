@@ -175,7 +175,7 @@ echo "Done"
 
 echo "Starting GeoServer to update layers in the geonode db"
 "$GEOSERVER_PATH"/bin/startup.sh &> /dev/null &
-sleep 90;
+sleep 120;
 echo "Done"
 
 #TODO: Create GeoServer store
