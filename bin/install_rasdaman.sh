@@ -236,6 +236,8 @@ service tomcat8 stop
 ##---- disk space v12
 rm -rf /opt/rasdaman/share/rasdaman/doc/doc-guides  ## 3.3MB
 
+rm -rf /etc/apt/sources.list.d/rasdaman.list
+apt-get -qq update -y
 
 # echo "Rasdaman command log:"
 # echo "==============================================="
