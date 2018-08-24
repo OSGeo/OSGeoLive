@@ -1,6 +1,22 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 12.0rc1
+====================
+
+ * MapServer 7.2.0
+ * Documentation finalized
+ * Presentation updated (#2109)
+ * ZOO-Project fixed (#2063)
+ * GeoNode upload errors fixed (#2113)
+ * rasterio 1.0.3
+ * fiona 1.7.13
+ * Django issues fixed (#2115)
+ * Data links fixed
+ * Workshop link updated (#2116)
+ * SAGA links fixed (#2110)
+ * ossim-core kept as OTB dependency (#2061)
+
 Version 12.0beta4
 ====================
 
