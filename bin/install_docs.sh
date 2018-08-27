@@ -246,19 +246,19 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 # Download the Ubuntu users' manual PDF (CC By SA 3.0)
 mkdir -p /usr/local/share/doc
 
-wget -c --progress=dot:mega \
-  "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/16.04/en_US/screen/Getting%20Started%20with%20Ubuntu%2016.04.pdf" \
-  -O "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf"
+# wget -c --progress=dot:mega \
+#   "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/16.04/en_US/screen/Getting%20Started%20with%20Ubuntu%2016.04.pdf" \
+#   -O "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf"
 
-if [ $? -ne 0 ] ; then
-   # try try again
-   wget -c --progress=dot:mega \
-  "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/16.04/en_US/screen/Getting%20Started%20with%20Ubuntu%2016.04.pdf" \
-  -O "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf"
-fi
+# if [ $? -ne 0 ] ; then
+#    # try try again
+#    wget -c --progress=dot:mega \
+#   "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/16.04/en_US/screen/Getting%20Started%20with%20Ubuntu%2016.04.pdf" \
+#   -O "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf"
+# fi
 
-ln -s "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf" \
-  "$USER_HOME/Desktop/Getting Started with Ubuntu 16.04.pdf"
+# ln -s "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf" \
+#   "$USER_HOME/Desktop/Getting Started with Ubuntu 16.04.pdf"
 
 
 ####
