@@ -43,8 +43,8 @@ STATIC_PATH="/var/www/geonode/static"
 UPLOAD_PATH="/var/www/geonode/uploaded"
 
 # Install packages
-# add-apt-repository -y ppa:geonode/osgeo
-add-apt-repository -y ppa:gcpp-kalxas/geonode
+add-apt-repository -y ppa:geonode/osgeo
+# add-apt-repository -y ppa:gcpp-kalxas/geonode
 apt-get -q update
 
 apt-get install --yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
