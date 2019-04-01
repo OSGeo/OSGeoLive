@@ -117,7 +117,7 @@ echo
 echo "Installing build tools"
 echo "======================"
 
-sudo apt-get install --yes squashfs-tools genisoimage syslinux-utils lzip
+sudo apt-get install --yes squashfs-tools genisoimage syslinux-utils lzip binwalk
 
 #TODO add wget to grab a fresh image, optional
 
@@ -205,12 +205,16 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 4.18.0-15-generic
+sudo chroot edit mkinitramfs -c lzma -o /initrd 4.18.0-15-generic
+offset=$(binwalk ./edit/initrd -y lzma | grep 'LZMA' | awk '{ print $1; }')
+dd if=./edit/initrd bs=$offset skip=1 > initrd.lz
+dd if=./edit/initrd bs=1 count=$offset > initrd.micro
+rm edit/initrd
 
 #continue
 mkdir lzfiles
 cd lzfiles
-lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
+lzma -dc -S .lz ../initrd.lz | cpio -imvd --no-absolute-filenames
 
 #Perhaps not needed since this also happens in chroot part.
 cp ../../gisvm/desktop-conf/casper/casper.conf etc/casper.conf
@@ -251,11 +255,15 @@ sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeoLive ${VERSION_MODE}/g" \
 sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Bionic Beaver\"/OSGeoLive ${VERSION_MODE}/g" \
     ../extract-cd/.disk/info
 
+rm ../initrd.lz
 find . | cpio --quiet --dereference -o -H newc | \
-   lzma -7 > ../extract-cd/casper/initrd.lz
+   lzma -7 > ../initrd.lz
 
-#sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
 cd ..
+cat initrd.micro initrd.lz > initrd
+rm initrd.micro initrd.lz
+mv initrd extract-cd/casper/initrd
+
 
 echo
 echo "Regenerating manifest..."
