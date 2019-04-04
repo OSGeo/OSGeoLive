@@ -29,12 +29,14 @@ apt-get -q update
 apt-get install --yes python-all-dev
 # removed from list: python-stdeb
 
+## HOLD p13 --
 # Install Django
-apt-get install --yes python-django=1.8.7-1ubuntu5.6~bionic3 \
-    python-django-common=1.8.7-1ubuntu5.6~bionic3
-
-# Hold Django version to avoid upgrades from upstream
-apt-mark hold python-django
+#apt-get install --yes python-django=1.8.7-1ubuntu5.6~bionic3 \
+#    python-django-common=1.8.7-1ubuntu5.6~bionic3
+#
+## Hold Django version to avoid upgrades from upstream
+#apt-mark hold python-django
+## FHOLD
 
 # Install Geospatial Python2 libraries
 apt-get install --yes python-gdal python-shapely python-rasterio \
@@ -43,22 +45,25 @@ apt-get install --yes python-gdal python-shapely python-rasterio \
 	python-pyshp python-descartes python-geographiclib python-kml \
 	python-cartopy python-seaborn python-networkx python-mappyfile
 
+## NEEDED? p13
 ##======================================================
 # clean cartopy  12beta  rm 6MB, add 3MB
-rm -rf /usr/lib/python2.7/dist-packages/cartopy/tests/*
-cd /tmp; mkdir tmp_cartopy; cd tmp_cartopy
-wget -c http://download.osgeo.org/livedvd/12/cartopy/cartopy_0143_data.tgz
-tar xf cartopy_0143_data.tgz
-mkdir /usr/lib/python2.7/dist-packages/cartopy/data
-chmod 755 /usr/lib/python2.7/dist-packages/cartopy/data
-cp -R cartopy_0143_data/*  /usr/lib/python2.7/dist-packages/cartopy/data/
-## TODO link to ~/data
-##=========================
+#rm -rf /usr/lib/python2.7/dist-packages/cartopy/tests/*
+#cd /tmp; mkdir tmp_cartopy; cd tmp_cartopy
+#wget -c http://download.osgeo.org/livedvd/12/cartopy/cartopy_0143_data.tgz
+#tar xf cartopy_0143_data.tgz
+#mkdir /usr/lib/python2.7/dist-packages/cartopy/data
+#chmod 755 /usr/lib/python2.7/dist-packages/cartopy/data
+#cp -R cartopy_0143_data/*  /usr/lib/python2.7/dist-packages/cartopy/data/
+### TODO link to ~/data
+###=========================
+
 
 # Install Geospatial Python3 libraries
 apt-get install --yes python3-gdal fiona rasterio
 
 # Add a symlink for rio
 ln -s /usr/bin/rasterio /usr/local/bin/rio
+
 
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
