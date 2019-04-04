@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2013-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -34,44 +34,44 @@ cd ${JUPYTER_BUILD_DIR}
 apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert \
   python-ipykernel python-nbformat python-ipywidgets
 
-# 12dev -- note ticket #1965 for trial log
-
 # ipython CLI as well
 apt-get install --assume-yes ipython
 
-
+## pR_13  HOLD
 ##=============================================================
 ## Add Kernels and Jupyter Mods
 ##
 
 ##--  IRKernel via github (assumes R core)
-
-su - -c "R -e \"install.packages('pbdZMQ')\""
-su - -c "R -e \"install.packages('uuid')\""
-su - -c "R -e \"install.packages('digest')\""
-
-su - -c "R -e \"install.packages('repr')\""
-su - -c "R -e \"install.packages('evaluate')\""
-su - -c "R -e \"install.packages('crayon')\""
-
-su - -c "R -e \"install.packages('IRdisplay')\""
-
-apt-get install --assume-yes libssl-dev openssl
-su - -c "R -e \"install.packages('devtools')\""
-
+#
+#su - -c "R -e \"install.packages('pbdZMQ')\""
+#su - -c "R -e \"install.packages('uuid')\""
+#su - -c "R -e \"install.packages('digest')\""
+#
+#su - -c "R -e \"install.packages('repr')\""
+#su - -c "R -e \"install.packages('evaluate')\""
+#su - -c "R -e \"install.packages('crayon')\""
+#
+#su - -c "R -e \"install.packages('IRdisplay')\""
+#
+#apt-get install --assume-yes libssl-dev openssl
+#su - -c "R -e \"install.packages('devtools')\""
+#
 ## Install method minus-one -- pull directly from Github dot com
 #su - -c "R -e \"devtools::install_github('IRkernel/IRkernel')\""
 #su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
 
 ## Install method one -- git snapshot+ID on download.osgeo.org
-JOVYAN_R='IRkernel-master-97c492b2.zip'
-wget -c http://download.osgeo.org/livedvd/12/jupyter/${JOVYAN_R}
-unzip ${JOVYAN_R}
-R CMD INSTALL IRkernel-master
+#JOVYAN_R='IRkernel-master-97c492b2.zip'
+#wget -c http://download.osgeo.org/livedvd/12/jupyter/${JOVYAN_R}
+#unzip ${JOVYAN_R}
+#R CMD INSTALL IRkernel-master
 #- TODO check status
 
 ## global kernel
-su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
+#su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
+## FHOLD
+
 
 #- cleanup
 cd ${USER_HOME}
@@ -93,7 +93,7 @@ cp "$BUILD_DIR"/../app-data/jupyter/jupyter_start.sh \
    /usr/local/bin/
 chmod a+x /usr/local/bin/jupyter_start.sh
 
-# TODO: Test if these notebooks work fine 
+# TODO: Test if these notebooks work fine
 # mkdir -p "$USER_HOME/jupyter"
 # git clone https://github.com/OSGeo/OSGeoLive-Notebooks.git \
 #    "$USER_HOME/jupyter/notebooks"
