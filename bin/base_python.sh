@@ -49,7 +49,7 @@ apt-get install --yes python-gdal python-shapely python-rasterio \
 ##======================================================
 # clean cartopy  12beta  rm 6MB, add 3MB
 #rm -rf /usr/lib/python2.7/dist-packages/cartopy/tests/*
-#cd /tmp; mkdir tmp_cartopy; cd tmp_cartopy
+cd /tmp; mkdir tmp_cartopy; cd tmp_cartopy
 wget -c http://download.osgeo.org/livedvd/13/cartopy/cartopy_0160_data.tgz
 tar xf cartopy_0160_data.tgz
 mkdir -p /home/${USER_NAME}/.local/share/cartopy
