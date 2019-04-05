@@ -52,6 +52,11 @@ apt-get install --yes python-gdal python-shapely python-rasterio \
 #cd /tmp; mkdir tmp_cartopy; cd tmp_cartopy
 wget -c http://download.osgeo.org/livedvd/13/cartopy/cartopy_0160_data.tgz
 tar xf cartopy_0160_data.tgz
+mkdir -p /home/${USER_NAME}/.local/share/cartopy
+cp -R home/user/.local/share/cartopy/* /home/${USER_NAME}/.local/share/cartopy/
+chown -R ${USER_NAME} /home/${USER_NAME}/.local/share/cartopy
+chmod 755 /home/${USER_NAME}/.local/share/cartopy
+
 #mkdir /usr/lib/python2.7/dist-packages/cartopy/data
 #chmod 755 /usr/lib/python2.7/dist-packages/cartopy/data
 #cp -R cartopy_0143_data/*  /usr/lib/python2.7/dist-packages/cartopy/data/
