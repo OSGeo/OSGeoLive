@@ -121,15 +121,15 @@ export USER_NAME
 
 ### Base installers
 ./base_c.sh
-# ./base_python.sh
-# ./base_java.sh
+./base_python.sh
+./base_java.sh
 # ./base_language.sh
 
 ### Service installers
-# ./service_apache2.sh
-# ./base_php.sh
-# ./service_tomcat.sh
-# ./service_postgresql.sh
+./service_apache2.sh
+./base_php.sh
+./service_tomcat.sh
+./service_postgresql.sh
 # ./service_mysql.sh
 
 ### Project installers
