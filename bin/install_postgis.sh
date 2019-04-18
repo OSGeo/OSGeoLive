@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -30,7 +30,7 @@ USER_HOME="/home/$USER_NAME"
 #  to correspond to install paths
 PG_VERSION="10"
 
-apt-get install --yes postgis postgis-gui "postgresql-$PG_VERSION-postgis-2.4" "postgresql-$PG_VERSION-postgis-2.4-scripts"
+apt-get install --yes postgis postgis-gui "postgresql-$PG_VERSION-postgis-2.5" "postgresql-$PG_VERSION-postgis-2.5-scripts"
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
