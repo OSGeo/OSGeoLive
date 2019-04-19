@@ -140,7 +140,7 @@ export USER_NAME
 ./load_postgis.sh
 # ./install_pgrouting.sh
 # ./install_ossim.sh
-# ./install_mapserver.sh
+./install_mapserver.sh
 # ./install_tinyows.sh
 # ./install_gmt.sh
 # ./install_mapnik.sh
@@ -172,7 +172,7 @@ export USER_NAME
 # ./install_jupyter.sh
 
 ## Java stack
-# ./install_geoserver.sh
+./install_geoserver.sh
 # ./install_geonetwork.sh
 # ./install_deegree.sh
 # ./install_geomajas.sh
@@ -187,7 +187,7 @@ export USER_NAME
 # ./install_ncWMS.sh
 
 ## PHP stack
-# ./install_mapbender.sh
+./install_mapbender.sh
 # ./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
@@ -197,9 +197,9 @@ export USER_NAME
 # ./install_trex.sh
 
 ## Javascript et al
-# ./install_openlayers.sh
-# ./install_leaflet.sh
-# ./install_cesium.sh
+./install_openlayers.sh
+./install_leaflet.sh
+./install_cesium.sh
 # ./install_rasdaman.sh
 
 ## Docs, Data and extras
@@ -208,8 +208,8 @@ export USER_NAME
 # ./install_edutools.sh
 
 ## Desktop and Housekeeping
-# ./install_desktop.sh
-# ./install_icons_and_menus.sh
+./install_desktop.sh
+./install_icons_and_menus.sh
 ./setdown.sh
 
 
