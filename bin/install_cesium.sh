@@ -5,7 +5,7 @@
 #
 #############################################################################
 # Author: Balasubramaniam Natarajan <bala150985 gmail> / Brian M Hamlin <dbb>
-# Copyright (c) 2014-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2014-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
