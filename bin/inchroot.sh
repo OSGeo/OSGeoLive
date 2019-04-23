@@ -144,17 +144,17 @@ export USER_NAME
 ./install_tinyows.sh
 ./install_gmt.sh
 ./install_mapnik.sh
-# ./install_otb.sh
-# ./install_liblas.sh
-# ./install_saga.sh
+./install_otb.sh
+./install_liblas.sh
+./install_saga.sh
 ./install_grass.sh
 ./install_qgis.sh
 # ./install_qgis_server.sh
 # ./install_zoo-project.sh "$ARCH"
-# ./install_marble.sh
-# ./install_opencpn.sh
-# ./install_zygrib.sh
-# ./install_PDAL.sh
+./install_marble.sh
+./install_opencpn.sh
+./install_zygrib.sh
+./install_PDAL.sh
 
 ## Python stack
 # ./install_mapproxy.sh
