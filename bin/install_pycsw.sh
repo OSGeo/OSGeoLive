@@ -38,7 +38,7 @@ apt-get install --yes python-pycsw python-pycsw-wsgi python-pycsw-doc javascript
 echo 'Downloading pycsw logo ...'
 wget -c --progress=dot:mega \
    -O /usr/local/share/icons/pycsw.png \
-   "https://github.com/geopython/pycsw/blob/master/docs/_static/favicon/apple-touch-icon.png"
+   "https://github.com/geopython/pycsw/raw/master/docs/_static/favicon/android-chrome-192x192.png"
 
 echo 'Installing desktop launcher ...'
 
