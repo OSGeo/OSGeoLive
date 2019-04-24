@@ -27,7 +27,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-PACKAGES="pdal python-pdal libpdal-util5 libpdal-base5"
+PACKAGES="pdal python-pdal libpdal-util7 libpdal-base7"
 PDAL_PLUGINS="libpdal-plugins"
 
 # pkg not installed to save disc space:
