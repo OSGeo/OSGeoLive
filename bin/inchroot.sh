@@ -157,38 +157,38 @@ export USER_NAME
 ./install_PDAL.sh
 
 ## Python stack
-# ./install_mapproxy.sh
-# ./install_pycsw.sh
-# ./install_pywps.sh
+./install_mapproxy.sh
+./install_pycsw.sh
+./install_pywps.sh
 # ./install_eoxserver.sh
-# ./install_iris.sh
-# ./install_istsos.sh
-# ./install_mapslicer.sh
+./install_iris.sh
+./install_istsos.sh
+./install_mapslicer.sh
 
 ## R stack
-# ./install_R.sh
+./install_R.sh
 
 ## Jupyter
-# ./install_jupyter.sh
+./install_jupyter.sh
 
 ## Java stack
 ./install_geoserver.sh
-# ./install_geonetwork.sh
-# ./install_deegree.sh
-# ./install_geomajas.sh
-# ./install_udig.sh "$ARCH"
-# ./install_openjump.sh
-# ./install_gvsig.sh "$ARCH"
-# ./install_gpsprune.sh
+./install_geonetwork.sh
+./install_deegree.sh
+./install_geomajas.sh
+./install_udig.sh "$ARCH"
+./install_openjump.sh
+./install_gvsig.sh "$ARCH"
+./install_gpsprune.sh
 
 ## Java + default tomcat
-# ./install_52nWPS.sh
-# ./install_52nSOS.sh
-# ./install_ncWMS.sh
+./install_52nWPS.sh
+./install_52nSOS.sh
+./install_ncWMS.sh
 
 ## PHP stack
 ./install_mapbender.sh
-# ./install_geomoose.sh
+./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
 # ./install_geonode.sh
@@ -203,7 +203,7 @@ export USER_NAME
 # ./install_rasdaman.sh
 
 ## Docs, Data and extras
-# ./load_gisdata.sh
+./load_gisdata.sh
 # ./install_docs.sh "$BUILD_MODE"
 # ./install_edutools.sh
 

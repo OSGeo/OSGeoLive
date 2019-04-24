@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # IRIS (C) British Crown Copyright 2010 - 2013, Met Office
+# Copyright (c) 2010-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # Iris is free software: you can redistribute it and/or modify it under
