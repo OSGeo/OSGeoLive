@@ -1,4 +1,4 @@
-Welcome to OSGeoLive 12.0.
+Welcome to OSGeoLive 13.0alpha.
 
 
 See the life ring Help icon on the Desktop for information about the        
