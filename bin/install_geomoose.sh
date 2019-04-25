@@ -34,14 +34,14 @@ mkdir -p /tmp/build-geomoose
 
 cd /tmp/build-geomoose
 
-## Download and extract GeoMOOSE 3.2.0
+## Download and extract GeoMOOSE 3.3.0
 wget -c --tries=3 --progress=dot:mega --no-check-certificate \
-   "https://www.geomoose.org/downloads/gm3-examples-3.2.0.zip"
+   "https://www.geomoose.org/downloads/gm3-examples-3.3.0.zip"
 wget -c --tries=3 --progress=dot:mega --no-check-certificate \
-   "https://www.geomoose.org/downloads/gm3-demo-data-3.2.0.zip"
+   "https://www.geomoose.org/downloads/gm3-demo-data-3.3.0.zip"
 
-unzip gm3-examples-3.2.0.zip
-unzip gm3-demo-data-3.2.0.zip
+unzip gm3-examples-3.3.0.zip
+unzip gm3-demo-data-3.3.0.zip
 
 rm -rf /usr/local/geomoose
 
@@ -56,7 +56,7 @@ mv /tmp/build-geomoose/gm3-demo-data .
 rm -f /var/www/html/geomoose
 ln -s /usr/local/geomoose/gm3-examples/htdocs /var/www/html/geomoose
 
-## Configure GeoMOOSE 3.2.0
+## Configure GeoMOOSE 3.3.0
 cat > /usr/local/geomoose/gm3-examples/htdocs/desktop/config.js <<'EOF'
 CONFIG = {
     mapserver_url: "/cgi-bin/mapserv",
