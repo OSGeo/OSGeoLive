@@ -1,6 +1,30 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 13.0alpha1
+====================
+
+ * Lubuntu 18.04.2
+ * QGIS 3.4.6 (no plugins yet)
+ * GDAL 2.4.0
+ * PostGIS 2.5.1
+ * GRASS 7.6.1
+ * PROJ 5.2.0
+ * MapServer 7.2.2
+ * GEOS 3.7.0
+ * OTB 6.6.1
+ * Mapnik 3.0.22
+ * OSSIM 2.5.2
+ * fiona 1.8.4
+ * GMT 5.4.5
+ * gpsprune 19.2
+ * libgeotiff 1.4.2
+ * osgearth 2.10.0
+ * PDAL 1.8.0
+ * pgRouting 2.6.2
+ * Adapted initrd modification to multi-part format used by debian and ubuntu since 18.04.1 (#2100)
+ * Default desktop image for 13.0
+
 Version 12.0
 ====================
 
