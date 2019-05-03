@@ -4,7 +4,7 @@
 # Purpose: This script will install pycsw
 #
 #############################################################################
-# Copyright (c) 2013-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2013-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -38,7 +38,7 @@ apt-get install --yes python-pycsw python-pycsw-wsgi python-pycsw-doc javascript
 echo 'Downloading pycsw logo ...'
 wget -c --progress=dot:mega \
    -O /usr/local/share/icons/pycsw.png \
-   "https://github.com/geopython/pycsw/raw/master/docs/_static/pycsw-logo.png"
+   "https://github.com/geopython/pycsw/raw/master/docs/_static/favicon/android-chrome-192x192.png"
 
 echo 'Installing desktop launcher ...'
 

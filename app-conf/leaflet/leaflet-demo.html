@@ -14,15 +14,15 @@
 
     <script src="/leaflet/leaflet.js"></script>
     <script>
-        var map = L.map('map').setView([42.35100,-71.03941], 5)
+        var map = L.map('map').setView([-6.8110533,39.292251], 5)
 
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{}).addTo(map);
         //In case we are offline, start TileStache to get a base layer
         L.tileLayer('http://localhost:8012/example/{z}/{x}/{y}.png',{}).addTo(map);
 
-        var marker = L.marker([43.86622, -66.09375]).addTo(map);            
+        var marker = L.marker([-6.8110533,39.292251]).addTo(map);            
 
-        var circle = L.circle([41.62366, -69.98], 25000, {
+        var circle = L.circle([-7.08726, 39.50409], 25000, {
            color: 'red',
            fillColor: '#f03',
            fillOpacity: 0.5
@@ -30,13 +30,13 @@
         
         
         var polygon = L.polygon([
-           [41.01, -71.01],
-           [41.81, -72.76],
-           [41.95, -71.13]
+           [-6.60, 38.97],
+           [-6.68, 38.37],
+           [-7.05, 38.83]
         ]).addTo(map);
         
         var popup = L.popup()
-           .setLatLng([42.35100,-71.03941])
+           .setLatLng([-6.8110533,39.292251])
            .setContent("FOSS4G is here this year!")
            .openOn(map);
 

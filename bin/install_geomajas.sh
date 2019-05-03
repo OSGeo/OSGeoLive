@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -92,8 +92,8 @@ fi
 
 
 ##### Step5: Make the logs directory writable
-chgrp users "$GEOMAJAS_HOME/logs"
-chmod g+w "$GEOMAJAS_HOME/logs"
+# chgrp users "$GEOMAJAS_HOME/logs"
+# chmod g+w "$GEOMAJAS_HOME/logs"
 adduser "$USER_NAME" users
 
 #####Make the webapps folder accessible

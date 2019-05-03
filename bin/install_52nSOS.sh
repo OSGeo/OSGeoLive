@@ -3,10 +3,10 @@
 #
 # Purpose: This script will install 52nSOS
 # Author: e.h.juerrens@52north.org
-# Version 2017-06-02
+# Version 2018-06-14
 #
 #############################################################################
-# Copyright (c) 2011-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2011-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -47,14 +47,14 @@ SOS_OVERVIEW_URL="http://localhost/osgeolive/en/overview/52nSOS_overview.html"
 SOS_WAR_INSTALL_FOLDER="/var/lib/$TOMCAT_SCRIPT_NAME/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
 SOS_BIN_FOLDER="/usr/local/share/52nSOS"
-SOS_TAR_NAME="52n-sos-osgeo-live-11.0.tar.gz"
-SOS_TAR_URL="http://52north.org/files/sensorweb/osgeo-live/"
-SOS_VERSION="4.4.0"
-PG_OPTIONS='--client-min-messages=warning'
+SOS_TAR_NAME="52n-sos-osgeo-live-4.4.3.tar.gz"
+SOS_TAR_URL="https://52north.org/files/sensorweb/osgeo-live/"
+SOS_VERSION="4.4.3"
+PG_OPTIONS="--client-min-messages=warning"
 PG_USER="postgres"
 PG_SCRIPT_NAME="postgresql"
 PG_DB_NAME="52nSOS"
-JAVA_PKG="openjdk-8-jre"
+JAVA_PKG="default-jre"
 # -----------------------------------------------------------------------------
 #
 echo "[$START]: $SOS_WEB_APP_NAME $SOS_VERSION install started"
@@ -163,17 +163,23 @@ fi
 # 2 Database set-up
 #
 # we need to stop tomcat around this process
-TOMCAT=`service $TOMCAT_SCRIPT_NAME status | grep pid | wc -l`
+TOMCAT=`systemctl status $TOMCAT_SCRIPT_NAME | grep "Active: active" | wc -l`
 if [ $TOMCAT -eq 1 ]; then
-    service $TOMCAT_SCRIPT_NAME stop
+    systemctl stop $TOMCAT_SCRIPT_NAME
+    echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME stopped"
+else
+    echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME already stopped"
 fi
 #
 # we need a running postgresql server
-POSTGRES=`service $PG_SCRIPT_NAME status | grep online | wc -l`
+POSTGRES=`systemctl status $PG_SCRIPT_NAME | grep "Active: active" | wc -l`
 if [ $POSTGRES -ne 1 ]; then
-    service $PG_SCRIPT_NAME start
+    systemctl start $PG_SCRIPT_NAME
+    echo "[$(date +%M:%S)]: $PG_SCRIPT_NAME started"
+else
+    echo "[$(date +%M:%S)]: $PG_SCRIPT_NAME already started"
 fi
-#	Check for database installation
+#    Check for database installation
 #
 SOS_DB_EXISTS="`su $PG_USER -c 'psql -l' | grep $PG_DB_NAME | wc -l`"
 if [ $SOS_DB_EXISTS -gt 0 ] ; then
@@ -224,13 +230,13 @@ if [ ! -e $SOS_BIN_FOLDER/52nSOS-start.sh ] ; then
     cat << EOF > $SOS_BIN_FOLDER/52nSOS-start.sh
 #!/bin/bash
 (sleep 5; echo "25"; sleep 5; echo "50"; sleep 5; echo "75"; sleep 5; echo "100") | zenity --progress --auto-close --text "52North SOS starting"&
-POSTGRES=\`sudo service $PG_SCRIPT_NAME status | grep online | wc -l\`
+POSTGRES=\`sudo systemctl status $PG_SCRIPT_NAME | grep "Active: active" | wc -l\`
 if [ \$POSTGRES -ne 1 ]; then
-    sudo service $PG_SCRIPT_NAME start
+    sudo systemctl start $PG_SCRIPT_NAME
 fi
-TOMCAT=\`sudo service $TOMCAT_SCRIPT_NAME status | grep pid | wc -l\`
+TOMCAT=\`sudo systemctl status $TOMCAT_SCRIPT_NAME | grep "Active: active" | wc -l\`
 if [ \$TOMCAT -ne 1 ]; then
-    sudo service $TOMCAT_SCRIPT_NAME start
+    sudo systemctl start $TOMCAT_SCRIPT_NAME
 fi
 firefox $SOS_URL $SOS_QUICKSTART_URL $SOS_OVERVIEW_URL
 EOF
@@ -239,9 +245,9 @@ fi
 if [ ! -e $SOS_BIN_FOLDER/52nSOS-stop.sh ] ; then
    cat << EOF > $SOS_BIN_FOLDER/52nSOS-stop.sh
 #!/bin/bash
-TOMCAT=\`sudo service $TOMCAT_SCRIPT_NAME status | grep pid | wc -l\`
+TOMCAT=\`sudo systemctl status $TOMCAT_SCRIPT_NAME | grep "Active: active" | wc -l\`
 if [ \$TOMCAT -eq 1 ]; then
-    sudo service $TOMCAT_SCRIPT_NAME stop
+    sudo systemctl stop $TOMCAT_SCRIPT_NAME
 fi
 zenity --info --text "52North SOS stopped"
 EOF

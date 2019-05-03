@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2013-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -23,64 +23,104 @@
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
-USER_HOME="/home/$USER_NAME"
-USER_DESKTOP="$USER_HOME/Desktop"
+USER_HOME="/home/${USER_NAME}"
+USER_DESKTOP="${USER_HOME}/Desktop"
 BUILD_DIR=`pwd`
+JUPYTER_BUILD_DIR='/tmp/jupyter_build'
+mkdir -p ${JUPYTER_BUILD_DIR}
+cd ${JUPYTER_BUILD_DIR}
 
-apt-get install --assume-yes python-folium \
-        python-pysal python-geocoder python-geoalchemy2
+# Install jupyter notebook
+apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert \
+  python-ipykernel python-nbformat python-ipywidgets
 
-#-- Jupyter ppa
-apt-add-repository --yes ppa:gcpp-kalxas/jupyter
-apt-get update
+# 12dev -- note ticket #1965 for trial log
 
-# Install latest jupyter notebook
-apt-get install --assume-yes \
-        jupyter-notebook jupyter-client jupyter-core jupyter-nbconvert \
-        python-qtconsole jupyter-qtconsole \
-        python-ipywidgets python-widgetsnbextension \
-        python-ipyleaflet
+# ipython CLI as well
+apt-get install --assume-yes ipython
 
-#-- Clean-up
-apt-add-repository --yes --remove ppa:gcpp-kalxas/jupyter
+
+##=============================================================
+## Add Kernels and Jupyter Mods
+##
+
+##--  IRKernel via github (assumes R core)
+
+su - -c "R -e \"install.packages('pbdZMQ')\""
+su - -c "R -e \"install.packages('uuid')\""
+su - -c "R -e \"install.packages('digest')\""
+
+su - -c "R -e \"install.packages('repr')\""
+su - -c "R -e \"install.packages('evaluate')\""
+su - -c "R -e \"install.packages('crayon')\""
+
+su - -c "R -e \"install.packages('IRdisplay')\""
+
+apt-get install --assume-yes libssl-dev openssl
+su - -c "R -e \"install.packages('devtools')\""
+
+## Install method minus-one -- pull directly from Github dot com
+#su - -c "R -e \"devtools::install_github('IRkernel/IRkernel')\""
+#su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
+
+## Install method one -- git snapshot+ID on download.osgeo.org
+JOVYAN_R='IRkernel-master-97c492b2.zip'
+wget -c http://download.osgeo.org/livedvd/12/jupyter/${JOVYAN_R}
+unzip ${JOVYAN_R}
+R CMD INSTALL IRkernel-master
+#- TODO check status
+
+## global kernel
+su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
+
+#- cleanup
+cd ${USER_HOME}
+rm -rf ${JUPYTER_BUILD_DIR}
+apt-get remove --yes libssl-dev
+
+##=============================================================
+
 
 # Get Jupyter logo
 cp "$BUILD_DIR"/../app-data/jupyter/jupyter.svg \
    /usr/share/icons/hicolor/scalable/apps/jupyter.svg
 
-cp "$BUILD_DIR"/../app-data/jupyter/jupyter-notebook*.desktop \
+cp "$BUILD_DIR"/../app-data/jupyter/jupyter-notebook.desktop \
    "$USER_DESKTOP"/
-chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/jupyter-notebook*.desktop
+chown "$USER_NAME:$USER_NAME" "$USER_DESKTOP"/jupyter-notebook.desktop
 
-cp "$BUILD_DIR"/../app-data/jupyter/jupyter_*.sh \
+cp "$BUILD_DIR"/../app-data/jupyter/jupyter_start.sh \
    /usr/local/bin/
-chmod a+x /usr/local/bin/jupyter_*.sh
+chmod a+x /usr/local/bin/jupyter_start.sh
 
-mkdir -p "$USER_HOME/jupyter"
-git clone https://github.com/OSGeo/OSGeoLive-Notebooks.git \
-   "$USER_HOME/jupyter/notebooks"
-chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/jupyter"
+# TODO: Test if these notebooks work fine 
+# mkdir -p "$USER_HOME/jupyter"
+# git clone https://github.com/OSGeo/OSGeoLive-Notebooks.git \
+#    "$USER_HOME/jupyter/notebooks"
+# chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/jupyter"
 
-# IRIS is not included in the disk
-# cd /tmp
-# wget -c --tries=3 --progress=dot:mega \
-#   "http://download.osgeo.org/livedvd/9.5/jupyter/iris/sample_data.tgz"
-# tar xf sample_data.tgz
-# mkdir -p "$USER_HOME/jupyter/notebooks/projects/IRIS"
-# mv sample_data "$USER_HOME/jupyter/notebooks/projects/IRIS/"
 cd "$BUILD_DIR"
 
-#TODO: Add cesiumpy instead of the cesium widget
-#Update: python-cesiumpy is available in our ppa
-# /bin/sh ../app-conf/jupyter/install_nbextension.sh
-
-mkdir -p "$USER_HOME/jupyter/notebooks/projects/CARTOPY"
+mkdir -p "$USER_HOME/jupyter/notebook_gallery/SciTools"
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
-   "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
+   "$USER_HOME/jupyter/notebook_gallery/SciTools/"
+
+mkdir -p "$USER_HOME/jupyter/notebook_gallery/R"
+cp "$BUILD_DIR"/../app-data/jupyter/R_spatial_introduction.ipynb \
+   "$USER_HOME/jupyter/notebook_gallery/R/"
+
+## -- add R sf Intro page -- minimal size embed
+cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/R_sf_module_on_OSGeoLive12.html \
+   "$USER_HOME/jupyter/notebook_gallery/R/"
+cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/sf_logo.gif \
+   "$USER_HOME/jupyter/notebook_gallery/R/"
+cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/RConsortium.png \
+   "$USER_HOME/jupyter/notebook_gallery/R/"
+
+##--------------------------------------------
 cp -r /home/user/jupyter /etc/skel
 
-#jupyter-nbextension enable --py --sys-prefix widgetsnbextension
-#jupyter-nbextension enable --py --sys-prefix ipyleaflet
+chown -R ${USER_NAME}:${USER_NAME} /home/user/jupyter
 
 ####
-./diskspace_probe.sh "`basename $0`" end
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

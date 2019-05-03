@@ -1,5 +1,11 @@
 #!/bin/sh
-# Copyright (c) 2011 The Open Source Geospatial Foundation.
+#############################################################################
+#
+# Purpose: This script will install 52n WSS
+# Author: j.drewnak@52north.org
+#
+#############################################################################
+# Copyright (c) 2011-2018 The Open Source Geospatial Foundation.
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -13,13 +19,8 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #
 # Version: 2011-06-30
-# Author: j.drewnak@52north.org
-# TODO
-#
-# About:
-# =====
-# This script installs 52n WSS
-#
+#############################################################################
+
 #
 # =============================================================================
 # Install script for 52n WSS

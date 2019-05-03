@@ -4,7 +4,7 @@
 # Purpose: This script will install spatialite
 #
 #############################################################################
-# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -42,7 +42,9 @@ mkdir -p "$BUILD_TMP"
 cd "$BUILD_TMP"
 
 echo "Getting and installing spatialite"
-apt-get install --assume-yes spatialite-bin spatialite-gui sqlite3 sqlitebrowser
+apt-get install --assume-yes spatialite-bin spatialite-gui sqlite3
+# Saves ~40MB of disk space. To enable back if absolutely needed.
+# apt-get install --assume-yes sqlitebrowser
 
 ##########################
 ### Sample data ###

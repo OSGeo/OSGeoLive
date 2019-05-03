@@ -5,7 +5,7 @@
 # OSGeoLive install scripts.
 #
 #############################################################################
-# Copyright (c) 2009-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2019 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -82,7 +82,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   git openssh-client lftp sl usbutils wireless-tools \
   locate patch menu vim nano screen iotop xfonts-jmk \
   ghostscript htop units gdebi fslint xkb-data \
-  xfonts-100dpi xfonts-75dpi zenity
+  xfonts-100dpi xfonts-75dpi zenity curl
 
 # removed from list:
 # cvs cvsutils fuseiso dlocate medit nedit a2ps netpbm qiv lynx mutt mc
@@ -92,21 +92,27 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
 # Install virtualbox guest additions
 # If running on virtualbox this will allow us to use full-screen/usb2/...
 # If running outside virtualbox the drivers will not be loaded
-apt-get install --yes virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+# apt-get install --yes virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+apt-get install --yes virtualbox-guest-dkms-hwe virtualbox-guest-utils-hwe virtualbox-guest-x11-hwe
 
+##-------
 # add /usr/local/lib to /etc/ld.so.conf if needed, then run ldconfig
 # FIXME: similar thing needed for man pages?
-if [ -d /etc/ld.so.conf.d ] ; then
-   echo "/usr/local/lib" > /etc/ld.so.conf.d/usr_local.conf
-else
-   if [ `grep -c '/usr/local/lib' /etc/ld.so.conf` -eq 0 ] ; then
-      echo "/usr/local/lib" >> /etc/ld.so.conf
-   fi
-fi
-ldconfig
+# Ubuntu 1804 - this is no longer an issue, path exists in /etc/ld.so.conf.d/libc.conf
+## -- for reference only --
+#if [ -d /etc/ld.so.conf.d ] ; then
+#   echo "/usr/local/lib" > /etc/ld.so.conf.d/usr_local.conf
+#else
+#   if [ `grep -c '/usr/local/lib' /etc/ld.so.conf` -eq 0 ] ; then
+#      echo "/usr/local/lib" >> /etc/ld.so.conf
+#   fi
+#fi
+#ldconfig
+##-------
 
 # so we can see why things fail to start..
-sed -i -e 's/^VERBOSE=no/VERBOSE=yes/' /etc/default/rcS
+## Ubuntu 1804 - does not exist
+#sed -i -e 's/^VERBOSE=no/VERBOSE=yes/' /etc/default/rcS
 
 
 # for list of packages taking up the most space install the debian-goodies
@@ -114,14 +120,14 @@ sed -i -e 's/^VERBOSE=no/VERBOSE=yes/' /etc/default/rcS
 
 # Uninstall large applications installed by default
 apt-get remove --yes \
-   pidgin-data libsane libsane-common libsane-hpaio libieee1284-3 \
+   pidgin-data libsane1 libsane-common libsane-hpaio libieee1284-3 \
    gnumeric-common abiword-common gnumeric abiword
 
 # regen initrd
 depmod
 
 # Remove unused home directories
-#?? rm -fr "$USER_HOME"/Downloads
+#rm -fr "$USER_HOME"/Downloads
 #rm -fr "$USER_HOME"/Documents
 rm -fr "$USER_HOME"/Pictures
 rm -fr "$USER_HOME"/Music
@@ -141,7 +147,6 @@ mkdir -p /usr/local/share/data --verbose
 ln -s /usr/local/share/data data
 chown -h "$USER_NAME":"$USER_NAME" data
 ln -s /usr/local/share/data /etc/skel/data
-
 
 # and there was music and laughter and much rejoicing
 adduser user audio

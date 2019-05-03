@@ -6,7 +6,7 @@
 # The menu creation and icon sorting has moved to install_icons_and_menus.sh
 #
 #############################################################################
-# Copyright (c) 2009-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2019 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -44,21 +44,20 @@ chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 cp ../desktop-conf/osgeo-desktop.png \
     /usr/share/lubuntu/wallpapers/
 
-# cp ../desktop-conf/osgeo-desktop-transparent.png \
-#    /usr/share/lubuntu/wallpapers/
+cp ../desktop-conf/osgeo-desktop-transparent.png \
+   /usr/share/lubuntu/wallpapers/
 
 ### set the desktop background, turn on keyboard layout select control
-sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
+sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
        -e 's|^keyboard=0$|keyboard=1|' \
     /etc/xdg/lubuntu/lxdm/lxdm.conf
 
 # Actually, I think this is the one which really does it:
 sed -i -e 's|^wallpaper_mode=.*|wallpaper_mode=stretch|' \
-       -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
+       -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
        -e 's|^desktop_bg=.*|desktop_bg=#000000|' \
-       -e 's|^desktop_fg=.*|desktop_fg=#232323|' \
+       -e 's|^desktop_fg=.*|desktop_fg=#FFFFFF|' \
        -e 's|^show_trash=.*|show_trash=0|' \
-       -e 's|^desktop_shadow=.*|desktop_shadow=#A09A8F|' \
    /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
 ## Desktop shadow configuration ^^
@@ -72,7 +71,7 @@ echo "desktop_folder_new_win=1" >> /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 # New way to set login screen background as of 12.04 that uses lightdm instead of gdm
 #  (awaiting graphic with text overlay explaining what the user name and password is)
 # Update: The contents of this file are commented out... we need to find where this gets set.
-sed -i -e 's|^background=.*|background=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
+sed -i -e 's|^background=.*|background=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
    /etc/lightdm/lightdm-gtk-greeter.conf
 
 #Done:support for headless installs with or without user existing, preference for png

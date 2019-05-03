@@ -1,11 +1,11 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will install Orfeo Tooblox including Monteverdi2 and 
+# Purpose: This script will install Orfeo Tooblox including Monteverdi2 and
 # OTB apps, assumes script is run with sudo privileges.
 #
 #############################################################################
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -45,11 +45,21 @@ apt-get -q update
 #Lot's of these applications have been ported in modules in monteverdi but there are still remainning applications
 #in the legacy not available in monteverdi (simple viewer manager, vector database/raster registration...
 #Monteverdi is perhap's sufficient in a first approach,if you need to save space we  can eliminate otbapp-legacy
-apt-get --assume-yes install libotb otb-bin otb-bin-qt monteverdi
+apt-get --assume-yes install libotb otb-bin otb-bin-qt monteverdi python-otb
 
 #### install desktop icon ####
 cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
+
+## 12dev  otb paths fix #1604
+echo 'export PYTHONPATH=$PYTHONPATH:/usr/lib/otb/python' >> "$USER_HOME/.bashrc"
+echo 'export ITK_AUTOLOAD_PATH=/usr/lib/otb/applications' >> "$USER_HOME/.bashrc"
+
+## import once to pre-compile
+python -c "import sys;sys.path.append('/usr/lib/otb/python');import otbApplication"
+
+##---------------------------------
+
 
 cat << EOF > /usr/share/applications/otb-mapla.desktop
 [Desktop Entry]
@@ -95,10 +105,6 @@ if [ ! -d "$OTB_DATA" ]; then
 #     tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/
 #     echo "Done"
 fi
-
-#OTB does not need this app, just added here since OTB pulls libkml in the Disk.
-apt-get --assume-yes install python-kml
-
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

@@ -4,7 +4,7 @@
 #
 #############################################################################
 # Created by Johan Van de Wauw on 2010-07-02
-# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2019 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -32,8 +32,8 @@ apt-get -q update
 apt-get --assume-yes install saga libsaga
 
 # Additional documentation
-mkdir -p /usr/local/share/saga
-cd /usr/local/share/saga
+mkdir -p /usr/local/share/data/saga
+cd /usr/local/share/data/saga
 
 # Demo dataset
 wget -N --progress=dot:mega \
@@ -42,9 +42,8 @@ unzip DGM_30m_Mt.St.Helens_SRTM.zip
 rm -f DGM_30m_Mt.St.Helens_SRTM.zip
 
 # Link demo dataset to user_home
-ln -s /usr/local/share/saga "$USER_HOME"/saga
-ln -s /usr/local/share/saga /etc/skel/saga
- 
+# ln -s /usr/local/share/saga "$USER_HOME"/saga
+# ln -s /usr/local/share/saga /etc/skel/saga
  
 # Desktop icon
 cp /usr/share/applications/saga.desktop "$USER_HOME/Desktop/"

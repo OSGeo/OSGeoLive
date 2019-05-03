@@ -4,7 +4,7 @@
 # Purpose: This script will install postgreSQL pgadmin3
 #
 #############################################################################
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -27,7 +27,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-PG_VERSION="9.5"
+PG_VERSION="10"
 
 #debug:
 echo "#DEBUG The locale settings are currently:"

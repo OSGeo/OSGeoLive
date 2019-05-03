@@ -8,7 +8,7 @@
 #	         Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2019 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -122,85 +122,94 @@ export USER_NAME
 ### Base installers
 ./base_c.sh
 ./base_python.sh
-./base_java.sh "$ARCH"
+./base_java.sh
 # ./base_language.sh
 
 ### Service installers
 ./service_apache2.sh
 ./base_php.sh
 ./service_tomcat.sh
-# ./service_postgresql.sh
+./service_postgresql.sh
 # ./service_mysql.sh
 
 ### Project installers
 ## C stack
-# ./install_postgis.sh
-# ./install_spatialite.sh
-# ./install_osm.sh
-# ./load_postgis.sh
-# ./install_pgrouting.sh
-# ./install_ossim.sh
-# ./install_mapserver.sh
-# ./install_tinyows.sh
-# ./install_gmt.sh
-# ./install_mapnik.sh
-# ./install_otb.sh
-# ./install_liblas.sh
-# ./install_saga.sh
-# ./install_grass.sh
-# ./install_qgis.sh
-# ./install_qgis_server.sh
+./install_postgis.sh
+./install_spatialite.sh
+./install_osm.sh
+./load_postgis.sh
+./install_pgrouting.sh
+./install_ossim.sh
+./install_mapserver.sh
+./install_tinyows.sh
+./install_gmt.sh
+./install_mapnik.sh
+./install_otb.sh
+./install_liblas.sh
+./install_saga.sh
+./install_grass.sh
+./install_qgis.sh
+./install_qgis_server.sh
 # ./install_zoo-project.sh "$ARCH"
-# ./install_marble.sh
-# ./install_opencpn.sh
-# ./install_zygrib.sh
+./install_marble.sh
+./install_opencpn.sh
+./install_zygrib.sh
+./install_PDAL.sh
 
 ## Python stack
-# ./install_jupyter.sh
-# ./install_mapproxy.sh
-# ./install_pycsw.sh
+./install_mapproxy.sh
+./install_pycsw.sh
+./install_pywps.sh
 # ./install_eoxserver.sh
-# ./install_iris.sh
-# ./install_istsos.sh
-# ./install_mapslicer.sh
+./install_iris.sh
+./install_istsos.sh
+./install_mapslicer.sh
+
+## R stack
+./install_R.sh
+
+## Jupyter
+./install_jupyter.sh
 
 ## Java stack
-# ./install_geoserver.sh
-# ./install_geonetwork.sh
-# ./install_deegree.sh
-# ./install_geomajas.sh
-# ./install_udig.sh "$ARCH"
-# ./install_openjump.sh
-# ./install_gvsig.sh "$ARCH"
-# ./install_gpsprune.sh
+./install_geoserver.sh
+./install_geonetwork.sh
+./install_deegree.sh
+./install_geomajas.sh
+./install_udig.sh "$ARCH"
+./install_openjump.sh
+./install_gvsig.sh "$ARCH"
+./install_gpsprune.sh
 
 ## Java + default tomcat
-# ./install_52nWPS.sh
-# ./install_52nSOS.sh
-# ./install_ncWMS.sh
+./install_52nWPS.sh
+./install_52nSOS.sh
+./install_ncWMS.sh
 
 ## PHP stack
-# ./install_mapbender3.sh
-# ./install_geomoose.sh
+./install_mapbender.sh
+./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
 # ./install_geonode.sh
 
+## Rust
+# ./install_trex.sh
+
 ## Javascript et al
-# ./install_openlayers.sh
-# ./install_leaflet.sh
-# ./install_cesium.sh
-# ./install_R.sh
+./install_openlayers.sh
+./install_leaflet.sh
+./install_cesium.sh
 # ./install_rasdaman.sh
 
 ## Docs, Data and extras
-# ./load_gisdata.sh
-# ./install_docs.sh "$BUILD_MODE"
+./load_gisdata.sh
+./install_docs.sh "$BUILD_MODE"
 # ./install_edutools.sh
 
 ## Desktop and Housekeeping
-# ./install_desktop.sh
-# ./install_icons_and_menus.sh
+./install_desktop.sh
+./install_icons_and_menus.sh
 ./setdown.sh
 
 
@@ -241,7 +250,7 @@ deluser --remove-home user
 
 # Copy casper.conf with default username and hostname
 # FIXME: User is still "xubuntu" in live session... perhaps because user is already created?
-cp /usr/local/share/gisvm/app-conf/build_chroot/casper.conf /etc/casper.conf
+cp /usr/local/share/gisvm/desktop-conf/casper/casper.conf /etc/casper.conf
 
 # After the build
 # Check for users above 999

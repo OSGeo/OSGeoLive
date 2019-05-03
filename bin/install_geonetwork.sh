@@ -8,7 +8,7 @@
 # Small edits: Jeroen Ticheler <Jeroen.Ticheler@GeoCat.net>
 #
 #################################################
-# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2019 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 GISVM.COM
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -86,9 +86,10 @@ then
    echo "geonetwork-install-$GEONETWORK_VERSION.jar has already been downloaded."
 else
    wget -c --progress=dot:mega \
-     "https://sourceforge.net/projects/geonetwork/files/GeoNetwork_unstable_development_versions/$GEONETWORK_VERSION_FOLDER/geonetwork-install-$GEONETWORK_VERSION.jar/download" \
+     "https://download.osgeo.org/livedvd/data/geonetwork/geonetwork-install-$GEONETWORK_VERSION.jar" \
      -O geonetwork-install-$GEONETWORK_VERSION.jar
 fi
+# "https://sourceforge.net/projects/geonetwork/files/GeoNetwork_unstable_development_versions/$GEONETWORK_VERSION_FOLDER/geonetwork-install-$GEONETWORK_VERSION.jar/download"
 
 ## Get Install config files ##
 # Those files contains information about default ports
@@ -123,6 +124,8 @@ cp -f jetty.xml "$GEONETWORK_FOLDER/jetty/etc/jetty.xml"
 cp -f data-db-default.sql "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/."
 cp -f startup.sh "$GEONETWORK_FOLDER/bin/startup.sh"
 cp -f shutdown.sh "$GEONETWORK_FOLDER/bin/shutdown.sh"
+rm -rf "$GEONETWORK_FOLDER/web/geonetwork/doc/en"
+rm -rf "$GEONETWORK_FOLDER/web/geonetwork/doc/fr"
 
 # rm -fv "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/lib/jai_*
 
@@ -132,11 +135,11 @@ cp -f shutdown.sh "$GEONETWORK_FOLDER/bin/shutdown.sh"
 chgrp users "$GEONETWORK_FOLDER"/jetty
 chgrp users "$GEONETWORK_FOLDER"/jetty/logs -R
 chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/ -R
-chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
+# chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
 chmod g+w "$GEONETWORK_FOLDER"/jetty
 chmod g+w "$GEONETWORK_FOLDER"/jetty/logs -R
 chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/ -R
-chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
+# chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
 adduser "$USER_NAME" users
 
 
@@ -150,7 +153,7 @@ done
 #copy project logo to use as menu icon
 cd "$TMP"
 wget -c --progress=dot:mega \
- "https://github.com/OSGeo/OSGeoLive-doc/raw/master/images/project_logos/logo-GeoNetwork.png" \
+ "https://github.com/OSGeo/OSGeoLive-doc/raw/master/doc/images/projects/geonetwork/logo_geonetwork.png" \
  -O geonetwork_icon.png
 mkdir -p /usr/local/share/icons
 mv geonetwork_icon.png /usr/local/share/icons/geonetwork_icon.png

@@ -1,8 +1,12 @@
 #!/bin/sh
+#############################################################################
 #
-# Copyright (c) 2010 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL version >= 2.1.
+# Purpose: This script will install geopublisher via a Debian Repository .deb
 # Author: Stefan A. Tzeggai
+#
+#############################################################################
+# Copyright (c) 2010-2018 The Open Source Geospatial Foundation.
+# Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -13,11 +17,8 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LICENSE.LGPL.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-# About:
-# =====
-# This script will install geopublisher via a Debian Repository .deb
-#
+#############################################################################
+
 # Requirements:
 # =======
 # Any Java 1.6, Sun preferred

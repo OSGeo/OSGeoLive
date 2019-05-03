@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # IRIS (C) British Crown Copyright 2010 - 2013, Met Office
+# Copyright (c) 2010-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # Iris is free software: you can redistribute it and/or modify it under
@@ -32,10 +33,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 ####
 
-apt-get install -y  \
-    python-nose python-sphinx python-mock python-pyke \
-    python-scipy python-matplotlib python-pyshp python-shapely \
-    python-netcdf4 python-cartopy python-iris
+apt-get install -y python-iris python-folium python-branca python-nc-time-axis python-palettable
 
 ##-- 29jul14 odd errors installing netCDF, add workarounds
 # apt-get install libpython2.7-dev
@@ -148,7 +146,7 @@ mkdir -p ${USER_HOME}/.local/share/cartopy/shapefiles
 mv natural_earth /home/user/.local/share/cartopy/shapefiles/
 chown --recursive ${USER_NAME}:${USER_NAME} /home/user/.local/share/cartopy
 
-cd
+cd /tmp/
 rm -rf "$TMP_DIR"
 
 ####

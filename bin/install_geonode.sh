@@ -35,7 +35,7 @@ DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/sites-available/geonode.conf"
 GEONODE_DB="geonode_app"
 GEONODE_STORE="geonode_data"
-GEOSERVER_VERSION="2.10.4"
+GEOSERVER_VERSION="2.13.2"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 GEONODE_DIR="/usr/lib/python2.7/dist-packages/geonode"
@@ -44,15 +44,35 @@ UPLOAD_PATH="/var/www/geonode/uploaded"
 
 # Install packages
 add-apt-repository -y ppa:geonode/osgeo
+# add-apt-repository -y ppa:gcpp-kalxas/geonode
 apt-get -q update
 
-apt-get install --assume-yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
+apt-get install --yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
 #apt-mark hold python-geonode
+
+apt-get install --yes --allow-downgrades --allow-change-held-packages \
+    python-celery=3.1.20-1~bionic1 \
+    python-kombu=3.0.33-1ubuntu2~bionic1 \
+    python-django-oauth-toolkit=0.10.0-1~bionic0 \
+    python-six=1.10.0-3~bionic0 \
+    python-oauthlib=1.0.3-1~bionic0 \
+    python-django-tastypie=0.12.2-1~bionic0 \
+    python-django-taggit=0.21.3-1~bionic0 \
+    python-django-polymorphic=1.0.2-1~bionic1 \
+    python-dj-database-url=0.4.1-1~bionic0 \
+    python-django-modeltranslation=0.12-1~bionic0 \
+    python-django-downloadview=1.8-1~bionic0 \
+    python-shapely=1.5.13-1~bionic1
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
     exit 1
 fi
+
+apt-mark hold python-celery python-kombu python-django-oauth-toolkit \
+    python-six python-oauthlib python-django-tastypie \
+    python-django-taggit python-django-polymorphic python-dj-database-url \
+    python-django-modeltranslation python-django-downloadview python-shapely
 
 # Add an entry in /etc/hosts for geonode, to enable http://geonode/
 echo '127.0.0.1 geonode' | sudo tee -a /etc/hosts
@@ -155,7 +175,7 @@ echo "Done"
 
 echo "Starting GeoServer to update layers in the geonode db"
 "$GEOSERVER_PATH"/bin/startup.sh &> /dev/null &
-sleep 90;
+sleep 120;
 echo "Done"
 
 #TODO: Create GeoServer store
@@ -327,16 +347,37 @@ a2ensite geonode
 # Reload Apache
 /etc/init.d/apache2 force-reload
 
-#FIXME: There should be a better way to do this...
+# Add geonode in hosts file
 cp -f "$BUILD_DIR/../app-conf/geonode/rc.geonode" \
-       /etc
+       /etc/
 chmod u+rx,go-rx /etc/rc.geonode
-cp /etc/init.d/rc.local /etc/init.d/rc.geonode
-sed -i -e 's/rc\.local/rc.geonode/' /etc/init.d/rc.geonode
-ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
-###
 
-apt-add-repository --yes --remove ppa:geonode/osgeo
+if [ ! -e /etc/systemd/system/geonode_hosts.service ] ; then
+    cat << EOF > /etc/systemd/system/geonode_hosts.service
+[Unit]
+Description=Add geonode to hosts file
+
+[Service]
+ExecStart=/bin/sh /etc/rc.geonode
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+fi
+
+## reload systemctl config
+systemctl daemon-reload
+
+## Start service to add user to groups
+systemctl start geonode_hosts.service
+
+## Enable geonode_hosts service at startup
+systemctl enable geonode_hosts.service
+
+# apt-add-repository --yes --remove ppa:geonode/osgeo
+apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

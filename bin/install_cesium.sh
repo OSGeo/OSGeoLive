@@ -5,7 +5,7 @@
 #
 #############################################################################
 # Author: Balasubramaniam Natarajan <bala150985 gmail> / Brian M Hamlin <dbb>
-# Copyright (c) 2014-2016 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2014-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -27,7 +27,7 @@ BIN_DIR=`pwd`
 BUILD_DIR='/tmp/build_cesium'
 WEB_DIR=cesium
 UNZIP_DIR="$BUILD_DIR/$WEB_DIR"
-CESIUM_VERSION="1.35"
+CESIUM_VERSION="1.46"
 ####
 
 if [ -z "$USER_NAME" ] ; then
@@ -40,7 +40,7 @@ mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 echo "\nDownloading Cesium..."
 wget -c --tries=3 --progress=dot:mega \
-   "http://cesiumjs.org/releases/Cesium-${CESIUM_VERSION}.zip"
+   "https://github.com/AnalyticalGraphicsInc/cesium/releases/download/${CESIUM_VERSION}/Cesium-${CESIUM_VERSION}.zip"
 
 echo "\nInstalling Cesium..."
 IsUnZipPresent=`/usr/bin/which unzip | /usr/bin/wc -l`
@@ -64,7 +64,7 @@ chgrp www-data -R /var/www/html/"$WEB_DIR"
 chmod -R 755 /var/www/html/"$WEB_DIR"/Build
 
 echo "\nGenerating launcher..."
-cp /var/www/html/cesium/Build/Documentation/images/CesiumLogo.png /usr/share/pixmaps/cesium.png
+cp /var/www/html/cesium/Build/Documentation/Images/CesiumLogo.png /usr/share/pixmaps/cesium.png
 
 if [ ! -e /usr/share/applications/cesium.desktop ] ; then
    cat << EOF > /usr/share/applications/cesium.desktop

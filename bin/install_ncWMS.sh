@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2013-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -77,7 +77,7 @@ fi
 if [ ! -x "`which java`" ] ; then
     apt-get -q update
     #
-    apt-get --assume-yes install openjdk-8-jre
+    apt-get --assume-yes install default-jre
 fi
 
 # 3 tomcat
@@ -103,7 +103,7 @@ else
 	### danger: if $TMP gets commented out above it becomes empty, then guess what happens...
 	rm -v -r "$TMP"/*
     fi
-    wget -N --progress=dot:mega "$WMS_WAR_URL$WMS_WAR_NAME" -O "$TMP/$WMS_WAR_NAME"
+    wget -c --progress=dot:mega "$WMS_WAR_URL$WMS_WAR_NAME" -O "$TMP/$WMS_WAR_NAME"
 fi
 
 # Copy icon to the icons dir
@@ -211,6 +211,9 @@ cp -v /usr/local/share/applications/ncWMS-stop.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/ncWMS-stop.desktop"
 
 # All done
+
+# NOTE (#2084): An extra step is added in setdown.sh to edit WEB-INF/web.xml after
+# tomcat has been restarted and ncWMS has been deployed.
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

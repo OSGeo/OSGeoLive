@@ -8,7 +8,7 @@
 # Source:  http://www.naturalearthdata.com
 #
 #################################################
-# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2019 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -194,7 +194,7 @@ sudo -u $POSTGRES_USER createdb natural_earth2
 sudo -u $POSTGRES_USER psql natural_earth2 -c 'create extension postgis;'
 # 1/2013 Needed for Kosmo and gvSIG:
 sudo -u $POSTGRES_USER psql natural_earth2 \
-  -f /usr/share/postgresql/9.5/contrib/postgis-2.1/legacy.sql
+  -f /usr/share/postgresql/10/contrib/postgis-2.4/legacy.sql
 
 for n in "$SRC_DIR"/*.shp;
 do
@@ -233,6 +233,15 @@ mkdir -p nc_data
 cd nc_data
 
 mkdir -p "$DATA_FOLDER/north_carolina"
+
+
+##--  12dev  link to common data dir
+ln -s /usr/lib/python2.7/dist-packages/gisdata/data/good/raster/relief_san_andres.tif \
+       $DATA_FOLDER/raster/relief_san_andres.tif
+
+ln -s /usr/lib/python2.7/dist-packages/gisdata/data/good/raster/test_grid.tif \
+      $DATA_FOLDER/raster/test_grid.tif
+
 
 ##-- useful metadata  31jan15
 ##-- TODO: wget -N http://www.grassbook.org/presentations/MitOSGeoDataFOSS4G9.pdf

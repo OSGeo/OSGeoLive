@@ -7,7 +7,7 @@
 #          Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2013-2016 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2013-2019 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 # 
@@ -89,16 +89,16 @@ REVISION_FULL=`git show-ref --head --hash head`
 
 GIT_BUILD=`git describe --long --tags | awk -F'-' '{print $2}'`
 
-# Selecting iso name and build name
+#Selecting iso name and build name
 if [ "$BUILD_MODE" = "release" ]; then
     ISO_NAME="$PACKAGE_NAME-$VERSION-$ARCH"
     VERSION_MODE="$VERSION"
 else
-    ISO_NAME="$PACKAGE_NAME-nightly-build$GIT_BUILD-$ARCH-$REVISION"
+    ISO_NAME="$PACKAGE_NAME-nightly-build$GIT_BUILD-$ARCH-$REVISION-$GIT_BRANCH"
     VERSION_MODE="build$GIT_BUILD-$REVISION"
 fi
 
-#volume name, max 11 chars:
+#Volume name, max 11 chars:
 IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | cut -d '.' -f 1`
 #IMAGE_NAME=OSGEOLIVE`echo "$VERSION" | sed -e 's/\.//' -e 's/rc.*//'`
 
@@ -117,7 +117,7 @@ echo
 echo "Installing build tools"
 echo "======================"
 
-sudo apt-get install --yes squashfs-tools genisoimage syslinux-utils lzip
+sudo apt-get install --yes squashfs-tools genisoimage syslinux-utils lzip binwalk
 
 #TODO add wget to grab a fresh image, optional
 
@@ -132,7 +132,7 @@ cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://cdimage.ubuntu.com"
 UBU_RELEASE="18.04"
-ISO_RELEASE="18.04"
+ISO_RELEASE="18.04.2"
 UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
    "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
@@ -189,13 +189,13 @@ echo "======================================"
 cd ~/livecdtmp
 sudo umount edit/dev
 
-#compress osgeolive build logs
+#Compress osgeolive build logs
 #tar czf osgeo-live-${VERSION}-log.tar.gz -C edit/var/log osgeolive
 
 echo
 echo "Remastering the dvd..."
 echo "======================================"
-#remaster the dvd
+#Remaster the dvd
 
 #Method 1 requires that dist-upgrade is run on both the host and chroot
 #need to make sure modules.dep exists for the current kernel before next step
@@ -205,15 +205,20 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd.lz 4.15.0-20-generic
+sudo chroot edit mkinitramfs -c lzma -o /initrd 4.18.0-15-generic
+offset=$(binwalk ./edit/initrd -y lzma | grep 'LZMA' | awk '{ print $1; }')
+dd if=./edit/initrd bs=$offset skip=1 > initrd.lz
+dd if=./edit/initrd bs=1 count=$offset > initrd.micro
+rm edit/initrd
 
 #continue
 mkdir lzfiles
 cd lzfiles
-lzma -dc -S .lz ../edit/initrd.lz | cpio -imvd --no-absolute-filenames
+lzma -dc -S .lz ../initrd.lz | cpio -imvd --no-absolute-filenames
 
-cp ../../gisvm/app-conf/build_chroot/casper.conf etc/casper.conf
-#cp ../../gisvm/app-conf/build_chroot/27osgeo_groups scripts/casper-bottom/27osgeo_groups
+#Perhaps not needed since this also happens in chroot part.
+cp ../../gisvm/desktop-conf/casper/casper.conf etc/casper.conf
+#cp ../../gisvm/desktop-conf/casper/27osgeo_groups scripts/casper-bottom/27osgeo_groups
 #cat << EOF >> scripts/casper-bottom/ORDER
 #/scripts/casper-bottom/27osgeo_groups
 #[ -e /conf/param.conf ] && ./conf/param.conf
@@ -221,35 +226,44 @@ cp ../../gisvm/app-conf/build_chroot/casper.conf etc/casper.conf
 
 mv scripts/casper-bottom/25adduser scripts/casper-bottom/25adduser.ORIG
 cat scripts/casper-bottom/25adduser.ORIG \
-    ../../gisvm/app-conf/build_chroot/27osgeo_groups \
+    ../../gisvm/desktop-conf/casper/27osgeo_groups \
   > scripts/casper-bottom/25adduser
 rm scripts/casper-bottom/25adduser.ORIG
 chmod a+x scripts/casper-bottom/25adduser
 
 
-#replace the user password, potentially also set backgrounds here
+#Replace the user password
 sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
 
-#Change the text on the loader
-sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeo-Live ${VERSION_MODE}/g" \
+#Change the graphics on the lubuntu-logo plymouth loader both on lzfiles
+# and on edit folders
+cp ../../gisvm/desktop-conf/plymouth/lubuntu-logo/* \
+    usr/share/plymouth/themes/lubuntu-logo/
+
+cp ../../gisvm/desktop-conf/plymouth/lubuntu-logo/* \
+    ../edit/usr/share/plymouth/themes/lubuntu-logo/
+
+#Change the text on the lubuntu-text plymouth loader both on lzfiles
+# and on edit folders
+sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeoLive ${VERSION_MODE}/g" \
     usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
-#might be in this file
-# sed -i -e "s/title=.ubuntu $UBU_RELEASE/title=OSGeo Live $VERSION_MODE/g" \
-#     lib/plymouth/themes/text.plymouth
+
+sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeoLive ${VERSION_MODE}/g" \
+    ../edit/usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Xenial Xerus\"/OSGeo-Live ${VERSION_MODE}/g" \
+sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Bionic Beaver\"/OSGeoLive ${VERSION_MODE}/g" \
     ../extract-cd/.disk/info
 
-#copy in a different background
-#cp ../../gisvm/desktop-conf/osgeo-desktop.png \
-#   lib/plymouth/themes/lubuntu-logo/xubuntu-greybird.png
-
+rm ../initrd.lz
 find . | cpio --quiet --dereference -o -H newc | \
-   lzma -7 > ../extract-cd/casper/initrd.lz
+   lzma -7 > ../initrd.lz
 
-#sudo cp edit/initrd.lz extract-cd/casper/initrd.lz
 cd ..
+cat initrd.micro initrd.lz > initrd
+rm initrd.micro initrd.lz
+mv initrd extract-cd/casper/initrd
+
 
 echo
 echo "Regenerating manifest..."
@@ -289,13 +303,7 @@ cd ~/livecdtmp
 sudo rm -rf edit
 
 #Set an image name in extract-cd/README.diskdefines
-#KVM VNC doesn't pass ctrl, can't use vim or nano
-#Can probably use sed magic or copy a predefined file from gisvm/app-data
-#sudo nano extract-cd/README.diskdefines
-# fixme: can you copy from the local ../filesystem instead?
-cp "$GIT_DIR/app-conf/build_chroot/README.diskdefines" extract-cd/README.diskdefines
-# wget -nv https://svn.osgeo.org/osgeo/livedvd/gisvm/trunk/app-conf/build_chroot/README.diskdefines \
-#      --output-document=extract-cd/README.diskdefines
+cp "$GIT_DIR/desktop-conf/casper/README.diskdefines" extract-cd/README.diskdefines
 
 echo
 echo "Calculating new md5 sums..."

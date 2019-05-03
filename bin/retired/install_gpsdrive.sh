@@ -1,7 +1,13 @@
 #!/bin/sh
+#############################################################################
+#
+# Purpose: This script will install GpsDrive
+# Author: H.Bowman <hamish_b  yahoo com>
+#
+#############################################################################
 # Copyright (c) 2009-2013 by Hamish Bowman
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation.
-# Licensed under the GNU LGPL version >= 2.1.
+# Copyright (c) 2009-2018 The Open Source Geospatial Foundation.
+# Lpcensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
@@ -12,12 +18,7 @@
 # See the GNU Lesser General Public License for more details, either
 # in the "LGPL-2.1.txt" file distributed with this software or at
 # web page "http://www.fsf.org/licenses/lgpl.html".
-#
-#
-# script to install GpsDrive
-#    written by H.Bowman <hamish_b  yahoo com>
-#    GpsDrive homepage: http://www.gpsdrive.de
-#
+#############################################################################
 
 if [ "$#" -lt 1 ] || [ "$#" -gt 1 ]; then
     echo "Wrong number of arguments"
@@ -240,20 +241,3 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/gpsdrive.desktop"
 
 exit
 
-
-
-
-
-############################################################################
-############################################################################
-############################################################################
-
-############################################################################
-
-
-############################################################################
-
-
-
-
-############################################################################

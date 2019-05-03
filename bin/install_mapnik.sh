@@ -5,7 +5,7 @@
 # Tilestache for a demo 'World Borders' application
 #
 #############################################################################
-# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -46,12 +46,15 @@ DATA_FOLDER="/usr/local/share"
 MAPNIK_DATA="$DATA_FOLDER/mapnik"
 BIN="/usr/local/bin"
 
-apt-get install --yes python-mapnik python-werkzeug tilestache python-modestmaps libjs-modestmaps
+apt-get install --yes python-mapnik tilestache libjs-modestmaps
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
    exit 1
 fi
+
+# Patch for #2096
+sed -i -e 's/engine = mapnik.FontEngine.instance()/#engine = mapnik.FontEngine.instance()/' /usr/lib/python2.7/dist-packages/TileStache/Mapnik.py
 
 mkdir -p "$TMP"
 cd "$TMP"

@@ -1,0 +1,327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>R sf module on OSGeoLive12</title>
+  </head>
+  <body>
+    <h1>Simple Features for R</h1>
+    <p><a
+        href="https://gist.github.com/edzer/f461a3a95570c4ab7edf3125c2f19d20"><img
+src="sf_logo.gif"
+          style="max-width:100%;" align="right"></a></p>
+    <p>A package that provides <a
+        href="https://en.wikipedia.org/wiki/Simple_Features"
+        rel="nofollow">simple features access</a> for R. Package <a 
+        href="https://cran.r-project.org/web/packages/sf/index.html"
+        target="_blank">sf</a>:</p>
+    <ul>
+      <li>represents natively in R all 17 simple feature types for all
+        dimensions (XY, XYZ, XYM, XYZM)</li>
+      <li>uses S3 classes: simple features are <code>data.frame</code>
+        objects (or <code>tibbles</code>) that have a geometry
+        list-column</li>
+      <li>interfaces to <a href="https://trac.osgeo.org/geos"
+          rel="nofollow">GEOS</a> to support the <a
+          href="https://en.wikipedia.org/wiki/DE-9IM" rel="nofollow">DE9-IM</a></li>
+      <li>interfaces to <a href="http://www.gdal.org/" rel="nofollow">GDAL</a>
+        with driver dependent dataset or layer creation options, Date
+        and DateTime (<code>POSIXct</code>) columns, and coordinate
+        reference system transformations through <a
+          href="http://proj4.org/" rel="nofollow">PROJ.4</a></li>
+      <li>provides fast I/O with GDAL and GEOS using <a
+          href="https://en.wikipedia.org/wiki/Well-known_text#Well-known_binary"
+          rel="nofollow">well-known-binary</a> written in C++/Rcpp</li>
+      <li>directly reads from and writes to spatial databases such as <a
+          href="http://postgis.net/" rel="nofollow">PostGIS</a> using <a
+          href="https://cran.r-project.org/web/packages/DBI/index.html"
+          rel="nofollow">DBI</a></li>
+    </ul>
+    <h3><a id="user-content-blogs-presentations-vignettes-sp-sf-wiki"
+        class="anchor" aria-hidden="true"
+href="https://github.com/r-spatial/sf/blob/master/README.md#blogs-presentations-vignettes-sp-sf-wiki"><svg
+          class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+          width="16" height="16" aria-hidden="true"><path
+            fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3
+            4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+            3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+            0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12
+            13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+            1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+            13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Blogs,
+      presentations, vignettes, sp-sf wiki</h3>
+    <ul>
+      <li>package vignettes: <a
+          href="https://r-spatial.github.io/sf/articles/sf1.html"
+          rel="nofollow">first</a>, <a
+          href="https://r-spatial.github.io/sf/articles/sf2.html"
+          rel="nofollow">second</a>, <a
+          href="https://r-spatial.github.io/sf/articles/sf3.html"
+          rel="nofollow">third</a>, <a
+          href="https://r-spatial.github.io/sf/articles/sf4.html"
+          rel="nofollow">forth</a>, <a
+          href="https://r-spatial.github.io/sf/articles/sf5.html"
+          rel="nofollow">fifth</a>, <a
+          href="https://r-spatial.github.io/sf/articles/sf6.html"
+          rel="nofollow">sixth</a></li>
+      <li>blog posts: <a
+          href="http://r-spatial.org/r/2016/02/15/simple-features-for-r.html"
+          rel="nofollow">first</a>, <a
+          href="http://r-spatial.org/r/2016/07/18/sf2.html"
+          rel="nofollow">second</a>, <a
+          href="http://r-spatial.org/r/2016/11/02/sfcran.html"
+          rel="nofollow">third</a>, <a
+          href="http://r-spatial.org/r/2017/01/12/newssf.html"
+          rel="nofollow">fourth</a></li>
+      <li>the original R Consortium ISC <a
+          href="https://github.com/r-spatial/sf/blob/master/PROPOSAL.md">proposal</a>,
+        the R Consortium <a
+href="https://www.r-consortium.org/blog/2017/01/03/simple-features-now-on-cran"
+          rel="nofollow">blog post</a></li>
+      <li>presentations: <a
+          href="https://edzer.github.io/rstudio_conf/#1" rel="nofollow">rstudio::conf
+          2018</a> (<a
+href="https://www.rstudio.com/resources/videos/tidy-spatial-data-analysis/"
+          rel="nofollow">video</a>), <a
+          href="http://pebesma.staff.ifgi.de/pebesma_sfr.pdf"
+          rel="nofollow">UseR! 2016</a></li>
+      <li>wiki page describing <a
+          href="https://github.com/r-spatial/sf/wiki/Migrating">sp-sf
+          migration</a></li>
+    </ul>
+    <h2><a id="user-content-installing" class="anchor"
+        aria-hidden="true"
+        href="https://github.com/r-spatial/sf/blob/master/README.md#installing"><svg
+          class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+          width="16" height="16" aria-hidden="true"><path
+            fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3
+            4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+            3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+            0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12
+            13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+            1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+            13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Installing</h2>
+    <p>Install either from CRAN with:</p>
+    <div class="highlight highlight-source-r">
+      <pre>install.packages(<span class="pl-s"><span class="pl-pds">"</span>sf<span class="pl-pds">"</span></span>)</pre>
+    </div>
+    <p>this will install binary packages on Windows and MacOS, unless
+      you configured R such that it tries to install source packages; in
+      that case, see below.</p>
+    <p>Install development versions from github with</p>
+    <div class="highlight highlight-source-r">
+      <pre>library(<span class="pl-smi">devtools</span>)
+install_github(<span class="pl-s"><span class="pl-pds">"</span>r-spatial/sf<span class="pl-pds">"</span></span>)<br><br></pre>
+      <h3><a id="user-content-windows" class="anchor" aria-hidden="true"
+href="https://github.com/r-spatial/sf/blob/master/README.md#windows"><svg
+            class="octicon octicon-link" viewBox="0 0 16 16"
+            version="1.1" width="16" height="16" aria-hidden="true"><path
+              fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55
+              3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+              3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+              0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98
+              12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+              1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+              13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>OSGeoLive
+        12</h3>
+      <p>This <font size="+1">Ubunto <i>Bionic</i> 18.04</font> base
+        includes a pre-configured <b>R</b> and <b>sf</b>.<br>
+        Simple Features core libraries are integrated and available to
+        R.<br>
+      </p>
+    </div>
+    <h3><a id="user-content-windows" class="anchor" aria-hidden="true"
+        href="https://github.com/r-spatial/sf/blob/master/README.md#windows"><svg
+          class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+          width="16" height="16" aria-hidden="true"><path
+            fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3
+            4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+            3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+            0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12
+            13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+            1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+            13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Windows</h3>
+    <p>Installing sf from source works under windows when <a
+        href="https://cran.r-project.org/bin/windows/Rtools/"
+        rel="nofollow">Rtools</a> is installed. This downloads the
+      system requirements from <a href="https://github.com/rwinlib/">rwinlib</a>.</p>
+    <h3><a id="user-content-macos" class="anchor" aria-hidden="true"
+        href="https://github.com/r-spatial/sf/blob/master/README.md#macos"><svg
+          class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+          width="16" height="16" aria-hidden="true"><path
+            fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3
+            4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+            3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+            0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12
+            13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+            1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+            13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>MacOS</h3>
+    <p>One way to install the dependencies is using <code>sudo</code>;
+      the other is using homebrew. For the latter,
+      see e.g. <a
+        href="http://www.karambelkar.info/2016/10/gdal-2-on-mac-with-homebrew/"
+        rel="nofollow">here</a>. Homebrew commands might be:</p>
+    <pre><code>brew unlink gdal
+brew tap osgeo/osgeo4mac &amp;&amp; brew tap --repair
+brew install proj
+brew install geos
+brew install udunits
+brew install gdal2 --with-armadillo --with-complete --with-libkml --with-unsupported
+brew link --force gdal2
+</code></pre>
+    <p>after that, you should be able to install <code>sf</code> as a
+      source package.</p>
+    <p>For MacOS Sierra, see
+      <a
+        href="https://stat.ethz.ch/pipermail/r-sig-mac/2017-June/012429.html"
+        rel="nofollow">these</a>
+      instruction, using kyngchaos frameworks.</p>
+    <h3><a id="user-content-linux" class="anchor" aria-hidden="true"
+        href="https://github.com/r-spatial/sf/blob/master/README.md#linux"><svg
+          class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+          width="16" height="16" aria-hidden="true"><path
+            fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3
+            4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+            3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+            0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12
+            13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+            1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+            13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Linux</h3>
+    <p>For Unix-alikes, GDAL (&gt;= 2.0.0), GEOS (&gt;= 3.3.0) and
+      Proj.4 (&gt;= 4.8.0) are required.</p>
+    <h4><a id="user-content-ubuntu" class="anchor" aria-hidden="true"
+        href="https://github.com/r-spatial/sf/blob/master/README.md#ubuntu"><svg
+          class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+          width="16" height="16" aria-hidden="true"><path
+            fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3
+            4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+            3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+            0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12
+            13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+            1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+            13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Ubuntu</h4>
+    <p>To install the dependencies on Ubuntu, either add <a
+        href="http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu/"
+        rel="nofollow">ubuntugis-unstable</a> to the package
+      repositories:</p>
+    <div class="highlight highlight-source-shell">
+      <pre>sudo add-apt-repository ppa:ubuntugis/ubuntugis-unstable
+sudo apt-get update
+sudo apt-get install libudunits2-dev libgdal-dev libgeos-dev libproj-dev </pre>
+    </div>
+    <p>or install dependencies from source; see e.g. an older <a
+href="https://github.com/r-spatial/sf/blob/593ee48b34001fe3b383ea73ea57063ecf690732/.travis.yml">travis</a>
+      config file for hints.</p>
+    <h4><a id="user-content-fedora" class="anchor" aria-hidden="true"
+        href="https://github.com/r-spatial/sf/blob/master/README.md#fedora"><svg
+          class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+          width="16" height="16" aria-hidden="true"><path
+            fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3
+            4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+            3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+            0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12
+            13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+            1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+            13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Fedora</h4>
+    <p>The following command installs all required dependencies:</p>
+    <div class="highlight highlight-source-shell">
+      <pre>sudo dnf install gdal-devel proj-devel proj-epsg proj-nad geos-devel udunits2-devel</pre>
+    </div>
+    <h4><a id="user-content-arch" class="anchor" aria-hidden="true"
+        href="https://github.com/r-spatial/sf/blob/master/README.md#arch"><svg
+          class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+          width="16" height="16" aria-hidden="true"><path
+            fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3
+            4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+            3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+            0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12
+            13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+            1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+            13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Arch</h4>
+    <p>Get gdal, proj and geos from the main repos and udunits from the
+      AUR:</p>
+    <pre><code>pacman -S gdal proj geos
+pacaur/yaourt/whatever -S udunits
+</code></pre>
+    <h4><a id="user-content-other" class="anchor" aria-hidden="true"
+        href="https://github.com/r-spatial/sf/blob/master/README.md#other"><svg
+          class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+          width="16" height="16" aria-hidden="true"><path
+            fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3
+            4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+            3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+            0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12
+            13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+            1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+            13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Other</h4>
+    <p>To install on Debian, the <a
+        href="https://github.com/rocker-org/geospatial">rocker
+        geospatial</a> Dockerfiles may be helpful. Ubuntu Dockerfiles
+      are found <a
+        href="https://github.com/r-spatial/sf/tree/master/inst/docker">here</a>.</p>
+    <h3><a id="user-content-lwgeom" class="anchor" aria-hidden="true"
+        href="https://github.com/r-spatial/sf/blob/master/README.md#lwgeom"><svg
+          class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+          width="16" height="16" aria-hidden="true"><path
+            fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3
+            4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+            3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+            0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12
+            13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+            1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+            13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>lwgeom</h3>
+    <p>Functions and methods that require <code>liblwgeom</code>,
+      including <code>st_make_valid</code> and all spherical or
+      ellipsoidal metrics (area, distances), have since sf 0.5-5 been
+      moved to their own package, <a
+        href="https://github.com/r-spatial/lwgeom">lwgeom</a>, which is
+      also on <a href="https://cran.r-project.org/package=lwgeom"
+        rel="nofollow">CRAN</a>.</p>
+    <h3><a id="user-content-contributing" class="anchor"
+        aria-hidden="true"
+href="https://github.com/r-spatial/sf/blob/master/README.md#contributing"><svg
+          class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+          width="16" height="16" aria-hidden="true"><path
+            fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3
+            4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+            3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+            0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12
+            13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+            1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+            13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Contributing</h3>
+    <ul>
+      <li>Contributions of all sorts are most welcome, issues and pull
+        requests are the preferred ways of sharing them.</li>
+      <li>When contributing pull requests, please adhere to the package
+        style (in package code use <code>=</code> rather than <code>&lt;-</code>;
+        don't change indentation; tab stops of 4 spaces are preferred)</li>
+      <li>This project is released with a <a
+          href="https://github.com/r-spatial/sf/blob/master/CONDUCT.md">Contributor
+          Code of Conduct</a>. By participating in this project you
+        agree to abide by its terms.</li>
+    </ul>
+    <h3><a id="user-content-acknowledgment" class="anchor"
+        aria-hidden="true"
+href="https://github.com/r-spatial/sf/blob/master/README.md#acknowledgment"><svg
+          class="octicon octicon-link" viewBox="0 0 16 16" version="1.1"
+          width="16" height="16" aria-hidden="true"><path
+            fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3
+            4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2
+            3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98
+            0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12
+            13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64
+            1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9
+            13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Acknowledgment</h3>
+    <p>This project gratefully acknowledges financial <a
+        href="https://www.r-consortium.org/projects" rel="nofollow">support</a>
+      from the</p>
+    <a href="https://www.r-consortium.org/projects/awarded-projects"
+      rel="nofollow">
+      <img
+src="RConsortium.png"
+data-canonical-src="http://pebesma.staff.ifgi.de/RConsortium_Horizontal_Pantone.png"
+        style="max-width:100%;" width="300">
+    </a>
+  </body>
+</html>

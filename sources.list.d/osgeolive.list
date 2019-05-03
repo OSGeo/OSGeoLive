@@ -1,4 +1,4 @@
 #OSGeoLive Release ppa
-deb http://ppa.launchpad.net/osgeolive/release-11.0/ubuntu xenial main
-#deb-src http://ppa.launchpad.net/osgeolive/release-11.0/ubuntu xenial main
+deb http://ppa.launchpad.net/osgeolive/release-12.0/ubuntu bionic main
+#deb-src http://ppa.launchpad.net/osgeolive/release-12.0/ubuntu bionic main
 
