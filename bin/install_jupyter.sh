@@ -45,6 +45,7 @@ apt-get install --assume-yes ipython
 ##
 
 ##--  IRKernel via github (assumes R core)
+##--   v13  IRKernel is on cran
 
 su - -c "R -e \"install.packages('pbdZMQ')\""
 su - -c "R -e \"install.packages('uuid')\""
@@ -64,11 +65,16 @@ su - -c "R -e \"install.packages('devtools')\""
 #su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
 
 ## Install method one -- git snapshot+ID on download.osgeo.org
-JOVYAN_R='IRkernel-master-97c492b2.zip'
-wget -c http://download.osgeo.org/livedvd/12/jupyter/${JOVYAN_R}
-unzip ${JOVYAN_R}
-R CMD INSTALL IRkernel-master
+#JOVYAN_R='IRkernel-master-97c492b2.zip'
+#wget -c http://download.osgeo.org/livedvd/12/jupyter/${JOVYAN_R}
+#unzip ${JOVYAN_R}
+#R CMD INSTALL IRkernel-master
 #- TODO check status
+
+## IRkernel    master  1.0.0     0.8.15
+## commit 79baf3f1cf3438e8c8b739a3fdab545f4e3cc906
+##  install.package('IRkernel/IRkernel')
+su - -c "R -e \"install.packages('IRkernel')\""
 
 ## global kernel
 su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
