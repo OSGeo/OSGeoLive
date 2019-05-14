@@ -200,6 +200,7 @@ export USER_NAME
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_cesium.sh
+./install_geoext.sh
 # ./install_rasdaman.sh
 
 ## Docs, Data and extras
