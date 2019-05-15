@@ -1,10 +1,10 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will GeoExt 3.1, OpenLayers 4.6.5, and ExtJS 6.2 
+# Purpose: This script will install GeoExt 3.1, OpenLayers 4.6.5, and ExtJS 6.2
 #
 #############################################################################
-# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -152,7 +152,7 @@ rm -f $GEOEXT_ARCHIVE_DIST
 #
 
 cp -f "$BUILD_DIR/../app-conf/geoext/GeoExt-logo.png" \
-       /usr/share/icons/
+       /usr/local/share/icons/geoext.png
 
 cp -f "$BUILD_DIR/../app-conf/geoext/geoext-demo.html" "$GEOEXT_DIR/index.html"
 
@@ -170,7 +170,7 @@ Name=GeoExt
 Comment=GeoExt Demo
 Categories=Application;Internet;
 Exec=firefox http://localhost/geoext/ http://localhost/osgeolive/en/quickstart/geoext_quickstart.html
-Icon=openlayers
+Icon=geoext
 Terminal=false
 StartupNotify=false
 EOF
