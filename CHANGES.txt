@@ -1,6 +1,22 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 13.0alpha2
+====================
+
+ * PostGIS 2.5.1
+ * GeoExt 3.1 (new project)
+ * GeoMoose 3.3.0
+ * 52nWPS 3.6.3
+ * Mapbender 3.0.8.1
+ * Fiona 1.8.6
+ * rasterio 1.0.22
+ * OWSLib 0.17.1
+ * mappyfile 0.8.2
+ * pandas 0.23.3
+ * geopandas 0.5.0
+ * cartopy 0.17.0
+
 Version 13.0alpha1
 ====================
 
