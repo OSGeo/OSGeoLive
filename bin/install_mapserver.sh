@@ -55,7 +55,7 @@ apt-get install --yes cgi-mapserver mapserver-bin python-mapscript
 # Download MapServer data
 
 MS_DEMO_VERSION="1.0"
-MS_DOCS_VERSION="7-0"
+MS_DOCS_VERSION="7-4"
 
 wget -c --progress=dot:mega \
     "http://download.osgeo.org/livedvd/data/mapserver/mapserver-$MS_DOCS_VERSION-html-docs.zip"
@@ -134,7 +134,7 @@ Encoding=UTF-8
 Name=Mapserver
 Comment=Mapserver
 Categories=Application;Education;Geography;
-Exec=firefox http://localhost/mapserver_demos/itasca/
+Exec=firefox http://localhost/mapserver_demos/itasca/ http://localhost/mapserver/doc/
 Icon=mapserver
 Terminal=false
 StartupNotify=false
