@@ -57,7 +57,7 @@ else
 fi
 
 echo "\nInstalling ExtJS..."
-unzip "ext-$EXTJS_VERSION-gpl.zip"
+unzip -qo "ext-$EXTJS_VERSION-gpl.zip"
 cd "ext-$EXTJS_VERSION"
 
 mv build/ext-all.js "$GEOEXT_DIR"/
