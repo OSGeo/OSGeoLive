@@ -40,8 +40,8 @@ wget -c --tries=3 --progress=dot:mega --no-check-certificate \
 wget -c --tries=3 --progress=dot:mega --no-check-certificate \
    "https://www.geomoose.org/downloads/gm3-demo-data-3.3.1.zip"
 
-unzip gm3-examples-3.3.1.zip
-unzip gm3-demo-data-3.3.1.zip
+unzip -qo gm3-examples-3.3.1.zip
+unzip -qo gm3-demo-data-3.3.1.zip
 
 rm -rf /usr/local/geomoose
 
