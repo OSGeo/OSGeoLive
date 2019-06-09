@@ -1,0 +1,186 @@
+[webserver]
+port = ":8080"
+log_file = "/var/log/tegola.log"
+
+
+[[providers]]
+name = "bonn_osm"
+type = "postgis"
+host = "localhost"
+port = 5432
+database = "bonn_osm" 
+user = "user"
+password = "user"
+
+	[[providers.layers]]
+	name = "building"
+	tablename = "buildings_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM buildings_3857 WHERE wkb_geometry && !BBOX!"
+
+	[[providers.layers]]
+	name = "road"
+	tablename = "all_roads_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM all_roads_3857 WHERE wkb_geometry && !BBOX!"
+
+	[[providers.layers]]
+	name = "river"
+	tablename = "rivers_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM rivers_3857 WHERE wkb_geometry && !BBOX!"
+
+	[[providers.layers]]
+	name = "main_roads"
+	tablename = "main_roads_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM main_roads_3857 WHERE wkb_geometry && !BBOX!"
+
+	[[providers.layers]]
+	name = "farms"
+	tablename = "farms_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM farms_3857 WHERE wkb_geometry && !BBOX!"
+
+	[[providers.layers]]
+	name = "aerodromes_polygon"
+	tablename = "aerodromes_polygon_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM aerodromes_polygon_3857 WHERE wkb_geometry && !BBOX!"
+
+	[[providers.layers]]
+	name = "forest"
+	tablename = "forest_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM forest_3857 WHERE wkb_geometry && !BBOX!"
+
+	[[providers.layers]]
+	name = "grassland"
+	tablename = "grassland_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM grassland_3857 WHERE wkb_geometry && !BBOX!"
+
+	[[providers.layers]]
+	name = "lakes"
+	tablename = "lakes_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM lakes_3857 WHERE wkb_geometry && !BBOX!"
+
+	[[providers.layers]]
+	name = "medical_polygon"
+	tablename = "medical_polygon_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM medical_polygon_3857 WHERE wkb_geometry && !BBOX!"
+
+	[[providers.layers]]
+	name = "military"
+	tablename = "military_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM military_3857 WHERE wkb_geometry && !BBOX!"
+
+	[[providers.layers]]
+	name = "residential"
+	tablename = "residential_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM residential_3857 WHERE wkb_geometry && !BBOX!"
+
+	[[providers.layers]]
+	name = "schools_polygon"
+	tablename = "schools_polygon_3857"
+	geometry_fieldname = "wkb_geometry"
+	id_fieldname = "ogc_fid"
+	fields = [ "name" ]
+	#sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM schools_polygon_3857 WHERE wkb_geometry && !BBOX!"
+
+
+[[maps]]
+name = "bonn_osm"
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.building"
+	min_zoom = 14
+	max_zoom = 20
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.road"
+	min_zoom = 10
+	max_zoom = 20
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.river"
+	min_zoom = 1
+	max_zoom = 20
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.main_roads"
+	min_zoom = 5
+	max_zoom = 20
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.farms"
+	min_zoom = 5
+	max_zoom = 20
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.aerodromes_polygon"
+	min_zoom = 5
+	max_zoom = 20
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.forest"
+	min_zoom = 5
+	max_zoom = 20
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.grassland"
+	min_zoom = 5
+	max_zoom = 20
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.lakes"
+	min_zoom = 5
+	max_zoom = 20
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.medical_polygon"
+	min_zoom = 5
+	max_zoom = 20
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.military"
+	min_zoom = 5
+	max_zoom = 20
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.residential"
+	min_zoom = 5
+	max_zoom = 20
+
+	[[maps.layers]]
+	provider_layer = "bonn_osm.schools_polygon"
+	min_zoom = 5
+	max_zoom = 20
