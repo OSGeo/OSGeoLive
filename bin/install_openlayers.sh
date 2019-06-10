@@ -1,7 +1,7 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will OpenLayers 3 (and OpenLayers 2.13.1 for legacy
+# Purpose: This script will OpenLayers 5 (and OpenLayers 2.13.1 for legacy
 # demos in OSGeoLive)
 #
 #############################################################################
@@ -37,7 +37,7 @@ TMP_DIR="/tmp/build_openlayers"
 OL2_VERSION="2.13.1" 
 OL2_DIR=/var/www/html/ol2
 
-OPENLAYERS_VERSION="4.6.5"
+OPENLAYERS_VERSION="5.3.0"
 OPENLAYERS_DIR=/var/www/html/openlayers
 
 #
