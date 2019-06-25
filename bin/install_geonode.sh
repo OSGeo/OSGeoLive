@@ -48,7 +48,7 @@ TMP="/tmp/build_geoserver"
 add-apt-repository -y ppa:gcpp-kalxas/geonode
 apt-get -q update
 
-apg-get install --yes --allow-downgrades --allow-change-held-packages \
+apt-get install --yes --allow-downgrades --allow-change-held-packages \
     python-six=1.10.0-2~bionic0
 
 apt-get install --yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
