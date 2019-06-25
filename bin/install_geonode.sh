@@ -146,8 +146,8 @@ sudo -u "$USER_NAME" django-admin migrate --noinput --settings=geonode.local_set
 # Install sample admin. Username:admin password:admin
 django-admin loaddata "$GEONODE_DIR/people/fixtures/sample_admin.json" --settings=geonode.local_settings
 
-#TODO: Import oauth settings
-#django-admin loaddata "$GEONODE_DIR/base/fixtures/default_oauth_apps.json" --settings=geonode.local_settings
+# Import oauth settings
+django-admin loaddata "$GEONODE_DIR/base/fixtures/default_oauth_apps.json" --settings=geonode.local_settings
 
 # Insert default data
 django-admin loaddata "$GEONODE_DIR/base/fixtures/initial_data.json" --settings=geonode.local_settings
@@ -214,7 +214,7 @@ sleep 120;
 echo "Done"
 
 #TODO: Create GeoServer store
-#python "$GEONODE_DIR"/create_db_store.py
+python "$GEONODE_DIR"/create_db_store.py
 
 # run updatelayers
 echo "Updating GeoNode layers..."
