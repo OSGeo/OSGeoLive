@@ -41,7 +41,7 @@ GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 GEONODE_DIR="/usr/lib/python2.7/dist-packages/geonode"
 STATIC_PATH="/var/www/geonode/static"
 UPLOAD_PATH="/var/www/geonode/uploaded"
-TMP="/tmp/build_geoserver"
+# TMP="/tmp/build_geoserver"
 
 # Install packages
 # add-apt-repository -y ppa:geonode/osgeo
@@ -161,40 +161,40 @@ echo "Stopping GeoServer"
 sleep 30;
 echo "Done"
 
-# Setup GeoServer oauth
-echo "Starting GeoServer oauth2 configuration"
-mkdir -p "$TMP"
-cd "$TMP"
+# # Setup GeoServer oauth
+# echo "Starting GeoServer oauth2 configuration"
+# mkdir -p "$TMP"
+# cd "$TMP"
 
-# Download and install geonode-geoserver extension
-echo "Downloading geonode-geoserver extension"
-wget --progress=dot:mega \
-  -O "geonode-geoserver-ext-web-app-$GEOSERVER_VERSION-geoserver-plugin.zip" \
-  "https://download.osgeo.org/livedvd/data/geoserver/geonode-geoserver-ext-web-app-$GEOSERVER_VERSION-geoserver-plugin.zip"
-## Cached version of
-# "https://build.geo-solutions.it/geonode/geoserver/latest/"
-echo "Installing geonode-geoserver extension"
-unzip -o -q "geonode-geoserver-ext-web-app-$GEOSERVER_VERSION-geoserver-plugin.zip" -d "$GEOSERVER_PATH/webapps/geoserver/WEB-INF/lib"
+# # Download and install geonode-geoserver extension
+# echo "Downloading geonode-geoserver extension"
+# wget --progress=dot:mega \
+#   -O "geonode-geoserver-ext-web-app-$GEOSERVER_VERSION-geoserver-plugin.zip" \
+#   "https://download.osgeo.org/livedvd/data/geoserver/geonode-geoserver-ext-web-app-$GEOSERVER_VERSION-geoserver-plugin.zip"
+# ## Cached version of
+# # "https://build.geo-solutions.it/geonode/geoserver/latest/"
+# echo "Installing geonode-geoserver extension"
+# unzip -o -q "geonode-geoserver-ext-web-app-$GEOSERVER_VERSION-geoserver-plugin.zip" -d "$GEOSERVER_PATH/webapps/geoserver/WEB-INF/lib"
 
-# Download and install geoserver data folder
-echo "Downloading geoserver data folder"
-wget --progress=dot:mega \
-  -O "data-$GEOSERVER_VERSION-osgeolive.zip" \
-  "https://download.osgeo.org/livedvd/data/geoserver/data-$GEOSERVER_VERSION-osgeolive.zip"
-## Cached version of
-# "https://build.geo-solutions.it/geonode/geoserver/latest/"
-echo "Installing geoserver data folder"
-unzip -o -q "data-$GEOSERVER_VERSION-osgeolive.zip"
-rm -rf "$GEOSERVER_PATH"/data_dir
-mv data_osgeolive "$GEOSERVER_PATH"/data_dir
-chown -R root:users "$GEOSERVER_PATH"/data_dir
-find "$GEOSERVER_PATH"/data_dir -type d -exec chmod 775 {} \;
+# # Download and install geoserver data folder
+# echo "Downloading geoserver data folder"
+# wget --progress=dot:mega \
+#   -O "data-$GEOSERVER_VERSION-osgeolive.zip" \
+#   "https://download.osgeo.org/livedvd/data/geoserver/data-$GEOSERVER_VERSION-osgeolive.zip"
+# ## Cached version of
+# # "https://build.geo-solutions.it/geonode/geoserver/latest/"
+# echo "Installing geoserver data folder"
+# unzip -o -q "data-$GEOSERVER_VERSION-osgeolive.zip"
+# rm -rf "$GEOSERVER_PATH"/data_dir
+# mv data_osgeolive "$GEOSERVER_PATH"/data_dir
+# chown -R root:users "$GEOSERVER_PATH"/data_dir
+# find "$GEOSERVER_PATH"/data_dir -type d -exec chmod 775 {} \;
 
-# Adding GeoFence path to GeoServer startup.sh
-sed -i -e '$ d' "$GEOSERVER_PATH"/bin/startup.sh
-cat << EOF >> "$GEOSERVER_PATH/bin/startup.sh"
-exec "\$_RUNJAVA" \$JAVA_OPTS \$MARLIN_ENABLER -DGEOSERVER_DATA_DIR="\$GEOSERVER_DATA_DIR" -Dgeofence.dir="\$GEOSERVER_DATA_DIR/geofence" -Djava.awt.headless=true -DSTOP.PORT=8079 -DSTOP_KEY=geoserver -jar start.jar
-EOF
+# # Adding GeoFence path to GeoServer startup.sh
+# sed -i -e '$ d' "$GEOSERVER_PATH"/bin/startup.sh
+# cat << EOF >> "$GEOSERVER_PATH/bin/startup.sh"
+# exec "\$_RUNJAVA" \$JAVA_OPTS \$MARLIN_ENABLER -DGEOSERVER_DATA_DIR="\$GEOSERVER_DATA_DIR" -Dgeofence.dir="\$GEOSERVER_DATA_DIR/geofence" -Djava.awt.headless=true -DSTOP.PORT=8079 -DSTOP_KEY=geoserver -jar start.jar
+# EOF
 
 # Fix geonode path in oauth settings
 sed -i -e "s|http://localhost:8080|http://localhost:8082|g" "$GEOSERVER_PATH"/data_dir/security/filter/geonode-oauth2/config.xml
@@ -205,8 +205,8 @@ sed -i -e "s|http://localhost:8000|http://geonode|g" "$GEOSERVER_PATH"/data_dir/
 
 sed -i -e "s|http://localhost:8080|http://localhost:8082|g" "$GEOSERVER_PATH"/data_dir/global.xml
 
-cd "$BUILD_DIR"
-echo "Done"
+# cd "$BUILD_DIR"
+# echo "Done"
 
 echo "Starting GeoServer to update layers in the geonode db"
 "$GEOSERVER_PATH"/bin/startup.sh &> /dev/null &
