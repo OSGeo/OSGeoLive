@@ -20,7 +20,7 @@
 
 
 if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
+   USER_NAME=`whoami`
 fi
 USER_HOME="/home/$USER_NAME"
 
