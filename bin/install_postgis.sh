@@ -46,6 +46,10 @@ postgis.enable_outdb_rasters = TRUE
 
 EOF
 
+## request by robe2
+apt install --yes  postgresql-10-ogr-fdw
+
+
 ## TODO review - needed for 1404 ?!
 # fix for 2.1.1-1~precise3 package breakage
 # rm -f /usr/share/java/postgis.jar
