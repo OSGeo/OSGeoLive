@@ -130,7 +130,9 @@ sed -i -e 's|localhost:8080/|localhost:8082|' \
 #Change GeoServer port in settings.py
 sed -i -e 's|http://localhost:8080/geoserver/|http://localhost:8082/geoserver/|' \
     "$GEONODE_DIR/settings.py"
-sed -i -e 's|http://localhost:8000/|http://geonode/|' \
+sed -i -e "s|'SITE_HOST_NAME', 'localhost'|'SITE_HOST_NAME', 'geonode'|" \
+    "$GEONODE_DIR/settings.py"
+sed -i -e "s|'SITE_HOST_PORT', 8000|'SITE_HOST_PORT', 80|" \
     "$GEONODE_DIR/settings.py"
 echo "Done"
 
