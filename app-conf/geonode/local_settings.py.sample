@@ -19,6 +19,7 @@
 #########################################################################
 
 import os
+from geonode.settings import *
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
@@ -117,3 +118,4 @@ CATALOGUE = {
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', ['localhost','geonode'])
 MEDIA_ROOT = "/var/www/geonode/uploaded"
 STATIC_ROOT = "/var/www/geonode/static"
+SESSION_EXPIRED_CONTROL_ENABLED = False
