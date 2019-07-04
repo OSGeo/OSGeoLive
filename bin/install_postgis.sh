@@ -30,7 +30,7 @@ USER_HOME="/home/$USER_NAME"
 #  to correspond to install paths
 PG_VERSION="10"
 
-apt-get install --yes postgis postgis-gui "postgresql-$PG_VERSION-postgis-2.5" "postgresql-$PG_VERSION-postgis-2.5-scripts"
+apt-get install --yes postgis postgis-gui "postgresql-$PG_VERSION-postgis-2.5" "postgresql-$PG_VERSION-postgis-2.5-scripts" "postgresql-$PG_VERSION-ogr-fdw"
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -45,10 +45,6 @@ postgis.gdal_enabled_drivers = 'ENABLE_ALL'
 postgis.enable_outdb_rasters = TRUE
 
 EOF
-
-## request by robe2
-apt install --yes  postgresql-10-ogr-fdw
-
 
 ## TODO review - needed for 1404 ?!
 # fix for 2.1.1-1~precise3 package breakage
