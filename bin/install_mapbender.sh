@@ -39,8 +39,8 @@ USER_HOME="/home/$USER_NAME"
 
 TMP_DIR="/tmp/build_mapbender"
 PARAMETERSINSTALLURL="https://www.mapbender.org/builds/osgeolive"
-INSTALLURL="http://www.mapbender.org/builds/3.0.8.2"
-INSTALLFILE="mapbender-starter-v3.0.8.2"
+INSTALLURL="http://www.mapbender.org/builds/3.0.8.3"
+INSTALLFILE="mapbender-starter-v3.0.8.3"
 PARAMETERSFILE="mapbender3-starter-3.0.6.2"
 INSTALL_DIR="/var/www/html"
 
@@ -94,7 +94,7 @@ cd "$INSTALL_DIR/mapbender/"
 rm  "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 cp "$TMP_DIR/${PARAMETERSFILE}_parameters.yml"    "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 
-sed -i -e 's/3.0.6.2/3.0.8.2/g' "$INSTALL_DIR/mapbender/app/config/parameters.yml"
+sed -i -e 's/3.0.6.2/3.0.8.3/g' "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 
 app/console doctrine:database:create
 app/console doctrine:schema:create
