@@ -10,22 +10,35 @@
 #
 # Requirements: GRASS GIS 7, Python, redis
 #
-# actinia URL: http://localhost:8080/api/v1/version
+# actinia URL after installation: http://localhost:8080/api/v1/version
 #
-# Script author: Markus Neteler <neteler mundialis.de>
+#################################################################################
+# Copyright (c) 2018-2019 Sören Gebbert and mundialis GmbH & Co. KG, Bonn.
+# Copyright (c) 2016-2019 The Open Source Geospatial Foundation and others.
 #
-#############################################################################
-# Copyright (c) 2019 Sören Gebbert and mundialis GmbH & Co. KG, Bonn.
+# Installer script author: Markus Neteler <neteler mundialis.de>
 #
-# Licensed under the GNU GPL version >= 3
+# Licensed under the GNU LGPL version >= 2.1.
 #
-# This program is free software under the GNU General Public License (>=v3).
-# Read the file COPYING that comes with actinia_core for details.
-#
-#############################################################################
+# This library is free software; you can redistribute it and/or modify it
+# under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation, either version 2.1 of the License,
+# or any later version.  This library is distributed in the hope that
+# it will be useful, but WITHOUT ANY WARRANTY, without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+# See the GNU Lesser General Public License for more details, either
+# in the "LICENSE.LGPL.txt" file distributed with this software or at
+# web page "http://www.fsf.org/licenses/lgpl.html".
+#################################################################################
+
+# About:
+# =====
+# This script will install actinia_core with actinia_statistic_plugin
 #
 # Script inspired by https://github.com/mundialis/actinia_core/blob/master/docker/actinia-core/Dockerfile
-
+#
+# This does not attempt to install GRASS GIS, that is done in install_grass.sh.
+#################################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -84,7 +97,7 @@ cp -f start.sh /src/start.sh
 
 # prepare some sample data
 mkdir -p /opt/actinia_core/grassdb/
-(cd /opt/actinia_core/grassdb/ ; wget https://grass.osgeo.org/sampledata/north_carolina/nc_basic_spm_grass7.zip ; unzip nc_basic_spm_grass7.zip ; rm -f nc_basic_spm_grass7.zip ; mv nc_basic_spm_grass7 nc_spm_08)
+(cd /opt/actinia_core/grassdb/ && wget -c https://grass.osgeo.org/sampledata/north_carolina/nc_basic_spm_grass7.zip && unzip nc_basic_spm_grass7.zip && rm -f nc_basic_spm_grass7.zip && mv nc_basic_spm_grass7 nc_spm_08)
 # we now have /opt/actinia_core/grassdb/nc_spm_08/
 
 # install actinia_core
