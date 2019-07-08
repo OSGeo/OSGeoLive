@@ -1,6 +1,24 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 13.0beta1
+====================
+
+ * MapServer 7.4.0
+ * GeoServer 2.15.1
+ * QGIS 3.4.8
+ * OpenLayers 5.3.0
+ * pycsw 2.4.0
+ * PostGIS 2.5.2
+ * GeoNode 2.10rc5
+ * Mapbender 3.0.8.3
+ * GeoMoose 3.3.1
+ * rasterio 1.0.24
+ * Cesium 1.58
+ * OSM data for Bucharest
+ * Django 1.11
+ * PostgreSQL ogr-fdw 1.0.5
+
 Version 13.0alpha2
 ====================
 
