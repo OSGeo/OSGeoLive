@@ -133,8 +133,11 @@ rm -rf /usr/lib/python2.7/dist-packages/iris/tests/results/*
 
 
 ## Live 8.5 -- pre-cache natural_earth 110m shapefiles
+## osgeolive 13 -- same files, update prefixes
 cd "$TMP_DIR"
-wget -c http://download.osgeo.org/livedvd/data/cartopy/natural_earth_cartopy.tgz
+#wget -c http://download.osgeo.org/livedvd/data/cartopy/natural_earth_cartopy.tgz
+wget -c http://download.osgeo.org/livedvd/data/cartopy/cartopy_017_ne.tgz
+
 if [ ! -e natural_earth_cartopy.tgz ]; then
   echo "Download of cartopy cache files failed"
   exit 1
@@ -143,7 +146,7 @@ fi
 tar xzf natural_earth_cartopy.tgz
 
 mkdir -p ${USER_HOME}/.local/share/cartopy/shapefiles
-mv natural_earth /home/user/.local/share/cartopy/shapefiles/
+mv cartopy_017_ne /home/user/.local/share/cartopy/shapefiles/natural_earth
 chown --recursive ${USER_NAME}:${USER_NAME} /home/user/.local/share/cartopy
 
 cd /tmp/
