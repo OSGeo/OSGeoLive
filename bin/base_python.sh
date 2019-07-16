@@ -50,7 +50,7 @@ rm -rf /usr/lib/python2.7/dist-packages/cartopy/tests/*
 cd /tmp; mkdir tmp_cartopy; cd tmp_cartopy
 wget -c http://download.osgeo.org/livedvd/12/cartopy/cartopy_0143_data.tgz
 tar xf cartopy_0143_data.tgz
-mkdir /usr/lib/python2.7/dist-packages/cartopy/data
+mkdir -p /usr/lib/python2.7/dist-packages/cartopy/data
 chmod 755 /usr/lib/python2.7/dist-packages/cartopy/data
 cp -R cartopy_0143_data/*  /usr/lib/python2.7/dist-packages/cartopy/data/
 ## TODO link to ~/data
