@@ -106,9 +106,9 @@ EOF
 fi
 
 cp /usr/share/applications/org.qgis.qgis.desktop "$USER_HOME/Desktop/qgis.desktop"
-cp /usr/share/applications/qbrowser.desktop "$USER_HOME/Desktop/"
+# cp /usr/share/applications/qbrowser.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/qgis.desktop"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/qbrowser.desktop"
+# chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/qbrowser.desktop"
 
 
 # add menu item
