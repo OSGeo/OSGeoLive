@@ -100,7 +100,7 @@ FOLDER_NAME="nc_basic_spm_grass7"
 cd "$TMP_DIR"
 wget -c --progress=dot:mega \
      "https://grass.osgeo.org/sampledata/north_carolina/nc_basic_spm_grass7.zip"
-unzip "$FILE" -d /usr/local/share/grass/
+unzip -q "$FILE" -d /usr/local/share/grass/
 cd /usr/local/share/grass/
 chown -R root.users "$FOLDER_NAME"
 chmod -R a+rX "$FOLDER_NAME"
