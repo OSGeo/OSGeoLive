@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2018-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL v.2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -27,7 +27,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-PACKAGES="pdal python-pdal libpdal-util5 libpdal-base5"
+PACKAGES="pdal libpdal-util7 libpdal-base7"
 PDAL_PLUGINS="libpdal-plugins"
 
 # pkg not installed to save disc space:

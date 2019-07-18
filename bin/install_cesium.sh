@@ -5,7 +5,7 @@
 #
 #############################################################################
 # Author: Balasubramaniam Natarajan <bala150985 gmail> / Brian M Hamlin <dbb>
-# Copyright (c) 2014-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2014-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -27,7 +27,7 @@ BIN_DIR=`pwd`
 BUILD_DIR='/tmp/build_cesium'
 WEB_DIR=cesium
 UNZIP_DIR="$BUILD_DIR/$WEB_DIR"
-CESIUM_VERSION="1.46"
+CESIUM_VERSION="1.58"
 ####
 
 if [ -z "$USER_NAME" ] ; then

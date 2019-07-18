@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -31,7 +31,7 @@ USER_HOME="/home/$USER_NAME"
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/local/lib"
 BIN="/usr/local/bin"
-GS_VERSION="2.13.2"
+GS_VERSION="2.15.1"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 DOC_DIR="$GS_HOME/doc"
@@ -60,7 +60,9 @@ cd "$TMP"
 echo "Getting GeoServer"
 wget -c --progress=dot:mega \
    -O geoserver-$GS_VERSION-bin.zip \
-   "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-bin.zip/download"
+   "https://download.osgeo.org/livedvd/data/geoserver/geoserver-$GS_VERSION-bin.zip"
+## Cached version of
+# "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-bin.zip/download"
 
 ## unpack it to /usr/lib overwriting eventual existing copy
 echo "Unpacking GeoServer in $GS_HOME"
@@ -164,7 +166,9 @@ mkdir -p "$DOC_DIR"
 echo "Getting GeoServer documentation"
 wget --progress=dot:mega \
   -O "geoserver-$GS_VERSION-htmldoc.zip" \
-  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-htmldoc.zip/download"
+  "https://download.osgeo.org/livedvd/data/geoserver/geoserver-$GS_VERSION-htmldoc.zip"
+## Cached version of
+# "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/geoserver-$GS_VERSION-htmldoc.zip/download"
 
 ## unpack it
 echo "Installing GeoServer documentation"
@@ -176,7 +180,9 @@ unzip -o -q "geoserver-$GS_VERSION-htmldoc.zip" -d "$DOC_DIR"
 echo "Getting INSPIRE extension"
 wget --progress=dot:mega \
   -O "geoserver-$GS_VERSION-inspire-plugin.zip" \
-  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-inspire-plugin.zip/download"
+  "https://download.osgeo.org/livedvd/data/geoserver/geoserver-$GS_VERSION-inspire-plugin.zip"
+## Cached version of
+# "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-inspire-plugin.zip/download"
 echo "Installing INSPIRE extension"
 unzip -o -q "geoserver-$GS_VERSION-inspire-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
 
@@ -186,7 +192,9 @@ unzip -o -q "geoserver-$GS_VERSION-inspire-plugin.zip" -d "$GS_HOME/webapps/geos
 echo "Getting CSS extension"
 wget --progress=dot:mega \
   -O "geoserver-$GS_VERSION-css-plugin.zip" \
-  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-css-plugin.zip/download"
+  "https://download.osgeo.org/livedvd/data/geoserver/geoserver-$GS_VERSION-css-plugin.zip"
+## Cached version of
+# "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-css-plugin.zip/download"
 echo "Installing CSS extension"
 unzip -o -q "geoserver-$GS_VERSION-css-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
 
@@ -196,7 +204,9 @@ unzip -o -q "geoserver-$GS_VERSION-css-plugin.zip" -d "$GS_HOME/webapps/geoserve
 echo "Getting NetCDF extension"
 wget --progress=dot:mega \
   -O "geoserver-$GS_VERSION-netcdf-plugin.zip" \
-  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-netcdf-plugin.zip/download"
+  "https://download.osgeo.org/livedvd/data/geoserver/geoserver-$GS_VERSION-netcdf-plugin.zip"
+## Cached version of
+# "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-netcdf-plugin.zip/download"
 echo "Installing NetCDF extension"
 unzip -o -q "geoserver-$GS_VERSION-netcdf-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
 
@@ -206,7 +216,9 @@ unzip -o -q "geoserver-$GS_VERSION-netcdf-plugin.zip" -d "$GS_HOME/webapps/geose
 echo "Getting Vector Tiles extension"
 wget --progress=dot:mega \
   -O "geoserver-$GS_VERSION-vectortiles-plugin.zip" \
-  "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-vectortiles-plugin.zip/download"
+  "https://download.osgeo.org/livedvd/data/geoserver/geoserver-$GS_VERSION-vectortiles-plugin.zip"
+## Cached version of
+# "http://sourceforge.net/projects/geoserver/files/GeoServer/$GS_VERSION/extensions/geoserver-$GS_VERSION-vectortiles-plugin.zip/download"
 echo "Installing Vector Tiles extension"
 unzip -o -q "geoserver-$GS_VERSION-vectortiles-plugin.zip" -d "$GS_HOME/webapps/geoserver/WEB-INF/lib"
 

@@ -8,7 +8,7 @@
 # Source:  http://www.naturalearthdata.com
 #
 #################################################
-# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2019 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -233,6 +233,15 @@ mkdir -p nc_data
 cd nc_data
 
 mkdir -p "$DATA_FOLDER/north_carolina"
+
+
+##--  12dev  link to common data dir
+ln -s /usr/lib/python2.7/dist-packages/gisdata/data/good/raster/relief_san_andres.tif \
+       $DATA_FOLDER/raster/relief_san_andres.tif
+
+ln -s /usr/lib/python2.7/dist-packages/gisdata/data/good/raster/test_grid.tif \
+      $DATA_FOLDER/raster/test_grid.tif
+
 
 ##-- useful metadata  31jan15
 ##-- TODO: wget -N http://www.grassbook.org/presentations/MitOSGeoDataFOSS4G9.pdf

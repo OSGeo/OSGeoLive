@@ -5,7 +5,7 @@
 # The script will also add an ALIAS for Mapbender and a Desktop icon.
 #
 #############################################################################
-# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -39,8 +39,8 @@ USER_HOME="/home/$USER_NAME"
 
 TMP_DIR="/tmp/build_mapbender"
 PARAMETERSINSTALLURL="https://www.mapbender.org/builds/osgeolive"
-INSTALLURL="http://www.mapbender.org/builds/3.0.7.3"
-INSTALLFILE="mapbender3-starter-3.0.7.3"
+INSTALLURL="http://www.mapbender.org/builds/3.0.8.3"
+INSTALLFILE="mapbender-starter-v3.0.8.3"
 PARAMETERSFILE="mapbender3-starter-3.0.6.2"
 INSTALL_DIR="/var/www/html"
 
@@ -94,10 +94,7 @@ cd "$INSTALL_DIR/mapbender/"
 rm  "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 cp "$TMP_DIR/${PARAMETERSFILE}_parameters.yml"    "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 
-sed -i -e 's/3.0.6.2/3.0.7.3/g' "$INSTALL_DIR/mapbender/app/config/parameters.yml"
-
-# remove documentation 
-rm -R "$INSTALL_DIR/mapbender/web/docs/"
+sed -i -e 's/3.0.6.2/3.0.8.3/g' "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 
 app/console doctrine:database:create
 app/console doctrine:schema:create

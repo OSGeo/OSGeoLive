@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>OSGeoLive | GeoExt QuickStart</title>
+    <link rel="stylesheet" href="resources/theme-triton-all.css" type="text/css" />
+    <link rel="stylesheet" href="ol.css" type="text/css" />
+    <script src="ext-all.js"></script>
+    <script src="ol.js"></script>
+</head>
+<body>
+    <script>
+
+        // use the Ext.Loader to loads GeoExt source JavaScript files when they are required
+        Ext.Loader.setConfig({
+            enabled: true,
+            paths: {
+                'GeoExt': 'src/'
+            }
+        });
+
+        Ext.onReady(function () {
+            // all JavaScript application code should go here
+
+            var map;
+            var mapServerUrl = 'http://localhost/cgi-bin/mapserv?map=/usr/local/www/docs_maps/mapserver_demos/itasca/itasca.map&';
+
+            // create an OSM tile layer
+
+            var osmLayer = new ol.layer.Tile({
+                source: new ol.source.OSM(),
+                name: 'OpenStreetMap'
+            });
+
+            // create 3 WMS layers from MapServer
+
+            var wmsLayer1 = new ol.layer.Image({
+                source: new ol.source.ImageWMS({
+                    url: mapServerUrl,
+                    params: { 'LAYERS': 'ctybdpy2' }
+                }),
+                name: 'County Boundary'
+            });
+
+            var wmsLayer2 = new ol.layer.Image({
+                source: new ol.source.ImageWMS({
+                    url: mapServerUrl,
+                    params: { 'LAYERS': 'lakespy2' }
+                }),
+                name: 'Lakes & Rivers'
+            });
+
+            var wmsLayer3 = new ol.layer.Image({
+                source: new ol.source.ImageWMS({
+                    url: mapServerUrl,
+                    params: { 'LAYERS': 'majrdln3,majrdln3_anno' }
+                }),
+                name: 'Highways'
+            });
+
+            // create a GeoJSON source from a MapServer WFS
+
+            var vectorSource = new ol.source.Vector({
+                format: new ol.format.GeoJSON(),
+                url: function (extent) {
+                    return mapServerUrl + 'service=WFS&' +
+                        'version=1.1.0&request=GetFeature&typename=airports&' +
+                        'outputFormat=application/json&srsname=EPSG:3857&' +
+                        'bbox=' + extent.join(',') + ',EPSG:3857';
+                },
+                strategy: ol.loadingstrategy.bbox
+            });
+
+            // now create a vector layer from this source
+
+            var vectorLayer = new ol.layer.Vector({
+                source: vectorSource,
+                name: 'Airports'
+            });
+
+            // create an OpenLayers map with the layers above
+
+            var map = new ol.Map({
+                layers: [
+                    wmsLayer1, wmsLayer2, wmsLayer3, vectorLayer
+                ],
+                view: new ol.View({
+                    center: ol.proj.fromLonLat([-93.33, 47.32]),
+                    zoom: 6
+                })
+            });
+
+            // add an OpenLayers selection interaction so we can interact with the
+            // vector layer
+
+            var selectInteraction = new ol.interaction.Select();
+            map.addInteraction(selectInteraction);
+
+            // create a GeoExt Map component using the OpenLayers map
+
+            var mapComponent = Ext.create('GeoExt.component.Map', {
+                map: map,
+                region: 'center'
+            });
+
+            // create a layer tree store configured with the OpenLayers layers in our map
+
+            var treeStore = Ext.create('GeoExt.data.store.LayersTree', {
+                layerGroup: map.getLayerGroup()
+            });
+
+            // now create the UI layer tree component
+
+            var layerTreePanel = Ext.create('Ext.tree.Panel', {
+                title: 'Map Layers',
+                width: 300,
+                flex: 1,
+                store: treeStore,
+                rootVisible: false,
+                viewConfig: {
+                    plugins: { ptype: 'treeviewdragdrop' }
+                }
+            });
+
+            // create a feature store with the features in our vector layer
+
+            var featureStore = Ext.create('GeoExt.data.store.Features', {
+                layer: vectorLayer,
+                map: map
+            });
+
+            // now create a UI grid component to display these features
+
+            var featureGrid = Ext.create('Ext.grid.Panel', {
+                store: featureStore,
+                region: 'south',
+                title: 'Airport Runways for Itasca County',
+                columns: [
+                    { text: 'Name', dataIndex: 'NAME', flex: 3 },
+                    { text: 'Quadrant', dataIndex: 'QUADNAME', flex: 1 },
+                    { text: 'Elevation', dataIndex: 'ELEVATION', flex: 1 }
+                ],
+                // we will listen for any selection changes on the vector layer here
+                listeners: {
+                    selectionchange: function (sm, selected) {
+                        Ext.each(selected, function (rec) {
+                            selectInteraction.getFeatures().clear();
+                            selectInteraction.getFeatures().push(rec.getFeature());
+                        });
+                    }
+                },
+                height: 300
+            });
+
+            // create our overiew map component with the OSM layer
+
+            var overview = Ext.create('GeoExt.component.OverviewMap', {
+                parentMap: map,
+                layers: [osmLayer]
+            });
+
+            // now place the overview map in a panel
+
+            var overviewPanel = Ext.create('Ext.panel.Panel', {
+                title: 'Overview',
+                layout: 'fit',
+                items: overview,
+                height: 300,
+                width: 300,
+                collapsible: true
+            });
+
+            // finally create our UI using a viewport containing all the
+            // child components created above
+
+            var vp = Ext.create('Ext.container.Viewport', {
+                layout: 'border',
+                items: [
+                    mapComponent,
+                    {
+                        xtype: 'container',
+                        region: 'west',
+                        layout: 'vbox',
+                        collapsible: true,
+                        items: [
+                            overviewPanel,
+                            layerTreePanel
+                        ]
+                    },
+                    featureGrid
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

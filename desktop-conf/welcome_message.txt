@@ -1,8 +1,8 @@
-Welcome to OSGeoLive 12.0beta1.
+Welcome to OSGeoLive 13.0beta.
 
 
-See the road-sign Help icon on the Desktop for information about the        
-Live disc and virtual-machine, including a synopsis of bundled
+See the life ring Help icon on the Desktop for information about the        
+OSGeoLive disc and virtual-machine, including a synopsis of bundled
 geospatial packages and a series of quick-start short tutorials.
 
 To change the language, log out (lower menu bar), enter the user name
@@ -12,11 +12,9 @@ which starts as "en_US". After selecting the language finish entering
 the password (it's also "user") and press the "Log In" button. If it
 doesn't work the first time just log out and try again.
 
-Once you log back in, there is a keyboard icon on the lower menu bar
-that lets you pick the keyboard layout. You can also set it via the
-main applications menu with Preferences > Language Support and
-Preferences > Keyboard Input Methods. See the internationalization
-quickstart in the OSGeoLive help pages for more information.
+There is a keyboard icon on the lower menu bar that lets you pick the 
+keyboard layout. See the internationalization quickstart in the 
+OSGeoLive help pages for more information.
 
 Passwords for various things can be found in the passwords.txt file
 on the Desktop.

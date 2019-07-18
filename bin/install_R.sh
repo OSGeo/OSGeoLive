@@ -6,7 +6,7 @@
 #          Brian M Hamlin <maplabs@light42.com>
 #
 #################################################
-# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2019 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 GeofemEngineering
 #
 # Licensed under the GNU LGPL.
@@ -98,6 +98,7 @@ apt-get install --yes r-cran-rpostgresql     ## installs only in /usr/lib/R ; li
 apt-get install --yes libudunits2-dev
 apt-get install --yes gfortran
 su - -c "R -e \"install.packages('udunits2')\""
+su - -c "R -e \"install.packages('ggplot2')\""
 su - -c "R -e \"install.packages('sf', repos='http://cran.rstudio.com/')\""
 su - -c "R -e \"install.packages('lwgeom', repos='http://cran.rstudio.com/')\""
 su - -c "R -e \"install.packages('wkb', repos='http://cran.rstudio.com/')\""
@@ -152,13 +153,16 @@ chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 # cp *.pdf /usr/lib/R/site-library/spgrass6/doc/
 
 
-# link sample data to central location
-# mkdir -p /usr/local/share/data/vector
-# ln -s /usr/lib/R/site-library/rgdal/vectors \
-#    /usr/local/share/data/vector/R
-
 ### install R package containing sids.shp needed for postgis quickstart
 Rscript -e "install.packages('spData')"
+
+# link sample data to central location
+mkdir -p /usr/local/share/data/vector/R
+ln -s /usr/local/lib/R/site-library/spData/shapes \
+       /usr/local/share/data/vector/R/shapes
+
+##-- disk space v12
+rm /usr/local/lib/R/site-library/Rcpp/doc/Rcpp-introduction.pdf
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

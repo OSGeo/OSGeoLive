@@ -4,7 +4,7 @@
 # Purpose: This script will install libLAS
 #
 #############################################################################
-# Copyright (c) 2013-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2013-2019 The Open Source Geospatial Foundation and others.
 # Author:  Brian Hamlin dbb maplabs@light42.com
 #
 # Licensed under the GNU LGPL version >= 2.1.

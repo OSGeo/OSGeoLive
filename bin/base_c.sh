@@ -5,7 +5,7 @@
 # OSGeoLive.
 #
 #############################################################################
-# Copyright (c) 2016-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2016-2019 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -27,8 +27,6 @@ apt-get -q update
 
 # Install C development packages
 apt-get install --yes build-essential cmake pkg-config
-# removed from list:
-# pbuilder fakeroot devscripts debhelper svn-buildpackage lintian dpkg-dev 
 
 # Install OSGeo C stack libraries
 apt-get install --yes libgdal20 gdal-bin proj-bin libgeos-c1v5 geotiff-bin

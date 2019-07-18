@@ -9,7 +9,7 @@
 # Author: Hamish Bowman
 #
 #############################################################################
-# Copyright (c) 2013-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2013-2019 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 # 
@@ -38,7 +38,7 @@ USER_HOME="/home/$USER_NAME"
 ################################################
 
 #Desktop apps part 1 (traditional analytic GIS)
-DESKTOP_APPS="grass74 qgis gvsig* openjump uDig ossimplanet
+DESKTOP_APPS="grass76 qgis gvsig* openjump uDig ossimplanet
               saga"
 #disabled: atlasstyler geopublisher spatialite-gis
 
@@ -48,11 +48,11 @@ NAV_APPS="marble opencpn josm merkaartor osm_online
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapproxy-*
-              qgis-mapserver zoo-project 52n* eoxserver* ncWMS-* pycsw istsos pywps"
+              qgis-mapserver zoo-project 52n* eoxserver* ncWMS-* pycsw istsos pywps t-rex"
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMoose3 geonode-*"
+BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMoose3 geonode-* geoext"
 #disabled: i3geo MapFish-* cartaro-*
 
 #Infrastructure and miscellanea
@@ -65,7 +65,7 @@ SPATIAL_TOOLS="r jupyter-notebook* otb-*
 DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser shp2pgsql-gui"
 
 #Server apps part 3 (public good theme)
-RELIEF_APPS="ushahidi"
+# RELIEF_APPS="ushahidi"
 
 ################################################
 
@@ -135,9 +135,9 @@ cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-main.menu /etc/xdg/menus/application
 #cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-*.directory /usr/local/share/desktop-directories/
 cp "$BUILD_DIR"/../desktop-conf/menus/osgeo-*.directory /usr/share/desktop-directories/
 
-sed -e 's/^Name=.*/Name=OSGeo Software Help/' live_GIS_help.desktop \
+sed -e 's/^Name=.*/Name=OSGeo Software Help/' osgeolive_help.desktop \
    > /usr/local/share/applications/osgeo-help.desktop
-cp live_GIS_data.desktop /usr/local/share/applications/osgeo-sample_data.desktop
+cp osgeolive_data.desktop /usr/local/share/applications/osgeo-sample_data.desktop
 
 
 # create individual menu entries from desktop icons:
@@ -239,14 +239,14 @@ for APP in $DB_APPS ; do
    fi
 done
 
-for APP in $RELIEF_APPS ; do
-   APPL=`basename $APP .desktop`.desktop
-   #echo "[$APP] -> [$APPL]"
-   if [ -e "$APPL" ] ; then
-      sed -e 's/^Categories=.*/Categories=Geospatial;Relief;/' \
-	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
-   fi
-done
+# for APP in $RELIEF_APPS ; do
+#    APPL=`basename $APP .desktop`.desktop
+#    #echo "[$APP] -> [$APPL]"
+#    if [ -e "$APPL" ] ; then
+#       sed -e 's/^Categories=.*/Categories=Geospatial;Relief;/' \
+# 	 "$APPL" > "/usr/local/share/applications/osgeo-$APPL"
+#    fi
+# done
 
 
 
@@ -276,10 +276,10 @@ for APP in $SPATIAL_TOOLS ; do
    mv `basename $APP .desktop`.desktop "Spatial Tools"/
 done
 
-mkdir "Crisis Management"
-for APP in $RELIEF_APPS ; do
-   mv `basename $APP .desktop`.desktop "Crisis Management"/
-done
+# mkdir "Crisis Management"
+# for APP in $RELIEF_APPS ; do
+#    mv `basename $APP .desktop`.desktop "Crisis Management"/
+# done
 
 # admin tools already added automatically to the menu ...
 mkdir "Databases"
@@ -451,7 +451,7 @@ cat << EOF > "/usr/share/applications/$WORKSHOP_INSTALL_FILE"
 [Desktop Entry]
 Name=Workshop Installation
 Comment=Installation for OSGeo-live based workshops
-Exec=firefox http://trac.osgeo.org/osgeo/wiki/Live_GIS_Workshop_Install
+Exec=firefox https://trac.osgeo.org/osgeolive/wiki/Live_GIS_Workshop_Install
 Icon=synaptic
 Terminal=false
 Type=Application
@@ -488,15 +488,15 @@ chmod a+r "$USER_HOME/Desktop/" -R
 #### since KDE is removed we copy in some icons for the menus by hand
 cd /
 if [ ! -e /usr/share/icons/hicolor/48x48/apps/knetattach.png ] ; then
-   tar xf "$BUILD_DIR"/../desktop-conf/knetattach_icons.tar --no-same-owner
+   tar xf "$BUILD_DIR"/../desktop-conf/icons/knetattach_icons.tar --no-same-owner
 fi
 if [ ! -e /usr/share/icons/hicolor/48x48/apps/ktip.png ] ; then
-   tar xf "$BUILD_DIR"/../desktop-conf/ktip_icons.tar --no-same-owner
+   tar xf "$BUILD_DIR"/../desktop-conf/icons/ktip_icons.tar --no-same-owner
 fi
 
-cp "$BUILD_DIR"/../desktop-conf/gnome-globe16blue.svg /usr/local/share/icons/
-
-cp "$BUILD_DIR"/../desktop-conf/inspire.png /usr/local/share/icons/
+cp "$BUILD_DIR"/../desktop-conf/icons/gnome-globe16blue.svg /usr/local/share/icons/
+cp "$BUILD_DIR"/../desktop-conf/icons/sqlitebrowser.svg /usr/share/pixmaps/
+cp "$BUILD_DIR"/../desktop-conf/icons/inspire.png /usr/local/share/icons/
 
 ### make the Education menu less noisy
 #FIXME: first verify we're not vanishing anything which doesn't exist elsewhere

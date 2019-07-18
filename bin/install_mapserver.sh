@@ -1,7 +1,7 @@
 #!/bin/sh
-# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -53,36 +53,35 @@ apt-get install --yes cgi-mapserver mapserver-bin python-mapscript
 # apt-get install --yes php-mapscript
 
 # Download MapServer data
+
+MS_DEMO_VERSION="1.0"
+MS_DOCS_VERSION="7-4"
+
 wget -c --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/mapserver/mapserver-6-2-html-docs.zip"
+    "http://download.osgeo.org/livedvd/data/mapserver/mapserver-$MS_DOCS_VERSION-html-docs.zip"
 wget -c --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/mapserver/mapserver-itasca-ms70.zip"
+   "https://github.com/mapserver/mapserver-demo/archive/v$MS_DEMO_VERSION.zip"
 
 # Install docs and demos
 if [ ! -d "$MAPSERVER_DATA" ] ; then
     mkdir -p "$MAPSERVER_DATA"/demos
 
     echo -n "Extracting MapServer html doc in $MAPSERVER_DATA/..."
-    unzip -q "$TMP_DIR/mapserver-6-2-html-docs.zip" -d "$MAPSERVER_DATA"/
-    echo -n "Done\nExtracting MapServer itasca demo in $MAPSERVER_DATA/demos/..."
-    unzip -q "$TMP_DIR/mapserver-itasca-ms70.zip" -d "$MAPSERVER_DATA"/demos/ 
+    unzip -qo "$TMP_DIR/mapserver-$MS_DOCS_VERSION-html-docs.zip"
+    mv "$TMP_DIR/mapserver-$MS_DOCS_VERSION-docs" "$MAPSERVER_DATA/doc"
+    rm -f "$TMP_DIR/mapserver-$MS_DOCS_VERSION-html-docs.zip"
     echo "Done"
 
-    mv "$MAPSERVER_DATA/demos/mapserver-demo-master" "$MAPSERVER_DATA/demos/itasca"
-    mv "$MAPSERVER_DATA/mapserver-6-2-docs" "$MAPSERVER_DATA/doc"
-    rm -rf "$MAPSERVER_DATA/demos/ms4w"
-
-    echo -n "Patching itasca.map to enable WMS..."
-    rm "$MAPSERVER_DATA"/demos/itasca/itasca.map
-    wget -c --progress=dot:mega \
-        "https://github.com/mapserver/mapserver-demo/raw/master/itasca.map" \
-        -O "$MAPSERVER_DATA"/demos/itasca/itasca.map
-    echo -n "Done"
+    echo -n "Extracting MapServer Itasca demo in $MAPSERVER_DATA/demos/..."
+    unzip -qo "$TMP_DIR/v$MS_DEMO_VERSION.zip"
+    mv "$TMP_DIR/mapserver-demo-$MS_DEMO_VERSION" "$MAPSERVER_DATA"/demos/itasca
+    rm -f "$TMP_DIR/v$MS_DEMO_VERSION.zip"
+    echo "Done"
 
     echo "Configuring the system...."
     # Itasca Demo hacks
     mkdir -p /usr/local/www/docs_maps/
-    ln -s "$MAPSERVER_DATA"/demos/itasca "$MAPSERVER_DATA"/demos/workshop
+    ln -s "$MAPSERVER_DATA"/demos/itasca "$MAPSERVER_DATA"/demos/workshop # for demo application
     ln -s /usr/local/share/mapserver/demos /usr/local/www/docs_maps/mapserver_demos
     ln -s /tmp /usr/local/www/docs_maps/tmp
     ln -s /tmp /var/www/html/tmp
@@ -135,7 +134,7 @@ Encoding=UTF-8
 Name=Mapserver
 Comment=Mapserver
 Categories=Application;Education;Geography;
-Exec=firefox http://localhost/mapserver_demos/itasca/
+Exec=firefox http://localhost/mapserver_demos/itasca/ http://localhost/mapserver/doc/ http://localhost/osgeolive/en/quickstart/mapserver_quickstart.html
 Icon=mapserver
 Terminal=false
 StartupNotify=false

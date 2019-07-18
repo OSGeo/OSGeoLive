@@ -5,7 +5,7 @@
 # Authors: Anton Patrushev <anton@georepublic.de>
 #          Daniel Kastl <daniel@georepublic.de>
 #
-# Copyright (c) 2011-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2011-2019 Open Source Geospatial Foundation (OSGeo) and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it

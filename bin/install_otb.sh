@@ -1,11 +1,11 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will install Orfeo Tooblox including Monteverdi2 and 
+# Purpose: This script will install Orfeo Tooblox including Monteverdi2 and
 # OTB apps, assumes script is run with sudo privileges.
 #
 #############################################################################
-# Copyright (c) 2009-2016 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -54,6 +54,9 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 ## 12dev  otb paths fix #1604
 echo 'export PYTHONPATH=$PYTHONPATH:/usr/lib/otb/python' >> "$USER_HOME/.bashrc"
 echo 'export ITK_AUTOLOAD_PATH=/usr/lib/otb/applications' >> "$USER_HOME/.bashrc"
+
+## import once to pre-compile
+python -c "import sys;sys.path.append('/usr/lib/otb/python');import otbApplication"
 
 ##---------------------------------
 

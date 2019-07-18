@@ -4,7 +4,7 @@
 #
 #############################################################################
 # Created by Klokan Petr Pridal <petr.pridal@klokantech.com>
-# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2019 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #

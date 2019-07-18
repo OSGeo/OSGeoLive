@@ -4,7 +4,7 @@
 # Purpose: This script will install tomcat 8
 #
 #############################################################################
-# Copyright (c) 2009-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2019 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #

@@ -1,6 +1,125 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 13.0beta1
+====================
+
+ * MapServer 7.4.0
+ * GeoServer 2.15.1
+ * QGIS 3.4.8
+ * OpenLayers 5.3.0
+ * pycsw 2.4.0
+ * PostGIS 2.5.2
+ * GeoNode 2.10rc5
+ * Mapbender 3.0.8.3
+ * GeoMoose 3.3.1
+ * rasterio 1.0.24
+ * Cesium 1.58
+ * OSM data for Bucharest
+ * Django 1.11
+ * PostgreSQL ogr-fdw 1.0.5
+
+Version 13.0alpha2
+====================
+
+ * PostGIS 2.5.1
+ * GeoExt 3.1 (new project)
+ * GeoMoose 3.3.0
+ * 52nWPS 3.6.3
+ * Mapbender 3.0.8.1
+ * Fiona 1.8.6
+ * rasterio 1.0.22
+ * OWSLib 0.17.1
+ * mappyfile 0.8.2
+ * pandas 0.23.3
+ * geopandas 0.5.0
+ * cartopy 0.17.0
+
+Version 13.0alpha1
+====================
+
+ * Lubuntu 18.04.2
+ * QGIS 3.4.6 (no plugins yet)
+ * GDAL 2.4.0
+ * PostGIS 2.5.1
+ * GRASS 7.6.1
+ * PROJ 5.2.0
+ * MapServer 7.2.2
+ * GEOS 3.7.0
+ * OTB 6.6.1
+ * Mapnik 3.0.22
+ * OSSIM 2.5.2
+ * fiona 1.8.4
+ * GMT 5.4.5
+ * gpsprune 19.2
+ * libgeotiff 1.4.2
+ * osgearth 2.10.0
+ * PDAL 1.8.0
+ * pgRouting 2.6.2
+ * Adapted initrd modification to multi-part format used by debian and ubuntu since 18.04.1 (#2100)
+ * Default desktop image for 13.0
+
+Version 12.0
+====================
+
+ * MapServer 7.2.0
+ * Documentation finalized
+ * Presentation updated (#2109)
+ * ZOO-Project fixed (#2063)
+ * GeoNode upload errors fixed (#2113)
+ * rasterio 1.0.3
+ * fiona 1.7.13
+ * Django issues fixed (#2115)
+ * Data links fixed
+ * Workshop link updated (#2116)
+ * SAGA links fixed (#2110)
+ * ossim-core kept as OTB dependency (#2061)
+
+Version 12.0beta4
+====================
+
+ * New plymouth OSGeoLive theme
+ * Fix for TileStache (#2096)
+ * Fix for ncWMS (#2084)
+ * GeoNetwork docs removed to save disk space
+ * Added intro notebook for R kernel in Jupyter
+ * Added sqlitebrowser icon back (#2094)
+ * Removed empty desktop folders (#2095)
+ * Fixed casper and plymouth settings for Ubuntu Bionic
+ * Mapserver 7.0 docs update
+ * Django 1.8.7 available in Bionic (#2065)
+ * EOxServer fixed (#2065)
+ * GeoNode fixed (#2065)
+ * Updated welcome message (#2108)
+ * Added Mappyfile to python libraries
+
+Version 12.0beta3
+====================
+
+ * New artwork included
+ * t-rex 0.9.0
+ * Added keyboard layout widget (#2048)
+ * JOSM plugins fixed
+ * IRIS fixes (#2080)
+ * Rasdaman demo data ingestion fix (#2093)
+ * Python packages test data cleanup
+ * VirtualBox share folder fixed (#1992)
+ * OTB environment fixes (#1604)
+
+Version 12.0beta2
+====================
+
+ * Documentation translations included
+ * Dar es Salaam osm Feature City
+ * Jupyter R kernel added
+ * GeoServer 2.13.2
+ * Rasdaman demo updated
+ * GeoServer Vector Tiles plugin added
+ * Mapbender 3.0.7.3
+ * Deegree 3.4.1
+ * OTB paths fix (#1604)
+ * Leaflet demo update
+
 Version 12.0beta1
 ====================
 

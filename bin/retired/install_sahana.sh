@@ -55,7 +55,7 @@ WEBSERVER="apache2"
 # PostgreSQL
 PG_VERSION="9.5"
 # Geoserver
-GS_VERSION="2.13.2"
+GS_VERSION="2.15.1"
 GS_HOME="$INSTALL_DIR/geoserver-$GS_VERSION"
 
 # FIXME: Script doesn't currently use this var

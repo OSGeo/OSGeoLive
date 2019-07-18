@@ -8,7 +8,7 @@
 #	         Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2010-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2019 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -164,6 +164,7 @@ export USER_NAME
 ./install_iris.sh
 ./install_istsos.sh
 ./install_mapslicer.sh
+# ./install_actinia.sh
 
 ## R stack
 ./install_R.sh
@@ -191,13 +192,17 @@ export USER_NAME
 ./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
-# ./install_geonode.sh
+./install_geonode.sh
+
+## Rust
+./install_trex.sh
 
 ## Javascript et al
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_cesium.sh
-./install_rasdaman.sh
+./install_geoext.sh
+# ./install_rasdaman.sh
 
 ## Docs, Data and extras
 ./load_gisdata.sh
@@ -247,7 +252,7 @@ deluser --remove-home user
 
 # Copy casper.conf with default username and hostname
 # FIXME: User is still "xubuntu" in live session... perhaps because user is already created?
-cp /usr/local/share/gisvm/app-conf/build_chroot/casper.conf /etc/casper.conf
+cp /usr/local/share/gisvm/desktop-conf/casper/casper.conf /etc/casper.conf
 
 # After the build
 # Check for users above 999

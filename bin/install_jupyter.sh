@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2013-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -45,6 +45,7 @@ apt-get install --assume-yes ipython
 ##
 
 ##--  IRKernel via github (assumes R core)
+##--   v13  IRKernel is on cran
 
 su - -c "R -e \"install.packages('pbdZMQ')\""
 su - -c "R -e \"install.packages('uuid')\""
@@ -64,11 +65,16 @@ su - -c "R -e \"install.packages('devtools')\""
 #su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
 
 ## Install method one -- git snapshot+ID on download.osgeo.org
-JOVYAN_R='IRkernel-master-97c492b2.zip'
-wget -c http://download.osgeo.org/livedvd/12/jupyter/${JOVYAN_R}
-unzip ${JOVYAN_R}
-R CMD INSTALL IRkernel-master
+#JOVYAN_R='IRkernel-master-97c492b2.zip'
+#wget -c http://download.osgeo.org/livedvd/12/jupyter/${JOVYAN_R}
+#unzip ${JOVYAN_R}
+#R CMD INSTALL IRkernel-master
 #- TODO check status
+
+## IRkernel    master  1.0.0     0.8.15
+## commit 79baf3f1cf3438e8c8b739a3fdab545f4e3cc906
+##  install.package('IRkernel/IRkernel')
+su - -c "R -e \"install.packages('IRkernel')\""
 
 ## global kernel
 su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
@@ -101,9 +107,23 @@ chmod a+x /usr/local/bin/jupyter_start.sh
 
 cd "$BUILD_DIR"
 
-mkdir -p "$USER_HOME/jupyter/notebooks/projects/CARTOPY"
+mkdir -p "$USER_HOME/jupyter/notebook_gallery/SciTools"
 cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
-   "$USER_HOME/jupyter/notebooks/projects/CARTOPY/"
+   "$USER_HOME/jupyter/notebook_gallery/SciTools/"
+
+mkdir -p "$USER_HOME/jupyter/notebook_gallery/R"
+cp "$BUILD_DIR"/../app-data/jupyter/R_spatial_introduction.ipynb \
+   "$USER_HOME/jupyter/notebook_gallery/R/"
+
+## -- add R sf Intro page -- minimal size embed
+cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/R_sf_module_on_OSGeoLive12.html \
+   "$USER_HOME/jupyter/notebook_gallery/R/"
+cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/sf_logo.gif \
+   "$USER_HOME/jupyter/notebook_gallery/R/"
+cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/RConsortium.png \
+   "$USER_HOME/jupyter/notebook_gallery/R/"
+
+##--------------------------------------------
 cp -r /home/user/jupyter /etc/skel
 
 chown -R ${USER_NAME}:${USER_NAME} /home/user/jupyter

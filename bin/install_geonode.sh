@@ -4,7 +4,7 @@
 # Purpose: This script will install GeoNode
 #
 #############################################################################
-# Copyright (c) 2013-2016 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2013-2019 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 # 
@@ -35,24 +35,30 @@ DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/sites-available/geonode.conf"
 GEONODE_DB="geonode_app"
 GEONODE_STORE="geonode_data"
-GEOSERVER_VERSION="2.13.2"
+GEOSERVER_VERSION="2.15.1"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 GEONODE_DIR="/usr/lib/python2.7/dist-packages/geonode"
 STATIC_PATH="/var/www/geonode/static"
 UPLOAD_PATH="/var/www/geonode/uploaded"
+# TMP="/tmp/build_geoserver"
 
 # Install packages
-add-apt-repository -y ppa:geonode/osgeo
+add-apt-repository -y ppa:geonode/osgeolive
+# add-apt-repository -y ppa:gcpp-kalxas/geonode
 apt-get -q update
 
-apt-get install --assume-yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
-#apt-mark hold python-geonode
+apt-get install --yes --allow-downgrades --allow-change-held-packages \
+    python-six=1.10.0-2~bionic0
+
+apt-get install --yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
     exit 1
 fi
+
+apt-mark hold python-six
 
 # Add an entry in /etc/hosts for geonode, to enable http://geonode/
 echo '127.0.0.1 geonode' | sudo tee -a /etc/hosts
@@ -96,6 +102,10 @@ WSGIDaemonProcess geonode user=www-data threads=10 processes=1
 EOF
 echo "Done"
 
+# Enable local settings in wsgi module
+sed -i -e 's|geonode.settings|geonode.local_settings|' \
+    "$GEONODE_DIR/wsgi.py"
+
 #Create databases
 echo "create $GEONODE_DB database with PostGIS"
 sudo -u "$USER_NAME" createdb -E UTF8 "$GEONODE_DB"
@@ -111,17 +121,18 @@ echo "Copying settings files"
 #Replace local_settings.py
 sudo cp -f "$BUILD_DIR/../app-conf/geonode/local_settings.py.sample" \
     "$GEONODE_DIR/local_settings.py"
-sudo cp -f "$BUILD_DIR/../app-conf/geonode/sample_admin.json" \
-    "$GEONODE_DIR/base/fixtures/sample_admin.json"
-sudo cp -f "$BUILD_DIR/../app-conf/geonode/default_oauth_apps.json" \
-    "$GEONODE_DIR/base/fixtures/default_oauth_apps.json"
 sudo cp -f "$BUILD_DIR/../app-conf/geonode/create_db_store.py" \
     "$GEONODE_DIR/create_db_store.py"
+
+sed -i -e 's|localhost:8080/|localhost:8082|' \
+    "$GEONODE_DIR/base/fixtures/default_oauth_apps.json"
 
 #Change GeoServer port in settings.py
 sed -i -e 's|http://localhost:8080/geoserver/|http://localhost:8082/geoserver/|' \
     "$GEONODE_DIR/settings.py"
-sed -i -e 's|http://localhost:8000/|http://geonode/|' \
+sed -i -e "s|'SITE_HOST_NAME', 'localhost'|'SITE_HOST_NAME', 'geonode'|" \
+    "$GEONODE_DIR/settings.py"
+sed -i -e "s|'SITE_HOST_PORT', 8000|'SITE_HOST_PORT', 80|" \
     "$GEONODE_DIR/settings.py"
 echo "Done"
 
@@ -131,21 +142,20 @@ mkdir -p "$UPLOAD_PATH"
 
 echo "Configuring GeoNode"
 # Create tables in the database
-django-admin makemigrations --noinput --settings=geonode.settings
-sudo -u "$USER_NAME" django-admin migrate --noinput --settings=geonode.settings
-sudo -u "$USER_NAME" django-admin syncdb --noinput --settings=geonode.settings
-
-# Insert default data
-django-admin loaddata "$GEONODE_DIR/base/fixtures/initial_data.json" --settings=geonode.settings
+django-admin makemigrations --noinput --settings=geonode.local_settings
+sudo -u "$USER_NAME" django-admin migrate --noinput --settings=geonode.local_settings
 
 # Install sample admin. Username:admin password:admin
-django-admin loaddata "$GEONODE_DIR/base/fixtures/sample_admin.json" --settings=geonode.settings
+django-admin loaddata "$GEONODE_DIR/people/fixtures/sample_admin.json" --settings=geonode.local_settings
 
-#TODO: Import oauth settings
-#django-admin loaddata "$GEONODE_DIR/base/fixtures/default_oauth_apps.json" --settings=geonode.settings
+# Import oauth settings
+django-admin loaddata "$GEONODE_DIR/base/fixtures/default_oauth_apps.json" --settings=geonode.local_settings
+
+# Insert default data
+django-admin loaddata "$GEONODE_DIR/base/fixtures/initial_data.json" --settings=geonode.local_settings
 
 # Collect static files
-django-admin collectstatic --noinput --settings=geonode.settings --verbosity=0
+django-admin collectstatic --noinput --settings=geonode.local_settings --verbosity=0
 echo "Done"
 
 echo "Stopping GeoServer"
@@ -153,17 +163,64 @@ echo "Stopping GeoServer"
 sleep 30;
 echo "Done"
 
+# # Setup GeoServer oauth
+# echo "Starting GeoServer oauth2 configuration"
+# mkdir -p "$TMP"
+# cd "$TMP"
+
+# # Download and install geonode-geoserver extension
+# echo "Downloading geonode-geoserver extension"
+# wget --progress=dot:mega \
+#   -O "geonode-geoserver-ext-web-app-$GEOSERVER_VERSION-geoserver-plugin.zip" \
+#   "https://download.osgeo.org/livedvd/data/geoserver/geonode-geoserver-ext-web-app-$GEOSERVER_VERSION-geoserver-plugin.zip"
+# ## Cached version of
+# # "https://build.geo-solutions.it/geonode/geoserver/latest/"
+# echo "Installing geonode-geoserver extension"
+# unzip -o -q "geonode-geoserver-ext-web-app-$GEOSERVER_VERSION-geoserver-plugin.zip" -d "$GEOSERVER_PATH/webapps/geoserver/WEB-INF/lib"
+
+# # Download and install geoserver data folder
+# echo "Downloading geoserver data folder"
+# wget --progress=dot:mega \
+#   -O "data-$GEOSERVER_VERSION-osgeolive.zip" \
+#   "https://download.osgeo.org/livedvd/data/geoserver/data-$GEOSERVER_VERSION-osgeolive.zip"
+# ## Cached version of
+# # "https://build.geo-solutions.it/geonode/geoserver/latest/"
+# echo "Installing geoserver data folder"
+# unzip -o -q "data-$GEOSERVER_VERSION-osgeolive.zip"
+# rm -rf "$GEOSERVER_PATH"/data_dir
+# mv data_osgeolive "$GEOSERVER_PATH"/data_dir
+# chown -R root:users "$GEOSERVER_PATH"/data_dir
+# find "$GEOSERVER_PATH"/data_dir -type d -exec chmod 775 {} \;
+
+# # Adding GeoFence path to GeoServer startup.sh
+# sed -i -e '$ d' "$GEOSERVER_PATH"/bin/startup.sh
+# cat << EOF >> "$GEOSERVER_PATH/bin/startup.sh"
+# exec "\$_RUNJAVA" \$JAVA_OPTS \$MARLIN_ENABLER -DGEOSERVER_DATA_DIR="\$GEOSERVER_DATA_DIR" -Dgeofence.dir="\$GEOSERVER_DATA_DIR/geofence" -Djava.awt.headless=true -DSTOP.PORT=8079 -DSTOP_KEY=geoserver -jar start.jar
+# EOF
+
+# Fix geonode path in oauth settings
+sed -i -e "s|http://localhost:8080|http://localhost:8082|g" "$GEOSERVER_PATH"/data_dir/security/filter/geonode-oauth2/config.xml
+
+sed -i -e "s|http://localhost:8000|http://geonode|g" "$GEOSERVER_PATH"/data_dir/security/filter/geonode-oauth2/config.xml
+
+sed -i -e "s|http://localhost:8000|http://geonode|g" "$GEOSERVER_PATH"/data_dir/security/role/geonode\ REST\ role\ service/config.xml
+
+sed -i -e "s|http://localhost:8080|http://localhost:8082|g" "$GEOSERVER_PATH"/data_dir/global.xml
+
+# cd "$BUILD_DIR"
+# echo "Done"
+
 echo "Starting GeoServer to update layers in the geonode db"
 "$GEOSERVER_PATH"/bin/startup.sh &> /dev/null &
-sleep 90;
+sleep 120;
 echo "Done"
 
 #TODO: Create GeoServer store
-#python "$GEONODE_DIR"/create_db_store.py
+python "$GEONODE_DIR"/create_db_store.py
 
 # run updatelayers
 echo "Updating GeoNode layers..."
-django-admin updatelayers --settings=geonode.settings --ignore-errors
+django-admin updatelayers --settings=geonode.local_settings --ignore-errors
 echo "Done"
 
 echo "Stopping GeoServer"
@@ -327,16 +384,37 @@ a2ensite geonode
 # Reload Apache
 /etc/init.d/apache2 force-reload
 
-#FIXME: There should be a better way to do this...
+# Add geonode in hosts file
 cp -f "$BUILD_DIR/../app-conf/geonode/rc.geonode" \
-       /etc
+       /etc/
 chmod u+rx,go-rx /etc/rc.geonode
-cp /etc/init.d/rc.local /etc/init.d/rc.geonode
-sed -i -e 's/rc\.local/rc.geonode/' /etc/init.d/rc.geonode
-ln -s /etc/init.d/rc.geonode /etc/rc2.d/S98rc.geonode
-###
 
-apt-add-repository --yes --remove ppa:geonode/osgeo
+if [ ! -e /etc/systemd/system/geonode_hosts.service ] ; then
+    cat << EOF > /etc/systemd/system/geonode_hosts.service
+[Unit]
+Description=Add geonode to hosts file
+
+[Service]
+ExecStart=/bin/sh /etc/rc.geonode
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
+fi
+
+## reload systemctl config
+systemctl daemon-reload
+
+## Start service to add user to groups
+systemctl start geonode_hosts.service
+
+## Enable geonode_hosts service at startup
+systemctl enable geonode_hosts.service
+
+apt-add-repository --yes --remove ppa:geonode/osgeolive
+# apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

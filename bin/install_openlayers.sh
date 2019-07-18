@@ -1,11 +1,11 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will OpenLayers 3 (and OpenLayers 2.13.1 for legacy
+# Purpose: This script will OpenLayers 5 (and OpenLayers 2.13.1 for legacy
 # demos in OSGeoLive)
 #
 #############################################################################
-# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -37,7 +37,7 @@ TMP_DIR="/tmp/build_openlayers"
 OL2_VERSION="2.13.1" 
 OL2_DIR=/var/www/html/ol2
 
-OPENLAYERS_VERSION="4.6.5"
+OPENLAYERS_VERSION="5.3.0"
 OPENLAYERS_DIR=/var/www/html/openlayers
 
 #

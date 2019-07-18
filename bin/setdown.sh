@@ -5,7 +5,7 @@
 # install scripts.
 #
 #############################################################################
-# Copyright (c) 2009-2016 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2019 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -35,28 +35,44 @@ VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeolive"
 VM="${PACKAGE_NAME}-$VERSION"
 
-
-# by removing the 'user', it also meant that 'user' was removed from /etc/group
-#  so we have to put it back at boot time.
-if [ `grep -c 'adduser' /etc/rc.local` -eq 0 ] ; then
-    sed -i -e 's|exit 0||' /etc/rc.local
-
 # Add 'user' to needed groups
 #   GRPS="audio dialout fuse plugdev pulse staff tomcat7 users www-data vboxsf"
 #bad smelling hack to mitigate the effects of #1104's race condition
-    GRPS="users tomcat8 www-data staff fuse plugdev audio dialout pulse vboxsf"
+GRPS="users tomcat8 www-data staff plugdev audio dialout pulse vboxsf"
 
-    for GRP in $GRPS ; do
-       echo "adduser $USER_NAME $GRP" >> /etc/rc.local
-    done
-    echo >> /etc/rc.local
-    echo "exit 0" >> /etc/rc.local
+## Create systemd service for manage_user_groups.sh
+## source: https://askubuntu.com/questions/814/how-to-run-scripts-on-start-up/719157#719157
+
+if [ ! -e /etc/systemd/system/manage_user_groups.service ] ; then
+    cat << EOF > /etc/systemd/system/manage_user_groups.service
+[Unit]
+Description=Add user to needed groups
+
+[Service]
+ExecStart=/usr/sbin/adduser $USER_NAME vboxsf
+Type=oneshot
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+EOF
 fi
-# try to get those changes applied sooner
-# mv /etc/rc2.d/S99rc.local /etc/rc2.d/S10rc.local
+
+# for GRP in $GRPS ; do
+#   echo "ExecStart=/usr/sbin/adduser $USER_NAME $GRP" >> /etc/systemd/system/manage_user_groups.service
+# done
+
+## reload systemctl config
+systemctl daemon-reload
+
+## Start service to add user to groups
+systemctl start manage_user_groups.service
+
+## Enable manage_user_groups service at startup
+systemctl enable manage_user_groups.service
 
 # Re-enable if user does not belong to groups
-# cp ../app-conf/build_chroot/27osgeo_groups \
+# cp ../desktop-conf/casper/27osgeo_groups \
 #   /usr/share/initramfs-tools/scripts/casper-bottom/
 
 # remove build stuff no longer of use
@@ -66,7 +82,6 @@ apt-get --yes remove python-all-dev libpython2.7-dev
 apt-get --yes autoremove
 
 # Python packages disk space cleanup
-#FIXME: Remove those files from debian packages
 rm -rf /usr/lib/python2.7/dist-packages/pandas/tests/*
 rm -rf /usr/lib/python2.7/dist-packages/simplejson/tests/*
 rm -rf /usr/lib/python2.7/dist-packages/seaborn/tests/*
@@ -80,6 +95,49 @@ rm -rf /usr/lib/python2.7/dist-packages/numpy/lib/tests/*
 rm -rf /usr/lib/python2.7/dist-packages/numpy/ma/tests/*
 rm -rf /usr/lib/python2.7/dist-packages/numpy/polynomial/tests/*
 rm -rf /usr/lib/python2.7/dist-packages/numpy/tests/*
+
+cd /usr/lib/python2.7/dist-packages;
+## ----------------------------------------
+## clear out more test dirs manually..
+rm -rf cartopy/tests/*
+rm -rf iris/tests/*
+rm -rf mpl_toolkits/tests/*
+rm -rf scipy/stats/tests/*
+rm -rf mapproxy/test/*
+rm -rf scipy/spatial/tests/*
+rm -rf samba/tests/*
+rm -rf tornado/test/*
+rm -rf scipy/linalg/tests/*
+rm -rf scipy/signal/tests/*
+rm -rf psycopg2/tests/*
+rm -rf dask/dataframe/tests/*
+rm -rf dask/array/tests/*
+rm -rf sqlalchemy/testing/*
+rm -rf networkx/classes/tests/*
+rm -rf scipy/interpolate/tests/*
+rm -rf scipy/ndimage/tests/*
+rm -rf biggus/tests/*
+rm -rf scipy/sparse/tests/*
+rm -rf scipy/fftpack/tests/*
+rm -rf mock/tests/*
+#rm -rf numpy/testing/*  ## numpy will not start w/o tests
+rm -rf zmq/tests/*
+rm -rf networkx/algorithms/tests/*
+rm -rf dask/tests/*
+#rm -rf django/test/*   ## geonode will not work without test/utils.py
+rm -rf dask/dataframe/io/tests/*
+rm -rf networkx/algorithms/flow/tests/*
+#rm -rf IPython/testing/*  ## ipython fails to start if rm'd
+rm -rf geopandas/tests/*
+rm -rf jupyter_core/tests/*
+rm -rf pbr/tests/*
+rm -rf matplotlib/testing/*
+rm -rf networkx/algorithms/shortest_paths/*
+rm -rf traitlets/tests/*
+rm -rf future/backports/test/*
+rm -rf toolz/tests/*
+##---------------------------------------
+
 
 # some tarball or something is making /usr group writable, which
 #  makes openssh-server refuse to start.  (FIXME)
@@ -120,8 +178,8 @@ EOF
 echo
 
 ## run some tests to catch common installer mistakes
+cd "$BUILD_DIR"
 ./tools/post_build_checks.sh
-
 
 #### Copy tmp files, apt cache and logs ready for backup
 mkdir "/tmp/$VERSION"
@@ -194,6 +252,9 @@ if [ ! -e /etc/sudoers.d/tomcat ] ; then
 EOF
 fi
 chmod 440 /etc/sudoers.d/tomcat
+
+# #2084: Fix home path for exracted ncWMS
+sed -i -e 's|\$HOME/.ncWMS2|/usr/share/tomcat8/.ncWMS2|' /var/lib/tomcat8/webapps/ncWMS2/WEB-INF/web.xml
 
 # Switching to default IPv6
 rm /etc/gai.conf

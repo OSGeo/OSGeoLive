@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # IRIS (C) British Crown Copyright 2010 - 2013, Met Office
+# Copyright (c) 2010-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # Iris is free software: you can redistribute it and/or modify it under
@@ -32,7 +33,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 ####
 
-apt-get install -y python-iris
+apt-get install -y python-iris python-folium python-branca python-nc-time-axis python-palettable
 
 ##-- 29jul14 odd errors installing netCDF, add workarounds
 # apt-get install libpython2.7-dev
@@ -133,16 +134,17 @@ rm -rf /usr/lib/python2.7/dist-packages/iris/tests/results/*
 
 ## Live 8.5 -- pre-cache natural_earth 110m shapefiles
 cd "$TMP_DIR"
-wget -c http://download.osgeo.org/livedvd/data/cartopy/natural_earth_cartopy.tgz
-if [ ! -e natural_earth_cartopy.tgz ]; then
+wget -c http://download.osgeo.org/livedvd/data/cartopy/cartopy_017_ne.tgz
+
+if [ ! -e cartopy_017_ne.tgz ]; then
   echo "Download of cartopy cache files failed"
   exit 1
 fi
 
-tar xzf natural_earth_cartopy.tgz
+tar xzf cartopy_017_ne.tgz
 
 mkdir -p ${USER_HOME}/.local/share/cartopy/shapefiles
-mv natural_earth /home/user/.local/share/cartopy/shapefiles/
+mv cartopy_017_ne /home/user/.local/share/cartopy/shapefiles/natural_earth
 chown --recursive ${USER_NAME}:${USER_NAME} /home/user/.local/share/cartopy
 
 cd /tmp/

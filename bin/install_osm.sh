@@ -4,7 +4,7 @@
 # Purpose: This script will install some OpenStreetMap utilities
 #
 #############################################################################
-# Copyright (c) 2009-2017 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # This script is free software; you can redistribute it and/or modify it
@@ -63,7 +63,7 @@ wget -c --tries=3 --progress=dot:mega \
     "http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2"
 
 ## TODO bail on err
-curl http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2.sha1 | sha1sum --check -
+wget  http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2.sha1 | sha1sum --check -
 
 tar xf josm_plugs.tar.bz2
 mkdir -p "$USER_HOME"/.josm/plugins
@@ -81,8 +81,8 @@ chmod a+x "$USER_HOME"/Desktop/josm.desktop
 # add an icon for viewing The Map online
 mkdir -p /usr/local/share/applications
 
-MAP_CENTER="lat=-6.80&lon=39.28"
-MARKER="mlat=-6.812&mlon=39.279"
+MAP_CENTER="lat=44.436&lon=26.103"
+MARKER="mlat=44.436&mlon=26.103"
 ZOOM="16"
 
 cat << EOF > /usr/local/share/applications/osm_online.desktop
@@ -102,11 +102,9 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
 #########################################################################
 #### install sample OSM data
-CITY="DS_TZ"
-BBOX="39.251,-6.8275,39.302,-6.792"
+CITY="Bucaresti_RO"
+BBOX="26.0535,44.4058,26.1468,44.4566"
 
-# visualize: (FIXME!)
-#http://www.openstreetmap.org/?box=yes&bbox=$BBOX
 
 # Perhaps it is too detailed a city for some of our examples, so we
 #  provide a smaller version too:

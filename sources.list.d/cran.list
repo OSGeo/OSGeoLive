@@ -1,7 +1,7 @@
 #CRAN Package Archive
 #Australian
-#deb http://cran.ms.unimelb.edu.au/bin/linux/ubuntu xenial/ 
+#deb http://cran.ms.unimelb.edu.au/bin/linux/ubuntu bionic/ 
 #California (IPv6 troubles)
-#deb http://cran.cnr.berkeley.edu/bin/linux/ubuntu xenial/
+#deb http://cran.cnr.berkeley.edu/bin/linux/ubuntu bionic/
 #Austria (R master site)
-deb http://cran.rstudio.com/bin/linux/ubuntu xenial/
+deb http://cran.rstudio.com/bin/linux/ubuntu bionic/

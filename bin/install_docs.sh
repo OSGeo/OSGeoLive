@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
 # Copyright (c) 2009 LISAsoft
 # Copyright (c) 2009 Cameron Shorter
 # Licensed under the GNU LGPL version >= 2.1.
@@ -62,7 +62,7 @@ ln -s /usr/local/share/qgis_mapserver/mapviewer.html \
       /usr/local/share/qgis_mapserver/index.html
 ln -s /usr/local/share/qgis_mapserver qgis_server
 #ln -s /usr/share/doc/geopublishing-doc geopublishing
-ln -s /usr/local/share/saga .
+# ln -s /usr/local/share/saga .
 
 # HTML
 mkdir -p gmt
@@ -186,7 +186,7 @@ fi
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
 mkdir -p /usr/local/share/icons
-cp -f ../desktop-conf/arramagong-wombat-small.png  /usr/local/share/icons/
+cp -f ../desktop-conf/icons/arramagong-wombat-small.png  /usr/local/share/icons/
 
 
 # Terminal toolbar off by default, and let's brighten the font
@@ -198,7 +198,7 @@ echo "fgcolor=#adadadadadad" >> /usr/share/lxterminal/lxterminal.conf
 
 #What logo to use for launching the help?
 # HB: IMO wombat roadsign is good- it says "look here" and is friendly
-ICON_FILE="live_GIS_help.desktop"
+ICON_FILE="osgeolive_help.desktop"
 # perhaps: Icon=/usr/share/icons/oxygen/32x32/categories/system-help.png
 
 cat << EOF > "/usr/local/share/applications/$ICON_FILE"
@@ -206,10 +206,10 @@ cat << EOF > "/usr/local/share/applications/$ICON_FILE"
 Type=Application
 Encoding=UTF-8
 Name=Help
-Comment=Live Demo Help
+Comment=OSGeoLive Help
 Categories=Application;Education;Geography;
 Exec=firefox http://localhost/osgeolive/
-Icon=/usr/local/share/icons/arramagong-wombat-small.png
+Icon=/usr/share/icons/gnome/256x256/apps/help-browser.png
 Terminal=false
 StartupNotify=false
 EOF
@@ -221,7 +221,7 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 #chmod u+x "$USER_HOME/Desktop/$ICON_FILE"
 
 #data dir
-ICON_FILE="live_GIS_data.desktop"
+ICON_FILE="osgeolive_data.desktop"
 cat << EOF > "/usr/local/share/applications/$ICON_FILE"
 [Desktop Entry]
 Type=Application
@@ -230,7 +230,7 @@ Name=Sample data
 Comment=Sample Geo Data
 Categories=Application;Education;Geography;
 Exec=pcmanfm /usr/local/share/data
-Icon=twf
+Icon=/usr/share/icons/gnome/256x256/apps/system-file-manager.png
 Terminal=false
 StartupNotify=false
 EOF
@@ -246,19 +246,19 @@ chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 # Download the Ubuntu users' manual PDF (CC By SA 3.0)
 mkdir -p /usr/local/share/doc
 
-wget -c --progress=dot:mega \
-  "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/16.04/en_US/screen/Getting%20Started%20with%20Ubuntu%2016.04.pdf" \
-  -O "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf"
+# wget -c --progress=dot:mega \
+#   "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/16.04/en_US/screen/Getting%20Started%20with%20Ubuntu%2016.04.pdf" \
+#   -O "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf"
 
-if [ $? -ne 0 ] ; then
-   # try try again
-   wget -c --progress=dot:mega \
-  "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/16.04/en_US/screen/Getting%20Started%20with%20Ubuntu%2016.04.pdf" \
-  -O "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf"
-fi
+# if [ $? -ne 0 ] ; then
+#    # try try again
+#    wget -c --progress=dot:mega \
+#   "http://files.ubuntu-manual.org/manuals/getting-started-with-ubuntu/16.04/en_US/screen/Getting%20Started%20with%20Ubuntu%2016.04.pdf" \
+#   -O "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf"
+# fi
 
-ln -s "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf" \
-  "$USER_HOME/Desktop/Getting Started with Ubuntu 16.04.pdf"
+# ln -s "/usr/local/share/doc/Getting Started with Ubuntu 16.04.pdf" \
+#   "$USER_HOME/Desktop/Getting Started with Ubuntu 16.04.pdf"
 
 
 ####

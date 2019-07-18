@@ -4,7 +4,7 @@
 # Purpose: This script will install GRASS GIS 7
 #
 #############################################################################
-# Copyright (c) 2014-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2014-2019 The Open Source Geospatial Foundation and others.
 # Author: H.Bowman <hamish_b  yahoo com>
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -56,11 +56,11 @@ mkdir "$TMP_DIR"
 apt-get --quiet update
 apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal-grass
 
-cp /usr/share/applications/grass74.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass74.desktop"
+cp /usr/share/applications/grass76.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass76.desktop"
 
-cp /usr/share/applications/grass74.desktop \
-  /usr/local/share/applications/osgeo-grass74.desktop
+cp /usr/share/applications/grass76.desktop \
+  /usr/local/share/applications/osgeo-grass76.desktop
 
 #### get sample data ####
 
@@ -100,7 +100,7 @@ FOLDER_NAME="nc_basic_spm_grass7"
 cd "$TMP_DIR"
 wget -c --progress=dot:mega \
      "https://grass.osgeo.org/sampledata/north_carolina/nc_basic_spm_grass7.zip"
-unzip "$FILE" -d /usr/local/share/grass/
+unzip -q "$FILE" -d /usr/local/share/grass/
 cd /usr/local/share/grass/
 chown -R root.users "$FOLDER_NAME"
 chmod -R a+rX "$FOLDER_NAME"

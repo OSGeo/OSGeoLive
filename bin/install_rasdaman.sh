@@ -197,6 +197,10 @@ deploy_local_earthlook()
   chmod 755 "$rasdaman_demo_path"
   popd > /dev/null
 
+  # start tomcat and rasdaman
+  service tomcat8 start
+  sleep 60
+
   # Then import the selected coverages from Earthlook demo-data to local petascope
   # to be used for some demos which use queries on these small coverages.
   # (total size for Earthlook demo pages + data in tar file should be < 15 MB).
@@ -226,12 +230,19 @@ add_rasdaman_path_to_bashrc
 deploy_local_earthlook
 
 rasdaman_service stop
-sudo service tomcat8 stop
+service tomcat8 stop
 
-echo "Rasdaman command log:"
-echo "==============================================="
-cat /tmp/rasdaman.install.log
-echo "==============================================="
+
+##---- disk space v12
+rm -rf /opt/rasdaman/share/rasdaman/doc/doc-guides  ## 3.3MB
+
+rm -rf /etc/apt/sources.list.d/rasdaman.list
+apt-get -qq update -y
+
+# echo "Rasdaman command log:"
+# echo "==============================================="
+# cat /tmp/rasdaman.install.log
+# echo "==============================================="
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

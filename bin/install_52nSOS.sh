@@ -6,7 +6,7 @@
 # Version 2018-06-14
 #
 #############################################################################
-# Copyright (c) 2011-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2011-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
