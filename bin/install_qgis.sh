@@ -126,6 +126,7 @@ fi
 
 # Install the Manual and Intro guide locally and link them to the description.html
 mkdir /usr/local/share/qgis
+
 # any pdf version of the intro guide?
 #  http://docs.qgis.org/2.2/en/docs/gentle_gis_introduction
 #wget -c --progress=dot:mega \
@@ -134,29 +135,31 @@ mkdir /usr/local/share/qgis
 
 # TODO: Consider including translations. New version is available but size is 140MB...
 # https://docs.qgis.org/2.18/pdf/en/
-VER=2.8
-DOCURL="http://download.osgeo.org/livedvd/data/qgis"
-for DOC in UserGuide QGISTrainingManual ; do
-   wget -c --progress=dot:mega \
-       "$DOCURL/QGIS-$VER-$DOC-en.pdf" \
-	--output-document="/usr/local/share/qgis/QGIS-$VER-$DOC-en.pdf"
-done
+# Links to very old tutorial files
+#VER=2.8
+#DOCURL="http://download.osgeo.org/livedvd/data/qgis"
+#for DOC in UserGuide QGISTrainingManual ; do
+#   wget -c --progress=dot:mega \
+#       "$DOCURL/QGIS-$VER-$DOC-en.pdf" \
+#	--output-document="/usr/local/share/qgis/QGIS-$VER-$DOC-en.pdf"
+#done
 
-chmod 644 /usr/local/share/qgis/*.pdf
+#chmod 644 /usr/local/share/qgis/*.pdf
 
 
 # Install tutorials
-wget --progress=dot:mega \
-    "https://github.com/qgis/osgeo-live-qgis-tutorials/tarball/master" \
-     --output-document="$TMP_DIR"/tutorials.tgz
+# Todo links to very old tutorial
+#wget --progress=dot:mega \
+#    "https://github.com/qgis/osgeo-live-qgis-tutorials/tarball/master" \
+#     --output-document="$TMP_DIR"/tutorials.tgz
 
-tar xzf "$TMP_DIR"/tutorials.tgz -C "$TMP_DIR"
+#tar xzf "$TMP_DIR"/tutorials.tgz -C "$TMP_DIR"
 
-cd "$TMP_DIR"/*QGIS-OSGEO-Live-Tutorials*
+#cd "$TMP_DIR"/*QGIS-OSGEO-Live-Tutorials*
 
-apt-get --assume-yes install python-sphinx
-make html
-cp -R _build/html /usr/local/share/qgis/tutorials
+#apt-get --assume-yes install python-sphinx
+#make html
+#cp -R _build/html /usr/local/share/qgis/tutorials
 
 # # Install some popular python plugins
 # 
@@ -180,29 +183,28 @@ cp -R _build/html /usr/local/share/qgis/tutorials
 
 #TODO Include some sample projects using already installed example data
 #post a sample somewhere on qgis website or launchpad to pull
-cp "$BUILD_DIR/../app-data/qgis/QGIS-Itasca-Example.qgs" /usr/local/share/qgis/
+cp "$BUILD_DIR/../app-data/qgis/QGIS-Itasca-Example.qgz" /usr/local/share/qgis/
 #borked: cp "$BUILD_DIR/../app-data/qgis/QGIS-Grass-Example.qgs" /usr/local/share/qgis/
-cp "$BUILD_DIR/../app-data/qgis/QGIS-NaturalEarth-Example.qgs" /usr/local/share/qgis/
+cp "$BUILD_DIR/../app-data/qgis/QGIS-NaturalEarth-Example.qgz" /usr/local/share/qgis/
 
-chmod 664 /usr/local/share/qgis/*.qgs
-chgrp users /usr/local/share/qgis/*.qgs
+chmod 664 /usr/local/share/qgis/*.qgz
+chgrp users /usr/local/share/qgis/*.qgz
 #Link example to the home directory
 ln -s /usr/local/share/qgis "$USER_HOME"/qgis-examples
 ln -s /usr/local/share/qgis /etc/skel/qgis-examples
 
 
 #add a connection for postgis if it's installed
-QGIS_CONFIG_PATH="$USER_HOME/.config/QGIS/"
+QGIS_CONFIG_PATH="$USER_HOME/.local/share/QGIS/QGIS3/profiles/default/QGIS/"
 
 mkdir -p "$QGIS_CONFIG_PATH"
-cp "$BUILD_DIR/../app-conf/qgis/QGIS2.conf" "$QGIS_CONFIG_PATH"
+cp "$BUILD_DIR/../app-conf/qgis/QGIS3.ini" "$QGIS_CONFIG_PATH"
 
-chmod 644 "$USER_HOME/.config/QGIS/QGIS2.conf"
-chown $USER_NAME.$USER_NAME "$USER_HOME/.config/QGIS/QGIS2.conf"
-
+chmod 644 "$USER_HOME/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini"
+chown $USER_NAME.$USER_NAME "$USER_HOME/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini"
 
 # set up some extra PostGIS and Spatialite DBs
-CONFFILE="$USER_HOME/.config/QGIS/QGIS2.conf"
+CONFFILE="$USER_HOME/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini"
 TMPFILE=`tempfile`
 USR=user
 PSWD=user
