@@ -27,7 +27,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 # Set EOxServer version to install
-EOXSVER="0.4.0"
+EOXSVER="1.0.0-beta1"
 
 DATA_DIR="/usr/local/share/eoxserver"
 DOC_DIR="$DATA_DIR/doc"
@@ -209,13 +209,13 @@ cd "$DOC_DIR"
 chmod g+w .
 chgrp users .
 
-wget -c --progress=dot:mega \
-    "https://media.readthedocs.org/pdf/eoxserver/0.4/eoxserver.pdf" \
-    -O EOxServer_documentation-$EOXSVER.pdf
+# wget -c --progress=dot:mega \
+#     "https://media.readthedocs.org/pdf/eoxserver/0.4/eoxserver.pdf" \
+#     -O EOxServer_documentation-$EOXSVER.pdf
 
-ln -sf EOxServer_documentation-$EOXSVER.pdf EOxServer_documentation.pdf
-chmod g+w -R EOxServer_documentation*
-chgrp users -R EOxServer_documentation*
+# ln -sf EOxServer_documentation-$EOXSVER.pdf EOxServer_documentation.pdf
+# chmod g+w -R EOxServer_documentation*
+# chgrp users -R EOxServer_documentation*
 ln -sTf "$DOC_DIR" /var/www/html/eoxserver-docs
 
 # # Add Documentation Launch icon to desktop
