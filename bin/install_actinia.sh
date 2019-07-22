@@ -14,7 +14,7 @@
 #
 #################################################################################
 # Copyright (c) 2018-2019 Sören Gebbert and mundialis GmbH & Co. KG, Bonn.
-# Copyright (c) 2016-2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2019 The Open Source Geospatial Foundation and others.
 #
 # Installer script author: Markus Neteler <neteler mundialis.de>
 #
@@ -53,25 +53,14 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR=/tmp/build_actinia
 mkdir "$TMP_DIR"
 
-apt-get --quiet update
+apt-get -q update
+apt-get --assume-yes install python3-actinia-core redis-server
 
 # get source code
 # https://github.com/mundialis/actinia_core
 cd "$TMP_DIR"
 git clone --single-branch https://github.com/mundialis/actinia_core.git
 cd actinia_core/
-
-# generate virtual env for Python3
-apt -y install virtualenv
-apt -y install python3-dev
-virtualenv -p python3 venv
-. venv/bin/activate
-
-# install redis
-apt -y install redis-server
-
-# install actinia_core Python requirements
-pip install -r requirements.txt 
 
 # from https://github.com/mundialis/actinia_core/blob/master/docker/actinia-core-prod/Dockerfile
 # generate actinia.cfg
