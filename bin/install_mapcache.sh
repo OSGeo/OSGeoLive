@@ -21,14 +21,10 @@
 # Uninstall:
 # ============
 # sudo apt-get remove libmapcache1 mapcache-tools libapache2-mod-mapcache
-# sudo rm /etc/apache2/conf-available/mapserver
-# sudo rm -rf /usr/local/share/mapserver/
-# sudo rm -rf /usr/local/www/docs_maps
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
-
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -36,89 +32,51 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-MAPSERVER_DATA="/usr/local/share/mapserver"
-
-MS_APACHE_CONF_FILE="mapserver.conf"
-APACHE_CONF_DIR="/etc/apache2/conf-available/"
-APACHE_CONF_ENABLED_DIR="/etc/apache2/conf-enabled/"
-MS_APACHE_CONF=$APACHE_CONF_DIR$MS_APACHE_CONF_FILE
-
-TMP_DIR=/tmp/build_mapserver
-mkdir "$TMP_DIR"
-cd "$TMP_DIR"
-
 # Install MapCache its command line tools and the MapCache Apache module
 # the Apache module adds /etc/apache2/mods-enabled/mapcache.load
 apt-get install --yes libmapcache1 mapcache-tools libapache2-mod-mapcache
 
-wget -c --progress=dot:mega \
-    "http://download.osgeo.org/livedvd/data/mapserver/mapserver-7-0-html-docs.zip"
-wget -c --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/mapserver/mapserver-itasca-ms70.zip"
+# copy config files
+MAPCACHE_DIR=/home/user/mapcache
+mkdir -p "$MAPCACHE_DIR"
+cp -f "$BUILD_DIR/../app-conf/mapcache/mapcache-quickstart.xml" "$MAPCACHE_DIR/mapcache-quickstart.xml"
 
-# Install docs and demos
-if [ ! -d "$MAPSERVER_DATA" ] ; then
-    mkdir -p "$MAPSERVER_DATA"/demos
+# make a folder for the tilecache abd set the owner to be www-data
+mkdir -p "$MAPCACHE_DIR/tilecache"
+chown -R www-data:www-data "$MAPCACHE_DIR/tilecache"
 
-    echo -n "Extracting MapServer html doc in $MAPSERVER_DATA/..."
-    unzip -q "$TMP_DIR/mapserver-7-0-html-docs.zip" -d "$MAPSERVER_DATA"/
-    echo -n "Done\nExtracting MapServer itasca demo in $MAPSERVER_DATA/demos/..."
-    unzip -q "$TMP_DIR/mapserver-itasca-ms70.zip" -d "$MAPSERVER_DATA"/demos/ 
-    echo "Done"
+# copy sample web app
+MAPCACHE_WEB_DIR=/var/www/html/mapcache-quickstart
+mkdir -p "$MAPCACHE_WEB_DIR"
+cp -f "$BUILD_DIR/../app-conf/mapcache/index.html" "$MAPCACHE_WEB_DIR/index.html"
+chmod -R uga+r "$MAPCACHE_WEB_DIR"
 
-    mv "$MAPSERVER_DATA/demos/mapserver-demo-master" "$MAPSERVER_DATA/demos/itasca"
-    mv "$MAPSERVER_DATA/mapserver-7-0-docs" "$MAPSERVER_DATA/doc"
-    rm -rf "$MAPSERVER_DATA/demos/ms4w"
+# Apache setup
+APACHE_CONF_FILE="mapcache.conf"
+APACHE_CONF_DIR="/etc/apache2/conf-available/"
+APACHE_CONF_ENABLED_DIR="/etc/apache2/conf-enabled/"
+APACHE_CONF=$APACHE_CONF_DIR$APACHE_CONF_FILE
 
-    echo -n "Patching itasca.map to enable WMS..."
-    rm "$MAPSERVER_DATA"/demos/itasca/itasca.map
-    wget -c --progress=dot:mega \
-        "https://github.com/mapserver/mapserver-demo/raw/master/itasca.map" \
-        -O "$MAPSERVER_DATA"/demos/itasca/itasca.map
-    echo -n "Done"
-
-    echo "Configuring the system...."
-    # Itasca Demo hacks
-    mkdir -p /usr/local/www/docs_maps/
-    ln -s "$MAPSERVER_DATA"/demos/itasca "$MAPSERVER_DATA"/demos/workshop
-    ln -s /usr/local/share/mapserver/demos /usr/local/www/docs_maps/mapserver_demos
-    ln -s /tmp /usr/local/www/docs_maps/tmp
-    ln -s /tmp /var/www/html/tmp
-fi
-
-
-# Add MapServer apache configuration
-cat << EOF > "$MS_APACHE_CONF"
-EnableSendfile off
-DirectoryIndex index.phtml
-Alias /mapserver "/usr/local/share/mapserver"
-Alias /ms_tmp "/tmp"
-Alias /tmp "/tmp"
-Alias /mapserver_demos "/usr/local/share/mapserver/demos"
-
-<Directory "/usr/local/share/mapserver">
-  Require all granted
-  Options +Indexes
-</Directory>
-
-<Directory "/usr/local/share/mapserver/demos">
-  Require all granted
-  Options +Indexes
-</Directory>
-
-<Directory "/tmp">
-  Require all granted
-  Options +Indexes
-</Directory>
+# Add MapCache apache configuration
+cat << EOF > "$APACHE_CONF"
+<IfModule mapcache_module>
+   <Directory /path/to/directory>
+      Order Allow,Deny
+      Allow from all
+   </Directory>
+   MapCacheAlias /mapcache "/usr/share/doc/libapache2-mod-mapcache/examples/mapcache.xml"
+   MapCacheAlias /itasca "$MAPCACHE_DIR/mapcache-quickstart.xml" 
+</IfModule>
 EOF
 
-# Make sure Apache has cgi-bin setup
-a2enmod cgi
-a2enconf $MS_APACHE_CONF_FILE
+a2enconf $APACHE_CONF_FILE
+
+# Reload Apache
+service apache2 --full-restart
 echo "Finished configuring Apache"
 
-#Add Launch icon to desktop
-echo 'Downloading MapServer logo ...'
+# Add Launch icon to desktop
+echo 'Downloading MapCache logo ...'
 mkdir -p /usr/local/share/icons
 wget -c --progress=dot:mega \
    -O /usr/local/share/icons/mapcache.png \
@@ -131,31 +89,15 @@ Encoding=UTF-8
 Name=MapCache
 Comment=MapCache
 Categories=Application;Education;Geography;
-Exec=firefox http://localhost/mapcache/demo/
+Exec=firefox http://localhost/mapcache/demo/ http://localhost/mapcache-quickstart/
 Icon=mapcache
 Terminal=false
 StartupNotify=false
 Categories=Education;Geography;
 EOF
 
-
 cp /usr/share/applications/mapcache.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/mapcache.desktop"
-
-
-# share data with the rest of the disc
-ln -s /usr/local/share/mapserver/demos/itasca/data \
-      /usr/local/share/data/itasca
-
-
-# Reload Apache
-#/etc/init.d/apache2 force-reload
-service apache2 --full-restart
-
-# cleanup
-cd "$MAPSERVER_DATA"/doc/_static/
-rm -rf `find | grep '/\.svn'`
-
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
