@@ -101,7 +101,7 @@ if [ ! -d eoxserver_demonstration ] ; then
     echo "ALLOWED_HOSTS = ['*']" >> eoxserver_demonstration/settings.py
 
     # Initialize database
-    python manage.py syncdb --noinput
+    python manage.py migrate --noinput
 
     # Download and register demonstration data
     wget -c --progress=dot:mega \
