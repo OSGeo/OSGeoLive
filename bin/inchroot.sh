@@ -141,6 +141,7 @@ export USER_NAME
 ./install_pgrouting.sh
 ./install_ossim.sh
 ./install_mapserver.sh
+# ./install_mapcache.sh
 ./install_tinyows.sh
 ./install_gmt.sh
 ./install_mapnik.sh
