@@ -1,40 +1,37 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Tiled WMS</title>
+<head>
+    <title>MapCache QuickStart Demo</title>
     <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
-    <!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script>
     <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
-  </head>
-  <body>
+</head>
+<body>
     <div id="map" class="map"></div>
     <script>
-      var layers = [
-        new ol.layer.Tile({
-          source: new ol.source.OSM()
-        })
-        ,new ol.layer.Tile({
-		source: new ol.source.XYZ({
-			url: 'http://localhost/itasca/gmaps/ctybdpy2@GoogleMapsCompatible/{z}/{x}/{y}.png'
-        })
-      })
-       ,new ol.layer.Tile({
-         source: new ol.source.TileWMS({
-            url: 'http://localhost/itasca?',
-            params: {'LAYERS': 'lakespy2', 'TILED': true, 'TRANSPARENT': true, 'VERSION': '1.1.1'}
-          })
-        })
-
-      ];
-      var map = new ol.Map({
-        layers: layers,
-        target: 'map',
-        view: new ol.View({
-          center: ol.proj.fromLonLat([-93.33, 47.32]),
-          zoom: 6
-        })
-      });
+        var layers = [
+            new ol.layer.Tile({
+                opacity: 0.5,
+                source: new ol.source.OSM()
+            })
+            , new ol.layer.Tile({
+                source: new ol.source.XYZ({
+                    url: 'http://localhost/itasca/gmaps/lakes@GoogleMapsCompatible/{z}/{x}/{y}.png'
+                })
+            })
+            //, new ol.layer.Tile({
+            //    source: new ol.source.XYZ({
+            //        url: 'http://localhost/itasca/gmaps/streams@GoogleMapsCompatible/{z}/{x}/{y}.png'
+            //    })
+            //})
+        ];
+        var map = new ol.Map({
+            layers: layers,
+            target: 'map',
+            view: new ol.View({
+                center: ol.proj.fromLonLat([-93.33, 47.32]),
+                zoom: 10
+            })
+        });
     </script>
-  </body>
+</body>
 </html>
