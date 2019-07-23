@@ -1,6 +1,24 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 13.0beta2
+====================
+
+ * GDAL 2.4.2
+ * GEOS 3.7.1
+ * QGIS 3.4.9
+ * MapServer 7.4.1
+ * SAGA 7.3.0
+ * GeoNode 2.10.0
+ * libosmium 2.15.1
+ * OGDI 4.1.0
+ * osgearth 2.10.2
+ * OSSIM 2.7.2
+ * OWSLib 0.18.0
+ * geopandas 0.5.1
+ * rasterio 1.0.24
+ * Added QGIS 3 configuration (#2141)
+
 Version 13.0beta1
 ====================
 
