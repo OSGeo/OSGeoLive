@@ -35,7 +35,7 @@
     <maxsize>4096</maxsize>
     <forwarding_rule name="catch all">
       <http>
-        <url>http://localhost/cgi-bin/mapserv?map=/usr/local/www/docs_maps/mapserver_demos/itasca/itasca.map&</url>
+        <url>http://localhost/cgi-bin/mapserv?map=/usr/local/www/docs_maps/mapserver_demos/itasca/itasca.map</url>
       </http>
     </forwarding_rule>
   </service>
