@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MapCache QuickStart Demo</title>
+    <link rel="stylesheet" href="http://localhost/geoext/ol.css" type="text/css" />
+    <script src="http://localhost/geoext/ol.js"></script>
+</head>
+<body>
+    <div id="map" class="map"></div>
+    <script>
+        var layers = [
+            new ol.layer.Tile({
+                opacity: 0.5,
+                source: new ol.source.OSM()
+            })
+            , new ol.layer.Tile({
+                source: new ol.source.XYZ({
+                    url: 'http://localhost/itasca/gmaps/lakes@GoogleMapsCompatible/{z}/{x}/{y}.png'
+                })
+            })
+            //, new ol.layer.Tile({
+            //    source: new ol.source.XYZ({
+            //        url: 'http://localhost/itasca/gmaps/streams@GoogleMapsCompatible/{z}/{x}/{y}.png'
+            //    })
+            //})
+        ];
+        var map = new ol.Map({
+            layers: layers,
+            target: 'map',
+            view: new ol.View({
+                center: ol.proj.fromLonLat([-93.33, 47.32]),
+                zoom: 10
+            })
+        });
+    </script>
+</body>
+</html>

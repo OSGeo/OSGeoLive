@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapcache>
+  <cache name="disk" type="disk">
+    <base>/home/user/mapcache/tilecache</base>
+    <symlink_blank/>
+  </cache>
+
+  <default_format>PNG</default_format>
+
+  <source name="lake_source" type="wms">
+    <getmap>
+      <params>
+        <FORMAT>image/png</FORMAT>
+        <LAYERS>lakespy2</LAYERS>
+        <MAP>/usr/local/www/docs_maps/mapserver_demos/itasca/itasca.map</MAP>
+      </params>
+    </getmap>
+    <http>
+      <url>http://localhost/cgi-bin/mapserv?</url>
+    </http>
+  </source>
+
+  <tileset name="lakes">
+    <source>lake_source</source>
+    <cache>disk</cache>
+    <grid>GoogleMapsCompatible</grid>
+    <format>PNG</format>
+  </tileset>
+
+  <service type="wms" enabled="true">
+    <full_wms>assemble</full_wms>
+    <resample_mode>bilinear</resample_mode>
+    <format>PNG</format>
+    <maxsize>4096</maxsize>
+    <forwarding_rule name="catch all">
+      <http>
+        <url>http://localhost/cgi-bin/mapserv?map=/usr/local/www/docs_maps/mapserver_demos/itasca/itasca.map</url>
+      </http>
+    </forwarding_rule>
+  </service>
+  <service type="wmts" enabled="true"/>
+  <service type="tms" enabled="true"/>
+  <service type="kml" enabled="true"/>
+  <service type="gmaps" enabled="true"/>
+  <service type="ve" enabled="true"/>
+  <service type="mapguide" enabled="true"/>
+  <service type="demo" enabled="true"/>
+
+  <log_level>debug</log_level>
+
+  <errors>report</errors>
+  <locker type="disk">
+    <directory>/tmp</directory>
+    <timeout>300</timeout>
+  </locker>
+
+</mapcache>
