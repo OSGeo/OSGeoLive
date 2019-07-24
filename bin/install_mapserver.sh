@@ -54,7 +54,7 @@ apt-get install --yes cgi-mapserver mapserver-bin python-mapscript
 
 # Download MapServer data
 
-MS_DEMO_VERSION="1.0"
+MS_DEMO_VERSION="1.1"
 MS_DOCS_VERSION="7-4"
 
 wget -c --progress=dot:mega \
@@ -131,8 +131,8 @@ cat << EOF > "/usr/share/applications/mapserver.desktop"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Mapserver
-Comment=Mapserver
+Name=MapServer
+Comment=MapServer
 Categories=Application;Education;Geography;
 Exec=firefox http://localhost/mapserver_demos/itasca/ http://localhost/mapserver/doc/ http://localhost/osgeolive/en/quickstart/mapserver_quickstart.html
 Icon=mapserver
