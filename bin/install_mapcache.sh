@@ -38,12 +38,14 @@ apt-get install --yes libmapcache1 mapcache-tools libapache2-mod-mapcache
 
 # copy config files
 MAPCACHE_DIR=/home/user/mapcache
+
 mkdir -p "$MAPCACHE_DIR"
 cp -f "$BUILD_DIR/../app-conf/mapcache/mapcache-quickstart.xml" "$MAPCACHE_DIR/mapcache-quickstart.xml"
 
-# make a folder for the tilecache abd set the owner to be www-data
-mkdir -p "$MAPCACHE_DIR/tilecache"
-chown -R www-data:www-data "$MAPCACHE_DIR/tilecache"
+# make a folder for the tilecache and set the owner to be www-data
+TILECACHE_DIR=/usr/local/share/mapcache
+mkdir -p "$TILECACHE_DIR"
+chown -R www-data:www-data "$TILECACHE_DIR"
 
 # copy sample web app
 MAPCACHE_WEB_DIR=/var/www/html/mapcache-quickstart
@@ -89,7 +91,7 @@ Encoding=UTF-8
 Name=MapCache
 Comment=MapCache
 Categories=Application;Education;Geography;
-Exec=firefox http://localhost/mapcache/demo/ http://localhost/mapcache-quickstart/
+Exec=firefox http://localhost/mapcache/demo/ http://localhost/osgeolive/en/quickstart/mapcache_quickstart.html http://localhost/mapcache-quickstart/
 Icon=mapcache
 Terminal=false
 StartupNotify=false
