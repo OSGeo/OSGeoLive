@@ -165,13 +165,13 @@ EOF
 delete_not_needed_files()
 {
   # remove development stuff
-  for f in lib include share/rasdaman/war; do
+  for f in lib include share/rasdaman/war share/rasdaman/raswct; do
     rm -rf $RMANHOME/$f
   done
+  # remove development docs
+  rm -rf $RMANHOME/share/rasdaman/doc/doc-*
   # strip executables
-  for f in $RMANHOME/bin/*; do
-    strip $f > /dev/null 2>&1 || true
-  done
+  strip $RMANHOME/bin/ras* > /dev/null 2>&1 || true
 }
 
 deploy_local_earthlook()
@@ -233,10 +233,7 @@ rasdaman_service stop
 service tomcat8 stop
 
 
-##---- disk space v12
-rm -rf /opt/rasdaman/share/rasdaman/doc/doc-guides  ## 3.3MB
-
-rm -rf /etc/apt/sources.list.d/rasdaman.list
+mv /etc/apt/sources.list.d/rasdaman.list /etc/apt/sources.list.d/rasdaman.list.disabled
 apt-get -qq update -y
 
 # echo "Rasdaman command log:"
