@@ -57,7 +57,7 @@ cp -R cartopy_0143_data/*  /usr/lib/python2.7/dist-packages/cartopy/data/
 ##=========================
 
 # Install Geospatial Python3 libraries
-apt-get install --yes python3-gdal fiona rasterio python3-rtree
+apt-get install --yes python3-gdal fiona rasterio python3-rtree python3-pygeoapi
 
 # Add a symlink for rio
 ln -s /usr/bin/rasterio /usr/local/bin/rio
