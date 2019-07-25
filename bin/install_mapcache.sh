@@ -63,7 +63,6 @@ cat << EOF > "$APACHE_CONF"
       Order Allow,Deny
       Allow from all
    </Directory>
-   MapCacheAlias /mapcache "/usr/share/doc/libapache2-mod-mapcache/examples/mapcache.xml"
    MapCacheAlias /itasca "$MAPCACHE_DIR/mapcache-quickstart.xml" 
 </IfModule>
 EOF
@@ -88,7 +87,7 @@ Encoding=UTF-8
 Name=MapCache
 Comment=MapCache
 Categories=Application;Education;Geography;
-Exec=firefox http://localhost/mapcache/demo/ http://localhost/osgeolive/en/quickstart/mapcache_quickstart.html http://localhost/mapcache-quickstart/
+Exec=firefox http://localhost/mapcache-quickstart/ http://localhost/osgeolive/en/quickstart/mapcache_quickstart.html
 Icon=mapcache
 Terminal=false
 StartupNotify=false
