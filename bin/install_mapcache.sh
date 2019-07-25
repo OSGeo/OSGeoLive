@@ -39,7 +39,7 @@ USER_HOME="/home/$USER_NAME"
 apt-get install --yes libmapcache1 mapcache-tools libapache2-mod-mapcache
 
 # copy config files
-MAPCACHE_DIR=/home/user/mapcache
+MAPCACHE_DIR=/usr/local/share/mapcache
 
 mkdir -p "$MAPCACHE_DIR"
 cp -f "$BUILD_DIR/../app-conf/mapcache/mapcache-quickstart.xml" "$MAPCACHE_DIR/mapcache-quickstart.xml"
