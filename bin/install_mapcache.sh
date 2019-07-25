@@ -15,6 +15,8 @@
 # About:
 # =====
 # This script will install mapcache
+# Note /var/cache/mapcache is provided by libapache2-mod-mapcache for 
+# cache data with the owner set to www-data
 #
 # Requires: Apache2
 #
@@ -41,11 +43,6 @@ MAPCACHE_DIR=/home/user/mapcache
 
 mkdir -p "$MAPCACHE_DIR"
 cp -f "$BUILD_DIR/../app-conf/mapcache/mapcache-quickstart.xml" "$MAPCACHE_DIR/mapcache-quickstart.xml"
-
-# make a folder for the tilecache and set the owner to be www-data
-TILECACHE_DIR=/usr/local/share/mapcache
-mkdir -p "$TILECACHE_DIR"
-chown -R www-data:www-data "$TILECACHE_DIR"
 
 # copy sample web app
 MAPCACHE_WEB_DIR=/var/www/html/mapcache-quickstart

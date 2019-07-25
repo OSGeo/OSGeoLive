@@ -2,7 +2,7 @@
 
 <mapcache>
   <cache name="disk" type="disk">
-    <base>/usr/local/share/mapcache</base>
+    <base>/var/cache/mapcache</base>
     <symlink_blank/>
   </cache>
 
