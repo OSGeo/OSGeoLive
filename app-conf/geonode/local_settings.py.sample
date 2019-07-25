@@ -57,38 +57,61 @@ OGC_SERVER = {
     'default': {
         'BACKEND': 'geonode.geoserver',
         'LOCATION': GEOSERVER_LOCATION,
+        'WEB_UI_LOCATION': GEOSERVER_PUBLIC_LOCATION,
         'LOGIN_ENDPOINT': 'j_spring_oauth2_geonode_login',
         'LOGOUT_ENDPOINT': 'j_spring_oauth2_geonode_logout',
         # PUBLIC_LOCATION needs to be kept like this because in dev mode
         # the proxy won't work and the integration tests will fail
         # the entire block has to be overridden in the local_settings
         'PUBLIC_LOCATION': GEOSERVER_PUBLIC_LOCATION,
-        'USER' : 'admin',
-        'PASSWORD' : 'geoserver',
-        'MAPFISH_PRINT_ENABLED' : True,
-        'PRINT_NG_ENABLED' : True,
-        'GEONODE_SECURITY_ENABLED' : True,
-        'GEOGIG_ENABLED' : False,
-        'WMST_ENABLED' : False,
+        'USER': 'admin',
+        'PASSWORD': 'geoserver',
+        'MAPFISH_PRINT_ENABLED': True,
+        'PRINT_NG_ENABLED': True,
+        'GEONODE_SECURITY_ENABLED': True,
+        'GEOFENCE_SECURITY_ENABLED': True,
+        'WMST_ENABLED': False,
         'BACKEND_WRITE_ENABLED': True,
-        'WPS_ENABLED' : False,
+        'WPS_ENABLED': False,
         'LOG_FILE': '%s/geoserver/data/logs/geoserver.log' % os.path.abspath(os.path.join(PROJECT_ROOT, os.pardir)),
         # Set to dictionary identifier of database containing spatial data in DATABASES dictionary to enable
         'DATASTORE': 'datastore',
+        'TIMEOUT': int(os.getenv('OGC_REQUEST_TIMEOUT', '5')),
+        'MAX_RETRIES': int(os.getenv('OGC_REQUEST_MAX_RETRIES', '5')),
+        'BACKOFF_FACTOR': float(os.getenv('OGC_REQUEST_BACKOFF_FACTOR', '0.3')),
+        'POOL_MAXSIZE': int(os.getenv('OGC_REQUEST_POOL_MAXSIZE', '10')),
+        'POOL_CONNECTIONS': int(os.getenv('OGC_REQUEST_POOL_CONNECTIONS', '10')),
     }
 }
 
-# If you want to enable Mosaics use the following configuration
-#UPLOADER = {
-##    'BACKEND': 'geonode.rest',
-#    'BACKEND': 'geonode.importer',
-#    'OPTIONS': {
-#        'TIME_ENABLED': True,
-#        'MOSAIC_ENABLED': True,
-#        'GEOGIG_ENABLED': False,
-#    }
-#}
-
+UPLOADER = {
+    # 'BACKEND': 'geonode.rest',
+    'BACKEND': 'geonode.importer',
+    'OPTIONS': {
+        'TIME_ENABLED': True,
+        'MOSAIC_ENABLED': False,
+    },
+    'SUPPORTED_CRS': [
+        'EPSG:4326',
+        'EPSG:3785',
+        'EPSG:3857',
+        'EPSG:32647',
+        'EPSG:32736'
+    ],
+    'SUPPORTED_EXT': [
+        '.shp',
+        '.csv',
+        '.kml',
+        '.kmz',
+        '.json',
+        '.geojson',
+        '.tif',
+        '.tiff',
+        '.geotiff',
+        '.gml',
+        '.xml'
+    ]
+}
 
 CATALOGUE = {
     'default': {
@@ -113,9 +136,9 @@ CATALOGUE = {
     }
 }
 
-# Default preview library
-#LAYER_PREVIEW_LIBRARY = 'geoext'
+X_FRAME_OPTIONS = 'ALLOW-FROM %s' % SITEURL
+CORS_ORIGIN_ALLOW_ALL = True
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', ['localhost','geonode'])
 MEDIA_ROOT = "/var/www/geonode/uploaded"
 STATIC_ROOT = "/var/www/geonode/static"
-SESSION_EXPIRED_CONTROL_ENABLED = False
+SESSION_EXPIRED_CONTROL_ENABLED = True
