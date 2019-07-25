@@ -33,6 +33,8 @@ USER_HOME="/home/$USER_NAME"
 
 RMANHOME=/opt/rasdaman
 
+TOMCAT_WEBAPPS=/var/lib/tomcat8/webapps
+
 setup_rasdaman_repo()
 {
   echo "Setup rasdaman package repository..."
@@ -44,6 +46,33 @@ setup_rasdaman_repo()
   local codename="$1"
   local release="$2"
   echo "deb [arch=amd64] $rasdaman_pkgs_url/deb $codename $release" > /etc/apt/sources.list.d/rasdaman.list
+}
+
+unpack_war_file()
+{
+  # unpacks $1.war into a directory $1, and removes $1.war
+  local war_name="$1"
+  local war_file="$war_name.war"
+  pushd "$TOMCAT_WEBAPPS"
+  if [ -f "$war_file" ]; then
+    mkdir -p "$war_name"
+    mv "$war_file" "$war_name"
+    pushd "$war_name"
+    jar xf "$war_file" && rm -f "$war_file" # extract
+    popd
+  fi
+  popd
+}
+
+patch_gdal_java_jar()
+{
+  # patch the gdal-java dependency to the correct version for Lubuntu 18.04
+  # TODO: remove the below once http://rasdaman.org/ticket/2144 is fixed
+  if [ -d "$TOMCAT_WEBAPPS/rasdaman/WEB-INF/lib/" ]; then
+    rm -f $TOMCAT_WEBAPPS/rasdaman/WEB-INF/lib/gdal-1.10.*.jar
+    wget "http://kahlua.eecs.jacobs-university.de/~dmisev/gdal-2.3.0.jar" \
+         -q -O "$TOMCAT_WEBAPPS/rasdaman/WEB-INF/lib/gdal-2.3.0.jar"
+  fi
 }
 
 install_rasdaman_pkg()
@@ -58,6 +87,15 @@ install_rasdaman_pkg()
   echo "rasdaman hold" | dpkg --set-selections
   # apt-mark manual rasdaman
   apt-get -q install python-glob2
+
+  # --------
+  # need to unpack the war files (tomcat8 doesn't do it which causes issues)
+  unpack_war_file rasdaman
+  unpack_war_file def
+  patch_gdal_java_jar
+  service tomcat8 restart
+  # --------
+
   echo
   echo "Rasdaman package installed successfully."
   echo
