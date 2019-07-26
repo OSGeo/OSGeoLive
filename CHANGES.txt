@@ -1,6 +1,16 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 13.0beta3
+====================
+
+ * EOxServer 1.0-beta1
+ * rasdaman 9.8.1
+ * ZOO-Project 1.7.0
+ * MapCache 1.8.0
+ * Revert to Mapbender 3.0.8.1
+ * Remove zygrib high resolution maps (#467)
+
 Version 13.0beta2
 ====================
 
