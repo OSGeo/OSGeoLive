@@ -40,7 +40,7 @@ apt-get install --yes python-django
 # Install Geospatial Python2 libraries
 apt-get install --yes python-gdal python-shapely python-rasterio python-rtree \
     python-fiona python-matplotlib python-tk python-geopandas \
-    python-pysal python-netcdf4 python-geojson python-scipy python-pandas \
+    python-netcdf4 python-geojson python-scipy python-pandas \
     python-pyshp python-descartes python-geographiclib python-kml \
     python-cartopy python-seaborn python-networkx python-mappyfile
 
