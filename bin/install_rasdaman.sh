@@ -67,12 +67,24 @@ unpack_war_file()
 patch_gdal_java_jar()
 {
   # patch the gdal-java dependency to the correct version for Lubuntu 18.04
-  # TODO: remove the below once http://rasdaman.org/ticket/2144 is fixed
+  # (on standard Ubuntu 18.04 gdal is a bit older, so the packaged jar doesn't match)
   if [ -d "$TOMCAT_WEBAPPS/rasdaman/WEB-INF/lib/" ]; then
-    rm -f $TOMCAT_WEBAPPS/rasdaman/WEB-INF/lib/gdal-1.10.*.jar
+    rm -f $TOMCAT_WEBAPPS/rasdaman/WEB-INF/lib/gdal-*.jar
     wget "http://kahlua.eecs.jacobs-university.de/~dmisev/gdal-2.3.0.jar" \
          -q -O "$TOMCAT_WEBAPPS/rasdaman/WEB-INF/lib/gdal-2.3.0.jar"
   fi
+}
+
+delete_not_needed_files()
+{
+  # remove development stuff
+  for f in lib include share/rasdaman/war share/rasdaman/raswct; do
+    rm -rf $RMANHOME/$f
+  done
+  # remove development docs
+  rm -rf $RMANHOME/share/rasdaman/doc/doc-*
+  # strip executables
+  strip $RMANHOME/bin/ras* > /dev/null 2>&1 || true
 }
 
 install_rasdaman_pkg()
@@ -86,7 +98,7 @@ install_rasdaman_pkg()
   # make sure the rasdaman package is not removed by apt-get autoremove
   echo "rasdaman hold" | dpkg --set-selections
   # apt-mark manual rasdaman
-  apt-get -q install python-glob2
+  delete_not_needed_files
 
   # --------
   # need to unpack the war files (tomcat8 doesn't do it which causes issues)
@@ -200,18 +212,6 @@ EOF
   chown $USER_NAME: $USER_HOME/Desktop/
 }
 
-delete_not_needed_files()
-{
-  # remove development stuff
-  for f in lib include share/rasdaman/war share/rasdaman/raswct; do
-    rm -rf $RMANHOME/$f
-  done
-  # remove development docs
-  rm -rf $RMANHOME/share/rasdaman/doc/doc-*
-  # strip executables
-  strip $RMANHOME/bin/ras* > /dev/null 2>&1 || true
-}
-
 deploy_local_earthlook()
 {
   echo "Deploying local earthlook..."
@@ -263,7 +263,6 @@ install_rasdaman_pkg
 replace_rasdaman_user_with_system_user
 create_bin_starters
 create_desktop_applications
-delete_not_needed_files
 add_rasdaman_path_to_bashrc
 deploy_local_earthlook
 
