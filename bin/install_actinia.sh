@@ -10,11 +10,11 @@
 #
 # Requirements: GRASS GIS 7, Python, redis
 #
-# actinia URL after installation: http://localhost:8080/api/v1/version
+# actinia URL after installation: http://localhost:8088/api/v1/version
 #
 #################################################################################
 # Copyright (c) 2018-2019 Sören Gebbert and mundialis GmbH & Co. KG, Bonn.
-# Copyright (c) 2016-2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2019 The Open Source Geospatial Foundation and others.
 #
 # Installer script author: Markus Neteler <neteler mundialis.de>
 #
@@ -49,94 +49,75 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+BIN="/usr/local/bin"
+ACTINIA_HOME="/opt/actinia_core"
+ACTINIA_CONF="/etc/actinia"
 
-TMP_DIR=/tmp/build_actinia
-mkdir "$TMP_DIR"
-
-apt-get --quiet update
-
-# get source code
-# https://github.com/mundialis/actinia_core
-cd "$TMP_DIR"
-git clone --single-branch https://github.com/mundialis/actinia_core.git
-cd actinia_core/
-
-# generate virtual env for Python3
-apt -y install virtualenv
-apt -y install python3-dev
-virtualenv -p python3 venv
-. venv/bin/activate
-
-# install redis
-apt -y install redis-server
-
-# install actinia_core Python requirements
-pip install -r requirements.txt 
-
-# from https://github.com/mundialis/actinia_core/blob/master/docker/actinia-core-prod/Dockerfile
-# generate actinia.cfg
-# this overrides global settings in src/actinia_core/resources/common/config.py
-cat docker/actinia-core-prod/actinia.cfg | \
-    sed 's+/usr/local/bin/grass+/usr/bin/grass+g' | \
-    sed 's+/actinia_core+/opt/actinia_core+g' | \
-    sed 's+/usr/local/grass7+/usr/lib/grass76+g' | \
-    sed 's+redis_server_url =  redis+redis_server_url = localhost+g' | \
-    sed 's+redis_queue_server_url = redis+redis_queue_server_url = localhost+g' | \
-    sed 's+token_signing_key_changeme+token_my_secret_osgeolive+g' > actinia.cfg
-
-# generate start.sh
-cat docker/actinia-core-prod/start.sh | sed 's+/usr/local/bin/grass+/usr/bin/grass+g' | sed 's+/actinia_core+/opt/actinia_core+g' | sed 's+/usr/local/grass7+/usr/lib/grass76+g' > start.sh
-
-# Copy actinia config file and start script
-mkdir -p /etc/default/
-mkdir -p /src
-mkdir -p /opt/actinia_core
-
-cp -f actinia.cfg /etc/default/actinia
-cp -f start.sh /src/start.sh
-
-# prepare some sample data
-mkdir -p /opt/actinia_core/grassdb/
-(cd /opt/actinia_core/grassdb/ && wget -c https://grass.osgeo.org/sampledata/north_carolina/nc_basic_spm_grass7.zip && unzip nc_basic_spm_grass7.zip && rm -f nc_basic_spm_grass7.zip && mv nc_basic_spm_grass7 nc_spm_08)
-# we now have /opt/actinia_core/grassdb/nc_spm_08/
-
-# install actinia_core
-python setup.py install
-
-# Install actinia-core plugins
-cd "$TMP_DIR"
-git config --global http.sslVerify false
-git clone --single-branch https://github.com/mundialis/actinia_statistic_plugin.git actinia_statistic_plugin
-cd actinia_statistic_plugin/
-pip install -r requirements.txt
-# install actinia_statistic_plugin
-python setup.py install
+mkdir -p "$ACTINIA_HOME"
+mkdir -p "$ACTINIA_CONF"
 
 # Create the database directories
-mkdir -p /opt/actinia_core/grassdb && \
-  mkdir -p /opt/actinia_core/resources && \
-  mkdir -p /opt/actinia_core/workspace/tmp && \
-  mkdir -p /opt/actinia_core/workspace/temp_db && \
-  mkdir -p /opt/actinia_core/workspace/actinia && \
-  mkdir -p /opt/actinia_core/workspace/download_cache && \
-  mkdir -p /opt/actinia_core/userdata
+mkdir -p "$ACTINIA_HOME"/grassdb
+mkdir -p "$ACTINIA_HOME"/resources
+mkdir -p "$ACTINIA_HOME"/workspace/tmp
+mkdir -p "$ACTINIA_HOME"/workspace/temp_db
+mkdir -p "$ACTINIA_HOME"/workspace/actinia
+mkdir -p "$ACTINIA_HOME"/workspace/download_cache
+mkdir -p "$ACTINIA_HOME"/userdata
 
-# launch redis
-redis-server &
+apt-get -q update
+apt-get --assume-yes install python3-actinia-core redis-server gunicorn3
 
-# launch actinia
-python -m actinia_core.main &
+# copy actinia configuration
+cp "$BUILD_DIR/../app-conf/actinia/actinia.cfg" "$ACTINIA_CONF/actinia.cfg"
 
-# add/change users besides the existing demo users TODO
+# link grassdb to grass demo dataset
+ln -s "$USER_HOME"/grassdata/nc_basic_spm_grass7 "$ACTINIA_HOME"/grassdb
 
-# cleanup
-rm -rf "$TMP_DIR"
+# create some grass locations
+grass -text -e -c 'EPSG:25832' "$ACTINIA_HOME"/grassdb/utm32n
+grass -text -e -c 'EPSG:4326' "$ACTINIA_HOME"/grassdb/latlong
+# grass -text -e -c 'EPSG:3358' "$ACTINIA_HOME"/grassdb/nc_basic_spm_grass7
+
+# Install actinia-core plugins
+# apt-get --assume-yes install python3-actinia-statistic python3-actinia-satellite
+
+# actinia launcher
+mkdir -p "$BIN"
+cat << EOF > "$BIN/actinia_start.sh"
+#!/bin/bash
+DEFAULT_CONFIG_PATH=/etc/actinia/actinia.cfg gunicorn3 -b 0.0.0.0:8088 -w 1 actinia_core.main:flask_app
+EOF
+
+chmod 755 $BIN/actinia_start.sh
+
+echo 'Downloading actinia logo ...'
+wget -c --progress=dot:mega \
+   -O /usr/local/share/icons/actinia.png \
+   "https://github.com/mundialis/actinia_core/raw/master/docs/actinia_logo.png"
+
+## Create Desktop Shortcut for starting Actinia Server in shell
+cat << EOF > /usr/share/applications/actinia-start.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Start Actinia
+Comment=Actinia for OSGeoLive
+Categories=Application;Geography;Geoscience;Education;
+Exec=lxterminal -e actinia_start.sh
+Icon=actinia
+Terminal=false
+StartupNotify=false
+EOF
+
+cp -a /usr/share/applications/actinia-start.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/actinia-start.desktop"
 
 # DONE.
-# actinia is now reachable at http://localhost:8080/api/v1/version
+# actinia is now reachable at http://localhost:8088/api/v1/version
 
 # test
-# curl -u actinia-gdi:actinia-gdi 'http://localhost:8080/api/v1/version'
+# curl -u actinia-gdi:actinia-gdi 'http://localhost:8088/api/v1/version'
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

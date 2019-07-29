@@ -287,6 +287,8 @@ echo "======================================"
 sudo rm extract-cd/casper/filesystem.squashfs
 sudo mksquashfs edit extract-cd/casper/filesystem.squashfs
 # sudo mksquashfs edit extract-cd/casper/filesystem.squashfs -no-progress
+echo "squashfs size:"
+ls -l extract-cd/casper/filesystem.squashfs
 
 echo
 echo "Calculating new filesystem size..."
