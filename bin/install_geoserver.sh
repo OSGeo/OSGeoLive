@@ -324,6 +324,8 @@ wget --progress=dot:mega \
 echo "Cleaning up Jetty JSP cache in /tmp"
 rm -rf /tmp/Jetty*geoserver*
 
+## leave single version of parboiled library in the GeoServer lib path
+rm "$GS_HOME"/webapps/geoserver/WEB-INF/lib/parboiled-*-1.2.0.jar
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
