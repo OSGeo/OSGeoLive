@@ -211,9 +211,9 @@ PSWD=user
 
 DBS="
 52nSOS
-eoxserver_demo
-pgrouting"
+eoxserver_demo"
 #disabled:
+# pgrouting
 #v2.2_mapfishsample
 # osm_local_smerc
 # cartaro
