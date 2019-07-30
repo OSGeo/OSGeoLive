@@ -124,7 +124,7 @@ sudo cp -f "$BUILD_DIR/../app-conf/geonode/local_settings.py.sample" \
 sudo cp -f "$BUILD_DIR/../app-conf/geonode/create_db_store.py" \
     "$GEONODE_DIR/create_db_store.py"
 
-sed -i -e 's|localhost:8080/|localhost:8082|' \
+sed -i -e 's|localhost:8080/|localhost:8082/|' \
     "$GEONODE_DIR/base/fixtures/default_oauth_apps.json"
 
 #Change GeoServer port in settings.py
