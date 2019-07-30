@@ -39,8 +39,8 @@ apt-get install --yes python-django
 
 # Install Geospatial Python2 libraries
 apt-get install --yes python-gdal python-shapely python-rasterio python-rtree \
-    python-fiona python-matplotlib python-tk python-geopandas \
-    python-pysal python-netcdf4 python-geojson python-scipy python-pandas \
+    python-fiona python-matplotlib python-tk \
+    python-netcdf4 python-geojson python-scipy python-pandas \
     python-pyshp python-descartes python-geographiclib python-kml \
     python-cartopy python-seaborn python-networkx python-mappyfile
 
@@ -57,7 +57,11 @@ cp -R cartopy_0143_data/*  /usr/lib/python2.7/dist-packages/cartopy/data/
 ##=========================
 
 # Install Geospatial Python3 libraries
-apt-get install --yes python3-gdal fiona rasterio python3-rtree python3-pygeoapi
+apt-get install --yes python3-gdal fiona rasterio python3-rtree \
+  python3-geopandas python3-descartes python3-pysal python3-folium \
+  python3-branca python3-scipy python3-pygeoapi python3-networkx \
+  python3-geojson python3-seaborn
+
 
 # Add a symlink for rio
 ln -s /usr/bin/rasterio /usr/local/bin/rio
