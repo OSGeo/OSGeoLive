@@ -38,13 +38,12 @@ USER_HOME="/home/$USER_NAME"
 ################################################
 
 #Desktop apps part 1 (traditional analytic GIS)
-DESKTOP_APPS="grass76 qgis gvsig* openjump uDig ossimplanet
-              saga"
-#disabled: atlasstyler geopublisher spatialite-gis
+DESKTOP_APPS="grass76 qgis gvsig* openjump uDig saga"
+#disabled: atlasstyler geopublisher spatialite-gis ossimplanet 
 
 #Desktop apps part 2 (geodata viewers and editors)
-NAV_APPS="marble opencpn josm merkaartor osm_online
-          zygrib gpsprune"
+NAV_APPS="marble opencpn josm osm_online zygrib gpsprune"
+#disabled: merkaartor
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapcache mapproxy-*
@@ -53,17 +52,18 @@ WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapcache mapproxy-*
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
-BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMoose3 geonode-* geoext"
+BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender3 GeoMoose3
+                 geonode-* geoext"
 #disabled: i3geo MapFish-* cartaro-*
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="r jupyter-notebook* otb-*
-               mapslicer mapnik-* monteverdi* ossim-geocell"
-#disabled: imagelinker
+SPATIAL_TOOLS="r jupyter-notebook* otb-* mapslicer mapnik-* monteverdi*"
+#disabled: imagelinker ossim-geocell
 
 #Future home of PostGIS and Spatialite; pgRouting???
 #  pgadmin, sqlitebrowser, etc  (parts of this one are automatic)
-DB_APPS="spatialite-gui *[Rr]asdaman* qbrowser shp2pgsql-gui"
+DB_APPS="spatialite-gui *[Rr]asdaman* shp2pgsql-gui"
+#disabled: qbrowser
 
 #Server apps part 3 (public good theme)
 # RELIEF_APPS="ushahidi"
