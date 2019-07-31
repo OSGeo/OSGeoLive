@@ -38,7 +38,6 @@ cd "$TMP_DIR"
 apt-get -q update
 
 #Install packages
-## 23feb14 fix for QGis "can't make bookmarks"
 apt-get --assume-yes install qgis \
    qgis-common python3-qgis python3-qgis-common \
    gpsbabel qgis-plugin-grass
@@ -49,42 +48,11 @@ if [ $? -ne 0 ] ; then
    exit 1
 fi
 
-
-# add pykml needed by qgis-plugin 'geopaparazzi'
-# wget -c --progress=dot:mega \
-#    "http://download.osgeo.org/livedvd/data/ossim/pykml_0.1.1-1_all.deb"
-# gdebi --non-interactive --quiet pykml_0.1.1-1_all.deb
-
-
-#Install optional packages that some plugins use
-# apt-get --assume-yes install python-psycopg2 \
-#    python-gdal python-matplotlib python-qt4-sql \
-#    libqt4-sql-psql python-qwt5-qt4 python-tk \
-#    python-sqlalchemy python-owslib python-shapely \
-#    python-qt4-phonon libqt4-sql-sqlite
-
-# Removed since R should be installed on its own script: python-rpy2
-
 # Install plugins
-# wget -c --progress=dot:mega \
-#    "http://download.osgeo.org/livedvd/data/qgis/python-qgis-osgeolive_10.0-1_all.deb"
-# dpkg -i python-qgis-osgeolive_10.0-1_all.deb
-# rm -rf python-qgis-osgeolive_10.0-1_all.deb
-
-#Install optional packages for workshops
-# apt-get --assume-yes install qt4-designer \
-#    pyqt4-dev-tools
-
-#Make sure old qt uim isn't installed
-# apt-get --assume-yes remove uim-qt uim-qt3
-
-# ###FIXME: Temp patch for #1466
-# wget -c --progress=dot:mega \
-#    "http://download.osgeo.org/livedvd/data/grass/grass7.tar.gz"
-# tar zxvf grass7.tar.gz
-# rm grass7.tar.gz
-# cp -r grass7/* /usr/share/qgis/python/plugins/processing/algs/grass7/
-# rm -rf grass7
+wget -c --progress=dot:mega \
+   "http://download.osgeo.org/livedvd/data/qgis/qgis3-osgeolive13-plugins.zip"
+unzip qgis3-osgeolive13-plugins.zip -d /
+rm -rf qgis3-osgeolive13-plugins.zip
 
 #### install desktop icon ####
 INSTALLED_VERSION=`dpkg -s qgis | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
