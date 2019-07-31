@@ -48,7 +48,8 @@ NAV_APPS="marble opencpn josm merkaartor osm_online
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapcache mapproxy-*
-              qgis-mapserver zoo-project 52n* eoxserver* ncWMS-* pycsw istsos pywps t-rex"
+              qgis-mapserver zoo-project 52n* eoxserver* ncWMS-* pycsw istsos
+              pywps t-rex actinia*"
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
