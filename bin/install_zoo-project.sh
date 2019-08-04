@@ -1,7 +1,7 @@
 #!/bin/sh
 # Copyright (c) 2010-2018 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -51,12 +51,14 @@ cd "$TMP_DIR"
 apt-get --assume-yes install zoo-kernel zoo-service-ogr \
 	zoo-service-status zoo-service-cgal zoo-service-otb zoo-api
 
+## o13 - obsolete, dot-zcfg has been updated
 # Patch OTB zcfg files as per ticket #1710
-cd /usr/lib/cgi-bin/OTB
-for i in BandMath Despeckle KMeansClassification; do
-   sed "s:mimeType = image/png:mimeType = image/png\nuseMapserver = true\nmsClassify = true:g" -i $i.zcfg
-done
-sed "s:mimeType = image/png:mimeType = image/png\nuseMapserver = true:g" -i Smoothing.zcfg
+#cd /usr/lib/cgi-bin/OTB
+#for i in BandMath Despeckle KMeansClassification; do
+#   sed "s:mimeType = image/png:mimeType = image/png\nuseMapserver = true\nmsClassify = true:g" -i $i.zcfg
+#done
+#sed "s:mimeType = image/png:mimeType = image/png\nuseMapserver = true:g" -i Smoothing.zcfg
+##---------------------------------------------
 
 # Download and setup ZOO Project demo files.
 cd "$TMP_DIR"
