@@ -116,7 +116,7 @@ cp "$BUILD_DIR"/../app-data/jupyter/R_spatial_introduction.ipynb \
    "$USER_HOME/jupyter/notebook_gallery/R/"
 
 ## -- add R sf Intro page -- minimal size embed
-cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/R_sf_module_on_OSGeoLive12.html \
+cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/*.html \
    "$USER_HOME/jupyter/notebook_gallery/R/"
 cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/sf_logo.gif \
    "$USER_HOME/jupyter/notebook_gallery/R/"
