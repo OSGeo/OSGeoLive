@@ -56,7 +56,7 @@ cp $QS_APACHE_CONF $APACHE_CONF_DIR
 a2enconf $QS_APACHE_CONF_FILE
 
 #Sample project
-ln -s /usr/local/share/qgis/QGIS-Itasca-Example.qgs /usr/lib/cgi-bin/
+ln -s /usr/local/share/qgis/QGIS-Itasca-Example.qgz /usr/lib/cgi-bin/
 
 #Unpack demo viewer
 mkdir -p "$PKG_DATA"
