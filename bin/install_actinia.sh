@@ -66,7 +66,7 @@ mkdir -p "$ACTINIA_HOME"/workspace/download_cache
 mkdir -p "$ACTINIA_HOME"/userdata
 
 apt-get -q update
-apt-get --assume-yes install python3-actinia-core redis-server gunicorn3
+apt-get --assume-yes install python3-actinia-core python3-actinia-statistic-plugin redis-server gunicorn3
 
 # copy actinia configuration
 cp "$BUILD_DIR/../app-conf/actinia/actinia.cfg" "$ACTINIA_CONF/actinia.cfg"
@@ -90,6 +90,7 @@ DEFAULT_CONFIG_PATH=/etc/actinia/actinia.cfg gunicorn3 -b 0.0.0.0:8088 -w 1 acti
 EOF
 
 chmod 755 $BIN/actinia_start.sh
+chmod -R 777 "$ACTINIA_HOME"
 
 echo 'Downloading actinia logo ...'
 wget -c --progress=dot:mega \
