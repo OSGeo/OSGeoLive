@@ -33,7 +33,7 @@ USER_HOME="/home/$USER_NAME"
 
 echo 'Installing pycsw ...'
 
-apt-get install --yes pycsw-wsgi pycsw-doc javascript-common
+apt-get install --yes pycsw pycsw-doc javascript-common
 
 echo 'Downloading pycsw logo ...'
 wget -c --progress=dot:mega \
