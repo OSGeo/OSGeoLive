@@ -68,6 +68,10 @@ mkdir -p "$ACTINIA_HOME"/userdata
 apt-get -q update
 apt-get --assume-yes install python3-actinia-core python3-actinia-statistic-plugin redis-server gunicorn3
 
+# Add default password for redis
+sed -i -e 's|# requirepass foobared|requirepass pass|' \
+    /etc/redis/redis.conf
+
 # copy actinia configuration
 cp "$BUILD_DIR/../app-conf/actinia/actinia.cfg" "$ACTINIA_CONF/actinia.cfg"
 
