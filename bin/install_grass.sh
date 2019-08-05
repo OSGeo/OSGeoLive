@@ -103,7 +103,7 @@ wget -c --progress=dot:mega \
 unzip -q "$FILE" -d /usr/local/share/grass/
 cd /usr/local/share/grass/
 chown -R root.users "$FOLDER_NAME"
-chmod -R a+rX "$FOLDER_NAME"
+chmod -R 0755 "$FOLDER_NAME"
 rm "$TMP_DIR"/*.zip
 
 #############
