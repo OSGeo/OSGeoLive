@@ -99,7 +99,7 @@ cp "$BUILD_DIR"/../app-data/jupyter/jupyter_start.sh \
    /usr/local/bin/
 chmod a+x /usr/local/bin/jupyter_start.sh
 
-# TODO: Test if these notebooks work fine 
+# TODO: Test if these notebooks work fine
 # mkdir -p "$USER_HOME/jupyter"
 # git clone https://github.com/OSGeo/OSGeoLive-Notebooks.git \
 #    "$USER_HOME/jupyter/notebooks"
@@ -107,10 +107,13 @@ chmod a+x /usr/local/bin/jupyter_start.sh
 
 cd "$BUILD_DIR"
 
-mkdir -p "$USER_HOME/jupyter/notebook_gallery/SciTools"
-cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
-   "$USER_HOME/jupyter/notebook_gallery/SciTools/"
+##-- o13 rm cartopy_simple ---------------------------------------
+#mkdir -p "$USER_HOME/jupyter/notebook_gallery/SciTools"
+#cp "$BUILD_DIR"/../app-data/jupyter/cartopy_simple.ipynb \
+#   "$USER_HOME/jupyter/notebook_gallery/SciTools/"
+##----------------------------------------------------------------
 
+##-- o13 R notebook sample ---------------------------------------
 mkdir -p "$USER_HOME/jupyter/notebook_gallery/R"
 cp "$BUILD_DIR"/../app-data/jupyter/R_spatial_introduction.ipynb \
    "$USER_HOME/jupyter/notebook_gallery/R/"
@@ -122,6 +125,14 @@ cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/sf_logo.gif \
    "$USER_HOME/jupyter/notebook_gallery/R/"
 cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/RConsortium.png \
    "$USER_HOME/jupyter/notebook_gallery/R/"
+
+##-- o13  copy tested content -dbb
+cd ${USER_HOME}/jupyter
+git clone https://git.osgeo.org/gitea/osgeolive/o13-Jupyter.git; cd o13-Jupyter
+BRS="Rasterio_py3 Geopandas_py3 Folium_py3 Pandas_py3 Fiona_py2 Rasdaman_py2 Cartopy_py2 Mapserver_py ipy55 Shapely_py2 Iris_py2"
+for br in ${BRS}; do git checkout $br; cp -R notebooks/* ../notebook_gallery/;done
+cd ${USER_HOME}/jupyter; rm -rf o13-Jupyter
+cd ${USER_HOME}
 
 ##--------------------------------------------
 cp -r /home/user/jupyter /etc/skel
