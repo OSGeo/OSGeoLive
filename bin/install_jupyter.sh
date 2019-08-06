@@ -131,7 +131,9 @@ wget -c --progress=dot:mega \
     -O OSGeoLive-Notebooks-13.x.zip \
     https://github.com/OSGeo/OSGeoLive-Notebooks/archive/13.x.zip
 unzip -o -q OSGeoLive-Notebooks-13.x.zip
+cd OSGeoLive-Notebooks-13.x
 cp -R notebooks/* ${USER_HOME}/jupyter/notebook_gallery/
+cd ..
 rm -rf OSGeoLive-Notebooks-13.x
 rm OSGeoLive-Notebooks-13.x.zip
 
