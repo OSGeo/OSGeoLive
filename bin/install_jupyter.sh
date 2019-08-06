@@ -81,7 +81,6 @@ su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
 
 #- cleanup
 cd ${USER_HOME}
-rm -rf ${JUPYTER_BUILD_DIR}
 apt-get remove --yes libssl-dev
 
 ##=============================================================
@@ -127,17 +126,21 @@ cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/RConsortium.png \
    "$USER_HOME/jupyter/notebook_gallery/R/"
 
 ##-- o13  copy tested content -dbb
-cd ${USER_HOME}/jupyter
-git clone https://git.osgeo.org/gitea/osgeolive/o13-Jupyter.git; cd o13-Jupyter
-BRS="Rasterio_py3 Geopandas_py3 Folium_py3 Pandas_py3 Fiona_py2 Rasdaman_py2 Cartopy_py2 Mapserver_py ipy55 Shapely_py2 Iris_py2"
-for br in ${BRS}; do git checkout $br; cp -R notebooks/* ../notebook_gallery/;done
-cd ${USER_HOME}/jupyter; rm -rf o13-Jupyter
-cd ${USER_HOME}
+cd ${JUPYTER_BUILD_DIR}
+wget -c --progress=dot:mega \
+    -O OSGeoLive-Notebooks-13.x.zip \
+    https://github.com/OSGeo/OSGeoLive-Notebooks/archive/13.x.zip
+unzip -o -q OSGeoLive-Notebooks-13.x.zip
+cp -R notebooks/* ${USER_HOME}/jupyter/notebook_gallery/
+rm -rf OSGeoLive-Notebooks-13.x
+rm OSGeoLive-Notebooks-13.x.zip
 
+cd "$BUILD_DIR"
+rm -rf ${JUPYTER_BUILD_DIR}
 ##--------------------------------------------
-cp -r /home/user/jupyter /etc/skel
+cp -r ${USER_HOME}/jupyter /etc/skel
 
-chown -R ${USER_NAME}:${USER_NAME} /home/user/jupyter
+chown -R ${USER_NAME}:${USER_NAME} ${USER_HOME}/jupyter
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
