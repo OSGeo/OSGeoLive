@@ -142,6 +142,7 @@ Plugin {
         VariantsList=,,,
         ToggleOpt=grp:shift_caps_toggle
         KeepSysLayouts=0
+        DisplayType=1
     }
 }
 
