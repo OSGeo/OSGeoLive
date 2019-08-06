@@ -69,7 +69,9 @@ wget -N --progress=dot:mega \
 tar xf examples-livedvd.tar.bz2
 cp -r zoo-demo /var/www/html/zoo-demo
 chmod -R 755 /var/www/html/zoo-demo
-cp zoo-demo/main.cfg /etc/zoo-project/
+# cp zoo-demo/main.cfg /etc/zoo-project/
+cp -f "$BUILD_DIR/../app-conf/zoo-project/main.cfg" \
+    /etc/zoo-project/
 
 # FIXME: Use another folder than /var/data See #1850
 mkdir -p /var/data
