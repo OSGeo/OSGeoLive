@@ -1,6 +1,20 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 13.0rc1
+====================
+
+ * Actinia 0.2.1 (new project)
+ * QGIS 3.4.10
+ * New artwork based on Bucharest map
+ * EOxServer 1.0-beta2
+ * Enhanced support for Python 3 libraries including new Jupyter notebooks.
+ * Disk space cleanup (#467)
+ * Added QGIS3 plugins
+ * Fixed pycsw tester app
+ * Fixed QGIS quickstart not finding GRASS data (#2085)
+ * Fixed ZOO WPS demo (#2144)
+
 Version 13.0beta3
 ====================
 
