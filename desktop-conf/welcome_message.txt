@@ -1,4 +1,4 @@
-Welcome to OSGeoLive 13.0beta.
+Welcome to OSGeoLive 13.0.
 
 
 See the life ring Help icon on the Desktop for information about the        
