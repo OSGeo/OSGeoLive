@@ -39,7 +39,7 @@ apt-get install --yes liblas-bin python-liblas liblas3
 echo 'Downloading demo data ...'
 mkdir -p /usr/local/share/data/las
 wget -c --progress=dot:mega \
-    "http://aiolos.survey.ntua.gr/gisvm/data/srs.las" \
+    "http://download.osgeo.org/livedvd/data/liblas/srs.las" \
     -O /usr/local/share/data/las/srs.las
 
 ####
