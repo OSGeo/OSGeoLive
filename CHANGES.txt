@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 13.0rc2
+====================
+
+ * Lubuntu 18.04.3
+ * VirtualBox 6.x issue fix (#2174)
+ * Documentation updates and new languages from Transifex.
+
 Version 13.0rc1
 ====================
 
