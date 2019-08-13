@@ -132,7 +132,7 @@ cd ~/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://cdimage.ubuntu.com"
 UBU_RELEASE="18.04"
-ISO_RELEASE="18.04.2"
+ISO_RELEASE="18.04.3"
 UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
    "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
@@ -205,7 +205,7 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd 4.18.0-15-generic
+sudo chroot edit mkinitramfs -c lzma -o /initrd 5.0.0-23-generic
 offset=$(binwalk ./edit/initrd -y lzma | grep 'LZMA' | awk '{ print $1; }')
 dd if=./edit/initrd bs=$offset skip=1 > initrd.lz
 dd if=./edit/initrd bs=1 count=$offset > initrd.micro
