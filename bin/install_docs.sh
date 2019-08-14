@@ -44,7 +44,7 @@ if [ "$BUILD_MODE" = "nightly" ] ; then
    apt-get update
 fi
 
-apt-get install --assume-yes osgeolive-docs javascript-common
+apt-get install --assume-yes osgeolive-docs javascript-common fonts-noto-cjk
 
 ln -s /usr/share/doc/osgeolive-docs/html $DEST/osgeolive
 
