@@ -1,6 +1,11 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 13.0rc3
+====================
+
+ * Fixed CJK fonts issue (#2175)
+
 Version 13.0rc2
 ====================
 
