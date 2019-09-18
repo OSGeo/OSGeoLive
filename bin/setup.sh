@@ -80,7 +80,7 @@ apt-get -q update
 
 # Install some useful stuff
 apt-get install --yes wget less zip unzip bzip2 p7zip \
-  git openssh-client lftp sl usbutils wireless-tools \
+  git openssh-client lftp usbutils wireless-tools \
   locate patch menu vim nano screen iotop xfonts-jmk \
   ghostscript htop units gdebi fslint xkb-data \
   xfonts-100dpi xfonts-75dpi zenity curl
