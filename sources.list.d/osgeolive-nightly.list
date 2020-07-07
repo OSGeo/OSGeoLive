@@ -1,5 +1,5 @@
 #OSGeoLive Release ppa
-deb http://ppa.launchpad.net/osgeolive/nightly/ubuntu bionic main
-#deb-src http://ppa.launchpad.net/osgeolive/nightly/ubuntu bionic main
+deb http://ppa.launchpad.net/osgeolive/nightly/ubuntu focal main
+#deb-src http://ppa.launchpad.net/osgeolive/nightly/ubuntu focal main
 #Staging ppa
-#deb http://ppa.launchpad.net/gcpp-kalxas/osgeolive/ubuntu bionic main
+#deb http://ppa.launchpad.net/gcpp-kalxas/osgeolive/ubuntu focal main
