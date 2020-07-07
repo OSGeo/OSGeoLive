@@ -29,6 +29,6 @@ apt-get -q update
 apt-get install --yes build-essential cmake pkg-config
 
 # Install OSGeo C stack libraries
-apt-get install --yes libgdal20 gdal-bin proj-bin libgeos-c1v5 geotiff-bin
+apt-get install --yes libgdal26 gdal-bin proj-bin libgeos-c1v5 geotiff-bin
 
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
