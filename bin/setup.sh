@@ -53,8 +53,8 @@ sed -i -e 's|\(APT::Periodic::Update-Package-Lists\) "1";|\1 "7";|' \
    /etc/apt/apt.conf.d/10periodic
 
 # Pin down kernel version
-echo "linux-image-generic-hwe-18.04 hold" | dpkg --set-selections
-echo "linux-signed-generic-hwe-18.04 hold" | dpkg --set-selections
+echo "linux-image-generic hold" | dpkg --set-selections
+#echo "linux-signed-generic-hwe-18.04 hold" | dpkg --set-selections
 
 # Install latest greatest security packages etc.
 apt-get -q update
