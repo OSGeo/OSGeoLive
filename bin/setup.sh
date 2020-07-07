@@ -54,7 +54,7 @@ sed -i -e 's|\(APT::Periodic::Update-Package-Lists\) "1";|\1 "7";|' \
 
 # Pin down kernel version
 echo "linux-image-generic hold" | dpkg --set-selections
-#echo "linux-signed-generic-hwe-18.04 hold" | dpkg --set-selections
+# echo "linux-signed-generic-hwe-18.04 hold" | dpkg --set-selections
 
 # Install latest greatest security packages etc.
 apt-get -q update
@@ -136,7 +136,7 @@ rm -fr "$USER_HOME"/Public
 rm -fr "$USER_HOME"/Templates
 rm -fr "$USER_HOME"/Videos
 # and don't come back now
-apt-get --assume-yes remove xdg-user-dirs
+# apt-get --assume-yes remove xdg-user-dirs
 
 # .. and remove any left-over package cruft
 apt-get --assume-yes autoremove
