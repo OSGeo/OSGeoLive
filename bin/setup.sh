@@ -82,7 +82,7 @@ apt-get -q update
 apt-get install --yes wget less zip unzip bzip2 p7zip \
   git openssh-client lftp usbutils wireless-tools \
   locate patch menu vim nano screen iotop xfonts-jmk \
-  ghostscript htop units gdebi fslint xkb-data \
+  ghostscript htop units gdebi xkb-data \
   xfonts-100dpi xfonts-75dpi zenity curl
 
 # removed from list:
