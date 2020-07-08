@@ -81,6 +81,7 @@ echo "Git branch: $GIT_BRANCH"
 
 DIR="/usr/local/share/gisvm/bin"
 GIT_DIR="/usr/local/share/gisvm"
+BUILD_HOME="/home/user"
 VERSION=`cat "$DIR"/../VERSION.txt`
 PACKAGE_NAME="osgeolive"
 cd "$GIT_DIR"
@@ -110,8 +111,8 @@ echo "==============================================================="
 
 #Some initial cleaning
 #  when run as root, ~ is /root/.
-rm -rf ~/livecdtmp/edit
-rm -rf ~/livecdtmp/lzfiles
+rm -rf "$BUILD_HOME"/livecdtmp/edit
+rm -rf "$BUILD_HOME"/livecdtmp/lzfiles
 
 echo
 echo "Installing build tools"
@@ -127,8 +128,8 @@ echo "====================================="
 
 #Stuff to be done the 1st time, should already be in place for additional builds
 #Download into an empty directory 
-mkdir -p ~/livecdtmp
-cd ~/livecdtmp
+mkdir -p "$BUILD_HOME"/livecdtmp
+cd "$BUILD_HOME"/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://cdimage.ubuntu.com"
 UBU_RELEASE="20.04"
@@ -175,10 +176,10 @@ echo "======================================"
 
 #NOW IN CHROOT
 #sudo chroot edit
-sudo cp "$DIR"/inchroot.sh ~/livecdtmp/edit/tmp/
-sudo cp "$DIR"/bootstrap.sh ~/livecdtmp/edit/tmp/
-sudo cp "$GIT_DIR"/VERSION.txt ~/livecdtmp/edit/tmp/
-sudo cp "$GIT_DIR"/CHANGES.txt ~/livecdtmp/edit/tmp/
+sudo cp "$DIR"/inchroot.sh "$BUILD_HOME"/livecdtmp/edit/tmp/
+sudo cp "$DIR"/bootstrap.sh "$BUILD_HOME"/livecdtmp/edit/tmp/
+sudo cp "$GIT_DIR"/VERSION.txt "$BUILD_HOME"/livecdtmp/edit/tmp/
+sudo cp "$GIT_DIR"/CHANGES.txt "$BUILD_HOME"/livecdtmp/edit/tmp/
 sudo chroot edit /bin/sh /tmp/inchroot.sh "$ARCH" "$BUILD_MODE" "$GIT_BRANCH" "$GIT_USER"
 
 #exit
@@ -186,7 +187,7 @@ sudo chroot edit /bin/sh /tmp/inchroot.sh "$ARCH" "$BUILD_MODE" "$GIT_BRANCH" "$
 echo
 echo "Finished chroot part"
 echo "======================================"
-cd ~/livecdtmp
+cd "$BUILD_HOME"/livecdtmp
 sudo umount edit/dev
 
 #Compress osgeolive build logs
@@ -301,7 +302,7 @@ printf $(sudo du -sx --block-size=1 edit | cut -f1) > \
 chmod -w extract-cd/casper/filesystem.size
 
 #this is now compressed in squashfs so we delete to save VM disk space
-cd ~/livecdtmp
+cd "$BUILD_HOME"/livecdtmp
 sudo rm -rf edit
 
 #Set an image name in extract-cd/README.diskdefines
@@ -339,7 +340,7 @@ echo
 echo "Cleaning up..."
 echo "======================================"
 #Clear things up and prepare for next build
-cd ~/livecdtmp
+cd "$BUILD_HOME"/livecdtmp
 sudo rm -rf extract-cd
 sudo umount mnt
 sudo rm -rf mnt
