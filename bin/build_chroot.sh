@@ -206,16 +206,21 @@ echo "======================================"
 
 #Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
-sudo chroot edit mkinitramfs -c lzma -o /initrd 5.4.0-26-generic
-offset=$(binwalk ./edit/initrd -y lzma | grep 'LZMA' | awk '{ print $1; }')
-dd if=./edit/initrd bs=$offset skip=1 > initrd.lz
+#Use mkinitramfs to extract the initrd from current chroot (with potential new kernel)
+#sudo chroot edit mkinitramfs -c lz4 -o /initrd 5.4.0-26-generic
+#or just copy the existing initrd if no change happened to the kernel version
+cp extract-cd/casper/initrd edit/initrd
+offset_multi=$(binwalk ./edit/initrd -y lz4 | grep 'LZ4' | awk '{ print $1; }')
+offset_array=($offset_multi)
+offset=${offset_array[0]}
+dd if=./edit/initrd bs=$offset skip=1 > initrd.lz4
 dd if=./edit/initrd bs=1 count=$offset > initrd.micro
 rm edit/initrd
 
 #continue
 mkdir lzfiles
 cd lzfiles
-lzma -dc -S .lz ../initrd.lz | cpio -imvd --no-absolute-filenames
+lz4 -dc ../initrd.lz4 | cpio -imvd --no-absolute-filenames
 
 #Perhaps not needed since this also happens in chroot part.
 cp ../../gisvm/desktop-conf/casper/casper.conf etc/casper.conf
@@ -256,13 +261,13 @@ sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeoLive ${VERSION_MODE}/g" \
 sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Bionic Beaver\"/OSGeoLive ${VERSION_MODE}/g" \
     ../extract-cd/.disk/info
 
-rm ../initrd.lz
+rm ../initrd.lz4
 find . | cpio --quiet --dereference -o -H newc | \
-   lzma -7 > ../initrd.lz
+   lz4 -z -9 > ../initrd.lz4
 
 cd ..
-cat initrd.micro initrd.lz > initrd
-rm initrd.micro initrd.lz
+cat initrd.micro initrd.lz4 > initrd
+rm initrd.micro initrd.lz4
 mv initrd extract-cd/casper/initrd
 
 
