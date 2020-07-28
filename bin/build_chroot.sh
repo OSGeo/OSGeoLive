@@ -209,40 +209,41 @@ echo "======================================"
 #Use mkinitramfs to extract the initrd from current chroot (with potential new kernel)
 #sudo chroot edit mkinitramfs -c lz4 -o /initrd 5.4.0-26-generic
 #or just copy the existing initrd if no change happened to the kernel version
-cp extract-cd/casper/initrd edit/initrd
-offset=$(binwalk ./edit/initrd -y lz4 | grep 'LZ4' | awk '{ print $1; }' | head -n1)
-dd if=./edit/initrd bs=$offset skip=1 > initrd.lz4
-dd if=./edit/initrd bs=1 count=$offset > initrd.micro
-rm edit/initrd
+# cp extract-cd/casper/initrd edit/initrd
+# offset=$(binwalk ./edit/initrd -y lz4 | grep 'LZ4' | awk '{ print $1; }' | head -n1)
+# dd if=./edit/initrd bs=$offset skip=1 > initrd.lz4
+# dd if=./edit/initrd bs=1 count=$offset > initrd.micro
+# rm edit/initrd
 
-#continue
 mkdir lzfiles
 cd lzfiles
-lz4 -dc ../initrd.lz4 | cpio -imvd --no-absolute-filenames
+cp ../extract-cd/casper/initrd .
+unmkinitramfs initrd .
+# lz4 -dc ../initrd.lz4 | cpio -imvd --no-absolute-filenames
 
 #Perhaps not needed since this also happens in chroot part.
-cp ../../gisvm/desktop-conf/casper/casper.conf etc/casper.conf
+cp ../../gisvm/desktop-conf/casper/casper.conf main/etc/casper.conf
 #cp ../../gisvm/desktop-conf/casper/27osgeo_groups scripts/casper-bottom/27osgeo_groups
 #cat << EOF >> scripts/casper-bottom/ORDER
 #/scripts/casper-bottom/27osgeo_groups
 #[ -e /conf/param.conf ] && ./conf/param.conf
 #EOF
 
-mv scripts/casper-bottom/25adduser scripts/casper-bottom/25adduser.ORIG
-cat scripts/casper-bottom/25adduser.ORIG \
+mv main/scripts/casper-bottom/25adduser main/scripts/casper-bottom/25adduser.ORIG
+cat main/scripts/casper-bottom/25adduser.ORIG \
     ../../gisvm/desktop-conf/casper/27osgeo_groups \
-  > scripts/casper-bottom/25adduser
-rm scripts/casper-bottom/25adduser.ORIG
-chmod a+x scripts/casper-bottom/25adduser
+  > main/scripts/casper-bottom/25adduser
+rm main/scripts/casper-bottom/25adduser.ORIG
+chmod a+x main/scripts/casper-bottom/25adduser
 
 
 #Replace the user password
-sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' scripts/casper-bottom/25adduser
+sed -i -e 's/U6aMy0wojraho/eLyJdzDtonrIc/g' main/scripts/casper-bottom/25adduser
 
 #Change the graphics on the lubuntu-logo plymouth loader both on lzfiles
 # and on edit folders
 cp ../../gisvm/desktop-conf/plymouth/lubuntu-logo/* \
-    usr/share/plymouth/themes/lubuntu-logo/
+    main/usr/share/plymouth/themes/lubuntu-logo/
 
 cp ../../gisvm/desktop-conf/plymouth/lubuntu-logo/* \
     ../edit/usr/share/plymouth/themes/lubuntu-logo/
@@ -250,7 +251,7 @@ cp ../../gisvm/desktop-conf/plymouth/lubuntu-logo/* \
 #Change the text on the lubuntu-text plymouth loader both on lzfiles
 # and on edit folders
 sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeoLive ${VERSION_MODE}/g" \
-    usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
+    main/usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 
 sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeoLive ${VERSION_MODE}/g" \
     ../edit/usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
@@ -259,14 +260,22 @@ sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeoLive ${VERSION_MODE}/g" \
 sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Bionic Beaver\"/OSGeoLive ${VERSION_MODE}/g" \
     ../extract-cd/.disk/info
 
-rm ../initrd.lz4
-find . | cpio --quiet --dereference -o -H newc | \
-   lz4 -z -9 > ../initrd.lz4
+# rm ../initrd.lz4
+# find . | cpio --quiet --dereference -o -H newc | \
+#    lz4 -z -9 > ../initrd.lz4
+
+touch myinitrd
+cd early
+find . -print0 | cpio --null --create --format=newc > ../myinitrd
+cd ../early2
+find kernel -print0 | cpio --null --create --format=newc >> ../myinitrd
+cd ../main
+find . | cpio --create --format=newc | lz4 -z -9 >> ../myinitrd
 
 cd ..
-cat initrd.micro initrd.lz4 > initrd
-rm initrd.micro initrd.lz4
-mv initrd extract-cd/casper/initrd
+# cat initrd.micro initrd.lz4 > initrd
+# rm initrd.micro initrd.lz4
+mv myinitrd extract-cd/casper/initrd
 
 
 echo
