@@ -210,9 +210,7 @@ echo "======================================"
 #sudo chroot edit mkinitramfs -c lz4 -o /initrd 5.4.0-26-generic
 #or just copy the existing initrd if no change happened to the kernel version
 cp extract-cd/casper/initrd edit/initrd
-offset_multi=$(binwalk ./edit/initrd -y lz4 | grep 'LZ4' | awk '{ print $1; }')
-offset_array=($offset_multi)
-offset=${offset_array[0]}
+offset=$(binwalk ./edit/initrd -y lz4 | grep 'LZ4' | awk '{ print $1; }' | head -n1)
 dd if=./edit/initrd bs=$offset skip=1 > initrd.lz4
 dd if=./edit/initrd bs=1 count=$offset > initrd.micro
 rm edit/initrd
