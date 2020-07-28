@@ -275,7 +275,7 @@ find . | cpio --create --format=newc | lz4 -z -9 >> ../myinitrd
 cd ..
 # cat initrd.micro initrd.lz4 > initrd
 # rm initrd.micro initrd.lz4
-mv myinitrd ../extract-cd/casper/initrd
+# mv myinitrd ../extract-cd/casper/initrd
 cd ..
 
 echo
