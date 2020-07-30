@@ -207,10 +207,11 @@ echo "======================================"
 #Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
 #Use mkinitramfs to extract the initrd from current chroot (with potential new kernel)
-#sudo chroot edit mkinitramfs -c lz4 -o /initrd 5.4.0-26-generic
+# sudo chroot edit mkinitramfs -c lz4 -o /initrd 5.4.0-26-generic
 #or just copy the existing initrd if no change happened to the kernel version
 # cp extract-cd/casper/initrd edit/initrd
-# offset=$(binwalk ./edit/initrd -y lz4 | grep 'LZ4' | awk '{ print $1; }' | head -n1)
+#offset at second LZ4 tag because the new packaging of initrd has 3 parts now
+# offset=$(binwalk ./edit/initrd -y lz4 | grep 'LZ4' | awk 'NR==2{ print $1; }')
 # dd if=./edit/initrd bs=$offset skip=1 > initrd.lz4
 # dd if=./edit/initrd bs=1 count=$offset > initrd.micro
 # rm edit/initrd
@@ -262,7 +263,7 @@ sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Bionic Beaver\"/OSGeoLive ${VERSION_MO
 
 # rm ../initrd.lz4
 # find . | cpio --quiet --dereference -o -H newc | \
-#    lz4 -z -9 > ../initrd.lz4
+#    lz4 -9 -l > ../initrd.lz4
 
 touch myinitrd
 cd early
@@ -278,6 +279,7 @@ find . | cpio --create --format=newc | lz4 -9 -l >> ../myinitrd
 cd ..
 # cat initrd.micro initrd.lz4 > initrd
 # rm initrd.micro initrd.lz4
+# mv initrd extract-cd/casper/initrd
 mv myinitrd ../extract-cd/casper/initrd
 cd ..
 
