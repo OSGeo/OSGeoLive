@@ -267,15 +267,18 @@ sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Bionic Beaver\"/OSGeoLive ${VERSION_MO
 touch myinitrd
 cd early
 find . -print0 | cpio --null --create --format=newc > ../myinitrd
+# find . -print0 | cpio -R 0:0 -o -H newc > ../myinitrd
 cd ../early2
 find kernel -print0 | cpio --null --create --format=newc >> ../myinitrd
+# find kernel -print0 | cpio -R 0:0 -o -H newc >> ../myinitrd
 cd ../main
-find . | cpio --create --format=newc | lz4 -z -9 >> ../myinitrd
+find . | cpio --create --format=newc | lz4 -9 -l >> ../myinitrd
+# find . | cpio -R 0:0 -o -H newc | lz4 -9 -l >> ../myinitrd
 
 cd ..
 # cat initrd.micro initrd.lz4 > initrd
 # rm initrd.micro initrd.lz4
-# mv myinitrd ../extract-cd/casper/initrd
+mv myinitrd ../extract-cd/casper/initrd
 cd ..
 
 echo
