@@ -40,7 +40,7 @@ apt-get install --yes python3-django
 apt-get install --yes python3-gdal python3-shapely python3-rasterio python3-rtree \
     python3-fiona python3-matplotlib python3-tk python3-geopandas \
     python3-netcdf4 python3-geojson python3-scipy python3-pandas \
-    python3-pyshp python3-descartes python3-geographiclib python3-kml \
+    python3-pyshp python3-descartes python3-geographiclib \
     python3-cartopy python3-seaborn python3-networkx python3-branca python3-pysal \
     python3-pygeoapi python3-mappyfile
 
