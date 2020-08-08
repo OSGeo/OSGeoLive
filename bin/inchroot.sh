@@ -8,7 +8,7 @@
 #	         Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2010-2019 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2020 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -121,7 +121,7 @@ export USER_NAME
 
 ### Base installers
 ./base_c.sh
-# ./base_python.sh
+./base_python.sh
 # ./base_java.sh
 # ./base_language.sh
 
