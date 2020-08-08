@@ -207,7 +207,7 @@ echo "======================================"
 #Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
 #Use mkinitramfs to extract the initrd from current chroot (with potential new kernel)
-# sudo chroot edit mkinitramfs -c lz4 -o /initrd 5.4.0-26-generic
+# sudo chroot edit mkinitramfs -c lz4 -o /initrd 5.4.0-42-generic
 #or just copy the existing initrd if no change happened to the kernel version
 # cp extract-cd/casper/initrd edit/initrd
 #offset at second LZ4 tag because the new packaging of initrd has 3 parts now
