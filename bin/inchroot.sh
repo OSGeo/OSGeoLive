@@ -204,6 +204,7 @@ export USER_NAME
 # ./install_cesium.sh
 # ./install_geoext.sh
 # ./install_rasdaman.sh
+./install_geostyler.sh
 
 ## Docs, Data and extras
 # ./load_gisdata.sh
