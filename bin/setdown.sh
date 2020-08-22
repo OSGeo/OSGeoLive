@@ -5,7 +5,7 @@
 # install scripts.
 #
 #############################################################################
-# Copyright (c) 2009-2019 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2020 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -38,7 +38,7 @@ VM="${PACKAGE_NAME}-$VERSION"
 # Add 'user' to needed groups
 #   GRPS="audio dialout fuse plugdev pulse staff tomcat7 users www-data vboxsf"
 #bad smelling hack to mitigate the effects of #1104's race condition
-GRPS="users tomcat8 www-data staff plugdev audio dialout pulse vboxsf"
+GRPS="users tomcat www-data staff plugdev audio dialout pulse vboxsf"
 
 ## Create systemd service for manage_user_groups.sh
 ## source: https://askubuntu.com/questions/814/how-to-run-scripts-on-start-up/719157#719157
@@ -230,31 +230,31 @@ if [ -e /etc/ssh/sshd_config ] ; then
 fi
 
 # Start tomcat to ensure all applications are deployed
-service tomcat8 start
+service tomcat9 start
 sleep 120
-service tomcat8 stop
+service tomcat9 stop
 
 # Disable auto-deploy to prevent applications to get removed after removing war files
 # TODO: Add some note to wiki for users that want to deploy their own tomcat applications
 sed -i -e 's/unpackWARs="true"/unpackWARs="false"/' -e 's/autoDeploy="true"/autoDeploy="false"/' \
-    /etc/tomcat8/server.xml
+    /etc/tomcat9/server.xml
 
 # Cleaning up war files to save disk space
-rm -f /var/lib/tomcat8/webapps/*.war
+rm -f /var/lib/tomcat9/webapps/*.war
 
 # Disabling default tomcat startup
 #update-rc.d -f tomcat7 remove
-systemctl disable tomcat8.service
+systemctl disable tomcat9.service
 
 if [ ! -e /etc/sudoers.d/tomcat ] ; then
    cat << EOF > /etc/sudoers.d/tomcat
-%users ALL=(root) NOPASSWD: /usr/sbin/service tomcat8 start,/usr/sbin/service tomcat8 stop,/usr/sbin/service tomcat8 status
+%users ALL=(root) NOPASSWD: /usr/sbin/service tomcat9 start,/usr/sbin/service tomcat9 stop,/usr/sbin/service tomcat9 status
 EOF
 fi
 chmod 440 /etc/sudoers.d/tomcat
 
 # #2084: Fix home path for exracted ncWMS
-sed -i -e 's|\$HOME/.ncWMS2|/usr/share/tomcat8/.ncWMS2|' /var/lib/tomcat8/webapps/ncWMS2/WEB-INF/web.xml
+sed -i -e 's|\$HOME/.ncWMS2|/usr/share/tomcat9/.ncWMS2|' /var/lib/tomcat9/webapps/ncWMS2/WEB-INF/web.xml
 
 # Switching to default IPv6
 rm /etc/gai.conf

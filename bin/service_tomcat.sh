@@ -1,10 +1,10 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will install tomcat 8
+# Purpose: This script will install tomcat 9
 #
 #############################################################################
-# Copyright (c) 2009-2019 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2020 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -21,14 +21,12 @@
 #
 # TODO:
 # =====
-# - introduce global variable TOMCAT_VERSION to have only one point to update
-#   on tomcat updates
 # - add start/stop to sudoers file to allow alternate VM users to launch 
 #   without password?
 #
 # To manually launch:
 # ===================
-# sudo /etc/init.d tomcat8 start
+# sudo service tomcat9 start
 #############################################################################
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -39,7 +37,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 
 
-apt-get install --yes tomcat8 tomcat8-admin
+apt-get install --yes tomcat9 tomcat9-admin
 
 #Add the following lines to <tomcat-users> in /etc/tomcat7/tomcat-users.xml
 #<role rolename="manager"/>
@@ -47,18 +45,18 @@ apt-get install --yes tomcat8 tomcat8-admin
 
 
 cp ../app-conf/tomcat/tomcat-users.xml \
-   /etc/tomcat8/tomcat-users.xml
+   /etc/tomcat9/tomcat-users.xml
 
-chown tomcat8:tomcat8 /etc/tomcat8/tomcat-users.xml
+chown tomcat:tomcat /etc/tomcat9/tomcat-users.xml
 
 # something screwed up with the ISO permissions:
-chgrp tomcat8 /usr/share/tomcat8/bin/*.sh
-adduser "$USER_NAME" tomcat8
+chgrp tomcat /usr/share/tomcat9/bin/*.sh
+adduser "$USER_NAME" tomcat
 
-service tomcat8 stop
+service tomcat9 stop
 
 # Assign 1GB of RAM to default tomcat
-sed -i -e 's|-Djava.awt.headless=true -XX:+UseConcMarkSweepGC|-Djava.awt.headless=true -Xmx1024m -XX:+UseConcMarkSweepGC|' /etc/default/tomcat8
+sed -i -e 's|-Djava.awt.headless=true|-Djava.awt.headless=true -Xmx1024m|' /etc/default/tomcat9
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
