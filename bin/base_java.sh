@@ -4,7 +4,7 @@
 # Purpose: This script will install Jave JRE and Java JDK
 #
 #############################################################################
-# Copyright (c) 2009-2019 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2020 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -22,6 +22,7 @@
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
+# NOTE: We have changed the java-common package in our ppa to point default-jdk to openjdk-8
 apt-get install --yes default-jdk default-jre
 
 apt-get install --yes gsfonts-x11 ttf-dejavu-extra
