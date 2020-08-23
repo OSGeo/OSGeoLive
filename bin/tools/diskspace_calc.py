@@ -171,14 +171,14 @@ try:
     
     def autolabel(rects):
     # attach some text labels
-    for ii,rect in enumerate(rects):
-        height = rect.get_height()
-        if du_list[ii] >= 0:
-            plt.text(rect.get_x()+rect.get_width()/2., 1.02*height, '%s'% (str(du_list[ii])),
-                    ha='center', va='bottom')
-        else:
-            plt.text(rect.get_x()+rect.get_width()/2., 5, '%s'% (str(du_list[ii])),
-                    ha='center', va='bottom')
+        for ii,rect in enumerate(rects):
+            height = rect.get_height()
+            if du_list[ii] >= 0:
+                plt.text(rect.get_x()+rect.get_width()/2., 1.02*height, '%s'% (str(du_list[ii])),
+                        ha='center', va='bottom')
+            else:
+                plt.text(rect.get_x()+rect.get_width()/2., 5, '%s'% (str(du_list[ii])),
+                        ha='center', va='bottom')
     
     autolabel(rects1)
     ax.set_ylabel('Size in MBs')
