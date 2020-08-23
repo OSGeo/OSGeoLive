@@ -36,7 +36,7 @@ if ((len(sys.argv) < 6) or (len(sys.argv)> 7)):
 sort=False
 try:
     if sys.argv[6] == "--sort":
-    sort=True
+        sort=True
 except:
     pass
 
@@ -67,25 +67,25 @@ dt_list=[]
 for dline,tline in zip(du_lines,tmp_lines):
     i=i+1
     if i==1:
-    continue
+        continue
     elif i==2:
-    tmp_d=re.split(' |,',dline)
-    tmp_t=re.split('\s+|,',tline)
-    try:
-        current_df = int(tmp_d[5])
-        current_df_script = tmp_d[2]
-        current_date = tmp_d[9]+"T"+tmp_d[10]
-    except ValueError:
-        current_df = 0
-        current_df_script = ""
-        current_date = ""
-    try:
-        current_tmp = int(tmp_t[3])
-        current_tmp_script = tmp_t[2]
-    except ValueError:
-        current_tmp = 0
-        current_tmp_script = ""
-    continue
+        tmp_d=re.split(' |,',dline)
+        tmp_t=re.split('\s+|,',tline)
+        try:
+            current_df = int(tmp_d[5])
+            current_df_script = tmp_d[2]
+            current_date = tmp_d[9]+"T"+tmp_d[10]
+        except ValueError:
+            current_df = 0
+            current_df_script = ""
+            current_date = ""
+        try:
+            current_tmp = int(tmp_t[3])
+            current_tmp_script = tmp_t[2]
+        except ValueError:
+            current_tmp = 0
+            current_tmp_script = ""
+        continue
     
     tmp_d=re.split(' |,',dline)
     tmp_t=re.split('\s+|,',tline)
@@ -175,10 +175,10 @@ try:
         height = rect.get_height()
         if du_list[ii] >= 0:
             plt.text(rect.get_x()+rect.get_width()/2., 1.02*height, '%s'% (str(du_list[ii])),
-              ha='center', va='bottom')
+                    ha='center', va='bottom')
         else:
             plt.text(rect.get_x()+rect.get_width()/2., 5, '%s'% (str(du_list[ii])),
-              ha='center', va='bottom')
+                    ha='center', va='bottom')
     
     autolabel(rects1)
     ax.set_ylabel('Size in MBs')
