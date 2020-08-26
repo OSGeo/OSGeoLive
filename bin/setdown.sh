@@ -230,6 +230,7 @@ if [ -e /etc/ssh/sshd_config ] ; then
 fi
 
 # Start tomcat to ensure all applications are deployed
+# FIXME: systemctl and service are not available in chroot.
 service tomcat9 start
 sleep 120
 service tomcat9 stop

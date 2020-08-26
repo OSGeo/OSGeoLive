@@ -53,10 +53,12 @@ chown tomcat:tomcat /etc/tomcat9/tomcat-users.xml
 chgrp tomcat /usr/share/tomcat9/bin/*.sh
 adduser "$USER_NAME" tomcat
 
-service tomcat9 stop
+# systemctl or service are not available anymore in chroot
+# service tomcat9 stop
 
-# Assign 1GB of RAM to default tomcat
-sed -i -e 's|-Djava.awt.headless=true|-Djava.awt.headless=true -Xmx1024m|' /etc/default/tomcat9
+# Assign 1GB of RAM to default tomcat. Use -XX:+UseG1GC with Java 8.
+sed -i -e 's|-Djava.awt.headless=true|-Djava.awt.headless=true -XX:+UseG1GC -Xmx1024m|' /etc/default/tomcat9
+sed -i -e 's|-Djava.awt.headless=true|-Djava.awt.headless=true -XX:+UseG1GC -Xmx1024m|' /lib/systemd/system/tomcat9.service
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
