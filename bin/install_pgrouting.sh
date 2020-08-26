@@ -45,8 +45,11 @@ OSM_DB="pgrouting"
 
 apt-get update -qq
 
+# Get the postgres version that is installed
+PG_VERSION=$(grep -Po '(?<=PG_VERSION=)[^;]+' service_postgresql.sh)
+
 # Install pgRouting packages
-apt-get install -y -qq postgresql-12-pgrouting
+apt-get install -y -qq postgresql-${PG_VERSION}-pgrouting
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: pgRouting Package install failed! Aborting.'
@@ -89,9 +92,10 @@ else
 	    -host localhost \
 	    -clean \
 	  > pgrouting_import.log
-
-	sudo -u "$USER_NAME" psql  -c "DROP database ""$OSM_DB"
 fi
+
+# Drop the created database
+sudo -u "$USER_NAME" psql  -c "DROP database ""$OSM_DB"
 
 
 ####
