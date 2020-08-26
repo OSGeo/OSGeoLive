@@ -43,11 +43,6 @@ TMP="/tmp/build_pgrouting"
 OSM_FILE="/usr/local/share/data/osm/feature_city.osm.bz2"
 OSM_DB="pgrouting"
 
-# Add pgRouting launchpad repository
-# TODO: switch from "unstable" to "stable" when repository is updated
-
-# TODO: Remove third party PPAs
-#add-apt-repository -y ppa:georepublic/pgrouting
 apt-get update -qq
 
 # Install pgRouting packages
@@ -60,10 +55,6 @@ fi
 
 # Install osm2pgrouting package
 apt-get install -y -qq osm2pgrouting
-
-# Install workshop material
-# TODO: not packaged yet
-#apt-get install -y -qq pgrouting-workshop
 
 # Create tmp folders
 mkdir -p "$TMP" && cd "$TMP"
@@ -99,38 +90,9 @@ else
 	    -clean \
 	  > pgrouting_import.log
 
-	#sudo -u "$USER_NAME" psql "$OSM_DB" -c "VACUUM ANALYZE;"
 	sudo -u "$USER_NAME" psql  -c "DROP database ""$OSM_DB"
 fi
 
-# NOTE: the following is going to change with the updated workshop
-#### recenter the workshop demo on the OSM_local database
-#LONG_LAT="-1.147 52.954"   # Nottingham CBD
-
-#GOOG_SMERC="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 \
-#   +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs"
-
-# reproject lat/long to Google's funny smerc (epsg:900913)
-#EN=`echo "$LONG_LAT" | cs2cs +proj=longlat +datum=WGS84 +to $GOOG_SMERC | awk '{printf("%.0f, %.0f", $1, $2)}'`
-
-# set as 'center: [x, y],' in OpenLayers demo
-#sed -i -e "s|center: \[.*\]|center: \[$EN\]|" \
-#       -e 's|zoom: 12,|zoom: 14,|' \
-#  /usr/share/pgrouting/workshop/web/routing-*.html
-
-# adjust DB and user name in workshop example
-#sed -i -e 's|"routing"|"pgrouting"|' \
-#       -e 's|"postgres"|"user"|' \
-#  /usr/share/pgrouting/workshop/web/php/pgrouting.php
-
-# symlink it into a served dir so the php will run
-#ln -s /usr/share/pgrouting/workshop/web /var/www/html/pgrouting
-
-# to get the routing-final.html demo working you'll still need to set
-# the IPv4 host pgsql permissions to 'trust' in pg_hpa.conf. but we
-# don't want to do that by default.
-
-#add-apt-repository -y --remove ppa:georepublic/pgrouting
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
