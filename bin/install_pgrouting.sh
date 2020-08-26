@@ -4,6 +4,7 @@
 # Purpose: Installation of pgRouting on Ubuntu 11.04
 # Authors: Anton Patrushev <anton@georepublic.de>
 #          Daniel Kastl <daniel@georepublic.de>
+#          Vicky Vergara <vicky@georepublic.de>
 #
 # Copyright (c) 2011-2020 Open Source Geospatial Foundation (OSGeo) and others.
 # Licensed under the GNU LGPL version >= 2.1.
@@ -24,7 +25,6 @@
 # This script will install the following software
 #       - pgRouting library
 #       - osm2pgrouting converter
-#       - pgRouting workshop
 #
 # NOTE: To make use of OSM sample data "install_osm.sh" should be run first
 #       Import of OSM sample data and converter can take some time
