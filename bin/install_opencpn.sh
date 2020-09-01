@@ -7,7 +7,7 @@
 # OpenCPN license: GPLv2
 #
 #############################################################################
-# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2020 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # This script is free software; you can redistribute it and/or modify it
@@ -42,7 +42,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-apt-get --assume-yes install gpsd gpsd-clients python-gps opencpn
+apt-get --assume-yes install gpsd gpsd-clients python3-gps opencpn
 
 TMP_DIR=/tmp/build_opencpn
 
