@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2010-2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2010-2020 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -14,7 +14,7 @@
 
 # About:
 # =====
-# This script will install the zyGrib viewer (1.4mb installed)
+# This script will install the xyGrib viewer (1.4mb installed)
 
 ./diskspace_probe.sh "`basename $0`" begin
 ####
@@ -25,7 +25,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-apt-get --assume-yes install zygrib
+apt-get --assume-yes install xygrib
 
 # zygrib-maps package is 170mb (contains NOAA's GSHHS coastline)
 rm /usr/share/maps/gshhs/gshhs_0.rim
@@ -33,11 +33,11 @@ rm /usr/share/maps/gshhs/gshhs_1.rim
 rm /usr/share/maps/gshhs/wdb_rivers_f.b
 
 # copy icon to Desktop
-cp /usr/share/applications/zygrib.desktop \
-   "$USER_HOME/Desktop/zygrib.desktop"
+cp /usr/share/applications/xygrib.desktop \
+   "$USER_HOME/Desktop/xygrib.desktop"
 
 # de-uppercase the executable
-ln -s /usr/bin/zyGrib /usr/local/bin/zygrib
+ln -s /usr/bin/XyGrib /usr/local/bin/xygrib
 
 
 ####
