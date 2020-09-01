@@ -4,7 +4,7 @@
 # Purpose: This script will install GRASS GIS 7
 #
 #############################################################################
-# Copyright (c) 2014-2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2014-2020 The Open Source Geospatial Foundation and others.
 # Author: H.Bowman <hamish_b  yahoo com>
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -56,11 +56,11 @@ mkdir "$TMP_DIR"
 apt-get --quiet update
 apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal-grass
 
-cp /usr/share/applications/grass76.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass76.desktop"
+cp /usr/share/applications/grass78.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass78.desktop"
 
-cp /usr/share/applications/grass76.desktop \
-  /usr/local/share/applications/osgeo-grass76.desktop
+cp /usr/share/applications/grass78.desktop \
+  /usr/local/share/applications/osgeo-grass78.desktop
 
 #### get sample data ####
 
