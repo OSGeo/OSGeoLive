@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2020 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -48,7 +48,7 @@ mkdir "$TMP_DIR"
 cd "$TMP_DIR"
 
 # Install MapServer and its php, python bindings.
-apt-get install --yes cgi-mapserver mapserver-bin python-mapscript
+apt-get install --yes cgi-mapserver mapserver-bin python3-mapscript
 # PHP 7.x not yet supported on MapServer 7.x
 # apt-get install --yes php-mapscript
 
