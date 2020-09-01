@@ -4,7 +4,7 @@
 # Purpose: This script will install some OpenStreetMap utilities
 #
 #############################################################################
-# Copyright (c) 2009-2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2020 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # This script is free software; you can redistribute it and/or modify it
@@ -42,7 +42,7 @@ cd "$TMP_DIR"
 mkdir /usr/local/share/osm
 
 apt-get install --assume-yes josm gpsd gpsd-clients \
-   xmlstarlet imposm osmosis python-osmapi \
+   xmlstarlet osmosis python3-osmapi \
    osmctools osmium-tool nik4
 
 
