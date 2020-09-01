@@ -188,7 +188,7 @@ if [ $SOS_DB_EXISTS -gt 0 ] ; then
 fi
 #
 echo "[$(date +%M:%S)]: Create SOS db"
-su $PG_USER -c "PGOPTIONS='$PG_OPTIONS' createdb --owner=$USER_NAME $PG_DB_NAME"
+su $PG_USER -c "PGOPTIONS='$PG_OPTIONS' createdb --owner=$PG_USER $PG_DB_NAME"
 su $PG_USER -c "PGOPTIONS='$PG_OPTIONS' psql $PG_DB_NAME -c 'create extension postgis;'"
 # su $PG_USER -c "PGOPTIONS='$PG_OPTIONS' psql $PG_DB_NAME -c 'create extension postgis_topology;'"
 echo "[$(date +%M:%S)]: DB $PG_DB_NAME created"
