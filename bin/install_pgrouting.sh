@@ -5,7 +5,7 @@
 # Authors: Anton Patrushev <anton@georepublic.de>
 #          Daniel Kastl <daniel@georepublic.de>
 #
-# Copyright (c) 2011-2019 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2011-2020 Open Source Geospatial Foundation (OSGeo) and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -51,7 +51,7 @@ OSM_DB="pgrouting"
 apt-get update -qq
 
 # Install pgRouting packages
-apt-get install -y -qq postgresql-10-pgrouting
+apt-get install -y -qq postgresql-12-pgrouting
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: pgRouting Package install failed! Aborting.'
