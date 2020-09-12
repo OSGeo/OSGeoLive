@@ -6,7 +6,7 @@
 #          Brian M Hamlin <maplabs@light42.com>
 #
 #################################################
-# Copyright (c) 2010-2019 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2020 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 GeofemEngineering
 #
 # Licensed under the GNU LGPL.
@@ -61,7 +61,7 @@ if [ $? -ne 0 ] ; then
 fi
 
 # Required for QGIS plugins - Switching to apt above
-apt-get --assume-yes install python-rpy2 r-cran-rcolorbrewer
+# apt-get --assume-yes install python-rpy2 r-cran-rcolorbrewer
 
 
 ##================================================================
@@ -74,7 +74,8 @@ apt-get --assume-yes install python-rpy2 r-cran-rcolorbrewer
 #  r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
 #  r-cran-splancs r-cran-rgeos r-cran-ncdf4 r-cran-rsaga r-cran-rgrass7
 
-apt-get --assume-yes install r-cran-sp
+apt-get --assume-yes install r-cran-sp r-cran-rpostgresql r-cran-udunits2 \
+  r-cran-ggplot2 r-cran-sf r-cran-lwgeom r-cran-spdata r-cran-rgdal r-cran-maptools
 
 ##  -- jupyter hacks --
 ##
@@ -88,27 +89,27 @@ apt-get --assume-yes install r-cran-sp
 # ref-
 #   https://askubuntu.com/questions/834075/implications-of-manually-adding-a-user-to-the-staff-group
 #
-adduser "$USER_NAME" staff
+# adduser "$USER_NAME" staff
 
 
 ## 12dev beta1  -- install R geo module sf  -dbb  ------------------------------------
 
 #apt install r-cran-spdata --yes
-apt-get install --yes r-cran-rpostgresql     ## installs only in /usr/lib/R ; links to libpq
-apt-get install --yes libudunits2-dev
-apt-get install --yes gfortran
-su - -c "R -e \"install.packages('udunits2')\""
-su - -c "R -e \"install.packages('ggplot2')\""
-su - -c "R -e \"install.packages('sf', repos='http://cran.rstudio.com/')\""
-su - -c "R -e \"install.packages('lwgeom', repos='http://cran.rstudio.com/')\""
-su - -c "R -e \"install.packages('wkb', repos='http://cran.rstudio.com/')\""
+# apt-get install --yes r-cran-rpostgresql     ## installs only in /usr/lib/R ; links to libpq
+# apt-get install --yes libudunits2-dev
+# apt-get install --yes gfortran
+# su - -c "R -e \"install.packages('udunits2')\""
+# su - -c "R -e \"install.packages('ggplot2')\""
+# su - -c "R -e \"install.packages('sf', repos='http://cran.rstudio.com/')\""
+# su - -c "R -e \"install.packages('lwgeom', repos='http://cran.rstudio.com/')\""
+# su - -c "R -e \"install.packages('wkb', repos='http://cran.rstudio.com/')\""
 
 ## development ggplot2 per Bakaniko - not yet tested - 28jul18
 # devtools::install_github("tidyverse/ggplot2")
 
 ## cleanup
 
-apt-get --yes remove gfortran
+# apt-get --yes remove gfortran
 ##-----------------------------------------------------------------------------
 
 
@@ -154,15 +155,15 @@ chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 
 
 ### install R package containing sids.shp needed for postgis quickstart
-Rscript -e "install.packages('spData')"
+# Rscript -e "install.packages('spData')"
 
 # link sample data to central location
 mkdir -p /usr/local/share/data/vector/R
-ln -s /usr/local/lib/R/site-library/spData/shapes \
+ln -s /usr/lib/R/site-library/spData/shapes \
        /usr/local/share/data/vector/R/shapes
 
 ##-- disk space v12
-rm /usr/local/lib/R/site-library/Rcpp/doc/Rcpp-introduction.pdf
+# rm /usr/lib/R/site-library/Rcpp/doc/Rcpp-introduction.pdf
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
