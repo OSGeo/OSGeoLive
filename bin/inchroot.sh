@@ -158,7 +158,7 @@ export USER_NAME
 ./install_PDAL.sh
 
 ## Python stack
-# ./install_mapproxy.sh
+./install_mapproxy.sh
 # ./install_pycsw.sh
 # ./install_pywps.sh
 # ./install_eoxserver.sh
