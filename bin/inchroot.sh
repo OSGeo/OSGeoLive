@@ -168,10 +168,10 @@ export USER_NAME
 # ./install_actinia.sh
 
 ## R stack
-# ./install_R.sh
+./install_R.sh
 
 ## Jupyter
-# ./install_jupyter.sh
+./install_jupyter.sh
 
 ## Java stack
 # ./install_geoserver.sh
