@@ -159,8 +159,8 @@ export USER_NAME
 
 ## Python stack
 ./install_mapproxy.sh
-# ./install_pycsw.sh
-# ./install_pywps.sh
+./install_pycsw.sh
+./install_pywps.sh
 # ./install_eoxserver.sh
 # ./install_iris.sh
 # ./install_istsos.sh
