@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013-2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2013-2020 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -32,12 +32,12 @@ cd ${JUPYTER_BUILD_DIR}
 
 # Install jupyter notebook
 apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert \
-  python-ipykernel python-nbformat python-ipywidgets python3-ipywidgets
+  python3-ipykernel python3-nbformat python3-ipywidgets
 
 # 12dev -- note ticket #1965 for trial log
 
-# ipython CLI as well
-apt-get install --assume-yes ipython
+# ipython CLI and R kernel as well
+apt-get install --assume-yes ipython3 r-cran-irkernel
 
 
 ##=============================================================
@@ -47,18 +47,18 @@ apt-get install --assume-yes ipython
 ##--  IRKernel via github (assumes R core)
 ##--   v13  IRKernel is on cran
 
-su - -c "R -e \"install.packages('pbdZMQ')\""
-su - -c "R -e \"install.packages('uuid')\""
-su - -c "R -e \"install.packages('digest')\""
+# su - -c "R -e \"install.packages('pbdZMQ')\""
+# su - -c "R -e \"install.packages('uuid')\""
+# su - -c "R -e \"install.packages('digest')\""
 
-su - -c "R -e \"install.packages('repr')\""
-su - -c "R -e \"install.packages('evaluate')\""
-su - -c "R -e \"install.packages('crayon')\""
+# su - -c "R -e \"install.packages('repr')\""
+# su - -c "R -e \"install.packages('evaluate')\""
+# su - -c "R -e \"install.packages('crayon')\""
 
-su - -c "R -e \"install.packages('IRdisplay')\""
+# su - -c "R -e \"install.packages('IRdisplay')\""
 
-apt-get install --assume-yes libssl-dev openssl
-su - -c "R -e \"install.packages('devtools')\""
+# apt-get install --assume-yes libssl-dev openssl
+# su - -c "R -e \"install.packages('devtools')\""
 
 ## Install method minus-one -- pull directly from Github dot com
 #su - -c "R -e \"devtools::install_github('IRkernel/IRkernel')\""
@@ -74,14 +74,14 @@ su - -c "R -e \"install.packages('devtools')\""
 ## IRkernel    master  1.0.0     0.8.15
 ## commit 79baf3f1cf3438e8c8b739a3fdab545f4e3cc906
 ##  install.package('IRkernel/IRkernel')
-su - -c "R -e \"install.packages('IRkernel')\""
+# su - -c "R -e \"install.packages('IRkernel')\""
 
 ## global kernel
-su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
+# su - -c "R -e \"IRkernel::installspec(user = FALSE)\""
 
 #- cleanup
-cd ${USER_HOME}
-apt-get remove --yes libssl-dev
+# cd ${USER_HOME}
+# apt-get remove --yes libssl-dev
 
 ##=============================================================
 
