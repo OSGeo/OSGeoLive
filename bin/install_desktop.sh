@@ -6,7 +6,7 @@
 # The menu creation and icon sorting has moved to install_icons_and_menus.sh
 #
 #############################################################################
-# Copyright (c) 2009-2019 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2020 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #

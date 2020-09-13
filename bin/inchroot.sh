@@ -211,7 +211,7 @@ export USER_NAME
 # ./install_edutools.sh
 
 ## Desktop and Housekeeping
-# ./install_desktop.sh
+./install_desktop.sh
 # ./install_icons_and_menus.sh
 ./setdown.sh
 
