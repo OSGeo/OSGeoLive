@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2020 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -27,7 +27,7 @@ USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_tegola"
 BIN="/usr/local/bin"
-TEGOLA_VERSION="v0.9.0"
+TEGOLA_VERSION="v0.12.1"
 
 apt-get install --yes golang-go
 
