@@ -72,10 +72,7 @@ mv *jar "$USER_HOME"/.josm/plugins/
 chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
 
 #### desktop icons
-echo "MimeType=application/x-openstreetmap+xml;" \
-   >> /usr/share/applications/josm.desktop
-echo '#!/usr/bin/env xdg-open' > "$USER_HOME"/Desktop/josm.desktop
-cat /usr/share/applications/josm.desktop >> "$USER_HOME"/Desktop/josm.desktop
+cp /usr/share/applications/org.openstreetmap.josm.desktop "$USER_HOME"/Desktop/josm.desktop
 chmod a+x "$USER_HOME"/Desktop/josm.desktop
 
 # add an icon for viewing The Map online
