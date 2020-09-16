@@ -29,7 +29,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 apt-get -q update
-apt-get --assume-yes install saga libsaga
+apt-get --assume-yes install saga
 
 # Additional documentation
 mkdir -p /usr/local/share/data/saga
