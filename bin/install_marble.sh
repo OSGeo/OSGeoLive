@@ -34,28 +34,8 @@ USER_HOME="/home/$USER_NAME"
 
 apt-get install --yes marble-qt marble-data marble-plugins
 
-# install icon
-mkdir -p /usr/local/share/icons/
-cp -f "$USER_HOME/gisvm/app-conf/marble/marble_logo.png" \
-       /usr/local/share/icons/
-
-# create .desktop file
-mkdir -p /usr/local/share/applications
-if [ ! -e /usr/local/share/applications/marble.desktop ] ; then
-   cat << EOF > /usr/local/share/applications/marble.desktop
-[Desktop Entry]
-Type=Application
-Encoding=UTF-8
-Name=Marble
-Comment=Marble-Qt
-Categories=Education;Science;Geoscience;
-Exec=marble-qt
-Icon=/usr/local/share/icons/marble_logo.png
-Terminal=false
-EOF
-fi
-
-cp -v /usr/local/share/applications/marble.desktop "$USER_HOME/Desktop/"
+# copy .desktop file
+cp -v /usr/share/applications/marble_geojson.desktop "$USER_HOME/Desktop/marble.desktop"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/marble.desktop"
 
 ##-- save 5.5M by removing the unbuilt docbook docs; could change
