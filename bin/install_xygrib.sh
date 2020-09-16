@@ -28,9 +28,9 @@ USER_HOME="/home/$USER_NAME"
 apt-get --assume-yes install xygrib
 
 # zygrib-maps package is 170mb (contains NOAA's GSHHS coastline)
-rm /usr/share/maps/gshhs/gshhs_0.rim
-rm /usr/share/maps/gshhs/gshhs_1.rim
-rm /usr/share/maps/gshhs/wdb_rivers_f.b
+# rm /usr/share/maps/gshhs/gshhs_0.rim
+# rm /usr/share/maps/gshhs/gshhs_1.rim
+# rm /usr/share/maps/gshhs/wdb_rivers_f.b
 
 # copy icon to Desktop
 cp /usr/share/applications/xygrib.desktop \
