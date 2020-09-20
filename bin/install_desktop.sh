@@ -35,11 +35,6 @@ USER_HOME="/home/$USER_NAME"
 cp ../desktop-conf/passwords.txt "$USER_HOME/Desktop/"
 chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 
-# Download the desktop background image
-# wget -N --tries=3 --progress=dot:mega \
-#     "http://download.osgeo.org/livedvd/10.0/desktop10_osmF32.png" \
-#     -O "/usr/share/lubuntu/wallpapers/osgeo-desktop.png"
-
 # Setup the default desktop background image
 cp ../desktop-conf/osgeo-desktop.png \
     /usr/share/lubuntu/wallpapers/
@@ -48,31 +43,31 @@ cp ../desktop-conf/osgeo-desktop-transparent.png \
    /usr/share/lubuntu/wallpapers/
 
 ### set the desktop background, turn on keyboard layout select control
-sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
-       -e 's|^keyboard=0$|keyboard=1|' \
-    /etc/xdg/lubuntu/lxdm/lxdm.conf
+# sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
+#        -e 's|^keyboard=0$|keyboard=1|' \
+#     /etc/xdg/lubuntu/lxdm/lxdm.conf
 
 # Actually, I think this is the one which really does it:
-sed -i -e 's|^wallpaper_mode=.*|wallpaper_mode=stretch|' \
-       -e 's|^wallpaper=.*|wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
-       -e 's|^desktop_bg=.*|desktop_bg=#000000|' \
-       -e 's|^desktop_fg=.*|desktop_fg=#FFFFFF|' \
-       -e 's|^show_trash=.*|show_trash=0|' \
-   /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
+sed -i -e 's|^DesktopShortcuts=.*|DesktopShortcuts=Home, Trash|' \
+       -e 's|^WallpaperMode=.*|WallpaperMode=stretch|' \
+       -e 's|^Wallpaper=.*|Wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
+       -e 's|^BgColor=.*|BgColor=#000000|' \
+       -e 's|^FgColor=.*|FgColor=#ffffff|' \
+       -e 's|^ShadowColor=.*|ShadowColor=#000000|' \
+       -e 's|^UseTrash=.*|UseTrash=true|' \
+   /etc/xdg/xdg-Lubuntu/pcmanfm-qt/lxqt/settings.conf
 
 ## Desktop shadow configuration ^^
 ##        -e 's|^desktop_shadow=.*|desktop_shadow=#A09A8F|' \
 
 ## Removed this for xenial: -e 's|^desktop_shadow=.*|desktop_shadow=.*\nshow_mounts=1|' \
 
-echo "desktop_folder_new_win=1" >> /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
+# echo "desktop_folder_new_win=1" >> /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
 
-# New way to set login screen background as of 12.04 that uses lightdm instead of gdm
-#  (awaiting graphic with text overlay explaining what the user name and password is)
-# Update: The contents of this file are commented out... we need to find where this gets set.
-sed -i -e 's|^background=.*|background=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
-   /etc/lightdm/lightdm-gtk-greeter.conf
+# New way to set login screen background as of 20.04 that uses sddm instead of lightdm
+sed -i -e 's|^background=.*|background=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
+   /usr/share/sddm/themeas/lubuntu/theme.conf
 
 #Done:support for headless installs with or without user existing, preference for png
 #Only works if user is not logged into XFCE session
@@ -132,7 +127,7 @@ chown "$USER_NAME.$USER_NAME" \
 
 
 ##### Setup Automatic or Timed Login #####
-echo "TODO: update autologin preferences for lightdm."
+# echo "TODO: update autologin preferences for lightdm."
 #cp "$BUILD_DIR"/../desktop-conf/custom.conf /etc/gdm/custom.conf
 
 
@@ -183,7 +178,7 @@ cp /usr/local/share/osgeo-desktop/welcome_message.txt /etc/skel/
 
 
 # xdg nm-applet not loading by default, re-add it to user autostart
-cp /etc/xdg/autostart/nm-applet.desktop  /etc/skel/.config/autostart/
+# cp /etc/xdg/autostart/nm-applet.desktop  /etc/skel/.config/autostart/
 
 #alternate: have it launch a script in /usr/local/restart_dns.sh
 # if [ `ifconfig -s | grep -cw ^eth0` -eq 1 ] ; then
@@ -201,12 +196,6 @@ cp /etc/xdg/autostart/nm-applet.desktop  /etc/skel/.config/autostart/
 # StartupNotify=false
 # Hidden=false
 # EOF
-
-#### replace the Software Center on the Apps menu with the more useful Synaptic
-# .. TODO   (right click the Apps menu, properties, edit, add synaptic-pkexec, 
-#       name it package manager to keep the width narrow; then create a patch)
-# --> see bin/setup.sh line 116 where it is replaced with sed
-
 
 # Tweak (non-default) theme so that window borders are wider so easier to grab.
 sed -i -e 's|^border.width: 1|border.width: 2|' \
@@ -236,43 +225,43 @@ EOF
 
 # set default TIFF viewer to QGIS
 sed -i -e 's|^image/tiff=.*|image/tiff=qgis.desktop|' \
-   /etc/xdg/lubuntu/applications/defaults.list
+   /etc/xdg/xdg-Lubuntu/mimeapps.list
 
 # associate shapefiles and .qgs with QGIS
 echo "application/x-qgis=qgis.desktop" >> \
-   /etc/xdg/lubuntu/applications/defaults.list
+   /etc/xdg/xdg-Lubuntu/mimeapps.list
 
 echo >> /etc/mime.types
 echo "application/x-sqlite3\t\t\t\tsqlite" >> \
    /etc/mime.types
 echo "application/x-sqlite3=spatialite-gui.desktop" >> \
-   /etc/xdg/lubuntu/applications/defaults.list
+   /etc/xdg/xdg-Lubuntu/mimeapps.list
 
 echo "application/x-openstreetmap+xml\t\t\tosm osc" >> \
    /etc/mime.types
 echo "application/x-openstreetmap+xml=josm.desktop" >> \
-   /etc/xdg/lubuntu/applications/defaults.list
+   /etc/xdg/xdg-Lubuntu/mimeapps.list
 
 # mmph, should be a drag-and-drop viewer
 echo "application/x-netcdf=ncWMS-start.desktop" >> \
-   /etc/xdg/lubuntu/applications/defaults.list
+   /etc/xdg/xdg-Lubuntu/mimeapps.list
 
 # jupyter notebooks
 echo "application/x-ipynb+json\t\t\tipynb" >> \
    /etc/mime.types
 # erhm..
 echo "application/x-ipynb+json=osgeo-jupyter-notebook.desktop" >> \
-   /etc/xdg/lubuntu/applications/defaults.list
+   /etc/xdg/xdg-Lubuntu/mimeapps.list
 
 echo "application/x-mbtiles+sql\t\t\tmbtiles" >> \
    /etc/mime.types
 echo "application/x-mbtiles+sql=qgis.desktop" >> \
-   /etc/xdg/lubuntu/applications/defaults.list
+   /etc/xdg/xdg-Lubuntu/mimeapps.list
 
 echo "application/gpx+xml\t\t\t\tgpx" >> \
    /etc/mime.types
 echo "application/gpx+xml=gpsprune.desktop" >> \
-   /etc/xdg/lubuntu/applications/defaults.list
+   /etc/xdg/xdg-Lubuntu/mimeapps.list
 
 
 # #### Make Unity Usable (Muu..)
