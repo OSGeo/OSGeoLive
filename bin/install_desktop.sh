@@ -64,10 +64,14 @@ sed -i -e 's|^DesktopShortcuts=.*|DesktopShortcuts=Home, Trash|' \
 
 # echo "desktop_folder_new_win=1" >> /etc/xdg/pcmanfm/lubuntu/pcmanfm.conf
 
-
 # New way to set login screen background as of 20.04 that uses sddm instead of lightdm
 sed -i -e 's|^background=.*|background=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
    /usr/share/sddm/themeas/lubuntu/theme.conf
+
+# Set the installer desktop icon to OSGeoLive
+sed -i -e 's|Lubuntu|OSGeoLive|' \
+       -e 's|20.04 LTS|14.0|' \
+   /usr/share/applications/lubuntu-calamares.desktop
 
 #Done:support for headless installs with or without user existing, preference for png
 #Only works if user is not logged into XFCE session
