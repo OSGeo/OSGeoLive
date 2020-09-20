@@ -49,7 +49,7 @@ cp ../desktop-conf/osgeo-desktop-transparent.png \
 
 # Actually, I think this is the one which really does it:
 sed -i -e 's|^DesktopShortcuts=.*|DesktopShortcuts=Home, Trash|' \
-       -e 's|^WallpaperMode=.*|WallpaperMode=stretch|' \
+       -e 's|^WallpaperMode=.*|WallpaperMode=fit|' \
        -e 's|^Wallpaper=.*|Wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
        -e 's|^BgColor=.*|BgColor=#000000|' \
        -e 's|^FgColor=.*|FgColor=#ffffff|' \
