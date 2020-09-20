@@ -42,12 +42,7 @@ cp ../desktop-conf/osgeo-desktop.png \
 cp ../desktop-conf/osgeo-desktop-transparent.png \
    /usr/share/lubuntu/wallpapers/
 
-### set the desktop background, turn on keyboard layout select control
-# sed -i -e 's|^bg=.*|bg=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
-#        -e 's|^keyboard=0$|keyboard=1|' \
-#     /etc/xdg/lubuntu/lxdm/lxdm.conf
-
-# Actually, I think this is the one which really does it:
+### Set the desktop background
 sed -i -e 's|^DesktopShortcuts=.*|DesktopShortcuts=Home, Trash|' \
        -e 's|^WallpaperMode=.*|WallpaperMode=fit|' \
        -e 's|^Wallpaper=.*|Wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
@@ -73,46 +68,6 @@ sed -i -e 's|Lubuntu|OSGeoLive|' \
        -e 's|20.04 LTS|14.0|' \
    /usr/share/applications/lubuntu-calamares.desktop
 
-#Done:support for headless installs with or without user existing, preference for png
-#Only works if user is not logged into XFCE session
-# Puts the desktop background into the spot where it would be used for new user creation
-#mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/
-#cp ../desktop-conf/xfce/xfce4-desktop.xml \
-#     /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
-
-# edit it in the skel dirs too, for the chroot method
-#sed -i -e 's/xubuntu-.*.png/osgeo-desktop.png/' \
-#  /etc/xdg/xdg-xubuntu/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml
-#cp -f ../desktop-conf/xfce/xfce4-desktop.xml \
-#     /etc/xdg/xdg-xubuntu/xfce4/xfconf/xfce-perchannel-xml/
-
-#Copy it to the existing user
-#mkdir -p "$USER_HOME"/.config/xfce4/xfconf/xfce-perchannel-xml/
-#cp /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml \
-#     "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
-
-#chown "$USER_NAME"."$USER_NAME" \
-#     "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml"
-
-#Old version in case we need to revert, or if you're logged into the current XFCE session
-#Has to been run as the regular user
-#sudo -u $USER_NAME xfconf-query -c xfce4-desktop \
-#     -p /backdrop/screen0/monitor0/image-path \
-#     -s /usr/share/lubuntu/wallpapers/osgeo-desktop.png
-# set to stretch style background
-#sudo -u $USER_NAME xfconf-query -c xfce4-desktop --create \
-#     -p /backdrop/screen0/monitor0/image-style  -s 3  -t int
-
-
-# if you want panel transparency turned off edit Apps->Settings->WM Tweaks or
-#  /etc/xdg/xdg-xubuntu/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
-#         ~/.config/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
-#    <property name="use_compositing" type="bool" value="true"/>
-##sed -i -e 's|\(use_compositing" type="bool" value\)="true"|\1="false"|' \
-##   /etc/xdg/xdg-xubuntu/xfce4/xfconf/xfce-perchannel-xml/xfwm4.xml
-
-
-
 #Add the launchhelp script which allows other apps to provide sudo
 #    launching with the password already embedded
 #[Geonetwork and] deegree need this right now
@@ -127,8 +82,6 @@ chown "$USER_NAME.$USER_NAME" \
 # no good to copy it to /etc/skel as the pw will differ for each account
 #cp "launchassist.sh" /etc/skel/bin/
 #chmod 700 "/etc/skel/bin/launchassist.sh"
-
-
 
 ##### Setup Automatic or Timed Login #####
 # echo "TODO: update autologin preferences for lightdm."
@@ -266,110 +219,6 @@ echo "application/gpx+xml\t\t\t\tgpx" >> \
    /etc/mime.types
 echo "application/gpx+xml=gpsprune.desktop" >> \
    /etc/xdg/xdg-Lubuntu/mimeapps.list
-
-
-# #### Make Unity Usable (Muu..)
-# # we are using xubuntu so it's a bit academic, but in case anyone wants to
-# #  use OSGeo on stock Ubuntu these changes can make it a lot less annoying.
-# if [ "$DESKTOP_SESSION" = "Unity" ] ; then
-#   apt-get install --yes gconf-editor dconf-tools
-
-#   # The hardest part is finding where the heck the gnome people hid the option.
-#   # To locate what you are looking for (e.g. setting the icon_size) search through:
-#   #gconftool --dump /apps | grep -w -B5 -A5 icon_size
-#   # more options can be found here:
-#   #dconf dump / | less
-#   # See also:
-#   # http://www.tuxgarage.com/2011/07/customizing-gnome-lock-screen.html
-#   # http://www.tuxgarage.com/2011/05/customize-gdm-plymouth-grub2.html
-#   # http://library.gnome.org/admin/system-admin-guide/stable/dconf-profiles.html.en
-
-#   # set the web browser homepage:
-#   gconftool-2 --direct \
-#     --config-source xml:readwrite:/etc/opt/gnome/gconf/gconf.xml.mandatory \
-#     --type string --set /apps/firefox/general/homepage_url live.osgeo.org
-
-#   # make the launcher icons smaller, this isn't a touchscreen
-#   gconftool-2 --direct \
-#     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
-#     --type int --set /apps/compiz-1/plugins/unityshell/screen0/options/icon_size 38
-#   #also you might check the setting here: (same goes for other options too)
-#   #  --type int --set /apps/compizconfig-1/profiles/Default/plugins/unityshell/screen0/options/icon_size 38
-
-#   # only put a launcher bar on one monitor (maybe nice for laptop+monitor but bad for dual headed setups)
-#   gconftool-2 --direct \
-#     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
-#     --type int --set /apps/compiz-1/plugins/unityshell/screen0/options/num_launchers 1
-  
-#   # don't be sticky at the edge of the monitor (another huge frustration for dual-headed monitors)
-#   gconftool-2 --direct \
-#     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
-#     --type bool --set /apps/compiz-1/plugins/unityshell/screen0/options/launcher_capture_mouse false
-  
-#   # keep windows stacked as you left them,
-#   gconftool-2 --direct \
-#     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
-#     --type bool --set /apps/metacity/general/auto_raise false
-  
-#   # don't maximize if the window happens to brush the top of the screen while moving it
-#   gconftool-2 --direct \
-#     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
-#     --type int --set /apps/compiz-1/plugins/grid/screen0/options/top_edge_action 0
-  
-#   # right mouse button exists for the context menu, no need to waste the screen real estate
-#   gconftool-2 --direct \
-#     --config-source xml:readwrite:/etc/gconf/gconf.xml.defaults \
-#       --type bool --set /apps/gnome-terminal/profiles/Default/default_show_menubar false
-
-
-#   # dconf weirdness:
-#   mkdir -p /etc/dconf/db/local.d
-#   mkdir -p /etc/dconf/profile
-#   # basic setup for local mods:
-#   cat << EOF > /etc/dconf/profile/user
-# user-db:user
-# system-db:local
-# EOF
-#   cat << EOF > /etc/dconf/profile/gdm
-# user
-# gdm
-# EOF
-
-#   # set the default desktop background:
-#   cat << EOF > /etc/dconf/db/local.d/00_default-wallpaper
-# [org/gnome/desktop/background]
-# #picture-options='zoom'
-# picture-uri='file:///usr/share/backgrounds/Precise_Pangolin_by_Vlad_Gerasimov.jpg'
-# EOF
-
-#   # set the default login background image when Unity-greeter is used by lightdm:
-#   cat << EOF > /usr/share/glib-2.0/schemas/com.canonical.unity-greeter.gschema.override
-# [com.canonical.unity-greeter]
-# draw-user-backgrounds=false
-# background='/usr/share/lubuntu/wallpapers/osgeo-desktop.png'
-# EOF
-#   glib-compile-schemas /usr/share/glib-2.0/schemas/
-
-#   # set what icons will be on the taskbar (launcher) by default for new users
-#   cat << EOF > /etc/dconf/db/local.d/01_unity_favorites
-# [desktop/unity/launcher]
-# favorites=['nautilus-home.desktop', 'firefox.desktop', 'libreoffice-writer.desktop', 'libreoffice-calc.desktop', 'gnome-control-center.desktop', 'gnome-terminal.desktop', 'nedit.desktop']
-# EOF
-
-#   # blank screen after 5 minutes
-#   cat << EOF > /etc/dconf/db/local.d/02_5min_timeout
-# [org/gnome/desktop/session]
-# idle-delay=uint32 300
-
-# [org/gnome/settings-daemon/plugins/power]
-# sleep-display-ac=300
-# sleep-display-battery=300
-# EOF
-
-#   # apply the changes to the dconf DB
-#   dconf update
-# fi
-
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
