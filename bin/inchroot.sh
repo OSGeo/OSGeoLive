@@ -175,7 +175,7 @@ export USER_NAME
 ./install_jupyter.sh
 
 ## Java stack
-# ./install_geoserver.sh
+./install_geoserver.sh
 # ./install_geonetwork.sh
 # ./install_deegree.sh
 # ./install_geomajas.sh
