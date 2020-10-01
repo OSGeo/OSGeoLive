@@ -45,7 +45,7 @@ USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_udig"
 INSTALL_FOLDER="/usr/lib"
-UDIG_VERSION="2.0.0"
+UDIG_VERSION="2.2.0.RC1"
 UDIG_FOLDER="$INSTALL_FOLDER/udig"
 DOCS_FOLDER="/usr/local/share/udig"
 DATA_GLOBAL="/usr/local/share/data"
@@ -110,7 +110,7 @@ fi
 if [ -f "$ZIP" ] ; then
    echo "$ZIP has already been downloaded."
 else
-   wget -c --progress=dot:mega "http://udig.refractions.net/files/downloads/$ZIP"
+   wget -c --progress=dot:mega "https://github.com/locationtech/udig-platform/releases/download/release%2F$UDIG_VERSION/$ZIP"
 fi
 # unpack to /usr/lib/udig
 unzip -q "$ZIP" -d "$UDIG_FOLDER"
@@ -149,13 +149,6 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/uDig.desktop"
 ## Documentation ##
 
 # Download udig's documentation
-REL_DOC="udig-$UDIG_VERSION.html"
-if [ -f "$REL_DOC" ] ; then
-   echo "$REL_DOC has already been downloaded."
-else
-   wget -nv "http://udig.refractions.net/files/downloads/$REL_DOC"
-fi
-
 if [ -f "uDigWalkthrough1.pdf" ]
 then
    echo "uDigWalkthrough1.pdf has already been downloaded."
