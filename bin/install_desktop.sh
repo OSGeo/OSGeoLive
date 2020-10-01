@@ -61,7 +61,7 @@ sed -i -e 's|^DesktopShortcuts=.*|DesktopShortcuts=Home, Trash|' \
 
 # New way to set login screen background as of 20.04 that uses sddm instead of lightdm
 sed -i -e 's|^background=.*|background=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
-   /usr/share/sddm/themeas/lubuntu/theme.conf
+   /usr/share/sddm/themes/lubuntu/theme.conf
 
 # Set the installer desktop icon to OSGeoLive
 sed -i -e 's|Lubuntu|OSGeoLive|' \
