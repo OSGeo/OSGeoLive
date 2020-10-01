@@ -213,7 +213,7 @@ export USER_NAME
 
 ## Desktop and Housekeeping
 ./install_desktop.sh
-# ./install_icons_and_menus.sh
+./install_icons_and_menus.sh
 ./setdown.sh
 
 
