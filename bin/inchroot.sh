@@ -190,8 +190,8 @@ export USER_NAME
 # ./install_ncWMS.sh
 
 ## PHP stack
-# ./install_mapbender.sh
-# ./install_geomoose.sh
+./install_mapbender.sh
+./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
 # ./install_geonode.sh
@@ -200,10 +200,10 @@ export USER_NAME
 # ./install_trex.sh
 
 ## Javascript et al
-# ./install_openlayers.sh
-# ./install_leaflet.sh
-# ./install_cesium.sh
-# ./install_geoext.sh
+./install_openlayers.sh
+./install_leaflet.sh
+./install_cesium.sh
+./install_geoext.sh
 # ./install_rasdaman.sh
 
 ## Docs, Data and extras

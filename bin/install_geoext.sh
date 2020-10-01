@@ -4,7 +4,7 @@
 # Purpose: This script will install GeoExt 3.1, OpenLayers 4.6.5, and ExtJS 6.2
 #
 #############################################################################
-# Copyright (c) 2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2019-2020 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
