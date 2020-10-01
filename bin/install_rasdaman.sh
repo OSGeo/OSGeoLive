@@ -33,7 +33,8 @@ USER_HOME="/home/$USER_NAME"
 
 RMANHOME=/opt/rasdaman
 
-TOMCAT_WEBAPPS=/var/lib/tomcat8/webapps
+TOMCAT_WEBAPPS=/var/lib/tomcat/webapps
+TOMCAT_SVC=tomcat9
 
 setup_rasdaman_repo()
 {
@@ -58,21 +59,10 @@ unpack_war_file()
     mkdir -p "$war_name"
     mv "$war_file" "$war_name"
     pushd "$war_name"
-    jar xf "$war_file" && rm -f "$war_file" # extract
+    unzip "$war_file" && rm -f "$war_file" # extract
     popd
   fi
   popd
-}
-
-patch_gdal_java_jar()
-{
-  # patch the gdal-java dependency to the correct version for Lubuntu 18.04
-  # (on standard Ubuntu 18.04 gdal is a bit older, so the packaged jar doesn't match)
-  if [ -d "$TOMCAT_WEBAPPS/rasdaman/WEB-INF/lib/" ]; then
-    rm -f $TOMCAT_WEBAPPS/rasdaman/WEB-INF/lib/gdal-*.jar
-    wget "http://kahlua.eecs.jacobs-university.de/~dmisev/gdal-2.3.0.jar" \
-         -q -O "$TOMCAT_WEBAPPS/rasdaman/WEB-INF/lib/gdal-2.3.0.jar"
-  fi
 }
 
 delete_not_needed_files()
@@ -101,11 +91,10 @@ install_rasdaman_pkg()
   delete_not_needed_files
 
   # --------
-  # need to unpack the war files (tomcat8 doesn't do it which causes issues)
+  # need to unpack the war files (tomcat doesn't do it which causes issues)
   unpack_war_file rasdaman
   unpack_war_file def
-  patch_gdal_java_jar
-  service tomcat8 restart
+  service $TOMCAT_SVC restart
   # --------
 
   echo
@@ -136,8 +125,8 @@ replace_rasdaman_user_with_system_user()
   chown -R $rasdaman_user:$rasdaman_group /opt/rasdaman
   # this directory is owned by an invalid uid after the user change, it can be just deleted
   rm -rf /tmp/rasdaman_*
-  # add rasdaman user to tomcat8 group
-  adduser $rasdaman_user tomcat8
+  # add rasdaman user to tomcat group
+  adduser $rasdaman_user tomcat
   # and user to rasdaman group
   adduser $USER_NAME $rasdaman_group
 
@@ -149,13 +138,13 @@ create_bin_starters()
   echo "Creating starting scripts..."
   cat > $RMANHOME/bin/rasdaman-start.sh <<EOF
 #!/bin/bash
-sudo service tomcat8 start
+sudo service $TOMCAT_SVC start
 sudo service rasdaman start
 echo "Rasdaman was started correctly."
 EOF
   cat > $RMANHOME/bin/rasdaman-stop.sh <<EOF
 #!/bin/bash
-sudo service tomcat8 stop
+sudo service $TOMCAT_SVC stop
 sudo service rasdaman stop
 echo -e "Rasdaman stopped."
 EOF
@@ -236,8 +225,8 @@ deploy_local_earthlook()
   popd > /dev/null
 
   # start tomcat and rasdaman
-  service tomcat8 start
-  sleep 60
+  service $TOMCAT_SVC start
+  sleep 10
 
   # Then import the selected coverages from Earthlook demo-data to local petascope
   # to be used for some demos which use queries on these small coverages.
@@ -257,7 +246,7 @@ add_rasdaman_path_to_bashrc()
 # Install and setup demos
 #
 
-setup_rasdaman_repo "bionic" "stable"
+setup_rasdaman_repo "focal" "nightly"
 install_rasdaman_pkg
 
 replace_rasdaman_user_with_system_user
@@ -267,7 +256,7 @@ add_rasdaman_path_to_bashrc
 deploy_local_earthlook
 
 rasdaman_service stop
-service tomcat8 stop
+service $TOMCAT_SVC stop
 
 
 mv /etc/apt/sources.list.d/rasdaman.list /etc/apt/sources.list.d/rasdaman.list.disabled
