@@ -249,7 +249,10 @@ done
 #    fi
 # done
 
-
+#### Set all desktop files as trusted for LXQt
+for file in *.desktop ; do
+    gio set $file "metadata::trusted" yes
+done
 
 #### move desktop icons to subfolders
 mkdir "Desktop GIS"
