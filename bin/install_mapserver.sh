@@ -74,7 +74,7 @@ if [ ! -d "$MAPSERVER_DATA" ] ; then
 
     echo -n "Extracting MapServer Itasca demo in $MAPSERVER_DATA/demos/..."
     unzip -qo "$TMP_DIR/v$MS_DEMO_VERSION.zip"
-    mv "$TMP_DIR/mapserver-demo-$MS_DEMO_VERSION" "$MAPSERVER_DATA"/demos/itasca
+    mv "$TMP_DIR/MapServer-demo-$MS_DEMO_VERSION" "$MAPSERVER_DATA"/demos/itasca
     rm -f "$TMP_DIR/v$MS_DEMO_VERSION.zip"
     echo "Done"
 
