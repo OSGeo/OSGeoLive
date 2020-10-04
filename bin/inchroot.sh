@@ -176,13 +176,13 @@ export USER_NAME
 
 ## Java stack
 ./install_geoserver.sh
-# ./install_geonetwork.sh
-# ./install_deegree.sh
+./install_geonetwork.sh
+./install_deegree.sh
 # ./install_geomajas.sh
-# ./install_udig.sh "$ARCH"
-# ./install_openjump.sh
+./install_udig.sh "$ARCH"
+./install_openjump.sh
 # ./install_gvsig.sh "$ARCH"
-# ./install_gpsprune.sh
+./install_gpsprune.sh
 
 ## Java + default tomcat
 # ./install_52nWPS.sh
@@ -197,7 +197,7 @@ export USER_NAME
 # ./install_geonode.sh
 
 ## Rust
-# ./install_trex.sh
+./install_trex.sh
 
 ## Javascript et al
 ./install_openlayers.sh
@@ -207,7 +207,7 @@ export USER_NAME
 # ./install_rasdaman.sh
 
 ## Docs, Data and extras
-# ./load_gisdata.sh
+./load_gisdata.sh
 # ./install_docs.sh "$BUILD_MODE"
 # ./install_edutools.sh
 

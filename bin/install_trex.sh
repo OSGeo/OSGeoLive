@@ -6,7 +6,7 @@
 #
 #############################################################################
 # Author: Brian M Hamlin <darkblue_b> / Pirmin Kalberer <pka@sourcepole.com>
-# Copyright (c) 2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2018-2020 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
