@@ -182,6 +182,7 @@ for APP in $WEB_SERVICES ; do
 	geoserver-*) GROUP=GeoServer;;
 	*geonetwork*) GROUP=GeoNetwork;;
 	mapproxy-*) GROUP=MapProxy;;
+	pygeoapi-*) GROUP=pygeoapi;;
 	ncWMS-*) GROUP=ncWMS;;
 	*) unset GROUP;;
       esac
@@ -305,6 +306,7 @@ deegree
 GeoNetwork
 GeoServer
 MapProxy
+pygeoapi
 ncWMS
 "
 
@@ -338,6 +340,7 @@ EOF
      GeoServer) APP_ICON=/usr/share/icons/geoserver_48x48.logo.png;;
      Geomajas) APP_ICON=/usr/share/icons/geomajas_icon_48x48.png;;
      MapProxy) APP_ICON=/usr/local/share/icons/mapproxy.png;;
+     pygeoapi) APP_ICON=/usr/local/share/icons/pygeoapi.png;;
      ncWMS) APP_ICON=/usr/local/share/icons/ncWMS_icon.png;;
      *) unset APP_ICON;;
    esac
