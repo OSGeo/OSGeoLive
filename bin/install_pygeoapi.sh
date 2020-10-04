@@ -4,7 +4,7 @@
 # Purpose: This script will install pygeoapi
 #
 #############################################################################
-# Copyright (c) 2019-2020 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2020 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -18,11 +18,9 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
-# Requires: Apache2, python-lxml, python-shapely and python-sqlalchemy
-
 ./diskspace_probe.sh "`basename $0`" begin
 ####
-
+BUILD_DIR=`pwd`
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -31,6 +29,8 @@ fi
 USER_HOME="/home/$USER_NAME"
 BIN="/usr/local/bin"
 PYGEOAPI_DIR="/usr/local/share/pygeoapi"
+PYGEOAPI_CONFIG="$PYGEOAPI_DIR/pygeoapi-config.yml"
+PYGEOAPI_OPENAPI="$PYGEOAPI_DIR/pygeoapi-openapi.yml"
 
 mkdir -p "$PYGEOAPI_DIR"
 
@@ -39,8 +39,11 @@ echo 'Installing pygeoapi ...'
 apt-get install --yes python3-pygeoapi
 
 # copy pygeoapi configuration
-cp "$BUILD_DIR/../app-conf/pygeoapi/pygeoapi-config.yml" "$PYGEOAPI_DIR/pygeoapi-config.yml"
+cp "$BUILD_DIR/../app-conf/pygeoapi/pygeoapi-config.yml" "$PYGEOAPI_CONFIG"
 cp "$BUILD_DIR/../app-conf/pygeoapi/ne_110m_lakes.geojson" "$PYGEOAPI_DIR/ne_110m_lakes.geojson"
+
+# generate OpenAPI document
+pygeoapi generate-openapi-document -c $PYGEOAPI_CONFIG > $PYGEOAPI_OPENAPI
 
 echo 'Downloading pygeoapi logo ...'
 wget -c --progress=dot:mega \
@@ -51,11 +54,12 @@ echo 'Creating Scripts/Links ...'
 mkdir -p "$BIN"
 cat << EOF > "$BIN/pygeoapi_start.sh"
 #!/bin/sh
-export PYGEOAPI_CONFIG=/usr/local/share/pygeoapi/pygeoapi-config.yml
-export PYGEOAPI_OPENAPI=/usr/local/share/pygeoapi/pygeoapi-openapi.yml
-pygeoapi generate-openapi-document -c $PYGEOAPI_CONFIG > $PYGEOAPI_OPENAPI
+export PYGEOAPI_CONFIG=$PYGEOAPI_CONFIG
+export PYGEOAPI_OPENAPI=$PYGEOAPI_OPENAPI
 pygeoapi serve
 EOF
+
+chmod 755 $BIN/pygeoapi_start.sh
 
 echo 'Installing desktop launcher ...'
 
