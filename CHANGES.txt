@@ -1,6 +1,49 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0alpha1
+====================
+
+ * Lubuntu 20.04.1
+ * Fixed initrd multi-part format for 20.04.1 (#2249)
+ * GDAL 3.1.3
+ * PROJ 7.1.1
+ * GEOS 3.8.1
+ * Spatialite 5.0.0
+ * PostGIS 3.0.2
+ * QGIS 3.10.10
+ * GRASS 7.8.3
+ * GeoServer 2.18.0
+ * MapServer 7.6.1
+ * Mapbender 3.2.1
+ * OTB 7.1.0
+ * pycsw 2.4.2
+ * PyWPS 4.2.7
+ * uDig 2.2.0RC1
+ * gvSIG 2.4.0
+ * pygeoapi 0.8.0
+ * Mapnik 3.0.23
+ * OSSIM 2.9.1
+ * fiona 1.8.17
+ * rasterio 1.1.7
+ * GMT 6.1.1
+ * libgeotiff 1.6.0
+ * osgearth 2.10.2
+ * PDAL 2.2.0
+ * pgRouting 3.1.0
+ * MapCache 1.10.0
+ * mappyfile 0.8.4
+ * geopandas 0.8.1
+ * Tomcat 9
+ * PostgreSQL 12
+ * Python 3 as default
+ * Jupyter 4.6.3
+ * Jupyter Notebook 6.0.3
+ * Switched to xyGrib instead of zyGrib
+ * Default R packages from Focal
+ * Updated desktop configuration for LXQt and SDDM (#1777)
+ * Default desktop image for 14.0
+
 Version 13.0
 ====================
 
