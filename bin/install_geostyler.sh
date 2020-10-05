@@ -122,7 +122,7 @@ mkdir -p /usr/local/share/icons/ && cp -f "logo.svg" \
        /usr/local/share/icons/geostyler.svg
 
 #
-# Launch script and icon for GeoExt
+# Launch script and icon for GeoStyler
 #
 echo "\nGenerating launcher..."
 
