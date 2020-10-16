@@ -6,7 +6,7 @@
 #############################################################################
 # Copyright (c) 2009-2020 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
-# 
+#
 # This library is free software; you can redistribute it and/or modify it
 # under the terms of the GNU Lesser General Public License as published
 # by the Free Software Foundation, either version 2.1 of the License,
@@ -30,7 +30,7 @@ USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_qgis_mapserver"
 APP_DATA_DIR="$BUILD_DIR/../app-data/qgis-mapserver"
-INSTALL_FOLDER="/usr/local"
+QWC2_DOWNLOAD_URL="https://github.com/qgis/qwc2-demo-app/archive/v1.0.tar.gz"
 DATA_FOLDER="/usr/local/share"
 PKG_DATA="$DATA_FOLDER/qgis_mapserver"
 
@@ -61,8 +61,13 @@ ln -s /usr/local/share/qgis/QGIS-Itasca-Example.qgz /usr/lib/cgi-bin/
 #Unpack demo viewer
 mkdir -p "$PKG_DATA"
 cd "$PKG_DATA"
-cp "$APP_DATA_DIR/mapviewer.html" .
-tar xzf "$APP_DATA_DIR/mapfish-client-libs.tgz" --no-same-owner
+wget -O "$PKG_DATA/qwc2.tgz" "$QWC2_DOWNLOAD_URL"
+tar xzf "$PKG_DATA/qwc2.tgz" --no-same-owner
+cd "$(ls $PKG_DATA | grep -v tgz)"
+mv * ../
+cd "$PKG_DATA"
+cp "$APP_DATA_DIR/config.json" .
+cp "$APP_DATA_DIR/themes.json" .
 
 # Create Desktop Shortcut for Demo viewer
 cat << EOF > /usr/share/applications/qgis-mapserver.desktop
@@ -72,7 +77,7 @@ Encoding=UTF-8
 Name=QGIS Server
 Comment=QGIS Server
 Categories=Application;Geography;Geoscience;Education;
-Exec=firefox $PKG_DATA/mapviewer.html
+Exec=firefox http://localhost/qgis_server
 Icon=gnome-globe
 Terminal=false
 StartupNotify=false
