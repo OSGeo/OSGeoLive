@@ -1,0 +1,273 @@
+{
+  "themes": {
+    "backgroundLayers": [],
+    "defaultPrintGrid": [
+      {
+        "s": 10000,
+        "x": 1000,
+        "y": 1000
+      },
+      {
+        "s": 1000,
+        "x": 100,
+        "y": 100
+      },
+      {
+        "s": 100,
+        "x": 10,
+        "y": 10
+      }
+    ],
+    "defaultPrintResolutions": null,
+    "defaultPrintScales": null,
+    "defaultScales": [
+      4000000,
+      2000000,
+      1000000,
+      400000,
+      200000,
+      80000,
+      40000,
+      20000,
+      10000,
+      8000,
+      6000,
+      4000,
+      2000,
+      1000,
+      500,
+      250,
+      100
+    ],
+    "defaultTheme": "QGIS-NaturalEarth-Example.qgz",
+    "defaultWMSVersion": "1.3.0",
+    "externalLayers": [],
+    "items": [
+      {
+        "abstract": "",
+        "attribution": {
+          "OnlineResource": "",
+          "Title": ""
+        },
+        "availableFormats": [
+          "image/jpeg",
+          "image/png",
+          "image/png; mode=16bit",
+          "image/png; mode=8bit",
+          "image/png; mode=1bit",
+          "application/dxf"
+        ],
+        "bbox": {
+          "bounds": [
+            -180.0,
+            -90.0,
+            180.0,
+            83.6341
+          ],
+          "crs": "EPSG:4326"
+        },
+        "description": "",
+        "drawingOrder": [
+          "ne_10m_land",
+          "HYP_50M_SR_W",
+          "ne_10m_ocean",
+          "ne_10m_lakes",
+          "ne_10m_rivers_lake_centerlines",
+          "ne_10m_populated_places"
+        ],
+        "editConfig": null,
+        "expanded": true,
+        "featureInfoUrl": "http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/usr/local/share/qgis/QGIS-NaturalEarth-Example.qgz&",
+        "format": "image/png; mode=8bit",
+        "id": "QGIS-NaturalEarth-Example.qgz",
+        "infoFormats": [
+          "text/plain",
+          "text/html",
+          "text/xml",
+          "application/vnd.ogc.gml",
+          "application/vnd.ogc.gml/3.1.1"
+        ],
+        "initialBbox": {
+          "bounds": [
+            -180.0,
+            -90.0,
+            180.0,
+            83.6341
+          ],
+          "crs": "EPSG:4326"
+        },
+        "keywords": "",
+        "legendUrl": "http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/usr/local/share/qgis/QGIS-NaturalEarth-Example.qgz&",
+        "mapCrs": "EPSG:4326",
+        "name": "Natural Earth",
+        "printUrl": "http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/usr/local/share/qgis/QGIS-NaturalEarth-Example.qgz&",
+        "scales": [
+          442943842.5,
+          221471921.25,
+          110735960.625,
+          55367980.3125,
+          27683990.15625,
+          13841995.078125,
+          6920997.5390625,
+          3460498.76953125,
+          1730249.384765625,
+          865124.6923828125,
+          432562.34619140625,
+          216281.17309570312,
+          108140.58654785156,
+          54070.29327392578
+        ],
+        "searchProviders": [],
+        "sublayers": [
+          {
+            "abstract": "",
+            "attribution": {
+              "OnlineResource": "",
+              "Title": ""
+            },
+            "bbox": {
+              "bounds": [
+                -179.59,
+                -90.0,
+                179.383,
+                82.4833
+              ],
+              "crs": "EPSG:4326"
+            },
+            "displayField": "SCALERANK",
+            "name": "ne_10m_populated_places",
+            "opacity": 255,
+            "queryable": true,
+            "title": "ne_10m_populated_places",
+            "visibility": false
+          },
+          {
+            "expanded": true,
+            "mutuallyExclusive": false,
+            "name": "Water",
+            "sublayers": [
+              {
+                "abstract": "",
+                "attribution": {
+                  "OnlineResource": "",
+                  "Title": ""
+                },
+                "bbox": {
+                  "bounds": [
+                    -164.903,
+                    -52.1577,
+                    177.211,
+                    75.7935
+                  ],
+                  "crs": "EPSG:4326"
+                },
+                "displayField": "scalerank",
+                "name": "ne_10m_rivers_lake_centerlines",
+                "opacity": 255,
+                "queryable": true,
+                "title": "ne_10m_rivers_lake_centerlines",
+                "visibility": true
+              },
+              {
+                "abstract": "",
+                "attribution": {
+                  "OnlineResource": "",
+                  "Title": ""
+                },
+                "bbox": {
+                  "bounds": [
+                    -165.966,
+                    -50.6697,
+                    176.094,
+                    81.9552
+                  ],
+                  "crs": "EPSG:4326"
+                },
+                "displayField": "featurecla",
+                "name": "ne_10m_lakes",
+                "opacity": 255,
+                "queryable": true,
+                "title": "ne_10m_lakes",
+                "visibility": true
+              },
+              {
+                "abstract": "",
+                "attribution": {
+                  "OnlineResource": "",
+                  "Title": ""
+                },
+                "bbox": {
+                  "bounds": [
+                    -180.0,
+                    -85.2219,
+                    180.0,
+                    90.0
+                  ],
+                  "crs": "EPSG:4326"
+                },
+                "displayField": "featurecla",
+                "name": "ne_10m_ocean",
+                "opacity": 255,
+                "queryable": true,
+                "title": "ne_10m_ocean",
+                "visibility": false
+              }
+            ],
+            "title": "Water"
+          },
+          {
+            "abstract": "",
+            "attribution": {
+              "OnlineResource": "",
+              "Title": ""
+            },
+            "bbox": {
+              "bounds": [
+                -180.0,
+                -90.0,
+                180.0,
+                90.0
+              ],
+              "crs": "EPSG:4326"
+            },
+            "name": "HYP_50M_SR_W",
+            "opacity": 255,
+            "queryable": false,
+            "title": "HYP_50M_SR_W",
+            "visibility": true
+          },
+          {
+            "abstract": "",
+            "attribution": {
+              "OnlineResource": "",
+              "Title": ""
+            },
+            "bbox": {
+              "bounds": [
+                -180.0,
+                -90.0,
+                180.0,
+                83.6341
+              ],
+              "crs": "EPSG:4326"
+            },
+            "displayField": "scalerank",
+            "name": "ne_10m_land",
+            "opacity": 255,
+            "queryable": true,
+            "title": "ne_10m_land",
+            "visibility": false
+          }
+        ],
+        "thumbnail": "img/genmapthumbs/QGIS-NaturalEarth-Example.qgz.png",
+        "title": "Natural Earth",
+        "url": "http://localhost/cgi-bin/qgis_mapserv.fcgi?map=/usr/local/share/qgis/QGIS-NaturalEarth-Example.qgz",
+        "version": "1.3.0"
+      }
+    ],
+    "pluginData": [],
+    "subdirs": [],
+    "themeInfoLinks": [],
+    "title": "root"
+  }
+}
