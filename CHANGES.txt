@@ -1,6 +1,14 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0alpha2
+====================
+
+ * GeoStyler installer added
+ * Re3gistry installer added
+ * QGIS Web Client 2
+ * Mapbender 3.2.2
+
 Version 14.0alpha1
 ====================
 
