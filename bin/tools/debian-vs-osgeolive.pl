@@ -40,13 +40,13 @@ use JSON;
 $|=1;
 
 my %cfg = (
-	    udd_db_host => 'public-udd-mirror.xvm.mit.edu',
+	    udd_db_host => 'udd-mirror.debian.net',
 	    udd_db_port => '5432',
 	    udd_db_name => 'udd',
 	    udd_db_user => 'public-udd-mirror',
 	    udd_db_pass => 'public-udd-mirror',
 	    ppa_url     => 'http://ppa.launchpad.net/osgeolive/nightly/ubuntu',
-	    ppa_series  => 'bionic',
+	    ppa_series  => 'focal',
 	    format      => 'text',
 	    verbose     => 0,
 	    help        => 0,
