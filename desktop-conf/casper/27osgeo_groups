@@ -13,7 +13,7 @@ if [ -z "$USER_NAME" ] ; then
     USER_NAME=user
 fi
 
-GRPS="audio dialout fuse pulse staff tomcat8 users www-data"
+GRPS="audio dialout fuse pulse staff tomcat users www-data"
 
 for GRP in $GRPS ; do
     chroot /root adduser "$USER_NAME" "$GRP"
