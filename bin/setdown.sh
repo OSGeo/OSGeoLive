@@ -257,6 +257,9 @@ chmod 440 /etc/sudoers.d/tomcat
 # #2084: Fix home path for exracted ncWMS
 sed -i -e 's|\$HOME/.ncWMS2|/usr/share/tomcat9/.ncWMS2|' /var/lib/tomcat9/webapps/ncWMS2/WEB-INF/web.xml
 
+# #2263: Fix installation of live system
+sed -i -e 's|/home/lubuntu|/home/user|' /bin/calamares-logs-helper
+
 # Switching to default IPv6
 rm /etc/gai.conf
 mv /etc/gai.conf.orig /etc/gai.conf
