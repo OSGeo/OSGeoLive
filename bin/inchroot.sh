@@ -178,7 +178,6 @@ export USER_NAME
 ./install_geoserver.sh
 ./install_geonetwork.sh
 ./install_deegree.sh
-# ./install_geomajas.sh
 ./install_udig.sh "$ARCH"
 ./install_openjump.sh
 # ./install_gvsig.sh "$ARCH"
