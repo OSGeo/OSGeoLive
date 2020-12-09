@@ -165,7 +165,6 @@ export USER_NAME
 # ./install_eoxserver.sh
 # ./install_iris.sh
 # ./install_istsos.sh
-# ./install_mapslicer.sh
 # ./install_actinia.sh
 
 ## R stack
