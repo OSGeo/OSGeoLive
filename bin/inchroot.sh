@@ -203,6 +203,7 @@ export USER_NAME
 ./install_geoext.sh
 # ./install_rasdaman.sh
 # ./install_geostyler.sh
+# ./install_re3gistry.sh
 
 ## Docs, Data and extras
 ./load_gisdata.sh
