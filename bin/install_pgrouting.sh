@@ -47,6 +47,9 @@ apt-get update -qq
 
 # Get the postgres version that is installed
 PG_VERSION=$(grep -Po '(?<=PG_VERSION=)[^;]+' service_postgresql.sh)
+PG_VERSION="${PG_VERSION%\"}"
+PG_VERSION="${PG_VERSION#\"}"
+
 
 # Install pgRouting packages
 apt-get install -y -qq postgresql-${PG_VERSION}-pgrouting
