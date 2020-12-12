@@ -76,27 +76,31 @@ systemctl enable manage_user_groups.service
 #   /usr/share/initramfs-tools/scripts/casper-bottom/
 
 # remove build stuff no longer of use
-apt-get --yes remove python-all-dev libpython2.7-dev
+apt-get --yes remove libboost1.71-dev
+
+# remove stuff to save disk space (#467)
+apt-get --yes remove libreoffice-common libreoffice-core 2048-qt noblenote trojita \
+  transmission-common k3b vlc snapd libllvm9
 
 # remove any leftover orphans
 apt-get --yes autoremove
 
 # Python packages disk space cleanup
-rm -rf /usr/lib/python2.7/dist-packages/pandas/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/simplejson/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/seaborn/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/scipy/special/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/scipy/optimize/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/scipy/io/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/scipy/io/matlab/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/matplotlib/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/numpy/core/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/numpy/lib/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/numpy/ma/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/numpy/polynomial/tests/*
-rm -rf /usr/lib/python2.7/dist-packages/numpy/tests/*
+rm -rf /usr/lib/python3/dist-packages/pandas/tests/*
+rm -rf /usr/lib/python3/dist-packages/simplejson/tests/*
+rm -rf /usr/lib/python3/dist-packages/seaborn/tests/*
+rm -rf /usr/lib/python3/dist-packages/scipy/special/tests/*
+rm -rf /usr/lib/python3/dist-packages/scipy/optimize/tests/*
+rm -rf /usr/lib/python3/dist-packages/scipy/io/tests/*
+rm -rf /usr/lib/python3/dist-packages/scipy/io/matlab/tests/*
+rm -rf /usr/lib/python3/dist-packages/matplotlib/tests/*
+rm -rf /usr/lib/python3/dist-packages/numpy/core/tests/*
+rm -rf /usr/lib/python3/dist-packages/numpy/lib/tests/*
+rm -rf /usr/lib/python3/dist-packages/numpy/ma/tests/*
+rm -rf /usr/lib/python3/dist-packages/numpy/polynomial/tests/*
+rm -rf /usr/lib/python3/dist-packages/numpy/tests/*
 
-cd /usr/lib/python2.7/dist-packages;
+cd /usr/lib/python3/dist-packages;
 ## ----------------------------------------
 ## clear out more test dirs manually..
 rm -rf cartopy/tests/*
