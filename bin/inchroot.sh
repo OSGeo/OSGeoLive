@@ -161,7 +161,7 @@ export USER_NAME
 ./install_pycsw.sh
 ./install_pywps.sh
 ./install_pygeoapi.sh
-# ./install_eoxserver.sh
+./install_eoxserver.sh
 # ./install_iris.sh
 ./install_istsos.sh
 # ./install_actinia.sh

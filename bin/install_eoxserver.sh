@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2012-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2012-2020 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -27,7 +27,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 # Set EOxServer version to install
-EOXSVER="1.0.0-beta2"
+EOXSVER="1.0.0-rc16"
 
 DATA_DIR="/usr/local/share/eoxserver"
 DOC_DIR="$DATA_DIR/doc"
@@ -46,8 +46,8 @@ fi
 
 #Install packages
 apt-get -q update
-apt-get --assume-yes install python-gdal libxml2 python-lxml python-psycopg2 \
-    python-libxml2 cgi-mapserver python-mapscript libapache2-mod-wsgi python-eoxserver 
+apt-get --assume-yes install python3-gdal libxml2 python3-lxml python3-psycopg2 \
+    python3-libxml2 cgi-mapserver python3-mapscript libapache2-mod-wsgi-py3 python3-eoxserver
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
@@ -101,7 +101,7 @@ if [ ! -d eoxserver_demonstration ] ; then
     echo "ALLOWED_HOSTS = ['*']" >> eoxserver_demonstration/settings.py
 
     # Initialize database
-    python manage.py migrate --noinput
+    python3 manage.py migrate --noinput
 
     # Download and register demonstration data
     wget -c --progress=dot:mega \
@@ -128,20 +128,20 @@ if [ ! -d eoxserver_demonstration ] ; then
     rm release-$EOXSVER.tar.gz
     rm -r eoxserver-release-$EOXSVER/
 
-    python manage.py loaddata eoxserver_demonstration/data/fixtures/auth_data.json
+    python3 manage.py loaddata eoxserver_demonstration/data/fixtures/auth_data.json
 
-    python manage.py coveragetype import eoxserver_demonstration/data/rgb_definition.json
-    python manage.py collection create MER_FRS_1P_RGB_reduced
+    python3 manage.py coveragetype import eoxserver_demonstration/data/rgb_definition.json
+    python3 manage.py collection create MER_FRS_1P_RGB_reduced
 
-    python manage.py coverage register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060816_090929_000001972050_00222_23322_0058_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060816_090929_000001972050_00222_23322_0058_RGB_reduced.xml -r -t RGB
-    python manage.py coverage register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060822_092058_000001972050_00308_23408_0077_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060822_092058_000001972050_00308_23408_0077_RGB_reduced.xml -r -t RGB
-    python manage.py coverage register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060830_100949_000001972050_00423_23523_0079_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060830_100949_000001972050_00423_23523_0079_RGB_reduced.xml -r -t RGB
+    python3 manage.py coverage register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060816_090929_000001972050_00222_23322_0058_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060816_090929_000001972050_00222_23322_0058_RGB_reduced.xml -r -t RGB
+    python3 manage.py coverage register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060822_092058_000001972050_00308_23408_0077_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060822_092058_000001972050_00308_23408_0077_RGB_reduced.xml -r -t RGB
+    python3 manage.py coverage register --collection MER_FRS_1P_RGB_reduced -d "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060830_100949_000001972050_00423_23523_0079_RGB_reduced.tif -m "$DATA_DIR"/eoxserver_demonstration/eoxserver_demonstration/data/meris/mosaic_MER_FRS_1P_reduced_RGB/mosaic_ENVISAT-MER_FRS_1PNPDE20060830_100949_000001972050_00423_23523_0079_RGB_reduced.xml -r -t RGB
 
     touch eoxserver_demonstration/logs/eoxserver.log
     chown www-data eoxserver_demonstration/logs/eoxserver.log
 
     # Collect static files
-    python manage.py collectstatic --noinput
+    python3 manage.py collectstatic --noinput
 
     # Configure WSGI
     sed -e "s,^import os$,import os\nimport sys\n\npath = \"$DATA_DIR/eoxserver_demonstration/\"\nif path not in sys.path:\n    sys.path.insert(0, path)\n," \
