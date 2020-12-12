@@ -42,7 +42,7 @@ DESKTOP_APPS="grass78 qgis gvsig* openjump uDig saga"
 #disabled: atlasstyler geopublisher spatialite-gis ossimplanet 
 
 #Desktop apps part 2 (geodata viewers and editors)
-NAV_APPS="marble opencpn josm osm_online xygrib gpsprune"
+NAV_APPS="marble* opencpn josm osm_online xygrib gpsprune"
 #disabled: merkaartor
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
@@ -511,7 +511,7 @@ cp "$BUILD_DIR"/../desktop-conf/icons/inspire.png /usr/local/share/icons/
 #  `grep -l 'Geography;' /usr/share/applications/*.desktop` \
 #  /usr/local/share/applications/*.desktop
 #if all are dupes, just nuke it:
-sed -i '63,78d' /etc/xdg/lubuntu/menus/lxde-applications.menu
+sed -i '57,67d' /etc/xdg/menus/lxqt-applications.menu
 
 
 ####
