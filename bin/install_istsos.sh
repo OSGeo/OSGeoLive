@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2016-2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2016-2020 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -27,7 +27,7 @@ USER_DESKTOP="$USER_HOME/Desktop"
 BUILD_DIR=`pwd`
 
 echo "Installing istSOS package"
-apt-get install --assume-yes python-istsos
+apt-get install --assume-yes python3-istsos
 
 echo "Installing istSOS icon"
 cp -f /usr/share/istsos/interface/admin/images/istsos-logo.png \

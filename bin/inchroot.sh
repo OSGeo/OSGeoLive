@@ -163,7 +163,7 @@ export USER_NAME
 ./install_pygeoapi.sh
 # ./install_eoxserver.sh
 # ./install_iris.sh
-# ./install_istsos.sh
+./install_istsos.sh
 # ./install_actinia.sh
 
 ## R stack
