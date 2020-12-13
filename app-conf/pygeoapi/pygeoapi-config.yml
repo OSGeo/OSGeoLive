@@ -39,8 +39,8 @@ server:
     pretty_print: true
     limit: 10
     map:
-        url: https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png
-        attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia maps</a> | Map data &copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+        url: https://tile.openstreetmap.org/{z}/{x}/{y}.png
+        attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors</a>'
     # ogc_schemas_location: /opt/schemas.opengis.net
 
 logging:
@@ -100,7 +100,8 @@ resources:
             temporal:
                 begin: 2011-11-11
                 end: null  # or empty (either means open ended)
-        provider:
+        providers:
+            type: feature
             name: GeoJSON
             data: /usr/local/share/pygeoapi/ne_110m_lakes.geojson
             id_field: id
