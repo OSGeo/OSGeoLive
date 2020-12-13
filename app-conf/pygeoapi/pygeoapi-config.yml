@@ -101,10 +101,10 @@ resources:
                 begin: 2011-11-11
                 end: null  # or empty (either means open ended)
         providers:
-            type: feature
-            name: GeoJSON
-            data: /usr/local/share/pygeoapi/ne_110m_lakes.geojson
-            id_field: id
+            - type: feature
+              name: GeoJSON
+              data: /usr/local/share/pygeoapi/ne_110m_lakes.geojson
+              id_field: id
 
     hello-world:
         type: process
