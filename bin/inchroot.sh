@@ -201,8 +201,8 @@ export USER_NAME
 ./install_leaflet.sh
 ./install_cesium.sh
 ./install_geoext.sh
-# ./install_rasdaman.sh
-# ./install_geostyler.sh
+./install_rasdaman.sh
+./install_geostyler.sh
 # ./install_re3gistry.sh
 
 ## Docs, Data and extras
