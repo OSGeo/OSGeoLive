@@ -27,7 +27,7 @@ BIN_DIR=`pwd`
 BUILD_DIR='/tmp/build_cesium'
 WEB_DIR=cesium
 UNZIP_DIR="$BUILD_DIR/$WEB_DIR"
-CESIUM_VERSION="1.58"
+CESIUM_VERSION="1.76"
 ####
 
 if [ -z "$USER_NAME" ] ; then
@@ -40,7 +40,7 @@ mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 echo "\nDownloading Cesium..."
 wget -c --tries=3 --progress=dot:mega \
-   "https://github.com/AnalyticalGraphicsInc/cesium/releases/download/${CESIUM_VERSION}/Cesium-${CESIUM_VERSION}.zip"
+   "https://github.com/CesiumGS/cesium/releases/download/${CESIUM_VERSION}/Cesium-${CESIUM_VERSION}.zip"
 
 echo "\nInstalling Cesium..."
 IsUnZipPresent=`/usr/bin/which unzip | /usr/bin/wc -l`
