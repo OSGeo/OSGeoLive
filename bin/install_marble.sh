@@ -38,10 +38,10 @@ cat << EOF > "/usr/share/applications/marble.desktop"
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
-Name=Mapble
+Name=Marble
 Comment=Marble
 Categories=Application;Education;Geography;
-Exec=marble %F
+Exec=marble-qt %F
 Icon=marble
 Terminal=false
 StartupNotify=false
