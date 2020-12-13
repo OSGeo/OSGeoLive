@@ -93,31 +93,34 @@ cd "$USER_HOME/Desktop"
 ## OSGeo menu and CPU load for top taskbar:
 
 # tweak the lower taskbar
-LXPANEL="/usr/share/lxpanel/profile/Lubuntu/panels/panel"
+## Copy OSGeoLive emblem svg to lxqt graphics path
+cp "$BUILD_DIR"/../desktop-conf/osgeolive-emblem-plain.svg /usr/share/lxqt/graphics/osgeolive.svg
+
+LXPANEL="/usr/share/lxqt/panel.conf"
 cp "$LXPANEL" "$LXPANEL.bak"
-cp "$BUILD_DIR"/../desktop-conf/panel "$LXPANEL"
-mkdir -p /etc/skel/.config/lxpanel/Lubuntu/panels
-cp "$LXPANEL" /etc/skel/.config/lxpanel/Lubuntu/panels/
+cp "$BUILD_DIR"/../desktop-conf/panel.conf "$LXPANEL"
+mkdir -p /etc/skel/.config/lxqt
+cp "$LXPANEL" /etc/skel/.config/lxqt/
 
 
-# old:
-if [ 1 -eq 0 ] && [ `grep -c 'value="Geospatial"' /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml` -eq 0 ] ; then
-  #present full applications menu name
-    sed -i -e 's+\(name="show-button-title" type="bool"\) value="false"/>+\1 value="true"/>\n      <property name="button-title" type="string" value="Applications"/>+' \
-      /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml
+# xubuntu old:
+# if [ 1 -eq 0 ] && [ `grep -c 'value="Geospatial"' /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml` -eq 0 ] ; then
+#   #present full applications menu name
+#     sed -i -e 's+\(name="show-button-title" type="bool"\) value="false"/>+\1 value="true"/>\n      <property name="button-title" type="string" value="Applications"/>+' \
+#       /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml
 
-  #add new things to the top menubar
-  sed -i -e 's+\(<value type="int" value="1"/>\)+\1\n\t<value type="int" value="360"/>\n\t<value type="int" value="365"/>+' \
-         -e 's+<value type="int" value="6"/>+<value type="int" value="362"/>+' \
-	 -e 's+\(<value type="int" value=\)"26"/>+\1"363"/>\n        \1"26"/>+' \
-	 -e 's+^\(  </property>\)+    <property name="plugin-365" type="string" value="separator">\n      <property name="style" type="uint" value="3"/>\n    </property>\n    <property name="plugin-360" type="string" value="applicationsmenu">\n      <property name="custom-menu" type="bool" value="true"/>\n      <property name="custom-menu-file" type="string" value="/usr/local/share/xfce/osgeo-main.menu"/>\n      <property name="button-icon" type="string" value="gnome-globe"/>\n      <property name="button-title" type="string" value="Geospatial"/>\n    </property>\n    <property name="plugin-362" type="string" value="cpugraph"/>\n    <property name="plugin-363" type="string" value="xkb-plugin"/>\n\1+' \
-	    /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml
-fi
+#   #add new things to the top menubar
+#   sed -i -e 's+\(<value type="int" value="1"/>\)+\1\n\t<value type="int" value="360"/>\n\t<value type="int" value="365"/>+' \
+#          -e 's+<value type="int" value="6"/>+<value type="int" value="362"/>+' \
+# 	 -e 's+\(<value type="int" value=\)"26"/>+\1"363"/>\n        \1"26"/>+' \
+# 	 -e 's+^\(  </property>\)+    <property name="plugin-365" type="string" value="separator">\n      <property name="style" type="uint" value="3"/>\n    </property>\n    <property name="plugin-360" type="string" value="applicationsmenu">\n      <property name="custom-menu" type="bool" value="true"/>\n      <property name="custom-menu-file" type="string" value="/usr/local/share/xfce/osgeo-main.menu"/>\n      <property name="button-icon" type="string" value="gnome-globe"/>\n      <property name="button-title" type="string" value="Geospatial"/>\n    </property>\n    <property name="plugin-362" type="string" value="cpugraph"/>\n    <property name="plugin-363" type="string" value="xkb-plugin"/>\n\1+' \
+# 	    /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml
+# fi
 
-if [ -e "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" ] ; then
-  cp -f /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml \
-     "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
-fi
+# if [ -e "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml" ] ; then
+#   cp -f /etc/xdg/xdg-xubuntu/xfce4/panel/default.xml \
+#      "$USER_HOME/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml"
+# fi
 
 #cp "$BUILD_DIR"/../desktop-conf/menus/xkb-plugin-363.rc /etc/xdg/xdg-xubuntu/xfce4/panel/
 
