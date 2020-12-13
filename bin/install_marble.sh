@@ -34,9 +34,22 @@ USER_HOME="/home/$USER_NAME"
 
 apt-get install --yes marble-qt marble-data marble-plugins
 
-# copy .desktop file
-cp -v /usr/share/applications/marble_geojson.desktop "$USER_HOME/Desktop/marble_geojson.desktop"
-chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/marble_geojson.desktop"
+cat << EOF > "/usr/share/applications/marble.desktop"
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Mapble
+Comment=Marble
+Categories=Application;Education;Geography;
+Exec=marble %F
+Icon=marble
+Terminal=false
+StartupNotify=false
+Categories=Education;Geography;
+EOF
+
+cp /usr/share/applications/marble.desktop "$USER_HOME/Desktop/"
+chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/marble.desktop"
 
 ##-- save 5.5M by removing the unbuilt docbook docs; could change
 rm -rf /usr/share/doc/kde/HTML/en/marble
