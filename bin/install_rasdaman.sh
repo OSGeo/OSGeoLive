@@ -33,7 +33,7 @@ USER_HOME="/home/$USER_NAME"
 
 RMANHOME=/opt/rasdaman
 
-TOMCAT_WEBAPPS=/var/lib/tomcat/webapps
+TOMCAT_WEBAPPS=/var/lib/tomcat9/webapps
 TOMCAT_SVC=tomcat9
 
 setup_rasdaman_repo()
@@ -73,8 +73,22 @@ delete_not_needed_files()
   done
   # remove development docs
   rm -rf $RMANHOME/share/rasdaman/doc/doc-*
+  rm -rf $RMANHOME/share/rasdaman/doc/manuals
+  # remove html docs (20MB), still remaining pdf docs (5MB)
+  rm -rf $RMANHOME/share/rasdaman/doc/html
+  # remove unneeded demo data, was inserted during installation
+  rm -rf $RMANHOME/share/rasdaman/petascope/petascope_insertdemo_data
+  # remove unneeded javascript code
+  rm -rf $RMANHOME/share/rasdaman/www/rasql-web-console
   # strip executables
-  strip $RMANHOME/bin/ras* > /dev/null 2>&1 || true
+  for e in rascontrol rasql rasserver rasmgr; do
+    strip --strip-unneeded $RMANHOME/bin/$e > /dev/null 2>&1 || true
+  done
+
+  # remove secore as it takes up 250 MB, use remote service
+  sed -i 's|secore_urls=.*|secore_urls=https://ows.rasdaman.org/def,http://www.opengis.net/def|' \
+      /opt/rasdaman/etc/petascope.properties
+  rm -rf $TOMCAT_WEBAPPS/def.war $TOMCAT_WEBAPPS/def $TOMCAT_WEBAPPS/secoredb
 }
 
 install_rasdaman_pkg()
@@ -83,6 +97,7 @@ install_rasdaman_pkg()
   apt-get -qq update -y
   # automate any configuration update dialog
   export DEBIAN_FRONTEND=noninteractive
+  sudo apt-get install -y $TOMCAT_SVC
   apt-get -o Dpkg::Options::="--force-confdef" install -y rasdaman \
     || { echo "Failed installing rasdaman package."; return 1; }
   # make sure the rasdaman package is not removed by apt-get autoremove
@@ -93,7 +108,6 @@ install_rasdaman_pkg()
   # --------
   # need to unpack the war files (tomcat doesn't do it which causes issues)
   unpack_war_file rasdaman
-  unpack_war_file def
   service $TOMCAT_SVC restart
   # --------
 
