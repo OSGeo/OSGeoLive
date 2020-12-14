@@ -148,6 +148,9 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/uDig.desktop"
 
 ## Documentation ##
 
+#copy into /usr/local/share/udig/udig-docs
+mkdir -p "$DOCS_FOLDER/udig-docs"
+
 # Download udig's documentation
 if [ -f "uDigWalkthrough1.pdf" ]
 then
@@ -163,11 +166,8 @@ else
    wget -c --progress=dot:mega http://udig.refractions.net/files/tutorials/uDigWalkthrough2.pdf
 fi
 
-#copy into /usr/local/share/udig/udig-docs
-mkdir -p "$DOCS_FOLDER/udig-docs"
-cp "$REL_DOC" "$DOCS_FOLDER/udig-docs"
-# cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
 cp uDigWalkthrough1.pdf "$DOCS_FOLDER/udig-docs"
+cp uDigWalkthrough2.pdf "$DOCS_FOLDER/udig-docs"
 
 #force eclipse to use mozilla as the default browser (#1394)
 echo "-Dorg.eclipse.swt.browser.DefaultType=mozilla" >> /usr/lib/udig/udig_internal.ini
