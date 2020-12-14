@@ -45,7 +45,7 @@ do
 done
 
 if $DATA_ARG; then 
-        $PRGDIR/udig/udig_internal $@
+        $PRGDIR/udig_internal $@
 else
-        $PRGDIR/udig/udig_internal -data ~/uDigWorkspace $@
+        $PRGDIR/udig_internal -data ~/uDigWorkspace $@
 fi
