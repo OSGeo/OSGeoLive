@@ -1,7 +1,7 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will install qgis_mapserver in ubuntu
+# Purpose: This script will install qgis-server in ubuntu
 #
 #############################################################################
 # Copyright (c) 2009-2020 The Open Source Geospatial Foundation and others.
@@ -28,49 +28,39 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-TMP="/tmp/build_qgis_mapserver"
-APP_DATA_DIR="$BUILD_DIR/../app-data/qgis-mapserver"
-QWC2_DOWNLOAD_URL="https://github.com/qgis/qwc2-demo-app/archive/v1.0.tar.gz"
-DATA_FOLDER="/usr/local/share"
-PKG_DATA="$DATA_FOLDER/qgis_mapserver"
-
-APP_CONF_DIR="$BUILD_DIR/../app-conf/qgis-mapserver/"
+TMP="/tmp/build_qgis_server"
+APP_DATA_DIR="$BUILD_DIR/../app-data/qgis-server"
+APP_CONF_DIR="$BUILD_DIR/../app-conf/qgis-server"
 QS_APACHE_CONF_FILE="qgis-fcgid.conf"
-QS_APACHE_CONF=$APP_CONF_DIR$QS_APACHE_CONF_FILE
-APACHE_CONF_DIR="/etc/apache2/conf-available/"
+DEST_DIR="/var/www/html/qgis_server"
 
-## get qgis_mapserver
+# install qgis-server
 apt-get install --assume-yes qgis-server libapache2-mod-fcgid
 
 # Make sure Apache has cgi-bin setup, and that fcgid is enabled
 a2enmod cgi
 a2enmod fcgid
 
-#CGI for testing
-# NOTE: this is unnecessary (unused) until there is a virtual host set up;
-#       currently, the .fcgi extension is needed to spawn FCGI binary
-ln -s qgis_mapserv.fcgi /usr/lib/cgi-bin/qgis_mapserv
-
 # Add Apache config to limit max FCGI processes
-cp $QS_APACHE_CONF $APACHE_CONF_DIR
+cp $APP_CONF_DIR/$QS_APACHE_CONF_FILE /etc/apache2/conf-available/
 a2enconf $QS_APACHE_CONF_FILE
 
-#Sample project
+# Sample QGIS project
 ln -s /usr/local/share/qgis/QGIS-Itasca-Example.qgz /usr/lib/cgi-bin/
 
-#Unpack demo viewer
-mkdir -p "$PKG_DATA"
-cd "$PKG_DATA"
-wget -O "$PKG_DATA/qwc2.tgz" "$QWC2_DOWNLOAD_URL"
-tar xzf "$PKG_DATA/qwc2.tgz" --no-same-owner
-cd "$(ls $PKG_DATA | grep -v tgz)"
-mv * ../
-cd "$PKG_DATA"
+mkdir -p "$TMP"
+cd "$TMP"
+wget -c --progress=dot:mega "https://github.com/qgis/qwc2-demo-app/releases/download/ci-latest-master/qwc2-demo-app.zip"
+unzip -q qwc2-demo-app.zip
+
+mkdir -p "$DEST_DIR"
+cd "$DEST_DIR"
+mv "$TMP/prod/*" .
 cp "$APP_DATA_DIR/config.json" .
 cp "$APP_DATA_DIR/themes.json" .
 
 # Create Desktop Shortcut for Demo viewer
-cat << EOF > /usr/share/applications/qgis-mapserver.desktop
+cat << EOF > /usr/share/applications/qgis-server.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -83,8 +73,8 @@ Terminal=false
 StartupNotify=false
 EOF
 
-cp -a /usr/share/applications/qgis-mapserver.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/qgis-mapserver.desktop"
+cp -a /usr/share/applications/qgis-server.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/qgis-server.desktop"
 
 # Reload Apache
 service apache2 --full-restart
