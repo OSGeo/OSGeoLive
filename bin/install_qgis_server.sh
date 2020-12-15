@@ -30,7 +30,6 @@ USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_qgis_mapserver"
 APP_DATA_DIR="$BUILD_DIR/../app-data/qgis-mapserver"
-QWC2_DOWNLOAD_URL="https://github.com/qgis/qwc2-demo-app/archive/v1.0.tar.gz"
 DATA_FOLDER="/usr/local/share"
 PKG_DATA="$DATA_FOLDER/qgis_mapserver"
 
@@ -55,17 +54,17 @@ ln -s qgis_mapserv.fcgi /usr/lib/cgi-bin/qgis_mapserv
 cp $QS_APACHE_CONF $APACHE_CONF_DIR
 a2enconf $QS_APACHE_CONF_FILE
 
-#Sample project
+#Sample QGIS project
 ln -s /usr/local/share/qgis/QGIS-Itasca-Example.qgz /usr/lib/cgi-bin/
 
-#Unpack demo viewer
+mkdir -p "$TMP"
+cd "$TMP"
+wget -c --progress=dot:mega "https://github.com/qgis/qwc2-demo-app/releases/download/ci-latest-master/qwc2-demo-app.zip"
+unzip -q qwc2-demo-app.zip
+
 mkdir -p "$PKG_DATA"
 cd "$PKG_DATA"
-wget -O "$PKG_DATA/qwc2.tgz" "$QWC2_DOWNLOAD_URL"
-tar xzf "$PKG_DATA/qwc2.tgz" --no-same-owner
-cd "$(ls $PKG_DATA | grep -v tgz)"
-mv * ../
-cd "$PKG_DATA"
+mv "$TMP/prod/*" .
 cp "$APP_DATA_DIR/config.json" .
 cp "$APP_DATA_DIR/themes.json" .
 
