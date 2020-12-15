@@ -47,7 +47,7 @@ NAV_APPS="marble opencpn josm osm_online xygrib gpsprune"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapcache mapproxy-*
-              qgis-mapserver zoo-project 52n* eoxserver* ncWMS-* pycsw istsos
+              qgis-server zoo-project 52n* eoxserver* ncWMS-* pycsw istsos
               pywps t-rex actinia* pygeoapi-*"
 #disabled: mapguide*
 
