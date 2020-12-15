@@ -26,9 +26,6 @@
 
 BASE_DIR=`pwd`
 BUILD_DIR='/tmp/build_t-rex'
-#WEB_DIR=t-rex
-#UNZIP_DIR="$BUILD_DIR/$WEB_DIR"
-T_REX_VERSION="0.9.0"
 ####
 
 if [ -z "$USER_NAME" ] ; then
@@ -40,11 +37,11 @@ echo "\nCreating temporary directory $BUILD_DIR..."
 mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 echo "\nDownloading t-rex package..."
-wget -c --tries=3 --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/12/t_rex/t-rex-v${T_REX_VERSION}-x86_64-unknown-linux-gnu.deb"
+wget -c --tries=3 --progress=dot:mega -O t-rex.deb \
+   "https://github.com/t-rex-tileserver/t-rex/releases/download/v0.11.0/t-rex_0.11.0_amd64_focal.deb"
 
 echo "\nInstalling t-rex..."
-dpkg -i t-rex-v${T_REX_VERSION}-x86_64-unknown-linux-gnu.deb
+dpkg --ignore-depends=json-c -i t-rex.deb
 
 
 echo "\nGenerating launcher..."
