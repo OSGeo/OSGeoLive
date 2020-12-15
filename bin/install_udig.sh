@@ -121,6 +121,8 @@ if [ $? -ne 0 ] ; then
 fi
 
 ## Configure Application ##
+# allow to execute udig_internal
+chmod 775 "$UDIG_FOLDER/udig_internal"
 
 # copy modified startup script for udig
 cp "$BUILD_DIR"/../app-conf/udig/udig.sh "$UDIG_FOLDER"
