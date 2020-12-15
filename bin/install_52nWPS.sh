@@ -36,15 +36,15 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
+WPS_TOMCAT_SCRIPT_NAME="tomcat9"
 TOMCAT_USER_NAME="tomcat"
-WPS_WAR_INSTALL_FOLDER="/var/lib/${TOMCAT_USER_NAME}/webapps"
+WPS_WAR_INSTALL_FOLDER="/var/lib/${TOMCAT_SCRIPT_NAME}/webapps"
 WPS_BIN_FOLDER="/usr/local/share/52nWPS"
 WPS_TAR_NAME="52nWPS-3.6.3.tar.gz"
 WPS_TAR_URL="https://52north.org/delivery/geoprocessing/osgeolive/"
 # when changing this, adjust the name in line 215, too,
 # and the quickstart, which links to this, too
 WPS_WEB_APP_NAME="52nWPS"
-WPS_TOMCAT_SCRIPT_NAME="tomcat9"
 WPS_ICON_NAME="52n.png"
 WPS_URL="http://localhost:8080/$WPS_WEB_APP_NAME"
 WPS_QUICKSTART_URL="http://localhost/osgeolive/en/quickstart/52nWPS_quickstart.html"
