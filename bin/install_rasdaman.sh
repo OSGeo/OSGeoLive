@@ -113,10 +113,22 @@ stop_tomcat()
   pkill -f org.apache.catalina.startup.Bootstrap
 }
 
+download_rasbase()
+{
+  # download pre-initialized RASBASE: when building the ISO rasserver segfaults
+  # while initializing RASBASE due to a strange memory cleanup issue in GDAL,
+  # after rasserver's main() exits
+  mkdir -p $RMANHOME/data/
+  local rasbase_url="http://kahlua.eecs.jacobs-university.de/~earthlook/osgeo/RASBASE"
+  wget -q "$rasbase_url" -O $RMANHOME/data/RASBASE
+}
+
 install_rasdaman_pkg()
 {
   echo "Install rasdaman package..."
   apt-get -qq update -y
+  download_rasbase
+  
   # automate any configuration update dialog
   export DEBIAN_FRONTEND=noninteractive
   sudo apt-get install -y $TOMCAT_SVC
