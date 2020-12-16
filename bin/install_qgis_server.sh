@@ -55,7 +55,7 @@ unzip -q qwc2-demo-app.zip
 
 mkdir -p "$DEST_DIR"
 cd "$DEST_DIR"
-mv "$TMP/prod/*" .
+mv $TMP/prod/* .
 cp "$APP_DATA_DIR/config.json" .
 cp "$APP_DATA_DIR/themes.json" .
 
