@@ -235,17 +235,17 @@ fi
 
 # Start tomcat to ensure all applications are deployed
 # FIXME: systemctl and service are not available in chroot.
-service tomcat9 start
-sleep 120
-service tomcat9 stop
+# service tomcat9 start
+# sleep 120
+# service tomcat9 stop
 
 # Disable auto-deploy to prevent applications to get removed after removing war files
 # TODO: Add some note to wiki for users that want to deploy their own tomcat applications
-sed -i -e 's/unpackWARs="true"/unpackWARs="false"/' -e 's/autoDeploy="true"/autoDeploy="false"/' \
-    /etc/tomcat9/server.xml
+# sed -i -e 's/unpackWARs="true"/unpackWARs="false"/' -e 's/autoDeploy="true"/autoDeploy="false"/' \
+    # /etc/tomcat9/server.xml
 
 # Cleaning up war files to save disk space
-rm -f /var/lib/tomcat9/webapps/*.war
+# rm -f /var/lib/tomcat9/webapps/*.war
 
 # Disabling default tomcat startup
 #update-rc.d -f tomcat7 remove

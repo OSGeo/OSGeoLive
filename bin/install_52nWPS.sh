@@ -96,12 +96,13 @@ fi
 #
 #
 # 3 tomcat
-if [ -f "/etc/init.d/$WPS_TOMCAT_SCRIPT_NAME" ] ; then
-   	echo "[$(date +%M:%S)]: $WPS_TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
-else
-	echo "[$(date +%M:%S)]: $WPS_TOMCAT_SCRIPT_NAME not found. Installing it..."
-	apt-get install --assume-yes "$WPS_TOMCAT_SCRIPT_NAME" "${WPS_TOMCAT_SCRIPT_NAME}-admin"
-fi
+# NOTE: Ubuntu 20.04 now uses systemd, disabling this part as tomcat is already installed.
+# if [ -f "/etc/init.d/$WPS_TOMCAT_SCRIPT_NAME" ] ; then
+#    	echo "[$(date +%M:%S)]: $WPS_TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
+# else
+# 	echo "[$(date +%M:%S)]: $WPS_TOMCAT_SCRIPT_NAME not found. Installing it..."
+# 	apt-get install --assume-yes "$WPS_TOMCAT_SCRIPT_NAME" "${WPS_TOMCAT_SCRIPT_NAME}-admin"
+# fi
 #
 #
 #

@@ -105,13 +105,13 @@ fi
 #
 #
 # 3 tomcat
-#
-if [ -f "/etc/init.d/$TOMCAT_SCRIPT_NAME" ] ; then
-   	echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
-else
-    echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME not found. Installing it..."
-    apt-get install --assume-yes "$TOMCAT_SCRIPT_NAME" "${TOMCAT_SCRIPT_NAME}-admin"
-fi
+# NOTE: Ubuntu 20.04 now uses systemd, disabling this part as tomcat is already installed.
+# if [ -f "/etc/init.d/$TOMCAT_SCRIPT_NAME" ] ; then
+#    	echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME service script found in /etc/init.d/."
+# else
+#     echo "[$(date +%M:%S)]: $TOMCAT_SCRIPT_NAME not found. Installing it..."
+#     apt-get install --assume-yes "$TOMCAT_SCRIPT_NAME" "${TOMCAT_SCRIPT_NAME}-admin"
+# fi
 #
 #
 # 4 postgresql
@@ -163,6 +163,7 @@ fi
 # 2 Database set-up
 #
 # we need to stop tomcat around this process
+# NOTE: systemctl start/stop/status does not work in chroot, tomcat needs to be started mannually if needed.
 TOMCAT=`systemctl status $TOMCAT_SCRIPT_NAME | grep "Active: active" | wc -l`
 if [ $TOMCAT -eq 1 ]; then
     systemctl stop $TOMCAT_SCRIPT_NAME
