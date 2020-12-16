@@ -97,7 +97,7 @@ delete_not_needed_files()
 
 start_tomcat()
 {
-  # `service tomcat9 start` does not work when building the ISO for some reason,
+  # `service tomcat9 start` does not work when building the ISO,
   # so start tomcat manually, in order to import the demo data
   export CATALINA_HOME=/usr/share/tomcat9
   export CATALINA_BASE=/var/lib/tomcat9
@@ -105,7 +105,12 @@ start_tomcat()
   export JAVA_OPTS="-Djava.awt.headless=true -XX:+UseG1GC -Xmx2048m"
 
   /usr/libexec/tomcat9/tomcat-update-policy.sh
-  nohup /usr/libexec/tomcat9/tomcat-start.sh & > /tmp/tomcat-start-output.log
+  nohup /usr/libexec/tomcat9/tomcat-start.sh > /tmp/tomcat-start-output.log &
+}
+
+stop_tomcat()
+{
+  pkill -f org.apache.catalina.startup.Bootstrap
 }
 
 install_rasdaman_pkg()
@@ -295,6 +300,7 @@ add_rasdaman_path_to_bashrc
 deploy_local_earthlook
 
 rasdaman_service stop
+stop_tomcat
 
 
 
