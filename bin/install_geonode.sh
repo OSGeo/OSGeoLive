@@ -35,23 +35,20 @@ DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/sites-available/geonode.conf"
 GEONODE_DB="geonode_app"
 GEONODE_STORE="geonode_data"
-GEOSERVER_VERSION="2.15.1"
+GEOSERVER_VERSION="2.18.0"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
-GEONODE_DIR="/usr/lib/python2.7/dist-packages/geonode"
+GEONODE_DIR="/usr/lib/python3/dist-packages/geonode"
 STATIC_PATH="/var/www/geonode/static"
 UPLOAD_PATH="/var/www/geonode/uploaded"
 # TMP="/tmp/build_geoserver"
 
 # Install packages
-add-apt-repository -y ppa:geonode/osgeolive
-# add-apt-repository -y ppa:gcpp-kalxas/geonode
+# add-apt-repository -y ppa:geonode/osgeolive
+add-apt-repository -y ppa:gcpp-kalxas/geonode
 apt-get -q update
 
-apt-get install --yes --allow-downgrades --allow-change-held-packages \
-    python-six=1.10.0-2~bionic0
-
-apt-get install --yes --no-install-recommends python-geonode libapache2-mod-wsgi curl
+apt-get install --yes --no-install-recommends python3-geonode libapache2-mod-wsgi-py3 curl
 
 if [ $? -ne 0 ] ; then
     echo 'ERROR: Package install failed! Aborting.'
@@ -77,9 +74,9 @@ WSGIDaemonProcess geonode user=www-data threads=10 processes=1
 
     WSGIProcessGroup geonode
     WSGIPassAuthorization On
-    WSGIScriptAlias / /usr/lib/python2.7/dist-packages/geonode/wsgi.py
+    WSGIScriptAlias / /usr/lib/python3/dist-packages/geonode/wsgi.py
 
-    <Directory "/usr/lib/python2.7/dist-packages/geonode/">
+    <Directory "/usr/lib/python3/dist-packages/geonode/">
         Order allow,deny
         Options Indexes FollowSymLinks
         IndexOptions FancyIndexing
@@ -413,8 +410,8 @@ systemctl start geonode_hosts.service
 ## Enable geonode_hosts service at startup
 systemctl enable geonode_hosts.service
 
-apt-add-repository --yes --remove ppa:geonode/osgeolive
-# apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
+# apt-add-repository --yes --remove ppa:geonode/osgeolive
+apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
