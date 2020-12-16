@@ -59,7 +59,7 @@ unpack_war_file()
     mkdir -p "$war_name"
     mv "$war_file" "$war_name"
     pushd "$war_name"
-    unzip "$war_file" && rm -f "$war_file" # extract
+    unzip -q "$war_file" && rm -f "$war_file" # extract
     popd
   fi
   popd
@@ -89,6 +89,23 @@ delete_not_needed_files()
   sed -i 's|secore_urls=.*|secore_urls=https://ows.rasdaman.org/def,http://www.opengis.net/def|' \
       /opt/rasdaman/etc/petascope.properties
   rm -rf $TOMCAT_WEBAPPS/def.war $TOMCAT_WEBAPPS/def $TOMCAT_WEBAPPS/secoredb
+
+  # remove cached deb packages
+  apt-get -q clean
+  apt-get -q autoclean
+}
+
+start_tomcat()
+{
+  # `service tomcat9 start` does not work when building the ISO for some reason,
+  # so start tomcat manually, in order to import the demo data
+  export CATALINA_HOME=/usr/share/tomcat9
+  export CATALINA_BASE=/var/lib/tomcat9
+  export CATALINA_TMPDIR=/tmp
+  export JAVA_OPTS="-Djava.awt.headless=true -XX:+UseG1GC -Xmx2048m"
+
+  /usr/libexec/tomcat9/tomcat-update-policy.sh
+  nohup /usr/libexec/tomcat9/tomcat-start.sh & > /tmp/tomcat-start-output.log
 }
 
 install_rasdaman_pkg()
@@ -100,15 +117,27 @@ install_rasdaman_pkg()
   sudo apt-get install -y $TOMCAT_SVC
   apt-get -o Dpkg::Options::="--force-confdef" install -y rasdaman \
     || { echo "Failed installing rasdaman package."; return 1; }
+
+  # print the package installation log into the chroot-build.log
+  echo "======================================================================="
+  echo "Rasdaman command log start:"
+  echo "======================================================================="
+  cat /tmp/rasdaman.install.log
+  echo "======================================================================="
+  echo "Rasdaman command log end"
+  echo "======================================================================="
+
   # make sure the rasdaman package is not removed by apt-get autoremove
   echo "rasdaman hold" | dpkg --set-selections
   # apt-mark manual rasdaman
   delete_not_needed_files
+  # create log dir in case it's missing, otherwise starting rasdaman fails
+  mkdir -p $RMANHOME/log
 
   # --------
   # need to unpack the war files (tomcat doesn't do it which causes issues)
   unpack_war_file rasdaman
-  service $TOMCAT_SVC restart
+  start_tomcat
   # --------
 
   echo
@@ -154,7 +183,7 @@ create_bin_starters()
 #!/bin/bash
 sudo service $TOMCAT_SVC start
 sudo service rasdaman start
-echo "Rasdaman was started correctly."
+echo "Rasdaman was started."
 EOF
   cat > $RMANHOME/bin/rasdaman-stop.sh <<EOF
 #!/bin/bash
@@ -238,10 +267,6 @@ deploy_local_earthlook()
   chmod 755 "$rasdaman_demo_path"
   popd > /dev/null
 
-  # start tomcat and rasdaman
-  service $TOMCAT_SVC start
-  sleep 10
-
   # Then import the selected coverages from Earthlook demo-data to local petascope
   # to be used for some demos which use queries on these small coverages.
   # (total size for Earthlook demo pages + data in tar file should be < 15 MB).
@@ -270,7 +295,7 @@ add_rasdaman_path_to_bashrc
 deploy_local_earthlook
 
 rasdaman_service stop
-service $TOMCAT_SVC stop
+
 
 
 mv /etc/apt/sources.list.d/rasdaman.list /etc/apt/sources.list.d/rasdaman.list.disabled
