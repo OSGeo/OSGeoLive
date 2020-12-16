@@ -38,7 +38,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 WPS_TOMCAT_SCRIPT_NAME="tomcat9"
 TOMCAT_USER_NAME="tomcat"
-WPS_WAR_INSTALL_FOLDER="/var/lib/${TOMCAT_SCRIPT_NAME}/webapps"
+WPS_WAR_INSTALL_FOLDER="/var/lib/${WPS_TOMCAT_SCRIPT_NAME}/webapps"
 WPS_BIN_FOLDER="/usr/local/share/52nWPS"
 WPS_TAR_NAME="52nWPS-3.6.3.tar.gz"
 WPS_TAR_URL="https://52north.org/delivery/geoprocessing/osgeolive/"
