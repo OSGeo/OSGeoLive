@@ -182,7 +182,7 @@ export USER_NAME
 ./install_gpsprune.sh
 
 ## Java + default tomcat
-# ./install_52nWPS.sh
+./install_52nWPS.sh
 # ./install_52nSOS.sh
 # ./install_ncWMS.sh
 
@@ -194,7 +194,7 @@ export USER_NAME
 ./install_geonode.sh
 
 ## Rust
-./install_trex.sh
+# ./install_trex.sh
 
 ## Javascript et al
 ./install_openlayers.sh
