@@ -55,8 +55,6 @@ if [ $? -ne 0 ] ; then
     exit 1
 fi
 
-apt-mark hold python-six
-
 # Add an entry in /etc/hosts for geonode, to enable http://geonode/
 echo '127.0.0.1 geonode' | sudo tee -a /etc/hosts
 
