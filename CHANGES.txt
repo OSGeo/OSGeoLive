@@ -1,6 +1,25 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0alpha3
+====================
+
+ * GeoNode 3.1.0
+ * Mapbender 3.2.3
+ * pygeoapi 0.9.0
+ * MapProxy 1.13.0
+ * EOxServer 1.0.0-rc17
+ * istSOS 2.4.0-rc1
+ * Fixed VirtualBox installation failures (#2263)
+ * Fixed tomcat 9 startup issue (#2259)
+ * Fixed 52nWPS installer (#2264)
+ * Fixed 52nSOS installer (#2265)
+ * QGIS Web Client 2 fixed (#2277)
+ * Fixed uDig installer (#2281)
+ * Completed LXQt desktop customization (#1777, #2246)
+ * Fixed pgrouting installer (#2276)
+ * Marble desktop icon missing (#2274)
+
 Version 14.0alpha2
 ====================
 
