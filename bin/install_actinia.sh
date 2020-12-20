@@ -14,7 +14,7 @@
 #
 #################################################################################
 # Copyright (c) 2018-2019 Sören Gebbert and mundialis GmbH & Co. KG, Bonn.
-# Copyright (c) 2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2020 The Open Source Geospatial Foundation and others.
 #
 # Installer script author: Markus Neteler <neteler mundialis.de>
 #
