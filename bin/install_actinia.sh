@@ -66,7 +66,7 @@ mkdir -p "$ACTINIA_HOME"/workspace/download_cache
 mkdir -p "$ACTINIA_HOME"/userdata
 
 apt-get -q update
-apt-get --assume-yes install python3-actinia-core python3-actinia-statistic-plugin redis-server gunicorn3
+apt-get --assume-yes install python3-actinia-core python3-actinia-statistic-plugin redis-server gunicorn
 
 # Add default password for redis
 sed -i -e 's|# requirepass foobared|requirepass pass|' \
