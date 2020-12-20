@@ -86,7 +86,7 @@ delete_not_needed_files()
   done
 
   # remove secore as it takes up 250 MB, use remote service
-  sed -i 's|secore_urls=.*|secore_urls=https://ows.rasdaman.org/def,http://www.opengis.net/def|' \
+  sed -i 's|secore_urls=.*|secore_urls=https://ows.rasdaman.org/def|' \
       /opt/rasdaman/etc/petascope.properties
   rm -rf $TOMCAT_WEBAPPS/def.war $TOMCAT_WEBAPPS/def $TOMCAT_WEBAPPS/secoredb
 
