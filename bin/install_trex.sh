@@ -37,12 +37,11 @@ echo "\nCreating temporary directory $BUILD_DIR..."
 mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 echo "\nDownloading t-rex package..."
-wget -c --tries=3 --progress=dot:mega -O t-rex.deb \
-   "https://github.com/t-rex-tileserver/t-rex/releases/download/v0.11.0/t-rex_0.11.0_amd64_focal.deb"
+wget -c --tries=3 --progress=dot:mega -O t-rex-x86_64-linux-gnu.tar.gz \
+   "https://github.com/t-rex-tileserver/t-rex/releases/download/v0.12.0-alpha1/t-rex-v0.12.0-alpha1-x86_64-linux-gnu.tar.gz"
 
 echo "\nInstalling t-rex..."
-# ignore osgeolive library versions, application is running apart from crash message when terminating
-dpkg --ignore-depends=json-c-0.13.1,libgeos-3.8.0 -i t-rex.deb
+tar xf t-rex-x86_64-linux-gnu.tar.gz -C /usr/bin
 
 echo "\nGenerating launcher..."
 wget -O /usr/share/pixmaps/t-rex.png 'https://avatars2.githubusercontent.com/u/31633660?s=200&v=4'
