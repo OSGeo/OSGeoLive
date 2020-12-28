@@ -1,6 +1,19 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0alpha4
+====================
+
+ * GEOS 3.9.0
+ * Proj 7.2.0
+ * GDAL 3.2.0
+ * PostGIS 3.1.0
+ * QGIS 3.10.12
+ * MapServer 7.6.2
+ * fiona 1.8.18
+ * rasterio 1.1.8
+ * OSM data for Buenos Aires
+
 Version 14.0alpha3
 ====================
 
