@@ -250,6 +250,7 @@ fi
 # Disabling default tomcat startup
 #update-rc.d -f tomcat7 remove
 systemctl disable tomcat9.service
+systemctl disable rasdaman.service
 
 if [ ! -e /etc/sudoers.d/tomcat ] ; then
    cat << EOF > /etc/sudoers.d/tomcat
@@ -270,8 +271,8 @@ mv /etc/gai.conf.orig /etc/gai.conf
 
 # stop PostgreSQL and MySQL to avoid them thinking a crash happened next boot
 service postgresql stop
-service mysql stop
 service apache2 stop
+# service mysql stop
 
 # This is done on an extra step after rebooting and tmp is cleared
 #echo "==============================================================="
