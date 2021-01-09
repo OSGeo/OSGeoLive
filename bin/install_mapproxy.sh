@@ -121,11 +121,8 @@ services:
       fees: 'None'
 
 layers:
-  - name: tilestache
-    title: World population (Mapnik + Tilestache TMS)
-    sources: [tilestache_cache]
   - name: mapnik
-    title: World population (Mapnik, uncached)
+    title: World population (Mapnik)
     sources: [mapnik]
   - name: mapserver
     title: Mapserver (Itasca)
@@ -138,7 +135,7 @@ layers:
     sources: [mapnik, geoserver]
 
 caches:
-  tilestache_cache:
+  mapnik_cache:
     grids: [GLOBAL_MERCATOR]
     sources: [tilestache]
 
@@ -155,16 +152,14 @@ sources:
       bbox: -124.73142200000001,24.955967,-66.969849,49.371735
       bbox_srs: 'EPSG:4326'
 
-  tilestache:
-    type: tile
-    url: http://127.0.0.1:8012/example/%(z)d/%(x)d/%(y)d.png
-    grid: global_mercator_inverse
-    transparent: true
 
   mapnik:
     type: mapnik
-    use_mapnik2: true
-    mapfile: /usr/local/share/mapnik/demo/population.xml
+    mapfile: /usr/local/share/mapnik/world_population.xml
+    transparent: true
+    coverage:
+      bbox: -180,-90,180,90
+      bbox_srs: 'epsg:4326'    
 
   mapserver:
     type: wms
