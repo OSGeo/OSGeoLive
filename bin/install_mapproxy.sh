@@ -59,7 +59,7 @@ cat << EOF > /usr/share/applications/mapproxy-start.desktop
 Type=Application
 Encoding=UTF-8
 Name=Start MapProxy
-Comment=MapProxy for LiveDVD WMS services
+Comment=MapProxy for OSGeoLive WMS services
 Categories=Application;Geography;Geoscience;Education;
 Exec=qterminal -e mapproxy_start.sh
 Icon=mapproxy
