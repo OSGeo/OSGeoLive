@@ -48,10 +48,36 @@ echo "ARCH: $ARCH"
 DIR="/usr/local/share/gisvm/bin"
 # GIT_DIR="/usr/local/share/gisvm"
 # BUILD_HOME="/home/user"
-VERSION=`cat "$DIR"/../VERSION.txt`
+# VERSION=`cat "$DIR"/../VERSION.txt`
 
 USER_NAME="user"
 export USER_NAME
+
+# We want the git repo available in VM version for development
+cp "$DIR"/bootstrap.sh /home/user/bootstrap.sh
+rm -rf /usr/local/share/gisvm
+cd /home/user
+chmod a+x bootstrap.sh
+./bootstrap.sh
+
+# Adding development packages that were removed from iso to save disk space
+apt-get --yes install build-essential git gnupg devscripts debhelper \
+  pbuilder pristine-tar git-buildpackage devscripts \
+  grass-dev libgdal-dev libproj-dev libgeos-dev python3-dev python3-pip \
+  cmake libotb-dev npm nodejs
+
+# Adding Python2 packages
+apt-get install --yes python-all-dev python-gdal python-shapely python-rasterio \
+    python-fiona python-matplotlib python-tk python-geopandas \
+    python-netcdf4 python-geojson python-scipy python-pandas \
+    python-pyshp python-descartes python-geographiclib \
+    python-cartopy python-seaborn python-networkx python-branca python-pysal \
+    python-mappyfile python-rtree python-ipykernel python-nbformat python-ipywidgets
+
+# Adding back LibreOffice and other packages that were removed from iso to save disk space
+apt-get --yes install libreoffice libreoffice-common libreoffice-core 2048-qt noblenote trojita \
+  transmission-common k3b vlc snapd libllvm9
+
 cd "$DIR"
 
 # ./base_language.sh
