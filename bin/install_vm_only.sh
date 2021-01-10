@@ -23,7 +23,7 @@
 
 if [ "$#" -gt 1 ]; then
     echo "Wrong number of arguments"
-    echo "Usage: install_vm_only.sh [ARCH(i386 or amd64)]"
+    echo "Usage: sudo install_vm_only.sh [ARCH(i386 or amd64)]"
     exit 1
 fi
 
@@ -31,11 +31,11 @@ if [ "$#" -eq 1 ]; then
     ARCH="amd64"
 else
     if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
-    	echo "Did not specify build architecture, try using i386 or amd64 as an argument"
-    	echo "Usage: install_vm_only.sh [ARCH(i386 or amd64)]"
-    	exit 1
-	fi
-	ARCH="$1"
+        echo "Did not specify build architecture, try using i386 or amd64 as an argument"
+        echo "Usage: sudo install_vm_only.sh [ARCH(i386 or amd64)]"
+        exit 1
+    fi
+    ARCH="$1"
 fi
 
 echo
@@ -60,6 +60,9 @@ cd /home/user
 chmod a+x bootstrap.sh
 ./bootstrap.sh
 
+apt-get -q update
+apt-get --yes upgrade
+
 # Adding development packages that were removed from iso to save disk space
 apt-get --yes install build-essential git gnupg devscripts debhelper \
   pbuilder pristine-tar git-buildpackage devscripts \
@@ -78,9 +81,15 @@ apt-get install --yes python-all-dev python-gdal python-shapely python-rasterio 
 apt-get --yes install libreoffice libreoffice-common libreoffice-core 2048-qt noblenote trojita \
   transmission-common k3b vlc snapd libllvm9
 
+# TODO: Install R Studio
+# TODO: Install Atom or VS Code
+# TODO: Install PgAdmin4
+# TODO: Install extra documentation
+
 cd "$DIR"
 
 # ./base_language.sh
+# ./install_zoo-project.sh "$ARCH"
 # ./install_iris.sh
 # ./install_gvsig.sh "$ARCH"
 # ./install_ncWMS.sh
