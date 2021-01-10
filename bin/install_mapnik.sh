@@ -46,7 +46,7 @@ DATA_FOLDER="/usr/local/share"
 MAPNIK_DATA="$DATA_FOLDER/mapnik"
 BIN="/usr/local/bin"
 
-apt-get install --yes python-mapnik
+apt-get install --yes python3-mapnik
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -55,7 +55,7 @@ fi
 
 if [ ! -d "$MAPNIK_DATA" ] ; then
    echo "Creating $MAPNIK_DATA directory"
-   mkdir "$MAPNIK_DATA"
+   mkdir -p "$MAPNIK_DATA"
 fi
 
 chmod -R 755 "$MAPNIK_DATA"
