@@ -144,7 +144,7 @@ export USER_NAME
 ./install_mapcache.sh
 ./install_tinyows.sh
 ./install_gmt.sh
-# ./install_mapnik.sh
+./install_mapnik.sh
 ./install_otb.sh
 ./install_saga.sh
 ./install_grass.sh
