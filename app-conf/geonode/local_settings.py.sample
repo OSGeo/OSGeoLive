@@ -142,3 +142,4 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', ['localhost','geonode'])
 MEDIA_ROOT = "/var/www/geonode/uploaded"
 STATIC_ROOT = "/var/www/geonode/static"
 SESSION_EXPIRED_CONTROL_ENABLED = True
+MONITORING_ENABLED = False
