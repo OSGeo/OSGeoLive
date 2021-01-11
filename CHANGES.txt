@@ -1,6 +1,21 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0alpha5
+====================
+
+ * Proj 7.2.1
+ * GDAL 3.2.1
+ * QGIS 3.10.13
+ * GRASS 7.8.5
+ * pycsw 2.6.0
+ * actinia 0.99.15
+ * Rasdaman 10.0
+ * Mapnik demo updated (#2255)
+ * Draft VM only installer added
+ * Fixed EOxServer configuration (#2267)
+ * Fixed GeoNode configuration (#2268)
+
 Version 14.0alpha4
 ====================
 
