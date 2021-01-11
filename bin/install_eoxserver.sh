@@ -80,6 +80,8 @@ if [ ! -d eoxserver_demonstration ] ; then
     cd eoxserver_demonstration
 
     # Configure database
+    sed -e "s/db_type = os.environ.get('DB')/db_type = 'postgis'/" \
+        -i eoxserver_demonstration/settings.py
     sed -e "s/'ENGINE': .*/'ENGINE': 'django.contrib.gis.db.backends.postgis',/" \
         -i eoxserver_demonstration/settings.py
     sed -e "s/'NAME': .*/'NAME': 'eoxserver_demo',/" \
