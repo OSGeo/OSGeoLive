@@ -217,7 +217,7 @@ sleep 120;
 echo "Done"
 
 #TODO: Create GeoServer store
-python "$GEONODE_DIR"/create_db_store.py
+python3 "$GEONODE_DIR"/create_db_store.py
 
 # run updatelayers
 echo "Updating GeoNode layers..."
