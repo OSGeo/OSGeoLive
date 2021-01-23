@@ -89,6 +89,7 @@ apt-get --yes install libreoffice libreoffice-common libreoffice-core 2048-qt no
 cd "$DIR"
 
 # ./base_language.sh
+# ./install_gmt.sh
 # ./install_zoo-project.sh "$ARCH"
 # ./install_iris.sh
 # ./install_gvsig.sh "$ARCH"

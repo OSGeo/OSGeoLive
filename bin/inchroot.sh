@@ -143,7 +143,7 @@ export USER_NAME
 ./install_mapserver.sh
 ./install_mapcache.sh
 ./install_tinyows.sh
-./install_gmt.sh
+# ./install_gmt.sh
 ./install_mapnik.sh
 ./install_otb.sh
 ./install_saga.sh
@@ -183,7 +183,7 @@ export USER_NAME
 
 ## Java + default tomcat
 ./install_52nWPS.sh
-./install_52nSOS.sh
+# ./install_52nSOS.sh
 # ./install_ncWMS.sh
 
 ## PHP stack
