@@ -37,7 +37,7 @@ TMP_DIR="/tmp/build_openlayers"
 OL2_VERSION="2.13.1" 
 OL2_DIR=/var/www/html/ol2
 
-OPENLAYERS_VERSION="5.3.0"
+OPENLAYERS_VERSION="6.5.0"
 OPENLAYERS_DIR=/var/www/html/openlayers
 
 #
