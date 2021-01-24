@@ -67,7 +67,7 @@ apt-get --yes upgrade
 apt-get --yes install build-essential git gnupg devscripts debhelper \
   pbuilder pristine-tar git-buildpackage devscripts \
   grass-dev libgdal-dev libproj-dev libgeos-dev python3-dev python3-pip \
-  cmake libotb-dev npm nodejs
+  cmake libotb-dev npm nodejs python3-dask
 
 # Adding Python2 packages
 apt-get install --yes python-all-dev python-gdal python-shapely python-rasterio \

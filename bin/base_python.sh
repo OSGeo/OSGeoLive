@@ -42,7 +42,7 @@ apt-get install --yes python3-gdal python3-shapely python3-rasterio rasterio \
     python3-netcdf4 python3-geojson python3-scipy python3-pandas \
     python3-pyshp python3-descartes python3-geographiclib \
     python3-cartopy python3-seaborn python3-networkx python3-branca python3-pysal \
-    python3-mappyfile python3-rtree 
+    python3-mappyfile python3-rtree
 
 ##======================================================
 # clean cartopy  12beta  rm 6MB, add 3MB
