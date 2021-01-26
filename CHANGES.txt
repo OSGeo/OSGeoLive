@@ -1,6 +1,17 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0beta1
+====================
+
+ * QGIS 3.10.14
+ * GeoServer 2.18.1
+ * OpenLayers 6.5.0
+ * GMT moved to VM only
+ * EOxServer 1.0.0-rc21
+ * Switching to pgadmin4 as default (#2262)
+ * New artwork for 14.0
+
 Version 14.0alpha5
 ====================
 
