@@ -105,14 +105,28 @@ StartupNotify=false
 Hidden=false
 EOF
 
+cat << EOF > "/usr/local/share/osgeo-desktop/desktop-truster.desktop"
+[Desktop Entry]
+Name=Desktop Truster
+Comment=Autostarter to trust all desktop files
+Exec=/usr/local/share/osgeo-desktop/desktop-truster.sh
+Type=Application
+EOF
+
 mkdir -p "$USER_HOME"/.config/autostart
 cp /usr/local/share/osgeo-desktop/welcome_message.desktop \
+   "$USER_HOME"/.config/autostart/
+cp /usr/local/share/osgeo-desktop/desktop-truster.desktop \
    "$USER_HOME"/.config/autostart/
 mkdir -p /etc/skel/.config/autostart
 cp /usr/local/share/osgeo-desktop/welcome_message.desktop \
    /etc/skel/.config/autostart/
+cp /usr/local/share/osgeo-desktop/desktop-truster.desktop \
+   /etc/skel/.config/autostart/
 
 cp "$BUILD_DIR/../desktop-conf/welcome_message.sh" \
+   /usr/local/share/osgeo-desktop/
+cp "$BUILD_DIR/../desktop-conf/desktop-truster.sh" \
    /usr/local/share/osgeo-desktop/
 
 #
