@@ -516,6 +516,7 @@ cp "$BUILD_DIR"/../desktop-conf/icons/inspire.png /usr/local/share/icons/
 #if all are dupes, just nuke it:
 sed -i '57,67d' /etc/xdg/menus/lxqt-applications.menu
 
+bash /usr/local/share/osgeo-desktop/desktop-truster.sh
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
