@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2010-2018 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2010-2021 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -49,7 +49,7 @@ fi
 cd "$TMP_DIR"
 
 apt-get --assume-yes install zoo-kernel zoo-service-ogr \
-	zoo-service-status zoo-service-cgal zoo-service-otb zoo-api
+	zoo-service-status zoo-service-otb zoo-api
 
 ## o13 - obsolete, dot-zcfg has been updated
 # Patch OTB zcfg files as per ticket #1710

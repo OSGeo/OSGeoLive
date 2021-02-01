@@ -83,7 +83,6 @@ apt-get --yes install libreoffice libreoffice-common libreoffice-core 2048-qt no
 
 # TODO: Install R Studio
 # TODO: Install Atom or VS Code
-# TODO: Install PgAdmin4
 # TODO: Install extra documentation
 
 cd "$DIR"
@@ -94,7 +93,6 @@ cd "$DIR"
 # ./install_iris.sh
 # ./install_gvsig.sh "$ARCH"
 # ./install_ncWMS.sh
-# ./install_geostyler.sh
 # ./install_re3gistry.sh
 
 echo
