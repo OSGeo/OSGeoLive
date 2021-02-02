@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013-2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2013-2021 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -36,7 +36,7 @@ TOMCAT_USER_NAME="tomcat8"
 TOMCAT_USER_HOME="/usr/share/${TOMCAT_USER_NAME}"
 WMS_WAR_INSTALL_DIR="/var/lib/${TOMCAT_USER_NAME}/webapps"
 WMS_BIN_DIR="/usr/local/share/ncWMS"
-WMS_WAR_URL="https://github.com/Reading-eScience-Centre/ncwms/releases/download/ncwms-2.2.8/"
+WMS_WAR_URL="https://github.com/Reading-eScience-Centre/ncwms/releases/download/ncwms-2.4.2/"
 WMS_WAR_NAME="ncWMS2.war"
 WMS_WEB_APP_NAME="ncWMS2"
 WMS_TOMCAT_SCRIPT_NAME="$TOMCAT_USER_NAME"
