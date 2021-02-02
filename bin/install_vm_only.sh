@@ -6,7 +6,7 @@
 # Author:  Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2010-2020 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2021 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -89,8 +89,9 @@ cd "$DIR"
 
 # ./base_language.sh
 # ./install_gmt.sh
-# ./install_zoo-project.sh "$ARCH"
 # ./install_iris.sh
+# ./install_udig.sh "$ARCH"
+# ./install_openjump.sh
 # ./install_gvsig.sh "$ARCH"
 # ./install_ncWMS.sh
 # ./install_re3gistry.sh
