@@ -93,7 +93,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
 # Install virtualbox guest additions
 # If running on virtualbox this will allow us to use full-screen/usb2/...
 # If running outside virtualbox the drivers will not be loaded
-apt-get install --yes virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
+# apt-get install --yes virtualbox-guest-dkms virtualbox-guest-utils virtualbox-guest-x11
 # apt-get install --yes virtualbox-guest-dkms-hwe virtualbox-guest-utils-hwe virtualbox-guest-x11-hwe
 
 ##-------
