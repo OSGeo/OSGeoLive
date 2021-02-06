@@ -1,6 +1,18 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0beta2
+====================
+
+ * PostGIS 3.1.1
+ * GeoStyler 4.5.0
+ * ZOO-Project 1.8.0
+ * EOxServer 1.0.0rc22
+ * ncWMS 2.4.2 (VM only)
+ * Fixed desktop untrusted launchers (#2306)
+ * Added pgadmin4 in database desktop folder
+ * Disabled Virtual Box guest additions due to upstream bug (#2309)
+
 Version 14.0beta1
 ====================
 
