@@ -133,7 +133,7 @@ if [ ! -d eoxserver_demonstration ] ; then
 
     python3 manage.py coveragetype import eoxserver_demonstration/data/rgb_definition.json
 
-    python3 manage.py shell -c "from django.contrib.auth.models import User; User.objects.filter(username=$ADMIN_USER).exists() or User.objects.create_superuser('$ADMIN_USER', '$ADMIN_EMAIL', '$ADMIN_USER')"
+    python3 manage.py shell -c "from django.contrib.auth.models import User; User.objects.filter(username='$ADMIN_USER').exists() or User.objects.create_superuser('$ADMIN_USER', '$ADMIN_EMAIL', '$ADMIN_USER')"
 
     python3 manage.py producttype create MERIS_product_type -c RGB
     python3 manage.py collectiontype create MERIS_collection_type -p MERIS_product_type
