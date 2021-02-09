@@ -36,6 +36,8 @@ APACHE_CONF_DIR="/etc/apache2/conf-available/"
 APACHE_CONF=$APACHE_CONF_DIR$APACHE_CONF_FILE
 TMP_DIR="/tmp/build_eoxserver"
 POSTGRES_USER="$USER_NAME"
+ADMIN_USER="admin"
+ADMIN_EMAIL="office@eox.at"
 
 
 ## check required tools are installed
@@ -114,8 +116,7 @@ if [ ! -d eoxserver_demonstration ] ; then
     chown -R root.root eoxserver-release-*
 
     mkdir -p eoxserver_demonstration/data/fixtures/
-    mv eoxserver-release-$EOXSVER/autotest/autotest/data/fixtures/auth_data.json \
-        eoxserver-release-$EOXSVER/autotest/autotest/data/fixtures/range_types.json \
+    mv eoxserver-release-$EOXSVER/autotest/autotest/data/fixtures/range_types.json \
         eoxserver_demonstration/data/fixtures/
 
     mv eoxserver-release-$EOXSVER/autotest/autotest/data/rgb_definition.json \
@@ -130,9 +131,9 @@ if [ ! -d eoxserver_demonstration ] ; then
     rm release-$EOXSVER.tar.gz
     rm -r eoxserver-release-$EOXSVER/
 
-    python3 manage.py loaddata eoxserver_demonstration/data/fixtures/auth_data.json
-
     python3 manage.py coveragetype import eoxserver_demonstration/data/rgb_definition.json
+
+    python3 manage.py shell -c "from django.contrib.auth.models import User; User.objects.filter(username='$ADMIN_USER').exists() or User.objects.create_superuser('$ADMIN_USER', '$ADMIN_EMAIL', '$ADMIN_USER')"
 
     python3 manage.py producttype create MERIS_product_type -c RGB
     python3 manage.py collectiontype create MERIS_collection_type -p MERIS_product_type
