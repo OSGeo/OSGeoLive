@@ -1,6 +1,12 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0beta3
+====================
+
+ * QGIS 3.16.3
+ * QGIS Server 3.16.3
+
 Version 14.0beta2
 ====================
 
