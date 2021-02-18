@@ -80,5 +80,8 @@ for FILE in  pgadmin3  pgpass  ; do
     chmod 600 "$USER_HOME/.$FILE"
 done
 
+mkdir -p "$USER_HOME/.pgadmin"
+cp ../app-conf/postgresql/pgadmin4.db "$USER_HOME/.pgadmin/pgadmin4.db"
+
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
