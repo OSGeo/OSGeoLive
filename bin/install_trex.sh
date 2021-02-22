@@ -38,7 +38,7 @@ mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 echo "\nDownloading t-rex package..."
 wget -c --tries=3 --progress=dot:mega -O t-rex-x86_64-linux-gnu.tar.gz \
-   "https://github.com/t-rex-tileserver/t-rex/releases/download/v0.12.0-alpha1/t-rex-v0.12.0-alpha1-x86_64-linux-gnu.tar.gz"
+   "https://github.com/t-rex-tileserver/t-rex/releases/download/v0.13.0/t-rex-v0.13.0-x86_64-linux-gnu.tar.gz"
 
 echo "\nInstalling t-rex..."
 tar xf t-rex-x86_64-linux-gnu.tar.gz -C /usr/bin
@@ -56,7 +56,7 @@ Encoding=UTF-8
 Name=T-Rex
 Comment=Vector Tile Server
 Categories=Application;Internet;
-Exec=t_rex serve --dbconn postgresql://user@%%2Frun%%2Fpostgresql/osm_local
+Exec=t_rex serve --dbconn postgresql://user:user@localhost/osm_local --simplify false
 Icon=t-rex
 Terminal=true
 StartupNotify=false
