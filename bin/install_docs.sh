@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2020 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2021 The Open Source Geospatial Foundation and others.
 # Copyright (c) 2009 LISAsoft
 # Copyright (c) 2009 Cameron Shorter
 # Licensed under the GNU LGPL version >= 2.1.

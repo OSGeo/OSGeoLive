@@ -6,7 +6,7 @@
 #   http://wiki.osgeo.org/wiki/GISVM_Build#Build_the_Live_DVD_ISO_image
 #
 #############################################################################
-# Copyright (c) 2009-2020 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2021 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #

@@ -6,7 +6,7 @@
 # Needs to be run after vm build is done and has been rebooted 
 #
 #############################################################################
-# Copyright (c) 2011-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2011-2021 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #

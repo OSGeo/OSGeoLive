@@ -8,7 +8,7 @@
 #
 #############################################################################
 # Copyright (c) 2013  Hamish Bowman
-# Copyright (c) 2013-2018 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2013-2021 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 # Previously this code existed in OSGeo Live DVD version 4-6's main.sh
