@@ -1,6 +1,16 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0rc1
+====================
+
+ * QGIS 3.16.4
+ * QGIS Server 3.16.4
+ * t-rex 0.13.0
+ * Added pgadmin4 configuration (#2304)
+ * Added tested Notebooks for 14.0.
+ * OSGeoLive documentation and translations finalized for 14.0
+
 Version 14.0beta3
 ====================
 
