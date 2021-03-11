@@ -1,4 +1,4 @@
 #OSGeoLive Release ppa
-deb http://ppa.launchpad.net/osgeolive/release-13.0/ubuntu focal main
-#deb-src http://ppa.launchpad.net/osgeolive/release-13.0/ubuntu focal main
+deb http://ppa.launchpad.net/osgeolive/release-14.0/ubuntu focal main
+#deb-src http://ppa.launchpad.net/osgeolive/release-14.0/ubuntu focal main
 
