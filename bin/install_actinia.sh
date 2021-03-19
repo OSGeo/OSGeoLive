@@ -109,9 +109,9 @@ Encoding=UTF-8
 Name=Start Actinia
 Comment=Actinia for OSGeoLive
 Categories=Application;Geography;Geoscience;Education;
-Exec=lxterminal -e actinia_start.sh
+Exec=/usr/local/bin/actinia_start.sh
 Icon=actinia
-Terminal=false
+Terminal=true
 StartupNotify=false
 EOF
 
