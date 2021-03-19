@@ -43,7 +43,8 @@ install_rasdaman_pkg()
   pushd $RMANHOME > /dev/null
   wget -q "$archive_url" -O - | tar xz
   echo "Installed size: $(du -sh .)"
-  chown -R $USER_NAME: $RMANHOME
+  chown -R root: $RMANHOME
+  chmod -R 777 $RMANHOME/log
   popd > /dev/null
 }
 
