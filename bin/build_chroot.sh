@@ -292,6 +292,7 @@ sed -i -e "s/Lubuntu/OSGeoLive/g" \
     extract-cd/isolinux/txt.cfg
 
 cp "$GIT_DIR/desktop-conf/isolinux/splash.png" extract-cd/isolinux/splash.png
+cp "$GIT_DIR/desktop-conf/isolinux/splash.pcx" extract-cd/isolinux/splash.pcx
 
 echo
 echo "Regenerating manifest..."
