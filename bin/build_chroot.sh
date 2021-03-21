@@ -284,6 +284,16 @@ mv myinitrd ../extract-cd/casper/initrd
 cd ..
 
 echo
+echo "Editing boot options and graphics..."
+echo "======================================"
+
+sed -i -e "s/Lubuntu/OSGeoLive/g" \
+       -e "s/initrd quiet splash/initrd fsck.mode=skip quiet splash/g" \
+    extract-cd/isolinux/txt.cfg
+
+cp "$GIT_DIR/desktop-conf/isolinux/splash.png" extract-cd/isolinux/splash.png
+
+echo
 echo "Regenerating manifest..."
 echo "======================================"
 
