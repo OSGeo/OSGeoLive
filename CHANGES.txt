@@ -1,6 +1,14 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0rc2
+====================
+
+ * Disabled fsck during live boot
+ * Fixed actinia launcher (#2266)
+ * Fixed permision issue for rasdaman log folder (#2279)
+ * Added new boot splash image
+
 Version 14.0rc1
 ====================
 
