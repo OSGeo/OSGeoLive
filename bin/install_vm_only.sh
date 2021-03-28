@@ -54,47 +54,50 @@ USER_NAME="user"
 export USER_NAME
 
 # We want the git repo available in VM version for development
-cp "$DIR"/bootstrap.sh /home/user/bootstrap.sh
-rm -rf /usr/local/share/gisvm
-cd /home/user
-chmod a+x bootstrap.sh
-./bootstrap.sh
+# cp "$DIR"/bootstrap.sh /home/user/bootstrap.sh
+# rm -rf /usr/local/share/gisvm
+# cd /home/user
+# chmod a+x bootstrap.sh
+# ./bootstrap.sh
 
 apt-get -q update
 apt-get --yes upgrade
+
+# Adding VBox guest additions
+apt-get install --yes virtualbox-guest-dkms virtualbox-guest-x11
 
 # Adding development packages that were removed from iso to save disk space
 apt-get --yes install build-essential git gnupg devscripts debhelper \
   pbuilder pristine-tar git-buildpackage devscripts \
   grass-dev libgdal-dev libproj-dev libgeos-dev python3-dev python3-pip \
-  cmake libotb-dev npm nodejs python3-dask
+  cmake libotb-dev npm nodejs python3-dask python3-sklearn python3-folium
 
-# Adding Python2 packages
-apt-get install --yes python-all-dev python-gdal python-shapely python-rasterio \
-    python-fiona python-matplotlib python-tk python-geopandas \
-    python-netcdf4 python-geojson python-scipy python-pandas \
-    python-pyshp python-descartes python-geographiclib \
-    python-cartopy python-seaborn python-networkx python-branca python-pysal \
-    python-mappyfile python-rtree python-ipykernel python-nbformat python-ipywidgets
+# Adding Python2
+apt-get install --yes python-all-dev
 
 # Adding back LibreOffice and other packages that were removed from iso to save disk space
 apt-get --yes install libreoffice libreoffice-common libreoffice-core 2048-qt noblenote trojita \
   transmission-common k3b vlc snapd libllvm9
 
-# TODO: Install R Studio
+# Install R Studio
+cd ~
+apt-get --yes install libclang-dev
+wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.4.1106-amd64.deb
+dpkg -i rstudio-1.4.1106-amd64.deb
+rm rstudio-1.4.1106-amd64.deb
 # TODO: Install Atom or VS Code
 # TODO: Install extra documentation
 
 cd "$DIR"
 
 # ./base_language.sh
-# ./install_gmt.sh
+./install_gmt.sh
 # ./install_iris.sh
-# ./install_udig.sh "$ARCH"
-# ./install_openjump.sh
-# ./install_gvsig.sh "$ARCH"
-# ./install_ncWMS.sh
-# ./install_re3gistry.sh
+apt-get --yes install libudunits2-dev
+pip3 install scitools-iris
+./install_gvsig.sh "$ARCH"
+./install_ncWMS.sh
+./install_re3gistry.sh
 
 echo
 echo "==============================================================="
