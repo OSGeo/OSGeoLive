@@ -251,6 +251,7 @@ fi
 #update-rc.d -f tomcat7 remove
 systemctl disable tomcat9.service
 systemctl disable rasdaman.service
+systemctl disable redis.service
 
 if [ ! -e /etc/sudoers.d/tomcat ] ; then
    cat << EOF > /etc/sudoers.d/tomcat
