@@ -232,6 +232,7 @@ EOF
 # Execute the initialisation script.
 #
 chmod +x "$TMP/re3gistry/dist/init-config.sh"
+cd $TMP/re3gistry/dist
 "$TMP/re3gistry/dist/init-config.sh"
 #
 # Move the apps to the servlet container folder and change ownership to the tomcat user
