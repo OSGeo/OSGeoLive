@@ -1,6 +1,16 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0rc3
+====================
+
+ * Cesium 1.80 (#2323)
+ * Fixed doc broken links (#2320)
+ * Re3gistry installer fixes
+ * Updated ncWMS installer to work with tomcat9
+ * Folium package added
+ * MapServer mapfiles upstream security patch
+
 Version 14.0rc2
 ====================
 
