@@ -40,7 +40,7 @@ USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat"
 TOMCAT_SCRIPT_NAME="tomcat9"
 REGISTRY_WEB_APP_NAME="re3gistry2"
-REGISTRY_ICON_NAME="INSPIRE.png" #to be changed to the INSPIRE logo
+REGISTRY_ICON_NAME="inspire.png" #to be changed to the INSPIRE logo
 REGISTRY_URL="http://localhost:8080/$REGISTRY_WEB_APP_NAME"
 REGISTRY_QUICKSTART_URL="http://localhost/osgeolive/en/quickstart/re3gistry_quickstart.html"
 REGISTRY_OVERVIEW_URL="http://localhost/osgeolive/en/overview/re3gistry_overview.html"
@@ -220,7 +220,7 @@ su $PG_USER -c "PGOPTIONS='$PG_OPTIONS' psql -d $PG_DB_NAME -q -c 'VACUUM ANALYZ
 cat << EOF > "$TMP/re3gistry/dist/init.properties"
 dbhost=localhost
 dbport=5432
-dbname=test_database
+dbname=re3gistry_db
 dbuser=postgres
 dbpassword=postgres
 statusbaseuri=http://localhost
