@@ -97,7 +97,7 @@ Alias /ms_tmp "/tmp"
 Alias /tmp "/tmp"
 Alias /mapserver_demos "/usr/local/share/mapserver/demos"
 
-SetEnv MS_MAP_PATTERN "^\/usr\/local\/www\/docs_maps\/mapserver_demos\/([^\.][_A-Za-z0-9\-\.]+\/{1})*([_A-Za-z0-9\-\.]+\.(map))$"
+SetEnv MS_MAP_PATTERN "^\/usr\/local\/([^\.][_A-Za-z0-9\-\.]+\/{1})*([_A-Za-z0-9\-\.]+\.(map))$"
 
 <Directory "/usr/local/share/mapserver">
   Require all granted
