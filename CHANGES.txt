@@ -1,6 +1,12 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0rc4
+====================
+
+ * MapServer mapfiles path updated to fix GeoMoose issue (#2329)
+ * Re3gistry installer fixes
+
 Version 14.0rc3
 ====================
 
