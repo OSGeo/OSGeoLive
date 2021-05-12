@@ -1,5 +1,7 @@
-Welcome to OSGeoLive 14.0.
+Welcome to OSGeoLive 14.0. "Malena"
 
+We would like to dedicate this version to our friend Malena Libman 
+who passed away shortly before OSGeoLive 14.0 was released.
 
 See the life ring Help icon on the Desktop for information about the        
 OSGeoLive disc and virtual-machine, including a synopsis of bundled
