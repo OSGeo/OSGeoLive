@@ -1,6 +1,12 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0rc5
+====================
+
+ * Data folder shortcut fixed (#2331)
+ * Release dedicated to Malena Libman
+
 Version 14.0rc4
 ====================
 
