@@ -1,9 +1,7 @@
 Welcome to OSGeoLive 14.0. "Malena"
 
-Our friend Malena Libman passed away shortly before OSGeoLive 14.0 was released.
-As the FOSS4G 2021 Buenos Aires was her dream, we would like to dedicate 
-this version of OSGeoLive to her.
-Farewell Malena, we will miss you.
+We would like to dedicate this version to our friend Malena Libman 
+who passed away shortly before OSGeoLive 14.0 was released.
 
 See the life ring Help icon on the Desktop for information about the        
 OSGeoLive disc and virtual-machine, including a synopsis of bundled
