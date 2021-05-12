@@ -2,17 +2,12 @@ Welcome to OSGeoLive 14.0. "Malena"
 
 We would like to dedicate this version to our friend Malena Libman 
 who passed away shortly before OSGeoLive 14.0 was released.
+FOSS4G 2021 Buenos Aires was her dream.
+Farewell Malena, we will miss you.
 
-See the life ring Help icon on the Desktop for information about the        
+See the Help icon on the Desktop for information about the
 OSGeoLive disc and virtual-machine, including a synopsis of bundled
 geospatial packages and a series of quick-start short tutorials.
-
-To change the language, log out (lower menu bar), enter the user name
-"user", click on the password box below it to confirm the user name,
-and along the top of the login window is a language drop-down menu
-which starts as "en_US". After selecting the language finish entering
-the password (it's also "user") and press the "Log In" button. If it
-doesn't work the first time just log out and try again.
 
 There is a keyboard icon on the lower menu bar that lets you pick the 
 keyboard layout. See the internationalization quickstart in the 
@@ -26,7 +21,7 @@ and type "sudo su", then enter "user" as the password if you are
 asked.
 
 The living FAQ can be found here:
-  https://wiki.osgeo.org/wiki/OSGeoLive
+  https://trac.osgeo.org/osgeolive/wiki
 
 
 Happy mapping!
