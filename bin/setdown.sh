@@ -255,7 +255,6 @@ systemctl disable redis.service
 
 if [ ! -e /etc/sudoers.d/tomcat ] ; then
    cat << EOF > /etc/sudoers.d/tomcat
-%users ALL=(root) NOPASSWD: /usr/sbin/service tomcat9 start,/usr/sbin/service tomcat9 stop,/usr/sbin/service tomcat9 status
 %user ALL=(root) NOPASSWD: /usr/sbin/service tomcat9 start,/usr/sbin/service tomcat9 stop,/usr/sbin/service tomcat9 status
 EOF
 fi
