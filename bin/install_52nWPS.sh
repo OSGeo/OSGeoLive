@@ -177,9 +177,9 @@ chgrp users "$WPS_BIN_FOLDER"
 if [ ! -e $WPS_BIN_FOLDER/52nWPS-start.sh ] ; then
    cat << EOF > $WPS_BIN_FOLDER/52nWPS-start.sh
 #!/bin/bash
-STAT=\`sudo service "$WPS_TOMCAT_SCRIPT_NAME" status | grep pid\`
+STAT=\`sudo service $WPS_TOMCAT_SCRIPT_NAME status | grep PID\`
 if [ "\$STAT" = "" ]; then
-    sudo service "$WPS_TOMCAT_SCRIPT_NAME" start
+    sudo service $WPS_TOMCAT_SCRIPT_NAME start
     (sleep 2; echo "25"; sleep 2; echo "50"; sleep 2; echo "75"; sleep 2; echo "100") | zenity --progress --auto-close --text "52North WPS starting"
 fi
 firefox $WPS_URL $WPS_QUICKSTART_URL $WPS_OVERVIEW_URL
@@ -189,9 +189,9 @@ fi
 if [ ! -e $WPS_BIN_FOLDER/52nWPS-stop.sh ] ; then
    cat << EOF > $WPS_BIN_FOLDER/52nWPS-stop.sh
 #!/bin/bash
-STAT=\`sudo service "$WPS_TOMCAT_SCRIPT_NAME" status | grep pid\`
+STAT=\`sudo service $WPS_TOMCAT_SCRIPT_NAME status | grep PID\`
 if [ "\$STAT" != "" ]; then
-    sudo service "$WPS_TOMCAT_SCRIPT_NAME" stop
+    sudo service $WPS_TOMCAT_SCRIPT_NAME stop
     zenity --info --text "52North WPS stopped"
 fi
 EOF

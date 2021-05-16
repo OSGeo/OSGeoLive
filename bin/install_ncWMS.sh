@@ -146,9 +146,9 @@ chgrp users "$WMS_BIN_DIR"
 if [ ! -e "$WMS_BIN_DIR/ncWMS-start.sh" ] ; then
     cat << EOF > "$WMS_BIN_DIR/ncWMS-start.sh"
     #!/bin/bash
-    STAT=\`sudo service "$WMS_TOMCAT_SCRIPT_NAME" status | grep pid\`
+    STAT=\`sudo service $WMS_TOMCAT_SCRIPT_NAME status | grep PID\`
     if [ -z "\$STAT" ] ; then
-        sudo service "$WMS_TOMCAT_SCRIPT_NAME" start
+        sudo service $WMS_TOMCAT_SCRIPT_NAME start
         (sleep 5; echo "25"; sleep 5; echo "50"; sleep 5; echo "75"; sleep 5; echo "100") \
 	   | zenity --progress --auto-close --text "ncWMS starting"
     fi
@@ -160,9 +160,9 @@ fi
 if [ ! -e "$WMS_BIN_DIR/ncWMS-stop.sh" ] ; then
     cat << EOF > "$WMS_BIN_DIR/ncWMS-stop.sh"
     #!/bin/bash
-    STAT=\`sudo service "$WMS_TOMCAT_SCRIPT_NAME" status | grep pid\`
+    STAT=\`sudo service $WMS_TOMCAT_SCRIPT_NAME status | grep PID\`
     if [ -n "\$STAT" ] ; then
-        sudo service "$WMS_TOMCAT_SCRIPT_NAME" stop
+        sudo service $WMS_TOMCAT_SCRIPT_NAME stop
         zenity --info --text "ncWMS stopped"
     fi
 EOF
