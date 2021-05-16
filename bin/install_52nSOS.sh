@@ -237,7 +237,7 @@ if [ \$POSTGRES -ne 1 ]; then
 fi
 TOMCAT=\`sudo systemctl status $TOMCAT_SCRIPT_NAME | grep "Active: active" | wc -l\`
 if [ \$TOMCAT -ne 1 ]; then
-    sudo systemctl start $TOMCAT_SCRIPT_NAME
+    sudo service $TOMCAT_SCRIPT_NAME start
 fi
 firefox $SOS_URL $SOS_QUICKSTART_URL $SOS_OVERVIEW_URL
 EOF
@@ -248,7 +248,7 @@ if [ ! -e $SOS_BIN_FOLDER/52nSOS-stop.sh ] ; then
 #!/bin/bash
 TOMCAT=\`sudo systemctl status $TOMCAT_SCRIPT_NAME | grep "Active: active" | wc -l\`
 if [ \$TOMCAT -eq 1 ]; then
-    sudo systemctl stop $TOMCAT_SCRIPT_NAME
+    sudo service $TOMCAT_SCRIPT_NAME stop
 fi
 zenity --info --text "52North SOS stopped"
 EOF
