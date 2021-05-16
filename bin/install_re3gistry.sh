@@ -260,7 +260,7 @@ if [ \$POSTGRES -ne 1 ]; then
 fi
 TOMCAT=\`sudo systemctl status $TOMCAT_SCRIPT_NAME | grep "Active: active" | wc -l\`
 if [ \$TOMCAT -ne 1 ]; then
-    sudo systemctl start $TOMCAT_SCRIPT_NAME
+    sudo service $TOMCAT_SCRIPT_NAME start
 fi
 firefox $REGISTRY_URL $REGISTRY_QUICKSTART_URL $REGISTRY_OVERVIEW_URL
 EOF
@@ -271,7 +271,7 @@ if [ ! -e $REGISTRY_BIN_FOLDER/re3gistry-stop.sh ] ; then
 #!/bin/bash
 TOMCAT=\`sudo systemctl status $TOMCAT_SCRIPT_NAME | grep "Active: active" | wc -l\`
 if [ \$TOMCAT -eq 1 ]; then
-    sudo systemctl stop $TOMCAT_SCRIPT_NAME
+    sudo service $TOMCAT_SCRIPT_NAME stop
 fi
 zenity --info --text "INSPIRE Re3gistry stopped"
 EOF
@@ -327,4 +327,5 @@ chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/re3gistry-stop.desktop"
 # Done. Thanks for staying till the end!
 #
 ####
+"$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
 echo -e "Timing:\nStart: $START\nEnd  : $(date +%M:%S)"
