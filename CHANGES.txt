@@ -1,6 +1,12 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 14.0rc6
+====================
+
+ * Fixed Tomcat start issue on installed systems (#2332)
+ * Updates to 52nWPS,52nSOS,ncWMS and Re3gistry to use proper sudoers permissions
+
 Version 14.0rc5
 ====================
 
