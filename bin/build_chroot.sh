@@ -132,12 +132,13 @@ mkdir -p "$BUILD_HOME"/livecdtmp
 cd "$BUILD_HOME"/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://cdimage.ubuntu.com"
-UBU_RELEASE="20.04"
-ISO_RELEASE="20.04.1"
+UBU_RELEASE="22.04"
+# ISO_RELEASE="20.04.1"
+ISO_RELEASE="22.04-beta"
 UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
-   "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
-
+   "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/beta/$UBU_ISO"
+#    "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
 #Start with a fresh copy
 #Mount the Desktop .iso
 mkdir mnt
