@@ -76,7 +76,7 @@ systemctl enable manage_user_groups.service
 #   /usr/share/initramfs-tools/scripts/casper-bottom/
 
 # remove build stuff no longer of use
-apt-get --yes remove libboost1.71-dev
+apt-get --yes remove libboost1.74-dev
 
 # remove stuff to save disk space (#467)
 apt-get --yes remove libreoffice-common libreoffice-core 2048-qt noblenote trojita \
