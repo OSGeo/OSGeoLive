@@ -1,5 +1,5 @@
-deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu focal main
-#deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu focal main
-#deb http://ppa.launchpad.net/ubuntugis/ppa/ubuntu focal main
-#deb-src http://ppa.launchpad.net/ubuntugis/ppa/ubuntu focal main
+deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu jammy main
+#deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu jammy main
+#deb http://ppa.launchpad.net/ubuntugis/ppa/ubuntu jammy main
+#deb-src http://ppa.launchpad.net/ubuntugis/ppa/ubuntu jammy main
 
