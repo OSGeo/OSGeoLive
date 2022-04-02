@@ -58,7 +58,7 @@ echo "linux-image-generic hold" | dpkg --set-selections
 
 # Install latest greatest security packages etc.
 apt-get -q update
-apt-get --yes upgrade
+# apt-get --yes upgrade
 
 # Add OSGeoLive repository
 if [ "$BUILD_MODE" = "release" ] ; then
