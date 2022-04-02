@@ -118,7 +118,7 @@ echo
 echo "Installing build tools"
 echo "======================"
 
-sudo apt-get install --yes squashfs-tools genisoimage syslinux-utils lzip binwalk
+sudo apt-get install --yes squashfs-tools genisoimage syslinux-utils lzip binwalk lz4
 
 #TODO add wget to grab a fresh image, optional
 
