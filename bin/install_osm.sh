@@ -100,9 +100,9 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 #########################################################################
 #### install sample OSM data
 
-CITY="BA_AR"
-#         w    s        e        n
-BBOX="-58.48,-34.60,-58.32,-34.521"
+CITY="FL_IT"
+#         w    s   e      n
+BBOX="11.20,43.76,11.27,43.79"
 
 
 # Perhaps it is too detailed a city for some of our examples, so we
