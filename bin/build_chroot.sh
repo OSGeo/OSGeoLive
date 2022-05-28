@@ -133,12 +133,12 @@ cd "$BUILD_HOME"/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://cdimage.ubuntu.com"
 UBU_RELEASE="22.04"
-# ISO_RELEASE="20.04.1"
-ISO_RELEASE="22.04-beta"
+ISO_RELEASE="22.04"
+# ISO_RELEASE="22.04-beta"
 UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
-   "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/beta/$UBU_ISO"
-#    "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
+   # "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/beta/$UBU_ISO"
+   "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
 #Start with a fresh copy
 #Mount the Desktop .iso
 mkdir mnt
@@ -208,7 +208,7 @@ echo "======================================"
 #Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
 #Use mkinitramfs to extract the initrd from current chroot (with potential new kernel)
-# sudo chroot edit mkinitramfs -c lz4 -o /initrd 5.15.0-23-generic
+# sudo chroot edit mkinitramfs -c lz4 -o /initrd 5.15.0-25-generic
 #or just copy the existing initrd if no change happened to the kernel version
 # cp extract-cd/casper/initrd edit/initrd
 #offset at second LZ4 tag because the new packaging of initrd has 3 parts now
