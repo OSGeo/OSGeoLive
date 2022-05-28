@@ -137,8 +137,8 @@ ISO_RELEASE="22.04"
 # ISO_RELEASE="22.04-beta"
 UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
-   # "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/beta/$UBU_ISO"
    "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/release/$UBU_ISO"
+   # "$UBU_MIRROR/lubuntu/releases/$UBU_RELEASE/beta/$UBU_ISO"
 #Start with a fresh copy
 #Mount the Desktop .iso
 mkdir mnt
