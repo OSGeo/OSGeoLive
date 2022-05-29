@@ -120,7 +120,7 @@ export USER_NAME
 ./setup.sh "$BUILD_MODE"
 
 ### Base installers
-# ./base_c.sh
+./base_c.sh
 # ./base_python.sh
 # ./base_java.sh
 # ./base_language.sh
