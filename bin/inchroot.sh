@@ -122,7 +122,7 @@ export USER_NAME
 ### Base installers
 ./base_c.sh
 ./base_python.sh
-# ./base_java.sh
+./base_java.sh
 # ./base_language.sh
 
 ### Service installers
