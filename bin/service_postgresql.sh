@@ -27,14 +27,14 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-PG_VERSION="12"
+PG_VERSION="14"
 
 #debug:
 echo "#DEBUG The locale settings are currently:"
 locale
 
-# DB is created in the current locale, which was reset to "C". Put it
-#  back to UTF so the templates will be created using UTF8 encoding.
+# DB is created in the current locale; avoid "C". Manually set
+#   to UTF so the templates will be created using UTF8 encoding.
 unset LC_ALL
 update-locale LC_ALL=en_US.UTF-8
 export LC_NUMERIC="en_US.UTF-8"
@@ -52,7 +52,7 @@ echo "#DEBUG The locale settings updated:"
 locale
 echo "------------------------------------"
 
-apt-get install --yes postgresql-"$PG_VERSION" pgadmin4
+apt-get install --yes postgresql-"$PG_VERSION" #pgadmin4
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -80,8 +80,8 @@ for FILE in  pgadmin3  pgpass  ; do
     chmod 600 "$USER_HOME/.$FILE"
 done
 
-mkdir -p "$USER_HOME/.pgadmin"
-cp ../app-conf/postgresql/pgadmin4.db "$USER_HOME/.pgadmin/pgadmin4.db"
+#mkdir -p "$USER_HOME/.pgadmin"
+#cp ../app-conf/postgresql/pgadmin4.db "$USER_HOME/.pgadmin/pgadmin4.db"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
