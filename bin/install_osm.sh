@@ -4,7 +4,7 @@
 # Purpose: This script will install some OpenStreetMap utilities
 #
 #############################################################################
-# Copyright (c) 2009-2020 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2022 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # This script is free software; you can redistribute it and/or modify it
@@ -25,7 +25,6 @@
 BUILD_DIR=`pwd`
 ####
 
-
 if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
@@ -39,14 +38,15 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
+
+##----------------------------
 mkdir /usr/local/share/osm
 
-apt-get install --assume-yes josm gpsd gpsd-clients \
-   xmlstarlet osmosis python3-osmapi \
-   osmctools osmium-tool nik4
+##----------------------------------------------------------
+apt-get install --assume-yes osmium-tool python3-osmapi nik4
+apt-get install --assume-yes gpsd gpsd-clients
+apt-get install --assume-yes josm josm-l10n
 
-
-##-----------------------------------------------
 ## JOSM -- OpenStreetMap feature editor
 # see also  http://josm.openstreetmap.de/wiki/Download#Ubuntu
 
@@ -59,13 +59,13 @@ gui.maximized=false
 EOF
 
 cd "$TMP_DIR"
-wget -c --tries=3 --progress=dot:mega \
-    "http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2"
+#wget -c --tries=3 --progress=dot:mega \
+#    "http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2"
 
 ## TODO bail on err
-wget  http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2.sha1 | sha1sum --check -
+#wget  http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2.sha1 | sha1sum --check -
 
-tar xf josm_plugs.tar.bz2
+#tar xf josm_plugs.tar.bz2
 mkdir -p "$USER_HOME"/.josm/plugins
 mv *jar "$USER_HOME"/.josm/plugins/
 
@@ -78,15 +78,16 @@ chmod a+x "$USER_HOME"/Desktop/josm.desktop
 # add an icon for viewing The Map online
 mkdir -p /usr/local/share/applications
 
-MAP_CENTER="lat=44.436&lon=26.103"
-MARKER="mlat=44.436&mlon=26.103"
+43.7804  11.2365
+MAP_CENTER="lat=43.7804&lon=11.2365"
+MARKER="mlat=43.7804&mlon=11.2365"
 ZOOM="16"
 
 cat << EOF > /usr/local/share/applications/osm_online.desktop
 [Desktop Entry]
 Name=View OSM online
 Comment=Opens a web browser to The Map
-Exec=firefox "http://www.openstreetmap.org/?$MAP_CENTER&zoom=$ZOOM&$MARKER"
+Exec=xdg-open "http://www.openstreetmap.org/?$MAP_CENTER&zoom=$ZOOM&$MARKER"
 Icon=josm-32
 StartupNotify=false
 Terminal=false
@@ -100,9 +101,9 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 #########################################################################
 #### install sample OSM data
 
-CITY="BA_AR"
+CITY="FIRENZE_IT"
 #         w    s        e        n
-BBOX="-58.48,-34.60,-58.32,-34.521"
+BBOX="11.0765,43.7450,11.3965,43.8100"
 
 
 # Perhaps it is too detailed a city for some of our examples, so we
