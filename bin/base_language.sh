@@ -33,6 +33,7 @@
 
 # Start off with the Xfce keyboard layout configuration tool
 ### ubuntu 11.04: xfkc no longer exists:
+### lubuntu 13+ lxkeymap no longer exists
 #PACKAGES="xfkc"
 PACKAGES=""
 
@@ -63,9 +64,9 @@ for CODE in \
 ; do
   #Currently simulates in order to test for packages and how much space it will take
   #These meta packages also pull openoffice, so we'll have to do it the harder way
-#PACKAGES="$PACKAGES language-support-$CODE language-pack-$CODE" 
+#PACKAGES="$PACKAGES language-support-$CODE language-pack-$CODE"
 PACKAGES="$PACKAGES language-pack-$CODE-base language-pack-$CODE"
-  #Additional packages may have language packs specific to them ie: firefox	
+  #Additional packages may have language packs specific to them ie: firefox
 done
 
 #Seems to not find the packages without this, might just be a quirk of the test iso
