@@ -30,7 +30,7 @@ USER_HOME="/home/$USER_NAME"
 #  to correspond to install paths
 PG_VERSION="14"
 
-apt-get install --yes postgis postgis-gui "postgresql-$PG_VERSION-postgis-3" "postgresql-$PG_VERSION-postgis-3-scripts" "postgresql-$PG_VERSION-ogr-fdw"
+apt-get install --yes postgis  "postgresql-$PG_VERSION-postgis-3" "postgresql-$PG_VERSION-postgis-3-scripts" "postgresql-$PG_VERSION-ogr-fdw"
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
