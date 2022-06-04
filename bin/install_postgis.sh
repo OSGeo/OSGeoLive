@@ -28,7 +28,7 @@ USER_HOME="/home/$USER_NAME"
 
 # Not to be confused with PGIS_Version, this has one less number and period
 #  to correspond to install paths
-PG_VERSION="12"
+PG_VERSION="14"
 
 apt-get install --yes postgis postgis-gui "postgresql-$PG_VERSION-postgis-3" "postgresql-$PG_VERSION-postgis-3-scripts" "postgresql-$PG_VERSION-ogr-fdw"
 
