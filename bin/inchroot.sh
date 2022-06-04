@@ -123,7 +123,7 @@ export USER_NAME
 ./base_c.sh
 ./base_python.sh
 ./base_java.sh
-# ./base_language.sh
+./base_language.sh
 
 ### Service installers
 # ./service_apache2.sh
