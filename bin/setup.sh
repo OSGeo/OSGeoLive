@@ -61,6 +61,18 @@ apt-get -q update
 #FIXME: Enable updates after beta
 # apt-get --yes upgrade
 
+# Remove snapd applications and service
+snap remove --purge firefox
+snap remove --purge gnome-3-38-2004
+snap remove --purge gtk-common-themes
+snap remove --purge bare
+snap remove --purge core20
+snap remove --purge snapd
+apt-get remove --yes snapd
+
+# This will prevent snapd from any repository
+cp ../app-conf/apt/nosnap.pref /etc/apt/preferences.d/
+
 # Add OSGeoLive repository
 if [ "$BUILD_MODE" = "release" ] ; then
    cp ../sources.list.d/osgeolive.list /etc/apt/sources.list.d/
@@ -69,12 +81,17 @@ else
    cp ../sources.list.d/osgeolive-nightly.list /etc/apt/sources.list.d/
 fi
 
-#Add keys for repositories
+# Add Mozilla repository
+cp ../sources.list.d/mozilla.list /etc/apt/sources.list.d/
+
+# Add keys for repositories
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys FADA29F7
 # Staging repo
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6EB3B214
 # UbuntuGIS
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
+# Mozilla ppa
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE49EC21
 
 apt-get -q update
 
@@ -84,7 +101,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
   git openssh-client lftp usbutils wireless-tools \
   locate patch menu vim nano screen iotop xfonts-jmk \
   ghostscript htop units gdebi xkb-data \
-  xfonts-100dpi xfonts-75dpi zenity curl
+  xfonts-100dpi xfonts-75dpi zenity curl firefox
 
 # removed from list:
 # cvs cvsutils fuseiso dlocate medit nedit a2ps netpbm qiv lynx mutt mc
