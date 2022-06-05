@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2020 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2022 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -30,7 +30,7 @@ USER_HOME="/home/$USER_NAME"
 #  to correspond to install paths
 PG_VERSION="14"
 
-apt-get install --yes postgis  "postgresql-$PG_VERSION-postgis-3" "postgresql-$PG_VERSION-postgis-3-scripts" "postgresql-$PG_VERSION-ogr-fdw"
+apt-get install --yes postgis "postgresql-$PG_VERSION-postgis-3" "postgresql-$PG_VERSION-postgis-3-scripts" "postgresql-$PG_VERSION-ogr-fdw"
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -52,19 +52,19 @@ EOF
 # ln -s /usr/share/java/postgis-jdbc-2.1.0~rc1.jar /usr/share/java/postgis.jar
 
 #shp2pgsql-gui desktop launcher
-cat << EOF > /usr/share/applications/shp2pgsql-gui.desktop
-[Desktop Entry]
-Type=Application
-Name=shp2pgsql
-Comment=Shapefile to PostGIS Import Tool
-Categories=Application;Geography;Geoscience;
-Exec=shp2pgsql-gui
-Icon=pgadmin3
-Terminal=false
-EOF
+# cat << EOF > /usr/share/applications/shp2pgsql-gui.desktop
+# [Desktop Entry]
+# Type=Application
+# Name=shp2pgsql
+# Comment=Shapefile to PostGIS Import Tool
+# Categories=Application;Geography;Geoscience;
+# Exec=shp2pgsql-gui
+# Icon=pgadmin3
+# Terminal=false
+# EOF
 
-cp -a /usr/share/applications/shp2pgsql-gui.desktop "$USER_HOME/Desktop/"
-chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/shp2pgsql-gui.desktop"
+# cp -a /usr/share/applications/shp2pgsql-gui.desktop "$USER_HOME/Desktop/"
+# chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/shp2pgsql-gui.desktop"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
