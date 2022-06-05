@@ -72,7 +72,8 @@ mv *jar "$USER_HOME"/.josm/plugins/
 chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
 
 #### desktop icons
-cp /usr/share/applications/org.openstreetmap.josm.desktop "$USER_HOME"/Desktop/josm.desktop
+cp /usr/share/applications/org.openstreetmap.josm.desktop \
+  "$USER_HOME"/Desktop/josm.desktop
 chmod a+x "$USER_HOME"/Desktop/josm.desktop
 
 # add an icon for viewing The Map online
@@ -126,7 +127,7 @@ BBOX="11.0765,43.7450,11.3965,43.8100"
 
 ### Please update to latest data at the last minute! See data dir on server for details.
 wget -N --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/osm/$CITY/$CITY.osm.bz2"
+   "https://download.osgeo.org/livedvd/data/osm/$CITY/$CITY.osm.bz2"
 
 wget -c --tries=3 --progress=dot:mega \
    -O /usr/local/share/osm/sample.osm \
