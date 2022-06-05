@@ -52,7 +52,8 @@ echo "#DEBUG The locale settings updated:"
 locale
 echo "------------------------------------"
 
-apt-get install --yes postgresql-"$PG_VERSION" #pgadmin4
+apt-get install --yes postgresql-"$PG_VERSION"
+#FIXME: Add pgadmin4
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -73,13 +74,14 @@ sudo -u $USER_NAME createdb -E UTF8 $USER_NAME
 sudo -u "$USER_NAME" psql -d "$USER_NAME" -c 'VACUUM ANALYZE;'
 
 #include pgadmin3 profile for connection
-for FILE in  pgadmin3  pgpass  ; do
-    cp ../app-conf/postgresql/"$FILE" "$USER_HOME/.$FILE"
+# for FILE in  pgadmin3  pgpass  ; do
+#     cp ../app-conf/postgresql/"$FILE" "$USER_HOME/.$FILE"
 
-    chown $USER_NAME:$USER_NAME "$USER_HOME/.$FILE"
-    chmod 600 "$USER_HOME/.$FILE"
-done
+#     chown $USER_NAME:$USER_NAME "$USER_HOME/.$FILE"
+#     chmod 600 "$USER_HOME/.$FILE"
+# done
 
+#FIXME: Enable when pgadmin4 is back
 #mkdir -p "$USER_HOME/.pgadmin"
 #cp ../app-conf/postgresql/pgadmin4.db "$USER_HOME/.pgadmin/pgadmin4.db"
 
