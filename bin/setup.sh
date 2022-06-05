@@ -58,6 +58,7 @@ echo "linux-image-generic hold" | dpkg --set-selections
 
 # Install latest greatest security packages etc.
 apt-get -q update
+#FIXME: Enable updates after beta
 # apt-get --yes upgrade
 
 # Add OSGeoLive repository
