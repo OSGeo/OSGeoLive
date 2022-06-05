@@ -129,15 +129,15 @@ export USER_NAME
 ./service_apache2.sh
 ./base_php.sh
 ./service_tomcat.sh
-# ./service_postgresql.sh
+./service_postgresql.sh
 # ./service_mysql.sh
 
 ### Project installers
 ## C stack
-# ./install_postgis.sh
+./install_postgis.sh
 # ./install_spatialite.sh
-# ./install_osm.sh
-# ./load_postgis.sh
+./install_osm.sh
+./load_postgis.sh
 # ./install_pgrouting.sh
 # ./install_ossim.sh
 # ./install_mapserver.sh
