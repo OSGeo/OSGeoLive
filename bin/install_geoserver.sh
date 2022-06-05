@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2020 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2022 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -15,8 +15,6 @@
 # About:
 # =====
 # This script will install GeoServer in ubuntu
-#
-# Requires: Sun Java {6|7} compatible runtime
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -31,7 +29,7 @@ USER_HOME="/home/$USER_NAME"
 TMP="/tmp/build_geoserver"
 INSTALL_FOLDER="/usr/local/lib"
 BIN="/usr/local/bin"
-GS_VERSION="2.18.1"
+GS_VERSION="2.21.0"
 GS_HOME="$INSTALL_FOLDER/geoserver-$GS_VERSION"
 GS_PORT=8082
 DOC_DIR="$GS_HOME/doc"
