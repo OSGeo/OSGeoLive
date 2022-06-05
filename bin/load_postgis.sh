@@ -15,7 +15,7 @@
 #
 # About:
 # =====
-# This script will is to be run after the installation of postgresql 
+# This script will is to be run after the installation of postgresql
 # and postgis.  It will download, validate and load a simple dataset.
 #
 # Authors:
