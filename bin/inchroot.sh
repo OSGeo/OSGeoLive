@@ -128,7 +128,7 @@ export USER_NAME
 ### Service installers
 ./service_apache2.sh
 ./base_php.sh
-./service_tomcat.sh
+# ./service_tomcat.sh
 ./service_postgresql.sh
 # ./service_mysql.sh
 
