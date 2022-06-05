@@ -72,6 +72,7 @@ apt-get remove --yes snapd
 
 # This will prevent snapd from any repository
 cp ../app-conf/apt/nosnap.pref /etc/apt/preferences.d/
+cp ../app-conf/apt/firefox-nosnap.pref /etc/apt/preferences.d/
 
 # Add OSGeoLive repository
 if [ "$BUILD_MODE" = "release" ] ; then
