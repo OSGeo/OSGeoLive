@@ -78,7 +78,7 @@ chmod a+x "$USER_HOME"/Desktop/josm.desktop
 # add an icon for viewing The Map online
 mkdir -p /usr/local/share/applications
 
-43.7804  11.2365
+# 43.7804  11.2365
 MAP_CENTER="lat=43.7804&lon=11.2365"
 MARKER="mlat=43.7804&mlon=11.2365"
 ZOOM="16"
