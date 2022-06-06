@@ -50,16 +50,16 @@ else:
 
 try:
   tLogFH = open( tLogFile, 'r+')
-except Exception, E:
-  print str(E)
+except( Exception, E):
+  print( str(E))
   sys.exit(1)
-  
+
 ##---------
 
 try:
   tParseOutFH = open( tLogParseOutF, 'w')
-except Exception, E:
-  print str(E)
+except( Exception, E):
+  print( str(E))
   sys.exit(1)
 
 ##--------------
@@ -189,15 +189,15 @@ try:
     import psycopg2
     gConn = psycopg2.connect("dbname=%s"%(tDBname))
     gCurs = gConn.cursor()
-except Exception, E:
-    print str(E)
+except( Exception, E):
+    print( str(E))
     sys.exit(0)
 
 
 try:
   tParseInFH = open( tLogParseOutF, 'r')
-except Exception, E:
-  print str(E)
+except( Exception, E):
+  print( str(E))
   sys.exit(1)
 
 ##---------------
@@ -207,8 +207,8 @@ drop table if exists raw_parse0 cascade;
 
 try:
     gCurs.execute(tSQL)
-except Exception, E:
-    print str(E)
+except( Exception, E):
+    print( str(E))
 ##---------------
 
 tSQL = '''
@@ -217,14 +217,14 @@ create table raw_parse0 (script_name text, action text, pkg_name text);
 
 try:
     gCurs.execute(tSQL)
-except Exception, E:
-    print str(E)
+except( Exception, E):
+    print( str(E))
 ##---------------
 
 try:
     gCurs.copy_from(   tParseInFH,  'raw_parse0',  sep='\t''' )
-except Exception, E:
-    print str(E)
+except( Exception, E):
+    print( str(E))
 ##---------------
 
 tParseInFH.close()
