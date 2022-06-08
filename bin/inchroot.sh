@@ -138,11 +138,11 @@ export USER_NAME
 # ./install_spatialite.sh
 ./install_osm.sh
 ./load_postgis.sh
-# ./install_pgrouting.sh
+./install_pgrouting.sh
 # ./install_ossim.sh
-# ./install_mapserver.sh
-# ./install_mapcache.sh
-# ./install_tinyows.sh
+./install_mapserver.sh
+./install_mapcache.sh
+./install_tinyows.sh
 # ./install_gmt.sh
 # ./install_mapnik.sh
 # ./install_otb.sh
@@ -173,7 +173,7 @@ export USER_NAME
 # ./install_jupyter.sh
 
 ## Java stack
-# ./install_geoserver.sh
+./install_geoserver.sh
 # ./install_geonetwork.sh
 # ./install_deegree.sh
 # ./install_udig.sh "$ARCH"
