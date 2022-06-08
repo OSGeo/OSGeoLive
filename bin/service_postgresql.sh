@@ -53,7 +53,8 @@ locale
 echo "------------------------------------"
 
 apt-get install --yes postgresql-"$PG_VERSION"
-#FIXME: Add pgadmin4
+# FIXME: Add pgadmin4-web or pgadmin4-desktop or phppgadmin depending on disk space.
+# See: https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/README
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
