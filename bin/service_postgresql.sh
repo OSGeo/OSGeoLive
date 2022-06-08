@@ -53,8 +53,6 @@ locale
 echo "------------------------------------"
 
 apt-get install --yes postgresql-"$PG_VERSION"
-# FIXME: Add pgadmin4-web or pgadmin4-desktop or phppgadmin depending on disk space.
-# See: https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/README
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -82,7 +80,23 @@ sudo -u "$USER_NAME" psql -d "$USER_NAME" -c 'VACUUM ANALYZE;'
 #     chmod 600 "$USER_HOME/.$FILE"
 # done
 
-#FIXME: Enable when pgadmin4 is back
+# FIXME: Add pgadmin4-web or pgadmin4-desktop or phppgadmin depending on disk space.
+# See: https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/README
+
+# Install pgadmin4
+
+# Add pgadmin4 key
+# wget https://www.pgadmin.org/static/packages_pgadmin_org.pub
+# apt-key add packages_pgadmin_org.pub
+# rm packages_pgadmin_org.pub
+
+# Add pgadmin4 repository
+# cp "$BUILD_DIR"/../sources.list.d/pgadmin4.list /etc/apt/sources.list.d/
+# apt-get -q update
+# apt-get install --yes pgadmin4-web
+# rm /etc/apt/sources.list.d/pgadmin4.list
+# apt-get -q update
+
 #mkdir -p "$USER_HOME/.pgadmin"
 #cp ../app-conf/postgresql/pgadmin4.db "$USER_HOME/.pgadmin/pgadmin4.db"
 

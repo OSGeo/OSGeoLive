@@ -84,8 +84,6 @@ fi
 
 # Add Mozilla repository
 cp ../sources.list.d/mozilla.list /etc/apt/sources.list.d/
-# Add pgadmin4 repository
-cp ../sources.list.d/pgadmin4.list /etc/apt/sources.list.d/
 
 # Add keys for repositories
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys FADA29F7
@@ -95,10 +93,6 @@ apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys FADA29F7
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 # Mozilla ppa
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys CE49EC21
-# pgadmin4 key
-wget https://www.pgadmin.org/static/packages_pgadmin_org.pub
-apt-key add packages_pgadmin_org.pub
-rm packages_pgadmin_org.pub
 
 apt-get -q update
 
