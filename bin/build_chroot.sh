@@ -250,16 +250,36 @@ cp ../../gisvm/desktop-conf/plymouth/lubuntu-logo/* \
 cp ../../gisvm/desktop-conf/plymouth/lubuntu-logo/* \
     ../edit/usr/share/plymouth/themes/lubuntu-logo/
 
+# Copy the watermark file into spinner folders
+cp ../../gisvm/desktop-conf/plymouth/lubuntu-logo/watermark.png \
+    main/usr/share/plymouth/themes/lubuntu-logo/spinner/
+
+cp ../../gisvm/desktop-conf/plymouth/lubuntu-logo/watermark.png \
+    ../edit/usr/share/plymouth/themes/lubuntu-logo/spinner/
+
+# Change the default spinner back to Ubuntu like
+rm main/usr/share/plymouth/themes/lubuntu-logo/spinner/animation-*.png
+cp main/usr/share/plymouth/themes/spinner/animation-*.png main/usr/share/plymouth/themes/lubuntu-logo/spinner/
+
+rm ../edit/usr/share/plymouth/themes/lubuntu-logo/spinner/animation-*.png
+cp ../edit/usr/share/plymouth/themes/spinner/animation-*.png ../edit/usr/share/plymouth/themes/lubuntu-logo/spinner/
+
+rm main/usr/share/plymouth/themes/lubuntu-logo/spinner/throbber-*.png
+cp main/usr/share/plymouth/themes/spinner/throbber-*.png main/usr/share/plymouth/themes/lubuntu-logo/spinner/
+
+rm ../edit/usr/share/plymouth/themes/lubuntu-logo/spinner/throbber-*.png
+cp ../edit/usr/share/plymouth/themes/spinner/throbber-*.png ../edit/usr/share/plymouth/themes/lubuntu-logo/spinner/
+
 #Change the text on the lubuntu-text plymouth loader both on lzfiles
 # and on edit folders
-sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeoLive ${VERSION_MODE}/g" \
+sed -i -e "s/title=.ubuntu ${UBU_RELEASE} LTS/title=OSGeoLive ${VERSION_MODE}/g" \
     main/usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 
-sed -i -e "s/title=.ubuntu ${UBU_RELEASE}/title=OSGeoLive ${VERSION_MODE}/g" \
+sed -i -e "s/title=.ubuntu ${UBU_RELEASE} LTS/title=OSGeoLive ${VERSION_MODE}/g" \
     ../edit/usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Bionic Beaver\"/OSGeoLive ${VERSION_MODE}/g" \
+sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Jammy Jellyfish\"/OSGeoLive ${VERSION_MODE}/g" \
     ../extract-cd/.disk/info
 
 # rm ../initrd.lz4
