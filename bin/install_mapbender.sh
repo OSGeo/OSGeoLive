@@ -20,7 +20,7 @@
 #############################################################################
 
 #
-# Requires: Apache2, PHP7.2, PostgreSQL
+# Requires: Apache2, PHP, PostgreSQL
 #
 # Uninstall:
 # ============
@@ -39,9 +39,9 @@ USER_HOME="/home/$USER_NAME"
 
 TMP_DIR="/tmp/build_mapbender"
 PARAMETERSINSTALLURL="https://www.mapbender.org/builds/osgeolive"
-INSTALLURL="http://www.mapbender.org/builds/3.2.3"
-INSTALLFILE="mapbender-starter-v3.2.3"
-PARAMETERSFILE="mapbender-starter-3.2.0"
+INSTALLURL="http://www.mapbender.org/builds/3.3.1"
+INSTALLFILE="mapbender-starter-v3.3.1"
+PARAMETERSFILE="mapbender-starter-3.3.0"
 INSTALL_DIR="/var/www/html"
 
 mkdir -p "$TMP_DIR"
@@ -94,7 +94,7 @@ cd "$INSTALL_DIR/mapbender/"
 rm  "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 cp "$TMP_DIR/${PARAMETERSFILE}_parameters.yml"    "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 
-sed -i -e 's/3.2.0/3.2.3/g' "$INSTALL_DIR/mapbender/app/config/parameters.yml"
+sed -i -e 's/3.3.0/3.3.1/g' "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 
 app/console doctrine:database:create
 app/console doctrine:schema:create
@@ -102,7 +102,7 @@ app/console init:acl
 app/console assets:install web --symlink --relative
 app/console fom:user:resetroot --username="root" --password="root" --email="root@example.com" --silent
 app/console mapbender:database:init
-app/console doctrine:fixtures:load --fixtures=./mapbender/src/Mapbender/CoreBundle/DataFixtures/ORM/Application/ --append
+app/console mapbender:application:import app/config/applications
 
 chown -R user:www-data "$INSTALL_DIR/mapbender"
 chmod -R ug+w "$INSTALL_DIR/mapbender/app/cache/"
