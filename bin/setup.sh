@@ -62,13 +62,21 @@ apt-get -q update
 # apt-get --yes upgrade
 
 # Remove snapd applications and service
-snap remove --purge firefox
-snap remove --purge gnome-3-38-2004
-snap remove --purge gtk-common-themes
-snap remove --purge bare
-snap remove --purge core20
-snap remove --purge snapd
+# snap remove --purge firefox
+# snap remove --purge gnome-3-38-2004
+# snap remove --purge gtk-common-themes
+# snap remove --purge bare
+# snap remove --purge core20
+# snap remove --purge snapd
 apt-get remove --yes snapd
+umount /snap/firefox/1232
+umount /snap/gnome-3-38-2004/99
+umount /snap/gtk-common-themes/1534
+umount /snap/bare/5
+umount /snap/core20/1405
+umount /snap/snapd/15177
+#rm -rf /var/lib/snapd/snaps/*.snap
+rm -rf /var/lib/snapd
 
 # This will prevent snapd from any repository
 cp ../app-conf/apt/nosnap.pref /etc/apt/preferences.d/
