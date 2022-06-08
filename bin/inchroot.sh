@@ -197,7 +197,7 @@ export USER_NAME
 # ./install_trex.sh
 
 ## Javascript et al
-# ./install_openlayers.sh
+./install_openlayers.sh
 ./install_leaflet.sh
 # ./install_cesium.sh
 # ./install_geoext.sh
