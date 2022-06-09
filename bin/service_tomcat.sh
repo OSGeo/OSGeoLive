@@ -36,6 +36,9 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 
+# Try to create the tomcat group and user with specific UID
+groupadd -g 998 tomcat
+useradd tomcat -u 998 -g 998 --gecos "Apache Tomcat" -m -d /var/lib/tomcat -s /usr/sbin/nologin
 
 apt-get install --yes tomcat9 tomcat9-admin
 

@@ -282,8 +282,8 @@ service apache2 stop
 
 # Deleting users created by tomcat installer in chroot.
 # Hopefully they will be created on boot time by /usr/lib/sysusers.d/tomcat9.conf
-deluser tomcat
-deluser systemd-coredump
+# deluser tomcat
+# deluser systemd-coredump
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
