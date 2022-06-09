@@ -143,7 +143,7 @@ export USER_NAME
 ./install_mapserver.sh
 ./install_mapcache.sh
 ./install_tinyows.sh
-# ./install_gmt.sh
+# ./install_gmt.sh # install_vm_only
 # ./install_mapnik.sh
 ./install_otb.sh
 # ./install_saga.sh
@@ -162,7 +162,7 @@ export USER_NAME
 ./install_pywps.sh
 ./install_pygeoapi.sh
 ./install_eoxserver.sh
-# ./install_iris.sh
+# ./install_iris.sh # install_vm_only
 # ./install_istsos.sh
 # ./install_actinia.sh
 
@@ -178,13 +178,13 @@ export USER_NAME
 ./install_deegree.sh
 # ./install_udig.sh "$ARCH"
 # ./install_openjump.sh
-# ./install_gvsig.sh "$ARCH"
+# ./install_gvsig.sh "$ARCH" # install_vm_only
 # ./install_gpsprune.sh
 
 ## Java + default tomcat
 # ./install_52nWPS.sh
 # ./install_52nSOS.sh
-# ./install_ncWMS.sh
+# ./install_ncWMS.sh # install_vm_only
 
 ## PHP stack
 ./install_mapbender.sh
@@ -203,7 +203,7 @@ export USER_NAME
 # ./install_geoext.sh
 # ./install_rasdaman.sh
 # ./install_geostyler.sh
-# ./install_re3gistry.sh
+# ./install_re3gistry.sh # install_vm_only
 
 ## Docs, Data and extras
 # ./load_gisdata.sh
