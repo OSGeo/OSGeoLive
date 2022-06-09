@@ -1,10 +1,10 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will install GRASS GIS 7
+# Purpose: This script will install GRASS GIS 8
 #
 #############################################################################
-# Copyright (c) 2014-2020 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2014-2022 The Open Source Geospatial Foundation and others.
 # Author: H.Bowman <hamish_b  yahoo com>
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -24,12 +24,11 @@
 #
 # This does not attempt to install QGIS-plugin infrastructure, that is
 #  done in install_qgis.sh. Your QGIS packages will have to have been
-#  built with grass7-enabled plugins.
+#  built with grass8-enabled plugins.
 #
 # ***
 # This script is intended to be run by the User on an existing live disc,
-#  Not at build time of the disc -- that will come when grass 7.0 is
-#  released and in the stable repositories. The North Carolina GRASS 7
+#  Not at build time of the disc. The North Carolina GRASS 7
 #  sample dataset will also be downloaded and installed. A result of all
 #  this is that users of a non-persistent ISO boot will have everything
 #  on the RAM drive, which may be quite limited to begin with depending
@@ -56,11 +55,11 @@ mkdir "$TMP_DIR"
 apt-get --quiet update
 apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal-grass
 
-cp /usr/share/applications/grass78.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass78.desktop"
+cp /usr/share/applications/grass80.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass80.desktop"
 
-cp /usr/share/applications/grass78.desktop \
-  /usr/local/share/applications/osgeo-grass78.desktop
+cp /usr/share/applications/grass80.desktop \
+  /usr/local/share/applications/osgeo-grass80.desktop
 
 #### get sample data ####
 
@@ -121,9 +120,9 @@ chown -R "$USER_NAME.$USER_NAME" "$FOLDER_NAME"
 
 
 #### preconfig setup ####
-mkdir "$USER_HOME/.grass7"
+mkdir "$USER_HOME/.grass8"
 
-cat << EOF > "$USER_HOME/.grass7/rc"
+cat << EOF > "$USER_HOME/.grass8/rc"
 GISDBASE: $USER_HOME/grassdata
 LOCATION_NAME: $FOLDER_NAME
 MAPSET: user1
@@ -133,7 +132,7 @@ EOF
 # # buggy (prompt.py not found), so disable it for now
 # echo "unset PROMPT_COMMAND" > "$USER_HOME/.grass7/bashrc"
 
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/.grass7"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/.grass8"
 
 mkdir -p "$USER_HOME/grassdata/addons"
 chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata/addons"
