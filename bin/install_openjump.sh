@@ -14,7 +14,7 @@
 #
 #################################################
 # Copyright (c) 2011-2014 Edgar Soldin, openjump team
-# Copyright (c) 2010-2020 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2022 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -50,18 +50,22 @@ USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_openjump"
 
-## default defs, may be overwritten by online conf file below 
+## default defs, may be overwritten by online conf file below
 PKG_NAME=OpenJUMP
-PKG_VERSION=1.5
+PKG_VERSION=2.0
 
 
 # dns trouble? test if we can see it
 host sourceforge.net || exit 1
 
 ## get defs from online conf file ( file vars, pkg_version ) for update convenience
-URL_LIST=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osgeo.conf
+URL_LIST=https://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osgeo.conf
 # download and set vars (filter out anything not setting a variable)
-eval "$(wget -nv -O- "$URL_LIST" | awk '/^[a-zA-Z0-9_-]+=/')"
+
+##  OJ tmp
+##eval "$(wget -nv -O- "$URL_LIST" | awk '/^[a-zA-Z0-9_-]+=/')"
+##
+
 
 PKG_FOLDER="$PKG_NAME-$PKG_VERSION"
 PKG_HOME="/usr/lib/$PKG_FOLDER"
@@ -72,7 +76,16 @@ PKG_LINK=/usr/local/bin/openjump
 PKG_DESKTOP="$USER_HOME/Desktop/openjump.desktop"
 PKG_SUCCESS="$PKG_HOME/.installed"
 
-## these defs are defined by conf file above
+## ------------------------------------------
+##  OJ tmp - installer vars -dbb 08jun22
+PKG_NAME=OpenJUMP
+PKG_VERSION=2.0
+URL_PKG=https://sourceforge.net/projects/jump-pilot/files/OpenJUMP/osgeo/OpenJUMP-Portable-2.0-r5095[a56ff6d]-osgeo.zip
+URL_ICON_oldsvn=https://jump-pilot.svn.sourceforge.net/viewvc/jump-pilot/core/trunk/icon/openjump_icon3.svg
+URL_ICON=https://sourceforge.net/p/jump-pilot/code/HEAD/tree/core/trunk/icon/openjump_icon3.svg?format=raw
+URL_DATA=https://sourceforge.net/projects/jump-pilot/files/OpenJUMP/osgeo/free_oj_tutorialdata.zip
+URL_DOC="https://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP 1.6 Docs/general_tutorial_foroj16_english_withoutdata.pdf"
+
 #URL_PKG=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP_snapshots/OpenJUMP-20120108-r2597-CORE.zip
 #URL_ICON=http://jump-pilot.svn.sourceforge.net/viewvc/jump-pilot/core/trunk/icon/openjump_icon3.svg
 #URL_DATA=http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.4%20Tutorials/ojtutorial_general_2011_data.zip
