@@ -77,7 +77,7 @@ apt-get install --yes python-all-dev
 
 # Adding back LibreOffice and other packages that were removed from iso to save disk space
 apt-get --yes install libreoffice libreoffice-common libreoffice-core 2048-qt noblenote trojita \
-  transmission-common k3b vlc snapd libllvm9
+  transmission-common k3b vlc libllvm9
 
 # Install R Studio
 cd ~
@@ -86,6 +86,7 @@ wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.4.1106-amd64.d
 dpkg -i rstudio-1.4.1106-amd64.deb
 rm rstudio-1.4.1106-amd64.deb
 # TODO: Install Atom or VS Code
+# TODO: Install docker engine
 # TODO: Install extra documentation
 
 cd "$DIR"
