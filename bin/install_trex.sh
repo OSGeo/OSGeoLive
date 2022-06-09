@@ -6,7 +6,7 @@
 #
 #############################################################################
 # Author: Brian M Hamlin <darkblue_b> / Pirmin Kalberer <pka@sourcepole.com>
-# Copyright (c) 2018-2020 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2018-2022 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -38,7 +38,7 @@ mkdir -p "$BUILD_DIR"
 cd "$BUILD_DIR"
 echo "\nDownloading t-rex package..."
 wget -c --tries=3 --progress=dot:mega -O t-rex-x86_64-linux-gnu.tar.gz \
-   "https://github.com/t-rex-tileserver/t-rex/releases/download/v0.13.0/t-rex-v0.13.0-x86_64-linux-gnu.tar.gz"
+   "https://github.com/t-rex-tileserver/t-rex/releases/download/v0.14.3/t-rex-v0.14.3-x86_64-linux-gnu.tar.gz"
 
 echo "\nInstalling t-rex..."
 tar xf t-rex-x86_64-linux-gnu.tar.gz -C /usr/bin
