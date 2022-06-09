@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2012-2020 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2012-2022 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -27,7 +27,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 # Set EOxServer version to install
-EOXSVER="1.0.0-rc22"
+EOXSVER="1.1.0"
 
 DATA_DIR="/usr/local/share/eoxserver"
 DOC_DIR="$DATA_DIR/doc"

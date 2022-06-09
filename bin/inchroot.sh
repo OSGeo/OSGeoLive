@@ -135,33 +135,33 @@ export USER_NAME
 ### Project installers
 ## C stack
 ./install_postgis.sh
-# ./install_spatialite.sh
+./install_spatialite.sh
 ./install_osm.sh
 ./load_postgis.sh
 ./install_pgrouting.sh
-# ./install_ossim.sh
+./install_ossim.sh
 ./install_mapserver.sh
 ./install_mapcache.sh
 ./install_tinyows.sh
 # ./install_gmt.sh
 # ./install_mapnik.sh
-# ./install_otb.sh
+./install_otb.sh
 # ./install_saga.sh
 ./install_grass.sh
 ./install_qgis.sh
-# ./install_qgis_server.sh
+./install_qgis_server.sh
 # ./install_zoo-project.sh "$ARCH"
 # ./install_marble.sh
 # ./install_opencpn.sh
 # ./install_xygrib.sh
-# ./install_PDAL.sh
+./install_PDAL.sh
 
 ## Python stack
-# ./install_mapproxy.sh
-# ./install_pycsw.sh
-# ./install_pywps.sh
-# ./install_pygeoapi.sh
-# ./install_eoxserver.sh
+./install_mapproxy.sh
+./install_pycsw.sh
+./install_pywps.sh
+./install_pygeoapi.sh
+./install_eoxserver.sh
 # ./install_iris.sh
 # ./install_istsos.sh
 # ./install_actinia.sh
@@ -175,7 +175,7 @@ export USER_NAME
 ## Java stack
 ./install_geoserver.sh
 # ./install_geonetwork.sh
-# ./install_deegree.sh
+./install_deegree.sh
 # ./install_udig.sh "$ARCH"
 # ./install_openjump.sh
 # ./install_gvsig.sh "$ARCH"
@@ -188,7 +188,7 @@ export USER_NAME
 
 ## PHP stack
 ./install_mapbender.sh
-# ./install_geomoose.sh
+./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
 # ./install_geonode.sh

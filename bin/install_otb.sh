@@ -5,7 +5,7 @@
 # OTB apps, assumes script is run with sudo privileges.
 #
 #############################################################################
-# Copyright (c) 2009-2020 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2022 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -80,13 +80,13 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/otb-mapla.desktop"
 # Download OrfeoToolBox data and documentation (software guide and cookbook)
 # Total: 60MB
 [ -d $DATA_DIR ] || mkdir $DATA_DIR
-[ -f $DATA_DIR/OTBSoftwareGuide.pdf ] || \
-   wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
-     -O $DATA_DIR/OTBSoftwareGuide.pdf
+# [ -f $DATA_DIR/OTBSoftwareGuide.pdf ] || \
+#    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBSoftwareGuide.pdf" \
+#      -O $DATA_DIR/OTBSoftwareGuide.pdf
 
-[ -f $DATA_DIR/OTBCookBook.pdf ] || \
-   wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBCookBook.pdf" \
-     -O $DATA_DIR/OTBCookBook.pdf
+# [ -f $DATA_DIR/OTBCookBook.pdf ] || \
+#    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTBCookBook.pdf" \
+#      -O $DATA_DIR/OTBCookBook.pdf
 
 # [ -f $DATA_DIR/OTB-Data-Examples.tgz ] || \
 #    wget --progress=dot:mega "http://www.orfeo-toolbox.org/packages/OTB-Data-Examples.tgz" \
