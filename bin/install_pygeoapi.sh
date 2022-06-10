@@ -43,7 +43,7 @@ cp "$BUILD_DIR/../app-conf/pygeoapi/pygeoapi-config.yml" "$PYGEOAPI_CONFIG"
 cp "$BUILD_DIR/../app-conf/pygeoapi/ne_110m_lakes.geojson" "$PYGEOAPI_DIR/ne_110m_lakes.geojson"
 
 # generate OpenAPI document
-pygeoapi generate-openapi-document -c $PYGEOAPI_CONFIG > $PYGEOAPI_OPENAPI
+pygeoapi openapi generate $PYGEOAPI_CONFIG > $PYGEOAPI_OPENAPI
 
 echo 'Downloading pygeoapi logo ...'
 wget -c --progress=dot:mega \
