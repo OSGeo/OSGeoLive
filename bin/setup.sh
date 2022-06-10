@@ -77,6 +77,7 @@ umount /snap/core20/1405
 umount /snap/snapd/15177
 #rm -rf /var/lib/snapd/snaps/*.snap
 rm -rf /var/lib/snapd
+rm -rf /var/cache/snapd
 rm -rf /etc/systemd/system/snap-*.mount
 rm /etc/udev/rules.d/70-snap*.rules
 
