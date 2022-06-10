@@ -93,14 +93,14 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/otb-mapla.desktop"
 #      -O $DATA_DIR/OTB-Data-Examples.tgz
 
 # Install docs and demos
-if [ ! -d "$OTB_DATA" ]; then
-    mkdir -p "$OTB_DATA"
-    echo "Moving  OTB pdf  doc in $OTB_DATA/....."
-    mv "$DATA_DIR/OTBSoftwareGuide.pdf" "$OTB_DATA/"
-    echo "Done"
-    echo "Moving  OTB cookbook pdf  doc in $OTB_DATA/....."
-    mv "$DATA_DIR/OTBCookBook.pdf" "$OTB_DATA/"
-    echo "Done"
+# if [ ! -d "$OTB_DATA" ]; then
+#     mkdir -p "$OTB_DATA"
+#     echo "Moving  OTB pdf  doc in $OTB_DATA/....."
+#     mv "$DATA_DIR/OTBSoftwareGuide.pdf" "$OTB_DATA/"
+#     echo "Done"
+#     echo "Moving  OTB cookbook pdf  doc in $OTB_DATA/....."
+#     mv "$DATA_DIR/OTBCookBook.pdf" "$OTB_DATA/"
+#     echo "Done"
 #     mkdir -p "$OTB_DATA/demos"
 #     echo "Extracting OTB data examples $OTB_DATA/demos/..."
 #     tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/
