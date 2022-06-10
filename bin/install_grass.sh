@@ -55,11 +55,11 @@ mkdir "$TMP_DIR"
 apt-get --quiet update
 apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal-grass
 
-cp /usr/share/applications/grass80.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass80.desktop"
+cp /usr/share/applications/grass82.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass82.desktop"
 
-cp /usr/share/applications/grass80.desktop \
-  /usr/local/share/applications/osgeo-grass80.desktop
+cp /usr/share/applications/grass82.desktop \
+  /usr/local/share/applications/osgeo-grass82.desktop
 
 #### get sample data ####
 
