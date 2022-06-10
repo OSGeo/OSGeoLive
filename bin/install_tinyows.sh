@@ -33,11 +33,11 @@ fi
 #Download sample data and add to PostgreSQL
 cd "$TMP_DIR"
 wget -c --tries=3 --progress=dot:mega \
-   "https://github.com/mapserver/tinyows/raw/master/demo/france.dbf"
+   "https://github.com/MapServer/tinyows/raw/main/demo/france.dbf"
 wget -c --tries=3 --progress=dot:mega \
-   "https://github.com/mapserver/tinyows/raw/master/demo/france.shp"
+   "https://github.com/MapServer/tinyows/raw/main/demo/france.shp"
 wget -c --tries=3 --progress=dot:mega \
-   "https://github.com/mapserver/tinyows/raw/master/demo/france.shx"
+   "https://github.com/MapServer/tinyows/raw/main/demo/france.shx"
 
 sudo -u $USER_NAME createdb tinyows_demo
 sudo -u $USER_NAME psql tinyows_demo -c 'create extension postgis;'
