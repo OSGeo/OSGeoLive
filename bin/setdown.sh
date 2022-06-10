@@ -76,11 +76,12 @@ systemctl enable manage_user_groups.service
 #   /usr/share/initramfs-tools/scripts/casper-bottom/
 
 # remove build stuff no longer of use
-apt-get --yes remove libboost1.74-dev
+# Update: python3-scipy now depends on libboost1.74-dev
+# apt-get --yes remove libboost1.74-dev
 
 # remove stuff to save disk space (#467)
 apt-get --yes remove libreoffice-common libreoffice-core 2048-qt noblenote trojita \
-  transmission-common k3b vlc snapd libllvm9
+  transmission-common k3b vlc snapd
 
 # remove any leftover orphans
 apt-get --yes autoremove
