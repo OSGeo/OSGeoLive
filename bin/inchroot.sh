@@ -163,27 +163,27 @@ export USER_NAME
 ./install_pygeoapi.sh
 ./install_eoxserver.sh
 # ./install_iris.sh # install_vm_only
-# ./install_istsos.sh
+./install_istsos.sh
 # ./install_actinia.sh
 
 ## R stack
-# ./install_R.sh
+./install_R.sh
 
 ## Jupyter
-# ./install_jupyter.sh
+./install_jupyter.sh
 
 ## Java stack
 ./install_geoserver.sh
 ./install_geonetwork.sh
 ./install_deegree.sh
-# ./install_udig.sh "$ARCH"
+./install_udig.sh "$ARCH"
 ./install_openjump.sh
 # ./install_gvsig.sh "$ARCH" # install_vm_only
 ./install_gpsprune.sh
 
 ## Java + default tomcat
-# ./install_52nWPS.sh
-# ./install_52nSOS.sh
+./install_52nWPS.sh
+./install_52nSOS.sh
 # ./install_ncWMS.sh # install_vm_only
 
 ## PHP stack
@@ -206,7 +206,7 @@ export USER_NAME
 # ./install_re3gistry.sh # install_vm_only
 
 ## Docs, Data and extras
-# ./load_gisdata.sh
+./load_gisdata.sh
 # ./install_docs.sh "$BUILD_MODE"
 # ./install_edutools.sh
 

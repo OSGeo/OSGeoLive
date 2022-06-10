@@ -6,7 +6,7 @@
 #          Brian M Hamlin <maplabs@light42.com>
 #
 #################################################
-# Copyright (c) 2010-2020 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2022 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 GeofemEngineering
 #
 # Licensed under the GNU LGPL.
