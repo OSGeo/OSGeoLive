@@ -144,16 +144,16 @@ export USER_NAME
 ./install_mapcache.sh
 ./install_tinyows.sh
 # ./install_gmt.sh # install_vm_only
-# ./install_mapnik.sh
+./install_mapnik.sh
 ./install_otb.sh
-# ./install_saga.sh
+./install_saga.sh
 ./install_grass.sh
 ./install_qgis.sh
 ./install_qgis_server.sh
 # ./install_zoo-project.sh "$ARCH"
-# ./install_marble.sh
-# ./install_opencpn.sh
-# ./install_xygrib.sh
+./install_marble.sh
+./install_opencpn.sh
+./install_xygrib.sh
 ./install_PDAL.sh
 
 ## Python stack
@@ -174,12 +174,12 @@ export USER_NAME
 
 ## Java stack
 ./install_geoserver.sh
-# ./install_geonetwork.sh
+./install_geonetwork.sh
 ./install_deegree.sh
 # ./install_udig.sh "$ARCH"
-# ./install_openjump.sh
+./install_openjump.sh
 # ./install_gvsig.sh "$ARCH" # install_vm_only
-# ./install_gpsprune.sh
+./install_gpsprune.sh
 
 ## Java + default tomcat
 # ./install_52nWPS.sh
@@ -200,9 +200,9 @@ export USER_NAME
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_cesium.sh
-# ./install_geoext.sh
+./install_geoext.sh
 # ./install_rasdaman.sh
-# ./install_geostyler.sh
+./install_geostyler.sh
 # ./install_re3gistry.sh # install_vm_only
 
 ## Docs, Data and extras

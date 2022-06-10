@@ -8,7 +8,7 @@
 # Small edits: Jeroen Ticheler <Jeroen.Ticheler@GeoCat.net>
 #
 #################################################
-# Copyright (c) 2010-2020 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2022 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 GISVM.COM
 #
 # Licensed under the GNU LGPL version >= 2.1.
