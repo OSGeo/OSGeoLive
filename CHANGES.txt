@@ -1,6 +1,48 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 15.0alpha1
+====================
+
+ * Lubuntu 22.04
+ * Fixing mkisofs to work without ISOLINUX (#2348)
+ * Applied updates for Plymouth theme, use Ubuntu Spinner with OSGeoLive logo
+ * Added tomcat group with specific gid (#2250)
+ * Disabled snapd, installed Firefox from Mozilla ppa
+ * Added python3-scipy with no libboost-dev dependency (#2358)
+ * OSM extract for Firenze
+ * GDAL 3.4.3
+ * PROJ 8.2.1
+ * GEOS 3.10.2
+ * Spatialite 5.0.1
+ * PostGIS 3.2.0
+ * QGIS 3.22.7
+ * GRASS 8.2.0
+ * GeoServer 2.21.0
+ * MapServer 7.6.4
+ * Mapbender 3.3.1
+ * OpenLayers 6.14.1
+ * GeoMoose 3.9.0
+ * Cesium 1.94
+ * OTB 8.0.1
+ * pycsw 2.6.1
+ * PyWPS 4.5.1
+ * pygeoapi 0.12.0
+ * Mapnik 3.1.0
+ * fiona 1.8.21
+ * rasterio 1.2.10
+ * OpenDataCube 1.8.7 in ppa
+ * libgeotiff 1.7.0
+ * PDAL 2.3.0
+ * pgRouting 3.3.0
+ * MapCache 1.12.0
+ * mappyfile 0.9.7
+ * geopandas 0.10.2
+ * PostgreSQL 14
+ * phpPgAdmin 7.13
+ * Jupyter Notebook 6.4.8
+ * Default desktop image for 15.0
+
 Version 14.0
 ====================
 
