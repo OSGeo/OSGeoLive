@@ -170,7 +170,7 @@ export USER_NAME
 # ./install_R.sh
 
 ## Jupyter
-# ./install_jupyter.sh
+./install_jupyter.sh
 
 ## Java stack
 ./install_geoserver.sh
