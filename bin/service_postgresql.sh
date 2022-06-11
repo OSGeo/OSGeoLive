@@ -83,6 +83,31 @@ sudo -u "$USER_NAME" psql -d "$USER_NAME" -c 'VACUUM ANALYZE;'
 # FIXME: Add pgadmin4-web or pgadmin4-desktop or phppgadmin depending on disk space.
 # See: https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/README
 
+# Install phppgadmin
+
+apt-get install --yes phppgadmin
+
+## Install menu and desktop shortcuts
+
+cp ../app-conf/postgresql/phppgadmin.png /usr/share/icons/phppgadmin.png
+
+cat << EOF > /usr/share/applications/phppgadmin.desktop
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=phpPgAdmin
+Comment=phpPgAdmin application
+Categories=Application;Geography;Geoscience;Education;
+Exec=sensible-browser http://localhost/phppgadmin/
+Icon=/usr/share/icons/phppgadmin.png
+Terminal=false
+StartupNotify=false
+EOF
+
+cp /usr/share/applications/phppgadmin.desktop "$USER_HOME"/Desktop/
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/phppgadmin.desktop"
+
 # Install pgadmin4
 
 # Add pgadmin4 key
