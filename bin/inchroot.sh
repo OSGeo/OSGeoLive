@@ -183,7 +183,7 @@ export USER_NAME
 
 ## Java + default tomcat
 # ./install_52nWPS.sh
-# ./install_52nSOS.sh
+./install_52nSOS.sh
 # ./install_ncWMS.sh # install_vm_only
 
 ## PHP stack
