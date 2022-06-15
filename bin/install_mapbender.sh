@@ -155,23 +155,23 @@ fi
 
 
 #Add Launch icon to desktop
-if [ ! -e /usr/local/share/applications/mapbender3.desktop ] ; then
+if [ ! -e /usr/local/share/applications/Mapbender.desktop ] ; then
    mkdir -p /usr/local/share/applications
-   cat << EOF > /usr/local/share/applications/mapbender3.desktop
+   cat << EOF > /usr/local/share/applications/Mapbender.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
 Name=Mapbender
 Comment=Mapbender
 Categories=Application;Geography;Geoscience;Education;
-Exec=firefox http://localhost/mapbender/app.php
+Exec=firefox http://localhost/mapbender/
 Icon=/usr/local/share/icons/mapbender3_desktop_48x48.png
 Terminal=false
 StartupNotify=false
 EOF
 fi
-cp /usr/local/share/applications/mapbender3.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/mapbender3.desktop"
+cp /usr/local/share/applications/Mapbender.desktop "$USER_HOME/Desktop/"
+chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/Mapbender.desktop"
 
 
 ####
