@@ -155,9 +155,9 @@ fi
 
 
 #Add Launch icon to desktop
-if [ ! -e /usr/local/share/applications/Mapbender.desktop ] ; then
+if [ ! -e /usr/local/share/applications/mapbender.desktop ] ; then
    mkdir -p /usr/local/share/applications
-   cat << EOF > /usr/local/share/applications/Mapbender.desktop
+   cat << EOF > /usr/local/share/applications/mapbender.desktop
 [Desktop Entry]
 Type=Application
 Encoding=UTF-8
@@ -170,8 +170,8 @@ Terminal=false
 StartupNotify=false
 EOF
 fi
-cp /usr/local/share/applications/Mapbender.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/Mapbender.desktop"
+cp /usr/local/share/applications/mapbender.desktop "$USER_HOME/Desktop/"
+chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/mapbender.desktop"
 
 
 ####
