@@ -53,7 +53,7 @@ USER_HOME="/home/$USER_NAME"
 apt-get -q update
 
 #Plugin interaction with R
-apt-get --assume-yes install r-base r-recommended
+apt-get --assume-yes --no-install-recommends install r-base
 
 if [ $? -ne 0 ] ; then
    echo 'ERROR: Package install failed! Aborting.'
@@ -74,8 +74,10 @@ fi
 #  r-cran-rcolorbrewer r-cran-rgdal r-cran-sp r-cran-spatstat r-cran-spdep\
 #  r-cran-splancs r-cran-rgeos r-cran-ncdf4 r-cran-rsaga r-cran-rgrass7
 
-apt-get --assume-yes install r-cran-sp r-cran-rpostgresql r-cran-udunits2 \
-  r-cran-ggplot2 r-cran-sf r-cran-lwgeom r-cran-spdata r-cran-rgdal r-cran-maptools
+apt-get --assume-yes --no-install-recommends install gfortran r-cran-classint r-cran-dplyr
+# apt-get --assume-yes install r-cran-sp r-cran-rpostgresql r-cran-udunits2 \
+  # r-cran-ggplot2 r-cran-sf r-cran-lwgeom r-cran-spdata r-cran-rgdal r-cran-maptools
+apt-get --assume-yes --no-install-recommends install r-cran-sf r-cran-ggplot2
 
 ##  -- jupyter hacks --
 ##
