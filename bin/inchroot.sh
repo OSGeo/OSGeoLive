@@ -187,7 +187,7 @@ export USER_NAME
 # ./install_ncWMS.sh # install_vm_only
 
 ## PHP stack
-./install_mapbender.sh
+# ./install_mapbender.sh
 ./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
