@@ -137,14 +137,14 @@ echo "Unzipping done"
 # Copy to www
 #
 echo "\nCopying files to $GEOEXT_DIR"
-cd geoext3-$GEOEXT_VERSION
+cd geoext-$GEOEXT_VERSION
 mv src "$GEOEXT_DIR"/
 mv LICENSE "$GEOEXT_DIR/LICENSE-GEOEXT"
 echo "Copying done"
 
 echo "\nCleaning up..."
 cd "$TMP_DIR"
-rm -rf geoext3-$GEOEXT_VERSION
+rm -rf geoext-$GEOEXT_VERSION
 rm -f $GEOEXT_ARCHIVE_DIST
 
 #
