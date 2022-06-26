@@ -33,7 +33,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_geoext"
 
-GEOEXT_VERSION="3.1.0"
+GEOEXT_VERSION="3.4.0"
 OPENLAYERS_VERSION="4.6.5"
 GEOEXT_DIR=/var/www/html/geoext
 EXTJS_VERSION="6.2.0"
@@ -122,7 +122,7 @@ then
    echo "GeoExt $GEOEXT_ARCHIVE_DIST distribution version has already been downloaded. Skipping download."
 else
    wget -c --progress=dot:mega \
-      "https://github.com/geoext/geoext3/archive/$GEOEXT_ARCHIVE_DIST"
+      "https://github.com/geoext/geoext/archive/$GEOEXT_ARCHIVE_DIST"
    echo "OpenLayers $GEOEXT_VERSION distribution version download complete."
 fi
 
