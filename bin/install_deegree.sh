@@ -82,7 +82,7 @@ wget -c --progress=dot:mega \
    -O "deegree-webservices-3.4.31.zip" \
    "http://repo.deegree.org/repository/releases/public/org/deegree/deegree-webservices-tomcat-bundle/3.4.31/deegree-webservices-tomcat-bundle-3.4.31-distribution.zip"
 wget -c --progress=dot:mega \
-   "http://repo.deegree.org/repository/releases/public/org/deegree/deegree-workspace-utah/3.4.31/deegree-workspace-utah-3.4.31.deegree-workspace"
+   "http://repo.deegree.org/repository/releases/public/org/deegree/deegree-workspace-utah/3.4.31/deegree-workspace-utah-3.4.31.deegree-workspace.zip"
 
 cp "$BUILD_DIR"/../app-conf/deegree/deegree_start.sh .
 cp "$BUILD_DIR"/../app-conf/deegree/deegree_stop.sh .
