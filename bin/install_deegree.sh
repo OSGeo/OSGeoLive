@@ -93,8 +93,8 @@ cp "$BUILD_DIR"/../app-conf/deegree/deegree_stop.sh .
 cd "$TMP"
 unzip -q deegree-webservices-3.4.31.zip
 mv deegree-webservices-tomcat-bundle-3.4.31 deegree-webservices-3.4.31
-mv deegree-webservices-3.4.31/apache-tomcat-8.0.50/* deegree-webservices-3.4.31/
-rmdir deegree-webservices-3.4.31/apache-tomcat-8.0.50
+mv deegree-webservices-3.4.31/apache-tomcat-8.5.78/* deegree-webservices-3.4.31/
+rmdir deegree-webservices-3.4.31/apache-tomcat-8.5.78
 mv deegree-webservices-3.4.31 "$INSTALL_FOLDER"
 # "user" must not own files outside of /home
 # do "chmod g+w; chgrp users" if needed, but only on stuff that really needs it
