@@ -157,7 +157,7 @@ chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/r.desktop"
 
 
 ### install R package containing sids.shp needed for postgis quickstart
-# Rscript -e "install.packages('spData')"
+Rscript -e "install.packages('spData')"
 
 # link sample data to central location
 mkdir -p /usr/local/share/data/vector/R
