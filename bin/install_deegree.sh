@@ -183,7 +183,7 @@ mkdir -p "$DEEGREE_WORKSPACE_ROOT"
 cd "$DEEGREE_WORKSPACE_ROOT"
 mkdir deegree-workspace-utah-3.4.31
 cd deegree-workspace-utah-3.4.31
-unzip -q "$TMP"/deegree-workspace-utah-3.4.31.deegree-workspace
+unzip -q "$TMP"/deegree-workspace-utah-3.4.31.deegree-workspace.zip
 
 ## Fix permissions
 # "user" must not own files outside of /home
