@@ -39,6 +39,6 @@ mkdir -p logs
 sleep 5
 
 ## open firefox with deegree 3 console
-# sudo -u "$USER_NAME" \
-   # firefox -new-tab http://localhost:8033
+sudo -u "$USER_NAME" \
+   firefox -new-tab http://localhost:8033
 
