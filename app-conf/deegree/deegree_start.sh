@@ -6,7 +6,7 @@
 # Credits: Judit Mays, Johannes Kuepper, Danilo Bretschneider
 #
 #############################################################################
-# Copyright (c) 2011-2018 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2011-2022 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
 #
@@ -23,7 +23,7 @@
 
 DEEGREE_WORKSPACE_ROOT="/usr/local/share/deegree"
 export DEEGREE_WORKSPACE_ROOT
-DEE_DIR="/usr/local/lib/deegree-webservices-3.4.1"
+DEE_DIR="/usr/local/lib/deegree-webservices-3.4.31"
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
@@ -39,6 +39,7 @@ mkdir -p logs
 sleep 5
 
 ## open firefox with deegree 3 console
-sudo -u "$USER_NAME" \
-   firefox -new-tab http://localhost:8033
+#sudo -u "$USER_NAME" \  no need for sudo here -dbb
+
+firefox -new-tab http://localhost:8033
 
