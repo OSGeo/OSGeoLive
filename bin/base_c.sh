@@ -31,12 +31,4 @@ apt-get install --yes build-essential cmake pkg-config
 # Install OSGeo C stack libraries
 apt-get install --yes libgdal30 gdal-bin proj-bin libgeos-c1v5 geotiff-bin
 
-# Fetch/Install prebuilt libgdal-java components
-URL="https://sourceforge.net/projects/jump-pilot/files/OpenJUMP/osgeo/gdal-3.4.3+dfsg-java.20220622.tgz"
-FILE=/tmp/$(basename "$URL")
-wget --no-verbose -O "$FILE" "$URL" && \
-tar xvf "$FILE" -C / && \
-ls -la /usr/lib/jni/libgdalalljni.so /usr/share/java/gdal.jar && \
-rm "$FILE" || { echo "error installing gdal-java"; exit 1; }
-
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
