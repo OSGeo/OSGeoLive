@@ -175,7 +175,7 @@ export USER_NAME
 ## Java stack
 ./install_geoserver.sh
 ./install_geonetwork.sh
-./install_deegree.sh
+# ./install_deegree.sh
 ./install_udig.sh "$ARCH"
 ./install_openjump.sh
 # ./install_gvsig.sh "$ARCH" # install_vm_only
