@@ -1,7 +1,7 @@
 #!/bin/bash
 #################################################################################
 #
-# Purpose: Installation of deegree-webservices-3.4.31 into Lubuntu
+# Purpose: Installation of deegree-webservices-3.4.32 into Lubuntu
 # Author:  Johannes Wilden <wilden@lat-lon.de>
 # Credits: Stefan Hansen <shansen@lisasoft.com>
 #          H.Bowman <hamish_b  yahoo com>
@@ -9,6 +9,7 @@
 #          Johannes Kuepper <kuepper@lat-lon.de>
 #          Danilo Bretschneider <bretschneider@lat-lon.de>
 #          Torsten Friebe <friebe@lat-lon.de>
+#          Julian Zilz <zilz@lat-lon.de>
 # Date:    $Date$
 # Revision:$Revision$
 #
@@ -33,7 +34,7 @@
 # =====
 # This script will install deegree-webservices
 #
-# deegree webservices version 3.4.31 runs with openjdk8 on Apache Tomcat 8.5+
+# deegree webservices version 3.4.32 runs with openjdk8 on Apache Tomcat 8.5.78
 #
 
 # Running:
@@ -50,7 +51,7 @@ BUILD_DIR=`pwd`
 
 TMP="/tmp/build_deegree"
 INSTALL_FOLDER="/usr/local/lib"
-DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.4.31"
+DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.4.32"
 DEEGREE_WORKSPACE_ROOT="/usr/local/share/deegree"
 BIN="/usr/local/bin"
 
@@ -79,10 +80,10 @@ cd "$TMP"
 
 ## download required stuff into tmp folder
 wget -c --progress=dot:mega \
-   -O "deegree-webservices-3.4.31.zip" \
-   "http://repo.deegree.org/repository/releases/org/deegree/deegree-webservices-tomcat-bundle/3.4.31/deegree-webservices-tomcat-bundle-3.4.31-distribution.zip"
+   -O "deegree-webservices-3.4.32.zip" \
+   "http://repo.deegree.org/repository/releases/org/deegree/deegree-webservices-tomcat-bundle/3.4.32/deegree-webservices-tomcat-bundle-3.4.32-distribution.zip"
 wget -c --progress=dot:mega \
-   "http://repo.deegree.org/repository/releases/org/deegree/deegree-workspace-utah/3.4.31/deegree-workspace-utah-3.4.31.zip"
+   "http://repo.deegree.org/repository/releases/org/deegree/workspace/deegree-workspace-utah-light/20220701/deegree-workspace-utah-light-20220701.zip"
 
 cp "$BUILD_DIR"/../app-conf/deegree/deegree_start.sh .
 cp "$BUILD_DIR"/../app-conf/deegree/deegree_stop.sh .
@@ -91,11 +92,11 @@ cp "$BUILD_DIR"/../app-conf/deegree/deegree_stop.sh .
 
 ## unpack as root
 cd "$TMP"
-unzip -q deegree-webservices-3.4.31.zip
-mv deegree-webservices-tomcat-bundle-3.4.31 deegree-webservices-3.4.31
-mv deegree-webservices-3.4.31/apache-tomcat-8.5.78/* deegree-webservices-3.4.31/
-rmdir deegree-webservices-3.4.31/apache-tomcat-8.5.78
-mv deegree-webservices-3.4.31 "$INSTALL_FOLDER"
+unzip -q deegree-webservices-3.4.32.zip
+mv deegree-webservices-tomcat-bundle-3.4.32 deegree-webservices-3.4.32
+mv deegree-webservices-3.4.32/apache-tomcat-8.5.78/* deegree-webservices-3.4.32/
+rmdir deegree-webservices-3.4.32/apache-tomcat-8.5.78
+mv deegree-webservices-3.4.32 "$INSTALL_FOLDER"
 # "user" must not own files outside of /home
 # do "chmod g+w; chgrp users" if needed, but only on stuff that really needs it
 #chown -R $USER_NAME:$USER_NAME "$DEEGREE_FOLDER"
@@ -128,7 +129,7 @@ if [ ! -e /usr/share/applications/deegree-start.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Start deegree
-Comment=deegree webservices 3.4.31
+Comment=deegree webservices 3.4.32
 Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
 Exec=dash $USER_HOME/bin/launchassist.sh $BIN/deegree_start.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
@@ -147,7 +148,7 @@ if [ ! -e /usr/share/applications/deegree-stop.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Stop deegree
-Comment=deegree webservices 3.4.31
+Comment=deegree webservices 3.4.32
 Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
 Exec=dash $USER_HOME/bin/launchassist.sh  $BIN/deegree_stop.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
@@ -181,9 +182,9 @@ mkdir -p "$DEEGREE_WORKSPACE_ROOT"
 
 ## Extract utah workspace in DEEGREE_WORKSPACE_ROOT
 cd "$DEEGREE_WORKSPACE_ROOT"
-mkdir deegree-workspace-utah-3.4.31
-cd deegree-workspace-utah-3.4.31
-unzip -q "$TMP"/deegree-workspace-utah-3.4.31.zip
+mkdir deegree-workspace-utah-light
+cd deegree-workspace-utah-light
+unzip -q "$TMP"/deegree-workspace-utah-light-20220701.zip
 
 ## Fix permissions
 # "user" must not own files outside of /home
