@@ -10,6 +10,7 @@
 #          Danilo Bretschneider <bretschneider@lat-lon.de>
 #          Torsten Friebe <friebe@lat-lon.de>
 #          Julian Zilz <zilz@lat-lon.de>
+#          Brian M Hamlin  <maplabs@light42.com>
 # Date:    $Date$
 # Revision:$Revision$
 #
@@ -100,6 +101,9 @@ mv deegree-webservices-3.4.32 "$INSTALL_FOLDER"
 # "user" must not own files outside of /home
 # do "chmod g+w; chgrp users" if needed, but only on stuff that really needs it
 #chown -R $USER_NAME:$USER_NAME "$DEEGREE_FOLDER"
+##
+chown -R root:users ${DEEGREE_FOLDER}
+chmod 775 ${DEEGREE_FOLDER}/logs
 
 ### Configure Application ###
 

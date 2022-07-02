@@ -23,7 +23,7 @@
 
 DEEGREE_WORKSPACE_ROOT="/usr/local/share/deegree"
 export DEEGREE_WORKSPACE_ROOT
-DEE_DIR="/usr/local/share/deegree/deegree-workspace-utah-light/"
+DEE_DIR="/usr/local/lib/deegree-webservices-3.4.32"
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then
