@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2021 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2022 The Open Source Geospatial Foundation and others.
 # Copyright (c) 2009 LISAsoft
 # Copyright (c) 2009 Cameron Shorter
 # Licensed under the GNU LGPL version >= 2.1.
@@ -40,11 +40,12 @@ echo "BUILD_MODE: $BUILD_MODE"
 
 # Install from daily repository only in nightly mode
 if [ "$BUILD_MODE" = "nightly" ] ; then
-   add-apt-repository  --yes ppa:osgeolive/docs
+   add-apt-repository --yes ppa:osgeolive/docs
    apt-get update
 fi
 
-apt-get install --assume-yes osgeolive-docs javascript-common fonts-noto-cjk
+apt-get install --assume-yes osgeolive-docs javascript-common
+#fonts-noto-cjk
 
 ln -s /usr/share/doc/osgeolive-docs/html $DEST/osgeolive
 
