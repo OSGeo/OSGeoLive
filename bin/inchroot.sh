@@ -139,7 +139,7 @@ export USER_NAME
 ./install_osm.sh
 ./load_postgis.sh
 ./install_pgrouting.sh
-./install_ossim.sh
+# ./install_ossim.sh
 ./install_mapserver.sh
 ./install_mapcache.sh
 ./install_tinyows.sh
