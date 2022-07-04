@@ -139,7 +139,7 @@ export USER_NAME
 ./install_osm.sh
 ./load_postgis.sh
 ./install_pgrouting.sh
-# ./install_ossim.sh
+./install_ossim.sh
 ./install_mapserver.sh
 ./install_mapcache.sh
 ./install_tinyows.sh
@@ -176,8 +176,8 @@ export USER_NAME
 ./install_geoserver.sh
 ./install_geonetwork.sh
 ./install_deegree.sh
-./install_udig.sh "$ARCH"
-# ./install_openjump.sh
+# ./install_udig.sh "$ARCH"
+./install_openjump.sh
 # ./install_gvsig.sh "$ARCH" # install_vm_only
 ./install_gpsprune.sh
 
