@@ -45,7 +45,7 @@ ETF_FOLDER="$USER_HOME/.etf"
 ETF_WAR_INSTALL_FOLDER="/usr/share/$JETTY9_SCRIPT_NAME/webapps"
 ETF_BIN_FOLDER="/usr/local/share/ETF"
 ETF_VERSION="2.0"
-JAVA_PKG="openjdk-8-jdk"
+JAVA_PKG="openjdk-8-jdk-headless"
 JETTY9_HOME="/usr/share/$JETTY9_SCRIPT_NAME"
 
 # -----------------------------------------------------------------------------
@@ -60,6 +60,7 @@ echo "ETF_FOLDER: $ETF_FOLDER"
 echo "ETF_WAR_INSTALL_FOLDER: $ETF_WAR_INSTALL_FOLDER"
 echo "ETF_WEB_APP_NAME: $ETF_WEB_APP_NAME"
 echo "ETF_ICON_NAME: $ETF_ICON_NAME"
+echo "ETF_PORT: $ETF_PORT"
 echo "ETF_URL: $ETF_URL"
 echo "ETF_VERSION: $ETF_VERSION"
 echo "JAVA_PKG: $JAVA_PKG"
@@ -144,7 +145,7 @@ sudo cp "$TMP/ETF.war" "$ETF_WAR_INSTALL_FOLDER"/
 #
 # It puts the ETS repository to its place
 #
-sed -i 's/jetty.http.port=8080/jetty.http.port=$ETF_PORT/g' "$JETTY9_HOME/start.ini"
+sudo sed -i "s/jetty.http.port=8080/jetty.http.port=$ETF_PORT/g" "$JETTY9_HOME/start.ini"
 /usr/share/jetty9/bin/jetty.sh start
 wait
 /usr/share/jetty9/bin/jetty.sh stop
@@ -175,7 +176,8 @@ SERVICEJETTY=\`systemctl status jetty9 | grep "Active: active" | wc -l\`
 if [ \$SERVICEJETTY -eq 1 ]; then
 	systemctl stop jetty9
 fi
-sed -i 's/jetty.port=8080/jetty.port=$ETF_PORT/g' "$JETTY9_HOME/start.ini"
+sed -i "s/jetty.port=8080/jetty.port=$ETF_PORT/g" "$JETTY9_HOME/start.ini"
+sed -i "s/jetty.http.port=8080/jetty.http.port=$ETF_PORT/g" "$JETTY9_HOME/start.ini"
 DELAY=90
 JETTY9=\`/usr/share/jetty9/bin/jetty.sh status | grep "Jetty running pid=" | wc -l\`
 if [ \$JETTY9 -ne 1 ]; then
@@ -257,3 +259,4 @@ sudo chmod 755 "/usr/share/applications/"
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
 echo -e "Timing:\nStart: $START\nEnd  : $(date +%M:%S)"
+
