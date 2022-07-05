@@ -27,5 +27,13 @@ apt-get install --yes default-jdk default-jre
 
 apt-get install --yes gsfonts-x11 ttf-dejavu-extra
 
+# Fetch/Install prebuilt libgdal-java components
+URL="http://download.osgeo.org/livedvd/data/gdal/gdal-3.4.3+dfsg-java.20220622.tgz"
+FILE=/tmp/$(basename "$URL")
+wget --no-verbose -O "$FILE" "$URL" && \
+tar xvf "$FILE" -C / && \
+ls -la /usr/lib/jni/libgdalalljni.so /usr/share/java/gdal.jar && \
+rm "$FILE" || { echo "error installing gdal-java"; exit 1; }
+
 ####
 ./diskspace_probe.sh "`basename $0`" end

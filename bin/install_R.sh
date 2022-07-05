@@ -77,7 +77,7 @@ fi
 apt-get --assume-yes --no-install-recommends install gfortran r-cran-classint r-cran-dplyr
 # apt-get --assume-yes install r-cran-sp r-cran-rpostgresql r-cran-udunits2 \
   # r-cran-ggplot2 r-cran-sf r-cran-lwgeom r-cran-spdata r-cran-rgdal r-cran-maptools
-apt-get --assume-yes --no-install-recommends install r-cran-sf r-cran-ggplot2
+apt-get --assume-yes --no-install-recommends install r-cran-sf r-cran-ggplot2 r-cran-spdata
 
 ##  -- jupyter hacks --
 ##

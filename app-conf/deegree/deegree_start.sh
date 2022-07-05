@@ -6,7 +6,7 @@
 # Credits: Judit Mays, Johannes Kuepper, Danilo Bretschneider
 #
 #############################################################################
-# Copyright (c) 2011-2018 Open Source Geospatial Foundation (OSGeo)
+# Copyright (c) 2011-2022 Open Source Geospatial Foundation (OSGeo)
 #
 # Licensed under the GNU LGPL.
 #
@@ -23,7 +23,7 @@
 
 DEEGREE_WORKSPACE_ROOT="/usr/local/share/deegree"
 export DEEGREE_WORKSPACE_ROOT
-DEE_DIR="/usr/local/lib/deegree-webservices-3.4.1"
+DEE_DIR="/usr/local/lib/deegree-webservices-3.4.32"
 
 # live disc's username is "user"
 if [ -z "$USER_NAME" ] ; then

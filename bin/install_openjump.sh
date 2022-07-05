@@ -1,7 +1,7 @@
 #!/bin/sh
 #################################################
 #
-# Purpose: Installation of openjump into ubuntu
+# Purpose:  Installation of openjump into ubuntu
 # Authors:  Stefan Hansen <shansen[AT]lisasoft.com>
 #           edso <edso[AT]users.sourceforge.net>
 #
@@ -11,9 +11,10 @@
 #  12 Jun 2013  changes for OJ 1.6 live-dvd 7.0
 #  14 Jun 2014  changes for OJ 1.7 live-dvd 8.0
 #  20 Aug 2018  osgeolive12
+#  26 Jun 2022  osgeolive15
 #
 #################################################
-# Copyright (c) 2011-2014 Edgar Soldin, openjump team
+# Copyright (c) 2011-2022 Edgar Soldin, openjump team
 # Copyright (c) 2010-2022 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
@@ -54,18 +55,13 @@ TMP="/tmp/build_openjump"
 PKG_NAME=OpenJUMP
 PKG_VERSION=2.0
 
-
 # dns trouble? test if we can see it
 host sourceforge.net || exit 1
 
 ## get defs from online conf file ( file vars, pkg_version ) for update convenience
-URL_LIST=https://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osgeo.conf
+URL_LIST=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP/osgeo/osgeo.conf
 # download and set vars (filter out anything not setting a variable)
-
-##  OJ tmp
-##eval "$(wget -nv -O- "$URL_LIST" | awk '/^[a-zA-Z0-9_-]+=/')"
-##
-
+eval "$(wget -nv -O- "$URL_LIST" | awk '/^[a-zA-Z0-9_-]+=/')"
 
 PKG_FOLDER="$PKG_NAME-$PKG_VERSION"
 PKG_HOME="/usr/lib/$PKG_FOLDER"
@@ -76,16 +72,7 @@ PKG_LINK=/usr/local/bin/openjump
 PKG_DESKTOP="$USER_HOME/Desktop/openjump.desktop"
 PKG_SUCCESS="$PKG_HOME/.installed"
 
-## ------------------------------------------
-##  OJ tmp - installer vars -dbb 08jun22
-PKG_NAME=OpenJUMP
-PKG_VERSION=2.0
-URL_PKG=https://sourceforge.net/projects/jump-pilot/files/OpenJUMP/osgeo/OpenJUMP-Portable-2.0-r5095[a56ff6d]-osgeo.zip
-URL_ICON_oldsvn=https://jump-pilot.svn.sourceforge.net/viewvc/jump-pilot/core/trunk/icon/openjump_icon3.svg
-URL_ICON=https://sourceforge.net/p/jump-pilot/code/HEAD/tree/core/trunk/icon/openjump_icon3.svg?format=raw
-URL_DATA=https://sourceforge.net/projects/jump-pilot/files/OpenJUMP/osgeo/free_oj_tutorialdata.zip
-URL_DOC="https://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP 1.6 Docs/general_tutorial_foroj16_english_withoutdata.pdf"
-
+## these defs are defined by conf file above
 #URL_PKG=http://downloads.sourceforge.net/project/jump-pilot/OpenJUMP_snapshots/OpenJUMP-20120108-r2597-CORE.zip
 #URL_ICON=http://jump-pilot.svn.sourceforge.net/viewvc/jump-pilot/core/trunk/icon/openjump_icon3.svg
 #URL_DATA=http://sourceforge.net/projects/jump-pilot/files/Documentation/OpenJUMP%201.4%20Tutorials/ojtutorial_general_2011_data.zip

@@ -1,7 +1,7 @@
 #!/bin/bash
 #################################################################################
 #
-# Purpose: Installation of deegree-webservices-3.4.1 into Xubuntu
+# Purpose: Installation of deegree-webservices-3.4.32 into Lubuntu
 # Author:  Johannes Wilden <wilden@lat-lon.de>
 # Credits: Stefan Hansen <shansen@lisasoft.com>
 #          H.Bowman <hamish_b  yahoo com>
@@ -9,11 +9,13 @@
 #          Johannes Kuepper <kuepper@lat-lon.de>
 #          Danilo Bretschneider <bretschneider@lat-lon.de>
 #          Torsten Friebe <friebe@lat-lon.de>
+#          Julian Zilz <zilz@lat-lon.de>
+#          Brian M Hamlin  <maplabs@light42.com>
 # Date:    $Date$
 # Revision:$Revision$
 #
 #################################################################################
-# Copyright (c) 2009-2018 lat/lon GmbH
+# Copyright (c) 2009-2022 lat/lon GmbH
 # Copyright (c) 2016-2022 The Open Source Geospatial Foundation and others.
 #
 # Licensed under the GNU LGPL.
@@ -33,7 +35,7 @@
 # =====
 # This script will install deegree-webservices
 #
-# deegree webservices version 3.4.1 runs with openjdk8 on Apache Tomcat 8.0+
+# deegree webservices version 3.4.32 runs with openjdk8 on Apache Tomcat 8.5.78
 #
 
 # Running:
@@ -50,7 +52,7 @@ BUILD_DIR=`pwd`
 
 TMP="/tmp/build_deegree"
 INSTALL_FOLDER="/usr/local/lib"
-DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.4.1"
+DEEGREE_FOLDER="$INSTALL_FOLDER/deegree-webservices-3.4.32"
 DEEGREE_WORKSPACE_ROOT="/usr/local/share/deegree"
 BIN="/usr/local/bin"
 
@@ -79,10 +81,10 @@ cd "$TMP"
 
 ## download required stuff into tmp folder
 wget -c --progress=dot:mega \
-   -O "deegree-webservices-3.4.1.zip" \
-   "http://repo.deegree.org/content/groups/public/org/deegree/deegree-webservices-tomcat-bundle/3.4.1/deegree-webservices-tomcat-bundle-3.4.1-distribution.zip"
+   -O "deegree-webservices-3.4.32.zip" \
+   "http://repo.deegree.org/repository/releases/org/deegree/deegree-webservices-tomcat-bundle/3.4.32/deegree-webservices-tomcat-bundle-3.4.32-distribution.zip"
 wget -c --progress=dot:mega \
-   "http://repo.deegree.org/content/groups/public/org/deegree/deegree-workspace-inspire/3.4.1/deegree-workspace-inspire-3.4.1.deegree-workspace"
+   "http://repo.deegree.org/repository/releases/org/deegree/workspace/deegree-workspace-utah-light/20220701/deegree-workspace-utah-light-20220701.zip"
 
 cp "$BUILD_DIR"/../app-conf/deegree/deegree_start.sh .
 cp "$BUILD_DIR"/../app-conf/deegree/deegree_stop.sh .
@@ -91,14 +93,17 @@ cp "$BUILD_DIR"/../app-conf/deegree/deegree_stop.sh .
 
 ## unpack as root
 cd "$TMP"
-unzip -q deegree-webservices-3.4.1.zip
-mv deegree-webservices-tomcat-bundle-3.4.1 deegree-webservices-3.4.1
-mv deegree-webservices-3.4.1/apache-tomcat-8.0.50/* deegree-webservices-3.4.1/
-rmdir deegree-webservices-3.4.1/apache-tomcat-8.0.50
-mv deegree-webservices-3.4.1 "$INSTALL_FOLDER"
+unzip -q deegree-webservices-3.4.32.zip
+mv deegree-webservices-tomcat-bundle-3.4.32 deegree-webservices-3.4.32
+mv deegree-webservices-3.4.32/apache-tomcat-8.5.78/* deegree-webservices-3.4.32/
+rmdir deegree-webservices-3.4.32/apache-tomcat-8.5.78
+mv deegree-webservices-3.4.32 "$INSTALL_FOLDER"
 # "user" must not own files outside of /home
 # do "chmod g+w; chgrp users" if needed, but only on stuff that really needs it
 #chown -R $USER_NAME:$USER_NAME "$DEEGREE_FOLDER"
+##
+chown -R root:users ${DEEGREE_FOLDER}
+chmod 775 ${DEEGREE_FOLDER}/logs
 
 ### Configure Application ###
 
@@ -128,7 +133,7 @@ if [ ! -e /usr/share/applications/deegree-start.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Start deegree
-Comment=deegree webservices 3.4.1
+Comment=deegree webservices 3.4.32
 Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
 Exec=dash $USER_HOME/bin/launchassist.sh $BIN/deegree_start.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
@@ -147,7 +152,7 @@ if [ ! -e /usr/share/applications/deegree-stop.desktop ] ; then
 Type=Application
 Encoding=UTF-8
 Name=Stop deegree
-Comment=deegree webservices 3.4.1
+Comment=deegree webservices 3.4.32
 Categories=Application;Geoscience;OGC Web Services;SDI;Geography;Education;
 Exec=dash $USER_HOME/bin/launchassist.sh  $BIN/deegree_stop.sh
 Icon=/usr/share/icons/deegree_desktop_48x48.png
@@ -179,11 +184,11 @@ sed -i -e "s/127.0.0.1:8080/127.0.0.1:$TOMCAT_PORT/g" \
 rm -Rf "$DEEGREE_WORKSPACE_ROOT"
 mkdir -p "$DEEGREE_WORKSPACE_ROOT"
 
-## Extract INSPIRE workspace in DEEGREE_WORKSPACE_ROOT
+## Extract utah workspace in DEEGREE_WORKSPACE_ROOT
 cd "$DEEGREE_WORKSPACE_ROOT"
-mkdir deegree-workspace-inspire-3.4.1
-cd deegree-workspace-inspire-3.4.1
-unzip -q "$TMP"/deegree-workspace-inspire-3.4.1.deegree-workspace
+mkdir deegree-workspace-utah-light
+cd deegree-workspace-utah-light
+unzip -q "$TMP"/deegree-workspace-utah-light-20220701.zip
 
 ## Fix permissions
 # "user" must not own files outside of /home
