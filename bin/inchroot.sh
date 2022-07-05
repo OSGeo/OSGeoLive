@@ -176,7 +176,7 @@ export USER_NAME
 ./install_geoserver.sh
 ./install_geonetwork.sh
 ./install_deegree.sh
-./install_udig.sh "$ARCH"
+# ./install_udig.sh "$ARCH"
 ./install_openjump.sh
 # ./install_gvsig.sh "$ARCH" # install_vm_only
 ./install_gpsprune.sh
@@ -207,7 +207,7 @@ export USER_NAME
 
 ## Docs, Data and extras
 ./load_gisdata.sh
-# ./install_docs.sh "$BUILD_MODE"
+./install_docs.sh "$BUILD_MODE"
 # ./install_edutools.sh
 
 ## Desktop and Housekeeping
