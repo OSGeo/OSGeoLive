@@ -191,7 +191,7 @@ export USER_NAME
 ./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
-# ./install_geonode.sh
+./install_geonode.sh
 
 ## Rust
 # ./install_trex.sh
