@@ -414,8 +414,8 @@ systemctl start geonode_hosts.service
 ## Enable geonode_hosts service at startup
 systemctl enable geonode_hosts.service
 
-apt-add-repository --yes --remove ppa:geonode/osgeolive
-# apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
+# apt-add-repository --yes --remove ppa:geonode/osgeolive
+apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
