@@ -134,8 +134,8 @@ echo "Done"
 
 # Patch monitoring to not use user_agents:
 # (https://github.com/GeoNode/geonode/issues/6703#issuecomment-757387363)
-sed -i -e "s/import user_agents/#import user_agents/" \
-        "$GEONODE_DIR/monitoring/models.py"
+# sed -i -e "s/import user_agents/#import user_agents/" \
+#         "$GEONODE_DIR/monitoring/models.py"
 
 # make the static & upload dir
 mkdir -p "$STATIC_PATH"
