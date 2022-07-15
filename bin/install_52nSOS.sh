@@ -2,8 +2,8 @@
 #############################################################################
 #
 # Purpose: This script will install 52nSOS
-# Author: e.h.juerrens@52north.org
-# Version 2018-06-14
+# Author: e.h.juerrens@52north.org, c.hollmann@52north.org
+# Version 2022-07-15
 #
 #############################################################################
 # Copyright (c) 2011-2022 The Open Source Geospatial Foundation and others.
