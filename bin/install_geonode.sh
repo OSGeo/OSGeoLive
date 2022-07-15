@@ -4,7 +4,7 @@
 # Purpose: This script will install GeoNode
 #
 #############################################################################
-# Copyright (c) 2013-2019 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2013-2022 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 # 
@@ -35,7 +35,7 @@ DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/sites-available/geonode.conf"
 GEONODE_DB="geonode_app"
 GEONODE_STORE="geonode_data"
-GEOSERVER_VERSION="2.18.1"
+GEOSERVER_VERSION="2.21.0"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 GEONODE_DIR="/usr/lib/python3/dist-packages/geonode"
@@ -44,8 +44,8 @@ UPLOAD_PATH="/var/www/geonode/uploaded"
 # TMP="/tmp/build_geoserver"
 
 # Install packages
-add-apt-repository -y ppa:geonode/osgeolive
-# add-apt-repository -y ppa:gcpp-kalxas/geonode
+# add-apt-repository -y ppa:geonode/osgeolive
+add-apt-repository -y ppa:gcpp-kalxas/geonode
 apt-get -q update
 
 apt-get install --yes --no-install-recommends python3-geonode libapache2-mod-wsgi-py3 curl
@@ -134,8 +134,8 @@ echo "Done"
 
 # Patch monitoring to not use user_agents:
 # (https://github.com/GeoNode/geonode/issues/6703#issuecomment-757387363)
-sed -i -e "s/import user_agents/#import user_agents/" \
-        "$GEONODE_DIR/monitoring/models.py"
+# sed -i -e "s/import user_agents/#import user_agents/" \
+#         "$GEONODE_DIR/monitoring/models.py"
 
 # make the static & upload dir
 mkdir -p "$STATIC_PATH"
@@ -414,8 +414,8 @@ systemctl start geonode_hosts.service
 ## Enable geonode_hosts service at startup
 systemctl enable geonode_hosts.service
 
-apt-add-repository --yes --remove ppa:geonode/osgeolive
-# apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
+# apt-add-repository --yes --remove ppa:geonode/osgeolive
+apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
