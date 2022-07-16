@@ -47,12 +47,17 @@ sed -i -e 's|^DesktopShortcuts=.*|DesktopShortcuts=Home, Trash|' \
        -e 's|^WallpaperMode=.*|WallpaperMode=fit|' \
        -e 's|^Wallpaper=.*|Wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
        -e 's|^BgColor=.*|BgColor=#000000|' \
-       -e 's|^FgColor=.*|FgColor=#ffffff|' \
+       -e 's|^FgColor=.*|FgColor=#232323|' \
        -e 's|^ShadowColor=.*|ShadowColor=#000000|' \
        -e 's|^UseTrash=.*|UseTrash=true|' \
+       -e 's|^desktop_shadow=.*|desktop_shadow=#A09A8F|' \
    /etc/xdg/xdg-Lubuntu/pcmanfm-qt/lxqt/settings.conf
 
-## Desktop shadow configuration ^^
+## Dark Desktop shadow configuration ^^
+##        -e 's|^FgColor=.*|FgColor=#ffffff|' \
+
+## Bright Desktop shadow configuration ^^
+##        -e 's|^FgColor=.*|FgColor=#232323|' \
 ##        -e 's|^desktop_shadow=.*|desktop_shadow=#A09A8F|' \
 
 ## Removed this for xenial: -e 's|^desktop_shadow=.*|desktop_shadow=.*\nshow_mounts=1|' \
