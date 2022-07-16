@@ -2,8 +2,8 @@
 #############################################################################
 #
 # Purpose: This script will install 52nSOS
-# Author: e.h.juerrens@52north.org
-# Version 2018-06-14
+# Author: e.h.juerrens@52north.org, c.hollmann@52north.org
+# Version 2022-07-15
 #
 #############################################################################
 # Copyright (c) 2011-2022 The Open Source Geospatial Foundation and others.
@@ -47,9 +47,9 @@ SOS_OVERVIEW_URL="http://localhost/osgeolive/en/overview/52nSOS_overview.html"
 SOS_WAR_INSTALL_FOLDER="/var/lib/$TOMCAT_SCRIPT_NAME/webapps"
 SOS_INSTALL_FOLDER="/usr/local/52nSOS"
 SOS_BIN_FOLDER="/usr/local/share/52nSOS"
-SOS_TAR_NAME="52n-sos-osgeo-live-4.4.3.tar.gz"
-SOS_TAR_URL="https://52north.org/files/sensorweb/osgeo-live/"
-SOS_VERSION="4.4.3"
+SOS_TAR_NAME="52n-sos-osgeo-live-5.5.1.tar.gz"
+SOS_TAR_URL="https://52north.org/delivery/SensorWeb/osgeo-live/"
+SOS_VERSION="5.5.1"
 PG_OPTIONS="--client-min-messages=warning"
 PG_USER="postgres"
 PG_SCRIPT_NAME="postgresql"
