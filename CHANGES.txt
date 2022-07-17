@@ -1,6 +1,21 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 15.0beta1
+====================
+
+ * R 4.1.2
+ * Deegree 3.4.32
+ * GeoExt 3.4.0
+ * OpenJUMP 2.0
+ * ETF 2.0
+ * libgdal-java components added
+ * EOxServer 1.1.2
+ * GeoNode 3.3.2
+ * 52nSOS 5.5.1
+ * New desktop background for Firenze
+ * Documentation enabled
+
 Version 15.0alpha1
 ====================
 
