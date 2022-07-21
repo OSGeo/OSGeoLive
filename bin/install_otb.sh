@@ -57,7 +57,7 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 echo 'export ITK_AUTOLOAD_PATH=/usr/lib/otb/applications' >> "$USER_HOME/.bashrc"
 
 ## import once to pre-compile
-python -c "import sys;sys.path.append('/usr/lib/otb/python');import otbApplication"
+python3 -c "import sys;sys.path.append('/usr/lib/otb/python');import otbApplication"
 
 ##---------------------------------
 
@@ -105,7 +105,7 @@ chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/otb-mapla.desktop"
 #     echo "Extracting OTB data examples $OTB_DATA/demos/..."
 #     tar xzf "$DATA_DIR/OTB-Data-Examples.tgz" -C $OTB_DATA/demos/
 #     echo "Done"
-fi
+# fi
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
