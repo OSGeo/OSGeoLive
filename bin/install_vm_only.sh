@@ -6,7 +6,7 @@
 # Author:  Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2010-2021 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2022 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -64,7 +64,7 @@ apt-get -q update
 apt-get --yes upgrade
 
 # Adding VBox guest additions
-apt-get install --yes virtualbox-guest-dkms virtualbox-guest-x11
+apt-get install --yes virtualbox-guest-x11
 
 # Adding development packages that were removed from iso to save disk space
 apt-get --yes install build-essential git gnupg devscripts debhelper \
@@ -77,16 +77,18 @@ apt-get install --yes python-all-dev
 
 # Adding back LibreOffice and other packages that were removed from iso to save disk space
 apt-get --yes install libreoffice libreoffice-common libreoffice-core 2048-qt noblenote trojita \
-  transmission-common k3b vlc libllvm9
+  transmission-common k3b vlc libllvm14 fonts-noto-cjk
 
 # Install R Studio
 cd ~
 apt-get --yes install libclang-dev
-wget https://download1.rstudio.org/desktop/bionic/amd64/rstudio-1.4.1106-amd64.deb
-dpkg -i rstudio-1.4.1106-amd64.deb
-rm rstudio-1.4.1106-amd64.deb
+wget https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2022.07.0-548-amd64.deb
+dpkg -i rstudio-server-2022.07.0-548-amd64.deb
+rm rstudio-server-2022.07.0-548-amd64.deb
 # TODO: Install Atom or VS Code
 # TODO: Install docker engine
+apt-get --yes install docker.io docker-compose
+usermod -aG docker user
 # TODO: Install extra documentation
 
 cd "$DIR"
@@ -97,8 +99,14 @@ cd "$DIR"
 apt-get --yes install libudunits2-dev
 pip3 install scitools-iris
 ./install_gvsig.sh "$ARCH"
+./install_udig.sh "$ARCH"
+./install_52nSOS.sh
+# ./install_actinia.sh
+# ./install_trex.sh
 ./install_ncWMS.sh
 ./install_re3gistry.sh
+./install_etf.sh
+# ./install_icons_and_menus.sh
 
 echo
 echo "==============================================================="
