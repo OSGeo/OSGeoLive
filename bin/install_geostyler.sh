@@ -32,8 +32,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 TMP_DIR="/tmp/build_geostyler"
-
-GEOSTYLER_WORKSHOP_COMMIT="240e328d005666978038d8b89b1f3d8613e8d35e"
+GEOSTYLER_WORKSHOP_COMMIT="ba4c97efe1d4e15bd3c67c6a095099eefaf2aaa2"
 GEOSTYLER_DIR=/var/www/html/geostyler
 
 echo "\nCreating temporary directory $TMP_DIR..."
