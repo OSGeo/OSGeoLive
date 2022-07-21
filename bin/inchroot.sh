@@ -164,7 +164,7 @@ export USER_NAME
 ./install_eoxserver.sh
 # ./install_iris.sh # install_vm_only
 ./install_istsos.sh
-# ./install_actinia.sh
+# ./install_actinia.sh # install_vm_only
 
 ## R stack
 ./install_R.sh
@@ -176,14 +176,14 @@ export USER_NAME
 ./install_geoserver.sh
 ./install_geonetwork.sh
 ./install_deegree.sh
-# ./install_udig.sh "$ARCH"
+# ./install_udig.sh "$ARCH" # install_vm_only
 ./install_openjump.sh
 # ./install_gvsig.sh "$ARCH" # install_vm_only
 ./install_gpsprune.sh
 
 ## Java + default tomcat
 ./install_52nWPS.sh
-# ./install_52nSOS.sh
+# ./install_52nSOS.sh # install_vm_only
 # ./install_ncWMS.sh # install_vm_only
 
 ## PHP stack
@@ -194,7 +194,7 @@ export USER_NAME
 ./install_geonode.sh
 
 ## Rust
-# ./install_trex.sh
+# ./install_trex.sh # install_vm_only
 
 ## Javascript et al
 ./install_openlayers.sh
@@ -204,6 +204,7 @@ export USER_NAME
 # ./install_rasdaman.sh
 ./install_geostyler.sh
 # ./install_re3gistry.sh # install_vm_only
+# ./install_etf.sh # install_vm_only
 
 ## Docs, Data and extras
 ./load_gisdata.sh
