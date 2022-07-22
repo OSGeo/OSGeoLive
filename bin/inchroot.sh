@@ -92,7 +92,6 @@ adduser user --disabled-password --gecos user
 # TODO: Set the password for "user"
 mkdir -p /home/user/Desktop
 chown user:user /home/user/Desktop
-# chmod 755 /home/user                 ## ticket #2371
 
 # Fixing some IPv6 problems for the build server
 mv /etc/gai.conf /etc/gai.conf.orig
