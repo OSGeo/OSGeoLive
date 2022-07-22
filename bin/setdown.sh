@@ -49,7 +49,7 @@ if [ ! -e /etc/systemd/system/manage_user_groups.service ] ; then
 Description=Add user to needed groups
 
 [Service]
-ExecStart=/usr/sbin/adduser $USER_NAME vboxsf
+ExecStart=/usr/sbin/adduser $USER_NAME users
 Type=oneshot
 RemainAfterExit=yes
 
