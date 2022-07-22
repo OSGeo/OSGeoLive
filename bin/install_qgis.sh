@@ -155,7 +155,7 @@ cp "$BUILD_DIR/../app-data/qgis/QGIS-Itasca-Example.qgz" /usr/local/share/qgis/
 #borked: cp "$BUILD_DIR/../app-data/qgis/QGIS-Grass-Example.qgs" /usr/local/share/qgis/
 cp "$BUILD_DIR/../app-data/qgis/QGIS-NaturalEarth-Example.qgz" /usr/local/share/qgis/
 
-chmod -R 774 /usr/local/share/qgis
+chmod -R 775 /usr/local/share/qgis
 chown -R root:users /usr/local/share/qgis
 #Link example to the home directory
 ln -s /usr/local/share/qgis "$USER_HOME"/qgis-examples
