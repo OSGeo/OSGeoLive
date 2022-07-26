@@ -42,4 +42,12 @@ apt-get install --yes python3-gdal python3-shapely python3-rasterio rasterio \
 # Add a symlink for rio
 ln -s /usr/bin/rasterio /usr/local/bin/rio
 
+##-- vmdk python3 ---------------------------------
+VM_BUILD=0
+if [ ${VM_BUILD} ]; then
+  apt install --yes  python3-datacube
+fi
+
+
+
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
