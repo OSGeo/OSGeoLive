@@ -45,7 +45,7 @@ ln -s /usr/bin/rasterio /usr/local/bin/rio
 ##-- vmdk python3 ---------------------------------
 VM_BUILD=0
 if [ ${VM_BUILD} ]; then
-  apt install --yes  python3-datacube
+  apt install --yes  python3-datacube  python3-cfgrib
 fi
 
 
