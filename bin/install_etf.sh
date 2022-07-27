@@ -40,6 +40,8 @@ JETTY9_SCRIPT_NAME="jetty9"
 ETF_WEB_APP_NAME="ETF"
 ETF_ICON_NAME="ETF_logo.png" #to be changed to the INSPIRE logo
 ETF_URL="http://localhost:9090/ETF"
+ETF_QUICKSTART_URL="http://localhost/osgeolive/en/quickstart/ETF_quickstart.html"
+ETF_OVERVIEW_URL="http://localhost/osgeolive/en/overview/ETF_overview.html"
 ETF_PORT="9090"
 ETF_FOLDER="$USER_HOME/.etf"
 ETF_WAR_INSTALL_FOLDER="/usr/share/$JETTY9_SCRIPT_NAME/webapps"
@@ -112,8 +114,8 @@ fi
 # create the TMP directory and download the ETF git repository
 mkdir -p "$TMP"
 cd "$TMP"
-wget -c --no-check-certificate https://github.com/etf-validator/OSGeoLive-ETF/releases/download/OSGeoLive15.0-alpha/ETF.war
-wget -c --no-check-certificate https://github.com/etf-validator/OSGeoLive-ETF/releases/download/OSGeoLive15.0-alpha/ets-repository-2022.1.zip
+wget -c --no-check-certificate https://github.com/etf-validator/OSGeoLive-ETF/releases/download/OSGeoLive15.0/ETF.war
+wget -c --no-check-certificate https://github.com/etf-validator/OSGeoLive-ETF/releases/download/OSGeoLive15.0/ets-repository-osgeolive-15.zip
 
 #
 # copy logo
@@ -149,10 +151,10 @@ sudo sed -i "s/jetty.http.port=8080/jetty.http.port=$ETF_PORT/g" "$JETTY9_HOME/s
 /usr/share/jetty9/bin/jetty.sh start
 wait
 /usr/share/jetty9/bin/jetty.sh stop
-if [ ! -d "$ETF_FOLDER/projects/inspire-ets-repository/ets-repository-2022.1" ];then
+if [ ! -d "$ETF_FOLDER/projects/inspire-ets-repository/ets-repository-osgeolive-15" ];then
 	sudo mkdir "$ETF_FOLDER/projects/inspire-ets-repository/"
 	cd "$ETF_FOLDER/projects/inspire-ets-repository/"
-	sudo unzip -o "$TMP/ets-repository-2022.1.zip"
+	sudo unzip -o "$TMP/ets-repository-osgeolive-15.zip"
 fi
 #
 # It makes modifiable the folder containing jetty for it to work perfectly
@@ -190,7 +192,7 @@ if [ \$JETTY9 -ne 1 ]; then
 	) | zenity --progress --no-cancel --auto-close --text "ETF is starting..."
     
 fi
-firefox $ETF_URL 
+firefox $ETF_URL $ETF_QUICKSTART_URL $ETF_OVERVIEW_URL
 EOF
 fi
 #
@@ -232,8 +234,11 @@ EOF
 fi
 #
 #
-cp -v /usr/share/applications/etf-start.desktop "$USER_HOME/Desktop/"
-chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/etf-start.desktop"
+if [ ! -d "$USER_HOME/Desktop/Spatial Tools" ];then
+	sudo mkdir "$USER_HOME/Desktop/Spatial Tools"
+fi
+cp -v /usr/share/applications/etf-start.desktop "$USER_HOME/Desktop/Spatial Tools"
+chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/Spatial Tools/etf-start.desktop"
 #
 if [ ! -e /usr/local/share/applications/etf-stop.desktop ] ; then
     cat << EOF > /usr/share/applications/etf-stop.desktop
@@ -249,8 +254,8 @@ Terminal=false
 EOF
 fi
 #
-cp -v /usr/share/applications/etf-stop.desktop "$USER_HOME/Desktop/"
-chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/etf-stop.desktop"
+cp -v /usr/share/applications/etf-stop.desktop "$USER_HOME/Desktop/Spatial Tools"
+chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/Spatial Tools/etf-stop.desktop"
 sudo chmod 755 "/usr/share/applications/"
 #
 #
