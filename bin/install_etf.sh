@@ -234,11 +234,8 @@ EOF
 fi
 #
 #
-if [ ! -d "$USER_HOME/Desktop/Spatial Tools" ];then
-	sudo mkdir "$USER_HOME/Desktop/Spatial Tools"
-fi
-cp -v /usr/share/applications/etf-start.desktop "$USER_HOME/Desktop/Spatial Tools"
-chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/Spatial Tools/etf-start.desktop"
+cp -v /usr/share/applications/etf-start.desktop "$USER_HOME/Desktop"
+chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/etf-start.desktop"
 #
 if [ ! -e /usr/local/share/applications/etf-stop.desktop ] ; then
     cat << EOF > /usr/share/applications/etf-stop.desktop
@@ -254,8 +251,8 @@ Terminal=false
 EOF
 fi
 #
-cp -v /usr/share/applications/etf-stop.desktop "$USER_HOME/Desktop/Spatial Tools"
-chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/Spatial Tools/etf-stop.desktop"
+cp -v /usr/share/applications/etf-stop.desktop "$USER_HOME/Desktop"
+chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/etf-stop.desktop"
 sudo chmod 755 "/usr/share/applications/"
 #
 #
