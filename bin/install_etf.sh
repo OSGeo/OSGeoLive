@@ -234,7 +234,7 @@ EOF
 fi
 #
 #
-cp -v /usr/share/applications/etf-start.desktop "$USER_HOME/Desktop"
+cp -v /usr/share/applications/etf-start.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/etf-start.desktop"
 #
 if [ ! -e /usr/local/share/applications/etf-stop.desktop ] ; then
@@ -251,7 +251,7 @@ Terminal=false
 EOF
 fi
 #
-cp -v /usr/share/applications/etf-stop.desktop "$USER_HOME/Desktop"
+cp -v /usr/share/applications/etf-stop.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/etf-stop.desktop"
 sudo chmod 755 "/usr/share/applications/"
 #
