@@ -523,4 +523,3 @@ bash /usr/local/share/osgeo-desktop/desktop-truster.sh
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
-sleep 120
