@@ -48,7 +48,7 @@ NAV_APPS="marble opencpn josm osm_online xygrib gpsprune"
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapcache mapproxy-*
               qgis-server zoo-project 52n* eoxserver* ncWMS-* pycsw istsos
-              pywps t-rex actinia* pygeoapi-* re3gistry-*"
+              pywps t-rex actinia* pygeoapi-* re3gistry-* etf-*"
 #disabled: mapguide*
 
 #Server apps part 2 (web based viewers; data only flows down to user)
@@ -57,7 +57,7 @@ BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender GeoMoose3
 #disabled: i3geo MapFish-* cartaro-*
 
 #Infrastructure and miscellanea
-SPATIAL_TOOLS="r jupyter-notebook* otb-* mapslicer mapnik-* monteverdi* etf-*"
+SPATIAL_TOOLS="r jupyter-notebook* otb-* mapslicer mapnik-* monteverdi*"
 #disabled: imagelinker ossim-geocell
 
 #Future home of PostGIS and Spatialite; pgRouting???
@@ -187,6 +187,7 @@ for APP in $WEB_SERVICES ; do
 	mapproxy-*) GROUP=MapProxy;;
 	pygeoapi-*) GROUP=pygeoapi;;
 	ncWMS-*) GROUP=ncWMS;;
+	etf-*) GROUP=ETF;;
 	*) unset GROUP;;
       esac
       if [ -n "$GROUP" ] ; then
@@ -311,6 +312,7 @@ GeoServer
 MapProxy
 pygeoapi
 ncWMS
+ETF
 "
 
 for APP in $APP_GROUPS ; do
@@ -345,6 +347,7 @@ EOF
      MapProxy) APP_ICON=/usr/local/share/icons/mapproxy.png;;
      pygeoapi) APP_ICON=/usr/local/share/icons/pygeoapi.png;;
      ncWMS) APP_ICON=/usr/local/share/icons/ncWMS_icon.png;;
+     ETF) APP_ICON=/usr/local/share/icons/ETF_logo.png;;
      *) unset APP_ICON;;
    esac
 
