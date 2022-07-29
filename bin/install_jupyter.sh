@@ -66,17 +66,13 @@ cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/sf_logo.gif \
 cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/RConsortium.png \
    "$USER_HOME/jupyter/notebook_gallery/R/"
 
-##-- o14  copy tested content -dbb
+##-- o15  use git repo
 cd ${JUPYTER_BUILD_DIR}
-wget -c --progress=dot:mega \
-    -O OSGeoLive-Notebooks-14.x.zip \
-    https://github.com/OSGeo/OSGeoLive-Notebooks/archive/14.x.zip
-unzip -o -q OSGeoLive-Notebooks-14.x.zip
-cd OSGeoLive-Notebooks-14.x
-cp -R * ${USER_HOME}/jupyter/notebook_gallery/
-cd ..
-rm -rf OSGeoLive-Notebooks-14.x
-rm OSGeoLive-Notebooks-14.x.zip
+
+git clone https://github.com/OSGeo/OSGeoLive-Notebooks.git
+cp -R OSGeoLive-Notebooks/* ${USER_HOME}/jupyter/notebook_gallery/
+rm -rf OSGeoLive-Notebooks
+
 
 cd "$BUILD_DIR"
 rm -rf ${JUPYTER_BUILD_DIR}
