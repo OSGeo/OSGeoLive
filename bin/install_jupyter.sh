@@ -69,8 +69,9 @@ cp "$BUILD_DIR"/../app-data/jupyter/R_Notebooks_splash/RConsortium.png \
 ##-- o15  use git repo
 cd ${JUPYTER_BUILD_DIR}
 
-git clone https://github.com/OSGeo/OSGeoLive-Notebooks.git
+git clone --depth=1 https://github.com/OSGeo/OSGeoLive-Notebooks.git
 cp -R OSGeoLive-Notebooks/* ${USER_HOME}/jupyter/notebook_gallery/
+chown -R ${USER_NAME}:${USER_NAME}  ${USER_HOME}/jupyter/notebook_gallery/*
 rm -rf OSGeoLive-Notebooks
 
 
