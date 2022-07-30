@@ -64,6 +64,8 @@ apt-get -q update
 apt-get --yes upgrade
 
 # Adding VBox guest additions
+#  note: requires multiverse repos
+#   https://packages.ubuntu.com/jammy/virtualbox-guest-x11
 apt-get install --yes virtualbox-guest-x11
 
 # Adding development packages that were removed from iso to save disk space
@@ -74,6 +76,10 @@ apt-get --yes install build-essential git gnupg devscripts debhelper \
 
 # Adding Python2
 apt-get install --yes python-all-dev
+
+# misc notebook python3
+apt install python3-geoalchemy2 python3-datacube python3-cfgrib
+
 
 # Adding back LibreOffice and other packages that were removed from iso to save disk space
 apt-get --yes install libreoffice libreoffice-common libreoffice-core 2048-qt noblenote trojita \
