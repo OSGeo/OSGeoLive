@@ -78,6 +78,7 @@ apt-get --yes install build-essential git gnupg devscripts debhelper \
 apt-get install --yes python-all-dev
 
 # misc notebook python3
+## TODO  lark_parser-0.12.0-py2.py3-none-any.whl  for datacube
 apt install python3-geoalchemy2 python3-datacube python3-cfgrib
 
 
