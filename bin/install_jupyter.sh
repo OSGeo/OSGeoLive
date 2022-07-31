@@ -32,7 +32,7 @@ cd ${JUPYTER_BUILD_DIR}
 
 # Install jupyter notebook
 apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert \
-  python3-ipykernel python3-nbformat python3-ipywidgets
+  python3-ipykernel python3-nbformat python3-ipywidgets python3-ipyleaflet
 
 # 12dev -- note ticket #1965 for trial log
 
