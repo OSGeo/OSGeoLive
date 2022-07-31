@@ -63,5 +63,9 @@ adduser "$USER_NAME" tomcat
 sed -i -e 's|-Djava.awt.headless=true|-Djava.awt.headless=true -XX:+UseG1GC -Xmx1024m|' /etc/default/tomcat9
 sed -i -e 's|-Djava.awt.headless=true|-Djava.awt.headless=true -XX:+UseG1GC -Xmx1024m|' /lib/systemd/system/tomcat9.service
 
+# Workaround for https://bugs.launchpad.net/ubuntu/+source/tomcat9/+bug/1972829
+apt-get install --yes libecj-java
+ln -s /usr/share/java/ecj.jar /var/lib/tomcat9/lib
+
 ####
 ./diskspace_probe.sh "`basename $0`" end
