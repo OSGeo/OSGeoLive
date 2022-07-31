@@ -118,7 +118,7 @@ echo
 echo "Installing build tools"
 echo "======================"
 
-sudo apt-get install --yes squashfs-tools genisoimage syslinux-utils lzip binwalk lz4
+sudo apt-get install --yes squashfs-tools genisoimage syslinux-utils lzip binwalk lz4 xorriso
 
 #TODO add wget to grab a fresh image, optional
 
@@ -144,6 +144,14 @@ wget -c --progress=dot:mega \
 mkdir mnt
 sudo mount -o loop "$UBU_ISO" mnt
 echo "Lubuntu $ISO_RELEASE $ARCH image mounted."
+
+#Extract iso EFI and MBR partitions
+EFI=efi.partition
+MBR=mbr.partition
+dd if="$UBU_ISO" bs=1 count=446 of="$MBR"
+EFISKIP=$(/sbin/fdisk -l "$UBU_ISO" | fgrep '.iso2 ' | awk '{print $2}')
+EFISIZE=$(/sbin/fdisk -l "$UBU_ISO" | fgrep '.iso2 ' | awk '{print $4}')
+dd if="$UBU_ISO" bs=512 skip="$EFISKIP" count="$EFISIZE" of="$EFI"
 
 #Extract .iso contents into dir 'extract-cd' 
 mkdir "extract-cd"
@@ -372,10 +380,17 @@ echo "======================================"
 #Create the ISO image
 #isohybrid used only in 64bit architecture
 if [ "$ARCH" = "amd64" ] ; then
-   sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -quiet -b \
-      boot/grub/i386-pc/eltorito.img -c boot.catalog -no-emul-boot \
-      -boot-load-size 4 -boot-info-table \
-      -eltorito-alt-boot -e EFI/boot/grubx64.efi -no-emul-boot \
+   # sudo mkisofs -D -r -V "$IMAGE_NAME" -cache-inodes -J -l -quiet -b \
+   #    boot/grub/i386-pc/eltorito.img -c boot.catalog -no-emul-boot \
+   #    -boot-load-size 4 -boot-info-table \
+   #    -eltorito-alt-boot -e EFI/boot/grubx64.efi -no-emul-boot \
+   #    -o ../"$ISO_NAME.iso" .
+   sudo xorriso -as mkisofs -r -V "$IMAGE_NAME" -J -joliet-long -l \
+      -iso-level 3 -partition_offset 16 --grub2-mbr ../"$MBR" --mbr-force-bootable \
+      -append_partition 2 0xEF ../"$EFI" -appended_part_as_gpt \
+      -c boot.catalog -b boot/grub/i386-pc/eltorito.img -no-emul-boot \
+      -boot-load-size 4 -boot-info-table --grub2-boot-info -eltorito-alt-boot \
+      -e '--interval:appended_partition_2:all::' -no-emul-boot \
       -o ../"$ISO_NAME.iso" .
    # sudo isohybrid -u ../"$ISO_NAME.iso"
 else
@@ -394,6 +409,7 @@ sudo rm -rf extract-cd
 sudo umount mnt
 sudo rm -rf mnt
 sudo rm -rf lzfiles
+sudo rm *.partition
 
 echo
 echo "==============================================================="
