@@ -52,6 +52,7 @@ DIR="/usr/local/share/gisvm/bin"
 
 USER_NAME="user"
 export USER_NAME
+USER_HOME="/home/$USER_NAME"
 
 # We want the git repo available in VM version for development
 # cp "$DIR"/bootstrap.sh /home/user/bootstrap.sh
@@ -70,7 +71,8 @@ apt-get install --yes virtualbox-guest-x11
 apt-get --yes install build-essential git gnupg devscripts debhelper \
   pbuilder pristine-tar git-buildpackage devscripts \
   grass-dev libgdal-dev libproj-dev libgeos-dev python3-dev python3-pip \
-  cmake libotb-dev npm nodejs python3-dask python3-sklearn python3-folium
+  cmake libotb-dev npm nodejs python3-dask python3-sklearn python3-folium \
+  python3-geoalchemy2 python3-cfgrib
 
 # Adding Python2
 apt-get install --yes python-all-dev
@@ -86,10 +88,30 @@ wget https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2022.07.0-5
 dpkg -i rstudio-server-2022.07.0-548-amd64.deb
 rm rstudio-server-2022.07.0-548-amd64.deb
 # TODO: Install Atom or VS Code
-# TODO: Install docker engine
+
+# Install docker engine
 apt-get --yes install docker.io docker-compose
 usermod -aG docker user
 # TODO: Install extra documentation
+
+# Install OpenDataCube
+apt-get --yes install python3-datacube
+pip install lark-parser
+
+# Install pgadmin4
+##Add pgadmin4 key
+wget https://www.pgadmin.org/static/packages_pgadmin_org.pub
+apt-key add packages_pgadmin_org.pub
+rm packages_pgadmin_org.pub
+##Add pgadmin4 repository
+cp "$DIR"/../sources.list.d/pgadmin4.list /etc/apt/sources.list.d/
+apt-get -q update
+apt-get install --yes pgadmin4-web
+rm /etc/apt/sources.list.d/pgadmin4.list
+apt-get -q update
+##Setup pgadmin settings
+mkdir -p "$USER_HOME/.pgadmin"
+cp "$DIR"/../app-conf/postgresql/pgadmin4.db "$USER_HOME/.pgadmin/pgadmin4.db"
 
 cd "$DIR"
 
