@@ -71,8 +71,7 @@ apt-get install --yes virtualbox-guest-x11
 apt-get --yes install build-essential git gnupg devscripts debhelper \
   pbuilder pristine-tar git-buildpackage devscripts \
   grass-dev libgdal-dev libproj-dev libgeos-dev python3-dev python3-pip \
-  cmake libotb-dev npm nodejs python3-dask python3-sklearn python3-folium \
-  python3-geoalchemy2 python3-cfgrib
+  cmake libotb-dev npm nodejs python3-dask python3-sklearn python3-cfgrib
 
 # Adding Python2
 apt-get install --yes python-all-dev
@@ -93,10 +92,6 @@ rm rstudio-server-2022.07.0-548-amd64.deb
 apt-get --yes install docker.io docker-compose
 usermod -aG docker user
 # TODO: Install extra documentation
-
-# Install OpenDataCube
-apt-get --yes install python3-datacube
-pip install lark-parser
 
 # Install pgadmin4
 ##Add pgadmin4 key
