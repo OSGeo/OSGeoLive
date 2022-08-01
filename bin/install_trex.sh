@@ -41,7 +41,7 @@ wget -c --tries=3 --progress=dot:mega -O t-rex_0.14.3-1.jammy_amd64.deb \
    "https://github.com/t-rex-tileserver/t-rex/releases/download/v0.14.3/t-rex_0.14.3-1.jammy_amd64.deb"
 
 echo "\nInstalling t-rex..."
-dkpg -i t-rex_0.14.3-1.jammy_amd64.deb
+dpkg -i t-rex_0.14.3-1.jammy_amd64.deb
 
 echo "\nGenerating launcher..."
 wget -O /usr/share/pixmaps/t-rex.png 'https://avatars2.githubusercontent.com/u/31633660?s=200&v=4'
