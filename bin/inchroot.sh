@@ -194,7 +194,7 @@ export USER_NAME
 ./install_geonode.sh
 
 ## Rust
-# ./install_trex.sh # install_vm_only
+./install_trex.sh
 
 ## Javascript et al
 ./install_openlayers.sh
