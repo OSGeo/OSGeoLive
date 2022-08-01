@@ -119,8 +119,8 @@ pip3 install scitools-iris
 ./install_udig.sh "$ARCH"
 ./install_52nSOS.sh
 # ./install_actinia.sh
-# ./install_trex.sh
 ./install_ncWMS.sh
+./install_rasdaman.sh
 ./install_re3gistry.sh
 ./install_etf.sh
 # ./install_icons_and_menus.sh
