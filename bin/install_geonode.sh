@@ -44,8 +44,8 @@ UPLOAD_PATH="/var/www/geonode/uploaded"
 # TMP="/tmp/build_geoserver"
 
 # Install packages
-# add-apt-repository -y ppa:geonode/osgeolive
-add-apt-repository -y ppa:gcpp-kalxas/geonode
+add-apt-repository -y ppa:geonode/osgeolive
+# add-apt-repository -y ppa:gcpp-kalxas/geonode
 apt-get -q update
 
 apt-get install --yes --no-install-recommends python3-geonode libapache2-mod-wsgi-py3 curl
@@ -414,8 +414,8 @@ systemctl start geonode_hosts.service
 ## Enable geonode_hosts service at startup
 systemctl enable geonode_hosts.service
 
-# apt-add-repository --yes --remove ppa:geonode/osgeolive
-apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
+apt-add-repository --yes --remove ppa:geonode/osgeolive
+# apt-add-repository --yes --remove ppa:gcpp-kalxas/geonode
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
