@@ -174,7 +174,7 @@ install_systemd_unit
 create_desktop_applications
 add_rasdaman_path_to_bashrc
 deploy_local_earthlook
-update_libgdal_java
+#update_libgdal_java
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
