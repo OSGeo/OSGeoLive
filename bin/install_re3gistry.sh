@@ -49,8 +49,8 @@ REGISTRY_INSTALL_FOLDER="/usr/local/registry2"
 REGISTRY_BIN_FOLDER="/usr/local/share/registry2"
 REGISTRY_VERSION="2.0"
 PG_OPTIONS="--client-min-messages=warning"
-PG_USER="postgres"
-PG_PASSWORD="postgres"
+PG_USER="user"
+PG_PASSWORD="user"
 PG_SCRIPT_NAME="postgresql"
 PG_DB_NAME="re3gistry_db"
 JAVA_PKG="default-jre"
@@ -161,7 +161,7 @@ fi
 # create the TMP directory and clone the Re3gistry git repository
 mkdir -p "$TMP"
 cd "$TMP"
-git clone https://github.com/ec-jrc/re3gistry.git
+git clone -b osgeolive15 https://github.com/ec-jrc/re3gistry.git
 #
 # copy logo
 #mkdir -p /usr/local/share/icons
@@ -209,7 +209,7 @@ echo "[$(date +%M:%S)]: $PG_DB_NAME -> Re3Gistry database filled"
 #
 # Create the password for the Postgres user.
 #
-sudo -u postgres psql -c "ALTER USER $PG_USER WITH PASSWORD '$PG_PASSWORD';"
+sudo -u postgres psql -c "ALTER USER \"$PG_USER\" WITH PASSWORD '$PG_PASSWORD';"
 #
 # Final tidy up
 #
@@ -221,8 +221,8 @@ cat << EOF > "$TMP/re3gistry/dist/init.properties"
 dbhost=localhost
 dbport=5432
 dbname=re3gistry_db
-dbuser=postgres
-dbpassword=postgres
+dbuser=user
+dbpassword=user
 statusbaseuri=http://localhost
 solrurl=http://localhost:8080/solr/
 smtphost=smtp.test-url.eu
