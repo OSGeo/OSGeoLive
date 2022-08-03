@@ -62,7 +62,7 @@ SPATIAL_TOOLS="r jupyter-notebook* otb-* mapslicer mapnik-* monteverdi*"
 
 #Future home of PostGIS and Spatialite; pgRouting???
 #  pgadmin, sqlitebrowser, etc  (parts of this one are automatic)
-DB_APPS="spatialite-gui *[Rr]asdaman* shp2pgsql-gui phppgadmin"
+DB_APPS="spatialite-gui *[Rr]asdaman* shp2pgsql-gui phppgadmin pgadmin4"
 #disabled: qbrowser
 
 #Server apps part 3 (public good theme)

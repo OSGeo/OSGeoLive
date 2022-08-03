@@ -124,6 +124,7 @@ chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/phppgadmin.desktop"
 
 #mkdir -p "$USER_HOME/.pgadmin"
 #cp ../app-conf/postgresql/pgadmin4.db "$USER_HOME/.pgadmin/pgadmin4.db"
+#cp /usr/share/applications/pgadmin4.desktop "$USER_HOME"/Desktop/
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

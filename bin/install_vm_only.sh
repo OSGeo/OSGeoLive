@@ -101,12 +101,13 @@ rm packages_pgadmin_org.pub
 ##Add pgadmin4 repository
 cp "$DIR"/../sources.list.d/pgadmin4.list /etc/apt/sources.list.d/
 apt-get -q update
-apt-get install --yes pgadmin4-web
+apt-get install --yes pgadmin4-desktop
 rm /etc/apt/sources.list.d/pgadmin4.list
 apt-get -q update
 ##Setup pgadmin settings
 mkdir -p "$USER_HOME/.pgadmin"
 cp "$DIR"/../app-conf/postgresql/pgadmin4.db "$USER_HOME/.pgadmin/pgadmin4.db"
+cp /usr/share/applications/pgadmin4.desktop "$USER_HOME"/Desktop/
 
 cd "$DIR"
 
