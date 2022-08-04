@@ -124,6 +124,9 @@ layers:
   - name: mapnik
     title: World population (Mapnik)
     sources: [mapnik]
+  - name: mapnik_tile
+    title: World population (Mapnik, tile cached)
+    sources: [mapnik_cache]
   - name: mapserver
     title: Mapserver (Itasca)
     sources: [mapserver]
@@ -136,8 +139,8 @@ layers:
 
 caches:
   mapnik_cache:
-    grids: [GLOBAL_MERCATOR]
-    sources: [tilestache]
+    grids: [GLOBAL_WEBMERCATOR]
+    sources: [mapnik]
 
 sources:
   geoserver:
