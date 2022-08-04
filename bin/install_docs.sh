@@ -53,28 +53,28 @@ ln -s /usr/share/doc/osgeolive-docs/html $DEST/osgeolive
 cd "$DEST"
 
 # PDF
-ln -s /usr/local/share/udig/udig-docs .
-if [ -d /usr/local/mbsystem ] ; then
-   ln -s /usr/local/mbsystem .
-fi
+# ln -s /usr/local/share/udig/udig-docs .
+# if [ -d /usr/local/mbsystem ] ; then
+#    ln -s /usr/local/mbsystem .
+# fi
 
 ln -s /usr/local/share/qgis .
 #ln -s /usr/share/doc/geopublishing-doc geopublishing
 # ln -s /usr/local/share/saga .
 
 # HTML
-mkdir -p gmt
-ln -s /usr/share/doc/gmt/html gmt/html
-ln -s /usr/share/doc/gmt/pdf gmt/pdf
-ln -s /usr/share/doc/gmt-examples gmt/examples
-ln -s /usr/share/doc/gmt-tutorial gmt/tutorial
+# mkdir -p gmt
+# ln -s /usr/share/doc/gmt/html gmt/html
+# ln -s /usr/share/doc/gmt/pdf gmt/pdf
+# ln -s /usr/share/doc/gmt-examples gmt/examples
+# ln -s /usr/share/doc/gmt-tutorial gmt/tutorial
 ln -s /usr/share/doc/grass-doc/html grass
 ln -s /usr/local/share/mapnik/demo mapnik
 ln -s /usr/local/share/mapserver/doc mapserver
 #ln -s /usr/share/doc/opencpn-doc/doc opencpn  # <-- correct & future home
 ln -s /usr/share/opencpn/doc opencpn
 ln -s /usr/local/share/otb .
-ln -s /usr/local/share/ossim .
+# ln -s /usr/local/share/ossim .
 
 # Data
 ln -s /usr/local/share/data .
@@ -84,57 +84,57 @@ ln -s /usr/local/share/data .
 # Installer dirs (maybe they work, maybe they don't...
 #   We add the installer dirs after building the image, so we
 #   have to decide to link or not link to them at boot time.
-if [ `grep -c 'WindowsInstallers' /etc/rc.local` -eq 0 ] ; then
-    sed -i -e 's|exit 0||' /etc/rc.local
-    cat << EOF >> /etc/rc.local
+# if [ `grep -c 'WindowsInstallers' /etc/rc.local` -eq 0 ] ; then
+#     sed -i -e 's|exit 0||' /etc/rc.local
+#     cat << EOF >> /etc/rc.local
 
-# Detect full iso, adjust symlinks/placeholders as needed
-if [ -d /cdrom/WindowsInstallers ] && \
-   [ -f "$DEST"/WindowsInstallers/index.html ] ; then
-    ln -s /cdrom/WindowsInstallers /etc/skel/
-    ln -s /cdrom/MacInstallers /etc/skel/
-    if [ -d "/home/$USER_NAME" ] ; then
-        ln -s /cdrom/WindowsInstallers "/home/$USER_NAME"/
-        ln -s /cdrom/MacInstallers "/home/$USER_NAME"/
-        chown "$USER_NAME.$USER_NAME" "/home/$USER_NAME"/[WM]*Installers
-    fi
+# # Detect full iso, adjust symlinks/placeholders as needed
+# if [ -d /cdrom/WindowsInstallers ] && \
+#    [ -f "$DEST"/WindowsInstallers/index.html ] ; then
+#     ln -s /cdrom/WindowsInstallers /etc/skel/
+#     ln -s /cdrom/MacInstallers /etc/skel/
+#     if [ -d "/home/$USER_NAME" ] ; then
+#         ln -s /cdrom/WindowsInstallers "/home/$USER_NAME"/
+#         ln -s /cdrom/MacInstallers "/home/$USER_NAME"/
+#         chown "$USER_NAME.$USER_NAME" "/home/$USER_NAME"/[WM]*Installers
+#     fi
 
-    rm -f "$DEST"/WindowsInstallers/index.html
-    rm -f "$DEST"/MacInstallers/index.html
-    rmdir "$DEST"/WindowsInstallers
-    rmdir "$DEST"/MacInstallers
-    ln -s /cdrom/WindowsInstallers "$DEST"
-    ln -s /cdrom/MacInstallers "$DEST"
-fi
+#     rm -f "$DEST"/WindowsInstallers/index.html
+#     rm -f "$DEST"/MacInstallers/index.html
+#     rmdir "$DEST"/WindowsInstallers
+#     rmdir "$DEST"/MacInstallers
+#     ln -s /cdrom/WindowsInstallers "$DEST"
+#     ln -s /cdrom/MacInstallers "$DEST"
+# fi
 
-exit 0
-EOF
-fi
+# exit 0
+# EOF
+# fi
 
 
 ####
 # Link to the extra data dir:
 #   We add the extra data dir after building the image, so we
 #   have to decide to link or not link to them at boot time.
-if [ `grep -c 'extra_data' /etc/rc.local` -eq 0 ] ; then
-    sed -i -e 's|exit 0||' /etc/rc.local
-    cat << EOF >> /etc/rc.local
+# if [ `grep -c 'extra_data' /etc/rc.local` -eq 0 ] ; then
+#     sed -i -e 's|exit 0||' /etc/rc.local
+#     cat << EOF >> /etc/rc.local
 
-# Detect big-data iso, adjust symlinks/placeholders as needed
-if [ -d /cdrom/extra_data ] ; then
-    ln -s /cdrom/extra_data /usr/local/share/data/extra
-    ln -s /cdrom/extra_data "$DEST"/
-else
-   mkdir -p /usr/local/share/data/extra
-# TODO:
-#   cp extra_data.html /usr/local/share/data/extra/index.html
-   echo "Please visit  http://download.osgeo.org/livedvd/data/" \
-      > /usr/local/share/data/extra/readme.txt
-fi
+# # Detect big-data iso, adjust symlinks/placeholders as needed
+# if [ -d /cdrom/extra_data ] ; then
+#     ln -s /cdrom/extra_data /usr/local/share/data/extra
+#     ln -s /cdrom/extra_data "$DEST"/
+# else
+#    mkdir -p /usr/local/share/data/extra
+# # TODO:
+# #   cp extra_data.html /usr/local/share/data/extra/index.html
+#    echo "Please visit  http://download.osgeo.org/livedvd/data/" \
+#       > /usr/local/share/data/extra/readme.txt
+# fi
 
-exit 0
-EOF
-fi
+# exit 0
+# EOF
+# fi
 
 
 cd "$BUILD_DIR"
@@ -188,8 +188,8 @@ cp -f ../desktop-conf/icons/arramagong-wombat-small.png  /usr/local/share/icons/
 
 
 # Terminal toolbar off by default, and let's brighten the font
-echo "hidemenubar=true" >> /usr/share/lxterminal/lxterminal.conf
-echo "fgcolor=#adadadadadad" >> /usr/share/lxterminal/lxterminal.conf
+# echo "hidemenubar=true" >> /usr/share/lxterminal/lxterminal.conf
+# echo "fgcolor=#adadadadadad" >> /usr/share/lxterminal/lxterminal.conf
 #sed -i -e 's/\(fgcolor=\).*/\1#adadadadadad/' \
 #   /etc/xdg/lubuntu/lxterminal/lxterminal.conf
 
