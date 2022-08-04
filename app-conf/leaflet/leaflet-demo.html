@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="/leaflet/leaflet.css" />
-    <!--[if lte IE 8]><link rel="stylesheet" href="../dist/leaflet.ie.css" /><![endif]-->
 </head>
 <body>
     <div id="map" style="width: 600px; height: 400px"></div>
@@ -17,8 +16,8 @@
         var map = L.map('map').setView([43.77913, 11.24938], 15);
 
         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{}).addTo(map);
-        //In case we are offline, start TileStache to get a base layer
-        L.tileLayer('http://localhost:8012/example/{z}/{x}/{y}.png',{}).addTo(map);
+        //In case we are offline, start MapProxy to get a base layer
+        L.tileLayer('http://localhost:8011/wmts/mapnik_tile/GLOBAL_WEBMERCATOR/{z}/{x}/{y}.png',{}).addTo(map);
 
         var marker = L.marker([43.77913, 11.24938]).addTo(map);            
 
