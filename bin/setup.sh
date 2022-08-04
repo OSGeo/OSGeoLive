@@ -151,8 +151,7 @@ apt-get install --yes wget less zip unzip bzip2 p7zip \
 
 # Uninstall large applications installed by default
 apt-get remove --yes \
-   pidgin-data libsane1 libsane-common libsane-hpaio libieee1284-3 \
-   gnumeric-common abiword-common gnumeric abiword
+   libsane1 libsane-common libsane-hpaio libieee1284-3
 
 # regen initrd
 depmod
