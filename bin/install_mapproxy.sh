@@ -262,6 +262,12 @@ chgrp users "$MAPPROXY_DIR/mapproxy.yaml"
 chmod g+w "$MAPPROXY_DIR/mapproxy.yaml"
 adduser "$USER_NAME" users
 
+## mapproxy patch for mapnik3.1+proj
+##  ref. #2352 trac
+sed -i -e \
+  "s#m.srs = '+init=%s' % str(query.srs.srs_code.lower())#m.srs = str(query.srs.srs_code.lower())#" \
+  /usr/lib/python3/dist-packages/mapproxy/source/mapnik.py
+
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
