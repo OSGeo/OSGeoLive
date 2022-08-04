@@ -64,12 +64,15 @@ USER_HOME="/home/$USER_NAME"
 apt-get -q update
 apt-get --yes upgrade
 
+# Install linux headers
+apt-get install --yes build-essential linux-headers-generic linux-headers-5.15.0-25
+
 # Adding VBox guest additions
 apt-get install --yes virtualbox-guest-x11
 
 # Adding development packages that were removed from iso to save disk space
 apt-get --yes install build-essential git gnupg devscripts debhelper \
-  pbuilder pristine-tar git-buildpackage devscripts \
+  gcc-11 g++-11 gfortran-11 pbuilder pristine-tar git-buildpackage devscripts \
   grass-dev libgdal-dev libproj-dev libgeos-dev python3-dev python3-pip \
   cmake libotb-dev npm nodejs python3-dask python3-sklearn python3-cfgrib
 

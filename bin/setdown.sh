@@ -76,8 +76,7 @@ systemctl enable manage_user_groups.service
 #   /usr/share/initramfs-tools/scripts/casper-bottom/
 
 # remove build stuff no longer of use
-# Update: python3-scipy now depends on libboost1.74-dev because of python3-pythrun
-apt-get --yes remove libboost1.74-dev
+apt-get --yes remove libboost1.74-dev gcc-11 g++-11 gfortran-11 build-essential
 
 # remove stuff to save disk space (#467)
 apt-get --yes remove libreoffice-common libreoffice-core 2048-qt noblenote trojita \
@@ -85,6 +84,10 @@ apt-get --yes remove libreoffice-common libreoffice-core 2048-qt noblenote troji
 
 # remove any leftover orphans
 apt-get --yes autoremove
+
+# remove linux headers
+apt-get --yes remove linux-headers-generic
+apt-get --yes remove linux-headers-5.15.0-25
 
 # Python packages disk space cleanup
 rm -rf /usr/lib/python3/dist-packages/pandas/tests/*
