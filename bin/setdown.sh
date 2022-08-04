@@ -151,8 +151,8 @@ chmod g-w /usr
 chmod g-w /usr/bin
 chmod g-w /usr/lib
 chmod g-w /usr/lib/opencpn
-chmod g-w /usr/lib/ossim
-chmod g-w /usr/lib/ossim/plugins
+# chmod g-w /usr/lib/ossim
+# chmod g-w /usr/lib/ossim/plugins
 chmod g-w /usr/share
 chmod g-w /usr/share/opencpn -R
 chmod g-w /usr/share/ossim/
@@ -251,7 +251,7 @@ fi
 # Disabling default tomcat startup
 #update-rc.d -f tomcat7 remove
 systemctl disable tomcat9.service
-systemctl disable rasdaman.service
+# systemctl disable rasdaman.service
 systemctl disable redis.service
 
 if [ ! -e /etc/sudoers.d/tomcat ] ; then
@@ -262,7 +262,7 @@ fi
 chmod 440 /etc/sudoers.d/tomcat
 
 # #2084: Fix home path for exracted ncWMS
-sed -i -e 's|\$HOME/.ncWMS2|/usr/share/tomcat9/.ncWMS2|' /var/lib/tomcat9/webapps/ncWMS2/WEB-INF/web.xml
+# sed -i -e 's|\$HOME/.ncWMS2|/usr/share/tomcat9/.ncWMS2|' /var/lib/tomcat9/webapps/ncWMS2/WEB-INF/web.xml
 
 # #2263: Fix installation of live system
 sed -i -e 's|/home/lubuntu|/home/user|' /bin/calamares-logs-helper
