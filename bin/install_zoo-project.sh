@@ -49,7 +49,7 @@ fi
 cd "$TMP_DIR"
 
 apt-get --assume-yes install zoo-kernel zoo-service-ogr \
-	zoo-service-status zoo-service-openapi zoo-api
+	zoo-service-status zoo-service-otb zoo-service-openapi zoo-api
 
 ## o13 - obsolete, dot-zcfg has been updated
 # Patch OTB zcfg files as per ticket #1710
