@@ -62,11 +62,13 @@ apt-get --assume-yes install zoo-kernel zoo-service-ogr \
 
 # Download and setup ZOO Project demo files.
 cd "$TMP_DIR"
-wget -N --progress=dot:mega \
-   -O "$TMP_DIR"/examples-livedvd.tar.bz2 \
-   "http://download.osgeo.org/livedvd/data/zoo/examples-livedvd.tar.bz2"
+git clone --depth=1 https://github.com/ZOO-Project/examples.git zoo-demo
+# wget -N --progress=dot:mega \
+   # -O "$TMP_DIR"/examples-livedvd.tar.bz2 \
+   # "http://download.osgeo.org/livedvd/data/zoo/examples-livedvd.tar.bz2"
 
-tar xf examples-livedvd.tar.bz2
+# tar xf examples-livedvd.tar.bz2
+rm -rf zoo-demo/.git
 cp -r zoo-demo /var/www/html/zoo-demo
 chmod -R 755 /var/www/html/zoo-demo
 # cp zoo-demo/main.cfg /etc/zoo-project/
