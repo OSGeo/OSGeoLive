@@ -108,23 +108,5 @@ EOF
 cp /usr/share/applications/phppgadmin.desktop "$USER_HOME"/Desktop/
 chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/phppgadmin.desktop"
 
-# Install pgadmin4
-
-# Add pgadmin4 key
-# wget https://www.pgadmin.org/static/packages_pgadmin_org.pub
-# apt-key add packages_pgadmin_org.pub
-# rm packages_pgadmin_org.pub
-
-# Add pgadmin4 repository
-# cp "$BUILD_DIR"/../sources.list.d/pgadmin4.list /etc/apt/sources.list.d/
-# apt-get -q update
-# apt-get install --yes pgadmin4-web
-# rm /etc/apt/sources.list.d/pgadmin4.list
-# apt-get -q update
-
-#mkdir -p "$USER_HOME/.pgadmin"
-#cp ../app-conf/postgresql/pgadmin4.db "$USER_HOME/.pgadmin/pgadmin4.db"
-#cp /usr/share/applications/pgadmin4.desktop "$USER_HOME"/Desktop/
-
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
