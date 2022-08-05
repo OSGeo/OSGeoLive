@@ -28,7 +28,7 @@ USER_HOME="/home/$USER_NAME"
 TMP="/tmp/build_datacube"
 BIN="/usr/local/bin"
 
-apt-get install --yes python3-datacube
+apt-get install --yes python3-datacube python3-odc-geo python3-odc-stac
 
 mkdir -p "$TMP"
 cd "$TMP"
