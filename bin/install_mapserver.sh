@@ -55,7 +55,7 @@ apt-get install --yes cgi-mapserver mapserver-bin python3-mapscript
 # Download MapServer data
 
 MS_DEMO_VERSION="1.1"
-MS_DOCS_VERSION="7-4"
+MS_DOCS_VERSION="7-6"
 
 wget -c --progress=dot:mega \
     "http://download.osgeo.org/livedvd/data/mapserver/mapserver-$MS_DOCS_VERSION-html-docs.zip"
