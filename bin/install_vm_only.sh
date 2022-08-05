@@ -100,9 +100,6 @@ cd "$DIR"
 
 # ./base_language.sh
 ./install_gmt.sh
-# ./install_iris.sh
-apt-get --yes install libudunits2-dev
-pip3 install scitools-iris
 ./install_gvsig.sh "$ARCH"
 ./install_udig.sh "$ARCH"
 ./install_52nSOS.sh
