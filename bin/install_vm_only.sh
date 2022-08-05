@@ -96,22 +96,6 @@ apt-get --yes install docker.io docker-compose
 usermod -aG docker user
 # TODO: Install extra documentation
 
-# Install pgadmin4
-##Add pgadmin4 key
-wget https://www.pgadmin.org/static/packages_pgadmin_org.pub
-apt-key add packages_pgadmin_org.pub
-rm packages_pgadmin_org.pub
-##Add pgadmin4 repository
-cp "$DIR"/../sources.list.d/pgadmin4.list /etc/apt/sources.list.d/
-apt-get -q update
-apt-get install --yes pgadmin4-desktop
-rm /etc/apt/sources.list.d/pgadmin4.list
-apt-get -q update
-##Setup pgadmin settings
-mkdir -p "$USER_HOME/.pgadmin"
-cp "$DIR"/../app-conf/postgresql/pgadmin4.db "$USER_HOME/.pgadmin/pgadmin4.db"
-cp /usr/share/applications/pgadmin4.desktop "$USER_HOME"/Desktop/
-
 cd "$DIR"
 
 # ./base_language.sh
@@ -127,6 +111,7 @@ pip3 install scitools-iris
 ./install_rasdaman.sh
 ./install_re3gistry.sh
 ./install_etf.sh
+./install_pgadmin.sh
 # ./install_icons_and_menus.sh
 
 echo
