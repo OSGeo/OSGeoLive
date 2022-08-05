@@ -48,7 +48,8 @@ add-apt-repository -y ppa:geonode/osgeolive
 # add-apt-repository -y ppa:gcpp-kalxas/geonode
 apt-get -q update
 
-apt-get install --yes --no-install-recommends python3-geonode libapache2-mod-wsgi-py3 curl
+apt-get install --yes --no-install-recommends python3-geonode libapache2-mod-wsgi-py3 \
+        curl python3-gisdata
 # apt-get install --yes -o Dpkg::Options::="--force-overwrite" python3-pinax-ratings
 
 if [ $? -ne 0 ] ; then
