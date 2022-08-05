@@ -162,7 +162,6 @@ export USER_NAME
 ./install_pywps.sh
 ./install_pygeoapi.sh
 ./install_eoxserver.sh
-# ./install_iris.sh # install_vm_only
 ./install_istsos.sh
 # ./install_actinia.sh # install_vm_only
 
