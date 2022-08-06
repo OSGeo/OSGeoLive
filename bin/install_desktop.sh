@@ -120,20 +120,34 @@ Exec=/usr/local/share/osgeo-desktop/desktop-truster.sh
 Type=Application
 EOF
 
+cat << EOF > "/usr/local/share/osgeo-desktop/apache-fixer.desktop"
+[Desktop Entry]
+Name=Apache Fixer
+Comment=Autostarter to fix apache issue on boot
+Exec=/usr/local/share/osgeo-desktop/apache-fixer.sh
+Type=Application
+EOF
+
 mkdir -p "$USER_HOME"/.config/autostart
 cp /usr/local/share/osgeo-desktop/welcome_message.desktop \
    "$USER_HOME"/.config/autostart/
 cp /usr/local/share/osgeo-desktop/desktop-truster.desktop \
+   "$USER_HOME"/.config/autostart/
+cp /usr/local/share/osgeo-desktop/apache-fixer.desktop \
    "$USER_HOME"/.config/autostart/
 mkdir -p /etc/skel/.config/autostart
 cp /usr/local/share/osgeo-desktop/welcome_message.desktop \
    /etc/skel/.config/autostart/
 cp /usr/local/share/osgeo-desktop/desktop-truster.desktop \
    /etc/skel/.config/autostart/
+cp /usr/local/share/osgeo-desktop/apache-fixer.desktop \
+   /etc/skel/.config/autostart/
 
 cp "$BUILD_DIR/../desktop-conf/welcome_message.sh" \
    /usr/local/share/osgeo-desktop/
 cp "$BUILD_DIR/../desktop-conf/desktop-truster.sh" \
+   /usr/local/share/osgeo-desktop/
+cp "$BUILD_DIR/../desktop-conf/apache-fixer.sh" \
    /usr/local/share/osgeo-desktop/
 
 #
