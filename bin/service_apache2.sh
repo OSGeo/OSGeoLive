@@ -35,6 +35,7 @@ adduser "$USER_NAME" www-data
 
 mkdir -p /var/www/html
 mkdir -p /var/log/apache2
+touch /var/log/apache2/error.log
 cp "$BUILD_DIR"/../app-conf/apache2/favicon.ico \
   /var/www/html/favicon.ico
 
