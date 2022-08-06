@@ -1,6 +1,29 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 15.0rc1
+====================
+
+ * Fixed iso EFI setup (#2361)
+ * Updated Jupyter Notebooks from GitHub
+ * English documentation finalized
+ * MapProxy 1.15.1
+ * ZOO-Project 1.9.0 (#2382)
+ * t-rex 0.14.3 (#2357)
+ * Updated leaflet demo with FOSS4G 2022 Firenze location (#2384)
+ * Workaround for tomcat9 issue with Java 8 (#2387)
+ * 52nSOS java issue fixed (#2366)
+ * Re3gistry tomcat issue fixed (#2379)
+ * Fixed apache issue with live system (#2396)
+ * pgadmin4-desktop on VM version (#2355)
+ * Mapnik patched to support latest proj (#2352)
+ * Build scripts and installers cleanup
+ * Removed gcc and linux headers from iso (#467)
+ * MapServer docs version 7.6
+ * Updated retired project list (#2318)
+ * Fixed raster data folder (#2336)
+ * actinia 4.2.0 (#2383)
+
 Version 15.0beta2
 ====================
 
