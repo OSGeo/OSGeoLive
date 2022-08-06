@@ -25,7 +25,7 @@
 # NOTE: We have changed the java-common package in our ppa to point default-jdk to openjdk-8
 apt-get install --yes default-jdk default-jre
 
-apt-get install --yes gsfonts-x11 ttf-dejavu-extra
+apt-get install --yes gsfonts-x11
 
 # Fetch/Install prebuilt libgdal-java components
 URL="http://download.osgeo.org/livedvd/data/gdal/gdal-3.4.3+dfsg-java.20220622.tgz"
