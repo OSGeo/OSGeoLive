@@ -70,6 +70,7 @@ tar xf examples-livedvd.tar.bz2
 cp -r zoo-demo /var/www/html/zoo-demo
 chmod -R 755 /var/www/html/zoo-demo
 sed -i -e "s|zoo.dev.publicamundi.eu|zoo-project.org|" /var/www/html/zoo-demo/assets/js/otb-app.js
+sed -i '38d' /var/www/html/zoo-demo/otb-example.html
 # cp zoo-demo/main.cfg /etc/zoo-project/
 cp -f "$BUILD_DIR/../app-conf/zoo-project/main.cfg" \
     /etc/zoo-project/
