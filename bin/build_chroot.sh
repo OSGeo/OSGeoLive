@@ -385,12 +385,30 @@ if [ "$ARCH" = "amd64" ] ; then
    #    -boot-load-size 4 -boot-info-table \
    #    -eltorito-alt-boot -e EFI/boot/grubx64.efi -no-emul-boot \
    #    -o ../"$ISO_NAME.iso" .
-   sudo xorriso -as mkisofs -r -V "$IMAGE_NAME" -J -joliet-long -l \
-      -iso-level 3 -partition_offset 16 --grub2-mbr ../"$MBR" --mbr-force-bootable \
-      -append_partition 2 0xEF ../"$EFI" -appended_part_as_gpt \
-      -c boot.catalog -b boot/grub/i386-pc/eltorito.img -no-emul-boot \
-      -boot-load-size 4 -boot-info-table --grub2-boot-info -eltorito-alt-boot \
-      -e '--interval:appended_partition_2:all::' -no-emul-boot \
+   # sudo xorriso -as mkisofs -r -V "$IMAGE_NAME" -J -joliet-long -l \
+   #    -iso-level 3 -partition_offset 16 --grub2-mbr ../"$MBR" --mbr-force-bootable \
+   #    -append_partition 2 0xEF ../"$EFI" -appended_part_as_gpt \
+   #    -c boot.catalog -b boot/grub/i386-pc/eltorito.img -no-emul-boot \
+   #    -boot-load-size 4 -boot-info-table --grub2-boot-info -eltorito-alt-boot \
+   #    -e '--interval:appended_partition_2:all::' -no-emul-boot \
+   #    -o ../"$ISO_NAME.iso" .
+    sudo xorriso -as mkisofs -r \
+      -V "$IMAGE_NAME" \
+      --grub2-mbr ../"$MBR" \
+      -partition_offset 16 \
+      --mbr-force-bootable \
+      -append_partition 2 28732ac11ff8d211ba4b00a0c93ec93b ../"$EFI" \
+      -appended_part_as_gpt \
+      -iso_mbr_part_type a2a0d0ebe5b9334487c068b6b72699c7 \
+      -c boot.catalog \
+      -b boot/grub/i386-pc/eltorito.img \
+      -no-emul-boot \
+      -boot-load-size 4 \
+      -boot-info-table \
+      --grub2-boot-info \
+      -eltorito-alt-boot \
+      -e '--interval:appended_partition_2:::' \
+      -no-emul-boot \
       -o ../"$ISO_NAME.iso" .
    # sudo isohybrid -u ../"$ISO_NAME.iso"
 else
