@@ -1,7 +1,7 @@
 OSGeo Live GIS Disc
 ===================
 
-Version 15.0rc1
+Version 15.0
 ====================
 
  * Fixed iso EFI setup (#2361)
