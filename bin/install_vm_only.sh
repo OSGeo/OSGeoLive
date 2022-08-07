@@ -62,10 +62,11 @@ USER_HOME="/home/$USER_NAME"
 # ./bootstrap.sh
 
 apt-get -q update
+apt-mark unhold linux-image-generic
 apt-get --yes upgrade
 
 # Install linux headers
-apt-get install --yes build-essential linux-headers-generic linux-headers-5.15.0-25
+apt-get install --yes build-essential linux-headers-generic
 
 # Adding VBox guest additions
 apt-get install --yes virtualbox-guest-x11
@@ -81,7 +82,9 @@ apt-get install --yes python-all-dev
 
 # Adding back LibreOffice and other packages that were removed from iso to save disk space
 apt-get --yes install libreoffice libreoffice-common libreoffice-core 2048-qt noblenote trojita \
-  transmission-common k3b vlc libllvm14 fonts-noto-cjk
+  transmission-common k3b vlc libllvm14 fonts-dejavu fonts-dejavu-extra xfonts-scalable \
+  xfonts-100dpi xfonts-75dpi xfonts-jmk fonts-lyx unifont fonts-noto-core fonts-noto \
+  fonts-noto-cjk fonts-noto-mono
 
 # Install R Studio
 cd ~
