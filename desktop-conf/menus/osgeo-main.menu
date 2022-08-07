@@ -59,6 +59,7 @@
 		<Category>Geoservers</Category>
 		<Not><Category>52North</Category></Not>
 		<Not><Category>deegree</Category></Not>
+		<Not><Category>ETF</Category></Not>
 		<Not><Category>GeoNetwork</Category></Not>
 		<Not><Category>GeoServer</Category></Not>
 		<Not><Category>MapProxy</Category></Not>
@@ -80,6 +81,14 @@
 	    <Directory>deegree.directory</Directory>
 	    <Include>
 		<Category>deegree</Category>
+	    </Include>
+	</Menu>
+
+  <Menu>
+	    <Name>ETF</Name>
+	    <Directory>ETF.directory</Directory>
+	    <Include>
+		<Category>ETF</Category>
 	    </Include>
 	</Menu>
 
