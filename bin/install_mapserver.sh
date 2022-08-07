@@ -68,6 +68,7 @@ if [ ! -d "$MAPSERVER_DATA" ] ; then
 
     echo -n "Extracting MapServer html doc in $MAPSERVER_DATA/..."
     unzip -qo "$TMP_DIR/mapserver-$MS_DOCS_VERSION-html-docs.zip"
+    mv "$TMP_DIR/mapserver-7-4-docs" "$TMP_DIR/mapserver-$MS_DOCS_VERSION-docs"
     mv "$TMP_DIR/mapserver-$MS_DOCS_VERSION-docs" "$MAPSERVER_DATA/doc"
     rm -f "$TMP_DIR/mapserver-$MS_DOCS_VERSION-html-docs.zip"
     echo "Done"
