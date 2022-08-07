@@ -86,12 +86,17 @@ apt-get --yes install libreoffice libreoffice-common libreoffice-core 2048-qt no
   xfonts-100dpi xfonts-75dpi xfonts-jmk fonts-lyx unifont fonts-noto-core fonts-noto \
   fonts-noto-cjk fonts-noto-mono
 
+# Remove patches needed for the live session only
+rm "$USER_HOME"/.config/autostart/apache-fixer.desktop
+rm "$USER_HOME"/.config/autostart/desktop-truster.desktop
+
 # Install R Studio
 cd ~
 apt-get --yes install libclang-dev
 wget https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2022.07.0-548-amd64.deb
 dpkg -i rstudio-server-2022.07.0-548-amd64.deb
 rm rstudio-server-2022.07.0-548-amd64.deb
+systemctl disable rstudio-server
 # TODO: Install Atom or VS Code
 
 # Install docker engine
@@ -113,6 +118,9 @@ cd "$DIR"
 ./install_etf.sh
 ./install_pgadmin.sh
 # ./install_icons_and_menus.sh
+
+# Cleanup
+rm -rf /tmp/build_*
 
 echo
 echo "==============================================================="
