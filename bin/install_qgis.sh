@@ -50,9 +50,9 @@ fi
 
 # Install plugins
 wget -c --progress=dot:mega \
-   "http://download.osgeo.org/livedvd/data/qgis/qgis3-osgeolive13-plugins.zip"
-unzip -q qgis3-osgeolive13-plugins.zip -d /
-rm -rf qgis3-osgeolive13-plugins.zip
+   "http://download.osgeo.org/livedvd/data/qgis/qgis3-osgeolive15-plugins.zip"
+unzip -q qgis3-osgeolive15-plugins.zip -d /
+rm -rf qgis3-osgeolive15-plugins.zip
 
 #### install desktop icon ####
 INSTALLED_VERSION=`dpkg -s qgis | grep '^Version:' | awk '{print $2}' | cut -f1 -d~`
