@@ -139,11 +139,11 @@ fi
 
 
 #
-# Change java version, move the war and move to the servlet container folder
+# Move the war and move to the servlet container folder and remove folder .etf
 #
-
-
 sudo cp "$TMP/ETF.war" "$ETF_WAR_INSTALL_FOLDER"/ 
+
+rm -rf /home/user/.etf
 #
 # It puts the ETS repository to its place
 #
