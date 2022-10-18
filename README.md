@@ -167,7 +167,7 @@ Convert to vmdk format (more widely compatible):
 ```
 OR with a recent version of QEMU
 ```
-host$ qemu-img convert -f vdi -o compat6 -O vmdk osgeolive.vdi osgeolive-15.0-amd64.vmdk
+     host$ qemu-img convert -f vdi -o compat6 -O vmdk osgeolive.vdi osgeolive-15.0-amd64.vmdk
 ```
 Zip the image up:
 ```
