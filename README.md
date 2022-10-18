@@ -184,13 +184,17 @@ Create the md5sum checksums, so which can be used to confirm that the images hav
 
 As of 6.0 the official releases are hosted on sourceforge. To upload you need a sourceforge account and permissions to the osgeo-live project upload.
 ```
-     rsync -e ssh osgeolive-15.0-amd64.iso username,osgeo-live@frs.sourceforge.net:/home/pfs/project/o/os/osgeo-live/15.0/
+     host$ rsync -e ssh osgeolive-15.0-amd64.iso username,osgeo-live@frs.sourceforge.net:/home/pfs/project/o/os/osgeo-live/15.0/
 ```
 
 ### Upload to the OSGeo Server
 
 ```
      host$ scp -pr osgeolive-15.0-amd64.iso username@upload.osgeo.org:/osgeo/download/livedvd/
+```
+or
+```
+     host$ rsync --progress -e ssh osgeolive-15.0-amd64.iso username@upload.osgeo.org:/osgeo/download/livedvd/
 ```
 
 Check the result at: http://download.osgeo.org/livedvd
