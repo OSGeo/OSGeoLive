@@ -4,8 +4,7 @@
 
 ## OSGeoLive installation scripts
 
-The set of scripts in this repository will make a GIS Virtual
-Machine or bootable ISO from a base Lubuntu 22.04 (Jammy) system.
+The set of scripts in this repository will make a GIS Virtual Machine or bootable ISO from a base Lubuntu 22.04 (Jammy) system.
 
 ### Running installers
 
@@ -35,7 +34,7 @@ You can install individual applications in the base Lubuntu system by running `b
 
 ## How to add your project to OSGeoLive
 
-[Instructions for adding new projects] (https://wiki.osgeo.org/wiki/Live_GIS_Add_Project)
+Instructions for adding [new projects](https://wiki.osgeo.org/wiki/Live_GIS_Add_Project)
 
 ## Build the OSGeoLive DVD ISO image
 
@@ -56,10 +55,10 @@ All you need is a running Ubuntu/Xubuntu/Kubuntu/Lubuntu installation (even with
 
 This will install Git and the install scripts, and create a link to them from your home directory.
 
-* Set the Version Number and Changes
+* Set the Version Number and Changes:
 Update [VERSION.txt](https://github.com/OSGeo/OSGeoLive/blob/master/VERSION.txt) with the current version number.
 Update [CHANGES.txt](https://github.com/OSGeo/OSGeoLive/blob/master/CHANGES.txt) with changes since the last release.
-This list can be a summary of the [revision log](https://github.com/OSGeo/OSGeoLive/commits/master) between releases
+This list can be a summary of the [revision log](https://github.com/OSGeo/OSGeoLive/commits/master) between releases.
 Commit the changes to Git through a Pull Request right before a release build.
 
 * Execute the build script:
