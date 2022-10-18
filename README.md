@@ -56,10 +56,10 @@ All you need is a running Ubuntu/Xubuntu/Kubuntu/Lubuntu installation (even with
 This will install Git and the install scripts, and create a link to them from your home directory.
 
 * Set the Version Number and Changes:
-Update [VERSION.txt](https://github.com/OSGeo/OSGeoLive/blob/master/VERSION.txt) with the current version number.
-Update [CHANGES.txt](https://github.com/OSGeo/OSGeoLive/blob/master/CHANGES.txt) with changes since the last release.
-This list can be a summary of the [revision log](https://github.com/OSGeo/OSGeoLive/commits/master) between releases.
-Commit the changes to Git through a Pull Request right before a release build.
+     * Update [VERSION.txt](https://github.com/OSGeo/OSGeoLive/blob/master/VERSION.txt) with the current version number.
+     * Update [CHANGES.txt](https://github.com/OSGeo/OSGeoLive/blob/master/CHANGES.txt) with changes since the last release.
+     * This list can be a summary of the [revision log](https://github.com/OSGeo/OSGeoLive/commits/master) between releases.
+     * Commit the changes to Git through a Pull Request right before a release build.
 
 * Execute the build script:
 ```
