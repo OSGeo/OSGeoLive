@@ -143,7 +143,7 @@ fi
 #
 sudo cp "$TMP/ETF.war" "$ETF_WAR_INSTALL_FOLDER"/ 
 
-rm -rf /home/user/.etf
+rm -rf "/home/$USER_NAME/.etf"
 #
 # It puts the ETS repository to its place
 #
