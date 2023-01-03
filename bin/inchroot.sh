@@ -121,98 +121,98 @@ export USER_NAME
 
 ### Base installers
 ./base_c.sh
-./base_python.sh
-./base_java.sh
+# ./base_python.sh
+# ./base_java.sh
 # ./base_language.sh
 
 ### Service installers
-./service_apache2.sh
-./base_php.sh
-./service_tomcat.sh
-./service_postgresql.sh
+# ./service_apache2.sh
+# ./base_php.sh
+# ./service_tomcat.sh
+# ./service_postgresql.sh
 # ./service_mysql.sh
 
 ### Project installers
 ## C stack
-./install_postgis.sh
-./install_spatialite.sh
-./install_osm.sh
-./load_postgis.sh
-./install_pgrouting.sh
-./install_ossim.sh
-./install_mapserver.sh
-./install_mapcache.sh
-./install_tinyows.sh
+# ./install_postgis.sh
+# ./install_spatialite.sh
+# ./install_osm.sh
+# ./load_postgis.sh
+# ./install_pgrouting.sh
+# ./install_ossim.sh
+# ./install_mapserver.sh
+# ./install_mapcache.sh
+# ./install_tinyows.sh
 # ./install_gmt.sh # install_vm_only
-./install_mapnik.sh
-./install_otb.sh
-./install_saga.sh
-./install_grass.sh
-./install_qgis.sh
-./install_qgis_server.sh
-./install_zoo-project.sh "$ARCH"
-./install_marble.sh
-./install_opencpn.sh
-./install_xygrib.sh
-./install_PDAL.sh
+# ./install_mapnik.sh
+# ./install_otb.sh
+# ./install_saga.sh
+# ./install_grass.sh
+# ./install_qgis.sh
+# ./install_qgis_server.sh
+# ./install_zoo-project.sh "$ARCH"
+# ./install_marble.sh
+# ./install_opencpn.sh
+# ./install_xygrib.sh
+# ./install_PDAL.sh
 
 ## Python stack
-./install_mapproxy.sh
-./install_pycsw.sh
-./install_pywps.sh
-./install_pygeoapi.sh
-./install_eoxserver.sh
-./install_istsos.sh
+# ./install_mapproxy.sh
+# ./install_pycsw.sh
+# ./install_pywps.sh
+# ./install_pygeoapi.sh
+# ./install_eoxserver.sh
+# ./install_istsos.sh
 # ./install_actinia.sh # install_vm_only
 
 ## R stack
-./install_R.sh
+# ./install_R.sh
 
 ## Jupyter
-./install_jupyter.sh
+# ./install_jupyter.sh
 
 ## Java stack
-./install_geoserver.sh
-./install_geonetwork.sh
-./install_deegree.sh
+# ./install_geoserver.sh
+# ./install_geonetwork.sh
+# ./install_deegree.sh
 # ./install_udig.sh "$ARCH" # install_vm_only
-./install_openjump.sh
+# ./install_openjump.sh
 # ./install_gvsig.sh "$ARCH" # install_vm_only
-./install_gpsprune.sh
+# ./install_gpsprune.sh
 
 ## Java + default tomcat
-./install_52nWPS.sh
+# ./install_52nWPS.sh
 # ./install_52nSOS.sh # install_vm_only
 # ./install_ncWMS.sh # install_vm_only
 
 ## PHP stack
-./install_mapbender.sh
-./install_geomoose.sh
+# ./install_mapbender.sh
+# ./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
-./install_geonode.sh
+# ./install_geonode.sh
 
 ## Rust
-./install_trex.sh
+# ./install_trex.sh
 
 ## Javascript et al
-./install_openlayers.sh
-./install_leaflet.sh
-./install_cesium.sh
-./install_geoext.sh
+# ./install_openlayers.sh
+# ./install_leaflet.sh
+# ./install_cesium.sh
+# ./install_geoext.sh
 # ./install_rasdaman.sh # install_vm_only
-./install_geostyler.sh
+# ./install_geostyler.sh
 # ./install_re3gistry.sh # install_vm_only
 # ./install_etf.sh # install_vm_only
 
 ## Docs, Data and extras
-./load_gisdata.sh
-./install_docs.sh "$BUILD_MODE"
+# ./load_gisdata.sh
+# ./install_docs.sh "$BUILD_MODE"
 # ./install_edutools.sh
 
 ## Desktop and Housekeeping
-./install_desktop.sh
-./install_icons_and_menus.sh
+# ./install_desktop.sh
+# ./install_icons_and_menus.sh
 ./setdown.sh
 
 
