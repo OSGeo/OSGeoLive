@@ -1,4 +1,4 @@
-Welcome to OSGeoLive 15.0
+Welcome to OSGeoLive 16.0
 
 See the Help icon on the Desktop for information about the
 OSGeoLive disc and virtual-machine, including a synopsis of bundled
