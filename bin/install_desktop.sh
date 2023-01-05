@@ -6,7 +6,7 @@
 # The menu creation and icon sorting has moved to install_icons_and_menus.sh
 #
 #############################################################################
-# Copyright (c) 2009-2022 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2023 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -45,7 +45,7 @@ cp ../desktop-conf/osgeo-desktop-transparent.png \
 ### Set the desktop background
 sed -i -e 's|^DesktopShortcuts=.*|DesktopShortcuts=Home, Trash|' \
        -e 's|^WallpaperMode=.*|WallpaperMode=fit|' \
-       -e 's|^Wallpaper=.*|Wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
+       -e 's|^Wallpaper=.*|Wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
        -e 's|^BgColor=.*|BgColor=#000000|' \
        -e 's|^FgColor=.*|FgColor=#ffffff|' \
        -e 's|^UseTrash=.*|UseTrash=true|' \
@@ -72,7 +72,7 @@ sed -i -e 's|^background=.*|background=/usr/share/lubuntu/wallpapers/osgeo-deskt
 
 # Set the installer desktop icon to OSGeoLive
 sed -i -e 's|Lubuntu|OSGeoLive|' \
-       -e 's|22.04 LTS|15.0|' \
+       -e 's|22.04 LTS|16.0nightly|' \
    /usr/share/applications/lubuntu-calamares.desktop
 
 #Add the launchhelp script which allows other apps to provide sudo
