@@ -5,7 +5,7 @@
 # OSGeoLive.
 #
 #############################################################################
-# Copyright (c) 2016-2022 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2016-2023 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -29,6 +29,6 @@ apt-get -q update
 apt-get install --yes build-essential cmake pkg-config
 
 # Install OSGeo C stack libraries
-apt-get install --yes libgdal30 gdal-bin proj-bin libgeos-c1v5 geotiff-bin
+apt-get install --yes libgdal32 gdal-bin proj-bin libgeos-c1v5 geotiff-bin
 
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
