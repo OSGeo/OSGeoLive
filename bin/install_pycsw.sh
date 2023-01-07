@@ -4,7 +4,7 @@
 # Purpose: This script will install pycsw
 #
 #############################################################################
-# Copyright (c) 2013-2022 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2013-2023 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
