@@ -1,6 +1,12 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 16.0alpha2
+====================
+
+ * Updates to MapServer (#2409)
+ * GeoMoose 3.10.1
+
 Version 16.0alpha1
 ====================
 
