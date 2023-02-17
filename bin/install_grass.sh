@@ -4,7 +4,7 @@
 # Purpose: This script will install GRASS GIS 8
 #
 #############################################################################
-# Copyright (c) 2014-2022 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2014-2023 The Open Source Geospatial Foundation and others.
 # Author: H.Bowman <hamish_b  yahoo com>
 #
 # Licensed under the GNU LGPL version >= 2.1.
