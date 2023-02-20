@@ -28,9 +28,7 @@ BUILD_DIR=`pwd`
 
 ##Add pgadmin4 key
 
-wget https://www.pgadmin.org/static/packages_pgadmin_org.pub
-apt-key add packages_pgadmin_org.pub
-rm packages_pgadmin_org.pub
+curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /usr/share/keyrings/packages-pgadmin-org.gpg
 
 ##Add pgadmin4 repository
 
