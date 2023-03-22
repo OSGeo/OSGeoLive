@@ -38,7 +38,6 @@ if [ ! -d "$TMP_DIR" ] ; then
 fi
 cd "$TMP_DIR"
 
-
 ##----------------------------
 mkdir /usr/local/share/osm
 
@@ -101,17 +100,12 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
 #########################################################################
 #### install sample OSM data
+## http://download.osgeo.org/livedvd/16/osm/Prizren_XK.osm.bz2
 
-CITY="FIRENZE_IT"
+CITY="Prizren_XK"
 #         w    s        e        n
-BBOX="11.0765,43.7450,11.3965,43.8100"
+BBOX="21.1922265,42.0816364,20.2206175,42.6653875"
 
-
-# Perhaps it is too detailed a city for some of our examples, so we
-#  provide a smaller version too:
-#CITY="Portland_OR_CBD"
-#BBOX="-122.721,45.488,-122.620,45.544"
-#
 #
 # City OSM data:
 #  Having a sample .osm file around will benefit many applications. In addition
