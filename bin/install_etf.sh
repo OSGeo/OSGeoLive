@@ -80,6 +80,7 @@ echo "JAVA_PKG: $JAVA_PKG"
 #
 # 1 Check for OpenJDK
 #
+apt-get update
 if [ ! -x "`which java`" ] ; then
     apt-get -q update
     apt-get --assume-yes install $JAVA_PKG
@@ -148,12 +149,11 @@ rm -rf "$ETF_FOLDER"
 # It puts the ETS repository to its place
 #
 sudo sed -i "s/jetty.http.port=8080/jetty.http.port=$ETF_PORT/g" "$JETTY9_HOME/start.ini"
-/usr/share/jetty9/bin/jetty.sh start
+sudo -u user /usr/share/jetty9/bin/jetty.sh start
 wait
-/usr/share/jetty9/bin/jetty.sh stop
-if [ ! -d "$ETF_FOLDER/projects/inspire-ets-repository/ets-repository-osgeolive-15" ];then
-	sudo mkdir "$ETF_FOLDER/projects/inspire-ets-repository/"
-	cd "$ETF_FOLDER/projects/inspire-ets-repository/"
+sudo -u user /usr/share/jetty9/bin/jetty.sh stop
+if [ ! -d "$ETF_FOLDER/projects/ets-repository-osgeolive-15" ];then
+	cd "$ETF_FOLDER/projects/"
 	sudo unzip -o "$TMP/ets-repository-osgeolive-15.zip"
 fi
 #
