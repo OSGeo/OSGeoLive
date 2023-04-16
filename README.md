@@ -1,3 +1,7 @@
+<a href="https://doi.org/10.5281/zenodo.5884641"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.5884641.svg" alt="DOI"></a>
+[![License](https://img.shields.io/github/license/osgeo/OSGeoLive)](https://github.com/osgeo/OSGeoLive/blob/master/LICENSE)
+[![downloads](https://img.shields.io/sourceforge/dm/osgeo-live)](https://img.shields.io/sourceforge/dm/osgeo-live)
+
 # OSGeoLive
 
 [OSGeoLive](https://live.osgeo.org) is a self-contained bootable DVD, USB thumb drive or Virtual Machine based on Lubuntu, that allows you to try a wide variety of open source geospatial software without installing anything. It is composed entirely of free software, allowing it to be freely distributed, duplicated and passed around.
