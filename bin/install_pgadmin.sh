@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013-2022 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2013-2023 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -28,7 +28,7 @@ BUILD_DIR=`pwd`
 
 ##Add pgadmin4 key
 
-curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo gpg --dearmor -o /usr/share/keyrings/packages-pgadmin-org.gpg
+curl -fsS https://www.pgadmin.org/static/packages_pgadmin_org.pub | gpg --dearmor -o /usr/share/keyrings/packages-pgadmin-org.gpg
 
 ##Add pgadmin4 repository
 
