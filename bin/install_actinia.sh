@@ -4,17 +4,17 @@
 # Purpose: This script will install actinia_core (REST API for GRASS GIS 7)
 #
 # References:
-#          - Code: https://github.com/mundialis/actinia_core/
+#          - Code: https://github.com/actinia-org/actinia-gdi
 #          - Publication: https://doi.org/10.5281/zenodo.2631917
 #          - Tutorial: https://actinia.mundialis.de/tutorial/
 #
-# Requirements: GRASS GIS 7, Python, redis
+# Requirements: GRASS GIS 8, Python, redis
 #
-# actinia URL after installation: http://localhost:8088/api/v1/version
+# actinia URL after installation: http://localhost:8088/api/v3/version
 #
 #################################################################################
 # Copyright (c) 2018-2019 Sören Gebbert and mundialis GmbH & Co. KG, Bonn.
-# Copyright (c) 2020 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2020-2023 The Open Source Geospatial Foundation and others.
 #
 # Installer script author: Markus Neteler <neteler mundialis.de>
 #
@@ -35,7 +35,7 @@
 # =====
 # This script will install actinia_core with actinia_statistic_plugin
 #
-# Script inspired by https://github.com/mundialis/actinia_core/blob/master/docker/actinia-core/Dockerfile
+# Script inspired by https://github.com/actinia-org/actinia-core/blob/main/docker/actinia-core-alpine/Dockerfile
 #
 # This does not attempt to install GRASS GIS, that is done in install_grass.sh.
 #################################################################################
@@ -66,7 +66,9 @@ mkdir -p "$ACTINIA_HOME"/workspace/download_cache
 mkdir -p "$ACTINIA_HOME"/userdata
 
 apt-get -q update
-apt-get --assume-yes install python3-actinia-core python3-actinia-statistic-plugin redis-server gunicorn
+apt-get --assume-yes install redis-server gunicorn
+# TODO: should next be a pip install?
+apt-get --assume-yes install python3-actinia-core python3-actinia-statistic-plugin #python3-actinia-satellite
 
 # Add default password for redis
 sed -i -e 's|# requirepass foobared|requirepass pass|' \
@@ -79,12 +81,9 @@ cp "$BUILD_DIR/../app-conf/actinia/actinia.cfg" "$ACTINIA_CONF/actinia.cfg"
 ln -s "$USER_HOME"/grassdata/nc_basic_spm_grass7 "$ACTINIA_HOME"/grassdb
 
 # create some grass locations
-grass -text -e -c 'EPSG:25832' "$ACTINIA_HOME"/grassdb/utm32n
-grass -text -e -c 'EPSG:4326' "$ACTINIA_HOME"/grassdb/latlong
-# grass -text -e -c 'EPSG:3358' "$ACTINIA_HOME"/grassdb/nc_basic_spm_grass7
-
-# Install actinia-core plugins
-# apt-get --assume-yes install python3-actinia-statistic python3-actinia-satellite
+grass --text -e -c 'EPSG:25832' "$ACTINIA_HOME"/grassdb/utm32n
+grass --text -e -c 'EPSG:4326' "$ACTINIA_HOME"/grassdb/latlong
+# grass --text -e -c 'EPSG:3358' "$ACTINIA_HOME"/grassdb/nc_basic_spm_grass7
 
 # actinia launcher
 mkdir -p "$BIN"
@@ -119,10 +118,10 @@ cp -a /usr/share/applications/actinia-start.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/actinia-start.desktop"
 
 # DONE.
-# actinia is now reachable at http://localhost:8088/api/v1/version
+# actinia is now reachable at http://localhost:8088/api/v3/version
 
 # test
-# curl -u actinia-gdi:actinia-gdi 'http://localhost:8088/api/v1/version'
+# curl -u actinia-gdi:actinia-gdi 'http://localhost:8088/api/v3/version'
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
