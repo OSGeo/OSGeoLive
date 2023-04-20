@@ -161,7 +161,7 @@ fi
 # create the TMP directory and clone the Re3gistry git repository
 mkdir -p "$TMP"
 cd "$TMP"
-git clone -b master https://github.com/ec-jrc/re3gistry.git
+git clone -b osgeolive16 https://github.com/ec-jrc/re3gistry.git
 #
 # copy logo
 #mkdir -p /usr/local/share/icons
