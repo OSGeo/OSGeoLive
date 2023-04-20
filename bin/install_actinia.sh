@@ -98,7 +98,7 @@ chmod -R 777 "$ACTINIA_HOME"
 echo 'Downloading actinia logo ...'
 wget -c --progress=dot:mega \
    -O /usr/local/share/icons/actinia.png \
-   "https://github.com/mundialis/actinia_core/raw/master/docs/actinia_logo.png"
+   "https://github.com/actinia-org/actinia-core/raw/main/docs/docs/actinia_logo.png"
 
 ## Create Desktop Shortcut for starting Actinia Server in shell
 cat << EOF > /usr/share/applications/actinia-start.desktop
