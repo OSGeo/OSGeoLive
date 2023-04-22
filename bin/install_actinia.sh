@@ -67,8 +67,18 @@ mkdir -p "$ACTINIA_HOME"/userdata
 
 apt-get -q update
 apt-get --assume-yes install redis-server gunicorn
-# TODO: should next be a pip install?
-apt-get --assume-yes install python3-actinia-core python3-actinia-statistic-plugin #python3-actinia-satellite
+
+# install actinia in python virtualenv
+apt-get install -y python3-venv
+python3 -m venv $USER_HOME/venv-actinia
+source $USER_HOME/venv-actinia/bin/activate
+
+# actinia-core 4.7.1
+pip3 install https://github.com/actinia-org/actinia-core/releases/download/4.7.1/actinia_core-0.0.0-py2.py3-none-any.whl
+
+# actinia plugins
+pip3 install https://github.com/actinia-org/actinia-statistic-plugin/releases/download/0.2.1/actinia_statistic_plugin-0.2.1-py2.py3-none-any.whl
+pip3 install https://github.com/actinia-org/actinia-satellite-plugin/releases/download/0.1.0/actinia_satellite_plugin-0.1.0-py2.py3-none-any.whl
 
 # Add default password for redis
 sed -i -e 's|# requirepass foobared|requirepass pass|' \
