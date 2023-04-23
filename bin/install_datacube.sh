@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2022 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2023 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is libre software; you can redistribute it and/or modify it
@@ -14,7 +14,8 @@
 #
 # About:
 # =====
-# This script will install core datacube python3
+# This script will install core datacube python3   -darkblueb 2023
+#
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -47,7 +48,8 @@ DCONF=/home/${USER_NAME}/.config/datacube
 
 mkdir -p ${DCONF}
 
-export DATACUBE_CONFIG_PATH=${DCONF}/datacube.conf
+echo "export DCONF=/home/${USER_NAME}/.config/datacube" >> /home/${USER_NAME}/.bashrc
+echo "export DATACUBE_CONFIG_PATH=${DCONF}/datacube.conf" >> /home/${USER_NAME}/.bashrc
 
 #----------------------------------------------
 cat << EOF > ${DCONF}/datacube.conf
@@ -92,9 +94,11 @@ EOF
 
 ##-------------------------------------------------
 
-datacube -v system init
+sudo -u $USER_NAME  datacube -v -C ${DCONF}/datacube.conf  \
+    system init
 
-datacube product add ${DCONF}/landsat-clip.yml
+sudo -u $USER_NAME  datacube -C ${DCONF}/datacube.conf \
+    product add ${DCONF}/landsat-clip.yml
 
 
 ####
