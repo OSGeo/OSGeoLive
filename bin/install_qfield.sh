@@ -55,7 +55,7 @@ Encoding=UTF-8
 Name=QField
 Comment=QField $QFIELD_VERSION
 Categories=Application;Education;Geography;
-Exec=/usr/local/bin/qfield %F
+Exec=env FONTCONFIG_PATH=/etc/fonts /usr/local/bin/qfield %F
 Icon=/usr/local/share/icons/qfield_logo.svg
 Terminal=false
 StartupNotify=false
