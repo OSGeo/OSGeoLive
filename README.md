@@ -97,7 +97,7 @@ We have created a debug build process so that projects can now easily create the
 
 You will need to create a pure Lubuntu Virtual Machine setup:
 
-* Download lubuntu-22.04-desktop-amd64.iso from [lubuntu web site](http://cdimage.ubuntu.com/lubuntu/releases/22.04/release/lubuntu-22.04-desktop-amd64.iso).
+* Download lubuntu-22.04-desktop-amd64.iso from [lubuntu web site](https://cdimage.ubuntu.com/lubuntu/releases/22.04.2/release/lubuntu-22.04.2-desktop-amd64.iso).
 
 * Download and install VirtualBox.
 
