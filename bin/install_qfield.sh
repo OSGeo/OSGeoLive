@@ -35,7 +35,7 @@ apt-get -q update
 #Install fuse, required for loading AppImage
 apt-get --assume-yes install fuse
 
-mkdir -p/usr/local/bin
+mkdir -p /usr/local/bin
 wget -c --progress=dot:mega \
   https://github.com/opengisch/QField/releases/download/${QFIELD_VERSION}/qfield-${QFIELD_VERSION}-linux-x64.AppImage \
   -O /usr/local/bin/qfield
