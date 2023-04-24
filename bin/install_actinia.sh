@@ -1,7 +1,7 @@
 #!/bin/sh
 #############################################################################
 #
-# Purpose: This script will install actinia_core (REST API for GRASS GIS 7)
+# Purpose: This script will install actinia_core (REST API for GRASS GIS 8)
 #
 # References:
 #          - Code: https://github.com/actinia-org/actinia-gdi
@@ -73,8 +73,17 @@ apt-get install -y python3-venv
 python3 -m venv $USER_HOME/venv-actinia
 source $USER_HOME/venv-actinia/bin/activate
 
+# install dependencies
+pip3 install boto3 colorlog flask_cors flask_httpauth flask_restful_swagger_2 \
+     google-cloud google-cloud-bigquery google-cloud-storage matplotlib passlib \
+     pyproj pystac python-dateutil PyJWT python-json-logger python-keycloak \
+     python-magic redis requests rq shapely
+
 # actinia-core 4.7.1
 pip3 install https://github.com/actinia-org/actinia-core/releases/download/4.7.1/actinia_core-0.0.0-py2.py3-none-any.whl
+
+# actinia API
+pip3 install https://github.com/actinia-org/actinia-api/releases/download/3.4.0/actinia_api-3.4.0-py3-none-any.whl
 
 # actinia plugins
 pip3 install https://github.com/actinia-org/actinia-statistic-plugin/releases/download/0.2.1/actinia_statistic_plugin-0.2.1-py2.py3-none-any.whl
