@@ -33,7 +33,7 @@
 
 # About:
 # =====
-# This script will install actinia_core with actinia_statistic_plugin
+# This script will install actinia-core with selected actinia plugins
 #
 # Script inspired by https://github.com/actinia-org/actinia-core/blob/main/docker/actinia-core-alpine/Dockerfile
 #
@@ -51,7 +51,8 @@ fi
 USER_HOME="/home/$USER_NAME"
 BIN="/usr/local/bin"
 ACTINIA_HOME="/opt/actinia_core"
-ACTINIA_CONF="/etc/actinia"
+# see https://github.com/actinia-org/actinia-docker/blob/main/actinia-alpine/actinia.cfg
+ACTINIA_CONF="/etc/default/"
 
 mkdir -p "$ACTINIA_HOME"
 mkdir -p "$ACTINIA_CONF"
@@ -66,17 +67,17 @@ mkdir -p "$ACTINIA_HOME"/workspace/download_cache
 mkdir -p "$ACTINIA_HOME"/userdata
 
 apt-get -q update
-apt-get --assume-yes install redis-server gunicorn
+apt-get --assume-yes install redis-server
 
 # install actinia in python virtualenv
 apt-get install -y python3-venv
 python3 -m venv $USER_HOME/venv-actinia
 source $USER_HOME/venv-actinia/bin/activate
 
-# install dependencies
+# install dependencies into venv
 pip3 install boto3 colorlog flask_cors flask_httpauth flask_restful_swagger_2 \
-     google-cloud google-cloud-bigquery google-cloud-storage matplotlib passlib \
-     pyproj pystac python-dateutil PyJWT python-json-logger python-keycloak \
+     google-cloud google-cloud-bigquery google-cloud-storage gunicorn matplotlib \
+     passlib pyproj pystac python-dateutil PyJWT python-json-logger python-keycloak \
      python-magic redis requests rq shapely
 
 # actinia-core 4.7.1
@@ -88,10 +89,12 @@ pip3 install https://github.com/actinia-org/actinia-api/releases/download/3.4.0/
 # actinia plugins
 pip3 install https://github.com/actinia-org/actinia-statistic-plugin/releases/download/0.2.1/actinia_statistic_plugin-0.2.1-py2.py3-none-any.whl
 pip3 install https://github.com/actinia-org/actinia-satellite-plugin/releases/download/0.1.0/actinia_satellite_plugin-0.1.0-py2.py3-none-any.whl
+pip3 install https://github.com/actinia-org/actinia-module-plugin/releases/download/2.5.0/actinia_module_plugin.wsgi-2.5.0-py2.py3-none-any.whl
 
-# Add default password for redis
-sed -i -e 's|# requirepass foobared|requirepass pass|' \
-    /etc/redis/redis.conf
+# left out in OSGeolive
+## Add default password for redis
+#sed -i -e 's|# requirepass foobared|requirepass pass|' \
+#    /etc/redis/redis.conf
 
 # copy actinia configuration
 cp "$BUILD_DIR/../app-conf/actinia/actinia.cfg" "$ACTINIA_CONF/actinia.cfg"
@@ -108,7 +111,16 @@ grass --text -e -c 'EPSG:4326' "$ACTINIA_HOME"/grassdb/latlong
 mkdir -p "$BIN"
 cat << EOF > "$BIN/actinia_start.sh"
 #!/bin/bash
-DEFAULT_CONFIG_PATH=/etc/actinia/actinia.cfg gunicorn3 -b 0.0.0.0:8088 -w 1 actinia_core.main:flask_app
+# start redis server
+redis-server &
+sleep 1
+redis-cli ping
+
+export DEFAULT_CONFIG_PATH=/etc/actinia/actinia.cfg
+
+actinia-user create -u actinia-gdi -w actinia-gdi -r superadmin -g superadmin -c 100000000000 -n 1000 -t 31536000
+
+gunicorn3 -b 0.0.0.0:8088 -w 1 actinia_core.main:flask_app
 EOF
 
 chmod 755 $BIN/actinia_start.sh
@@ -138,8 +150,12 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/actinia-start.desktop"
 
 # DONE.
 # actinia is now reachable at http://localhost:8088/api/v3/version
+#
+# apt-get install links -y
+# links http://localhost:8088/api/v3/version
 
 # test
+# apt-get install curl -y
 # curl -u actinia-gdi:actinia-gdi 'http://localhost:8088/api/v3/version'
 
 ####
