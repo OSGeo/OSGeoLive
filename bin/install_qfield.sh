@@ -18,7 +18,7 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
-QFIELD_VERSION=v2.7.5
+QFIELD_VERSION=v2.7.6
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
@@ -30,7 +30,12 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 
-mkdir -p/usr/local/bin
+apt-get -q update
+
+#Install fuse, required for loading AppImage
+apt-get --assume-yes install fuse
+
+mkdir -p /usr/local/bin
 wget -c --progress=dot:mega \
   https://github.com/opengisch/QField/releases/download/${QFIELD_VERSION}/qfield-${QFIELD_VERSION}-linux-x64.AppImage \
   -O /usr/local/bin/qfield
@@ -50,7 +55,7 @@ Encoding=UTF-8
 Name=QField
 Comment=QField $QFIELD_VERSION
 Categories=Application;Education;Geography;
-Exec=/usr/local/bin/qfield %F
+Exec=env FONTCONFIG_PATH=/etc/fonts /usr/local/bin/qfield %F
 Icon=/usr/local/share/icons/qfield_logo.svg
 Terminal=false
 StartupNotify=false
