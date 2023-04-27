@@ -1,6 +1,23 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 16.0alpha3
+====================
+
+ * GDAL 3.6.3
+ * QGIS 3.28.4
+ * GRASS 8.2.1
+ * GeoServer 2.22.2
+ * pygeoapi 0.14.0
+ * Cesium 1.104
+ * change osm data to Prizren
+ * changed pgadmin4 keyring registration, updated pgadmin4.db
+ * Re3gistry 2.4.2
+ * OpenDataCube 1.8.9
+ * QField 2.7.6
+ * PDAL 2.5.0
+ * OWSLib 0.27.2
+ 
 Version 16.0alpha2
 ====================
 
