@@ -38,7 +38,7 @@ USER_HOME="/home/$USER_NAME"
 ################################################
 
 #Desktop apps part 1 (traditional analytic GIS)
-DESKTOP_APPS="grass82 qgis gvsig* openjump uDig saga"
+DESKTOP_APPS="grass82 qgis qfield gvsig* openjump uDig saga"
 #disabled: atlasstyler geopublisher spatialite-gis ossimplanet 
 
 #Desktop apps part 2 (geodata viewers and editors)
