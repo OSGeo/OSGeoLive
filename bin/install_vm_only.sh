@@ -110,6 +110,7 @@ cd "$DIR"
 ./install_gmt.sh
 ./install_gvsig.sh "$ARCH"
 ./install_udig.sh "$ARCH"
+./install_qfield.sh
 ./install_52nSOS.sh
 # ./install_actinia.sh
 ./install_ncWMS.sh
