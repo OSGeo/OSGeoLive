@@ -215,6 +215,7 @@ EOF
 
 # remove the apt-get cache
 apt-get clean
+rm -rf /var/lib/apt/lists/*
 
 # This might be needed in the future when more kernels get included in .x releases
 # echo "linux-image-generic-hwe-16.04 install" | dpkg --set-selections
