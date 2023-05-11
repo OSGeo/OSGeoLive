@@ -81,7 +81,7 @@ apt-get --yes remove libboost1.74-dev gcc-11 g++-11 gfortran-11 build-essential 
 
 # remove stuff to save disk space (#467)
 apt-get --yes remove libreoffice-common libreoffice-core 2048-qt noblenote trojita \
-  transmission-common k3b vlc snapd fonts-noto-cjk
+  transmission-common k3b vlc snapd fonts-noto-cjk apt-xapian-index
 
 # remove any leftover orphans
 apt-get --yes autoremove
