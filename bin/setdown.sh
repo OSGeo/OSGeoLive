@@ -104,6 +104,7 @@ rm -rf /usr/lib/python3/dist-packages/numpy/lib/tests/*
 rm -rf /usr/lib/python3/dist-packages/numpy/ma/tests/*
 rm -rf /usr/lib/python3/dist-packages/numpy/polynomial/tests/*
 rm -rf /usr/lib/python3/dist-packages/numpy/tests/*
+rm -rf /usr/lib/python3/dist-packages/azure/mgmt
 
 cd /usr/lib/python3/dist-packages;
 ## ----------------------------------------
