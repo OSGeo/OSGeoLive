@@ -1,0 +1,57 @@
+---
+# Dataset
+# url: http://localhost:8080/dataset/dc688334-a7e7-55f8-8571-9a3c4dc0a3a9.odc-metadata.yaml
+$schema: https://schemas.opendatacube.org/dataset
+id: 77aeb350-f9ce-11ed-9721-3b5b48699eac
+
+label: esa_sample0
+product:
+  name: esa_worldcover_2021
+
+location: file:///home/user/odc/esa_10m_2021_prizren.tif
+
+crs: epsg:4326
+geometry:
+  type: Polygon
+  coordinates: [[[20.2206175, 42.1008225], [20.9632374, 42.1008225], [20.9632374, 43.1735185],
+        [20.2206175, 43.1735185], [20.2206175, 42.1008225] ]]
+grids:
+  default:
+    shape: [8911,12872]
+    transform: [8.333743687577165e-05, 0.0, 20.2206175, 0.0, -8.333561218147922e-05, 
+        43.1735185, 0.0, 0.0, 1.0]
+
+properties:
+  datetime:
+  dtr:end_datetime: '2021-01-01T00:00:00Z'
+  dtr:start_datetime: '2021-12-31T00:00:00Z'
+#  io:supercell_id: 55G
+#  io:tile_id: 55G
+  odc:file_format: GeoTIFF
+  odc:region_code: 55G
+  proj:bbox:
+  - 2.43909425607291e+05
+  - 4.679351284826037e+06
+  - 7.56099425607291e+05
+  - 5.572241284826037e+06
+  proj:epsg: 4326
+  proj:shape:
+  - 8911
+  - 12872
+  proj:transform:
+  - 8.333743687577165e-05
+  - 0.0
+  - 20.2206175
+  - 0.0
+  - -8.333561218147922e-05
+  - 43.1735185
+  - 0.0
+  - 0.0
+  - 1.0
+
+measurements:
+  data:
+    path: file:///home/user/odc/esa_10m_2021_prizren.tif
+
+
+lineage: {}
