@@ -32,6 +32,9 @@ BIN="/usr/local/bin"
 apt-get install --yes python3-datacube python3-odc-geo python3-odc-stac
 
 mkdir -p ${USER_HOME}/odc
+cp -f "$BUILD_DIR/../app-conf/odc/*" ${USER_HOME}/odc/
+cp ${USER_HOME}/odc/esa-sample0.yml ${DCONF}/
+
 mkdir -p "$TMP"
 cd "$TMP"
 
@@ -98,8 +101,11 @@ EOF
 sudo -u $USER_NAME  datacube -v -C ${DCONF}/datacube.conf  \
     system init
 
-sudo -u $USER_NAME  datacube -C ${DCONF}/datacube.conf \
+sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
     product add ${DCONF}/landsat-clip.yml
+
+sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
+    product add ${DCONF}/esa-sample0.yml
 
 
 ####
