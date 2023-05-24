@@ -14,7 +14,7 @@
 #
 # About:
 # =====
-# This script will install core datacube python3   -darkblueb 2023
+# This script will initialize core datacube python3   -darkblueb 2023
 #
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -31,6 +31,7 @@ BIN="/usr/local/bin"
 
 apt-get install --yes python3-datacube python3-odc-geo python3-odc-stac
 
+mkdir -p ${USER_HOME}/odc
 mkdir -p "$TMP"
 cd "$TMP"
 
