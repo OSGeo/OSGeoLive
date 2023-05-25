@@ -165,6 +165,7 @@ export USER_NAME
 ./install_eoxserver.sh
 ./install_istsos.sh
 # ./install_actinia.sh # install_vm_only
+./install_datacube.sh
 
 ## R stack
 ./install_R.sh
