@@ -33,7 +33,6 @@ apt-get install --yes python3-datacube python3-odc-geo python3-odc-stac
 
 mkdir -p ${USER_HOME}/odc
 cp -f "$BUILD_DIR/../app-conf/odc/*" ${USER_HOME}/odc/
-cp ${USER_HOME}/odc/esa-sample0.yml ${DCONF}/
 
 mkdir -p "$TMP"
 cd "$TMP"
@@ -51,6 +50,7 @@ sudo -u $USER_NAME psql datacube -c 'create extension hstore'
 DCONF=/home/${USER_NAME}/.config/datacube
 
 mkdir -p ${DCONF}
+cp ${USER_HOME}/odc/esa-sample0.yml ${DCONF}/
 
 echo "export DCONF=/home/${USER_NAME}/.config/datacube" >> /home/${USER_NAME}/.bashrc
 echo "export DATACUBE_CONFIG_PATH=${DCONF}/datacube.conf" >> /home/${USER_NAME}/.bashrc
@@ -106,6 +106,11 @@ sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
 
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
     product add ${DCONF}/esa-sample0.yml
+
+sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
+    dataset add ${USER_HOME}/esa-sample0.yml
+
+
 
 
 ####
