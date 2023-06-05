@@ -33,6 +33,7 @@ apt-get install --yes python3-datacube python3-odc-geo python3-odc-stac
 
 mkdir -p ${USER_HOME}/odc
 cp -f "$BUILD_DIR/../app-data/odc/*" ${USER_HOME}/odc/
+chown -R "$USER_NAME" ${USER_HOME}/odc
 
 mkdir -p "$TMP"
 cd "$TMP"
@@ -50,7 +51,7 @@ sudo -u $USER_NAME psql datacube -c 'create extension hstore'
 DCONF=/home/${USER_NAME}/.config/datacube
 
 mkdir -p ${DCONF}
-cp ${USER_HOME}/odc/esa_worldcover_2021.odc-product.yaml ${DCONF}/
+chown -R ${USER_NAME} ${DCONF}
 
 echo "export DCONF=${USER_HOME}/.config/datacube" >> ${USER_HOME}/.bashrc
 echo "export DATACUBE_CONFIG_PATH=${DCONF}/datacube.conf" >> ${USER_HOME}/.bashrc
@@ -71,7 +72,7 @@ EOF
 
 ##---------------------------------------------
 
-cat << EOF > ${DCONF}/landsat-clip.yml
+cat << EOF > ${DCONF}/landsat-clip.yaml
 name: clip_landsat
 description: example ortho imagery
 metadata_type: eo3
@@ -97,18 +98,19 @@ measurements:
 EOF
 
 ##-------------------------------------------------
+cp ${USER_HOME}/odc/esa_worldcover_2021.odc-product.yaml ${DCONF}/
 
 sudo -u $USER_NAME  datacube -v -C ${DCONF}/datacube.conf  \
     system init
 
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
-    product add ${DCONF}/landsat-clip.yml
+    product add ${DCONF}/landsat-clip.yaml
 
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
     product add ${DCONF}/esa_worldcover_2021.odc-product.yaml
 
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
-    dataset add ${USER_HOME}/odc/esa-sample0.yml
+    dataset add ${USER_HOME}/odc/esa-sample0.yaml
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
