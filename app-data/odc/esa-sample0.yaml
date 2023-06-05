@@ -23,8 +23,8 @@ grids:
 
 properties:
   datetime:
-  dtr:end_datetime: '2021-01-01T00:00:00Z'
-  dtr:start_datetime: '2021-12-31T00:00:00Z'
+  dtr:end_datetime: '2021-12-31T00:00:00Z'
+  dtr:start_datetime: '2021-01-01T00:00:00Z'
 #  io:supercell_id: 55G
 #  io:tile_id: 55G
   odc:file_format: GeoTIFF
