@@ -108,10 +108,7 @@ sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
     product add ${DCONF}/esa_worldcover_2021.odc-product.yaml
 
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
-    dataset add ${USER_HOME}/esa-sample0.yml
-
-
-
+    dataset add ${USER_HOME}/odc/esa-sample0.yml
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
