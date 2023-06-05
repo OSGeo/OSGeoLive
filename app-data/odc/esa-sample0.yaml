@@ -50,8 +50,9 @@ properties:
   - 1.0
 
 measurements:
-  data:
+  classification:
     path: file:///home/user/odc/esa_10m_2021_prizren.tif
 
+accessories:
 
 lineage: {}
