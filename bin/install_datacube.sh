@@ -32,7 +32,7 @@ BIN="/usr/local/bin"
 apt-get install --yes python3-datacube python3-odc-geo python3-odc-stac
 
 mkdir -p ${USER_HOME}/odc
-cp -f "$BUILD_DIR/../app-conf/odc/*" ${USER_HOME}/odc/
+cp -f "$BUILD_DIR/../app-data/odc/*" ${USER_HOME}/odc/
 
 mkdir -p "$TMP"
 cd "$TMP"
@@ -50,10 +50,10 @@ sudo -u $USER_NAME psql datacube -c 'create extension hstore'
 DCONF=/home/${USER_NAME}/.config/datacube
 
 mkdir -p ${DCONF}
-cp ${USER_HOME}/odc/esa-sample0.yml ${DCONF}/
+cp ${USER_HOME}/odc/esa_worldcover_2021.odc-product.yaml ${DCONF}/
 
-echo "export DCONF=/home/${USER_NAME}/.config/datacube" >> /home/${USER_NAME}/.bashrc
-echo "export DATACUBE_CONFIG_PATH=${DCONF}/datacube.conf" >> /home/${USER_NAME}/.bashrc
+echo "export DCONF=${USER_HOME}/.config/datacube" >> ${USER_HOME}/.bashrc
+echo "export DATACUBE_CONFIG_PATH=${DCONF}/datacube.conf" >> ${USER_HOME}/.bashrc
 
 #----------------------------------------------
 cat << EOF > ${DCONF}/datacube.conf
@@ -105,7 +105,7 @@ sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
     product add ${DCONF}/landsat-clip.yml
 
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
-    product add ${DCONF}/esa-sample0.yml
+    product add ${DCONF}/esa_worldcover_2021.odc-product.yaml
 
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
     dataset add ${USER_HOME}/esa-sample0.yml
