@@ -28,7 +28,7 @@ properties:
 #  io:supercell_id: 55G
 #  io:tile_id: 55G
   odc:file_format: GeoTIFF
-  odc:region_code: 55G
+  odc:region_code: E020_N42
   proj:bbox:
   - 2.43909425607291e+05
   - 4.679351284826037e+06
