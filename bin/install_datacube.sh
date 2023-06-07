@@ -97,18 +97,23 @@ measurements:
 
 EOF
 
-##-------------------------------------------------
-cp ${USER_HOME}/odc/esa_worldcover_2021.odc-product.yaml ${DCONF}/
-
+##----------------------------------------------------------
+##  initialize base install using a non-priverlaged role
 sudo -u $USER_NAME  datacube -v -C ${DCONF}/datacube.conf  \
     system init
 
+##----------------------------------------------------------
+##  add PRODUCT schema definitions to this local datacube
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
     product add ${DCONF}/landsat-clip.yaml
+
+cp ${USER_HOME}/odc/esa_worldcover_2021.odc-product.yaml ${DCONF}/
 
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
     product add ${DCONF}/esa_worldcover_2021.odc-product.yaml
 
+##----------------------------------------------------------
+##  add demo dataset from a geoTIFF
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
     dataset add ${USER_HOME}/odc/esa-sample0.yaml
 
