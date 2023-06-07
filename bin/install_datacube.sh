@@ -98,7 +98,7 @@ measurements:
 EOF
 
 ##----------------------------------------------------------
-##  initialize base install using a non-priverlaged role
+##  initialize base install using a non-privelaged role
 sudo -u $USER_NAME  datacube -v -C ${DCONF}/datacube.conf  \
     system init
 
