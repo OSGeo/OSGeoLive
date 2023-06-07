@@ -1,6 +1,6 @@
 ---
 # Dataset
-# url: http://localhost:8080/dataset/dc688334-a7e7-55f8-8571-9a3c4dc0a3a9.odc-metadata.yaml
+# uri: file:///host/dataset/77aeb350-f9ce-11ed-9721-3b5b48699eac.odc-metadata.yaml
 $schema: https://schemas.opendatacube.org/dataset
 id: 77aeb350-f9ce-11ed-9721-3b5b48699eac
 
