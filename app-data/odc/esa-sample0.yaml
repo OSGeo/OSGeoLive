@@ -51,6 +51,7 @@ properties:
 
 measurements:
   classification:
+    path: file:///home/user/odc/esa_10m_2021_prizren.tif
   data:
     path: file:///home/user/odc/esa_10m_2021_prizren.tif
 
