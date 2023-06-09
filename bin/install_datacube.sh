@@ -14,7 +14,7 @@
 #
 # About:
 # =====
-# This script will install core datacube python3   -darkblueb 2023
+# This script will initialize core datacube python3   -darkblueb 2023
 #
 
 ./diskspace_probe.sh "`basename $0`" begin
@@ -30,6 +30,10 @@ TMP="/tmp/build_datacube"
 BIN="/usr/local/bin"
 
 apt-get install --yes python3-datacube python3-odc-geo python3-odc-stac
+
+mkdir -p ${USER_HOME}/odc
+cp -f "$BUILD_DIR/../app-data/odc/*" ${USER_HOME}/odc/
+chown -R "$USER_NAME" ${USER_HOME}/odc
 
 mkdir -p "$TMP"
 cd "$TMP"
@@ -47,9 +51,10 @@ sudo -u $USER_NAME psql datacube -c 'create extension hstore'
 DCONF=/home/${USER_NAME}/.config/datacube
 
 mkdir -p ${DCONF}
+chown -R ${USER_NAME} ${DCONF}
 
-echo "export DCONF=/home/${USER_NAME}/.config/datacube" >> /home/${USER_NAME}/.bashrc
-echo "export DATACUBE_CONFIG_PATH=${DCONF}/datacube.conf" >> /home/${USER_NAME}/.bashrc
+echo "export DCONF=${USER_HOME}/.config/datacube" >> ${USER_HOME}/.bashrc
+echo "export DATACUBE_CONFIG_PATH=${DCONF}/datacube.conf" >> ${USER_HOME}/.bashrc
 
 #----------------------------------------------
 cat << EOF > ${DCONF}/datacube.conf
@@ -67,7 +72,7 @@ EOF
 
 ##---------------------------------------------
 
-cat << EOF > ${DCONF}/landsat-clip.yml
+cat << EOF > ${DCONF}/landsat-clip.yaml
 name: clip_landsat
 description: example ortho imagery
 metadata_type: eo3
@@ -92,14 +97,28 @@ measurements:
 
 EOF
 
-##-------------------------------------------------
-
+##----------------------------------------------------------
+##  initialize base install using a non-privelaged role
 sudo -u $USER_NAME  datacube -v -C ${DCONF}/datacube.conf  \
     system init
 
-sudo -u $USER_NAME  datacube -C ${DCONF}/datacube.conf \
-    product add ${DCONF}/landsat-clip.yml
+##----------------------------------------------------------
+##  add PRODUCT schema definitions to this local datacube
+sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
+    product add ${DCONF}/landsat-clip.yaml
 
+cp ${USER_HOME}/odc/esa_worldcover_2021.odc-product.yaml ${DCONF}/
+
+sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
+    product add ${DCONF}/esa_worldcover_2021.odc-product.yaml
+
+##----------------------------------------------------------
+##  add demo dataset from a geoTIFF
+wget -c  -O ${USER_HOME}/odc/esa_10m_2021_prizren.tif \
+     https://download.osgeo.org/livedvd/data/odc/esa_10m_2021_prizren.tif
+
+sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
+    dataset add ${USER_HOME}/odc/esa-sample0.yaml
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

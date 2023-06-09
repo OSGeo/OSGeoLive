@@ -1,0 +1,35 @@
+name: esa_worldcover_2021
+description: ESA World Cover, global 10 m land use/land cover data from 2021.
+metadata_type: eo3
+
+metadata:
+  product:
+    name: esa_worldcover_2021
+
+storage:
+  crs: EPSG:4326
+  resolution:
+    longitude: 0.00008333333333333333
+    latitude: -0.00008333333333333333
+measurements:
+  - name: "classification"
+    units: "1"
+    dtype: uint8
+    nodata: 0
+    flags_definition:
+      data:
+        bits: [0, 1, 2, 3, 4, 5, 6, 7]
+        description: Land Use/Land Cover class
+        values:
+          0: no data
+          10: tree cover
+          20: shrubland
+          30: grassland
+          40: cropland
+          50: built up
+          60: bare/sparse vegetation
+          70: snow and ice
+          80: permanent water bodies
+          90: herbaceous wetland
+          95: mangroves
+          100: moss and lichen
