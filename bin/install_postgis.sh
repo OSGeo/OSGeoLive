@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2022 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2023 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -45,26 +45,6 @@ postgis.gdal_enabled_drivers = 'ENABLE_ALL'
 postgis.enable_outdb_rasters = TRUE
 
 EOF
-
-## TODO review - needed for 1404 ?!
-# fix for 2.1.1-1~precise3 package breakage
-# rm -f /usr/share/java/postgis.jar
-# ln -s /usr/share/java/postgis-jdbc-2.1.0~rc1.jar /usr/share/java/postgis.jar
-
-#shp2pgsql-gui desktop launcher
-# cat << EOF > /usr/share/applications/shp2pgsql-gui.desktop
-# [Desktop Entry]
-# Type=Application
-# Name=shp2pgsql
-# Comment=Shapefile to PostGIS Import Tool
-# Categories=Application;Geography;Geoscience;
-# Exec=shp2pgsql-gui
-# Icon=pgadmin3
-# Terminal=false
-# EOF
-
-# cp -a /usr/share/applications/shp2pgsql-gui.desktop "$USER_HOME/Desktop/"
-# chown -R "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/shp2pgsql-gui.desktop"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
