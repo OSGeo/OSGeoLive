@@ -31,14 +31,10 @@ BIN="/usr/local/bin"
 
 apt-get install --yes python3-datacube python3-odc-geo python3-odc-stac
 
-mkdir -p ${USER_HOME}/odc
-cp -f "$BUILD_DIR/../app-data/odc/*" ${USER_HOME}/odc/
-chown -R "$USER_NAME" ${USER_HOME}/odc
-
 mkdir -p "$TMP"
 cd "$TMP"
 
-sudo -u $USER_NAME createdb  datacube
+sudo -u $USER_NAME createdb datacube
 sudo -u $USER_NAME psql datacube -c 'create extension postgis'
 sudo -u $USER_NAME psql datacube -c 'create extension hstore'
 
@@ -107,7 +103,7 @@ sudo -u $USER_NAME  datacube -v -C ${DCONF}/datacube.conf  \
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
     product add ${DCONF}/landsat-clip.yaml
 
-cp ${USER_HOME}/odc/esa_worldcover_2021.odc-product.yaml ${DCONF}/
+cp -f ${BUILD_DIR}/../app-data/odc/*.yaml ${DCONF}/
 
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
     product add ${DCONF}/esa_worldcover_2021.odc-product.yaml
@@ -118,7 +114,7 @@ wget -c  -O ${USER_HOME}/odc/esa_10m_2021_prizren.tif \
      https://download.osgeo.org/livedvd/data/odc/esa_10m_2021_prizren.tif
 
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
-    dataset add ${USER_HOME}/odc/esa-sample0.yaml
+    dataset add ${DCONF}/esa-sample0.yaml
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
