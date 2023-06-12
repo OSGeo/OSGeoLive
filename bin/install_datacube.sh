@@ -28,6 +28,8 @@ USER_HOME="/home/$USER_NAME"
 
 TMP="/tmp/build_datacube"
 BIN="/usr/local/bin"
+DATA_FOLDER="/usr/local/share/data"
+ODC_DATA_FOLDER="$DATA_FOLDER/odc"
 
 apt-get install --yes python3-datacube python3-odc-geo python3-odc-stac
 
@@ -48,6 +50,7 @@ DCONF=/home/${USER_NAME}/.config/datacube
 
 mkdir -p ${DCONF}
 chown -R ${USER_NAME} ${DCONF}
+mkdir -p ${ODC_DATA_FOLDER}
 
 echo "export DCONF=${USER_HOME}/.config/datacube" >> ${USER_HOME}/.bashrc
 echo "export DATACUBE_CONFIG_PATH=${DCONF}/datacube.conf" >> ${USER_HOME}/.bashrc
@@ -110,7 +113,7 @@ sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \
 
 ##----------------------------------------------------------
 ##  add demo dataset from a geoTIFF
-wget -c  -O ${USER_HOME}/odc/esa_10m_2021_prizren.tif \
+wget -c  -O ${ODC_DATA_FOLDER}/esa_10m_2021_prizren.tif \
      https://download.osgeo.org/livedvd/data/odc/esa_10m_2021_prizren.tif
 
 sudo -u $USER_NAME datacube -C ${DCONF}/datacube.conf \

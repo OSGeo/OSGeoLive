@@ -8,7 +8,7 @@ label: esa_sample0
 product:
   name: esa_worldcover_2021
 
-location: file:///home/user/odc/esa_10m_2021_prizren.tif
+location: file:///usr/local/share/data/odc/esa_10m_2021_prizren.tif
 
 crs: epsg:4326
 geometry:
@@ -51,9 +51,9 @@ properties:
 
 measurements:
   classification:
-    path: file:///home/user/odc/esa_10m_2021_prizren.tif
+    path: file:///usr/local/share/data/odc/esa_10m_2021_prizren.tif
   data:
-    path: file:///home/user/odc/esa_10m_2021_prizren.tif
+    path: file:///usr/local/share/data/odc/esa_10m_2021_prizren.tif
 
 
 lineage: {}
