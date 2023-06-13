@@ -85,6 +85,9 @@ sed -i "1 i # Define Java home\nJAVA_HOME=/usr/lib/jvm/default-java; export JAVA
 ## Make Jetty run on a different port
 sed -i -e "s/8080/$GS_PORT/g" "$GS_HOME"/start.ini
 
+## Disable logging to stdout
+sed -i -e "s|<stdOutLogging>true</stdOutLogging>|<stdOutLogging>false</stdOutLogging>|g" "$GS_HOME"/data_dir/logging.xml
+
 ## Remove the pure-Java JAI and ImageIO jars bundled with GeoServer
 ## because they conflict with the native JAI and ImageIO
 ## installed at the system level by install_udig.sh
