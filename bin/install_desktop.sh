@@ -45,7 +45,7 @@ cp ../desktop-conf/osgeo-desktop-transparent.png \
 ### Set the desktop background
 sed -i -e 's|^DesktopShortcuts=.*|DesktopShortcuts=Home, Trash|' \
        -e 's|^WallpaperMode=.*|WallpaperMode=fit|' \
-       -e 's|^Wallpaper=.*|Wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
+       -e 's|^Wallpaper=.*|Wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
        -e 's|^BgColor=.*|BgColor=#000000|' \
        -e 's|^FgColor=.*|FgColor=#ffffff|' \
        -e 's|^UseTrash=.*|UseTrash=true|' \
