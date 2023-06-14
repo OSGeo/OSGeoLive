@@ -1,6 +1,24 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 16.0beta1
+====================
+
+ * Lubuntu 22.04.2
+ * GDAL 3.6.4
+ * QGIS 3.28.5
+ * PostGIS 3.3.3
+ * MapServer 8.0.1
+ * pygeoapi 0.15.0
+ * Cesium 1.106
+ * OWSLib 0.28.1
+ * Adjusted QGIS3.ini (#2418)
+ * Cleanup python3-azure
+ * Added some content to the QGIS print composer
+ * Updated OpenDataCube installer
+ * Disabled GeoServer logging to stdout
+ * Desktop image and configuration for version 16 (FOSS4G 2023 Prizren)
+
 Version 16.0alpha3
 ====================
 
