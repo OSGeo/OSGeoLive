@@ -80,8 +80,8 @@ pip3 install boto3 colorlog flask_cors flask_httpauth flask_restful_swagger_2 \
      passlib pyproj pystac python-dateutil PyJWT python-json-logger python-keycloak \
      python-magic redis requests rq shapely
 
-# actinia-core 4.7.1
-pip3 install https://github.com/actinia-org/actinia-core/releases/download/4.7.1/actinia_core-0.0.0-py2.py3-none-any.whl
+# latest actinia-core installation
+pip3 install actinia-core
 
 # actinia API
 pip3 install https://github.com/actinia-org/actinia-api/releases/download/3.4.0/actinia_api-3.4.0-py3-none-any.whl
@@ -160,4 +160,3 @@ chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/actinia-start.desktop"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
-
