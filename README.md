@@ -163,7 +163,7 @@ From within the VM, fill empty space with zeros in order to be able to shrink th
 ```
 Shrink the virtual machine: 
 ```
-     host$ VBoxManage modifyhd osgeolive.vdi --compact
+     host$ VBoxManage modifymedium osgeolive.vdi --compact
 ```
 Convert to vmdk format (more widely compatible):
 ```
