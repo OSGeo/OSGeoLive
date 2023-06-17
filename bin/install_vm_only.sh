@@ -60,6 +60,7 @@ USER_HOME="/home/$USER_NAME"
 # cd /home/user
 # chmod a+x bootstrap.sh
 # ./bootstrap.sh
+# rm ./bootstrap.sh
 
 apt-get -q update
 apt-mark unhold linux-image-generic
@@ -78,7 +79,7 @@ apt-get --yes install build-essential git gnupg devscripts debhelper \
   cmake libotb-dev npm nodejs python3-dask python3-sklearn python3-cfgrib
 
 # Adding Python2
-apt-get install --yes python-all-dev
+# apt-get install --yes python-all-dev
 
 # Adding back LibreOffice and other packages that were removed from iso to save disk space
 apt-get --yes install libreoffice libreoffice-common libreoffice-core 2048-qt noblenote trojita \
@@ -91,12 +92,12 @@ rm "$USER_HOME"/.config/autostart/apache-fixer.desktop
 rm "$USER_HOME"/.config/autostart/desktop-truster.desktop
 
 # Install R Studio
-cd ~
-apt-get --yes install libclang-dev
-wget https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2022.07.0-548-amd64.deb
-dpkg -i rstudio-server-2022.07.0-548-amd64.deb
-rm rstudio-server-2022.07.0-548-amd64.deb
-systemctl disable rstudio-server
+# cd ~
+# apt-get --yes install libclang-dev
+# wget https://download2.rstudio.org/server/jammy/amd64/rstudio-server-2022.07.0-548-amd64.deb
+# dpkg -i rstudio-server-2022.07.0-548-amd64.deb
+# rm rstudio-server-2022.07.0-548-amd64.deb
+# systemctl disable rstudio-server
 # TODO: Install Atom or VS Code
 
 # Install docker engine
@@ -113,7 +114,7 @@ cd "$DIR"
 ./install_qfield.sh
 ./install_52nSOS.sh
 ./install_actinia.sh
-./install_ncWMS.sh
+# ./install_ncWMS.sh
 ./install_rasdaman.sh
 ./install_re3gistry.sh
 ./install_etf.sh
