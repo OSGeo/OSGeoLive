@@ -33,7 +33,7 @@ USER_HOME="/home/$USER_NAME"
 apt-get -q update
 
 #Install fuse, required for loading AppImage
-apt-get --assume-yes install fuse
+apt-get --assume-yes install fuse3
 
 mkdir -p /usr/local/bin
 wget -c --progress=dot:mega \
