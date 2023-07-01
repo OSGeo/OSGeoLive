@@ -70,7 +70,7 @@ apt-get --yes upgrade
 apt-get install --yes build-essential linux-headers-generic
 
 # Adding VBox guest additions
-apt-get install --yes virtualbox-guest-x11
+# apt-get install --yes virtualbox-guest-x11
 
 # Adding development packages that were removed from iso to save disk space
 apt-get --yes install build-essential git gnupg devscripts debhelper \
