@@ -1,6 +1,15 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 16.0rc1
+====================
+
+ * Adjust desktop background (#2419)
+ * Replace fuse with fuse3
+ * Fix pgadmin4 installer key issue
+ * VM installer cleanup
+ * actinia 4.9.1
+
 Version 16.0beta1
 ====================
 
