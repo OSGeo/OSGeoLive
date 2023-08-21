@@ -72,24 +72,24 @@ apt-get --assume-yes install redis-server
 # install actinia in python virtualenv
 apt-get install -y python3-venv
 python3 -m venv $USER_HOME/venv-actinia
-source $USER_HOME/venv-actinia/bin/activate
+# source $USER_HOME/venv-actinia/bin/activate
 
 # install dependencies into venv
-pip3 install boto3 colorlog flask_cors flask_httpauth flask_restful_swagger_2 \
+$USER_HOME/venv-actinia/bin/python3 -m pip install boto3 colorlog flask_cors flask_httpauth flask_restful_swagger_2 \
      google-cloud google-cloud-bigquery google-cloud-storage gunicorn matplotlib \
      passlib pyproj pystac python-dateutil PyJWT python-json-logger python-keycloak \
      python-magic redis requests rq shapely
 
 # latest actinia-core installation
-pip3 install actinia-core
+$USER_HOME/venv-actinia/bin/python3 -m pip install actinia-core
 
 # actinia API
-pip3 install https://github.com/actinia-org/actinia-api/releases/download/3.4.0/actinia_api-3.4.0-py3-none-any.whl
+$USER_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-api/releases/download/3.4.0/actinia_api-3.4.0-py3-none-any.whl
 
 # actinia plugins
-pip3 install https://github.com/actinia-org/actinia-statistic-plugin/releases/download/0.2.1/actinia_statistic_plugin-0.2.1-py2.py3-none-any.whl
-pip3 install https://github.com/actinia-org/actinia-satellite-plugin/releases/download/0.1.0/actinia_satellite_plugin-0.1.0-py2.py3-none-any.whl
-pip3 install https://github.com/actinia-org/actinia-module-plugin/releases/download/2.5.0/actinia_module_plugin.wsgi-2.5.0-py2.py3-none-any.whl
+$USER_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-statistic-plugin/releases/download/0.2.1/actinia_statistic_plugin-0.2.1-py2.py3-none-any.whl
+$USER_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-satellite-plugin/releases/download/0.1.0/actinia_satellite_plugin-0.1.0-py2.py3-none-any.whl
+$USER_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-module-plugin/releases/download/2.5.0/actinia_module_plugin.wsgi-2.5.0-py2.py3-none-any.whl
 
 # left out in OSGeolive
 ## Add default password for redis
