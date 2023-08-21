@@ -155,6 +155,12 @@ The OSGeoLive Virtual Machine creation process is now exactly similar to a plain
 Use the mini iso file that was created from the previous chapter. 
 Instructions can be found in the OSGeoLive [Documentation](https://live.osgeo.org/en/quickstart/virtualization_quickstart.html)
 
+* Execute the VM build script:
+```
+     osgeolive$ cd ~/gisvm/bin
+     osgeolive$ sudo ./install_vm_only.sh amd64 2>&1 | tee /var/log/osgeolive/vm-build.log
+```
+
 ### Package the VM
 
 From within the VM, fill empty space with zeros in order to be able to shrink the virtual disk files:
