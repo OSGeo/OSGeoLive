@@ -40,9 +40,13 @@ apt-get install --yes pgadmin4-desktop
 rm /etc/apt/sources.list.d/pgadmin4.list
 apt-get -q update
 
+##----------------------------
 ##Setup pgadmin4 settings
 
 mkdir -p "$USER_HOME/.pgadmin"
+##-- fixes #2438
+chown ${USER_NAME} .pgadmin
+
 cp "$BUILD_DIR"/../app-conf/postgresql/pgadmin4.db "$USER_HOME/.pgadmin/pgadmin4.db"
 
 cp /usr/share/applications/pgadmin4.desktop "$USER_HOME"/Desktop/
