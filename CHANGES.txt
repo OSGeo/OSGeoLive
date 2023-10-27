@@ -1,7 +1,7 @@
 OSGeo Live GIS Disc
 ===================
 
-Version 16.0rc1
+Version 16.0
 ====================
 
  * Adjust desktop background (#2419)
