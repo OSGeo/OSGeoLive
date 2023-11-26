@@ -52,7 +52,7 @@ USER_HOME="/home/$USER_NAME"
 BIN="/usr/local/bin"
 ACTINIA_HOME="/opt/actinia_core"
 # see https://github.com/actinia-org/actinia-docker/blob/main/actinia-alpine/actinia.cfg
-ACTINIA_CONF="/etc/default/"
+ACTINIA_CONF="/etc/actinia/"
 
 mkdir -p "$ACTINIA_HOME"
 mkdir -p "$ACTINIA_CONF"
@@ -122,7 +122,7 @@ export DEFAULT_CONFIG_PATH=/etc/actinia/actinia.cfg
 
 actinia-user create -u actinia-gdi -w actinia-gdi -r superadmin -g superadmin -c 100000000000 -n 1000 -t 31536000
 
-gunicorn3 -b 0.0.0.0:8088 -w 1 actinia_core.main:flask_app
+/opt/actinia_core/venv-actinia/bin/gunicorn -b 0.0.0.0:8088 -w 1 actinia_core.main:flask_app
 EOF
 
 chmod 755 $BIN/actinia_start.sh
