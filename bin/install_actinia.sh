@@ -71,25 +71,25 @@ apt-get --assume-yes install redis-server
 
 # install actinia in python virtualenv
 apt-get install -y python3-venv
-python3 -m venv $USER_HOME/venv-actinia
+python3 -m venv $ACTINIA_HOME/venv-actinia
 # source $USER_HOME/venv-actinia/bin/activate
 
 # install dependencies into venv
-$USER_HOME/venv-actinia/bin/python3 -m pip install boto3 colorlog flask_cors flask_httpauth flask_restful_swagger_2 \
+$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install boto3 colorlog flask_cors flask_httpauth flask_restful_swagger_2 \
      google-cloud google-cloud-bigquery google-cloud-storage gunicorn matplotlib \
      passlib pyproj pystac python-dateutil PyJWT python-json-logger python-keycloak \
      python-magic redis requests rq shapely
 
 # latest actinia-core installation
-$USER_HOME/venv-actinia/bin/python3 -m pip install actinia-core
+$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install actinia-core
 
 # actinia API
-$USER_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-api/releases/download/3.4.0/actinia_api-3.4.0-py3-none-any.whl
+$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-api/releases/download/3.4.0/actinia_api-3.4.0-py3-none-any.whl
 
 # actinia plugins
-$USER_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-statistic-plugin/releases/download/0.2.1/actinia_statistic_plugin-0.2.1-py2.py3-none-any.whl
-$USER_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-satellite-plugin/releases/download/0.1.0/actinia_satellite_plugin-0.1.0-py2.py3-none-any.whl
-$USER_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-module-plugin/releases/download/2.5.0/actinia_module_plugin.wsgi-2.5.0-py2.py3-none-any.whl
+$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-statistic-plugin/releases/download/0.2.1/actinia_statistic_plugin-0.2.1-py2.py3-none-any.whl
+$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-satellite-plugin/releases/download/0.1.0/actinia_satellite_plugin-0.1.0-py2.py3-none-any.whl
+$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-module-plugin/releases/download/2.5.0/actinia_module_plugin.wsgi-2.5.0-py2.py3-none-any.whl
 
 # left out in OSGeolive
 ## Add default password for redis
@@ -111,6 +111,8 @@ grass --text -e -c 'EPSG:4326' "$ACTINIA_HOME"/grassdb/latlong
 mkdir -p "$BIN"
 cat << EOF > "$BIN/actinia_start.sh"
 #!/bin/bash
+set -e
+source /opt/actinia_core/venv-actinia/bin/activate
 # start redis server
 redis-server &
 sleep 1
