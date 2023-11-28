@@ -180,7 +180,7 @@ if [ \$SERVICEJETTY -eq 1 ]; then
 fi
 sed -i "s/jetty.port=8080/jetty.port=$ETF_PORT/g" "$JETTY9_HOME/start.ini"
 sed -i "s/jetty.http.port=8080/jetty.http.port=$ETF_PORT/g" "$JETTY9_HOME/start.ini"
-DELAY=90
+DELAY=150
 JETTY9=\`/usr/share/jetty9/bin/jetty.sh status | grep "Jetty running pid=" | wc -l\`
 if [ \$JETTY9 -ne 1 ]; then
 	/usr/share/jetty9/bin/jetty.sh start &
