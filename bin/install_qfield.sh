@@ -18,7 +18,7 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
-QFIELD_VERSION=v2.7.6
+QFIELD_VERSION=v3.1.9
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
