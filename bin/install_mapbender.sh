@@ -38,10 +38,8 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR="/tmp/build_mapbender"
-PARAMETERSINSTALLURL="https://www.mapbender.org/builds/osgeolive"
-INSTALLURL="http://www.mapbender.org/builds/3.3.3"
-INSTALLFILE="mapbender-starter-v3.3.3"
-PARAMETERSFILE="mapbender-starter-3.3.0"
+INSTALLURL="https://www.mapbender.org/builds/mapbender-starter-4.0.0/"
+INSTALLFILE="mapbender-starter-4.0.0"
 INSTALL_DIR="/var/www/html"
 
 mkdir -p "$TMP_DIR"
@@ -71,12 +69,7 @@ if [ ! -f "$INSTALLFILE.tar.gz" ] ; then
 else
     echo "... Mapbender already downloaded"
 fi
-if [ ! -f "${INSTALLFILE}_parameters.yml" ] ; then 
-   wget -O ${PARAMETERSFILE}_parameters.yml --progress=dot:mega \
-      "$PARAMETERSINSTALLURL/${PARAMETERSFILE}_parameters.yml"
-else
-    echo "... Mapbender yml already downloaded"
-fi
+
 
 # uncompress mapbender
 tar xfz "$INSTALLFILE.tar.gz"
@@ -90,67 +83,64 @@ chown -R www-data:www-data "$INSTALL_DIR/mapbender"
 
 # create mapbender database
 cd "$INSTALL_DIR/mapbender/"
-#cp "$TMP_DIR/${INSTALLFILE}_parameters.yml"    "$INSTALL_DIR/mapbender/app/config/parameters.yml"
-rm  "$INSTALL_DIR/mapbender/app/config/parameters.yml"
-cp "$TMP_DIR/${PARAMETERSFILE}_parameters.yml"    "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 
-sed -i -e 's/3.3.0/3.3.3/g' "$INSTALL_DIR/mapbender/app/config/parameters.yml"
 
-app/console doctrine:database:create
-app/console doctrine:schema:create
-app/console init:acl
-app/console assets:install web --symlink --relative
-app/console fom:user:resetroot --username="root" --password="root" --email="root@example.com" --silent
-app/console mapbender:database:init
-app/console mapbender:application:import app/config/applications
+rm  "$INSTALL_DIR/mapbender/.env.local"
+cp "$BUILD_DIR"/../app-conf/mapbender/.env.local   "$INSTALL_DIR/mapbender/.env.local"
 
-chown -R user:www-data "$INSTALL_DIR/mapbender"
-chmod -R ug+w "$INSTALL_DIR/mapbender/app/cache/"
-chmod -R ug+w "$INSTALL_DIR/mapbender/app/logs/"
-app/console assets:install web --symlink --relative
+rm  "$INSTALL_DIR/mapbender/config/packages/doctrine.yaml"
+cp "$BUILD_DIR"/../app-conf/mapbender/doctrine.yaml  "$INSTALL_DIR/mapbender/config/packages/doctrine.yaml"
+
+bin/console doctrine:database:create
+bin/console doctrine:schema:create
+bin/console init:acl
+bin/console assets:install public --symlink --relative
+bin/console fom:user:resetroot --username="root" --password="root" --email="root@example.com" --silent
+bin/console mapbender:database:init
+bin/console mapbender:application:import config/applications
 
 chown -R user:www-data "$INSTALL_DIR/mapbender"
-chmod -R ug+w "$INSTALL_DIR/mapbender/app/cache/"
-chmod -R ug+w "$INSTALL_DIR/mapbender/app/logs/"
-chmod -R ug+w "$INSTALL_DIR/mapbender/app/config/"
-chmod -R ug+w "$INSTALL_DIR/mapbender/web/"
+chmod -R ug+w "$INSTALL_DIR/mapbender/var/cache/"
+chmod -R ug+w "$INSTALL_DIR/mapbender/var/log/"
+bin/console assets:install public --symlink --relative
 
-chmod -R ug+w "$INSTALL_DIR/mapbender/app/db/demo.sqlite"
+chown -R user:www-data "$INSTALL_DIR/mapbender"
+chmod -R ug+w "$INSTALL_DIR/mapbender/var/cache/"
+chmod -R ug+w "$INSTALL_DIR/mapbender/var/log/"
+chmod -R ug+w "$INSTALL_DIR/mapbender/config/"
+chmod -R ug+w "$INSTALL_DIR/mapbender/public/"
 
-#Create apache2 configuration for mapbender
-#FIXME: make cleaner like
-# cat << EOF > /etc/apache2/conf-available/mapbender
-#content
-#content
-#content
-#EOF
-echo "#Configure apache for mapbender " > /etc/apache2/conf-available/mapbender.conf
-echo "Alias /mapbender $INSTALL_DIR/mapbender/web/" >> \
-   /etc/apache2/conf-available/mapbender.conf
-echo "<Directory $INSTALL_DIR/mapbender/web/>" >> /etc/apache2/conf-available/mapbender.conf
-echo "Options MultiViews FollowSymLinks" >> /etc/apache2/conf-available/mapbender.conf
-echo "DirectoryIndex app.php" >> /etc/apache2/conf-available/mapbender.conf
-echo "Require all granted" >> /etc/apache2/conf-available/mapbender.conf
+chmod -R ug+w "$INSTALL_DIR/mapbender/var/db/demo.sqlite"
 
-echo "RewriteEngine On" >> /etc/apache2/conf-available/mapbender.conf
-echo "RewriteBase /mapbender/" >> /etc/apache2/conf-available/mapbender.conf
-echo "RewriteCond %{ENV:REDIRECT_STATUS} ^$" >> /etc/apache2/conf-available/mapbender.conf
-echo "RewriteCond %{REQUEST_FILENAME} !-f" >> /etc/apache2/conf-available/mapbender.conf
-echo "RewriteCond %{REQUEST_FILENAME} !-d" >> /etc/apache2/conf-available/mapbender.conf
-echo "RewriteRule ^(.*)$ app.php/$1 [PT,L,QSA]" >> /etc/apache2/conf-available/mapbender.conf
-echo "</Directory>" >> /etc/apache2/conf-available/mapbender.conf       
+# Create apache2 configuration for mapbender
+if [ ! -e /etc/apache2/conf-available/mapbender.conf ] ; then
+   cat << EOF > /etc/apache2/conf-available/mapbender.conf
+Alias /mapbender /var/www/html/mapbender/public/
+<Directory /var/www/html/mapbender/public/>
+Options MultiViews FollowSymLinks
+DirectoryIndex index.php
+
+Require all granted
+RewriteEngine On
+RewriteBase /mapbender/
+RewriteCond %{ENV:REDIRECT_STATUS} ^$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/ [PT,L,QSA] 
+</Directory>
+EOF
+fi
 
 ln -s /etc/apache2/conf-available/mapbender.conf /etc/apache2/conf-enabled/mapbender.conf
 
-#Restart apache2 for mapbender
+# Restart apache2 for mapbender
 /etc/init.d/apache2 force-reload
 
 ### install desktop icon ##
 echo "Installing Mapbender desktop icon"
-if [ ! -e "/usr/local/share/icons/mapbender3_desktop_48x48.png" ] ; then
-   wget -nv -N "https://svn.osgeo.org/mapbender/trunk/build/osgeolive/mapbender3_desktop_48x48.png"
+if [ ! -e "/usr/local/share/icons/mapbender.png" ] ; then
    mkdir -p /usr/local/share/icons
-   cp -f mapbender3_desktop_48x48.png /usr/local/share/icons/
+   cp -f "$BUILD_DIR"/../app-conf/mapbender/mapbender.png /usr/local/share/icons/
 fi
 
 
@@ -165,7 +155,7 @@ Name=Mapbender
 Comment=Mapbender
 Categories=Application;Geography;Geoscience;Education;
 Exec=firefox http://localhost/mapbender/
-Icon=/usr/local/share/icons/mapbender3_desktop_48x48.png
+Icon=/usr/local/share/icons/mapbender.png
 Terminal=false
 StartupNotify=false
 EOF
