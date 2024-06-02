@@ -114,7 +114,6 @@ cd "$DIR"
 ./install_qfield.sh
 ./install_52nSOS.sh
 ./install_actinia.sh
-# ./install_ncWMS.sh
 ./install_rasdaman.sh
 ./install_re3gistry.sh
 ./install_etf.sh
