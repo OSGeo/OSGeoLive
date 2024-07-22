@@ -38,8 +38,8 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR="/tmp/build_mapbender"
-INSTALLURL="https://www.mapbender.org/builds/mapbender-starter-4.0.0/"
-INSTALLFILE="mapbender-starter-4.0.0"
+INSTALLURL="https://www.mapbender.org/builds/4.0.0/"
+INSTALLFILE="mapbender-starter-v4.0.0"
 INSTALL_DIR="/var/www/html"
 
 mkdir -p "$TMP_DIR"
@@ -96,7 +96,7 @@ bin/console doctrine:schema:create
 bin/console init:acl
 bin/console assets:install public --symlink --relative
 bin/console fom:user:resetroot --username="root" --password="root" --email="root@example.com" --silent
-bin/console mapbender:database:init
+bin/console mapbender:database:init -v
 bin/console mapbender:application:import config/applications
 
 chown -R user:www-data "$INSTALL_DIR/mapbender"
