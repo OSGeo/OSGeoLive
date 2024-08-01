@@ -4,7 +4,7 @@
 # Purpose: This script will install GRASS GIS 8
 #
 #############################################################################
-# Copyright (c) 2014-2023 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2014-2024 The Open Source Geospatial Foundation and others.
 # Author: H.Bowman <hamish_b  yahoo com>
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -37,8 +37,6 @@
 #  or 8gb USB things should be ok too.
 # ***
 
-# FIXME: grass version parsing
-
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
@@ -50,16 +48,19 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR=/tmp/build_grass
-mkdir "$TMP_DIR"
+mkdir -p "$TMP_DIR"
 
+# https://launchpad.net/~ubuntugis/+archive/ubuntu/ubuntugis-unstable
+apt-get --quiet --yes install software-properties-common
+add-apt-repository --yes ppa:ubuntugis/ubuntugis-unstable
 apt-get --quiet update
-apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal-grass
+apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal-grass unzip
 
-cp /usr/share/applications/grass82.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/grass82.desktop"
+cp /usr/share/applications/grass8?.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/grass8.desktop"
 
-cp /usr/share/applications/grass82.desktop \
-  /usr/local/share/applications/osgeo-grass82.desktop
+cp /usr/share/applications/grass8?.desktop \
+  /usr/local/share/applications/osgeo-grass8.desktop
 
 #### get sample data ####
 
@@ -67,7 +68,7 @@ cp /usr/share/applications/grass82.desktop \
 mkdir -p /usr/local/share/grass
 if [ ! -d "$USER_HOME/grassdata" ] ; then
   mkdir -p "$USER_HOME/grassdata"
-  chown "$USER_NAME.$USER_NAME" "$USER_HOME/grassdata"
+  chown "$USER_NAME:$USER_NAME" "$USER_HOME/grassdata"
 fi
 
 # # NC08 for G7 is 141mb; nc_basic_spm_grass7 is 50mb; Spearfish is 21mb
@@ -84,7 +85,7 @@ fi
 # cd /usr/local/share/grass/
 # BASE=`echo "$FILE" | sed -e 's+.*/++'`
 # tar xzf "$TMP_DIR/$BASE.tar.gz"
-# chown -R root.users "$FOLDER_NAME"
+# chown -R root:users "$FOLDER_NAME"
 # chmod -R a+rX "$FOLDER_NAME"
 # 
 # # free disk space ASAP
@@ -108,19 +109,19 @@ chmod -R 0775 /usr/local/share/grass
 #############
 
 cd "$USER_HOME/grassdata"
-mkdir "$FOLDER_NAME"
+mkdir -p "$FOLDER_NAME"
 cd "$FOLDER_NAME"
 cp -r "/usr/local/share/grass/$FOLDER_NAME/user1/" .
 ln -s "/usr/local/share/grass/$FOLDER_NAME/PERMANENT" .
 # only in nc_spm_08_grass7
 #ln -s "/usr/local/share/grass/$FOLDER_NAME/landsat" .
 cd ..
-chown -R "$USER_NAME.$USER_NAME" "$FOLDER_NAME"
+chown -R "$USER_NAME:$USER_NAME" "$FOLDER_NAME"
 
 
 
 #### preconfig setup ####
-mkdir "$USER_HOME/.grass8"
+mkdir -p "$USER_HOME/.grass8"
 
 cat << EOF > "$USER_HOME/.grass8/rc"
 GISDBASE: $USER_HOME/grassdata
@@ -130,16 +131,16 @@ GRASS_GUI: wxpython
 EOF
 
 # # buggy (prompt.py not found), so disable it for now
-# echo "unset PROMPT_COMMAND" > "$USER_HOME/.grass7/bashrc"
+# echo "unset PROMPT_COMMAND" > "$USER_HOME/.grass8/bashrc"
 
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/.grass8"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/.grass8"
 
 mkdir -p "$USER_HOME/grassdata/addons"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/grassdata/addons"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/grassdata/addons"
 
 #### make gtk happy
 mkdir -p "$USER_HOME/.config/gtk-2.0"
-chown $USER_NAME.$USER_NAME "$USER_HOME/.config/gtk-2.0"
+chown $USER_NAME:$USER_NAME "$USER_HOME/.config/gtk-2.0"
 chmod go-rx "$USER_HOME/.config/gtk-2.0"
 
 
