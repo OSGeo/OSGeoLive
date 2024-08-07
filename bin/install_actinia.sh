@@ -8,12 +8,12 @@
 #          - Publication: https://doi.org/10.5281/zenodo.2631917
 #          - Tutorial: https://actinia.mundialis.de/tutorial/
 #
-# Requirements: GRASS GIS 8, Python, redis
+# Requirements: GRASS GIS 8 (./install_grass.sh), Python, redis
 #
 # actinia URL after installation: http://localhost:8088/api/v3/version
 #
 #################################################################################
-# Copyright (c) 2018-2019 Sören Gebbert and mundialis GmbH & Co. KG, Bonn.
+# Copyright (c) 2018-2019 Soeren Gebbert and mundialis GmbH & Co. KG, Bonn.
 # Copyright (c) 2020-2024 The Open Source Geospatial Foundation and others.
 #
 # Installer script author: Markus Neteler <neteler mundialis.de>
@@ -126,6 +126,7 @@ chmod 755 $BIN/actinia_start.sh
 chmod -R 777 "$ACTINIA_HOME"
 
 echo 'Downloading actinia logo ...'
+mkdir -p /usr/local/share/icons/
 wget -c --progress=dot:mega \
    -O /usr/local/share/icons/actinia.png \
    "https://github.com/actinia-org/actinia-core/raw/main/docs/docs/actinia_logo.png"
