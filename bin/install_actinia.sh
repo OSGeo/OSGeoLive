@@ -4,17 +4,17 @@
 # Purpose: This script will install actinia_core (REST API for GRASS GIS 8)
 #
 # References:
-#          - Code: https://github.com/actinia-org/actinia-gdi
+#          - Code: https://github.com/actinia-org/actinia-core
 #          - Publication: https://doi.org/10.5281/zenodo.2631917
 #          - Tutorial: https://actinia.mundialis.de/tutorial/
 #
-# Requirements: GRASS GIS 8, Python, redis
+# Requirements: GRASS GIS 8 (./install_grass.sh), Python, redis
 #
 # actinia URL after installation: http://localhost:8088/api/v3/version
 #
 #################################################################################
-# Copyright (c) 2018-2019 Sören Gebbert and mundialis GmbH & Co. KG, Bonn.
-# Copyright (c) 2020-2023 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2018-2019 Soeren Gebbert and mundialis GmbH & Co. KG, Bonn.
+# Copyright (c) 2020-2024 The Open Source Geospatial Foundation and others.
 #
 # Installer script author: Markus Neteler <neteler mundialis.de>
 #
@@ -67,7 +67,7 @@ mkdir -p "$ACTINIA_HOME"/workspace/download_cache
 mkdir -p "$ACTINIA_HOME"/userdata
 
 apt-get -q update
-apt-get --assume-yes install redis-server
+apt-get --assume-yes install build-essential python3-dev redis-server
 
 # install actinia in python virtualenv
 apt-get install -y python3-venv
@@ -83,13 +83,10 @@ $ACTINIA_HOME/venv-actinia/bin/python3 -m pip install boto3 colorlog flask_cors 
 # latest actinia-core installation
 $ACTINIA_HOME/venv-actinia/bin/python3 -m pip install actinia-core
 
-# actinia API
-$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-api/releases/download/3.4.0/actinia_api-3.4.0-py3-none-any.whl
-
 # actinia plugins
-$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-statistic-plugin/releases/download/0.2.1/actinia_statistic_plugin-0.2.1-py2.py3-none-any.whl
-$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-satellite-plugin/releases/download/0.1.0/actinia_satellite_plugin-0.1.0-py2.py3-none-any.whl
-$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-module-plugin/releases/download/2.5.0/actinia_module_plugin.wsgi-2.5.0-py2.py3-none-any.whl
+$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-statistic-plugin/releases/download/0.2.2/actinia_statistic_plugin-0.2.2-py2.py3-none-any.whl
+$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-satellite-plugin/releases/download/0.1.2/actinia_satellite_plugin-0.1.2-py2.py3-none-any.whl
+$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-module-plugin/releases/download/2.6.1/actinia_module_plugin-2.6.1-py3-none-any.whl
 
 # left out in OSGeolive
 ## Add default password for redis
@@ -129,6 +126,7 @@ chmod 755 $BIN/actinia_start.sh
 chmod -R 777 "$ACTINIA_HOME"
 
 echo 'Downloading actinia logo ...'
+mkdir -p /usr/local/share/icons/
 wget -c --progress=dot:mega \
    -O /usr/local/share/icons/actinia.png \
    "https://github.com/actinia-org/actinia-core/raw/main/docs/docs/actinia_logo.png"
