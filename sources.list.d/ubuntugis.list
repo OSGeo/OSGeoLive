@@ -1,5 +1,5 @@
-deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu jammy main
-#deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu jammy main
-#deb http://ppa.launchpad.net/ubuntugis/ppa/ubuntu jammy main
-#deb-src http://ppa.launchpad.net/ubuntugis/ppa/ubuntu jammy main
+deb http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu noble main
+#deb-src http://ppa.launchpad.net/ubuntugis/ubuntugis-unstable/ubuntu noble main
+#deb http://ppa.launchpad.net/ubuntugis/ppa/ubuntu noble main
+#deb-src http://ppa.launchpad.net/ubuntugis/ppa/ubuntu noble main
 
