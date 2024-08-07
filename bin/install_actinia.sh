@@ -86,7 +86,7 @@ $ACTINIA_HOME/venv-actinia/bin/python3 -m pip install actinia-core
 # actinia plugins
 $ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-statistic-plugin/releases/download/0.2.2/actinia_statistic_plugin-0.2.2-py2.py3-none-any.whl
 $ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-satellite-plugin/releases/download/0.1.2/actinia_satellite_plugin-0.1.2-py2.py3-none-any.whl
-$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-module-plugin/releases/download/2.6.0/actinia_module_plugin-2.6.0-py3-none-any.whl
+$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-module-plugin/releases/download/2.6.1/actinia_module_plugin-2.6.1-py3-none-any.whl
 
 # left out in OSGeolive
 ## Add default password for redis
