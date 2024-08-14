@@ -5,7 +5,7 @@
 # OSGeoLive install scripts.
 #
 #############################################################################
-# Copyright (c) 2009-2021 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2024 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -48,9 +48,10 @@ APT::Install-Suggests "false";
 EOF
 fi
 
-# only look for updates once a week
-sed -i -e 's|\(APT::Periodic::Update-Package-Lists\) "1";|\1 "7";|' \
-   /etc/apt/apt.conf.d/10periodic
+# disable automatic updates
+sed -i -e 's|\(APT::Periodic::Update-Package-Lists\) "1";|\1 "0";|' \
+   -e 's|\(APT::Periodic::Unattended-Upgrade\) "1";|\1 "0";|' \
+   /etc/apt/apt.conf.d/20auto-upgrades
 
 # Pin down kernel version
 echo "linux-image-generic hold" | dpkg --set-selections
@@ -69,12 +70,13 @@ apt-get -q update
 # snap remove --purge core20
 # snap remove --purge snapd
 apt-get remove --yes snapd
-umount /snap/firefox/1232
-umount /snap/gnome-3-38-2004/99
-umount /snap/gtk-common-themes/1534
+umount /snap/firefox/4173
+umount /snap/gnome-42-2204/176
+umount /snap/gtk-common-themes/1535
 umount /snap/bare/5
-umount /snap/core20/1405
-umount /snap/snapd/15177
+umount /snap/core22/1380
+umount /snap/snapd/21465
+umount /snap/firmware-updater/127
 #rm -rf /var/lib/snapd/snaps/*.snap
 rm -rf /var/lib/snapd
 rm -rf /var/cache/snapd
