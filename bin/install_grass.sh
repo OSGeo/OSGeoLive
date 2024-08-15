@@ -53,8 +53,8 @@ mkdir -p "$TMP_DIR"
 apt-get --quiet update
 apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal-grass unzip
 
-cp /usr/share/applications/grass8?.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/grass8.desktop"
+cp /usr/share/applications/grass8?.desktop "$USER_HOME/Desktop/Desktop GIS/"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/Desktop GIS/grass8?.desktop"
 
 cp /usr/share/applications/grass8?.desktop \
   /usr/local/share/applications/osgeo-grass8.desktop
