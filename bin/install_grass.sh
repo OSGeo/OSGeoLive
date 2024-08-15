@@ -50,9 +50,6 @@ USER_HOME="/home/$USER_NAME"
 TMP_DIR=/tmp/build_grass
 mkdir -p "$TMP_DIR"
 
-# https://launchpad.net/~ubuntugis/+archive/ubuntu/ubuntugis-unstable
-apt-get --quiet --yes install software-properties-common
-add-apt-repository --yes ppa:ubuntugis/ubuntugis-unstable
 apt-get --quiet update
 apt-get --yes install grass-core grass-gui grass-doc grass-dev libgdal-grass unzip
 
