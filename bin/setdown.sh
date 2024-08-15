@@ -5,7 +5,7 @@
 # install scripts.
 #
 #############################################################################
-# Copyright (c) 2009-2021 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2024 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -76,19 +76,19 @@ systemctl enable manage_user_groups.service
 #   /usr/share/initramfs-tools/scripts/casper-bottom/
 
 # remove build stuff no longer of use
-apt-get --yes remove libboost1.74-dev gcc-11 g++-11 gfortran-11 build-essential \
-  libicu-dev libc6-dev
+# apt-get --yes remove libboost1.74-dev gcc-11 g++-11 gfortran-11 build-essential \
+#  libicu-dev libc6-dev
 
 # remove stuff to save disk space (#467)
-apt-get --yes remove libreoffice-common libreoffice-core 2048-qt noblenote trojita \
-  transmission-common k3b vlc snapd fonts-noto-cjk apt-xapian-index
+apt-get --yes remove libreoffice-common libreoffice-core 2048-qt noblenote \
+  transmission-common vlc snapd fonts-noto-cjk
 
 # remove any leftover orphans
 apt-get --yes autoremove
 
 # remove linux headers
-apt-get --yes remove linux-headers-generic
-apt-get --yes remove linux-headers-5.15.0-25
+# apt-get --yes remove linux-headers-generic
+# apt-get --yes remove linux-headers-6.8.0-31
 
 # Python packages disk space cleanup
 rm -rf /usr/lib/python3/dist-packages/pandas/tests/*
