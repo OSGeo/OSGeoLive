@@ -287,7 +287,7 @@ sed -i -e "s/title=.ubuntu ${UBU_RELEASE} LTS/title=OSGeoLive ${VERSION_MODE}/g"
     ../edit/usr/share/plymouth/themes/lubuntu-text/lubuntu-text.plymouth
 
 #Optional change it in the .disk/info too
-sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Jammy Jellyfish\"/OSGeoLive ${VERSION_MODE}/g" \
+sed -i -e "s/.ubuntu ${ISO_RELEASE} LTS \"Noble Numbat\"/OSGeoLive ${VERSION_MODE}/g" \
     ../extract-cd/.disk/info
 
 # rm ../initrd.lz4
@@ -301,6 +301,8 @@ find . -print0 | cpio --null --create --format=newc > ../myinitrd
 cd ../early2
 find kernel -print0 | cpio --null --create --format=newc >> ../myinitrd
 # find kernel -print0 | cpio -R 0:0 -o -H newc >> ../myinitrd
+cd ../early3
+find . -print0 | cpio --null --create --format=newc >> ../myinitrd
 cd ../main
 find . | cpio --create --format=newc | lz4 -9 -l >> ../myinitrd
 # find . | cpio -R 0:0 -o -H newc | lz4 -9 -l >> ../myinitrd
@@ -316,12 +318,12 @@ echo
 echo "Editing boot options and graphics..."
 echo "======================================"
 
-sed -i -e "s/Lubuntu/OSGeoLive/g" \
-       -e "s/initrd quiet splash/initrd fsck.mode=skip quiet splash/g" \
-    extract-cd/isolinux/txt.cfg
+# sed -i -e "s/Lubuntu/OSGeoLive/g" \
+#        -e "s/initrd quiet splash/initrd fsck.mode=skip quiet splash/g" \
+#     extract-cd/isolinux/txt.cfg
 
-cp "$GIT_DIR/desktop-conf/isolinux/splash.png" extract-cd/isolinux/splash.png
-cp "$GIT_DIR/desktop-conf/isolinux/splash.pcx" extract-cd/isolinux/splash.pcx
+# cp "$GIT_DIR/desktop-conf/isolinux/splash.png" extract-cd/isolinux/splash.png
+# cp "$GIT_DIR/desktop-conf/isolinux/splash.pcx" extract-cd/isolinux/splash.pcx
 
 echo
 echo "Regenerating manifest..."
@@ -333,8 +335,8 @@ sudo chroot edit dpkg-query -W --showformat='${Package} ${Version}\n' > \
    extract-cd/casper/filesystem.manifest
 sudo cp extract-cd/casper/filesystem.manifest \
    extract-cd/casper/filesystem.manifest-desktop
-sudo sed -i '/ubiquity/d' \
-   extract-cd/casper/filesystem.manifest-desktop
+# sudo sed -i '/ubiquity/d' \
+#    extract-cd/casper/filesystem.manifest-desktop
 sudo sed -i '/casper/d' \
    extract-cd/casper/filesystem.manifest-desktop
 
@@ -363,7 +365,7 @@ cd "$BUILD_HOME"/livecdtmp
 sudo rm -rf edit
 
 #Set an image name in extract-cd/README.diskdefines
-cp "$GIT_DIR/desktop-conf/casper/README.diskdefines" extract-cd/README.diskdefines
+# cp "$GIT_DIR/desktop-conf/casper/README.diskdefines" extract-cd/README.diskdefines
 
 echo
 echo "Calculating new md5 sums..."
