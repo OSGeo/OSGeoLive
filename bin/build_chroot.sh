@@ -113,6 +113,7 @@ echo "==============================================================="
 #  when run as root, ~ is /root/.
 rm -rf "$BUILD_HOME"/livecdtmp/edit
 rm -rf "$BUILD_HOME"/livecdtmp/lzfiles
+rm -rf "$BUILD_HOME"/livecdtmp/wget-log
 
 echo
 echo "Installing build tools"
