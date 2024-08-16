@@ -120,10 +120,10 @@ export USER_NAME
 ./setup.sh "$BUILD_MODE"
 
 ### Base installers
-# ./base_c.sh
-# ./base_python.sh
-# ./base_java.sh
-# ./base_language.sh
+./base_c.sh
+./base_python.sh
+./base_java.sh
+# ./base_language.sh # install_vm_only
 
 ### Service installers
 # ./service_apache2.sh
