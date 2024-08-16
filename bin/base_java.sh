@@ -4,7 +4,7 @@
 # Purpose: This script will install Jave JRE and Java JDK
 #
 #############################################################################
-# Copyright (c) 2009-2022 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2024 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #
@@ -22,18 +22,17 @@
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
-# NOTE: We have changed the java-common package in our ppa to point default-jdk to openjdk-8
 apt-get install --yes default-jdk default-jre
 
-apt-get install --yes gsfonts-x11
+# apt-get install --yes gsfonts-x11
 
 # Fetch/Install prebuilt libgdal-java components
-URL="http://download.osgeo.org/livedvd/data/gdal/gdal-3.4.3+dfsg-java.20220622.tgz"
-FILE=/tmp/$(basename "$URL")
-wget --no-verbose -O "$FILE" "$URL" && \
-tar xvf "$FILE" -C / && \
-ls -la /usr/lib/jni/libgdalalljni.so /usr/share/java/gdal.jar && \
-rm "$FILE" || { echo "error installing gdal-java"; exit 1; }
+# URL="http://download.osgeo.org/livedvd/data/gdal/gdal-3.4.3+dfsg-java.20220622.tgz"
+# FILE=/tmp/$(basename "$URL")
+# wget --no-verbose -O "$FILE" "$URL" && \
+# tar xvf "$FILE" -C / && \
+# ls -la /usr/lib/jni/libgdalalljni.so /usr/share/java/gdal.jar && \
+# rm "$FILE" || { echo "error installing gdal-java"; exit 1; }
 
 ####
 ./diskspace_probe.sh "`basename $0`" end
