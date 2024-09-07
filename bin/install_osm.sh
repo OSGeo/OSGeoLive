@@ -4,7 +4,7 @@
 # Purpose: This script will install some OpenStreetMap utilities
 #
 #############################################################################
-# Copyright (c) 2009-2022 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2024 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # This script is free software; you can redistribute it and/or modify it
