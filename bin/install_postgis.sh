@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2023 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2024 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -28,7 +28,7 @@ USER_HOME="/home/$USER_NAME"
 
 # Not to be confused with PGIS_Version, this has one less number and period
 #  to correspond to install paths
-PG_VERSION="14"
+PG_VERSION="16"
 
 apt-get install --yes postgis "postgresql-$PG_VERSION-postgis-3" "postgresql-$PG_VERSION-postgis-3-scripts" "postgresql-$PG_VERSION-ogr-fdw"
 
