@@ -126,10 +126,10 @@ export USER_NAME
 # ./base_language.sh # install_vm_only
 
 ### Service installers
-# ./service_apache2.sh
-# ./base_php.sh
-# ./service_tomcat.sh
-# ./service_postgresql.sh
+./service_apache2.sh
+./base_php.sh
+./service_tomcat.sh
+./service_postgresql.sh
 # ./service_mysql.sh
 
 ### Project installers
