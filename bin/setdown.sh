@@ -256,13 +256,13 @@ fi
 
 # Disabling default tomcat startup
 #update-rc.d -f tomcat7 remove
-systemctl disable tomcat9.service
+systemctl disable tomcat10.service
 # systemctl disable rasdaman.service
 systemctl disable redis.service
 
 if [ ! -e /etc/sudoers.d/tomcat ] ; then
    cat << EOF > /etc/sudoers.d/tomcat
-%user ALL=(root) NOPASSWD: /usr/sbin/service tomcat9 start,/usr/sbin/service tomcat9 stop,/usr/sbin/service tomcat9 status
+%user ALL=(root) NOPASSWD: /usr/sbin/service tomcat10 start,/usr/sbin/service tomcat10 stop,/usr/sbin/service tomcat10 status
 EOF
 fi
 chmod 440 /etc/sudoers.d/tomcat
