@@ -136,10 +136,10 @@ export USER_NAME
 ## C stack
 ./install_postgis.sh
 ./install_spatialite.sh
-# ./install_osm.sh
-# ./load_postgis.sh
+./install_osm.sh
+./load_postgis.sh
 ./install_pgrouting.sh
-# ./install_ossim.sh
+./install_ossim.sh
 ./install_mapserver.sh
 ./install_mapcache.sh
 ./install_tinyows.sh
@@ -149,18 +149,18 @@ export USER_NAME
 ./install_saga.sh
 ./install_grass.sh
 ./install_qgis.sh
-# ./install_qgis_server.sh
+./install_qgis_server.sh
 # ./install_qfield.sh # install_vm_only
 # ./install_zoo-project.sh "$ARCH"
-# ./install_marble.sh
-# ./install_opencpn.sh
-# ./install_xygrib.sh
-# ./install_PDAL.sh
+./install_marble.sh
+./install_opencpn.sh
+./install_xygrib.sh
+./install_PDAL.sh
 
 ## Python stack
-# ./install_mapproxy.sh
-# ./install_pycsw.sh
-# ./install_pywps.sh
+./install_mapproxy.sh
+./install_pycsw.sh
+./install_pywps.sh
 # ./install_pygeoapi.sh
 # ./install_eoxserver.sh
 # ./install_istsos.sh
