@@ -6,7 +6,7 @@
 #          Daniel Kastl <daniel@georepublic.de>
 #          Vicky Vergara <vicky@georepublic.de>
 #
-# Copyright (c) 2011-2020 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2011-2024 Open Source Geospatial Foundation (OSGeo) and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it

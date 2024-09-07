@@ -5,7 +5,7 @@
 # for a demo 'World Borders' application
 #
 #############################################################################
-# Copyright (c) 2009-2022 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2024 The Open Source Geospatial Foundation and others.
 #
 # Licensed under the GNU LGPL.
 #
