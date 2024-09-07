@@ -518,7 +518,7 @@ cp /usr/share/icons/gnome/32x32/categories/gnome-globe.png /usr/share/icons/
 #  `grep -l 'Geography;' /usr/share/applications/*.desktop` \
 #  /usr/local/share/applications/*.desktop
 #if all are dupes, just nuke it:
-# sed -i '57,67d' /etc/xdg/menus/lxqt-applications.menu
+sed -i '57,67d' /etc/xdg/menus/lxqt-applications.menu
 
 bash /usr/local/share/osgeo-desktop/desktop-truster.sh
 
