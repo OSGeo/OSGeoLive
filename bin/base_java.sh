@@ -22,6 +22,7 @@
 ./diskspace_probe.sh "`basename $0`" begin
 ####
 
+# NOTE: We have changed the java-common package in our ppa to point default-jdk to openjdk-17
 apt-get install --yes default-jdk default-jre
 
 # apt-get install --yes gsfonts-x11
