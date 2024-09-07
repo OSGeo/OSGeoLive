@@ -134,7 +134,7 @@ cd "$BUILD_HOME"/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://cdimage.ubuntu.com"
 UBU_RELEASE="24.04"
-ISO_RELEASE="24.04"
+ISO_RELEASE="24.04.1"
 # ISO_RELEASE="22.04-beta"
 UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
@@ -217,7 +217,7 @@ echo "======================================"
 #Method 2 hardcode default kernel from Lubuntu
 #need to repack the initrd.lz to pick up the change to casper.conf and kernel update
 #Use mkinitramfs to extract the initrd from current chroot (with potential new kernel)
-# sudo chroot edit mkinitramfs -c lz4 -o /initrd 6.8.0-38-generic
+# sudo chroot edit mkinitramfs -c lz4 -o /initrd 6.8.0-41-generic
 #or just copy the existing initrd if no change happened to the kernel version
 # cp extract-cd/casper/initrd edit/initrd
 #offset at second LZ4 tag because the new packaging of initrd has 3 parts now
