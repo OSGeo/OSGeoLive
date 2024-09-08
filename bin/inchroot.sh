@@ -183,7 +183,6 @@ export USER_NAME
 # ./install_gpsprune.sh
 
 ## Java + default tomcat
-# ./install_52nWPS.sh
 # ./install_52nSOS.sh # install_vm_only
 
 ## PHP stack
