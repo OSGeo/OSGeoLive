@@ -16,7 +16,7 @@
 #
 #################################################################################
 # Copyright (c) 2009-2022 lat/lon GmbH
-# Copyright (c) 2016-2022 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2016-2024 The Open Source Geospatial Foundation and others.
 #
 # Licensed under the GNU LGPL.
 #
