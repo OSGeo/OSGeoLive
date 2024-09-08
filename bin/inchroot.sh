@@ -161,11 +161,11 @@ export USER_NAME
 ./install_mapproxy.sh
 ./install_pycsw.sh
 ./install_pywps.sh
-# ./install_pygeoapi.sh
+./install_pygeoapi.sh
 # ./install_eoxserver.sh
-# ./install_istsos.sh
+./install_istsos.sh
 # ./install_actinia.sh # install_vm_only
-# ./install_datacube.sh
+./install_datacube.sh
 
 ## R stack
 # ./install_R.sh
@@ -197,8 +197,8 @@ export USER_NAME
 # ./install_trex.sh
 
 ## Javascript et al
-# ./install_openlayers.sh
-# ./install_leaflet.sh
+./install_openlayers.sh
+./install_leaflet.sh
 # ./install_cesium.sh
 # ./install_geoext.sh
 # ./install_rasdaman.sh # install_vm_only
