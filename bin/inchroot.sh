@@ -168,7 +168,7 @@ export USER_NAME
 ./install_datacube.sh
 
 ## R stack
-# ./install_R.sh
+./install_R.sh
 
 ## Jupyter
 ./install_jupyter.sh
@@ -178,9 +178,9 @@ export USER_NAME
 # ./install_geonetwork.sh
 ./install_deegree.sh
 # ./install_udig.sh "$ARCH" # install_vm_only
-# ./install_openjump.sh
+./install_openjump.sh
 # ./install_gvsig.sh "$ARCH" # install_vm_only
-# ./install_gpsprune.sh
+./install_gpsprune.sh
 
 ## Java + default tomcat
 # ./install_52nSOS.sh # install_vm_only
