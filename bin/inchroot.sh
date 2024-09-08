@@ -171,12 +171,12 @@ export USER_NAME
 # ./install_R.sh
 
 ## Jupyter
-# ./install_jupyter.sh
+./install_jupyter.sh
 
 ## Java stack
-# ./install_geoserver.sh
+./install_geoserver.sh
 # ./install_geonetwork.sh
-# ./install_deegree.sh
+./install_deegree.sh
 # ./install_udig.sh "$ARCH" # install_vm_only
 # ./install_openjump.sh
 # ./install_gvsig.sh "$ARCH" # install_vm_only
@@ -187,8 +187,8 @@ export USER_NAME
 # ./install_52nSOS.sh # install_vm_only
 
 ## PHP stack
-# ./install_mapbender.sh
-# ./install_geomoose.sh
+./install_mapbender.sh
+./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
 # ./install_geonode.sh
@@ -199,7 +199,7 @@ export USER_NAME
 ## Javascript et al
 ./install_openlayers.sh
 ./install_leaflet.sh
-# ./install_cesium.sh
+./install_cesium.sh
 # ./install_geoext.sh
 # ./install_rasdaman.sh # install_vm_only
 # ./install_geostyler.sh
