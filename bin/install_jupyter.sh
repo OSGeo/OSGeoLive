@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2013-2022 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2013-2024 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -32,7 +32,7 @@ cd ${JUPYTER_BUILD_DIR}
 
 # Install jupyter notebook
 apt-get install --assume-yes jupyter-notebook jupyter-client jupyter-nbconvert \
-  python3-ipykernel python3-nbformat python3-ipywidgets python3-ipyleaflet
+  python3-ipywidgets python3-ipyleaflet
 
 # 12dev -- note ticket #1965 for trial log
 
