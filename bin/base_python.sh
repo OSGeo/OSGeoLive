@@ -36,9 +36,8 @@ apt-get install --yes python3-gdal python3-shapely python3-rasterio rasterio \
     python3-fiona fiona python3-matplotlib python3-geopandas \
     python3-netcdf4 python3-geojson python3-scipy python3-pandas \
     python3-pyshp python3-geographiclib python3-geoalchemy2 \
-    python3-cartopy python3-folium
-
-# apt-get install --yes python3-mappyfile
+    python3-cartopy python3-folium python3-pystac python3-pystac-client \
+    python3-mappyfile python3-owslib
 
 # Add a symlink for rio
 ln -s /usr/bin/rasterio /usr/local/bin/rio
