@@ -184,7 +184,9 @@ fi
 
 #Alternative, just put an icon on the desktop that launched firefox and points to index.html
 mkdir -p /usr/local/share/icons
-cp -f ../desktop-conf/icons/arramagong-wombat-small.png  /usr/local/share/icons/
+cp -f ../desktop-conf/icons/arramagong-wombat-small.png /usr/local/share/icons/
+cp -f ../desktop-conf/icons/help-browser.png /usr/local/share/icons/
+cp -f ../desktop-conf/icons/system-file-manager.png /usr/local/share/icons/
 
 
 # Terminal toolbar off by default, and let's brighten the font
@@ -207,7 +209,7 @@ Name=Help
 Comment=OSGeoLive Help
 Categories=Application;Education;Geography;
 Exec=firefox http://localhost/osgeolive/
-Icon=/usr/share/icons/gnome/256x256/apps/help-browser.png
+Icon=/usr/local/share/icons/help-browser.png
 Terminal=false
 StartupNotify=false
 EOF
@@ -228,7 +230,7 @@ Name=Sample data
 Comment=Sample Geo Data
 Categories=Application;Education;Geography;
 Exec=pcmanfm-qt /usr/local/share/data
-Icon=/usr/share/icons/gnome/256x256/apps/system-file-manager.png
+Icon=/usr/local/share/icons/system-file-manager.png
 Terminal=false
 StartupNotify=false
 EOF
