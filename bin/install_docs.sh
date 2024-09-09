@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (c) 2009-2022 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2024 The Open Source Geospatial Foundation and others.
 # Copyright (c) 2009 LISAsoft
 # Copyright (c) 2009 Cameron Shorter
 # Licensed under the GNU LGPL version >= 2.1.
@@ -213,7 +213,7 @@ StartupNotify=false
 EOF
 
 cp -a "/usr/local/share/applications/$ICON_FILE" "$USER_HOME/Desktop/"
-chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 # executable bit needed for Ubuntu 9.10's GNOME. Also make the first line
 #   of the *.desktop files read "#!/usr/bin/env xdg-open"
 #chmod u+x "$USER_HOME/Desktop/$ICON_FILE"
@@ -234,7 +234,7 @@ StartupNotify=false
 EOF
 
 cp -a "/usr/local/share/applications/$ICON_FILE" "$USER_HOME/Desktop/"
-chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/$ICON_FILE"
 
 
 #Should we embed the password file in the help somehow too?
