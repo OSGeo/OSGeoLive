@@ -1,6 +1,47 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 17.0alpha1
+====================
+
+ * Lubuntu 24.04.1
+ * GDAL 3.9.2
+ * PROJ 9.4.1
+ * GEOS 3.12.2
+ * Spatialite 5.1.0
+ * PostGIS 3.4.2
+ * QGIS 3.34.9
+ * GRASS 8.4.0
+ * MapServer 8.2.2
+ * GeoServer 2.25.3
+ * Mapnik 4.0.0
+ * MapCache 1.14.0
+ * MapProxy 2.1.1
+ * SAGA 9.5.1
+ * Mapbender 4.0.0
+ * Cesium 1.121
+ * pygeoapi 0.16.1
+ * pywps 4.6.0
+ * pgRouting 3.6.2
+ * GMT 6.5.0
+ * gpsprune 23.2
+ * Marble 23.08.5
+ * OpenCPN 5.8.4
+ * JOSM svn18969
+ * OpenJUMP 2.2.1
+ * xyGrib 2.6.1
+ * QField 3.3.11
+ * fiona 1.9.6
+ * rasterio 1.3.10
+ * PDAL 2.6.2
+ * mappyfile 1.0.2
+ * OWSLib 0.29.3
+ * Jupyter 5.3.2
+ * Jupyter Notebook 6.4.12
+ * Python 3.12
+ * R 4.3.3
+ * Default desktop image for 17.0
+
 Version 16.0
 ====================
 
