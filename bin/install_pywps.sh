@@ -78,7 +78,7 @@ Categories=Education;Geography;
 EOF
 
 cp "$PYWPS_DESKTOP" "$USER_HOME/Desktop"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/pywps.desktop"
+chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/pywps.desktop"
 
 echo 'enabling Apache wsgi module'
 a2enmod wsgi

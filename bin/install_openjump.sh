@@ -138,7 +138,7 @@ END
 
 ## set proper permissions to desktop link ##
 chmod 644 -R "$PKG_DESKTOP" &&\
-chown "$USER_NAME"."$USER_NAME" "$PKG_DESKTOP" &&\
+chown "$USER_NAME":"$USER_NAME" "$PKG_DESKTOP" &&\
 
 ## Sample Data ##
 wget -N --progress=dot:mega "$URL_DATA" &&\

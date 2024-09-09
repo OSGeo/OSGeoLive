@@ -50,7 +50,7 @@ apt-get --assume-yes install libotb otb-bin otb-bin-qt monteverdi
 
 #### install desktop icon ####
 cp /usr/share/applications/monteverdi.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/monteverdi.desktop"
 
 ## 12dev  otb paths fix #1604
 # echo 'export PYTHONPATH=$PYTHONPATH:/usr/lib/otb/python' >> "$USER_HOME/.bashrc"
@@ -75,7 +75,7 @@ Terminal=false
 EOF
 
 cp /usr/share/applications/otb-mapla.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/otb-mapla.desktop"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/otb-mapla.desktop"
 
 # Download OrfeoToolBox data and documentation (software guide and cookbook)
 # Total: 60MB

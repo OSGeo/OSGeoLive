@@ -75,7 +75,7 @@ fi
 
 cp /usr/share/applications/org.qgis.qgis.desktop "$USER_HOME/Desktop/qgis.desktop"
 # cp /usr/share/applications/qbrowser.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/qgis.desktop"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/qgis.desktop"
 # chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/qbrowser.desktop"
 
 
@@ -169,7 +169,7 @@ mkdir -p "$QGIS_CONFIG_PATH"
 cp "$BUILD_DIR/../app-conf/qgis/QGIS3.ini" "$QGIS_CONFIG_PATH"
 
 chmod 644 "$USER_HOME/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini"
-chown $USER_NAME.$USER_NAME "$USER_HOME/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini"
+chown $USER_NAME:$USER_NAME "$USER_HOME/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini"
 
 # set up some extra PostGIS and Spatialite DBs
 CONFFILE="$USER_HOME/.local/share/QGIS/QGIS3/profiles/default/QGIS/QGIS3.ini"

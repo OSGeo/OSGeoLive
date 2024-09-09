@@ -33,7 +33,7 @@ USER_HOME="/home/$USER_NAME"
 
 # Default password list on the desktop to be replaced by html help in the future.
 cp ../desktop-conf/passwords.txt "$USER_HOME/Desktop/"
-chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
+chown "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/passwords.txt"
 
 # Setup the default desktop background image
 cp ../desktop-conf/osgeo-desktop.png \
@@ -81,12 +81,12 @@ sed -i -e 's|Lubuntu|OSGeoLive|' \
 #    launching with the password already embedded
 #[Geonetwork and] deegree need this right now
 mkdir -p "$USER_HOME/bin/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/bin/"
+chown "$USER_NAME:$USER_NAME" "$USER_HOME/bin/"
 mkdir -p /etc/skel/bin
 
 cp "launchassist.sh" "$USER_HOME/bin/"
 chmod 700 "$USER_HOME/bin/launchassist.sh"
-chown "$USER_NAME.$USER_NAME" \
+chown "$USER_NAME:$USER_NAME" \
    "$USER_HOME/bin/launchassist.sh" "$USER_HOME/bin"
 # no good to copy it to /etc/skel as the pw will differ for each account
 #cp "launchassist.sh" /etc/skel/bin/
@@ -167,7 +167,7 @@ else
 fi
 
 cp /usr/local/share/osgeo-desktop/welcome_message.txt "$USER_HOME"/
-chown "$USER_NAME"."$USER_NAME" "$USER_HOME"/welcome_message.txt
+chown "$USER_NAME":"$USER_NAME" "$USER_HOME"/welcome_message.txt
 cp /usr/local/share/osgeo-desktop/welcome_message.txt /etc/skel/
 
 

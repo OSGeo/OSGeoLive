@@ -144,7 +144,7 @@ EOF
 
 
 cp /usr/share/applications/mapserver.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/mapserver.desktop"
+chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/mapserver.desktop"
 
 
 # share data with the rest of the disc

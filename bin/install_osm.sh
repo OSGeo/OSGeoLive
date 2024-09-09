@@ -68,7 +68,7 @@ cd "$TMP_DIR"
 mkdir -p "$USER_HOME"/.josm/plugins
 mv *jar "$USER_HOME"/.josm/plugins/
 
-chown $USER_NAME.$USER_NAME "$USER_HOME"/.josm -R
+chown $USER_NAME:$USER_NAME "$USER_HOME"/.josm -R
 
 #### desktop icons
 cp /usr/share/applications/org.openstreetmap.josm.desktop \

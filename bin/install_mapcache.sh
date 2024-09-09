@@ -95,7 +95,7 @@ Categories=Education;Geography;
 EOF
 
 cp /usr/share/applications/mapcache.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/mapcache.desktop"
+chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/mapcache.desktop"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end

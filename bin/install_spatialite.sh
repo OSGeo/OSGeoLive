@@ -78,7 +78,7 @@ echo "Icon=/usr/share/icons/hicolor/32x32/apps/spatialite.png" \
 
 
 cp /usr/share/applications/spatialite-gui.desktop "$USER_HOME"/Desktop/
-chown "$USER_NAME.$USER_NAME" "$USER_HOME"/Desktop/spatialite-gui.desktop
+chown "$USER_NAME:$USER_NAME" "$USER_HOME"/Desktop/spatialite-gui.desktop
 
 # tweak to avoid duplication in menus
 sed -i -e 's/Database;/Geography;/' /usr/share/applications/spatialite-gui.desktop

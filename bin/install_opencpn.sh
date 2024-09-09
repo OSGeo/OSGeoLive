@@ -76,7 +76,7 @@ mkdir "$DATADIR/gpx"   # GPX tracks, etc
 mkdir "$DATADIR/grib"  # GRIB weather data downloads:
 
 adduser "$USER_NAME" users
-chown -R root.users "$DATADIR"
+chown -R root:users "$DATADIR"
 chmod -R g+rw "$DATADIR"
 
 # send users to these websites as part of the min-tutorial:
@@ -85,11 +85,11 @@ chmod -R g+rw "$DATADIR"
 # find the chart numbers you want then,
 #   http://www.charts.noaa.gov/RNCs/
 
-## "Copying of the NOAA RNCs® to any other server or location for further
+## "Copying of the NOAA RNCs to any other server or location for further
 ##  distribution is discouraged unless the following guidelines are followed:
 ##  1) this User Agreement is displayed and accepted by anyone accessing the
-##  NOAA RNCs®, and 2) a reference to this Web site is included so that anyone
-##  accessing the NOAA RNCs® is advised of their origin."
+##  NOAA RNCs, and 2) a reference to this Web site is included so that anyone
+##  accessing the NOAA RNCs is advised of their origin."
 
 
 ### Raster BSB charts ###
@@ -218,7 +218,7 @@ EOF
 
 mkdir "$USER_HOME/.opencpn"
 cp "/etc/skel/.opencpn/opencpn.conf" "$USER_HOME/.opencpn/"
-chown -R "$USER_NAME.$USER_NAME" "$USER_HOME/.opencpn/"
+chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/.opencpn/"
 
 #### install icon on desktop/menus
 cd "$TMP_DIR"
@@ -239,7 +239,7 @@ Terminal=false
 EOF
 
 cp /usr/share/applications/opencpn.desktop "$USER_HOME/Desktop/"
-chown -R $USER_NAME.$USER_NAME "$USER_HOME/Desktop/opencpn.desktop"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/opencpn.desktop"
 
 # add menu item
 if [ ! -e /usr/share/menu/opencpn ] ; then

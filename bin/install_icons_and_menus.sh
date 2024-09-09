@@ -473,7 +473,7 @@ StartupNotify=true
 EOF
 
 cp -a "/usr/share/applications/$WORKSHOP_INSTALL_FILE" "$USER_HOME/Desktop/"
-chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$WORKSHOP_INSTALL_FILE"
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/$WORKSHOP_INSTALL_FILE"
 
 ##### Setup INSPIRE installation icon
 INSPIRE_INSTALL_FILE="inspire.desktop"
@@ -490,11 +490,11 @@ StartupNotify=true
 EOF
 
 cp -a "/usr/share/applications/$INSPIRE_INSTALL_FILE" "$USER_HOME/Desktop/"
-chown $USER_NAME.$USER_NAME "$USER_HOME/Desktop/$INSPIRE_INSTALL_FILE"
+chown $USER_NAME:$USER_NAME "$USER_HOME/Desktop/$INSPIRE_INSTALL_FILE"
 
 
 #### permissions cleanup (if needed)
-chown "$USER_NAME"."$USER_NAME" "$USER_HOME/Desktop/" -R
+chown "$USER_NAME":"$USER_NAME" "$USER_HOME/Desktop/" -R
 chmod a+r "$USER_HOME/Desktop/" -R
 
 

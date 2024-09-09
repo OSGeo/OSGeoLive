@@ -49,7 +49,7 @@ Categories=Education;Geography;
 EOF
 
 cp /usr/share/applications/marble.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/marble.desktop"
+chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/marble.desktop"
 
 ##-- save 5.5M by removing the unbuilt docbook docs; could change
 rm -rf /usr/share/doc/kde/HTML/en/marble
