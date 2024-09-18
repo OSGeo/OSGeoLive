@@ -38,7 +38,7 @@ if [ -z "$USER_NAME" ] ; then
 fi
 USER_HOME="/home/$USER_NAME"
 TOMCAT_USER_NAME="tomcat"
-TOMCAT_SCRIPT_NAME="tomcat9"
+TOMCAT_SCRIPT_NAME="tomcat10"
 REGISTRY_WEB_APP_NAME="re3gistry2"
 REGISTRY_ICON_NAME="inspire.png" #to be changed to the INSPIRE logo
 REGISTRY_URL="http://localhost:8080/$REGISTRY_WEB_APP_NAME"
@@ -161,7 +161,7 @@ fi
 # create the TMP directory and clone the Re3gistry git repository
 mkdir -p "$TMP"
 cd "$TMP"
-git clone -b 'v2.4.2' --single-branch --depth 1 https://github.com/ec-jrc/re3gistry.git
+git clone -b 'osgeolive17' --single-branch --depth 1 https://github.com/ec-jrc/re3gistry.git
 #
 # copy logo
 #mkdir -p /usr/local/share/icons
