@@ -78,9 +78,9 @@ chmod a+x "$USER_HOME"/Desktop/josm.desktop
 # add an icon for viewing The Map online
 mkdir -p /usr/local/share/applications
 
-# 43.7804  11.2365
-MAP_CENTER="lat=43.7804&lon=11.2365"
-MARKER="mlat=43.7804&mlon=11.2365"
+# v17 Belem_BR  -1.44262 -48.46636
+MAP_CENTER="lat=-1.44262&lon=-48.46636"
+MARKER="mlat=-1.44262&mlon=-48.46636"
 ZOOM="16"
 
 cat << EOF > /usr/local/share/applications/osm_online.desktop
@@ -102,9 +102,9 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 #### install sample OSM data
 ## http://download.osgeo.org/livedvd/16/osm/Prizren_XK.osm.bz2
 
-CITY="Prizren_XK"
+CITY="BELEM_BR"
 #         w    s        e        n
-BBOX="21.1922265,42.0816364,20.2206175,42.6653875"
+BBOX="-48.52,-1.49,-48.4,-1.36""
 
 #
 # City OSM data:
@@ -183,7 +183,7 @@ ln -s /usr/local/share/data/osm/"$CITY.osm.bz2" \
 #### testing for osm2pgsql 0.8x
 apt-get --assume-yes --no-install-recommends install osm2pgsql
 
-#
+# LEGACY
 # ### Make hi-res OSM coastline a shapefile polygon for Mapnik rendering
 #
 # # Xapi OSM extractor:  http://wiki.openstreetmap.org/wiki/Xapi
