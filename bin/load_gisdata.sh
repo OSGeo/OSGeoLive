@@ -87,8 +87,7 @@ rm -rf netcdf
 
 mkdir -p "$NE2_DATA_FOLDER"
 
-BASE_URL="http://www.naturalearthdata.com"
-
+BASE_URL="https://naciscdn.org"
 USE_NE_UNMODIFIED=false		# live 4.5b1 process hack
 
 if $USE_NE_UNMODIFIED; then
@@ -105,24 +104,24 @@ SCALE="10m"  # 1:10 million
 # Rivers, Lake Ceterlines 1:10m
 
 LAYERS="
-cultural/$SCALE-populated-places-simple
-cultural/$SCALE-admin-0-countries
-cultural/$SCALE-admin-1-states-provinces-shp
-cultural/$SCALE-urban-area
-physical/$SCALE-geography-regions-polys
-physical/$SCALE-geography-regions-points
-physical/$SCALE-geography-regions-elevation-points
-physical/$SCALE-geography-marine-polys
-physical/$SCALE-land
-physical/$SCALE-ocean
-physical/$SCALE-lakes
-physical/$SCALE-rivers-lake-centerlines
+cultural/ne_${SCALE}_populated_places_simple
+cultural/ne_${SCALE}_admin_0_countries
+cultural/ne_${SCALE}_admin_1_states_provinces_shp
+cultural/ne_${SCALE}_urban_area
+physical/ne_${SCALE}_geography_regions_polys
+physical/ne_${SCALE}_geography_regions_points
+physical/ne_${SCALE}_geography_regions_elevation_points
+physical/ne_${SCALE}_geography_marine_polys
+physical/ne_${SCALE}_land
+physical/ne_${SCALE}_ocean
+physical/ne_${SCALE}_lakes
+physical/ne_${SCALE}_rivers_lake_centerlines
 "
 
-    if [ ! -e $TMP/"$SCALE_populated_places_simple.zip" ]; then
+    if [ ! -e $TMP/"ne_$SCALE_populated_places_simple.zip" ]; then
       for LAYER in $LAYERS ; do
-    	     wget --progress=dot:mega -O "`basename $LAYER`.zip" \
-    	       "$BASE_URL/http//www.naturalearthdata.com/download/$SCALE/$LAYER.zip"
+             wget --progress=dot:mega -O "`basename $LAYER`.zip" \
+               "$BASE_URL/naturalearth/$SCALE/$LAYER.zip"
       done
     fi
 
