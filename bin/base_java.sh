@@ -25,7 +25,7 @@
 # NOTE: We have changed the java-common package in our ppa to point default-jdk to openjdk-17
 apt-get install --yes default-jdk default-jre
 
-cat <<EOF >> outputfile
+cat <<EOF >> /etc/environment
 # fix #2478 - java ugly/non-antialiased font rendering
 _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true'
 EOF
