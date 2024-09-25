@@ -153,7 +153,7 @@ export USER_NAME
 # ./install_qfield.sh # install_vm_only
 # ./install_zoo-project.sh "$ARCH"
 ./install_marble.sh
-./install_opencpn.sh
+# ./install_opencpn.sh
 ./install_xygrib.sh
 ./install_PDAL.sh
 
@@ -206,7 +206,7 @@ export USER_NAME
 # ./install_etf.sh # install_vm_only
 
 ## Docs, Data and extras
-# ./load_gisdata.sh
+./load_gisdata.sh
 ./install_docs.sh "$BUILD_MODE"
 # ./install_edutools.sh
 
