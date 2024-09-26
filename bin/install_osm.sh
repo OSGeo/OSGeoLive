@@ -179,10 +179,6 @@ ln -s /usr/local/share/data/osm/"$CITY.osm.bz2" \
 #bzip2 ${CITY}_poi.db
 
 
-###########################
-#### testing for osm2pgsql 0.8x
-apt-get --assume-yes --no-install-recommends install osm2pgsql
-
 # LEGACY
 # ### Make hi-res OSM coastline a shapefile polygon for Mapnik rendering
 #
