@@ -42,7 +42,7 @@ cd "$TMP_DIR"
 mkdir /usr/local/share/osm
 
 ##----------------------------------------------------------
-apt-get install --assume-yes osmium-tool python3-osmapi nik4
+apt-get install --assume-yes osm2pgsql osmium-tool python3-osmapi nik4
 apt-get install --assume-yes gpsd gpsd-clients
 apt-get install --assume-yes josm josm-l10n
 
