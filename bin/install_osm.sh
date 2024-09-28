@@ -58,6 +58,8 @@ gui.maximized=false
 EOF
 
 cd "$TMP_DIR"
+
+##------------- JOSM Plugins Area ------------------------------------
 #wget -c --tries=3 --progress=dot:mega \
 #    "http://download.osgeo.org/livedvd/10.0/josm/josm_plugs.tar.bz2"
 
@@ -66,11 +68,10 @@ cd "$TMP_DIR"
 
 #tar xf josm_plugs.tar.bz2
 mkdir -p "$USER_HOME"/.josm/plugins
-mv *jar "$USER_HOME"/.josm/plugins/
-
+#mv *jar "$USER_HOME"/.josm/plugins/
 chown $USER_NAME:$USER_NAME "$USER_HOME"/.josm -R
 
-#### desktop icons
+#### JOSM desktop icons
 cp /usr/share/applications/org.openstreetmap.josm.desktop \
   "$USER_HOME"/Desktop/josm.desktop
 chmod a+x "$USER_HOME"/Desktop/josm.desktop
@@ -94,9 +95,9 @@ Terminal=false
 Type=Application
 Categories=Education;Science;Geoscience;
 EOF
+
 chmod a+x /usr/local/share/applications/osm_online.desktop
 cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
-
 
 #########################################################################
 #### install sample OSM data
