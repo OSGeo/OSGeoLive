@@ -126,7 +126,7 @@ wget -N --progress=dot:mega \
 
 wget -c --tries=3 --progress=dot:mega \
    -O /usr/local/share/osm/sample.osm \
-   "http://learnosm.org/files/sample.osm"
+   "https://learnosm.org/files/sample.osm"
 
 #download as part of disc build process
 # Downloading from the osmxapi takes me about 6 minutes and is around 20MB.
