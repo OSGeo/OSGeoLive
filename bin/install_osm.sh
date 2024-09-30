@@ -105,7 +105,7 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 
 CITY="BELEM_BR"
 #         w    s        e        n
-BBOX="-48.52,-1.49,-48.4,-1.36""
+BBOX="-48.52,-1.49,-48.4,-1.36"
 
 #
 # City OSM data:
