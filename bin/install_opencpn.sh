@@ -68,16 +68,16 @@ cd "$TMP_DIR"
 #  to ensure that the data has not been corrupted or tampered with instead.
 #  So we use NOAA data from the USA for our examples instead of Sydney Harbour.)
 
-DATADIR="/usr/local/share/opencpn"
-mkdir -p "$DATADIR/c.dist/BSB_ROOT"
-mkdir -p "$DATADIR/c.dist/ENC_ROOT"
+# DATADIR="/usr/local/share/opencpn"
+# mkdir -p "$DATADIR/c.dist/BSB_ROOT"
+# mkdir -p "$DATADIR/c.dist/ENC_ROOT"
 
-mkdir "$DATADIR/gpx"   # GPX tracks, etc
-mkdir "$DATADIR/grib"  # GRIB weather data downloads:
+# mkdir "$DATADIR/gpx"   # GPX tracks, etc
+# mkdir "$DATADIR/grib"  # GRIB weather data downloads:
 
-adduser "$USER_NAME" users
-chown -R root:users "$DATADIR"
-chmod -R g+rw "$DATADIR"
+# adduser "$USER_NAME" users
+# chown -R root:users "$DATADIR"
+# chmod -R g+rw "$DATADIR"
 
 # send users to these websites as part of the min-tutorial:
 # http://www.nauticalcharts.noaa.gov/mcd/Raster/download_agreement.htm
@@ -105,32 +105,32 @@ chmod -R g+rw "$DATADIR"
 # 12402
 # 13006"
 # save space; fewer:
-RNC_CHARTS="
- 12300
- 12326
- 12327
- 12402
- 13006"
+# RNC_CHARTS="
+#  12300
+#  12326
+#  12327
+#  12402
+#  13006"
 
 
 ### Raster BSB charts ###
-cd "$TMP_DIR"
+# cd "$TMP_DIR"
 
-for CHART in $RNC_CHARTS ; do
-  wget -N --progress=dot:mega "http://www.charts.noaa.gov/RNCs/$CHART.zip"
-  if [ $? -ne 0 ] ; then
-     # try try again
-     wget -N --progress=dot:mega "http://www.charts.noaa.gov/RNCs/$CHART.zip"
-  fi
-  wget -N -nv "http://www.charts.noaa.gov/RNCs/${CHART}_RNCProdCat.xml"
-done
+# for CHART in $RNC_CHARTS ; do
+#   wget -N --progress=dot:mega "http://www.charts.noaa.gov/RNCs/$CHART.zip"
+#   if [ $? -ne 0 ] ; then
+#      # try try again
+#      wget -N --progress=dot:mega "http://www.charts.noaa.gov/RNCs/$CHART.zip"
+#   fi
+#   wget -N -nv "http://www.charts.noaa.gov/RNCs/${CHART}_RNCProdCat.xml"
+# done
 
-cd "$DATADIR/c.dist"
+# cd "$DATADIR/c.dist"
 
-for CHART in $RNC_CHARTS ; do
-   unzip -u -o "$TMP_DIR/$CHART.zip"
-   cp "$TMP_DIR/${CHART}_RNCProdCat.xml" BSB_ROOT/
-done
+# for CHART in $RNC_CHARTS ; do
+#    unzip -u -o "$TMP_DIR/$CHART.zip"
+#    cp "$TMP_DIR/${CHART}_RNCProdCat.xml" BSB_ROOT/
+# done
 
 
 ### Vector S-57 charts ###
@@ -155,70 +155,70 @@ done
 # US5NY1DM
 # US5NY50M"
 # save space; fewer:
-ENC_CHARTS="
- US2EC03M
- US3NY01M
- US4NY1AM
- US5NY19M
- US5NY1CM"
+# ENC_CHARTS="
+#  US2EC03M
+#  US3NY01M
+#  US4NY1AM
+#  US5NY19M
+#  US5NY1CM"
 
 
-cd "$TMP_DIR"
+# cd "$TMP_DIR"
 
-for CHART in $ENC_CHARTS ; do
-  wget -N --progress=dot:mega "http://www.charts.noaa.gov/ENCs/$CHART.zip"
-  if [ $? -ne 0 ] ; then
-     # try try again
-    wget -N --progress=dot:mega "http://www.charts.noaa.gov/ENCs/$CHART.zip"
-  fi
-  wget -N -nv "http://www.charts.noaa.gov/ENCs/${CHART}_ENCProdCat.xml"
-done
+# for CHART in $ENC_CHARTS ; do
+#   wget -N --progress=dot:mega "http://www.charts.noaa.gov/ENCs/$CHART.zip"
+#   if [ $? -ne 0 ] ; then
+#      # try try again
+#     wget -N --progress=dot:mega "http://www.charts.noaa.gov/ENCs/$CHART.zip"
+#   fi
+#   wget -N -nv "http://www.charts.noaa.gov/ENCs/${CHART}_ENCProdCat.xml"
+# done
 
-cd "$DATADIR/c.dist"
+# cd "$DATADIR/c.dist"
 
-for CHART in $ENC_CHARTS ; do
-   unzip -u -o "$TMP_DIR/$CHART.zip"
-   cp "$TMP_DIR/${CHART}_ENCProdCat.xml" ENC_ROOT/
-done
+# for CHART in $ENC_CHARTS ; do
+#    unzip -u -o "$TMP_DIR/$CHART.zip"
+#    cp "$TMP_DIR/${CHART}_ENCProdCat.xml" ENC_ROOT/
+# done
 
 
-echo "Chart download complete."
+# echo "Chart download complete."
 
 
 ###  data acceptance in user-init'd run-time script "opencpn_noaa_agreement.sh"
 # for data install license agreement question in the user-run data fetch script:
-cd "$BUILD_DIR"
-cp ../app-conf/opencpn/noaa_agreement.txt "$DATADIR/"
-cp ../app-conf/opencpn/opencpn_noaa_agreement.sh /usr/local/bin/
-cp ../app-conf/opencpn/launch_opencpn.sh /usr/local/bin/
-apt-get --assume-yes install gxmessage
+# cd "$BUILD_DIR"
+# cp ../app-conf/opencpn/noaa_agreement.txt "$DATADIR/"
+# cp ../app-conf/opencpn/opencpn_noaa_agreement.sh /usr/local/bin/
+# cp ../app-conf/opencpn/launch_opencpn.sh /usr/local/bin/
+# apt-get --assume-yes install gxmessage
 
 
 #### pre-set config file with data paths and initial position
 
-mkdir /etc/skel/.opencpn
+# mkdir /etc/skel/.opencpn
 
-cat << EOF > "/etc/skel/.opencpn/opencpn.conf"
-[Directories]
-InitChartDir=$DATADIR/charts
-GPXIODir=$DATADIR/gpx
-GRIBDirectory=$DATADIR/grib
-[ChartDirectories]
-ChartDir1=$DATADIR/charts/BSB_ROOT
-ChartDir2=$DATADIR/charts/ENC_ROOT
-[Settings/GlobalState]
-VPLatLon="   40.39,  -73.47"
-VPScale=0.0048
-OwnShipLatLon="   40.337,   -73.472"
-nBoundaryStyle=79
-FrameWinX=800
-[Settings/NMEADataSource]
-DataConnections=1;2;localhost;2947;0;;4800;1;0;0;;0;;0;0;0;0;1
-EOF
+# cat << EOF > "/etc/skel/.opencpn/opencpn.conf"
+# [Directories]
+# InitChartDir=$DATADIR/charts
+# GPXIODir=$DATADIR/gpx
+# GRIBDirectory=$DATADIR/grib
+# [ChartDirectories]
+# ChartDir1=$DATADIR/charts/BSB_ROOT
+# ChartDir2=$DATADIR/charts/ENC_ROOT
+# [Settings/GlobalState]
+# VPLatLon="   40.39,  -73.47"
+# VPScale=0.0048
+# OwnShipLatLon="   40.337,   -73.472"
+# nBoundaryStyle=79
+# FrameWinX=800
+# [Settings/NMEADataSource]
+# DataConnections=1;2;localhost;2947;0;;4800;1;0;0;;0;;0;0;0;0;1
+# EOF
 
-mkdir "$USER_HOME/.opencpn"
-cp "/etc/skel/.opencpn/opencpn.conf" "$USER_HOME/.opencpn/"
-chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/.opencpn/"
+# mkdir "$USER_HOME/.opencpn"
+# cp "/etc/skel/.opencpn/opencpn.conf" "$USER_HOME/.opencpn/"
+# chown -R "$USER_NAME:$USER_NAME" "$USER_HOME/.opencpn/"
 
 #### install icon on desktop/menus
 cd "$TMP_DIR"
@@ -233,7 +233,7 @@ Encoding=UTF-8
 Name=OpenCPN
 Comment=GPS Navigation. You need to setup Gpsd manually
 Categories=Application;Education;Geography;
-Exec=/usr/local/bin/launch_opencpn.sh
+Exec=opencpn
 Icon=/usr/share/icons/opencpn.png
 Terminal=false
 EOF
