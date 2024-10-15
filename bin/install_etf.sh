@@ -2,7 +2,7 @@
 #############################################################################
 #
 # Purpose: This script will install INSPIRE ETF
-# Author:  
+# Author:  Guadalter <guadaltel.com> | Daniel Martín Pérez de León <danielmartin@guadaltel.com>
 # Version 2024-09-20
 #
 #############################################################################
@@ -82,7 +82,7 @@ echo "JAVA_PKG: $JAVA_PKG"
 #
 apt-get -qq update
 
-# Check if openjdk-8-jdk-headless is installed
+# Check if openjdk-11-jdk-headless is installed
 if dpkg -l | grep -q "$JAVA_PKG"; then
     echo "$JAVA_PKG is installed."
 else
@@ -90,7 +90,7 @@ else
     apt-get --assume-yes install "$JAVA_PKG"
 fi
 
-# Set JAVA system version to 1.8
+# Set JAVA system version to 11
 update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 update-alternatives --set javac /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 
@@ -190,7 +190,7 @@ if [ ! -e $ETF_BIN_FOLDER/etf-start.sh ] ; then
     cat << EOF > $ETF_BIN_FOLDER/etf-start.sh
 #!/bin/bash
 
-# Set Java to OpenJDK 8
+# Set Java to OpenJDK 11
 update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 update-alternatives --set javac /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 
@@ -225,7 +225,7 @@ if [ ! -e $ETF_BIN_FOLDER/etf-stop.sh ] ; then
    sudo cat << EOF > $ETF_BIN_FOLDER/etf-stop.sh
 #!/bin/bash
 
-# Set Java to OpenJDK 8
+# Set Java to OpenJDK 11
 update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 update-alternatives --set javac /usr/lib/jvm/java-11-openjdk-amd64/bin/java
 
