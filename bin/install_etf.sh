@@ -2,7 +2,7 @@
 #############################################################################
 #
 # Purpose: This script will install INSPIRE ETF
-# Author:  Guadalter <guadaltel.com> | Daniel Martín Pérez de León <danielmartin@guadaltel.com>
+# Author:  Guadaltel <guadaltel.com> | Daniel Martín Pérez de León <danielmartin@guadaltel.com>
 # Version 2024-09-20
 #
 #############################################################################
