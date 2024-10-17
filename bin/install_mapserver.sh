@@ -59,7 +59,7 @@ MS_DEMO_VERSION="1.2"
 MS_DOCS_VERSION="8-2"
 
 wget -c --progress=dot:mega \
-    "http://download.osgeo.org/livedvd/data/mapserver/mapserver-$MS_DOCS_VERSION-html-docs.zip"
+    "https://download.osgeo.org/livedvd/data/mapserver/mapserver-$MS_DOCS_VERSION-html-docs.zip"
 wget -c --progress=dot:mega \
    "https://github.com/mapserver/mapserver-demo/archive/v$MS_DEMO_VERSION.zip"
 
@@ -146,6 +146,8 @@ EOF
 cp /usr/share/applications/mapserver.desktop "$USER_HOME/Desktop/"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/mapserver.desktop"
 
+# allow Mapfiles to be read from /home/user
+chmod o+rx "$USER_HOME"
 
 # share data with the rest of the disc
 ln -s /usr/local/share/mapserver/demos/itasca/data \
