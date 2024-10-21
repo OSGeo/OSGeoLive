@@ -2,7 +2,7 @@
 #############################################################################
 #
 # Purpose: This script will install INSPIRE ETF
-# Author:  Guadaltel <guadaltel.com> | Daniel Martín Pérez de León <danielmartin@guadaltel.com>
+# Author:  Guadaltel <guadaltel.com> | Daniel Martín Pérez de León <danielmartin@guadaltel.com>  
 # Version 2024-09-20
 #
 #############################################################################
@@ -90,16 +90,6 @@ else
     apt-get --assume-yes install "$JAVA_PKG"
 fi
 
-# Set JAVA system version to 11
-update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
-update-alternatives --set javac /usr/lib/jvm/java-11-openjdk-amd64/bin/java
-
-
-# Get and echo the Java version
-JAVA_VERSION=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
-echo "Java version is: $JAVA_VERSION"
-echo "########"
-
 #
 #
 # 2 JETTY9
@@ -159,14 +149,14 @@ fi
 #
 sudo cp "$TMP/ETF.war" "$ETF_WAR_INSTALL_FOLDER"/ 
 
-rm -rf "$ETF_FOLDER"
+sudo rm -rf "$ETF_FOLDER"
 #
 # It puts the ETS repository to its place
 #
 sudo sed -i "s/jetty.http.port=8080/jetty.http.port=$ETF_PORT/g" "$JETTY9_HOME/start.ini"
-sudo -u "$USER_NAME" /usr/share/jetty9/bin/jetty.sh start
+sudo -u "$USER_NAME" JAVA=/usr/lib/jvm/java-11-openjdk-amd64/bin/java /usr/share/jetty9/bin/jetty.sh start
 wait
-sudo -u "$USER_NAME" /usr/share/jetty9/bin/jetty.sh stop
+sudo -u "$USER_NAME" JAVA=/usr/lib/jvm/java-11-openjdk-amd64/bin/java /usr/share/jetty9/bin/jetty.sh stop
 if [ ! -d "$ETF_FOLDER/projects/ets-repository-osgeolive-17" ];then
 	cd "$ETF_FOLDER/projects/"
 	sudo unzip -o "$TMP/ets-repository-osgeolive-17.zip"
@@ -190,11 +180,6 @@ if [ ! -e $ETF_BIN_FOLDER/etf-start.sh ] ; then
     cat << EOF > $ETF_BIN_FOLDER/etf-start.sh
 #!/bin/bash
 
-# Set Java to OpenJDK 11
-update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
-update-alternatives --set javac /usr/lib/jvm/java-11-openjdk-amd64/bin/java
-
-
 # Echo the Java version to verify
 JAVA_VERSION=\$(java -version 2>&1 | head -n 1)
 echo "Using Java version: \$JAVA_VERSION"
@@ -208,7 +193,7 @@ sed -i "s/jetty.http.port=8080/jetty.http.port=$ETF_PORT/g" "$JETTY9_HOME/start.
 DELAY=150
 JETTY9=\`/usr/share/jetty9/bin/jetty.sh status | grep "Jetty running pid=" | wc -l\`
 if [ \$JETTY9 -ne 1 ]; then
-	/usr/share/jetty9/bin/jetty.sh start &
+	JAVA=/usr/lib/jvm/java-11-openjdk-amd64/bin/java /usr/share/jetty9/bin/jetty.sh start &
 	( 
 	for TIME in \`seq \$DELAY\`; do
 		sleep 1
@@ -224,11 +209,6 @@ fi
 if [ ! -e $ETF_BIN_FOLDER/etf-stop.sh ] ; then
    sudo cat << EOF > $ETF_BIN_FOLDER/etf-stop.sh
 #!/bin/bash
-
-# Set Java to OpenJDK 11
-update-alternatives --set java /usr/lib/jvm/java-11-openjdk-amd64/bin/java
-update-alternatives --set javac /usr/lib/jvm/java-11-openjdk-amd64/bin/java
-
 
 # Echo the Java version to verify
 JAVA_VERSION=\$(java -version 2>&1 | head -n 1)
