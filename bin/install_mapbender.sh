@@ -39,7 +39,7 @@ USER_HOME="/home/$USER_NAME"
 
 TMP_DIR="/tmp/build_mapbender"
 INSTALLURL="https://www.mapbender.org/builds/4.0.2/"
-INSTALLFILE="mapbender-starter-v4.0.2"
+INSTALLFILE="mapbender-starter-v4.0.3"
 INSTALL_DIR="/var/www/html"
 
 mkdir -p "$TMP_DIR"
