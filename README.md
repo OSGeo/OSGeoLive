@@ -97,7 +97,7 @@ We have created a debug build process so that projects can now easily create the
 
 You will need to create a pure Lubuntu Virtual Machine setup:
 
-* Download lubuntu-22.04-desktop-amd64.iso from [lubuntu web site](https://cdimage.ubuntu.com/lubuntu/releases/22.04.2/release/lubuntu-22.04.2-desktop-amd64.iso).
+* Download lubuntu-24.04.1-desktop-amd64.iso from [lubuntu web site](https://cdimage.ubuntu.com/lubuntu/releases/24.04/release/lubuntu-24.04.1-desktop-amd64.iso).
 
 * Download and install VirtualBox.
 
@@ -135,12 +135,12 @@ This will install Git, the install scripts, and create a link to them from your 
 * Save your changes and execute the build:
 ```
      osgeolive$ cd ~/gisvm/bin
-     osgeolive$ sudo ./build_chroot.sh amd64 2>&1 | tee /var/log/osgeolive/chroot-build.log
+     osgeolive$ sudo ./build_chroot.sh amd64 nightly [git_branch (default=master)] [github_username (default=OSGeo) or git clone url] 2>&1 | tee /var/log/osgeolive/chroot-build.log
 ```
 
 * After a while the iso will be created in \~livecdtmp/
 
-* Do not delete the file \~/livecdtmp/lubuntu-22.04-desktop-amd64.iso as it will be needed for next build (saves time not to download again)
+* Do not delete the file \~/livecdtmp/lubuntu-24.04.1-desktop-amd64.iso as it will be needed for next build (saves time not to download again)
 
 * Logs are created at /var/log/osgeolive/chroot-build.log
 
