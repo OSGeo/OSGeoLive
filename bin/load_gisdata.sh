@@ -209,8 +209,8 @@ sudo -u $POSTGRES_USER psql natural_earth2 --quiet -c "vacuum analyze"
 # metadata index: http://www.grassbook.org/ncexternal/nc_datalist.html
 
 # grab shapefiles, geotiffs, and KMLs (~100mb total)
-# FILES="shape rast_geotiff kml"
-FILES="shape kml"
+FILES="shape rast_geotiff kml"
+# FILES="shape kml"
 BASE_URL="http://grass.osgeo.org/sampledata/north_carolina"
 
 cd "$TMP"
