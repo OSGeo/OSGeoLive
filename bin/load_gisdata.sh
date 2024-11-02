@@ -8,7 +8,7 @@
 # Source:  http://www.naturalearthdata.com
 #
 #################################################
-# Copyright (c) 2010-2022 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2024 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -45,9 +45,6 @@ if [ ! -x "`which wget`" ] ; then
    exit 1
 fi
 
-##-- patch feb15 -- pdf from where ?
-#rm /usr/local/share/doc/Getting_Started_with_Ubuntu_13.10.pdf
-
 ##------------------------
 # create tmp folders
 mkdir "$TMP"
@@ -58,37 +55,36 @@ cd "$TMP"
 # Download netCDF datasets:
 #
 
-mkdir -p  /usr/local/share/data/netcdf
-mkdir netcdf; cd netcdf
+# mkdir -p  /usr/local/share/data/netcdf
+# mkdir netcdf; cd netcdf
 
-t_netcdf_files="
-README_netCDF_samples.txt
-rx5dayETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc
-rx5dayETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc.txt
-rx5dayETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc
-rx5dayETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc.txt
-txxETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc
-txxETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc.txt
-txxETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc
-txxETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc.txt
-"
-for n in $t_netcdf_files; do
-	wget -c -N --progress=dot:mega http://download.osgeo.org/livedvd/data/netcdf/$n
-done
+# t_netcdf_files="
+# README_netCDF_samples.txt
+# rx5dayETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc
+# rx5dayETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc.txt
+# rx5dayETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc
+# rx5dayETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc.txt
+# txxETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc
+# txxETCCDI_yr_MIROC5_historical_r2i1p1_1850-2012.nc.txt
+# txxETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc
+# txxETCCDI_yr_MIROC5_rcp45_r2i1p1_2006-2100.nc.txt
+# "
+# for n in $t_netcdf_files; do
+# 	wget -c -N --progress=dot:mega http://download.osgeo.org/livedvd/data/netcdf/$n
+# done
 
-mv * /usr/local/share/data/netcdf/
-cd ..
-rm -rf netcdf
+# mv * /usr/local/share/data/netcdf/
+# cd ..
+# rm -rf netcdf
 
 
 ##################################
 # Download natural earth datasets:
-#  nov12: data 2.0 to postgis 2.0
 
 mkdir -p "$NE2_DATA_FOLDER"
 
 BASE_URL="https://naciscdn.org"
-USE_NE_UNMODIFIED=false		# live 4.5b1 process hack
+USE_NE_UNMODIFIED=false
 
 if $USE_NE_UNMODIFIED; then
 
@@ -163,21 +159,13 @@ mv HYP_* "$NE2_DATA_FOLDER"
 
 
 ##--------------------------------
-if [ "$HAS_ATLASSTYLER" = 1 ] ; then
-  # Add Geotools .fix and .qix files to all Shapefiles. Normally Geotools application would create these
-  # files when opeing the Shapefile, but since the data-dir is read-only, we do it here.
-  # This REQUIRES that install_atlasstyler.sh has been executed before (which is checked above)
-  find "$NE2_DATA_FOLDER" -iname "*.shp" -exec atlasstyler "addFix={}" \;
-else
-  # Plan B: use ogrinfo instead
-  cd "$NE2_DATA_FOLDER"
-  for SHP in *.shp; do \
-        S=`basename $SHP .shp`
-        ogrinfo -sql "CREATE SPATIAL INDEX ON $S" $SHP;
-  done
-  cd "$TMP"
-  # fixme: Is there a need to walk thru other folders as well??
-fi
+# use ogrinfo to create spatial index
+cd "$NE2_DATA_FOLDER"
+for SHP in *.shp; do \
+      S=`basename $SHP .shp`
+      ogrinfo -sql "CREATE SPATIAL INDEX ON $S" $SHP;
+done
+cd "$TMP"
 
 ##--------------------------------
 chmod a+r "$NE2_DATA_FOLDER"     ## read the data dir
@@ -191,9 +179,6 @@ chown -R root.users "$NE2_DATA_FOLDER"
 SRC_DIR="$NE2_DATA_FOLDER"
 sudo -u $POSTGRES_USER createdb natural_earth2
 sudo -u $POSTGRES_USER psql natural_earth2 -c 'create extension postgis;'
-# 1/2013 Needed for Kosmo and gvSIG:
-#sudo -u $POSTGRES_USER psql natural_earth2 \
-#  -f /usr/share/postgresql/10/contrib/postgis-2.4/legacy.sql
 
 for n in "$SRC_DIR"/*.shp;
 do
@@ -224,7 +209,8 @@ sudo -u $POSTGRES_USER psql natural_earth2 --quiet -c "vacuum analyze"
 # metadata index: http://www.grassbook.org/ncexternal/nc_datalist.html
 
 # grab shapefiles, geotiffs, and KMLs (~100mb total)
-FILES="shape rast_geotiff kml"
+# FILES="shape rast_geotiff kml"
+FILES="shape kml"
 BASE_URL="http://grass.osgeo.org/sampledata/north_carolina"
 
 cd "$TMP"
@@ -232,14 +218,6 @@ mkdir -p nc_data
 cd nc_data
 
 mkdir -p "$DATA_FOLDER/north_carolina"
-
-
-ln -s /usr/lib/python3/dist-packages/gisdata/data/good/raster/relief_san_andres.tif \
-       $DATA_FOLDER/raster/relief_san_andres.tif
-
-ln -s /usr/lib/python3/dist-packages/gisdata/data/good/raster/test_grid.tif \
-      $DATA_FOLDER/raster/test_grid.tif
-
 
 ##-- useful metadata  31jan15
 ##-- TODO: wget -N http://www.grassbook.org/presentations/MitOSGeoDataFOSS4G9.pdf
@@ -267,64 +245,22 @@ for FILE in $FILES ; do
 done
 
 touch "$DATA_FOLDER"/north_carolina/shape/epsg-3358.txt
-
-
 cd "$TMP"
 
-#### Updated North Carolina KML
-# this dataset and website are no longer available
-#DATA_URL="http://geofemengineering.it/osgeolive/"
-#wget -N --progress=dot:mega "$DATA_URL/ossim_data/kml.tar.gz"
-#tar xzf kml.tar.gz
-#chown -R root.root kml/
-#mv -f kml/* "$DATA_FOLDER"/north_carolina/kml/
-#rm -rf kml/
+# # add landsat and srtm dataset
+# cd $DATA_FOLDER
+# wget -N --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/landsat.tar.gz"
+# tar xzf landsat.tar.gz
+# chgrp users landsat
+# chmod g+w landsat
+# rm -rf landsat.tar.gz
 
+# # make srtm elevation
+# /usr/bin/ossim-orthoigen --writer general_raster_bip \
+#    "$DATA_FOLDER/landsat/srtm.tif" \
+#    /usr/share/ossim/elevation/srtm/srtm.ras
 
-# create overviews and histograms for OSSIM
-OSSIM_PREFS_FILE=/usr/share/ossim/ossim_preference
-export OSSIM_PREFS_FILE
-
-# replace 32bit Landsat files with 8bit versions
-#DATA_DIR="$DATA_FOLDER/north_carolina/rast_geotiff"
-
-# this dataset are not found in the north_carolina/rast_geotiff directory
-
-#for BAND in 10 20 30 40 50 61 62 70 80 ; do
-#   BASENAME="lsat7_2002_$BAND.tif"
-#   NEWNAME="lsat7_2002_${BAND}_8bit.tif"
-
-#   /usr/bin/gdal_translate -ot Byte "$DATA_DIR/$BASENAME" "$DATA_DIR/$NEWNAME"
-#   rm "$DATA_DIR/$BASENAME"
-#   mv "$DATA_DIR/$NEWNAME" "$DATA_DIR/$BASENAME"
-
-#   ossim-img2rr "$DATA_DIR/$BASENAME"
-#   ossim-create-histo "$DATA_DIR/$BASENAME"
-#done
-
-/usr/bin/ossim-orthoigen --writer general_raster_bip \
-   "$DATA_DIR/elevation.tif" \
-   /usr/share/ossim/elevation/nc/elevation.ras
-
-/usr/bin/ossim-orthoigen --writer general_raster_bip \
-   "$DATA_DIR/elev_lid792_1m.tif" \
-   /usr/share/ossim/elevation/lidar/elev_lid792_1m.ras
-
-
-# add landsat and srtm dataset
-cd $DATA_FOLDER
-wget -N --progress=dot:mega "http://download.osgeo.org/livedvd/data/ossim/landsat.tar.gz"
-tar xzf landsat.tar.gz
-chgrp users landsat
-chmod g+w landsat
-rm -rf landsat.tar.gz
-
-# make srtm elevation
-/usr/bin/ossim-orthoigen --writer general_raster_bip \
-   "$DATA_FOLDER/landsat/srtm.tif" \
-   /usr/share/ossim/elevation/srtm/srtm.ras
-
-unset OSSIM_PREFS_FILE
+# unset OSSIM_PREFS_FILE
 
 
 chown -R root.root "$DATA_FOLDER"/north_carolina
