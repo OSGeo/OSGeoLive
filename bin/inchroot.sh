@@ -200,7 +200,7 @@ export USER_NAME
 ./install_cesium.sh
 ./install_geoext.sh
 # ./install_rasdaman.sh # install_vm_only
-# ./install_geostyler.sh
+./install_geostyler.sh
 # ./install_re3gistry.sh # install_vm_only
 # ./install_etf.sh # install_vm_only
 
