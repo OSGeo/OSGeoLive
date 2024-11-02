@@ -229,7 +229,7 @@ if [ "$NEAR_RC" -eq 1 ] ; then
 fi
 
 # user shouldn't own outside of /home, but a group can
-chown -R root.staff /usr/local/share/gisvm
+chown -R root:staff /usr/local/share/gisvm
 chmod -R g+w /usr/local/share/gisvm
 
 # Update the file search index
