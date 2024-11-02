@@ -6,7 +6,7 @@
 # Author:  Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2010-2022 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2024 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -108,9 +108,10 @@ usermod -aG docker user
 cd "$DIR"
 
 # ./base_language.sh
+#./install_geonetwork.sh
+#./install_geonode.sh
 ./install_gmt.sh
 ./install_gvsig.sh "$ARCH"
-./install_udig.sh "$ARCH"
 ./install_qfield.sh
 ./install_52nSOS.sh
 ./install_actinia.sh
