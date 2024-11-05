@@ -41,7 +41,7 @@ Encoding=UTF-8
 Name=Marble
 Comment=Marble
 Categories=Application;Education;Geography;
-Exec=marble-qt %F
+Exec=QTWEBENGINE_DISABLE_SANDBOX=1 marble-qt %F
 Icon=marble
 Terminal=false
 StartupNotify=false
