@@ -37,11 +37,9 @@ apt-get install --yes marble-qt marble-data marble-plugins
 cat << EOF > "/usr/share/applications/marble.desktop"
 [Desktop Entry]
 Type=Application
-Encoding=UTF-8
 Name=Marble
 Comment=Marble
-Categories=Application;Education;Geography;
-Exec=QTWEBENGINE_DISABLE_SANDBOX=1 marble-qt %F
+Exec=env QTWEBENGINE_DISABLE_SANDBOX=1 marble-qt %F
 Icon=marble
 Terminal=false
 StartupNotify=false
