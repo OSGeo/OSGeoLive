@@ -68,7 +68,7 @@ DEEGREE_WAR_INSTALL_FOLDER="/var/lib/$TOMCAT_SCRIPT_NAME/webapps"
 DEEGREE_BIN_FOLDER="/usr/local/bin"
 DEEGREE_WORKSPACE_ROOT="/var/lib/$TOMCAT_SCRIPT_NAME/.deegree"
 TOMCAT_BIN_FOLDER="/usr/share/$TOMCAT_SCRIPT_NAME/bin"
-TOMCAT_SERVICE_FOLDER="/etc/systemd/system/tomcat10.service.d"
+TOMCAT_SERVICE_FOLDER="/etc/systemd/system/$TOMCAT_SCRIPT_NAME.service.d"
 
 #
 #
