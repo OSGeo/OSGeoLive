@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 17.0alpha3
+====================
+
+ * Desktop image for FOSS4G 2024 Belem
+ * Deegree 3.6.0-pre2
+ * Workaround for marble-qt when booting from ISO (#408)
+
 Version 17.0alpha2
 ====================
 
