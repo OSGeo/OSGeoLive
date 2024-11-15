@@ -45,9 +45,10 @@ cp ../desktop-conf/osgeo-desktop-transparent.png \
 ### Set the desktop background
 sed -i -e 's|^DesktopShortcuts=.*|DesktopShortcuts=Home, Trash|' \
        -e 's|^WallpaperMode=.*|WallpaperMode=fit|' \
-       -e 's|^Wallpaper=.*|Wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop-transparent.png|' \
-       -e 's|^BgColor=.*|BgColor=#000000|' \
-       -e 's|^FgColor=.*|FgColor=#ffffff|' \
+       -e 's|^Wallpaper=.*|Wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
+       -e 's|^BgColor=.*|BgColor=#cfd2e4|' \
+       -e 's|^FgColor=.*|FgColor=#232323|' \
+       -e 's|^ShadowColor=.*|ShadowColor=#A09A8F|' \
        -e 's|^UseTrash=.*|UseTrash=true|' \
    /etc/xdg/xdg-Lubuntu/pcmanfm-qt/lxqt/settings.conf
 
@@ -74,7 +75,7 @@ sed -i -e 's|^background=.*|background=/usr/share/lubuntu/wallpapers/osgeo-deskt
 
 # Set the installer desktop icon to OSGeoLive
 sed -i -e 's|Lubuntu|OSGeoLive|' \
-       -e 's|24.04 LTS|17.0alpha1|' \
+       -e 's|24.04 LTS|17.0alpha3|' \
    /usr/share/applications/lubuntu-calamares.desktop
 
 #Add the launchhelp script which allows other apps to provide sudo

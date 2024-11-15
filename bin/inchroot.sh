@@ -177,7 +177,6 @@ export USER_NAME
 ./install_geoserver.sh
 # ./install_geonetwork.sh # install_vm_only
 ./install_deegree.sh
-# ./install_udig.sh "$ARCH" # install_vm_only
 ./install_openjump.sh
 # ./install_gvsig.sh "$ARCH" # install_vm_only
 ./install_gpsprune.sh
@@ -199,14 +198,14 @@ export USER_NAME
 ./install_openlayers.sh
 ./install_leaflet.sh
 ./install_cesium.sh
-# ./install_geoext.sh
+./install_geoext.sh
 # ./install_rasdaman.sh # install_vm_only
-# ./install_geostyler.sh
+./install_geostyler.sh
 # ./install_re3gistry.sh # install_vm_only
 # ./install_etf.sh # install_vm_only
 
 ## Docs, Data and extras
-# ./load_gisdata.sh
+./load_gisdata.sh
 ./install_docs.sh "$BUILD_MODE"
 # ./install_edutools.sh
 
@@ -230,7 +229,7 @@ if [ "$NEAR_RC" -eq 1 ] ; then
 fi
 
 # user shouldn't own outside of /home, but a group can
-chown -R root.staff /usr/local/share/gisvm
+chown -R root:staff /usr/local/share/gisvm
 chmod -R g+w /usr/local/share/gisvm
 
 # Update the file search index

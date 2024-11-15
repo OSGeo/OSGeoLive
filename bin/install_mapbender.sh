@@ -93,11 +93,9 @@ cp "$BUILD_DIR"/../app-conf/mapbender/doctrine.yaml  "$INSTALL_DIR/mapbender/con
 
 bin/console doctrine:database:create
 bin/console doctrine:schema:create
-bin/console init:acl
 bin/console assets:install public --symlink --relative
 bin/console fom:user:resetroot --username="root" --password="root" --email="root@example.com" --silent
 bin/console mapbender:database:init -v
-bin/console mapbender:application:import config/applications
 
 chown -R user:www-data "$INSTALL_DIR/mapbender"
 chmod -R ug+w "$INSTALL_DIR/mapbender/var/cache/"

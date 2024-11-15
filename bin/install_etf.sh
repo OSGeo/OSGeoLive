@@ -83,11 +83,11 @@ echo "JAVA_PKG: $JAVA_PKG"
 apt-get -qq update
 
 # Check if openjdk-11-jdk-headless is installed
-if dpkg -l | grep -q "$JAVA_PKG"; then
+if sudo dpkg -l | grep -q "$JAVA_PKG"; then
     echo "$JAVA_PKG is installed."
 else
     echo "$JAVA_PKG is not installed. Installing now..."
-    apt-get --assume-yes install "$JAVA_PKG"
+    sudo apt-get --assume-yes install "$JAVA_PKG"
 fi
 
 #

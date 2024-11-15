@@ -81,7 +81,7 @@ systemctl enable manage_user_groups.service
 
 # remove stuff to save disk space (#467)
 apt-get --yes remove libreoffice-common libreoffice-core 2048-qt noblenote \
-  transmission-common vlc snapd fonts-noto-cjk
+  transmission-common vlc snapd fonts-noto-cjk libllvm18 mesa-vulkan-drivers
 
 # remove any leftover orphans
 apt-get --yes autoremove
