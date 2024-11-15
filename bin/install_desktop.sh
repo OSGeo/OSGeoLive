@@ -44,11 +44,11 @@ cp ../desktop-conf/osgeo-desktop-transparent.png \
 
 ### Set the desktop background
 sed -i -e 's|^DesktopShortcuts=.*|DesktopShortcuts=Home, Trash|' \
-       -e 's|^WallpaperMode=.*|WallpaperMode=fit|' \
+       -e 's|^WallpaperMode=.*|WallpaperMode=zoom|' \
        -e 's|^Wallpaper=.*|Wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
        -e 's|^BgColor=.*|BgColor=#cfd2e4|' \
-       -e 's|^FgColor=.*|FgColor=#232323|' \
-       -e 's|^ShadowColor=.*|ShadowColor=#A09A8F|' \
+       -e 's|^FgColor=.*|FgColor=#000000|' \
+       -e 's|^ShadowColor=.*|ShadowColor=#7f7f7f|' \
        -e 's|^UseTrash=.*|UseTrash=true|' \
    /etc/xdg/xdg-Lubuntu/pcmanfm-qt/lxqt/settings.conf
 
