@@ -27,7 +27,7 @@ BIN_DIR=`pwd`
 BUILD_DIR='/tmp/build_cesium'
 WEB_DIR=cesium
 UNZIP_DIR="$BUILD_DIR/$WEB_DIR"
-CESIUM_VERSION="1.121"
+CESIUM_VERSION="1.123"
 ####
 
 if [ -z "$USER_NAME" ] ; then

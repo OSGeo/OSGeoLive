@@ -1,6 +1,38 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 17.0alpha3
+====================
+
+ * Desktop image for FOSS4G 2024 Belem
+ * Deegree 3.6.0-pre2
+ * Workaround for marble-qt when booting from ISO (#408)
+
+Version 17.0alpha2
+====================
+
+ * GDAL 3.9.3
+ * PostGIS 3.5.0
+ * GeoServer 2.26.0
+ * pygeoapi 0.18.0
+ * MapBender 4.0.2
+ * OpenDataCube 1.8.19
+ * Cesium 1.123
+ * UDig retired
+ * GeoPandas 1.0.1
+ * odc-geo and odc-stac updated
+ * pystac 1.11.0
+ * pystac-client 0.8.5
+ * OpenJDK 17 as system default
+ * Belem as OSM city
+ * Fix java ugly/non-antialiased font rendering (#397)
+ * OpenCPN installer back to defaults
+ * MapServer fix to access map files in user home folder
+ * Updated Re3gistry
+ * Updated ETF
+ * GeoNetwork and GeoNode moved to VM for this version
+ * Disk space optimizations
+
 Version 17.0alpha1
 ====================
 
