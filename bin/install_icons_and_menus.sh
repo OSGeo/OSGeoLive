@@ -38,8 +38,8 @@ USER_HOME="/home/$USER_NAME"
 ################################################
 
 #Desktop apps part 1 (traditional analytic GIS)
-DESKTOP_APPS="grass84 qgis qfield gvsig* openjump uDig saga"
-#disabled: atlasstyler geopublisher spatialite-gis ossimplanet 
+DESKTOP_APPS="grass84 qgis qfield gvsig* openjump saga"
+#disabled: udig atlasstyler geopublisher spatialite-gis ossimplanet 
 
 #Desktop apps part 2 (geodata viewers and editors)
 NAV_APPS="marble opencpn josm osm_online xygrib gpsprune"
@@ -47,9 +47,9 @@ NAV_APPS="marble opencpn josm osm_online xygrib gpsprune"
 
 #Server apps part 1 (web-enabled GIS; interactive/WPS)
 WEB_SERVICES="deegree-* geoserver-* *geonetwork* mapserver mapcache mapproxy-*
-              qgis-server zoo-project 52n* eoxserver* ncWMS-* pycsw istsos
+              qgis-server zoo-project 52nSOS* eoxserver* ncWMS-* pycsw istsos
               pywps t-rex actinia* pygeoapi-* re3gistry-* etf-*"
-#disabled: mapguide*
+#disabled: mapguide* 52nWSS 52nWPS
 
 #Server apps part 2 (web based viewers; data only flows down to user)
 BROWSER_CLIENTS="openlayers cesium leaflet geomajas-* mapbender GeoMoose3
