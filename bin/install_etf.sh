@@ -99,8 +99,8 @@ if [ -f "/etc/init.d/$JETTY9_SCRIPT_NAME" ] ; then
    	echo "[$(date +%M:%S)]: $JETTY9_SCRIPT_NAME service script found in /etc/init.d/."
 else
     echo "[$(date +%M:%S)]: $JETTY9_SCRIPT_NAME not found. Installing it..."
-    sudo apt-get install --assume-yes "$JETTY9_SCRIPT_NAME"
-    sudo sed -i 's/\(#JETTY_USER=\).*/\1''/' /etc/default/jetty9
+    apt-get install --assume-yes "$JETTY9_SCRIPT_NAME"
+    sed -i 's/\(#JETTY_USER=\).*/\1''/' /etc/default/jetty9
 fi
 
 
@@ -126,10 +126,10 @@ wget -c --no-check-certificate https://github.com/etf-validator/OSGeoLive-ETF/re
 
 #
 # copy logo
-sudo mkdir -p /usr/local/share/icons
+mkdir -p /usr/local/share/icons
 if [ ! -e "/usr/local/share/icons/$ETF_ICON_NAME" ] ; then
-sudo mv -v "$USER_HOME/gisvm/app-conf/ETF/$ETF_ICON_NAME" /usr/local/share/icons/
-sudo chmod 777 "/usr/local/share/icons/$ETF_ICON_NAME"
+mv -v "$USER_HOME/gisvm/app-conf/ETF/$ETF_ICON_NAME" /usr/local/share/icons/
+chmod 777 "/usr/local/share/icons/$ETF_ICON_NAME"
 fi
 #
 #
@@ -138,7 +138,7 @@ fi
 # we need to stop JETTY9 around this process
 JETTY9=`systemctl status $JETTY9_SCRIPT_NAME | grep "Active: active" | wc -l`
 if [ $JETTY9 -eq 1 ]; then
-    sudo systemctl stop $JETTY9_SCRIPT_NAME
+    systemctl stop $JETTY9_SCRIPT_NAME
     echo "[$(date +%M:%S)]: $JETTY9_SCRIPT_NAME stopped"
 else
     echo "[$(date +%M:%S)]: $JETTY9_SCRIPT_NAME already stopped"
@@ -148,25 +148,25 @@ fi
 #
 # Move the war and move to the servlet container folder and remove folder .etf
 #
-sudo cp "$TMP/ETF.war" "$ETF_WAR_INSTALL_FOLDER"/ 
+cp "$TMP/ETF.war" "$ETF_WAR_INSTALL_FOLDER"/ 
 
-sudo rm -rf "$ETF_FOLDER"
+rm -rf "$ETF_FOLDER"
 #
 # It puts the ETS repository to its place
 #
-sudo sed -i "s/jetty.http.port=8080/jetty.http.port=$ETF_PORT/g" "$JETTY9_HOME/start.ini"
+sed -i "s/jetty.http.port=8080/jetty.http.port=$ETF_PORT/g" "$JETTY9_HOME/start.ini"
 sudo -u "$USER_NAME" JAVA=/usr/lib/jvm/java-11-openjdk-amd64/bin/java /usr/share/jetty9/bin/jetty.sh start
 wait
 sudo -u "$USER_NAME" JAVA=/usr/lib/jvm/java-11-openjdk-amd64/bin/java /usr/share/jetty9/bin/jetty.sh stop
 if [ ! -d "$ETF_FOLDER/projects/ets-repository-osgeolive-17" ];then
 	cd "$ETF_FOLDER/projects/"
-	sudo unzip -o "$TMP/ets-repository-osgeolive-17.zip"
+	unzip -o "$TMP/ets-repository-osgeolive-17.zip"
 fi
 #
 # It makes modifiable the folder containing jetty for it to work perfectly
 #
-sudo chmod a+rw "$JETTY9_HOME"
-sudo chmod 777 "$JETTY9_HOME/start.ini"
+chmod a+rw "$JETTY9_HOME"
+chmod 777 "$JETTY9_HOME/start.ini"
 #
 echo "[$(date +%M:%S)]: $ETF_WEB_APP_NAME $ETF_VERSION installed in JETTY9 webapps folder"
 #
@@ -174,8 +174,8 @@ echo "[$(date +%M:%S)]: $ETF_WEB_APP_NAME $ETF_VERSION installed in JETTY9 webap
 #
 # Startup/Stop scripts set-up
 # =============================================================================
-sudo mkdir -p "$ETF_BIN_FOLDER"
-sudo chmod 777 "$ETF_BIN_FOLDER/"
+mkdir -p "$ETF_BIN_FOLDER"
+chmod 777 "$ETF_BIN_FOLDER/"
 
 if [ ! -e $ETF_BIN_FOLDER/etf-start.sh ] ; then
     cat << EOF > $ETF_BIN_FOLDER/etf-start.sh
@@ -208,7 +208,7 @@ EOF
 fi
 #
 if [ ! -e $ETF_BIN_FOLDER/etf-stop.sh ] ; then
-   sudo cat << EOF > $ETF_BIN_FOLDER/etf-stop.sh
+   cat << EOF > $ETF_BIN_FOLDER/etf-stop.sh
 #!/bin/bash
 
 # Echo the Java version to verify
@@ -224,8 +224,8 @@ zenity --info --text "ETF stopped"
 EOF
 fi
 #
-sudo chmod 755 $ETF_BIN_FOLDER/etf-start.sh
-sudo chmod 755 $ETF_BIN_FOLDER/etf-stop.sh
+chmod 755 $ETF_BIN_FOLDER/etf-start.sh
+chmod 755 $ETF_BIN_FOLDER/etf-stop.sh
 #
 #
 # Desktop set-up
@@ -235,7 +235,7 @@ mkdir -p -v "$USER_HOME/Desktop"
 # icon
 # Relies on launchassist in home dir
 mkdir -p /usr/share/applications
-sudo chmod 777 "/usr/share/applications/"
+chmod 777 "/usr/share/applications/"
 if [ ! -e /usr/share/applications/etf-start.desktop ] ; then
     cat << EOF > /usr/share/applications/etf-start.desktop
 [Desktop Entry]
@@ -270,7 +270,7 @@ fi
 #
 cp -v /usr/share/applications/etf-stop.desktop "$USER_HOME/Desktop/"
 chown -v $USER_NAME:$USER_NAME "$USER_HOME/Desktop/etf-stop.desktop"
-sudo chmod 755 "/usr/share/applications/"
+chmod 755 "/usr/share/applications/"
 #
 #
 # Done. Thanks for staying till the end!
