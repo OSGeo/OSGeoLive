@@ -46,9 +46,9 @@ cp ../desktop-conf/osgeo-desktop-transparent.png \
 sed -i -e 's|^DesktopShortcuts=.*|DesktopShortcuts=Home, Trash|' \
        -e 's|^WallpaperMode=.*|WallpaperMode=zoom|' \
        -e 's|^Wallpaper=.*|Wallpaper=/usr/share/lubuntu/wallpapers/osgeo-desktop.png|' \
-       -e 's|^BgColor=.*|BgColor=#cfd2e4|' \
+       -e 's|^BgColor=.*|BgColor=#ffffff|' \
        -e 's|^FgColor=.*|FgColor=#000000|' \
-       -e 's|^ShadowColor=.*|ShadowColor=#7f7f7f|' \
+       -e 's|^ShadowColor=.*|ShadowColor=#dfdfdf|' \
        -e 's|^UseTrash=.*|UseTrash=true|' \
    /etc/xdg/xdg-Lubuntu/pcmanfm-qt/lxqt/settings.conf
 
