@@ -38,8 +38,8 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 TMP_DIR="/tmp/build_mapbender"
-INSTALLURL="https://www.mapbender.org/builds/4.0.2/"
-INSTALLFILE="mapbender-starter-v4.0.2"
+INSTALLURL="https://www.mapbender.org/builds/4.1.0/"
+INSTALLFILE="mapbender-starter-v4.1.0"
 INSTALL_DIR="/var/www/html"
 
 mkdir -p "$TMP_DIR"
@@ -159,7 +159,7 @@ StartupNotify=false
 EOF
 fi
 cp /usr/local/share/applications/mapbender.desktop "$USER_HOME/Desktop/"
-chown "$USER_NAME.$USER_NAME" "$USER_HOME/Desktop/mapbender.desktop"
+chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/mapbender.desktop"
 
 
 ####
