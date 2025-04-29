@@ -15,7 +15,7 @@ Version 17.0alpha2
  * PostGIS 3.5.0
  * GeoServer 2.26.0
  * pygeoapi 0.18.0
- * MapBender 4.0.2
+ * Mapbender 4.0.2
  * OpenDataCube 1.8.19
  * Cesium 1.123
  * UDig retired
