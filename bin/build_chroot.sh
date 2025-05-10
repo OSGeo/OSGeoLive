@@ -134,7 +134,7 @@ cd "$BUILD_HOME"/livecdtmp
 #mv ubuntu-9.04-desktop-i386.iso ~/livecdtmp
 UBU_MIRROR="http://cdimage.ubuntu.com"
 UBU_RELEASE="24.04"
-ISO_RELEASE="24.04.1"
+ISO_RELEASE="24.04.2"
 # ISO_RELEASE="22.04-beta"
 UBU_ISO="lubuntu-${ISO_RELEASE}-desktop-$ARCH.iso"
 wget -c --progress=dot:mega \
