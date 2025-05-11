@@ -4,7 +4,7 @@
 # Purpose: This script will install geomoose
 #
 #############################################################################
-# Copyright (c) 2009-2024 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2009-2025 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL version >= 2.1.
 # 
 # This library is free software; you can redistribute it and/or modify it
@@ -36,12 +36,12 @@ cd /tmp/build-geomoose
 
 ## Download and extract GeoMOOSE 3.10.1
 wget -c --tries=3 --progress=dot:mega --no-check-certificate \
-   "https://www.geomoose.org/downloads/gm3-examples-3.10.1.zip"
+   "https://www.geomoose.org/downloads/gm3-examples-3.13.0.zip"
 wget -c --tries=3 --progress=dot:mega --no-check-certificate \
-   "https://www.geomoose.org/downloads/gm3-demo-data-3.10.1.zip"
+   "https://www.geomoose.org/downloads/gm3-demo-data-3.13.0.zip"
 
-unzip -qo gm3-examples-3.10.1.zip
-unzip -qo gm3-demo-data-3.10.1.zip
+unzip -qo gm3-examples-3.13.0.zip
+unzip -qo gm3-demo-data-3.13.0.zip
 
 rm -rf /usr/local/geomoose
 
@@ -56,7 +56,7 @@ mv /tmp/build-geomoose/gm3-demo-data .
 rm -f /var/www/html/geomoose
 ln -s /usr/local/geomoose/gm3-examples/htdocs /var/www/html/geomoose
 
-## Configure GeoMOOSE 3.10.1
+## Configure GeoMOOSE 3.13.0
 cat > /usr/local/geomoose/gm3-examples/htdocs/desktop/config.js <<'EOF'
 CONFIG = {
     mapserver_url: "/cgi-bin/mapserv",
