@@ -4,7 +4,7 @@
 #
 #############################################################################
 # Created by Johan Van de Wauw on 2010-07-02
-# Copyright (c) 2009-2024 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2025 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 #
@@ -46,7 +46,7 @@ rm -f DGM_30m_Mt.St.Helens_SRTM.zip
 # ln -s /usr/local/share/saga /etc/skel/saga
  
 # Desktop icon
-cp /usr/share/applications/saga.desktop "$USER_HOME/Desktop/"
+cp /usr/share/applications/org.saga_gis.saga_gui.desktop "$USER_HOME/Desktop/saga.desktop"
 chown "$USER_NAME:$USER_NAME" "$USER_HOME/Desktop/saga.desktop"
 
 ####
