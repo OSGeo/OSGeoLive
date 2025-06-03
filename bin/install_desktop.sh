@@ -75,7 +75,7 @@ sed -i -e 's|^background=.*|background=/usr/share/lubuntu/wallpapers/osgeo-deskt
 
 # Set the installer desktop icon to OSGeoLive
 sed -i -e 's|Lubuntu|OSGeoLive|' \
-       -e 's|24.04 LTS|17.0alpha3|' \
+       -e 's|24.04 LTS|17.0beta1|' \
    /usr/share/applications/lubuntu-calamares.desktop
 
 #Add the launchhelp script which allows other apps to provide sudo

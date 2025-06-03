@@ -1,6 +1,33 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 17.0beta1
+====================
+
+ * Lubuntu 24.04.2
+ * Add OWSLib 0.33.0 to the distribution
+ * GDAL 3.10.3
+ * PostGIS 3.5.2
+ * QGIS 3.40.6
+ * GRASS 8.4.1
+ * SAGA 9.8.0
+ * MapServer 8.4.0
+ * MapCache 1.14.1
+ * Mapnik 4.0.7
+ * MapProxy 4.0.2
+ * pgRouting 3.7.3
+ * Mapbender 4.1.1
+ * QField 3.4.6
+ * GeoMoose 3.13.0
+ * pycsw 2.6.2
+ * pygeoapi 0.20.0
+ * pystac 1.13.0
+ * rasterio 1.4.3
+ * fiona 1.10.1
+ * Point pycsw launcher to CSW capabilities document (#2502)
+ * Update saga desktop file name (#2500)
+ * Fix MapServer MS_MAP_BAD_PATTERN (#2501)
+
 Version 17.0alpha3
 ====================
 
