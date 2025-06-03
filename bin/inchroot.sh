@@ -8,7 +8,7 @@
 #	         Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2010-2024 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2025 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 LISAsoft
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -159,6 +159,7 @@ export USER_NAME
 
 ## Python stack
 ./install_mapproxy.sh
+./install_owslib.sh
 ./install_pycsw.sh
 ./install_pywps.sh
 ./install_pygeoapi.sh
