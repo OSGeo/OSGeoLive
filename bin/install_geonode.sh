@@ -4,7 +4,7 @@
 # Purpose: This script will install GeoNode
 #
 #############################################################################
-# Copyright (c) 2013-2023 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2013-2025 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL version >= 2.1.
 # 
@@ -35,7 +35,7 @@ DOC_DIR="$DATA_DIR/doc"
 APACHE_CONF="/etc/apache2/sites-available/geonode.conf"
 GEONODE_DB="geonode_app"
 GEONODE_STORE="geonode_data"
-GEOSERVER_VERSION="2.26.0"
+GEOSERVER_VERSION="2.27.1"
 GEOSERVER_PATH="/usr/local/lib/geoserver-$GEOSERVER_VERSION"
 GEONODE_BIN_FOLDER="/usr/local/share/geonode"
 GEONODE_DIR="/usr/lib/python3/dist-packages/geonode"
