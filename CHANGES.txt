@@ -12,6 +12,7 @@ Version 17.0beta1
  * GRASS 8.4.1
  * SAGA 9.8.0
  * MapServer 8.4.0
+ * GeoServer 2.27.1
  * MapCache 1.14.1
  * Mapnik 4.0.7
  * MapProxy 4.0.2
