@@ -101,7 +101,7 @@ cp ../sources.list.d/mozilla.list /etc/apt/sources.list.d/
 # Add keys for repositories
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys FADA29F7
 # Staging repo
-#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6EB3B214
+#apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 60FD897119D0262C
 # UbuntuGIS
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 314DF160
 # Mozilla ppa
