@@ -79,9 +79,9 @@ chmod a+x "$USER_HOME"/Desktop/josm.desktop
 # add an icon for viewing The Map online
 mkdir -p /usr/local/share/applications
 
-# v17 Belem_BR  -1.44262 -48.46636
-MAP_CENTER="lat=-1.44262&lon=-48.46636"
-MARKER="mlat=-1.44262&mlon=-48.46636"
+
+MAP_CENTER="lat=-36.853567&lon=174.766353"
+MARKER="mlat=-36.853567&mlon=174.766353"
 ZOOM="16"
 
 cat << EOF > /usr/local/share/applications/osm_online.desktop
@@ -103,9 +103,11 @@ cp /usr/local/share/applications/osm_online.desktop "$USER_HOME/Desktop/"
 #### install sample OSM data
 ## http://download.osgeo.org/livedvd/16/osm/Prizren_XK.osm.bz2
 
-CITY="BELEM_BR"
+CITY="AUCKLAND_NZ"
 #         w    s        e        n
-BBOX="-48.52,-1.49,-48.4,-1.36"
+## 36°50′57″S 174°45′55″E (approx: -36.849167, 174.765278)
+## Centered on FOSS4G show location: -36.853567, 174.766353
+BBOX="174.75, -36.87, 174.78, -36.84"
 
 #
 # City OSM data:
