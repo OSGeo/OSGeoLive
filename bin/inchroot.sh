@@ -151,7 +151,7 @@ export USER_NAME
 ./install_qgis.sh
 ./install_qgis_server.sh
 # ./install_qfield.sh # install_vm_only
-# ./install_zoo-project.sh "$ARCH"
+# ./install_zoo-project.sh "$ARCH" # install_vm_only
 ./install_marble.sh
 ./install_opencpn.sh
 ./install_xygrib.sh
@@ -163,7 +163,7 @@ export USER_NAME
 ./install_pycsw.sh
 ./install_pywps.sh
 ./install_pygeoapi.sh
-# ./install_eoxserver.sh
+# ./install_eoxserver.sh # install_vm_only
 ./install_istsos.sh
 # ./install_actinia.sh # install_vm_only
 ./install_datacube.sh
@@ -190,10 +190,10 @@ export USER_NAME
 ./install_geomoose.sh
 
 ## more Python (GeoServer rdeps)
-# ./install_geonode.sh
+# ./install_geonode.sh # install_vm_only
 
 ## Rust
-# ./install_trex.sh
+# ./install_trex.sh # install_vm_only
 
 ## Javascript et al
 ./install_openlayers.sh
