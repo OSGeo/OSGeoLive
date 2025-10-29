@@ -1,6 +1,14 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 17.0rc1
+====================
+
+ * FOSS4G 2025 theme
+ * update osm city data to AUCKLAND_NZ
+ * Mapbender 4.2.3
+ * pygeoapi 0.21.0
+
 Version 17.0beta2
 ====================
 
