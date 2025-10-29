@@ -100,6 +100,7 @@ cp ../sources.list.d/mozilla.list /etc/apt/sources.list.d/
 
 # Add keys for repositories
 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys FADA29F7
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys F8B854D3
 # Staging repo
 #apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 60FD897119D0262C
 # UbuntuGIS
