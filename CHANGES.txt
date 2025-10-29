@@ -1,7 +1,7 @@
 OSGeo Live GIS Disc
 ===================
 
-Version 17.0rc2
+Version 17.0
 ====================
 
  * GDAL 3.11.4
