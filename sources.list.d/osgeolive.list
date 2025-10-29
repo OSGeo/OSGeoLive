@@ -1,4 +1,4 @@
 #OSGeoLive Release ppa
-deb http://ppa.launchpad.net/osgeolive/release-16.0/ubuntu noble main
-#deb-src http://ppa.launchpad.net/osgeolive/release-16.0/ubuntu noble main
+deb http://ppa.launchpad.net/osgeolive/release-17.0/ubuntu noble main
+#deb-src http://ppa.launchpad.net/osgeolive/release-17.0/ubuntu noble main
 
