@@ -8,7 +8,7 @@
 
 ## OSGeoLive installation scripts
 
-The set of scripts in this repository will make a GIS Virtual Machine or bootable ISO from a base Lubuntu 22.04 (Jammy) system.
+The set of scripts in this repository will make a GIS Virtual Machine or bootable ISO from a base Lubuntu 24.04 (Noble) system.
 
 ### Running installers
 
