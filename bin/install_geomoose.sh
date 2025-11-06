@@ -36,11 +36,11 @@ cd /tmp/build-geomoose
 
 ## Download and extract GeoMOOSE 3.10.1
 wget -c --tries=3 --progress=dot:mega --no-check-certificate \
-   "https://www.geomoose.org/downloads/gm3-examples-3.13.0.zip"
+   "https://www.geomoose.org/downloads/gm3-examples-3.13.2.zip"
 wget -c --tries=3 --progress=dot:mega --no-check-certificate \
-   "https://www.geomoose.org/downloads/gm3-demo-data-3.13.0.zip"
+   "https://www.geomoose.org/downloads/unsupported/gm3-demo-data-3.13.0.zip"
 
-unzip -qo gm3-examples-3.13.0.zip
+unzip -qo gm3-examples-3.13.2.zip
 unzip -qo gm3-demo-data-3.13.0.zip
 
 rm -rf /usr/local/geomoose
