@@ -18,8 +18,7 @@ test ${PWD} = "${GIT_TOPLEVEL}" || {
 if [ "$(git remote -v | grep -c salsa.debian.org)" != 0 ]; then
   echo "👍 We are in the top-level dir of a git repository having Debian Salsa remote"
 else
-  echo "👎 The git repository needs to have a 'salsa.debian.org' remote" >&2
-  exit 1
+  echo "W: The git repository is recommended to have a 'salsa.debian.org' remote" >&2
 fi
 
 gbp buildpackage --git-pbuilder --git-dist=${BASEDIST}-osgeolive
