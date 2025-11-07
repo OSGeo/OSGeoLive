@@ -1,6 +1,13 @@
 OSGeo Live GIS Disc
 ===================
 
+Version 17.0rc2
+====================
+
+ * GDAL 3.11.4
+ * GeoMoose 3.13.2
+ * Cesium 1.132
+
 Version 17.0rc1
 ====================
 
