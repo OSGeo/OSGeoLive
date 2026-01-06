@@ -33,7 +33,7 @@ fi
 USER_HOME="/home/$USER_NAME"
 
 docker pull 52north/sos:5.5
-docker run --name sos -d -p 8088:8080 52north/sos:5.5
+docker run --name sos -d -p 8089:8080 52north/sos:5.5
 docker stop sos
 
 mkdir -p -v "$USER_HOME/Desktop"
@@ -48,7 +48,7 @@ Encoding=UTF-8
 Name=Start 52NorthSOS
 Comment=52North SOS
 Categories=Geospatial;Servers;
-Exec=docker start sos && firefox http://localhost:8088/ http://localhost/osgeolive/en/overview/52nSOS_overview.html
+Exec=docker start sos && firefox http://localhost:8089/ http://localhost/osgeolive/en/overview/52nSOS_overview.html
 Icon=/usr/local/share/icons/52n.png
 Terminal=false
 EOF
