@@ -140,7 +140,7 @@ This will install Git, the install scripts, and create a link to them from your 
 
 * After a while the iso will be created in \~livecdtmp/
 
-* Do not delete the file \~/livecdtmp/lubuntu-24.04.1-desktop-amd64.iso as it will be needed for next build (saves time not to download again)
+* Do not delete the file \~/livecdtmp/lubuntu-24.04.2-desktop-amd64.iso as it will be needed for next build (saves time not to download again)
 
 * Logs are created at /var/log/osgeolive/chroot-build.log
 
@@ -158,7 +158,7 @@ Instructions can be found in the OSGeoLive [Documentation](https://live.osgeo.or
 * Execute the VM build script:
 ```
      osgeolive$ cd ~/gisvm/bin
-     osgeolive$ sudo ./install_vm_only.sh amd64 2>&1 | tee /var/log/osgeolive/vm-build.log
+     osgeolive$ sudo ./install_vm_only.sh 2>&1 | tee /var/log/osgeolive/vm-build.log
 ```
 
 ### Package the VM
@@ -173,15 +173,15 @@ Shrink the virtual machine:
 ```
 Convert to vmdk format (more widely compatible):
 ```
-     host$ VBoxManage clonehd osgeolive.vdi osgeolive-15.0-amd64.vmdk --format VMDK
+     host$ VBoxManage clonehd osgeolive.vdi osgeolive-17.0-amd64.vmdk --format VMDK
 ```
 OR with a recent version of QEMU
 ```
-     host$ qemu-img convert -f vdi -o compat6 -O vmdk osgeolive.vdi osgeolive-15.0-amd64.vmdk
+     host$ qemu-img convert -f vdi -o compat6 -O vmdk osgeolive.vdi osgeolive-17.0-amd64.vmdk
 ```
 Zip the image up:
 ```
-     host$ 7z a -mx=9 osgeolive-15.0-amd64.vmdk.7z osgeolive-15.0-amd64.vmdk
+     host$ 7z a -mx=9 osgeolive-17.0-amd64.vmdk.7z osgeolive-17.0-amd64.vmdk
 ```
 Create the md5sum checksums, so which can be used to confirm that the images have been downloaded correctly:
 ```
@@ -194,17 +194,17 @@ Create the md5sum checksums, so which can be used to confirm that the images hav
 
 As of 6.0 the official releases are hosted on sourceforge. To upload you need a sourceforge account and permissions to the osgeo-live project upload.
 ```
-     host$ rsync -e ssh osgeolive-15.0-amd64.iso username,osgeo-live@frs.sourceforge.net:/home/pfs/project/o/os/osgeo-live/15.0/
+     host$ rsync -e ssh osgeolive-17.0-amd64.iso username,osgeo-live@frs.sourceforge.net:/home/pfs/project/o/os/osgeo-live/17.0/
 ```
 
 ### Upload to the OSGeo Server
 
 ```
-     host$ scp -pr osgeolive-15.0-amd64.iso username@upload.osgeo.org:/osgeo/download/livedvd/
+     host$ scp -pr osgeolive-17.0-amd64.iso username@upload.osgeo.org:/osgeo/download/livedvd/
 ```
 or
 ```
-     host$ rsync --progress -e ssh osgeolive-15.0-amd64.iso username@upload.osgeo.org:/osgeo/download/livedvd/
+     host$ rsync --progress -e ssh osgeolive-17.0-amd64.iso username@upload.osgeo.org:/osgeo/download/livedvd/
 ```
 
 Check the result at: http://download.osgeo.org/livedvd
