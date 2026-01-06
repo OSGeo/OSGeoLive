@@ -86,7 +86,7 @@ cd "$DIR"
 # ./install_trex.sh
 # ./install_rasdaman.sh
 ./install_re3gistry.sh
-# ./install_etf.sh
+./install_etf.sh
 # ./install_pgadmin.sh
 # ./install_icons_and_menus.sh
 
