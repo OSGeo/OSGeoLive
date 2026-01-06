@@ -21,29 +21,10 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #############################################################################
 
-if [ "$#" -gt 1 ]; then
-    echo "Wrong number of arguments"
-    echo "Usage: sudo install_vm_only.sh [ARCH(i386 or amd64)]"
-    exit 1
-fi
-
-if [ "$#" -eq 1 ]; then
-    ARCH="amd64"
-else
-    if [ "$1" != "i386" ] && [ "$1" != "amd64" ] ; then
-        echo "Did not specify build architecture, try using i386 or amd64 as an argument"
-        echo "Usage: sudo install_vm_only.sh [ARCH(i386 or amd64)]"
-        exit 1
-    fi
-    ARCH="$1"
-fi
-
 echo
 echo "==============================================================="
 echo "Build parameters"
 echo "==============================================================="
-
-echo "ARCH: $ARCH"
 
 DIR="/usr/local/share/gisvm/bin"
 # GIT_DIR="/usr/local/share/gisvm"
@@ -97,7 +78,7 @@ cd "$DIR"
 ./install_geonode.sh
 ./install_zoo-project.sh
 ./install_gmt.sh
-./install_gvsig.sh "$ARCH"
+./install_gvsig.sh
 ./install_qfield.sh
 ./install_52nSOS.sh
 ./install_actinia.sh
