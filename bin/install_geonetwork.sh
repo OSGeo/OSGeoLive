@@ -74,6 +74,7 @@ wget -c --progress=dot:mega \
 mkdir -p /usr/local/share/icons
 mv geonetwork_icon.png /usr/local/share/icons/geonetwork_icon.png
 
+cd "$BUILD_DIR"
 rm -rf "$TMP"
 
 ####
