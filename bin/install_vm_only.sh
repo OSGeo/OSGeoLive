@@ -75,19 +75,19 @@ cd "$DIR"
 
 # ./base_language.sh
 ./install_geonetwork.sh
-./install_geonode.sh
+# ./install_geonode.sh
 ./install_zoo-project.sh
 ./install_gmt.sh
 ./install_gvsig.sh
 ./install_qfield.sh
 ./install_52nSOS.sh
 ./install_actinia.sh
-./install_eoxserver.sh
-./install_trex.sh
-./install_rasdaman.sh
+# ./install_eoxserver.sh
+# ./install_trex.sh
+# ./install_rasdaman.sh
 ./install_re3gistry.sh
-./install_etf.sh
-./install_pgadmin.sh
+# ./install_etf.sh
+# ./install_pgadmin.sh
 # ./install_icons_and_menus.sh
 
 # Cleanup
