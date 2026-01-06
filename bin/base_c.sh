@@ -5,7 +5,7 @@
 # OSGeoLive.
 #
 #############################################################################
-# Copyright (c) 2016-2025 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2016-2026 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #

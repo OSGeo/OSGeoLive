@@ -4,7 +4,7 @@
 # Purpose: This script will install Jave JRE and Java JDK
 #
 #############################################################################
-# Copyright (c) 2009-2024 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2009-2026 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 #

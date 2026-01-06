@@ -7,7 +7,7 @@
 #          Angelos Tzotsos <tzotsos@gmail.com>
 #
 #############################################################################
-# Copyright (c) 2013-2025 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2013-2026 Open Source Geospatial Foundation (OSGeo) and others.
 #
 # Licensed under the GNU LGPL.
 # 
