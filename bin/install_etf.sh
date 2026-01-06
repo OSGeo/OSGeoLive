@@ -5,6 +5,7 @@
 # Author:  Guadaltel <guadaltel.com> | Daniel Martín Pérez de León <danielmartin@guadaltel.com>  
 # Version 2024-09-20
 #
+# This script must be run as sudo
 #############################################################################
 # Copyright (c) 2011-2019 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
@@ -33,7 +34,7 @@ START=$(date +%M:%S)
 BUILD_DIR=`pwd`
 TMP="/tmp/build_etf"
 if [ -z "$USER_NAME" ] ; then
-   USER_NAME=$(whoami)
+   USER_NAME=${SUDO_USER:-$(whoami)}
 fi
 USER_HOME="/home/$USER_NAME"
 JETTY9_SCRIPT_NAME="jetty9"
@@ -83,11 +84,11 @@ echo "JAVA_PKG: $JAVA_PKG"
 apt-get -qq update
 
 # Check if openjdk-11-jdk-headless is installed
-if dpkg -l | grep -q "$JAVA_PKG"; then
+if sudo dpkg -l | grep -q "$JAVA_PKG"; then
     echo "$JAVA_PKG is installed."
 else
     echo "$JAVA_PKG is not installed. Installing now..."
-    apt-get --assume-yes install "$JAVA_PKG"
+    sudo apt-get --assume-yes install "$JAVA_PKG"
 fi
 
 #
