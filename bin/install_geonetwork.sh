@@ -44,6 +44,17 @@
 BUILD_DIR=`pwd`
 ####
 
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
+
+TMP="/tmp/build_geonetwork"
+
+# create tmp folders
+mkdir -p "$TMP"
+cd "$TMP"
+
 docker pull geonetwork:3.12.12
 docker run --name geonetwork -d -p 8880:8080 geonetwork:3.12.12
 docker stop geonetwork
@@ -62,6 +73,8 @@ wget -c --progress=dot:mega \
  -O geonetwork_icon.png
 mkdir -p /usr/local/share/icons
 mv geonetwork_icon.png /usr/local/share/icons/geonetwork_icon.png
+
+rm -rf "$TMP"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
