@@ -95,7 +95,7 @@ cd "$DIR"
 # ./base_language.sh
 ./install_geonetwork.sh
 ./install_geonode.sh
-./install_zoo-project.sh "$ARCH"
+./install_zoo-project.sh
 ./install_gmt.sh
 ./install_gvsig.sh "$ARCH"
 ./install_qfield.sh
