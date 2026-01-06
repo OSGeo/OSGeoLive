@@ -8,7 +8,7 @@
 # Small edits: Jeroen Ticheler <Jeroen.Ticheler@GeoCat.net>
 #
 #################################################
-# Copyright (c) 2010-2022 Open Source Geospatial Foundation (OSGeo) and others.
+# Copyright (c) 2010-2026 Open Source Geospatial Foundation (OSGeo) and others.
 # Copyright (c) 2009 GISVM.COM
 #
 # Licensed under the GNU LGPL version >= 2.1.
@@ -26,124 +26,29 @@
 #
 # About:
 # =====
-# This script will install geonetwork into OSGeo live
-# stable version: v3.2.1
-# based on Jetty + GeoNetwork + H2
-# Installed at /usr/local/lib/geonetwork
+# This script will install geonetwork into OSGeo live using docker
+# stable version: v3.12.12
+# based on Docker + GeoNetwork + H2
 # Port number = 8880
 #
 # To start geonetwork
-# cd /usr/local/lib/geonetwork/bin
-# ./startup.sh 
+# docker start geonetwork
 #
 # To stop geonetwork
-# cd /usr/local/lib/geonetwork/bin
-# ./shutdown.sh
+# docker stop geonetwork
 #
 # To enter geonetwork, start browser with url:
 # http://localhost:8880/geonetwork
-#
-# GeoNetwork version 3.2.1 runs with java 7 or higher.
-# It can be installed into servlet containers: jetty and tomcat. Jetty is   
-# bundled with the installer.
 
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
 
+docker pull geonetwork:3.12.12
+docker run --name geonetwork -d -p 8880:8080 geonetwork:3.12.12
+docker stop geonetwork
 
-if [ -z "$USER_NAME" ] ; then
-   USER_NAME="user"
-fi
-USER_HOME="/home/$USER_NAME"
-
-GEONETWORK_VERSION=3.2.1-0
-GEONETWORK_VERSION_FOLDER=3.2.1
-
-TMP="/tmp/build_geonetwork"
-INSTALL_FOLDER="/usr/local/lib"
-GEONETWORK_FOLDER="$INSTALL_FOLDER/geonetwork"
-BIN="/usr/local/bin"
-
-
-## Setup things... ##
- 
-# check required tools are installed
-# (should we also verify java???)
-if [ ! -x "`which wget`" ] ; then
-   echo "ERROR: wget is required, please install it and try again" 
-   exit 1
-fi
-
-# create tmp folders
-mkdir -p "$TMP"
-cd "$TMP"
-
-
-# get geonetwork
-if [ -f "geonetwork-install-$GEONETWORK_VERSION.jar" ]
-then
-   echo "geonetwork-install-$GEONETWORK_VERSION.jar has already been downloaded."
-else
-   wget -c --progress=dot:mega \
-     "https://download.osgeo.org/livedvd/data/geonetwork/geonetwork-install-$GEONETWORK_VERSION.jar" \
-     -O geonetwork-install-$GEONETWORK_VERSION.jar
-fi
-# "https://sourceforge.net/projects/geonetwork/files/GeoNetwork_unstable_development_versions/$GEONETWORK_VERSION_FOLDER/geonetwork-install-$GEONETWORK_VERSION.jar/download"
-
-## Get Install config files ##
-# Those files contains information about default ports
-# and need to be updated to properly setup the node on the OSGeo live machine
-echo "START copy of files."
-
-FILES="
-install.xml
-jetty.xml
-startup.sh
-shutdown.sh
-data-db-default.sql
-"
-
-for FILE in $FILES ; do
-   cp -f -v "$BUILD_DIR/../app-conf/geonetwork/$FILE" .
-done
-
-echo "END copy of files."
-
-## Install Application ##
-echo "SHUTDOWN"
-if [ -d "$GEONETWORK_FOLDER" ] ; then
-   ( cd "$GEONETWORK_FOLDER/bin"; ./shutdown.sh )
-fi
-
-echo "START jar installation."
-java -jar geonetwork-install-$GEONETWORK_VERSION.jar install.xml
-echo "END jar installation."
-
-cp -f jetty.xml "$GEONETWORK_FOLDER/jetty/etc/jetty.xml"
-cp -f data-db-default.sql "$GEONETWORK_FOLDER/web/geonetwork/WEB-INF/classes/setup/sql/data/."
-cp -f startup.sh "$GEONETWORK_FOLDER/bin/startup.sh"
-cp -f shutdown.sh "$GEONETWORK_FOLDER/bin/shutdown.sh"
-rm -rf "$GEONETWORK_FOLDER/web/geonetwork/doc/en"
-rm -rf "$GEONETWORK_FOLDER/web/geonetwork/doc/fr"
-
-# rm -fv "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/lib/jai_*
-
-
-# fix permissions on installed software
-#   what's really needed here? the logs for sure, the rest are guesses
-chgrp users "$GEONETWORK_FOLDER"/jetty
-chgrp users "$GEONETWORK_FOLDER"/jetty/logs -R
-chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/ -R
-# chgrp users "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
-chmod g+w "$GEONETWORK_FOLDER"/jetty
-chmod g+w "$GEONETWORK_FOLDER"/jetty/logs -R
-chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/WEB-INF/ -R
-# chmod g+w "$GEONETWORK_FOLDER"/web/geonetwork/images/logos
-adduser "$USER_NAME" users
-
-
-# create startup, shutdown, open browser and doco desktop entries
+# create startup, shutdown, open browser and doc desktop entries
 for FILE in start_geonetwork stop_geonetwork geonetwork ; do
    cp -f -v "$BUILD_DIR/../app-conf/geonetwork/$FILE.desktop" .
    cp -f "$FILE.desktop" "$USER_HOME/Desktop/$FILE.desktop"
@@ -158,7 +63,5 @@ wget -c --progress=dot:mega \
 mkdir -p /usr/local/share/icons
 mv geonetwork_icon.png /usr/local/share/icons/geonetwork_icon.png
 
-# No manual/doco as these are included in the geonetwork release as html
-# pages
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
