@@ -6,7 +6,7 @@
 # Version 2024-09-20
 #
 #############################################################################
-# Copyright (c) 2011-2019 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2011-2026 The Open Source Geospatial Foundation and others.
 # Licensed under the GNU LGPL.
 #
 # This library is free software; you can redistribute it and/or modify it
@@ -33,7 +33,7 @@ START=$(date +%M:%S)
 BUILD_DIR=`pwd`
 TMP="/tmp/build_etf"
 if [ -z "$USER_NAME" ] ; then
-   USER_NAME=$(whoami)
+   USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
 JETTY9_SCRIPT_NAME="jetty9"
