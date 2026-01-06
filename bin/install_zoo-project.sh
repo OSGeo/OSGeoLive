@@ -20,6 +20,11 @@
 BUILD_DIR=`pwd`
 ####
 
+if [ -z "$USER_NAME" ] ; then
+   USER_NAME="user"
+fi
+USER_HOME="/home/$USER_NAME"
+
 docker pull zooproject/zoo-project:latest
 # apt-get --assume-yes install zoo-kernel zoo-service-ogr \
 # 	zoo-service-status zoo-service-otb zoo-service-openapi zoo-api
