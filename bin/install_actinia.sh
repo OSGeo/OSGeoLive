@@ -8,13 +8,13 @@
 #          - Publication: https://doi.org/10.5281/zenodo.2631917
 #          - Tutorial: https://actinia.mundialis.de/tutorial/
 #
-# Requirements: GRASS GIS 8 (./install_grass.sh), Python, redis
+# Requirements: Docker Compose
 #
 # actinia URL after installation: http://localhost:8088/api/v3/version
 #
 #################################################################################
 # Copyright (c) 2018-2019 Soeren Gebbert and mundialis GmbH & Co. KG, Bonn.
-# Copyright (c) 2020-2024 The Open Source Geospatial Foundation and others.
+# Copyright (c) 2020-2026 The Open Source Geospatial Foundation and others.
 #
 # Installer script author: Markus Neteler <neteler mundialis.de>
 #
@@ -31,15 +31,6 @@
 # web page "http://www.fsf.org/licenses/lgpl.html".
 #################################################################################
 
-# About:
-# =====
-# This script will install actinia-core with selected actinia plugins
-#
-# Script inspired by https://github.com/actinia-org/actinia-core/blob/main/docker/actinia-core-alpine/Dockerfile
-#
-# This does not attempt to install GRASS GIS, that is done in install_grass.sh.
-#################################################################################
-
 ./diskspace_probe.sh "`basename $0`" begin
 BUILD_DIR=`pwd`
 ####
@@ -49,81 +40,17 @@ if [ -z "$USER_NAME" ] ; then
    USER_NAME="user"
 fi
 USER_HOME="/home/$USER_NAME"
-BIN="/usr/local/bin"
-ACTINIA_HOME="/opt/actinia_core"
-# see https://github.com/actinia-org/actinia-docker/blob/main/actinia-alpine/actinia.cfg
-ACTINIA_CONF="/etc/actinia/"
-
+ACTINIA_HOME="/opt/actinia"
 mkdir -p "$ACTINIA_HOME"
-mkdir -p "$ACTINIA_CONF"
-
-# Create the database directories
-mkdir -p "$ACTINIA_HOME"/grassdb
-mkdir -p "$ACTINIA_HOME"/resources
-mkdir -p "$ACTINIA_HOME"/workspace/tmp
-mkdir -p "$ACTINIA_HOME"/workspace/temp_db
-mkdir -p "$ACTINIA_HOME"/workspace/actinia
-mkdir -p "$ACTINIA_HOME"/workspace/download_cache
-mkdir -p "$ACTINIA_HOME"/userdata
-
-apt-get -q update
-apt-get --assume-yes install build-essential python3-dev redis-server
-
-# install actinia in python virtualenv
-apt-get install -y python3-venv
-python3 -m venv $ACTINIA_HOME/venv-actinia
-# source $USER_HOME/venv-actinia/bin/activate
-
-# install dependencies into venv
-$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install boto3 colorlog flask_cors flask_httpauth flask_restful_swagger_2 \
-     google-cloud google-cloud-bigquery google-cloud-storage gunicorn matplotlib \
-     passlib pyproj pystac python-dateutil PyJWT python-json-logger python-keycloak \
-     python-magic redis requests rq shapely
-
-# latest actinia-core installation
-$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install actinia-core
-
-# actinia plugins
-$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-statistic-plugin/releases/download/0.2.2/actinia_statistic_plugin-0.2.2-py2.py3-none-any.whl
-$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-satellite-plugin/releases/download/0.1.2/actinia_satellite_plugin-0.1.2-py2.py3-none-any.whl
-$ACTINIA_HOME/venv-actinia/bin/python3 -m pip install https://github.com/actinia-org/actinia-module-plugin/releases/download/2.6.1/actinia_module_plugin-2.6.1-py3-none-any.whl
-
-# left out in OSGeolive
-## Add default password for redis
-#sed -i -e 's|# requirepass foobared|requirepass pass|' \
-#    /etc/redis/redis.conf
-
-# copy actinia configuration
-cp "$BUILD_DIR/../app-conf/actinia/actinia.cfg" "$ACTINIA_CONF/actinia.cfg"
-
-# link grassdb to grass demo dataset
-ln -s "$USER_HOME"/grassdata/nc_basic_spm_grass7 "$ACTINIA_HOME"/grassdb
-
-# create some grass locations
-grass --text -e -c 'EPSG:25832' "$ACTINIA_HOME"/grassdb/utm32n
-grass --text -e -c 'EPSG:4326' "$ACTINIA_HOME"/grassdb/latlong
-# grass --text -e -c 'EPSG:3358' "$ACTINIA_HOME"/grassdb/nc_basic_spm_grass7
-
-# actinia launcher
-mkdir -p "$BIN"
-cat << EOF > "$BIN/actinia_start.sh"
-#!/bin/bash
-set -e
-source /opt/actinia_core/venv-actinia/bin/activate
-# start redis server
-redis-server &
-sleep 1
-redis-cli ping
-
-export DEFAULT_CONFIG_PATH=/etc/actinia/actinia.cfg
-
-actinia-user create -u actinia-gdi -w actinia-gdi -r superadmin -g superadmin -c 100000000000 -n 1000 -t 31536000
-
-/opt/actinia_core/venv-actinia/bin/gunicorn -b 0.0.0.0:8088 -w 1 actinia_core.main:flask_app
-EOF
-
-chmod 755 $BIN/actinia_start.sh
+cd "$ACTINIA_HOME"
+git clone https://github.com/actinia-org/actinia-docker.git
+cd actinia-docker
+git fetch origin 2.13.0
+git checkout 2.13.0
 chmod -R 777 "$ACTINIA_HOME"
+
+docker pull mundialis/actinia:2.13.0
+docker pull valkey/valkey:9.0-alpine
 
 echo 'Downloading actinia logo ...'
 mkdir -p /usr/local/share/icons/
@@ -139,7 +66,22 @@ Encoding=UTF-8
 Name=Start Actinia
 Comment=Actinia for OSGeoLive
 Categories=Application;Geography;Geoscience;Education;
-Exec=/usr/local/bin/actinia_start.sh
+Path=/opt/actinia/actinia-docker
+Exec=docker compose -d up && firefox http://127.0.0.1:8088/api/v3/version http://localhost/osgeolive/en/overview/actinia_overview.html
+Icon=actinia
+Terminal=true
+StartupNotify=false
+EOF
+
+cat << EOF > /usr/share/applications/actinia-stop.desktop
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Stop Actinia
+Comment=Actinia for OSGeoLive
+Categories=Application;Geography;Geoscience;Education;
+Path=/opt/actinia/actinia-docker
+Exec=docker compose down
 Icon=actinia
 Terminal=true
 StartupNotify=false
@@ -147,16 +89,8 @@ EOF
 
 cp -a /usr/share/applications/actinia-start.desktop "$USER_HOME/Desktop/"
 chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/actinia-start.desktop"
-
-# DONE.
-# actinia is now reachable at http://localhost:8088/api/v3/version
-#
-# apt-get install links -y
-# links http://localhost:8088/api/v3/version
-
-# test
-# apt-get install curl -y
-# curl -u actinia-gdi:actinia-gdi 'http://localhost:8088/api/v3/version'
+cp -a /usr/share/applications/actinia-stop.desktop "$USER_HOME/Desktop/"
+chown -R $USER_NAME:$USER_NAME "$USER_HOME/Desktop/actinia-stop.desktop"
 
 ####
 "$BUILD_DIR"/diskspace_probe.sh "`basename $0`" end
